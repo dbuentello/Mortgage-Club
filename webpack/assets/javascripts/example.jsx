@@ -17,8 +17,4 @@ var render = () => {
 
 $(function() {
   render();
-  // Next part is to make this work with turbo-links
-  $(document).on("page:change", () => {
-    render();
-  });
 });
