@@ -21,5 +21,7 @@ webpack-bundle.js.map
 /node_modules
 npm-debug.log
 
+.DS_Store
+
 # Ignore bundle dependencies
 vendor/ruby
