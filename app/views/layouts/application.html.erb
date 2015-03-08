@@ -3,33 +3,12 @@
 <head>
   <title>RailsReactTutorial</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<nav class="navbar navbar-default" role="navigation">
-  <div class="container">
-    <div id="user_header">
-    <% if current_user %>
-    Logged in as <%= current_user.email %>.
-    <%= link_to "Log Out", logout_path %>
-    <% else %>
-    <%= link_to "Sign Up", signup_path %> or
-    <%= link_to "Log In", login_path %>
-    <% end %>
-    </div>
-    <% flash.each do |key, value| %>
-    <%= content_tag(:div, class: "alert alert-#{key}") do %>
-    <p><%= value %></p>
-    <% end %>
-    <% end %>
-  </div><!-- /.container-fluid -->
-</nav>
-
-
-<div class="container">
   <%= yield %>
-</div>
 
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </body>
 </html>
