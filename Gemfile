@@ -39,6 +39,8 @@ gem 'unicorn'
 
 gem 'autoprefixer-rails'
 
+gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

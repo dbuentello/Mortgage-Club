@@ -47,7 +47,7 @@ module.exports = {
     "buttons": true,
 
     "component-animations": true,
-    "glyphicons": true,
+    "glyphicons": false,
     "dropdowns": true,
     "button-groups": true,
     "input-groups": true,
@@ -58,10 +58,10 @@ module.exports = {
     "pager": true,
     "labels": true,
     "badges": true,
-    "jumbotron": false, // excluding as an example
+    "jumbotron": false,
     "thumbnails": true,
     "alerts": true,
-    "progress-bars": false, // excluding as an example
+    "progress-bars": true,
     "media": true,
     "list-group": true,
     "panels": true,
