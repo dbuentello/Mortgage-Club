@@ -2,3 +2,17 @@
 
 // partial defines the $comment-text-color
 // @import "test-sass-stylesheet-partial";
+
+.pac-item-selected, .pac-item-selected:hover {
+  background-color: #428bca;
+  .pac-item-query, .pac-icon {
+    color: #fff;
+  }
+}
+.pac-container {
+  z-index: 2000;
+}
+.pac-container:after {
+  background-image: none !important;
+  height: 0px;
+}

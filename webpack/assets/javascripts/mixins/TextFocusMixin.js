@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 var TextFocusMixin = {
   handleFocus: function(event) {
     var target = event.target;

@@ -1,14 +1,11 @@
-/**
- * @jsx React.DOM
- */
-
-var UpdateChangeMixin = require('../../mixins/update_change_mixin');
+var React = require('react/addons');
+var UpdateChangeMixin = require('mixins/UpdateChangeMixin');
 
 /**
  * HelpTooltipView renders a pretty little circle with a question mark that
  * displays a helpful tooltip when hovered over.
  */
-var HelpTooltipView = React.createClass({
+var HelpTooltip = React.createClass({
   mixins: [UpdateChangeMixin],
 
   propTypes: {
@@ -43,4 +40,4 @@ var HelpTooltipView = React.createClass({
   }
 });
 
-module.exports = HelpTooltipView;
+module.exports = HelpTooltip;

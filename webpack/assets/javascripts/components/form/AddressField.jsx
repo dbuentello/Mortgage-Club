@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var _ = require('lodash');
 
-//var TextFocusMixin = require('mixins/text_focus_mixin');
+var TextFocusMixin = require('mixins/TextFocusMixin');
 
 function getFormattedAddress(addressable) {
   if (!addressable) {
@@ -136,7 +136,7 @@ var AddressAutocompleteMixin = {
  * AddressField is a text field that has google autocomplete interface built-in.
  */
 var AddressField = React.createClass({
-  mixins: [AddressAutocompleteMixin],
+  mixins: [AddressAutocompleteMixin, TextFocusMixin],
 
   propTypes: {
     editable: React.PropTypes.bool, // determines if component should show the input box or the static text

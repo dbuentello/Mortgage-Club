@@ -41,6 +41,8 @@ gem 'autoprefixer-rails'
 
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
 
+gem 'httparty'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

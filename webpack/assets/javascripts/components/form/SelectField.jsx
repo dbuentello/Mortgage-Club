@@ -1,12 +1,8 @@
-/**
- * @jsx React.DOM
- */
+var React = require('react/addons');
+var HelpTooltip = require('./HelpTooltip');
 
-
-var HelpTooltip = require('./help_tooltip');
-
-var StaticFieldMixin = require('../../mixins/static_field_mixin');
-var UpdateChangeMixin = require('../../mixins/update_change_mixin');
+var StaticFieldMixin = require('mixins/StaticFieldMixin');
+var UpdateChangeMixin = require('mixins/UpdateChangeMixin');
 
 var SelectField = React.createClass({
   mixins: [StaticFieldMixin, UpdateChangeMixin],
@@ -61,7 +57,7 @@ var SelectField = React.createClass({
 
     if (this.props.allowBlank) {
       // make sure we don't mutate the options array that get passed in
-      options = _.union([{value: null, name: null}], options);
+      options = _.union([{value: null, name: 'Please Select'}], options);
     }
 
     selected = _.findWhere(options, {value: this.props.value});
@@ -86,7 +82,7 @@ var SelectField = React.createClass({
 
     classes.editableFieldClasses += ' placeholder';
 
-    if (this.state.name === null && this.props.emptyStaticText) {
+    if (this.props.value === null && this.props.emptyStaticText) {
       displayText = this.props.emptyStaticText;
     }
 
@@ -117,7 +113,7 @@ var SelectField = React.createClass({
 
     if (nextProps.allowBlank) {
       // make sure we don't mutate the options array that get passed in
-      options = _.union([{value: null, name: null}], options);
+      options = _.union([{value: null, name: 'Please Select'}], options);
     }
 
     selected = _.findWhere(options, {value: nextProps.value});

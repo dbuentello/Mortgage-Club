@@ -1,8 +1,4 @@
-/**
- * @jsx React.DOM
- */
-
-var TextFormatMixin = require('./text_format_mixin');
+var TextFormatMixin = require('./TextFormatMixin');
 
 var UpdateChangeMixin = {
   handleChange: function(event) {

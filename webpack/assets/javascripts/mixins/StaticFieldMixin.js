@@ -1,6 +1,4 @@
-/**
- * @jsx React.DOM
- */
+var React = require('react/addons');
 
 var StaticFieldMixin = {
   getFieldClasses: function(editable, isLarge) {

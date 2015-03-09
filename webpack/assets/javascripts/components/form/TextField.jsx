@@ -1,13 +1,10 @@
-/**
- * @jsx React.DOM
- */
+var React = require('react/addons');
+var HelpTooltip = require('./HelpTooltip');
 
-var HelpTooltip = require('./help_tooltip');
-
-var TextFormatMixin = require('../../mixins/text_format_mixin');
-var StaticFieldMixin = require('../../mixins/static_field_mixin');
-var UpdateChangeMixin = require('../../mixins/update_change_mixin');
-var TextFocusMixin = require('../../mixins/text_focus_mixin');
+var TextFormatMixin = require('mixins/TextFormatMixin');
+var StaticFieldMixin = require('mixins/StaticFieldMixin');
+var UpdateChangeMixin = require('mixins/UpdateChangeMixin');
+var TextFocusMixin = require('mixins/TextFocusMixin');
 
 /**
  * TextField renders a form field that can be converted between editable and read-only mode.

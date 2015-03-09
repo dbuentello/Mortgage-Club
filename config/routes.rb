@@ -5,8 +5,11 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
 
   resources :users
+  resources :properties do
+    collection do
+      get :search
+    end
+  end
 
   root 'pages#index'
-
-  resources :comments
 end
