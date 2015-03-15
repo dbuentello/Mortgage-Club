@@ -4,7 +4,7 @@ var AddressField = require('components/form/AddressField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 
-var MainForm = React.createClass({
+var FormProperty = React.createClass({
   getInitialState: function() {
     return {
       property_type: null,
@@ -84,4 +84,4 @@ var MainForm = React.createClass({
   }
 });
 
-module.exports = MainForm;
+module.exports = FormProperty;
