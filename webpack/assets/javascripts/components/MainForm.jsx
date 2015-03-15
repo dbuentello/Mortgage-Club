@@ -4,7 +4,7 @@ var AddressField = require('components/form/AddressField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 
-var Main = React.createClass({
+var MainForm = React.createClass({
   getInitialState: function() {
     return {
       property_type: null,
@@ -40,7 +40,6 @@ var Main = React.createClass({
   },
 
   render: function() {
-    var user = this.props.bootstrapData.currentUser;
     var propertyTypes = [
       {value: 'sfh', name: 'Single Family Home'},
       {value: 'duplex', name: 'Duplex'},
@@ -61,32 +60,7 @@ var Main = React.createClass({
 
     return (
       <div>
-        <nav className='backgroundDarkBlue pvl'>
-          <div className='container'>
-            <div className='row'>
-              <div className='col-md-6 typeLowlight'>
-                Homieo Logo
-              </div>
-              <div className='col-md-6 text-right'>
-                {user
-                ? <span>
-                    <span className='typeLowlight mrm'>Hello {user.firstName}!</span>
-                    <a className='linkTypeReversed' href='/logout'>Log out</a>
-                  </span>
-                : <span>
-                    <a className='linkTypeReversed mrm' href='/login'>
-                      Log in
-                    </a>
-                    <a className='linkTypeReversed mrm' href='/signup'>
-                      Sign up
-                    </a>
-                  </span>
-                }
-              </div>
-            </div>
-          </div>
-        </nav>
-        <div className='container pvl'>
+        <div>
           <div>
             <AddressField label='Property Address' address={this.state.address} keyName='address' editable={true} onChange={this.onChange} placeholder='Please enter the address of the property'/>
             <SelectField label='Property Type' keyName='property_type' value={this.state.property_type} options={propertyTypes} editable={true} onChange={this.onChange} allowBlank={true}/>
@@ -101,13 +75,13 @@ var Main = React.createClass({
                 </div>
             }
           </div>
-        <div>
-          <a className='btn btnSml btnPrimary'>Next</a>
-        </div>
+          <div>
+            <a className='btn btnSml btnPrimary'>Next</a>
+          </div>
         </div>
       </div>
     );
   }
 });
 
-module.exports = Main;
+module.exports = MainForm;
