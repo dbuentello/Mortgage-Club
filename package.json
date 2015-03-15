@@ -1,7 +1,11 @@
 {
-  "name": "react-tutorial",
-  "version": "0.0.0",
-  "description": "Code from the React tutorial.",
+  "name": "Homieo",
+  "description": "Mortgage made easy",
+  "homepage": "https://homieo.com",
+  "keywords": [
+    "online mortgage"
+  ],
+  "private": true,
   "main": "server.js",
   "engines": {
     "node": "0.10.32"
@@ -40,19 +44,6 @@
     "start": "node server.js"
   },
   "repository": {
-    "type": "git",
-    "url": "https://github.com/reactjs/react-tutorial.git"
-  },
-  "keywords": [
-    "react",
-    "tutorial",
-    "comment",
-    "example"
-  ],
-  "author": "justin808",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/justin808/react-webpack-rails-tutorial/issues"
-  },
-  "homepage": "https://github.com/justin808/react-webpack-rails-tutorial"
+    "type": "git"
+  }
 }
