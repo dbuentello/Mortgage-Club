@@ -60,24 +60,22 @@ var FormProperty = React.createClass({
 
     return (
       <div>
-        <div>
-          <div>
-            <AddressField label='Property Address' address={this.state.address} keyName='address' editable={true} onChange={this.onChange} placeholder='Please enter the address of the property'/>
-            <SelectField label='Property Type' keyName='property_type' value={this.state.property_type} options={propertyTypes} editable={true} onChange={this.onChange} allowBlank={true}/>
-            <SelectField label='Purpose of Loan' keyName='loan_purpose' value={this.state.loan_purpose} options={loanPurposes} editable={true} onChange={this.onChange} allowBlank={true}/>
-            <SelectField label='Property will be used for' keyName='property_purpose' value={this.state.property_purpose} options={propertyPurposes} editable={true} onChange={this.onChange} allowBlank={true}/>
-            {this.state.loan_purpose === null ? null :
-              this.state.loan_purpose == 'purchase'
-              ? <TextField label='Purchase Price' keyName='purchase_price' value={this.state.purchase_price} editable={true} onChange={this.onChange}/>
-              : <div>
-                  <TextField label='Original Purchase Price' keyName='original_purchase_price' value={this.state.original_purchase_price} editable={true} onChange={this.onChange}/>
-                  <TextField label='What year did you buy your property?' keyName='original_purchase_year' value={this.state.original_purchase_year} placeholder='YYYY' editable={true} onChange={this.onChange}/>
-                </div>
-            }
-          </div>
-          <div>
-            <a className='btn btnSml btnPrimary'>Next</a>
-          </div>
+        <div className='box mtn'>
+          <AddressField label='Property Address' address={this.state.address} keyName='address' editable={true} onChange={this.onChange} placeholder='Please enter the address of the property'/>
+          <SelectField label='Property Type' keyName='property_type' value={this.state.property_type} options={propertyTypes} editable={true} onChange={this.onChange} allowBlank={true}/>
+          <SelectField label='Purpose of Loan' keyName='loan_purpose' value={this.state.loan_purpose} options={loanPurposes} editable={true} onChange={this.onChange} allowBlank={true}/>
+          <SelectField label='Property will be used for' keyName='property_purpose' value={this.state.property_purpose} options={propertyPurposes} editable={true} onChange={this.onChange} allowBlank={true}/>
+          {this.state.loan_purpose === null ? null :
+            this.state.loan_purpose == 'purchase'
+            ? <TextField label='Purchase Price' keyName='purchase_price' value={this.state.purchase_price} editable={true} onChange={this.onChange}/>
+            : <div>
+                <TextField label='Original Purchase Price' keyName='original_purchase_price' value={this.state.original_purchase_price} editable={true} onChange={this.onChange}/>
+                <TextField label='What year did you buy your property?' keyName='original_purchase_year' value={this.state.original_purchase_year} placeholder='YYYY' editable={true} onChange={this.onChange}/>
+              </div>
+          }
+        </div>
+        <div className='box text-right'>
+          <a className='btn btnSml btnPrimary'>Next</a>
         </div>
       </div>
     );

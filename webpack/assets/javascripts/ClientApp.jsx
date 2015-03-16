@@ -33,7 +33,7 @@ window.ClientApp = React.createClass({
             </div>
           </div>
         </nav>
-        <Container/>
+        <Container bootstrapData={this.props}/>
       </div>
     );
   }

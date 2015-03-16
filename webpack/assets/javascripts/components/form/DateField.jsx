@@ -1,10 +1,8 @@
-/**
- * @jsx React.DOM
- */
 
-var StaticFieldMixin = require('../../mixins/static_field_mixin');
-var UpdateChangeMixin = require('../../mixins/update_change_mixin');
-var TextFormatMixin = require('../../mixins/text_format_mixin');
+var React = require('react/addons');
+var StaticFieldMixin = require('mixins/StaticFieldMixin');
+var UpdateChangeMixin = require('mixins/UpdateChangeMixin');
+var TextFormatMixin = require('mixins/TextFormatMixin');
 
 /**
  * DateField handles the conversion between ISO date (for value) and US date (for display)
@@ -38,7 +36,7 @@ var DateFieldView = React.createClass({
           <div className="input-group date datepicker pan" style={{display: this.props.editable ? null : 'none', zIndex: this.props.zIndex}}>
             <input className={classes.editableFieldClasses} value={dateVal} onChange={this.handleChange} type="text" />
             <span className="input-group-addon">
-              <i className="glyphicon glyphicon-calendar"></i>
+              <i className="iconCalendar"></i>
             </span>
           </div>
         </label>

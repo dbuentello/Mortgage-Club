@@ -27,14 +27,14 @@ var Container = React.createClass({
 
   render: function() {
     var activeItem = _.findWhere(this.state.menu, {name: this.state.active});
-    var content = <activeItem.Content/>;
+    var content = <activeItem.Content bootstrapData={this.props.bootstrapData}/>;
     return (
       <div>
         <nav className='sticky backgroundLowlight pbm' style={{height: '100%', width: sideMenuWidth, marginTop: topMenuHeight}}>
           {_.map(this.state.menu, function (item, i) {
             return (
-              <div className={'row pam bbs man ' + (item.name === activeItem.name ? 'backgroundBlue typeReversed' : 'clickable')} onClick={_.bind(this.goToItem, this, item)}>
-                <div key={i} className='col-xs-9 pan'><i className={item.icon + ' mrxs'}/><span className='h5 typeDeemphasize'>{item.name}</span></div>
+              <div key={i} className={'row pam bbs man ' + (item.name === activeItem.name ? 'backgroundBlue typeReversed' : 'clickable')} onClick={_.bind(this.goToItem, this, item)}>
+                <div className='col-xs-9 pan'><i className={item.icon + ' mrxs'}/><span className='h5 typeDeemphasize'>{item.name}</span></div>
                 {item.complete ?
                   <div className='col-xs-3 pan'><i className='iconCheck'/></div>
                 : null}

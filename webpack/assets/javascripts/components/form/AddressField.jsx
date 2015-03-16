@@ -13,7 +13,6 @@ function getFormattedAddress(addressable) {
     addressable.street_address2,
     addressable.city,
     addressable.state,
-    addressable.country,
     addressable.zip
   ]).join(', ');
 
