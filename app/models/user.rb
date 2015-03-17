@@ -10,6 +10,14 @@ class User < ActiveRecord::Base
             format: {
               with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
             }
+
+  PERMITTED_ATTRS = [
+    :first_name,
+    :last_name,
+    :email,
+    :password_digest
+  ]
+
   def to_s
     "#{first_name} #{last_name}"
   end
