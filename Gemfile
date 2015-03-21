@@ -60,4 +60,15 @@ group :development, :test do
 
   # Manage application processes
   gem 'foreman'
+
+  # testing framework
+  gem 'rspec-rails'
+
+  # A library for setting up Ruby objects as test data
+  gem 'factory_girl_rails'
+end
+
+group :test do
+  # A library for generating fake data such as names, addresses, and phone numbers.
+  gem 'faker'
 end

@@ -1,7 +1,8 @@
 class Borrower < ActiveRecord::Base
-  has_many  :borrower_addresses, dependent: :destroy
-  has_many  :borrower_employers, dependent: :destroy
-  has_one   :borrower_government_monitoring_info, dependent: :destroy
+  belongs_to :loan, inverse_of: :borrower, foreign_key: 'loan_id'
+  has_one   :borrower_government_monitoring_info, inverse_of: :borrower, dependent: :destroy
+  has_many  :borrower_addresses, inverse_of: :borrower, dependent: :destroy
+  has_many  :borrower_employers, inverse_of: :borrower, dependent: :destroy
   accepts_nested_attributes_for :borrower_addresses, allow_destroy: true
   accepts_nested_attributes_for :borrower_employers, allow_destroy: true
   accepts_nested_attributes_for :borrower_government_monitoring_info, allow_destroy: true
@@ -22,8 +23,8 @@ class Borrower < ActiveRecord::Base
     :gross_bonus,
     :gross_commission,
     borrower_addresses_attributes:                  [:id] + BorrowerAddress::PERMITTED_ATTRS,
-    borrower_employers_attributes:                  [:id] + BorrowerEmployers::PERMITTED_ATTRS,
-    borrower_government_monitoring_info_attributes: [:id] + GovernmentMonitoringInfo::PERMITTED_ATTRS
+    borrower_employers_attributes:                  [:id] + BorrowerEmployer::PERMITTED_ATTRS,
+    borrower_government_monitoring_info_attributes: [:id] + BorrowerGovernmentMonitoringInfo::PERMITTED_ATTRS
   ]
 
   enum marital_status_type: {

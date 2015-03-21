@@ -1,8 +1,9 @@
 class Property < ActiveRecord::Base
-  has_one :address
+  belongs_to :loan, inverse_of: :property, foreign_key: 'loan_id'
+  has_one :address, inverse_of: :property
+  accepts_nested_attributes_for :address
 
   PERMITTED_ATTRS = [
-    :address_id,
     :property_type,
     :usage_type,
     :original_purchase_date,
@@ -12,7 +13,8 @@ class Property < ActiveRecord::Base
     :market_price,
     :estimated_property_tax,
     :estimated_hazard_insurance,
-    :impound_account
+    :is_impound_account,
+    address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 
   enum property_type: {
@@ -22,7 +24,7 @@ class Property < ActiveRecord::Base
     fourplex: 3
   }
 
-  enum usage_text: {
+  enum usage_type: {
     primary_residence: 0,
     vacation_home: 1,
     rental_property: 2

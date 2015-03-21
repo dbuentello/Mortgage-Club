@@ -1,14 +1,16 @@
 class Address < ActiveRecord::Base
-  has_many :properties
+  belongs_to :property, inverse_of: :address, foreign_key: 'property_id'
+  belongs_to :borrower_address, inverse_of: :address, foreign_key: 'borrower_address_id'
+  belongs_to :borrower_employer, inverse_of: :address, foreign_key: 'borrower_employer_id'
 
   PERMITTED_ATTRS = [
     :street_address,
     :secondary_street_address,
     :zipcode,
-    :state
+    :state_type
   ]
 
-  enum state: {
+  enum state_type: {
     alabama: 0,
     alaska: 1,
     arizona: 2,
