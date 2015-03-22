@@ -5,10 +5,10 @@ class LoanBorrowerController < ApplicationController
   end
 
   def create
-    @loan = Loan.find(params[:loan_id])
+    loan = Loan.find(params[:loan_id])
     @loan_borrower = is_secondary_borrower? ? 
-      @loan.create_secondary_borrower(loan_borrower_params) :
-      @loan.create_borrower(loan_borrower_params)
+      loan.create_secondary_borrower(loan_borrower_params) :
+      loan.create_borrower(loan_borrower_params)
   end
 
   def update

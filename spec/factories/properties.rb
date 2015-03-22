@@ -12,7 +12,7 @@ FactoryGirl.define do
     # leaving out gross_rental income (optional)
   end
 
-  factory :rental_property do |f|
+  factory :rental_property, parent: :property do |f|
     f.gross_rental_income { Faker::Number.number(5) }
   end
 end

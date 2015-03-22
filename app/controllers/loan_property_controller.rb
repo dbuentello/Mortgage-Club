@@ -5,7 +5,7 @@ class LoanPropertyController < ApplicationController
   end
 
   def create
-    @loan_property = Loan.create_property(loan_property_params)
+    @loan_property = Loan.find(params[:loan_id]).create_property(loan_property_params)
   end
 
   def update

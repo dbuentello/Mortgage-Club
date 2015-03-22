@@ -71,4 +71,7 @@ end
 group :test do
   # A library for generating fake data such as names, addresses, and phone numbers.
   gem 'faker'
+
+  # cleans out database before running tests to ensure clean slate for testing
+  gem 'database_cleaner'
 end

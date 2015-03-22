@@ -1,8 +1,23 @@
 FactoryGirl.define do 
   factory :loan do |f| 
+    f.purpose_type { Random.rand(0..1)}
+  end
+
+  factory :loan_with_property, parent: :loan do |f|
+    property
+  end
+
+  factory :loan_with_borrower, parent: :loan do |f|
+    borrower
+  end
+
+  factory :loan_with_secondary_borrower, parent: :loan do |f|
+    association :secondary_borrower, factory: :borrower
+  end
+
+  factory :loan_with_all_associations, parent: :loan do |f|
     property
     borrower
     association :secondary_borrower, factory: :borrower
-    f.purpose_type { Random.rand(0..1)}
   end
 end
