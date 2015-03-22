@@ -6,7 +6,22 @@ var TextField = require('components/form/TextField');
 
 var FormRealEstates = React.createClass({
   render: function() {
-    return null;
+    return (
+      <div>
+        <div className='formContent'>
+          <div className='pal'>
+            <div className='box mtn'>
+
+            </div>
+            <div className='box text-right'>
+              <a className='btn btnSml btnPrimary'>Next</a>
+            </div>
+          </div>
+        </div>
+        <div className='helpSection sticky pull-right overlayRight overlayTop'>
+        </div>
+      </div>
+    );
   }
 });
 

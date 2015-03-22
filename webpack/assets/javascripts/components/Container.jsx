@@ -9,6 +9,7 @@ var Declarations = require('./FormDeclarations');
 
 var sideMenuWidth = 250;
 var topMenuHeight = 44;
+var helpSectionWidth = 300;
 
 var Container = React.createClass({
   getInitialState: function() {
@@ -30,7 +31,7 @@ var Container = React.createClass({
     var content = <activeItem.Content bootstrapData={this.props.bootstrapData}/>;
     return (
       <div>
-        <nav className='sticky backgroundLowlight pbm' style={{height: '100%', width: sideMenuWidth, marginTop: topMenuHeight}}>
+        <nav className='sideMenu sticky backgroundLowlight pbm'>
           {_.map(this.state.menu, function (item, i) {
             return (
               <div key={i} className={'row pam bbs man ' + (item.name === activeItem.name ? 'backgroundBlue typeReversed' : 'clickable')} onClick={_.bind(this.goToItem, this, item)}>
@@ -42,11 +43,7 @@ var Container = React.createClass({
             );
           }, this)}
         </nav>
-        <div style={{marginLeft: sideMenuWidth, paddingTop: topMenuHeight}}>
-          <div className='pal'>
-            {content}
-          </div>
-        </div>
+        {content}
       </div>
     );
   },

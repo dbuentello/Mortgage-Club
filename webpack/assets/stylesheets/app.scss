@@ -1,0 +1,25 @@
+$sideMenuWidth: 250px;
+$topMenuHeight: 44px;
+$helpSectionWidth: 300px;
+
+.topMenu {
+  height: $topMenuHeight;
+}
+
+.sideMenu {
+  height: 100%;
+  width: $sideMenuWidth;
+  margin-top: $topMenuHeight;
+}
+
+.formContent {
+  margin-left: $sideMenuWidth;
+  margin-right: $helpSectionWidth;
+  padding-top: $topMenuHeight;
+}
+
+.helpSection {
+  height: 100%;
+  width: $helpSectionWidth;
+  margin-top: $topMenuHeight;
+}

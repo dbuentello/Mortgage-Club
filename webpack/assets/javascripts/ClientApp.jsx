@@ -8,7 +8,7 @@ window.ClientApp = React.createClass({
     var user = this.props.currentUser;
     return (
       <div>
-        <nav className='sticky backgroundInverse pvm zIndexNavigation overlayFullWidth'>
+        <nav className='topMenu sticky backgroundInverse pvm zIndexNavigation overlayFullWidth'>
           <div className='plm prl'>
             <div className='row'>
               <div className='col-xs-6 typeLowlight'>
