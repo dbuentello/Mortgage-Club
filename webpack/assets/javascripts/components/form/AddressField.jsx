@@ -165,7 +165,7 @@ var AddressField = React.createClass({
       <div className={this.props.hidden? 'hidden' : null}>
         <label className="col-xs-12 pan" style={{'display': this.props.editable ? null : 'none'}}>
           <span className={this.props.label ? 'mrs' : null}>{this.props.label}</span>
-          <input className="form-control input-sm" type="text" value={val} onFocus={this.handleFocus} onChange={this.handleChange} />
+          <input className="form-control input-sm" type="text" value={val} onFocus={this.handleFocus} onChange={this.handleChange} placeholder={this.props.placeholder}/>
         </label>
         <div style={{'display': this.props.editable ? 'none' : null}}>
           <label className="col-xs-12 pan">

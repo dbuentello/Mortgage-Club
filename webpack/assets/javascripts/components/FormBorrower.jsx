@@ -4,6 +4,7 @@ var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
+var BooleanRadio = require('components/form/BooleanRadio');
 
 var FormBorrower = React.createClass({
   getInitialState: function() {
@@ -14,7 +15,10 @@ var FormBorrower = React.createClass({
       firstName: currentUser.firstName,
       lastName: currentUser.lastName,
       middleName: currentUser.middleName,
-      suffix: currentUser.suffix
+      suffix: currentUser.suffix,
+      yearsInSchool: null,
+      maritalStatus: null,
+      hasDependents: null
     };
   },
 
@@ -28,7 +32,7 @@ var FormBorrower = React.createClass({
       {name: 'With a co-borrower', value: 2}
     ];
 
-    var marital_statuses = [
+    var maritalStatuses = [
       {name: 'Married (includes registered domestic partners)', value: 'married'},
       {name: 'Unmarried (includes single, divorced, widowed)', value: 'unmarried'},
       {name: 'Separated', value: 'separated'}
@@ -56,11 +60,24 @@ var FormBorrower = React.createClass({
           </div>
 
           <DateField label='Date of birth' keyName='dob' value={this.state.dob} editable={true} onChange={this.onChange}/>
-          <TextField label='Social Security Number' keyName='ssn' value={this.state.ssn} editable={true}/>
-          <TextField label='Phone Number' keyName='phone' value={this.state.phone} editable={true}/>
-          <TextField label='Years in school' keyName='years_in_school' value={this.state.years_in_school} editable={true}/>
-          <SelectField label='Marital Status' keyName='marital_status' value={this.state.marital_status} options={marital_statuses} editable={true}/>
-
+          <TextField label='Social Security Number' keyName='ssn' value={this.state.ssn} editable={true} onChange={this.onChange}/>
+          <TextField label='Phone Number' keyName='phone' value={this.state.phone} editable={true} onChange={this.onChange}/>
+          <TextField label='Years in school' keyName='yearsInSchool' value={this.state.yearsInSchool} editable={true} onChange={this.onChange}/>
+          <SelectField label='Marital Status' keyName='maritalStatus' value={this.state.maritalStatus} options={maritalStatuses} editable={true} onChange={this.onChange}/>
+          <TextField label='Number of dependents' keyName='numberOfDependents' value={this.state.numberOfDependents} editable={true} onChange={this.onChange}/>
+          {this.state.numberOfDependents > 0 ?
+            <TextField label='Please enter the age(s) of your dependents, separated by comma' keyName='dependentAges' onChange={this.onChange}/>
+          : null}
+          <AddressField label='Address of the current property you live in' address={this.state.currentAddress} keyName='currentAddress' editable={true} onChange={this.onChange} placeholder='Please enter your current address'/>
+          <BooleanRadio label='Do you own this property?' checked={this.state.currentlyOwn} keyName='currentlyOwn' editable={true} onChange={this.onChange}/>
+          <TextField label='Number of years you have lived in this address' value={this.state.yearsInCurrentAddress} keyName='yearsInCurrentAddress' editable={true} onChange={this.onChange}/>
+          {parseInt(this.state.yearsInCurrentAddress, 10) < 2 ?
+            <div>
+              <AddressField label='Your previous address' address={this.state.previousAddress} keyName='previousAddress' editable={true} onChange={this.onChange} placeholder='Please enter your current address'/>
+              <BooleanRadio label='Do you own this property?' checked={this.state.previouslyOwn} keyName='previouslyOwn' editable={true} onChange={this.onChange} placeholder='Please enter your previous address'/>
+              <TextField label='Number of years you have lived in this address' value={this.state.yearsInPreviousAddress} keyName='yearsInPreviousAddress' editable={true} onChange={this.onChange}/>
+            </div>
+          : null}
         </div>
 
         <div className='box text-right'>

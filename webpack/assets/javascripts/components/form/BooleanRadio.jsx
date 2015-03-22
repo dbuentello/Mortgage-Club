@@ -1,11 +1,8 @@
-/**
- * @jsx React.DOM
- */
+var React = require('react/addons');
+var StaticFieldMixin = require('mixins/StaticFieldMixin');
+var UpdateChangeMixin = require('mixins/UpdateChangeMixin');
 
-var StaticFieldMixin = require('../../mixins/static_field_mixin');
-var UpdateChangeMixin = require('../../mixins/update_change_mixin');
-
-var HelpTooltip = require('./help_tooltip');
+var HelpTooltip = require('./HelpTooltip');
 
 var BooleanRadioView = React.createClass({
   mixins: [UpdateChangeMixin, StaticFieldMixin],
@@ -60,14 +57,14 @@ var BooleanRadioView = React.createClass({
         <label className="col-xs-12 pan">{this.props.label}</label>
         <div className="control-group mbs" style={{'display': this.props.editable ? null : 'none'}}>
           <label className="radio-inline mrm">
-            {this.props.yesLabel}
             <input type="radio" value='true' name={this.props.keyName} onChange={this.handleChange}
               checked={display === this.props.yesLabel} />
+            {this.props.yesLabel}
           </label>
           <label className="radio-inline">
-            {this.props.noLabel}
             <input type="radio" value='false' name={this.props.keyName} onChange={this.handleChange}
               checked={display === this.props.noLabel} />
+            {this.props.noLabel}
           </label>
         </div>
         <p className="form-control-static" style={{'display': this.props.editable ? 'none' : null}}>
