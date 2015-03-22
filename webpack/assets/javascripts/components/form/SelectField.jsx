@@ -93,7 +93,7 @@ var SelectField = React.createClass({
           {hasTooltip ?
             <HelpTooltip position={tooltip.position} text={tooltip.text} />
           : null}
-          <select className={classes.editableFieldClasses} name={this.props.name} onChange={this.handleChange} value={this.props.value || ''}>
+          <select className={classes.editableFieldClasses} name={this.props.name} onChange={this.handleChange} onFocus={this.props.onFocus} value={this.props.value || ''}>
             {(this.props.placeholder) ? <option value="" disabled={true}>{this.props.placeholder}</option> : null}
             {this.state.options.map(function (option, i) {
               return (

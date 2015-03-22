@@ -4,13 +4,25 @@ var AddressField = require('components/form/AddressField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 
+var fields = {
+  address: {label: 'Property Address', name: 'address', helpText: 'The full address of the subject property for which you are applying for a loan.'},
+  propertyType: {label: 'Property Type', name: 'property_type', helpText: 'The type of building classification of the property.'},
+  loanPurpose: {label: 'Purpose of Loan', name: 'loan_purpose', helpText: 'The purpose for taking out the loan in terms of how funds will be used.'},
+  propertyPurpose: {label: 'Property Usage', name: 'property_purpose', helpText: 'The primary purpose of acquiring the subject property.'},
+  purchasePrice: {label: 'Purchase Price', name: 'purchase_price', helpText: 'How much are you paying for the subject property?'},
+  originalPurchasePrice: {label: 'Original Purchase Price', name: 'original_purchase_price', helpText: 'How much did you pay for the subject property?'},
+  originalPurchaseYear: {label: 'Purchase Year', name: 'original_purchase_year', helpText: 'The year in which you bought your home.'}
+};
+
 var FormProperty = React.createClass({
   getInitialState: function() {
-    return {
-      property_type: null,
-      loan_purpose: null,
-      property_purpose: null
-    };
+    var state = {};
+
+    _.each(fields, function (field, fieldKey) {
+      state[field.name] = null;
+    });
+
+    return state;
   },
 
   onChange: function(change) {
@@ -19,6 +31,10 @@ var FormProperty = React.createClass({
     }
 
     this.setState(change);
+  },
+
+  onFocus: function(field) {
+    this.setState({focusedField: field});
   },
 
   searchProperty: function(address) {
@@ -63,16 +79,65 @@ var FormProperty = React.createClass({
         <div className='formContent'>
           <div className='pal'>
             <div className='box mtn'>
-              <AddressField label='Property Address' address={this.state.address} keyName='address' editable={true} onChange={this.onChange} placeholder='Please enter the address of the property'/>
-              <SelectField label='Property Type' keyName='property_type' value={this.state.property_type} options={propertyTypes} editable={true} onChange={this.onChange} allowBlank={true}/>
-              <SelectField label='Purpose of Loan' keyName='loan_purpose' value={this.state.loan_purpose} options={loanPurposes} editable={true} onChange={this.onChange} allowBlank={true}/>
-              <SelectField label='Property will be used for' keyName='property_purpose' value={this.state.property_purpose} options={propertyPurposes} editable={true} onChange={this.onChange} allowBlank={true}/>
-              {this.state.loan_purpose === null ? null :
-                this.state.loan_purpose == 'purchase'
-                ? <TextField label='Purchase Price' keyName='purchase_price' value={this.state.purchase_price} editable={true} onChange={this.onChange}/>
+              <AddressField label={fields.address.label}
+                address={this.state[fields.address.name]}
+                keyName={fields.address.name}
+                editable={true}
+                onChange={this.onChange}
+                onFocus={this.onFocus.bind(this, fields.address)}
+                placeholder='Please start entering and select from one of the options in the drop-down menu'/>
+              <SelectField
+                label={fields.propertyType.label}
+                keyName={fields.propertyType.name}
+                value={this.state[fields.propertyType.name]}
+                options={propertyTypes}
+                editable={true}
+                onChange={this.onChange}
+                onFocus={this.onFocus.bind(this, fields.propertyType)}
+                allowBlank={true}/>
+              <SelectField
+                label={fields.loanPurpose.label}
+                keyName={fields.loanPurpose.name}
+                value={this.state[fields.loanPurpose.name]}
+                options={loanPurposes}
+                editable={true}
+                onChange={this.onChange}
+                onFocus={this.onFocus.bind(this, fields.loanPurpose)}
+                allowBlank={true}/>
+              <SelectField
+                label={fields.propertyPurpose.label}
+                keyName={fields.propertyPurpose.name}
+                value={this.state[fields.propertyPurpose.name]}
+                options={propertyPurposes}
+                editable={true}
+                onChange={this.onChange}
+                onFocus={this.onFocus.bind(this, fields.propertyPurpose)}
+                allowBlank={true}/>
+              {this.state[fields.loanPurpose.name] === null ? null :
+                this.state[fields.loanPurpose.name] == 'purchase'
+                ? <TextField
+                    label={fields.purchasePrice.label}
+                    keyName={fields.purchasePrice.name}
+                    value={this.state[fields.purchasePrice.name]}
+                    editable={true}
+                    onFocus={this.onFocus.bind(this, fields.purchasePrice)}
+                    onChange={this.onChange}/>
                 : <div>
-                    <TextField label='Original Purchase Price' keyName='original_purchase_price' value={this.state.original_purchase_price} editable={true} onChange={this.onChange}/>
-                    <TextField label='What year did you buy your property?' keyName='original_purchase_year' value={this.state.original_purchase_year} placeholder='YYYY' editable={true} onChange={this.onChange}/>
+                    <TextField
+                      label={fields.originalPurchasePrice.label}
+                      keyName={fields.originalPurchasePrice.name}
+                      value={this.state[fields.originalPurchasePrice.name]}
+                      editable={true}
+                      onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
+                      onChange={this.onChange}/>
+                    <TextField
+                      label={fields.originalPurchaseYear.label}
+                      keyName={fields.originalPurchaseYear.name}
+                      value={this.state[fields.originalPurchaseYear.name]}
+                      placeholder='YYYY'
+                      editable={true}
+                      onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)}
+                      onChange={this.onChange}/>
                   </div>
               }
             </div>
@@ -81,7 +146,14 @@ var FormProperty = React.createClass({
             </div>
           </div>
         </div>
-        <div className='helpSection sticky pull-right overlayRight overlayTop'>
+
+        <div className='helpSection sticky pull-right overlayRight overlayTop pal bls'>
+          {this.state.focusedField
+          ? <div>
+              <span className='typeEmphasize'>{this.state.focusedField.label}:</span>
+              <br/>{this.state.focusedField.helpText}
+            </div>
+          : null}
         </div>
       </div>
     );

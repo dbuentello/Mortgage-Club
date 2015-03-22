@@ -4,6 +4,10 @@ var TextFocusMixin = {
     setTimeout(function() {
       target.select();
     }, 0);
+
+    if (typeof this.props.onFocus == 'function') {
+      this.props.onFocus();
+    }
   }
 };
 
