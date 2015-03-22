@@ -5,7 +5,7 @@ class LoanBorrowerController < ApplicationController
   end
 
   def create
-    @loan = Loan.find(params[:id])
+    @loan = Loan.find(params[:loan_id])
     @loan_borrower = is_secondary_borrower? ? 
       @loan.create_secondary_borrower(loan_borrower_params) :
       @loan.create_borrower(loan_borrower_params)
@@ -23,7 +23,7 @@ class LoanBorrowerController < ApplicationController
   private
 
     def get_borrower
-      loan = Loan.find(params[:id])
+      loan = Loan.find(params[:loan_id])
       is_secondary_borrower? ? loan.secondary_borrower : loan.borrower
     end
 

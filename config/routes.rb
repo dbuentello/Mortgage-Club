@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
   resources :users
   resources :loans do
-    resource :property,           :controller => :loan_property_controller
-    resource :borrower,           :controller => :loan_borrower_controller
-    resource :secondary_borrower, :controller => :loan_borrower_controller, defaults: { type: 'is_secondary' }
+    resource :property,           :controller => :loan_property
+    resource :borrower,           :controller => :loan_borrower
+    resource :secondary_borrower, :controller => :loan_borrower, defaults: { type: 'is_secondary' }
   end
   resources :properties do
     collection do

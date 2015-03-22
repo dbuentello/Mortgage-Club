@@ -1,7 +1,7 @@
 class LoanPropertyController < ApplicationController
   
   def show
-    @loan_property = Loan.find(params[:id]).property
+    @loan_property = Loan.find(params[:loan_id]).property
   end
 
   def create
@@ -9,7 +9,7 @@ class LoanPropertyController < ApplicationController
   end
 
   def update
-    @loan_property = Loan.find(params[:id]).property
+    @loan_property = Loan.find(params[:loan_id]).property
     if @loan_property.update(loan_property_params)
       @loan_property.reload
     else
