@@ -17,8 +17,6 @@ gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem 'devise'
-
 # JavaScript libraries
 gem 'jquery-rails'
 gem 'lodash-rails'
