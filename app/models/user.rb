@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :loans, inverse_of: :user, dependent: :destroy
   has_one :borrower, inverse_of: :user, autosave: :true, dependent: :destroy
 
-  before_create :build_borrower
+  accepts_nested_attributes_for :borrower, allow_destroy: true
 
   delegate :first_name, :first_name=, to: :borrower, allow_nil: true
   delegate :last_name, :last_name=, to: :borrower, allow_nil: true
