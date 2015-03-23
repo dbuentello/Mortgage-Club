@@ -17,10 +17,10 @@ $rails: false !default;  // defaults to false (e.g. webpack environment)
   font-weight: normal;
   font-style: normal;
   @if $rails {
-    src: url('Entypo.eot');
-    src:url('Entypo.eot?#iefix') format('embedded-opentype'),
-      url('Entypo.woff') format('woff'),
-      url('Entypo.ttf') format('truetype'),
-      url('Entypo.svg') format('svg');
+    src: font-url('Entypo.eot');
+    src:font-url('Entypo.eot?#iefix') format('embedded-opentype'),
+      font-url('Entypo.woff') format('woff'),
+      font-url('Entypo.ttf') format('truetype'),
+      font-url('Entypo.svg') format('svg');
   }
 }
