@@ -7,9 +7,4 @@ class PagesController < ApplicationController
       format.html { render template: 'pages/app' }
     end
   end
-
-private
-  def redirect_logged_in_user
-    redirect
-  end
 end
