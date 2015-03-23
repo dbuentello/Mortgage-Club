@@ -17,7 +17,7 @@ class LoansController < ApplicationController
   def update
     @loan = Loan.find(params[:id])
     if @loan.update(loan_params)
-      @loan.reload
+      @loan
     else
       render json: {error: 'Unable to update'}, status: 500
     end

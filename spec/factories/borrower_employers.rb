@@ -10,11 +10,11 @@ FactoryGirl.define do
     f.is_current { [true, false].sample }
   end
 
-  factory :current_borrower_employer do |f|
+  factory :current_borrower_employer, parent: :borrower_employer do |f|
     f.is_current true
   end
 
-  factory :past_borrower_employer do |f|
+  factory :past_borrower_employer, parent: :borrower_employer do |f|
     f.is_current false
   end
 end

@@ -8,13 +8,13 @@ class LoanBorrowerController < ApplicationController
     loan = Loan.find(params[:loan_id])
     @loan_borrower = is_secondary_borrower? ? 
       loan.create_secondary_borrower(loan_borrower_params) :
-      loan.create_borrower(loan_borrower_params)
+      loan.user.create_borrower(loan_borrower_params)
   end
 
   def update
     @loan_borrower = get_borrower
     if @loan_borrower.update(loan_borrower_params)
-      @loan_borrower.reload
+      @loan_borrower
     else
       render json: {:message => 'Unable to update'}, status: 500
     end
@@ -28,7 +28,7 @@ class LoanBorrowerController < ApplicationController
     end
 
     def is_secondary_borrower?
-      params.try(:type) == 'is_secondary'
+      params[:type] == 'is_secondary'
     end
 
     def loan_borrower_params

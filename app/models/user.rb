@@ -1,9 +1,14 @@
 class User < ActiveRecord::Base
   has_secure_password
-  validates :first_name,
-            presence: true
-  validates :last_name,
-            presence: true
+
+  has_many :loans, inverse_of: :user, dependent: :destroy
+  has_one :borrower, inverse_of: :user, autosave: :true, dependent: :destroy
+
+  before_create :build_borrower
+
+  delegate :first_name, to: :borrower, allow_nil: true
+  delegate :last_name, to: :borrower, allow_nil: true
+
   validates :email,
             presence: true,
             uniqueness: true,
@@ -12,10 +17,10 @@ class User < ActiveRecord::Base
             }
 
   PERMITTED_ATTRS = [
-    :first_name,
-    :last_name,
     :email,
-    :password_digest
+    :password,
+    :password_confirmation,
+    borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
   ]
 
   def to_s

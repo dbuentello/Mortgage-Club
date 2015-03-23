@@ -11,7 +11,7 @@ class LoanPropertyController < ApplicationController
   def update
     @loan_property = Loan.find(params[:loan_id]).property
     if @loan_property.update(loan_property_params)
-      @loan_property.reload
+      @loan_property
     else
       render json: {:message => 'Unable to update'}, status: 500
     end
