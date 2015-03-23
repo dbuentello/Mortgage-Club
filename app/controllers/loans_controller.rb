@@ -1,6 +1,9 @@
 class LoansController < ApplicationController
-  def index
-    @loans = Loan.all
+  def new
+    bootstrap
+    respond_to do |format|
+      format.html { render template: 'loans/app' }
+    end
   end
 
   def show
@@ -16,7 +19,7 @@ class LoansController < ApplicationController
     if @loan.update(loan_params)
       @loan.reload
     else
-      render json: {:message => 'Unable to update'}, status: 500
+      render json: {error: 'Unable to update'}, status: 500
     end
   end
 

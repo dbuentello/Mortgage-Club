@@ -1,16 +1,22 @@
 #Deploy and rollback on Heroku in staging and production
-task :deploy_staging => ['deploy:set_staging_app', 'deploy:push', 'deploy:restart', 'deploy:tag']
-task :deploy_production => ['deploy:set_production_app', 'deploy:push', 'deploy:restart', 'deploy:tag']
+task :deploy_staging => ['deploy:update_toolbelt', 'deploy:set_staging_app', 'deploy:push', 'deploy:restart', 'deploy:tag']
+task :deploy_production => ['deploy:update_toolbelt', 'deploy:set_production_app', 'deploy:push', 'deploy:restart', 'deploy:tag']
 
 namespace :deploy do
   PRODUCTION_APP = 'intense-oasis-8157'
   STAGING_APP = 'does_not_exist_yet'
 
-  task :staging_migrations => [:set_staging_app, :push, :off, :migrate, :restart, :on, :tag]
+  task :staging_migrations => [:update_toolbelt, :set_staging_app, :push, :off, :migrate, :restart, :on, :tag]
   task :staging_rollback => [:set_staging_app, :off, :push_previous, :restart, :on]
 
-  task :production_migrations => [:set_production_app, :push, :off, :migrate, :restart, :on, :tag]
+  task :production_migrations => [:update_toolbelt, :set_production_app, :push, :off, :migrate, :restart, :on, :tag]
   task :production_rollback => [:set_production_app, :off, :push_previous, :restart, :on]
+
+  task :update_toolbelt do
+    puts 'Checking for Heroku Toolbelt updates ...'
+    puts `heroku update`
+    puts `heroku plugins:update`
+  end
 
   task :set_staging_app do
     APP = STAGING_APP
@@ -22,7 +28,7 @@ namespace :deploy do
 
   task :push do
     puts 'Deploying site to Heroku ...'
-    puts `git push -f git@heroku.com:#{APP}.git`
+    puts `git push -f https://git.heroku.com/#{APP}.git`
   end
 
   task :restart do
@@ -34,7 +40,7 @@ namespace :deploy do
     release_name = "#{APP}_release-#{Time.now.utc.strftime("%Y%m%d%H%M%S")}"
     puts "Tagging release as '#{release_name}'"
     puts `git tag -a #{release_name} -m 'Tagged release'`
-    puts `git push --tags git@heroku.com:#{APP}.git`
+    puts `git push --tags https://git.heroku.com/#{APP}.git`
   end
 
   task :migrate do
@@ -66,18 +72,18 @@ namespace :deploy do
 
       puts "Removing tagged version '#{previous_release}' (now transformed in branch) ..."
       puts `git tag -d #{previous_release}`
-      puts `git push git@heroku.com:#{APP}.git :refs/tags/#{previous_release}`
+      puts `git push https://git.heroku.com/#{APP}.git :refs/tags/#{previous_release}`
 
       puts "Pushing '#{previous_release}' to Heroku master ..."
-      puts `git push git@heroku.com:#{APP}.git +#{previous_release}:master --force`
+      puts `git push https://git.heroku.com/#{APP}.git +#{previous_release}:master --force`
 
       puts "Deleting rollbacked release '#{current_release}' ..."
       puts `git tag -d #{current_release}`
-      puts `git push git@heroku.com:#{APP}.git :refs/tags/#{current_release}`
+      puts `git push https://git.heroku.com/#{APP}.git :refs/tags/#{current_release}`
 
       puts "Retagging release '#{previous_release}' in case to repeat this process (other rollbacks)..."
       puts `git tag -a #{previous_release} -m 'Tagged release'`
-      puts `git push --tags git@heroku.com:#{APP}.git`
+      puts `git push --tags https://git.heroku.com/#{APP}.git`
 
       puts "Turning local repo checked out on master ..."
       puts `git checkout master`

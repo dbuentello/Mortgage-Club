@@ -6,24 +6,49 @@ var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 var BooleanRadio = require('components/form/BooleanRadio');
 
+var fields = {
+  applyingAs: {label: 'I am applying', name: 'apply_as', helpText: 'I am a helpful text.'},
+  firstName: {label: 'First Name', name: 'first_name', helpText: null},
+  middleName: {label: 'Middle Name', name: 'middle_name', helpText: null},
+  lastName: {label: 'Last Name', name: 'last_name', helpText: null},
+  suffix: {label: 'Suffix', name: 'suffix', helpText: null},
+  dob: {label: 'Date of Birth', name: 'dob', helpText: null},
+  ssn: {label: 'Social Security Number', name: 'ssn', helpText: null},
+  phone: {label: 'Phone Number', name: 'phone', helpText: null},
+  yearsInSchool: {label: 'Years in school', name: 'years_in_school', helpText: null},
+  maritalStatus: {label: 'Marital Status', name: 'marital_status', helpText: null},
+  numberOfDependents: {label: 'Number of dependents', name: 'dependent_count', helpText: null},
+  dependentAges: {label: 'Please enter the age(s) of your dependents, separated by comma', name: 'dependent_ages', helpText: null},
+  currentAddress: {label: 'Address of the current property you live in', name: 'current_address', helpText: null},
+  currentOwn: {label: 'Do you own this property?', name: 'currently_own', helpText: null},
+  yearsInCurrentAddress: {label: 'Number of years you have lived in this address', name: 'years_in_current_address', helpText: null},
+  previousAddress: {label: 'Previous Address', name: 'previous_address', helpText: null},
+  previouslyOwn: {label: 'Do you own this property?', name: 'previously_own', helpText: null},
+  yearsInPreviousAddress: {label: 'Number of years you have lived in this address', name: 'years_in_previous_address', helpText: null}
+};
+
 var FormBorrower = React.createClass({
   getInitialState: function() {
     var currentUser = this.props.bootstrapData.currentUser;
+    var state = {};
 
-    return {
-      borrower_count: 1,
-      firstName: currentUser.firstName,
-      lastName: currentUser.lastName,
-      middleName: currentUser.middleName,
-      suffix: currentUser.suffix,
-      yearsInSchool: null,
-      maritalStatus: null,
-      hasDependents: null
-    };
+    _.each(fields, function (field) {
+      state[field.name] = null;
+    });
+
+    state.first_name = currentUser.first_name;
+    state.middle_name = currentUser.middle_name;
+    state.last_name = currentUser.last_name;
+
+    return state;
   },
 
   onChange: function(change) {
     this.setState(change);
+  },
+
+  onFocus: function(field) {
+    this.setState({focusedField: field});
   },
 
   render: function() {
@@ -44,132 +69,160 @@ var FormBorrower = React.createClass({
           <div className='pal'>
             <div className='box mtn'>
               <SelectField
-                label='I am applying'
-                keyName='borrowerCount'
-                value={this.state.borrowerCount}
+                label={fields.applyingAs.label}
+                keyName={fields.applyingAs.name}
+                value={this.state[fields.applyingAs.name]}
                 options={borrowerCountOptions}
                 editable={true}
+                onFocus={this.onFocus.bind(this, fields.applyingAs)}
                 onChange={this.onChange}/>
               <div className='row'>
                 <div className='col-xs-6'>
                   <TextField
-                    label='First Name'
-                    keyName='firstName'
-                    value={this.state.firstName}
+                    label={fields.firstName.label}
+                    keyName={fields.firstName.name}
+                    value={this.state[fields.firstName.name]}
                     editable={true}
+                    onFocus={this.onFocus.bind(this, fields.firstName)}
                     onChange={this.onChange}/>
                 </div>
                 <div className='col-xs-6'>
                   <TextField
-                    label='Middle Name'
-                    keyName='middleName'
-                    value={this.state.middleName}
+                    label={fields.middleName.label}
+                    keyName={fields.middleName.name}
+                    value={this.state[fields.middleName.name]}
                     editable={true}
+                    onFocus={this.onFocus.bind(this, fields.middleName)}
                     onChange={this.onChange}/>
                 </div>
               </div>
               <div className='row'>
                 <div className='col-xs-6'>
                   <TextField
-                    label='Last Name'
-                    keyName='lastName'
-                    value={this.state.lastName}
+                    label={fields.lastName.label}
+                    keyName={fields.lastName.name}
+                    value={this.state[fields.lastName.name]}
                     editable={true}
+                    onFocus={this.onFocus.bind(this, fields.lastName)}
                     onChange={this.onChange}/>
                 </div>
                 <div className='col-xs-6'>
                   <TextField
-                    label='Suffix'
-                    keyName='suffix'
-                    value={this.state.suffix}
+                    label={fields.suffix.label}
+                    keyName={fields.suffix.name}
+                    value={this.state[fields.suffix.name]}
                     editable={true}
+                    onFocus={this.onFocus.bind(this, fields.suffix)}
                     onChange={this.onChange}/>
                 </div>
               </div>
 
-              <DateField
-                label='Date of birth'
-                keyName='dob'
-                value={this.state.dob}
+              <div className='row'>
+                <div className='col-xs-6'>
+                  <DateField
+                    label={fields.dob.label}
+                    keyName={fields.dob.name}
+                    value={this.state[fields.dob.name]}
+                    editable={true}
+                    onFocus={this.onFocus.bind(this, fields.dob)}
+                    onChange={this.onChange}/>
+                </div>
+                <div className='col-xs-6'>
+                  <TextField
+                    label={fields.ssn.label}
+                    keyName={fields.ssn.name}
+                    value={this.state[fields.ssn.name]}
+                    editable={true}
+                    onFocus={this.onFocus.bind(this, fields.ssn)}
+                    onChange={this.onChange}/>
+                </div>
+              </div>
+
+              <TextField
+                label={fields.phone.label}
+                keyName={fields.phone.name}
+                value={this.state[fields.phone.name]}
                 editable={true}
+                onFocus={this.onFocus.bind(this, fields.phone)}
                 onChange={this.onChange}/>
               <TextField
-                label='Social Security Number'
-                keyName='ssn'
-                value={this.state.ssn}
+                label={fields.yearsInSchool.label}
+                keyName={fields.yearsInSchool.name}
+                value={this.state[fields.yearsInSchool.name]}
                 editable={true}
-                onChange={this.onChange}/>
-              <TextField
-                label='Phone Number'
-                keyName='phone'
-                value={this.state.phone}
-                editable={true}
-                onChange={this.onChange}/>
-              <TextField
-                label='Years in school'
-                keyName='yearsInSchool'
-                value={this.state.yearsInSchool}
-                editable={true}
+                onFocus={this.onFocus.bind(this, fields.yearsInSchool)}
                 onChange={this.onChange}/>
               <SelectField
-                label='Marital Status'
-                keyName='maritalStatus'
-                value={this.state.maritalStatus}
+                label={fields.maritalStatus.label}
+                keyName={fields.maritalStatus.name}
+                value={this.state[fields.maritalStatus.name]}
                 options={maritalStatuses}
                 editable={true}
+                onFocus={this.onFocus.bind(this, fields.maritalStatus)}
                 onChange={this.onChange}/>
               <TextField
-                label='Number of dependents'
-                keyName='numberOfDependents'
+                label={fields.numberOfDependents.label}
+                keyName={fields.numberOfDependents.name}
                 value={this.state.numberOfDependents}
                 editable={true}
+                onFocus={this.onFocus.bind(this, fields.numberOfDependents)}
                 onChange={this.onChange}/>
-              {this.state.numberOfDependents > 0 ?
+              {parseInt(this.state[fields.numberOfDependents.name], 10) > 0 ?
                 <TextField
-                  label='Please enter the age(s) of your dependents, separated by comma'
-                  keyName='dependentAges'
+                  label={fields.dependentAges.label}
+                  keyName={fields.dependentAges.name}
+                  value={this.state[fields.dependentAges.name]}
+                  editable={true}
+                  placeholder='e.g. 12, 7, 3'
+                  onFocus={this.onFocus.bind(this, fields.dependentAges)}
                   onChange={this.onChange}/>
               : null}
               <AddressField
-                label='Address of the current property you live in'
-                address={this.state.currentAddress}
-                keyName='currentAddress'
+                label={fields.currentAddress.label}
+                address={this.state[fields.currentAddress.name]}
+                keyName={fields.currentAddress.name}
                 editable={true}
+                onFocus={this.onFocus.bind(this, fields.currentAddress)}
                 onChange={this.onChange}
                 placeholder='Please enter your current address'/>
               <BooleanRadio
-                label='Do you own this property?'
-                checked={this.state.currentlyOwn}
-                keyName='currentlyOwn'
+                label={fields.currentOwn.label}
+                checked={this.state[fields.currentOwn.name]}
+                keyName={fields.currentOwn.name}
                 editable={true}
+                onFocus={this.onFocus.bind(this, fields.currentOwn)}
                 onChange={this.onChange}/>
               <TextField
-                label='Number of years you have lived in this address'
-                value={this.state.yearsInCurrentAddress}
-                keyName='yearsInCurrentAddress'
+                label={fields.yearsInCurrentAddress.label}
+                value={this.state[fields.yearsInCurrentAddress.name]}
+                keyName={fields.yearsInCurrentAddress.name}
                 editable={true}
+                onFocus={this.onFocus.bind(this, fields.yearsInCurrentAddress)}
                 onChange={this.onChange}/>
               {parseInt(this.state.yearsInCurrentAddress, 10) < 2 ?
                 <div>
                   <AddressField
-                    label='Your previous address'
-                    address={this.state.previousAddress}
-                    keyName='previousAddress'
+                    label={fields.previousAddress.label}
+                    address={this.state[fields.previousAddress.name]}
+                    keyName={fields.previousAddress.name}
                     editable={true}
+                    onFocus={this.onFocus.bind(this, fields.previousAddress)}
                     onChange={this.onChange}
                     placeholder='Please enter your current address'/>
                   <BooleanRadio
-                    label='Do you own this property?'
-                    checked={this.state.previouslyOwn}
-                    keyName='previouslyOwn'
+                    label={fields.previouslyOwn.label}
+                    checked={this.state[fields.previouslyOwn.name]}
+                    keyName={fields.previouslyOwn.name}
                     editable={true}
+                    onFocus={this.onFocus.bind(this, fields.previouslyOwn)}
                     onChange={this.onChange}
                     placeholder='Please enter your previous address'/>
                   <TextField
-                    label='Number of years you have lived in this address'
-                    value={this.state.yearsInPreviousAddress}
-                    keyName='yearsInPreviousAddress'
+                    label={fields.yearsInPreviousAddress.label}
+                    value={this.state[fields.yearsInPreviousAddress.name]}
+                    keyName={fields.yearsInPreviousAddress.name}
                     editable={true}
+                    onFocus={this.onFocus.bind(this, fields.yearsInPreviousAddress)}
                     onChange={this.onChange}/>
                 </div>
               : null}
@@ -180,7 +233,14 @@ var FormBorrower = React.createClass({
             </div>
           </div>
         </div>
-        <div className='helpSection sticky pull-right overlayRight overlayTop'>
+
+        <div className='helpSection sticky pull-right overlayRight overlayTop pal bls'>
+          {this.state.focusedField && this.state.focusedField.helpText
+          ? <div>
+              <span className='typeEmphasize'>{this.state.focusedField.label}:</span>
+              <br/>{this.state.focusedField.helpText}
+            </div>
+          : null}
         </div>
       </div>
     );
