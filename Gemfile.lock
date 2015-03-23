@@ -162,6 +162,8 @@ GEM
     rdoc (4.2.0)
       json (~> 1.4)
     react-source (0.12.2)
+    responders (2.1.0)
+      railties (>= 4.2.0, < 5)
     rspec-core (3.2.2)
       rspec-support (~> 3.2.0)
     rspec-expectations (3.2.0)
@@ -245,6 +247,7 @@ DEPENDENCIES
   rails-html-sanitizer
   rails_12factor
   react-rails (~> 1.0.0.pre)!
+  responders
   rspec-rails
   sass-rails
   sdoc
