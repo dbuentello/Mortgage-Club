@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
 
   before_create :build_borrower
 
-  delegate :first_name, to: :borrower, allow_nil: true
-  delegate :last_name, to: :borrower, allow_nil: true
+  delegate :first_name, :first_name=, to: :borrower, allow_nil: true
+  delegate :last_name, :last_name=, to: :borrower, allow_nil: true
 
   validates :email,
             presence: true,
@@ -22,16 +22,6 @@ class User < ActiveRecord::Base
     :password_confirmation,
     borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
   ]
-
-  def first_name=(name)
-    build_borrower unless self.borrower.present?
-    borrower.first_name = name
-  end
-
-  def last_name=(name)
-    build_borrower unless self.borrower.present?
-    borrower.last_name = name
-  end
 
   def to_s
     "#{first_name} #{last_name}"
