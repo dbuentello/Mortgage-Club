@@ -39,7 +39,7 @@ var FormProperty = React.createClass({
 
   searchProperty: function(address) {
     $.ajax({
-      url: 'properties/search',
+      url: '/properties/search',
       data: {
         address: [address.street_address, address.street_address2].join(' '),
         citystatezip: [address.city, address.state, address.zip].join(' ')

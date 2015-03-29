@@ -30,11 +30,39 @@ var FormRealEstates = React.createClass({
   },
 
   onChange: function(change) {
-    this.setState(this.setValue(this.state, _.keys(change)[0], _.values(change)[0]));
+    var key = _.keys(change)[0];
+    var value = _.values(change)[0];
+
+    if (key.indexOf('.address') > -1 && value.city) {
+      var propertyKey = key.replace('.address', '');
+      this.searchProperty(this.getValue(this.state, propertyKey), propertyKey);
+    }
+
+    this.setState(this.setValue(this.state, key, value));
   },
 
   onFocus: function(field) {
     this.setState({focusedField: field});
+  },
+
+  searchProperty: function(property, propertyKey) {
+    var address = property.address;
+    $.ajax({
+      url: '/properties/search',
+      data: {
+        address: [address.street_address, address.street_address2].join(' '),
+        citystatezip: [address.city, address.state, address.zip].join(' ')
+      },
+      dataType: 'json',
+      context: this,
+      success: function(response) {
+        var marketValue = this.getValue(response, 'zestimate.amount.__content__');
+        var propertyType = this.getValue(response, 'useCode');
+        property.market_value = property.market_value || marketValue;
+        property.property_type = property.property_type || propertyType;
+        this.setState(this.setValue(this.state, propertyKey, property));
+      }
+    });
   },
 
   render: function() {
@@ -167,7 +195,7 @@ var FormRealEstates = React.createClass({
 
   getDefaultProperties: function() {
     return [{
-      address: null,
+      address: {},
       property_type: null,
       market_value: null,
       tax_and_insurance: null,
