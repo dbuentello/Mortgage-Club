@@ -10,7 +10,6 @@ class Zillow
     'Condominium'     => :sfh
   }
 
-  base_uri "http://www.zillow.com/webservice"
   @key = "X1-ZWz1aylbpp3aiz_98wrk"
 
   def self.search_property(address, citystatezip)
@@ -19,17 +18,30 @@ class Zillow
       'citystatezip' => citystatezip,
       'zws-id' => @key
     }
-    parse(get('/GetDeepSearchResults.htm', :query => params))
+    parse_property(get('http://www.zillow.com/webservice/GetDeepSearchResults.htm', :query => params))
   end
 
-  def self.parse(response)
+  def self.parse_property(response)
     if (response['searchresults']['response'])
-      property = response['searchresults']['response']['results']['result'][0]
+      property = response['searchresults']['response']['results']['result'][0] || response['searchresults']['response']['results']['result']
       property.merge!({
         :useCode => USE_CODE[property['useCode']]
       })
-    end
 
-    property
+      params = {
+        'zip' => property['address']['zipcode'],
+        'price' => property['zestimate']['amount']['__content__'],
+        'zws-id' => @key
+      }
+
+      parse_payments(get('http://www.zillow.com/webservice/mortgage/CalculateMonthlyPaymentsAdvanced.htm', :query => params), property)
+    end
+  end
+
+  def self.parse_payments(response, property)
+    property.merge({
+      :monthlyTax => response['paymentsdetails']['response']['monthlypropertytaxes'],
+      :monthlyInsurance => response['paymentsdetails']['response']['monthlyhazardinsurance']
+    })
   end
 end

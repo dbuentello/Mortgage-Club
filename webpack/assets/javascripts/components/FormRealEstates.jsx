@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
+var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var React = require('react/addons');
 var AddressField = require('components/form/AddressField');
@@ -14,7 +15,7 @@ var fields = {
 };
 
 var FormRealEstates = React.createClass({
-  mixins: [ObjectHelperMixin],
+  mixins: [ObjectHelperMixin, TextFormatMixin],
 
   getInitialState: function() {
     var currentUser = this.props.bootstrapData.currentUser;
@@ -58,8 +59,13 @@ var FormRealEstates = React.createClass({
       success: function(response) {
         var marketValue = this.getValue(response, 'zestimate.amount.__content__');
         var propertyType = this.getValue(response, 'useCode');
-        property.market_value = property.market_value || marketValue;
+        var monthlyTax = this.getValue(response, 'monthlyTax');
+        var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
+
+        property.market_price = property.market_price || marketValue;
         property.property_type = property.property_type || propertyType;
+        property.estimated_property_tax = property.estimated_property_tax || monthlyTax;
+        property.estimated_hazard_insurance = property.estimated_hazard_insurance || monthlyInsurance;
         this.setState(this.setValue(this.state, propertyKey, property));
       }
     });
@@ -115,16 +121,24 @@ var FormRealEstates = React.createClass({
                         <div className='col-xs-6'>
                           <TextField
                             label='Estimated Market Value'
-                            keyName={'rental_properties[' + index + '].market_value'}
-                            value={property.market_value}
+                            keyName={'rental_properties[' + index + '].market_price'}
+                            value={property.market_price}
                             editable={true}
                             onChange={this.onChange}/>
                         </div>
-                        <div className='col-xs-6'>
+                        <div className='col-xs-3'>
                           <TextField
-                            label='Estimated Tax & Insurance'
-                            keyName={'rental_properties[' + index + '].tax_and_insurance'}
-                            value={property.tax_and_insurance}
+                            label='Estimated Tax'
+                            keyName={'rental_properties[' + index + '].estimated_property_tax'}
+                            value={property.estimated_property_tax}
+                            editable={true}
+                            onChange={this.onChange}/>
+                        </div>
+                        <div className='col-xs-3 pln'>
+                          <TextField
+                            label='Estimated Insurance'
+                            keyName={'rental_properties[' + index + '].estimated_hazard_insurance'}
+                            value={property.estimated_hazard_insurance}
                             editable={true}
                             onChange={this.onChange}/>
                         </div>
@@ -133,8 +147,8 @@ var FormRealEstates = React.createClass({
                         <div className='col-xs-6'>
                           <TextField
                             label='Rental Income'
-                            keyName={'rental_properties[' + index + '].rental_income'}
-                            value={property.rental_income}
+                            keyName={'rental_properties[' + index + '].gross_rental_income'}
+                            value={property.gross_rental_income}
                             editable={true}
                             onChange={this.onChange}/>
                         </div>
@@ -142,8 +156,8 @@ var FormRealEstates = React.createClass({
                           <div className='col-xs-8'>
                             <BooleanRadio
                               label='Is this property an impound?'
-                              checked={property.is_impound}
-                              keyName={'rental_properties[' + index + '].is_impound'}
+                              checked={property.is_impound_account}
+                              keyName={'rental_properties[' + index + '].is_impound_account'}
                               editable={true}
                               onChange={this.onChange}/>
                           </div>
@@ -197,10 +211,11 @@ var FormRealEstates = React.createClass({
     return [{
       address: {},
       property_type: null,
-      market_value: null,
-      tax_and_insurance: null,
-      rental_income: null,
-      is_impound: null
+      market_price: null,
+      estimated_property_tax: null,
+      estimated_hazard_insurance: null,
+      gross_rental_income: null,
+      is_impound_account: null
     }];
   }
 });

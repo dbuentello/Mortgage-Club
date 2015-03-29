@@ -18,10 +18,10 @@ class Property < ActiveRecord::Base
   ]
 
   enum property_type: {
-    single_family: 0,
+    sfh: 0,
     duplex: 1,
     triplex: 2,
-    fourplex: 3
+    quadruplex: 3
   }
 
   enum usage_type: {
