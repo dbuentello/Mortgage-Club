@@ -12,12 +12,15 @@ var HelpTooltip = React.createClass({
     // The text for the tooltip
     text: React.PropTypes.string,
     // One of `top`, `right`, `bottom`, or `left`
-    position: React.PropTypes.string
+    position: React.PropTypes.string,
+    // background color class
+    background: React.PropTypes.string
   },
 
   getDefaultProps: function() {
     return {
-      position: 'right'
+      position: 'right',
+      background: 'backgroundGreen'
     };
   },
 
@@ -35,7 +38,7 @@ var HelpTooltip = React.createClass({
 
   render: function() {
     return (
-      <span className="question" data-toggle="tooltip">?</span>
+      <span className={'circle xsm mvn typeReversed mls ' + (this.props.background || '')} data-toggle='tooltip'>?</span>
     );
   }
 });

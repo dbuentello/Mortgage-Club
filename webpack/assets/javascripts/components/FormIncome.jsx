@@ -13,10 +13,10 @@ var fields = {
   monthsAtEmployer: {label: 'Months at this employer', name: 'months_at_employer', helpText: null},
   employerContactName: {label: 'Contact Name', name: 'employer_contact_name', helpText: null},
   employerContactNumber: {label: 'Contact Phone Number', name: 'employer_contact_number', helpText: null},
-  grossIncome: {label: 'Gross Income', name: 'gross_income', helpText: null},
-  grossOvertime: {label: 'Gross Overtime', name: 'gross_overtime', helpText: null},
-  grossBonus: {label: 'Gross Bonus', name: 'gross_bonus', helpText: null},
-  grossCommission: {label: 'Gross Commission', name: 'gross_commission', helpText: null}
+  grossIncome: {label: 'Annual Gross Income', name: 'gross_income', helpText: null},
+  grossOvertime: {label: 'Annual Gross Overtime', name: 'gross_overtime', helpText: null},
+  grossBonus: {label: 'Annual Gross Bonus', name: 'gross_bonus', helpText: null},
+  grossCommission: {label: 'Annual Gross Commission', name: 'gross_commission', helpText: null}
 };
 
 var FormIncome = React.createClass({
@@ -122,6 +122,8 @@ var FormIncome = React.createClass({
                     onChange={this.onChange}/>
                 </div>
               </div>
+
+              <div className='h5 typeDeemphasize'>Income details:</div>
               <div className='row'>
                 <div className='col-xs-6'>
                   <TextField
@@ -130,7 +132,8 @@ var FormIncome = React.createClass({
                     value={this.state[fields.grossIncome.name]}
                     editable={true}
                     onFocus={this.onFocus.bind(this, fields.grossIncome)}
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    placeholder='e.g. 99,000'/>
                 </div>
                 <div className='col-xs-6'>
                   <TextField
@@ -139,7 +142,8 @@ var FormIncome = React.createClass({
                     value={this.state[fields.grossOvertime.name]}
                     editable={true}
                     onFocus={this.onFocus.bind(this, fields.grossOvertime)}
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    placeholder='e.g. 99,000'/>
                 </div>
               </div>
               <div className='row'>
@@ -150,7 +154,8 @@ var FormIncome = React.createClass({
                     value={this.state[fields.grossBonus.name]}
                     editable={true}
                     onFocus={this.onFocus.bind(this, fields.grossBonus)}
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    placeholder='e.g. 99,000'/>
                 </div>
                 <div className='col-xs-6'>
                   <TextField
@@ -159,7 +164,8 @@ var FormIncome = React.createClass({
                     value={this.state[fields.grossCommission.name]}
                     editable={true}
                     onFocus={this.onFocus.bind(this, fields.grossCommission)}
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    placeholder='e.g. 99,000'/>
                 </div>
               </div>
             </div>
