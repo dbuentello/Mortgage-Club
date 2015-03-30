@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resource :secondary_borrower, :controller => :loan_borrower, defaults: { type: 'is_secondary' }
   end
 
+  resources :rates
+
   resources :properties do
     collection do
       get :search

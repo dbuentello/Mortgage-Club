@@ -4,6 +4,9 @@ var AddressField = require('components/form/AddressField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 
+var Router = require('react-router');
+var { Route, RouteHandler, Link } = Router;
+
 var FormDeclarations = React.createClass({
   render: function() {
     return (
@@ -14,7 +17,7 @@ var FormDeclarations = React.createClass({
 
             </div>
             <div className='box text-right'>
-              <a className='btn btnSml btnPrimary'>Next</a>
+              <Link to='rates' className='btn btnSml btnPrimary'>Next</Link>
             </div>
           </div>
         </div>

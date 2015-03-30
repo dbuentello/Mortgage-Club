@@ -1,9 +1,20 @@
 var React = require('react/addons');
-var Container = require('./components/Container');
+var Router = require('react-router');
+var DefaultRoute = Router.DefaultRoute;
+var Route = Router.Route;
+var RouteHandler = Router.RouteHandler;
+
 var AppStarter = require('./tools/AppStarter');
 var $ = require('jquery');
 
+var LoanInterface = require('./components/LoanInterface');
+var MortgageRates = require('./components/MortgageRates');
+
 window.ClientApp = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+
   render: function() {
     var user = this.props.currentUser;
     return (
@@ -33,13 +44,20 @@ window.ClientApp = React.createClass({
             </div>
           </div>
         </nav>
-        <Container bootstrapData={this.props}/>
+        <RouteHandler bootstrapData={this.props}/>
       </div>
     );
   }
 });
 
-$(function() {
-  AppStarter.start();
-});
+var routes = (
+  <Route name='app' path='/' handler={ClientApp}>
+    <Route name='loans/new' handler={LoanInterface}/>
+    <Route name='rates' handler={MortgageRates}/>
+    <DefaultRoute handler={LoanInterface}/>
+  </Route>
+);
 
+$(function() {
+  AppStarter.start(routes);
+});

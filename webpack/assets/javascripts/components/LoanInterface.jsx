@@ -7,11 +7,7 @@ var AssetsAndLiabilities = require('./FormAssetsAndLiabilities');
 var RealEstates = require('./FormRealEstates');
 var Declarations = require('./FormDeclarations');
 
-var sideMenuWidth = 250;
-var topMenuHeight = 44;
-var helpSectionWidth = 300;
-
-var Container = React.createClass({
+var LoanInterface = React.createClass({
   getInitialState: function() {
     return {
       menu: [
@@ -55,4 +51,4 @@ var Container = React.createClass({
   }
 });
 
-module.exports = Container;
+module.exports = LoanInterface;

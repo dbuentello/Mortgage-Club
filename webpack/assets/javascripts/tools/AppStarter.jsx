@@ -1,11 +1,13 @@
 var $ = require('jquery');
 var React = require('react/addons');
+var Router = require('react-router');
 
 var CLASS_NAME_ATTR = 'data-react-class';
 var PROPS_ATTR = 'data-react-props';
 
-var mountReactComponents = function() {
+var mountReactComponents = function(routes) {
   var nodes = findReactDOMNodes();
+
   for (var i = 0; i < nodes.length; ++i) {
     var node = nodes[i];
     var className = node.getAttribute(CLASS_NAME_ATTR);
@@ -14,7 +16,10 @@ var mountReactComponents = function() {
     var constructor = window[className] || eval.call(window, className);
     var propsJson = node.getAttribute(PROPS_ATTR);
     var props = propsJson && JSON.parse(propsJson);
-    React.render(React.createElement(constructor, props), node);
+
+    Router.run(routes, Router.HistoryLocation, function (Handler) {
+      React.render(React.createElement(Handler, props), node);
+    });
   }
 };
 
@@ -25,7 +30,7 @@ var unmountReactComponents = function() {
   }
 };
 
-var handleTurbolinksEvents = function() {
+var handleTurbolinksEvents = function(routes) {
   var handleEvent;
   if ($) {
     handleEvent = function(eventName, callback) {
@@ -36,18 +41,13 @@ var handleTurbolinksEvents = function() {
       document.addEventListener(eventName, callback);
     }
   }
-  handleEvent('page:change', mountReactComponents);
+  handleEvent('page:change', _.bind(mountReactComponents, this, routes));
   handleEvent('page:receive', unmountReactComponents);
 };
 
-var handleNativeEvents = function() {
-  if ($) {
-    $(mountReactComponents);
-    $(window).unload(unmountReactComponents);
-  } else {
-    document.addEventListener('DOMContentLoaded', mountReactComponents);
-    window.addEventListener('unload', unmountReactComponents);
-  }
+var handleNativeEvents = function(routes) {
+  $(_.bind(mountReactComponents, this, routes));
+  $(window).on('unload', unmountReactComponents);
 };
 
 var findReactDOMNodes = function() {
@@ -60,9 +60,9 @@ var findReactDOMNodes = function() {
 };
 
 var AppStarter = {
-  start: function() {
+  start: function(routes) {
     if (window !== undefined && document !== undefined) {
-      typeof Turbolinks !== 'undefined' ? handleTurbolinksEvents() : handleNativeEvents();
+      handleNativeEvents(routes);
     }
   }
 }

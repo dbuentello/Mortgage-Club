@@ -18,6 +18,10 @@ $helpSectionWidth: 300px;
   padding-top: $topMenuHeight;
 }
 
+.content {
+  padding-top: $topMenuHeight;
+}
+
 .helpSection {
   height: 100%;
   width: $helpSectionWidth;

@@ -19,4 +19,3 @@
 // Important to import jquery_ujs before rails-bundle as that patches jquery xhr to use the authenticity token!
 
 //= require build/webpack-bundle
-//= require turbolinks

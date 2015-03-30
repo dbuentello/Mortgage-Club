@@ -46,6 +46,8 @@ gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
 
 gem 'httparty'
 
+gem 'nokogiri'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

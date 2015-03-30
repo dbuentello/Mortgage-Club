@@ -242,6 +242,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   lodash-rails
+  nokogiri
   pg
   rails (~> 4.2)
   rails-html-sanitizer

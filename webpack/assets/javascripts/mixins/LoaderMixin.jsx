@@ -1,7 +1,4 @@
-/**
- * @jsx React.DOM
- */
-
+var React = require('react/addons');
 var LoaderMixin = {
   getInitialState: function() {
     return {

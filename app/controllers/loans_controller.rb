@@ -2,7 +2,7 @@ class LoansController < ApplicationController
   def new
     bootstrap
     respond_to do |format|
-      format.html { render template: 'loans/app' }
+      format.html { render template: 'client_app' }
     end
   end
 
