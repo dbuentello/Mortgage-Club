@@ -11,19 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150322211917) do
+ActiveRecord::Schema.define(version: 20150404191843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
     t.string  "street_address"
-    t.string  "secondary_street_address"
-    t.string  "zipcode"
-    t.integer "state_type"
+    t.string  "street_address2"
+    t.string  "zip"
+    t.text    "state"
     t.integer "property_id"
     t.integer "borrower_address_id"
     t.integer "borrower_employer_id"
+    t.text    "city"
+    t.text    "full_text"
   end
 
   add_index "addresses", ["borrower_address_id"], name: "index_addresses_on_borrower_address_id", using: :btree

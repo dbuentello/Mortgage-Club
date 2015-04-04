@@ -142,7 +142,7 @@ var FormProperty = React.createClass({
               }
             </div>
             <div className='box text-right'>
-              <a className='btn btnSml btnPrimary'>Next</a>
+              <a className='btn btnSml btnPrimary' onClick={this.next}>Next</a>
             </div>
           </div>
         </div>
@@ -157,6 +157,10 @@ var FormProperty = React.createClass({
         </div>
       </div>
     );
+  },
+
+  next: function() {
+    console.log(this.state);
   }
 });
 

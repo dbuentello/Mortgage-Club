@@ -16,7 +16,7 @@ function getFormattedAddress(addressable) {
     addressable.zip
   ]).join(', ');
 
-  return (!address) ? addressable.autocomplete_text : address;
+  return (!address) ? addressable.full_text : address;
 }
 
 /**
@@ -43,7 +43,8 @@ var AddressAutocompleteMixin = {
     // Create the autocomplete object, restricting the search
     // to geographical location types.
     this.autocomplete = new google.maps.places.Autocomplete(el, {
-      types: ['geocode']
+      types: ['geocode'],
+      componentRestrictions: {country: 'us'}
     });
 
     this.listeners.push(google.maps.event.addListener(this.autocomplete, 'place_changed', function() {
@@ -82,7 +83,7 @@ var AddressAutocompleteMixin = {
         state: null,
         zip: null,
         country: null,
-        autocomplete_text: event.target.value
+        full_text: event.target.value
       };
 
       this.props.onChange(change);
@@ -121,7 +122,7 @@ var AddressAutocompleteMixin = {
       state: address.administrative_area_level_1,
       zip: address.postal_code,
       country: address.country,
-      autocomplete_text: el.value
+      full_text: el.value
     });
 
     if (typeof this.props.onChange == 'function') {
@@ -146,7 +147,7 @@ var AddressField = React.createClass({
     // an object `change` passed in as the single argument. The `change` object is in the format
     // {[@keyName]: [address]} where @keyName is from the props and `address` is the updated address object.
     // The provided @address object will be extended with the following properties:
-    // street_address, street_address2, city, state, zip, country, autocomplete_text
+    // street_address, street_address2, city, state, zip, country, full_text
     onChange: React.PropTypes.func,
     keyName: React.PropTypes.string,
     // if @address object is provided, the value of `autocomplete_text` will be used as

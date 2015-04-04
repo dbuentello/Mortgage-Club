@@ -23,10 +23,10 @@ $rails: false !default;  // defaults to false (e.g. webpack environment)
       font-url('Entypo.ttf') format('truetype'),
       font-url('Entypo.svg') format('svg');
   } @else {
-    src: url('Entypo.eot');
-    src: url('Entypo.eot?#iefix') format('embedded-opentype'),
-         url('Entypo.woff') format('woff'),
-         url('Entypo.ttf') format('truetype'),
-         url('Entypo.svg') format('svg');
+    src: url('assets/fonts/Entypo.eot');
+    src: url('assets/fonts/Entypo.eot?#iefix') format('embedded-opentype'),
+         url('assets/fonts/Entypo.woff') format('woff'),
+         url('assets/fonts/Entypo.ttf') format('truetype'),
+         url('assets/fonts/Entypo.svg') format('svg');
   }
 }
