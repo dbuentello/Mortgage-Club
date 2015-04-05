@@ -3,7 +3,7 @@ class Loan < ActiveRecord::Base
   has_one :property, inverse_of: :loan, dependent: :destroy
   has_one :borrower, through: :user
   has_one :secondary_borrower, inverse_of: :loan, class_name: 'Borrower', dependent: :destroy
-  accepts_nested_attributes_for :property, allow_destroy: true 
+  accepts_nested_attributes_for :property, allow_destroy: true
   accepts_nested_attributes_for :borrower, allow_destroy: true
   accepts_nested_attributes_for :secondary_borrower, allow_destroy: true
 
@@ -18,4 +18,8 @@ class Loan < ActiveRecord::Base
     purchase: 0,
     refinance: 1
   }
+
+  def initiate(user)
+    Loan.create(user: user, property: Property.create(address: Address.create))
+  end
 end

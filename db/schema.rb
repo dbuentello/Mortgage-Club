@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150404191843) do
+ActiveRecord::Schema.define(version: 20150405012339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,17 +106,17 @@ ActiveRecord::Schema.define(version: 20150404191843) do
   add_index "loans", ["user_id"], name: "index_loans_on_user_id", using: :btree
 
   create_table "properties", force: :cascade do |t|
-    t.integer  "property_type"
-    t.integer  "usage_type"
-    t.datetime "original_purchase_date"
-    t.decimal  "original_purchase_price",    precision: 13, scale: 2
-    t.decimal  "purchase_price",             precision: 13, scale: 2
-    t.decimal  "market_price",               precision: 13, scale: 2
-    t.decimal  "gross_rental_income",        precision: 11, scale: 2
-    t.decimal  "estimated_property_tax",     precision: 11, scale: 2
-    t.decimal  "estimated_hazard_insurance", precision: 11, scale: 2
-    t.boolean  "is_impound_account"
-    t.integer  "loan_id"
+    t.integer "property_type"
+    t.integer "usage_type"
+    t.integer "original_purchase_year"
+    t.decimal "original_purchase_price",    precision: 13, scale: 2
+    t.decimal "purchase_price",             precision: 13, scale: 2
+    t.decimal "market_price",               precision: 13, scale: 2
+    t.decimal "gross_rental_income",        precision: 11, scale: 2
+    t.decimal "estimated_property_tax",     precision: 11, scale: 2
+    t.decimal "estimated_hazard_insurance", precision: 11, scale: 2
+    t.boolean "is_impound_account"
+    t.integer "loan_id"
   end
 
   add_index "properties", ["loan_id"], name: "index_properties_on_loan_id", using: :btree

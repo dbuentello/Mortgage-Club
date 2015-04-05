@@ -18,13 +18,14 @@ var LoanInterface = React.createClass({
         {name: 'Real Estates', complete: false, icon: 'iconHome', Content: RealEstates},
         {name: 'Declarations', complete: false, icon: 'iconClipboard', Content: Declarations}
       ],
-      active: 'Property'
+      active: 'Property',
+      loan: this.props.bootstrapData.currentLoan
     };
   },
 
   render: function() {
     var activeItem = _.findWhere(this.state.menu, {name: this.state.active});
-    var content = <activeItem.Content bootstrapData={this.props.bootstrapData}/>;
+    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} saveLoan={this.save}/>;
     return (
       <div>
         <nav className='sideMenu sticky backgroundLowlight pbm'>
@@ -47,6 +48,22 @@ var LoanInterface = React.createClass({
   goToItem: function(item) {
     this.setState({
       active: item.name
+    });
+  },
+
+  save: function(loan) {
+    $.ajax({
+      url: '/loans/' + this.state.loan.id,
+      method: 'PATCH',
+      context: this,
+      dataType: 'json',
+      data: {loan: loan},
+      success: function(response) {
+        this.setState({loan: response.loan});
+      },
+      error: function(response, status, error) {
+
+      }
     });
   }
 });

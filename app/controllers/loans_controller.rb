@@ -1,6 +1,7 @@
 class LoansController < ApplicationController
   def new
-    bootstrap
+    loan = current_user.loans.first || Loan.initiate(current_user)
+    bootstrap({currentLoan: loan.as_json(json_options)})
     respond_to do |format|
       format.html { render template: 'client_app' }
     end
@@ -15,17 +16,27 @@ class LoansController < ApplicationController
   end
 
   def update
-    @loan = Loan.find(params[:id])
-    if @loan.update(loan_params)
-      @loan
+    loan = Loan.find(params[:id])
+    if loan.update(loan_params)
+      render json: {loan: loan.reload.as_json(json_options)}
     else
-      render json: {error: 'Unable to update'}, status: 500
+      render json: {error: loan.errors.full_messages}, status: 500
     end
   end
 
   private
-
     def loan_params
-      params.require(:record).permit(Loan::PERMITTED_ATTRS)
+      puts params[:loan]
+      params.require(:loan).permit(Loan::PERMITTED_ATTRS)
+    end
+
+    def json_options
+      {
+        :include => {
+          :property => {
+            :include => {:address => {}}
+          }
+        }
+      }
     end
 end

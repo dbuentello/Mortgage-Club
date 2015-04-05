@@ -6,7 +6,7 @@ class Property < ActiveRecord::Base
   PERMITTED_ATTRS = [
     :property_type,
     :usage_type,
-    :original_purchase_date,
+    :original_purchase_year,
     :original_purchase_price,
     :purchase_price,
     :gross_rental_income,

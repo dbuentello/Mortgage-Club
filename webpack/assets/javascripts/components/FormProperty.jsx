@@ -7,8 +7,8 @@ var TextField = require('components/form/TextField');
 var fields = {
   address: {label: 'Property Address', name: 'address', helpText: 'The full address of the subject property for which you are applying for a loan.'},
   propertyType: {label: 'Property Type', name: 'property_type', helpText: 'The type of building classification of the property.'},
-  loanPurpose: {label: 'Purpose of Loan', name: 'loan_purpose', helpText: 'The purpose for taking out the loan in terms of how funds will be used.'},
-  propertyPurpose: {label: 'Property Usage', name: 'property_purpose', helpText: 'The primary purpose of acquiring the subject property.'},
+  loanPurpose: {label: 'Purpose of Loan', name: 'purpose_type', helpText: 'The purpose for taking out the loan in terms of how funds will be used.'},
+  propertyPurpose: {label: 'Property Usage', name: 'usage_type', helpText: 'The primary purpose of acquiring the subject property.'},
   purchasePrice: {label: 'Purchase Price', name: 'purchase_price', helpText: 'How much are you paying for the subject property?'},
   originalPurchasePrice: {label: 'Original Purchase Price', name: 'original_purchase_price', helpText: 'How much did you pay for the subject property?'},
   originalPurchaseYear: {label: 'Purchase Year', name: 'original_purchase_year', helpText: 'The year in which you bought your home.'}
@@ -16,13 +16,7 @@ var fields = {
 
 var FormProperty = React.createClass({
   getInitialState: function() {
-    var state = {};
-
-    _.each(fields, function (field, fieldKey) {
-      state[field.name] = null;
-    });
-
-    return state;
+    return this.buildStateFromLoan(this.props.loan);
   },
 
   onChange: function(change) {
@@ -69,9 +63,9 @@ var FormProperty = React.createClass({
     ];
 
     var propertyPurposes = [
-      {value: 'residence', name: 'Primary Residence'},
-      {value: 'vacation', name: 'Vacation Home'},
-      {value: 'rental', name: 'Rental Property'}
+      {value: 'primary_residence', name: 'Primary Residence'},
+      {value: 'vacation_home', name: 'Vacation Home'},
+      {value: 'rental_property', name: 'Rental Property'}
     ];
 
     return (
@@ -142,7 +136,7 @@ var FormProperty = React.createClass({
               }
             </div>
             <div className='box text-right'>
-              <a className='btn btnSml btnPrimary' onClick={this.next}>Next</a>
+              <a className='btn btnSml btnPrimary' onClick={this.save}>Save and Continue<i className='icon iconRight mls'/></a>
             </div>
           </div>
         </div>
@@ -159,8 +153,37 @@ var FormProperty = React.createClass({
     );
   },
 
-  next: function() {
-    console.log(this.state);
+  componentWillReceiveProps: function(nextProps) {
+    this.setState(this.buildStateFromLoan(nextProps.loan));
+  },
+
+  buildStateFromLoan: function(loan) {
+    var property = loan.property
+    var state = {};
+
+    state[fields.loanPurpose.name] = loan[fields.loanPurpose.name];
+    state[fields.address.name] = property[fields.address.name];
+    state[fields.propertyType.name] = property[fields.propertyType.name];
+    state[fields.propertyPurpose.name] = property[fields.propertyPurpose.name];
+    state[fields.purchasePrice.name] = property[fields.purchasePrice.name];
+    state[fields.originalPurchasePrice.name] = property[fields.originalPurchasePrice.name];
+    state[fields.originalPurchaseYear.name] = property[fields.originalPurchaseYear.name];
+
+    return state;
+  },
+
+  save: function() {
+    var loan = {};
+    loan[fields.loanPurpose.name] = this.state[fields.loanPurpose.name];
+    loan.property_attributes = {};
+    loan.property_attributes[fields.propertyType.name] = this.state[fields.propertyType.name];
+    loan.property_attributes[fields.propertyPurpose.name] = this.state[fields.propertyPurpose.name];
+    loan.property_attributes[fields.purchasePrice.name] = this.state[fields.purchasePrice.name];
+    loan.property_attributes[fields.originalPurchasePrice.name] = this.state[fields.originalPurchasePrice.name];
+    loan.property_attributes[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
+    loan.property_attributes.address_attributes = this.state.address;
+
+    this.props.saveLoan(loan);
   }
 });
 

@@ -40,6 +40,12 @@ var ObjectHelperMixin = {
 
   setValue: function(obj, path, value) {
     var schema = obj;
+
+    if (typeof path == 'object') {
+      value = _.values(path)[0];
+      path = _.keys(path)[0];
+    }
+
     var pList = path.replace(/\[(\w+)\]/g, '.$1').split('.');
     var len = pList.length;
     for (var i = 0; i < len-1; i++) {
