@@ -8,16 +8,22 @@ class Loan < ActiveRecord::Base
   accepts_nested_attributes_for :secondary_borrower, allow_destroy: true
 
   PERMITTED_ATTRS = [
-    :purpose_type,
+    :purpose,
     property_attributes:           [:id] + Property::PERMITTED_ATTRS,
     borrower_attributes:           [:id] + Borrower::PERMITTED_ATTRS,
     secondary_borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
   ]
 
-  enum purpose_type: {
+  enum purpose: {
     purchase: 0,
     refinance: 1
   }
+
+  def property_completed
+    property.address.completed && property.property_type.present? && property.usage.present? && purpose.present? &&
+      ((purchase? && property.purchase_price.present?) ||
+        (refinance? && property.original_purchase_price.present? && property.original_purchase_year.present?))
+  end
 
   def initiate(user)
     Loan.create(user: user, property: Property.create(address: Address.create))

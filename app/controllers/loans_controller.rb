@@ -16,7 +16,7 @@ class LoansController < ApplicationController
   end
 
   def update
-    loan = Loan.find(params[:id])
+    loan = current_user.loans.find(params[:id])
     if loan.update(loan_params)
       render json: {loan: loan.reload.as_json(json_options)}
     else
@@ -36,7 +36,8 @@ class LoansController < ApplicationController
           :property => {
             :include => {:address => {}}
           }
-        }
+        },
+        :methods => [:property_completed]
       }
     end
 end

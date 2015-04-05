@@ -5,7 +5,7 @@ class Property < ActiveRecord::Base
 
   PERMITTED_ATTRS = [
     :property_type,
-    :usage_type,
+    :usage,
     :original_purchase_year,
     :original_purchase_price,
     :purchase_price,
@@ -24,7 +24,7 @@ class Property < ActiveRecord::Base
     quadruplex: 3
   }
 
-  enum usage_type: {
+  enum usage: {
     primary_residence: 0,
     vacation_home: 1,
     rental_property: 2

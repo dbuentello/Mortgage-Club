@@ -9,22 +9,18 @@ var Declarations = require('./FormDeclarations');
 
 var LoanInterface = React.createClass({
   getInitialState: function() {
+    var loan = this.props.bootstrapData.currentLoan;
+    var menu = this.buildMenu(loan);
+
     return {
-      menu: [
-        {name: 'Property', complete: false, icon: 'iconHome', Content: Property},
-        {name: 'Borrower', complete: false, icon: 'iconUser', Content: Borrower},
-        {name: 'Income', complete: false, icon: 'iconTicket', Content: Income},
-        {name: 'Assets and Liabilities', complete: false, icon: 'iconVcard', Content: AssetsAndLiabilities},
-        {name: 'Real Estates', complete: false, icon: 'iconHome', Content: RealEstates},
-        {name: 'Declarations', complete: false, icon: 'iconClipboard', Content: Declarations}
-      ],
-      active: 'Property',
-      loan: this.props.bootstrapData.currentLoan
+      menu: menu,
+      active: _.findWhere(menu, {complete: false}) || menu[0],
+      loan: loan
     };
   },
 
   render: function() {
-    var activeItem = _.findWhere(this.state.menu, {name: this.state.active});
+    var activeItem = this.state.active;
     var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} saveLoan={this.save}/>;
     return (
       <div>
@@ -34,7 +30,7 @@ var LoanInterface = React.createClass({
               <div key={i} className={'row pam bbs man ' + (item.name === activeItem.name ? 'backgroundBlue typeReversed' : 'clickable')} onClick={_.bind(this.goToItem, this, item)}>
                 <div className='col-xs-9 pan'><i className={item.icon + ' mrxs'}/><span className='h5 typeDeemphasize'>{item.name}</span></div>
                 {item.complete ?
-                  <div className='col-xs-3 pan'><i className='iconCheck'/></div>
+                  <div className='col-xs-3 pan text-right typeReversed'><i className='icon iconCheck paxs bas circle xsm backgroundGreen'/></div>
                 : null}
               </div>
             );
@@ -46,12 +42,23 @@ var LoanInterface = React.createClass({
   },
 
   goToItem: function(item) {
-    this.setState({
-      active: item.name
-    });
+    this.setState({active: item});
   },
 
-  save: function(loan) {
+  buildMenu: function(loan) {
+    var menu = [
+      {name: 'Property', complete: loan.property_completed, icon: 'iconHome', Content: Property},
+      {name: 'Borrower', complete: false, icon: 'iconUser', Content: Borrower},
+      {name: 'Income', complete: false, icon: 'iconTicket', Content: Income},
+      {name: 'Assets and Liabilities', complete: false, icon: 'iconVcard', Content: AssetsAndLiabilities},
+      {name: 'Real Estates', complete: false, icon: 'iconHome', Content: RealEstates},
+      {name: 'Declarations', complete: false, icon: 'iconClipboard', Content: Declarations}
+    ];
+
+    return menu;
+  },
+
+  save: function(loan, step) {
     $.ajax({
       url: '/loans/' + this.state.loan.id,
       method: 'PATCH',
@@ -59,10 +66,15 @@ var LoanInterface = React.createClass({
       dataType: 'json',
       data: {loan: loan},
       success: function(response) {
-        this.setState({loan: response.loan});
+        var menu = this.buildMenu(response.loan);
+        this.setState({
+          loan: response.loan,
+          menu: menu,
+          active: menu[step + 1] || menu[0]
+        });
       },
       error: function(response, status, error) {
-
+        alert(error);
       }
     });
   }

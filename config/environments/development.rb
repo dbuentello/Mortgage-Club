@@ -41,4 +41,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # For foreman logging. See: https://github.com/ddollar/foreman/wiki/Missing-Output
+  $stdout.sync = true
 end

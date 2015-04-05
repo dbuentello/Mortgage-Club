@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405012339) do
+ActiveRecord::Schema.define(version: 20150405161525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,16 +21,12 @@ ActiveRecord::Schema.define(version: 20150405012339) do
     t.string  "street_address2"
     t.string  "zip"
     t.text    "state"
+    t.text    "city"
+    t.text    "full_text"
     t.integer "property_id"
     t.integer "borrower_address_id"
     t.integer "borrower_employer_id"
-    t.text    "city"
-    t.text    "full_text"
   end
-
-  add_index "addresses", ["borrower_address_id"], name: "index_addresses_on_borrower_address_id", using: :btree
-  add_index "addresses", ["borrower_employer_id"], name: "index_addresses_on_borrower_employer_id", using: :btree
-  add_index "addresses", ["property_id"], name: "index_addresses_on_property_id", using: :btree
 
   create_table "borrower_addresses", force: :cascade do |t|
     t.integer "borrower_id"
@@ -99,7 +95,7 @@ ActiveRecord::Schema.define(version: 20150405012339) do
   end
 
   create_table "loans", force: :cascade do |t|
-    t.integer "purpose_type"
+    t.integer "purpose"
     t.integer "user_id"
   end
 
@@ -107,7 +103,7 @@ ActiveRecord::Schema.define(version: 20150405012339) do
 
   create_table "properties", force: :cascade do |t|
     t.integer "property_type"
-    t.integer "usage_type"
+    t.integer "usage"
     t.integer "original_purchase_year"
     t.decimal "original_purchase_price",    precision: 13, scale: 2
     t.decimal "purchase_price",             precision: 13, scale: 2
