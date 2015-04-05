@@ -1,7 +1,7 @@
 class LoansController < ApplicationController
   def new
-    loan = current_user.loans.first || Loan.initiate(current_user)
-    bootstrap({currentLoan: loan.as_json(json_options)})
+    @loan = current_user.loans.first || Loan.initiate(current_user)
+    bootstrap({currentLoan: @loan.as_json(json_options)})
     respond_to do |format|
       format.html { render template: 'client_app' }
     end
@@ -16,11 +16,11 @@ class LoansController < ApplicationController
   end
 
   def update
-    loan = current_user.loans.find(params[:id])
-    if loan.update(loan_params)
-      render json: {loan: loan.reload.as_json(json_options)}
+    @loan = current_user.loans.find(params[:id])
+    if @loan.update(loan_params)
+      render json: {loan: @loan.reload.as_json(json_options)}
     else
-      render json: {error: loan.errors.full_messages}, status: 500
+      render json: {error: @loan.errors.full_messages}, status: 500
     end
   end
 

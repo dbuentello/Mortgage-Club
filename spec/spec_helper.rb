@@ -16,6 +16,10 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require_relative 'support/controller_helpers'
+require 'devise'
+
 RSpec.configure do |config|
   # default config from https://github.com/DatabaseCleaner/database_cleaner
   # used to clear database before running tests
@@ -29,6 +33,15 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  # enable logging in as a user, to obtain current_user
+  config.include ControllerHelpers, type: :controller
+  Warden.test_mode!
+
+  config.after do
+    Warden.test_reset!
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

@@ -48,6 +48,12 @@ gem 'httparty'
 
 gem 'nokogiri'
 
+# file attachment management for ActiveRecord
+gem 'paperclip'
+
+# official AWS SDK for Ruby
+gem 'aws-sdk'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -44,4 +44,13 @@ Rails.application.configure do
 
   # For foreman logging. See: https://github.com/ddollar/foreman/wiki/Missing-Output
   $stdout.sync = true
+
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => 'dev-homieo',
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    }
+  }
 end

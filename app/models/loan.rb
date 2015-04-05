@@ -24,7 +24,7 @@ class Loan < ActiveRecord::Base
   end
 
   def property_completed
-    property.address.completed && property.property_type.present? && property.usage.present? && purpose.present? &&
+    property.present? && property.address.completed && property.property_type.present? && property.usage.present? && purpose.present? &&
       ((purchase? && property.purchase_price.present?) || (refinance? && property.original_purchase_price.present? && property.original_purchase_year.present?))
   end
 end

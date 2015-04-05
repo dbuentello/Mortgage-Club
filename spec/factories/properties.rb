@@ -2,8 +2,8 @@ FactoryGirl.define do
   factory :property do |f| 
     address
     f.property_type { Random.rand(4) }
-    f.usage_type { Random.rand(3) }
-    f.original_purchase_date { Faker::Date.backward(14) }
+    f.usage { Random.rand(3) }
+    f.original_purchase_year { Date.new(1900 + Random.rand(114)) }
     f.original_purchase_price { Faker::Number.number(6) }
     f.market_price { Faker::Number.number(6) }
     f.estimated_property_tax { Faker::Number.number(4) }

@@ -1,7 +1,7 @@
 FactoryGirl.define do 
   factory :loan do |f| 
     user
-    f.purpose_type { Random.rand(0..1)}
+    f.purpose { Random.rand(0..1)}
   end
 
   factory :loan_with_property, parent: :loan do |f|

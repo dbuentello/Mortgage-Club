@@ -4,7 +4,7 @@ class FixAddresses < ActiveRecord::Migration
     rename_column :addresses, :zipcode, :zip
     rename_column :addresses, :state_type, :state
     change_column :addresses, :state, :text
-    add_column :addresses, :city, :text,
+    add_column :addresses, :city, :text
     add_column :addresses, :full_text, :text
   end
 end
