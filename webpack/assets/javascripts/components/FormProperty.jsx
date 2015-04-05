@@ -162,7 +162,7 @@ var FormProperty = React.createClass({
   },
 
   buildStateFromLoan: function(loan) {
-    var property = loan.property
+    var property = loan.property;
     var state = {};
 
     state[fields.loanPurpose.name] = loan[fields.loanPurpose.name];

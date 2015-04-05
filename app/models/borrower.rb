@@ -16,12 +16,13 @@ class Borrower < ActiveRecord::Base
     :last_name,
     :middle_name,
     :suffix,
-    :date_of_birth,
-    :social_security_number,
-    :phone_number,
+    :dob,
+    :ssn,
+    :phone,
     :years_in_school,
-    :marital_status_type,
-    :ages_of_dependents,
+    :marital_status,
+    :dependent_count,
+    :dependent_ages,
     :gross_income,
     :gross_overtime,
     :gross_bonus,
@@ -31,7 +32,7 @@ class Borrower < ActiveRecord::Base
     borrower_government_monitoring_info_attributes: [:id] + BorrowerGovernmentMonitoringInfo::PERMITTED_ATTRS
   ]
 
-  enum marital_status_type: {
+  enum marital_status: {
     married: 0,
     unmarried: 1,
     separated: 2

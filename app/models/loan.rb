@@ -19,13 +19,12 @@ class Loan < ActiveRecord::Base
     refinance: 1
   }
 
-  def property_completed
-    property.address.completed && property.property_type.present? && property.usage.present? && purpose.present? &&
-      ((purchase? && property.purchase_price.present?) ||
-        (refinance? && property.original_purchase_price.present? && property.original_purchase_year.present?))
-  end
-
   def initiate(user)
     Loan.create(user: user, property: Property.create(address: Address.create))
+  end
+
+  def property_completed
+    property.address.completed && property.property_type.present? && property.usage.present? && purpose.present? &&
+      ((purchase? && property.purchase_price.present?) || (refinance? && property.original_purchase_price.present? && property.original_purchase_year.present?))
   end
 end

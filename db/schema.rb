@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405161525) do
+ActiveRecord::Schema.define(version: 20150405185118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,18 +70,19 @@ ActiveRecord::Schema.define(version: 20150405161525) do
     t.string   "last_name"
     t.string   "middle_name"
     t.string   "suffix"
-    t.datetime "date_of_birth"
-    t.binary   "social_security_number"
-    t.string   "phone_number"
+    t.datetime "dob"
+    t.binary   "ssn"
+    t.string   "phone"
     t.integer  "years_in_school"
-    t.integer  "marital_status_type"
-    t.integer  "ages_of_dependents",                              default: [], array: true
-    t.decimal  "gross_income",           precision: 13, scale: 2
-    t.decimal  "gross_overtime",         precision: 11, scale: 2
-    t.decimal  "gross_bonus",            precision: 11, scale: 2
-    t.decimal  "gross_commission",       precision: 11, scale: 2
+    t.integer  "marital_status"
+    t.integer  "dependent_ages",                            default: [], array: true
+    t.decimal  "gross_income",     precision: 13, scale: 2
+    t.decimal  "gross_overtime",   precision: 11, scale: 2
+    t.decimal  "gross_bonus",      precision: 11, scale: 2
+    t.decimal  "gross_commission", precision: 11, scale: 2
     t.integer  "loan_id"
     t.integer  "user_id"
+    t.integer  "dependent_count"
   end
 
   add_index "borrowers", ["loan_id"], name: "index_borrowers_on_loan_id", using: :btree

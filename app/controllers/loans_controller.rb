@@ -26,7 +26,6 @@ class LoansController < ApplicationController
 
   private
     def loan_params
-      puts params[:loan]
       params.require(:loan).permit(Loan::PERMITTED_ATTRS)
     end
 
@@ -35,7 +34,8 @@ class LoansController < ApplicationController
         :include => {
           :property => {
             :include => {:address => {}}
-          }
+          },
+          :borrower => {}
         },
         :methods => [:property_completed]
       }

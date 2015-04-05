@@ -20,7 +20,7 @@ var fields = {
   numberOfDependents: {label: 'Number of dependents', name: 'dependent_count', helpText: null},
   dependentAges: {label: 'Please enter the age(s) of your dependents, separated by comma', name: 'dependent_ages', helpText: null},
   currentAddress: {label: 'Address of the current property you live in', name: 'current_address', helpText: null},
-  currentOwn: {label: 'Do you own this property?', name: 'currently_own', helpText: null},
+  currentlyOwn: {label: 'Do you own this property?', name: 'currently_own', helpText: null},
   yearsInCurrentAddress: {label: 'Number of years you have lived in this address', name: 'years_in_current_address', helpText: null},
   previousAddress: {label: 'Previous Address', name: 'previous_address', helpText: null},
   previouslyOwn: {label: 'Do you own this property?', name: 'previously_own', helpText: null},
@@ -29,18 +29,7 @@ var fields = {
 
 var FormBorrower = React.createClass({
   getInitialState: function() {
-    var currentUser = this.props.bootstrapData.currentUser;
-    var state = {};
-
-    _.each(fields, function (field) {
-      state[field.name] = null;
-    });
-
-    state.first_name = currentUser.first_name;
-    state.middle_name = currentUser.middle_name;
-    state.last_name = currentUser.last_name;
-
-    return state;
+    return this.buildStateFromLoan(this.props.loan);
   },
 
   onChange: function(change) {
@@ -186,11 +175,11 @@ var FormBorrower = React.createClass({
                 onChange={this.onChange}
                 placeholder='Please enter your current address'/>
               <BooleanRadio
-                label={fields.currentOwn.label}
-                checked={this.state[fields.currentOwn.name]}
-                keyName={fields.currentOwn.name}
+                label={fields.currentlyOwn.label}
+                checked={this.state[fields.currentlyOwn.name]}
+                keyName={fields.currentlyOwn.name}
                 editable={true}
-                onFocus={this.onFocus.bind(this, fields.currentOwn)}
+                onFocus={this.onFocus.bind(this, fields.currentlyOwn)}
                 onChange={this.onChange}/>
               <TextField
                 label={fields.yearsInCurrentAddress.label}
@@ -229,7 +218,9 @@ var FormBorrower = React.createClass({
             </div>
 
             <div className='box text-right'>
-              <a className='btn btnSml btnPrimary'>Next</a>
+              <a className='btn btnSml btnPrimary' onClick={this.save} disabled={this.state.saving}>
+                {this.state.saving ? 'Saving' : 'Save and Continue'}<i className='icon iconRight mls'/>
+              </a>
             </div>
           </div>
         </div>
@@ -244,6 +235,53 @@ var FormBorrower = React.createClass({
         </div>
       </div>
     );
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    this.setState(_.extend(this.buildStateFromLoan(nextProps.loan), {
+      saving: false
+    }));
+  },
+
+  buildStateFromLoan: function(loan) {
+    var borrower = loan.borrower;
+    var state = {};
+
+    state[fields.firstName.name] = borrower[fields.firstName.name];
+    state[fields.middleName.name] = borrower[fields.middleName.name];
+    state[fields.lastName.name] = borrower[fields.lastName.name];
+    state[fields.suffix.name] = borrower[fields.suffix.name];
+    state[fields.dob.name] = borrower[fields.dob.name];
+    state[fields.ssn.name] = borrower[fields.ssn.name];
+    state[fields.phone.name] = borrower[fields.phone.name];
+    state[fields.yearsInSchool.name] = borrower[fields.yearsInSchool.name];
+    state[fields.maritalStatus.name] = borrower[fields.maritalStatus.name];
+    state[fields.numberOfDependents.name] = borrower[fields.numberOfDependents.name];
+    state[fields.dependentAges.name] = borrower[fields.dependentAges.name].join(', ');
+
+    return state;
+  },
+
+  buildLoanFromState: function() {
+    var loan = {};
+    loan.borrower_attributes = {id: this.props.loan.borrower.id};
+    loan.borrower_attributes[fields.firstName.name] = this.state[fields.firstName.name];
+    loan.borrower_attributes[fields.middleName.name] = this.state[fields.middleName.name];
+    loan.borrower_attributes[fields.lastName.name] = this.state[fields.lastName.name];
+    loan.borrower_attributes[fields.suffix.name] = this.state[fields.suffix.name];
+    loan.borrower_attributes[fields.dob.name] = this.state[fields.dob.name];
+    loan.borrower_attributes[fields.ssn.name] = this.state[fields.ssn.name];
+    loan.borrower_attributes[fields.phone.name] = this.state[fields.phone.name];
+    loan.borrower_attributes[fields.yearsInSchool.name] = this.state[fields.yearsInSchool.name];
+    loan.borrower_attributes[fields.maritalStatus.name] = this.state[fields.maritalStatus.name];
+    loan.borrower_attributes[fields.numberOfDependents.name] = this.state[fields.numberOfDependents.name];
+    loan.borrower_attributes[fields.dependentAges.name] = _.map(this.state[fields.dependentAges.name].split(','), _.trim);
+    return loan;
+  },
+
+  save: function() {
+    this.setState({saving: true});
+    this.props.saveLoan(this.buildLoanFromState(), 0);
   }
 });
 
