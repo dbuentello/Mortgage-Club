@@ -20,60 +20,235 @@
   <TransactionData>
     <PRODUCTS>
       <PRODUCT>
-        <EntityIndex>3853</EntityIndex>
-        <EntityName>BB&amp;T -</EntityName>
+        <EntityIndex>1</EntityIndex>
+        <EntityName>Citibank</EntityName>
         <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
-        <LoanAmortizationTermMonths>30</LoanAmortizationTermMonths>
-        <LoanTermMonths>30</LoanTermMonths>
+        <LoanAmortizationTermMonths>360</LoanAmortizationTermMonths>
+        <LoanTermMonths>60</LoanTermMonths>
         <LockPeriod>30</LockPeriod>
         <Margin>0.000</Margin>
         <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
         <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
         <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
         <MIRequiredForLoan>False</MIRequiredForLoan>
-        <OriginationAPR>3.62540519447813</OriginationAPR>
-        <OriginationPandI>442</OriginationPandI>
-        <OriginationTotalClosingCost>3064</OriginationTotalClosingCost>
+        <OriginationAPR>2.886</OriginationAPR>
+        <OriginationPandI>3266</OriginationPandI>
+        <OriginationTotalClosingCost>1164</OriginationTotalClosingCost>
         <Price>99.201</Price>
         <ProductCode>101</ProductCode>
         <ProductIndex>875308</ProductIndex>
-        <ProductName>Conventional  30 Yr Fixed</ProductName>
-        <Rate>3.375</Rate>
+        <ProductName>5/1 ARM, Jumbo</ProductName>
+        <Rate>2.750</Rate>
         <TotalMarginAdjustment>0</TotalMarginAdjustment>
         <TotalPriceAdjustment>0.25</TotalPriceAdjustment>
         <TotalRateAdjustment>0</TotalRateAdjustment>
         <TotalSRPAdjustment>1.7</TotalSRPAdjustment>
       </PRODUCT>
       <PRODUCT>
-        <EntityIndex>3855</EntityIndex>
-        <EntityName>Flagstar -</EntityName>
+        <EntityIndex>2</EntityIndex>
+        <EntityName>HomeStreet Bank</EntityName>
         <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
-        <LoanAmortizationTermMonths>30</LoanAmortizationTermMonths>
-        <LoanTermMonths>30</LoanTermMonths>
+        <LoanAmortizationTermMonths>360</LoanAmortizationTermMonths>
+        <LoanTermMonths>60</LoanTermMonths>
         <LockPeriod>30</LockPeriod>
         <Margin>0.000</Margin>
         <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
         <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
         <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
         <MIRequiredForLoan>False</MIRequiredForLoan>
-        <OriginationAPR>3.66850632042759</OriginationAPR>
-        <OriginationPandI>449</OriginationPandI>
-        <OriginationTotalClosingCost>2064</OriginationTotalClosingCost>
+        <OriginationAPR>3.095</OriginationAPR>
+        <OriginationPandI>3537</OriginationPandI>
+        <OriginationTotalClosingCost>474</OriginationTotalClosingCost>
         <Price>100.144</Price>
         <ProductCode>5349</ProductCode>
         <ProductIndex>1769258</ProductIndex>
-        <ProductName>Conventional  30 Yr Fixed</ProductName>
-        <Rate>3.5</Rate>
+        <ProductName>5/1 ARM, Jumbo</ProductName>
+        <Rate>3.375</Rate>
+        <TotalMarginAdjustment>0</TotalMarginAdjustment>
+        <TotalPriceAdjustment>0.275</TotalPriceAdjustment>
+        <TotalRateAdjustment>0</TotalRateAdjustment>
+        <TotalSRPAdjustment>0</TotalSRPAdjustment>
+      </PRODUCT>
+     <PRODUCT>
+        <EntityIndex>3</EntityIndex>
+        <EntityName>Citibank</EntityName>
+        <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
+        <LoanAmortizationTermMonths>360</LoanAmortizationTermMonths>
+        <LoanTermMonths>360</LoanTermMonths>
+        <LockPeriod>30</LockPeriod>
+        <Margin>0.000</Margin>
+        <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
+        <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
+        <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
+        <MIRequiredForLoan>False</MIRequiredForLoan>
+        <OriginationAPR>3.095</OriginationAPR>
+        <OriginationPandI>3648</OriginationPandI>
+        <OriginationTotalClosingCost>1164</OriginationTotalClosingCost>
+        <Price>100.144</Price>
+        <ProductCode>5349</ProductCode>
+        <ProductIndex>1769258</ProductIndex>
+        <ProductName>30 year fixed, Jumbo</ProductName>
+        <Rate>3.625</Rate>
         <TotalMarginAdjustment>0</TotalMarginAdjustment>
         <TotalPriceAdjustment>0.275</TotalPriceAdjustment>
         <TotalRateAdjustment>0</TotalRateAdjustment>
         <TotalSRPAdjustment>0</TotalSRPAdjustment>
       </PRODUCT>
       <PRODUCT>
-        <EntityIndex>3855</EntityIndex>
-        <EntityName>Flagstar -</EntityName>
+        <EntityIndex>4</EntityIndex>
+        <EntityName>Bank of America</EntityName>
         <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
         <LoanAmortizationTermMonths>30</LoanAmortizationTermMonths>
+        <LoanTermMonths>360</LoanTermMonths>
+        <LockPeriod>30</LockPeriod>
+        <Margin>0.000</Margin>
+        <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
+        <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
+        <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
+        <MIRequiredForLoan>False</MIRequiredForLoan>
+        <OriginationAPR>3.641</OriginationAPR>
+        <OriginationPandI>1,111</OriginationPandI>
+        <OriginationTotalClosingCost>3648</OriginationTotalClosingCost>
+        <Price>99.201</Price>
+        <ProductCode>101</ProductCode>
+        <ProductIndex>875308</ProductIndex>
+        <ProductName>30 year fixed, Jumbo</ProductName>
+        <Rate>3.625</Rate>
+        <TotalMarginAdjustment>0</TotalMarginAdjustment>
+        <TotalPriceAdjustment>0.25</TotalPriceAdjustment>
+        <TotalRateAdjustment>0</TotalRateAdjustment>
+        <TotalSRPAdjustment>1.7</TotalSRPAdjustment>
+      </PRODUCT>
+      <PRODUCT>
+        <EntityIndex>5</EntityIndex>
+        <EntityName>Primary Residential Mortgage</EntityName>
+        <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
+        <LoanAmortizationTermMonths>30</LoanAmortizationTermMonths>
+        <LoanTermMonths>360</LoanTermMonths>
+        <LockPeriod>30</LockPeriod>
+        <Margin>0.000</Margin>
+        <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
+        <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
+        <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
+        <MIRequiredForLoan>False</MIRequiredForLoan>
+        <OriginationAPR>3.75</OriginationAPR>
+        <OriginationPandI>3705</OriginationPandI>
+        <OriginationTotalClosingCost>1</OriginationTotalClosingCost>
+        <Price>99.201</Price>
+        <ProductCode>101</ProductCode>
+        <ProductIndex>875308</ProductIndex>
+        <ProductName>30 year fixed, Jumbo</ProductName>
+        <Rate>3.75</Rate>
+        <TotalMarginAdjustment>0</TotalMarginAdjustment>
+        <TotalPriceAdjustment>0.25</TotalPriceAdjustment>
+        <TotalRateAdjustment>0</TotalRateAdjustment>
+        <TotalSRPAdjustment>1.7</TotalSRPAdjustment>
+      </PRODUCT>
+      <PRODUCT>
+        <EntityIndex>6</EntityIndex>
+        <EntityName>HomeStreet Bank</EntityName>
+        <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
+        <LoanAmortizationTermMonths>30</LoanAmortizationTermMonths>
+        <LoanTermMonths>360</LoanTermMonths>
+        <LockPeriod>30</LockPeriod>
+        <Margin>0.000</Margin>
+        <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
+        <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
+        <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
+        <MIRequiredForLoan>False</MIRequiredForLoan>
+        <OriginationAPR>4.005</OriginationAPR>
+        <OriginationPandI>3819</OriginationPandI>
+        <OriginationTotalClosingCost>474</OriginationTotalClosingCost>
+        <Price>99.201</Price>
+        <ProductCode>101</ProductCode>
+        <ProductIndex>875308</ProductIndex>
+        <ProductName>30 year fixed, Jumbo</ProductName>
+        <Rate>4</Rate>
+        <TotalMarginAdjustment>0</TotalMarginAdjustment>
+        <TotalPriceAdjustment>0.25</TotalPriceAdjustment>
+        <TotalRateAdjustment>0</TotalRateAdjustment>
+        <TotalSRPAdjustment>1.7</TotalSRPAdjustment>
+      </PRODUCT>
+      <PRODUCT>
+        <EntityIndex>7</EntityIndex>
+        <EntityName>HSBC Bank USA</EntityName>
+        <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
+        <LoanAmortizationTermMonths>30</LoanAmortizationTermMonths>
+        <LoanTermMonths>360</LoanTermMonths>
+        <LockPeriod>30</LockPeriod>
+        <Margin>0.000</Margin>
+        <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
+        <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
+        <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
+        <MIRequiredForLoan>False</MIRequiredForLoan>
+        <OriginationAPR>3.802</OriginationAPR>
+        <OriginationPandI>3700</OriginationPandI>
+        <OriginationTotalClosingCost>704</OriginationTotalClosingCost>
+        <Price>99.201</Price>
+        <ProductCode>101</ProductCode>
+        <ProductIndex>875308</ProductIndex>
+        <ProductName>30 year fixed, Jumbo</ProductName>
+        <Rate>3.73</Rate>
+        <TotalMarginAdjustment>0</TotalMarginAdjustment>
+        <TotalPriceAdjustment>0.25</TotalPriceAdjustment>
+        <TotalRateAdjustment>0</TotalRateAdjustment>
+        <TotalSRPAdjustment>1.7</TotalSRPAdjustment>
+      </PRODUCT>
+      <PRODUCT>
+        <EntityIndex>8</EntityIndex>
+        <EntityName>HSBC Bank USA</EntityName>
+        <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
+        <LoanAmortizationTermMonths>30</LoanAmortizationTermMonths>
+        <LoanTermMonths>360</LoanTermMonths>
+        <LockPeriod>30</LockPeriod>
+        <Margin>0.000</Margin>
+        <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
+        <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
+        <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
+        <MIRequiredForLoan>False</MIRequiredForLoan>
+        <OriginationAPR>4.016</OriginationAPR>
+        <OriginationPandI>3760</OriginationPandI>
+        <OriginationTotalClosingCost>1354</OriginationTotalClosingCost>
+        <Price>99.201</Price>
+        <ProductCode>101</ProductCode>
+        <ProductIndex>875308</ProductIndex>
+        <ProductName>30 year fixed, Jumbo</ProductName>
+        <Rate>3.875</Rate>
+        <TotalMarginAdjustment>0</TotalMarginAdjustment>
+        <TotalPriceAdjustment>0.25</TotalPriceAdjustment>
+        <TotalRateAdjustment>0</TotalRateAdjustment>
+        <TotalSRPAdjustment>1.7</TotalSRPAdjustment>
+      </PRODUCT>
+     <PRODUCT>
+        <EntityIndex>9</EntityIndex>
+        <EntityName>Zions Bank</EntityName>
+        <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
+        <LoanAmortizationTermMonths>30</LoanAmortizationTermMonths>
+        <LoanTermMonths>360</LoanTermMonths>
+        <LockPeriod>30</LockPeriod>
+        <Margin>0.000</Margin>
+        <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
+        <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
+        <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
+        <MIRequiredForLoan>False</MIRequiredForLoan>
+        <OriginationAPR>3.949</OriginationAPR>
+        <OriginationPandI>3760</OriginationPandI>
+        <OriginationTotalClosingCost>1354</OriginationTotalClosingCost>
+        <Price>99.201</Price>
+        <ProductCode>101</ProductCode>
+        <ProductIndex>875308</ProductIndex>
+        <ProductName>30 year fixed, Jumbo</ProductName>
+        <Rate>3.875</Rate>
+        <TotalMarginAdjustment>0</TotalMarginAdjustment>
+        <TotalPriceAdjustment>0.25</TotalPriceAdjustment>
+        <TotalRateAdjustment>0</TotalRateAdjustment>
+        <TotalSRPAdjustment>1.7</TotalSRPAdjustment>
+      </PRODUCT> 
+      <PRODUCT>
+        <EntityIndex>10</EntityIndex>
+        <EntityName>HSBC Bank USA</EntityName>
+        <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
+        <LoanAmortizationTermMonths>360</LoanAmortizationTermMonths>
         <LoanTermMonths>30</LoanTermMonths>
         <LockPeriod>30</LockPeriod>
         <Margin>0.000</Margin>
@@ -81,19 +256,121 @@
         <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
         <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
         <MIRequiredForLoan>False</MIRequiredForLoan>
-        <OriginationAPR>3.92114210644189</OriginationAPR>
-        <OriginationPandI>463</OriginationPandI>
-        <OriginationTotalClosingCost>2064</OriginationTotalClosingCost>
-        <Price>101.089</Price>
-        <ProductCode>5301</ProductCode>
-        <ProductIndex>875659</ProductIndex>
-        <ProductName>Conventional  30 Yr Fixed</ProductName>
-        <Rate>3.75</Rate>
+        <OriginationAPR>3.036</OriginationAPR>
+        <OriginationPandI>3370</OriginationPandI>
+        <OriginationTotalClosingCost>704</OriginationTotalClosingCost>
+        <Price>99.201</Price>
+        <ProductCode>101</ProductCode>
+        <ProductIndex>875308</ProductIndex>
+        <ProductName>5/1 ARM, Jumbo</ProductName>
+        <Rate>3</Rate>
         <TotalMarginAdjustment>0</TotalMarginAdjustment>
-        <TotalPriceAdjustment>0.275</TotalPriceAdjustment>
+        <TotalPriceAdjustment>0.25</TotalPriceAdjustment>
         <TotalRateAdjustment>0</TotalRateAdjustment>
-        <TotalSRPAdjustment>0</TotalSRPAdjustment>
+        <TotalSRPAdjustment>1.7</TotalSRPAdjustment>
       </PRODUCT>
+      <PRODUCT>
+        <EntityIndex>11</EntityIndex>
+        <EntityName>Raymond James Bank</EntityName>
+        <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
+        <LoanAmortizationTermMonths>360</LoanAmortizationTermMonths>
+        <LoanTermMonths>30</LoanTermMonths>
+        <LockPeriod>30</LockPeriod>
+        <Margin>0.000</Margin>
+        <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
+        <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
+        <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
+        <MIRequiredForLoan>False</MIRequiredForLoan>
+        <OriginationAPR>3.132</OriginationAPR>
+        <OriginationPandI>3370</OriginationPandI>
+        <OriginationTotalClosingCost>1265</OriginationTotalClosingCost>
+        <Price>99.201</Price>
+        <ProductCode>101</ProductCode>
+        <ProductIndex>875308</ProductIndex>
+        <ProductName>5/1 ARM, Jumbo</ProductName>
+        <Rate>3</Rate>
+        <TotalMarginAdjustment>0</TotalMarginAdjustment>
+        <TotalPriceAdjustment>0.25</TotalPriceAdjustment>
+        <TotalRateAdjustment>0</TotalRateAdjustment>
+        <TotalSRPAdjustment>1.7</TotalSRPAdjustment>
+      </PRODUCT> 
+      <PRODUCT>
+        <EntityIndex>12</EntityIndex>
+        <EntityName>Zions Bank</EntityName>
+        <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
+        <LoanAmortizationTermMonths>360</LoanAmortizationTermMonths>
+        <LoanTermMonths>30</LoanTermMonths>
+        <LockPeriod>30</LockPeriod>
+        <Margin>0.000</Margin>
+        <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
+        <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
+        <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
+        <MIRequiredForLoan>False</MIRequiredForLoan>
+        <OriginationAPR>3.132</OriginationAPR>
+        <OriginationPandI>3370</OriginationPandI>
+        <OriginationTotalClosingCost>718</OriginationTotalClosingCost>
+        <Price>99.201</Price>
+        <ProductCode>101</ProductCode>
+        <ProductIndex>875308</ProductIndex>
+        <ProductName>5/1 ARM, Jumbo</ProductName>
+        <Rate>3</Rate>
+        <TotalMarginAdjustment>0</TotalMarginAdjustment>
+        <TotalPriceAdjustment>0.25</TotalPriceAdjustment>
+        <TotalRateAdjustment>0</TotalRateAdjustment>
+        <TotalSRPAdjustment>1.7</TotalSRPAdjustment>
+      </PRODUCT>
+      <PRODUCT>
+        <EntityIndex>13</EntityIndex>
+        <EntityName>HSBC Bank USA</EntityName>
+        <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
+        <LoanAmortizationTermMonths>360</LoanAmortizationTermMonths>
+        <LoanTermMonths>84</LoanTermMonths>
+        <LockPeriod>30</LockPeriod>
+        <Margin>0.000</Margin>
+        <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
+        <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
+        <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
+        <MIRequiredForLoan>False</MIRequiredForLoan>
+        <OriginationAPR>3.172</OriginationAPR>
+        <OriginationPandI>3490</OriginationPandI>
+        <OriginationTotalClosingCost>704</OriginationTotalClosingCost>
+        <Price>99.201</Price>
+        <ProductCode>101</ProductCode>
+        <ProductIndex>875308</ProductIndex>
+        <ProductName>7/1 ARM, Jumbo</ProductName>
+        <Rate>3</Rate>
+        <TotalMarginAdjustment>0</TotalMarginAdjustment>
+        <TotalPriceAdjustment>0.25</TotalPriceAdjustment>
+        <TotalRateAdjustment>0</TotalRateAdjustment>
+        <TotalSRPAdjustment>1.7</TotalSRPAdjustment>
+      </PRODUCT>
+      <PRODUCT>
+        <EntityIndex>14</EntityIndex>
+        <EntityName>Raymond James Bank</EntityName>
+        <FHAUpfrontPremiumAmount>0</FHAUpfrontPremiumAmount>
+        <LoanAmortizationTermMonths>360</LoanAmortizationTermMonths>
+        <LoanTermMonths>84</LoanTermMonths>
+        <LockPeriod>30</LockPeriod>
+        <Margin>0.000</Margin>
+        <MIAnnualPremiumAmount>0</MIAnnualPremiumAmount>
+        <MIMonthlyPremiumAmount>0</MIMonthlyPremiumAmount>
+        <MIMonthlyPremiumPercent>0.0000</MIMonthlyPremiumPercent>
+        <MIRequiredForLoan>False</MIRequiredForLoan>
+        <OriginationAPR>3.314</OriginationAPR>
+        <OriginationPandI>3490</OriginationPandI>
+        <OriginationTotalClosingCost>1265</OriginationTotalClosingCost>
+        <Price>99.201</Price>
+        <ProductCode>101</ProductCode>
+        <ProductIndex>875308</ProductIndex>
+        <ProductName>7/1 ARM, Jumbo</ProductName>
+        <Rate>3.25</Rate>
+        <TotalMarginAdjustment>0</TotalMarginAdjustment>
+        <TotalPriceAdjustment>0.25</TotalPriceAdjustment>
+        <TotalRateAdjustment>0</TotalRateAdjustment>
+        <TotalSRPAdjustment>1.7</TotalSRPAdjustment>
+      </PRODUCT>
+      
+      
     </PRODUCTS>
   </TransactionData>
 </Result>
