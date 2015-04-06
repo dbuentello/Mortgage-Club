@@ -2,6 +2,7 @@ class Borrower < ActiveRecord::Base
   belongs_to :user, inverse_of: :borrower, foreign_key: 'user_id'
   belongs_to :loan, inverse_of: :secondary_borrower, foreign_key: 'loan_id'
   has_one   :borrower_government_monitoring_info, inverse_of: :borrower, dependent: :destroy
+  has_one   :credit_report, inverse_of: :borrower, dependent: :destroy
   has_many  :borrower_addresses, inverse_of: :borrower, dependent: :destroy
   has_many  :borrower_employers, inverse_of: :borrower, dependent: :destroy
   has_many  :bank_statements, inverse_of: :borrower, dependent: :destroy
@@ -15,6 +16,7 @@ class Borrower < ActiveRecord::Base
   accepts_nested_attributes_for :brokerage_statements, allow_destroy: true
   accepts_nested_attributes_for :paystubs, allow_destroy: true
   accepts_nested_attributes_for :w2s, allow_destroy: true
+  accepts_nested_attributes_for :credit_report, allow_destroy: true
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -41,7 +43,8 @@ class Borrower < ActiveRecord::Base
     bank_statements_attributes:                     [:id] + Document::PERMITTED_ATTRS,
     brokerage_statements_attributes:                [:id] + Document::PERMITTED_ATTRS,
     paystubs_attributes:                            [:id] + Document::PERMITTED_ATTRS,
-    w2s_attributes:                                 [:id] + Document::PERMITTED_ATTRS
+    w2s_attributes:                                 [:id] + Document::PERMITTED_ATTRS,
+    credit_report_attributes:                       [:id] + CreditReport::PERMITTED_ATTRS
   ]
 
   enum marital_status: {
