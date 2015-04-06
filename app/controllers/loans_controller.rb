@@ -35,7 +35,9 @@ class LoansController < ApplicationController
           :property => {
             :include => {:address => {}}
           },
-          :borrower => {}
+          :borrower => {
+            :methods => [:current_address, :previous_addresses]
+          }
         },
         :methods => [:property_completed]
       }

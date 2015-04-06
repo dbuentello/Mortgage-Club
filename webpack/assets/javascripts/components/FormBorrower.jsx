@@ -152,7 +152,7 @@ var FormBorrower = React.createClass({
               <TextField
                 label={fields.numberOfDependents.label}
                 keyName={fields.numberOfDependents.name}
-                value={this.state.numberOfDependents}
+                value={this.state[fields.numberOfDependents.name]}
                 editable={true}
                 onFocus={this.onFocus.bind(this, fields.numberOfDependents)}
                 onChange={this.onChange}/>
@@ -258,7 +258,9 @@ var FormBorrower = React.createClass({
     state[fields.maritalStatus.name] = borrower[fields.maritalStatus.name];
     state[fields.numberOfDependents.name] = borrower[fields.numberOfDependents.name];
     state[fields.dependentAges.name] = borrower[fields.dependentAges.name].join(', ');
-
+    state[fields.currentAddress.name] = borrower[fields.currentAddress.name].address;
+    state[fields.currentlyOwn.name] = !borrower[fields.currentAddress.name].is_rental;
+    state[fields.yearsInCurrentAddress.name] = borrower[fields.currentAddress.name].years_at_address;
     return state;
   },
 
@@ -276,12 +278,18 @@ var FormBorrower = React.createClass({
     loan.borrower_attributes[fields.maritalStatus.name] = this.state[fields.maritalStatus.name];
     loan.borrower_attributes[fields.numberOfDependents.name] = this.state[fields.numberOfDependents.name];
     loan.borrower_attributes[fields.dependentAges.name] = _.map(this.state[fields.dependentAges.name].split(','), _.trim);
+    loan.borrower_attributes.borrower_addresses_attributes = [{
+      id: this.props.loan.borrower.current_address.id,
+      is_rental: !this.state[fields.currentlyOwn.name],
+      years_at_address: this.state[fields.yearsInCurrentAddress.name],
+      address_attributes: this.state[fields.currentAddress.name]
+    }];
     return loan;
   },
 
   save: function() {
     this.setState({saving: true});
-    this.props.saveLoan(this.buildLoanFromState(), 0);
+    this.props.saveLoan(this.buildLoanFromState(), 1);
   }
 });
 

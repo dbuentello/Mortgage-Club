@@ -19,7 +19,7 @@ class Loan < ActiveRecord::Base
     refinance: 1
   }
 
-  def initiate(user)
+  def self.initiate(user)
     Loan.create(user: user, property: Property.create(address: Address.create))
   end
 

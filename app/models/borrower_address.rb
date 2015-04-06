@@ -10,4 +10,13 @@ class BorrowerAddress < ActiveRecord::Base
     :is_current,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
+
+  def as_json(opts={})
+    options = {
+      :include => { :address => {} }
+    }
+
+    options.merge!(opts)
+    super(options)
+  end
 end

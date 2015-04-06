@@ -30,7 +30,7 @@ class Borrower < ActiveRecord::Base
     :years_in_school,
     :marital_status,
     :dependent_count,
-    :dependent_ages,
+    {dependent_ages: []},
     :gross_income,
     :gross_overtime,
     :gross_bonus,
@@ -49,4 +49,12 @@ class Borrower < ActiveRecord::Base
     unmarried: 1,
     separated: 2
   }
+
+  def current_address
+    borrower_addresses.find_by(is_current: true)
+  end
+
+  def previous_addresses
+    borrower_addresses.where(is_current: false)
+  end
 end
