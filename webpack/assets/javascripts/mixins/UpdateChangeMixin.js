@@ -26,6 +26,10 @@ var UpdateChangeMixin = {
         value = parseFloat(value);
       }
 
+      if (this.props.liveFormat && _.isFunction(this.props.format)) {
+        value = this.props.format(value);
+      }
+
       change[this.props.keyName] = value;
       this.props.onChange(change);
     }

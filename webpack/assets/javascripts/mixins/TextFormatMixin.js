@@ -1,6 +1,11 @@
 var _ = require('lodash');
 var moment = require('moment');
 
+function splice(value, index, insert) {
+  // Splices 'insert' into the 'index' position on 'value' if value has at least 'index' items
+  return value.slice(0, index) + (value.length > index ? insert +  value.slice(index) : '');
+}
+
 var TextFormatMixin = {
   pluralize: function(n, singular, plural) {
     if (n === 1) {
@@ -25,34 +30,59 @@ var TextFormatMixin = {
     return n;
   },
 
+  currencyToNumber: function(val) {
+    if (!val) {
+      return val;
+    }
+
+    return val.replace('$', '').replace(/\,/g, '');
+  },
+
   formatCurrency: function(cashflow, unit) {
-    var negative = (cashflow < 0 ? '-' : ''),
-        money = Math.abs(cashflow),
-        prefix;
+    var negative, money, prefix;
+
+    if (!cashflow) {
+      return cashflow;
+    }
+
+    cashflow = cashflow.replace(/[^\d.-]/g, '');
+    negative = (cashflow < 0 ? '-' : '');
+    money = Math.abs(cashflow);
+    prefix;
 
     if (unit) {
       prefix = negative + unit;
     } else {
-      prefix = negative;
+      prefix = negative + '$';
     }
 
-    return prefix + this.commafy(Math.round(money * 100) / 100, 2);
+    return prefix + this.commafy(money);
   },
 
-  isoToUsDate: function(dateString) {
-    if (!dateString) {
-      return dateString;
+  /**
+   * converts UTC time in ISO format to a date string in regular US format.
+   * @param  {String} time   e.g. '2015-03-24T03:04:43.994Z'
+   * @return {String}        e.g. '03/23/2015'
+   */
+  isoToUsDate: function(time) {
+    if (!time) {
+      return time;
     }
 
-    return moment(dateString, 'YYYY-MM-DD').format('MM/DD/YYYY');
+    return moment(time, [moment.ISO_8601, 'YYYY-MM-DD']).format('MM/DD/YYYY');
   },
 
+  /**
+   * converts a date string in US format to UTC time in ISO 8601 format
+   * @param  {String} dateString e.g. '03/24/2015'
+   * @return {String}            e.g. '2015-03-24T07:00:00+00:00'
+   */
   usToIsoDate: function(dateString) {
     if (!dateString) {
       return dateString;
     }
 
-    return moment(dateString, 'MM/DD/YYYY').format('YYYY-MM-DD');
+    return moment(dateString, 'MM/DD/YYYY').utc().format();
   },
 
   formatTime: function(timeString) {
@@ -63,6 +93,18 @@ var TextFormatMixin = {
     return str.split(/[ _]/).map(function(word) {
       return word.charAt(0).toUpperCase() + word.slice(1);
     }).join(' ');
+  },
+
+  formatSSN: function(val) {
+    if (!val) { return; }
+    val = val.replace(/\D/g, '');
+    return splice(splice(val, 3, '-'), 6, '-').slice(0, 11);
+  },
+
+  formatPhoneNumber: function(s) {
+    var s2 = (''+s).replace(/\D/g, '');
+    var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+    return (!m) ? s : '(' + m[1] + ') ' + m[2] + '-' + m[3];
   }
 };
 

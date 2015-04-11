@@ -1,5 +1,7 @@
 var _ = require('lodash');
 var React = require('react/addons');
+var TextFormatMixin = require('mixins/TextFormatMixin');
+
 var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
 var SelectField = require('components/form/SelectField');
@@ -28,6 +30,7 @@ var fields = {
 };
 
 var FormBorrower = React.createClass({
+  mixins: [TextFormatMixin],
   getInitialState: function() {
     return this.buildStateFromLoan(this.props.loan);
   },
@@ -122,6 +125,8 @@ var FormBorrower = React.createClass({
                     keyName={fields.ssn.name}
                     value={this.state[fields.ssn.name]}
                     editable={true}
+                    format={this.formatSSN}
+                    liveFormat={true}
                     onFocus={this.onFocus.bind(this, fields.ssn)}
                     onChange={this.onChange}/>
                 </div>
@@ -132,6 +137,8 @@ var FormBorrower = React.createClass({
                 keyName={fields.phone.name}
                 value={this.state[fields.phone.name]}
                 editable={true}
+                liveFormat={true}
+                format={this.formatPhoneNumber}
                 onFocus={this.onFocus.bind(this, fields.phone)}
                 onChange={this.onChange}/>
               <TextField

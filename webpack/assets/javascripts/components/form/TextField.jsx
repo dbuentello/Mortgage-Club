@@ -32,9 +32,16 @@ var TextFieldView = React.createClass({
     // numbers will be commafied;
     // currency will be rounded, fixed at the decimals, commafied
     // and prepended with @currency if provided
-    format: React.PropTypes.oneOf(['number', 'currency']),
+    // alternatively, supply a function to process the formatting
+    format: React.PropTypes.oneOfType([
+      React.PropTypes.oneOf(['number', 'currency']),
+      React.PropTypes.func
+    ]),
     currency: React.PropTypes.string,
     decimals: React.PropTypes.number,
+
+    // set this to true if you want to format the value while the user types
+    liveFormat: React.PropTypes.bool,
 
     // @prefix and @suffix will be prepended and appended to the static text,
     // and will not affect the text in the input field.
@@ -51,7 +58,10 @@ var TextFieldView = React.createClass({
     emptyStaticText: React.PropTypes.string,
 
     // set this to true if you don't want to truncate the static text
-    noTruncation: React.PropTypes.bool
+    noTruncation: React.PropTypes.bool,
+
+    // set this to false if you want the field to have a red outline
+    valid: React.PropTypes.bool
   },
 
   getDefaultProps: function() {
@@ -60,12 +70,13 @@ var TextFieldView = React.createClass({
       prefix: '',
       suffix: '',
       noTruncation: false,
-      tooltip: {}
+      tooltip: {},
+      valid: true
     };
   },
 
   render: function() {
-    var classes = this.getFieldClasses(this.props.editable, this.props.isLarge),
+    var classes = this.getFieldClasses(this.props.editable, this.props.isLarge, this.props.valid),
         prefix = this.props.prefix,
         suffix = this.props.suffix,
         displayText = this.props.value,
@@ -77,6 +88,8 @@ var TextFieldView = React.createClass({
       displayText = this.commafy(this.props.value, this.props.decimals);
     } else if (this.props.format == 'currency') {
       displayText = this.formatCurrency(this.props.value, this.props.currency);
+    } else if (_.isFunction(this.props.format)) {
+      displayText = this.props.format(this.props.value);
     }
 
     if (!displayText && this.props.emptyStaticText) {
@@ -88,7 +101,7 @@ var TextFieldView = React.createClass({
     return (
       <div>
         <label className="col-xs-12 pan">
-          <span>{this.props.label}</span>
+          <span className='h7 typeBold'>{this.props.label}</span>
           {hasTooltip ?
             <HelpTooltip position={tooltip.position} text={tooltip.text} />
           : null}

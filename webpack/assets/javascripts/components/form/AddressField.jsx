@@ -2,6 +2,7 @@ var React = require('react/addons');
 var _ = require('lodash');
 
 var TextFocusMixin = require('mixins/TextFocusMixin');
+var TextField = require('./TextField');
 
 function getFormattedAddress(addressable) {
   if (!addressable) {
@@ -20,10 +21,45 @@ function getFormattedAddress(addressable) {
 }
 
 /**
- * # AddressAutocompleteMixin
- * @requires google maps api
+ * AddressField is a text field that has google autocomplete interface built-in.
  */
-var AddressAutocompleteMixin = {
+var AddressField = React.createClass({
+  mixins: [TextFocusMixin],
+
+  propTypes: {
+    editable: React.PropTypes.bool, // determines if component should show the input box or the static text
+    label: React.PropTypes.string, // field label
+    hidden: React.PropTypes.bool, // the entire component will be hidden if this is true
+
+    // if onChange is provided, when user changes the address, the method will be invoked with
+    // an object `change` passed in as the single argument. The `change` object is in the format
+    // {[@keyName]: [address]} where @keyName is from the props and `address` is the updated address object.
+    // The provided @address object will be extended with the following properties:
+    // street_address, street_address2, city, state, zip, country, full_text
+    onChange: React.PropTypes.func,
+    keyName: React.PropTypes.string,
+    // if @address object is provided, the value of `full_text` will be used as
+    // the component's default initial value.
+    address: React.PropTypes.objectOf(React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ])),
+
+    placeholder: React.PropTypes.string
+  },
+
+  getDefaultProps: function() {
+    return {
+      placeholder: 'Select from suggestion or enter full address'
+    };
+  },
+
+  getInitialState: function() {
+    return {
+      showFullForm: false
+    };
+  },
+
   listeners: [],
 
   componentFields: {
@@ -71,20 +107,34 @@ var AddressAutocompleteMixin = {
     _.each(this.listeners, function (listener) {
       google.maps.event.removeListener(listener);
     });
+    document.body.removeEventListener('click', this.handleClickAway);
   },
 
   handleChange: function(event) {
-    var change = {};
+    var change = {},
+        text = event.target.value,
+        address;
+
     if (typeof this.props.onChange == 'function') {
-      change[this.props.keyName] = {
+      address = {
         street_address: null,
         street_address2: null,
         city: null,
         state: null,
         zip: null,
         country: null,
-        full_text: event.target.value
+        full_text: text
       };
+
+      if (!text) {
+        change[this.props.keyName] = null;
+      } else {
+        if (this.props.address && this.props.address.id) {
+          address.id = address.id;
+        }
+
+        change[this.props.keyName] = address;
+      }
 
       this.props.onChange(change);
     }
@@ -128,55 +178,110 @@ var AddressAutocompleteMixin = {
     if (typeof this.props.onChange == 'function') {
       this.props.onChange(change);
     }
-  }
+  },
 
-};
+  handleFormChange: function(fieldChange) {
+    var change = {};
 
-/**
- * AddressField is a text field that has google autocomplete interface built-in.
- */
-var AddressField = React.createClass({
-  mixins: [AddressAutocompleteMixin, TextFocusMixin],
-
-  propTypes: {
-    editable: React.PropTypes.bool, // determines if component should show the input box or the static text
-    label: React.PropTypes.string, // field label
-    hidden: React.PropTypes.bool, // the entire component will be hidden if this is true
-
-    // if onChange is provided, when user changes the address, the method will be invoked with
-    // an object `change` passed in as the single argument. The `change` object is in the format
-    // {[@keyName]: [address]} where @keyName is from the props and `address` is the updated address object.
-    // The provided @address object will be extended with the following properties:
-    // street_address, street_address2, city, state, zip, country, full_text
-    onChange: React.PropTypes.func,
-    keyName: React.PropTypes.string,
-    // if @address object is provided, the value of `autocomplete_text` will be used as
-    // the component's default initial value.
-    address: React.PropTypes.objectOf(React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
-    ])),
+    if (typeof this.props.onChange == 'function') {
+      change[this.props.keyName] = _.extend(this.props.address, fieldChange);
+      this.props.onChange(change);
+    }
   },
 
   render: function() {
-    var address = this.props.address,
-        val = address ? getFormattedAddress(address) : '';
+    var address = this.props.address || {},
+        val = getFormattedAddress(address) || '';
 
     return (
       <div className={this.props.hidden? 'hidden' : null}>
-        <label className="col-xs-12 pan" style={{'display': this.props.editable ? null : 'none'}}>
-          <span className={this.props.label ? 'mrs' : null}>{this.props.label}</span>
-          <input className="form-control input-sm" type="text" value={val} onFocus={this.handleFocus} onChange={this.handleChange} placeholder={this.props.placeholder}/>
-        </label>
-        <div style={{'display': this.props.editable ? 'none' : null}}>
-          <label className="col-xs-12 pan">
-            <span className={this.props.label ? 'mrs' : null}>{this.props.label}</span>
+        <div className='clearfix'>
+          <label className="col-xs-12 pan" style={{'display': this.props.editable ? null : 'none'}}>
+            <span className={this.props.label ? 'h7 typeBold mrs' : null}>{this.props.label}</span>
+            <div className='input-group pan'>
+              <input className="form-control input-sm" type="text" value={val} onFocus={this.handleFocus} placeholder={this.props.placeholder} onBlur={this.handleBlur} onChange={this.handleChange}/>
+              <span className='input-group-addon clickable' onClick={this.handleIconClick}><i className='iconLocation'/></span>
+            </div>
           </label>
-          <p className="form-control-static col-xs-12 pan">{val}</p>
+          <div style={{'display': this.props.editable ? 'none' : null}}>
+            <label className="col-xs-12 pan">
+              <span className={this.props.label ? 'h7 typeBold mrs' : null}>{this.props.label}</span>
+            </label>
+            <p className="form-control-static col-xs-12 pan">{val}</p>
+          </div>
         </div>
+        {this.props.editable && this.state.showFullForm ?
+          <div className='dropdown dropdownHover'>
+            <div ref='detailForm' className='dropdownBox box boxBasic backgroundLowlight col-xs-12 h7 mvn pas'>
+              <span className='typeLowlight typeCaps'>Street Address</span>
+              <TextField value={address.street_address} keyName='street_address' editable={true}
+                placeholder='' onChange={this.handleFormChange}/>
+              <span className='typeLowlight typeCaps'>City</span>
+              <TextField value={address.city} keyName='city' editable={true}
+                placeholder='Required' valid={!!address.city} onChange={this.handleFormChange}/>
+              <span className='typeLowlight typeCaps'>State</span>
+              <TextField value={address.state} keyName='state' editable={true}
+                placeholder='' onChange={this.handleFormChange}/>
+              <span className='typeLowlight typeCaps mbxs'>Zip</span>
+              <TextField value={address.zip} keyName='zip' editable={true}
+                placeholder='' onChange={this.handleFormChange}/>
+              <span className='typeLowlight typeCaps'>Country</span>
+              <TextField value={address.country} keyName='country' editable={true}
+                placeholder='Required' valid={!!address.country} onChange={this.handleFormChange}/>
+            </div>
+          </div>
+        : null}
       </div>
     );
+  },
+
+  handleBlur: function() {
+    if (!this.props.address) {
+      return;
+    }
+    setTimeout(_.bind(this.verifyCompletion, this), 200);
+  },
+
+  verifyCompletion: function() {
+    var address = this.props.address;
+    if (!address.country || !address.city) {
+      if (!address.street_address) {
+        address.street_address = address.full_text;
+      }
+
+      this.toggleDetailForm(true);
+    }
+  },
+
+  handleIconClick: function(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.toggleDetailForm();
+  },
+
+  toggleDetailForm: function(show) {
+    show = (typeof show == 'undefined') ? !this.state.showFullForm : show;
+    this.setState({showFullForm: show}, function() {
+      if (show) {
+        $(this.refs.detailForm.getDOMNode()).find('input').first().focus();
+        $(this.refs.detailForm.getDOMNode()).on('click', this.stopPropagation);
+        document.body.addEventListener('click', this.handleClickAway);
+      } else {
+        document.body.removeEventListener('click', this.handleClickAway);
+      }
+    });
+  },
+
+  handleClickAway: function() {
+    this.toggleDetailForm(false);
+  },
+
+  stopPropagation: function(event) {
+    event.stopPropagation();
   }
 });
+
 
 module.exports = AddressField;

@@ -40,14 +40,18 @@ var SelectField = React.createClass({
     onChange: React.PropTypes.func,
     keyName: React.PropTypes.string,
 
-    emptyStaticText: React.PropTypes.string
+    emptyStaticText: React.PropTypes.string,
+
+    // set this to false if you want the field to have a red outline
+    valid: React.PropTypes.bool
   },
 
   getDefaultProps: function() {
     return {
       allowBlank: false,
       placeholder: null,
-      tooltip: {}
+      tooltip: {},
+      valid: true
     };
   },
 
@@ -57,7 +61,7 @@ var SelectField = React.createClass({
 
     if (this.props.allowBlank) {
       // make sure we don't mutate the options array that get passed in
-      options = _.union([{value: null, name: 'Please Select'}], options);
+      options = _.union([{value: null, name: null}], options);
     }
 
     selected = _.findWhere(options, {value: this.props.value});
@@ -78,22 +82,22 @@ var SelectField = React.createClass({
     var displayText = this.state.name,
         tooltip = this.props.tooltip,
         hasTooltip = tooltip.hasOwnProperty('text') && tooltip.hasOwnProperty('position'),
-        classes = this.getFieldClasses(this.props.editable, this.props.isLarge);
+        classes = this.getFieldClasses(this.props.editable, this.props.isLarge, this.props.valid);
 
     classes.editableFieldClasses += ' placeholder';
 
-    if (this.props.value === null && this.props.emptyStaticText) {
+    if (this.state.name === null && this.props.emptyStaticText) {
       displayText = this.props.emptyStaticText;
     }
 
     return (
       <div>
         <label className="col-xs-12 pan">
-          <span>{this.props.label}</span>
+          <span className='h7 typeBold'>{this.props.label}</span>
           {hasTooltip ?
             <HelpTooltip position={tooltip.position} text={tooltip.text} />
           : null}
-          <select className={classes.editableFieldClasses} name={this.props.name} onChange={this.handleChange} onFocus={this.props.onFocus} value={this.props.value || ''}>
+          <select className={classes.editableFieldClasses} name={this.props.name} onChange={this.handleChange} value={this.props.value || ''}>
             {(this.props.placeholder) ? <option value="" disabled={true}>{this.props.placeholder}</option> : null}
             {this.state.options.map(function (option, i) {
               return (
@@ -113,7 +117,7 @@ var SelectField = React.createClass({
 
     if (nextProps.allowBlank) {
       // make sure we don't mutate the options array that get passed in
-      options = _.union([{value: null, name: 'Please Select'}], options);
+      options = _.union([{value: null, name: null}], options);
     }
 
     selected = _.findWhere(options, {value: nextProps.value});

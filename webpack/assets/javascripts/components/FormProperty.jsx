@@ -1,5 +1,7 @@
 var _ = require('lodash');
 var React = require('react/addons');
+var TextFormatMixin = require('mixins/TextFormatMixin');
+
 var AddressField = require('components/form/AddressField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
@@ -15,6 +17,8 @@ var fields = {
 };
 
 var FormProperty = React.createClass({
+  mixins: [TextFormatMixin],
+
   getInitialState: function() {
     return this.buildStateFromLoan(this.props.loan);
   },
@@ -114,6 +118,8 @@ var FormProperty = React.createClass({
                     keyName={fields.purchasePrice.name}
                     value={this.state[fields.purchasePrice.name]}
                     editable={true}
+                    liveFormat={true}
+                    format={this.formatCurrency}
                     onFocus={this.onFocus.bind(this, fields.purchasePrice)}
                     onChange={this.onChange}/>
                 : <div>
@@ -122,6 +128,8 @@ var FormProperty = React.createClass({
                       keyName={fields.originalPurchasePrice.name}
                       value={this.state[fields.originalPurchasePrice.name]}
                       editable={true}
+                      liveFormat={true}
+                      format={this.formatCurrency}
                       onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
                       onChange={this.onChange}/>
                     <TextField
@@ -169,8 +177,8 @@ var FormProperty = React.createClass({
     state[fields.address.name] = property[fields.address.name];
     state[fields.propertyType.name] = property[fields.propertyType.name];
     state[fields.propertyPurpose.name] = property[fields.propertyPurpose.name];
-    state[fields.purchasePrice.name] = property[fields.purchasePrice.name];
-    state[fields.originalPurchasePrice.name] = property[fields.originalPurchasePrice.name];
+    state[fields.purchasePrice.name] = this.formatCurrency(property[fields.purchasePrice.name]);
+    state[fields.originalPurchasePrice.name] = this.formatCurrency(property[fields.originalPurchasePrice.name]);
     state[fields.originalPurchaseYear.name] = property[fields.originalPurchaseYear.name];
 
     return state;
@@ -182,8 +190,8 @@ var FormProperty = React.createClass({
     loan.property_attributes = {id: this.props.loan.property.id};
     loan.property_attributes[fields.propertyType.name] = this.state[fields.propertyType.name];
     loan.property_attributes[fields.propertyPurpose.name] = this.state[fields.propertyPurpose.name];
-    loan.property_attributes[fields.purchasePrice.name] = this.state[fields.purchasePrice.name];
-    loan.property_attributes[fields.originalPurchasePrice.name] = this.state[fields.originalPurchasePrice.name];
+    loan.property_attributes[fields.purchasePrice.name] = this.currencyToNumber(this.state[fields.purchasePrice.name]);
+    loan.property_attributes[fields.originalPurchasePrice.name] = this.currencyToNumber(this.state[fields.originalPurchasePrice.name]);
     loan.property_attributes[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
     loan.property_attributes.address_attributes = this.state.address;
     return loan;
