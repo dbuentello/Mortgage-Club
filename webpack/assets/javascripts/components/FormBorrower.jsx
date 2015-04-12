@@ -254,6 +254,8 @@ var FormBorrower = React.createClass({
     var borrower = loan.borrower;
     var state = {};
 
+    borrower.current_address = borrower.current_address || {};
+
     state[fields.firstName.name] = borrower[fields.firstName.name];
     state[fields.middleName.name] = borrower[fields.middleName.name];
     state[fields.lastName.name] = borrower[fields.lastName.name];
@@ -289,7 +291,8 @@ var FormBorrower = React.createClass({
       id: this.props.loan.borrower.current_address.id,
       is_rental: !this.state[fields.currentlyOwn.name],
       years_at_address: this.state[fields.yearsInCurrentAddress.name],
-      address_attributes: this.state[fields.currentAddress.name]
+      address_attributes: this.state[fields.currentAddress.name],
+      is_current: true
     }];
     return loan;
   },

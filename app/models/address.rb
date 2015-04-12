@@ -1,7 +1,7 @@
 class Address < ActiveRecord::Base
   belongs_to :property, inverse_of: :address, foreign_key: 'property_id'
   belongs_to :borrower_address, inverse_of: :address, foreign_key: 'borrower_address_id'
-  belongs_to :borrower_employer, inverse_of: :address, foreign_key: 'borrower_employer_id'
+  belongs_to :employment, inverse_of: :address, foreign_key: 'employment_id'
   belongs_to :liability, inverse_of: :address, foreign_key: 'liability_id'
 
   PERMITTED_ATTRS = [
@@ -12,7 +12,7 @@ class Address < ActiveRecord::Base
     :state,
     :property_id,
     :borrower_address_id,
-    :borrower_employer_id,
+    :employment_id,
     :full_text
   ]
 

@@ -122,7 +122,6 @@ var AddressField = React.createClass({
         city: null,
         state: null,
         zip: null,
-        country: null,
         full_text: text
       };
 
@@ -171,7 +170,6 @@ var AddressField = React.createClass({
       city: address.locality,
       state: address.administrative_area_level_1,
       zip: address.postal_code,
-      country: address.country,
       full_text: el.value
     });
 
@@ -212,22 +210,19 @@ var AddressField = React.createClass({
         </div>
         {this.props.editable && this.state.showFullForm ?
           <div className='dropdown dropdownHover'>
-            <div ref='detailForm' className='dropdownBox box boxBasic backgroundLowlight col-xs-12 h7 mvn pas'>
+            <div ref='detailForm' className='dropdownBox dropdownArrowLeft box boxBasic backgroundLowlight col-xs-12 h7 mbn mtxs pas'>
               <span className='typeLowlight typeCaps'>Street Address</span>
               <TextField value={address.street_address} keyName='street_address' editable={true}
-                placeholder='' onChange={this.handleFormChange}/>
+                placeholder='Required' valid={!!address.street_address} onChange={this.handleFormChange}/>
               <span className='typeLowlight typeCaps'>City</span>
               <TextField value={address.city} keyName='city' editable={true}
                 placeholder='Required' valid={!!address.city} onChange={this.handleFormChange}/>
               <span className='typeLowlight typeCaps'>State</span>
               <TextField value={address.state} keyName='state' editable={true}
-                placeholder='' onChange={this.handleFormChange}/>
+                placeholder='Required' valid={!!address.state} onChange={this.handleFormChange}/>
               <span className='typeLowlight typeCaps mbxs'>Zip</span>
               <TextField value={address.zip} keyName='zip' editable={true}
-                placeholder='' onChange={this.handleFormChange}/>
-              <span className='typeLowlight typeCaps'>Country</span>
-              <TextField value={address.country} keyName='country' editable={true}
-                placeholder='Required' valid={!!address.country} onChange={this.handleFormChange}/>
+                placeholder='Required' valid={!!address.zip} onChange={this.handleFormChange}/>
             </div>
           </div>
         : null}
@@ -244,7 +239,7 @@ var AddressField = React.createClass({
 
   verifyCompletion: function() {
     var address = this.props.address;
-    if (!address.country || !address.city) {
+    if (!address.state || !address.zip || !address.city || !address.street_address) {
       if (!address.street_address) {
         address.street_address = address.full_text;
       }

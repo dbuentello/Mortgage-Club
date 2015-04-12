@@ -36,10 +36,10 @@ class LoansController < ApplicationController
             :include => {:address => {}}
           },
           :borrower => {
-            :methods => [:current_address, :previous_addresses]
+            :methods => [:current_address, :previous_addresses, :current_employment, :previous_employments]
           }
         },
-        :methods => [:property_completed]
+        :methods => [:property_completed, :borrower_completed, :income_completed]
       }
     end
 end

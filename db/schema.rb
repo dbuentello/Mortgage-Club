@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406014608) do
+ActiveRecord::Schema.define(version: 20150412031224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,18 +21,15 @@ ActiveRecord::Schema.define(version: 20150406014608) do
     t.string  "street_address2"
     t.string  "zip"
     t.text    "state"
-    t.integer "property_id"
-    t.integer "borrower_address_id"
-    t.integer "borrower_employer_id"
     t.text    "city"
     t.text    "full_text"
+    t.integer "property_id"
+    t.integer "borrower_address_id"
+    t.integer "employment_id"
     t.integer "liability_id"
   end
 
-  add_index "addresses", ["borrower_address_id"], name: "index_addresses_on_borrower_address_id", using: :btree
-  add_index "addresses", ["borrower_employer_id"], name: "index_addresses_on_borrower_employer_id", using: :btree
   add_index "addresses", ["liability_id"], name: "index_addresses_on_liability_id", using: :btree
-  add_index "addresses", ["property_id"], name: "index_addresses_on_property_id", using: :btree
 
   create_table "borrower_addresses", force: :cascade do |t|
     t.integer "borrower_id"
@@ -42,19 +39,6 @@ ActiveRecord::Schema.define(version: 20150406014608) do
   end
 
   add_index "borrower_addresses", ["borrower_id"], name: "index_borrower_addresses_on_borrower_id", using: :btree
-
-  create_table "borrower_employers", force: :cascade do |t|
-    t.integer "borrower_id"
-    t.string  "employer_name"
-    t.string  "employer_contact_name"
-    t.string  "employer_contact_number"
-    t.string  "job_title"
-    t.integer "months_at_employer"
-    t.integer "years_at_employer"
-    t.boolean "is_current"
-  end
-
-  add_index "borrower_employers", ["borrower_id"], name: "index_borrower_employers_on_borrower_id", using: :btree
 
   create_table "borrower_government_monitoring_infos", force: :cascade do |t|
     t.integer "borrower_id"
@@ -120,12 +104,24 @@ ActiveRecord::Schema.define(version: 20150406014608) do
 
   add_index "documents", ["borrower_id"], name: "index_documents_on_borrower_id", using: :btree
 
+  create_table "employments", force: :cascade do |t|
+    t.integer "borrower_id"
+    t.string  "employer_name"
+    t.string  "employer_contact_name"
+    t.string  "employer_contact_number"
+    t.string  "job_title"
+    t.integer "duration"
+    t.boolean "is_current"
+  end
+
+  add_index "employments", ["borrower_id"], name: "index_employments_on_borrower_id", using: :btree
+
   create_table "liabilities", force: :cascade do |t|
     t.integer "credit_report_id"
     t.string  "name"
     t.integer "payment"
     t.integer "months"
-    t.integer "balance"
+    t.decimal "balance",          precision: 11, scale: 2
   end
 
   add_index "liabilities", ["credit_report_id"], name: "index_liabilities_on_credit_report_id", using: :btree
@@ -156,20 +152,8 @@ ActiveRecord::Schema.define(version: 20150406014608) do
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
