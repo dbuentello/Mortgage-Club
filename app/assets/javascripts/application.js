@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require lodash
-//= require jquer
+//= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require vendor/bootstrap_datepicker
