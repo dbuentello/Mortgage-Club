@@ -3,7 +3,10 @@
 var path = require('path');
 
 module.exports = {
-  entry: [ 'ClientApp' ],
+  entry: {
+    ClientApp: 'ClientApp',
+    PublicApp: 'PublicApp'
+  },
   resolve: {
     root: [path.join(__dirname, 'scripts'),
            path.join(__dirname, 'assets/javascripts'),

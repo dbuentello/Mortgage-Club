@@ -6,9 +6,8 @@
 
 var config = require('./webpack.common.config');
 
-config.entry.push('./scripts/rails_only'); // rails specific assets
 config.output = {
-  filename: 'webpack-bundle.js',
+  filename: 'bundle_[name].js',
   path: '../app/assets/javascripts/build'
 };
 

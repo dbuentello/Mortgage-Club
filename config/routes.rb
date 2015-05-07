@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   end
 
   root 'pages#index'
+  get 'take_home_test'    => 'pages#take_home_test',    as: :take_home_test
 end

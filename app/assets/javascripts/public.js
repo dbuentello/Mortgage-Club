@@ -11,11 +11,11 @@
 // about supported directives.
 //
 //= require lodash
-//= require jquer
+//= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require vendor/bootstrap_datepicker
 
 // Important to import jquery_ujs before rails-bundle as that patches jquery xhr to use the authenticity token!
 
-//= require build/bundle_ClientApp
+//= require build/bundle_PublicApp
