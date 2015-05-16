@@ -1,14 +1,15 @@
 class LoansController < ApplicationController
   def new
     @loan = current_user.loans.first || Loan.initiate(current_user)
+    show
+  end
+
+  def show
+    @loan = @loan || Loan.find(params[:id])
     bootstrap({currentLoan: @loan.as_json(json_options)})
     respond_to do |format|
       format.html { render template: 'client_app' }
     end
-  end
-
-  def show
-    @loan = Loan.find(params[:id])
   end
 
   def create

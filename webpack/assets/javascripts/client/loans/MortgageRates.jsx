@@ -36,7 +36,6 @@ var MortgageRates = React.createClass({
       );
     }
 
-    console.log(this.state.rates[0]);
     return (
       <div className='content container'>
         <div className='row mtl'>
