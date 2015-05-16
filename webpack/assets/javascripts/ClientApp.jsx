@@ -7,8 +7,9 @@ var RouteHandler = Router.RouteHandler;
 var AppStarter = require('./tools/AppStarter');
 var $ = require('jquery');
 
-var LoanInterface = require('./components/LoanInterface');
-var MortgageRates = require('./components/MortgageRates');
+var LoanInterface = require('./client/loans/edit/LoanInterface');
+var MortgageRates = require('./client/loans/MortgageRates');
+var LoanActivityInterface = require('./client/loans/show/LoanActivityInterface');
 
 window.ClientApp = React.createClass({
   contextTypes: {
@@ -52,9 +53,10 @@ window.ClientApp = React.createClass({
 
 var routes = (
   <Route name='app' path='/' handler={ClientApp}>
-    <Route name='loans/new' handler={LoanInterface}/>
+    <Route name='new_loan' path='loans/new' handler={LoanInterface}/>
+    <Route name='loan' path='loans/:id' handler={LoanActivityInterface}/>
     <Route name='rates' handler={MortgageRates}/>
-    <DefaultRoute handler={LoanInterface}/>
+    <DefaultRoute handler={LoanActivityInterface}/>
   </Route>
 );
 

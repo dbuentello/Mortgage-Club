@@ -24,8 +24,12 @@ var FormProperty = React.createClass({
   },
 
   onChange: function(change) {
-    if (change.address && change.address.city) {
-      this.searchProperty(change.address);
+    var address = change.address;
+    if (address) {
+      this.setState({property: null});
+      if (address.city && address.zip && address.state) {
+        this.searchProperty(address);
+      }
     }
 
     this.setState(change);
@@ -194,6 +198,7 @@ var FormProperty = React.createClass({
     loan.property_attributes[fields.originalPurchasePrice.name] = this.currencyToNumber(this.state[fields.originalPurchasePrice.name]);
     loan.property_attributes[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
     loan.property_attributes.address_attributes = this.state.address;
+    loan.property_attributes.zpid = this.state.property ? this.state.property.zpid : null;
     return loan;
   },
 
