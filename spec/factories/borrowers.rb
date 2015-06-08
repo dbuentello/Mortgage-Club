@@ -1,5 +1,5 @@
-FactoryGirl.define do 
-  factory :borrower, aliases: [:secondary_borrower] do |f| 
+FactoryGirl.define do
+  factory :borrower, aliases: [:secondary_borrower] do |f|
     borrower_government_monitoring_info
     credit_report
     f.first_name { Faker::Name.first_name }
@@ -21,7 +21,6 @@ FactoryGirl.define do
 
     after(:create) do |borrower, evaluator|
       create_list(:borrower_address, Random.rand(1..2), borrower: borrower)
-      create_list(:borrower_employer, Random.rand(1..2), borrower: borrower)
       create_list(:bank_statement, Random.rand(0..2), borrower: borrower)
       create_list(:brokerage_statement, Random.rand(0..2), borrower: borrower)
       create_list(:paystub, Random.rand(0..4), borrower: borrower)
