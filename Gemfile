@@ -52,7 +52,7 @@ gem 'nokogiri'
 gem 'paperclip'
 
 # official AWS SDK for Ruby
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

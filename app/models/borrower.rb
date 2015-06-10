@@ -1,14 +1,19 @@
 class Borrower < ActiveRecord::Base
   belongs_to :user, inverse_of: :borrower, foreign_key: 'user_id'
   belongs_to :loan, inverse_of: :secondary_borrower, foreign_key: 'loan_id'
+
   has_one   :borrower_government_monitoring_info, inverse_of: :borrower, dependent: :destroy
   has_one   :credit_report, inverse_of: :borrower, dependent: :destroy
+
   has_many  :borrower_addresses, inverse_of: :borrower, dependent: :destroy
   has_many  :employments, inverse_of: :borrower, dependent: :destroy
+
+  # update documents
   has_many  :bank_statements, inverse_of: :borrower, dependent: :destroy
   has_many  :brokerage_statements, inverse_of: :borrower, dependent: :destroy
   has_many  :paystubs, inverse_of: :borrower, dependent: :destroy
   has_many  :w2s, inverse_of: :borrower, dependent: :destroy
+
   accepts_nested_attributes_for :borrower_addresses, allow_destroy: true
   accepts_nested_attributes_for :employments, allow_destroy: true
   accepts_nested_attributes_for :borrower_government_monitoring_info, allow_destroy: true
