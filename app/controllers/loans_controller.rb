@@ -26,6 +26,7 @@ class LoansController < ApplicationController
   end
 
   private
+
     def loan_params
       params.require(:loan).permit(Loan::PERMITTED_ATTRS)
     end

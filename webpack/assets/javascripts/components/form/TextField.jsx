@@ -10,7 +10,7 @@ var TextFocusMixin = require('mixins/TextFocusMixin');
  * TextField renders a form field that can be converted between editable and read-only mode.
  * It also provides some predefined formatting helper for the read-only texts.
  */
-var TextFieldView = React.createClass({
+var TextField = React.createClass({
   mixins: [StaticFieldMixin, UpdateChangeMixin, TextFocusMixin, TextFormatMixin],
 
   propTypes: {
@@ -114,4 +114,4 @@ var TextFieldView = React.createClass({
   }
 });
 
-module.exports = TextFieldView;
+module.exports = TextField;
