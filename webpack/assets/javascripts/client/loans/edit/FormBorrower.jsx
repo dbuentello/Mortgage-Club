@@ -9,6 +9,7 @@ var TextField = require('components/form/TextField');
 var BooleanRadio = require('components/form/BooleanRadio');
 
 var fields = {
+  firstBankStatement: {label: 'W2 - Most recent tax year', name:  'first_bank_statement', helpText: 'Document uploader.'},
   applyingAs: {label: 'I am applying', name: 'apply_as', helpText: 'I am a helpful text.'},
   firstName: {label: 'First Name', name: 'first_name', helpText: null},
   middleName: {label: 'Middle Name', name: 'middle_name', helpText: null},
@@ -60,6 +61,13 @@ var FormBorrower = React.createClass({
         <div className='formContent'>
           <div className='pal'>
             <div className='box mtn'>
+              <div className='row'>
+                <div className='col-xs-12'>
+                  <TextField
+                  label={fields.firstBankStatement.label}
+                  editable={true}/>
+                </div>
+              </div>
               <SelectField
                 label={fields.applyingAs.label}
                 keyName={fields.applyingAs.name}

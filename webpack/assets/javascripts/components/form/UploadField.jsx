@@ -1,5 +1,3 @@
-var AuthStore = require('../../stores/AuthStore');
-
 var UploadField = React.createClass({
   propTypes: {
     onUploadStart: React.PropTypes.func, // function called when the upload begins
@@ -148,7 +146,6 @@ var UploadField = React.createClass({
             </div>
           </div>
 
-          <input name='authenticity_token' type='hidden' value={AuthStore.getToken()}/>
         </span>
         {this.props.shouldHide ? secondaryButton : null}
       </form>
