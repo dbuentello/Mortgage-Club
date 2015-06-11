@@ -74,6 +74,10 @@ class Borrower < ActiveRecord::Base
     borrower_addresses.where(is_current: false)
   end
 
+  def first_bank_statement
+    bank_statements.first.attachment.original_filename
+  end
+
   def completed?
     first_name.present? && last_name.present? && dob.present? && ssn.present? && phone.present? &&
       years_in_school.present? && marital_status.present? && current_address.present? &&
