@@ -17,6 +17,7 @@ var Dropzone = React.createClass({
   propTypes: {
     onDrop: React.PropTypes.func.isRequired,
     style: React.PropTypes.object,
+    field: React.PropTypes.object, // variables corresponding to this upload box
     supportClick: React.PropTypes.bool,
     accept: React.PropTypes.string,
     multiple: React.PropTypes.bool
@@ -58,8 +59,14 @@ var Dropzone = React.createClass({
 
     if (this.props.onDrop) {
       files = Array.prototype.slice.call(files, 0, maxFiles);
-      this.props.onDrop(files, e);
+      this.props.onDrop(files, this.props.field);
     }
+
+    // tooltip chosen box
+    $(this.getDOMNode()).tooltip({
+      title: files[0].name
+    });
+
   },
 
   onClick: function () {
@@ -80,7 +87,7 @@ var Dropzone = React.createClass({
     };
 
     var style = this.props.style || {
-      borderStyle: this.state.isDragActive ? "solid" : "dashed"
+      borderStyle: this.state.isDragActive ? "solid" : "dotted"
     };
 
     return (

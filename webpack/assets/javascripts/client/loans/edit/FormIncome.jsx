@@ -43,15 +43,12 @@ var FormIncome = React.createClass({
     this.setState({focusedField: field});
   },
 
-  onDrop: function (files) {
-    console.log('Received files: ', files);
-
+  onDrop: function (files, field) {
+    // change state to display name and store the file
     var change = {};
-    change[fields.firstBankStatement.name] = files[0].name;
-    change[fields.firstBankStatement.value] = files[0];
+    change[field.name] = files[0].name;
+    change[field.value] = files[0];
     this.setState(change);
-
-    console.log(' change: ', change, '. Just for test');
   },
 
   render: function() {
@@ -79,7 +76,7 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} style={dropzoneStyle}>
+                    <Dropzone onDrop={this.onDrop} field={fields.firstW2}>
                       <div className='tip'>{this.state[fields.firstW2.name]}</div>
                     </Dropzone>
                   </div>
@@ -90,7 +87,7 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} style={dropzoneStyle}>
+                    <Dropzone onDrop={this.onDrop} field={fields.secondW2}>
                       <div className='tip'>{this.state[fields.secondW2.name]}</div>
                     </Dropzone>
                   </div>
@@ -101,7 +98,7 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} style={dropzoneStyle}>
+                    <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}>
                       <div className='tip'>{this.state[fields.firstPaystub.name]}</div>
                     </Dropzone>
                   </div>
@@ -112,7 +109,7 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} style={dropzoneStyle}>
+                    <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}>
                       <div className='tip'>{this.state[fields.secondPaystub.name]}</div>
                     </Dropzone>
                   </div>
@@ -123,7 +120,7 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} style={dropzoneStyle}>
+                    <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}>
                       <div className='tip'>{this.state[fields.firstBankStatement.name]}</div>
                     </Dropzone>
                   </div>
@@ -134,7 +131,7 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} style={dropzoneStyle}>
+                    <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}>
                       <div className='tip'>{this.state[fields.secondBankStatement.name]}</div>
                     </Dropzone>
                   </div>
