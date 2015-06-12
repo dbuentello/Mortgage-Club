@@ -75,7 +75,11 @@ class Borrower < ActiveRecord::Base
   end
 
   def first_bank_statement
-    bank_statements.first.attachment.original_filename
+    if bank_statements.first
+      bank_statements.first.attachment.original_filename
+    else
+      nil
+    end
   end
 
   def completed?

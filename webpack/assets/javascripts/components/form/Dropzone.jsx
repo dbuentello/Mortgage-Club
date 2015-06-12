@@ -23,6 +23,14 @@ var Dropzone = React.createClass({
     multiple: React.PropTypes.bool
   },
 
+  componentDidMount: function() {
+    // TODO: identify if this dropzone already have initial file
+    var hasValue = false;
+    if ( hasValue ) {
+      $(this.getDOMNode()).css({color: "#000", width: 350});
+    }
+  },
+
   onDragLeave: function(e) {
     this.setState({
       isDragActive: false
@@ -67,6 +75,10 @@ var Dropzone = React.createClass({
       title: files[0].name
     });
 
+    // highltight chosen box
+    $(this.getDOMNode()).animate({
+      width: 350
+    }).css({backgroundColor: "#6B98F2", color: "#000"});
   },
 
   onClick: function () {
