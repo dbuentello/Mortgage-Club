@@ -4,7 +4,7 @@ var Dropzone = React.createClass({
   getDefaultProps: function() {
     return {
       supportClick: true,
-      multiple: true
+      multiple: false
     };
   },
 

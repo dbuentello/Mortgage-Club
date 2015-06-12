@@ -10,12 +10,12 @@ var TextField = require('components/form/TextField');
 var Dropzone = require('components/form/Dropzone');
 
 var fields = {
-  firstW2: {label: 'W2 - Most recent tax year', name:  'first_paystub', placeholder: 'drap file here or browse', helpText: 'Document uploader.'},
-  secondW2: {label: 'W2 - Previous tax year', name:  'first_paystub', placeholder: 'drap file here or browse', helpText: 'Document uploader.'},
-  firstPaystub: {label: 'Paystub - Most recent month', name:  'first_paystub', placeholder: 'drap file here or browse', helpText: 'Document uploader.'},
-  secondPaystub: {label: 'Paystub - Previous month', name:  'first_paystub', placeholder: 'drap file here or browse', helpText: 'Document uploader.'},
-  firstBankStatement: {label: 'Bank statement - Most recent month', name:  'first_bank_statement', placeholder: 'drap file here or browse', helpText: 'Document uploader.'},
-  secondBankStatement: {label: 'Bank statement - Previous month', name:  'second_bank_statement', placeholder: 'drap file here or browse', helpText: 'Document uploader.'},
+  firstW2: {label: 'W2 - Most recent tax year', name:  'first_w2', placeholder: 'drap file here or browse', helpText: 'Document uploader.', value: 'first_w2_value'},
+  secondW2: {label: 'W2 - Previous tax year', name:  'second_w2', placeholder: 'drap file here or browse', helpText: 'Document uploader.', value: 'second_w2_value'},
+  firstPaystub: {label: 'Paystub - Most recent month', name:  'first_paystub', placeholder: 'drap file here or browse', helpText: 'Document uploader.', value: 'first_paystub_value'},
+  secondPaystub: {label: 'Paystub - Previous month', name:  'second_paystub', placeholder: 'drap file here or browse', helpText: 'Document uploader.', value: 'second_paystub_value'},
+  firstBankStatement: {label: 'Bank statement - Most recent month', name:  'first_bank_statement', placeholder: 'drap file here or browse', helpText: 'Document uploader.', value: 'first_bank_statement_value'},
+  secondBankStatement: {label: 'Bank statement - Previous month', name:  'second_bank_statement', placeholder: 'drap file here or browse', helpText: 'Document uploader.', value: 'second_bank_statement_value'},
 
   employerName: {label: 'Name of current employer', name: 'employer_name', helpText: 'I am a helpful text.'},
   employerAddress: {label: 'Address of current employer', name: 'address', helpText: null},
@@ -44,15 +44,14 @@ var FormIncome = React.createClass({
   },
 
   onDrop: function (files) {
-    console.log('Received files: ', files[0].size);
-    var valueName = fields.firstBankStatement.name;
+    console.log('Received files: ', files);
 
-    console.log('valueName: ', valueName);
-    this.setState({
-      first_bank_statement: files[0].name
-    });
+    var change = {};
+    change[fields.firstBankStatement.name] = files[0].name;
+    change[fields.firstBankStatement.value] = files[0];
+    this.setState(change);
 
-    console.log('this.state[fields.firstBankStatement.name] ', this.state);
+    console.log(' change: ', change, '. Just for test');
   },
 
   render: function() {
