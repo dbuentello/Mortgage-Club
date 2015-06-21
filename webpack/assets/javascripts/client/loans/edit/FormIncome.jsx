@@ -294,12 +294,12 @@ var FormIncome = React.createClass({
     var state = {};
     var currentEmployment = borrower.current_employment || {};
 
-    state[fields.firstW2.name] = fields.firstW2.placeholder;
-    state[fields.secondW2.name] = fields.secondW2.placeholder;
-    state[fields.firstPaystub.name] = fields.firstPaystub.placeholder;
-    state[fields.secondPaystub.name] = fields.secondPaystub.placeholder;
-    state[fields.firstBankStatement.name] = fields.firstBankStatement.placeholder;
-    state[fields.secondBankStatement.name] = fields.secondBankStatement.placeholder;
+    state[fields.firstW2.name] = this.props.loan.borrower.first_w2.attachment_file_name || fields.firstW2.placeholder;
+    state[fields.secondW2.name] = this.props.loan.borrower.second_w2.attachment_file_name || fields.secondW2.placeholder;
+    state[fields.firstPaystub.name] = this.props.loan.borrower.first_paystub.attachment_file_name || fields.firstPaystub.placeholder;
+    state[fields.secondPaystub.name] = this.props.loan.borrower.second_paystub.attachment_file_name || fields.secondPaystub.placeholder;
+    state[fields.firstBankStatement.name] = this.props.loan.borrower.first_bank_statement.attachment_file_name || fields.firstBankStatement.placeholder;
+    state[fields.secondBankStatement.name] = this.props.loan.borrower.second_bank_statement.attachment_file_name || fields.secondBankStatement.placeholder;
 
     state[fields.employerName.name] = currentEmployment[fields.employerName.name];
     state[fields.employerAddress.name] = currentEmployment[fields.employerAddress.name];
