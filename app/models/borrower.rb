@@ -9,18 +9,18 @@ class Borrower < ActiveRecord::Base
   has_many  :employments, inverse_of: :borrower, dependent: :destroy
 
   # update documents
-  has_many  :bank_statements, inverse_of: :borrower, dependent: :destroy
-  has_many  :brokerage_statements, inverse_of: :borrower, dependent: :destroy
-  has_many  :paystubs, inverse_of: :borrower, dependent: :destroy
-  has_many  :w2s, inverse_of: :borrower, dependent: :destroy
+  has_one  :first_bank_statement, class_name: 'BankStatement', dependent: :destroy
+  has_one  :second_bank_statement, class_name: 'BankStatement', dependent: :destroy
+  has_one  :first_brokerage_statement, class_name: 'BrokerageStatement', dependent: :destroy
+  has_one  :second_brokerage_statement, class_name: 'BrokerageStatement', dependent: :destroy
+  has_one  :first_paystub, class_name: 'Paystub', dependent: :destroy
+  has_one  :second_paystub, class_name: 'Paystub', dependent: :destroy
+  has_one  :first_w2, class_name: 'W2', dependent: :destroy
+  has_one  :second_w2, class_name: 'W2', dependent: :destroy
 
   accepts_nested_attributes_for :borrower_addresses, allow_destroy: true
   accepts_nested_attributes_for :employments, allow_destroy: true
   accepts_nested_attributes_for :borrower_government_monitoring_info, allow_destroy: true
-  accepts_nested_attributes_for :bank_statements, allow_destroy: true
-  accepts_nested_attributes_for :brokerage_statements, allow_destroy: true
-  accepts_nested_attributes_for :paystubs, allow_destroy: true
-  accepts_nested_attributes_for :w2s, allow_destroy: true
   accepts_nested_attributes_for :credit_report, allow_destroy: true
 
   validates :first_name, presence: true
@@ -45,10 +45,6 @@ class Borrower < ActiveRecord::Base
     borrower_addresses_attributes:                  [:id] + BorrowerAddress::PERMITTED_ATTRS,
     employments_attributes:                         [:id] + Employment::PERMITTED_ATTRS,
     borrower_government_monitoring_info_attributes: [:id] + BorrowerGovernmentMonitoringInfo::PERMITTED_ATTRS,
-    bank_statements_attributes:                     [:id] + Document::PERMITTED_ATTRS,
-    brokerage_statements_attributes:                [:id] + Document::PERMITTED_ATTRS,
-    paystubs_attributes:                            [:id] + Document::PERMITTED_ATTRS,
-    w2s_attributes:                                 [:id] + Document::PERMITTED_ATTRS,
     credit_report_attributes:                       [:id] + CreditReport::PERMITTED_ATTRS
   ]
 
@@ -72,14 +68,6 @@ class Borrower < ActiveRecord::Base
 
   def previous_employments
     borrower_addresses.where(is_current: false)
-  end
-
-  def first_bank_statement
-    if bank_statements.first
-      bank_statements.first.attachment.original_filename
-    else
-      nil
-    end
   end
 
   def completed?

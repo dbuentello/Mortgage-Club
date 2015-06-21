@@ -9,8 +9,6 @@ class Document < ActiveRecord::Base
     'image/x-png',
     'image/tiff',
     'image/x-tiff',
-    'image/tiff',
-    'image/x-tiff',
     'image/vnd.adobe.photoshop',
     'application/pdf',
     'application/octet-stream',
@@ -46,7 +44,7 @@ class Document < ActiveRecord::Base
                         content_type: Document::ALLOWED_MIME_TYPES,
                         message: ' allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images'
                       },
-                      size: { less_than_or_equal_to: 50.megabytes, message: ' must be less than or equal to 50MB' }
+                      size: { less_than_or_equal_to: 1.megabytes, message: ' must be less than or equal to 1MB' }
 
    PERMITTED_ATTRS = [
      :type,

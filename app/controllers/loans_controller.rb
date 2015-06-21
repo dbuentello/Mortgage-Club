@@ -39,8 +39,7 @@ class LoansController < ApplicationController
           },
           :borrower => {
             :methods => [
-              :current_address, :previous_addresses, :current_employment, :previous_employments,
-              :first_bank_statement
+              :current_address, :previous_addresses, :current_employment, :previous_employments
             ]
           }
         },
