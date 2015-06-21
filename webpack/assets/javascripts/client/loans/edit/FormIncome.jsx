@@ -31,8 +31,8 @@ var fields = {
 
 var FormIncome = React.createClass({
   mixins: [TextFormatMixin],
+
   getInitialState: function() {
-    console.log("i'm here again");
     return this.buildStateFromLoan(this.props.loan);
   },
 
@@ -76,7 +76,8 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} borrowerID={this.props.loan.borrower.id} field={fields.firstW2}>
+                    <Dropzone onDrop={this.onDrop} field={fields.firstW2}
+                      uploadUrl={this.state.w2_url}>
                       <div className='tip'>{this.state[fields.firstW2.name]}</div>
                     </Dropzone>
                   </div>
@@ -87,7 +88,8 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} borrowerID={this.props.loan.borrower.id} field={fields.secondW2}>
+                    <Dropzone onDrop={this.onDrop} field={fields.secondW2}
+                      uploadUrl={this.state.w2_url}>
                       <div className='tip'>{this.state[fields.secondW2.name]}</div>
                     </Dropzone>
                   </div>
@@ -98,7 +100,8 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} borrowerID={this.props.loan.borrower.id} field={fields.firstPaystub}>
+                    <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}
+                      uploadUrl={this.state.paystub_url}>
                       <div className='tip'>{this.state[fields.firstPaystub.name]}</div>
                     </Dropzone>
                   </div>
@@ -109,7 +112,8 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} borrowerID={this.props.loan.borrower.id} field={fields.secondPaystub}>
+                    <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}
+                      uploadUrl={this.state.paystub_url}>
                       <div className='tip'>{this.state[fields.secondPaystub.name]}</div>
                     </Dropzone>
                   </div>
@@ -120,7 +124,8 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} borrowerID={this.props.loan.borrower.id} field={fields.firstBankStatement}>
+                    <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}
+                      uploadUrl={this.state.bank_statement_url}>
                       <div className='tip'>{this.state[fields.firstBankStatement.name]}</div>
                     </Dropzone>
                   </div>
@@ -131,7 +136,8 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} borrowerID={this.props.loan.borrower.id} field={fields.secondBankStatement}>
+                    <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}
+                      uploadUrl={this.state.bank_statement_url}>
                       <div className='tip'>{this.state[fields.secondBankStatement.name]}</div>
                     </Dropzone>
                   </div>
@@ -306,6 +312,10 @@ var FormIncome = React.createClass({
     state[fields.grossOvertime.name] = this.formatCurrency(borrower[fields.grossOvertime.name]);
     state[fields.grossBonus.name] = this.formatCurrency(borrower[fields.grossBonus.name]);
     state[fields.grossCommission.name] = this.formatCurrency(borrower[fields.grossCommission.name]);
+
+    state.w2_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/w2s/';
+    state.paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/paystubs/';
+    state.bank_statement_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/bank_statements/';
 
     return state;
   },

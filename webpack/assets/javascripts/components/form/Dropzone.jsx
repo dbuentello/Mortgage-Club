@@ -67,7 +67,7 @@ var Dropzone = React.createClass({
     //   files[i].preview = URL.createObjectURL(files[i]);
     // }
 
-    if (true) {
+    if (this.props.uploadUrl) {
       var formData = new FormData();
       formData.append('file', files[0]);
       formData.append('order', 1);
@@ -75,7 +75,7 @@ var Dropzone = React.createClass({
       alert("start file ajax");
 
       $.ajax({
-        url: '/borrower_uploader/' + this.props.borrowerID + '/bank_statements/',
+        url: this.props.uploadUrl,
         method: 'POST',
         enctype: 'multipart/form-data',
         data: formData,
