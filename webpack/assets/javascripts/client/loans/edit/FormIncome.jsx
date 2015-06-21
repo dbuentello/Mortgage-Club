@@ -32,6 +32,7 @@ var fields = {
 var FormIncome = React.createClass({
   mixins: [TextFormatMixin],
   getInitialState: function() {
+    console.log("i'm here again");
     return this.buildStateFromLoan(this.props.loan);
   },
 
@@ -49,6 +50,7 @@ var FormIncome = React.createClass({
     change[field.name] = files[0].name;
     change[field.value] = files[0];
     this.setState(change);
+    this.props
   },
 
   render: function() {
@@ -63,8 +65,6 @@ var FormIncome = React.createClass({
       {name: 'Separated', value: 'separated'}
     ];
 
-    var dropzoneStyle = {};
-
     return (
       <div>
         <div className='formContent'>
@@ -76,7 +76,7 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.firstW2}>
+                    <Dropzone onDrop={this.onDrop} borrowerID={this.props.loan.borrower.id} field={fields.firstW2}>
                       <div className='tip'>{this.state[fields.firstW2.name]}</div>
                     </Dropzone>
                   </div>
@@ -87,7 +87,7 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.secondW2}>
+                    <Dropzone onDrop={this.onDrop} borrowerID={this.props.loan.borrower.id} field={fields.secondW2}>
                       <div className='tip'>{this.state[fields.secondW2.name]}</div>
                     </Dropzone>
                   </div>
@@ -98,7 +98,7 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}>
+                    <Dropzone onDrop={this.onDrop} borrowerID={this.props.loan.borrower.id} field={fields.firstPaystub}>
                       <div className='tip'>{this.state[fields.firstPaystub.name]}</div>
                     </Dropzone>
                   </div>
@@ -109,7 +109,7 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}>
+                    <Dropzone onDrop={this.onDrop} borrowerID={this.props.loan.borrower.id} field={fields.secondPaystub}>
                       <div className='tip'>{this.state[fields.secondPaystub.name]}</div>
                     </Dropzone>
                   </div>
@@ -120,7 +120,7 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}>
+                    <Dropzone onDrop={this.onDrop} borrowerID={this.props.loan.borrower.id} field={fields.firstBankStatement}>
                       <div className='tip'>{this.state[fields.firstBankStatement.name]}</div>
                     </Dropzone>
                   </div>
@@ -131,7 +131,7 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}>
+                    <Dropzone onDrop={this.onDrop} borrowerID={this.props.loan.borrower.id} field={fields.secondBankStatement}>
                       <div className='tip'>{this.state[fields.secondBankStatement.name]}</div>
                     </Dropzone>
                   </div>
@@ -306,6 +306,7 @@ var FormIncome = React.createClass({
     state[fields.grossOvertime.name] = this.formatCurrency(borrower[fields.grossOvertime.name]);
     state[fields.grossBonus.name] = this.formatCurrency(borrower[fields.grossBonus.name]);
     state[fields.grossCommission.name] = this.formatCurrency(borrower[fields.grossCommission.name]);
+
     return state;
   },
 
@@ -329,6 +330,31 @@ var FormIncome = React.createClass({
       employer_contact_number: this.state[fields.employerContactNumber.name],
       is_current: true
     }];
+
+    loan.borrower_attributes.bank_statements_attributes = [
+      {
+        attachment: this.state[fields.firstW2.value].val()
+      },
+      {
+        attachment: this.state[fields.secondW2.value].val()
+      },
+      {
+        attachment: this.state[fields.firstPaystub.value].val()
+      },
+      {
+        attachment: this.state[fields.secondPaystub.value].val()
+      },
+      {
+        attachment: this.state[fields.firstBankStatement.value].val()
+      },
+      {
+        attachment: this.state[fields.secondBankStatement.value].val()
+      }
+    ];
+
+    console.log(loan);
+    console.log(loan.borrower_attributes.bank_statements_attributes);
+
     return loan;
   },
 

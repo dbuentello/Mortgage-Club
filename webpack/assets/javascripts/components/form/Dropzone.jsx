@@ -20,7 +20,9 @@ var Dropzone = React.createClass({
     field: React.PropTypes.object, // variables corresponding to this upload box
     supportClick: React.PropTypes.bool,
     accept: React.PropTypes.string,
-    multiple: React.PropTypes.bool
+    multiple: React.PropTypes.bool,
+    uploadUrl: React.PropTypes.string,
+    borrowerID: React.PropTypes.string
   },
 
   componentDidMount: function() {
@@ -61,8 +63,32 @@ var Dropzone = React.createClass({
     }
 
     var maxFiles = (this.props.multiple) ? files.length : 1;
-    for (var i = 0; i < maxFiles; i++) {
-      files[i].preview = URL.createObjectURL(files[i]);
+    // for (var i = 0; i < maxFiles; i++) {
+    //   files[i].preview = URL.createObjectURL(files[i]);
+    // }
+
+    if (true) {
+      var formData = new FormData();
+      formData.append('file', files[0]);
+      formData.append('order', 1);
+
+      alert("start file ajax");
+
+      $.ajax({
+        url: '/borrower_uploader/' + this.props.borrowerID + '/bank_statements/',
+        method: 'POST',
+        enctype: 'multipart/form-data',
+        data: formData,
+        success: function(response) {
+          console.log(response.message);
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        error: function(response, status, error) {
+          alert(error);
+        }
+      });
     }
 
     if (this.props.onDrop) {
