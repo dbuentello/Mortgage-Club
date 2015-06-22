@@ -22,7 +22,8 @@ var Dropzone = React.createClass({
     accept: React.PropTypes.string,
     multiple: React.PropTypes.bool,
     uploadUrl: React.PropTypes.string,
-    orderNumber: React.PropTypes.number
+    orderNumber: React.PropTypes.number,
+    tip: React.PropTypes.string
   },
 
   componentDidMount: function() {
@@ -135,6 +136,7 @@ var Dropzone = React.createClass({
     return (
       React.createElement("div", {className: className, style: style, onClick: this.onClick, onDragLeave: this.onDragLeave, onDragOver: this.onDragOver, onDrop: this.onDrop},
       React.createElement("input", {style: {display: 'none'}, type: "file", multiple: this.props.multiple, ref: "fileInput", onChange: this.onDrop, accept: this.props.accept}),
+      React.createElement("div", {className: 'tip'}, this.props.tip),
         this.props.children
       )
     );
