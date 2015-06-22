@@ -27,11 +27,14 @@ var Dropzone = React.createClass({
   },
 
   componentDidMount: function() {
-    // TODO: identify if this dropzone already have initial file
     var hasValue = false;
     if ( hasValue ) {
       $(this.getDOMNode()).css({color: "#000", width: 350});
     }
+
+    this.setState({
+      tip: this.props.tip || 'click to upload'
+    });
   },
 
   onDragLeave: function(e) {
@@ -67,6 +70,7 @@ var Dropzone = React.createClass({
 
     if (typeof files[0] !== 'undefined') {
       if (this.props.uploadUrl) {
+        // prepare formData object
         var formData = new FormData();
         formData.append('file', files[0]);
         formData.append('order', this.props.orderNumber);
@@ -74,9 +78,10 @@ var Dropzone = React.createClass({
         var box = $(this.getDOMNode());
 
         // notify uploading
-        $(box[0]).animate({
-          width: 350
-        }).css({backgroundColor: "#81F79F", color: "#FF0000"});
+        $(box[0]).animate({width: 350}).
+          css({backgroundColor: "#81F79F", color: "#FF0000"});
+
+        this.setState({ tip: 'Uploading ...' });
 
         $.ajax({
           url: this.props.uploadUrl,
@@ -87,14 +92,11 @@ var Dropzone = React.createClass({
             console.log(response.message);
 
             // tooltip chosen box
-            $(box[0]).tooltip({
-              title: files[0].name
-            });
+            $(box[0]).tooltip({ title: files[0].name });
 
             // highltight chosen box
-            $(box[0]).animate({
-              width: 350
-            }).css({backgroundColor: "#6B98F2", color: "#000"});
+            $(box[0]).animate({ width: 350 }).
+              css({backgroundColor: "#6B98F2", color: "#000"});
           },
           cache: false,
           contentType: false,
@@ -102,8 +104,12 @@ var Dropzone = React.createClass({
           async: true,
           error: function(response, status, error) {
             alert(error);
+            return;
           }
         });
+
+        // update tip after update
+        this.setState({ tip: files[0].name });
       }
 
       if (this.props.onDrop) {
@@ -123,7 +129,6 @@ var Dropzone = React.createClass({
   },
 
   render: function() {
-
     var className = this.props.className || 'dropzone';
     if (this.state.isDragActive) {
       className += ' active';
@@ -136,7 +141,7 @@ var Dropzone = React.createClass({
     return (
       React.createElement("div", {className: className, style: style, onClick: this.onClick, onDragLeave: this.onDragLeave, onDragOver: this.onDragOver, onDrop: this.onDrop},
       React.createElement("input", {style: {display: 'none'}, type: "file", multiple: this.props.multiple, ref: "fileInput", onChange: this.onDrop, accept: this.props.accept}),
-      React.createElement("div", {className: 'tip'}, this.props.tip),
+      React.createElement("div", {className: 'tip'}, this.state.tip ),
         this.props.children
       )
     );
