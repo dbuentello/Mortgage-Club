@@ -69,6 +69,13 @@ var Dropzone = React.createClass({
       formData.append('file', files[0]);
       formData.append('order', this.props.orderNumber);
 
+      var box = $(this.getDOMNode());
+
+      // notify uploading
+      $(box[0]).animate({
+        width: 350
+      }).css({backgroundColor: "#81F79F", color: "#FF0000"});
+
       $.ajax({
         url: this.props.uploadUrl,
         method: 'POST',
@@ -76,10 +83,21 @@ var Dropzone = React.createClass({
         data: formData,
         success: function(response) {
           console.log(response.message);
+
+          // tooltip chosen box
+          $(box[0]).tooltip({
+            title: files[0].name
+          });
+
+          // highltight chosen box
+          $(box[0]).animate({
+            width: 350
+          }).css({backgroundColor: "#6B98F2", color: "#000"});
         },
         cache: false,
         contentType: false,
         processData: false,
+        async: true,
         error: function(response, status, error) {
           alert(error);
         }
@@ -87,22 +105,12 @@ var Dropzone = React.createClass({
     }
 
     if (this.props.onDrop) {
-      files = Array.prototype.slice.call(files, 0, maxFiles);
       this.props.onDrop(files, this.props.field);
-    }
+    };
 
-    // tooltip chosen box
-    $(this.getDOMNode()).tooltip({
-      title: files[0].name
-    });
-
-    // highltight chosen box
-    $(this.getDOMNode()).animate({
-      width: 350
-    }).css({backgroundColor: "#6B98F2", color: "#000"});
   },
 
-  onClick: function () {
+  onClick: function() {
     if (this.props.supportClick === true) {
       this.open();
     }

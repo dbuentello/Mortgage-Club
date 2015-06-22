@@ -73,8 +73,11 @@ var LoanInterface = React.createClass({
         });
 
         skip_change_page = typeof skip_change_page !== 'undefined' ? skip_change_page : false;
-        console.log(skip_change_page);
-        if (!skip_change_page) {
+        if (skip_change_page) {
+          this.setState({
+            active: menu[step]
+          });
+        } else {
           this.setState({
             active: menu[step + 1] || menu[0]
           });

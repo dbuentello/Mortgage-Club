@@ -45,12 +45,6 @@ var FormIncome = React.createClass({
   },
 
   onDrop: function (files, field) {
-    // change state to display name and store the file
-    var change = {};
-    change[field.name] = files[0].name;
-    change[field.value] = files[0];
-    this.setState(change);
-
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 2, true);
   },
@@ -351,7 +345,6 @@ var FormIncome = React.createClass({
   },
 
   save: function() {
-    console.log('save here');
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 2);
   }
