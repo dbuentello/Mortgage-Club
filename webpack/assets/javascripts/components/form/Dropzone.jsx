@@ -137,11 +137,15 @@ var Dropzone = React.createClass({
     };
 
     return (
-      React.createElement("div", {className: className, style: style, onClick: this.onClick, onDragLeave: this.onDragLeave, onDragOver: this.onDragOver, onDrop: this.onDrop},
-      React.createElement("input", {style: {display: 'none'}, type: "file", multiple: this.props.multiple, ref: "fileInput", onChange: this.onDrop, accept: this.props.accept}),
-      React.createElement("div", {className: 'tip'}, this.state.tip ),
-        this.props.children
-      )
+      <div className={className} style={style} onClick={this.onClick} onDragLeave={this.onDragLeave}
+        onDragOver={this.onDragOver} onDrop={this.onDrop}>
+        <input style={{display: 'none'}} type="file" multiple={this.props.multiple} ref="fileInput"
+          onChange={this.onDrop} accept={this.props.accept}>
+        </input>
+        <div className='tip'>
+          {this.state.tip}
+        </div>
+      </div>
     );
   }
 
