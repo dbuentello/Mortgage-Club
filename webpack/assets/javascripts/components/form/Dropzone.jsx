@@ -75,10 +75,8 @@ var Dropzone = React.createClass({
         formData.append('file', files[0]);
         formData.append('order', this.props.orderNumber);
 
-        var box = $(this.getDOMNode());
-
         // notify uploading
-        $(box[0]).animate({width: 350}).
+        $(this.getDOMNode()).animate({width: 350}).
           css({backgroundColor: "#81F79F", color: "#FF0000"});
 
         this.setState({ tip: 'Uploading ...' });
@@ -91,13 +89,16 @@ var Dropzone = React.createClass({
           success: function(response) {
             console.log(response.message);
 
-            // tooltip chosen box
-            $(box[0]).tooltip({ title: files[0].name });
+            // update tip after update
+            this.setState({ tip: files[0].name });
 
-            // highltight chosen box
-            $(box[0]).animate({ width: 350 }).
+            // tooltip chosen dropzone
+            $(this.getDOMNode()).tooltip({ title: files[0].name });
+
+            // highltight chosen dropzone
+            $(this.getDOMNode()).animate({ width: 350 }).
               css({backgroundColor: "#6B98F2", color: "#000"});
-          },
+          }.bind(this),
           cache: false,
           contentType: false,
           processData: false,
@@ -107,9 +108,6 @@ var Dropzone = React.createClass({
             return;
           }
         });
-
-        // update tip after update
-        this.setState({ tip: files[0].name });
       }
 
       if (this.props.onDrop) {
