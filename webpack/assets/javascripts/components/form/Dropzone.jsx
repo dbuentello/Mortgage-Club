@@ -64,50 +64,51 @@ var Dropzone = React.createClass({
 
     var maxFiles = (this.props.multiple) ? files.length : 1;
 
-    if (this.props.uploadUrl) {
-      var formData = new FormData();
-      formData.append('file', files[0]);
-      formData.append('order', this.props.orderNumber);
+    if (typeof files[0] !== 'undefined') {
+      if (this.props.uploadUrl) {
+        var formData = new FormData();
+        formData.append('file', files[0]);
+        formData.append('order', this.props.orderNumber);
 
-      var box = $(this.getDOMNode());
+        var box = $(this.getDOMNode());
 
-      // notify uploading
-      $(box[0]).animate({
-        width: 350
-      }).css({backgroundColor: "#81F79F", color: "#FF0000"});
+        // notify uploading
+        $(box[0]).animate({
+          width: 350
+        }).css({backgroundColor: "#81F79F", color: "#FF0000"});
 
-      $.ajax({
-        url: this.props.uploadUrl,
-        method: 'POST',
-        enctype: 'multipart/form-data',
-        data: formData,
-        success: function(response) {
-          console.log(response.message);
+        $.ajax({
+          url: this.props.uploadUrl,
+          method: 'POST',
+          enctype: 'multipart/form-data',
+          data: formData,
+          success: function(response) {
+            console.log(response.message);
 
-          // tooltip chosen box
-          $(box[0]).tooltip({
-            title: files[0].name
-          });
+            // tooltip chosen box
+            $(box[0]).tooltip({
+              title: files[0].name
+            });
 
-          // highltight chosen box
-          $(box[0]).animate({
-            width: 350
-          }).css({backgroundColor: "#6B98F2", color: "#000"});
-        },
-        cache: false,
-        contentType: false,
-        processData: false,
-        async: true,
-        error: function(response, status, error) {
-          alert(error);
-        }
-      });
+            // highltight chosen box
+            $(box[0]).animate({
+              width: 350
+            }).css({backgroundColor: "#6B98F2", color: "#000"});
+          },
+          cache: false,
+          contentType: false,
+          processData: false,
+          async: true,
+          error: function(response, status, error) {
+            alert(error);
+          }
+        });
+      }
+
+      if (this.props.onDrop) {
+        this.props.onDrop(files, this.props.field);
+      };
     }
-
-    if (this.props.onDrop) {
-      this.props.onDrop(files, this.props.field);
-    };
-
   },
 
   onClick: function() {
