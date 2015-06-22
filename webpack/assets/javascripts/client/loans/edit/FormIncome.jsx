@@ -50,7 +50,9 @@ var FormIncome = React.createClass({
     change[field.name] = files[0].name;
     change[field.value] = files[0];
     this.setState(change);
-    this.props
+
+    this.setState({saving: true});
+    this.props.saveLoan(this.buildLoanFromState(), 2, true);
   },
 
   render: function() {
@@ -77,7 +79,7 @@ var FormIncome = React.createClass({
                 <div className='col-xs-6'>
                   <div>
                     <Dropzone onDrop={this.onDrop} field={fields.firstW2}
-                      uploadUrl={this.state.w2_url}>
+                      uploadUrl={this.state.w2_url} orderNumber={1}>
                       <div className='tip'>{this.state[fields.firstW2.name]}</div>
                     </Dropzone>
                   </div>
@@ -89,7 +91,7 @@ var FormIncome = React.createClass({
                 <div className='col-xs-6'>
                   <div>
                     <Dropzone onDrop={this.onDrop} field={fields.secondW2}
-                      uploadUrl={this.state.w2_url}>
+                      uploadUrl={this.state.w2_url} orderNumber={2}>
                       <div className='tip'>{this.state[fields.secondW2.name]}</div>
                     </Dropzone>
                   </div>
@@ -101,7 +103,7 @@ var FormIncome = React.createClass({
                 <div className='col-xs-6'>
                   <div>
                     <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}
-                      uploadUrl={this.state.paystub_url}>
+                      uploadUrl={this.state.paystub_url} orderNumber={1}>
                       <div className='tip'>{this.state[fields.firstPaystub.name]}</div>
                     </Dropzone>
                   </div>
@@ -113,7 +115,7 @@ var FormIncome = React.createClass({
                 <div className='col-xs-6'>
                   <div>
                     <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}
-                      uploadUrl={this.state.paystub_url}>
+                      uploadUrl={this.state.paystub_url} orderNumber={2}>
                       <div className='tip'>{this.state[fields.secondPaystub.name]}</div>
                     </Dropzone>
                   </div>
@@ -125,7 +127,7 @@ var FormIncome = React.createClass({
                 <div className='col-xs-6'>
                   <div>
                     <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}
-                      uploadUrl={this.state.bank_statement_url}>
+                      uploadUrl={this.state.bank_statement_url} orderNumber={1}>
                       <div className='tip'>{this.state[fields.firstBankStatement.name]}</div>
                     </Dropzone>
                   </div>
@@ -137,7 +139,7 @@ var FormIncome = React.createClass({
                 <div className='col-xs-6'>
                   <div>
                     <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}
-                      uploadUrl={this.state.bank_statement_url}>
+                      uploadUrl={this.state.bank_statement_url} orderNumber={2}>
                       <div className='tip'>{this.state[fields.secondBankStatement.name]}</div>
                     </Dropzone>
                   </div>
@@ -289,17 +291,21 @@ var FormIncome = React.createClass({
     }));
   },
 
+  display_document: function(file_name) {
+    return;
+  },
+
   buildStateFromLoan: function(loan) {
     var borrower = loan.borrower;
     var state = {};
     var currentEmployment = borrower.current_employment || {};
 
-    state[fields.firstW2.name] = this.props.loan.borrower.first_w2.attachment_file_name || fields.firstW2.placeholder;
-    state[fields.secondW2.name] = this.props.loan.borrower.second_w2.attachment_file_name || fields.secondW2.placeholder;
-    state[fields.firstPaystub.name] = this.props.loan.borrower.first_paystub.attachment_file_name || fields.firstPaystub.placeholder;
-    state[fields.secondPaystub.name] = this.props.loan.borrower.second_paystub.attachment_file_name || fields.secondPaystub.placeholder;
-    state[fields.firstBankStatement.name] = this.props.loan.borrower.first_bank_statement.attachment_file_name || fields.firstBankStatement.placeholder;
-    state[fields.secondBankStatement.name] = this.props.loan.borrower.second_bank_statement.attachment_file_name || fields.secondBankStatement.placeholder;
+    state[fields.firstW2.name] = this.props.loan.borrower.first_w2 ? this.props.loan.borrower.first_w2.attachment_file_name : fields.firstW2.placeholder;
+    state[fields.secondW2.name] = this.props.loan.borrower.second_w2 ? this.props.loan.borrower.second_w2.attachment_file_name : fields.secondW2.placeholder;
+    state[fields.firstPaystub.name] = this.props.loan.borrower.first_paystub ? this.props.loan.borrower.first_paystub.attachment_file_name : fields.firstPaystub.placeholder;
+    state[fields.secondPaystub.name] = this.props.loan.borrower.second_paystub ? this.props.loan.borrower.second_paystub.attachment_file_name : fields.secondPaystub.placeholder;
+    state[fields.firstBankStatement.name] = this.props.loan.borrower.first_bank_statement ? this.props.loan.borrower.first_bank_statement.attachment_file_name : fields.firstBankStatement.placeholder;
+    state[fields.secondBankStatement.name] = this.props.loan.borrower.second_bank_statement ? this.props.loan.borrower.second_bank_statement.attachment_file_name : fields.secondBankStatement.placeholder;
 
     state[fields.employerName.name] = currentEmployment[fields.employerName.name];
     state[fields.employerAddress.name] = currentEmployment[fields.employerAddress.name];
@@ -341,34 +347,11 @@ var FormIncome = React.createClass({
       is_current: true
     }];
 
-    loan.borrower_attributes.bank_statements_attributes = [
-      {
-        attachment: this.state[fields.firstW2.value].val()
-      },
-      {
-        attachment: this.state[fields.secondW2.value].val()
-      },
-      {
-        attachment: this.state[fields.firstPaystub.value].val()
-      },
-      {
-        attachment: this.state[fields.secondPaystub.value].val()
-      },
-      {
-        attachment: this.state[fields.firstBankStatement.value].val()
-      },
-      {
-        attachment: this.state[fields.secondBankStatement.value].val()
-      }
-    ];
-
-    console.log(loan);
-    console.log(loan.borrower_attributes.bank_statements_attributes);
-
     return loan;
   },
 
   save: function() {
+    console.log('save here');
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 2);
   }

@@ -44,7 +44,7 @@ class Document < ActiveRecord::Base
                         content_type: Document::ALLOWED_MIME_TYPES,
                         message: ' allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images'
                       },
-                      size: { less_than_or_equal_to: 1.megabytes, message: ' must be less than or equal to 1MB' }
+                      size: { less_than_or_equal_to: 10.megabytes, message: ' must be less than or equal to 10MB' }
 
    PERMITTED_ATTRS = [
      :type,

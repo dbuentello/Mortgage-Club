@@ -22,7 +22,7 @@ var Dropzone = React.createClass({
     accept: React.PropTypes.string,
     multiple: React.PropTypes.bool,
     uploadUrl: React.PropTypes.string,
-    borrowerID: React.PropTypes.string
+    orderNumber: React.PropTypes.number
   },
 
   componentDidMount: function() {
@@ -63,16 +63,11 @@ var Dropzone = React.createClass({
     }
 
     var maxFiles = (this.props.multiple) ? files.length : 1;
-    // for (var i = 0; i < maxFiles; i++) {
-    //   files[i].preview = URL.createObjectURL(files[i]);
-    // }
 
     if (this.props.uploadUrl) {
       var formData = new FormData();
       formData.append('file', files[0]);
-      formData.append('order', 1);
-
-      alert("start file ajax");
+      formData.append('order', this.props.orderNumber);
 
       $.ajax({
         url: this.props.uploadUrl,
