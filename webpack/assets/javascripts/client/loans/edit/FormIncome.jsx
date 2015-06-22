@@ -31,6 +31,7 @@ var fields = {
 
 var FormIncome = React.createClass({
   mixins: [TextFormatMixin],
+
   getInitialState: function() {
     return this.buildStateFromLoan(this.props.loan);
   },
@@ -44,11 +45,8 @@ var FormIncome = React.createClass({
   },
 
   onDrop: function (files, field) {
-    // change state to display name and store the file
-    var change = {};
-    change[field.name] = files[0].name;
-    change[field.value] = files[0];
-    this.setState(change);
+    this.setState({saving: true});
+    this.props.saveLoan(this.buildLoanFromState(), 2, true);
   },
 
   render: function() {
@@ -63,8 +61,6 @@ var FormIncome = React.createClass({
       {name: 'Separated', value: 'separated'}
     ];
 
-    var dropzoneStyle = {};
-
     return (
       <div>
         <div className='formContent'>
@@ -76,7 +72,8 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.firstW2}>
+                    <Dropzone onDrop={this.onDrop} field={fields.firstW2}
+                      uploadUrl={this.state.w2_url} orderNumber={1}>
                       <div className='tip'>{this.state[fields.firstW2.name]}</div>
                     </Dropzone>
                   </div>
@@ -87,7 +84,8 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.secondW2}>
+                    <Dropzone onDrop={this.onDrop} field={fields.secondW2}
+                      uploadUrl={this.state.w2_url} orderNumber={2}>
                       <div className='tip'>{this.state[fields.secondW2.name]}</div>
                     </Dropzone>
                   </div>
@@ -98,7 +96,8 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}>
+                    <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}
+                      uploadUrl={this.state.paystub_url} orderNumber={1}>
                       <div className='tip'>{this.state[fields.firstPaystub.name]}</div>
                     </Dropzone>
                   </div>
@@ -109,7 +108,8 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}>
+                    <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}
+                      uploadUrl={this.state.paystub_url} orderNumber={2}>
                       <div className='tip'>{this.state[fields.secondPaystub.name]}</div>
                     </Dropzone>
                   </div>
@@ -120,7 +120,8 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}>
+                    <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}
+                      uploadUrl={this.state.bank_statement_url} orderNumber={1}>
                       <div className='tip'>{this.state[fields.firstBankStatement.name]}</div>
                     </Dropzone>
                   </div>
@@ -131,7 +132,8 @@ var FormIncome = React.createClass({
                 </label>
                 <div className='col-xs-6'>
                   <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}>
+                    <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}
+                      uploadUrl={this.state.bank_statement_url} orderNumber={2}>
                       <div className='tip'>{this.state[fields.secondBankStatement.name]}</div>
                     </Dropzone>
                   </div>
@@ -283,17 +285,21 @@ var FormIncome = React.createClass({
     }));
   },
 
+  display_document: function(file_name) {
+    return;
+  },
+
   buildStateFromLoan: function(loan) {
     var borrower = loan.borrower;
     var state = {};
     var currentEmployment = borrower.current_employment || {};
 
-    state[fields.firstW2.name] = fields.firstW2.placeholder;
-    state[fields.secondW2.name] = fields.secondW2.placeholder;
-    state[fields.firstPaystub.name] = fields.firstPaystub.placeholder;
-    state[fields.secondPaystub.name] = fields.secondPaystub.placeholder;
-    state[fields.firstBankStatement.name] = fields.firstBankStatement.placeholder;
-    state[fields.secondBankStatement.name] = fields.secondBankStatement.placeholder;
+    state[fields.firstW2.name] = this.props.loan.borrower.first_w2 ? this.props.loan.borrower.first_w2.attachment_file_name : fields.firstW2.placeholder;
+    state[fields.secondW2.name] = this.props.loan.borrower.second_w2 ? this.props.loan.borrower.second_w2.attachment_file_name : fields.secondW2.placeholder;
+    state[fields.firstPaystub.name] = this.props.loan.borrower.first_paystub ? this.props.loan.borrower.first_paystub.attachment_file_name : fields.firstPaystub.placeholder;
+    state[fields.secondPaystub.name] = this.props.loan.borrower.second_paystub ? this.props.loan.borrower.second_paystub.attachment_file_name : fields.secondPaystub.placeholder;
+    state[fields.firstBankStatement.name] = this.props.loan.borrower.first_bank_statement ? this.props.loan.borrower.first_bank_statement.attachment_file_name : fields.firstBankStatement.placeholder;
+    state[fields.secondBankStatement.name] = this.props.loan.borrower.second_bank_statement ? this.props.loan.borrower.second_bank_statement.attachment_file_name : fields.secondBankStatement.placeholder;
 
     state[fields.employerName.name] = currentEmployment[fields.employerName.name];
     state[fields.employerAddress.name] = currentEmployment[fields.employerAddress.name];
@@ -306,6 +312,11 @@ var FormIncome = React.createClass({
     state[fields.grossOvertime.name] = this.formatCurrency(borrower[fields.grossOvertime.name]);
     state[fields.grossBonus.name] = this.formatCurrency(borrower[fields.grossBonus.name]);
     state[fields.grossCommission.name] = this.formatCurrency(borrower[fields.grossCommission.name]);
+
+    state.w2_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/w2s/';
+    state.paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/paystubs/';
+    state.bank_statement_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/bank_statements/';
+
     return state;
   },
 
@@ -329,6 +340,7 @@ var FormIncome = React.createClass({
       employer_contact_number: this.state[fields.employerContactNumber.name],
       is_current: true
     }];
+
     return loan;
   },
 

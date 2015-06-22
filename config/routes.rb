@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+
+  resources :borrower_uploader, only: [] do
+    member do
+      post 'bank_statements'
+      post 'brokerage_statements'
+      post 'paystubs'
+      post 'w2s'
+    end
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
   get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'

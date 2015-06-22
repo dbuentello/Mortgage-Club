@@ -58,7 +58,7 @@ var LoanInterface = React.createClass({
     return menu;
   },
 
-  save: function(loan, step) {
+  save: function(loan, step, skip_change_page) {
     $.ajax({
       url: '/loans/' + this.state.loan.id,
       method: 'PATCH',
@@ -69,9 +69,19 @@ var LoanInterface = React.createClass({
         var menu = this.buildMenu(response.loan);
         this.setState({
           loan: response.loan,
-          menu: menu,
-          active: menu[step + 1] || menu[0]
+          menu: menu
         });
+
+        skip_change_page = typeof skip_change_page !== 'undefined' ? skip_change_page : false;
+        if (skip_change_page) {
+          this.setState({
+            active: menu[step]
+          });
+        } else {
+          this.setState({
+            active: menu[step + 1] || menu[0]
+          });
+        }
       },
       error: function(response, status, error) {
         alert(error);

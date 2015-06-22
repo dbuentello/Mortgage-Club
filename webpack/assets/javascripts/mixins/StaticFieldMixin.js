@@ -1,17 +1,18 @@
 var React = require('react/addons');
-var classNames = require('classnames');
+var cx = React.addons.classSet;
+// var classNames = require('classnames');
 
 var StaticFieldMixin = {
   getFieldClasses: function(editable, isLarge, valid) {
     return {
-      editableFieldClasses: classNames({
+      editableFieldClasses: cx({
         'form-control': true,
         'typeWeightNormal': true,
         'input-sm': !isLarge,
         'hidden': !editable,
         'error': !valid
       }),
-      staticFieldClasses: classNames({
+      staticFieldClasses: cx({
         'form-control-static': true,
         'col-xs-12': true,
         'typeTruncate': !this.props.noTruncation,
