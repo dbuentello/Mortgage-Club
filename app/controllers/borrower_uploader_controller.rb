@@ -93,7 +93,7 @@ class BorrowerUploaderController < ApplicationController
   end
 
   def w2s
-    if params[:file].blank?
+    if params[:file] == 'undefined'
       message = 'File not found'
     else
       borrower = Borrower.find_by_id(params[:id])
