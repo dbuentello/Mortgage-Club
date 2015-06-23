@@ -4,7 +4,8 @@ var Dropzone = React.createClass({
   getDefaultProps: function() {
     return {
       supportClick: true,
-      multiple: false
+      multiple: false,
+      download: false
     };
   },
 
@@ -177,6 +178,12 @@ var Dropzone = React.createClass({
       borderStyle: this.state.isDragActive ? 'solid' : 'dotted'
     };
 
+    if (this.props.download) {
+      var downloadButton = <a href={this.state.fileUrl} download><i className="iconDownload"></i></a>;
+    } else {
+      var downloadButton = <a href={this.state.fileUrl} target="_blank"><i className="iconDownload"></i></a>;
+    }
+
     return (
       <div>
         <label className='col-xs-6'>
@@ -194,7 +201,7 @@ var Dropzone = React.createClass({
               </div>
             </div>
             <div className='action-icons'>
-              <a href={this.state.fileUrl}><i className="iconDownload"></i></a>
+              {downloadButton}
               <a href='javascript:void(0)' onClick={this.remove} ><i className="iconTrash"></i></a>
             </div>
           </div>
