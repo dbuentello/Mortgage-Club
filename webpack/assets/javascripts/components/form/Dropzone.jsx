@@ -41,6 +41,9 @@ var Dropzone = React.createClass({
 
     if (this.props.fileUrl) {
       $(this.refs.box.getDOMNode()).css({backgroundColor: "#6B98F2", color: "#000"});
+      this.setState({ fileUrl: this.props.fileUrl });
+    } else {
+      this.setState({ fileUrl: 'javascript:void(0)' });
     }
 
   },
@@ -104,7 +107,7 @@ var Dropzone = React.createClass({
             // highltight chosen dropzone
             $(this.refs.box.getDOMNode()).css({backgroundColor: "#6B98F2", color: "#000"});
 
-            console.log(response.message);
+            // console.log(response.message);
           }.bind(this),
           cache: false,
           contentType: false,
@@ -151,7 +154,7 @@ var Dropzone = React.createClass({
           this.setState({ tip: this.props.field.placeholder });
 
           // disable the download button immediately
-          $(this.refs.downloadButton.getDOMNode()).href = 'javascript:void(0)';
+          this.setState({ fileUrl: 'javascript:void(0)' });
 
           // tooltip chosen dropzone
           $(this.refs.box.getDOMNode()).tooltip('destroy');
@@ -159,7 +162,7 @@ var Dropzone = React.createClass({
           // highltight chosen dropzone
           $(this.refs.box.getDOMNode()).css({backgroundColor: "#FFF", color: "#000"});
 
-          console.log(response.message);
+          // console.log(response.message);
         }.bind(this),
         error: function(response, status, error) {
           alert(error);
@@ -196,7 +199,7 @@ var Dropzone = React.createClass({
               </div>
             </div>
             <div className='action-icons'>
-              <a ref='downloadButton' href={this.props.fileUrl ? this.props.fileUrl : 'javascript:void(0)'}><i className="iconDownload"></i></a>
+              <a href={this.state.fileUrl}><i className="iconDownload"></i></a>
               <a href='javascript:void(0)' onClick={this.remove} ><i className="iconTrash"></i></a>
             </div>
           </div>
