@@ -29,11 +29,6 @@ var Dropzone = React.createClass({
   },
 
   componentDidMount: function() {
-    var hasValue = false;
-    if (hasValue) {
-      $(this.refs.box.getDOMNode()).css({color: "#000"});
-    }
-
     this.setState({
       tip: this.props.tip || 'click to upload',
       dropzoneBox: this.refs.box.getDOMNode()
@@ -41,11 +36,11 @@ var Dropzone = React.createClass({
 
     if (this.props.fileUrl) {
       $(this.refs.box.getDOMNode()).css({backgroundColor: "#6B98F2", color: "#000"});
+      $(this.refs.box.getDOMNode()).tooltip({ title: this.props.tip });
       this.setState({ fileUrl: this.props.fileUrl });
     } else {
       this.setState({ fileUrl: 'javascript:void(0)' });
     }
-
   },
 
   onDragLeave: function(e) {
