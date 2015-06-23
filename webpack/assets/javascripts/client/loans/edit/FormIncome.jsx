@@ -74,7 +74,8 @@ var FormIncome = React.createClass({
                   <div>
                     <Dropzone onDrop={this.onDrop} field={fields.firstW2}
                       uploadUrl={this.state.w2_url} orderNumber={1}
-                      tip={this.state[fields.firstW2.name]}>
+                      tip={this.state[fields.firstW2.name]}
+                      fileUrl={this.props.loan.borrower.document_download_urls.first_w2}>
                     </Dropzone>
                   </div>
                 </div>
@@ -86,7 +87,8 @@ var FormIncome = React.createClass({
                   <div>
                     <Dropzone onDrop={this.onDrop} field={fields.secondW2}
                       uploadUrl={this.state.w2_url} orderNumber={2}
-                      tip={this.state[fields.secondW2.name]}>
+                      tip={this.state[fields.secondW2.name]}
+                      fileUrl={this.props.loan.borrower.document_download_urls.second_w2}>
                     </Dropzone>
                   </div>
                 </div>
@@ -98,7 +100,8 @@ var FormIncome = React.createClass({
                   <div>
                     <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}
                       uploadUrl={this.state.paystub_url} orderNumber={1}
-                      tip={this.state[fields.firstPaystub.name]}>
+                      tip={this.state[fields.firstPaystub.name]}
+                      fileUrl={this.props.loan.borrower.document_download_urls.first_paystub}>
                     </Dropzone>
                   </div>
                 </div>
@@ -110,7 +113,8 @@ var FormIncome = React.createClass({
                   <div>
                     <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}
                       uploadUrl={this.state.paystub_url} orderNumber={2}
-                      tip={this.state[fields.secondPaystub.name]}>
+                      tip={this.state[fields.secondPaystub.name]}
+                      fileUrl={this.props.loan.borrower.document_download_urls.second_paystub}>
                     </Dropzone>
                   </div>
                 </div>
@@ -122,7 +126,8 @@ var FormIncome = React.createClass({
                   <div>
                     <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}
                       uploadUrl={this.state.bank_statement_url} orderNumber={1}
-                      tip={this.state[fields.firstBankStatement.name]}>
+                      tip={this.state[fields.firstBankStatement.name]}
+                      fileUrl={this.props.loan.borrower.document_download_urls.first_bank_statement}>
                     </Dropzone>
                   </div>
                 </div>
@@ -134,7 +139,8 @@ var FormIncome = React.createClass({
                   <div>
                     <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}
                       uploadUrl={this.state.bank_statement_url} orderNumber={2}
-                      tip={this.state[fields.secondBankStatement.name]}>
+                      tip={this.state[fields.secondBankStatement.name]}
+                      fileUrl={this.props.loan.borrower.document_download_urls.second_bank_statement}>
                     </Dropzone>
                   </div>
                 </div>

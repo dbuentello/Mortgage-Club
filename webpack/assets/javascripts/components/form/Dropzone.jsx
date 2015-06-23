@@ -23,18 +23,25 @@ var Dropzone = React.createClass({
     multiple: React.PropTypes.bool,
     uploadUrl: React.PropTypes.string,
     orderNumber: React.PropTypes.number,
-    tip: React.PropTypes.string
+    tip: React.PropTypes.string,
+    fileUrl: React.PropTypes.string
   },
 
   componentDidMount: function() {
     var hasValue = false;
-    if ( hasValue ) {
+    if (hasValue) {
       $(this.getDOMNode()).css({color: "#000", width: 350});
     }
 
+    var dropzoneBox = $(this.getDOMNode()).find('.dropzone')[0];
     this.setState({
-      tip: this.props.tip || 'click to upload'
+      tip: this.props.tip || 'click to upload',
+      dropzoneBox: dropzoneBox
     });
+
+    if (this.props.fileUrl) {
+      $(dropzoneBox).css({backgroundColor: "#6B98F2", color: "#000"});
+    }
   },
 
   onDragLeave: function(e) {
@@ -133,17 +140,22 @@ var Dropzone = React.createClass({
     };
 
     var style = this.props.style || {
-      borderStyle: this.state.isDragActive ? "solid" : "dotted"
+      borderStyle: this.state.isDragActive ? 'solid' : 'dotted'
     };
 
     return (
-      <div className={className} style={style} onClick={this.onClick} onDragLeave={this.onDragLeave}
-        onDragOver={this.onDragOver} onDrop={this.onDrop}>
-        <input style={{display: 'none'}} type="file" multiple={this.props.multiple} ref="fileInput"
-          onChange={this.onDrop} accept={this.props.accept}>
-        </input>
-        <div className='tip'>
-          {this.state.tip}
+      <div>
+        <div className='download_link'>
+          <a href={this.props.fileUrl}>Down</a>
+        </div>
+        <div className={className} style={style} onClick={this.onClick} onDragLeave={this.onDragLeave}
+          onDragOver={this.onDragOver} onDrop={this.onDrop}>
+          <input style={{display: 'none'}} type="file" multiple={this.props.multiple} ref="fileInput"
+            onChange={this.onDrop} accept={this.props.accept}>
+          </input>
+          <div className='tip'>
+            {this.state.tip}
+          </div>
         </div>
       </div>
     );
