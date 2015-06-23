@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   resources :borrower_uploader, only: [] do
     member do
       post 'bank_statements'
-      post 'brokerage_statements'
       post 'paystubs'
       post 'w2s'
+      delete 'remove_bank_statements'
+      delete 'remove_paystubs'
+      delete 'remove_w2s'
     end
   end
 

@@ -24,7 +24,8 @@ var Dropzone = React.createClass({
     uploadUrl: React.PropTypes.string,
     orderNumber: React.PropTypes.number,
     tip: React.PropTypes.string,
-    fileUrl: React.PropTypes.string
+    fileUrl: React.PropTypes.string,
+    removeUrl: React.PropTypes.string
   },
 
   componentDidMount: function() {
@@ -117,7 +118,7 @@ var Dropzone = React.createClass({
       }
 
       if (this.props.onDrop) {
-        this.props.onDrop(files, this.props.field);
+        this.props.onDrop();
       };
     }
   },
@@ -130,6 +131,41 @@ var Dropzone = React.createClass({
 
   open: function() {
     this.refs.fileInput.getDOMNode().click();
+  },
+
+  remove: function() {
+    if (this.state.tip != this.props.field.placeholder) {
+      // notify uploading
+      this.setState({ tip: 'Deleting ...' });
+      $(this.refs.box.getDOMNode()).css({backgroundColor: "#FA8258", color: "#000"});
+
+      $.ajax({
+        url: this.props.removeUrl,
+        method: 'DELETE',
+        data: {
+          order: this.props.orderNumber
+        },
+        dataType: 'json',
+        success: function(response) {
+          // update tip
+          this.setState({ tip: this.props.field.placeholder });
+
+          // disable the download button immediately
+          $(this.refs.downloadButton.getDOMNode()).href = 'javascript:void(0)';
+
+          // tooltip chosen dropzone
+          $(this.refs.box.getDOMNode()).tooltip('destroy');
+
+          // highltight chosen dropzone
+          $(this.refs.box.getDOMNode()).css({backgroundColor: "#FFF", color: "#000"});
+
+          console.log(response.message);
+        }.bind(this),
+        error: function(response, status, error) {
+          alert(error);
+        }
+      });
+    }
   },
 
   render: function() {
@@ -160,7 +196,8 @@ var Dropzone = React.createClass({
               </div>
             </div>
             <div className='action-icons'>
-              <a href={this.props.fileUrl}><i className="iconDownload"></i></a>
+              <a ref='downloadButton' href={this.props.fileUrl ? this.props.fileUrl : 'javascript:void(0)'}><i className="iconDownload"></i></a>
+              <a href='javascript:void(0)' onClick={this.remove} ><i className="iconTrash"></i></a>
             </div>
           </div>
         </div>
