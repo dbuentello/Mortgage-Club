@@ -45,7 +45,8 @@ class LoansController < ApplicationController
               :first_w2 => {}, :second_w2 => {}
             },
             :methods => [
-              :current_address, :previous_addresses, :current_employment, :previous_employments
+              :current_address, :previous_addresses, :current_employment, :previous_employments,
+              :document_download_urls
             ]
           }
         },

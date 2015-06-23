@@ -30,37 +30,6 @@ class BorrowerUploaderController < ApplicationController
     render json: { message: message }, status: :ok
   end
 
-  def brokerage_statements
-    if params[:file].blank?
-      message = 'File not found'
-    else
-      borrower = Borrower.find_by_id(params[:id])
-
-      case params[:order]
-      when "1"
-        brokerage_statement = borrower.build_first_brokerage_statement
-        if brokerage_statement.present?
-          brokerage_statement.update(attachment: params[:file])
-        else
-          brokerage_statement = borrower.build_first_brokerage_statement(attachment: params[:file])
-          brokerage_statement.save
-        end
-      when "2"
-        brokerage_statement = borrower.second_brokerage_statement
-        if brokerage_statement.present?
-          brokerage_statement.update(attachment: params[:file])
-        else
-          brokerage_statement = borrower.build_second_brokerage_statement(attachment: params[:file])
-          brokerage_statement.save
-        end
-      end
-
-      message = "Sucessfully for #{borrower.first_name}"
-    end
-
-    render json: { message: message }, status: :ok
-  end
-
   def paystubs
     if params[:file].blank?
       message = 'File not found'
@@ -123,6 +92,60 @@ class BorrowerUploaderController < ApplicationController
     render json: { message: message }, status: :ok
   end
 
+  def remove_bank_statements
+    case params[:order]
+    when "1"
+      bank_statement = Documents::FirstBankStatement.where(id: params[:id]).first
+    when "2"
+      bank_statement = Documents::SecondBankStatement.where(id: params[:id]).first
+    end
+
+    if bank_statement.present?
+      message = 'done removed'
+      bank_statement.destroy
+    else
+      message = "file not found"
+    end
+
+    render json: { message: message }, status: :ok
+  end
+
+  def remove_paystubs
+    case params[:order]
+    when "1"
+      paystub = Documents::FirstPaystub.where(id: params[:id]).first
+    when "2"
+      paystub = Documents::SecondPaystub.where(id: params[:id]).first
+    end
+
+    if paystub.present?
+      message = 'done removed'
+      paystub.destroy
+    else
+      message = "file not found"
+    end
+
+    render json: { message: message }, status: :ok
+  end
+
+  def remove_w2s
+    case params[:order]
+    when "1"
+      w2 = Documents::FirstW2.where(id: params[:id]).first
+    when "2"
+      w2 = Documents::SecondW2.where(id: params[:id]).first
+    end
+
+    if w2.present?
+      message = 'done removed'
+      w2.destroy
+    else
+      message = "file not found"
+    end
+
+    render json: { message: message }, status: :ok
+  end
+
   private
 
     def borrower_uploader_params
@@ -130,3 +153,4 @@ class BorrowerUploaderController < ApplicationController
     end
 
 end
+

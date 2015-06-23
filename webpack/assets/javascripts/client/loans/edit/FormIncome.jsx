@@ -44,7 +44,11 @@ var FormIncome = React.createClass({
     this.setState({focusedField: field});
   },
 
-  onDrop: function (files, field) {
+  onDrop: function(files, field) {
+    this.refresh();
+  },
+
+  refresh: function() {
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 2, true);
   },
@@ -67,77 +71,47 @@ var FormIncome = React.createClass({
           <div className='pal'>
             <div className='box mtn'>
               <div className='row'>
-                <label className='col-xs-6'>
-                  <span className='h7 typeBold'>{fields.firstW2.label}</span>
-                </label>
-                <div className='col-xs-6'>
-                  <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.firstW2}
-                      uploadUrl={this.state.w2_url} orderNumber={1}>
-                      <div className='tip'>{this.state[fields.firstW2.name]}</div>
-                    </Dropzone>
-                  </div>
-                </div>
+                <Dropzone onDrop={this.onDrop} field={fields.firstW2}
+                  uploadUrl={this.state.w2_url} orderNumber={1}
+                  tip={this.state[fields.firstW2.name]}
+                  fileUrl={this.props.loan.borrower.document_download_urls.first_w2}
+                  removeUrl={this.state.remove_first_w2_url}
+                  afterRemove={this.refresh}/>
 
-                <label className='col-xs-6'>
-                  <span className='h7 typeBold'>{fields.secondW2.label}</span>
-                </label>
-                <div className='col-xs-6'>
-                  <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.secondW2}
-                      uploadUrl={this.state.w2_url} orderNumber={2}>
-                      <div className='tip'>{this.state[fields.secondW2.name]}</div>
-                    </Dropzone>
-                  </div>
-                </div>
+                <Dropzone onDrop={this.onDrop} field={fields.secondW2}
+                  uploadUrl={this.state.w2_url} orderNumber={2}
+                  tip={this.state[fields.secondW2.name]}
+                  fileUrl={this.props.loan.borrower.document_download_urls.second_w2}
+                  removeUrl={this.state.remove_second_w2_url}
+                  afterRemove={this.refresh}/>
 
-                <label className='col-xs-6'>
-                  <span className='h7 typeBold'>{fields.firstPaystub.label}</span>
-                </label>
-                <div className='col-xs-6'>
-                  <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}
-                      uploadUrl={this.state.paystub_url} orderNumber={1}>
-                      <div className='tip'>{this.state[fields.firstPaystub.name]}</div>
-                    </Dropzone>
-                  </div>
-                </div>
+                <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}
+                  uploadUrl={this.state.paystub_url} orderNumber={1}
+                  tip={this.state[fields.firstPaystub.name]}
+                  fileUrl={this.props.loan.borrower.document_download_urls.first_paystub}
+                  removeUrl={this.state.remove_first_paystub_url}
+                  afterRemove={this.refresh}/>
 
-                <label className='col-xs-6'>
-                  <span className='h7 typeBold'>{fields.secondPaystub.label}</span>
-                </label>
-                <div className='col-xs-6'>
-                  <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}
-                      uploadUrl={this.state.paystub_url} orderNumber={2}>
-                      <div className='tip'>{this.state[fields.secondPaystub.name]}</div>
-                    </Dropzone>
-                  </div>
-                </div>
+                <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}
+                  uploadUrl={this.state.paystub_url} orderNumber={2}
+                  tip={this.state[fields.secondPaystub.name]}
+                  fileUrl={this.props.loan.borrower.document_download_urls.second_paystub}
+                  removeUrl={this.state.remove_second_paystub_url}
+                  afterRemove={this.refresh}/>
 
-                <label className='col-xs-6'>
-                  <span className='h7 typeBold'>{fields.firstBankStatement.label}</span>
-                </label>
-                <div className='col-xs-6'>
-                  <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}
-                      uploadUrl={this.state.bank_statement_url} orderNumber={1}>
-                      <div className='tip'>{this.state[fields.firstBankStatement.name]}</div>
-                    </Dropzone>
-                  </div>
-                </div>
+                <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}
+                  uploadUrl={this.state.bank_statement_url} orderNumber={1}
+                  tip={this.state[fields.firstBankStatement.name]}
+                  fileUrl={this.props.loan.borrower.document_download_urls.first_bank_statement}
+                  removeUrl={this.state.remove_first_bank_statement_url}
+                  afterRemove={this.refresh}/>
 
-                <label className='col-xs-6'>
-                  <span className='h7 typeBold'>{fields.secondBankStatement.label}</span>
-                </label>
-                <div className='col-xs-6'>
-                  <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}
-                      uploadUrl={this.state.bank_statement_url} orderNumber={2}>
-                      <div className='tip'>{this.state[fields.secondBankStatement.name]}</div>
-                    </Dropzone>
-                  </div>
-                </div>
+                <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}
+                  uploadUrl={this.state.bank_statement_url} orderNumber={2}
+                  tip={this.state[fields.secondBankStatement.name]}
+                  fileUrl={this.props.loan.borrower.document_download_urls.second_bank_statement}
+                  removeUrl={this.state.remove_second_bank_statement_url}
+                  afterRemove={this.refresh}/>
               </div>
 
               <div className='row'>
@@ -294,13 +268,6 @@ var FormIncome = React.createClass({
     var state = {};
     var currentEmployment = borrower.current_employment || {};
 
-    state[fields.firstW2.name] = this.props.loan.borrower.first_w2 ? this.props.loan.borrower.first_w2.attachment_file_name : fields.firstW2.placeholder;
-    state[fields.secondW2.name] = this.props.loan.borrower.second_w2 ? this.props.loan.borrower.second_w2.attachment_file_name : fields.secondW2.placeholder;
-    state[fields.firstPaystub.name] = this.props.loan.borrower.first_paystub ? this.props.loan.borrower.first_paystub.attachment_file_name : fields.firstPaystub.placeholder;
-    state[fields.secondPaystub.name] = this.props.loan.borrower.second_paystub ? this.props.loan.borrower.second_paystub.attachment_file_name : fields.secondPaystub.placeholder;
-    state[fields.firstBankStatement.name] = this.props.loan.borrower.first_bank_statement ? this.props.loan.borrower.first_bank_statement.attachment_file_name : fields.firstBankStatement.placeholder;
-    state[fields.secondBankStatement.name] = this.props.loan.borrower.second_bank_statement ? this.props.loan.borrower.second_bank_statement.attachment_file_name : fields.secondBankStatement.placeholder;
-
     state[fields.employerName.name] = currentEmployment[fields.employerName.name];
     state[fields.employerAddress.name] = currentEmployment[fields.employerAddress.name];
     state[fields.jobTitle.name] = currentEmployment[fields.jobTitle.name];
@@ -316,6 +283,48 @@ var FormIncome = React.createClass({
     state.w2_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/w2s/';
     state.paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/paystubs/';
     state.bank_statement_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/bank_statements/';
+
+    if (this.props.loan.borrower.first_w2) {
+      state[fields.firstW2.name] = this.props.loan.borrower.first_w2.attachment_file_name;
+      state.remove_first_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.first_w2.id + '/remove_w2s/';
+    } else {
+      state[fields.firstW2.name] = fields.firstW2.placeholder;
+    }
+
+    if (this.props.loan.borrower.second_w2) {
+      state[fields.secondW2.name] = this.props.loan.borrower.second_w2.attachment_file_name;
+      state.remove_second_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.second_w2.id + '/remove_w2s/';
+    } else {
+      state[fields.secondW2.name] = fields.secondW2.placeholder;
+    }
+
+    if (this.props.loan.borrower.first_paystub) {
+      state[fields.firstPaystub.name] = this.props.loan.borrower.first_paystub.attachment_file_name;
+      state.remove_first_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.first_paystub.id + '/remove_paystubs/';
+    } else {
+      state[fields.firstPaystub.name] = fields.firstPaystub.placeholder;
+    }
+
+    if (this.props.loan.borrower.second_paystub) {
+      state[fields.secondPaystub.name] = this.props.loan.borrower.second_paystub.attachment_file_name;
+      state.remove_second_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.second_paystub.id + '/remove_paystubs/';
+    } else {
+      state[fields.secondPaystub.name] = fields.secondPaystub.placeholder;
+    }
+
+    if (this.props.loan.borrower.first_bank_statement) {
+      state[fields.firstBankStatement.name] = this.props.loan.borrower.first_bank_statement.attachment_file_name;
+      state.remove_first_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.first_bank_statement.id + '/remove_bank_statements/';
+    } else {
+      state[fields.firstBankStatement.name] = fields.firstBankStatement.placeholder;
+    }
+
+    if (this.props.loan.borrower.second_bank_statement) {
+      state[fields.secondBankStatement.name] = this.props.loan.borrower.second_bank_statement.attachment_file_name;
+      state.remove_second_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.second_bank_statement.id + '/remove_bank_statements/';
+    } else {
+      state[fields.secondBankStatement.name] = fields.secondBankStatement.placeholder;
+    }
 
     return state;
   },

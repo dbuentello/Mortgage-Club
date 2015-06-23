@@ -74,6 +74,7 @@ var LoanInterface = React.createClass({
 
         skip_change_page = typeof skip_change_page !== 'undefined' ? skip_change_page : false;
         if (skip_change_page) {
+          // TODO: identify what it does when reset active state
           this.setState({
             active: menu[step]
           });

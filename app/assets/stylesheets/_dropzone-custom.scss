@@ -1,8 +1,18 @@
 .dropzone {
   text-align: center;
-  width: 50%;
+  // width: 50%;
   height: 50px;
   border-style: dotted;
-  margin-bottom: 7px;
-  float: right
+  // float: right;
+  padding: 0 0 0 0;
+  margin: 0 0 7px 15px;
+}
+
+.action-icons {
+  float: right;
+  padding: 0 15px 0 15px;
+  margin: 0 0 0 0;
+  a {
+    padding-right: 8px;
+  }
 }

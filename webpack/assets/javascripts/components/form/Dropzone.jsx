@@ -22,14 +22,24 @@ var Dropzone = React.createClass({
     accept: React.PropTypes.string,
     multiple: React.PropTypes.bool,
     uploadUrl: React.PropTypes.string,
-    orderNumber: React.PropTypes.number
+    orderNumber: React.PropTypes.number,
+    tip: React.PropTypes.string,
+    fileUrl: React.PropTypes.string,
+    removeUrl: React.PropTypes.string
   },
 
   componentDidMount: function() {
-    // TODO: identify if this dropzone already have initial file
-    var hasValue = false;
-    if ( hasValue ) {
-      $(this.getDOMNode()).css({color: "#000", width: 350});
+    this.setState({
+      tip: this.props.tip || 'click to upload',
+      dropzoneBox: this.refs.box.getDOMNode()
+    });
+
+    if (this.props.fileUrl) {
+      $(this.refs.box.getDOMNode()).css({backgroundColor: "#6B98F2", color: "#000"});
+      $(this.refs.box.getDOMNode()).tooltip({ title: this.props.tip });
+      this.setState({ fileUrl: this.props.fileUrl });
+    } else {
+      this.setState({ fileUrl: 'javascript:void(0)' });
     }
   },
 
@@ -66,16 +76,15 @@ var Dropzone = React.createClass({
 
     if (typeof files[0] !== 'undefined') {
       if (this.props.uploadUrl) {
+        // prepare formData object
         var formData = new FormData();
         formData.append('file', files[0]);
         formData.append('order', this.props.orderNumber);
 
-        var box = $(this.getDOMNode());
-
         // notify uploading
-        $(box[0]).animate({
-          width: 350
-        }).css({backgroundColor: "#81F79F", color: "#FF0000"});
+        $(this.refs.box.getDOMNode()).css({backgroundColor: "#81F79F", color: "#FF0000"});
+
+        this.setState({ tip: 'Uploading ...' });
 
         $.ajax({
           url: this.props.uploadUrl,
@@ -83,30 +92,31 @@ var Dropzone = React.createClass({
           enctype: 'multipart/form-data',
           data: formData,
           success: function(response) {
-            console.log(response.message);
 
-            // tooltip chosen box
-            $(box[0]).tooltip({
-              title: files[0].name
-            });
+            // update tip after update
+            this.setState({ tip: files[0].name });
 
-            // highltight chosen box
-            $(box[0]).animate({
-              width: 350
-            }).css({backgroundColor: "#6B98F2", color: "#000"});
-          },
+            // tooltip chosen dropzone
+            $(this.refs.box.getDOMNode()).tooltip({ title: files[0].name });
+
+            // highltight chosen dropzone
+            $(this.refs.box.getDOMNode()).css({backgroundColor: "#6B98F2", color: "#000"});
+
+            // console.log(response.message);
+          }.bind(this),
           cache: false,
           contentType: false,
           processData: false,
           async: true,
           error: function(response, status, error) {
             alert(error);
+            return;
           }
         });
       }
 
       if (this.props.onDrop) {
-        this.props.onDrop(files, this.props.field);
+        this.props.onDrop();
       };
     }
   },
@@ -121,22 +131,75 @@ var Dropzone = React.createClass({
     this.refs.fileInput.getDOMNode().click();
   },
 
-  render: function() {
+  remove: function() {
+    if (this.state.tip != this.props.field.placeholder) {
+      // notify uploading
+      this.setState({ tip: 'Deleting ...' });
+      $(this.refs.box.getDOMNode()).css({backgroundColor: "#FA8258", color: "#000"});
 
-    var className = this.props.className || 'dropzone';
+      $.ajax({
+        url: this.props.removeUrl,
+        method: 'DELETE',
+        data: {
+          order: this.props.orderNumber
+        },
+        dataType: 'json',
+        success: function(response) {
+          // update tip
+          this.setState({ tip: this.props.field.placeholder });
+
+          // disable the download button immediately
+          this.setState({ fileUrl: 'javascript:void(0)' });
+
+          // tooltip chosen dropzone
+          $(this.refs.box.getDOMNode()).tooltip('destroy');
+
+          // highltight chosen dropzone
+          $(this.refs.box.getDOMNode()).css({backgroundColor: "#FFF", color: "#000"});
+
+          // console.log(response.message);
+        }.bind(this),
+        error: function(response, status, error) {
+          alert(error);
+        }
+      });
+    }
+  },
+
+  render: function() {
+    var className = 'col-xs-9 ';
+    className += (this.props.className || 'dropzone');
     if (this.state.isDragActive) {
-      className += ' active';
+      className += 'active';
     };
 
     var style = this.props.style || {
-      borderStyle: this.state.isDragActive ? "solid" : "dotted"
+      borderStyle: this.state.isDragActive ? 'solid' : 'dotted'
     };
 
     return (
-      React.createElement("div", {className: className, style: style, onClick: this.onClick, onDragLeave: this.onDragLeave, onDragOver: this.onDragOver, onDrop: this.onDrop},
-      React.createElement("input", {style: {display: 'none'}, type: "file", multiple: this.props.multiple, ref: "fileInput", onChange: this.onDrop, accept: this.props.accept}),
-        this.props.children
-      )
+      <div>
+        <label className='col-xs-6'>
+          <span className='h7 typeBold'>{this.props.field.label}</span>
+        </label>
+        <div className='col-xs-6'>
+          <div className="row">
+            <div ref='box' className={className} style={style} onClick={this.onClick} onDragLeave={this.onDragLeave}
+              onDragOver={this.onDragOver} onDrop={this.onDrop}>
+              <input style={{display: 'none'}} type="file" multiple={this.props.multiple} ref="fileInput"
+                onChange={this.onDrop} accept={this.props.accept}>
+              </input>
+              <div className='tip'>
+                {this.state.tip}
+              </div>
+            </div>
+            <div className='action-icons'>
+              <a href={this.state.fileUrl}><i className="iconDownload"></i></a>
+              <a href='javascript:void(0)' onClick={this.remove} ><i className="iconTrash"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 
