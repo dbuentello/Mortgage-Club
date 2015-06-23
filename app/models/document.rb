@@ -37,7 +37,7 @@ class Document < ActiveRecord::Base
 
   belongs_to :borrower, foreign_key: 'borrower_id'
 
-  has_attached_file    :attachment
+  has_attached_file    :attachment #, :default_url => "/images/missing.png"
   validates_attachment :attachment,
                       presence: true,
                       content_type: {

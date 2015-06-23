@@ -46,12 +46,13 @@ Rails.application.configure do
   $stdout.sync = true
 
   config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_credentials => {
-      :bucket => ENV['AWS_BUCKET_NAME'],
-      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
-    }
-    # :s3_permissions => 'authenticated-read'
+    storage: :s3,
+    s3_credentials: {
+      bucket: ENV['AWS_BUCKET_NAME'],
+      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+    },
+    s3_host_name: ENV['AWS_HOST_NAME']
+    # s3_permissions: 'authenticated-read'
   }
 end
