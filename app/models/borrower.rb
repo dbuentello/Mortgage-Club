@@ -70,6 +70,19 @@ class Borrower < ActiveRecord::Base
     borrower_addresses.where(is_current: false)
   end
 
+  def document_download_urls
+    {
+      first_bank_statement: first_bank_statement ? first_bank_statement.attachment.url : nil,
+      second_bank_statement: second_bank_statement ? second_bank_statement.attachment.url : nil,
+      first_brokerage_statement: first_brokerage_statement ? first_brokerage_statement.attachment.url : nil,
+      second_brokerage_statement: second_brokerage_statement ? second_brokerage_statement.attachment.url : nil,
+      first_paystub: first_paystub ? first_paystub.attachment.url : nil,
+      second_paystub: second_paystub ? second_paystub.attachment.url : nil,
+      first_w2: first_w2 ? first_w2.attachment.url : nil,
+      second_w2: second_w2 ? second_w2.attachment.url : nil
+    }
+  end
+
   def completed?
     first_name.present? && last_name.present? && dob.present? && ssn.present? && phone.present? &&
       years_in_school.present? && marital_status.present? && current_address.present? &&
