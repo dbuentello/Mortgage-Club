@@ -30,18 +30,18 @@ var Dropzone = React.createClass({
   componentDidMount: function() {
     var hasValue = false;
     if (hasValue) {
-      $(this.getDOMNode()).css({color: "#000", width: 350});
+      $(this.refs.box.getDOMNode()).css({color: "#000"});
     }
 
-    var dropzoneBox = $(this.getDOMNode()).find('.dropzone')[0];
     this.setState({
       tip: this.props.tip || 'click to upload',
-      dropzoneBox: dropzoneBox
+      dropzoneBox: this.refs.box.getDOMNode()
     });
 
     if (this.props.fileUrl) {
-      $(dropzoneBox).css({backgroundColor: "#6B98F2", color: "#000"});
+      $(this.refs.box.getDOMNode()).css({backgroundColor: "#6B98F2", color: "#000"});
     }
+
   },
 
   onDragLeave: function(e) {
@@ -83,8 +83,7 @@ var Dropzone = React.createClass({
         formData.append('order', this.props.orderNumber);
 
         // notify uploading
-        $(this.getDOMNode()).animate({width: 350}).
-          css({backgroundColor: "#81F79F", color: "#FF0000"});
+        $(this.refs.box.getDOMNode()).css({backgroundColor: "#81F79F", color: "#FF0000"});
 
         this.setState({ tip: 'Uploading ...' });
 
@@ -94,17 +93,17 @@ var Dropzone = React.createClass({
           enctype: 'multipart/form-data',
           data: formData,
           success: function(response) {
-            console.log(response.message);
 
             // update tip after update
             this.setState({ tip: files[0].name });
 
             // tooltip chosen dropzone
-            $(this.getDOMNode()).tooltip({ title: files[0].name });
+            $(this.refs.box.getDOMNode()).tooltip({ title: files[0].name });
 
             // highltight chosen dropzone
-            $(this.getDOMNode()).animate({ width: 350 }).
-              css({backgroundColor: "#6B98F2", color: "#000"});
+            $(this.refs.box.getDOMNode()).css({backgroundColor: "#6B98F2", color: "#000"});
+
+            console.log(response.message);
           }.bind(this),
           cache: false,
           contentType: false,
@@ -134,9 +133,10 @@ var Dropzone = React.createClass({
   },
 
   render: function() {
-    var className = this.props.className || 'dropzone';
+    var className = 'col-xs-9 ';
+    className += (this.props.className || 'dropzone');
     if (this.state.isDragActive) {
-      className += ' active';
+      className += 'active';
     };
 
     var style = this.props.style || {
@@ -145,16 +145,23 @@ var Dropzone = React.createClass({
 
     return (
       <div>
-        <div className='download_link'>
-          <a href={this.props.fileUrl}>Down</a>
-        </div>
-        <div className={className} style={style} onClick={this.onClick} onDragLeave={this.onDragLeave}
-          onDragOver={this.onDragOver} onDrop={this.onDrop}>
-          <input style={{display: 'none'}} type="file" multiple={this.props.multiple} ref="fileInput"
-            onChange={this.onDrop} accept={this.props.accept}>
-          </input>
-          <div className='tip'>
-            {this.state.tip}
+        <label className='col-xs-6'>
+          <span className='h7 typeBold'>{this.props.field.label}</span>
+        </label>
+        <div className='col-xs-6'>
+          <div className="row">
+            <div ref='box' className={className} style={style} onClick={this.onClick} onDragLeave={this.onDragLeave}
+              onDragOver={this.onDragOver} onDrop={this.onDrop}>
+              <input style={{display: 'none'}} type="file" multiple={this.props.multiple} ref="fileInput"
+                onChange={this.onDrop} accept={this.props.accept}>
+              </input>
+              <div className='tip'>
+                {this.state.tip}
+              </div>
+            </div>
+            <div className='action-icons'>
+              <a href={this.props.fileUrl}><i className="iconDownload"></i></a>
+            </div>
           </div>
         </div>
       </div>

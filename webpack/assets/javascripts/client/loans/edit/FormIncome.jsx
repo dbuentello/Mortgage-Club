@@ -67,83 +67,35 @@ var FormIncome = React.createClass({
           <div className='pal'>
             <div className='box mtn'>
               <div className='row'>
-                <label className='col-xs-6'>
-                  <span className='h7 typeBold'>{fields.firstW2.label}</span>
-                </label>
-                <div className='col-xs-6'>
-                  <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.firstW2}
-                      uploadUrl={this.state.w2_url} orderNumber={1}
-                      tip={this.state[fields.firstW2.name]}
-                      fileUrl={this.props.loan.borrower.document_download_urls.first_w2}>
-                    </Dropzone>
-                  </div>
-                </div>
+                <Dropzone onDrop={this.onDrop} field={fields.firstW2}
+                  uploadUrl={this.state.w2_url} orderNumber={1}
+                  tip={this.state[fields.firstW2.name]}
+                  fileUrl={this.props.loan.borrower.document_download_urls.first_w2}/>
 
-                <label className='col-xs-6'>
-                  <span className='h7 typeBold'>{fields.secondW2.label}</span>
-                </label>
-                <div className='col-xs-6'>
-                  <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.secondW2}
-                      uploadUrl={this.state.w2_url} orderNumber={2}
-                      tip={this.state[fields.secondW2.name]}
-                      fileUrl={this.props.loan.borrower.document_download_urls.second_w2}>
-                    </Dropzone>
-                  </div>
-                </div>
+                <Dropzone onDrop={this.onDrop} field={fields.secondW2}
+                  uploadUrl={this.state.w2_url} orderNumber={2}
+                  tip={this.state[fields.secondW2.name]}
+                  fileUrl={this.props.loan.borrower.document_download_urls.second_w2}/>
 
-                <label className='col-xs-6'>
-                  <span className='h7 typeBold'>{fields.firstPaystub.label}</span>
-                </label>
-                <div className='col-xs-6'>
-                  <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}
-                      uploadUrl={this.state.paystub_url} orderNumber={1}
-                      tip={this.state[fields.firstPaystub.name]}
-                      fileUrl={this.props.loan.borrower.document_download_urls.first_paystub}>
-                    </Dropzone>
-                  </div>
-                </div>
+                <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}
+                  uploadUrl={this.state.paystub_url} orderNumber={1}
+                  tip={this.state[fields.firstPaystub.name]}
+                  fileUrl={this.props.loan.borrower.document_download_urls.first_paystub}/>
 
-                <label className='col-xs-6'>
-                  <span className='h7 typeBold'>{fields.secondPaystub.label}</span>
-                </label>
-                <div className='col-xs-6'>
-                  <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}
-                      uploadUrl={this.state.paystub_url} orderNumber={2}
-                      tip={this.state[fields.secondPaystub.name]}
-                      fileUrl={this.props.loan.borrower.document_download_urls.second_paystub}>
-                    </Dropzone>
-                  </div>
-                </div>
+                <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}
+                  uploadUrl={this.state.paystub_url} orderNumber={2}
+                  tip={this.state[fields.secondPaystub.name]}
+                  fileUrl={this.props.loan.borrower.document_download_urls.second_paystub}/>
 
-                <label className='col-xs-6'>
-                  <span className='h7 typeBold'>{fields.firstBankStatement.label}</span>
-                </label>
-                <div className='col-xs-6'>
-                  <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}
-                      uploadUrl={this.state.bank_statement_url} orderNumber={1}
-                      tip={this.state[fields.firstBankStatement.name]}
-                      fileUrl={this.props.loan.borrower.document_download_urls.first_bank_statement}>
-                    </Dropzone>
-                  </div>
-                </div>
+                <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}
+                  uploadUrl={this.state.bank_statement_url} orderNumber={1}
+                  tip={this.state[fields.firstBankStatement.name]}
+                  fileUrl={this.props.loan.borrower.document_download_urls.first_bank_statement}/>
 
-                <label className='col-xs-6'>
-                  <span className='h7 typeBold'>{fields.secondBankStatement.label}</span>
-                </label>
-                <div className='col-xs-6'>
-                  <div>
-                    <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}
-                      uploadUrl={this.state.bank_statement_url} orderNumber={2}
-                      tip={this.state[fields.secondBankStatement.name]}
-                      fileUrl={this.props.loan.borrower.document_download_urls.second_bank_statement}>
-                    </Dropzone>
-                  </div>
-                </div>
+                <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}
+                  uploadUrl={this.state.bank_statement_url} orderNumber={2}
+                  tip={this.state[fields.secondBankStatement.name]}
+                  fileUrl={this.props.loan.borrower.document_download_urls.second_bank_statement}/>
               </div>
 
               <div className='row'>
