@@ -35,7 +35,7 @@ var Dropzone = React.createClass({
       dropzoneBox: this.refs.box.getDOMNode()
     });
 
-    if (this.props.removeUrl) {
+    if (this.props.removeUrl != 'javascript:void(0)') {
       // having removeUrl means we already have document here, don't use fileUrl cause it's always there
       $(this.refs.box.getDOMNode()).css({backgroundColor: "#6B98F2", color: "#000"});
       $(this.refs.box.getDOMNode()).tooltip({ title: this.props.tip });

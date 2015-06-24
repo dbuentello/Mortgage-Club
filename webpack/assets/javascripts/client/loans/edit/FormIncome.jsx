@@ -302,6 +302,7 @@ var FormIncome = React.createClass({
       state.remove_first_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.first_w2.id + '/remove_w2/';
     } else {
       state[fields.firstW2.name] = fields.firstW2.placeholder;
+      state.remove_first_w2_url =  'javascript:void(0)';
     }
 
     if (this.props.loan.borrower.second_w2) {
@@ -309,6 +310,7 @@ var FormIncome = React.createClass({
       state.remove_second_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.second_w2.id + '/remove_w2/';
     } else {
       state[fields.secondW2.name] = fields.secondW2.placeholder;
+      state.remove_second_w2_url =  'javascript:void(0)';
     }
 
     if (this.props.loan.borrower.first_paystub) {
@@ -316,6 +318,7 @@ var FormIncome = React.createClass({
       state.remove_first_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.first_paystub.id + '/remove_paystub/';
     } else {
       state[fields.firstPaystub.name] = fields.firstPaystub.placeholder;
+      state.remove_first_paystub_url =  'javascript:void(0)';
     }
 
     if (this.props.loan.borrower.second_paystub) {
@@ -323,6 +326,7 @@ var FormIncome = React.createClass({
       state.remove_second_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.second_paystub.id + '/remove_paystub/';
     } else {
       state[fields.secondPaystub.name] = fields.secondPaystub.placeholder;
+      state.remove_second_paystub_url =  'javascript:void(0)';
     }
 
     if (this.props.loan.borrower.first_bank_statement) {
@@ -330,6 +334,7 @@ var FormIncome = React.createClass({
       state.remove_first_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.first_bank_statement.id + '/remove_bank_statement/';
     } else {
       state[fields.firstBankStatement.name] = fields.firstBankStatement.placeholder;
+      state.remove_first_bank_statement_url =  'javascript:void(0)';
     }
 
     if (this.props.loan.borrower.second_bank_statement) {
@@ -337,6 +342,7 @@ var FormIncome = React.createClass({
       state.remove_second_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.second_bank_statement.id + '/remove_bank_statement/';
     } else {
       state[fields.secondBankStatement.name] = fields.secondBankStatement.placeholder;
+      state.remove_second_bank_statement_url =  'javascript:void(0)';
     }
 
     return state;
