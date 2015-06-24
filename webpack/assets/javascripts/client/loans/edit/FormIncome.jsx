@@ -280,48 +280,48 @@ var FormIncome = React.createClass({
     state[fields.grossBonus.name] = this.formatCurrency(borrower[fields.grossBonus.name]);
     state[fields.grossCommission.name] = this.formatCurrency(borrower[fields.grossCommission.name]);
 
-    state.w2_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/w2s/';
-    state.paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/paystubs/';
-    state.bank_statement_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/bank_statements/';
+    state.w2_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/w2/';
+    state.paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/paystub/';
+    state.bank_statement_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/bank_statement/';
 
     if (this.props.loan.borrower.first_w2) {
       state[fields.firstW2.name] = this.props.loan.borrower.first_w2.attachment_file_name;
-      state.remove_first_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.first_w2.id + '/remove_w2s/';
+      state.remove_first_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.first_w2.id + '/remove_w2/';
     } else {
       state[fields.firstW2.name] = fields.firstW2.placeholder;
     }
 
     if (this.props.loan.borrower.second_w2) {
       state[fields.secondW2.name] = this.props.loan.borrower.second_w2.attachment_file_name;
-      state.remove_second_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.second_w2.id + '/remove_w2s/';
+      state.remove_second_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.second_w2.id + '/remove_w2/';
     } else {
       state[fields.secondW2.name] = fields.secondW2.placeholder;
     }
 
     if (this.props.loan.borrower.first_paystub) {
       state[fields.firstPaystub.name] = this.props.loan.borrower.first_paystub.attachment_file_name;
-      state.remove_first_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.first_paystub.id + '/remove_paystubs/';
+      state.remove_first_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.first_paystub.id + '/remove_paystub/';
     } else {
       state[fields.firstPaystub.name] = fields.firstPaystub.placeholder;
     }
 
     if (this.props.loan.borrower.second_paystub) {
       state[fields.secondPaystub.name] = this.props.loan.borrower.second_paystub.attachment_file_name;
-      state.remove_second_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.second_paystub.id + '/remove_paystubs/';
+      state.remove_second_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.second_paystub.id + '/remove_paystub/';
     } else {
       state[fields.secondPaystub.name] = fields.secondPaystub.placeholder;
     }
 
     if (this.props.loan.borrower.first_bank_statement) {
       state[fields.firstBankStatement.name] = this.props.loan.borrower.first_bank_statement.attachment_file_name;
-      state.remove_first_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.first_bank_statement.id + '/remove_bank_statements/';
+      state.remove_first_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.first_bank_statement.id + '/remove_bank_statement/';
     } else {
       state[fields.firstBankStatement.name] = fields.firstBankStatement.placeholder;
     }
 
     if (this.props.loan.borrower.second_bank_statement) {
       state[fields.secondBankStatement.name] = this.props.loan.borrower.second_bank_statement.attachment_file_name;
-      state.remove_second_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.second_bank_statement.id + '/remove_bank_statements/';
+      state.remove_second_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.second_bank_statement.id + '/remove_bank_statement/';
     } else {
       state[fields.secondBankStatement.name] = fields.secondBankStatement.placeholder;
     }

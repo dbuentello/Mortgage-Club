@@ -54,6 +54,8 @@ class Document < ActiveRecord::Base
     :attachment
   ]
 
+  EXPIRE_VIEW_MINUTES = 10
+
   def downloadable?(user)
     return false if borrower.blank? || user.blank? || user.borrower.blank?
 
