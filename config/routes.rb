@@ -2,12 +2,15 @@ Rails.application.routes.draw do
 
   resources :borrower_uploader, only: [] do
     member do
-      post 'bank_statements'
-      post 'paystubs'
-      post 'w2s'
-      delete 'remove_bank_statements'
-      delete 'remove_paystubs'
-      delete 'remove_w2s'
+      post 'bank_statement'
+      post 'paystub'
+      post 'w2'
+      delete 'remove_bank_statement'
+      delete 'remove_paystub'
+      delete 'remove_w2'
+      get 'download_w2'
+      get 'download_paystub'
+      get 'download_bank_statement'
     end
   end
 

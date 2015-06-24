@@ -72,14 +72,12 @@ class Borrower < ActiveRecord::Base
 
   def document_download_urls
     {
-      first_bank_statement: first_bank_statement ? first_bank_statement.attachment.url : nil,
-      second_bank_statement: second_bank_statement ? second_bank_statement.attachment.url : nil,
-      first_brokerage_statement: first_brokerage_statement ? first_brokerage_statement.attachment.url : nil,
-      second_brokerage_statement: second_brokerage_statement ? second_brokerage_statement.attachment.url : nil,
-      first_paystub: first_paystub ? first_paystub.attachment.url : nil,
-      second_paystub: second_paystub ? second_paystub.attachment.url : nil,
-      first_w2: first_w2 ? first_w2.attachment.url : nil,
-      second_w2: second_w2 ? second_w2.attachment.url : nil
+      first_w2: first_w2 ? "/borrower_uploader/#{first_w2.id}/download_w2?order=1" : nil,
+      second_w2: second_w2 ? "/borrower_uploader/#{second_w2.id}/download_w2?order=2" : nil,
+      first_paystub: first_paystub ? "/borrower_uploader/#{first_paystub.id}/download_paystub?order=1" : nil,
+      second_paystub: second_paystub ? "/borrower_uploader/#{second_paystub.id}/download_paystub?order=2" : nil,
+      first_bank_statement: first_bank_statement ? "/borrower_uploader/#{first_bank_statement.id}/download_bank_statement?order=1" : nil,
+      second_bank_statement: second_bank_statement ? "/borrower_uploader/#{second_bank_statement.id}/download_bank_statement?order=1" : nil
     }
   end
 

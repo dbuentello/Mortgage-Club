@@ -45,6 +45,7 @@ Rails.application.configure do
   # For foreman logging. See: https://github.com/ddollar/foreman/wiki/Missing-Output
   $stdout.sync = true
 
+  # more info here: http://www.rubydoc.info/gems/paperclip/Paperclip/Storage/S3
   config.paperclip_defaults = {
     storage: :s3,
     s3_credentials: {
@@ -52,7 +53,9 @@ Rails.application.configure do
       access_key_id: ENV['AWS_ACCESS_KEY_ID'],
       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
     },
-    s3_host_name: ENV['AWS_HOST_NAME']
+    s3_host_name: ENV['AWS_HOST_NAME'],
+    s3_protocol: 'https'
+    # s3_host_alias
     # s3_permissions: 'authenticated-read'
   }
 end
