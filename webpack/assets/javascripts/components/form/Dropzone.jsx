@@ -35,7 +35,8 @@ var Dropzone = React.createClass({
       dropzoneBox: this.refs.box.getDOMNode()
     });
 
-    if (this.props.fileUrl) {
+    if (this.props.removeUrl) {
+      // having removeUrl means we already have document here, don't use fileUrl cause it's always there
       $(this.refs.box.getDOMNode()).css({backgroundColor: "#6B98F2", color: "#000"});
       $(this.refs.box.getDOMNode()).tooltip({ title: this.props.tip });
       this.setState({ fileUrl: this.props.fileUrl });
@@ -93,9 +94,11 @@ var Dropzone = React.createClass({
           enctype: 'multipart/form-data',
           data: formData,
           success: function(response) {
-
             // update tip after update
             this.setState({ tip: files[0].name });
+
+            // update download button's href
+            this.setState({ fileUrl: this.props.fileUrl });
 
             // tooltip chosen dropzone
             $(this.refs.box.getDOMNode()).tooltip({ title: files[0].name });

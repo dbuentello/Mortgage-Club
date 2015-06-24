@@ -148,52 +148,52 @@ class BorrowerUploaderController < ApplicationController
   end
 
   def download_w2
-    case params[:order]
+    case params[:id]
     when "1"
-      w2 = Documents::FirstW2.where(id: params[:id]).first
+      w2 = current_user.borrower.first_w2
     when "2"
-      w2 = Documents::SecondW2.where(id: params[:id]).first
+      w2 = current_user.borrower.second_w2
     end
 
-    if w2.present? && w2.downloadable?(current_user)
+    if w2.present?
       url = w2.attachment.s3_object.url_for(:read, :secure => true, :expires => Document::EXPIRE_VIEW_MINUTES.minutes).to_s
       redirect_to url
     else
-      render json: { message: "You don't have enough permission. Contact the owner to access this file!" }
+      render json: { message: "You don't have this file yet. Try to upload it!" }
     end
 
   end
 
   def download_paystub
-    case params[:order]
+    case params[:id]
     when "1"
-      paystub = Documents::FirstPaystub.where(id: params[:id]).first
+      paystub = current_user.borrower.first_paystub
     when "2"
-      paystub = Documents::SecondPaystub.where(id: params[:id]).first
+      paystub = current_user.borrower.second_paystub
     end
 
-    if paystub.present? && paystub.downloadable?(current_user)
+    if paystub.present?
       url = paystub.attachment.s3_object.url_for(:read, :secure => true, :expires => Document::EXPIRE_VIEW_MINUTES.minutes).to_s
       redirect_to url
     else
-      render json: { message: "You don't have enough permission. Contact the owner to access this file!" }
+      render json: { message: "You don't have this file yet. Try to upload it!" }
     end
 
   end
 
   def download_bank_statement
-    case params[:order]
+    case params[:id]
     when "1"
-      bank_statement = Documents::FirstBankStatement.where(id: params[:id]).first
+      bank_statement = current_user.borrower.first_bank_statement
     when "2"
-      bank_statement = Documents::SecondBankStatement.where(id: params[:id]).first
+      bank_statement = current_user.borrower.second_bank_statement
     end
 
-    if bank_statement.present? && bank_statement.downloadable?(current_user)
+    if bank_statement.present?
       url = bank_statement.attachment.s3_object.url_for(:read, :secure => true, :expires => Document::EXPIRE_VIEW_MINUTES.minutes).to_s
       redirect_to url
     else
-      render json: { message: "You don't have enough permission. Contact the owner to access this file!" }
+      render json: { message: "You don't have this file yet. Try to upload it!" }
     end
 
   end

@@ -32,6 +32,17 @@ var fields = {
 var FormIncome = React.createClass({
   mixins: [TextFormatMixin],
 
+  getDefaultProps: function() {
+    return {
+      download_first_w2_url: "/borrower_uploader/1/download_w2",
+      download_second_w2_url: "/borrower_uploader/2/download_w2",
+      download_first_paystub_url: "/borrower_uploader/1/download_paystub",
+      download_second_paystub_url: "/borrower_uploader/2/download_paystub",
+      download_first_bank_statement_url: "/borrower_uploader/1/download_bank_statement",
+      download_second_bank_statement_url: "/borrower_uploader/2/download_bank_statement"
+    }
+  },
+
   getInitialState: function() {
     return this.buildStateFromLoan(this.props.loan);
   },
@@ -74,42 +85,42 @@ var FormIncome = React.createClass({
                 <Dropzone onDrop={this.onDrop} field={fields.firstW2}
                   uploadUrl={this.state.w2_url} orderNumber={1}
                   tip={this.state[fields.firstW2.name]}
-                  fileUrl={this.props.loan.borrower.document_download_urls.first_w2}
+                  fileUrl={this.props.download_first_w2_url}
                   removeUrl={this.state.remove_first_w2_url}
                   afterRemove={this.refresh}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.secondW2}
                   uploadUrl={this.state.w2_url} orderNumber={2}
                   tip={this.state[fields.secondW2.name]}
-                  fileUrl={this.props.loan.borrower.document_download_urls.second_w2}
+                  fileUrl={this.props.download_second_w2_url}
                   removeUrl={this.state.remove_second_w2_url}
                   afterRemove={this.refresh}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}
                   uploadUrl={this.state.paystub_url} orderNumber={1}
                   tip={this.state[fields.firstPaystub.name]}
-                  fileUrl={this.props.loan.borrower.document_download_urls.first_paystub}
+                  fileUrl={this.props.download_first_paystub_url}
                   removeUrl={this.state.remove_first_paystub_url}
                   afterRemove={this.refresh}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}
                   uploadUrl={this.state.paystub_url} orderNumber={2}
                   tip={this.state[fields.secondPaystub.name]}
-                  fileUrl={this.props.loan.borrower.document_download_urls.second_paystub}
+                  fileUrl={this.props.download_second_paystub_url}
                   removeUrl={this.state.remove_second_paystub_url}
                   afterRemove={this.refresh}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}
                   uploadUrl={this.state.bank_statement_url} orderNumber={1}
                   tip={this.state[fields.firstBankStatement.name]}
-                  fileUrl={this.props.loan.borrower.document_download_urls.first_bank_statement}
+                  fileUrl={this.props.download_first_bank_statement_url}
                   removeUrl={this.state.remove_first_bank_statement_url}
                   afterRemove={this.refresh}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}
                   uploadUrl={this.state.bank_statement_url} orderNumber={2}
                   tip={this.state[fields.secondBankStatement.name]}
-                  fileUrl={this.props.loan.borrower.document_download_urls.second_bank_statement}
+                  fileUrl={this.props.download_second_bank_statement_url}
                   removeUrl={this.state.remove_second_bank_statement_url}
                   afterRemove={this.refresh}/>
               </div>
