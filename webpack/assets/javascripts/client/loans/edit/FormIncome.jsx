@@ -156,6 +156,7 @@ var FormIncome = React.createClass({
                     onChange={this.onChange}/>
                 </div>
               </div>
+
               <div className='h5 typeDeemphasize'>Best contact to confirm employment:</div>
               <div className='row'>
                 <div className='col-sm-6'>
@@ -205,6 +206,7 @@ var FormIncome = React.createClass({
                     placeholder='e.g. 99,000'/>
                 </div>
               </div>
+
               <div className='row'>
                 <div className='col-sm-6'>
                   <TextField

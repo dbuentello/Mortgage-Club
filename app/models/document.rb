@@ -37,7 +37,12 @@ class Document < ActiveRecord::Base
 
   belongs_to :borrower, foreign_key: 'borrower_id'
 
-  has_attached_file    :attachment, s3_permissions: 'authenticated-read'
+  has_attached_file :attachment,
+    s3_permissions: 'authenticated-read',
+    path: ":class/:token/:filename"
+
+  validates_presence_of :token
+
   validates_attachment :attachment,
     presence: true,
     content_type: {
@@ -56,10 +61,18 @@ class Document < ActiveRecord::Base
 
   EXPIRE_VIEW_MINUTES = 10
 
+  before_validation :set_private_token, :on => :create
+
   def downloadable?(user)
     return false if borrower.blank? || user.blank? || user.borrower.blank?
 
     user.borrower == borrower
   end
+
+  private
+
+    def set_private_token
+      self.token = Digest::MD5.hexdigest(Time.now.to_s)
+    end
 
 end
