@@ -37,7 +37,7 @@ class Document < ActiveRecord::Base
 
   belongs_to :borrower, foreign_key: 'borrower_id'
 
-  has_attached_file    :attachment
+  has_attached_file    :attachment, s3_permissions: 'authenticated-read'
   validates_attachment :attachment,
     presence: true,
     content_type: {
