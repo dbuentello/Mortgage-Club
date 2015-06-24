@@ -37,17 +37,27 @@ class Document < ActiveRecord::Base
 
   belongs_to :borrower, foreign_key: 'borrower_id'
 
-  has_attached_file    :attachment #, :default_url => "/images/missing.png"
+  has_attached_file    :attachment
   validates_attachment :attachment,
-                      presence: true,
-                      content_type: {
-                        content_type: Document::ALLOWED_MIME_TYPES,
-                        message: ' allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images'
-                      },
-                      size: { less_than_or_equal_to: 10.megabytes, message: ' must be less than or equal to 10MB' }
+    presence: true,
+    content_type: {
+      content_type: Document::ALLOWED_MIME_TYPES,
+      message: ' allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images'
+    },
+    size: {
+      less_than_or_equal_to: 10.megabytes,
+      message: ' must be less than or equal to 10MB'
+    }
 
-   PERMITTED_ATTRS = [
-     :type,
-     :attachment
-   ]
+  PERMITTED_ATTRS = [
+    :type,
+    :attachment
+  ]
+
+  def downloadable?(user)
+    return false if borrower.blank? || user.blank? || user.borrower.blank?
+
+    user.borrower == borrower
+  end
+
 end
