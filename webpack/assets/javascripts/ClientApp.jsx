@@ -30,13 +30,13 @@ window.ClientApp = React.createClass({
                 {user
                 ? <span>
                     <span className='typeLowlight mrm'>Hello {user.firstName}!</span>
-                    <a className='linkTypeReversed' href='/logout'>Log out</a>
+                    <a className='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
                   </span>
                 : <span>
-                    <a className='linkTypeReversed mrm' href='/login'>
+                    <a className='linkTypeReversed mrm' href='/auth/login'>
                       Log in
                     </a>
-                    <a className='linkTypeReversed mrm' href='/signup'>
+                    <a className='linkTypeReversed mrm' href='/auth/signup'>
                       Sign up
                     </a>
                   </span>
