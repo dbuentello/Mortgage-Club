@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  root 'pages#index'
+
+  get 'take_home_test', to: 'pages#take_home_test', as: :take_home_test
+
   resources :borrower_uploader, only: [] do
     member do
       post 'bank_statement'
@@ -34,6 +38,4 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'pages#index'
-  get 'take_home_test'    => 'pages#take_home_test',    as: :take_home_test
 end

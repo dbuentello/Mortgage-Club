@@ -37,7 +37,7 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   # devise
-  config.action_mailer.default_url_options = { host: 'localhost:4000' }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 4000 }
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
