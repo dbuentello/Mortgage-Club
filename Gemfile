@@ -1,26 +1,29 @@
 source 'https://rubygems.org'
 
-ruby '2.1.5'
+ruby '2.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~>4.2'
-# Use sqlite3 as the database for Active Record
+gem 'rails', '~> 4.2'
+# Use PostgreSQL as the database for Active Record
 gem 'pg'
 
-gem 'responders'
-gem 'devise'
+# A set of responders modules to dry up your Rails 4.2+ app.
+# gem 'responders'
 
+gem 'devise', '~> 3.5'
+
+# Makes running your Rails app easier. Based on the ideas behind 12factor.net
 gem 'rails_12factor'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
 gem 'bootstrap-sass', '~> 3.3.1'
+
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
+gem 'uglifier', '>= 1.3.0'
+
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
 
 # JavaScript libraries
 gem 'jquery-rails'
@@ -56,9 +59,6 @@ gem 'paperclip'
 # official AWS SDK for Ruby
 gem 'aws-sdk', '< 2'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 # Load environment variables
 gem 'dotenv-rails'
 
@@ -80,6 +80,9 @@ group :development, :test do
 
   # A library for setting up Ruby objects as test data
   gem 'factory_girl_rails'
+
+  # Use Capistrano for deployment
+  # gem 'capistrano-rails', group: :development
 end
 
 group :test do
@@ -88,4 +91,9 @@ group :test do
 
   # cleans out database before running tests to ensure clean slate for testing
   gem 'database_cleaner'
+end
+
+group :production do
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'therubyracer', platforms: :ruby
 end
