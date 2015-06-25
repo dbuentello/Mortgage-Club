@@ -1,5 +1,22 @@
 Rails.application.routes.draw do
 
+  root 'pages#index'
+
+  get 'take_home_test', to: 'pages#take_home_test', as: :take_home_test
+
+  devise_for :users, controllers: {
+    sessions: 'users/sessions', registrations: 'users/registrations'
+  }, path: "auth",
+  path_names: {
+    sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification',
+    unlock: 'unblock', registration: 'register', sign_up: 'signup'
+  }
+
+  devise_scope :user do
+    get 'login', to: 'users/sessions#new', as: :custom_login
+    get 'signup', to: 'users/registrations#new', as: :custom_signup
+  end
+
   resources :borrower_uploader, only: [] do
     member do
       post 'bank_statement'
@@ -14,10 +31,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :sessions, only: [:new, :create, :destroy]
-  get 'signup', to: 'users#new', as: 'signup'
-  get 'login', to: 'sessions#new', as: 'login'
-  get 'logout', to: 'sessions#destroy', as: 'logout'
+  # resources :sessions, only: [:new, :create, :destroy]
+  # get 'signup', to: 'users#new', as: 'signup'
+  # get 'login', to: 'sessions#new', as: 'login'
+  # get 'logout', to: 'sessions#destroy', as: 'logout'
 
   resources :users
 
@@ -34,6 +51,4 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'pages#index'
-  get 'take_home_test'    => 'pages#take_home_test',    as: :take_home_test
 end
