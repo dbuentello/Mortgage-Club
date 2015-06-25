@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
-  has_secure_password
+  # Include default devise modules. Others available are:
+  # :confirmable, :omniauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+    :trackable, :validatable, :lockable, :timeoutable
 
   has_many :loans, inverse_of: :user, dependent: :destroy
   has_one :borrower, inverse_of: :user, autosave: :true, dependent: :destroy
@@ -10,11 +13,11 @@ class User < ActiveRecord::Base
   delegate :last_name, :last_name=, to: :borrower, allow_nil: true
 
   validates :email,
-            presence: true,
-            uniqueness: true,
-            format: {
-              with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-            }
+    presence: true,
+    uniqueness: true,
+    format: {
+      with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+    }
 
   PERMITTED_ATTRS = [
     :email,
