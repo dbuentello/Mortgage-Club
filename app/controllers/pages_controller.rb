@@ -1,6 +1,8 @@
 class PagesController < ApplicationController
-  before_filter :redirect_if_auth, only: [:index]
   layout 'public'
+
+  skip_before_filter :authenticate_user!
+  before_filter :redirect_if_auth, only: [:index]
 
   def index
     bootstrap
