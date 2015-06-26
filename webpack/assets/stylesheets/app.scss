@@ -4,6 +4,9 @@ $helpSectionWidth: 300px;
 
 .topMenu {
   height: $topMenuHeight;
+  a:hover {
+    color: #999;
+  }
 }
 
 .sideMenu {
@@ -27,3 +30,26 @@ $helpSectionWidth: 300px;
   width: $helpSectionWidth;
   margin-top: $topMenuHeight;
 }
+
+.field {
+  margin-bottom: 8px;
+}
+
+.auth-form {
+  max-width: 350px;
+  padding: 15px;
+  margin: 0 auto;
+  > h2 {
+    margin-bottom: 10px;
+    font-size: 30px;
+  }
+  #error_explanation {
+    h2 {
+      color: #ee552a;
+    }
+    ul > li {
+      color: #e6001c;
+    }
+  }
+}
+

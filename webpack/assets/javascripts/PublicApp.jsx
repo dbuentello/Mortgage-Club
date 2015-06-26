@@ -18,15 +18,6 @@ window.PublicApp = React.createClass({
     var user = this.props.currentUser;
     return (
       <div>
-        <nav className='topMenu sticky backgroundInverse pvm zIndexNavigation overlayFullWidth'>
-          <div className='plm prl'>
-            <div className='row'>
-              <div className='col-xs-6 typeLowlight'>
-                MortgageClub
-              </div>
-            </div>
-          </div>
-        </nav>
         <RouteHandler bootstrapData={this.props}/>
       </div>
     );
