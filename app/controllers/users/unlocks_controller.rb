@@ -1,4 +1,6 @@
 class Users::UnlocksController < Devise::UnlocksController
+  layout 'authentication'
+
   # GET /resource/unlock/new
   # def new
   #   super
