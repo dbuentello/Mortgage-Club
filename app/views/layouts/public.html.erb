@@ -7,6 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div>
+    <nav class='topMenu backgroundInverse pvm zIndexNavigation overlayFullWidth'>
+      <div class='plm prl'>
+        <div class='row'>
+          <div class='col-xs-6 typeLowlight'>
+            <%= link_to "MortgageClub", root_path %>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
   <%= yield %>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>

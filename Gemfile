@@ -62,6 +62,9 @@ gem 'aws-sdk', '< 2'
 # Load environment variables
 gem 'dotenv-rails'
 
+# A Better Nested Inheritable Layouts
+gem 'nestive'
+
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

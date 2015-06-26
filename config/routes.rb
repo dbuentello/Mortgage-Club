@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get 'take_home_test', to: 'pages#take_home_test', as: :take_home_test
 
   devise_for :users, controllers: {
-    sessions: 'users/sessions', registrations: 'users/registrations'
+    sessions: 'users/sessions', registrations: 'users/registrations',
+    confirmations: 'users/confirmations', passwords: 'users/passwords',
+    unlocks: 'users/unlocks'
   }, path: "auth",
   path_names: {
     sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification',
