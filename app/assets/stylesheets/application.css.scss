@@ -4,8 +4,9 @@ $rails: true;
 
 // Those scss files are located under webpack/assets/stylesheets,
 // which has been added to the Rails asset pipeline search path.
-// See config/application.rb.
+// See config/initializers/assets.rb.
 @import "bootstrap-custom";
 @import "bootstrap-sprockets";
 
+@import "bootstrap_datepicker";
 @import "dropzone-custom";
