@@ -94,6 +94,9 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    docusign_rest (0.1.1)
+      json
+      multipart-post (>= 1.2)
     dotenv (2.0.2)
     dotenv-rails (2.0.2)
       dotenv (= 2.0.2)
@@ -137,6 +140,7 @@ GEM
     minitest (5.7.0)
     multi_json (1.11.1)
     multi_xml (0.5.5)
+    multipart-post (2.0.0)
     nestive (0.6.0)
       rails (>= 3.0.0)
     nokogiri (1.6.6.2)
@@ -265,6 +269,7 @@ DEPENDENCIES
   coffee-rails
   database_cleaner
   devise (~> 3.5)
+  docusign_rest
   dotenv-rails
   factory_girl_rails
   faker
