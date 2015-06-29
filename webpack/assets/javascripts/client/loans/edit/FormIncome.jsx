@@ -87,42 +87,48 @@ var FormIncome = React.createClass({
                   tip={this.state[fields.firstW2.name]}
                   fileUrl={this.props.download_first_w2_url}
                   removeUrl={this.state.remove_first_w2_url}
-                  afterRemove={this.refresh}/>
+                  afterRemove={this.refresh}
+                  maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.secondW2}
                   uploadUrl={this.state.w2_url} orderNumber={2}
                   tip={this.state[fields.secondW2.name]}
                   fileUrl={this.props.download_second_w2_url}
                   removeUrl={this.state.remove_second_w2_url}
-                  afterRemove={this.refresh}/>
+                  afterRemove={this.refresh}
+                  maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}
                   uploadUrl={this.state.paystub_url} orderNumber={1}
                   tip={this.state[fields.firstPaystub.name]}
                   fileUrl={this.props.download_first_paystub_url}
                   removeUrl={this.state.remove_first_paystub_url}
-                  afterRemove={this.refresh}/>
+                  afterRemove={this.refresh}
+                  maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}
                   uploadUrl={this.state.paystub_url} orderNumber={2}
                   tip={this.state[fields.secondPaystub.name]}
                   fileUrl={this.props.download_second_paystub_url}
                   removeUrl={this.state.remove_second_paystub_url}
-                  afterRemove={this.refresh}/>
+                  afterRemove={this.refresh}
+                  maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}
                   uploadUrl={this.state.bank_statement_url} orderNumber={1}
                   tip={this.state[fields.firstBankStatement.name]}
                   fileUrl={this.props.download_first_bank_statement_url}
                   removeUrl={this.state.remove_first_bank_statement_url}
-                  afterRemove={this.refresh}/>
+                  afterRemove={this.refresh}
+                  maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}
                   uploadUrl={this.state.bank_statement_url} orderNumber={2}
                   tip={this.state[fields.secondBankStatement.name]}
                   fileUrl={this.props.download_second_bank_statement_url}
                   removeUrl={this.state.remove_second_bank_statement_url}
-                  afterRemove={this.refresh}/>
+                  afterRemove={this.refresh}
+                  maxSize={10000000}/>
               </div>
 
               <div className='row'>

@@ -5,7 +5,8 @@ var Dropzone = React.createClass({
     return {
       supportClick: true,
       multiple: false,
-      download: false
+      download: false,
+      maxSize: 10000000
     };
   },
 
@@ -26,7 +27,8 @@ var Dropzone = React.createClass({
     orderNumber: React.PropTypes.number,
     tip: React.PropTypes.string,
     fileUrl: React.PropTypes.string,
-    removeUrl: React.PropTypes.string
+    removeUrl: React.PropTypes.string,
+    maxSize: React.PropTypes.number
   },
 
   componentDidMount: function() {
@@ -42,7 +44,7 @@ var Dropzone = React.createClass({
       this.setState({ fileUrl: this.props.fileUrl });
     } else {
       this.setState({ fileUrl: 'javascript:void(0)' });
-    }
+    };
   },
 
   onDragLeave: function(e) {
@@ -77,6 +79,17 @@ var Dropzone = React.createClass({
     var maxFiles = (this.props.multiple) ? files.length : 1;
 
     if (typeof files[0] !== 'undefined') {
+      // apply validation
+      if (files[0].size > this.props.maxSize) {
+        alert("Maximum file is 10MB. Please try again!");
+        return;
+      }
+
+      if (files[0].type.match('audio.*') || files[0].type.match('video.*')) {
+        alert("Audio and Video files are invalid!");
+        return;
+      }
+
       if (this.props.uploadUrl) {
         // prepare formData object
         var formData = new FormData();
@@ -196,7 +209,7 @@ var Dropzone = React.createClass({
           <div className="row">
             <div ref='box' className={className} style={style} onClick={this.onClick} onDragLeave={this.onDragLeave}
               onDragOver={this.onDragOver} onDrop={this.onDrop}>
-              <input style={{display: 'none'}} type="file" multiple={this.props.multiple} ref="fileInput"
+              <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
                 onChange={this.onDrop} accept={this.props.accept}>
               </input>
               <div className='tip'>
