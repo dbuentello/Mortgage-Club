@@ -84,6 +84,9 @@ group :development, :test do
   # A library for setting up Ruby objects as test data
   gem 'factory_girl_rails'
 
+  # just run bundle exec erd
+  gem 'rails-erd'
+
   # Use Capistrano for deployment
   # gem 'capistrano-rails', group: :development
 end
