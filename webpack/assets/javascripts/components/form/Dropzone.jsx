@@ -85,8 +85,9 @@ var Dropzone = React.createClass({
         return;
       }
 
-      if (files[0].type.match('audio.*') || files[0].type.match('video.*')) {
-        alert("Audio and Video files are invalid!");
+      if (!(files[0].type.match('text.*') || files[0].type.match('application.*')
+        || files[0].type.match('image.*'))) {
+        alert(files[0].type + " type is invalid. Only Document, Text and Image files are invalid!");
         return;
       }
 

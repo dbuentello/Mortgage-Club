@@ -1,5 +1,6 @@
 class Document < ActiveRecord::Base
 
+  # see this for reference: https://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types
   ALLOWED_MIME_TYPES = [
     'image/jpg',
     'image/jpeg',
