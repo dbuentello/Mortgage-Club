@@ -156,7 +156,7 @@ class BorrowerUploaderController < ApplicationController
     end
 
     if w2.present?
-      url = w2.attachment.s3_object.url_for(:read, :secure => true, :expires => Document::EXPIRE_VIEW_MINUTES.minutes).to_s
+      url = w2.attachment.s3_object.url_for(:read, :secure => true, :expires => Document::EXPIRE_VIEW_SECONDS.seconds).to_s
       redirect_to url
     else
       render json: { message: "You don't have this file yet. Try to upload it!" }
@@ -173,7 +173,7 @@ class BorrowerUploaderController < ApplicationController
     end
 
     if paystub.present?
-      url = paystub.attachment.s3_object.url_for(:read, :secure => true, :expires => Document::EXPIRE_VIEW_MINUTES.minutes).to_s
+      url = paystub.attachment.s3_object.url_for(:read, :secure => true, :expires => Document::EXPIRE_VIEW_SECONDS.seconds).to_s
       redirect_to url
     else
       render json: { message: "You don't have this file yet. Try to upload it!" }
@@ -190,7 +190,7 @@ class BorrowerUploaderController < ApplicationController
     end
 
     if bank_statement.present?
-      url = bank_statement.attachment.s3_object.url_for(:read, :secure => true, :expires => Document::EXPIRE_VIEW_MINUTES.minutes).to_s
+      url = bank_statement.attachment.s3_object.url_for(:read, :secure => true, :expires => Document::EXPIRE_VIEW_SECONDS.seconds).to_s
       redirect_to url
     else
       render json: { message: "You don't have this file yet. Try to upload it!" }

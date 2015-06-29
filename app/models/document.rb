@@ -60,7 +60,7 @@ class Document < ActiveRecord::Base
     :attachment
   ]
 
-  EXPIRE_VIEW_MINUTES = 10
+  EXPIRE_VIEW_SECONDS = 3
 
   before_validation :set_private_token, :on => :create
 
