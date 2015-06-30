@@ -68,6 +68,9 @@ gem 'nestive'
 # A wrapper gem for the DocuSign REST API
 gem 'docusign_rest'
 
+# Pretty print your Ruby objects with style
+gem 'awesome_print'
+
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
