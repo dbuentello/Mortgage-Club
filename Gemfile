@@ -66,7 +66,7 @@ gem 'dotenv-rails'
 gem 'nestive'
 
 # A wrapper gem for the DocuSign REST API
-gem 'docusign_rest', git: 'git@github.com:hoang1417/docusign_rest.git', branch: 'master'
+gem 'docusign_rest', github: 'hoang1417/docusign_rest', branch: 'master'
 
 # Pretty print your Ruby objects with style
 gem 'awesome_print'
