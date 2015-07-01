@@ -10,6 +10,15 @@ GIT
       rails (>= 3.2)
       tilt
 
+GIT
+  remote: git@github.com:hoang1417/docusign_rest.git
+  revision: a082672a40d26b32300ae32c0dbbab49f2f6dd31
+  branch: master
+  specs:
+    docusign_rest (0.1.1)
+      json
+      multipart-post (>= 1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -52,6 +61,7 @@ GEM
     autoprefixer-rails (5.2.1)
       execjs
       json
+    awesome_print (1.6.1)
     aws-sdk (1.64.0)
       aws-sdk-v1 (= 1.64.0)
     aws-sdk-v1 (1.64.0)
@@ -137,6 +147,7 @@ GEM
     minitest (5.7.0)
     multi_json (1.11.1)
     multi_xml (0.5.5)
+    multipart-post (2.0.0)
     nestive (0.6.0)
       rails (>= 3.0.0)
     nokogiri (1.6.6.2)
@@ -258,6 +269,7 @@ PLATFORMS
 
 DEPENDENCIES
   autoprefixer-rails
+  awesome_print
   aws-sdk (< 2)
   bcrypt (~> 3.1.7)
   bootstrap-sass (~> 3.3.1)
@@ -265,6 +277,7 @@ DEPENDENCIES
   coffee-rails
   database_cleaner
   devise (~> 3.5)
+  docusign_rest!
   dotenv-rails
   factory_girl_rails
   faker

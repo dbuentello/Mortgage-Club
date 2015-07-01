@@ -65,6 +65,12 @@ gem 'dotenv-rails'
 # A Better Nested Inheritable Layouts
 gem 'nestive'
 
+# A wrapper gem for the DocuSign REST API
+gem 'docusign_rest', git: 'git@github.com:hoang1417/docusign_rest.git', branch: 'master'
+
+# Pretty print your Ruby objects with style
+gem 'awesome_print'
+
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
