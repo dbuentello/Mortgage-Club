@@ -6,10 +6,76 @@ module Docusign
       @client = DocusignRest::Client.new
     end
 
+    # POST /accounts/#{acct_id}/envelopes
+    # PARAMS:
+    # => template_id / template_name
+    # => signers
+    # => email_subject, email_body
+    def create_envelope_from_template(options = {})
+      if options[:template_id].blank? && options[:template_name].blank?
+        puts "Error: don't have enough params"
+        return
+      end
+
+      if options[:template_id].blank?
+        options[:template_id] = find_template_id_from_name(options[:template_name])
+      end
+
+      options[:email_subject] ||= "The test email subject envelope"
+      options[:email_body] ||= "Envelope body content here"
+
+      if options[:signers].blank?
+        # just for test
+        options[:signers] = [
+          {
+            name: 'Nghia',
+            email: 'le_hoang0306@yahoo.com.vn',
+            role_name: 'Normal',
+            text_tabs: [
+              {
+                label: 'Signature 1',
+                name: 'Name template ne',
+                value: 'Tui chu ai'
+              }
+            ],
+            sign_here_tabs: [
+              {
+                name: "Name day ne",
+                label: 'Signature 1',
+                value: 'Khong dung hang',
+                optional: false
+              }
+            ]
+          }
+        ]
+      end
+
+      envelope_response = @client.create_envelope_from_template(
+        status: 'sent',
+        email: {
+          subject: options[:email_subject],
+          body: options[:email_body]
+        },
+        template_id: options[:template_id],
+        signers: options[:signers]
+      )
+    end
+
+    def create_template_from_document(options = {})
+      # TODO: method create_template_from_document
+      # => generate draft template with name, default recipient
+      # => we have to modify tab later before using create_envelope_from_template method
+    end
+
+
+
+
+    #===================================================================
+    # For testing
     # POST multiple /accounts/#{acct_id}/envelopes
-    def create_envelope_from_document(document = nil)
-      # document ||= Documents::FirstW2.first
-      # file_url = document.attachment.s3_object.url_for(:read, :secure => true, :expires => 3.minutes).to_s
+    def create_envelope_from_document(options = {})
+      # options[:document] ||= Documents::FirstW2.first
+      # file_url = options[:document].attachment.s3_object.url_for(:read, :secure => true, :expires => 3.minutes).to_s
 
       file_url = "/Users/hoangle/projects/homieo/public/examples/sample.pdf"
       file_io = open(file_url)
@@ -73,55 +139,13 @@ module Docusign
         ],
         files: [
           {path: file_url, name: 'sample.pdf'}
-          # {io: file_io, name: document.attachment.instance.attachment_file_name}
+          # {io: file_io, name: options[:document].attachment.instance.attachment_file_name}
         ],
         status: 'sent'
       )
     end
 
-    # POST /accounts/#{acct_id}/envelopes
-    def create_envelope_from_template(template_id: nil, template_name: nil)
-      if template_id.blank? && template_name.blank?
-        puts "Error: don't have enough params"
-        return
-      end
-
-      if template_id.blank?
-        template_id = find_template_id_from_name(template_name)
-      end
-
-      envelope_response = @client.create_envelope_from_template(
-        status: 'sent',
-        email: {
-          subject: "The test email subject envelope",
-          body: "Envelope body content here"
-        },
-        template_id: template_id,
-        signers: [
-          {
-            name: 'Nghia',
-            email: 'le_hoang0306@yahoo.com.vn',
-            role_name: 'Normal',
-            text_tabs: [
-              {
-                label: 'Signature 1',
-                name: 'Name template ne',
-                value: 'Tui chu ai'
-              }
-            ],
-            sign_here_tabs: [
-              {
-                name: "Name day ne",
-                label: 'Signature 1',
-                value: 'Khong dung hang',
-                optional: false
-              }
-            ]
-          }
-        ]
-      )
-    end
-
+    # For testing
     # POST /accounts/#{acct_id}/envelopes
     def add_recipients_to_envelope(envelope_id, signers, resend_envelope = false)
       signers ||= [

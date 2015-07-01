@@ -28,12 +28,12 @@ module Docusign
     end
 
     # GET list of envelope objects
-    def get_envelopes(types: nil, from_date: nil)
-      from_date ||= 1.month.ago
-      types ||= ["completed", "sent"]
+    def get_envelopes(options = {})
+      options[:from_date] ||= 1.month.ago
+      options[:types] ||= ["completed", "sent"]
 
-      envelopes = @client.get_envelope_statuses(from_date: from_date.to_datetime)
-      envelopes = envelopes["envelopes"].select { |x| types.include?(x["status"]) }
+      envelopes = @client.get_envelope_statuses(from_date: options[:from_date].to_datetime)
+      envelopes = envelopes["envelopes"].select { |x| options[:types].include?(x["status"]) }
     end
 
   end
