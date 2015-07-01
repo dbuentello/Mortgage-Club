@@ -28,7 +28,7 @@ module Docusign
       options[:email_subject] ||= "The test email subject envelope"
       options[:email_body] ||= "Envelope body content here"
 
-      ap options[:values]
+      # ap options[:values]
       # Map data from databse to signers
       tabs = helper.get_tabs_from_template(template_id: options[:template_id], values: options[:values])
 
@@ -40,7 +40,7 @@ module Docusign
       }
       signer = signer.merge(tabs)
       signers << signer
-      ap signers
+      # ap signers
 
       # Get the corresponding document to send over with the achieved signers
       if options[:document]
@@ -48,7 +48,7 @@ module Docusign
         file_url = options[:document].attachment.s3_object.url_for(:read, :secure => true, :expires => 3.minutes).to_s
         file_io = open(file_url)
       else
-        file_url = "/Users/hoangle/projects/homieo/public/examples/Loan Estimation.pdf"
+        file_url = "#{Rails.root}/public/examples/Loan Estimation.pdf"
       end
 
       envelope_response = @client.create_envelope_from_document(
