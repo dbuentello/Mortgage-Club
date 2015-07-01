@@ -6,6 +6,7 @@ var Income = require('./FormIncome');
 var AssetsAndLiabilities = require('./FormAssetsAndLiabilities');
 var RealEstates = require('./FormRealEstates');
 var Declarations = require('./FormDeclarations');
+var ESigning = require('./FormESigning');
 
 var LoanInterface = React.createClass({
   getInitialState: function() {
@@ -52,7 +53,8 @@ var LoanInterface = React.createClass({
       {name: 'Income', complete: loan.income_completed, icon: 'iconTicket', Content: Income},
       {name: 'Assets and Liabilities', complete: false, icon: 'iconVcard', Content: AssetsAndLiabilities},
       {name: 'Real Estates', complete: false, icon: 'iconHome', Content: RealEstates},
-      {name: 'Declarations', complete: false, icon: 'iconClipboard', Content: Declarations}
+      {name: 'Declarations', complete: false, icon: 'iconClipboard', Content: Declarations},
+      {name: 'ESigning', complete: false, icon: 'iconClipboard', Content: ESigning}
     ];
 
     return menu;
