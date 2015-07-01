@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: git@github.com:hoang1417/docusign_rest.git
-  revision: 6290b93af05ea189d1ebb70ed91c5ff86c75f41f
+  revision: bf716578faea8476ad0e06cdc66b29ce8f9afbe3
   branch: master
   specs:
     docusign_rest (0.1.1)

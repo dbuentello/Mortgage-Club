@@ -121,5 +121,35 @@ module Docusign
         ]
       )
     end
+
+    # POST /accounts/#{acct_id}/envelopes
+    def add_recipients_to_envelope(envelope_id, signers, resend_envelope = false)
+      signers ||= [
+        {
+          recipient_id: 3,
+          name: 'Nghia',
+          email: 'le_hoang0306@yahoo.com.vn',
+          role_name: 'Normal',
+          sign_here_tabs: [
+            {
+              name: "Name day ne",
+              label: 'Signature 1',
+              value: 'Khong dung hang',
+              document_id: 1,
+              page_number: 1,
+              x_position: '100',
+              y_position: '80',
+              optional: false
+            }
+          ]
+        }
+      ]
+
+      envelope_response = @client.add_recipients(
+        envelope_id: envelope_id,
+        signers: signers,
+        resend_envelope: resend_envelope
+      )
+    end
   end
 end
