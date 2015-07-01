@@ -10,6 +10,14 @@ GIT
       rails (>= 3.2)
       tilt
 
+GIT
+  remote: git@github.com:hoang1417/docusign_rest.git
+  revision: aa25eff5d5b3edc991540500aae5ad70613a624b
+  specs:
+    docusign_rest (0.1.1)
+      json
+      multipart-post (>= 1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -95,9 +103,6 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    docusign_rest (0.1.1)
-      json
-      multipart-post (>= 1.2)
     dotenv (2.0.2)
     dotenv-rails (2.0.2)
       dotenv (= 2.0.2)
@@ -271,7 +276,7 @@ DEPENDENCIES
   coffee-rails
   database_cleaner
   devise (~> 3.5)
-  docusign_rest
+  docusign_rest!
   dotenv-rails
   factory_girl_rails
   faker
