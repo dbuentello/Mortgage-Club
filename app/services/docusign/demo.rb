@@ -13,7 +13,6 @@ module Docusign
         return
       end
 
-
       if options[:template_id].blank?
         helper = Docusign::Helper.new
         options[:template_id] = helper.find_template_id_from_name(options[:template_name])

@@ -13,7 +13,7 @@ module Docusign
     # => email_subject, email_body
     # => user object
     # => values hash contain auto filled info
-    # Docusign::Base.new.create_envelope_from_template(template_name: "Loan Estimation", email_subject: "New test 01/07/2015", user: {name: "Hoang", email: "le_hoang0306@yahoo.com.vn"}, values: { text: "$50000000" })
+    # Docusign::Base.new.create_envelope_from_template(template_name: "Loan Estimation", email_subject: "New test 01/07/2015", user: {name: "Hoang", email: "le_hoang0306@yahoo.com.vn"}, values: { phone: "0906944722" })
     def create_envelope_from_template(options = {})
       if options[:template_id].blank? && options[:template_name].blank?
         puts "Error: don't have enough params"
@@ -28,14 +28,9 @@ module Docusign
       options[:email_subject] ||= "The test email subject envelope"
       options[:email_body] ||= "Envelope body content here"
 
-      # Set values to tab labels
-      # NOTE: need to map 2 names carefully (for example "Text" will take value from :text)
-      values = {
-        "Text" => options[:values][:text]
-      }
-
+      ap options[:values]
       # Map data from databse to signers
-      tabs = helper.get_tabs_from_template(template_id: options[:template_id], values: values)
+      tabs = helper.get_tabs_from_template(template_id: options[:template_id], values: options[:values])
 
       signers = []
       signer = {
