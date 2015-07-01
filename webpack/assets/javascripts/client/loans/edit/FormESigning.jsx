@@ -17,7 +17,7 @@ var FormESigning = React.createClass({
 
             </div>
             <div className='box text-left'>
-              <a href="/" className='btn btnSml btnPrimary'>Sign</a>
+              <a href="/electronic_signature/demo" className='btn btnSml btnPrimary' data-method='post'>Sign</a>
             </div>
           </div>
         </div>
