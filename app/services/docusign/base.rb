@@ -2,8 +2,12 @@ require 'open-uri'
 
 module Docusign
   class Base
-    def initialize(args = nil)
+    def initialize(args = {})
       @client = DocusignRest::Client.new
+    end
+
+    def client
+      @client
     end
 
     # POST /accounts/#{acct_id}/envelopes
@@ -20,11 +24,12 @@ module Docusign
         return
       end
 
-      helper = Docusign::Helper.new
+      helper = Docusign::Helper.new(client: @client)
       if options[:template_id].blank?
         options[:template_id] = helper.find_template_id_from_name(options[:template_name])
       end
 
+      options[:embedded] ||= false
       options[:email_subject] ||= "The test email subject envelope"
       options[:email_body] ||= "Envelope body content here"
 
@@ -34,6 +39,7 @@ module Docusign
 
       signers = []
       signer = {
+        embedded: options[:embedded],
         name: options[:user][:name],
         email: options[:user][:email],
         role_name: 'Normal'
