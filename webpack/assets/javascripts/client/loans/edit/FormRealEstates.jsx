@@ -57,6 +57,11 @@ var FormRealEstates = React.createClass({
       dataType: 'json',
       context: this,
       success: function(response) {
+        if (response.message == 'cannot find') {
+          // actually 404 error
+          return;
+        }
+
         var marketValue = this.getValue(response, 'zestimate.amount.__content__');
         var propertyType = this.getValue(response, 'useCode');
         var monthlyTax = this.getValue(response, 'monthlyTax');
@@ -78,6 +83,7 @@ var FormRealEstates = React.createClass({
       {value: 'triplex', name: 'Triplex'},
       {value: 'Fourplex', name: 'Fourplex'}
     ];
+
     return (
       <div>
         <div className='formContent'>
@@ -99,7 +105,8 @@ var FormRealEstates = React.createClass({
                     <div key={index} className={'box mtn mbm pam bas roundedCorners' + (index % 2 === 0 ? ' backgroundLowlight' : '')}>
                       <div className='row'>
                         <div className='col-xs-6'>
-                          <AddressField label='Address'
+                          <AddressField
+                            label='Address'
                             address={property.address}
                             keyName={'rental_properties[' + index + '].address'}
                             editable={true}

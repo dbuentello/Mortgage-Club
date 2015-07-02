@@ -1,5 +1,3 @@
-
-
 // some recursion here, so leave it out on its own to avoid using `this` keyword in a mixin
 var normalize = function (values) {
   var i, vals;

@@ -4,7 +4,8 @@ class PropertiesController < ApplicationController
     if response
       render json: response
     else
-      render status: 404, nothing: true
+      # render status: 404, nothing: true
+      render json: { message: 'cannot find' }
     end
   end
 end
