@@ -9,8 +9,9 @@ class ElectronicSignatureController < ApplicationController
       "Your phone number" => current_user.borrower.phone
     }
 
+    # create new envelope from template
     base = Docusign::Base.new
-    response = base.create_envelope_from_template(
+    envelope_response = base.create_envelope_from_template(
       template_name: "Loan Estimation",
       email_subject: "Electronic Signature Request from Mortgage Club",
       email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!",
@@ -22,11 +23,14 @@ class ElectronicSignatureController < ApplicationController
       embedded: true
     )
 
+    # get envelope id to load appropriate view
+    envelope_id = envelope_response["envelopeId"]
+
     view_response = base.client.get_recipient_view(
-      envelope_id: response["envelopeId"],
+      envelope_id: envelope_id,
       name: current_user.to_s,
       email: current_user.email,
-      return_url: "http://localhost:4000/electronic_signature/embedded_response"
+      return_url: electronic_signature_embedded_response_url
     )
 
     render json: { message: view_response }, status: :ok
@@ -36,8 +40,7 @@ class ElectronicSignatureController < ApplicationController
   def embedded_response
     utility = DocusignRest::Utility.new
 
-    ap params
-
+    # ap params
     if params[:event] == "signing_complete"
       render :text => utility.breakout_path(root_path), content_type: 'text/html'
     elsif params[:event] == "ttl_expired"

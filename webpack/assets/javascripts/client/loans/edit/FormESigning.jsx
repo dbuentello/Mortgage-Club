@@ -25,7 +25,7 @@ var FormESigning = React.createClass({
   render: function() {
     return (
       <div>
-        <div className='formContent'>
+        <div className='iframeContent'>
           <div className='pal'>
             <div className='text-left'>
               <a className='btn btnSml btnPrimary' onClick={this.onClick}>Sign</a>
@@ -36,9 +36,6 @@ var FormESigning = React.createClass({
             </div>
 
           </div>
-        </div>
-
-        <div className='helpSection sticky pull-right overlayRight overlayTop'>
         </div>
       </div>
     );
