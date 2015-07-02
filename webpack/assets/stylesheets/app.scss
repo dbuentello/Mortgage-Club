@@ -12,13 +12,13 @@ $helpSectionWidth: 300px;
 .sideMenu {
   height: 100%;
   width: $sideMenuWidth;
-  // margin-top: $topMenuHeight;
+  margin-top: $topMenuHeight;
 }
 
 .formContent {
   margin-left: $sideMenuWidth;
   margin-right: $helpSectionWidth;
-  // padding-top: $topMenuHeight;
+  padding-top: $topMenuHeight;
 }
 
 .content {
