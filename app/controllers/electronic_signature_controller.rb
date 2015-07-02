@@ -26,10 +26,25 @@ class ElectronicSignatureController < ApplicationController
       envelope_id: response["envelopeId"],
       name: current_user.to_s,
       email: current_user.email,
-      return_url: "http://localhost:4000/loans/new"
+      return_url: "http://localhost:4000/electronic_signature/embedded_response"
     )
 
-    render json: { view_response }, status: :ok
+    render json: { message: view_response }, status: :ok
+  end
+
+  # GET /electronic_signature/embedded_response
+  def embedded_response
+    utility = DocusignRest::Utility.new
+
+    ap params
+
+    if params[:event] == "signing_complete"
+      render :text => utility.breakout_path(root_path), content_type: 'text/html'
+    elsif params[:event] == "ttl_expired"
+      # the session has been expired
+    else
+      render :text => utility.breakout_path(root_path(success: true)), content_type: 'text/html'
+    end
   end
 
 end

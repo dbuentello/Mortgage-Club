@@ -54,5 +54,6 @@ Rails.application.routes.draw do
   end
 
   post 'electronic_signature/demo'
+  get 'electronic_signature/embedded_response'
 
 end
