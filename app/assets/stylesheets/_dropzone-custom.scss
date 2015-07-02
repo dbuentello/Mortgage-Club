@@ -1,11 +1,12 @@
 .dropzone {
   text-align: center;
-  // width: 50%;
   height: 50px;
   border-style: dotted;
-  // float: right;
   padding: 0 0 0 0;
   margin: 0 0 7px 15px;
+  // &.active {
+  //   background-color: #81F79F;
+  // }
 }
 
 .action-icons {

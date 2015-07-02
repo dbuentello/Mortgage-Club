@@ -6,7 +6,23 @@ var Dropzone = React.createClass({
       supportClick: true,
       multiple: false,
       download: false,
-      maxSize: 10000000
+      maxSize: 10000000,
+      uploading: {
+        backgroundColor: "#81F79F",
+        color: "#FF0000"
+      },
+      uploaded: {
+        backgroundColor: "#6B98F2",
+        color: "#000"
+      },
+      removing: {
+        backgroundColor: "#FA8258",
+        color: "#000"
+      },
+      empty: {
+        backgroundColor: "#FFF",
+        color: "#000"
+      }
     };
   },
 
@@ -39,7 +55,7 @@ var Dropzone = React.createClass({
 
     if (this.props.removeUrl != 'javascript:void(0)') {
       // having removeUrl means we already have document here, don't use fileUrl cause it's always there
-      $(this.refs.box.getDOMNode()).css({backgroundColor: "#6B98F2", color: "#000"});
+      $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploaded.backgroundColor, color: this.props.uploaded.color});
       $(this.refs.box.getDOMNode()).tooltip({ title: this.props.tip });
       this.setState({ fileUrl: this.props.fileUrl });
     } else {
@@ -98,7 +114,7 @@ var Dropzone = React.createClass({
         formData.append('order', this.props.orderNumber);
 
         // notify uploading
-        $(this.refs.box.getDOMNode()).css({backgroundColor: "#81F79F", color: "#FF0000"});
+        $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploading.backgroundColor, color: this.props.uploading.color});
 
         this.setState({ tip: 'Uploading ...' });
 
@@ -118,7 +134,7 @@ var Dropzone = React.createClass({
             $(this.refs.box.getDOMNode()).tooltip({ title: files[0].name });
 
             // highltight chosen dropzone
-            $(this.refs.box.getDOMNode()).css({backgroundColor: "#6B98F2", color: "#000"});
+            $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploaded.backgroundColor, color: this.props.uploaded.color});
 
             // console.log(response.message);
           }.bind(this),
@@ -145,15 +161,15 @@ var Dropzone = React.createClass({
     }
   },
 
-  open: function() {
-    this.refs.fileInput.getDOMNode().click();
-  },
+  // open: function() {
+  //   this.refs.fileInput.getDOMNode().click();
+  // },
 
   remove: function() {
     if (this.state.tip != this.props.field.placeholder) {
-      // notify uploading
+      // notify removing
       this.setState({ tip: 'Deleting ...' });
-      $(this.refs.box.getDOMNode()).css({backgroundColor: "#FA8258", color: "#000"});
+      $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.removing.backgroundColor, color: this.props.removing.color});
 
       $.ajax({
         url: this.props.removeUrl,
@@ -173,7 +189,7 @@ var Dropzone = React.createClass({
           $(this.refs.box.getDOMNode()).tooltip('destroy');
 
           // highltight chosen dropzone
-          $(this.refs.box.getDOMNode()).css({backgroundColor: "#FFF", color: "#000"});
+          $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.empty.backgroundColor, color: this.props.empty.color});
 
           // console.log(response.message);
         }.bind(this),
@@ -187,9 +203,9 @@ var Dropzone = React.createClass({
   render: function() {
     var className = 'col-xs-9 ';
     className += (this.props.className || 'dropzone');
-    if (this.state.isDragActive) {
-      className += 'active';
-    };
+    // if (this.state.isDragActive) {
+    //   className += ' active';
+    // };
 
     var style = this.props.style || {
       borderStyle: this.state.isDragActive ? 'solid' : 'dotted'
@@ -210,7 +226,7 @@ var Dropzone = React.createClass({
           <div className="row">
             <div ref='box' className={className} style={style} onClick={this.onClick} onDragLeave={this.onDragLeave}
               onDragOver={this.onDragOver} onDrop={this.onDrop}>
-              <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
+              <input style={{display: 'none'}} type="file" multiple={this.props.multiple}
                 onChange={this.onDrop} accept={this.props.accept}>
               </input>
               <div className='tip'>
