@@ -1,7 +1,7 @@
 module Docusign
   class Helper
-    def initialize(args = nil)
-      @client = DocusignRest::Client.new
+    def initialize(args = {})
+      @client = args[:client] || DocusignRest::Client.new
     end
 
     # GET template_id

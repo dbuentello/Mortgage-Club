@@ -2,8 +2,6 @@ class ElectronicSignatureController < ApplicationController
 
   # POST
   def demo
-    base = Docusign::Base.new
-
     # Set values to tab labels
     # NOTE: need to map 2 names carefully (for example "Phone" will take value from :phone)
     # the JS name is from 'tooltip' of field in the template
@@ -11,6 +9,7 @@ class ElectronicSignatureController < ApplicationController
       "Your phone number" => current_user.borrower.phone
     }
 
+    base = Docusign::Base.new
     response = base.create_envelope_from_template(
       template_name: "Loan Estimation",
       email_subject: "Electronic Signature Request from Mortgage Club",
@@ -19,10 +18,18 @@ class ElectronicSignatureController < ApplicationController
         name: current_user.to_s,
         email: current_user.email
       },
-      values: values
+      values: values,
+      embedded: true
     )
 
-    redirect_to :back
+    view_response = base.client.get_recipient_view(
+      envelope_id: response["envelopeId"],
+      name: current_user.to_s,
+      email: current_user.email,
+      return_url: "http://localhost:4000/loans/new"
+    )
+
+    render json: { view_response }, status: :ok
   end
 
 end
