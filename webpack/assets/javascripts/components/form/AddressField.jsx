@@ -147,6 +147,11 @@ var AddressField = React.createClass({
         change = {},
         addressType, i, val;
 
+    // prevent error Uncaught TypeError
+    if (typeof place.address_components == 'undefined') {
+      return ;
+    }
+
     // Get each component of the address from the place details
     // and set the corresponding field in the state.
     for (i = 0; i < place.address_components.length; i++) {
@@ -197,7 +202,9 @@ var AddressField = React.createClass({
           <label className="col-xs-12 pan" style={{'display': this.props.editable ? null : 'none'}}>
             <span className={this.props.label ? 'h7 typeBold mrs' : null}>{this.props.label}</span>
             <div className='input-group pan'>
-              <input className="form-control input-sm" type="text" value={val} onFocus={this.handleFocus} placeholder={this.props.placeholder} onBlur={this.handleBlur} onChange={this.handleChange}/>
+              <input className="form-control input-sm" type="text"
+                svalue={val} placeholder={this.props.placeholder}
+                onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange}/>
               <span className='input-group-addon clickable' onClick={this.handleIconClick}><i className='iconLocation'/></span>
             </div>
           </label>
@@ -244,7 +251,7 @@ var AddressField = React.createClass({
         address.street_address = address.full_text;
       }
 
-      this.toggleDetailForm(true);
+      // this.toggleDetailForm(true);
     }
   },
 
@@ -253,7 +260,7 @@ var AddressField = React.createClass({
       event.preventDefault();
       event.stopPropagation();
     }
-    this.toggleDetailForm();
+    // this.toggleDetailForm();
   },
 
   toggleDetailForm: function(show) {
@@ -270,7 +277,7 @@ var AddressField = React.createClass({
   },
 
   handleClickAway: function() {
-    this.toggleDetailForm(false);
+    // this.toggleDetailForm(false);
   },
 
   stopPropagation: function(event) {
