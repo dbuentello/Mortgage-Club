@@ -79,3 +79,38 @@ module Docusign
 
   end
 end
+
+# Tabs example:
+# {
+#   "signers" => [
+#     {
+#       "tabs" => {
+#         "signHereTabs" => [
+#           {
+#             "name"=>"Signature", "tabLabel"=>"Signature 1", "scaleValue"=>1.0, "optional"=>"false", "documentId"=>"93881593", "recipientId"=>"91649777", "pageNumber"=>"1", "xPosition"=>"222", "yPosition"=>"86", "tabId"=>"f16770c3-c804-4cf0-9a7c-756e758345c5"
+#           }
+#         ],
+#         "fullNameTabs" => [
+#           {
+#             "name"=>"Full Name", "tabLabel"=>"FullName", "font"=>"arial", "bold"=>"false", "italic"=>"false", "underline"=>"false", "fontColor"=>"black", "fontSize"=>"size9", "documentId"=>"93881593", "recipientId"=>"91649777", "pageNumber"=>"1", "xPosition"=>"104", "yPosition"=>"167", "tabId"=>"259fd706-6704-4356-9422-305b3ea56b28"
+#           }
+#         ],
+#         "dateSignedTabs" => [
+#           {
+#             "name"=>"Date Signed", "value"=>"", "tabLabel"=>"Date Signed", "font"=>"arial", "bold"=>"false", "italic"=>"false", "underline"=>"false", "fontColor"=>"black", "fontSize"=>"size9", "documentId"=>"93881593", "recipientId"=>"91649777", "pageNumber"=>"1", "xPosition"=>"108", "yPosition"=>"110", "tabId"=>"424e0467-bb19-499a-953f-713cce70c5c2"
+#           }
+#         ],
+#         "textTabs" => [
+#           {
+#             "height"=>22, "isPaymentAmount"=>"false", "validationPattern"=>"", "shared"=>"false", "requireInitialOnSharedChange"=>"false", "requireAll"=>"false", "name"=>"Your phone number", "value"=>"", "width"=>120, "required"=>"true", "locked"=>"false", "concealValueOnDocument"=>"false", "disableAutoSize"=>"false", "tabLabel"=>"Phone", "font"=>"arial", "bold"=>"false", "italic"=>"false", "underline"=>"false", "fontColor"=>"black", "fontSize"=>"size9", "documentId"=>"93881593", "recipientId"=>"91649777", "pageNumber"=>"1", "xPosition"=>"223", "yPosition"=>"165", "tabId"=>"d8564be7-a778-4e49-9eee-85bf9a3d4be9"
+#           }
+#         ]
+#       },
+#       "isBulkRecipient"=>"false", "name"=>"Le Hoang", "email"=>"lehoang1417@gmail.com",
+#       "recipientId"=>"91649777", "recipientIdGuid"=>"2a979444-a2b1-4fcf-8a12-6fe7d1c4c73d",
+#       "requireIdLookup"=>"false", "userId"=>"c98e6381-d9b5-4e86-aac4-71525477817a",
+#       "routingOrder"=>"1", "note"=>"", "status"=>"created", "totalTabCount"=>"4"
+#     }
+#   ],
+#   "agents"=>[], "editors"=>[], "intermediaries"=>[], "carbonCopies"=>[], "certifiedDeliveries"=>[], "inPersonSigners"=>[], "recipientCount"=>"1"
+# }
