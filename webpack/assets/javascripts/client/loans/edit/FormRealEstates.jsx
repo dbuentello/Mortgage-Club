@@ -34,7 +34,7 @@ var FormRealEstates = React.createClass({
     var key = _.keys(change)[0];
     var value = _.values(change)[0];
 
-    if ( value != 'null' ) {
+    if ( value != null ) {
       if (key.indexOf('.address') > -1 && value.city) {
         var propertyKey = key.replace('.address', '');
         this.searchProperty(this.getValue(this.state, propertyKey), propertyKey);
