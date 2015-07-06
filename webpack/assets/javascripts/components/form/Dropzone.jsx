@@ -161,9 +161,9 @@ var Dropzone = React.createClass({
     }
   },
 
-  // open: function() {
-  //   this.refs.fileInput.getDOMNode().click();
-  // },
+  open: function() {
+    this.refs.fileInput.getDOMNode().click();
+  },
 
   remove: function() {
     if (this.state.tip != this.props.field.placeholder) {
@@ -226,7 +226,7 @@ var Dropzone = React.createClass({
           <div className="row">
             <div ref='box' className={className} style={style} onClick={this.onClick} onDragLeave={this.onDragLeave}
               onDragOver={this.onDragOver} onDrop={this.onDrop}>
-              <input style={{display: 'none'}} type="file" multiple={this.props.multiple}
+              <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
                 onChange={this.onDrop} accept={this.props.accept}>
               </input>
               <div className='tip'>
