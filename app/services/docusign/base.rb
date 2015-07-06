@@ -4,6 +4,7 @@ module Docusign
   class Base
     def initialize(args = {})
       @client = DocusignRest::Client.new
+      @helper = Docusign::Helper.new(client: @client)
     end
 
     def client
@@ -24,9 +25,8 @@ module Docusign
         return
       end
 
-      helper = Docusign::Helper.new(client: @client)
       if options[:template_id].blank?
-        options[:template_id] = helper.find_template_id_from_name(options[:template_name])
+        options[:template_id] = @helper.find_template_id_from_name(options[:template_name])
       end
 
       options[:embedded] ||= false
@@ -35,7 +35,7 @@ module Docusign
 
       # ap options[:values]
       # Map data from databse to signers
-      tabs = helper.get_tabs_from_template(template_id: options[:template_id], values: options[:values])
+      tabs = @helper.get_tabs_from_template(template_id: options[:template_id], values: options[:values])
 
       signers = []
       signer = {
@@ -53,8 +53,10 @@ module Docusign
         # options[:document] ||= Documents::FirstW2.first
         file_url = options[:document].attachment.s3_object.url_for(:read, :secure => true, :expires => 3.minutes).to_s
         file_io = open(file_url)
+        file = { io: file_io, name: options[:document].attachment.instance.attachment_file_name }
       else
         file_url = "#{Rails.root}/public/examples/Loan Estimation.pdf"
+        file = { path: file_url, name: 'Loan Estimation.pdf' }
       end
 
       envelope_response = @client.create_envelope_from_document(
@@ -66,16 +68,50 @@ module Docusign
         template_id: options[:template_id],
         signers: signers,
         files: [
-          { path: file_url, name: 'Loan Estimation.pdf' }
-          # { io: file_io, name: options[:document].attachment.instance.attachment_file_name }
-        ],
+          file
+        ]
       )
+
+      # create envelope in database for reference
+      self.create_envelope_object_from_response(envelope_response["envelopeId"], options[:template_id], options[:loan_id])
+
+      # return envelope response
+      envelope_response
     end
 
-    def create_template_from_document(options = {})
-      # TODO: method create_template_from_document
-      # => generate draft template with name, default recipient
-      # => we have to modify tab later before using create_envelope_from_template method
+    # Use this to store a template information
+    def create_template_object_from_name(template_name, options = {})
+      templates = @client.get_templates
+      template = templates["envelopeTemplates"].find { |a| a["name"] == template_name }
+
+      options[:state] = options[:state] || "California"
+      options[:description] = options[:description] || "sample template"
+      options[:email_subject] = options[:email_subject] || "Electronic Signature Request from Mortgage Club"
+      options[:email_body] = options[:email_body] || "As discussed, let's finish our contract by signing to this envelope. Thank you!"
+      options[:user_id] = options[:user_id] || nil
+
+      template = Template.where(name: template["name"]).first_or_initialize
+      template.attributes = {
+        docusign_id: template["templateId"],
+        state: options[:state],
+        description: options[:description],
+        email_subject: options[:email_subject],
+        email_body: options[:email_body],
+        creator_id: options[:user_id]
+      }
+      template.save
+
+      template
+    end
+
+    def create_envelope_object_from_response(envelope_id, template_id, loan_id)
+      envelope = Envelope.new(
+        docusign_id: envelope_id,
+        template_id: template_id,
+        loan_id: loan_id
+      )
+
+      envelope.save
     end
 
   end

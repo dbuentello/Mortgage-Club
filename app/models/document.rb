@@ -36,7 +36,7 @@ class Document < ActiveRecord::Base
     'inode/x-empty'
   ]
 
-  belongs_to :borrower, foreign_key: 'borrower_id'
+  belongs_to :borrower, foreign_key: 'owner_id'
 
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',

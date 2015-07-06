@@ -11,7 +11,7 @@ var FormESigning = React.createClass({
       data: {},
       dataType: 'json',
       success: function(response) {
-        console.log(response);
+        // console.log(response);
 
         $(this.refs.iframe.getDOMNode()).attr("src", response.message.url);
         $(this.refs.iframe.getDOMNode()).css("display", "block");
