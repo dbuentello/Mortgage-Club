@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :loans, inverse_of: :user, dependent: :destroy
   has_many :templates, inverse_of: :creator
+  has_many :signers, inverse_of: :user
 
   has_one :borrower, inverse_of: :user, autosave: :true, dependent: :destroy
 
