@@ -12,9 +12,6 @@ gem 'pg'
 
 gem 'devise', '~> 3.5'
 
-# Makes running your Rails app easier. Based on the ideas behind 12factor.net
-gem 'rails_12factor'
-
 # Use SCSS for stylesheets
 gem 'sass-rails'
 gem 'bootstrap-sass', '~> 3.3.1'
@@ -106,6 +103,9 @@ group :test do
 end
 
 group :production do
+  # Makes running your Rails app easier. Based on the ideas behind 12factor.net
+  gem 'rails_12factor'
+
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', platforms: :ruby
 end
