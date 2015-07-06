@@ -10,41 +10,49 @@ class ElectronicSignatureController < ApplicationController
     }
 
     # get Template info from database
-    template = Template.where(name: "Loan Estimation").first
-
-    # create new envelope from template
     base = Docusign::Base.new
-    if template
-      envelope_response = base.create_envelope_from_template(
-        template_id: template.docusign_id,
-        email_subject: template.email_subject,
-        email_body: template.email_body,
-        user: {
-          name: current_user.to_s,
-          email: current_user.email
-        },
-        values: values,
-        embedded: true,
-        loan_id: current_user.loans.first.id
-      )
+    template = Template.where(name: "Loan Estimation").first
+    current_loan = current_user.loans.first
+    envelope = current_loan.envelope
+
+    if envelope
+      # get in progress envelope id stored in database to load appropriate view
+      envelope_id = envelope.docusign_id
     else
-      envelope_response = base.create_envelope_from_template(
-        template_name: "Loan Estimation",
-        email_subject: "Electronic Signature Request from Mortgage Club",
-        email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!",
-        user: {
-          name: current_user.to_s,
-          email: current_user.email
-        },
-        values: values,
-        embedded: true,
-        loan_id: current_user.loans.first.id
-      )
+      # create new envelope from template
+      if template
+        envelope_response = base.create_envelope_from_template(
+          template_id: template.docusign_id,
+          email_subject: template.email_subject,
+          email_body: template.email_body,
+          user: {
+            name: current_user.to_s,
+            email: current_user.email
+          },
+          values: values,
+          embedded: true,
+          loan_id: current_loan.id
+        )
+      else
+        envelope_response = base.create_envelope_from_template(
+          template_name: "Loan Estimation",
+          email_subject: "Electronic Signature Request from Mortgage Club",
+          email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!",
+          user: {
+            name: current_user.to_s,
+            email: current_user.email
+          },
+          values: values,
+          embedded: true,
+          loan_id: current_loan.id
+        )
+      end
+
+      # get envelope id to load appropriate view
+      envelope_id = envelope_response["envelopeId"]
     end
 
-    # get envelope id to load appropriate view
-    envelope_id = envelope_response["envelopeId"]
-
+    # request the view url to embedd to iframe
     view_response = base.client.get_recipient_view(
       envelope_id: envelope_id,
       name: current_user.to_s,

@@ -1,5 +1,6 @@
 class Envelope < ActiveRecord::Base
-  has_many :documents, inverse_of: :envelope, class_name: "Documents::EnvelopeDoc", dependent: :destroy
+  has_many :documents, inverse_of: :envelope, class_name: "Documents::EnvelopeDoc",
+   foreign_key: "owner_id", dependent: :destroy
 
   has_many :signers, inverse_of: :envelope
 

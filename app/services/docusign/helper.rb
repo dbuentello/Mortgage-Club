@@ -77,6 +77,21 @@ module Docusign
       envelopes = envelopes["envelopes"].select { |x| options[:types].include?(x["status"]) }
     end
 
+    # Destroy all envelopes that are removed from Docusign but sitll exist in our database
+    # This task should be scheduled and has optional trigger button
+    def clean_removed_envelopes_from_database
+      envelopes = self.get_envelopes(types: ["sent"])
+
+      database_envelopes = Envelope.all
+      database_envelopes.each do |e|
+        is_existing = envelopes.find { |a| a["envelopeId"] == e.docusign_id }
+
+        unless is_existing
+          e.destroy
+        end
+      end
+    end
+
   end
 end
 
