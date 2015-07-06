@@ -9,19 +9,34 @@ class ElectronicSignatureController < ApplicationController
       "Your phone number" => current_user.borrower.phone
     }
 
+    template = Template.where(name: "Loan Estimation").first
     # create new envelope from template
     base = Docusign::Base.new
-    envelope_response = base.create_envelope_from_template(
-      template_name: "Loan Estimation",
-      email_subject: "Electronic Signature Request from Mortgage Club",
-      email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!",
-      user: {
-        name: current_user.to_s,
-        email: current_user.email
-      },
-      values: values,
-      embedded: true
-    )
+    if template
+      envelope_response = base.create_envelope_from_template(
+        template_id: template.docusign_id,
+        email_subject: template.email_subject,
+        email_body: template.email_body,
+        user: {
+          name: current_user.to_s,
+          email: current_user.email
+        },
+        values: values,
+        embedded: true
+      )
+    else
+      envelope_response = base.create_envelope_from_template(
+        template_name: "Loan Estimation",
+        email_subject: "Electronic Signature Request from Mortgage Club",
+        email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!",
+        user: {
+          name: current_user.to_s,
+          email: current_user.email
+        },
+        values: values,
+        embedded: true
+      )
+    end
 
     # get envelope id to load appropriate view
     envelope_id = envelope_response["envelopeId"]
