@@ -3,4 +3,7 @@ class Template < ActiveRecord::Base
 
   has_many :envelopes, inverse_of: :template
 
+  validates_presence_of :name, :docusign_id, :state
+  validates :name, uniqueness: true
+
 end

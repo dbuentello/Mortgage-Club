@@ -72,7 +72,11 @@ module Docusign
         ]
       )
 
-      create_envelope_object_from_response(envelope_response)
+      # create envelope in database for reference
+      self.create_envelope_object_from_response(envelope_response["envelopeId"], options[:template_id], options[:loan_id])
+
+      # return envelope response
+      envelope_response
     end
 
     # Use this to store a template information
@@ -86,21 +90,28 @@ module Docusign
       options[:email_body] = options[:email_body] || "As discussed, let's finish our contract by signing to this envelope. Thank you!"
       options[:user_id] = options[:user_id] || nil
 
-      template = Template.new(
-        name: template["name"],
+      template = Template.where(name: template["name"]).first_or_initialize
+      template.attributes = {
         docusign_id: template["templateId"],
         state: options[:state],
         description: options[:description],
         email_subject: options[:email_subject],
         email_body: options[:email_body],
         creator_id: options[:user_id]
-      )
-
+      }
       template.save
+
+      template
     end
 
-    def create_envelope_object_from_response(response, options = {})
+    def create_envelope_object_from_response(envelope_id, template_id, loan_id)
+      envelope = Envelope.new(
+        docusign_id: envelope_id,
+        template_id: template_id,
+        loan_id: loan_id
+      )
 
+      envelope.save
     end
 
   end

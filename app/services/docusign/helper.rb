@@ -54,7 +54,7 @@ module Docusign
           tab[:required]   = hash["required"] if hash["required"]
 
           # map value to tab
-          if options[:values][tab[:name]]
+          if options[:values] && options[:values][tab[:name]]
             tab[:value]    = options[:values][tab[:name]]
           end
 

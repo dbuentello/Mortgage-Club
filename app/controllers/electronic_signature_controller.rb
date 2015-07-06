@@ -9,7 +9,9 @@ class ElectronicSignatureController < ApplicationController
       "Your phone number" => current_user.borrower.phone
     }
 
+    # get Template info from database
     template = Template.where(name: "Loan Estimation").first
+
     # create new envelope from template
     base = Docusign::Base.new
     if template
@@ -22,7 +24,8 @@ class ElectronicSignatureController < ApplicationController
           email: current_user.email
         },
         values: values,
-        embedded: true
+        embedded: true,
+        loan_id: current_user.loans.first.id
       )
     else
       envelope_response = base.create_envelope_from_template(
@@ -34,7 +37,8 @@ class ElectronicSignatureController < ApplicationController
           email: current_user.email
         },
         values: values,
-        embedded: true
+        embedded: true,
+        loan_id: current_user.loans.first.id
       )
     end
 

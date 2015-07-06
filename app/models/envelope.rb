@@ -6,4 +6,6 @@ class Envelope < ActiveRecord::Base
   belongs_to :loan, inverse_of: :envelope
   belongs_to :template, inverse_of: :envelopes
 
+  validates_presence_of :docusign_id, :template_id, :loan_id
+
 end
