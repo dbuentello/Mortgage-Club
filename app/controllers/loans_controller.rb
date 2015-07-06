@@ -40,7 +40,6 @@ class LoansController < ApplicationController
           :borrower => {
             :include => {
               :first_bank_statement => {}, :second_bank_statement => {},
-              :first_brokerage_statement => {}, :second_brokerage_statement => {},
               :first_paystub => {}, :second_paystub => {},
               :first_w2 => {}, :second_w2 => {}
             },
