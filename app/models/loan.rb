@@ -1,8 +1,11 @@
 class Loan < ActiveRecord::Base
   belongs_to :user, inverse_of: :loans, foreign_key: 'user_id'
-  has_one :property, inverse_of: :loan, dependent: :destroy
   has_one :borrower, through: :user
+
+  has_one :property, inverse_of: :loan, dependent: :destroy
   has_one :secondary_borrower, inverse_of: :loan, class_name: 'Borrower', dependent: :destroy
+  has_one :envelope, inverse_of: :loan, dependent: :destroy
+
   accepts_nested_attributes_for :property, allow_destroy: true
   accepts_nested_attributes_for :borrower, allow_destroy: true
   accepts_nested_attributes_for :secondary_borrower, allow_destroy: true
