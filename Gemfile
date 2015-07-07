@@ -90,6 +90,10 @@ group :development, :test do
   # just run bundle exec erd
   gem 'rails-erd'
 
+  # Add a comment summarizing the current schema
+  # annotate --exclude tests,fixtures,factories,serializers : model only
+  gem 'annotate', '~> 2.6.6'
+
   # Use Capistrano for deployment
   # gem 'capistrano-rails', group: :development
 end

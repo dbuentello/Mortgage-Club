@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: loans
+#
+#  id      :integer          not null, primary key
+#  purpose :integer
+#  user_id :integer
+#
+
 class Loan < ActiveRecord::Base
   belongs_to :user, inverse_of: :loans, foreign_key: 'user_id'
   has_one :borrower, through: :user

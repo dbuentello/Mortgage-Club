@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: borrower_races
+#
+#  id                                     :integer          not null, primary key
+#  borrower_government_monitoring_info_id :integer
+#  race_type                              :integer
+#
+
 class BorrowerRace < ActiveRecord::Base
   belongs_to :borrower_government_monitoring_info, inverse_of: :borrower_races, foreign_key: 'borrower_government_monitoring_info_id'
   

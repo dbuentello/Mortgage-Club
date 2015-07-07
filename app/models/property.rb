@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: properties
+#
+#  id                         :integer          not null, primary key
+#  property_type              :integer
+#  usage                      :integer
+#  original_purchase_year     :integer
+#  original_purchase_price    :decimal(13, 2)
+#  purchase_price             :decimal(13, 2)
+#  market_price               :decimal(13, 2)
+#  gross_rental_income        :decimal(11, 2)
+#  estimated_property_tax     :decimal(11, 2)
+#  estimated_hazard_insurance :decimal(11, 2)
+#  is_impound_account         :boolean
+#  loan_id                    :integer
+#
+
 class Property < ActiveRecord::Base
   belongs_to :loan, inverse_of: :property, foreign_key: 'loan_id'
   has_one :address, inverse_of: :property

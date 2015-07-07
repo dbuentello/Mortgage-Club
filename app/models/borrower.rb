@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: borrowers
+#
+#  id               :integer          not null, primary key
+#  first_name       :string
+#  last_name        :string
+#  middle_name      :string
+#  suffix           :string
+#  dob              :datetime
+#  ssn              :binary
+#  phone            :string
+#  years_in_school  :integer
+#  marital_status   :integer
+#  dependent_ages   :integer          default([]), is an Array
+#  gross_income     :decimal(13, 2)
+#  gross_overtime   :decimal(11, 2)
+#  gross_bonus      :decimal(11, 2)
+#  gross_commission :decimal(11, 2)
+#  loan_id          :integer
+#  user_id          :integer
+#  dependent_count  :integer
+#
+
 class Borrower < ActiveRecord::Base
   belongs_to :user, inverse_of: :borrower, foreign_key: 'user_id'
   belongs_to :loan, inverse_of: :secondary_borrower, foreign_key: 'loan_id'

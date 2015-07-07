@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: documents
+#
+#  id                      :integer          not null, primary key
+#  type                    :string
+#  owner_id                :integer
+#  attachment_file_name    :string
+#  attachment_content_type :string
+#  attachment_file_size    :integer
+#  attachment_updated_at   :datetime
+#  token                   :string
+#
+
 class Document < ActiveRecord::Base
 
   # see this for reference: https://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types
