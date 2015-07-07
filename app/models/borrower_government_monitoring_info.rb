@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: borrower_government_monitoring_infos
+#
+#  id                    :integer          not null, primary key
+#  borrower_id           :integer
+#  is_hispanic_or_latino :boolean
+#  gender_type           :integer
+#
+
 class BorrowerGovernmentMonitoringInfo < ActiveRecord::Base
   belongs_to :borrower, inverse_of: :borrower_government_monitoring_info, foreign_key: 'borrower_id'
   has_many   :borrower_races, inverse_of: :borrower_government_monitoring_info, dependent: :destroy

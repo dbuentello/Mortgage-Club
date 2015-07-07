@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: liabilities
+#
+#  id               :integer          not null, primary key
+#  credit_report_id :integer
+#  name             :string
+#  payment          :integer
+#  months           :integer
+#  balance          :decimal(11, 2)
+#
+
 class Liability < ActiveRecord::Base
   belongs_to :credit_report, inverse_of: :liabilities, foreign_key: 'credit_report_id'
   has_one   :address, inverse_of: :liability, dependent: :destroy

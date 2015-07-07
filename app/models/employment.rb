@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: employments
+#
+#  id                      :integer          not null, primary key
+#  borrower_id             :integer
+#  employer_name           :string
+#  employer_contact_name   :string
+#  employer_contact_number :string
+#  job_title               :string
+#  duration                :integer
+#  is_current              :boolean
+#
+
 class Employment < ActiveRecord::Base
   belongs_to :borrower, inverse_of: :employments, foreign_key: 'borrower_id'
   has_one :address, inverse_of: :employment

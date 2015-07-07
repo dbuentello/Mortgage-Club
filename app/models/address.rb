@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: addresses
+#
+#  id                  :integer          not null, primary key
+#  street_address      :string
+#  street_address2     :string
+#  zip                 :string
+#  state               :text
+#  property_id         :integer
+#  borrower_address_id :integer
+#  employment_id       :integer
+#  city                :text
+#  full_text           :text
+#  liability_id        :integer
+#
+
 class Address < ActiveRecord::Base
   belongs_to :property, inverse_of: :address, foreign_key: 'property_id'
   belongs_to :borrower_address, inverse_of: :address, foreign_key: 'borrower_address_id'

@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: loans
+#
+#  id                           :integer          not null, primary key
+#  purpose                      :integer
+#  user_id                      :integer
+#  agency_case_number           :string
+#  lender_case_number           :string
+#  amount                       :decimal(11, 2)
+#  interest_rate                :decimal(11, 2)
+#  num_of_months                :integer
+#  amortization_type            :string
+#  rate_lock                    :boolean
+#  refinance                    :decimal(11, 2)
+#  estimated_prepaid_items      :decimal(11, 2)
+#  estimated_closing_costs      :decimal(11, 2)
+#  pmi_mip_funding_fee          :decimal(11, 2)
+#  borrower_closing_costs       :decimal(11, 2)
+#  other_credits                :decimal(11, 2)
+#  other_credits_explain        :string
+#  pmi_mip_funding_fee_financed :decimal(11, 2)
+#
+
 class Loan < ActiveRecord::Base
   belongs_to :user, inverse_of: :loans, foreign_key: 'user_id'
   has_one :borrower, through: :user
@@ -21,6 +45,8 @@ class Loan < ActiveRecord::Base
     purchase: 0,
     refinance: 1
   }
+
+  validates :amortization_type, inclusion: %w( Conventional, VA, FHA, USDA, 9 )
 
   def self.initiate(user)
     Loan.create(user: user, property: Property.create(address: Address.create))
