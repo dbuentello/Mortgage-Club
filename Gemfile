@@ -68,6 +68,14 @@ gem 'docusign_rest', github: 'hoang1417/docusign_rest', branch: 'master'
 # Pretty print your Ruby objects with style
 gem 'awesome_print'
 
+# ActiveRecord backend integration for DelayedJob 3.0+
+gem 'delayed_job_active_record'
+
+# A Frontend for Delayed Job
+# gem 'delayed_job_web'
+
+gem 'daemons'
+
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
