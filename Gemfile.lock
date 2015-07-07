@@ -97,6 +97,7 @@ GEM
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
     connection_pool (2.2.0)
+    daemons (1.2.3)
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
     delayed_job (4.0.6)
@@ -284,6 +285,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.1)
   byebug
   coffee-rails
+  daemons
   database_cleaner
   delayed_job_active_record
   devise (~> 3.5)
