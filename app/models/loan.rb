@@ -46,6 +46,8 @@ class Loan < ActiveRecord::Base
     refinance: 1
   }
 
+  validates :amortization_type, inclusion: %w( Conventional, VA, FHA, USDA, 9 )
+
   def self.initiate(user)
     Loan.create(user: user, property: Property.create(address: Address.create))
   end
