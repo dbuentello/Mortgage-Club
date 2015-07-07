@@ -11,8 +11,6 @@ class Borrower < ActiveRecord::Base
   # update documents
   has_one  :first_bank_statement, inverse_of: :borrower, class_name: 'Documents::FirstBankStatement', dependent: :destroy, foreign_key: 'owner_id'
   has_one  :second_bank_statement, inverse_of: :borrower, class_name: 'Documents::SecondBankStatement', dependent: :destroy, foreign_key: 'owner_id'
-  has_one  :first_brokerage_statement, inverse_of: :borrower, class_name: 'Documents::FirstBrokerageStatement', dependent: :destroy, foreign_key: 'owner_id'
-  has_one  :second_brokerage_statement, inverse_of: :borrower, class_name: 'Documents::SecondBrokerageStatement', dependent: :destroy, foreign_key: 'owner_id'
   has_one  :first_paystub, inverse_of: :borrower, class_name: 'Documents::FirstPaystub', dependent: :destroy, foreign_key: 'owner_id'
   has_one  :second_paystub, inverse_of: :borrower, class_name: 'Documents::SecondPaystub', dependent: :destroy, foreign_key: 'owner_id'
   has_one  :first_w2, inverse_of: :borrower, class_name: 'Documents::FirstW2', dependent: :destroy, foreign_key: 'owner_id'
