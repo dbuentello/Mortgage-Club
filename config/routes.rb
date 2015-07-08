@@ -53,6 +53,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :charges
+
   post 'electronic_signature/demo'
   get 'electronic_signature/embedded_response'
 
