@@ -30,8 +30,21 @@ var StripeButton = React.createClass({
         key: 'pk_test_QTE3dyoEJ6fx7D0hBHbCswF2',
         // image: '/YOUR_LOGO_IMAGE.png',
         token: function(token) {
-          console.log("token: " + token);
           // Use the token to create the charge with a server-side script.
+          $.ajax({
+            url: '/charges',
+            method: 'POST',
+            data: {
+              stripeToken: token
+            },
+            dataType: 'json',
+            success: function(response) {
+              alert(response.message);
+            }.bind(this),
+            error: function(error) {
+              alert(error);
+            }
+          });
         }
       });
       if (this.hasPendingClick) {
@@ -76,7 +89,7 @@ var StripeButton = React.createClass({
   render: function() {
     return (
       <div>
-        <button onClick={this.onClick}>Place order</button>
+        <button onClick={this.onClick} className='btn btnSml btnAction'>Pay with Card</button>
       </div>
     );
   }
