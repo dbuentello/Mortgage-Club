@@ -65,6 +65,10 @@ gem 'nestive'
 # A wrapper gem for the DocuSign REST API
 gem 'docusign_rest', github: 'hoang1417/docusign_rest', branch: 'master'
 
+# A wrapper gem for Stripe REST API
+gem 'stripe'
+# gem 'omniauth-stripe-connect'
+
 # Pretty print your Ruby objects with style
 gem 'awesome_print'
 

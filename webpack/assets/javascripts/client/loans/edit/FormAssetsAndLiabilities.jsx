@@ -5,6 +5,7 @@ var DateField = require('components/form/DateField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 var HelpTooltip = require('components/form/HelpTooltip');
+var StripeButton = require('components/StripeButton');
 
 var fields = {
   bankBalance: {label: 'Current Bank Balance', name: 'bank_balance', helpText: 'How much money do you have in your bank account(s) now?'},
@@ -61,6 +62,12 @@ var FormAssetsAndLiabilities = React.createClass({
               </div>
               <div className='col-xs-6 text-right'>
                 <a className='btn btnSml btnPrimary'>Next</a>
+              </div>
+            </div>
+
+            <div className='box row'>
+              <div className='col-xs-6'>
+                <StripeButton/>
               </div>
             </div>
           </div>

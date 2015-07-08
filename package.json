@@ -23,6 +23,7 @@
     "moment": "^2.9.0",
     "react": "0.13.x",
     "react-router": "0.13.2",
+    "react-script-loader": "0.0.1",
     "sleep": "^1.2.0",
     "webpack": "^1.5.3"
   },
