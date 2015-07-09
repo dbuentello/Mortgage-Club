@@ -24,9 +24,8 @@ var LoanInterface = React.createClass({
   },
 
   componentDidMount: function() {
-    // auto show flash message here
+    // show flash message from Rails controller
     var flashes = this.props.bootstrapData.flashes;
-
     this.showFlashes(flashes);
   },
 

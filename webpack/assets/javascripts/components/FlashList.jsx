@@ -20,6 +20,7 @@ var FlashList = React.createClass({
     var flashitems = [];
     var flashes = this.props.flashes;
     var num = 1;
+
     for (var key in flashes) {
       var message = flashes[key];
 

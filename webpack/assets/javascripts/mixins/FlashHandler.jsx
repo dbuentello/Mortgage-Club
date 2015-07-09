@@ -9,7 +9,8 @@ var FlashHandler = {
       $('.page-alert')[0]
     );
 
-    // now, 7 seconds before auto hide
+    // now, show in 7 seconds before auto hide
+    $('.page-alert').fadeIn();
     $('.page-alert').delay(7000).fadeOut();
   }
 };

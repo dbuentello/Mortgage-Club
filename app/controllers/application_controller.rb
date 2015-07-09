@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -27,7 +29,7 @@ class ApplicationController < ActionController::Base
     def customized_flash
       customized_flash = {}
       flash.each do |msg_type, message|
-        type = view_context.bootstrap_class_for(msg_type)
+        type = bootstrap_class_for(msg_type)
 
         if type.present?
           customized_flash[type] = message
