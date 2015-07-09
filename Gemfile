@@ -80,6 +80,11 @@ gem 'delayed_job_active_record'
 
 gem 'daemons'
 
+group :development do
+  # performance management system, available at http://localhost:4000/newrelic
+  gem 'newrelic_rpm'
+end
+
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
