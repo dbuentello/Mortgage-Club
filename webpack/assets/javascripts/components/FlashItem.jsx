@@ -17,6 +17,14 @@ var FlashItem = React.createClass({
     };
   },
 
+  onClick: function(e) {
+    e.preventDefault();
+
+    var node = this.getDOMNode().parentNode;
+    React.unmountComponentAtNode(node);
+    $(node).remove();
+  },
+
   render: function() {
     var flashClasses = 'alert alert-dismissible ';
     flashClasses += this.props.msg_type;
@@ -24,7 +32,9 @@ var FlashItem = React.createClass({
     return (
       <div>
         <div className={flashClasses} role='alert'>
-          <button type='button' className='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+          <button type='button' className='close' aria-label='Close'>
+            <span aria-hidden='true' onClick={this.onClick}>&times;</span>
+          </button>
           {this.props.message}
         </div>
         {this.props.children}
