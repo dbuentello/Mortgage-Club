@@ -9,6 +9,8 @@ var Declarations = require('./FormDeclarations');
 var ESigning = require('./FormESigning');
 
 var LoanInterface = React.createClass({
+  mixins: [FlashHandler],
+
   getInitialState: function() {
     var loan = this.props.bootstrapData.currentLoan;
     var menu = this.buildMenu(loan);

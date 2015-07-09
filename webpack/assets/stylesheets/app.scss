@@ -71,10 +71,7 @@ $helpSectionWidth: 300px;
   bottom: 10px;
   right: 20px;
   z-index: 9999999;
-  .box-alert {
-    position: relative;
-    width: 100%;
-    padding: 15px 30px 15px 30px;
-    margin-top: 10px;
+  .alert {
+    max-width: 260px;
   }
 }

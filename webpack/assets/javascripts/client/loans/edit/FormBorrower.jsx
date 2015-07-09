@@ -32,6 +32,7 @@ var fields = {
 
 var FormBorrower = React.createClass({
   mixins: [TextFormatMixin],
+
   getInitialState: function() {
     return this.buildStateFromLoan(this.props.loan);
   },
