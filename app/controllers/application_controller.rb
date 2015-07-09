@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
           id: current_user.id,
           firstName: current_user.first_name,
           lastName: current_user.last_name
-        } : {}
+        } : {},
+        flashes: flash
       }.merge!(data)
     end
 

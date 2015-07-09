@@ -7,7 +7,7 @@ var FlashHandler = {
   showFlashes: function(flashes) {
     for (var key in flashes) {
       var message = flashes[key];
-      console.log(flash);
+      console.log(message);
       console.log(key);
       console.log(key);
       this.showFlash(key, message);

@@ -7,6 +7,7 @@ var AssetsAndLiabilities = require('./FormAssetsAndLiabilities');
 var RealEstates = require('./FormRealEstates');
 var Declarations = require('./FormDeclarations');
 var ESigning = require('./FormESigning');
+var FlashHandler = require('mixins/FlashHandler');
 
 var LoanInterface = React.createClass({
   mixins: [FlashHandler],
@@ -20,6 +21,12 @@ var LoanInterface = React.createClass({
       active: _.findWhere(menu, {complete: false}) || menu[0],
       loan: loan
     };
+  },
+
+  componentDidMount: function() {
+    // auto show flash message here
+    var flashes = this.props.bootstrapData.flashes;
+    this.showFlashes(flashes);
   },
 
   render: function() {
