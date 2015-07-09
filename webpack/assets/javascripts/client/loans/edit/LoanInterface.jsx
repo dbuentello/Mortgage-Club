@@ -26,6 +26,7 @@ var LoanInterface = React.createClass({
   componentDidMount: function() {
     // auto show flash message here
     var flashes = this.props.bootstrapData.flashes;
+
     this.showFlashes(flashes);
   },
 
