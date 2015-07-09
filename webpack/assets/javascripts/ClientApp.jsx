@@ -47,6 +47,8 @@ window.ClientApp = React.createClass({
           </div>
         </nav>
 
+        <div className='page-alert'/>
+
         <RouteHandler bootstrapData={this.props}/>
       </div>
     );

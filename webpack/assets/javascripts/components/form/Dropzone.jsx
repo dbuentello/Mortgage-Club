@@ -1,6 +1,9 @@
 var React = require('react/addons');
+var FlashHandler = require('mixins/FlashHandler');
 
 var Dropzone = React.createClass({
+  mixins: [FlashHandler],
+
   getDefaultProps: function() {
     return {
       supportClick: true,
@@ -137,6 +140,8 @@ var Dropzone = React.createClass({
             $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploaded.backgroundColor, color: this.props.uploaded.color});
 
             // console.log(response.message);
+            var flash = { "alert-success": "Uploaded successfully!" };
+            this.showFlashes(flash);
           }.bind(this),
           cache: false,
           contentType: false,
@@ -192,6 +197,8 @@ var Dropzone = React.createClass({
           $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.empty.backgroundColor, color: this.props.empty.color});
 
           // console.log(response.message);
+          var flash = { "alert-danger": "Removed successfully!" };
+          this.showFlashes(flash);
         }.bind(this),
         error: function(response, status, error) {
           alert(error);
