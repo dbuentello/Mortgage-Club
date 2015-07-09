@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var FlashItem = require('components/FlashItem');
 var FlashList = require('components/FlashList');
 
 var FlashHandler = {

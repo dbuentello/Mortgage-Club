@@ -5,13 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
 
-  # before_action :set_sample_flash
-
   private
-
-    def set_sample_flash
-      flash[:success] = "save successfully"
-    end
 
     def bootstrap(data={})
       @bootstrap_data = {
@@ -20,7 +14,7 @@ class ApplicationController < ActionController::Base
           firstName: current_user.first_name,
           lastName: current_user.last_name
         } : {},
-        flashes: flash_customized
+        flashes: customized_flash
       }.merge!(data)
     end
 
@@ -30,8 +24,8 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def flash_customized
-      flash_customized = {}
+    def customized_flash
+      customized_flash = {}
       flash.each do |msg_type, message|
         case msg_type
         when "success"
@@ -43,10 +37,10 @@ class ApplicationController < ActionController::Base
         when "notice"
           type = "alert-info"
         end
-        flash_customized[type] = message
+        customized_flash[type] = message
       end
 
-      flash_customized
+      customized_flash
     end
 
 end
