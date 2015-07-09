@@ -47,6 +47,13 @@ window.ClientApp = React.createClass({
           </div>
         </nav>
 
+        <div className='page-alert'>
+          <div className='alert alert-warning alert-dismissible' role='alert'>
+            <button type='button' className='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+            <strong>Warning!</strong> {"Better check yourself, you're not looking too good."}
+          </div>
+        </div>
+
         <RouteHandler bootstrapData={this.props}/>
       </div>
     );
