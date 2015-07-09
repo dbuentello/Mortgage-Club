@@ -19,7 +19,7 @@ var FlashItem = React.createClass({
 
   render: function() {
     var flashClasses = 'alert alert-dismissible ';
-    flashClasses = flashClasses + this.props.msg_type;
+    flashClasses += this.props.msg_type;
 
     return (
       <div>
