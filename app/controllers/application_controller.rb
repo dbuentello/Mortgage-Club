@@ -27,17 +27,11 @@ class ApplicationController < ActionController::Base
     def customized_flash
       customized_flash = {}
       flash.each do |msg_type, message|
-        case msg_type
-        when "success"
-          type = "alert-success"
-        when "error"
-          type = "alert-danger"
-        when "alert"
-          type = "alert-warning"
-        when "notice"
-          type = "alert-info"
+        type = view_context.bootstrap_class_for(msg_type)
+
+        if type.present?
+          customized_flash[type] = message
         end
-        customized_flash[type] = message
       end
 
       customized_flash
