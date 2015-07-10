@@ -1,9 +1,9 @@
 global._ = require('lodash');
-jest.dontMock('../object_helper_mixin');
+jest.dontMock('../ObjectHelperMixin');
 
 describe('object helper', function() {
   it('mutates values in object with string reference correctly', function() {
-    var helper = require('../object_helper_mixin');
+    var helper = require('../ObjectHelperMixin');
     var flexport = {
       id: 1,
       name: 'Ryan',
@@ -35,7 +35,7 @@ describe('object helper', function() {
   });
 
   it ('normalizes arrays (converts things to string) correctly', function () {
-    var helper = require('../object_helper_mixin');
+    var helper = require('../ObjectHelperMixin');
     var randomList = ['1', 3, 'random', true, [{id: 1, name: 'One'}]];
     var flexport = [
       {id: 1, name: 'Hursh'},
@@ -55,7 +55,7 @@ describe('object helper', function() {
   });
 
   it ('reads nested object properties correctly', function() {
-    var helper = require('../object_helper_mixin');
+    var helper = require('../ObjectHelperMixin');
 
     var parent = {
       nestA: {
@@ -69,7 +69,7 @@ describe('object helper', function() {
   });
 
   it ('reads nested object properties with undefined/null values, and returns null', function() {
-    var helper = require('../object_helper_mixin');
+    var helper = require('../ObjectHelperMixin');
 
     var parent = {
       nestA: {
@@ -83,7 +83,7 @@ describe('object helper', function() {
   });
 
   it ('accesses nested array indexers correctly', function () {
-    var helper = require('../object_helper_mixin');
+    var helper = require('../ObjectHelperMixin');
 
     var flexport = {
       id: 1,
@@ -109,7 +109,7 @@ describe('object helper', function() {
   });
 
   it ('accesses nested array indexers correctly', function () {
-    var helper = require('../object_helper_mixin');
+    var helper = require('../ObjectHelperMixin');
 
     var flexport = [{
       id: 1,
@@ -135,7 +135,7 @@ describe('object helper', function() {
   });
 
   it ('accesses nested array indexers with undefined/null values, and returns null', function() {
-    var helper = require('../object_helper_mixin');
+    var helper = require('../ObjectHelperMixin');
 
     var flexport = {
       id: 1,
@@ -161,7 +161,7 @@ describe('object helper', function() {
   });
 
   it ('returns null on bad index', function() {
-    var helper = require('../object_helper_mixin');
+    var helper = require('../ObjectHelperMixin');
 
     var flexport = {
       id: 1,
