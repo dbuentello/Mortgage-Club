@@ -1,6 +1,7 @@
-FactoryGirl.define do 
-  factory :property do |f| 
+FactoryGirl.define do
+  factory :property do |f|
     address
+
     f.property_type { Random.rand(4) }
     f.usage { Random.rand(3) }
     f.original_purchase_year { Date.new(1900 + Random.rand(114)) }
@@ -9,7 +10,6 @@ FactoryGirl.define do
     f.estimated_property_tax { Faker::Number.number(4) }
     f.estimated_hazard_insurance { Faker::Number.number(4) }
     f.is_impound_account { [true, false].sample }
-    # leaving out gross_rental income (optional)
   end
 
   factory :rental_property, parent: :property do |f|

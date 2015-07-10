@@ -8,7 +8,7 @@ FactoryGirl.define do
     f.amount { Faker::Number.decimal(6, 2) }
     f.interest_rate { Faker::Number.decimal(6, 2) }
     f.num_of_months { Faker::Number.number(2) }
-    f.amortization_type { Faker::Lorem.word  }
+    f.amortization_type { ['Conventional', 'VA', 'FHA', 'USDA', '9'].sample }
     f.rate_lock {}
     f.refinance { Faker::Number.decimal(6, 2) }
     f.estimated_prepaid_items { Faker::Number.decimal(6, 2) }
@@ -19,7 +19,7 @@ FactoryGirl.define do
     f.other_credits_explain { Faker::Lorem.word }
     f.pmi_mip_funding_fee_financed { Faker::Number.decimal(6, 2) }
     f.loan_type { Faker::Lorem.word }
-    f.prepayment_penalty {[true, false].sample }
+    f.prepayment_penalty { [true, false].sample }
     f.balloon_payment { [true, false].sample }
     f.monthly_payment { Faker::Number.decimal(6, 2) }
     f.prepayment_penalty_amount { Faker::Number.decimal(6, 2) }
