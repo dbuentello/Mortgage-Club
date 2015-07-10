@@ -83,6 +83,10 @@ gem 'daemons'
 group :development do
   # performance management system, available at http://localhost:4000/newrelic
   gem 'newrelic_rpm'
+  # help to kill N+1 queries and unused eager loading
+  gem 'bullet'
+  # Profiler for your development and production Ruby rack apps.
+  gem 'rack-mini-profiler', require: false
 end
 
 group :development, :test do
