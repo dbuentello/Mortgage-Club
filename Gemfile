@@ -87,6 +87,9 @@ group :development do
   gem 'bullet'
   # Profiler for your development and production Ruby rack apps.
   gem 'rack-mini-profiler', require: false
+
+  # automatically run your specs
+  gem 'guard-rspec', require: false
 end
 
 group :development, :test do
@@ -125,6 +128,9 @@ group :test do
 
   # cleans out database before running tests to ensure clean slate for testing
   gem 'database_cleaner'
+
+  # Acceptance test framework for web applications
+  gem 'capybara'
 end
 
 group :production do
