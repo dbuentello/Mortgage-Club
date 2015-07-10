@@ -19,6 +19,7 @@
 
 require_relative 'support/controller_helpers'
 require 'devise'
+require 'capybara/rspec'
 
 RSpec.configure do |config|
   # default config from https://github.com/DatabaseCleaner/database_cleaner
