@@ -44,7 +44,7 @@ gem 'unicorn'
 
 gem 'autoprefixer-rails'
 
-gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
+gem 'react-rails', '~> 1.0'
 
 gem 'httparty'
 
@@ -81,6 +81,9 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 
 group :development do
+  # just run bundle exec erd
+  gem 'rails-erd'
+
   # performance management system, available at http://localhost:4000/newrelic
   gem 'newrelic_rpm'
   # help to kill N+1 queries and unused eager loading
@@ -110,9 +113,6 @@ group :development, :test do
 
   # A library for setting up Ruby objects as test data
   gem 'factory_girl_rails'
-
-  # just run bundle exec erd
-  gem 'rails-erd'
 
   # Add a comment summarizing the current schema
   # annotate --exclude tests,fixtures,factories,serializers : model only
