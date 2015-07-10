@@ -11,6 +11,10 @@ module Docusign
       @client
     end
 
+    def helper
+      @helper
+    end
+
     # POST /accounts/#{acct_id}/envelopes
     # PARAMS:
     # => template_id / template_name
