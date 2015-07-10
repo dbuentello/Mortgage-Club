@@ -37,6 +37,7 @@
     "express": "^4.11.2",
     "extract-text-webpack-plugin": "^0.3.8",
     "file-loader": "^0.8.1",
+    "jest-cli": "^0.4.15",
     "react-hot-loader": "^1.1.4",
     "sass-loader": "^0.4.0-beta.1",
     "style-loader": "^0.8.3",
@@ -44,7 +45,7 @@
     "webpack-dev-server": "^1.7.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js"
   },
   "repository": {

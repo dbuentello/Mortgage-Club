@@ -725,7 +725,7 @@
     },
     "react-script-loader": {
       "version": "0.0.1",
-      "from": "react-script-loader@*",
+      "from": "https://registry.npmjs.org/react-script-loader/-/react-script-loader-0.0.1.tgz",
       "resolved": "https://registry.npmjs.org/react-script-loader/-/react-script-loader-0.0.1.tgz"
     },
     "sleep": {
