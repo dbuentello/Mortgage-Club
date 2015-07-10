@@ -111,6 +111,9 @@ group :development, :test do
   # testing framework
   gem 'rspec-rails'
 
+  # A library for generating fake data such as names, addresses, and phone numbers.
+  gem 'faker'
+
   # A library for setting up Ruby objects as test data
   gem 'factory_girl_rails'
 
@@ -123,9 +126,6 @@ group :development, :test do
 end
 
 group :test do
-  # A library for generating fake data such as names, addresses, and phone numbers.
-  gem 'faker'
-
   # cleans out database before running tests to ensure clean slate for testing
   gem 'database_cleaner'
 

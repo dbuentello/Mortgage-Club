@@ -1,7 +1,29 @@
-FactoryGirl.define do 
-  factory :loan do |f| 
+FactoryGirl.define do
+  factory :loan do |f|
     user
     f.purpose { Random.rand(0..1)}
+
+    f.agency_case_number { Faker::Lorem.word }
+    f.lender_case_number { Faker::Lorem.word }
+    f.amount { Faker::Number.decimal(6, 2) }
+    f.interest_rate { Faker::Number.decimal(6, 2) }
+    f.num_of_months { Faker::Number.number(2) }
+    f.amortization_type { Faker::Lorem.word  }
+    f.rate_lock {}
+    f.refinance { Faker::Number.decimal(6, 2) }
+    f.estimated_prepaid_items { Faker::Number.decimal(6, 2) }
+    f.estimated_closing_costs { Faker::Number.decimal(6, 2) }
+    f.pmi_mip_funding_fee { Faker::Number.decimal(6, 2) }
+    f.borrower_closing_costs { Faker::Number.decimal(6, 2) }
+    f.other_credits { Faker::Number.decimal(6, 2) }
+    f.other_credits_explain { Faker::Lorem.word }
+    f.pmi_mip_funding_fee_financed { Faker::Number.decimal(6, 2) }
+    f.loan_type { Faker::Lorem.word }
+    f.prepayment_penalty {[true, false].sample }
+    f.balloon_payment { [true, false].sample }
+    f.monthly_payment { Faker::Number.decimal(6, 2) }
+    f.prepayment_penalty_amount { Faker::Number.decimal(6, 2) }
+    f.pmi { Faker::Number.decimal(6, 2) }
   end
 
   factory :loan_with_property, parent: :loan do |f|
