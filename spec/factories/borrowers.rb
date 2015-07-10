@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :borrower, aliases: [:secondary_borrower] do |f|
     borrower_government_monitoring_info
     credit_report
+
     f.first_name { Faker::Name.first_name }
     f.last_name { Faker::Name.last_name }
     f.middle_name { Faker::Name.first_name }
