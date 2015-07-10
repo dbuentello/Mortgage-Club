@@ -40,6 +40,8 @@ class Borrower < ActiveRecord::Base
   has_one  :first_w2, inverse_of: :borrower, class_name: 'Documents::FirstW2', dependent: :destroy, foreign_key: 'owner_id'
   has_one  :second_w2, inverse_of: :borrower, class_name: 'Documents::SecondW2', dependent: :destroy, foreign_key: 'owner_id'
 
+  has_many :documents, foreign_key: 'owner_id'
+
   accepts_nested_attributes_for :borrower_addresses, allow_destroy: true
   accepts_nested_attributes_for :employments, allow_destroy: true
   accepts_nested_attributes_for :borrower_government_monitoring_info, allow_destroy: true

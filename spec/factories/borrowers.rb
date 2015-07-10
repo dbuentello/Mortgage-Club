@@ -3,6 +3,13 @@ FactoryGirl.define do
     borrower_government_monitoring_info
     credit_report
 
+    first_bank_statement
+    second_bank_statement
+    first_paystub
+    second_paystub
+    first_w2
+    second_w2
+
     f.first_name { Faker::Name.first_name }
     f.last_name { Faker::Name.last_name }
     f.middle_name { Faker::Name.first_name }
@@ -21,6 +28,8 @@ FactoryGirl.define do
     f.gross_overtime { Faker::Number.number(6) }
     f.gross_bonus { Faker::Number.number(6) }
     f.gross_commission { Faker::Number.number(6) }
+
+    f.dependent_count { Faker::Number.number(6) }
 
     after(:create) do |borrower, evaluator|
       create_list(:borrower_address, Random.rand(1..2), borrower: borrower)
