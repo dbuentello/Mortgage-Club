@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe LoanPropertyController do 
-  describe 'GET #show' do 
+describe LoanPropertyController do
+  describe 'GET #show' do
     it 'assigns the requested property to @loan_property' do
       loan = FactoryGirl.create(:loan_with_property)
       get :show, loan_id: loan.id, format: :json

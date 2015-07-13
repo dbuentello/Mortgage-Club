@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe LoanBorrowerController do 
-  describe 'GET #show' do 
+describe LoanBorrowerController do
+  describe 'GET #show' do
     context 'primary borrower' do
       it 'assigns the requested borrower to @loan_borrower' do
         loan = FactoryGirl.create(:loan)

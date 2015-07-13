@@ -20,6 +20,12 @@
 #  other_credits                :decimal(11, 2)
 #  other_credits_explain        :string
 #  pmi_mip_funding_fee_financed :decimal(11, 2)
+#  loan_type                    :string
+#  prepayment_penalty           :boolean
+#  balloon_payment              :boolean
+#  monthly_payment              :decimal(11, 2)
+#  prepayment_penalty_amount    :decimal(11, 2)
+#  pmi                          :decimal(11, 2)
 #
 
 class Loan < ActiveRecord::Base
@@ -46,7 +52,7 @@ class Loan < ActiveRecord::Base
     refinance: 1
   }
 
-  validates :amortization_type, inclusion: %w( Conventional, VA, FHA, USDA, 9 ), allow_nil: true
+  validates :amortization_type, inclusion: { in: %w( Conventional VA FHA USDA 9 ), message: "%{value} is not a valid amortization_type" }, allow_nil: true
 
   def self.initiate(user)
     Loan.create(user: user, property: Property.create(address: Address.create))

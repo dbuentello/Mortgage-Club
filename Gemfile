@@ -44,7 +44,7 @@ gem 'unicorn'
 
 gem 'autoprefixer-rails'
 
-gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
+gem 'react-rails', '~> 1.0'
 
 gem 'httparty'
 
@@ -81,12 +81,18 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 
 group :development do
+  # just run bundle exec erd
+  gem 'rails-erd'
+
   # performance management system, available at http://localhost:4000/newrelic
   gem 'newrelic_rpm'
   # help to kill N+1 queries and unused eager loading
   gem 'bullet'
   # Profiler for your development and production Ruby rack apps.
   gem 'rack-mini-profiler', require: false
+
+  # automatically run your specs
+  gem 'guard-rspec', require: false
 end
 
 group :development, :test do
@@ -105,11 +111,11 @@ group :development, :test do
   # testing framework
   gem 'rspec-rails'
 
+  # A library for generating fake data such as names, addresses, and phone numbers.
+  gem 'faker'
+
   # A library for setting up Ruby objects as test data
   gem 'factory_girl_rails'
-
-  # just run bundle exec erd
-  gem 'rails-erd'
 
   # Add a comment summarizing the current schema
   # annotate --exclude tests,fixtures,factories,serializers : model only
@@ -120,11 +126,11 @@ group :development, :test do
 end
 
 group :test do
-  # A library for generating fake data such as names, addresses, and phone numbers.
-  gem 'faker'
-
   # cleans out database before running tests to ensure clean slate for testing
   gem 'database_cleaner'
+
+  # Acceptance test framework for web applications
+  gem 'capybara'
 end
 
 group :production do

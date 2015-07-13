@@ -1,5 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe ChargesController, type: :controller do
-
+describe ChargesController do
+  describe "POST create" do
+    it "is a pending"
+  end
 end
