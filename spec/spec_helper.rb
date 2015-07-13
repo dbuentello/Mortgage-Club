@@ -16,10 +16,10 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-
 require_relative 'support/controller_helpers'
 require 'devise'
 require 'capybara/rspec'
+require 'database_cleaner'
 
 RSpec.configure do |config|
   # default config from https://github.com/DatabaseCleaner/database_cleaner

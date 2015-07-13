@@ -2,7 +2,6 @@ FactoryGirl.define do
   factory :borrower, aliases: [:secondary_borrower] do |f|
     borrower_government_monitoring_info
     credit_report
-    employment
 
     first_bank_statement
     second_bank_statement
@@ -33,7 +32,7 @@ FactoryGirl.define do
     f.dependent_count { Faker::Number.number(6) }
 
     after(:create) do |borrower, evaluator|
-
+      create(:employment, borrower: borrower)
     end
   end
 end
