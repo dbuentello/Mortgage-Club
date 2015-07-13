@@ -17,6 +17,7 @@
 /tmp
 /public/assets
 /uploads
+/documents
 webpack-bundle.js
 webpack-bundle.js.map
 bundle_ClientApp.js
