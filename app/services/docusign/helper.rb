@@ -43,8 +43,8 @@ module Docusign
 
           tab[:optional]   = hash["optional"] if hash["optional"]
           tab[:tabLabel]   = hash["label"] if hash["label"]
-          tab[:width]      = hash["width"] if hash["width"]
-          tab[:height]     = hash["height"] if hash["height"]
+          # tab[:width]      = hash["width"] if hash["width"]
+          # tab[:height]     = hash["height"] if hash["height"]
           tab[:fontSize]   = hash["fontSize"] if hash["fontSize"]
           tab[:fontColor]  = hash["fontColor"] if hash["fontColor"]
           tab[:bold]       = hash["bold"] if hash["bold"]

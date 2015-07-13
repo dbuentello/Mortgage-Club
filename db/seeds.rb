@@ -5,3 +5,22 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# create user with its borrower
+if User.where(email: 'lehoang1417@gmail.com').blank?
+  user = FactoryGirl.build(:user, email: 'lehoang1417@gmail.com', password: '12345678',
+    password_confirmation: '12345678')
+  user.skip_confirmation!
+  user.save
+
+  # create loan base on user
+  loan = FactoryGirl.create(:loan_with_property, user: user)
+end
+
+if Template.where(name: 'Loan Estimation').blank?
+  base = Docusign::Base.new
+  template = base.create_template_object_from_name("Loan Estimation")
+
+  # TODO: add file from google drive, now is from local
+end
+

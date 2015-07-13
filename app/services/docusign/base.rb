@@ -84,9 +84,10 @@ module Docusign
     end
 
     # Use this to store a template information
+    # => Run this before using create_envelope_from_template
     def create_template_object_from_name(template_name, options = {})
       templates = @client.get_templates
-      template = templates["envelopeTemplates"].find { |a| a["name"] == template_name }
+      docusign_template = templates["envelopeTemplates"].find { |a| a["name"] == template_name }
 
       options[:state] = options[:state] || "California"
       options[:description] = options[:description] || "sample template"
@@ -94,9 +95,9 @@ module Docusign
       options[:email_body] = options[:email_body] || "As discussed, let's finish our contract by signing to this envelope. Thank you!"
       options[:user_id] = options[:user_id] || nil
 
-      template = Template.where(name: template["name"]).first_or_initialize
+      template = Template.where(name: docusign_template["name"]).first_or_initialize
       template.attributes = {
-        docusign_id: template["templateId"],
+        docusign_id: docusign_template["templateId"],
         state: options[:state],
         description: options[:description],
         email_subject: options[:email_subject],
