@@ -4,6 +4,7 @@ FactoryGirl.define do
 
     f.property_type { Random.rand(4) }
     f.usage { Random.rand(3) }
+    f.purchase_price { Faker::Number.number(9) }
     f.original_purchase_year { Date.new(1900 + Random.rand(114)) }
     f.original_purchase_price { Faker::Number.number(6) }
     f.market_price { Faker::Number.number(6) }
