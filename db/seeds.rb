@@ -8,8 +8,8 @@
 
 # create user with its borrower
 if User.where(email: 'lehoang1417@gmail.com').blank?
-  user = User.new(email: 'lehoang1417@gmail.com', password: '12345678')
-  user.build_borrower(first_name: 'hoang', last_name: 'le')
+  user = FactoryGirl.build(:user, email: 'lehoang1417@gmail.com', password: '12345678',
+    password_confirmation: '12345678')
   user.skip_confirmation!
   user.save
 

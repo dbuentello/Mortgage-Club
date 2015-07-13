@@ -10,8 +10,9 @@ class ElectronicSignatureController < ApplicationController
     values = Docusign::Templates::LoanEstimation.get_values_mapping_hash(current_user, current_loan)
 
     # get Template info from database
+    template_name = "Loan Estimation"
     base = Docusign::Base.new
-    template = Template.where(name: "Loan Estimation").first
+    template = Template.where(name: template_name).first
     envelope = current_loan.envelope
 
     if envelope
@@ -37,7 +38,7 @@ class ElectronicSignatureController < ApplicationController
         })
       else
         envelope_hash.merge!({
-          template_name: "Loan Estimation",
+          template_name: template_name,
           email_subject: "Electronic Signature Request from Mortgage Club",
           email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
         })

@@ -33,7 +33,7 @@ FactoryGirl.define do
 
     after(:create) do |borrower, evaluator|
       create(:employment, borrower: borrower)
-      create_list(:borrower_addresses, Random.rand(1..2), borrower: borrower)
+      create_list(:borrower_address, 2, borrower: borrower)
     end
   end
 end
