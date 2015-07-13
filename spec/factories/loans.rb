@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :loan do |f|
     user
+
     f.purpose { Random.rand(0..1)}
 
     f.agency_case_number { Faker::Lorem.word }

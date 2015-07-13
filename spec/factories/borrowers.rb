@@ -32,11 +32,7 @@ FactoryGirl.define do
     f.dependent_count { Faker::Number.number(6) }
 
     after(:create) do |borrower, evaluator|
-      # create_list(:borrower_address, Random.rand(1..2), borrower: borrower)
-      # create_list(:bank_statement, Random.rand(0..2), borrower: borrower)
-      # create_list(:brokerage_statement, Random.rand(0..2), borrower: borrower)
-      # create_list(:paystub, Random.rand(1..2), borrower: borrower)
-      # create_list(:w2, Random.rand(1..2), borrower: borrower)
+
     end
   end
 end
