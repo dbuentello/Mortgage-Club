@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :borrower, aliases: [:secondary_borrower] do |f|
     borrower_government_monitoring_info
     credit_report
+    employment
 
     first_bank_statement
     second_bank_statement

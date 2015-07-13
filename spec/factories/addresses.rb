@@ -8,12 +8,5 @@ FactoryGirl.define do
     f.city { Faker::Address.city }
     f.full_text { Faker::Address.street_address }
 
-    after(:create) do |address, evaluator|
-      # create(:property, address: address)
-      # borrower_address
-      # employment
-      # liability
-    end
-
   end
 end
