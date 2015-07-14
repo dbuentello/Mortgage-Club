@@ -93,6 +93,9 @@ group :development do
 
   # automatically run your specs
   gem 'guard-rspec', require: false
+
+  # A very fast & simple Ruby web server
+  gem 'thin'
 end
 
 group :development, :test do
