@@ -104,4 +104,5 @@ class Borrower < ActiveRecord::Base
     gross_income.present? && gross_commission.present? && gross_bonus.present? &&
       gross_overtime.present? && current_employment.try(:completed?)
   end
+
 end

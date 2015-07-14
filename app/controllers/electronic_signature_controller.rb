@@ -1,4 +1,5 @@
 class ElectronicSignatureController < ApplicationController
+  IS_EMBEDDED = true
 
   # POST
   def demo
@@ -19,15 +20,27 @@ class ElectronicSignatureController < ApplicationController
       # get in progress envelope id stored in database to load appropriate view
       envelope_id = envelope.docusign_id
     else
-      envelope_hash = {
-        user: {
-          name: current_user.to_s,
-          email: current_user.email
-        },
-        values: values,
-        embedded: true,
-        loan_id: current_loan.id
-      }
+
+      if IS_EMBEDDED
+        envelope_hash = {
+          user: {
+            name: current_user.to_s,
+            email: current_user.email
+          },
+          values: values,
+          embedded: true,
+          loan_id: current_loan.id
+        }
+      else
+        envelope_hash = {
+          user: {
+            name: "Billy",
+            email: "billy@mortgageclub.io"
+          },
+          values: values,
+          loan_id: current_loan.id
+        }
+      end
 
       # create new envelope from template
       if template
@@ -50,15 +63,19 @@ class ElectronicSignatureController < ApplicationController
       envelope_id = envelope_response["envelopeId"]
     end
 
-    # request the view url to embedd to iframe
-    view_response = base.client.get_recipient_view(
-      envelope_id: envelope_id,
-      name: current_user.to_s,
-      email: current_user.email,
-      return_url: electronic_signature_embedded_response_url
-    )
+    if IS_EMBEDDED
+      # request the view url to embedd to iframe
+      view_response = base.client.get_recipient_view(
+        envelope_id: envelope_id,
+        name: current_user.to_s,
+        email: current_user.email,
+        return_url: electronic_signature_embedded_response_url
+      )
 
-    render json: { message: view_response }, status: :ok
+      render json: { message: view_response }, status: :ok
+    else
+      render json: { message: "success" }, status: :ok
+    end
   end
 
   # GET /electronic_signature/embedded_response

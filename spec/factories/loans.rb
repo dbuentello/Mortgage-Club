@@ -7,7 +7,7 @@ FactoryGirl.define do
     f.agency_case_number { Faker::Lorem.word }
     f.lender_case_number { Faker::Lorem.word }
     f.amount { Faker::Number.decimal(6, 2) }
-    f.interest_rate { Faker::Number.decimal(6, 2) }
+    f.interest_rate { Faker::Number.decimal(1, 3) }
     f.num_of_months { Faker::Number.number(2) }
     f.amortization_type { ['Conventional', 'VA', 'FHA', 'USDA', '9'].sample }
     f.rate_lock { [true, false].sample }

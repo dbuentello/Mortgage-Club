@@ -80,6 +80,9 @@ gem 'delayed_job_active_record'
 
 gem 'daemons'
 
+# dealing with money and currency conversion.
+gem 'money'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
@@ -93,6 +96,9 @@ group :development do
 
   # automatically run your specs
   gem 'guard-rspec', require: false
+
+  # A very fast & simple Ruby web server
+  gem 'thin'
 end
 
 group :development, :test do
