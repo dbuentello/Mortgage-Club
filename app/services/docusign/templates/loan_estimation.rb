@@ -16,8 +16,8 @@ module Docusign
         values = {
           "applicant_name" => "#{borrower.first_name} #{borrower.last_name}".titleize,
           "sale_price" => Money.new(property.purchase_price).format,
-          "purpose" => loan.purpose.titleize,
-          "product" => loan.amortization_type.titleize,
+          "purpose" => "#{loan.purpose}".titleize,
+          "product" => "#{loan.amortization_type}".titleize,
 
           # Loan Terms
           "loan_amount" => Money.new(loan.amount).format,
