@@ -80,6 +80,9 @@ gem 'delayed_job_active_record'
 
 gem 'daemons'
 
+# dealing with money and currency conversion.
+gem 'money'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'

@@ -178,6 +178,8 @@ GEM
     mimemagic (0.3.0)
     mini_portile (0.6.2)
     minitest (5.7.0)
+    money (6.5.1)
+      i18n (>= 0.6.4, <= 0.7.0)
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -369,6 +371,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   lodash-rails
+  money
   nestive
   newrelic_rpm
   nokogiri
