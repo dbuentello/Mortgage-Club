@@ -11,7 +11,7 @@ module Docusign
         borrower = user.borrower
 
         estimated_escrow = property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f
-        estimated_total_monthly_payment_1 = loan.pmi.to_f + estimated_escrow
+        estimated_total_monthly_payment_1 = loan.monthly_payment + loan.pmi.to_f + estimated_escrow
 
         values = {
           "applicant_name" => "#{borrower.first_name} #{borrower.last_name}".titleize,
@@ -21,17 +21,19 @@ module Docusign
 
           # Loan Terms
           "loan_amount" => Money.new(loan.amount).format,
-          "interest_rate" => loan.interest_rate,
+          "interest_rate" => "#{loan.interest_rate}%",
           "monthly_principal_interest" => Money.new(loan.monthly_payment).format,
           "prepayment_penalty" => Money.new(loan.prepayment_penalty).format,
           "prepayment_penalty_amount" => Money.new(loan.prepayment_penalty_amount).format,
-          "prepayment_penalty_amount" => 'As high',
+          "prepayment_penalty_amount_tooltip" => 'As high',
           "balloon_payment" => loan.balloon_payment,
 
           # Projected Payments
           "projected_principal_interest_1" => Money.new(loan.monthly_payment).format,
-          "projected_mortgage_insurance_1" => loan.pmi,
-          "estimated_escrow_1" => estimated_escrow,
+          "projected_mortgage_insurance_1" => Money.new(loan.pmi).format,
+          "projected_mortgage_insurance_1_tooltip" => '+',
+          "estimated_escrow_1" => Money.new(estimated_escrow).format,
+          "estimated_escrow_1_tooltip" => '+',
           "estimated_total_monthly_payment_1" => Money.new(estimated_total_monthly_payment_1).format,
 
           "estimated_taxes_insurance_assessments" => Money.new(estimated_escrow).format,
@@ -94,7 +96,7 @@ module Docusign
 
         # default values for testing
         values.merge! ({
-          'date_issued' => Date.today.to_s,
+          'date_issued' => Date.today.to_time.strftime("%D"),
           'include_property_taxes_yes_no' => 'x',
           'include_homeowners_insurance_yes_no' => 'x',
           'include_other_yes_no' => 'x',
