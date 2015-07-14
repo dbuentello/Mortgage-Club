@@ -5,13 +5,12 @@ module Docusign
     class LoanEstimation
       def self.get_values_mapping_hash(user, loan)
         property = loan.property
+        borrower = user.borrower
 
-        estimated_escrow = (property.estimated_hazard_insurance + property.estimated_property_tax)
+        estimated_escrow = property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f
 
         values = {
-          "applicant_name" => "#{user.borrower.first_name} #{user.borrower.last_name}",
-          "property" => property.address.address,
-          "applicant_address" => user.borrower.borrower_addresses.first.address.address,
+          "applicant_name" => "#{borrower.first_name} #{borrower.last_name}",
           "sale_price" => property.purchase_price,
           "purpose" => loan.purpose,
           "product" => loan.amortization_type,
@@ -27,40 +26,43 @@ module Docusign
           # Projected Payments
           "projected_principal_interest_1" => loan.monthly_payment,
           "projected_mortgage_insurance_1" => loan.pmi,
+          "estimated_total_monthly_payment_1" => (loan.pmi.to_f + property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f),
           "estimated_escrow_1" => estimated_escrow,
-          "estimated_total_monthly_payment_1" => (loan.pmi + property.estimated_hazard_insurance + property.estimated_property_tax),
           "estimated_taxes_insurance_assessments" => estimated_escrow,
 
           # Costs at Closing
           "estimated_closing_costs" => loan.estimated_closing_costs
         }
 
+        if property.address.present?
+          values.merge! ({
+            "property" => property.address.address,
+          })
+        end
+
+        if borrower.borrower_addresses.first.present? && borrower.borrower_addresses.first.address.present?
+          values.merge! ({
+            "applicant_address" => borrower.borrower_addresses.first.address.address
+          })
+        end
+
         case loan.loan_type
         when "Conventional"
           values.merge! ({
-            'loan_type_conventional' => 'x',
-            'loan_type_fha' => '',
-            'loan_type_va' => ''
+            'loan_type_conventional' => 'x'
           })
         when "FHA"
           values.merge! ({
-            'loan_type_conventional' => '',
-            'loan_type_fha' => 'x',
-            'loan_type_va' => ''
+            'loan_type_fha' => 'x'
           })
         when "VA"
           values.merge! ({
-            'loan_type_conventional' => '',
-            'loan_type_fha' => '',
             'loan_type_va' => 'x'
           })
         else
           values.merge! ({
             'loan_type_other' => 'x',
-            'loan_type_other_text' => loan.loan_type,
-            'loan_type_conventional' => '',
-            'loan_type_fha' => '',
-            'loan_type_va' => ''
+            'loan_type_other_text' => loan.loan_type
           })
         end
 
