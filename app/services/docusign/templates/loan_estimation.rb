@@ -1,4 +1,5 @@
 require 'open-uri'
+include NumbersHelper
 
 module Docusign
   module Templates
@@ -7,7 +8,7 @@ module Docusign
         property = loan.property
         borrower = user.borrower
 
-        estimated_escrow = property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f
+        estimated_escrow = number_with_precision(property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f)
 
         values = {
           "applicant_name" => "#{borrower.first_name} #{borrower.last_name}",
@@ -26,7 +27,7 @@ module Docusign
           # Projected Payments
           "projected_principal_interest_1" => loan.monthly_payment,
           "projected_mortgage_insurance_1" => loan.pmi,
-          "estimated_total_monthly_payment_1" => (loan.pmi.to_f + property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f),
+          "estimated_total_monthly_payment_1" => number_with_precision(loan.pmi.to_f + property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f),
           "estimated_escrow_1" => estimated_escrow,
           "estimated_taxes_insurance_assessments" => estimated_escrow,
 
@@ -34,15 +35,23 @@ module Docusign
           "estimated_closing_costs" => loan.estimated_closing_costs
         }
 
-        if property.address.present?
+        if borrower.borrower_addresses.first.present? && borrower.borrower_addresses.first.address.present?
           values.merge! ({
-            "property" => property.address.address,
+            "applicant_address" => {
+              width: 225,
+              height: 30,
+              value: borrower.borrower_addresses.first.address.address
+            }
           })
         end
 
-        if borrower.borrower_addresses.first.present? && borrower.borrower_addresses.first.address.present?
+        if property.address.present?
           values.merge! ({
-            "applicant_address" => borrower.borrower_addresses.first.address.address
+            "property" => {
+              width: 225,
+              height: 30,
+              value: property.address.address
+            },
           })
         end
 

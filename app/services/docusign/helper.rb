@@ -41,10 +41,9 @@ module Docusign
             y_position: hash["yPosition"]
           }
 
+          # automatically copy attributes from Docusign template
           tab[:optional]   = hash["optional"] if hash["optional"]
           tab[:tabLabel]   = hash["label"] if hash["label"]
-          # tab[:width]      = hash["width"] if hash["width"]
-          # tab[:height]     = hash["height"] if hash["height"]
           tab[:fontSize]   = hash["fontSize"] if hash["fontSize"]
           tab[:fontColor]  = hash["fontColor"] if hash["fontColor"]
           tab[:bold]       = hash["bold"] if hash["bold"]
@@ -55,7 +54,20 @@ module Docusign
 
           # map value to tab
           if options[:values] && options[:values][tab[:name]]
-            tab[:value]    = options[:values][tab[:name]]
+            option_value = options[:values][tab[:name]]
+
+            if option_value.is_a? Hash
+              # if special case, we also set width and height
+              if option_value[:width] && option_value[:height]
+                # need to set both width and height if you want bug free
+                tab[:width]  = option_value[:width]
+                tab[:height] = option_value[:height]
+              end
+
+              tab[:value]  = option_value[:value]
+            else
+              tab[:value] = option_value
+            end
           end
 
           ruby_array_of_hash << tab
