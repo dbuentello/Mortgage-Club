@@ -11,7 +11,7 @@ module Docusign
         borrower = user.borrower
 
         estimated_escrow = property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f
-        estimated_total_monthly_payment_1 = loan.monthly_payment + loan.pmi.to_f + estimated_escrow
+        estimated_total_monthly_payment_1 = loan.monthly_payment.to_f + loan.pmi.to_f + estimated_escrow
 
         values = {
           "applicant_name" => "#{borrower.first_name} #{borrower.last_name}".titleize,
