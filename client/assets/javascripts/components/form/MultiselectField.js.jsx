@@ -1,13 +1,13 @@
 
 
-var StaticFieldMixin = require('../../mixins/static_field_mixin');
-var ObjectHelperMixin = require('../../mixins/object_helper_mixin');
-var MultiselectMixin = require('../../mixins/multiselect_mixin');
+var StaticFieldMixin = require('../../mixins/StaticFieldMixin');
+var ObjectHelperMixin = require('../../mixins/ObjectHelperMixin');
+var MultiselectMixin = require('../../mixins/MultiselectMixin');
 
 /**
  * MultiselectField provides the interface for user to select multiple options.
  */
-var MultiselectFieldView = React.createClass({
+var MultiselectField = React.createClass({
   mixins: [MultiselectMixin, StaticFieldMixin, ObjectHelperMixin],
 
   propTypes: {
@@ -103,4 +103,4 @@ var MultiselectFieldView = React.createClass({
 });
 
 
-module.exports = MultiselectFieldView;
+module.exports = MultiselectField;
