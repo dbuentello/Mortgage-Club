@@ -12,4 +12,4 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( public.js )
 
 # Add webpack/assets/stylesheets to asset pipeline's search path.
-Rails.application.config.assets.paths << Rails.root.join("webpack", "assets" ,"stylesheets")
+Rails.application.config.assets.paths << Rails.root.join("client", "assets" ,"stylesheets")
