@@ -20,7 +20,4 @@ end
 if Template.where(name: 'Loan Estimation').blank?
   base = Docusign::Base.new
   template = base.create_template_object_from_name("Loan Estimation")
-
-  # TODO: add file from google drive, now is from local
 end
-

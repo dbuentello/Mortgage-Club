@@ -113,6 +113,9 @@ module Docusign
       template
     end
 
+    private
+
+    # mini method to store envelope data to our database
     def create_envelope_object_from_response(envelope_id, template_id, loan_id)
       envelope = Envelope.new(
         docusign_id: envelope_id,
