@@ -7,9 +7,19 @@ class ElectronicSignatureController < ApplicationController
     base = Docusign::Base.new
 
     # get the template name
-    template_name = "Loan Estimation"
+    template_name = params[:template_name]
     # get Template info from database
     template = Template.where(name: template_name).first
+
+    # handle none-existing template
+    if template.blank?
+      render json: {
+          message: "template does not exist yet",
+          details: "Template #{params[:template_name]} does not exist yet!"
+        }, status: :ok
+
+      return
+    end
 
     if (envelope = current_loan.envelope)
       # get in progress envelope id stored in database to load appropriate view
@@ -72,7 +82,7 @@ class ElectronicSignatureController < ApplicationController
 
       render json: { message: view_response }, status: :ok
     else
-      render json: { message: "success" }, status: :ok
+      render json: { message: "don't render iframe" }, status: :ok
     end
   end
 
