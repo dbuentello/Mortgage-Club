@@ -13,6 +13,7 @@ module Docusign
         estimated_escrow = property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f
         estimated_total_monthly_payment_1 = loan.monthly_payment.to_f + loan.pmi.to_f + estimated_escrow
 
+        # the name is from 'tooltip' of field in the template
         values = {
           "applicant_name" => "#{borrower.first_name} #{borrower.last_name}".titleize,
           "sale_price" => Money.new(property.purchase_price).format,

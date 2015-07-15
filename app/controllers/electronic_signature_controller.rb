@@ -3,23 +3,20 @@ class ElectronicSignatureController < ApplicationController
 
   # POST
   def demo
-    # Set values to tab labels
-    # NOTE: need to map 2 names carefully (for example "Phone" will take value from :phone)
-    # the JS name is from 'tooltip' of field in the template
-    # this should be compressed to a Docusign helper
     current_loan = current_user.loans.first
-    values = Docusign::Templates::LoanEstimation.get_values_mapping_hash(current_user, current_loan)
-
-    # get Template info from database
-    template_name = "Loan Estimation"
     base = Docusign::Base.new
-    template = Template.where(name: template_name).first
-    envelope = current_loan.envelope
 
-    if envelope
+    # get the template name
+    template_name = "Loan Estimation"
+    # get Template info from database
+    template = Template.where(name: template_name).first
+
+    if (envelope = current_loan.envelope)
       # get in progress envelope id stored in database to load appropriate view
       envelope_id = envelope.docusign_id
     else
+      # Set values to tab labels
+      values = Docusign::Templates::LoanEstimation.get_values_mapping_hash(current_user, current_loan)
 
       if IS_EMBEDDED
         envelope_hash = {
