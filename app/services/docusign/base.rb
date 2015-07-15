@@ -33,6 +33,10 @@ module Docusign
         options[:template_id] = @helper.find_template_id_from_name(options[:template_name])
       end
 
+      if options[:template_name].blank?
+        options[:template_name] = Template.where(docusign_id: options[:template_id]).first.name
+      end
+
       options[:embedded] ||= false
       options[:email_subject] ||= "The test email subject envelope"
       options[:email_body] ||= "Envelope body content here"
@@ -59,8 +63,8 @@ module Docusign
         file_io = open(file_url)
         file = { io: file_io, name: options[:document].attachment.instance.attachment_file_name }
       else
-        file_url = "#{Rails.root}/public/examples/Loan Estimation.pdf"
-        file = { path: file_url, name: 'Loan Estimation.pdf' }
+        file_url = "#{Rails.root}/vendor/files/templates/#{options[:template_name]}.pdf"
+        file = { path: file_url, name: "#{options[:template_name]}.pdf" }
       end
 
       envelope_response = @client.create_envelope_from_document(

@@ -42,6 +42,7 @@ class ElectronicSignatureController < ApplicationController
       # create new envelope from template
       if template
         envelope_hash.merge!({
+          template_name: template_name,
           template_id: template.docusign_id,
           email_subject: template.email_subject,
           email_body: template.email_body
