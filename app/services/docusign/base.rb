@@ -43,6 +43,10 @@ module Docusign
 
       # ap options[:values]
       # Map data from databse to signers
+      # https://github.com/redis/redis-rb/blob/master/README.md#storing-objects
+      # NEED_TODO:
+      # => @redis.set "foo", tabs.to_json
+      # => JSON.parse(@redis.get("foo"))
       tabs = @helper.get_tabs_from_template(template_id: options[:template_id], values: options[:values])
 
       signers = []
