@@ -16,10 +16,10 @@ var MortgageRates = React.createClass({
       dataType: 'json',
       success: function(response) {
         var rates = this.getValue(response, 'Result.TransactionData.PRODUCTS.PRODUCT');
-        if (rates) {
-          rates = rates.reverse();
-        }
-        this.setState({loaded: true, rates: rates });
+        // if (rates) {
+        //   rates = rates.reverse();
+        // }
+        this.setState({ loaded: true, rates: rates });
       },
       error: function(response, status, error) {
 
