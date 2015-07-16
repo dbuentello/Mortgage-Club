@@ -83,6 +83,9 @@ gem 'daemons'
 # dealing with money and currency conversion.
 gem 'money'
 
+# A Ruby client library for Redis
+gem 'redis'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'

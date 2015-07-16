@@ -3,23 +3,30 @@ class ElectronicSignatureController < ApplicationController
 
   # POST
   def demo
-    # Set values to tab labels
-    # NOTE: need to map 2 names carefully (for example "Phone" will take value from :phone)
-    # the JS name is from 'tooltip' of field in the template
-    # this should be compressed to a Docusign helper
     current_loan = current_user.loans.first
-    values = Docusign::Templates::LoanEstimation.get_values_mapping_hash(current_user, current_loan)
-
-    # get Template info from database
-    template_name = "Loan Estimation"
     base = Docusign::Base.new
-    template = Template.where(name: template_name).first
-    envelope = current_loan.envelope
 
-    if envelope
+    # get the template name
+    template_name = params[:template_name]
+    # get Template info from database
+    template = Template.where(name: template_name).first
+
+    # handle none-existing template
+    if template.blank?
+      render json: {
+          message: "template does not exist yet",
+          details: "Template #{params[:template_name]} does not exist yet!"
+        }, status: :ok
+
+      return
+    end
+
+    if (envelope = current_loan.envelope)
       # get in progress envelope id stored in database to load appropriate view
       envelope_id = envelope.docusign_id
     else
+      # Set values to tab labels
+      values = Docusign::Templates::LoanEstimation.get_values_mapping_hash(current_user, current_loan)
 
       if IS_EMBEDDED
         envelope_hash = {
@@ -45,6 +52,7 @@ class ElectronicSignatureController < ApplicationController
       # create new envelope from template
       if template
         envelope_hash.merge!({
+          template_name: template_name,
           template_id: template.docusign_id,
           email_subject: template.email_subject,
           email_body: template.email_body
@@ -74,7 +82,7 @@ class ElectronicSignatureController < ApplicationController
 
       render json: { message: view_response }, status: :ok
     else
-      render json: { message: "success" }, status: :ok
+      render json: { message: "don't render iframe" }, status: :ok
     end
   end
 

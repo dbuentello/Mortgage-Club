@@ -4,6 +4,18 @@ module Docusign
       @client = args[:client] || DocusignRest::Client.new
     end
 
+    def make_sure_template_name_and_id_exist(options = {})
+      if options[:template_id].blank?
+        options[:template_id] = find_template_id_from_name(options[:template_name])
+      end
+
+      if options[:template_name].blank?
+        options[:template_name] = Template.where(docusign_id: options[:template_id]).first.name
+      end
+
+      options
+    end
+
     # GET template_id
     def find_template_id_from_name(template_name)
       templates = @client.get_templates
@@ -21,13 +33,34 @@ module Docusign
     # GET list of tabs from template name to apply
     # PARAMS: template_id / template_name
     def get_tabs_from_template(options = {})
-      if options[:template_id].blank?
-        options[:template_id] = find_template_id_from_name(options[:template_name])
-      end
+      options = make_sure_template_name_and_id_exist(options)
 
-      # request to get the template recipient info
-      tabs = get_envelope_recipients_and_tabs(options[:template_id])
-      tabs = tabs["signers"][0]["tabs"]
+      # Request to get the template recipient info
+      tabs = {}
+      begin
+        # get template tabs values from redis server: https://github.com/redis/redis-rb/blob/master/README.md#storing-objects
+        tabs = $redis.get(options[:template_name])
+
+        if tabs.nil?
+          tabs = get_envelope_recipients_and_tabs(options[:template_id])
+          tabs = tabs["signers"][0]["tabs"]
+
+          # store tabs into redis
+          $redis.set(options[:template_name], tabs.to_json)
+
+          # Expire the cache, every 3 hours
+          $redis.expire(options[:template_name], 3.hour.to_i)
+        else
+          tabs = JSON.parse tabs
+        end
+
+      rescue Exception => e
+        # whatever the error is, we must return api results :-)
+        tabs = get_envelope_recipients_and_tabs(options[:template_id])
+        tabs = tabs["signers"][0]["tabs"]
+
+        Rails.logger.error(e)
+      end
 
       # convert javascript tabs to ruby tabs
       ruby_tabs = {}

@@ -29,17 +29,17 @@ module Docusign
         return
       end
 
-      if options[:template_id].blank?
-        options[:template_id] = @helper.find_template_id_from_name(options[:template_name])
-      end
+      options = @helper.make_sure_template_name_and_id_exist(options)
 
       options[:embedded] ||= false
       options[:email_subject] ||= "The test email subject envelope"
       options[:email_body] ||= "Envelope body content here"
 
-      # ap options[:values]
       # Map data from databse to signers
-      tabs = @helper.get_tabs_from_template(template_id: options[:template_id], values: options[:values])
+      tabs = @helper.get_tabs_from_template(
+        template_id: options[:template_id], template_name: options[:template_name],
+        values: options[:values]
+      )
 
       signers = []
       signer = {
@@ -50,7 +50,6 @@ module Docusign
       }
       signer = signer.merge(tabs)
       signers << signer
-      # ap signers
 
       # Get the corresponding document to send over with the achieved signers
       if options[:document]
@@ -59,8 +58,8 @@ module Docusign
         file_io = open(file_url)
         file = { io: file_io, name: options[:document].attachment.instance.attachment_file_name }
       else
-        file_url = "#{Rails.root}/public/examples/Loan Estimation.pdf"
-        file = { path: file_url, name: 'Loan Estimation.pdf' }
+        file_url = "#{Rails.root}/vendor/files/templates/#{options[:template_name]}.pdf"
+        file = { path: file_url, name: "#{options[:template_name]}.pdf" }
       end
 
       envelope_response = @client.create_envelope_from_document(
@@ -77,7 +76,7 @@ module Docusign
       )
 
       # create envelope in database for reference
-      self.create_envelope_object_from_response(envelope_response["envelopeId"], options[:template_id], options[:loan_id])
+      create_envelope_object_from_response(envelope_response["envelopeId"], options[:template_id], options[:loan_id])
 
       # return envelope response
       envelope_response
@@ -109,6 +108,9 @@ module Docusign
       template
     end
 
+    private
+
+    # mini method to store envelope data to our database
     def create_envelope_object_from_response(envelope_id, template_id, loan_id)
       envelope = Envelope.new(
         docusign_id: envelope_id,

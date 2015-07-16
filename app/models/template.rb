@@ -22,4 +22,15 @@ class Template < ActiveRecord::Base
   validates_presence_of :name, :docusign_id, :state
   validates :name, uniqueness: true
 
+  after_save :clear_cache
+
+  # clear cache for Docusign tabs
+  def clear_cache
+    begin
+      $redis.del name
+    rescue Exception => e
+      Rails.logger.error(e)
+    end
+  end
+
 end
