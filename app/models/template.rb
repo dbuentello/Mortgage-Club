@@ -27,7 +27,7 @@ class Template < ActiveRecord::Base
   # clear cache for Docusign tabs
   def clear_cache
     begin
-      $redis.del name
+      $redis.del name if $redis.get(name)
     rescue Exception => e
       Rails.logger.error(e)
     end
