@@ -22,4 +22,10 @@ class Template < ActiveRecord::Base
   validates_presence_of :name, :docusign_id, :state
   validates :name, uniqueness: true
 
+  after_save :clear_cache
+
+  def clear_cache
+    $redis.del name
+  end
+
 end
