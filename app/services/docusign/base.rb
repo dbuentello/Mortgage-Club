@@ -41,13 +41,29 @@ module Docusign
       options[:email_subject] ||= "The test email subject envelope"
       options[:email_body] ||= "Envelope body content here"
 
-      # ap options[:values]
       # Map data from databse to signers
-      # https://github.com/redis/redis-rb/blob/master/README.md#storing-objects
-      # NEED_TODO:
-      # => @redis.set "foo", tabs.to_json
-      # => JSON.parse(@redis.get("foo"))
-      tabs = @helper.get_tabs_from_template(template_id: options[:template_id], values: options[:values])
+      tabs = {}
+      begin
+        # get template tabs values from redis server: https://github.com/redis/redis-rb/blob/master/README.md#storing-objects
+        tabs = $redis.get(options[:template_name])
+        if tabs.nil?
+          tabs = @helper.get_tabs_from_template(template_id: options[:template_id], values: options[:values])
+
+          # store tabs into redis
+          $redis.set(options[:template_name], tabs.to_json)
+
+          # Expire the cache, every 3 hours
+          # $redis.expire(options[:template_name], 3.hour.to_i)
+        else
+          tabs = JSON.parse tabs
+        end
+
+      rescue Exception => e
+        # whatever the error is, we must return api results :-)
+        tabs = @helper.get_tabs_from_template(template_id: options[:template_id], values: options[:values])
+
+        Rails.logger.error(e)
+      end
 
       signers = []
       signer = {
@@ -58,7 +74,6 @@ module Docusign
       }
       signer = signer.merge(tabs)
       signers << signer
-      # ap signers
 
       # Get the corresponding document to send over with the achieved signers
       if options[:document]
@@ -85,7 +100,7 @@ module Docusign
       )
 
       # create envelope in database for reference
-      self.create_envelope_object_from_response(envelope_response["envelopeId"], options[:template_id], options[:loan_id])
+      create_envelope_object_from_response(envelope_response["envelopeId"], options[:template_id], options[:loan_id])
 
       # return envelope response
       envelope_response
