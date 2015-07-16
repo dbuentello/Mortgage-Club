@@ -1,13 +1,13 @@
 var _ = require('lodash');
 var React = require('react/addons');
-var Router = require('react-router');
+var Navigation = require('react-router').Navigation;
 
 var LoaderMixin = require('mixins/LoaderMixin');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var MortgageRates = React.createClass({
-  mixins: [LoaderMixin, ObjectHelperMixin, TextFormatMixin, Router.Navigation],
+  mixins: [LoaderMixin, ObjectHelperMixin, TextFormatMixin, Navigation],
 
   componentDidMount: function() {
     $.ajax({
@@ -18,9 +18,6 @@ var MortgageRates = React.createClass({
       dataType: 'json',
       success: function(response) {
         var rates = this.getValue(response, 'Result.TransactionData.PRODUCTS.PRODUCT');
-        // if (rates) {
-        //   rates = rates.reverse();
-        // }
         this.setState({ loaded: true, rates: rates });
       },
       error: function(response, status, error) {

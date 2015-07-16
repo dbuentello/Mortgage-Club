@@ -9,8 +9,13 @@ class RatesController < ApplicationController
   end
 
   def select
-    # NEED_TODO
-    render json: { message: "hehe" }, status: :ok
+    rate = params["rate"]
+    current_loan = current_user.loans.first
+
+    # current_loan.attributes = { }
+    # current_loan.save
+
+    render json: { message: "save loan successfully" }, status: :ok
   end
 
 end
