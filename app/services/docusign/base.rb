@@ -29,20 +29,17 @@ module Docusign
         return
       end
 
-      if options[:template_id].blank?
-        options[:template_id] = @helper.find_template_id_from_name(options[:template_name])
-      end
-
-      if options[:template_name].blank?
-        options[:template_name] = Template.where(docusign_id: options[:template_id]).first.name
-      end
+      options = @helper.make_sure_template_name_and_id_exist(options)
 
       options[:embedded] ||= false
       options[:email_subject] ||= "The test email subject envelope"
       options[:email_body] ||= "Envelope body content here"
 
       # Map data from databse to signers
-      tabs = @helper.get_tabs_from_template(template_id: options[:template_id], values: options[:values])
+      tabs = @helper.get_tabs_from_template(
+        template_id: options[:template_id], template_name: options[:template_name],
+        values: options[:values]
+      )
 
       signers = []
       signer = {

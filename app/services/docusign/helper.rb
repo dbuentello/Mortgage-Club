@@ -4,6 +4,18 @@ module Docusign
       @client = args[:client] || DocusignRest::Client.new
     end
 
+    def make_sure_template_name_and_id_exist(options = {})
+      if options[:template_id].blank?
+        options[:template_id] = find_template_id_from_name(options[:template_name])
+      end
+
+      if options[:template_name].blank?
+        options[:template_name] = Template.where(docusign_id: options[:template_id]).first.name
+      end
+
+      options
+    end
+
     # GET template_id
     def find_template_id_from_name(template_name)
       templates = @client.get_templates
@@ -21,9 +33,7 @@ module Docusign
     # GET list of tabs from template name to apply
     # PARAMS: template_id / template_name
     def get_tabs_from_template(options = {})
-      if options[:template_id].blank?
-        options[:template_id] = find_template_id_from_name(options[:template_name])
-      end
+      options = make_sure_template_name_and_id_exist(options)
 
       # Request to get the template recipient info
       tabs = {}
