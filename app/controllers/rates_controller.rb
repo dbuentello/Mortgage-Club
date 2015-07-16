@@ -7,4 +7,10 @@ class RatesController < ApplicationController
       format.json { render json: Rate.get_rates }
     end
   end
+
+  def select
+    # NEED_TODO
+    render json: { message: "hehe" }, status: :ok
+  end
+
 end

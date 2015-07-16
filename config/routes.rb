@@ -41,7 +41,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :rates, only: [:index]
+  resources :rates, only: [:index] do
+    collection do
+      post :select
+    end
+  end
 
   resources :properties, only: [] do
     collection do
