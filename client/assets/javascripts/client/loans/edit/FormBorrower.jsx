@@ -11,6 +11,8 @@ var BooleanRadio = require('components/form/BooleanRadio');
 
 var fields = {
   applyingAs: {label: 'I am applying', name: 'apply_as', helpText: 'I am a helpful text.'},
+  coBorrowerName: {label: 'Your co-borrower name', name: 'co_borrower_name', helpText: null},
+  coBorrowerEmail: {label: 'Your co-borrower email', name: 'co_borrower_email', helpText: null},
   firstName: {label: 'First Name', name: 'first_name', helpText: null},
   middleName: {label: 'Middle Name', name: 'middle_name', helpText: null},
   lastName: {label: 'Last Name', name: 'last_name', helpText: null},
@@ -34,7 +36,10 @@ var FormBorrower = React.createClass({
   mixins: [TextFormatMixin],
 
   getInitialState: function() {
-    return this.buildStateFromLoan(this.props.loan);
+    var state = this.buildStateFromLoan(this.props.loan);
+    state['hasCoBorrower'] = false;
+
+    return state;
   },
 
   onChange: function(change) {
@@ -43,6 +48,16 @@ var FormBorrower = React.createClass({
 
   onFocus: function(field) {
     this.setState({focusedField: field});
+  },
+
+  coBorrowerHanlder: function(change) {
+    if (event.target.value == 1) {
+      this.setState({ hasCoBorrower: false });
+    } else {
+      this.setState({ hasCoBorrower: true });
+    }
+
+    this.setState(change);
   },
 
   render: function() {
@@ -69,7 +84,29 @@ var FormBorrower = React.createClass({
                 options={borrowerCountOptions}
                 editable={true}
                 onFocus={this.onFocus.bind(this, fields.applyingAs)}
-                onChange={this.onChange}/>
+                onChange={this.coBorrowerHanlder}/>
+              {this.state.hasCoBorrower ?
+                <div className='row'>
+                  <div className='col-xs-6'>
+                    <TextField
+                      label={fields.coBorrowerName.label}
+                      keyName={fields.coBorrowerName.name}
+                      value={this.state[fields.coBorrowerName.name]}
+                      editable={true}
+                      onFocus={this.onFocus.bind(this, fields.coBorrowerName)}
+                      onChange={this.onChange}/>
+                  </div>
+                  <div className='col-xs-6'>
+                    <TextField
+                      label={fields.coBorrowerEmail.label}
+                      keyName={fields.coBorrowerEmail.name}
+                      value={this.state[fields.coBorrowerEmail.name]}
+                      editable={true}
+                      onFocus={this.onFocus.bind(this, fields.coBorrowerEmail)}
+                      onChange={this.onChange}/>
+                  </div>
+                </div>
+              : null}
               <div className='row'>
                 <div className='col-xs-6'>
                   <TextField
