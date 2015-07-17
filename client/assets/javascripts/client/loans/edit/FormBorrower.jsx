@@ -11,7 +11,8 @@ var BooleanRadio = require('components/form/BooleanRadio');
 
 var fields = {
   applyingAs: {label: 'I am applying', name: 'apply_as', helpText: 'I am a helpful text.'},
-  coBorrowerName: {label: 'Your co-borrower name', name: 'co_borrower_name', helpText: null},
+  coBorrowerFirstName: {label: 'Your co-borrower first name', name: 'co_borrower_first_name', helpText: null},
+  coBorrowerSecondName: {label: 'Your co-borrower second name', name: 'co_borrower_second_name', helpText: null},
   coBorrowerEmail: {label: 'Your co-borrower email', name: 'co_borrower_email', helpText: null},
   firstName: {label: 'First Name', name: 'first_name', helpText: null},
   middleName: {label: 'Middle Name', name: 'middle_name', helpText: null},
@@ -86,17 +87,27 @@ var FormBorrower = React.createClass({
                 onFocus={this.onFocus.bind(this, fields.applyingAs)}
                 onChange={this.coBorrowerHanlder}/>
               {this.state.hasCoBorrower ?
+
                 <div className='row'>
                   <div className='col-xs-6'>
                     <TextField
-                      label={fields.coBorrowerName.label}
-                      keyName={fields.coBorrowerName.name}
-                      value={this.state[fields.coBorrowerName.name]}
+                      label={fields.coBorrowerFirstName.label}
+                      keyName={fields.coBorrowerFirstName.name}
+                      value={this.state[fields.coBorrowerFirstName.name]}
                       editable={true}
-                      onFocus={this.onFocus.bind(this, fields.coBorrowerName)}
+                      onFocus={this.onFocus.bind(this, fields.coBorrowerFirstName)}
                       onChange={this.onChange}/>
                   </div>
                   <div className='col-xs-6'>
+                    <TextField
+                      label={fields.coBorrowerSecondName.label}
+                      keyName={fields.coBorrowerSecondName.name}
+                      value={this.state[fields.coBorrowerSecondName.name]}
+                      editable={true}
+                      onFocus={this.onFocus.bind(this, fields.coBorrowerSecondName)}
+                      onChange={this.onChange}/>
+                  </div>
+                  <div className='col-xs-12'>
                     <TextField
                       label={fields.coBorrowerEmail.label}
                       keyName={fields.coBorrowerEmail.name}
