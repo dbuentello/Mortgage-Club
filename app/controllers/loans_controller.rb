@@ -33,22 +33,24 @@ class LoansController < ApplicationController
 
     def json_options
       {
-        :include => {
-          :property => {
-            :include => {:address => {}}
+        include: {
+          property: {
+            include: :address
           },
-          :borrower => {
-            :include => {
-              :first_bank_statement => {}, :second_bank_statement => {},
-              :first_paystub => {}, :second_paystub => {},
-              :first_w2 => {}, :second_w2 => {}
-            },
-            :methods => [
+          borrower: {
+            include: [
+              :first_bank_statement, :second_bank_statement,
+              :first_paystub, :second_paystub,
+              :first_w2, :second_w2
+            ],
+            methods: [
               :current_address, :previous_addresses, :current_employment, :previous_employments
             ]
           }
         },
-        :methods => [:property_completed, :borrower_completed, :income_completed]
+        methods: [
+          :property_completed, :borrower_completed, :income_completed
+        ]
       }
     end
 end

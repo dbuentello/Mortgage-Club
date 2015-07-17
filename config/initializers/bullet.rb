@@ -1,4 +1,4 @@
-if Rails.env == 'development'
+if Rails.env.development?
   Bullet.enable = true
   # Bullet.alert = true
   # Bullet.bullet_logger = true
