@@ -24,7 +24,7 @@ class BorrowerAddress < ActiveRecord::Base
 
   def as_json(opts={})
     more_options = {
-      :include => { :address => {} }
+      include: :address
     }
 
     options = super(opts)
