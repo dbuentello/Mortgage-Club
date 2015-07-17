@@ -1,0 +1,18 @@
+# == Schema Information
+#
+# Table name: pending_borrowers
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  email      :string
+#  loan_id    :integer
+#  timestamps :string
+#
+
+class PendingBorrower < ActiveRecord::Base
+  belongs_to :loan
+
+  # NEED_TODO: add validations for name and email, also for loan association
+
+end
+
