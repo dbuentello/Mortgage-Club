@@ -23,11 +23,13 @@ class BorrowerAddress < ActiveRecord::Base
   ]
 
   def as_json(opts={})
-    options = {
+    more_options = {
       :include => { :address => {} }
     }
 
-    options.merge!(opts)
-    super(options)
+    options = super(opts)
+    options.merge!(more_options)
+
+    options
   end
 end
