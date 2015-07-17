@@ -10,7 +10,7 @@
 #
 
 class PendingBorrower < ActiveRecord::Base
-  belongs_to :loan
+  belongs_to :loan, inverse_of: :pending_secondary_borrower
 
   # NEED_TODO: add validations for name and email, also for loan association
 
