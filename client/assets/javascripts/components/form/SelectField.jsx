@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var HelpTooltip = require('./HelpTooltip');
+var _ = require('lodash');
 
 var StaticFieldMixin = require('mixins/StaticFieldMixin');
 var UpdateChangeMixin = require('mixins/UpdateChangeMixin');
