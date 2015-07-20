@@ -527,7 +527,11 @@ var FormBorrower = React.createClass({
     loan.borrower_attributes[first_borrower_fields.yearsInSchool.fieldName] = this.state[first_borrower_fields.yearsInSchool.name];
     loan.borrower_attributes[first_borrower_fields.maritalStatus.fieldName] = this.state[first_borrower_fields.maritalStatus.name];
     loan.borrower_attributes[first_borrower_fields.numberOfDependents.fieldName] = this.state[first_borrower_fields.numberOfDependents.name];
-    loan.borrower_attributes[first_borrower_fields.dependentAges.fieldName] = _.map(this.state[first_borrower_fields.dependentAges.name].split(','), _.trim);
+
+    if ( this.state[first_borrower_fields.numberOfDependents.name] > 0 ) {
+      loan.borrower_attributes[first_borrower_fields.dependentAges.fieldName] = _.map(this.state[first_borrower_fields.dependentAges.name].split(','), _.trim);
+    };
+
     loan.borrower_attributes.borrower_addresses_attributes = [{
       id: this.props.loan.borrower.current_address.id,
       is_rental: !this.state[first_borrower_fields.currentlyOwn.name],
@@ -538,12 +542,17 @@ var FormBorrower = React.createClass({
 
     if (this.state[first_borrower_fields.applyingAs.name] == 1) {
       // remove secondary borrower if user select to apply as individual borrower
-      loan.secondary_borrower_fields = {
+      loan.secondary_borrower_attributes = {
         _destroy: true
       };
     } else {
       // update secondary borrower
-      loan.secondary_borrower_attributes = {id: this.props.secondary_borrower.borrower.id};
+      if ( typeof this.props.loan.secondary_borrower !== 'undefined' ) {
+        loan.secondary_borrower_attributes = {id: this.props.loan.secondary_borrower.id};
+      } else {
+        loan.secondary_borrower_attributes = {};
+      };
+
       loan.secondary_borrower_attributes[secondary_borrower_fields.email.fieldName] = this.state[secondary_borrower_fields.email.name];
       loan.secondary_borrower_attributes[secondary_borrower_fields.firstName.fieldName] = this.state[secondary_borrower_fields.firstName.name];
       loan.secondary_borrower_attributes[secondary_borrower_fields.middleName.fieldName] = this.state[secondary_borrower_fields.middleName.name];
@@ -555,14 +564,18 @@ var FormBorrower = React.createClass({
       loan.secondary_borrower_attributes[secondary_borrower_fields.yearsInSchool.fieldName] = this.state[secondary_borrower_fields.yearsInSchool.name];
       loan.secondary_borrower_attributes[secondary_borrower_fields.maritalStatus.fieldName] = this.state[secondary_borrower_fields.maritalStatus.name];
       loan.secondary_borrower_attributes[secondary_borrower_fields.numberOfDependents.fieldName] = this.state[secondary_borrower_fields.numberOfDependents.name];
-      loan.secondary_borrower_attributes[secondary_borrower_fields.dependentAges.fieldName] = _.map(this.state[secondary_borrower_fields.dependentAges.name].split(','), _.trim);
-      loan.secondary_borrower_attributes.borrower_addresses_attributes = [{
-        id: this.props.loan.secondary_borrower.current_address.id,
-        is_rental: !this.state[secondary_borrower_fields.currentlyOwn.name],
-        years_at_address: this.state[secondary_borrower_fields.yearsInCurrentAddress.name],
-        address_attributes: this.state[secondary_borrower_fields.currentAddress.name],
-        is_current: true
-      }];
+
+      if ( this.state[secondary_borrower_fields.numberOfDependents.name] > 0 ) {
+        loan.borrower_attributes[secondary_borrower_fields.dependentAges.fieldName] = _.map(this.state[secondary_borrower_fields.dependentAges.name].split(','), _.trim);
+      };
+
+      // loan.secondary_borrower_attributes.borrower_addresses_attributes = [{
+      //   id: this.props.loan.secondary_borrower.current_address.id,
+      //   is_rental: !this.state[secondary_borrower_fields.currentlyOwn.name],
+      //   years_at_address: this.state[secondary_borrower_fields.yearsInCurrentAddress.name],
+      //   address_attributes: this.state[secondary_borrower_fields.currentAddress.name],
+      //   is_current: true
+      // }];
     }
 
     return loan;
