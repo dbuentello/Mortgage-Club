@@ -33,14 +33,13 @@ class Loan < ActiveRecord::Base
 
   has_one :borrower, through: :user
   has_one :secondary_borrower, inverse_of: :loan, class_name: 'Borrower' # don't destroy Borrower instance when we unset this association
-  has_one :pending_secondary_borrower, inverse_of: :loan, class_name: 'PendingBorrower', dependent: :destroy
 
   has_one :property, inverse_of: :loan, dependent: :destroy
   has_one :envelope, inverse_of: :loan, dependent: :destroy
 
   accepts_nested_attributes_for :property, allow_destroy: true
   accepts_nested_attributes_for :borrower, allow_destroy: true
-  accepts_nested_attributes_for :pending_secondary_borrower, allow_destroy: true
+  accepts_nested_attributes_for :secondary_borrower, allow_destroy: true
 
   PERMITTED_ATTRS = [
     :purpose,
