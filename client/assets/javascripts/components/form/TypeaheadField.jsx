@@ -1,7 +1,5 @@
 /* global Bloodhound */
 
-
-
 var TextFocusMixin = require('../../mixins/text_focus_mixin');
 
 /**

@@ -80,6 +80,11 @@ var FormBorrower = React.createClass({
     this.setState(change);
   },
 
+  onCoBorrowerEmailChange: function() {
+    // console.log("current co-borrower email: " + event.target.value);
+    // NEED_TODO: detect borrower and
+  },
+
   render: function() {
     var borrowerCountOptions = [
       {name: 'As an individual', value: 1},
@@ -280,7 +285,7 @@ var FormBorrower = React.createClass({
                   editable={true}
                   liveFormat={true}
                   onFocus={this.onFocus.bind(this, secondary_borrower_fields.email)}
-                  onChange={this.onChange}/>
+                  onBlur={this.onCoBorrowerEmailChange}/>
                 <div className='row'>
                   <div className='col-xs-6'>
                     <TextField
@@ -485,8 +490,6 @@ var FormBorrower = React.createClass({
     state[first_borrower_fields.currentAddress.name] = borrower[first_borrower_fields.currentAddress.fieldName].address;
     state[first_borrower_fields.currentlyOwn.name] = !borrower[first_borrower_fields.currentAddress.fieldName].is_rental;
     state[first_borrower_fields.yearsInCurrentAddress.name] = borrower[first_borrower_fields.currentAddress.fieldName].years_at_address;
-
-    console.dir(secondary_borrower_fields);
 
     if (typeof secondary_borrower !== 'undefined') {
       state[secondary_borrower_fields.email.name] = user[secondary_borrower_fields.email.fieldName];
