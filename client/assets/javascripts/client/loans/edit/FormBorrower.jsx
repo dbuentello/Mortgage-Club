@@ -11,9 +11,9 @@ var BooleanRadio = require('components/form/BooleanRadio');
 
 var fields = {
   applyingAs: {label: 'I am applying', name: 'apply_as', helpText: 'I am a helpful text.'},
-  coBorrowerFirstName: {label: 'Your co-borrower first name', name: 'co_borrower_first_name', helpText: null},
-  coBorrowerSecondName: {label: 'Your co-borrower second name', name: 'co_borrower_second_name', helpText: null},
-  coBorrowerEmail: {label: 'Your co-borrower email', name: 'co_borrower_email', helpText: null},
+  coBorrowerName: {label: 'Your co-borrower name', name: 'co_borrower_name', helpText: 'type the name of your co-borrower here'},
+  coBorrowerEmail: {label: 'Your co-borrower email', name: 'co_borrower_email', helpText: 'type the email of your co-borrower here'},
+  coBorrowerStatus: {label: 'Link to your co-borrower status', name: 'co_borrower_status', helpText: null},
   firstName: {label: 'First Name', name: 'first_name', helpText: null},
   middleName: {label: 'Middle Name', name: 'middle_name', helpText: null},
   lastName: {label: 'Last Name', name: 'last_name', helpText: null},
@@ -87,27 +87,26 @@ var FormBorrower = React.createClass({
                 onFocus={this.onFocus.bind(this, fields.applyingAs)}
                 onChange={this.coBorrowerHanlder}/>
               {this.state.hasCoBorrower ?
-
                 <div className='row'>
-                  <div className='col-xs-6'>
-                    <TextField
-                      label={fields.coBorrowerFirstName.label}
-                      keyName={fields.coBorrowerFirstName.name}
-                      value={this.state[fields.coBorrowerFirstName.name]}
-                      editable={true}
-                      onFocus={this.onFocus.bind(this, fields.coBorrowerFirstName)}
-                      onChange={this.onChange}/>
-                  </div>
-                  <div className='col-xs-6'>
-                    <TextField
-                      label={fields.coBorrowerSecondName.label}
-                      keyName={fields.coBorrowerSecondName.name}
-                      value={this.state[fields.coBorrowerSecondName.name]}
-                      editable={true}
-                      onFocus={this.onFocus.bind(this, fields.coBorrowerSecondName)}
-                      onChange={this.onChange}/>
-                  </div>
                   <div className='col-xs-12'>
+                    <label>
+                      <span className='h7 typeBold'>{fields.coBorrowerStatus.label}</span>
+                    </label>
+                    <p className='typeReversed'>
+                      <i className='icon iconMail paxs bas circle xsm backgroundLightBlue'/>
+                      <h7>An email has been sent to let your co-borrower confirm</h7>
+                    </p>
+                  </div>
+                  <div className='col-xs-6'>
+                    <TextField
+                      label={fields.coBorrowerName.label}
+                      keyName={fields.coBorrowerName.name}
+                      value={this.state[fields.coBorrowerName.name]}
+                      editable={true}
+                      onFocus={this.onFocus.bind(this, fields.coBorrowerName)}
+                      onChange={this.onChange}/>
+                  </div>
+                  <div className='col-xs-6'>
                     <TextField
                       label={fields.coBorrowerEmail.label}
                       keyName={fields.coBorrowerEmail.name}
@@ -344,6 +343,19 @@ var FormBorrower = React.createClass({
       address_attributes: this.state[fields.currentAddress.name],
       is_current: true
     }];
+
+    if (this.state[fields.applyingAs.name] == 1) {
+      loan.pending_secondary_borrower_attributes = {
+        _destroy: true
+      };
+    } else {
+      loan.pending_secondary_borrower_attributes = {
+        first_name: this.state[fields.coBorrowerFirstName.name],
+        last_name: this.state[fields.coBorrowerSecondName.name],
+        email: this.state[fields.coBorrowerEmail.name]
+      };
+    }
+
     return loan;
   },
 
