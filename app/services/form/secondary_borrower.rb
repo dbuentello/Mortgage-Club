@@ -12,11 +12,14 @@ module Form
     end
 
     def self.save(current_user, params = {})
+      borrower_params = params.except(:email)
       is_existing = check_existing_borrower(current_user, params[:email])
 
-      unless is_existing
-        borrower_params = params.except(:email)
-
+      if is_existing
+        user = User.where(email: params[:email]).first
+        borrower = user.borrower
+        borrower.update(borrower_params)
+      else
         # create user corresponding with the co-borrower info
         user = User.new(
           email: params[:email], password: '12345678', password_confirmation: '12345678',
@@ -24,15 +27,16 @@ module Form
         )
         user.skip_confirmation!
         user.save
-
-        # link that new borrower as co-borrower of current loan
-        loan = current_user.loans.first
-        loan.secondary_borrower = user.borrower
-        loan.save
       end
 
+      # link that new borrower as co-borrower of current loan
+      loan = current_user.loans.first
+      loan.secondary_borrower = user.borrower
+      loan.save
+
       # send email to co-borrower to let him know
-      SecondaryBorrowerMailer.notify_being_added(loan.id).deliver_now
+      # NEED_TODO
+      # SecondaryBorrowerMailer.notify_being_added(loan.id).deliver_now
     end
 
   end

@@ -23,10 +23,8 @@ class LoansController < ApplicationController
     @loan = current_user.loans.find(params[:id])
 
     if secondary_borrower_params.present?
-      Form::SecondaryBorrower.save(secondary_borrower_params)
+      Form::SecondaryBorrower.save(current_user, secondary_borrower_params)
     end
-
-    byebug
 
     if @loan.update(loan_params)
       render json: {loan: @loan.reload.as_json(json_options)}
@@ -42,17 +40,13 @@ class LoansController < ApplicationController
   end
 
   def secondary_borrower_params
-    params.require(:loan).require(:secondary_borrower_attributes).permit(Borrower::PERMITTED_ATTRS)
+    permit_attrs = Borrower::PERMITTED_ATTRS + [:email]
+    params.require(:loan).require(:secondary_borrower_attributes).permit(permit_attrs)
   end
 
   def json_options
     {
       include: {
-        user: {
-          only: [
-            :email
-          ]
-        },
         property: {
           include: :address
         },
@@ -60,15 +54,19 @@ class LoansController < ApplicationController
           include: [
             :first_bank_statement, :second_bank_statement,
             :first_paystub, :second_paystub,
-            :first_w2, :second_w2
+            :first_w2, :second_w2, user: {
+              only: [ :email ]
+            }
           ],
           methods: [
             :current_address, :previous_addresses, :current_employment, :previous_employments
           ]
         },
         secondary_borrower: {
-          methods: [
-            :email
+          include: [
+            user: {
+              only: [ :email ]
+            }
           ]
         }
       },

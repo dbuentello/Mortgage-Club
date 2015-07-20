@@ -77,10 +77,6 @@ class Borrower < ActiveRecord::Base
     separated: 2
   }
 
-  def email
-    user.email
-  end
-
   def current_address
     borrower_addresses.find_by(is_current: true)
   end
