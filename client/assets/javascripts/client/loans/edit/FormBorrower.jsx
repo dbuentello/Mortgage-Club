@@ -276,7 +276,7 @@ var FormBorrower = React.createClass({
             </div>
 
             {this.state.hasCoBorrower ?
-              <div>
+              <div className='box mtn'>
                 <h6>Your co-borrower info</h6>
                 <TextField
                   label={secondary_borrower_fields.email.label}
