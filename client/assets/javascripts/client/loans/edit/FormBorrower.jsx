@@ -57,7 +57,6 @@ var FormBorrower = React.createClass({
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
-    state['hasCoBorrower'] = false;
 
     return state;
   },
@@ -476,10 +475,18 @@ var FormBorrower = React.createClass({
     var first_borrower_user = borrower.user;
     var secondary_borrower_user = secondary_borrower.user;
 
-    console.log(first_borrower_user);
-    console.log(secondary_borrower_user);
+    // console.log(first_borrower_user);
+    // console.log(secondary_borrower_user);
 
     var state = {};
+
+    if (secondary_borrower_user) {
+      state[first_borrower_fields.applyingAs.name] = 2;
+      state['hasCoBorrower'] = true;
+    } else {
+      state[first_borrower_fields.applyingAs.name] = 1;
+      state['hasCoBorrower'] = false;
+    } ;
 
     state[first_borrower_fields.email.name] = first_borrower_user[first_borrower_fields.email.fieldName];
     state[first_borrower_fields.firstName.name] = borrower[first_borrower_fields.firstName.fieldName];
