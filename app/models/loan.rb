@@ -44,8 +44,8 @@ class Loan < ActiveRecord::Base
   PERMITTED_ATTRS = [
     :purpose,
     property_attributes:           [:id] + Property::PERMITTED_ATTRS,
-    borrower_attributes:           [:id] + Borrower::PERMITTED_ATTRS,
-    secondary_borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
+    borrower_attributes:           [:id] + Borrower::PERMITTED_ATTRS
+    # secondary_borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
   ]
 
   enum purpose: {

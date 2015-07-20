@@ -1,6 +1,9 @@
 class LoansController < ApplicationController
   def new
-    @loan = current_user.loans.first || Loan.initiate(current_user)
+    @loan = current_user.loans.first || # get the first own loan
+      current_user.borrower.loan || # or get the co-borrower relationship
+      Loan.initiate(current_user) # or create branch new one
+
     show
   end
 
@@ -18,6 +21,13 @@ class LoansController < ApplicationController
 
   def update
     @loan = current_user.loans.find(params[:id])
+
+    if secondary_borrower_params.present?
+      Form::SecondaryBorrower.save(secondary_borrower_params)
+    end
+
+    byebug
+
     if @loan.update(loan_params)
       render json: {loan: @loan.reload.as_json(json_options)}
     else
@@ -27,40 +37,45 @@ class LoansController < ApplicationController
 
   private
 
-    def loan_params
-      params.require(:loan).permit(Loan::PERMITTED_ATTRS)
-    end
+  def loan_params
+    params.require(:loan).permit(Loan::PERMITTED_ATTRS)
+  end
 
-    def json_options
-      {
-        include: {
-          user: {
-            only: [
-              :email
-            ]
-          },
-          property: {
-            include: :address
-          },
-          borrower: {
-            include: [
-              :first_bank_statement, :second_bank_statement,
-              :first_paystub, :second_paystub,
-              :first_w2, :second_w2
-            ],
-            methods: [
-              :current_address, :previous_addresses, :current_employment, :previous_employments
-            ]
-          },
-          secondary_borrower: {
-            methods: [
-              :email
-            ]
-          }
+  def secondary_borrower_params
+    params.require(:loan).require(:secondary_borrower_attributes).permit(Borrower::PERMITTED_ATTRS)
+  end
+
+  def json_options
+    {
+      include: {
+        user: {
+          only: [
+            :email
+          ]
         },
-        methods: [
-          :property_completed, :borrower_completed, :income_completed
-        ]
-      }
-    end
+        property: {
+          include: :address
+        },
+        borrower: {
+          include: [
+            :first_bank_statement, :second_bank_statement,
+            :first_paystub, :second_paystub,
+            :first_w2, :second_w2
+          ],
+          methods: [
+            :current_address, :previous_addresses, :current_employment, :previous_employments
+          ]
+        },
+        secondary_borrower: {
+          methods: [
+            :email
+          ]
+        }
+      },
+      methods: [
+        :property_completed, :borrower_completed, :income_completed
+      ]
+    }
+  end
+
 end
