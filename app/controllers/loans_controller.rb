@@ -34,6 +34,11 @@ class LoansController < ApplicationController
     def json_options
       {
         include: {
+          user: {
+            only: [
+              :email
+            ]
+          },
           property: {
             include: :address
           },
@@ -45,6 +50,11 @@ class LoansController < ApplicationController
             ],
             methods: [
               :current_address, :previous_addresses, :current_employment, :previous_employments
+            ]
+          },
+          secondary_borrower: {
+            methods: [
+              :email
             ]
           }
         },
