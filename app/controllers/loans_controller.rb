@@ -22,8 +22,13 @@ class LoansController < ApplicationController
   def update
     @loan = current_user.loans.find(params[:id])
 
-    if secondary_borrower_params.present?
-      Form::SecondaryBorrower.save(current_user, secondary_borrower_params)
+    borrower_params = secondary_borrower_params
+    if borrower_params
+      if borrower_params[:_remove]
+        Form::SecondaryBorrower.remove(current_user, secondary_borrower_params)
+      else
+        Form::SecondaryBorrower.save(current_user, secondary_borrower_params)
+      end
     end
 
     if @loan.update(loan_params)
@@ -41,7 +46,7 @@ class LoansController < ApplicationController
 
   def secondary_borrower_params
     if params[:loan][:secondary_borrower_attributes].present?
-      permit_attrs = Borrower::PERMITTED_ATTRS + [:email]
+      permit_attrs = Borrower::PERMITTED_ATTRS + [:email, :_remove]
       params.require(:loan).require(:secondary_borrower_attributes).permit(permit_attrs)
     else
       nil

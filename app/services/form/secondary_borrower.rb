@@ -8,7 +8,6 @@ module Form
       else
         return false
       end
-
     end
 
     def self.save(current_user, params = {})
@@ -18,11 +17,15 @@ module Form
       if is_existing
         user = User.where(email: params[:email]).first
         borrower = user.borrower
-        borrower.update(borrower_params)
+
+        # don't allow edit borrower info when he/she already exists
+        # borrower.update(borrower_params)
       else
         # create user corresponding with the co-borrower info
+        default_password = Digest::MD5.hexdigest(params[:email]).first(10)
+
         user = User.new(
-          email: params[:email], password: '12345678', password_confirmation: '12345678',
+          email: params[:email], password: default_password, password_confirmation: default_password,
           borrower_attributes: borrower_params
         )
         user.skip_confirmation!
@@ -35,7 +38,22 @@ module Form
       loan.save
 
       # send email to co-borrower to let him know
-      SecondaryBorrowerMailer.notify_being_added(loan.id).deliver_now
+      email_options = {
+        is_new_user: !is_existing,
+        default_password: default_password || nil
+      }
+      SecondaryBorrowerMailer.notify_being_added(loan.id, email_options).deliver_now
+    end
+
+    def self.remove(current_user, params = {})
+      # unlink that borrower as co-borrower of current loan
+      loan = current_user.loans.first
+      secondary_borrower = loan.secondary_borrower
+      secondary_borrower.loan = nil
+      secondary_borrower.save
+
+      # send email to co-borrower to let him know
+      SecondaryBorrowerMailer.notify_being_removed(loan.id, secondary_borrower.id).deliver_now
     end
 
   end
