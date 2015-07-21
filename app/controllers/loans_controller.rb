@@ -9,7 +9,7 @@ class LoansController < ApplicationController
 
   def show
     @loan = @loan || Loan.find(params[:id])
-    bootstrap({currentLoan: @loan.as_json(json_options)})
+    bootstrap({currentLoan: @loan.as_json(loan_json_options)})
     respond_to do |format|
       format.html { render template: 'client_app' }
     end
@@ -32,9 +32,25 @@ class LoansController < ApplicationController
     end
 
     if @loan.update(loan_params)
-      render json: {loan: @loan.reload.as_json(json_options)}
+      render json: {loan: @loan.reload.as_json(loan_json_options)}
     else
       render json: {error: @loan.errors.full_messages}, status: 500
+    end
+  end
+
+  # GET get_co_borrower_info
+  def get_co_borrower_info
+    is_existing = Form::SecondaryBorrower.check_existing_borrower(current_user, params[:email])
+
+    if is_existing
+      user = User.where(email: params[:email]).first
+      borrower = user.borrower
+
+      # byebug
+
+      render json: { secondary_borrower: borrower.as_json(borrower_json_options) }, status: :ok
+    else
+      render json: { message: 'not found' }, status: :ok
     end
   end
 
@@ -53,7 +69,7 @@ class LoansController < ApplicationController
     end
   end
 
-  def json_options
+  def loan_json_options
     {
       include: {
         property: {
@@ -81,6 +97,19 @@ class LoansController < ApplicationController
       },
       methods: [
         :property_completed, :borrower_completed, :income_completed
+      ]
+    }
+  end
+
+  def borrower_json_options
+    {
+      include: [
+        user: {
+          only: [ :email ]
+        }
+      ],
+      methods: [
+        :current_address, :previous_addresses, :current_employment, :previous_employments
       ]
     }
   end

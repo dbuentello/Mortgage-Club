@@ -42,6 +42,7 @@ module Form
         is_new_user: !is_existing,
         default_password: default_password || nil
       }
+
       SecondaryBorrowerMailer.notify_being_added(loan.id, email_options).deliver_now
     end
 

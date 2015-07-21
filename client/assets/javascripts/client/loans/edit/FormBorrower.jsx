@@ -81,7 +81,34 @@ var FormBorrower = React.createClass({
 
   onCoBorrowerEmailChange: function() {
     // console.log("current co-borrower email: " + event.target.value);
-    // NEED_TODO: detect borrower and
+
+    $.ajax({
+      url: '/loans/get_co_borrower_info',
+      method: 'GET',
+      data: {
+        email: event.target.value
+      },
+      dataType: 'json',
+      success: function(response) {
+        // console.dir(response.secondary_borrower);
+
+        var change = {};
+        if (response.secondary_borrower) {
+          change = this.buildStateFromSecondaryBorrower(change, response.secondary_borrower);
+        } else {
+          _.map(secondary_borrower_fields, function (field, index) {
+            if (field.name === 'secondary_borrower_email') { return; }
+            change[field.name] = null;
+          });
+        };
+        // console.dir(change);
+        this.setState(change);
+      }.bind(this),
+      error: function(response, status, error) {
+        alert(error);
+      }
+    })
+
   },
 
   render: function() {
@@ -471,15 +498,12 @@ var FormBorrower = React.createClass({
   buildStateFromLoan: function(loan) {
     var borrower = loan.borrower;
     var first_borrower_user = borrower.user;
-
     // console.log(first_borrower_user);
-    // console.log(secondary_borrower_user);
 
     var state = {};
 
     var secondary_borrower = loan.secondary_borrower;
     if (secondary_borrower) {
-      var secondary_borrower_user = secondary_borrower.user;
       state[first_borrower_fields.applyingAs.name] = 2;
       state['hasCoBorrower'] = true;
       state['secondary_borrower_editable'] = false;
@@ -507,27 +531,33 @@ var FormBorrower = React.createClass({
       state[first_borrower_fields.yearsInCurrentAddress.name] = borrower[first_borrower_fields.currentAddress.fieldName].years_at_address;
     };
 
-
     if (secondary_borrower) {
-      state[secondary_borrower_fields.email.name] = secondary_borrower_user[secondary_borrower_fields.email.fieldName];
-      state[secondary_borrower_fields.firstName.name] = secondary_borrower[secondary_borrower_fields.firstName.fieldName];
-      state[secondary_borrower_fields.middleName.name] = secondary_borrower[secondary_borrower_fields.middleName.fieldName];
-      state[secondary_borrower_fields.lastName.name] = secondary_borrower[secondary_borrower_fields.lastName.fieldName];
-      state[secondary_borrower_fields.suffix.name] = secondary_borrower[secondary_borrower_fields.suffix.fieldName];
-      state[secondary_borrower_fields.dob.name] = secondary_borrower[secondary_borrower_fields.dob.fieldName];
-      state[secondary_borrower_fields.ssn.name] = secondary_borrower[secondary_borrower_fields.ssn.fieldName];
-      state[secondary_borrower_fields.phone.name] = secondary_borrower[secondary_borrower_fields.phone.fieldName];
-      state[secondary_borrower_fields.yearsInSchool.name] = secondary_borrower[secondary_borrower_fields.yearsInSchool.fieldName];
-      state[secondary_borrower_fields.maritalStatus.name] = secondary_borrower[secondary_borrower_fields.maritalStatus.fieldName];
-      state[secondary_borrower_fields.numberOfDependents.name] = secondary_borrower[secondary_borrower_fields.numberOfDependents.fieldName];
-      state[secondary_borrower_fields.dependentAges.name] = secondary_borrower[secondary_borrower_fields.dependentAges.fieldName].join(', ');
-      if (secondary_borrower[secondary_borrower_fields.currentAddress.fieldName]) {
-        state[secondary_borrower_fields.currentAddress.name] = secondary_borrower[secondary_borrower_fields.currentAddress.fieldName].address;
-        state[secondary_borrower_fields.currentlyOwn.name] = !secondary_borrower[secondary_borrower_fields.currentAddress.fieldName].is_rental;
-        state[secondary_borrower_fields.yearsInCurrentAddress.name] = secondary_borrower[secondary_borrower_fields.currentAddress.fieldName].years_at_address;
-      };
-
+      state = this.buildStateFromSecondaryBorrower(state, secondary_borrower);
     }
+
+    return state;
+  },
+
+  buildStateFromSecondaryBorrower: function(state, secondary_borrower) {
+    var secondary_borrower_user = secondary_borrower.user;
+    state[secondary_borrower_fields.email.name] = secondary_borrower_user[secondary_borrower_fields.email.fieldName];
+
+    state[secondary_borrower_fields.firstName.name] = secondary_borrower[secondary_borrower_fields.firstName.fieldName];
+    state[secondary_borrower_fields.middleName.name] = secondary_borrower[secondary_borrower_fields.middleName.fieldName];
+    state[secondary_borrower_fields.lastName.name] = secondary_borrower[secondary_borrower_fields.lastName.fieldName];
+    state[secondary_borrower_fields.suffix.name] = secondary_borrower[secondary_borrower_fields.suffix.fieldName];
+    state[secondary_borrower_fields.dob.name] = secondary_borrower[secondary_borrower_fields.dob.fieldName];
+    state[secondary_borrower_fields.ssn.name] = secondary_borrower[secondary_borrower_fields.ssn.fieldName];
+    state[secondary_borrower_fields.phone.name] = secondary_borrower[secondary_borrower_fields.phone.fieldName];
+    state[secondary_borrower_fields.yearsInSchool.name] = secondary_borrower[secondary_borrower_fields.yearsInSchool.fieldName];
+    state[secondary_borrower_fields.maritalStatus.name] = secondary_borrower[secondary_borrower_fields.maritalStatus.fieldName];
+    state[secondary_borrower_fields.numberOfDependents.name] = secondary_borrower[secondary_borrower_fields.numberOfDependents.fieldName];
+    state[secondary_borrower_fields.dependentAges.name] = secondary_borrower[secondary_borrower_fields.dependentAges.fieldName].join(', ');
+    if (secondary_borrower[secondary_borrower_fields.currentAddress.fieldName]) {
+      state[secondary_borrower_fields.currentAddress.name] = secondary_borrower[secondary_borrower_fields.currentAddress.fieldName].address;
+      state[secondary_borrower_fields.currentlyOwn.name] = !secondary_borrower[secondary_borrower_fields.currentAddress.fieldName].is_rental;
+      state[secondary_borrower_fields.yearsInCurrentAddress.name] = secondary_borrower[secondary_borrower_fields.currentAddress.fieldName].years_at_address;
+    };
 
     return state;
   },
