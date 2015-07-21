@@ -40,8 +40,12 @@ class LoansController < ApplicationController
   end
 
   def secondary_borrower_params
-    permit_attrs = Borrower::PERMITTED_ATTRS + [:email]
-    params.require(:loan).require(:secondary_borrower_attributes).permit(permit_attrs)
+    if params[:loan][:secondary_borrower_attributes].present?
+      permit_attrs = Borrower::PERMITTED_ATTRS + [:email]
+      params.require(:loan).require(:secondary_borrower_attributes).permit(permit_attrs)
+    else
+      nil
+    end
   end
 
   def json_options
