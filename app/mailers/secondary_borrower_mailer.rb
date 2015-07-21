@@ -1,5 +1,5 @@
 class SecondaryBorrowerMailer < ActionMailer::Base
-  default :from => "MortgageClub #{ENV['EMAIL_SENDER']}"
+  default :from => ENV['EMAIL_SENDER']
 
   def notify_being_added(loan_id)
     @loan = Loan.find loan_id

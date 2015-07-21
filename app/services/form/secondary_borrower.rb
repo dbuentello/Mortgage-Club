@@ -35,8 +35,7 @@ module Form
       loan.save
 
       # send email to co-borrower to let him know
-      # NEED_TODO
-      # SecondaryBorrowerMailer.notify_being_added(loan.id).deliver_now
+      SecondaryBorrowerMailer.notify_being_added(loan.id).deliver_now
     end
 
   end
