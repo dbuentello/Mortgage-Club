@@ -70,7 +70,7 @@ var FormBorrower = React.createClass({
   },
 
   coBorrowerHanlder: function(change) {
-    if (event.target.value == 1) {
+    if (change.first_borrower_apply_as == "1") {
       this.setState({ hasCoBorrower: false });
     } else {
       this.setState({ hasCoBorrower: true });
@@ -79,7 +79,7 @@ var FormBorrower = React.createClass({
     this.setState(change);
   },
 
-  onCoBorrowerEmailChange: function() {
+  onCoBorrowerEmailChange: function(event) {
     if (this.props.borrower_type == 0) {
       // console.log("current co-borrower email: " + event.target.value);
 
