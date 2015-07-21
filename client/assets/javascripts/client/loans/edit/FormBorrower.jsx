@@ -80,34 +80,34 @@ var FormBorrower = React.createClass({
   },
 
   onCoBorrowerEmailChange: function() {
-    // console.log("current co-borrower email: " + event.target.value);
+    if (this.props.borrower_type == 0) {
+      // console.log("current co-borrower email: " + event.target.value);
 
-    $.ajax({
-      url: '/loans/get_co_borrower_info',
-      method: 'GET',
-      data: {
-        email: event.target.value
-      },
-      dataType: 'json',
-      success: function(response) {
-        // console.dir(response.secondary_borrower);
-
-        var change = {};
-        if (response.secondary_borrower) {
-          change = this.buildStateFromSecondaryBorrower(change, response.secondary_borrower);
-        } else {
-          _.map(secondary_borrower_fields, function (field, index) {
-            if (field.name === 'secondary_borrower_email') { return; }
-            change[field.name] = null;
-          });
-        };
-        // console.dir(change);
-        this.setState(change);
-      }.bind(this),
-      error: function(response, status, error) {
-        alert(error);
-      }
-    })
+      $.ajax({
+        url: '/loans/get_co_borrower_info',
+        method: 'GET',
+        data: {
+          email: event.target.value
+        },
+        dataType: 'json',
+        success: function(response) {
+          // console.dir(response.secondary_borrower);
+          var change = {};
+          if (response.secondary_borrower) {
+            change = this.buildStateFromSecondaryBorrower(change, response.secondary_borrower);
+          } else {
+            _.map(secondary_borrower_fields, function (field, index) {
+              if (field.name === 'secondary_borrower_email') { return; }
+              change[field.name] = null;
+            });
+          };
+          this.setState(change);
+        }.bind(this),
+        error: function(response, status, error) {
+          alert(error);
+        }
+      })
+    };
 
   },
 
@@ -133,7 +133,7 @@ var FormBorrower = React.createClass({
                 keyName={first_borrower_fields.applyingAs.name}
                 value={this.state[first_borrower_fields.applyingAs.name]}
                 options={borrowerCountOptions}
-                editable={true}
+                editable={this.state.borrower_editable}
                 onFocus={this.onFocus.bind(this, first_borrower_fields.applyingAs)}
                 onChange={this.coBorrowerHanlder}/>
 
@@ -141,7 +141,7 @@ var FormBorrower = React.createClass({
                 label={first_borrower_fields.email.label}
                 keyName={first_borrower_fields.email.name}
                 value={this.state[first_borrower_fields.email.name]}
-                editable={true}
+                editable={this.state.borrower_editable}
                 liveFormat={true}
                 onFocus={this.onFocus.bind(this, first_borrower_fields.email)}
                 onChange={this.onChange}/>
@@ -152,7 +152,7 @@ var FormBorrower = React.createClass({
                     label={first_borrower_fields.firstName.label}
                     keyName={first_borrower_fields.firstName.name}
                     value={this.state[first_borrower_fields.firstName.name]}
-                    editable={true}
+                    editable={this.state.borrower_editable}
                     onFocus={this.onFocus.bind(this, first_borrower_fields.firstName)}
                     onChange={this.onChange}/>
                 </div>
@@ -161,7 +161,7 @@ var FormBorrower = React.createClass({
                     label={first_borrower_fields.middleName.label}
                     keyName={first_borrower_fields.middleName.name}
                     value={this.state[first_borrower_fields.middleName.name]}
-                    editable={true}
+                    editable={this.state.borrower_editable}
                     onFocus={this.onFocus.bind(this, first_borrower_fields.middleName)}
                     onChange={this.onChange}/>
                 </div>
@@ -172,7 +172,7 @@ var FormBorrower = React.createClass({
                     label={first_borrower_fields.lastName.label}
                     keyName={first_borrower_fields.lastName.name}
                     value={this.state[first_borrower_fields.lastName.name]}
-                    editable={true}
+                    editable={this.state.borrower_editable}
                     onFocus={this.onFocus.bind(this, first_borrower_fields.lastName)}
                     onChange={this.onChange}/>
                 </div>
@@ -181,7 +181,7 @@ var FormBorrower = React.createClass({
                     label={first_borrower_fields.suffix.label}
                     keyName={first_borrower_fields.suffix.name}
                     value={this.state[first_borrower_fields.suffix.name]}
-                    editable={true}
+                    editable={this.state.borrower_editable}
                     onFocus={this.onFocus.bind(this, first_borrower_fields.suffix)}
                     onChange={this.onChange}/>
                 </div>
@@ -192,7 +192,7 @@ var FormBorrower = React.createClass({
                     label={first_borrower_fields.dob.label}
                     keyName={first_borrower_fields.dob.name}
                     value={this.state[first_borrower_fields.dob.name]}
-                    editable={true}
+                    editable={this.state.borrower_editable}
                     onFocus={this.onFocus.bind(this, first_borrower_fields.dob)}
                     onChange={this.onChange}/>
                 </div>
@@ -201,7 +201,7 @@ var FormBorrower = React.createClass({
                     label={first_borrower_fields.ssn.label}
                     keyName={first_borrower_fields.ssn.name}
                     value={this.state[first_borrower_fields.ssn.name]}
-                    editable={true}
+                    editable={this.state.borrower_editable}
                     format={this.formatSSN}
                     liveFormat={true}
                     onFocus={this.onFocus.bind(this, first_borrower_fields.ssn)}
@@ -213,7 +213,7 @@ var FormBorrower = React.createClass({
                 label={first_borrower_fields.phone.label}
                 keyName={first_borrower_fields.phone.name}
                 value={this.state[first_borrower_fields.phone.name]}
-                editable={true}
+                editable={this.state.borrower_editable}
                 liveFormat={true}
                 format={this.formatPhoneNumber}
                 onFocus={this.onFocus.bind(this, first_borrower_fields.phone)}
@@ -222,7 +222,7 @@ var FormBorrower = React.createClass({
                 label={first_borrower_fields.yearsInSchool.label}
                 keyName={first_borrower_fields.yearsInSchool.name}
                 value={this.state[first_borrower_fields.yearsInSchool.name]}
-                editable={true}
+                editable={this.state.borrower_editable}
                 onFocus={this.onFocus.bind(this, first_borrower_fields.yearsInSchool)}
                 onChange={this.onChange}/>
               <SelectField
@@ -230,14 +230,14 @@ var FormBorrower = React.createClass({
                 keyName={first_borrower_fields.maritalStatus.name}
                 value={this.state[first_borrower_fields.maritalStatus.name]}
                 options={maritalStatuses}
-                editable={true}
+                editable={this.state.borrower_editable}
                 onFocus={this.onFocus.bind(this, first_borrower_fields.maritalStatus)}
                 onChange={this.onChange}/>
               <TextField
                 label={first_borrower_fields.numberOfDependents.label}
                 keyName={first_borrower_fields.numberOfDependents.name}
                 value={this.state[first_borrower_fields.numberOfDependents.name]}
-                editable={true}
+                editable={this.state.borrower_editable}
                 onFocus={this.onFocus.bind(this, first_borrower_fields.numberOfDependents)}
                 onChange={this.onChange}/>
               {parseInt(this.state[first_borrower_fields.numberOfDependents.name], 10) > 0 ?
@@ -245,7 +245,7 @@ var FormBorrower = React.createClass({
                   label={first_borrower_fields.dependentAges.label}
                   keyName={first_borrower_fields.dependentAges.name}
                   value={this.state[first_borrower_fields.dependentAges.name]}
-                  editable={true}
+                  editable={this.state.borrower_editable}
                   placeholder='e.g. 12, 7, 3'
                   onFocus={this.onFocus.bind(this, first_borrower_fields.dependentAges)}
                   onChange={this.onChange}/>
@@ -254,7 +254,7 @@ var FormBorrower = React.createClass({
                 label={first_borrower_fields.currentAddress.label}
                 address={this.state[first_borrower_fields.currentAddress.name]}
                 keyName={first_borrower_fields.currentAddress.name}
-                editable={true}
+                editable={this.state.borrower_editable}
                 onFocus={this.onFocus.bind(this, first_borrower_fields.currentAddress)}
                 onChange={this.onChange}
                 placeholder='Please enter your current address'/>
@@ -262,14 +262,14 @@ var FormBorrower = React.createClass({
                 label={first_borrower_fields.currentlyOwn.label}
                 checked={this.state[first_borrower_fields.currentlyOwn.name]}
                 keyName={first_borrower_fields.currentlyOwn.name}
-                editable={true}
+                editable={this.state.borrower_editable}
                 onFocus={this.onFocus.bind(this, first_borrower_fields.currentlyOwn)}
                 onChange={this.onChange}/>
               <TextField
                 label={first_borrower_fields.yearsInCurrentAddress.label}
                 value={this.state[first_borrower_fields.yearsInCurrentAddress.name]}
                 keyName={first_borrower_fields.yearsInCurrentAddress.name}
-                editable={true}
+                editable={this.state.borrower_editable}
                 onFocus={this.onFocus.bind(this, first_borrower_fields.yearsInCurrentAddress)}
                 onChange={this.onChange}/>
               {parseInt(this.state.yearsInCurrentAddress, 10) < 2 ?
@@ -278,7 +278,7 @@ var FormBorrower = React.createClass({
                     label={first_borrower_fields.previousAddress.label}
                     address={this.state[first_borrower_fields.previousAddress.name]}
                     keyName={first_borrower_fields.previousAddress.name}
-                    editable={true}
+                    editable={this.state.borrower_editable}
                     onFocus={this.onFocus.bind(this, first_borrower_fields.previousAddress)}
                     onChange={this.onChange}
                     placeholder='Please enter your current address'/>
@@ -286,7 +286,7 @@ var FormBorrower = React.createClass({
                     label={first_borrower_fields.previouslyOwn.label}
                     checked={this.state[first_borrower_fields.previouslyOwn.name]}
                     keyName={first_borrower_fields.previouslyOwn.name}
-                    editable={true}
+                    editable={this.state.borrower_editable}
                     onFocus={this.onFocus.bind(this, first_borrower_fields.previouslyOwn)}
                     onChange={this.onChange}
                     placeholder='Please enter your previous address'/>
@@ -294,7 +294,7 @@ var FormBorrower = React.createClass({
                     label={first_borrower_fields.yearsInPreviousAddress.label}
                     value={this.state[first_borrower_fields.yearsInPreviousAddress.name]}
                     keyName={first_borrower_fields.yearsInPreviousAddress.name}
-                    editable={true}
+                    editable={this.state.borrower_editable}
                     onFocus={this.onFocus.bind(this, first_borrower_fields.yearsInPreviousAddress)}
                     onChange={this.onChange}/>
                 </div>
@@ -496,22 +496,42 @@ var FormBorrower = React.createClass({
   },
 
   buildStateFromLoan: function(loan) {
+    var state = {};
     var borrower = loan.borrower;
     var first_borrower_user = borrower.user;
-    // console.log(first_borrower_user);
-
-    var state = {};
 
     var secondary_borrower = loan.secondary_borrower;
-    if (secondary_borrower) {
+    switch(this.props.borrower_type) {
+    case 0:
+      state['borrower_editable'] = true;
+
+      if (secondary_borrower) {
+        state[first_borrower_fields.applyingAs.name] = 2;
+        state['hasCoBorrower'] = true;
+        state['secondary_borrower_editable'] = false;
+
+        // build state for secondary borrower
+        state = this.buildStateFromSecondaryBorrower(state, secondary_borrower);
+      } else {
+        state[first_borrower_fields.applyingAs.name] = 1;
+        state['hasCoBorrower'] = false;
+        state['secondary_borrower_editable'] = true;
+      };
+      break;
+
+    case 1:
       state[first_borrower_fields.applyingAs.name] = 2;
       state['hasCoBorrower'] = true;
-      state['secondary_borrower_editable'] = false;
-    } else {
-      state[first_borrower_fields.applyingAs.name] = 1;
-      state['hasCoBorrower'] = false;
+      state['borrower_editable'] = false;
       state['secondary_borrower_editable'] = true;
-    } ;
+
+      // build state for secondary borrower
+      state = this.buildStateFromSecondaryBorrower(state, secondary_borrower);
+      break;
+
+    default:
+      console.log('cannot find proper case for borrower_type');
+    };
 
     state[first_borrower_fields.email.name] = first_borrower_user[first_borrower_fields.email.fieldName];
     state[first_borrower_fields.firstName.name] = borrower[first_borrower_fields.firstName.fieldName];
@@ -530,10 +550,6 @@ var FormBorrower = React.createClass({
       state[first_borrower_fields.currentlyOwn.name] = !borrower[first_borrower_fields.currentAddress.fieldName].is_rental;
       state[first_borrower_fields.yearsInCurrentAddress.name] = borrower[first_borrower_fields.currentAddress.fieldName].years_at_address;
     };
-
-    if (secondary_borrower) {
-      state = this.buildStateFromSecondaryBorrower(state, secondary_borrower);
-    }
 
     return state;
   },
@@ -582,15 +598,18 @@ var FormBorrower = React.createClass({
       loan.borrower_attributes[first_borrower_fields.dependentAges.fieldName] = _.map(this.state[first_borrower_fields.dependentAges.name].split(','), _.trim);
     };
 
-    var current_address = {};
+    // borrower_addresses data
+    var borrower_address_id = null;
     if (this.props.loan.borrower.current_address) {
-      current_address['id'] = this.props.loan.borrower.current_address.id;
+      borrower_address_id = this.props.loan.borrower.current_address.id;
     };
-    current_address['is_rental'] = !this.state[first_borrower_fields.currentlyOwn.name];
-    current_address['years_at_address'] = this.state[first_borrower_fields.yearsInCurrentAddress.name];
-    current_address['address_attributes'] = this.state[first_borrower_fields.currentAddress.name];
-    current_address['is_current'] = true;
-    loan.borrower_attributes.borrower_addresses_attributes = [current_address];
+    loan.borrower_attributes.borrower_addresses_attributes = [{
+      id: borrower_address_id,
+      is_rental: !this.state[first_borrower_fields.currentlyOwn.name],
+      years_at_address: this.state[first_borrower_fields.yearsInCurrentAddress.name],
+      address_attributes: this.state[first_borrower_fields.currentAddress.name] ? this.state[first_borrower_fields.currentAddress.name] : [],
+      is_current: true
+    }];
 
     if (this.state[first_borrower_fields.applyingAs.name] == 1) {
       // remove secondary borrower if user select to apply as individual borrower
@@ -617,22 +636,23 @@ var FormBorrower = React.createClass({
       loan.secondary_borrower_attributes[secondary_borrower_fields.maritalStatus.fieldName] = this.state[secondary_borrower_fields.maritalStatus.name];
       loan.secondary_borrower_attributes[secondary_borrower_fields.numberOfDependents.fieldName] = this.state[secondary_borrower_fields.numberOfDependents.name];
 
-      if ( this.state[secondary_borrower_fields.numberOfDependents.name] > 0 ) {
+      if (this.state[secondary_borrower_fields.numberOfDependents.name] > 0) {
         loan.secondary_borrower_attributes[secondary_borrower_fields.dependentAges.fieldName] = _.map(this.state[secondary_borrower_fields.dependentAges.name].split(','), _.trim);
       };
 
-      var current_address = {};
-      if ( typeof this.props.loan.secondary_borrower !== 'undefined' && this.props.loan.secondary_borrower.current_address) {
-        current_address['id'] = this.props.loan.secondary_borrower.current_address.id;
+      // borrower_addresses data
+      var borrower_address_id = null;
+      if (typeof this.props.loan.secondary_borrower !== 'undefined' && this.props.loan.secondary_borrower.current_address) {
+        borrower_address_id = this.props.loan.secondary_borrower.current_address.id;
       };
-      current_address['is_rental'] = !this.state[secondary_borrower_fields.currentlyOwn.name];
-      current_address['years_at_address'] = this.state[secondary_borrower_fields.yearsInCurrentAddress.name];
-      current_address['address_attributes'] = this.state[secondary_borrower_fields.currentAddress.name];
-      current_address['is_current'] = true;
-      loan.secondary_borrower_attributes.borrower_addresses_attributes = [current_address];
+      loan.secondary_borrower_attributes.borrower_addresses_attributes = [{
+        id: borrower_address_id,
+        is_rental: !this.state[secondary_borrower_fields.currentlyOwn.name],
+        years_at_address: this.state[secondary_borrower_fields.yearsInCurrentAddress.name],
+        address_attributes: this.state[secondary_borrower_fields.currentAddress.name] ? this.state[secondary_borrower_fields.currentAddress.name] : [],
+        is_current: true
+      }];
     }
-
-    // NEED_TODO: check if we can update address properly
 
     return loan;
   },

@@ -10,40 +10,48 @@ module Form
       end
     end
 
-    def self.save(current_user, params = {})
+    def self.save(current_user, borrower_type, params = {})
       borrower_params = params.except(:email)
-      is_existing = check_existing_borrower(current_user, params[:email])
 
-      if is_existing
-        user = User.where(email: params[:email]).first
-        borrower = user.borrower
+      case borrower_type
+      when :borrower
+        is_existing = check_existing_borrower(current_user, params[:email])
 
-        # don't allow edit borrower info when he/she already exists
-        # borrower.update(borrower_params)
-      else
-        # create user corresponding with the co-borrower info
-        default_password = Digest::MD5.hexdigest(params[:email]).first(10)
+        if is_existing
+          user = User.where(email: params[:email]).first
+          borrower = user.borrower
 
-        user = User.new(
-          email: params[:email], password: default_password, password_confirmation: default_password,
-          borrower_attributes: borrower_params
-        )
-        user.skip_confirmation!
-        user.save
+          # don't allow edit borrower info when he/she already exists
+          # borrower.update(borrower_params)
+        else
+          # create user corresponding with the co-borrower info
+          default_password = Digest::MD5.hexdigest(params[:email]).first(10)
+
+          user = User.new(
+            email: params[:email], password: default_password, password_confirmation: default_password,
+            borrower_attributes: borrower_params
+          )
+          user.skip_confirmation!
+          user.save
+        end
+
+        # link that new borrower as co-borrower of current loan
+        loan = current_user.loans.first
+        loan.secondary_borrower = user.borrower
+        loan.save
+
+        # send email to co-borrower to let him know
+        email_options = {
+          is_new_user: !is_existing,
+          default_password: default_password || nil
+        }
+
+        SecondaryBorrowerMailer.notify_being_added(loan.id, email_options).deliver_now
+      when :secondary_borrower
+        # just update its info
+        borrower = current_user.borrower
+        borrower.update(borrower_params)
       end
-
-      # link that new borrower as co-borrower of current loan
-      loan = current_user.loans.first
-      loan.secondary_borrower = user.borrower
-      loan.save
-
-      # send email to co-borrower to let him know
-      email_options = {
-        is_new_user: !is_existing,
-        default_password: default_password || nil
-      }
-
-      SecondaryBorrowerMailer.notify_being_added(loan.id, email_options).deliver_now
     end
 
     def self.remove(current_user, params = {})

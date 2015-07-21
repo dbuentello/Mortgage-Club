@@ -1,31 +1,34 @@
 class LoansController < ApplicationController
-  def new
-    @loan = current_user.loans.first || # get the first own loan
-      current_user.borrower.loan || # or get the co-borrower relationship
-      Loan.initiate(current_user) # or create branch new one
+  before_action :set_loan, only: [:new, :update]
 
+  def new
     show
   end
 
   def show
     @loan = @loan || Loan.find(params[:id])
-    bootstrap({currentLoan: @loan.as_json(loan_json_options)})
+
+    bootstrap({
+      currentLoan: @loan.as_json(loan_json_options),
+      borrower_type: (@borrower_type == :borrower) ? 0 : 1
+    })
+
     respond_to do |format|
       format.html { render template: 'client_app' }
     end
   end
 
-  def create
-    @loan = Loan.create(loan_params)
-  end
+  # def create
+  #   @loan = Loan.create(loan_params)
+  # end
 
   def update
-    @loan = current_user.loans.find(params[:id])
+    @loan = @loan || Loan.find(params[:id])
 
     borrower_params = secondary_borrower_params
     if borrower_params
       if borrower_params[:_remove]
-        Form::SecondaryBorrower.remove(current_user, secondary_borrower_params)
+        Form::SecondaryBorrower.remove(current_user, @borrower_type, secondary_borrower_params)
       else
         Form::SecondaryBorrower.save(current_user, secondary_borrower_params)
       end
@@ -55,6 +58,23 @@ class LoansController < ApplicationController
   end
 
   private
+
+  def set_loan
+    @loan = current_user.loans.first # get the first own loan
+    if @loan.present?
+      @borrower_type = :borrower
+    else
+      @loan = current_user.borrower.loan # or get the co-borrower relationship
+
+      if @loan.present?
+        @borrower_type = :secondary_borrower
+      else
+        @loan = Loan.initiate(current_user) # or create branch new one
+
+        @borrower_type = :borrower
+      end
+    end
+  end
 
   def loan_params
     params.require(:loan).permit(Loan::PERMITTED_ATTRS)
