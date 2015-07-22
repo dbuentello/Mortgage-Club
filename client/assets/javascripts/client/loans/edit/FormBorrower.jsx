@@ -96,9 +96,8 @@ var FormBorrower = React.createClass({
         },
         dataType: 'json',
         success: function(response) {
-          console.log('auto fill');
+          // console.log('auto fill');
 
-          // console.dir(response.secondary_borrower);
           var change = {};
           if (response.secondary_borrower) {
             change = this.buildStateFromBorrower(change, response.secondary_borrower, response.secondary_borrower.user, secondary_borrower_fields);

@@ -50,6 +50,7 @@ var DateFieldView = React.createClass({
   render: function() {
     var classes = this.getFieldClasses(this.props.editable, this.props.isLarge, this.props.valid),
         dateVal = this.isoToUsDate(this.props.value) || this.props.emptyStaticText;
+
     return (
       <div>
         <label className="col-xs-12 pan">
