@@ -104,11 +104,13 @@ var FormBorrower = React.createClass({
             change = this.buildStateFromSecondaryBorrower(change, response.secondary_borrower);
           } else {
             _.map(secondary_borrower_fields, function (field, index) {
-              if (field.name === 'secondary_borrower_email') { return; }
+              if (field.name == 'secondary_borrower_email' || field.name == 'secondary_borrower_dob' || field.name == 'secondary_borrower_ssn') { return; }
               change[field.name] = null;
             });
           };
           this.setState(change);
+
+          // state['secondary_borrower_editable'] = false;
         }.bind(this),
         error: function(response, status, error) {
           alert(error);
@@ -509,30 +511,34 @@ var FormBorrower = React.createClass({
     var borrower = loan.borrower;
     var first_borrower_user = borrower.user;
 
+    // For now just make them all editable
+    state['borrower_editable'] = true;
+    state['secondary_borrower_editable'] = true;
+
     var secondary_borrower = loan.secondary_borrower;
     switch(this.props.borrower_type) {
     case 0:
-      state['borrower_editable'] = true;
+      // state['borrower_editable'] = true;
 
       if (secondary_borrower) {
         state[first_borrower_fields.applyingAs.name] = 2;
         state['hasCoBorrower'] = true;
-        state['secondary_borrower_editable'] = false;
+        // state['secondary_borrower_editable'] = false;
 
         // build state for secondary borrower
         state = this.buildStateFromSecondaryBorrower(state, secondary_borrower);
       } else {
         state[first_borrower_fields.applyingAs.name] = 1;
         state['hasCoBorrower'] = false;
-        state['secondary_borrower_editable'] = true;
+        // state['secondary_borrower_editable'] = true;
       };
       break;
 
     case 1:
       state[first_borrower_fields.applyingAs.name] = 2;
       state['hasCoBorrower'] = true;
-      state['borrower_editable'] = false;
-      state['secondary_borrower_editable'] = true;
+      // state['borrower_editable'] = false;
+      // state['secondary_borrower_editable'] = true;
 
       // build state for secondary borrower
       state = this.buildStateFromSecondaryBorrower(state, secondary_borrower);
@@ -667,6 +673,16 @@ var FormBorrower = React.createClass({
   },
 
   save: function() {
+    // don't allow submit when missing co-borrower info
+    if (this.state[first_borrower_fields.applyingAs.name] == 2 && (
+          (this.state[secondary_borrower_fields.email.name] == null) ||
+          (this.state[secondary_borrower_fields.firstName.name] == null) ||
+          (this.state[secondary_borrower_fields.lastName.name] == null)
+        )) {
+      alert('You have to type at least email, first name and last name of the co-borrower');
+      return;
+    }
+
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 1);
   }

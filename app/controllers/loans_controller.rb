@@ -18,10 +18,6 @@ class LoansController < ApplicationController
     end
   end
 
-  # def create
-  #   @loan = Loan.create(loan_params)
-  # end
-
   def update
     @loan = @loan || Loan.find(params[:id])
 

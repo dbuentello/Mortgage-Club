@@ -82,7 +82,10 @@ var TextFormatMixin = {
       return dateString;
     }
 
-    return moment(dateString, 'MM/DD/YYYY').utc().format();
+    return moment(dateString, 'MM/DD/YYYY').format();
+
+    // note: no UTC for now
+    // return moment(dateString, 'MM/DD/YYYY').utc().format();
   },
 
   formatTime: function(timeString) {
