@@ -542,7 +542,7 @@ var FormBorrower = React.createClass({
 
       if (secondary_borrower) {
         // build state for secondary borrower
-        state = this.buildStateFromSecondaryBorrower(state, secondary_borrower);
+        state = this.buildStateFromBorrower(state, secondary_borrower, secondary_borrower.user, secondary_borrower_fields);
       }
       break;
 
@@ -550,46 +550,30 @@ var FormBorrower = React.createClass({
       console.log('cannot find proper case for borrower_type');
     };
 
-    state[first_borrower_fields.email.name] = first_borrower_user[first_borrower_fields.email.fieldName];
-    state[first_borrower_fields.firstName.name] = borrower[first_borrower_fields.firstName.fieldName];
-    state[first_borrower_fields.middleName.name] = borrower[first_borrower_fields.middleName.fieldName];
-    state[first_borrower_fields.lastName.name] = borrower[first_borrower_fields.lastName.fieldName];
-    state[first_borrower_fields.suffix.name] = borrower[first_borrower_fields.suffix.fieldName];
-    state[first_borrower_fields.dob.name] = borrower[first_borrower_fields.dob.fieldName];
-    state[first_borrower_fields.ssn.name] = borrower[first_borrower_fields.ssn.fieldName];
-    state[first_borrower_fields.phone.name] = borrower[first_borrower_fields.phone.fieldName];
-    state[first_borrower_fields.yearsInSchool.name] = borrower[first_borrower_fields.yearsInSchool.fieldName];
-    state[first_borrower_fields.maritalStatus.name] = borrower[first_borrower_fields.maritalStatus.fieldName];
-    state[first_borrower_fields.numberOfDependents.name] = borrower[first_borrower_fields.numberOfDependents.fieldName];
-    state[first_borrower_fields.dependentAges.name] = borrower[first_borrower_fields.dependentAges.fieldName].join(', ');
-    if (borrower[first_borrower_fields.currentAddress.fieldName]) {
-      state[first_borrower_fields.currentAddress.name] = borrower[first_borrower_fields.currentAddress.fieldName].address;
-      state[first_borrower_fields.currentlyOwn.name] = !borrower[first_borrower_fields.currentAddress.fieldName].is_rental;
-      state[first_borrower_fields.yearsInCurrentAddress.name] = borrower[first_borrower_fields.currentAddress.fieldName].years_at_address;
-    };
+    // build state for borrower
+    state = this.buildStateFromBorrower(state, borrower, first_borrower_user, first_borrower_fields);
 
     return state;
   },
 
-  buildStateFromSecondaryBorrower: function(state, secondary_borrower) {
-    var secondary_borrower_user = secondary_borrower.user;
-    state[secondary_borrower_fields.email.name] = secondary_borrower_user[secondary_borrower_fields.email.fieldName];
+  buildStateFromBorrower: function(state, borrower, borrower_user, fields) {
+    state[fields.email.name] = borrower_user[fields.email.fieldName];
 
-    state[secondary_borrower_fields.firstName.name] = secondary_borrower[secondary_borrower_fields.firstName.fieldName];
-    state[secondary_borrower_fields.middleName.name] = secondary_borrower[secondary_borrower_fields.middleName.fieldName];
-    state[secondary_borrower_fields.lastName.name] = secondary_borrower[secondary_borrower_fields.lastName.fieldName];
-    state[secondary_borrower_fields.suffix.name] = secondary_borrower[secondary_borrower_fields.suffix.fieldName];
-    state[secondary_borrower_fields.dob.name] = secondary_borrower[secondary_borrower_fields.dob.fieldName];
-    state[secondary_borrower_fields.ssn.name] = secondary_borrower[secondary_borrower_fields.ssn.fieldName];
-    state[secondary_borrower_fields.phone.name] = secondary_borrower[secondary_borrower_fields.phone.fieldName];
-    state[secondary_borrower_fields.yearsInSchool.name] = secondary_borrower[secondary_borrower_fields.yearsInSchool.fieldName];
-    state[secondary_borrower_fields.maritalStatus.name] = secondary_borrower[secondary_borrower_fields.maritalStatus.fieldName];
-    state[secondary_borrower_fields.numberOfDependents.name] = secondary_borrower[secondary_borrower_fields.numberOfDependents.fieldName];
-    state[secondary_borrower_fields.dependentAges.name] = secondary_borrower[secondary_borrower_fields.dependentAges.fieldName].join(', ');
-    if (secondary_borrower[secondary_borrower_fields.currentAddress.fieldName]) {
-      state[secondary_borrower_fields.currentAddress.name] = secondary_borrower[secondary_borrower_fields.currentAddress.fieldName].address;
-      state[secondary_borrower_fields.currentlyOwn.name] = !secondary_borrower[secondary_borrower_fields.currentAddress.fieldName].is_rental;
-      state[secondary_borrower_fields.yearsInCurrentAddress.name] = secondary_borrower[secondary_borrower_fields.currentAddress.fieldName].years_at_address;
+    state[fields.firstName.name] = borrower[fields.firstName.fieldName];
+    state[fields.middleName.name] = borrower[fields.middleName.fieldName];
+    state[fields.lastName.name] = borrower[fields.lastName.fieldName];
+    state[fields.suffix.name] = borrower[fields.suffix.fieldName];
+    state[fields.dob.name] = borrower[fields.dob.fieldName];
+    state[fields.ssn.name] = borrower[fields.ssn.fieldName];
+    state[fields.phone.name] = borrower[fields.phone.fieldName];
+    state[fields.yearsInSchool.name] = borrower[fields.yearsInSchool.fieldName];
+    state[fields.maritalStatus.name] = borrower[fields.maritalStatus.fieldName];
+    state[fields.numberOfDependents.name] = borrower[fields.numberOfDependents.fieldName];
+    state[fields.dependentAges.name] = borrower[fields.dependentAges.fieldName].join(', ');
+    if (borrower[fields.currentAddress.fieldName]) {
+      state[fields.currentAddress.name] = borrower[fields.currentAddress.fieldName].address;
+      state[fields.currentlyOwn.name] = !borrower[fields.currentAddress.fieldName].is_rental;
+      state[fields.yearsInCurrentAddress.name] = borrower[fields.currentAddress.fieldName].years_at_address;
     };
 
     return state;
@@ -598,7 +582,9 @@ var FormBorrower = React.createClass({
   buildLoanFromState: function() {
     var loan = {};
 
+    // For borrower data
     loan.borrower_attributes = {id: this.props.loan.borrower.id};
+
     loan.borrower_attributes[first_borrower_fields.email.fieldName] = this.state[first_borrower_fields.email.name];
     loan.borrower_attributes[first_borrower_fields.firstName.fieldName] = this.state[first_borrower_fields.firstName.name];
     loan.borrower_attributes[first_borrower_fields.middleName.fieldName] = this.state[first_borrower_fields.middleName.name];
@@ -615,7 +601,6 @@ var FormBorrower = React.createClass({
       loan.borrower_attributes[first_borrower_fields.dependentAges.fieldName] = _.map(this.state[first_borrower_fields.dependentAges.name].split(','), _.trim);
     };
 
-    // borrower_addresses data
     var borrower_address_id = null;
     if (this.props.loan.borrower.current_address) {
       borrower_address_id = this.props.loan.borrower.current_address.id;
@@ -628,11 +613,14 @@ var FormBorrower = React.createClass({
       is_current: true
     }];
 
+    // For co-borrower data
     if (this.state[first_borrower_fields.applyingAs.name] == 1) {
-      // remove secondary borrower if user select to apply as individual borrower
-      loan.secondary_borrower_attributes = {
-        _remove: true
-      };
+      if (this.props.borrower_type == 1) {
+        // remove secondary borrower if user select to apply as individual borrower AND we currently have a co-borrower
+        loan.secondary_borrower_attributes = {
+          _remove: true
+        };
+      }
     } else {
       // update secondary borrower
       if ( typeof this.props.loan.secondary_borrower !== 'undefined' ) {
@@ -657,7 +645,6 @@ var FormBorrower = React.createClass({
         loan.secondary_borrower_attributes[secondary_borrower_fields.dependentAges.fieldName] = _.map(this.state[secondary_borrower_fields.dependentAges.name].split(','), _.trim);
       };
 
-      // borrower_addresses data
       var borrower_address_id = null;
       if (typeof this.props.loan.secondary_borrower !== 'undefined' && this.props.loan.secondary_borrower.current_address) {
         borrower_address_id = this.props.loan.secondary_borrower.current_address.id;
@@ -687,12 +674,9 @@ var FormBorrower = React.createClass({
 
     this.setState({saving: true});
 
-    console.log(this.props.borrower_type);
-    console.log(this.state[first_borrower_fields.applyingAs.name]);
-
     if (this.props.borrower_type == 1 && (this.state[first_borrower_fields.applyingAs.name] == 1)) {
+      // after co-borrower self-remove
       this.props.saveLoan(this.buildLoanFromState(), 1, true);
-      // after co-borrower seft-remove
       location.reload();
     } else {
       this.props.saveLoan(this.buildLoanFromState(), 1);
