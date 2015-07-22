@@ -14,12 +14,14 @@ var LoanInterface = React.createClass({
 
   getInitialState: function() {
     var loan = this.props.bootstrapData.currentLoan;
+    var borrower_type = this.props.bootstrapData.borrower_type;
     var menu = this.buildMenu(loan);
 
     return {
       menu: menu,
       active: _.findWhere(menu, {complete: false}) || menu[0],
-      loan: loan
+      loan: loan,
+      borrower_type: borrower_type
     };
   },
 
@@ -31,7 +33,8 @@ var LoanInterface = React.createClass({
 
   render: function() {
     var activeItem = this.state.active;
-    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} saveLoan={this.save}/>;
+    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save}/>;
+
     return (
       <div>
         <nav className='sideMenu sticky backgroundLowlight pbm'>

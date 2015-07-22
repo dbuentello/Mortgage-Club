@@ -24,6 +24,8 @@ var DateFieldView = React.createClass({
     // an object `change` passed in as the single argument. The `change` object is in the format
     // {[@keyName]: [date]} where @keyName is from the props and `date` is the date value in ISO format.
     onChange: React.PropTypes.func,
+    onBlur: React.PropTypes.func,
+
     keyName: React.PropTypes.string,
     // static text for null value
     emptyStaticText: React.PropTypes.string,
@@ -37,6 +39,12 @@ var DateFieldView = React.createClass({
     return {valid: true};
   },
 
+  onBlur: function() {
+    this.handleChange(event);
+
+    this.props.onBlur(event);
+  },
+
   render: function() {
     var classes = this.getFieldClasses(this.props.editable, this.props.isLarge, this.props.valid),
         dateVal = this.isoToUsDate(this.props.value) || this.props.emptyStaticText;
@@ -46,7 +54,7 @@ var DateFieldView = React.createClass({
           <span className={this.props.label ? 'h7 typeBold mrs' : null}>{this.props.label}</span>
           <div className="input-group date datepicker pan" style={{display: this.props.editable ? null : 'none', zIndex: this.props.zIndex}}>
             <input className={classes.editableFieldClasses} defaultValue={dateVal} type="text" placeholder={this.props.placeholder}
-              onBlur={this.handleChange} onFocus={this.handleFocus}/>
+              onBlur={this.onBlur} onFocus={this.handleFocus}/>
             <span className="input-group-addon">
               <i className="iconCalendar"/>
             </span>

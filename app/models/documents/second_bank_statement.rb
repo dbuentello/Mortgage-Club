@@ -13,5 +13,5 @@
 #
 
 class Documents::SecondBankStatement < Document
-  belongs_to :borrower, inverse_of: :second_bank_statement, foreign_key: 'owner_id'
+  belongs_to :borrower, inverse_of: :second_bank_statement, class_name: 'Borrower', foreign_key: 'owner_id'
 end

@@ -17,6 +17,16 @@ if User.where(email: 'lehoang1417@gmail.com').blank?
   loan = FactoryGirl.create(:loan_with_property, user: user)
 end
 
+if User.where(email: 'le_hoang0306@yahoo.com.vn').blank?
+  user = FactoryGirl.build(:user, email: 'le_hoang0306@yahoo.com.vn', password: '12345678',
+    password_confirmation: '12345678')
+  user.skip_confirmation!
+  user.save
+
+  # create loan base on user
+  loan = FactoryGirl.create(:loan_with_property, user: user)
+end
+
 if Template.where(name: 'Loan Estimation').blank?
   base = Docusign::Base.new
   template = base.create_template_object_from_name("Loan Estimation")

@@ -4,15 +4,17 @@ Rails.application.routes.draw do
 
   get 'take_home_test', to: 'pages#take_home_test', as: :take_home_test
 
-  devise_for :users, controllers: {
-    sessions: 'users/sessions', registrations: 'users/registrations',
-    confirmations: 'users/confirmations', passwords: 'users/passwords',
-    unlocks: 'users/unlocks'
-  }, path: "auth",
-  path_names: {
-    sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification',
-    unlock: 'unblock', registration: 'register', sign_up: 'signup'
-  }
+  devise_for :users,
+    controllers: {
+      sessions: 'users/sessions', registrations: 'users/registrations',
+      confirmations: 'users/confirmations', passwords: 'users/passwords',
+      unlocks: 'users/unlocks'
+    },
+    path: 'auth',
+    path_names: {
+      sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification',
+      unlock: 'unblock', registration: 'register', sign_up: 'signup'
+    }
 
   devise_scope :user do
     get 'login', to: 'users/sessions#new', as: :custom_login
@@ -33,15 +35,11 @@ Rails.application.routes.draw do
     end
   end
 
-  # resources :sessions, only: [:new, :create, :destroy]
-  # get 'signup', to: 'users#new', as: 'signup'
-  # get 'login', to: 'sessions#new', as: 'login'
-  # get 'logout', to: 'sessions#destroy', as: 'logout'
-
   resources :users
 
   resources :loans do
-    member do
+    collection do
+      get 'get_co_borrower_info'
     end
   end
 

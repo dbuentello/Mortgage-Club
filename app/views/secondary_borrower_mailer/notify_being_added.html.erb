@@ -1,0 +1,15 @@
+<p>Hi <b><%= @secondary_borrower.user.to_s %></b>,</p>
+
+<br/>
+<p>You've just been added as secondary borrower by <b><%= @loan.user.to_s %></b>.</p>
+
+<% if @is_new_user %>
+  <p><%= link_to 'Login', new_user_session_url %> to see your loan now, new user. Your default password: <%= @default_password %></p>
+<% else %>
+  <p>Because you've already had your own loan, we cannot show the loan you've been added as co-borrower for now. We will add this feature soon.</p>
+<% end %>
+
+<br/>
+</p>Thanks and Best Regards,</p>
+<br/>
+</p>Mortgage Club</p>

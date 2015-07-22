@@ -8,7 +8,7 @@
 #  agency_case_number           :string
 #  lender_case_number           :string
 #  amount                       :decimal(11, 2)
-#  interest_rate                :decimal(11, 2)
+#  interest_rate                :decimal(9, 3)
 #  num_of_months                :integer
 #  amortization_type            :string
 #  rate_lock                    :boolean
@@ -30,10 +30,11 @@
 
 class Loan < ActiveRecord::Base
   belongs_to :user, inverse_of: :loans, foreign_key: 'user_id'
+
   has_one :borrower, through: :user
+  has_one :secondary_borrower, inverse_of: :loan, class_name: 'Borrower' # don't destroy Borrower instance when we unset this association
 
   has_one :property, inverse_of: :loan, dependent: :destroy
-  has_one :secondary_borrower, inverse_of: :loan, class_name: 'Borrower', dependent: :destroy
   has_one :envelope, inverse_of: :loan, dependent: :destroy
 
   accepts_nested_attributes_for :property, allow_destroy: true
@@ -43,8 +44,8 @@ class Loan < ActiveRecord::Base
   PERMITTED_ATTRS = [
     :purpose,
     property_attributes:           [:id] + Property::PERMITTED_ATTRS,
-    borrower_attributes:           [:id] + Borrower::PERMITTED_ATTRS,
-    secondary_borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
+    borrower_attributes:           [:id] + Borrower::PERMITTED_ATTRS
+    # secondary_borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
   ]
 
   enum purpose: {
