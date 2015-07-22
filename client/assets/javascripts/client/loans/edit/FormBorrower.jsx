@@ -101,7 +101,7 @@ var FormBorrower = React.createClass({
           // console.dir(response.secondary_borrower);
           var change = {};
           if (response.secondary_borrower) {
-            change = this.buildStateFromSecondaryBorrower(change, response.secondary_borrower);
+            change = this.buildStateFromBorrower(change, response.secondary_borrower, response.secondary_borrower.user, secondary_borrower_fields);
           } else {
             _.map(secondary_borrower_fields, function (field, index) {
               if (field.name == 'secondary_borrower_email' || field.name == 'secondary_borrower_dob' || field.name == 'secondary_borrower_ssn') { return; }
@@ -526,7 +526,7 @@ var FormBorrower = React.createClass({
         // state['secondary_borrower_editable'] = false;
 
         // build state for secondary borrower
-        state = this.buildStateFromSecondaryBorrower(state, secondary_borrower);
+        state = this.buildStateFromBorrower(state, secondary_borrower, secondary_borrower.user, secondary_borrower_fields);
       } else {
         state[first_borrower_fields.applyingAs.name] = 1;
         state['hasCoBorrower'] = false;

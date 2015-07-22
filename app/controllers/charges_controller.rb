@@ -3,8 +3,6 @@ class ChargesController < ApplicationController
   end
 
   def create
-    # byebug
-
     # Amount in cents
     @amount = 2000
 
