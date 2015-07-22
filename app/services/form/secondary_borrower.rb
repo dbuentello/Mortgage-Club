@@ -46,7 +46,7 @@ module Form
           default_password: default_password || nil
         }
 
-        SecondaryBorrowerMailer.notify_being_added(loan.id, email_options).deliver_now
+        SecondaryBorrowerMailer.notify_being_added(loan.id, email_options).deliver_later
       when :secondary_borrower
         # just update its info
         borrower = current_user.borrower
@@ -65,7 +65,7 @@ module Form
         secondary_borrower.save
 
         # send email to co-borrower to let him know
-        SecondaryBorrowerMailer.notify_being_removed(loan.id, secondary_borrower.id).deliver_now
+        SecondaryBorrowerMailer.notify_being_removed(loan.id, secondary_borrower.id).deliver_later
       end
     end
 

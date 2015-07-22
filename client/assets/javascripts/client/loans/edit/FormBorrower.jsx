@@ -85,8 +85,6 @@ var FormBorrower = React.createClass({
       (this.state[secondary_borrower_fields.dob.name] != null) &&
       (this.state[secondary_borrower_fields.ssn.name] != null);
 
-    console.log(shouldAutoComplete);
-
     if (shouldAutoComplete) {
       $.ajax({
         url: '/loans/get_co_borrower_info',
@@ -98,6 +96,8 @@ var FormBorrower = React.createClass({
         },
         dataType: 'json',
         success: function(response) {
+          console.log('auto fill');
+
           // console.dir(response.secondary_borrower);
           var change = {};
           if (response.secondary_borrower) {
