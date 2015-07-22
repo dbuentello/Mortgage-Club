@@ -540,8 +540,10 @@ var FormBorrower = React.createClass({
       // state['borrower_editable'] = false;
       // state['secondary_borrower_editable'] = true;
 
-      // build state for secondary borrower
-      state = this.buildStateFromSecondaryBorrower(state, secondary_borrower);
+      if (secondary_borrower) {
+        // build state for secondary borrower
+        state = this.buildStateFromSecondaryBorrower(state, secondary_borrower);
+      }
       break;
 
     default:
@@ -684,7 +686,17 @@ var FormBorrower = React.createClass({
     }
 
     this.setState({saving: true});
-    this.props.saveLoan(this.buildLoanFromState(), 1);
+
+    console.log(this.props.borrower_type);
+    console.log(this.state[first_borrower_fields.applyingAs.name]);
+
+    if (this.props.borrower_type == 1 && (this.state[first_borrower_fields.applyingAs.name] == 1)) {
+      this.props.saveLoan(this.buildLoanFromState(), 1, true);
+      // after co-borrower seft-remove
+      location.reload();
+    } else {
+      this.props.saveLoan(this.buildLoanFromState(), 1);
+    } ;
   }
 });
 

@@ -30,7 +30,7 @@ class LoansController < ApplicationController
       end
     end
 
-    if @loan.update(loan_params)
+    if @loan.reload.update(loan_params)
       render json: {loan: @loan.reload.as_json(loan_json_options)}
     else
       render json: {error: @loan.errors.full_messages}, status: 500

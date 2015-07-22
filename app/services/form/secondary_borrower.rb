@@ -70,6 +70,7 @@ module Form
 
       when :secondary_borrower
         secondary_borrower = current_user.borrower
+        loan = secondary_borrower.loan
 
         # remove secondary borrower from the loan
         secondary_borrower.loan = nil
