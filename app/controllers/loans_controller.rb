@@ -24,7 +24,7 @@ class LoansController < ApplicationController
     borrower_params = secondary_borrower_params
     if borrower_params
       if borrower_params[:_remove]
-        Form::SecondaryBorrower.remove(current_user, secondary_borrower_params)
+        Form::SecondaryBorrower.remove(current_user, @borrower_type, secondary_borrower_params)
       else
         Form::SecondaryBorrower.save(current_user, @borrower_type, secondary_borrower_params)
       end

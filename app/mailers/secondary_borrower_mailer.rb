@@ -26,4 +26,14 @@ class SecondaryBorrowerMailer < ActionMailer::Base
     )
   end
 
+  def notify_being_leaving(loan_id, secondary_borrower_id, params={})
+    @loan = Loan.find loan_id
+    @secondary_borrower = Borrower.find secondary_borrower_id
+
+    mail(
+      to: @loan.user.email,
+      subject: "Your co-borrower #{@secondary_borrower.user.to_s} has left your loan"
+    )
+  end
+
 end

@@ -54,19 +54,31 @@ module Form
       end
     end
 
-    def self.remove(current_user, params = {})
-      # unlink that borrower as co-borrower of current loan
-      loan = current_user.loans.first
+    def self.remove(current_user, borrower_type, params = {})
+      case borrower_type
+      when :borrower
+        # unlink that borrower as co-borrower of current loan
+        loan = current_user.loans.first
+        secondary_borrower = loan.secondary_borrower
 
-      secondary_borrower = loan.secondary_borrower
-      if secondary_borrower
-        # remove secondary borrower if it exists
+        # remove secondary borrower from the loan
         secondary_borrower.loan = nil
         secondary_borrower.save
 
         # send email to co-borrower to let him know
         SecondaryBorrowerMailer.notify_being_removed(loan.id, secondary_borrower.id).deliver_later
+
+      when :secondary_borrower
+        secondary_borrower = current_user.borrower
+
+        # remove secondary borrower from the loan
+        secondary_borrower.loan = nil
+        secondary_borrower.save
+
+        # send email to borrower to let him know
+        SecondaryBorrowerMailer.notify_being_leaving(loan.id, secondary_borrower.id).deliver_later
       end
+
     end
 
     def self.check_valid_borrower(params = {})
