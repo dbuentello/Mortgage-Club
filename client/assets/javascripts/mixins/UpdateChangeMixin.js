@@ -3,7 +3,7 @@ var TextFormatMixin = require('./TextFormatMixin');
 var UpdateChangeMixin = {
   handleChange: function(event) {
     var change = {},
-        value = event.target.value;
+      value = event.target.value;
 
     if (typeof this.props.onChange == 'function') {
       if (this.fieldType == 'date') {

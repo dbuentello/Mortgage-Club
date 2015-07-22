@@ -79,15 +79,22 @@ var FormBorrower = React.createClass({
     this.setState(change);
   },
 
-  onCoBorrowerEmailChange: function(event) {
-    if (this.props.borrower_type == 0) {
-      // console.log("current co-borrower email: " + event.target.value);
+  onCoBorrowerChange: function(event) {
+    var shouldAutoComplete = (this.props.borrower_type == 0) &&
+      (this.state[secondary_borrower_fields.email.name] != null) &&
+      (this.state[secondary_borrower_fields.dob.name] != null) &&
+      (this.state[secondary_borrower_fields.ssn.name] != null);
 
+    console.log(shouldAutoComplete);
+
+    if (shouldAutoComplete) {
       $.ajax({
         url: '/loans/get_co_borrower_info',
         method: 'GET',
         data: {
-          email: event.target.value
+          email: this.state[secondary_borrower_fields.email.name],
+          dob: this.state[secondary_borrower_fields.dob.name],
+          ssn: this.state[secondary_borrower_fields.ssn.name]
         },
         dataType: 'json',
         success: function(response) {
@@ -240,7 +247,7 @@ var FormBorrower = React.createClass({
                 editable={this.state.borrower_editable}
                 onFocus={this.onFocus.bind(this, first_borrower_fields.numberOfDependents)}
                 onChange={this.onChange}/>
-              {parseInt(this.state[first_borrower_fields.numberOfDependents.name], 10) > 0 ?
+              { parseInt(this.state[first_borrower_fields.numberOfDependents.name], 10) > 0 ?
                 <TextField
                   label={first_borrower_fields.dependentAges.label}
                   keyName={first_borrower_fields.dependentAges.name}
@@ -249,7 +256,7 @@ var FormBorrower = React.createClass({
                   placeholder='e.g. 12, 7, 3'
                   onFocus={this.onFocus.bind(this, first_borrower_fields.dependentAges)}
                   onChange={this.onChange}/>
-              : null}
+              : null }
               <AddressField
                 label={first_borrower_fields.currentAddress.label}
                 address={this.state[first_borrower_fields.currentAddress.name]}
@@ -272,7 +279,7 @@ var FormBorrower = React.createClass({
                 editable={this.state.borrower_editable}
                 onFocus={this.onFocus.bind(this, first_borrower_fields.yearsInCurrentAddress)}
                 onChange={this.onChange}/>
-              {parseInt(this.state.yearsInCurrentAddress, 10) < 2 ?
+              { parseInt(this.state.yearsInCurrentAddress, 10) < 2 ?
                 <div>
                   <AddressField
                     label={first_borrower_fields.previousAddress.label}
@@ -298,10 +305,10 @@ var FormBorrower = React.createClass({
                     onFocus={this.onFocus.bind(this, first_borrower_fields.yearsInPreviousAddress)}
                     onChange={this.onChange}/>
                 </div>
-              : null}
+              : null }
             </div>
 
-            {this.state.hasCoBorrower ?
+            { this.state.hasCoBorrower ?
               <div className='box mtn'>
                 <h6>Your co-borrower info</h6>
                 <TextField
@@ -312,7 +319,7 @@ var FormBorrower = React.createClass({
                   liveFormat={true}
                   onFocus={this.onFocus.bind(this, secondary_borrower_fields.email)}
                   onChange={this.onChange}
-                  onBlur={this.onCoBorrowerEmailChange}/>
+                  onBlur={this.onCoBorrowerChange}/>
                 <div className='row'>
                   <div className='col-xs-6'>
                     <TextField
@@ -361,7 +368,8 @@ var FormBorrower = React.createClass({
                       value={this.state[secondary_borrower_fields.dob.name]}
                       editable={this.state.secondary_borrower_editable}
                       onFocus={this.onFocus.bind(this, secondary_borrower_fields.dob)}
-                      onChange={this.onChange}/>
+                      onChange={this.onChange}
+                      onBlur={this.onCoBorrowerChange}/>
                   </div>
                   <div className='col-xs-6'>
                     <TextField
@@ -372,7 +380,8 @@ var FormBorrower = React.createClass({
                       format={this.formatSSN}
                       liveFormat={true}
                       onFocus={this.onFocus.bind(this, secondary_borrower_fields.ssn)}
-                      onChange={this.onChange}/>
+                      onChange={this.onChange}
+                      onBlur={this.onCoBorrowerChange}/>
                   </div>
                 </div>
 
@@ -407,7 +416,7 @@ var FormBorrower = React.createClass({
                   editable={this.state.secondary_borrower_editable}
                   onFocus={this.onFocus.bind(this, secondary_borrower_fields.numberOfDependents)}
                   onChange={this.onChange}/>
-                {parseInt(this.state[secondary_borrower_fields.numberOfDependents.name], 10) > 0 ?
+                { parseInt(this.state[secondary_borrower_fields.numberOfDependents.name], 10) > 0 ?
                   <TextField
                     label={secondary_borrower_fields.dependentAges.label}
                     keyName={secondary_borrower_fields.dependentAges.name}
@@ -416,7 +425,7 @@ var FormBorrower = React.createClass({
                     placeholder='e.g. 12, 7, 3'
                     onFocus={this.onFocus.bind(this, secondary_borrower_fields.dependentAges)}
                     onChange={this.onChange}/>
-                : null}
+                : null }
                 <AddressField
                   label={secondary_borrower_fields.currentAddress.label}
                   address={this.state[secondary_borrower_fields.currentAddress.name]}
@@ -439,7 +448,7 @@ var FormBorrower = React.createClass({
                   editable={this.state.secondary_borrower_editable}
                   onFocus={this.onFocus.bind(this, secondary_borrower_fields.yearsInCurrentAddress)}
                   onChange={this.onChange}/>
-                {parseInt(this.state.yearsInCurrentAddress, 10) < 2 ?
+                { parseInt(this.state.yearsInCurrentAddress, 10) < 2 ?
                   <div>
                     <AddressField
                       label={secondary_borrower_fields.previousAddress.label}
@@ -465,25 +474,25 @@ var FormBorrower = React.createClass({
                       onFocus={this.onFocus.bind(this, secondary_borrower_fields.yearsInPreviousAddress)}
                       onChange={this.onChange}/>
                   </div>
-                : null}
+                : null }
               </div>
-            : null}
+            : null }
 
             <div className='box text-right'>
               <a className='btn btnSml btnPrimary' onClick={this.save} disabled={this.state.saving}>
-                {this.state.saving ? 'Saving' : 'Save and Continue'}<i className='icon iconRight mls'/>
+                { this.state.saving ? 'Saving' : 'Save and Continue' }<i className='icon iconRight mls'/>
               </a>
             </div>
           </div>
         </div>
 
         <div className='helpSection sticky pull-right overlayRight overlayTop pal bls'>
-          {this.state.focusedField && this.state.focusedField.helpText
+          { this.state.focusedField && this.state.focusedField.helpText
           ? <div>
               <span className='typeEmphasize'>{this.state.focusedField.label}:</span>
               <br/>{this.state.focusedField.helpText}
             </div>
-          : null}
+          : null }
         </div>
       </div>
     );

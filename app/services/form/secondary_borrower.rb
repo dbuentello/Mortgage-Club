@@ -57,12 +57,25 @@ module Form
     def self.remove(current_user, params = {})
       # unlink that borrower as co-borrower of current loan
       loan = current_user.loans.first
-      secondary_borrower = loan.secondary_borrower
-      secondary_borrower.loan = nil
-      secondary_borrower.save
 
-      # send email to co-borrower to let him know
-      SecondaryBorrowerMailer.notify_being_removed(loan.id, secondary_borrower.id).deliver_now
+      secondary_borrower = loan.secondary_borrower
+      if secondary_borrower
+        # remove secondary borrower if it exists
+        secondary_borrower.loan = nil
+        secondary_borrower.save
+
+        # send email to co-borrower to let him know
+        SecondaryBorrowerMailer.notify_being_removed(loan.id, secondary_borrower.id).deliver_now
+      end
+    end
+
+    def self.check_valid_borrower(params = {})
+      borrower = Borrower.where(ssn: params[:ssn]).first
+      if borrower.present? && (borrower.user.email == params[:email]) && (DateTime.parse(params[:dob]) == borrower.dob)
+        return true
+      else
+        return false
+      end
     end
 
   end

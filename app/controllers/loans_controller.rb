@@ -46,12 +46,16 @@ class LoansController < ApplicationController
     is_existing = Form::SecondaryBorrower.check_existing_borrower(current_user, params[:email])
 
     if is_existing
-      user = User.where(email: params[:email]).first
-      borrower = user.borrower
+      is_valid = Form::SecondaryBorrower.check_valid_borrower(borrower_info_params)
 
-      # byebug
+      if is_valid
+        user = User.where(email: params[:email]).first
+        borrower = user.borrower
 
-      render json: { secondary_borrower: borrower.as_json(borrower_json_options) }, status: :ok
+        render json: { secondary_borrower: borrower.as_json(borrower_json_options) }, status: :ok
+      else
+        render json: { message: 'invalid email or date of birth or social security number' }, status: :ok
+      end
     else
       render json: { message: 'not found' }, status: :ok
     end
@@ -87,6 +91,10 @@ class LoansController < ApplicationController
     else
       nil
     end
+  end
+
+  def borrower_info_params
+    params.permit([:email, :dob, :ssn])
   end
 
   def loan_json_options
