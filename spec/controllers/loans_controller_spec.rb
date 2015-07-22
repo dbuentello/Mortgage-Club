@@ -10,13 +10,6 @@ describe LoansController do
     end
   end
 
-  describe 'POST #create' do
-    it 'creates a new loan and assigns loan to @loan' do
-      post :create, loan: FactoryGirl.attributes_for(:loan), format: :json
-      expect(Loan.count).to eq(1)
-    end
-  end
-
   describe 'PUT #update' do
     it 'updates a loan and assigns loan to @loan' do
       loan = FactoryGirl.create(:loan)
