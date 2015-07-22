@@ -615,12 +615,10 @@ var FormBorrower = React.createClass({
 
     // For co-borrower data
     if (this.state[first_borrower_fields.applyingAs.name] == 1) {
-      if (this.props.borrower_type == 1) {
-        // remove secondary borrower if user select to apply as individual borrower AND we currently have a co-borrower
-        loan.secondary_borrower_attributes = {
-          _remove: true
-        };
-      }
+      // remove secondary borrower if user select to apply as individual borrower
+      loan.secondary_borrower_attributes = {
+        _remove: true
+      };
     } else {
       // update secondary borrower
       if ( typeof this.props.loan.secondary_borrower !== 'undefined' ) {

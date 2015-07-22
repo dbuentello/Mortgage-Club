@@ -61,23 +61,27 @@ module Form
         loan = current_user.loans.first
         secondary_borrower = loan.secondary_borrower
 
-        # remove secondary borrower from the loan
-        secondary_borrower.loan = nil
-        secondary_borrower.save
+        if secondary_borrower
+          # remove secondary borrower from the loan
+          secondary_borrower.loan = nil
+          secondary_borrower.save
 
-        # send email to co-borrower to let him know
-        SecondaryBorrowerMailer.notify_being_removed(loan.id, secondary_borrower.id).deliver_later
+          # send email to co-borrower to let him know
+          SecondaryBorrowerMailer.notify_being_removed(loan.id, secondary_borrower.id).deliver_later
+        end
 
       when :secondary_borrower
         secondary_borrower = current_user.borrower
         loan = secondary_borrower.loan
 
-        # remove secondary borrower from the loan
-        secondary_borrower.loan = nil
-        secondary_borrower.save
+        if loan
+          # remove secondary borrower from the loan
+          secondary_borrower.loan = nil
+          secondary_borrower.save
 
-        # send email to borrower to let him know
-        SecondaryBorrowerMailer.notify_being_leaving(loan.id, secondary_borrower.id).deliver_later
+          # send email to borrower to let him know
+          SecondaryBorrowerMailer.notify_being_leaving(loan.id, secondary_borrower.id).deliver_later
+        end
       end
 
     end
