@@ -35,23 +35,21 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
-
-  resources :loans do
+  resources :loans, only: [:new, :show, :update] do
     collection do
       get 'get_co_borrower_info'
     end
   end
 
-  resources :rates
+  resources :rates, only: [:index]
 
-  resources :properties do
+  resources :properties, only: [] do
     collection do
       get :search
     end
   end
 
-  resources :charges
+  resources :charges, only: [:new, :create]
 
   post 'electronic_signature/demo'
   get 'electronic_signature/embedded_response'

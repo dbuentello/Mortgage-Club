@@ -43,9 +43,8 @@ var Dropzone = React.createClass({
     accept: React.PropTypes.string,
     multiple: React.PropTypes.bool,
     uploadUrl: React.PropTypes.string,
-    orderNumber: React.PropTypes.number,
     tip: React.PropTypes.string,
-    fileUrl: React.PropTypes.string,
+    downloadUrl: React.PropTypes.string,
     removeUrl: React.PropTypes.string,
     maxSize: React.PropTypes.number
   },
@@ -57,12 +56,12 @@ var Dropzone = React.createClass({
     });
 
     if (this.props.removeUrl != 'javascript:void(0)') {
-      // having removeUrl means we already have document here, don't use fileUrl cause it's always there
+      // having removeUrl means we already have document here, don't use downloadUrl cause it's always there
       $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploaded.backgroundColor, color: this.props.uploaded.color});
       $(this.refs.box.getDOMNode()).tooltip({ title: this.props.tip });
-      this.setState({ fileUrl: this.props.fileUrl });
+      this.setState({ downloadUrl: this.props.downloadUrl });
     } else {
-      this.setState({ fileUrl: 'javascript:void(0)' });
+      this.setState({ downloadUrl: 'javascript:void(0)' });
     };
   },
 
@@ -114,7 +113,6 @@ var Dropzone = React.createClass({
         // prepare formData object
         var formData = new FormData();
         formData.append('file', files[0]);
-        formData.append('order', this.props.orderNumber);
 
         // notify uploading
         $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploading.backgroundColor, color: this.props.uploading.color});
@@ -131,7 +129,7 @@ var Dropzone = React.createClass({
             this.setState({ tip: files[0].name });
 
             // update download button's href
-            this.setState({ fileUrl: this.props.fileUrl });
+            this.setState({ downloadUrl: this.props.downloadUrl });
 
             // tooltip chosen dropzone
             $(this.refs.box.getDOMNode()).tooltip({ title: files[0].name });
@@ -179,16 +177,13 @@ var Dropzone = React.createClass({
       $.ajax({
         url: this.props.removeUrl,
         method: 'DELETE',
-        data: {
-          order: this.props.orderNumber
-        },
         dataType: 'json',
         success: function(response) {
           // update tip
           this.setState({ tip: this.props.field.placeholder });
 
           // disable the download button immediately
-          this.setState({ fileUrl: 'javascript:void(0)' });
+          this.setState({ downloadUrl: 'javascript:void(0)' });
 
           // tooltip chosen dropzone
           $(this.refs.box.getDOMNode()).tooltip('destroy');
@@ -219,9 +214,9 @@ var Dropzone = React.createClass({
     };
 
     if (this.props.download) {
-      var downloadButton = <a href={this.state.fileUrl} download><i className="iconDownload"></i></a>;
+      var downloadButton = <a href={this.state.downloadUrl} download><i className="iconDownload"></i></a>;
     } else {
-      var downloadButton = <a href={this.state.fileUrl} target="_blank"><i className="iconDownload"></i></a>;
+      var downloadButton = <a href={this.state.downloadUrl} target="_blank"><i className="iconDownload"></i></a>;
     }
 
     return (

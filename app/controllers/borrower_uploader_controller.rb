@@ -94,11 +94,13 @@ class BorrowerUploaderController < ApplicationController
   end
 
   def remove_w2
+    borrower = Borrower.find_by_id(params[:id])
+
     case params[:order]
     when "1"
-      w2 = Documents::FirstW2.where(id: params[:id]).first
+      w2 = borrower.first_w2
     when "2"
-      w2 = Documents::SecondW2.where(id: params[:id]).first
+      w2 = borrower.second_w2
     end
 
     if w2.present?
@@ -112,11 +114,13 @@ class BorrowerUploaderController < ApplicationController
   end
 
   def remove_paystub
+    borrower = Borrower.find_by_id(params[:id])
+
     case params[:order]
     when "1"
-      paystub = Documents::FirstPaystub.where(id: params[:id]).first
+      paystub = borrower.first_paystub
     when "2"
-      paystub = Documents::SecondPaystub.where(id: params[:id]).first
+      paystub = borrower.second_paystub
     end
 
     if paystub.present?
@@ -130,11 +134,13 @@ class BorrowerUploaderController < ApplicationController
   end
 
   def remove_bank_statement
+    borrower = Borrower.find_by_id(params[:id])
+
     case params[:order]
     when "1"
-      bank_statement = Documents::FirstBankStatement.where(id: params[:id]).first
+      bank_statement = borrower.first_bank_statement
     when "2"
-      bank_statement = Documents::SecondBankStatement.where(id: params[:id]).first
+      bank_statement = borrower.second_bank_statement
     end
 
     if bank_statement.present?
@@ -148,11 +154,13 @@ class BorrowerUploaderController < ApplicationController
   end
 
   def download_w2
-    case params[:id]
+    borrower = Borrower.find_by_id(params[:id])
+
+    case params[:order]
     when "1"
-      w2 = current_user.borrower.first_w2
+      w2 = borrower.first_w2
     when "2"
-      w2 = current_user.borrower.second_w2
+      w2 = borrower.second_w2
     end
 
     if w2.present?
@@ -161,15 +169,16 @@ class BorrowerUploaderController < ApplicationController
     else
       render json: { message: "You don't have this file yet. Try to upload it!" }
     end
-
   end
 
   def download_paystub
-    case params[:id]
+    borrower = Borrower.find_by_id(params[:id])
+
+    case params[:order]
     when "1"
-      paystub = current_user.borrower.first_paystub
+      paystub = borrower.first_paystub
     when "2"
-      paystub = current_user.borrower.second_paystub
+      paystub = borrower.second_paystub
     end
 
     if paystub.present?
@@ -178,15 +187,16 @@ class BorrowerUploaderController < ApplicationController
     else
       render json: { message: "You don't have this file yet. Try to upload it!" }
     end
-
   end
 
   def download_bank_statement
-    case params[:id]
+    borrower = Borrower.find_by_id(params[:id])
+
+    case params[:order]
     when "1"
-      bank_statement = current_user.borrower.first_bank_statement
+      bank_statement = borrower.first_bank_statement
     when "2"
-      bank_statement = current_user.borrower.second_bank_statement
+      bank_statement = borrower.second_bank_statement
     end
 
     if bank_statement.present?
@@ -195,14 +205,12 @@ class BorrowerUploaderController < ApplicationController
     else
       render json: { message: "You don't have this file yet. Try to upload it!" }
     end
-
   end
 
   private
 
-    def borrower_uploader_params
-      params.permit(:file, :order)
-    end
+  def borrower_uploader_params
+    params.permit(:file, :order)
+  end
 
 end
-

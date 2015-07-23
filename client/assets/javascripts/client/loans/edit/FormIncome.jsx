@@ -32,17 +32,6 @@ var fields = {
 var FormIncome = React.createClass({
   mixins: [TextFormatMixin],
 
-  getDefaultProps: function() {
-    return {
-      download_first_w2_url: "/borrower_uploader/1/download_w2",
-      download_second_w2_url: "/borrower_uploader/2/download_w2",
-      download_first_paystub_url: "/borrower_uploader/1/download_paystub",
-      download_second_paystub_url: "/borrower_uploader/2/download_paystub",
-      download_first_bank_statement_url: "/borrower_uploader/1/download_bank_statement",
-      download_second_bank_statement_url: "/borrower_uploader/2/download_bank_statement"
-    }
-  },
-
   getInitialState: function() {
     return this.buildStateFromLoan(this.props.loan);
   },
@@ -83,51 +72,51 @@ var FormIncome = React.createClass({
             <div className='box mtn'>
               <div className='row'>
                 <Dropzone onDrop={this.onDrop} field={fields.firstW2}
-                  uploadUrl={this.state.w2_url} orderNumber={1}
-                  tip={this.state[fields.firstW2.name]}
-                  fileUrl={this.props.download_first_w2_url}
+                  uploadUrl={this.state.first_w2_url}
+                  downloadUrl={this.state.download_first_w2_url}
                   removeUrl={this.state.remove_first_w2_url}
                   afterRemove={this.refresh}
+                  tip={this.state[fields.firstW2.name]}
                   maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.secondW2}
-                  uploadUrl={this.state.w2_url} orderNumber={2}
-                  tip={this.state[fields.secondW2.name]}
-                  fileUrl={this.props.download_second_w2_url}
+                  uploadUrl={this.state.second_w2_url}
+                  downloadUrl={this.state.download_second_w2_url}
                   removeUrl={this.state.remove_second_w2_url}
                   afterRemove={this.refresh}
+                  tip={this.state[fields.secondW2.name]}
                   maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}
-                  uploadUrl={this.state.paystub_url} orderNumber={1}
-                  tip={this.state[fields.firstPaystub.name]}
-                  fileUrl={this.props.download_first_paystub_url}
+                  uploadUrl={this.state.first_paystub_url}
+                  downloadUrl={this.state.download_first_paystub_url}
                   removeUrl={this.state.remove_first_paystub_url}
                   afterRemove={this.refresh}
+                  tip={this.state[fields.firstPaystub.name]}
                   maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}
-                  uploadUrl={this.state.paystub_url} orderNumber={2}
-                  tip={this.state[fields.secondPaystub.name]}
-                  fileUrl={this.props.download_second_paystub_url}
+                  uploadUrl={this.state.second_paystub_url}
+                  downloadUrl={this.state.download_second_paystub_url}
                   removeUrl={this.state.remove_second_paystub_url}
                   afterRemove={this.refresh}
+                  tip={this.state[fields.secondPaystub.name]}
                   maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}
-                  uploadUrl={this.state.bank_statement_url} orderNumber={1}
-                  tip={this.state[fields.firstBankStatement.name]}
-                  fileUrl={this.props.download_first_bank_statement_url}
+                  uploadUrl={this.state.first_bank_statement_url}
+                  downloadUrl={this.state.download_first_bank_statement_url}
                   removeUrl={this.state.remove_first_bank_statement_url}
                   afterRemove={this.refresh}
+                  tip={this.state[fields.firstBankStatement.name]}
                   maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}
-                  uploadUrl={this.state.bank_statement_url} orderNumber={2}
-                  tip={this.state[fields.secondBankStatement.name]}
-                  fileUrl={this.props.download_second_bank_statement_url}
+                  uploadUrl={this.state.second_bank_statement_url}
+                  downloadUrl={this.state.download_second_bank_statement_url}
                   removeUrl={this.state.remove_second_bank_statement_url}
                   afterRemove={this.refresh}
+                  tip={this.state[fields.secondBankStatement.name]}
                   maxSize={10000000}/>
               </div>
 
@@ -299,56 +288,71 @@ var FormIncome = React.createClass({
     state[fields.grossBonus.name] = this.formatCurrency(borrower[fields.grossBonus.name]);
     state[fields.grossCommission.name] = this.formatCurrency(borrower[fields.grossCommission.name]);
 
-    state.w2_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/w2/';
-    state.paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/paystub/';
-    state.bank_statement_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/bank_statement/';
+    state.first_w2_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/w2?order=1';
+    state.second_w2_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/w2?order=2';
+    state.first_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/paystub?order=1';
+    state.second_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/paystub?order=2';
+    state.first_bank_statement_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/bank_statement?order=1';
+    state.second_bank_statement_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/bank_statement?order=2';
 
     if (this.props.loan.borrower.first_w2) {
       state[fields.firstW2.name] = this.props.loan.borrower.first_w2.attachment_file_name;
-      state.remove_first_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.first_w2.id + '/remove_w2/';
+      state.remove_first_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/remove_w2?order=1';
+      state.download_first_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/download_w2?order=1';
     } else {
       state[fields.firstW2.name] = fields.firstW2.placeholder;
-      state.remove_first_w2_url =  'javascript:void(0)';
+      state.remove_first_w2_url = 'javascript:void(0)';
+      state.download_first_w2_url = 'javascript:void(0)';
     }
 
     if (this.props.loan.borrower.second_w2) {
       state[fields.secondW2.name] = this.props.loan.borrower.second_w2.attachment_file_name;
-      state.remove_second_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.second_w2.id + '/remove_w2/';
+      state.remove_second_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/remove_w2?order=2';
+      state.download_second_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/download_w2?order=2';
     } else {
       state[fields.secondW2.name] = fields.secondW2.placeholder;
-      state.remove_second_w2_url =  'javascript:void(0)';
+      state.remove_second_w2_url = 'javascript:void(0)';
+      state.download_second_w2_url = 'javascript:void(0)';
     }
 
     if (this.props.loan.borrower.first_paystub) {
       state[fields.firstPaystub.name] = this.props.loan.borrower.first_paystub.attachment_file_name;
-      state.remove_first_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.first_paystub.id + '/remove_paystub/';
+      state.remove_first_paystub_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/remove_paystub?order=1';
+      state.download_first_paystub_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/download_paystub?order=1';
     } else {
       state[fields.firstPaystub.name] = fields.firstPaystub.placeholder;
-      state.remove_first_paystub_url =  'javascript:void(0)';
+      state.remove_first_paystub_url = 'javascript:void(0)';
+      state.download_first_paystub_url = 'javascript:void(0)';
     }
 
     if (this.props.loan.borrower.second_paystub) {
       state[fields.secondPaystub.name] = this.props.loan.borrower.second_paystub.attachment_file_name;
-      state.remove_second_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.second_paystub.id + '/remove_paystub/';
+      state.remove_second_paystub_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/remove_paystub?order=2';
+      state.download_second_paystub_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/download_paystub?order=2';
     } else {
       state[fields.secondPaystub.name] = fields.secondPaystub.placeholder;
-      state.remove_second_paystub_url =  'javascript:void(0)';
+      state.remove_second_paystub_url = 'javascript:void(0)';
+      state.download_second_paystub_url = 'javascript:void(0)';
     }
 
     if (this.props.loan.borrower.first_bank_statement) {
       state[fields.firstBankStatement.name] = this.props.loan.borrower.first_bank_statement.attachment_file_name;
-      state.remove_first_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.first_bank_statement.id + '/remove_bank_statement/';
+      state.remove_first_bank_statement_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/remove_bank_statement?order=1';
+      state.download_first_bank_statement_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/download_bank_statement?order=1';
     } else {
       state[fields.firstBankStatement.name] = fields.firstBankStatement.placeholder;
-      state.remove_first_bank_statement_url =  'javascript:void(0)';
+      state.remove_first_bank_statement_url = 'javascript:void(0)';
+      state.download_first_bank_statement_url = 'javascript:void(0)';
     }
 
     if (this.props.loan.borrower.second_bank_statement) {
       state[fields.secondBankStatement.name] = this.props.loan.borrower.second_bank_statement.attachment_file_name;
-      state.remove_second_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.second_bank_statement.id + '/remove_bank_statement/';
+      state.remove_second_bank_statement_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/remove_bank_statement?order=2';
+      state.download_second_bank_statement_url = '/borrower_uploader/' + this.props.loan.borrower.id + '/download_bank_statement?order=2';
     } else {
       state[fields.secondBankStatement.name] = fields.secondBankStatement.placeholder;
-      state.remove_second_bank_statement_url =  'javascript:void(0)';
+      state.remove_second_bank_statement_url = 'javascript:void(0)';
+      state.download_second_bank_statement_url = 'javascript:void(0)';
     }
 
     return state;
