@@ -25,9 +25,9 @@ RSpec.configure do |config|
   # default config from https://github.com/DatabaseCleaner/database_cleaner
   # used to clear database before running tests
   config.before(:suite) do
-      DatabaseCleaner.strategy = :transaction
-      DatabaseCleaner.clean_with(:truncation)
-    end
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
 
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do

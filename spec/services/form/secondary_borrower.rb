@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Form::SecondaryBorrower do
-  before :each do
+  before :all do
     user = FactoryGirl.build(:user, email: 'test1@gmail.com', password: '12345678',
       password_confirmation: '12345678')
     user.skip_confirmation!
