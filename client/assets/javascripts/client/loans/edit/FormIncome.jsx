@@ -84,50 +84,56 @@ var FormIncome = React.createClass({
               <div className='row'>
                 <Dropzone onDrop={this.onDrop} field={fields.firstW2}
                   uploadUrl={this.state.w2_url} orderNumber={1}
-                  tip={this.state[fields.firstW2.name]}
-                  fileUrl={this.props.download_first_w2_url}
+                  downloadUrl={this.props.download_first_w2_url}
                   removeUrl={this.state.remove_first_w2_url}
                   afterRemove={this.refresh}
+                  tip={this.state[fields.firstW2.name]}
+
                   maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.secondW2}
                   uploadUrl={this.state.w2_url} orderNumber={2}
-                  tip={this.state[fields.secondW2.name]}
-                  fileUrl={this.props.download_second_w2_url}
+                  downloadUrl={this.props.download_second_w2_url}
                   removeUrl={this.state.remove_second_w2_url}
                   afterRemove={this.refresh}
+                  tip={this.state[fields.secondW2.name]}
+
                   maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.firstPaystub}
                   uploadUrl={this.state.paystub_url} orderNumber={1}
-                  tip={this.state[fields.firstPaystub.name]}
-                  fileUrl={this.props.download_first_paystub_url}
+                  downloadUrl={this.props.download_first_paystub_url}
                   removeUrl={this.state.remove_first_paystub_url}
                   afterRemove={this.refresh}
+                  tip={this.state[fields.firstPaystub.name]}
+
                   maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.secondPaystub}
                   uploadUrl={this.state.paystub_url} orderNumber={2}
-                  tip={this.state[fields.secondPaystub.name]}
-                  fileUrl={this.props.download_second_paystub_url}
+                  downloadUrl={this.props.download_second_paystub_url}
                   removeUrl={this.state.remove_second_paystub_url}
                   afterRemove={this.refresh}
+                  tip={this.state[fields.secondPaystub.name]}
+
                   maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.firstBankStatement}
                   uploadUrl={this.state.bank_statement_url} orderNumber={1}
-                  tip={this.state[fields.firstBankStatement.name]}
-                  fileUrl={this.props.download_first_bank_statement_url}
+                  downloadUrl={this.props.download_first_bank_statement_url}
                   removeUrl={this.state.remove_first_bank_statement_url}
                   afterRemove={this.refresh}
+                  tip={this.state[fields.firstBankStatement.name]}
+
                   maxSize={10000000}/>
 
                 <Dropzone onDrop={this.onDrop} field={fields.secondBankStatement}
                   uploadUrl={this.state.bank_statement_url} orderNumber={2}
-                  tip={this.state[fields.secondBankStatement.name]}
-                  fileUrl={this.props.download_second_bank_statement_url}
+                  downloadUrl={this.props.download_second_bank_statement_url}
                   removeUrl={this.state.remove_second_bank_statement_url}
                   afterRemove={this.refresh}
+                  tip={this.state[fields.secondBankStatement.name]}
+
                   maxSize={10000000}/>
               </div>
 
@@ -305,7 +311,7 @@ var FormIncome = React.createClass({
 
     if (this.props.loan.borrower.first_w2) {
       state[fields.firstW2.name] = this.props.loan.borrower.first_w2.attachment_file_name;
-      state.remove_first_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.first_w2.id + '/remove_w2/';
+      state.remove_first_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/remove_w2/';
     } else {
       state[fields.firstW2.name] = fields.firstW2.placeholder;
       state.remove_first_w2_url =  'javascript:void(0)';
@@ -313,7 +319,7 @@ var FormIncome = React.createClass({
 
     if (this.props.loan.borrower.second_w2) {
       state[fields.secondW2.name] = this.props.loan.borrower.second_w2.attachment_file_name;
-      state.remove_second_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.second_w2.id + '/remove_w2/';
+      state.remove_second_w2_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/remove_w2/';
     } else {
       state[fields.secondW2.name] = fields.secondW2.placeholder;
       state.remove_second_w2_url =  'javascript:void(0)';
@@ -321,7 +327,7 @@ var FormIncome = React.createClass({
 
     if (this.props.loan.borrower.first_paystub) {
       state[fields.firstPaystub.name] = this.props.loan.borrower.first_paystub.attachment_file_name;
-      state.remove_first_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.first_paystub.id + '/remove_paystub/';
+      state.remove_first_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/remove_paystub/';
     } else {
       state[fields.firstPaystub.name] = fields.firstPaystub.placeholder;
       state.remove_first_paystub_url =  'javascript:void(0)';
@@ -329,7 +335,7 @@ var FormIncome = React.createClass({
 
     if (this.props.loan.borrower.second_paystub) {
       state[fields.secondPaystub.name] = this.props.loan.borrower.second_paystub.attachment_file_name;
-      state.remove_second_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.second_paystub.id + '/remove_paystub/';
+      state.remove_second_paystub_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/remove_paystub/';
     } else {
       state[fields.secondPaystub.name] = fields.secondPaystub.placeholder;
       state.remove_second_paystub_url =  'javascript:void(0)';
@@ -337,7 +343,7 @@ var FormIncome = React.createClass({
 
     if (this.props.loan.borrower.first_bank_statement) {
       state[fields.firstBankStatement.name] = this.props.loan.borrower.first_bank_statement.attachment_file_name;
-      state.remove_first_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.first_bank_statement.id + '/remove_bank_statement/';
+      state.remove_first_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/remove_bank_statement/';
     } else {
       state[fields.firstBankStatement.name] = fields.firstBankStatement.placeholder;
       state.remove_first_bank_statement_url =  'javascript:void(0)';
@@ -345,7 +351,7 @@ var FormIncome = React.createClass({
 
     if (this.props.loan.borrower.second_bank_statement) {
       state[fields.secondBankStatement.name] = this.props.loan.borrower.second_bank_statement.attachment_file_name;
-      state.remove_second_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.second_bank_statement.id + '/remove_bank_statement/';
+      state.remove_second_bank_statement_url =  '/borrower_uploader/' + this.props.loan.borrower.id + '/remove_bank_statement/';
     } else {
       state[fields.secondBankStatement.name] = fields.secondBankStatement.placeholder;
       state.remove_second_bank_statement_url =  'javascript:void(0)';
