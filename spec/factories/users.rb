@@ -3,7 +3,9 @@ FactoryGirl.define do
     borrower
 
     f.email { Faker::Internet.email }
-    f.password 'guest123'
-    f.password_confirmation 'guest123'
+
+    f.password 'password'
+    f.password_confirmation 'password'
+    f.confirmed_at Date.today
   end
 end
