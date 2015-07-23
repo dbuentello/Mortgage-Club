@@ -43,7 +43,6 @@ var Dropzone = React.createClass({
     accept: React.PropTypes.string,
     multiple: React.PropTypes.bool,
     uploadUrl: React.PropTypes.string,
-    orderNumber: React.PropTypes.number,
     tip: React.PropTypes.string,
     downloadUrl: React.PropTypes.string,
     removeUrl: React.PropTypes.string,
@@ -114,7 +113,6 @@ var Dropzone = React.createClass({
         // prepare formData object
         var formData = new FormData();
         formData.append('file', files[0]);
-        formData.append('order', this.props.orderNumber);
 
         // notify uploading
         $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploading.backgroundColor, color: this.props.uploading.color});
@@ -179,9 +177,6 @@ var Dropzone = React.createClass({
       $.ajax({
         url: this.props.removeUrl,
         method: 'DELETE',
-        data: {
-          order: this.props.orderNumber
-        },
         dataType: 'json',
         success: function(response) {
           // update tip
