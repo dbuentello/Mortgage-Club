@@ -5,6 +5,7 @@
 
 <% if @is_new_user %>
   <p><%= link_to 'Login', new_user_session_url %> to see your loan now, new user. Your default password: <%= @default_password %></p>
+  <b><p>Please change your password after your first login for security reason.</p></b>
 <% else %>
   <p>Because you've already had your own loan, we cannot show the loan you've been added as co-borrower for now. We will add this feature soon.</p>
 <% end %>
