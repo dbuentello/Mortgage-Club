@@ -59,6 +59,8 @@
 #
 
 class Loan < ActiveRecord::Base
+  resourcify
+
   belongs_to :user, inverse_of: :loans, foreign_key: 'user_id'
 
   has_one :borrower, through: :user
