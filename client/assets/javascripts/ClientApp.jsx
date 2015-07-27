@@ -10,8 +10,11 @@ var $ = require('jquery');
 var LoanInterface = require('./client/loans/edit/LoanInterface');
 var MortgageRates = require('./client/loans/MortgageRates');
 var LoanActivityInterface = require('./client/loans/show/LoanActivityInterface');
+var FlashHandler = require('mixins/FlashHandler');
 
 window.ClientApp = React.createClass({
+  mixins: [FlashHandler],
+
   contextTypes: {
     router: React.PropTypes.func
   },
@@ -54,8 +57,15 @@ window.ClientApp = React.createClass({
         <RouteHandler bootstrapData={this.props}/>
       </div>
     );
+  },
+
+  componentDidMount: function() {
+    // show flash message from Rails controller on this Client
+    var flashes = this.props.flashes;
+    this.showFlashes(flashes);
   }
 });
+
 
 var routes = (
   <Route name='app' path='/' handler={ClientApp}>

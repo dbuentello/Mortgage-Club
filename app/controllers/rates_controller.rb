@@ -40,8 +40,6 @@ class RatesController < ApplicationController
     }
     @loan.save
 
-    flash.delete(:success)
-
     render json: { message: "save loan successfully" }, status: :ok
   end
 
