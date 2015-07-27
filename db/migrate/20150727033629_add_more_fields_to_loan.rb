@@ -21,10 +21,10 @@ class AddMoreFieldsToLoan < ActiveRecord::Migration
     add_column :loans, :margin, :decimal, :precision => 11, :scale => 2
     add_column :loans, :pmi_annual_premium_mount, :decimal, :precision => 11, :scale => 2
     add_column :loans, :pmi_monthly_premium_amount, :decimal, :precision => 11, :scale => 2
-    add_column :loans, :pmi_monthly_premium_percent, :decimal, :precision => 11, :scale => 2
-    add_column :loans, :pmi_required, :decimal, :precision => 11, :scale => 2
-    add_column :loans, :apr, :decimal, :precision => 11, :scale => 2
-    add_column :loans, :price, :decimal, :precision => 11, :scale => 2
+    add_column :loans, :pmi_monthly_premium_percent, :decimal, :precision => 11, :scale => 4
+    add_column :loans, :pmi_required, :boolean
+    add_column :loans, :apr, :decimal, :precision => 11, :scale => 3
+    add_column :loans, :price, :decimal, :precision => 11, :scale => 3
     add_column :loans, :product_code, :string
     add_column :loans, :product_index, :integer
     add_column :loans, :total_margin_adjustment, :decimal, :precision => 11, :scale => 2
