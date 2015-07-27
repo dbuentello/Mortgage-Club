@@ -18,6 +18,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require_relative 'support/controller_helpers'
 require 'devise'
+require 'pundit/rspec'
 require 'capybara/rspec'
 require 'database_cleaner'
 
