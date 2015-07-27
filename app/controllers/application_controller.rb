@@ -53,11 +53,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    unless params[:controller] == "pages"
-      # don't clear flash in Rails pages, only for Client pages
-      flash.clear
-    end
-
     customized_flash
   end
 

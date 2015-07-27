@@ -7,11 +7,8 @@ var AssetsAndLiabilities = require('./FormAssetsAndLiabilities');
 var RealEstates = require('./FormRealEstates');
 var Declarations = require('./FormDeclarations');
 var ESigning = require('./FormESigning');
-var FlashHandler = require('mixins/FlashHandler');
 
 var LoanInterface = React.createClass({
-  mixins: [FlashHandler],
-
   getInitialState: function() {
     var loan = this.props.bootstrapData.currentLoan;
     var borrower_type = this.props.bootstrapData.borrower_type;
@@ -23,12 +20,6 @@ var LoanInterface = React.createClass({
       loan: loan,
       borrower_type: borrower_type
     };
-  },
-
-  componentDidMount: function() {
-    // show flash message from Rails controller
-    var flashes = this.props.bootstrapData.flashes;
-    this.showFlashes(flashes);
   },
 
   render: function() {
