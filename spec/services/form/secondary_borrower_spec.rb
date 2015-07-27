@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Form::SecondaryBorrower do
+describe Form::SecondaryBorrower, type: :model do
   before :all do
     user = FactoryGirl.build(:user, email: 'test1@gmail.com', password: '12345678',
       password_confirmation: '12345678')
@@ -35,6 +35,10 @@ describe Form::SecondaryBorrower do
     current_user = User.where(email: email).first
 
     expect(Form::SecondaryBorrower.check_existing_borrower(current_user, email)).to eq(false)
+  end
+
+  after :all do
+    User.destroy_all
   end
 
 end

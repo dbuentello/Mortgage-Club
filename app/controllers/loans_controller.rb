@@ -59,23 +59,6 @@ class LoansController < ApplicationController
 
   private
 
-  def set_loan
-    @loan = current_user.loans.first # get the first own loan
-    if @loan.present?
-      @borrower_type = :borrower
-    else
-      @loan = current_user.borrower.loan # or get the co-borrower relationship
-
-      if @loan.present?
-        @borrower_type = :secondary_borrower
-      else
-        @loan = Loan.initiate(current_user) # or create branch new one
-
-        @borrower_type = :borrower
-      end
-    end
-  end
-
   def loan_params
     params.require(:loan).permit(Loan::PERMITTED_ATTRS)
   end

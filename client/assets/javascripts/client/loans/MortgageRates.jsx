@@ -1,11 +1,13 @@
 var _ = require('lodash');
 var React = require('react/addons');
+var Navigation = require('react-router').Navigation;
+
 var LoaderMixin = require('mixins/LoaderMixin');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var MortgageRates = React.createClass({
-  mixins: [LoaderMixin, ObjectHelperMixin, TextFormatMixin],
+  mixins: [LoaderMixin, ObjectHelperMixin, TextFormatMixin, Navigation],
 
   componentDidMount: function() {
     $.ajax({
@@ -16,13 +18,26 @@ var MortgageRates = React.createClass({
       dataType: 'json',
       success: function(response) {
         var rates = this.getValue(response, 'Result.TransactionData.PRODUCTS.PRODUCT');
-        if (rates) {
-          rates = rates.reverse();
-        }
-        this.setState({loaded: true, rates: rates });
+        this.setState({ loaded: true, rates: rates });
       },
       error: function(response, status, error) {
 
+      }
+    });
+  },
+
+  onSelect: function(rate) {
+    // console.dir(rate);
+    $.ajax({
+      url: '/rates/select',
+      method: 'POST',
+      dataType: 'json',
+      data: {rate: rate},
+      success: function(response) {
+        this.context.router.transitionTo('new_loan');
+      }.bind(this),
+      error: function(response, status, error) {
+        alert(error);
       }
     });
   },
@@ -41,9 +56,9 @@ var MortgageRates = React.createClass({
         <div className='row mtl'>
           <div className='col-sm-6'>
             <span className='typeLowlight'>Sort by:</span>
-            <a className='clickable mlm' onClick={_.bind(this.sortBy, this, 'apr')}>APR</a>
-            <a className='clickable mll' onClick={_.bind(this.sortBy, this, 'pmt')}>Monthly Payment</a>
-            <a className='clickable mll' onClick={_.bind(this.sortBy, this, 'rate')}>Rate</a>
+            <a className='clickable mlm' onClick={_.bind(this.sortBy, null, 'apr')}>APR</a>
+            <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'pmt')}>Monthly Payment</a>
+            <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'rate')}>Rate</a>
           </div>
           <div className='col-sm-6 text-right'>
             <a className='btn btnSml btnAction'>Help me choose</a>
@@ -69,7 +84,7 @@ var MortgageRates = React.createClass({
                 {this.formatCurrency(rate.OriginationTotalClosingCost, '$')}
               </div>
               <div className='col-sm-3 pull-right text-right'>
-                <a className='btn btm Sml btnPrimary'>Select</a>
+                <a className='btn btm Sml btnPrimary' onClick={_.bind(this.onSelect, null, rate)}>Select</a>
               </div>
             </div>
           );
