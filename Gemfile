@@ -10,9 +10,12 @@ gem 'pg'
 # A set of responders modules to dry up your Rails 4.2+ app.
 # gem 'responders'
 
+# Flexible authentication solution for Rails with Warden
 gem 'devise', '~> 3.5'
-
+# Minimal authorization through OO design and pure Ruby classes
 gem 'pundit'
+# Role management library with resource scoping
+gem 'rolify'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
