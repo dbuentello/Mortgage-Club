@@ -25,6 +25,7 @@
 #
 
 class User < ActiveRecord::Base
+  rolify
   # Include default devise modules. Others available are:
   #  :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,

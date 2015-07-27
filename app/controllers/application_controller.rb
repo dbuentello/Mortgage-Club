@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   include ApplicationHelper
 
   # Prevent CSRF attacks by raising an exception.
