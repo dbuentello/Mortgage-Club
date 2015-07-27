@@ -12,6 +12,8 @@ gem 'pg'
 
 gem 'devise', '~> 3.5'
 
+gem 'pundit'
+
 # Use SCSS for stylesheets
 gem 'sass-rails'
 gem 'bootstrap-sass', '~> 3.3.1'
