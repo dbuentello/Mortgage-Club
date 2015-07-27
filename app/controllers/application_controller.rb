@@ -9,34 +9,51 @@ class ApplicationController < ActionController::Base
 
   private
 
-    def bootstrap(data={})
-      @bootstrap_data = {
-        currentUser: current_user.present? ? {
-          id: current_user.id,
-          firstName: current_user.first_name,
-          lastName: current_user.last_name
-        } : {},
-        flashes: customized_flash
-      }.merge!(data)
-    end
+  def set_loan
+    @loan = current_user.loans.first # get the first own loan
+    if @loan.present?
+      @borrower_type = :borrower
+    else
+      @loan = current_user.borrower.loan # or get the co-borrower relationship
 
-    def redirect_if_auth
-      if current_user
-        redirect_to new_loan_path
+      if @loan.present?
+        @borrower_type = :secondary_borrower
+      else
+        @loan = Loan.initiate(current_user) # or create branch new one
+
+        @borrower_type = :borrower
+      end
+    end
+  end
+
+  def bootstrap(data={})
+    @bootstrap_data = {
+      currentUser: current_user.present? ? {
+        id: current_user.id,
+        firstName: current_user.first_name,
+        lastName: current_user.last_name
+      } : {},
+      flashes: customized_flash
+    }.merge!(data)
+  end
+
+  def redirect_if_auth
+    if current_user
+      redirect_to new_loan_path
+    end
+  end
+
+  def customized_flash
+    customized_flash = {}
+    flash.each do |msg_type, message|
+      type = bootstrap_class_for(msg_type)
+
+      if type.present?
+        customized_flash[type] = message
       end
     end
 
-    def customized_flash
-      customized_flash = {}
-      flash.each do |msg_type, message|
-        type = bootstrap_class_for(msg_type)
-
-        if type.present?
-          customized_flash[type] = message
-        end
-      end
-
-      customized_flash
-    end
+    customized_flash
+  end
 
 end
