@@ -50,10 +50,10 @@ class LoansController < ApplicationController
 
         render json: { secondary_borrower: borrower.as_json(borrower_json_options) }, status: :ok
       else
-        render json: { message: 'invalid email or date of birth or social security number' }, status: :ok
+        render json: { message: 'Invalid email or date of birth or social security number' }, status: :ok
       end
     else
-      render json: { message: 'not found' }, status: :ok
+      render json: { message: 'Not found' }, status: :ok
     end
   end
 
