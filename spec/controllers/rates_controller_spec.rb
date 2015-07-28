@@ -6,7 +6,7 @@ describe RatesController do
       loan = FactoryGirl.create(:loan)
       login_with loan.user
 
-      rate_params = {
+      rate_param = {
         "EntityIndex" => "4",
         "EntityName" => "Bank of America",
         "FHAUpfrontPremiumAmount" => "0",
@@ -32,13 +32,16 @@ describe RatesController do
         "TotalSRPAdjustment" => "1.7"
       }
 
-      post :select, id: loan.id, rate: rate_params, format: :html
+      post :select, id: loan.id, rate: rate_param, format: :html
 
       assign_loan = assigns(:loan)
-      expect(assign_loan.lender_name).to eq(rate_params['EntityName'])
-      expect(assign_loan.price).to eq(BigDecimal.new(rate_params['Price']))
+      expect(assign_loan.lender_name).to eq(rate_param['EntityName'])
+      expect(assign_loan.price).to eq(BigDecimal.new(rate_param['Price']))
       expect(assign_loan.pmi_required).to eq(false)
-      expect(assign_loan.margin).to eq(BigDecimal.new(rate_params['Margin']))
+      expect(assign_loan.margin).to eq(BigDecimal.new(rate_param['Margin']))
+
+      expect(assign_loan.appraisal_fee).to be_truthy
+      expect(assign_loan.credit_report_fee).to be_truthy
     end
   end
 end
