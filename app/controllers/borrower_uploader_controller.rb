@@ -23,9 +23,11 @@ class BorrowerUploaderController < ApplicationController
           w2 = borrower.build_second_w2(attachment: params[:file])
           w2.save
         end
+      else
+        message = 'Missing param order'
       end
 
-      message = "Sucessfully for #{borrower.first_name}"
+      message ||= "Sucessfully for #{borrower.first_name}"
     end
 
     render json: { message: message }, status: :ok
@@ -54,9 +56,11 @@ class BorrowerUploaderController < ApplicationController
           paystub = borrower.build_second_paystub(attachment: params[:file])
           paystub.save
         end
+      else
+        message = 'Missing param order'
       end
 
-      message = "Sucessfully for #{borrower.first_name}"
+      message ||= "Sucessfully for #{borrower.first_name}"
     end
 
     render json: { message: message }, status: :ok
@@ -85,9 +89,11 @@ class BorrowerUploaderController < ApplicationController
           bank_statement = borrower.build_second_bank_statement(attachment: params[:file])
           bank_statement.save
         end
+      else
+        message = 'Missing param order'
       end
 
-      message = "Sucessfully for #{borrower.first_name}"
+      message ||= "Sucessfully for #{borrower.first_name}"
     end
 
     render json: { message: message }, status: :ok
