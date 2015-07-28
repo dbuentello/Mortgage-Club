@@ -17,8 +17,8 @@ var MortgageRates = React.createClass({
       context: this,
       dataType: 'json',
       success: function(response) {
-        var rates = this.getValue(response, 'Result.TransactionData.PRODUCTS.PRODUCT');
-        this.setState({ loaded: true, rates: rates });
+        // var rates = this.getValue(response, 'Result.TransactionData.PRODUCTS.PRODUCT');
+        this.setState({ loaded: true, rates: response });
       },
       error: function(response, status, error) {
 

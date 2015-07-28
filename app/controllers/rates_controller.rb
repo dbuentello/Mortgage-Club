@@ -13,8 +13,8 @@ class RatesController < ApplicationController
   def select
     @loan = @loan || Loan.find(params[:id])
 
+    # update loan attribute which can get from the font-end (already get by reading xml file)
     rate = params['rate']
-
     @loan.attributes = {
       lender_name: rate['EntityName'],
       fha_upfront_premium_amount: rate['FHAUpfrontPremiumAmount'],
@@ -37,6 +37,21 @@ class RatesController < ApplicationController
       total_price_adjustment: rate['TotalPriceAdjustment'],
       total_rate_adjustment: rate['TotalRateAdjustment'],
       srp_adjustment: rate['TotalSRPAdjustment']
+    }
+
+    # call LoanSifter API to get further fee info
+    fee = Rate.get_fee
+    @loan.attributes = {
+      appraisal_fee: fee[0]['RESPAFeeTotalCalculatedAmount'],
+      city_county_deed_stamp_fee: fee[1]['RESPAFeeTotalCalculatedAmount'],
+      credit_report_fee: fee[2]['RESPAFeeTotalCalculatedAmount'],
+      document_preparation_fee: fee[3]['RESPAFeeTotalCalculatedAmount'],
+      flood_certification: fee[4]['RESPAFeeTotalCalculatedAmount'],
+      origination_fee: fee[5]['RESPAFeeTotalCalculatedAmount'],
+      settlement_fee: fee[6]['RESPAFeeTotalCalculatedAmount'],
+      state_deed_tax_stamp_fee: fee[7]['RESPAFeeTotalCalculatedAmount'],
+      tax_related_service_fee: fee[8]['RESPAFeeTotalCalculatedAmount'],
+      title_insurance_fee: fee[9]['RESPAFeeTotalCalculatedAmount']
     }
     @loan.save
 
