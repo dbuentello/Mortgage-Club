@@ -29,7 +29,7 @@ FactoryGirl.define do
       create_list(:borrower_address, 2, borrower: borrower)
     end
 
-    factory :borrower_with_documents, parent: :loan do |f|
+    factory :borrower_with_documents do |f|
       first_w2
       second_w2
       first_paystub
@@ -38,17 +38,17 @@ FactoryGirl.define do
       second_bank_statement
     end
 
-    factory :borrower_with_w2, parent: :loan do |f|
+    factory :borrower_with_w2 do |f|
       first_w2
       second_w2
     end
 
-    factory :borrower_with_paystub, parent: :loan do |f|
+    factory :borrower_with_paystub do |f|
       first_paystub
       second_paystub
     end
 
-    factory :borrower_with_bank_statement, parent: :loan do |f|
+    factory :borrower_with_bank_statement do |f|
       first_bank_statement
       second_bank_statement
     end

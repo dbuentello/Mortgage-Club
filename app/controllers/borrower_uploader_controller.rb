@@ -107,13 +107,15 @@ class BorrowerUploaderController < ApplicationController
       w2 = borrower.first_w2
     when "2"
       w2 = borrower.second_w2
+    else
+      message = 'Missing param order'
     end
 
     if w2.present?
-      message = 'done removed'
+      message = "Done removed"
       w2.destroy
     else
-      message = "file not found"
+      message ||= "File not found"
     end
 
     render json: { message: message }, status: :ok
@@ -127,13 +129,15 @@ class BorrowerUploaderController < ApplicationController
       paystub = borrower.first_paystub
     when "2"
       paystub = borrower.second_paystub
+    else
+      message = 'Missing param order'
     end
 
     if paystub.present?
-      message = 'done removed'
+      message = "Done removed"
       paystub.destroy
     else
-      message = "file not found"
+      message ||= "File not found"
     end
 
     render json: { message: message }, status: :ok
@@ -147,13 +151,15 @@ class BorrowerUploaderController < ApplicationController
       bank_statement = borrower.first_bank_statement
     when "2"
       bank_statement = borrower.second_bank_statement
+    else
+      message = 'Missing param order'
     end
 
     if bank_statement.present?
-      message = 'done removed'
+      message = "Done removed"
       bank_statement.destroy
     else
-      message = "file not found"
+      message ||= "File not found"
     end
 
     render json: { message: message }, status: :ok
@@ -167,6 +173,8 @@ class BorrowerUploaderController < ApplicationController
       w2 = borrower.first_w2
     when "2"
       w2 = borrower.second_w2
+    else
+      message = 'Missing param order'
     end
 
     if w2.present?
