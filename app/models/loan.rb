@@ -46,10 +46,10 @@
 #  margin                         :decimal(11, 2)
 #  pmi_annual_premium_mount       :decimal(11, 2)
 #  pmi_monthly_premium_amount     :decimal(11, 2)
-#  pmi_monthly_premium_percent    :decimal(11, 2)
-#  pmi_required                   :decimal(11, 2)
-#  apr                            :decimal(11, 2)
-#  price                          :decimal(11, 2)
+#  pmi_monthly_premium_percent    :decimal(11, 4)
+#  pmi_required                   :boolean
+#  apr                            :decimal(11, 3)
+#  price                          :decimal(11, 3)
 #  product_code                   :string
 #  product_index                  :integer
 #  total_margin_adjustment        :decimal(11, 2)
