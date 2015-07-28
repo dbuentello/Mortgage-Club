@@ -56,6 +56,16 @@
 #  total_price_adjustment         :decimal(11, 2)
 #  total_rate_adjustment          :decimal(11, 2)
 #  srp_adjustment                 :decimal(11, 2)
+#  appraisal_fee                  :decimal(11, 2)
+#  city_county_deed_stamp_fee     :decimal(11, 2)
+#  credit_report_fee              :decimal(11, 2)
+#  document_preparation_fee       :decimal(11, 2)
+#  flood_certification            :decimal(11, 2)
+#  origination_fee                :decimal(11, 2)
+#  settlement_fee                 :decimal(11, 2)
+#  state_deed_tax_stamp_fee       :decimal(11, 2)
+#  tax_related_service_fee        :decimal(11, 2)
+#  title_insurance_fee            :decimal(11, 2)
 #
 
 class Loan < ActiveRecord::Base
