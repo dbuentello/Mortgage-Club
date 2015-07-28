@@ -119,7 +119,7 @@ describe BorrowerUploaderController do
   end
 
   context "remove" do
-    describe "POST remove_w2" do
+    describe "DELETE remove_w2" do
       it "should return warning when file cannot be found" do
         borrower = FactoryGirl.create(:borrower_with_w2)
         user = FactoryGirl.create(:user, borrower: borrower)
@@ -143,6 +143,74 @@ describe BorrowerUploaderController do
         expect(borrower.reload.first_w2).to be_nil
         expect(borrower.reload.second_w2).to be_truthy
       end
+    end
+
+    describe "DELETE remove_paystub" do
+      it "should return warning when file cannot be found" do
+        borrower = FactoryGirl.create(:borrower_with_paystub)
+        user = FactoryGirl.create(:user, borrower: borrower)
+        login_with user
+
+        delete :remove_paystub, id: user.borrower.id, format: :json
+
+        expect(JSON.parse(response.body)["message"]).to eq('Missing param order')
+        expect(borrower.reload.first_paystub).to be_truthy
+        expect(borrower.reload.second_paystub).to be_truthy
+      end
+
+      it "should remove file successfully when all params are right" do
+        borrower = FactoryGirl.create(:borrower_with_paystub)
+        user = FactoryGirl.create(:user, borrower: borrower)
+        login_with user
+
+        delete :remove_paystub, id: user.borrower.id, order: '1', format: :json
+
+        expect(JSON.parse(response.body)["message"]).to eq('Done removed')
+        expect(borrower.reload.first_paystub).to be_nil
+        expect(borrower.reload.second_paystub).to be_truthy
+      end
+    end
+
+    describe "DELETE remove_bank_statement" do
+      it "should return warning when file cannot be found" do
+        borrower = FactoryGirl.create(:borrower_with_bank_statement)
+        user = FactoryGirl.create(:user, borrower: borrower)
+        login_with user
+
+        delete :remove_bank_statement, id: user.borrower.id, format: :json
+
+        expect(JSON.parse(response.body)["message"]).to eq('Missing param order')
+        expect(borrower.reload.first_bank_statement).to be_truthy
+        expect(borrower.reload.second_bank_statement).to be_truthy
+      end
+
+      it "should remove file successfully when all params are right" do
+        borrower = FactoryGirl.create(:borrower_with_bank_statement)
+        user = FactoryGirl.create(:user, borrower: borrower)
+        login_with user
+
+        delete :remove_bank_statement, id: user.borrower.id, order: '1', format: :json
+
+        expect(JSON.parse(response.body)["message"]).to eq('Done removed')
+        expect(borrower.reload.first_bank_statement).to be_nil
+        expect(borrower.reload.second_bank_statement).to be_truthy
+      end
+    end
+  end
+
+  context "download" do
+    describe "GET download_w2" do
+      it "should return warning when file cannot be found" do
+        borrower = FactoryGirl.create(:borrower_with_w2)
+        user = FactoryGirl.create(:user, borrower: borrower)
+        login_with user
+
+        get :download_w2, id: user.borrower.id, format: :json
+
+        expect(JSON.parse(response.body)["message"]).to eq("You don't have this file yet. Try to upload it!")
+      end
+
+      # we cannot test for aws service in testing environment
     end
   end
 
