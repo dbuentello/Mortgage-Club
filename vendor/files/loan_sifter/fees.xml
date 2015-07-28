@@ -1,0 +1,116 @@
+<Result>
+  <MajorType>Success</MajorType>
+  <MinorType>Complete</MinorType>
+  <ResultMessage></ResultMessage>
+  <PricingResultHeader>
+    <Action>GetFees</Action>
+    <GUID>67c38fba-9074-43c9-a964-800a636aab1d</GUID>
+    <InputSetIndex>67374681</InputSetIndex>
+    <SelectedPrice>99</SelectedPrice>
+    <SelectedProductSetIndex>875308</SelectedProductSetIndex>
+    <SelectedRate>3</SelectedRate>
+  </PricingResultHeader>
+  <TransactionIdentifiers>
+    <OptimalBlueTransactionIdentifier>18960655</OptimalBlueTransactionIdentifier>
+    <PartnerTransactionIdentifier>XYZ</PartnerTransactionIdentifier>
+  </TransactionIdentifiers>
+  <LenderData>
+    <TimeZoneName>CST</TimeZoneName>
+    <TimeZoneDescription>Central</TimeZoneDescription>
+    <TimeZoneOffsetFromCST>0</TimeZoneOffsetFromCST>
+  </LenderData>
+  <TransactionData>
+    <RESPAFees>
+      <RESPAFee>
+        <FeeDetailHUDLineNumber>804</FeeDetailHUDLineNumber>
+        <RESPAFeeDisplayText>Appraisal Fee</RESPAFeeDisplayText>
+        <RESPAFeeItemDescription>AppraisalFee</RESPAFeeItemDescription>
+        <RESPAFeePaymentFinancedIndicator>1</RESPAFeePaymentFinancedIndicator>
+        <RESPAFeeSpecifiedFixedAmount>350</RESPAFeeSpecifiedFixedAmount>
+        <RESPAFeeTotalAmount_Percent>0.000000</RESPAFeeTotalAmount_Percent>
+        <RESPAFeeTotalCalculatedAmount>350</RESPAFeeTotalCalculatedAmount>
+      </RESPAFee>
+      <RESPAFee>
+        <FeeDetailHUDLineNumber>1204</FeeDetailHUDLineNumber>
+        <RESPAFeeDisplayText>City/County Deed Stamp Fee</RESPAFeeDisplayText>
+        <RESPAFeeItemDescription>CityCountyDeedTaxStampFee</RESPAFeeItemDescription>
+        <RESPAFeePaymentFinancedIndicator>1</RESPAFeePaymentFinancedIndicator>
+        <RESPAFeeSpecifiedFixedAmount>59</RESPAFeeSpecifiedFixedAmount>
+        <RESPAFeeTotalAmount_Percent>0.000000</RESPAFeeTotalAmount_Percent>
+        <RESPAFeeTotalCalculatedAmount>59</RESPAFeeTotalCalculatedAmount>
+      </RESPAFee>
+      <RESPAFee>
+        <FeeDetailHUDLineNumber>805</FeeDetailHUDLineNumber>
+        <RESPAFeeDisplayText>Credit Report Fee</RESPAFeeDisplayText>
+        <RESPAFeeItemDescription>CreditReportFee</RESPAFeeItemDescription>
+        <RESPAFeePaymentFinancedIndicator>1</RESPAFeePaymentFinancedIndicator>
+        <RESPAFeeSpecifiedFixedAmount>25</RESPAFeeSpecifiedFixedAmount>
+        <RESPAFeeTotalAmount_Percent>0.000000</RESPAFeeTotalAmount_Percent>
+        <RESPAFeeTotalCalculatedAmount>25</RESPAFeeTotalCalculatedAmount>
+      </RESPAFee>
+      <RESPAFee>
+        <FeeDetailHUDLineNumber></FeeDetailHUDLineNumber>
+        <RESPAFeeDisplayText>Document Preparation Fee</RESPAFeeDisplayText>
+        <RESPAFeeItemDescription>DocumentPreparationFee</RESPAFeeItemDescription>
+        <RESPAFeePaymentFinancedIndicator>1</RESPAFeePaymentFinancedIndicator>
+        <RESPAFeeSpecifiedFixedAmount>195</RESPAFeeSpecifiedFixedAmount>
+        <RESPAFeeTotalAmount_Percent>0.000000</RESPAFeeTotalAmount_Percent>
+        <RESPAFeeTotalCalculatedAmount>195</RESPAFeeTotalCalculatedAmount>
+      </RESPAFee>
+      <RESPAFee>
+        <FeeDetailHUDLineNumber>807</FeeDetailHUDLineNumber>
+        <RESPAFeeDisplayText>Flood Certification</RESPAFeeDisplayText>
+        <RESPAFeeItemDescription>FloodCertification</RESPAFeeItemDescription>
+        <RESPAFeePaymentFinancedIndicator>1</RESPAFeePaymentFinancedIndicator>
+        <RESPAFeeSpecifiedFixedAmount>25</RESPAFeeSpecifiedFixedAmount>
+        <RESPAFeeTotalAmount_Percent>0.000000</RESPAFeeTotalAmount_Percent>
+        <RESPAFeeTotalCalculatedAmount>25</RESPAFeeTotalCalculatedAmount>
+      </RESPAFee>
+      <RESPAFee>
+        <FeeDetailHUDLineNumber>801</FeeDetailHUDLineNumber>
+        <RESPAFeeDisplayText>Loan Origination Fee</RESPAFeeDisplayText>
+        <RESPAFeeItemDescription>LoanOriginationFee</RESPAFeeItemDescription>
+        <RESPAFeePaymentFinancedIndicator>1</RESPAFeePaymentFinancedIndicator>
+        <RESPAFeeSpecifiedFixedAmount>0</RESPAFeeSpecifiedFixedAmount>
+        <RESPAFeeTotalAmount_Percent>1.000000</RESPAFeeTotalAmount_Percent>
+        <RESPAFeeTotalCalculatedAmount>1000</RESPAFeeTotalCalculatedAmount>
+      </RESPAFee>
+      <RESPAFee>
+        <FeeDetailHUDLineNumber>1102</FeeDetailHUDLineNumber>
+        <RESPAFeeDisplayText>Settlement or Closing Fee</RESPAFeeDisplayText>
+        <RESPAFeeItemDescription>SettlementOrClosingFee</RESPAFeeItemDescription>
+        <RESPAFeePaymentFinancedIndicator>1</RESPAFeePaymentFinancedIndicator>
+        <RESPAFeeSpecifiedFixedAmount>295</RESPAFeeSpecifiedFixedAmount>
+        <RESPAFeeTotalAmount_Percent>0.000000</RESPAFeeTotalAmount_Percent>
+        <RESPAFeeTotalCalculatedAmount>295</RESPAFeeTotalCalculatedAmount>
+      </RESPAFee>
+      <RESPAFee>
+        <FeeDetailHUDLineNumber>1205</FeeDetailHUDLineNumber>
+        <RESPAFeeDisplayText>State Deed Tax Stamp Fee</RESPAFeeDisplayText>
+        <RESPAFeeItemDescription>StateDeedTaxStampFee</RESPAFeeItemDescription>
+        <RESPAFeePaymentFinancedIndicator>1</RESPAFeePaymentFinancedIndicator>
+        <RESPAFeeSpecifiedFixedAmount>25</RESPAFeeSpecifiedFixedAmount>
+        <RESPAFeeTotalAmount_Percent>0.000000</RESPAFeeTotalAmount_Percent>
+        <RESPAFeeTotalCalculatedAmount>25</RESPAFeeTotalCalculatedAmount>
+      </RESPAFee>
+      <RESPAFee>
+        <FeeDetailHUDLineNumber>806</FeeDetailHUDLineNumber>
+        <RESPAFeeDisplayText>Tax Related Service Fee</RESPAFeeDisplayText>
+        <RESPAFeeItemDescription>TaxRelatedServiceFee</RESPAFeeItemDescription>
+        <RESPAFeePaymentFinancedIndicator>1</RESPAFeePaymentFinancedIndicator>
+        <RESPAFeeSpecifiedFixedAmount>25</RESPAFeeSpecifiedFixedAmount>
+        <RESPAFeeTotalAmount_Percent>0.000000</RESPAFeeTotalAmount_Percent>
+        <RESPAFeeTotalCalculatedAmount>25</RESPAFeeTotalCalculatedAmount>
+      </RESPAFee>
+      <RESPAFee>
+        <FeeDetailHUDLineNumber>1101</FeeDetailHUDLineNumber>
+        <RESPAFeeDisplayText>Title Services or Lender's Title Insurance</RESPAFeeDisplayText>
+        <RESPAFeeItemDescription>TitleInsuranceFee</RESPAFeeItemDescription>
+        <RESPAFeePaymentFinancedIndicator>1</RESPAFeePaymentFinancedIndicator>
+        <RESPAFeeSpecifiedFixedAmount>65</RESPAFeeSpecifiedFixedAmount>
+        <RESPAFeeTotalAmount_Percent>0.000000</RESPAFeeTotalAmount_Percent>
+        <RESPAFeeTotalCalculatedAmount>65</RESPAFeeTotalCalculatedAmount>
+      </RESPAFee>
+    </RESPAFees>
+  </TransactionData>
+</Result>
