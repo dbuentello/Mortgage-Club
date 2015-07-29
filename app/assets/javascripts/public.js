@@ -15,7 +15,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 
-// Important to import jquery_ujs before rails-bundle as that patches jquery xhr to use the authenticity token!
+// Important to import jquery_ujs before bundle_PublicApp as that patches jquery xhr to use the authenticity token!
 
 //= require build/bundle_PublicApp
 

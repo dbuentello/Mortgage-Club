@@ -17,6 +17,7 @@ namespace :assets do
   end
 
   task :clobber do
-    rm_rf "#{RailsReactTutorial::Application.config.root}/app/assets/javascripts/rails-bundle.js"
+    rm_rf "#{Rails.root}/app/assets/javascripts/bundle_PublicApp.js"
+    rm_rf "#{Rails.root}/app/assets/javascripts/bundle_ClientApp.js"
   end
 end
