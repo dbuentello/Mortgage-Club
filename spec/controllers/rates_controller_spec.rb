@@ -4,7 +4,7 @@ describe RatesController do
   describe 'POST #select' do
     # include_context 'signed in user'
 
-    it 'should update the loan correctly as the json params' do
+    it 'updates the loan correctly as the json params' do
       loan = FactoryGirl.create(:loan)
       login_with loan.user
 

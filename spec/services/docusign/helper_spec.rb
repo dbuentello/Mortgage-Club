@@ -7,7 +7,7 @@ describe Docusign::Helper do
   let(:template) { base.create_template_object_from_name('Loan Estimation') }
 
   context "when run make_sure_template_name_and_id_exist" do
-    it "should return right data" do
+    it "returns right data" do
       template_docusign_id = base.helper.make_sure_template_name_and_id_exist(template_name: template.name)[:template_id]
       template_name = base.helper.make_sure_template_name_and_id_exist(template_id: template.docusign_id)[:template_name]
 
@@ -17,7 +17,7 @@ describe Docusign::Helper do
   end
 
   context "when run get_tabs_from_template" do
-    it "should return a hash of arrays" do
+    it "returns a hash of arrays" do
       result = base.helper.get_tabs_from_template(template_name: template.name)
 
       expect(result).to be_a(Hash)
