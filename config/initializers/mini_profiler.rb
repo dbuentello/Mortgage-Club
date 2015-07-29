@@ -1,4 +1,4 @@
-if Rails.env == 'development' && false
+if Rails.env.development? && false
   require 'rack-mini-profiler'
 
   # initialization is skipped so trigger it
