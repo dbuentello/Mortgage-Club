@@ -2,11 +2,10 @@ require 'rails_helper'
 
 describe RatesController do
   describe 'POST #select' do
-    # include_context 'signed in user'
+    include_context 'signed in user'
 
     it 'updates the loan correctly as the json params' do
-      loan = FactoryGirl.create(:loan)
-      login_with loan.user
+      loan = FactoryGirl.create(:loan, user: user)
 
       rate_param = {
         "EntityIndex" => "4",

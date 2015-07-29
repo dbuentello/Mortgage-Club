@@ -3,12 +3,10 @@ require 'rails_helper'
 describe BorrowerUploaderController do
   # ignore GET download actions because they use aws methods, which is not available in test environment
   context "upload" do
-    let(:user) { FactoryGirl.create(:user) }
+    include_context 'signed in user'
 
     describe "POST w2" do
       it "returns warning when file is blank" do
-        login_with user
-
         post :w2, id: user.borrower.id, format: :json
 
         expect(JSON.parse(response.body)["message"]).to eq('File not found')
@@ -17,8 +15,6 @@ describe BorrowerUploaderController do
       end
 
       it "returns warning when order is blank" do
-        login_with user
-
         file = File.new(Rails.root.join 'spec', 'files', 'sample.png')
 
         post :w2, id: user.borrower.id, file: file, format: :json
@@ -29,8 +25,6 @@ describe BorrowerUploaderController do
       end
 
       it "creates file when all params are right" do
-        login_with user
-
         file = File.new(Rails.root.join 'spec', 'files', 'sample.png')
 
         post :w2, id: user.borrower.id, file: file, order: '1', format: :json
@@ -43,16 +37,12 @@ describe BorrowerUploaderController do
 
     describe "POST paystub" do
       it "returns warning when file is blank" do
-        login_with user
-
         post :paystub, id: user.borrower.id, format: :json
 
         expect(JSON.parse(response.body)["message"]).to eq('File not found')
       end
 
       it "returns warning when order is blank" do
-        login_with user
-
         file = File.new(Rails.root.join 'spec', 'files', 'sample.png')
 
         post :paystub, id: user.borrower.id, file: file, format: :json
@@ -63,8 +53,6 @@ describe BorrowerUploaderController do
       end
 
       it "creates file when all params are right" do
-        login_with user
-
         file = File.new(Rails.root.join 'spec', 'files', 'sample.png')
 
         post :paystub, id: user.borrower.id, file: file, order: '1', format: :json
@@ -77,16 +65,12 @@ describe BorrowerUploaderController do
 
     describe "POST bank_statement" do
       it "returns warning when file is blank" do
-        login_with user
-
         post :bank_statement, id: user.borrower.id, format: :json
 
         expect(JSON.parse(response.body)["message"]).to eq('File not found')
       end
 
       it "returns warning when order is blank" do
-        login_with user
-
         file = File.new(Rails.root.join 'spec', 'files', 'sample.png')
 
         post :bank_statement, id: user.borrower.id, file: file, format: :json
@@ -97,8 +81,6 @@ describe BorrowerUploaderController do
       end
 
       it "creates file when all params are right" do
-        login_with user
-
         file = File.new(Rails.root.join 'spec', 'files', 'sample.png')
 
         post :bank_statement, id: user.borrower.id, file: file, order: '1', format: :json

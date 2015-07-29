@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 describe LoansController do
-  let(:loan) { FactoryGirl.create(:loan) }
+  include_context 'signed in user of loan'
   let(:other_user) { FactoryGirl.create(:user) }
+
   describe 'GET #new' do
     it 'assigns the requested loan to @loan' do
-      login_with loan.user
-
       get :new, id: loan.id, format: :html
       expect(assigns(:loan)).to eq(loan)
     end
@@ -14,8 +13,6 @@ describe LoansController do
 
   describe 'PUT #update' do
     it 'updates a loan and assigns loan to @loan' do
-      login_with loan.user
-
       put :update, id: loan.id, loan: FactoryGirl.attributes_for(:loan), format: :json
       expect(assigns(:loan)).to eq(loan)
     end
@@ -23,16 +20,12 @@ describe LoansController do
 
   describe 'GET #get_co_borrower_info' do
     it "returns warning when email hasn't been existed" do
-      login_with loan.user
-
       get :get_co_borrower_info, id: loan.id, email: "random_email@abc.com", format: :json
 
       expect(JSON.parse(response.body)["message"]).to eq('Not found')
     end
 
     it "returns warning when co-borrower info is not correct" do
-      login_with loan.user
-
       params = {
         id: loan.id,
         email: other_user.email,
@@ -44,8 +37,6 @@ describe LoansController do
     end
 
     it "returns warning when co-borrower info is enough" do
-      login_with loan.user
-
       params = {
         id: loan.id,
         email: other_user.email,
@@ -57,8 +48,6 @@ describe LoansController do
     end
 
     it "returns full co-borrower data when email, dob and ssn number are correct" do
-      login_with loan.user
-
       params = {
         id: loan.id,
         email: other_user.email,
