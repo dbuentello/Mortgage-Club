@@ -16,21 +16,21 @@ describe Form::SecondaryBorrower do
     user.save
   end
 
-  it 'should return true if the email has been existed' do
+  it 'returns true if the email has been existed' do
     email = 'test1@gmail.com'
     current_user = User.where(email: 'test2@gmail.com').first
 
     expect(Form::SecondaryBorrower.check_existing_borrower(current_user, email)).to eq(true)
   end
 
-  it 'should return false if the email has been existed but it is the same with the email of current user' do
+  it 'returns false if the email has been existed but it is the same with the email of current user' do
     email = 'test1@gmail.com'
     current_user = User.where(email: email).first
 
     expect(Form::SecondaryBorrower.check_existing_borrower(current_user, email)).to eq(false)
   end
 
-  it 'should return false if the email has not been existed' do
+  it 'returns false if the email has not been existed' do
     email = '***@gmail.com'
     current_user = User.where(email: email).first
 

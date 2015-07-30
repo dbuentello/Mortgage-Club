@@ -16,7 +16,6 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require_relative 'support/controller_helpers'
 require 'devise'
 require 'pundit/rspec'
 require 'capybara/rspec'
@@ -34,14 +33,6 @@ RSpec.configure do |config|
     DatabaseCleaner.cleaning do
       example.run
     end
-  end
-
-  # enable logging in as a user, to obtain current_user
-  config.include ControllerHelpers, type: :controller
-  Warden.test_mode!
-
-  config.after do
-    Warden.test_reset!
   end
 
   # rspec-expectations config goes here. You can use an alternate

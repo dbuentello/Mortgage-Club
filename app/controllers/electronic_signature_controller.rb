@@ -14,7 +14,7 @@ class ElectronicSignatureController < ApplicationController
     # handle none-existing template
     if template.blank?
       render json: {
-          message: "template does not exist yet",
+          message: "Template does not exist yet",
           details: "Template #{params[:template_name]} does not exist yet!"
         }, status: :ok
 

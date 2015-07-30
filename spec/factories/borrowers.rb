@@ -3,13 +3,6 @@ FactoryGirl.define do
     borrower_government_monitoring_info
     credit_report
 
-    first_bank_statement
-    second_bank_statement
-    first_paystub
-    second_paystub
-    first_w2
-    second_w2
-
     f.first_name { Faker::Name.first_name }
     f.last_name { Faker::Name.last_name }
     f.middle_name { Faker::Name.first_name }
@@ -34,6 +27,30 @@ FactoryGirl.define do
     after(:create) do |borrower, evaluator|
       create(:employment, borrower: borrower)
       create_list(:borrower_address, 2, borrower: borrower)
+    end
+
+    factory :borrower_with_documents do |f|
+      first_w2
+      second_w2
+      first_paystub
+      second_paystub
+      first_bank_statement
+      second_bank_statement
+    end
+
+    factory :borrower_with_w2 do |f|
+      first_w2
+      second_w2
+    end
+
+    factory :borrower_with_paystub do |f|
+      first_paystub
+      second_paystub
+    end
+
+    factory :borrower_with_bank_statement do |f|
+      first_bank_statement
+      second_bank_statement
     end
   end
 end
