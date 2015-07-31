@@ -1,0 +1,3 @@
+require 'finance'
+
+include Finance
