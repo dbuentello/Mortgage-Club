@@ -88,6 +88,9 @@ gem 'daemons'
 # dealing with money and currency conversion.
 gem 'money'
 
+# A library for financial calculations in Ruby
+gem 'finance'
+
 # A Ruby client library for Redis
 gem 'redis'
 
