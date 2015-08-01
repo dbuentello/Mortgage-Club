@@ -14,7 +14,7 @@ class TwilioService
     sms =  @client.messages.create(
       from: from,
       to: to,
-      body: "Hey there! I'm Hoang"
+      body: "Hey there! I'm Hoang from Twilio."
     )
   end
 
