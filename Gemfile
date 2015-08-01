@@ -94,6 +94,12 @@ gem 'finance'
 # A Ruby client library for Redis
 gem 'redis'
 
+# communicating with the Twilio API and generating TwiML
+gem 'twilio-ruby', '~> 4.2.1'
+
+# A Ruby wrapper for the Nexmo API
+gem 'nexmo'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
