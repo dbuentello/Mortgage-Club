@@ -21,3 +21,11 @@ end
 When /^I run the background jobs$/ do
   Delayed::Worker.new.work_off
 end
+
+When /^I should see content as "(.*)"$/ do |content|
+  expect(page).to have_content("#{content}")
+end
+
+Given /^I wait for (\d+) seconds?$/ do |n|
+  sleep(n.to_i)
+end
