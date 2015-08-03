@@ -24,7 +24,7 @@ FactoryGirl.define do
 
     f.dependent_count { Faker::Number.number(6) }
 
-    after(:create) do |borrower, evaluator|
+    after(:build) do |borrower, evaluator|
       create(:employment, borrower: borrower)
       create_list(:borrower_address, 2, borrower: borrower)
     end
