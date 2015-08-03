@@ -154,6 +154,12 @@ group :test do
 
   # Acceptance test framework for web applications
   gem 'capybara'
+  gem 'cucumber-rails', require: false
+  gem 'cucumber_factory'
+  gem 'spreewald'
+  gem 'launchy'
+  gem 'selenium-webdriver'
+  gem 'guard-rspec'
 end
 
 group :production do
