@@ -10,6 +10,7 @@ var $ = require('jquery');
 var LoanInterface = require('./client/loans/edit/LoanInterface');
 var MortgageRates = require('./client/loans/MortgageRates');
 var LoanActivityInterface = require('./client/loans/show/LoanActivityInterface');
+var Dashboard = require('./client/dashboard/show/Dashboard');
 var FlashHandler = require('mixins/FlashHandler');
 
 window.ClientApp = React.createClass({
@@ -33,9 +34,8 @@ window.ClientApp = React.createClass({
               <div className='col-xs-6 text-right'>
                 {user
                 ? <span>
-                    <span className='typeLowlight mrm'>
-                      Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!
-                    </span>
+                    <a className='mrm' href='/dashboard'>Dashboard</a>
+                    <span className='typeLowlight mrm'>Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!</span>
                     <a className='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
                   </span>
                 : <span>
@@ -72,6 +72,7 @@ var routes = (
     <Route name='new_loan' path='loans/new' handler={LoanInterface}/>
     <Route name='loan' path='loans/:id' handler={LoanActivityInterface}/>
     <Route name='rates' handler={MortgageRates}/>
+    <Route name='dashboard' path='dashboard' handler={Dashboard}/>
     <DefaultRoute handler={LoanActivityInterface}/>
   </Route>
 );

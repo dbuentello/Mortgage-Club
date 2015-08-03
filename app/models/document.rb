@@ -84,10 +84,18 @@ class Document < ActiveRecord::Base
     user.borrower == borrower
   end
 
+  def name
+    attachment_file_name
+  end
+
+  def url
+    attachment.url
+  end
+
   private
 
-    def set_private_token
-      self.token = Digest::MD5.hexdigest(Time.now.to_s)
-    end
+  def set_private_token
+    self.token = Digest::MD5.hexdigest(Time.now.to_s)
+  end
 
 end

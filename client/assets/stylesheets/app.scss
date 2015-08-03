@@ -76,3 +76,17 @@ $helpSectionWidth: 300px;
     width: 260px;
   }
 }
+
+.dashboard {
+  .dashboard-header {
+    padding-top: $topMenuHeight;
+  }
+  .nav-tabs {
+    margin-top: -42px;
+  }
+
+  .border-bottom {
+    border-bottom: 1px solid #e9e9e9;
+  }
+}
+

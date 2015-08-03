@@ -81,6 +81,10 @@ class Borrower < ActiveRecord::Base
     borrower_addresses.find_by(is_current: true)
   end
 
+  def display_current_address
+    current_address.try(:address).try(:address) || 'No Address'
+  end
+
   def previous_addresses
     borrower_addresses.where(is_current: false)
   end
