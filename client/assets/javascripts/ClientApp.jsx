@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 var React = require('react/addons');
 var Router = require('react-router');
 var DefaultRoute = Router.DefaultRoute;
@@ -5,8 +7,6 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 var AppStarter = require('./tools/AppStarter');
-var $ = require('jquery');
-
 var LoanInterface = require('./client/loans/edit/LoanInterface');
 var MortgageRates = require('./client/loans/MortgageRates');
 var LoanActivityInterface = require('./client/loans/show/LoanActivityInterface');

@@ -4,7 +4,7 @@ var UserInfo = React.createClass({
     var info = this.props.info;
     return (
       <div className='ptl'>
-        <h5 className='border-bottom'>Your Relationship Manager</h5>
+        <h5 className='bbs'>Your Relationship Manager</h5>
         <p className='typeEmphasize'>{info.firstName} {info.lastName}</p>
         <p><a href='mailto:{info.email}'>{info.email}</a></p>
       </div>
