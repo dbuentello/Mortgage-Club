@@ -26,14 +26,47 @@ var Dashboard = React.createClass({
           </div>
         </div>
         <div className='col-xs-12 plxl prxl backgroundLowlight'>
-          <ul className="nav nav-tabs" >
+          <ul className="nav nav-tabs" role="tablist">
             <li role="presentation" className="active">
+              <a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a>
+            </li>
+            <li role="presentation">
+              <a href="#property" aria-controls="property" role="tab" data-toggle="tab">Property</a>
+            </li>
+            <li role="presentation">
               <a href="#borrower" aria-controls="borrower" role="tab" data-toggle="tab">Borrower</a>
             </li>
+            <li role="presentation">
+              <a href="#loan" aria-controls="loan" role="tab" data-toggle="tab">Loan</a>
+            </li>
+            <li role="presentation">
+              <a href="#closing" aria-controls="closing" role="tab" data-toggle="tab">Closing</a>
+            </li>
+            <li role="presentation">
+              <a href="#contacts" aria-controls="contacts" role="tab" data-toggle="tab">Contacts</a>
+            </li>
           </ul>
+
           <div className='col-xs-7'>
             <div className="tab-content">
-              <BorrowerTab docList={docList}></BorrowerTab>
+              <div role="tabpanel" className="tab-pane fade in active" id="overview">
+                <BorrowerTab docList={docList}></BorrowerTab>
+              </div>
+              <div role="tabpanel" className="tab-pane fade" id="property">
+                property
+              </div>
+              <div role="tabpanel" className="tab-pane fade" id="borrower">
+                borrower
+              </div>
+              <div role="tabpanel" className="tab-pane fade" id="loan">
+                loan
+              </div>
+              <div role="tabpanel" className="tab-pane fade" id="closing">
+                closing
+              </div>
+              <div role="tabpanel" className="tab-pane fade" id="contacts">
+                contacts
+              </div>
             </div>
           </div>
           <div className='col-xs-5'>
