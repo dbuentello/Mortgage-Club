@@ -9,6 +9,11 @@
 
 class LoansMember < ActiveRecord::Base
 
+  ROLE_TITLES = {
+    admin: 'Loan Admin',
+    member: 'Loan Member'
+  }
+
   belongs_to :loan
   belongs_to :team_member
 
