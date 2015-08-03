@@ -47,4 +47,8 @@ class Property < ActiveRecord::Base
     vacation_home: 1,
     rental_property: 2
   }
+
+  def usage_name
+    usage.split('_').map(&:capitalize).join(' ')
+  end
 end
