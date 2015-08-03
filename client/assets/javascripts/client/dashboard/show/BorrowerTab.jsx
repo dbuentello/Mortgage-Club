@@ -5,7 +5,7 @@ var BorrowerTab = React.createClass({
     return (
       <div role="tabpanel" className="tab-pane active" id="borrower">
         <div className="box boxBasic backgroundBasic">
-          <div className='boxHead border-bottom'>
+          <div className='boxHead bbs'>
             <h3 className='typeBold plxl'>List Documents</h3>
           </div>
           <div className="boxBody ptm">
