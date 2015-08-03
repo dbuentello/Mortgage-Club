@@ -2,12 +2,16 @@ var _ = require('lodash');
 var React = require('react/addons');
 var BorrowerTab = require('./BorrowerTab');
 var UserInfo = require('./UserInfo');
+var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var Dashboard = React.createClass({
+  mixins: [TextFormatMixin],
   render: function() {
     var current_user = this.props.bootstrapData.currentUser;
     var docList = this.props.bootstrapData.doc_list;
     var address = this.props.bootstrapData.address;
+    var loan    = this.props.bootstrapData.loan;
+    var property = this.props.bootstrapData.property;
 
     return (
       <div className='dashboard'>
@@ -17,7 +21,7 @@ var Dashboard = React.createClass({
             </div>
             <div className='col-xs-6 ptl'>
               <h3 className='typeBold'>{address}</h3>
-              <h4>$800k 30-year fixed 80% LTV Primary Residence Purchase Loan</h4>
+              <h4>{this.formatCurrency(loan.amount, '$')}k {loan.duration}-year fixed {loan.percentage}% LTV {property.usage} {loan.purpose} Loan</h4>
             </div>
             <div className='col-xs-4 ptl'>
               <a className='btn btnSml btnSecondary mlm' href='#'>Edit Application</a>
