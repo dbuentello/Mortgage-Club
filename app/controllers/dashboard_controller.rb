@@ -8,16 +8,9 @@ class DashboardController < ApplicationController
     bootstrap(
       doc_list: borrower.documents.as_json(doc_list_json_option),
       address: borrower.display_current_address,
-      loan: {
-        amount: loan.amount,
-        duration: loan.num_of_months / 12,
-        type: loan.loan_type,
-        percentage: (loan.amount / property.purchase_price * 100).ceil,
-        purpose: loan.purpose.titleize
-      },
-      property: {
-        usage: property.usage_name
-      }
+      loan: loan.as_json(loan_json_options),
+      contact_list: contact_json_options,
+      property_list: property_json_options
     )
 
     respond_to do |format|
@@ -26,6 +19,84 @@ class DashboardController < ApplicationController
   end
 
   private
+
+  def property_json_options
+    [
+      {
+        file: {
+          name: 'sample_file.doc',
+          thumbnail: 'http://tinyurl.com/prj3bcx'
+        },
+        owner: 'Mortgage Club',
+        kind: 'Upload AVE Valuation',
+        modified_at: '2015-01-08'
+      },
+      {
+        file: {
+          name: 'redbell_cma.csv',
+          thumbnail: 'http://tinyurl.com/oldhgjj'
+        },
+        owner: 'Mortgage Club',
+        kind: 'Upload CMA / BPO',
+        modified_at: '2015-02-08'
+      },
+      {
+        file: {
+          name: 'Quick_valuation.csv',
+          thumbnail: 'http://tinyurl.com/oldhgjj'
+        },
+        owner: 'Mortgage Club',
+        kind: 'Upload Lending Home',
+        modified_at: '2015-01-09'
+      },
+      {
+        file: {
+          name: 'Final_valuation.doc',
+          thumbnail: 'http://tinyurl.com/prj3bcx'
+        },
+        owner: 'Mortgage Club',
+        kind: 'Upload Lending Home',
+        modified_at: '2015-01-09'
+      },
+    ]
+  end
+
+  def contact_json_options
+    [
+      {
+        name: 'Michael Gifford',
+        title: 'Relationship Manager',
+        email: 'michael@gmail.com',
+        avatar_url: 'http://tinyurl.com/7mclx3d'
+      },
+      {
+        name: 'Jerry Williams',
+        title: 'Loan Analyst',
+        email: 'jerry@gmail.com',
+        avatar_url: 'http://tinyurl.com/7mclx3d'
+      },
+      {
+        name: 'Kristina Rendon',
+        title: 'Insurance',
+        email: 'kristina@gmail.com',
+        avatar_url: 'http://tinyurl.com/7mclx3d'
+      }
+    ]
+  end
+
+  def loan_json_options
+    {
+      include: {
+        property: {
+          include: :address,
+          methods: :usage_name
+        }
+      },
+      methods: [
+        :num_of_years, :ltv_formula, :purpose_titleize
+      ]
+    }
+  end
 
   def doc_list_json_option
     {

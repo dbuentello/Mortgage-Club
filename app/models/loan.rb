@@ -113,4 +113,17 @@ class Loan < ActiveRecord::Base
   def income_completed
     borrower.income_completed?
   end
+
+  def num_of_years
+    num_of_months / 12
+  end
+
+  def ltv_formula
+    return unless property
+    (amount / property.purchase_price * 100).ceil
+  end
+
+  def purpose_titleize
+    purpose.titleize
+  end
 end

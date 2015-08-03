@@ -1,6 +1,8 @@
 var _ = require('lodash');
 var React = require('react/addons');
 var BorrowerTab = require('./BorrowerTab');
+var ContactTab = require('./ContactTab');
+var PropertyTab = require('./PropertyTab');
 var UserInfo = require('./UserInfo');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 
@@ -12,14 +14,16 @@ var Dashboard = React.createClass({
     var docList = this.props.bootstrapData.doc_list;
     var address = this.props.bootstrapData.address;
     var loan    = this.props.bootstrapData.loan;
-    var property = this.props.bootstrapData.property;
+    var property = this.props.bootstrapData.loan.property;
+    var contactList = this.props.bootstrapData.contact_list;
+    var propertyList = this.props.bootstrapData.property_list;
 
     return (
       <div className='dashboard content'>
         <div className='dashboard-header row mbl'>
           <div className='col-xs-offset-2 col-xs-6 ptl'>
             <h3 className='typeBold'>{address}</h3>
-            <h4>{this.formatCurrency(loan.amount, '$')}k {loan.duration}-year fixed {loan.percentage}% LTV {property.usage} {loan.purpose} Loan</h4>
+            <h4>{this.formatCurrency(loan.amount, '$')}k {loan.num_of_years}-year fixed {loan.ltv_formula}% LTV {property.usage_name} {loan.purpose_titleize} Loan</h4>
           </div>
           <div className='col-xs-4 ptl'>
             <a className='btn btnSml btnSecondary mlm' href='#'>Edit Application</a>
@@ -53,13 +57,12 @@ var Dashboard = React.createClass({
             <div className='left-side col-xs-7'>
               <div className="tab-content">
                 <div role="tabpanel" className="tab-pane fade in active" id="overview">
-                  <BorrowerTab docList={docList}></BorrowerTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="property">
-                  property
+                  <PropertyTab propertyList={propertyList}></PropertyTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="borrower">
-                  borrower
+                  <BorrowerTab docList={docList}></BorrowerTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="loan">
                   loan
@@ -68,7 +71,7 @@ var Dashboard = React.createClass({
                   closing
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="contacts">
-                  contacts
+                  <ContactTab contactList={contactList}></ContactTab>
                 </div>
               </div>
             </div>
