@@ -5,7 +5,7 @@ FactoryGirl.define do
 
     f.first_name { Faker::Name.first_name }
     f.last_name { Faker::Name.last_name }
-    f.middle_name { Faker::Name.first_name }
+    f.middle_name { Faker::Name.last_name }
     f.suffix { Faker::Name.suffix }
     f.dob { Date.today - Random.rand(21..100).to_i.years }
 
