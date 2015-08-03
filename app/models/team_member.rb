@@ -19,4 +19,7 @@
 class TeamMember < ActiveRecord::Base
   belongs_to :user
 
+  has_many :loans_members
+  has_many :loans, through: :loans_members
+
 end
