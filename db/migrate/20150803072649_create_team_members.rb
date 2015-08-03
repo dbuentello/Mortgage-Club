@@ -12,5 +12,7 @@ class CreateTeamMembers < ActiveRecord::Migration
       t.integer :user_id
       t.timestamps
     end
+
+    add_index(:team_members, :user_id)
   end
 end
