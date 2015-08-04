@@ -58,16 +58,7 @@ class LoanDocument < ActiveRecord::Base
 
   def set_description
     if description.blank?
-      case type
-      when 'HudEstimate'
-        self.description = "Estimated settlement statement"
-      when 'HudFinal'
-        self.description = "Final settlement statement"
-      when 'LoanEstimate'
-        self.description = "Loan estimate"
-      when 'UniformResidentialLendingApplication'
-        self.description = "Loan application form"
-      end
+      self.description = type.constantize::DESCRIPTION
     end
   end
 end

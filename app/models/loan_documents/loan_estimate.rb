@@ -16,6 +16,7 @@
 #
 
 class LoanEstimate < LoanDocument
+  DESCRIPTION = "Loan estimate"
 
   belongs_to :loan, inverse_of: :hud_estimate, foreign_key: 'owner_id'
 end

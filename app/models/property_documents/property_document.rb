@@ -58,28 +58,7 @@ class PropertyDocument < ActiveRecord::Base
 
   def set_description
     if description.blank?
-      case type
-      when 'AppraisalReport'
-        self.description = 'Appraised property value'
-      when 'HomeownersInsurance'
-        self.description = "Homeowner's insurance"
-      when 'MortgageStatement'
-        self.description = "Latest mortgage statement of subject property"
-      when 'LeaseAgreement'
-        self.description = "Lease agreement"
-      when 'PurchaseAgreement'
-        self.description = "Executed purchase agreement"
-      when 'FloodZoneCertification'
-        self.description = "Flood zone certification"
-      when 'TermiteReport'
-        self.description = "Termite report"
-      when 'InspectionReport'
-        self.description = "Home inspection report"
-      when 'TitleReport'
-        self.description = "Preliminary title report"
-      when 'RiskReport'
-        self.description = "Home seller's disclosure report"
-      end
+      self.description = type.constantize::DESCRIPTION
     end
   end
 end

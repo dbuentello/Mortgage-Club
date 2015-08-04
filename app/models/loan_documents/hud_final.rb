@@ -16,6 +16,7 @@
 #
 
 class HudFinal < LoanDocument
+  DESCRIPTION = "Final settlement statement"
 
   belongs_to :loan, inverse_of: :hud_estimate, foreign_key: 'owner_id'
 end

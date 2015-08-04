@@ -16,6 +16,7 @@
 #
 
 class LeaseAgreement < PropertyDocument
+  DESCRIPTION = "Lease agreement"
 
   belongs_to :property, inverse_of: :appraisal_report, foreign_key: 'owner_id'
 end

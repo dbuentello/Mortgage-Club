@@ -16,6 +16,7 @@
 #
 
 class TitleReport < PropertyDocument
+  DESCRIPTION = "Preliminary title report"
 
   belongs_to :property, inverse_of: :appraisal_report, foreign_key: 'owner_id'
 end
