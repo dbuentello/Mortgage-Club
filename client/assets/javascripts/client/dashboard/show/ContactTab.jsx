@@ -16,7 +16,7 @@ var ContactTab = React.createClass({
             {
               _.map(this.props.contactList, function(contact) {
                 return (
-                  <li>
+                  <li key={contact.id}>
                     <div className='col-xs-1 ptl'>
                       <img src={contact.avatar_url} className="img-circle" width="40px" height="30px"/>
                     </div>

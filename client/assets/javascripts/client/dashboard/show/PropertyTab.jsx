@@ -25,7 +25,7 @@ var PropertyTab = React.createClass({
             {
               _.map(this.props.propertyList.property_documents, function(document) {
                 return (
-                  <tr>
+                  <tr key={document.id}>
                     <td>
                       <span><img src={document.file_icon_url} width="40px" height="30px"/></span>
                       &nbsp;&nbsp;&nbsp;

@@ -1,7 +1,12 @@
 var _ = require('lodash');
 var React = require('react/addons');
+var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var LoanTab = React.createClass({
+  mixins: [TextFormatMixin],
+  getDownloadUrl: function(id, type) {
+    return '/loan_document_uploader/' + id + '/download?type=' + type
+  },
   render: function() {
     return (
       <div className="box boxBasic backgroundBasic">
@@ -18,25 +23,23 @@ var LoanTab = React.createClass({
             </thead>
             <tbody>
             {
-              _.map(this.props.loanList, function(loan) {
+              _.map(this.props.loanList.loan_documents, function(document) {
                 return (
-                  <tr>
+                  <tr key={document.id}>
                     <td>
-                      <span><img src={loan.file.url} width="40px" height="30px"/></span>
+                      <span><img src={document.file_icon_url} width="40px" height="30px"/></span>
                       &nbsp;&nbsp;&nbsp;
-                      <span>{loan.file.name}</span>
+                      <span>{document.attachment_file_name}</span>
                     </td>
-                    <td>{loan.owner}</td>
-                    <td>{loan.kind}</td>
-                    <td>{loan.modified_at}</td>
+                    <td>Mortgage Club</td>
+                    <td>{document.description}</td>
+                    <td>{this.isoToUsDate(document.updated_at)}</td>
                     <td>
-                      <select className="selectpicker">
-                        <option></option>
-                      </select>
+                      <a href={this.getDownloadUrl(document.id, document.class_name)} download><i className="iconDownload"></i></a>
                     </td>
                   </tr>
                 )
-              })
+              }, this)
             }
             </tbody>
           </table>

@@ -11,7 +11,7 @@ class DashboardController < ApplicationController
       loan: loan.as_json(loan_json_options),
       contact_list: contact_list_json_options,
       property_list: property.as_json(property_list_json_options),
-      loan_list: loan_list_json_options
+      loan_list: loan.as_json(loan_list_json_options)
     )
 
     respond_to do |format|
@@ -22,58 +22,16 @@ class DashboardController < ApplicationController
   private
 
   def loan_list_json_options
-    [
-      {
-        file: {
-          name: 'sample_file.doc',
-          url: 'http://tinyurl.com/prj3bcx'
-        },
-        owner: 'Mortgage Club',
-        kind: 'Upload AVE Valuation',
-        modified_at: '2015-01-08'
-      },
-      {
-        file: {
-          name: 'redbell_cma.csv',
-          url: 'http://tinyurl.com/oldhgjj'
-        },
-        owner: 'Mortgage Club',
-        kind: 'Upload CMA / BPO',
-        modified_at: '2015-02-08'
-      },
-      {
-        file: {
-          name: 'Quick_valuation.csv',
-          url: 'http://tinyurl.com/oldhgjj'
-        },
-        owner: 'Mortgage Club',
-        kind: 'Upload Lending Home',
-        modified_at: '2015-01-09'
-      },
-      {
-        file: {
-          name: 'Final_valuation.doc',
-          url: 'http://tinyurl.com/prj3bcx'
-        },
-        owner: 'Mortgage Club',
-        kind: 'Upload Lending Home',
-        modified_at: '2015-01-09'
-      },
-    ]
+    {
+      include: {
+        loan_documents: {
+          methods: [:file_icon_url, :class_name]
+        }
+      }
+    }
   end
 
   def property_list_json_options
-    # [
-    #   {
-    #     file: {
-    #       name: 'sample_file.doc',
-    #       url: 'http://tinyurl.com/prj3bcx'
-    #     },
-    #     owner: 'Mortgage Club',
-    #     kind: 'Upload AVE Valuation',
-    #     modified_at: '2015-01-08'
-    #   }
-    # ]
     {
       include: {
         property_documents: {

@@ -1,4 +1,4 @@
-class PropertyDocumentUploaderController < ApplicationController
+class LoanDocumentUploaderController < ApplicationController
   # TODO: refactor with other document uploaders
   def download
     return unless params[:type].present? && params[:id].present?

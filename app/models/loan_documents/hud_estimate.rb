@@ -18,5 +18,6 @@
 class HudEstimate < LoanDocument
   DESCRIPTION = "Estimated settlement statement"
 
-  belongs_to :loan, inverse_of: :hud_estimate, foreign_key: 'owner_id'
+  belongs_to :loan, inverse_of: :hud_estimate, foreign_key: 'loan_id'
+  belongs_to :owner, polymorphic: true
 end
