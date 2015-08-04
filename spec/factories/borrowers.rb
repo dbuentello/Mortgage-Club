@@ -5,7 +5,7 @@ FactoryGirl.define do
 
     f.first_name { Faker::Name.first_name }
     f.last_name { Faker::Name.last_name }
-    f.middle_name { Faker::Name.first_name }
+    f.middle_name { Faker::Name.last_name }
     f.suffix { Faker::Name.suffix }
     f.dob { Date.today - Random.rand(21..100).to_i.years }
 
@@ -24,7 +24,7 @@ FactoryGirl.define do
 
     f.dependent_count { Faker::Number.number(6) }
 
-    after(:create) do |borrower, evaluator|
+    after(:build) do |borrower, evaluator|
       create(:employment, borrower: borrower)
       create_list(:borrower_address, 2, borrower: borrower)
     end

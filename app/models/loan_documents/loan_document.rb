@@ -1,10 +1,13 @@
 # == Schema Information
 #
-# Table name: documents
+# Table name: loan_documents
 #
 #  id                      :integer          not null, primary key
 #  type                    :string
 #  owner_id                :integer
+#  description             :string
+#  created_at              :datetime
+#  updated_at              :datetime
 #  attachment_file_name    :string
 #  attachment_content_type :string
 #  attachment_file_size    :integer
@@ -12,7 +15,7 @@
 #  token                   :string
 #
 
-class Document < ActiveRecord::Base
+class LoanDocument < ActiveRecord::Base
 
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',
@@ -39,19 +42,12 @@ class Document < ActiveRecord::Base
   EXPIRE_VIEW_SECONDS = 3
 
   before_validation :set_private_token, :on => :create
+  before_validation :set_description
 
   def downloadable?(user)
-    return false if borrower.blank? || user.blank? || user.borrower.blank?
+    # return false if borrower.blank? || user.blank? || user.borrower.blank?
 
-    user.borrower == borrower
-  end
-
-  def name
-    attachment_file_name
-  end
-
-  def url
-    attachment.url
+    # user.borrower == borrower
   end
 
   private
@@ -60,4 +56,9 @@ class Document < ActiveRecord::Base
     self.token = Digest::MD5.hexdigest(Time.now.to_s)
   end
 
+  def set_description
+    if description.blank?
+      self.description = type.constantize::DESCRIPTION
+    end
+  end
 end

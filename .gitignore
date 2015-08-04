@@ -15,9 +15,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/public/assets
-/uploads
-/documents
+
+# Test files
+/public/uploads
+
+# Local generated files
 webpack-bundle.js
 webpack-bundle.js.map
 bundle_ClientApp.js
