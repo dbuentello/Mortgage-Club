@@ -1,9 +1,12 @@
 var _ = require('lodash');
 var React = require('react/addons');
+
+var OverviewTab = require('./OverviewTab');
 var BorrowerTab = require('./BorrowerTab');
 var ContactTab = require('./ContactTab');
 var PropertyTab = require('./PropertyTab');
 var LoanTab = require('./LoanTab');
+var ClosingTab = require('./ClosingTab');
 var UserInfo = require('./UserInfo');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 
@@ -59,6 +62,7 @@ var Dashboard = React.createClass({
             <div className='left-side col-xs-8'>
               <div className="tab-content">
                 <div role="tabpanel" className="tab-pane fade in active" id="overview">
+                  <OverviewTab></OverviewTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="property">
                   <PropertyTab propertyList={propertyList}></PropertyTab>
@@ -70,7 +74,7 @@ var Dashboard = React.createClass({
                   <LoanTab loanList={loanList}></LoanTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="closing">
-                  closing
+                  <ClosingTab></ClosingTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="contacts">
                   <ContactTab contactList={contactList}></ContactTab>
