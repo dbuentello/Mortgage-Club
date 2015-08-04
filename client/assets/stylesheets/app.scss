@@ -76,3 +76,17 @@ $helpSectionWidth: 300px;
     width: 260px;
   }
 }
+
+.box {
+  position: relative;
+  .boxHead {
+    padding: 0 21px;
+  }
+  .boxBody {
+    padding: 0 21px;
+  }
+  .boxFoot {
+    padding: 0;
+    margin: 0 21px;
+  }
+}

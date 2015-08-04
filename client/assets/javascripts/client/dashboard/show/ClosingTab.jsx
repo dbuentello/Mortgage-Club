@@ -6,10 +6,10 @@ var ClosingTab = React.createClass({
     return (
       <div className="box boxBasic backgroundBasic">
         <div className='boxHead bbs'>
-          <h3 className='typeBold plxl'>We are still waiting on some of your checklist items</h3>
+          <h3 className='typeBold'>Closing Tab content</h3>
         </div>
-        <div className="boxBody ptm">
-          Go ahead and click 'Get Started' on the items below to start working through your open items
+        <div className="boxBody">
+          ...
         </div>
       </div>
     )
