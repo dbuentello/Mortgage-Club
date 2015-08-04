@@ -9,8 +9,9 @@ class DashboardController < ApplicationController
       doc_list: borrower.documents.as_json(doc_list_json_option),
       address: borrower.display_current_address,
       loan: loan.as_json(loan_json_options),
-      contact_list: contact_json_options,
-      property_list: property_json_options
+      contact_list: contact_list_json_options,
+      property_list: property_list_json_options,
+      loan_list: loan_list_json_options
     )
 
     respond_to do |format|
@@ -20,12 +21,12 @@ class DashboardController < ApplicationController
 
   private
 
-  def property_json_options
+  def loan_list_json_options
     [
       {
         file: {
           name: 'sample_file.doc',
-          thumbnail: 'http://tinyurl.com/prj3bcx'
+          url: 'http://tinyurl.com/prj3bcx'
         },
         owner: 'Mortgage Club',
         kind: 'Upload AVE Valuation',
@@ -34,7 +35,7 @@ class DashboardController < ApplicationController
       {
         file: {
           name: 'redbell_cma.csv',
-          thumbnail: 'http://tinyurl.com/oldhgjj'
+          url: 'http://tinyurl.com/oldhgjj'
         },
         owner: 'Mortgage Club',
         kind: 'Upload CMA / BPO',
@@ -43,7 +44,7 @@ class DashboardController < ApplicationController
       {
         file: {
           name: 'Quick_valuation.csv',
-          thumbnail: 'http://tinyurl.com/oldhgjj'
+          url: 'http://tinyurl.com/oldhgjj'
         },
         owner: 'Mortgage Club',
         kind: 'Upload Lending Home',
@@ -52,7 +53,7 @@ class DashboardController < ApplicationController
       {
         file: {
           name: 'Final_valuation.doc',
-          thumbnail: 'http://tinyurl.com/prj3bcx'
+          url: 'http://tinyurl.com/prj3bcx'
         },
         owner: 'Mortgage Club',
         kind: 'Upload Lending Home',
@@ -61,7 +62,48 @@ class DashboardController < ApplicationController
     ]
   end
 
-  def contact_json_options
+  def property_list_json_options
+    [
+      {
+        file: {
+          name: 'sample_file.doc',
+          url: 'http://tinyurl.com/prj3bcx'
+        },
+        owner: 'Mortgage Club',
+        kind: 'Upload AVE Valuation',
+        modified_at: '2015-01-08'
+      },
+      {
+        file: {
+          name: 'redbell_cma.csv',
+          url: 'http://tinyurl.com/oldhgjj'
+        },
+        owner: 'Mortgage Club',
+        kind: 'Upload CMA / BPO',
+        modified_at: '2015-02-08'
+      },
+      {
+        file: {
+          name: 'Quick_valuation.csv',
+          url: 'http://tinyurl.com/oldhgjj'
+        },
+        owner: 'Mortgage Club',
+        kind: 'Upload Lending Home',
+        modified_at: '2015-01-09'
+      },
+      {
+        file: {
+          name: 'Final_valuation.doc',
+          url: 'http://tinyurl.com/prj3bcx'
+        },
+        owner: 'Mortgage Club',
+        kind: 'Upload Lending Home',
+        modified_at: '2015-01-09'
+      },
+    ]
+  end
+
+  def contact_list_json_options
     [
       {
         name: 'Michael Gifford',
@@ -101,7 +143,7 @@ class DashboardController < ApplicationController
   def doc_list_json_option
     {
       only: [:id],
-      methods: [:name, :url]
+      methods: [:name, :long_live_url]
     }
   end
 end

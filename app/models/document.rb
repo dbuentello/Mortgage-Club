@@ -51,7 +51,16 @@ class Document < ActiveRecord::Base
   end
 
   def url
-    attachment.url
+    Amazon::GetUrlService.new(attachment.s3_object).call
+  end
+
+  # use below url at Dashboard#BorrowerTab
+  def long_live_url
+    Amazon::GetUrlService.new(attachment.s3_object, 10.minutes).call
+  end
+
+  def attachment_thumb_image
+    Amazon::GetUrlService.new(attachment.s3_object, 10.minutes).call
   end
 
   private

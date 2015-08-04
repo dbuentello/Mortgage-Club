@@ -3,6 +3,7 @@ var React = require('react/addons');
 var BorrowerTab = require('./BorrowerTab');
 var ContactTab = require('./ContactTab');
 var PropertyTab = require('./PropertyTab');
+var LoanTab = require('./LoanTab');
 var UserInfo = require('./UserInfo');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 
@@ -17,6 +18,7 @@ var Dashboard = React.createClass({
     var property = this.props.bootstrapData.loan.property;
     var contactList = this.props.bootstrapData.contact_list;
     var propertyList = this.props.bootstrapData.property_list;
+    var loanList = this.props.bootstrapData.loan_list;
 
     return (
       <div className='dashboard content'>
@@ -65,7 +67,7 @@ var Dashboard = React.createClass({
                   <BorrowerTab docList={docList}></BorrowerTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="loan">
-                  loan
+                  <LoanTab loanList={loanList}></LoanTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="closing">
                   closing

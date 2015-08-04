@@ -11,8 +11,8 @@ var PropertyTab = React.createClass({
                 <tr>
                   <th>Name</th>
                   <th>Owner</th>
-                  <th>Kind</th>
-                  <th>Modified</th>
+                  <th>Description</th>
+                  <th>Date modified</th>
                   <th></th>
                 </tr>
               </thead>
@@ -22,7 +22,7 @@ var PropertyTab = React.createClass({
                   return (
                     <tr>
                       <td>
-                        <span><img src={property.file.thumbnail} width="40px" height="30px"/></span>
+                        <span><img src={property.file.url} width="40px" height="30px"/></span>
                         &nbsp;&nbsp;&nbsp;
                         <span>{property.file.name}</span>
                       </td>
@@ -30,9 +30,7 @@ var PropertyTab = React.createClass({
                       <td>{property.kind}</td>
                       <td>{property.modified_at}</td>
                       <td>
-                        <select className="selectpicker">
-                          <option></option>
-                        </select>
+                        <a href='#' download><i className="iconDownload"></i></a>
                       </td>
                     </tr>
                   )
