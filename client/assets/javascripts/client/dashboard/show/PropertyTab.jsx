@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var React = require('react/addons');
+
 var PropertyTab = React.createClass({
   render: function() {
     return (

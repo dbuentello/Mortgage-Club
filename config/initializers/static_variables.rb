@@ -43,5 +43,4 @@ else
   PAPERCLIP = {
     default_path: ':class/:token/:filename'
   }
-
 end
