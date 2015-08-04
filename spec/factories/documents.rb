@@ -1,22 +1,33 @@
 FactoryGirl.define do
   factory :document do |f|
-    f.type { ['BankStatement', 'BrokerageStatement', 'Paystub', 'W2'].sample }
+    f.type { ['Documents::FirstW2', 'Documents::SecondW2', 'Documents::FirstPaystub',
+      'Documents::SecondPaystub', 'Documents::FirstBankStatement',
+      'Documents::SecondBankStatement'].sample }
+
     f.attachment File.new(Rails.root.join 'spec', 'files', 'sample.png')
-  end
 
-  factory :bank_statement, parent: :document do |f|
-    f.type 'BankStatement'
-  end
+    factory :first_w2 do
+      type { 'Documents::FirstW2' }
+    end
 
-  factory :brokerage_statement, parent: :document do |f|
-    f.type 'BrokerageStatement'
-  end
+    factory :second_w2 do
+      type { 'Documents::SecondW2' }
+    end
 
-  factory :paystub, parent: :document do |f|
-    f.type 'Paystub'
-  end
+    factory :first_paystub do
+      type { 'Documents::FirstPaystub' }
+    end
 
-  factory :w2, parent: :document do |f|
-    f.type 'W2'
+    factory :second_paystub do
+      type { 'Documents::SecondPaystub' }
+    end
+
+    factory :first_bank_statement do
+      type { 'Documents::FirstBankStatement' }
+    end
+
+    factory :second_bank_statement do
+      type { 'Documents::SecondBankStatement' }
+    end
   end
 end
