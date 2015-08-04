@@ -16,10 +16,10 @@ var BorrowerTab = React.createClass({
             <ul style={ulStyle}>
               {
                 _.map(this.props.docList, function(doc) {
-                  return(
-                    <li>
+                  return (
+                    <li key={doc.id}>
                       <div className='col-xs-1 ptl'>
-                        <img src={doc.long_live_url} width="40px" height="30px"/>
+                        <img src={doc.file_icon_url} width="40px" height="30px"/>
                       </div>
                       <div className='col-xs-11 ptl'>
                         <p><a href={doc.url}>{doc.name}</a></p>

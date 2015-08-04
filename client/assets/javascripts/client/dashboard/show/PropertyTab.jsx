@@ -1,7 +1,12 @@
 var _ = require('lodash');
 var React = require('react/addons');
+var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var PropertyTab = React.createClass({
+  mixins: [TextFormatMixin],
+  getDownloadUrl: function(id, type) {
+    return '/property_document_uploader/' + id + '/download?type=' + type
+  },
   render: function() {
     return (
       <div className="box boxBasic backgroundBasic">
@@ -18,23 +23,23 @@ var PropertyTab = React.createClass({
             </thead>
             <tbody>
             {
-              _.map(this.props.propertyList, function(property) {
+              _.map(this.props.propertyList.property_documents, function(document) {
                 return (
                   <tr>
                     <td>
-                      <span><img src={property.file.url} width="40px" height="30px"/></span>
+                      <span><img src={document.file_icon_url} width="40px" height="30px"/></span>
                       &nbsp;&nbsp;&nbsp;
-                      <span>{property.file.name}</span>
+                      <span>{document.attachment_file_name}</span>
                     </td>
-                    <td>{property.owner}</td>
-                    <td>{property.kind}</td>
-                    <td>{property.modified_at}</td>
+                    <td>Mortgage Club</td>
+                    <td>{document.description}</td>
+                    <td>{this.isoToUsDate(document.updated_at)}</td>
                     <td>
-                      <a href='#' download><i className="iconDownload"></i></a>
+                      <a href={this.getDownloadUrl(document.id, document.class_name)} download><i className="iconDownload"></i></a>
                     </td>
                   </tr>
                 )
-              })
+              }, this)
             }
             </tbody>
           </table>

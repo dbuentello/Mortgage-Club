@@ -13,6 +13,7 @@
 #
 
 class Document < ActiveRecord::Base
+  include Documentation
 
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',
@@ -52,11 +53,6 @@ class Document < ActiveRecord::Base
 
   def url
     Amazon::GetUrlService.new(attachment.s3_object).call
-  end
-
-  # use below url at Dashboard#BorrowerTab
-  def long_live_url
-    Amazon::GetUrlService.new(attachment.s3_object, 10.minutes).call
   end
 
   private
