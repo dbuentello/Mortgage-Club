@@ -59,10 +59,6 @@ class Document < ActiveRecord::Base
     Amazon::GetUrlService.new(attachment.s3_object, 10.minutes).call
   end
 
-  def attachment_thumb_image
-    Amazon::GetUrlService.new(attachment.s3_object, 10.minutes).call
-  end
-
   private
 
   def set_private_token
