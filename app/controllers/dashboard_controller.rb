@@ -77,7 +77,7 @@ class DashboardController < ApplicationController
     {
       include: {
         property_documents: {
-          methods: :file_icon_url
+          methods: [:file_icon_url, :class_name]
         }
       }
     }
