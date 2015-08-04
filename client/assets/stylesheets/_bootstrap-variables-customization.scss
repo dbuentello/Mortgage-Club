@@ -2,6 +2,13 @@
 
 $rails: false !default;  // defaults to false (e.g. webpack environment)
 
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
 // Define a custom font.
 // Libsass, which is used by the webpack sass loader, does not support font-url()
 // so we use url() instead. This is a known issue.

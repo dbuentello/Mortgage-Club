@@ -56,7 +56,7 @@ var Dashboard = React.createClass({
           </ul>
 
           <div className='tabs row'>
-            <div className='left-side col-xs-7'>
+            <div className='left-side col-xs-8'>
               <div className="tab-content">
                 <div role="tabpanel" className="tab-pane fade in active" id="overview">
                 </div>
@@ -78,7 +78,7 @@ var Dashboard = React.createClass({
               </div>
             </div>
 
-            <div className='right-side col-xs-5'>
+            <div className='right-side col-xs-4'>
               <UserInfo info={current_user}></UserInfo>
             </div>
           </div>
