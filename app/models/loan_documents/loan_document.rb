@@ -57,7 +57,6 @@ class LoanDocument < ActiveRecord::Base
   end
 
   def set_description
-    byebug
     if description.blank?
       case type
       when 'HudEstimate'
