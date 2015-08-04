@@ -27,9 +27,9 @@ class PropertyDocument < ActiveRecord::Base
   before_validation :set_private_token, :on => :create
 
   def downloadable?(user)
-    return false if borrower.blank? || user.blank? || user.borrower.blank?
+    # return false if borrower.blank? || user.blank? || user.borrower.blank?
 
-    user.borrower == borrower
+    # user.borrower == borrower
   end
 
   private
