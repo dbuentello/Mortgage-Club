@@ -19,7 +19,7 @@ class LoanDocument < ActiveRecord::Base
 
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',
-    path: ":class/:token/:filename"
+    path: PAPERCLIP[:default_path]
 
   validates_presence_of :token
 

@@ -33,3 +33,15 @@ ALLOWED_MIME_TYPES = [
   'text/plain',
   'inode/x-empty'
 ]
+
+if Rails.env.test?
+  PAPERCLIP = {
+    default_path: ":rails_root/public/uploads/:class/:token/:filename",
+    default_url: "/uploads/:class/:token/:filename"
+  }
+else
+  PAPERCLIP = {
+    default_path: ':class/:token/:filename'
+  }
+
+end
