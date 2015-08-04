@@ -1,6 +1,9 @@
 var _ = require('lodash');
 var React = require('react/addons');
 
+var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
+var TextFormatMixin = require('mixins/TextFormatMixin');
+
 var OverviewTab = require('./OverviewTab');
 var BorrowerTab = require('./BorrowerTab');
 var ContactTab = require('./ContactTab');
@@ -8,10 +11,24 @@ var PropertyTab = require('./PropertyTab');
 var LoanTab = require('./LoanTab');
 var ClosingTab = require('./ClosingTab');
 var UserInfo = require('./UserInfo');
-var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var Dashboard = React.createClass({
-  mixins: [TextFormatMixin],
+  mixins: [ObjectHelperMixin, TextFormatMixin],
+
+  getInitialState: function() {
+    return {
+      activeTab: 'overview'
+    };
+  },
+
+  componentDidMount: function() {
+    // add event handler for tab navigation
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      this.setState({
+        activeTab: this.getValue(e.target.attributes, 'aria-controls').value
+      });
+    }.bind(this));
+  },
 
   render: function() {
     var current_user = this.props.bootstrapData.currentUser;
@@ -83,7 +100,7 @@ var Dashboard = React.createClass({
             </div>
 
             <div className='right-side col-xs-4'>
-              <UserInfo info={current_user}></UserInfo>
+              <UserInfo info={current_user} activeTab={this.state.activeTab}></UserInfo>
             </div>
           </div>
         </div>

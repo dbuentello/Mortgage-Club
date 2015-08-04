@@ -19,18 +19,25 @@ var UserInfo = React.createClass({
           </div>
         </div>
 
-        <div className='pvm bbs'>
-          <h5>Helpful Q&A</h5>
-        </div>
-
-        <div className='mbl'>
-          <p><a href='javascript:void(0)'>What are these files?</a></p>
-          <p><a href='javascript:void(0)'>Who has access to these?</a></p>
-          <p><a href='javascript:void(0)'>What are the different tabs?</a></p>
-          <p><a href='javascript:void(0)'>Do I have to classify files?</a></p>
-          <p><a href='javascript:void(0)'>Are my files safe?</a></p>
-        </div>
-
+        { (this.props.activeTab == 'overview') ?
+          <div>
+            <h5 className='ptl bbs pbm'>Recent Loan Activity</h5>
+            ...
+          </div>
+          :
+          <div>
+            <div className='pvm bbs'>
+              <h5>Helpful Q&A</h5>
+            </div>
+            <div className='mbl'>
+              <p><a href='javascript:void(0)'>What are these files?</a></p>
+              <p><a href='javascript:void(0)'>Who has access to these?</a></p>
+              <p><a href='javascript:void(0)'>What are the different tabs?</a></p>
+              <p><a href='javascript:void(0)'>Do I have to classify files?</a></p>
+              <p><a href='javascript:void(0)'>Are my files safe?</a></p>
+            </div>
+          </div>
+        }
       </div>
     )
   }
