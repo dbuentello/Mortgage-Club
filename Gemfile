@@ -47,7 +47,8 @@ gem 'rails-html-sanitizer'
 # Use Unicorn as the app server
 gem 'unicorn'
 
-gem 'autoprefixer-rails'
+# Parse CSS and add vendor prefixes to rules by Can I Use
+gem 'autoprefixer-rails', '~> 5.2.1.1'
 
 gem 'react-rails', '~> 1.0'
 

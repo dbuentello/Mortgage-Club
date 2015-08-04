@@ -26,6 +26,7 @@
 
 class User < ActiveRecord::Base
   rolify
+
   # Include default devise modules. Others available are:
   #  :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
@@ -36,6 +37,7 @@ class User < ActiveRecord::Base
   has_many :signers, inverse_of: :user
 
   has_one :borrower, inverse_of: :user, autosave: :true, dependent: :destroy
+  has_one :team_member, inverse_of: :user, autosave: :true, dependent: :destroy
 
   accepts_nested_attributes_for :borrower, allow_destroy: true
 

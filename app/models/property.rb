@@ -18,7 +18,20 @@
 
 class Property < ActiveRecord::Base
   belongs_to :loan, inverse_of: :property, foreign_key: 'loan_id'
+
   has_one :address, inverse_of: :property
+
+  has_one :appraisal_report, inverse_of: :property, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :homeowners_insurance, inverse_of: :property, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :mortgage_statement, inverse_of: :property, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :lease_agreement, inverse_of: :property, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :purchase_agreement, inverse_of: :property, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :flood_zone_certification, inverse_of: :property, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :termite_report, inverse_of: :property, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :inspection_report, inverse_of: :property, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :title_report, inverse_of: :property, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :risk_report, inverse_of: :property, dependent: :destroy, foreign_key: 'owner_id'
+
   accepts_nested_attributes_for :address
 
   PERMITTED_ATTRS = [
@@ -47,4 +60,5 @@ class Property < ActiveRecord::Base
     vacation_home: 1,
     rental_property: 2
   }
+
 end

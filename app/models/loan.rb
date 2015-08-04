@@ -79,6 +79,14 @@ class Loan < ActiveRecord::Base
   has_one :property, inverse_of: :loan, dependent: :destroy
   has_one :envelope, inverse_of: :loan, dependent: :destroy
 
+  has_one :hud_estimate, inverse_of: :loan, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :hud_final, inverse_of: :loan, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :loan_estimate, inverse_of: :loan, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :uniform_residential_lending_application, inverse_of: :loan, dependent: :destroy, foreign_key: 'owner_id'
+
+  has_many :loans_members
+  has_many :team_members, through: :loans_members
+
   accepts_nested_attributes_for :property, allow_destroy: true
   accepts_nested_attributes_for :borrower, allow_destroy: true
   accepts_nested_attributes_for :secondary_borrower, allow_destroy: true
