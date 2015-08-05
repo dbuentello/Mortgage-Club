@@ -10,7 +10,7 @@ class CreateTeamMembers < ActiveRecord::Migration
       t.integer :employee_id
       t.integer :nmls_id
       t.integer :user_id
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index(:team_members, :user_id)

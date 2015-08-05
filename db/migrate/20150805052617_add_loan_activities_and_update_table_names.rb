@@ -11,7 +11,7 @@ class AddLoanActivitiesAndUpdateTableNames < ActiveRecord::Migration
 
       t.integer :loan_id
       t.integer :loan_member_id
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :loan_activities, :loan_id

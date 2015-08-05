@@ -5,7 +5,7 @@ class CreatePropertyDocuments < ActiveRecord::Migration
       t.integer :owner_id
 
       t.string :description
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_attachment :property_documents, :attachment

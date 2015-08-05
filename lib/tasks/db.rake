@@ -1,5 +1,4 @@
-namespace :database do
-
+namespace :db do
   task :clean_all_documents => :environment do
     Documents::FirstW2.destroy_all
     Documents::SecondW2.destroy_all
@@ -9,4 +8,11 @@ namespace :database do
     Documents::SecondBankStatement.destroy_all
   end
 
+  namespace :test do
+    task :reset do
+      system("rake db:drop RAILS_ENV=test")
+      system("rake db:create RAILS_ENV=test")
+      system("rake db:migrate RAILS_ENV=test")
+    end
+  end
 end
