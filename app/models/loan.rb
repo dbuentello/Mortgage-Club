@@ -124,6 +124,8 @@ class Loan < ActiveRecord::Base
   end
 
   def num_of_years
+    return unless num_of_months
+
     num_of_months / 12
   end
 
