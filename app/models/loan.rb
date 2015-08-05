@@ -134,6 +134,8 @@ class Loan < ActiveRecord::Base
   end
 
   def purpose_titleize
+    return unless purpose
+
     purpose.titleize
   end
 end
