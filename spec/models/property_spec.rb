@@ -18,7 +18,7 @@ describe Property do
     context 'usage is valid' do
       it 'returns usage name' do
         property.usage = 1
-        expect(property.usage_name).to eql 'Vacation Home'
+        expect(property.usage_name).to eq('Vacation Home')
       end
     end
   end

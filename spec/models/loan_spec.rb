@@ -22,7 +22,7 @@ describe Loan do
 
       it 'returns ltv_formula value' do
         expected_value = (loan.amount / @property.purchase_price * 100).ceil
-        expect(loan.ltv_formula).to eql expected_value
+        expect(loan.ltv_formula).to eq(expected_value)
       end
     end
   end
@@ -38,7 +38,7 @@ describe Loan do
     context 'num_of_months is a valid number' do
       it 'returns number of years' do
         loan.num_of_months = 24
-        expect(loan.num_of_years).to eql 2
+        expect(loan.num_of_years).to eq(2)
       end
     end
   end
@@ -54,7 +54,7 @@ describe Loan do
     context 'purpose is valid' do
       it 'returns number of years' do
         loan.purpose = 1
-        expect(loan.purpose_titleize).to eql 'Refinance'
+        expect(loan.purpose_titleize).to eq('Refinance')
       end
     end
   end
