@@ -15,7 +15,6 @@ window.PublicApp = React.createClass({
   },
 
   render: function() {
-    var user = this.props.currentUser;
     return (
       <div>
         <RouteHandler bootstrapData={this.props}/>

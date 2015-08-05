@@ -66,7 +66,6 @@ window.ClientApp = React.createClass({
   }
 });
 
-
 var routes = (
   <Route name='app' path='/' handler={ClientApp}>
     <Route name='new_loan' path='loans/new' handler={LoanInterface}/>
