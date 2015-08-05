@@ -16,6 +16,7 @@
 #
 
 class LoanDocument < ActiveRecord::Base
+  include Documentation
 
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',

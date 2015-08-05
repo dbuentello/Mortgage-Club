@@ -18,5 +18,6 @@
 class FloodZoneCertification < PropertyDocument
   DESCRIPTION = "Flood zone certification"
 
-  belongs_to :property, inverse_of: :appraisal_report, foreign_key: 'owner_id'
+  belongs_to :property, inverse_of: :appraisal_report, foreign_key: 'property_id'
+  belongs_to :owner, polymorphic: true
 end

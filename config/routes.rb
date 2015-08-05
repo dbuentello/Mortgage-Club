@@ -35,6 +35,21 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :property_document_uploader do
+    member do
+      get 'download'
+    end
+  end
+
+  resources :loan_document_uploader do
+    member do
+      get 'download'
+    end
+  end
+
+  # resource :dashboard, only: [:show]
+  get 'dashboard', to: 'dashboard#show'
+
   resources :loans, only: [:new, :show, :update] do
     collection do
       get 'get_co_borrower_info'

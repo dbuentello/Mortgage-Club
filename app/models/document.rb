@@ -13,6 +13,7 @@
 #
 
 class Document < ActiveRecord::Base
+  include Documentation
 
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',
@@ -44,6 +45,14 @@ class Document < ActiveRecord::Base
     return false if borrower.blank? || user.blank? || user.borrower.blank?
 
     user.borrower == borrower
+  end
+
+  def name
+    attachment_file_name
+  end
+
+  def url
+    Amazon::GetUrlService.new(attachment.s3_object).call
   end
 
   private

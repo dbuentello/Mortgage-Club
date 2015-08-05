@@ -79,10 +79,11 @@ class Loan < ActiveRecord::Base
   has_one :property, inverse_of: :loan, dependent: :destroy
   has_one :envelope, inverse_of: :loan, dependent: :destroy
 
-  has_one :hud_estimate, inverse_of: :loan, dependent: :destroy, foreign_key: 'owner_id'
-  has_one :hud_final, inverse_of: :loan, dependent: :destroy, foreign_key: 'owner_id'
-  has_one :loan_estimate, inverse_of: :loan, dependent: :destroy, foreign_key: 'owner_id'
-  has_one :uniform_residential_lending_application, inverse_of: :loan, dependent: :destroy, foreign_key: 'owner_id'
+  has_one :hud_estimate, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
+  has_one :hud_final, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
+  has_one :loan_estimate, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
+  has_one :uniform_residential_lending_application, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
+  has_many :loan_documents, dependent: :destroy, foreign_key: 'loan_id'
 
   has_many :loans_members
   has_many :team_members, through: :loans_members
@@ -120,5 +121,18 @@ class Loan < ActiveRecord::Base
 
   def income_completed
     borrower.income_completed?
+  end
+
+  def num_of_years
+    num_of_months / 12
+  end
+
+  def ltv_formula
+    return unless property
+    (amount / property.purchase_price * 100).ceil
+  end
+
+  def purpose_titleize
+    purpose.titleize
   end
 end
