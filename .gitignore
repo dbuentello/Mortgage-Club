@@ -22,8 +22,9 @@
 # Local generated files
 webpack-bundle.js
 webpack-bundle.js.map
-bundle_ClientApp.js
 bundle_PublicApp.js
+bundle_ClientApp.js
+bundle_AdminApp.js
 .env
 /node_modules
 npm-debug.log
