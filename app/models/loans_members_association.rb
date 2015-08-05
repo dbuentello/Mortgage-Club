@@ -7,7 +7,7 @@
 #  team_member_id :integer
 #
 
-class LoansMember < ActiveRecord::Base
+class LoansMembersAssociation < ActiveRecord::Base
 
   ROLE_TITLES = {
     admin: 'Loan Admin',
@@ -15,6 +15,6 @@ class LoansMember < ActiveRecord::Base
   }
 
   belongs_to :loan
-  belongs_to :team_member
+  belongs_to :loan_member
 
 end

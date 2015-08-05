@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: team_members
+# Table name: loan_members
 #
 #  id           :integer          not null, primary key
 #  first_name   :string
@@ -16,10 +16,10 @@
 #  updated_at   :datetime
 #
 
-class TeamMember < ActiveRecord::Base
+class LoanMember < ActiveRecord::Base
   belongs_to :user
 
-  has_many :loans_members
-  has_many :loans, through: :loans_members
+  has_many :loans_members_associations
+  has_many :loans, through: :loans_members_associations
 
 end
