@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :team_member do |f|
+  factory :loan_member do |f|
 
     f.first_name { Faker::Name.first_name }
     f.last_name { Faker::Name.last_name }
@@ -10,7 +10,7 @@ FactoryGirl.define do
     f.employee_id { Faker::Number.number(2) }
     f.nmls_id { Faker::Number.number(6) }
 
-    factory :team_member_with_user do
+    factory :loan_member_with_user do
       user
     end
 
