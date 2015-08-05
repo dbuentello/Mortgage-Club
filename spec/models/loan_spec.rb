@@ -7,6 +7,12 @@ describe Loan do
     expect(loan).to be_valid
   end
 
+  it 'has a valid with_loan_activites factory' do
+    loan = FactoryGirl.build(:loan_with_activites)
+    expect(loan).to be_valid
+    expect(loan.loan_activities.size).to be >= 1
+  end
+
   describe '.ltv_formula' do
     context 'property or amount is nil' do
       it 'returns nil' do
