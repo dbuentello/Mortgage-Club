@@ -5,9 +5,9 @@ class AddLoanActivitiesAndUpdateTableNames < ActiveRecord::Migration
 
     create_table :loan_activities do |t|
       t.string :name
-      t.integer :activity_type
-      t.integer :activity_status
-      t.boolean :user_visible
+      t.integer :activity_type, default: 0, null: false
+      t.integer :activity_status, default: 0, null: false
+      t.boolean :user_visible, default: false, null: false
 
       t.integer :loan_id
       t.integer :loan_member_id

@@ -22,4 +22,6 @@ class LoanMember < ActiveRecord::Base
   has_many :loans_members_associations
   has_many :loans, through: :loans_members_associations
 
+  has_many :loan_activities
+
 end
