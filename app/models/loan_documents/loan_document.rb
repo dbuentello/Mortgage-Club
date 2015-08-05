@@ -13,6 +13,7 @@
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
 #  token                   :string
+#  loan_id                 :integer
 #
 
 class LoanDocument < ActiveRecord::Base

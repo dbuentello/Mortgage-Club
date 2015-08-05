@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: loans_members
+# Table name: loans_members_associations
 #
 #  id             :integer          not null, primary key
 #  loan_id        :integer
