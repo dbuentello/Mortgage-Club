@@ -15,7 +15,7 @@ if User.where(email: 'lehoang1417@gmail.com').blank?
 
   # create loan base on user
   loan = FactoryGirl.create(:loan_with_property, user: user)
-  hud_estimate = loan.build_hud_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx')
+  hud_estimate = loan.build_hud_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'))
   hud_estimate.save
 end
 
