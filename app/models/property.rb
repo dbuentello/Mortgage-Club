@@ -63,6 +63,8 @@ class Property < ActiveRecord::Base
   }
 
   def usage_name
+    return unless usage
+
     usage.split('_').map(&:capitalize).join(' ')
   end
 end
