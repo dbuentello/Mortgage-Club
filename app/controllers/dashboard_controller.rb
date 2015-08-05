@@ -47,19 +47,19 @@ class DashboardController < ApplicationController
         name: 'Michael Gifford',
         title: 'Relationship Manager',
         email: 'michael@gmail.com',
-        avatar_url: 'http://tinyurl.com/7mclx3d'
+        avatar_url: 'https://goo.gl/IpbO1e'
       },
       {
         name: 'Jerry Williams',
         title: 'Loan Analyst',
         email: 'jerry@gmail.com',
-        avatar_url: 'http://tinyurl.com/7mclx3d'
+        avatar_url: 'https://goo.gl/IpbO1e'
       },
       {
         name: 'Kristina Rendon',
         title: 'Insurance',
         email: 'kristina@gmail.com',
-        avatar_url: 'http://tinyurl.com/7mclx3d'
+        avatar_url: 'https://goo.gl/IpbO1e'
       }
     ]
   end
