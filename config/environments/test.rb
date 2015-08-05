@@ -36,7 +36,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 4000 }
 
-  Paperclip::Attachment.default_options[:path] = ":rails_root/public/uploads/:class/:token/:filename",
+  Paperclip::Attachment.default_options[:path] = ":rails_root/public/uploads/:class/:token/:filename"
   Paperclip::Attachment.default_options[:url] = "/uploads/:class/:token/:filename"
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
