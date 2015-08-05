@@ -15,8 +15,39 @@ window.AdminApp = React.createClass({
   },
 
   render: function() {
+    var user = this.props.currentUser;
+
     return (
       <div>
+        <nav className='topMenu sticky backgroundInverse pvm zIndexNavigation overlayFullWidth'>
+          <div className='plm prl'>
+            <div className='row'>
+              <div className='col-xs-6 typeLowlight'>
+                MortgageClub Logo
+              </div>
+              <div className='col-xs-6 text-right'>
+                {user
+                ? <span>
+                    <a className='mrm' href='/dashboard'>Dashboard</a>
+                    <span className='typeLowlight mrm'>Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!</span>
+                    <a className='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
+                  </span>
+                : <span>
+                    <a className='linkTypeReversed mrm' href='/auth/login'>
+                      Log in
+                    </a>
+                    <a className='linkTypeReversed mrm' href='/auth/register/signup'>
+                      Sign up
+                    </a>
+                  </span>
+                }
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <div className='page-alert'/>
+
         <RouteHandler bootstrapData={this.props}/>
       </div>
     );
@@ -25,7 +56,7 @@ window.AdminApp = React.createClass({
 
 var routes = (
   <Route name='app' path='/' handler={AdminApp}>
-    <Route name='loan_activity' handler={LoanActivity}/>
+    <Route name='loan_activity' path='/loan_activities' handler={LoanActivity}/>
     <DefaultRoute handler={LoanActivity}/>
   </Route>
 );

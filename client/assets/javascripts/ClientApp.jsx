@@ -29,7 +29,7 @@ window.ClientApp = React.createClass({
           <div className='plm prl'>
             <div className='row'>
               <div className='col-xs-6 typeLowlight'>
-                Homieo Logo
+                MortgageClub Logo
               </div>
               <div className='col-xs-6 text-right'>
                 {user
@@ -42,7 +42,7 @@ window.ClientApp = React.createClass({
                     <a className='linkTypeReversed mrm' href='/auth/login'>
                       Log in
                     </a>
-                    <a className='linkTypeReversed mrm' href='/auth/signup'>
+                    <a className='linkTypeReversed mrm' href='/auth/register/signup'>
                       Sign up
                     </a>
                   </span>

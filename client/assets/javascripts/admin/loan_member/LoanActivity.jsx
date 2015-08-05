@@ -13,7 +13,7 @@ var LoanActivity = React.createClass({
   },
 
   componentDidMount: function() {
-    console.dir(this.props.bootstrapData);
+    // console.dir(this.props.bootstrapData);
   },
 
   render: function() {
