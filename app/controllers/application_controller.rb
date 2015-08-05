@@ -39,7 +39,11 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_if_auth
-    if current_user
+    return unless current_user
+
+    if current_user.staff?
+      redirect_to loan_activities_path
+    else
       redirect_to new_loan_path
     end
   end

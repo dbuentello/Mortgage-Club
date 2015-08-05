@@ -6,3 +6,10 @@ Feature: User
       And I attach the file "spec/files/avatar.png" to "user[avatar]"
       And I press "Update"
     Then I should see the avatar "avatar.png"
+
+  @javascript
+  Scenario: logins as staff role
+    Given there is a staff with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the token "1"
+      And I login as "testing@man.net"
+      And show me the page
+    Then I should see "Loan member dashboard"

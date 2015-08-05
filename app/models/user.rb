@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   has_many :signers, inverse_of: :user
 
   has_one :borrower, inverse_of: :user, autosave: :true, dependent: :destroy
-  has_one :team_member, inverse_of: :user, autosave: :true, dependent: :destroy
+  has_one :loan_member, inverse_of: :user, autosave: :true, dependent: :destroy
 
   has_one :appraisal_report, as: :owner, dependent: :destroy
   has_one :homeowners_insurance, as: :owner, dependent: :destroy
@@ -79,6 +79,10 @@ class User < ActiveRecord::Base
 
   def to_s
     "#{first_name} #{last_name}"
+  end
+
+  def staff?
+    borrower.nil?
   end
 
   private
