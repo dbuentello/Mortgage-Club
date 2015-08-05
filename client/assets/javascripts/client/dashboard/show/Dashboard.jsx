@@ -53,7 +53,7 @@ var Dashboard = React.createClass({
           </div>
         </div>
 
-        <div className='dashboard-tabs plxl prxl backgroundLowlight'>
+        <div className='dashboard-tabs phxl backgroundLowlight'>
           <ul className="nav nav-tabs" role="tablist">
             <li role="presentation" className="active">
               <a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a>

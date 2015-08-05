@@ -18,8 +18,8 @@ var LoanActivity = React.createClass({
 
   render: function() {
     return (
-      <div className='content text-center'>
-        <h1>Hello guys</h1>
+      <div className='content container'>
+        <h2>Loan member dashboard</h2>
       </div>
     )
   }
