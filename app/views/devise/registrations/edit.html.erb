@@ -12,6 +12,12 @@
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
+  <%= image_tag(resource.avatar.url, class: "img-thumbnail") %>
+  <div class="field">
+    <%= f.label :avatar %>
+    <%= f.file_field :avatar %>
+  </div>
+
   <div class="field">
     <%= f.label :password %><br/>
     <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
@@ -22,10 +28,10 @@
     <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
   </div>
 
-  <div class="field">
+<!--   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your change)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
-  </div>
+    <%= f.password_field :current_password, autocomplete: "off", class: "form-control"%>
+  </div> -->
 
   <div class="actions">
     <%= f.submit "Update", class: "btn btn-lg btn-primary btn-block" %>

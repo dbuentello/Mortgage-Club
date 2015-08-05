@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
   has_one :inspection_report, as: :owner, dependent: :destroy
   has_one :title_report, as: :owner, dependent: :destroy
   has_one :risk_report, as: :owner, dependent: :destroy
+  has_attached_file :avatar, path: PAPERCLIP[:default_path]
 
   accepts_nested_attributes_for :borrower, allow_destroy: true
 
@@ -62,14 +63,27 @@ class User < ActiveRecord::Base
       with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
     }
 
+  # Validate the attached image is image/jpg, image/png, etc
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  validates :token, presence: true
+
+  before_validation :set_private_token
+
   PERMITTED_ATTRS = [
     :email,
     :password,
     :password_confirmation,
+    :avatar,
     borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
   ]
 
   def to_s
     "#{first_name} #{last_name}"
+  end
+
+  private
+
+  def set_private_token
+    self.token ||= Digest::MD5.hexdigest(Time.now.to_s)
   end
 end
