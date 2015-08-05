@@ -10,8 +10,9 @@ Then /^I should( not)? see "([^"]*)" in the "([^"]*)" input$/ do |negate, conten
   end
 end
 
-Then /^I should see "(.*?)" thumbnail$/ do |image|
-  expect(page).to have_selector("img[src$='thumb_#{image}']")
+Then /^I should see the avatar "(.+)"$/ do |image|
+  # expect(page).to have_xpath("//img[contains(@src=\"/public/uploads/users/1/'#{image}\")]")
+  expect(page).to have_xpath("//img[contains(@src,\"/uploads/users/1/#{image}\")]")
 end
 
 When /^a GET request is sent to "(.*?)"$/ do |url|
@@ -28,4 +29,8 @@ end
 
 Given /^I wait for (\d+) seconds?$/ do |n|
   sleep(n.to_i)
+end
+
+When /^I attach the file at "([^\"]*)" to "([^\"]*)"$/ do |path, field|
+  attach_file(field, path)
 end
