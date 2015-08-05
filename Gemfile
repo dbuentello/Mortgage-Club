@@ -101,12 +101,13 @@ gem 'twilio-ruby', '~> 4.2.1'
 # A Ruby wrapper for the Nexmo API
 gem 'nexmo'
 
+# performance management system, available at http://localhost:4000/newrelic
+gem 'newrelic_rpm'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
 
-  # performance management system, available at http://localhost:4000/newrelic
-  gem 'newrelic_rpm'
   # help to kill N+1 queries and unused eager loading
   gem 'bullet'
   # Profiler for your development and production Ruby rack apps.
