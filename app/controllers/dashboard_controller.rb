@@ -1,17 +1,21 @@
 class DashboardController < ApplicationController
+  before_action :set_loan, only: [:show]
+
   def show
     borrower = current_user.borrower
-    # TODO: select loan by params[:loan_id] when we build multi dashboards.
-    loan = current_user.loans.first
-    property =  loan.property
 
+    # TODO: select loan by params[:loan_id] when we build multi dashboards.
+    loan = Loan.first
+    property =  loan.property
+    # byebug
     bootstrap(
       doc_list: borrower.documents.as_json(doc_list_json_option),
       address: borrower.display_current_address,
       loan: loan.as_json(loan_json_options),
       contact_list: contact_list_json_options,
       property_list: property.as_json(property_list_json_options),
-      loan_list: loan.as_json(loan_list_json_options)
+      loan_list: loan.as_json(loan_list_json_options),
+      loan_activities: loan.loan_activities.as_json
     )
 
     respond_to do |format|

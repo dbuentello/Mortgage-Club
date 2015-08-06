@@ -42,4 +42,6 @@ class LoanActivity < ActiveRecord::Base
   validates_presence_of :loan, :loan_member
   validates_inclusion_of :user_visible, in: [true, false]
 
+  validates_uniqueness_of :name, uniqueness: true, scope: :loan_id
+  validates_uniqueness_of :name, uniqueness: true, scope: :activity_type
 end

@@ -7,7 +7,8 @@ class LoanActivitiesController < ApplicationController
 
     bootstrap(
       loan: @loan,
-      activity_list: loan_activity_list
+      activity_list: loan_activity_list,
+      first_activity: LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: @loan.id).first
     )
 
     respond_to do |format|
@@ -20,18 +21,19 @@ class LoanActivitiesController < ApplicationController
   end
 
   def create
-    @loan_activity = loan_member.loan_activities.build(loan_activity_params)
+    result = LoanActivityServices::CreateActivity.new.call(loan_member, loan_activity_params)
 
-    if @loan_activity.save
+    if result.success?
       render json: {success: "Success"}, status: 200
     else
-      render json: {error: @loan_activity.errors.full_messages}, status: 500
+      render json: {error: result.error_message}, status: 500
     end
   end
 
-  def get_activities_by_type
+  def get_activities_by_conditions
     activities = LoanActivity.where(
       activity_type: loan_activity_params[:activity_type],
+      name: loan_activity_params[:name],
       loan_id: loan_activity_params[:loan_id]
     )
     render json: {activities: activities}, status: 200

@@ -75,7 +75,7 @@ Rails.application.routes.draw do
 
   resources :loan_activities, only: [:index, :update, :create] do
     collection do
-      get 'get_activities_by_type'
+      get 'get_activities_by_conditions'
     end
   end
 end

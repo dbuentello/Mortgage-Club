@@ -100,7 +100,7 @@ var Dashboard = React.createClass({
             </div>
 
             <div className='right-side col-xs-4'>
-              <UserInfo info={current_user} activeTab={this.state.activeTab}></UserInfo>
+              <UserInfo Info={current_user} LoanActivities={this.props.bootstrapData.loan_activities} ActiveTab={this.state.activeTab}></UserInfo>
             </div>
           </div>
         </div>

@@ -1,7 +1,5 @@
 var _ = require('lodash');
 var React = require('react/addons');
-var SelectBoxActivityName = require('./SelectBoxActivityName');
-var SelectBoxActivityType = require('./SelectBoxActivityType');
 var FlashHandler = require('mixins/FlashHandler');
 
 var ActivityTypes = [
@@ -26,11 +24,8 @@ var LoanActivity = React.createClass({
       current_type: 0,
       current_name: "Verify borrower's income",
       current_status: 0,
-      acctivityNameList: TypeNameMapping[0],
-      shown_to_user: true,
-      disabledStartButton: false,
-      disabledDoneButton: true,
-      disabledPauseButton: true
+      acctivity_name_list: TypeNameMapping[0],
+      shown_to_user: true
     };
   },
 
@@ -38,26 +33,28 @@ var LoanActivity = React.createClass({
   },
 
   componentDidMount: function() {
+    this.disableButton(this.props.bootstrapData.first_activity.activity_status);
   },
 
   onTypeChange: function(event) {
     this.setState({
       current_type: event.target.value,
       current_name: TypeNameMapping[event.target.value][0],
-      acctivityNameList: TypeNameMapping[event.target.value]
+      acctivity_name_list: TypeNameMapping[event.target.value]
     });
-    var activities = this.getNewActivityStatus(event.target.value);
+    this.setNewActivityStatus(event.target.value, TypeNameMapping[event.target.value][0]);
   },
 
-  getNewActivityStatus: function(activity_type) {
+  setNewActivityStatus: function(activity_type, activity_name) {
     $.ajax({
-      url: '/loan_activities/get_activities_by_type',
+      url: '/loan_activities/get_activities_by_conditions',
       method: 'GET',
       context: this,
       dataType: 'json',
       data: {
         loan_activity: {
           activity_type: activity_type,
+          name: activity_name,
           loan_id: this.props.bootstrapData.loan.id,
         }
       },
@@ -82,6 +79,7 @@ var LoanActivity = React.createClass({
     this.setState({
       current_name: event.target.value,
     });
+    this.setNewActivityStatus(this.state.current_type, event.target.value);
   },
 
   onShownClick: function(event) {
@@ -139,7 +137,8 @@ var LoanActivity = React.createClass({
         this.disableButton(this.state.current_status);
       }.bind(this),
       error: function(response, status, error) {
-        alert(error);
+        var flash = { "alert-danger": response.responseJSON.error };
+        this.showFlashes(flash);
       }
     });
   },
@@ -153,10 +152,26 @@ var LoanActivity = React.createClass({
         <h2>Loan member dashboard</h2>
         <div className="row">
           <div className="col-xs-4 ptl">
-            <SelectBoxActivityType acctivityTypeList={ActivityTypes} onChange={this.onTypeChange}></SelectBoxActivityType>
+            <select className="form-control" onChange={this.onTypeChange}>
+              {
+                _.map(ActivityTypes, function(type) {
+                  return (
+                    <option value={type.value}>{type.label}</option>
+                  )
+                })
+              }
+            </select>
           </div>
           <div className="col-xs-4 ptl">
-            <SelectBoxActivityName acctivityNameList={this.state.acctivityNameList}></SelectBoxActivityName>
+            <select className="form-control" onChange={this.onNameChange}>
+              {
+                _.map(this.state.acctivity_name_list, function(name) {
+                  return (
+                    <option value={name}>{name}</option>
+                  )
+                })
+              }
+            </select>
           </div>
           <div className="col-xs-2 ptl">
             <div className="checkbox">
