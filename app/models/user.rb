@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   has_one :title_report, as: :owner, dependent: :destroy
   has_one :risk_report, as: :owner, dependent: :destroy
 
-  has_attached_file :avatar, path: PAPERCLIP[:default_path]
+  has_attached_file :avatar, path: PAPERCLIP[:default_path], default_url: ActionController::Base.helpers.asset_path('avatar.png')
 
   accepts_nested_attributes_for :borrower, allow_destroy: true
 
