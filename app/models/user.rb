@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   end
 
   def staff?
-    borrower.nil?
+    !borrower && loan_member
   end
 
   private

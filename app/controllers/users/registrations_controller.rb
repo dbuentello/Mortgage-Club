@@ -43,7 +43,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.for(:sign_up) { |u|
-      u.permit( { :borrower_attributes => [:first_name, :last_name]}, :email, :password, :password_confirmation)
+      u.permit(:first_name, :last_name, :email, :password, :password_confirmation)
     }
   end
 
