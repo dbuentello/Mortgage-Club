@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
   has_one :inspection_report, as: :owner, dependent: :destroy
   has_one :title_report, as: :owner, dependent: :destroy
   has_one :risk_report, as: :owner, dependent: :destroy
+
   has_attached_file :avatar, path: PAPERCLIP[:default_path]
 
   accepts_nested_attributes_for :borrower, allow_destroy: true
