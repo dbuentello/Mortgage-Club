@@ -25,6 +25,7 @@ var LoanActivity = React.createClass({
     return {
       current_type: 0,
       current_name: "Verify borrower's income",
+      current_status: 0,
       acctivityNameList: defaultActivityNameList,
       shown_to_user: true,
       disabledStartButton: false,
@@ -45,6 +46,36 @@ var LoanActivity = React.createClass({
       current_name: type_name_mapping[event.target.value][0],
       acctivityNameList: type_name_mapping[event.target.value]
     });
+    var activities = this.getNewActivityStatus(event.target.value);
+  },
+
+  getNewActivityStatus: function(activity_type) {
+    $.ajax({
+      url: '/loan_activities/get_activities_by_type',
+      method: 'GET',
+      context: this,
+      dataType: 'json',
+      data: {
+        loan_activity: {
+          activity_type: activity_type,
+          loan_id: this.props.bootstrapData.loan.id,
+        }
+      },
+      success: function(activities) {
+        _.map(activities, function(activity) {
+          if(activity[0]){
+            this.disableButton(activity[0].activity_status);
+          }
+          else
+          {
+            this.disableButton();
+          }
+        }, this);
+      },
+      error: function(response, status, error) {
+        alert(error);
+      }
+    });
   },
 
   onNameChange: function(event) {
@@ -61,20 +92,33 @@ var LoanActivity = React.createClass({
 
   disableButton: function(button_value) {
     switch(button_value) {
-      case 0:
-        this.state.disabledStartButton = true
+      case '0':
+      case 'start':
+        this.setState({disabledStartButton: true});
+        this.setState({disabledDoneButton: false});
+        this.setState({disabledPauseButton: false});
         break;
-      case 1:
-        this.state.disabledDoneButton = true
+      case '1':
+      case 'done':
+        this.setState({disabledDoneButton: true});
+        this.setState({disabledStartButton: false});
+        this.setState({disabledPauseButton: true});
         break;
-      case 2:
-        this.state.disabledPauseButton = true
+      case '2':
+      case 'pause':
+        this.setState({disabledPauseButton: true});
+        this.setState({disabledStartButton: false});
+        this.setState({disabledDoneButton: false});
         break;
+      default:
+        this.setState({disabledStartButton: false});
+        this.setState({disabledDoneButton: false});
+        this.setState({disabledPauseButton: false});
     }
   },
 
   onActionClick: function(event) {
-    console.log(event.target.value);
+    this.state.current_status = event.target.value;
     $.ajax({
       url: '/loan_activities',
       method: 'POST',
@@ -92,6 +136,7 @@ var LoanActivity = React.createClass({
       success: function(response) {
         var flash = { "alert-success": "Updated successfully!" };
         this.showFlashes(flash);
+        this.disableButton(this.state.current_status);
       }.bind(this),
       error: function(response, status, error) {
         alert(error);
