@@ -3,15 +3,15 @@ var React = require('react/addons');
 var SelectBoxActivityName = require('./SelectBoxActivityName');
 var SelectBoxActivityType = require('./SelectBoxActivityType');
 var FlashHandler = require('mixins/FlashHandler');
-var defaultActivityNameList = ["Verify borrower's income", "Verify borrower's down payment", "Verify borrower's rental properties", "Other"]
-var activity_types = [
+
+var ActivityTypes = [
   { "value": 0, "label": "Prior to Loan Submission" },
   { "value": 1, "label": "Prior to Loan Docs" },
   { "value": 2, "label": "Prior to Closing" },
   { "value": 3, "label": "Post Closing" }
 ];
 
-var type_name_mapping = {
+var TypeNameMapping = {
   0: ["Verify borrower's income", "Verify borrower's down payment", "Verify borrower's rental properties", "Other"],
   1: ["Verify borrower's employment", "Ask borrower to submit additional documents"],
   2: ["Order preliminary title report", "Schedule notary appointment"],
@@ -26,7 +26,7 @@ var LoanActivity = React.createClass({
       current_type: 0,
       current_name: "Verify borrower's income",
       current_status: 0,
-      acctivityNameList: defaultActivityNameList,
+      acctivityNameList: TypeNameMapping[0],
       shown_to_user: true,
       disabledStartButton: false,
       disabledDoneButton: true,
@@ -43,8 +43,8 @@ var LoanActivity = React.createClass({
   onTypeChange: function(event) {
     this.setState({
       current_type: event.target.value,
-      current_name: type_name_mapping[event.target.value][0],
-      acctivityNameList: type_name_mapping[event.target.value]
+      current_name: TypeNameMapping[event.target.value][0],
+      acctivityNameList: TypeNameMapping[event.target.value]
     });
     var activities = this.getNewActivityStatus(event.target.value);
   },
@@ -153,7 +153,7 @@ var LoanActivity = React.createClass({
         <h2>Loan member dashboard</h2>
         <div className="row">
           <div className="col-xs-4 ptl">
-            <SelectBoxActivityType acctivityTypeList={activity_types} onChange={this.onTypeChange}></SelectBoxActivityType>
+            <SelectBoxActivityType acctivityTypeList={ActivityTypes} onChange={this.onTypeChange}></SelectBoxActivityType>
           </div>
           <div className="col-xs-4 ptl">
             <SelectBoxActivityName acctivityNameList={this.state.acctivityNameList}></SelectBoxActivityName>
