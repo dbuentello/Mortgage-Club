@@ -12,7 +12,7 @@
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <%= image_tag(resource.avatar.url, class: "img-thumbnail") %>
+  <%= image_tag(resource.avatar.url, class: "img-thumbnail user-avatar") %>
   <div class="field">
     <%= f.label :avatar %>
     <%= f.file_field :avatar %>

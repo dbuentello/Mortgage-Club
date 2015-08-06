@@ -59,6 +59,11 @@ $helpSectionWidth: 300px;
   form {
     margin-bottom: 10px;
   }
+
+  .user-avatar {
+    max-height: 250px;
+    max-width: 250px;
+  }
 }
 
 .alert {
