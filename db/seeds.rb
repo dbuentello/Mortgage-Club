@@ -25,7 +25,8 @@ if User.where(email: 'le_hoang0306@yahoo.com.vn').blank?
     password_confirmation: '12345678')
   user.skip_confirmation!
   user.save
-
+  loan_member = user.build_loan_member(employee_id:1) #fake data
+  loan_member.save
   # create loan base on user
   # loan = FactoryGirl.create(:loan_with_property, user: user)
 end

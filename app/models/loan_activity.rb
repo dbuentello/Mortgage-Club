@@ -4,13 +4,15 @@
 #
 #  id              :integer          not null, primary key
 #  name            :string
-#  activity_type   :integer
-#  activity_status :integer
-#  user_visible    :boolean
+#  activity_type   :integer          default(0), not null
+#  activity_status :integer          default(0), not null
+#  user_visible    :boolean          default(FALSE), not null
 #  loan_id         :integer
 #  loan_member_id  :integer
-#  created_at      :datetime
-#  updated_at      :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  started_at      :datetime
+#  duration        :integer
 #
 
 class LoanActivity < ActiveRecord::Base
