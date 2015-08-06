@@ -3,15 +3,11 @@ FactoryGirl.define do
     borrower_government_monitoring_info
     credit_report
 
-    f.first_name { Faker::Name.first_name }
-    f.last_name { Faker::Name.last_name }
-    f.middle_name { Faker::Name.last_name }
-    f.suffix { Faker::Name.suffix }
     f.dob { Date.today - Random.rand(21..100).to_i.years }
+    f.phone { Faker::PhoneNumber.phone_number }
 
     # all SS numbers starting with 000 are invalid
     f.ssn { '000-' + Faker::Number.number(2) + '-' + Faker::Number.number(4) }
-    f.phone { Faker::PhoneNumber.phone_number }
     f.years_in_school { Random.rand(21) }
     f.marital_status { Random.rand(3) }
 

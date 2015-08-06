@@ -102,8 +102,7 @@ var Dropzone = React.createClass({
         alert("Maximum file is 10MB. Please try again!");
         return;
       }
-      console.log(files);
-      console.log(files[0].type);
+
       if (!(files[0].type.match('text.*') || files[0].type.match('application.*')
         || files[0].type.match('image.*'))) {
         alert(files[0].type + " type is invalid. Only Document, Text and Image files are invalid!");
