@@ -16,6 +16,13 @@
 #
 
 class LoanActivity < ActiveRecord::Base
+  LIST = {
+    "Prior to Loan Submission" => ["Verify borrower's income", "Verify borrower's down payment", "Verify borrower's rental properties", "Other"],
+    "Prior to Loan Docs" => ["Verify borrower's employment", "Ask borrower to submit additional documents"],
+    "Prior to Closing" => ["Order preliminary title report", "Schedule notary appointment"],
+    "Post Closing" => ["Review loan criteria per lender request"]
+  }
+
   belongs_to :loan
   belongs_to :loan_member
 
