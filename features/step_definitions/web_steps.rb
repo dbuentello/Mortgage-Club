@@ -15,6 +15,11 @@ Then /^I should see the avatar "(.+)"$/ do |image|
   expect(page).to have_xpath("//img[contains(@src,\"/uploads/users/1/#{image}\")]")
 end
 
+Then /^I should not see the avatar "(.+)"$/ do |image|
+  # expect(page).to have_xpath("//img[contains(@src=\"/public/uploads/users/1/'#{image}\")]")
+  expect(page).not_to have_xpath("//img[contains(@src,\"/uploads/users/1/#{image}\")]")
+end
+
 When /^a GET request is sent to "(.*?)"$/ do |url|
   visit url
 end
