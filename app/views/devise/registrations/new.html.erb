@@ -3,16 +3,14 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <%= fields_for 'user[borrower_attributes]' do |b| %>
-    <div class="field">
-      <%= b.label :first_name %><br>
-      <%= b.text_field :first_name, class: "form-control", autofocus: true %>
-    </div>
-    <div class="field">
-      <%= b.label :last_name %><br>
-      <%= b.text_field :last_name, class: "form-control" %>
-    </div>
-  <% end %>
+  <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name, class: "form-control", autofocus: true %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name, class: "form-control" %>
+  </div>
 
   <div class="field">
     <%= f.label :email %><br />

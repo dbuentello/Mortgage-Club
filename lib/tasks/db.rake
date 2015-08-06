@@ -8,6 +8,20 @@ namespace :db do
     Documents::SecondBankStatement.destroy_all
   end
 
+  namespace :migrate do
+    task :all do
+      system("rake db:migrate RAILS_ENV=development")
+      system("rake db:migrate RAILS_ENV=test")
+    end
+  end
+
+  namespace :rollback do
+    task :all do
+      system("rake db:rollback RAILS_ENV=development")
+      system("rake db:rollback RAILS_ENV=test")
+    end
+  end
+
   namespace :test do
     task :reset do
       system("rake db:drop RAILS_ENV=test")

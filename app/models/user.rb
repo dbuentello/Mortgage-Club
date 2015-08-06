@@ -22,6 +22,15 @@
 #  failed_attempts        :integer          default(0), not null
 #  unlock_token           :string
 #  locked_at              :datetime
+#  avatar_file_name       :string
+#  avatar_content_type    :string
+#  avatar_file_size       :integer
+#  avatar_updated_at      :datetime
+#  token                  :string
+#  first_name             :string
+#  last_name              :string
+#  middle_name            :string
+#  suffix                 :string
 #
 
 class User < ActiveRecord::Base
@@ -54,9 +63,6 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :borrower, allow_destroy: true
 
-  delegate :first_name, :first_name=, to: :borrower, allow_nil: true
-  delegate :last_name, :last_name=, to: :borrower, allow_nil: true
-
   validates :email,
     presence: true,
     uniqueness: true,
@@ -71,6 +77,10 @@ class User < ActiveRecord::Base
   before_validation :set_private_token
 
   PERMITTED_ATTRS = [
+    :first_name,
+    :last_name,
+    :middle_name,
+    :suffix,
     :email,
     :password,
     :password_confirmation,
@@ -83,7 +93,7 @@ class User < ActiveRecord::Base
   end
 
   def staff?
-    borrower.nil?
+    !borrower && loan_member
   end
 
   private
