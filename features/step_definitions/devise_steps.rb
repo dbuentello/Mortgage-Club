@@ -15,8 +15,7 @@ Given /^I am a new, authenticated user$/ do
   click_button "Đăng Nhập"
 end
 
-Given /^I login as "(.*?)"$/ do |email|
-  password = 'secretpass'
+Given /^I login as "(.*?)" with password "(.*?)"$/ do |email, password|
   visit '/auth/login'
   fill_in "user_email", :with => email
   fill_in "user_password", :with => password
@@ -47,6 +46,12 @@ Given /^I login via Facebook$/ do
   })
   visit('/users/sign_in')
   click_link_or_button 'Đăng Nhập Bằng Facebook'
+end
+
+When /^I change password as "(.*?)" with current password "(.*?)"$/ do |pass, current_pass|
+  fill_in "user_password", :with => pass
+  fill_in "user_password_confirmation", :with => pass
+  fill_in "user_current_password", :with => current_pass
 end
 
 When /^I connect my Facebook account$/ do

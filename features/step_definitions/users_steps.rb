@@ -1,3 +1,7 @@
+When(/^I click "(.*?)"/) do |link|
+  click_link(link)
+end
+
 # When(/^I am on the root page$/) do
 #   visit root_path
 # end

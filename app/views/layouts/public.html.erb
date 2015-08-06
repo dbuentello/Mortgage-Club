@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>MortgageClub</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <div>
-    <nav class='topMenu backgroundInverse pvm zIndexNavigation overlayFullWidth'>
-      <div class='plm prl'>
-        <div class='row'>
-          <div class='col-xs-6 typeLowlight'>
-            <%= link_to "MortgageClub", root_path %>
+  <head>
+    <title>MortgageClub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div>
+      <nav class='topMenu backgroundInverse pvm zIndexNavigation overlayFullWidth'>
+        <div class='plm prl'>
+          <div class='row'>
+            <div class='col-xs-6 typeLowlight'>
+              <%= link_to "MortgageClub", root_path %>
+            </div>
+            <div class='col-xs-6 text-right'>
+              <% if current_user %>
+                <span>
+                  <span class='typeLowlight mrm'>Hello <a class='linkTypeReversed' href='/auth/register/edit' data-method='get'><%= current_user.first_name %></a>!</span>
+                  <a class='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
+                </span>
+              <% else %>
+                <span>
+                  <a class='linkTypeReversed mrm' href='/auth/login'>
+                    Log in
+                  </a>
+                  <a class='linkTypeReversed mrm' href='/auth/register/signup'>
+                    Sign up
+                  </a>
+                </span>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
-    </nav>
-  </div>
+      </nav>
+    </div>
 
-  <div class="container flashSection">
-    <%= flash_messages %>
-  </div>
+    <div class="container flashSection">
+      <%= flash_messages %>
+    </div>
 
-  <%= yield %>
+    <%= yield %>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
-  <%= javascript_include_tag 'public', 'data-turbolinks-track' => false %>
-</body>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
+    <%= javascript_include_tag 'public', 'data-turbolinks-track' => false %>
+  </body>
 </html>
