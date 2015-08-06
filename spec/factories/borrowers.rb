@@ -22,7 +22,7 @@ FactoryGirl.define do
 
     after(:build) do |borrower, evaluator|
       create(:employment, borrower: borrower)
-      create_list(:borrower_address, 2, borrower: borrower)
+      create_list(:borrower_address, 1, borrower: borrower)
     end
 
     factory :borrower_with_documents do |f|
