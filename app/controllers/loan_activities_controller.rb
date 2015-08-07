@@ -36,9 +36,12 @@ class LoanActivitiesController < ApplicationController
   def get_activities_by_conditions
     activities = LoanActivity.where(
       activity_type: loan_activity_params[:activity_type],
-      name: loan_activity_params[:name],
       loan_id: loan_activity_params[:loan_id]
     )
+
+    if loan_activity_params[:name].present?
+      activities = activities.where(name: loan_activity_params[:name])
+    end
 
     render json: {activities: activities}, status: 200
   end

@@ -83,6 +83,7 @@ var LoanActivity = React.createClass({
         var flash = { "alert-success": "Updated successfully!" };
         this.showFlashes(flash);
         this.disableButton(this.state.current_status);
+
         this.reloadActivityList(this.state.current_type);
       }.bind(this),
       error: function(response, status, error) {
@@ -159,12 +160,10 @@ var LoanActivity = React.createClass({
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <ActivitiesInfo activitiesList={this.state.loan_submission_list}></ActivitiesInfo>
-                <ActivitiesInfo activitiesList={this.state.loan_doc_list}></ActivitiesInfo>
-                <ActivitiesInfo activitiesList={this.state.closing_list}></ActivitiesInfo>
-                <ActivitiesInfo activitiesList={this.state.post_closing_list}></ActivitiesInfo>
-              </tr>
+              <ActivitiesInfo activitiesList={this.state.loan_submission_list}/>
+              <ActivitiesInfo activitiesList={this.state.loan_doc_list}/>
+              <ActivitiesInfo activitiesList={this.state.closing_list}/>
+              <ActivitiesInfo activitiesList={this.state.post_closing_list}/>
             </tbody>
           </table>
         </div>
@@ -241,21 +240,22 @@ var LoanActivity = React.createClass({
           loan_id: this.props.bootstrapData.loan.id
         }
       },
-      success: function(activities) {
-        // console.dir(activities);
+      success: function(response) {
+        console.dir(activity_type);
+        console.dir(response.activities);
 
         switch(activity_type) {
-          case 0:
-            this.setState({ loan_submission_list: activities })
+          case '0':
+            this.setState({ loan_submission_list: response.activities })
             break;
-          case 1:
-            this.setState({ loan_doc_list: activities })
+          case '1':
+            this.setState({ loan_doc_list: response.activities })
             break;
-          case 2:
-            this.setState({ closing_list: activities })
+          case '2':
+            this.setState({ closing_list: response.activities })
             break;
-          case 3:
-            this.setState({ post_closing_list: activities })
+          case '3':
+            this.setState({ post_closing_list: response.activities })
             break;
         }
       }.bind(this),
@@ -265,7 +265,6 @@ var LoanActivity = React.createClass({
       }
     });
   }
-
 });
 
 module.exports = LoanActivity;

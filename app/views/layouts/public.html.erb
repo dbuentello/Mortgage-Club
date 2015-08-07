@@ -20,15 +20,6 @@
                   <span class='typeLowlight mrm'>Hello <a class='linkTypeReversed' href='/auth/register/edit' data-method='get'><%= current_user.first_name %></a>!</span>
                   <a class='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
                 </span>
-              <% else %>
-                <span>
-                  <a class='linkTypeReversed mrm' href='/auth/login'>
-                    Log in
-                  </a>
-                  <a class='linkTypeReversed mrm' href='/auth/register/signup'>
-                    Sign up
-                  </a>
-                </span>
               <% end %>
             </div>
           </div>
