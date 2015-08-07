@@ -3,7 +3,7 @@ module LoanActivityServices
     attr_accessor :error_message
 
     def call(loan_member, activity_params)
-      @loan_activity = loan_member.loan_activities.find_or_initialize_by(name: activity_params[:name])
+      @loan_activity = LoanActivity.find_or_initialize_by(name: activity_params[:name], loan_id: activity_params[:loan_id])
       previous_activity_status = @loan_activity.activity_status
 
       @loan_activity.attributes = activity_params
