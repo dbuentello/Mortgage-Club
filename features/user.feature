@@ -23,5 +23,4 @@ Feature: User
   Scenario: logins as staff role
     Given there is a staff with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the token "1"
       And I login as "testing@man.net" with password "secretpass"
-      And show me the page
-    Then I should see "Loan member dashboard"
+    Then I should see "Loans list"

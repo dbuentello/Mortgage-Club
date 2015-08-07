@@ -241,8 +241,8 @@ var LoanActivity = React.createClass({
         }
       },
       success: function(response) {
-        console.dir(activity_type);
-        console.dir(response.activities);
+        // console.dir(activity_type);
+        // console.dir(response.activities);
 
         switch(activity_type) {
           case '0':

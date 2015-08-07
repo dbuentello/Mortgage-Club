@@ -12,7 +12,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
-    resource.create_borrower if params[:role] == "loan-owner"
+    if params[:role] == "loan-owner"
+      resource.create_borrower
+    else
+      resource.create_loan_member
+    end
   end
 
   # GET /resource/edit

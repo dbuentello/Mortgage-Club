@@ -8,7 +8,7 @@ var ActivitesInfo = React.createClass({
 
   render: function() {
     var isEmpty = _.isEmpty(this.props.activitiesList);
-    console.log(isEmpty);
+    // console.log(isEmpty);
 
     return (
       <div>
