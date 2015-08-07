@@ -14,7 +14,8 @@ class LoanActivitiesController < ApplicationController
   def show
     bootstrap(
       loan: loan.as_json(loans_json_options),
-      first_activity: first_activity
+      first_activity: first_activity,
+      loan_activities: loan.loan_activities.group_by(&:activity_type)
     )
 
     respond_to do |format|
