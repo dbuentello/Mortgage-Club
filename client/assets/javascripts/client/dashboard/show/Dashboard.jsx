@@ -4,12 +4,12 @@ var React = require('react/addons');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 
-var OverviewTab = require('./OverviewTab');
-var BorrowerTab = require('./BorrowerTab');
-var ContactTab = require('./ContactTab');
-var PropertyTab = require('./PropertyTab');
-var LoanTab = require('./LoanTab');
-var ClosingTab = require('./ClosingTab');
+var OverviewTab = require('./tabs/OverviewTab');
+var BorrowerTab = require('./tabs/BorrowerTab');
+var ContactTab = require('./tabs/ContactTab');
+var PropertyTab = require('./tabs/PropertyTab');
+var LoanTab = require('./tabs/LoanTab');
+var ClosingTab = require('./tabs/ClosingTab');
 var UserInfo = require('./UserInfo');
 
 var Dashboard = React.createClass({
