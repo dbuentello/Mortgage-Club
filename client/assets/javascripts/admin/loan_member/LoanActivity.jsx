@@ -30,14 +30,11 @@ var LoanActivity = React.createClass({
       current_status: 0,
       acctivity_name_list: TypeNameMapping[0],
       shown_to_user: true,
-      loan_submission_list: this.getValue(this.props.bootstrapData.loan_activities, 'loan_submission_list'),
+      loan_submission_list: this.getValue(this.props.bootstrapData.loan_activities, 'loan_submission'),
       loan_doc_list: this.getValue(this.props.bootstrapData.loan_activities, 'loan_doc'),
       closing_list: this.getValue(this.props.bootstrapData.loan_activities, 'closing'),
       post_closing_list: this.getValue(this.props.bootstrapData.loan_activities, 'post_closing')
     };
-  },
-
-  getDefaultProps: function() {
   },
 
   componentDidMount: function() {
@@ -53,36 +50,6 @@ var LoanActivity = React.createClass({
     this.setNewActivityStatus(event.target.value, TypeNameMapping[event.target.value][0]);
   },
 
-  setNewActivityStatus: function(activity_type, activity_name) {
-    $.ajax({
-      url: '/loan_activities/get_activities_by_conditions',
-      method: 'GET',
-      context: this,
-      dataType: 'json',
-      data: {
-        loan_activity: {
-          activity_type: activity_type,
-          name: activity_name,
-          loan_id: this.props.bootstrapData.loan.id,
-        }
-      },
-      success: function(activities) {
-        _.map(activities, function(activity) {
-          if(activity[0]){
-            this.disableButton(activity[0].activity_status);
-          }
-          else
-          {
-            this.disableButton();
-          }
-        }, this);
-      },
-      error: function(response, status, error) {
-        alert(error);
-      }
-    });
-  },
-
   onNameChange: function(event) {
     this.setState({
       current_name: event.target.value,
@@ -94,33 +61,6 @@ var LoanActivity = React.createClass({
     this.setState({
       shown_to_user: !this.state.shown_to_user
     })
-  },
-
-  disableButton: function(button_value) {
-    switch(button_value) {
-      case '0':
-      case 'start':
-        this.setState({disabledStartButton: true});
-        this.setState({disabledDoneButton: false});
-        this.setState({disabledPauseButton: false});
-        break;
-      case '1':
-      case 'done':
-        this.setState({disabledDoneButton: true});
-        this.setState({disabledStartButton: false});
-        this.setState({disabledPauseButton: true});
-        break;
-      case '2':
-      case 'pause':
-        this.setState({disabledPauseButton: true});
-        this.setState({disabledStartButton: false});
-        this.setState({disabledDoneButton: false});
-        break;
-      default:
-        this.setState({disabledStartButton: false});
-        this.setState({disabledDoneButton: false});
-        this.setState({disabledPauseButton: false});
-    }
   },
 
   onActionClick: function(event) {
@@ -136,13 +76,14 @@ var LoanActivity = React.createClass({
           activity_status: this.state.current_status,
           name: this.state.current_name,
           user_visible: this.state.shown_to_user,
-          loan_id: this.props.bootstrapData.loan.id,
+          loan_id: this.props.bootstrapData.loan.id
         }
       },
       success: function(response) {
         var flash = { "alert-success": "Updated successfully!" };
         this.showFlashes(flash);
         this.disableButton(this.state.current_status);
+        this.reloadActivityList(this.state.current_type);
       }.bind(this),
       error: function(response, status, error) {
         var flash = { "alert-danger": response.responseJSON.error };
@@ -214,6 +155,7 @@ var LoanActivity = React.createClass({
                 <th>Name</th>
                 <th>Status</th>
                 <th>Duration</th>
+                <th>Shown to user?</th>
               </tr>
             </thead>
             <tbody>
@@ -228,6 +170,100 @@ var LoanActivity = React.createClass({
         </div>
       </div>
     )
+  },
+
+  setNewActivityStatus: function(activity_type, activity_name) {
+    $.ajax({
+      url: '/loan_activities/get_activities_by_conditions',
+      method: 'GET',
+      context: this,
+      dataType: 'json',
+      data: {
+        loan_activity: {
+          activity_type: activity_type,
+          name: activity_name,
+          loan_id: this.props.bootstrapData.loan.id
+        }
+      },
+      success: function(activities) {
+        _.map(activities, function(activity) {
+          if(activity[0]){
+            this.disableButton(activity[0].activity_status);
+          }
+          else
+          {
+            this.disableButton();
+          }
+        }, this);
+      },
+      error: function(response, status, error) {
+        alert(error);
+      }
+    });
+  },
+
+  disableButton: function(button_value) {
+    switch(button_value) {
+      case '0':
+      case 'start':
+        this.setState({disabledStartButton: true});
+        this.setState({disabledDoneButton: false});
+        this.setState({disabledPauseButton: false});
+        break;
+      case '1':
+      case 'done':
+        this.setState({disabledDoneButton: true});
+        this.setState({disabledStartButton: false});
+        this.setState({disabledPauseButton: true});
+        break;
+      case '2':
+      case 'pause':
+        this.setState({disabledPauseButton: true});
+        this.setState({disabledStartButton: false});
+        this.setState({disabledDoneButton: false});
+        break;
+      default:
+        this.setState({disabledStartButton: false});
+        this.setState({disabledDoneButton: false});
+        this.setState({disabledPauseButton: false});
+    }
+  },
+
+  reloadActivityList: function(activity_type) {
+    $.ajax({
+      url: '/loan_activities/get_activities_by_conditions',
+      method: 'GET',
+      context: this,
+      dataType: 'json',
+      data: {
+        loan_activity: {
+          activity_type: activity_type,
+          loan_id: this.props.bootstrapData.loan.id
+        }
+      },
+      success: function(activities) {
+        // console.dir(activities);
+
+        switch(activity_type) {
+          case 0:
+            this.setState({ loan_submission_list: activities })
+            break;
+          case 1:
+            this.setState({ loan_doc_list: activities })
+            break;
+          case 2:
+            this.setState({ closing_list: activities })
+            break;
+          case 3:
+            this.setState({ post_closing_list: activities })
+            break;
+        }
+      }.bind(this),
+      error: function(response, status, error) {
+        var flash = { "alert-danger": response.responseJSON.error };
+        this.showFlashes(flash);
+      }
+    });
   }
 
 });

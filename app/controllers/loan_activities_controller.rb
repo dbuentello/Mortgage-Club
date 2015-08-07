@@ -39,6 +39,7 @@ class LoanActivitiesController < ApplicationController
       name: loan_activity_params[:name],
       loan_id: loan_activity_params[:loan_id]
     )
+
     render json: {activities: activities}, status: 200
   end
 

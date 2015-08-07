@@ -36,10 +36,8 @@ class Employment < ActiveRecord::Base
     more_options = {
       include: :address
     }
+    more_options.merge!(opts)
 
-    options = super(opts)
-    options.merge!(more_options)
-
-    options
+    super(more_options)
   end
 end

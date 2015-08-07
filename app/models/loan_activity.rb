@@ -43,4 +43,43 @@ class LoanActivity < ActiveRecord::Base
   validates_inclusion_of :user_visible, in: [true, false]
 
   validates_uniqueness_of :name, uniqueness: true, scope: :loan_id
+
+  def pretty_activity_type
+    case activity_type
+    when 'loan_submission'
+      LIST.keys[0]
+    when 'loan_doc'
+      LIST.keys[1]
+    when 'closing'
+      LIST.keys[2]
+    when 'post_closing'
+      LIST.keys[3]
+    end
+  end
+
+  def pretty_activity_status
+    activity_status.upcase
+  end
+
+  def pretty_duration
+    duration ||= 0
+
+    ActionController::Base.helpers.distance_of_time_in_words(0, duration, include_seconds: true)
+  end
+
+  def pretty_user_visible
+    user_visible.to_s
+  end
+
+  def as_json(opts={})
+    more_options = {
+      methods: [
+        :pretty_activity_type, :pretty_activity_status, :pretty_duration, :pretty_user_visible
+      ]
+    }
+    more_options.merge!(opts)
+
+    super(more_options)
+  end
+
 end
