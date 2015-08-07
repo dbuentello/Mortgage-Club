@@ -195,8 +195,6 @@ var LoanActivity = React.createClass({
             </span>
           </div>
         </div>
-
-        <p className='mtl'><a href="/loan_activities">Back to Loans List</a></p>
       </div>
     )
   }
