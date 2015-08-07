@@ -5,9 +5,8 @@ class DashboardController < ApplicationController
     borrower = current_user.borrower
 
     # TODO: select loan by params[:loan_id] when we build multi dashboards.
-    loan = Loan.first
+    loan = @loan
     property =  loan.property
-    # byebug
     bootstrap(
       doc_list: borrower.documents.as_json(doc_list_json_option),
       address: borrower.display_current_address,
@@ -15,7 +14,7 @@ class DashboardController < ApplicationController
       contact_list: contact_list_json_options,
       property_list: property.as_json(property_list_json_options),
       loan_list: loan.as_json(loan_list_json_options),
-      loan_activities: loan.loan_activities.as_json
+      loan_activities: loan.loan_activities.order(updated_at: :desc).limit(10).as_json
     )
 
     respond_to do |format|
