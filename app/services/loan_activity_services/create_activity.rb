@@ -6,6 +6,7 @@ module LoanActivityServices
       @loan_activity = LoanActivity.find_or_initialize_by(name: activity_params[:name], loan_id: activity_params[:loan_id])
       previous_activity_status = @loan_activity.activity_status
 
+      activity_params[:loan_member_id] ||= loan_member.id
       @loan_activity.attributes = activity_params
       if @loan_activity.save
         CalculateProcessingTime.new(@loan_activity, previous_activity_status).call
