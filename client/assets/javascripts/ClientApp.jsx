@@ -6,11 +6,11 @@ var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
-var AppStarter = require('./tools/AppStarter');
-var LoanInterface = require('./client/loans/edit/LoanInterface');
-var MortgageRates = require('./client/loans/MortgageRates');
-var LoanActivityInterface = require('./client/loans/show/LoanActivityInterface');
-var Dashboard = require('./client/dashboard/show/Dashboard');
+var AppStarter = require('tools/AppStarter');
+var LoanInterface = require('client/loans/edit/LoanInterface');
+var MortgageRates = require('client/loans/MortgageRates');
+var LoanActivityInterface = require('client/loans/show/LoanActivityInterface');
+var Dashboard = require('client/dashboard/show/Dashboard');
 var FlashHandler = require('mixins/FlashHandler');
 
 window.ClientApp = React.createClass({

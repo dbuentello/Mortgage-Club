@@ -150,8 +150,9 @@ var LoanActivity = React.createClass({
     return (
       <div className='content container'>
         <h2>Loan member dashboard</h2>
-        <div className="row">
-          <div className="col-xs-4 ptl">
+        <h5>Loan of {loan.user.to_s}</h5>
+        <div className="row ptl">
+          <div className="col-xs-4">
             <select className="form-control" onChange={this.onTypeChange}>
               {
                 _.map(ActivityTypes, function(type) {
@@ -162,7 +163,7 @@ var LoanActivity = React.createClass({
               }
             </select>
           </div>
-          <div className="col-xs-4 ptl">
+          <div className="col-xs-4">
             <select className="form-control" onChange={this.onNameChange}>
               {
                 _.map(this.state.acctivity_name_list, function(name) {
@@ -173,7 +174,7 @@ var LoanActivity = React.createClass({
               }
             </select>
           </div>
-          <div className="col-xs-2 ptl">
+          <div className="col-xs-2">
             <div className="checkbox">
               <label>
                 <input type="checkbox" checked={this.state.shown_to_user} onClick={this.onShownClick}/> Shown to user?
@@ -181,8 +182,8 @@ var LoanActivity = React.createClass({
             </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-xs-12 ptl">
+        <div className="row ptl">
+          <div className="col-xs-12">
             <span>
               <button className="btn btn-primary mrs" value="0" onClick={this.onActionClick} disabled={this.state.disabledStartButton}>START</button>
             </span>
@@ -194,6 +195,8 @@ var LoanActivity = React.createClass({
             </span>
           </div>
         </div>
+
+        <p className='mtl'><a href="/loan_activities">Back to Loans List</a></p>
       </div>
     )
   }

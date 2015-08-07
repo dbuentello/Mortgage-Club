@@ -1,13 +1,14 @@
+var $ = require('jquery');
+
 var React = require('react/addons');
 var Router = require('react-router');
 var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
-var AppStarter = require('./tools/AppStarter');
-var $ = require('jquery');
-
-var LoanActivity = require('./admin/loan_member/LoanActivity');
+var AppStarter = require('tools/AppStarter');
+var Loans = require('./admin/loan_member/Loans')
+var LoanActivity = require('admin/loan_member/LoanActivity');
 
 window.AdminApp = React.createClass({
   contextTypes: {
@@ -56,8 +57,9 @@ window.AdminApp = React.createClass({
 
 var routes = (
   <Route name='app' path='/' handler={AdminApp}>
-    <Route name='loan_activity' path='/loan_activities' handler={LoanActivity}/>
-    <DefaultRoute handler={LoanActivity}/>
+    <Route name='loans' path='/loan_activities' handler={Loans}/>
+    // <Route name='loan_activities' path='/loan_activities/:id' handler={LoanActivity}/>
+    <DefaultRoute handler={Loans}/>
   </Route>
 );
 
