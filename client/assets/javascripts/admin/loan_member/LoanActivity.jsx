@@ -1,6 +1,10 @@
 var _ = require('lodash');
 var React = require('react/addons');
+
 var FlashHandler = require('mixins/FlashHandler');
+var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
+
+var ActivitiesInfo = require('./ActivitiesInfo');
 
 var ActivityTypes = [
   { "value": 0, "label": "Prior to Loan Submission" },
@@ -17,7 +21,7 @@ var TypeNameMapping = {
 };
 
 var LoanActivity = React.createClass({
-  mixins: [FlashHandler],
+  mixins: [FlashHandler, ObjectHelperMixin],
 
   getInitialState: function() {
     return {
@@ -25,7 +29,11 @@ var LoanActivity = React.createClass({
       current_name: "Verify borrower's income",
       current_status: 0,
       acctivity_name_list: TypeNameMapping[0],
-      shown_to_user: true
+      shown_to_user: true,
+      loan_submission_list: this.getValue(this.props.bootstrapData.loan_activities, 'loan_submission_list'),
+      loan_doc_list: this.getValue(this.props.bootstrapData.loan_activities, 'loan_doc'),
+      closing_list: this.getValue(this.props.bootstrapData.loan_activities, 'closing'),
+      post_closing_list: this.getValue(this.props.bootstrapData.loan_activities, 'post_closing')
     };
   },
 
@@ -151,6 +159,7 @@ var LoanActivity = React.createClass({
       <div className='content container'>
         <h2>Loan member dashboard</h2>
         <h5>Loan of {loan.user.to_s}</h5>
+
         <div className="row ptl">
           <div className="col-xs-4">
             <select className="form-control" onChange={this.onTypeChange}>
@@ -182,6 +191,7 @@ var LoanActivity = React.createClass({
             </div>
           </div>
         </div>
+
         <div className="row ptl">
           <div className="col-xs-12">
             <span>
@@ -194,6 +204,27 @@ var LoanActivity = React.createClass({
               <button className="btn btn-primary" value="2" onClick={this.onActionClick} disabled={this.state.disabledPauseButton}>PAUSE</button>
             </span>
           </div>
+        </div>
+
+        <div className="table-responsive">
+          <table className="mtxl table table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Activity Type</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <ActivitiesInfo activitiesList={this.state.loan_submission_list}></ActivitiesInfo>
+                <ActivitiesInfo activitiesList={this.state.loan_doc_list}></ActivitiesInfo>
+                <ActivitiesInfo activitiesList={this.state.closing_list}></ActivitiesInfo>
+                <ActivitiesInfo activitiesList={this.state.post_closing_list}></ActivitiesInfo>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     )

@@ -15,7 +15,6 @@ var Loans = React.createClass({
   },
 
   componentDidMount: function() {
-    console.dir(this.props);
   },
 
   render: function() {
