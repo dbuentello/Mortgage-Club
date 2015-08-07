@@ -26,6 +26,7 @@ describe LoansController do
     end
 
     it "returns warning when co-borrower info is not correct" do
+      other_user.reload
       params = {
         id: loan.id,
         email: other_user.email,
@@ -37,6 +38,7 @@ describe LoansController do
     end
 
     it "returns warning when co-borrower info is enough" do
+      other_user.reload
       params = {
         id: loan.id,
         email: other_user.email,
@@ -48,6 +50,7 @@ describe LoansController do
     end
 
     it "returns full co-borrower data when email, dob and ssn number are correct" do
+      other_user.reload
       params = {
         id: loan.id,
         email: other_user.email,

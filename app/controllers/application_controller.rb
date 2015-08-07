@@ -11,13 +11,12 @@ class ApplicationController < ActionController::Base
   private
 
   def set_loan
+    return if current_user.staff?
+
     @loan = current_user.loans.first # get the first own loan
     if @loan.present?
       @borrower_type = :borrower
     else
-      if current_user.borrower.blank? && !current_user.staff?
-        current_user.create_borrower
-      end
       @loan = current_user.borrower.loan # or get the co-borrower relationship
 
       if @loan.present?
