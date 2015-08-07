@@ -1,13 +1,13 @@
 # == Schema Information
 #
-# Table name: loans_members
+# Table name: loans_members_associations
 #
 #  id             :integer          not null, primary key
 #  loan_id        :integer
 #  team_member_id :integer
 #
 
-class LoansMember < ActiveRecord::Base
+class LoansMembersAssociation < ActiveRecord::Base
 
   ROLE_TITLES = {
     admin: 'Loan Admin',
@@ -15,6 +15,6 @@ class LoansMember < ActiveRecord::Base
   }
 
   belongs_to :loan
-  belongs_to :team_member
+  belongs_to :loan_member
 
 end

@@ -1,11 +1,8 @@
 # == Schema Information
 #
-# Table name: team_members
+# Table name: loan_members
 #
 #  id           :integer          not null, primary key
-#  first_name   :string
-#  last_name    :string
-#  middle_name  :string
 #  phone_number :string
 #  skype_handle :string
 #  email        :string
@@ -16,10 +13,15 @@
 #  updated_at   :datetime
 #
 
-class TeamMember < ActiveRecord::Base
+class LoanMember < ActiveRecord::Base
   belongs_to :user
 
-  has_many :loans_members
-  has_many :loans, through: :loans_members
+  has_many :loans_members_associations
+  has_many :loans, through: :loans_members_associations
+
+  has_many :loan_activities
+
+  delegate :first_name, to: :user, allow_nil: true
+  delegate :last_name, to: :user, allow_nil: true
 
 end

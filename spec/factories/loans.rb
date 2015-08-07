@@ -40,4 +40,11 @@ FactoryGirl.define do
     borrower
     association :secondary_borrower, factory: :borrower
   end
+
+  factory :loan_with_activites, parent: :loan do |f|
+    after(:build) do |loan, evaluator|
+      create_list(:loan_activity, Random.rand(1..3), loan: loan)
+    end
+  end
+
 end

@@ -4,8 +4,9 @@ var path = require('path');
 
 module.exports = {
   entry: {
+    PublicApp: 'PublicApp',
     ClientApp: 'ClientApp',
-    PublicApp: 'PublicApp'
+    AdminApp: 'AdminApp'
   },
   resolve: {
     root: [path.join(__dirname, 'scripts'),

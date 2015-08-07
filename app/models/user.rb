@@ -22,6 +22,15 @@
 #  failed_attempts        :integer          default(0), not null
 #  unlock_token           :string
 #  locked_at              :datetime
+#  avatar_file_name       :string
+#  avatar_content_type    :string
+#  avatar_file_size       :integer
+#  avatar_updated_at      :datetime
+#  token                  :string
+#  first_name             :string
+#  last_name              :string
+#  middle_name            :string
+#  suffix                 :string
 #
 
 class User < ActiveRecord::Base
@@ -37,7 +46,7 @@ class User < ActiveRecord::Base
   has_many :signers, inverse_of: :user
 
   has_one :borrower, inverse_of: :user, autosave: :true, dependent: :destroy
-  has_one :team_member, inverse_of: :user, autosave: :true, dependent: :destroy
+  has_one :loan_member, inverse_of: :user, autosave: :true, dependent: :destroy
 
   has_one :appraisal_report, as: :owner, dependent: :destroy
   has_one :homeowners_insurance, as: :owner, dependent: :destroy
@@ -49,12 +58,10 @@ class User < ActiveRecord::Base
   has_one :inspection_report, as: :owner, dependent: :destroy
   has_one :title_report, as: :owner, dependent: :destroy
   has_one :risk_report, as: :owner, dependent: :destroy
-  has_attached_file :avatar, path: PAPERCLIP[:default_path]
+
+  has_attached_file :avatar, path: PAPERCLIP[:default_path], default_url: ActionController::Base.helpers.asset_path('avatar.png')
 
   accepts_nested_attributes_for :borrower, allow_destroy: true
-
-  delegate :first_name, :first_name=, to: :borrower, allow_nil: true
-  delegate :last_name, :last_name=, to: :borrower, allow_nil: true
 
   validates :email,
     presence: true,
@@ -70,6 +77,10 @@ class User < ActiveRecord::Base
   before_validation :set_private_token
 
   PERMITTED_ATTRS = [
+    :first_name,
+    :last_name,
+    :middle_name,
+    :suffix,
     :email,
     :password,
     :password_confirmation,
@@ -79,6 +90,10 @@ class User < ActiveRecord::Base
 
   def to_s
     "#{first_name} #{last_name}"
+  end
+
+  def staff?
+    !borrower && loan_member
   end
 
   private

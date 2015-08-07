@@ -159,6 +159,7 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
   gem 'guard-rspec'
+  gem 'timecop'
 end
 
 group :production do

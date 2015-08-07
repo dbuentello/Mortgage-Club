@@ -73,4 +73,10 @@ Rails.application.routes.draw do
   post 'electronic_signature/demo'
   get 'electronic_signature/embedded_response'
 
+  resources :loan_activities, only: [:index, :show, :create] do
+    collection do
+      get 'get_activities_by_conditions'
+    end
+  end
+
 end

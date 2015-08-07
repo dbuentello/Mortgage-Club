@@ -1,9 +1,9 @@
 var React = require('react/addons');
 
+var RecentLoanActivities = require('./RecentLoanActivities');
+
 var UserInfo = React.createClass({
   render: function() {
-    var info = this.props.info;
-
     return (
       <div>
         <h5 className='ptl bbs pbm'>Your Relationship Manager</h5>
@@ -19,10 +19,10 @@ var UserInfo = React.createClass({
           </div>
         </div>
 
-        { (this.props.activeTab == 'overview') ?
+        { (this.props.ActiveTab == 'overview') ?
           <div>
             <h5 className='ptl bbs pbm'>Recent Loan Activity</h5>
-            ...
+            <RecentLoanActivities LoanActivityList={this.props.LoanActivities}/>
           </div>
           :
           <div>

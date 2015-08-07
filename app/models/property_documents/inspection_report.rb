@@ -13,6 +13,8 @@
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
 #  token                   :string
+#  owner_type              :string
+#  property_id             :integer
 #
 
 class InspectionReport < PropertyDocument

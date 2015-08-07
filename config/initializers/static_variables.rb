@@ -52,6 +52,12 @@ OTHER_MINE_TYPES = [
 ALLOWED_MIME_TYPES = IMAGE_MINE_TYPES + PDF_MINE_TYPES + MWORD_MINE_TYPES +
                      EXCEL_MINE_TYPES + POWERPOINT_MINE_TYPES + OTHER_MINE_TYPES
 
-PAPERCLIP = {
-  default_path: ':class/:token/:filename'
-}
+if Rails.env.test?
+  PAPERCLIP = {
+    default_path: ":rails_root/public/uploads/:class/:token/:filename"
+  }
+else
+  PAPERCLIP = {
+    default_path: ':class/:token/:filename'
+  }
+end

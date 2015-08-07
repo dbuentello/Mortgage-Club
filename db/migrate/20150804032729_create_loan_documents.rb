@@ -5,7 +5,7 @@ class CreateLoanDocuments < ActiveRecord::Migration
       t.integer :owner_id
 
       t.string :description
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_attachment :loan_documents, :attachment
