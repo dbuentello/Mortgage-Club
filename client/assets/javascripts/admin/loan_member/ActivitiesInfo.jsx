@@ -3,31 +3,21 @@ var React = require('react/addons');
 
 var ActivitesInfo = React.createClass({
   componentDidMount: function() {
-    // console.dir(this.props.activitiesList);
   },
 
   render: function() {
-    var isEmpty = _.isEmpty(this.props.activitiesList);
-    // console.log(isEmpty);
+    var loan_activity = this.props.loan_activity;
+    // console.log(loan_activity);
+    // console.log(is_valid);
 
     return (
-      <div>
-        { isEmpty ?
-          null
-          :
-          _.map(this.props.activitiesList, function(loan_activitiy) {
-            return (
-              <tr key={loan_activitiy.id}>
-                <td>{loan_activitiy.pretty_activity_type}</td>
-                <td>{loan_activitiy.name}</td>
-                <td>{loan_activitiy.pretty_activity_status}</td>
-                <td>{loan_activitiy.pretty_duration}</td>
-                <td>{loan_activitiy.pretty_user_visible}</td>
-              </tr>
-            )
-          })
-        }
-      </div>
+      <tr>
+        <td>{loan_activity.pretty_activity_type}</td>
+        <td>{loan_activity.name}</td>
+        <td>{loan_activity.pretty_activity_status}</td>
+        <td>{loan_activity.pretty_duration}</td>
+        <td>{loan_activity.pretty_user_visible}</td>
+      </tr>
     )
   }
 

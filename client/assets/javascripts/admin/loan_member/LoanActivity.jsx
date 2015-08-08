@@ -152,18 +152,69 @@ var LoanActivity = React.createClass({
           <table className="mtxl table table-bordered table-striped table-hover">
             <thead>
               <tr>
-                <th>Activity Type</th>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Duration</th>
-                <th>Shown to user?</th>
+                <th style={{'width': '30%'}}>Activity Type</th>
+                <th style={{'width': '35%'}}>Name</th>
+                <th style={{'width': '8%'}}>Status</th>
+                <th style={{'width': '17%'}}>Duration</th>
+                <th style={{'width': '10%'}}>Shown to user?</th>
               </tr>
             </thead>
             <tbody>
-              <ActivitiesInfo activitiesList={this.state.loan_submission_list}/>
-              <ActivitiesInfo activitiesList={this.state.loan_doc_list}/>
-              <ActivitiesInfo activitiesList={this.state.closing_list}/>
-              <ActivitiesInfo activitiesList={this.state.post_closing_list}/>
+              {
+                _.map(this.state.loan_submission_list, function(loan_activity) {
+                  return (
+                    <tr>
+                      <td>{loan_activity.pretty_activity_type}</td>
+                      <td>{loan_activity.name}</td>
+                      <td>{loan_activity.pretty_activity_status}</td>
+                      <td>{loan_activity.pretty_duration}</td>
+                      <td>{loan_activity.pretty_user_visible}</td>
+                    </tr>
+                  )
+                })
+              }
+
+              {
+                _.map(this.state.loan_doc_list, function(loan_activity) {
+                  return (
+                    <tr>
+                      <td>{loan_activity.pretty_activity_type}</td>
+                      <td>{loan_activity.name}</td>
+                      <td>{loan_activity.pretty_activity_status}</td>
+                      <td>{loan_activity.pretty_duration}</td>
+                      <td>{loan_activity.pretty_user_visible}</td>
+                    </tr>
+                  )
+                })
+              }
+
+              {
+                _.map(this.state.closing_list, function(loan_activity) {
+                  return (
+                    <tr>
+                      <td>{loan_activity.pretty_activity_type}</td>
+                      <td>{loan_activity.name}</td>
+                      <td>{loan_activity.pretty_activity_status}</td>
+                      <td>{loan_activity.pretty_duration}</td>
+                      <td>{loan_activity.pretty_user_visible}</td>
+                    </tr>
+                  )
+                })
+              }
+
+              {
+                _.map(this.state.post_closing_list, function(loan_activity) {
+                  return (
+                    <tr>
+                      <td>{loan_activity.pretty_activity_type}</td>
+                      <td>{loan_activity.name}</td>
+                      <td>{loan_activity.pretty_activity_status}</td>
+                      <td>{loan_activity.pretty_duration}</td>
+                      <td>{loan_activity.pretty_user_visible}</td>
+                    </tr>
+                  )
+                })
+              }
             </tbody>
           </table>
         </div>
