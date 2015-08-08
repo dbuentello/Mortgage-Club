@@ -23,7 +23,7 @@ var LoanActivity = React.createClass({
 
   getInitialState: function() {
     return {
-      current_type: 0,
+      current_type: '0',
       current_name: "Verify borrower's income",
       current_status: 0,
       acctivity_name_list: TypeNameMapping[0],
@@ -45,6 +45,7 @@ var LoanActivity = React.createClass({
       current_name: TypeNameMapping[event.target.value][0],
       acctivity_name_list: TypeNameMapping[event.target.value]
     });
+
     this.setNewActivityStatus(event.target.value, TypeNameMapping[event.target.value][0]);
   },
 
@@ -272,8 +273,8 @@ var LoanActivity = React.createClass({
         break;
       default:
         this.setState({disabledStartButton: false});
-        this.setState({disabledDoneButton: false});
-        this.setState({disabledPauseButton: false});
+        this.setState({disabledDoneButton: true});
+        this.setState({disabledPauseButton: true});
     }
   },
 
@@ -290,21 +291,18 @@ var LoanActivity = React.createClass({
         }
       },
       success: function(response) {
-        // console.dir(activity_type);
-        // console.dir(response.activities);
-
         switch(activity_type) {
           case '0':
-            this.setState({ loan_submission_list: response.activities })
+            this.setState({ loan_submission_list: response.activities });
             break;
           case '1':
-            this.setState({ loan_doc_list: response.activities })
+            this.setState({ loan_doc_list: response.activities });
             break;
           case '2':
-            this.setState({ closing_list: response.activities })
+            this.setState({ closing_list: response.activities });
             break;
           case '3':
-            this.setState({ post_closing_list: response.activities })
+            this.setState({ post_closing_list: response.activities });
             break;
         }
       }.bind(this),
