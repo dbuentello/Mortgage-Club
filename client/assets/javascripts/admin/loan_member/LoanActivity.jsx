@@ -4,8 +4,6 @@ var React = require('react/addons');
 var FlashHandler = require('mixins/FlashHandler');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 
-var ActivitiesInfo = require('./ActivitiesInfo');
-
 var ActivityTypes = [
   { "value": 0, "label": "Prior to Loan Submission" },
   { "value": 1, "label": "Prior to Loan Docs" },
