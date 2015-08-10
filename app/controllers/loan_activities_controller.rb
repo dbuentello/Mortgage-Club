@@ -49,7 +49,10 @@ class LoanActivitiesController < ApplicationController
   private
 
   def loan_activity_params
-    loan_activity_params = params.require(:loan_activity).permit(:name, :activity_type, :activity_status, :user_visible, :loan_id, :loan_member_id)
+    loan_activity_params = params.require(:loan_activity).permit(
+      :name, :activity_type, :activity_status, :user_visible, :loan_id
+    )
+
     loan_activity_params[:activity_type] = loan_activity_params[:activity_type].to_i
     loan_activity_params[:activity_status] = loan_activity_params[:activity_status].to_i
     loan_activity_params

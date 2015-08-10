@@ -3,10 +3,15 @@ module LoanActivityServices
     attr_accessor :error_message
 
     def call(loan_member, activity_params)
-      @loan_activity = LoanActivity.find_or_initialize_by(name: activity_params[:name], loan_id: activity_params[:loan_id])
-      previous_activity_status = @loan_activity.activity_status
+      @loan_activity = LoanActivity.find_or_initialize_by(
+        loan_id: activity_params[:loan_id], name: activity_params[:name]
+      )
+      previous_activity_status = @loan_activity.activity_status # must be set right now
 
-      activity_params[:loan_member_id] ||= loan_member.id
+      # set loan member
+      activity_params[:loan_member_id] = loan_member.id
+
+      # set other attributes
       @loan_activity.attributes = activity_params
       if @loan_activity.save
         CalculateProcessingTime.new(@loan_activity, previous_activity_status).call
