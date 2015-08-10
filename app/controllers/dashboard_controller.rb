@@ -14,7 +14,7 @@ class DashboardController < ApplicationController
       contact_list: contact_list_json_options,
       property_list: property.as_json(property_list_json_options),
       loan_list: loan.as_json(loan_list_json_options),
-      loan_activities: loan.loan_activities.order(updated_at: :desc).limit(10).as_json
+      loan_activities: loan.loan_activities.includes(loan_member: :user).order(updated_at: :desc).limit(10).as_json
     )
 
     respond_to do |format|
