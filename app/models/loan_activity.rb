@@ -58,7 +58,14 @@ class LoanActivity < ActiveRecord::Base
   end
 
   def pretty_activity_status
-    activity_status.upcase
+    case activity_status
+    when 'done'
+      'done'
+    when 'pause'
+      'paused'
+    when 'start'
+      'started'
+    end
   end
 
   def pretty_duration
@@ -75,11 +82,15 @@ class LoanActivity < ActiveRecord::Base
     loan_member.user.to_s
   end
 
+  def pretty_updated_at
+    ActionController::Base.helpers.time_ago_in_words(updated_at)
+  end
+
   def as_json(opts={})
     more_options = {
       methods: [
         :pretty_activity_type, :pretty_activity_status, :pretty_duration,
-        :pretty_user_visible, :pretty_loan_member_name
+        :pretty_user_visible, :pretty_loan_member_name, :pretty_updated_at
       ]
     }
     more_options.merge!(opts)

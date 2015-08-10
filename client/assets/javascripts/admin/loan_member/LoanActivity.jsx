@@ -168,7 +168,7 @@ var LoanActivity = React.createClass({
                     <tr>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
-                      <td>{loan_activity.pretty_activity_status}</td>
+                      <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
                       <td>{loan_activity.pretty_duration}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
@@ -183,7 +183,7 @@ var LoanActivity = React.createClass({
                     <tr>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
-                      <td>{loan_activity.pretty_activity_status}</td>
+                      <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
                       <td>{loan_activity.pretty_duration}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
@@ -198,7 +198,7 @@ var LoanActivity = React.createClass({
                     <tr>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
-                      <td>{loan_activity.pretty_activity_status}</td>
+                      <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
                       <td>{loan_activity.pretty_duration}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
@@ -213,7 +213,7 @@ var LoanActivity = React.createClass({
                     <tr>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
-                      <td>{loan_activity.pretty_activity_status}</td>
+                      <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
                       <td>{loan_activity.pretty_duration}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
