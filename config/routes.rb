@@ -47,6 +47,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :document_uploader do
+    member do
+      get 'download'
+    end
+  end
+
   # resource :dashboard, only: [:show]
   get 'dashboard', to: 'dashboard#show'
 
