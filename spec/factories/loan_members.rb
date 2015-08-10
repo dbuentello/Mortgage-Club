@@ -8,7 +8,7 @@ FactoryGirl.define do
     f.nmls_id { Faker::Number.number(6) }
 
     factory :loan_member_with_user do
-      user
+      user { create(:loan_member_user) }
     end
 
     factory :loan_member_with_activites, parent: :loan_member do |f|

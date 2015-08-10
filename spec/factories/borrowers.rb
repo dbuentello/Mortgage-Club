@@ -25,6 +25,10 @@ FactoryGirl.define do
       create_list(:borrower_address, 1, borrower: borrower)
     end
 
+    trait :with_user do
+      user { create(:borrower_user) }
+    end
+
     factory :borrower_with_documents do |f|
       first_w2
       second_w2
