@@ -3,14 +3,13 @@ class DashboardController < ApplicationController
 
   def show
     borrower = current_user.borrower
-
     # TODO: select loan by params[:loan_id] when we build multi dashboards.
     loan = @loan
     property =  loan.property
     bootstrap(
-      doc_list: borrower.documents.as_json(doc_list_json_option),
       address: property.address.try(:address),
       loan: loan.as_json(loan_json_options),
+      borrower_list: borrower.as_json(borrower_list_json_options),
       contact_list: contact_list_json_options,
       property_list: property.as_json(property_list_json_options),
       loan_list: loan.as_json(loan_list_json_options),
@@ -81,10 +80,13 @@ class DashboardController < ApplicationController
     }
   end
 
-  def doc_list_json_option
+  def borrower_list_json_options
     {
-      only: [:id],
-      methods: [:name, :file_icon_url]
+      include: {
+        borrower_documents: {
+          methods: [:file_icon_url, :class_name]
+        }
+      }
     }
   end
 end

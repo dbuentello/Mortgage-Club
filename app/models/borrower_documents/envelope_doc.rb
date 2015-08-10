@@ -12,6 +12,8 @@
 #  token                   :string
 #
 
-class Documents::SecondPaystub < Document
-  belongs_to :borrower, inverse_of: :second_paystub, class_name: 'Borrower', foreign_key: 'owner_id'
+class EnvelopeDoc < BorrowerDocument
+  # NOTE: someday when more class has documents inside, we should use polymorphic approuch instead
+  belongs_to :envelope, inverse_of: :documents, class_name: 'Envelope', foreign_key: 'owner_id'
+
 end

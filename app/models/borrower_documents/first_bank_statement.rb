@@ -12,6 +12,8 @@
 #  token                   :string
 #
 
-class Documents::FirstW2 < Document
-  belongs_to :borrower, inverse_of: :first_w2, class_name: 'Borrower', foreign_key: 'owner_id'
+class FirstBankStatement < BorrowerDocument
+  DESCRIPTION = "Bank statement - Most recent month"
+
+  belongs_to :borrower, inverse_of: :first_bank_statement, class_name: 'Borrower', foreign_key: 'owner_id'
 end

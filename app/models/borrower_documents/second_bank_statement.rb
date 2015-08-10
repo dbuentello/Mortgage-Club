@@ -12,6 +12,8 @@
 #  token                   :string
 #
 
-class Documents::FirstPaystub < Document
-  belongs_to :borrower, inverse_of: :first_paystub, class_name: 'Borrower', foreign_key: 'owner_id'
+class SecondBankStatement < BorrowerDocument
+  DESCRIPTION = "Bank statement - Previous month"
+
+  belongs_to :borrower, inverse_of: :second_bank_statement, class_name: 'Borrower', foreign_key: 'owner_id'
 end

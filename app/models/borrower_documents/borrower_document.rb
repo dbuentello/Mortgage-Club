@@ -12,7 +12,7 @@
 #  token                   :string
 #
 
-class Document < ActiveRecord::Base
+class BorrowerDocument < ActiveRecord::Base
   include Documentation
 
   has_attached_file :attachment,
@@ -40,6 +40,7 @@ class Document < ActiveRecord::Base
   EXPIRE_VIEW_SECONDS = 3
 
   before_validation :set_private_token, :on => :create
+  before_validation :set_description
 
   def downloadable?(user)
     return false if borrower.blank? || user.blank? || user.borrower.blank?
@@ -61,4 +62,9 @@ class Document < ActiveRecord::Base
     self.token = Digest::MD5.hexdigest(Time.now.to_s)
   end
 
+  def set_description
+    return unless description.blank?
+
+    self.description = type.constantize::DESCRIPTION
+  end
 end

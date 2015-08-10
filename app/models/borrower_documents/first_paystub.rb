@@ -12,6 +12,8 @@
 #  token                   :string
 #
 
-class Documents::SecondW2 < Document
-  belongs_to :borrower, inverse_of: :second_w2, class_name: 'Borrower', foreign_key: 'owner_id'
+class FirstPaystub < BorrowerDocument
+  DESCRIPTION = "Paystub - Most recent month"
+
+  belongs_to :borrower, inverse_of: :first_paystub, class_name: 'Borrower', foreign_key: 'owner_id'
 end
