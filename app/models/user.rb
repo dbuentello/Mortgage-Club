@@ -92,8 +92,13 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def staff?
-    borrower.nil? && loan_member.present?
+  def borrower?
+    self.has_role? :borrower
+  end
+
+  def loan_member?
+    self.has_role? :loan_member
+    # borrower.nil? && loan_member.present?
   end
 
   private
