@@ -3,7 +3,7 @@ require 'rails_helper'
 describe BorrowerUploaderController do
   # ignore GET download actions because they use aws methods, which is not available in test environment
   context "upload" do
-    include_context 'signed in user'
+    include_context 'signed in borrower user'
 
     describe "POST w2" do
       it "returns warning when file is blank" do
@@ -94,8 +94,8 @@ describe BorrowerUploaderController do
 
   context "remove" do
     describe "DELETE remove_w2" do
-      let(:borrower) { FactoryGirl.create(:borrower_with_w2) }
-      let(:user) { FactoryGirl.create(:user, borrower: borrower) }
+      let(:borrower) { FactoryGirl.create(:borrower_with_w2, :with_user) }
+      let(:user) { borrower.user }
 
       it "returns warning when file cannot be found" do
         login_with user
@@ -119,8 +119,8 @@ describe BorrowerUploaderController do
     end
 
     describe "DELETE remove_paystub" do
-      let(:borrower) { FactoryGirl.create(:borrower_with_paystub) }
-      let(:user) { FactoryGirl.create(:user, borrower: borrower) }
+      let(:borrower) { FactoryGirl.create(:borrower_with_paystub, :with_user) }
+      let(:user) { borrower.user }
 
       it "returns warning when file cannot be found" do
         login_with user
@@ -144,8 +144,8 @@ describe BorrowerUploaderController do
     end
 
     describe "DELETE remove_bank_statement" do
-      let(:borrower) { FactoryGirl.create(:borrower_with_bank_statement) }
-      let(:user) { FactoryGirl.create(:user, borrower: borrower) }
+      let(:borrower) { FactoryGirl.create(:borrower_with_bank_statement, :with_user) }
+      let(:user) { borrower.user }
 
       it "returns warning when file cannot be found" do
         login_with user
@@ -172,8 +172,9 @@ describe BorrowerUploaderController do
   context "download" do
     describe "GET download_w2" do
       it "returns warning when file cannot be found" do
-        borrower = FactoryGirl.create(:borrower_with_w2)
-        user = FactoryGirl.create(:user, borrower: borrower)
+        user = FactoryGirl.create(:borrower_user)
+        borrower = FactoryGirl.create(:borrower_with_w2, user: user)
+
         login_with user
 
         get :download_w2, id: user.borrower.id, format: :json

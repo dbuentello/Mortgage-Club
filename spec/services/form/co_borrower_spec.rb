@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Form::CoBorrower do
   before :all do
-    user = FactoryGirl.build(:user, email: 'test1@gmail.com', password: '12345678',
+    user = FactoryGirl.build(:borrower_user, email: 'test1@gmail.com', password: '12345678',
       password_confirmation: '12345678')
     user.skip_confirmation!
     user.save
@@ -10,7 +10,7 @@ describe Form::CoBorrower do
     # create loan base on user
     loan = FactoryGirl.create(:loan_with_property, user: user)
 
-    user = FactoryGirl.build(:user, email: 'test2@gmail.com', password: '12345678',
+    user = FactoryGirl.build(:borrower_user, email: 'test2@gmail.com', password: '12345678',
       password_confirmation: '12345678')
     user.skip_confirmation!
     user.save
