@@ -84,6 +84,11 @@ class DashboardController < ApplicationController
     {
       include: {
         borrower_documents: {
+          include: {
+            owner: {
+              only: [:first_name]
+            }
+          },
           methods: [:file_icon_url, :class_name]
         }
       }

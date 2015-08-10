@@ -31,7 +31,7 @@ var BorrowerTab = React.createClass({
                       &nbsp;&nbsp;&nbsp;
                       <span>{document.attachment_file_name}</span>
                     </td>
-                    <td>Mortgage Club</td>
+                    <td>{document.owner.first_name}</td>
                     <td>{document.description}</td>
                     <td>{this.isoToUsDate(document.attachment_updated_at)}</td>
                     <td>
