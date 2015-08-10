@@ -1,4 +1,4 @@
-jest.dontMock('../TextForMatMixin');
+jest.dontMock('../TextFormatMixin');
 
 describe('text format helper', function() {
   it('commafies number correctly', function() {
