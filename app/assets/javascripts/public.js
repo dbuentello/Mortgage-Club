@@ -17,6 +17,6 @@
 
 // Important to import jquery_ujs before bundle_PublicApp as that patches jquery xhr to use the authenticity token!
 
-//= require build/bundle_PublicApp
+//= require ./build/bundle_PublicApp
 
 $('.flashSection').delay(7000).fadeOut();
