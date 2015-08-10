@@ -45,7 +45,8 @@ var TextFormatMixin = {
       return cashflow;
     }
 
-    cashflow = cashflow.replace(/[^\d.-]/g, '');
+    cashflow = Math.ceil(cashflow * 100) / 100;
+    cashflow = String(cashflow).replace(/[^\d.-]/g, '');
     negative = (cashflow < 0 ? '-' : '');
     money = Math.abs(cashflow);
     prefix;
