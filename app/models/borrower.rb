@@ -28,14 +28,14 @@ class Borrower < ActiveRecord::Base
   has_many  :borrower_addresses, inverse_of: :borrower, dependent: :destroy
   has_many  :employments, inverse_of: :borrower, dependent: :destroy
 
-  has_one  :first_bank_statement, inverse_of: :borrower, dependent: :destroy, foreign_key: 'owner_id'
-  has_one  :second_bank_statement, inverse_of: :borrower, dependent: :destroy, foreign_key: 'owner_id'
-  has_one  :first_paystub, inverse_of: :borrower, dependent: :destroy, foreign_key: 'owner_id'
-  has_one  :second_paystub, inverse_of: :borrower, dependent: :destroy, foreign_key: 'owner_id'
-  has_one  :first_w2, inverse_of: :borrower, dependent: :destroy, foreign_key: 'owner_id'
-  has_one  :second_w2, inverse_of: :borrower, dependent: :destroy, foreign_key: 'owner_id'
+  has_one  :first_bank_statement, inverse_of: :borrower, dependent: :destroy
+  has_one  :second_bank_statement, inverse_of: :borrower, dependent: :destroy
+  has_one  :first_paystub, inverse_of: :borrower, dependent: :destroy
+  has_one  :second_paystub, inverse_of: :borrower, dependent: :destroy
+  has_one  :first_w2, inverse_of: :borrower, dependent: :destroy
+  has_one  :second_w2, inverse_of: :borrower, dependent: :destroy
 
-  has_many :borrower_documents, dependent: :destroy, foreign_key: 'owner_id'
+  has_many :borrower_documents, dependent: :destroy
 
   accepts_nested_attributes_for :borrower_addresses, allow_destroy: true
   accepts_nested_attributes_for :employments, allow_destroy: true

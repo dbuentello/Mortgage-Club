@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: documents
+# Table name: borrower_documents
 #
 #  id                      :integer          not null, primary key
 #  type                    :string
@@ -10,10 +10,13 @@
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
 #  token                   :string
+#  description             :string
+#  owner_type              :string
+#  borrower_id             :integer
 #
 
 class FirstBankStatement < BorrowerDocument
   DESCRIPTION = "Bank statement - Most recent month"
 
-  belongs_to :borrower, inverse_of: :first_bank_statement, class_name: 'Borrower', foreign_key: 'owner_id'
+  belongs_to :borrower, inverse_of: :first_bank_statement
 end
