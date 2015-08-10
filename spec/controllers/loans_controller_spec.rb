@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe LoansController do
-  include_context 'signed in user of loan'
-  let(:other_user) { FactoryGirl.create(:user) }
+  include_context 'signed in borrower user of loan'
+  let(:other_user) { FactoryGirl.create(:borrower_user) }
 
   describe 'GET #new' do
     it 'assigns the requested loan to @loan' do
@@ -26,7 +26,6 @@ describe LoansController do
     end
 
     it "returns warning when co-borrower info is not correct" do
-      other_user.reload
       params = {
         id: loan.id,
         email: other_user.email,
@@ -38,7 +37,6 @@ describe LoansController do
     end
 
     it "returns warning when co-borrower info is enough" do
-      other_user.reload
       params = {
         id: loan.id,
         email: other_user.email,
@@ -50,7 +48,6 @@ describe LoansController do
     end
 
     it "returns full co-borrower data when email, dob and ssn number are correct" do
-      other_user.reload
       params = {
         id: loan.id,
         email: other_user.email,

@@ -80,7 +80,7 @@ var FormBorrower = React.createClass({
   },
 
   onCoBorrowerChange: function(event) {
-    var shouldAutoComplete = (this.props.borrower_type == 0) &&
+    var shouldAutoComplete = (this.props.borrower_type == "borrower") &&
       (this.state[secondary_borrower_fields.email.name] != null) &&
       (this.state[secondary_borrower_fields.dob.name] != null) &&
       (this.state[secondary_borrower_fields.ssn.name] != null);
@@ -516,7 +516,7 @@ var FormBorrower = React.createClass({
 
     var secondary_borrower = loan.secondary_borrower;
     switch(this.props.borrower_type) {
-    case 0:
+    case "borrower":
       // state['borrower_editable'] = true;
 
       if (secondary_borrower) {
@@ -533,7 +533,7 @@ var FormBorrower = React.createClass({
       };
       break;
 
-    case 1:
+    case "co_borrower":
       state[first_borrower_fields.applyingAs.name] = 2;
       state['hasCoBorrower'] = true;
       // state['borrower_editable'] = false;
@@ -671,7 +671,7 @@ var FormBorrower = React.createClass({
 
     this.setState({saving: true});
 
-    if (this.props.borrower_type == 1 && (this.state[first_borrower_fields.applyingAs.name] == 1)) {
+    if (this.props.borrower_type == "co_borrower" && (this.state[first_borrower_fields.applyingAs.name] == 1)) {
       // after co-borrower self-remove
       this.props.saveLoan(this.buildLoanFromState(), 1, true);
       location.reload();

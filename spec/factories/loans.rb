@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :loan do |f|
-    user
+    user { create(:borrower_user) }
 
     f.purpose { Random.rand(0..1)}
 

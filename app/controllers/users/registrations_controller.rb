@@ -12,10 +12,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
+
     if params[:role] == "loan-owner"
       resource.create_borrower
+      resource.add_role :borrower
     else
       resource.create_loan_member
+      resource.add_role :loan_member
     end
   end
 

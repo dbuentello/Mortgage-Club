@@ -1,5 +1,5 @@
 module Form
-  class SecondaryBorrower
+  class CoBorrower
     def self.check_existing_borrower(current_user, borrower_email)
       user = User.where(email: borrower_email).first
 
@@ -46,7 +46,7 @@ module Form
           default_password: default_password || nil
         }
 
-        SecondaryBorrowerMailer.notify_being_added(loan.id, email_options).deliver_later
+        CoBorrowerMailer.notify_being_added(loan.id, email_options).deliver_later
       when :secondary_borrower
         # just update its info
         borrower = current_user.borrower
@@ -67,7 +67,7 @@ module Form
           secondary_borrower.save
 
           # send email to co-borrower to let him know
-          SecondaryBorrowerMailer.notify_being_removed(loan.id, secondary_borrower.id).deliver_later
+          CoBorrowerMailer.notify_being_removed(loan.id, secondary_borrower.id).deliver_later
         end
 
       when :secondary_borrower
@@ -80,7 +80,7 @@ module Form
           secondary_borrower.save
 
           # send email to borrower to let him know
-          SecondaryBorrowerMailer.notify_being_leaving(loan.id, secondary_borrower.id).deliver_later
+          CoBorrowerMailer.notify_being_leaving(loan.id, secondary_borrower.id).deliver_later
         end
       end
 

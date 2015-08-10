@@ -10,7 +10,7 @@ class LoansController < ApplicationController
 
     bootstrap({
       currentLoan: @loan.as_json(loan_json_options),
-      borrower_type: (@borrower_type == :borrower) ? 0 : 1
+      borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower"
     })
 
     respond_to do |format|
@@ -21,12 +21,12 @@ class LoansController < ApplicationController
   def update
     @loan = @loan || Loan.find(params[:id])
 
-    borrower_params = secondary_borrower_params
-    if borrower_params
-      if borrower_params[:_remove]
-        Form::SecondaryBorrower.remove(current_user, @borrower_type, secondary_borrower_params)
+    @borrower_params = co_borrower_params
+    if @borrower_params.present?
+      if @borrower_params[:_remove]
+        Form::CoBorrower.remove(current_user, @borrower_type, @borrower_params)
       else
-        Form::SecondaryBorrower.save(current_user, @borrower_type, secondary_borrower_params)
+        Form::CoBorrower.save(current_user, @borrower_type, @borrower_params)
       end
     end
 
@@ -39,10 +39,10 @@ class LoansController < ApplicationController
 
   # GET get_co_borrower_info
   def get_co_borrower_info
-    is_existing = Form::SecondaryBorrower.check_existing_borrower(current_user, params[:email])
+    is_existing = Form::CoBorrower.check_existing_borrower(current_user, params[:email])
 
     if is_existing
-      is_valid = Form::SecondaryBorrower.check_valid_borrower(borrower_info_params)
+      is_valid = Form::CoBorrower.check_valid_borrower(borrower_info_params)
 
       if is_valid
         user = User.where(email: params[:email]).first
@@ -63,7 +63,7 @@ class LoansController < ApplicationController
     params.require(:loan).permit(Loan::PERMITTED_ATTRS)
   end
 
-  def secondary_borrower_params
+  def co_borrower_params
     if params[:loan][:secondary_borrower_attributes].present?
       permit_attrs = Borrower::PERMITTED_ATTRS + [:email, :_remove]
       params.require(:loan).require(:secondary_borrower_attributes).permit(permit_attrs)

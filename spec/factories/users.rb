@@ -1,7 +1,5 @@
 FactoryGirl.define do
   factory :user do |f|
-    borrower
-
     f.first_name { Faker::Name.first_name }
     f.last_name { Faker::Name.last_name }
     f.middle_name { Faker::Name.last_name }
@@ -13,9 +11,19 @@ FactoryGirl.define do
     f.password_confirmation 'password'
     f.confirmed_at Date.today
 
-    factory :staff do
-      borrower { nil }
-      loan_member
+    factory :borrower_user do
+      after(:create) do |user|
+        user.borrower = create(:borrower)
+        user.add_role(:borrower)
+      end
     end
+
+    factory :loan_member_user do
+      after(:create) do |user|
+        user.loan_member = create(:loan_member)
+        user.add_role(:loan_member)
+      end
+    end
+
   end
 end

@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_loan
-    return if current_user.staff?
+    return if current_user.loan_member?
 
     @loan = current_user.loans.first # get the first own loan
     if @loan.present?
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
       @loan = current_user.borrower.loan # or get the co-borrower relationship
 
       if @loan.present?
-        @borrower_type = :secondary_borrower
+        @borrower_type = :co_borrower
       else
         @loan = Loan.initiate(current_user) # or create branch new one
 
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   def redirect_if_auth
     return unless current_user
 
-    if current_user.staff?
+    if current_user.loan_member?
       redirect_to loan_activities_path
     else
       redirect_to new_loan_path

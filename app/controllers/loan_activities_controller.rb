@@ -59,7 +59,7 @@ class LoanActivitiesController < ApplicationController
   end
 
   def loan
-    # WILLDO: Get loan list which staff handles
+    # WILLDO: Get loan list which loan member handles
     @loan ||= Loan.find(params[:id])
   end
 
