@@ -19,4 +19,5 @@ class SecondBankStatement < BorrowerDocument
   DESCRIPTION = "Bank statement - Previous month"
 
   belongs_to :borrower, inverse_of: :second_bank_statement
+  belongs_to :owner, polymorphic: true
 end

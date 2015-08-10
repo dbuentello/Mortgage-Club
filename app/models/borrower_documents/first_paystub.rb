@@ -19,4 +19,5 @@ class FirstPaystub < BorrowerDocument
   DESCRIPTION = "Paystub - Most recent month"
 
   belongs_to :borrower, inverse_of: :first_paystub
+  belongs_to :owner, polymorphic: true
 end
