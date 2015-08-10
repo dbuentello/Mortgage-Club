@@ -2,7 +2,7 @@ jest.dontMock('../TextFormatMixin');
 
 describe('text format helper', function() {
   it('commafies number correctly', function() {
-    var subject = require('../TextForMatMixin');
+    var subject = require('../TextFormatMixin');
     var tests = [
       {params: [31321232.2323], expected: '31,321,232.2323'},
       {params: ['0.2324455'], expected: '0.2324455'},
@@ -15,7 +15,7 @@ describe('text format helper', function() {
   });
 
   it('converts number to currency format correctly', function() {
-    var subject = require('../TextForMatMixin');
+    var subject = require('../TextFormatMixin');
     var tests = [
       {params: [-31321232.2323, '¥'], expected: '-¥31,321,232.23'},
       {params: [2324.455, '$'], expected: '$2,324.46'},
@@ -28,7 +28,7 @@ describe('text format helper', function() {
   });
 
   it('titleizes string correctly', function() {
-    var subject = require('../TextForMatMixin');
+    var subject = require('../TextFormatMixin');
     var tests = [
       {params: ['Would you titleize me please?'], expected: 'Would You Titleize Me Please?'},
       {params: ['4zar italiana!'], expected: '4zar Italiana!'},
@@ -41,7 +41,7 @@ describe('text format helper', function() {
   });
 
   it('converts ISO date to US date correctly', function() {
-    // var subject = require('../TextForMatMixin');
+    // var subject = require('../TextFormatMixin');
     // var tests = [
     //   {params: ['2015-12-31'], expected: '12/31/2015'},
     //   {params: ['2015-02-28T00:00:00.000Z'], expected: '02/28/2015'},
@@ -54,7 +54,7 @@ describe('text format helper', function() {
   });
 
   it('converts US date to ISO date correctly', function() {
-    // var subject = require('../TextForMatMixin');
+    // var subject = require('../TextFormatMixin');
     // var tests = [
     //   {params: ['12/31/2015'], expected: '2015-12-31'},
     //   {params: ['02/02/2022'], expected: '2022-02-02'},
