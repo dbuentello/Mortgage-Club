@@ -1,4 +1,4 @@
-class SecondaryBorrowerMailer < ActionMailer::Base
+class CoBorrowerMailer < ActionMailer::Base
   default :from => ENV['EMAIL_SENDER']
 
   def notify_being_added(loan_id, params={})
