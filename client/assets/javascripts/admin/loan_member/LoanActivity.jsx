@@ -37,6 +37,8 @@ var LoanActivity = React.createClass({
 
   componentDidMount: function() {
     this.disableButton(this.props.bootstrapData.first_activity.activity_status);
+
+    // console.dir(this.props.bootstrapData.loan_activities);
   },
 
   onTypeChange: function(event) {
@@ -151,11 +153,12 @@ var LoanActivity = React.createClass({
           <table className="mtxl table table-bordered table-striped table-hover">
             <thead>
               <tr>
-                <th style={{'width': '30%'}}>Activity Type</th>
-                <th style={{'width': '35%'}}>Name</th>
+                <th style={{'width': '25%'}}>Activity Type</th>
+                <th style={{'width': '30%'}}>Name</th>
                 <th style={{'width': '8%'}}>Status</th>
-                <th style={{'width': '17%'}}>Duration</th>
-                <th style={{'width': '10%'}}>Shown to user?</th>
+                <th style={{'width': '15%'}}>Duration</th>
+                <th style={{'width': '12%'}}>Shown to user?</th>
+                <th style={{'width': '10%'}}>By</th>
               </tr>
             </thead>
             <tbody>
@@ -168,6 +171,7 @@ var LoanActivity = React.createClass({
                       <td>{loan_activity.pretty_activity_status}</td>
                       <td>{loan_activity.pretty_duration}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
+                      <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
                   )
                 })
@@ -182,6 +186,7 @@ var LoanActivity = React.createClass({
                       <td>{loan_activity.pretty_activity_status}</td>
                       <td>{loan_activity.pretty_duration}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
+                      <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
                   )
                 })
@@ -196,6 +201,7 @@ var LoanActivity = React.createClass({
                       <td>{loan_activity.pretty_activity_status}</td>
                       <td>{loan_activity.pretty_duration}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
+                      <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
                   )
                 })
@@ -210,6 +216,7 @@ var LoanActivity = React.createClass({
                       <td>{loan_activity.pretty_activity_status}</td>
                       <td>{loan_activity.pretty_duration}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
+                      <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
                   )
                 })
