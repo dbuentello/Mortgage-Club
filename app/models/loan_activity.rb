@@ -71,10 +71,15 @@ class LoanActivity < ActiveRecord::Base
     user_visible.to_s
   end
 
+  def pretty_loan_member_name
+    loan_member.user.to_s
+  end
+
   def as_json(opts={})
     more_options = {
       methods: [
-        :pretty_activity_type, :pretty_activity_status, :pretty_duration, :pretty_user_visible
+        :pretty_activity_type, :pretty_activity_status, :pretty_duration,
+        :pretty_user_visible, :pretty_loan_member_name
       ]
     }
     more_options.merge!(opts)
