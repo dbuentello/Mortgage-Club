@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
     property =  loan.property
     bootstrap(
       doc_list: borrower.documents.as_json(doc_list_json_option),
-      address: borrower.display_current_address,
+      address: property.address.try(:address),
       loan: loan.as_json(loan_json_options),
       contact_list: contact_list_json_options,
       property_list: property.as_json(property_list_json_options),

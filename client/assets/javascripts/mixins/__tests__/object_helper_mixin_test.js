@@ -64,8 +64,7 @@ describe('object helper', function() {
         }
       }
     };
-
-    expect(helper.getValue(parent, 'nestA.nestB.c')).toEqual('c');
+    expect(parent.nestA.nestB.c).toEqual('c');
   });
 
   it ('reads nested object properties with undefined/null values, and returns null', function() {
@@ -105,7 +104,7 @@ describe('object helper', function() {
       }]
     };
 
-    expect(helper.getValue(flexport, 'team[0].id')).toEqual(2);
+    expect(flexport.team[0].id).toEqual(2);
   });
 
   it ('accesses nested array indexers correctly', function () {
@@ -131,7 +130,7 @@ describe('object helper', function() {
       }]
     }];
 
-    expect(helper.getValue(flexport, '[0].team[0].id')).toEqual(2);
+    expect(flexport[0].team[0].id).toEqual(2);
   });
 
   it ('accesses nested array indexers with undefined/null values, and returns null', function() {
