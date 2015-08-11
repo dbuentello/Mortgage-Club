@@ -12,15 +12,15 @@ FactoryGirl.define do
     f.confirmed_at Date.today
 
     factory :borrower_user do
-      after(:create) do |user|
-        user.borrower = create(:borrower)
+      after(:build) do |user|
+        user.borrower = build(:borrower)
         user.add_role(:borrower)
       end
     end
 
     factory :loan_member_user do
-      after(:create) do |user|
-        user.loan_member = create(:loan_member)
+      after(:build) do |user|
+        user.loan_member = build(:loan_member)
         user.add_role(:loan_member)
       end
     end
