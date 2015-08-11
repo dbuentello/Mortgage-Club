@@ -9,8 +9,8 @@
 #  user_visible    :boolean          default(FALSE), not null
 #  loan_id         :integer
 #  loan_member_id  :integer
-#  created_at      :datetime
-#  updated_at      :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #  started_at      :datetime
 #  duration        :integer
 #
@@ -42,7 +42,13 @@ class LoanActivity < ActiveRecord::Base
   validates_presence_of :loan, :loan_member
   validates_inclusion_of :user_visible, in: [true, false]
 
-  validates_uniqueness_of :name, uniqueness: true, scope: :loan_id
+  # validates_uniqueness_of :name, uniqueness: true, scope: :loan_id
+
+  def self.get_latest_by_loan_and_name(loan_id, name)
+    return nil if loan_id.nil? || name.nil?
+
+    where(loan_id: loan_id, name: name).last
+  end
 
   def pretty_activity_type
     case activity_type
@@ -58,7 +64,14 @@ class LoanActivity < ActiveRecord::Base
   end
 
   def pretty_activity_status
-    activity_status.upcase
+    case activity_status
+    when 'done'
+      'done'
+    when 'pause'
+      'paused'
+    when 'start'
+      'started'
+    end
   end
 
   def pretty_duration
@@ -75,11 +88,15 @@ class LoanActivity < ActiveRecord::Base
     loan_member.user.to_s
   end
 
+  def pretty_updated_at
+    ActionController::Base.helpers.time_ago_in_words(updated_at)
+  end
+
   def as_json(opts={})
     more_options = {
       methods: [
         :pretty_activity_type, :pretty_activity_status, :pretty_duration,
-        :pretty_user_visible, :pretty_loan_member_name
+        :pretty_user_visible, :pretty_loan_member_name, :pretty_updated_at
       ]
     }
     more_options.merge!(opts)

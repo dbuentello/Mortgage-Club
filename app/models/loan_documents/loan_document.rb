@@ -59,8 +59,8 @@ class LoanDocument < ActiveRecord::Base
   end
 
   def set_description
-    if description.blank?
-      self.description = type.constantize::DESCRIPTION
-    end
+    return unless description.blank?
+
+    self.description = type.constantize::DESCRIPTION
   end
 end

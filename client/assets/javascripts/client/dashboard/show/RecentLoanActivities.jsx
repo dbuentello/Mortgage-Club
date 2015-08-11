@@ -17,8 +17,9 @@ var RecentLoanActivities = React.createClass({
             _.map(activities, function(activity) {
               return (
                 <li className="list-group-item">
-                  {activity.name} by {activity.pretty_loan_member_name}
-                  <span className="badge">{activity.activity_status}</span>
+                  {activity.name}
+                  <br/>
+                  <i><b>{activity.pretty_activity_status}</b> by <b>{activity.pretty_loan_member_name}</b> {activity.pretty_updated_at} ago</i>
                 </li>
               )
             })

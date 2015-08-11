@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: documents
+# Table name: borrower_documents
 #
 #  id                      :integer          not null, primary key
 #  type                    :string
@@ -10,9 +10,13 @@
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
 #  token                   :string
+#  description             :string
+#  owner_type              :string
+#  borrower_id             :integer
 #
 
-class Documents::FirstBankStatement < Document
-  belongs_to :borrower, inverse_of: :first_bank_statement, class_name: 'Borrower', foreign_key: 'owner_id'
+class EnvelopeDoc < BorrowerDocument
+  # NOTE: someday when more class has documents inside, we should use polymorphic approuch instead
+  belongs_to :envelope, inverse_of: :documents
 
 end

@@ -13,6 +13,7 @@ class BorrowerUploaderController < ApplicationController
           w2.update(attachment: params[:file])
         else
           w2 = borrower.build_first_w2(attachment: params[:file])
+          w2.owner = current_user
           w2.save
         end
       when "2"
@@ -21,6 +22,7 @@ class BorrowerUploaderController < ApplicationController
           w2.update(attachment: params[:file])
         else
           w2 = borrower.build_second_w2(attachment: params[:file])
+          w2.owner = current_user
           w2.save
         end
       else
