@@ -13,15 +13,27 @@ FactoryGirl.define do
 
     factory :borrower_user do
       after(:build) do |user|
-        user.borrower = build(:borrower)
         user.add_role(:borrower)
       end
     end
 
     factory :loan_member_user do
       after(:build) do |user|
-        user.loan_member = build(:loan_member)
         user.add_role(:loan_member)
+      end
+    end
+
+    factory :borrower_user_with_borrower do
+      after(:build) do |user|
+        user.add_role(:borrower)
+        build(:borrower, user: user)
+      end
+    end
+
+    factory :borrower_user_with_loan_member do
+      after(:build) do |user|
+        user.add_role(:borrower)
+        build(:loan_member, user: user)
       end
     end
 

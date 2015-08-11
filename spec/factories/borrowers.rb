@@ -26,7 +26,7 @@ FactoryGirl.define do
     end
 
     trait :with_user do
-      user { create(:borrower_user) }
+      user { build(:borrower_user) }
     end
 
     factory :borrower_with_documents do |f|

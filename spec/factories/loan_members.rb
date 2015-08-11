@@ -7,7 +7,7 @@ FactoryGirl.define do
     f.employee_id { Faker::Number.number(2) }
     f.nmls_id { Faker::Number.number(6) }
 
-    factory :loan_member_with_user do
+    trait :with_user do
       user { create(:loan_member_user) }
     end
 
