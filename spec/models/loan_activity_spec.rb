@@ -22,17 +22,6 @@ describe LoanActivity do
       expect(loan_activity.errors[:loan_member]).to include("can't be blank")
     end
 
-    it "is invalid with a duplicate name within a loan" do
-      duplicate_activity = LoanActivity.new(
-        loan: loan_activity.loan,
-        loan_member: loan_activity.loan_member,
-        user_visible: true,
-        name: loan_activity.name
-      )
-      duplicate_activity.valid?
-      expect(duplicate_activity.errors[:name]).to include("has already been taken")
-    end
-
     it "raises an error with an invalid user_visible" do
       loan_activity = LoanActivity.new(
         loan: loan,

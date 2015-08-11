@@ -42,7 +42,13 @@ class LoanActivity < ActiveRecord::Base
   validates_presence_of :loan, :loan_member
   validates_inclusion_of :user_visible, in: [true, false]
 
-  validates_uniqueness_of :name, uniqueness: true, scope: :loan_id
+  # validates_uniqueness_of :name, uniqueness: true, scope: :loan_id
+
+  def self.get_latest_by_loan_and_name(loan_id, name)
+    return nil if loan_id.nil? || name.nil?
+
+    where(loan_id: loan_id, name: name).last
+  end
 
   def pretty_activity_type
     case activity_type
