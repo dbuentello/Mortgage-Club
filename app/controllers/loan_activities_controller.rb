@@ -14,10 +14,13 @@ class LoanActivitiesController < ApplicationController
   end
 
   def show
+    loan_activities = LoanActivity.get_latest_by_loan(loan)
+    ActiveRecord::Associations::Preloader.new.preload(loan_activities, loan_member: :user)
+
     bootstrap(
       loan: loan.as_json(loans_json_options),
       first_activity: first_activity,
-      loan_activities: loan.loan_activities.group_by(&:activity_type)
+      loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : []
     )
 
     respond_to do |format|
@@ -37,16 +40,18 @@ class LoanActivitiesController < ApplicationController
   end
 
   def get_activities_by_conditions
-    activities = LoanActivity.where(
-      activity_type: loan_activity_params[:activity_type],
-      loan_id: loan_activity_params[:loan_id]
-    )
-
     if loan_activity_params[:name].present?
-      activities = activities.where(name: loan_activity_params[:name])
+      loan_activities = LoanActivity.where(
+        loan_id: loan_activity_params[:loan_id],
+        activity_type: loan_activity_params[:activity_type],
+        name: loan_activity_params[:name]
+      ).includes(loan_member: :user)
+    else
+      loan_activities = LoanActivity.get_latest_by_loan_and_conditions(loan_activity_params)
+      ActiveRecord::Associations::Preloader.new.preload(loan_activities, loan_member: :user)
     end
 
-    render json: {activities: activities}, status: 200
+    render json: {activities: loan_activities}, status: 200
   end
 
   private
