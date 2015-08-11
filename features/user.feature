@@ -1,6 +1,6 @@
 Feature: User
   Scenario: updates avatar at profile page
-    Given there is a borrower_user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the token "1"
+    Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the token "1"
       And I login as "testing@man.net" with password "secretpass"
     When I go to the edit user registration page
       And I attach the file "spec/files/avatar.png" to "user[avatar]"
@@ -9,7 +9,7 @@ Feature: User
 
   @javascript
   Scenario: updates password at profile page
-    Given there is a borrower_user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And I login as "testing@man.net" with password "secretpass"
     When I go to the edit user registration page
       And I attach the file "spec/files/avatar.png" to "user[avatar]"
@@ -22,6 +22,6 @@ Feature: User
 
   @javascript
   Scenario: logins as loan_member role
-    Given there is a loan_member_user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the token "1"
+    Given there is a loan_member_user_with_loan_member with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the token "1"
       And I login as "testing@man.net" with password "secretpass"
     Then I should see "Loans list"
