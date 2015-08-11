@@ -8,7 +8,7 @@ var RouteHandler = Router.RouteHandler;
 
 var AppStarter = require('tools/AppStarter');
 var Loans = require('./admin/loan_member/Loans')
-var LoanActivity = require('admin/loan_member/LoanActivity');
+var Dashboard = require('./admin/loan_member/Dashboard');
 
 window.AdminApp = React.createClass({
   contextTypes: {
@@ -58,7 +58,7 @@ window.AdminApp = React.createClass({
 var routes = (
   <Route name='app' path='/' handler={AdminApp}>
     <Route name='loans' path='/loan_activities' handler={Loans}/>
-    <Route name='loan_activities' path='/loan_activities/:id' handler={LoanActivity}/>
+    <Route name='loan_activities' path='/loan_activities/:id' handler={Dashboard}/>
     <DefaultRoute handler={Loans}/>
   </Route>
 );

@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   resources :property_document_uploader do
     member do
       get 'download'
+      post 'upload'
+      post 'remove'
     end
   end
 
