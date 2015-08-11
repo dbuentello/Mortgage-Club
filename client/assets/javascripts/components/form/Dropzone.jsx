@@ -114,6 +114,13 @@ var Dropzone = React.createClass({
         var formData = new FormData();
         formData.append('file', files[0]);
 
+        // ex: var params = [{ "username": "Groucho"}];
+        _.map(this.props.customParams, function(param) {
+          var key = Object.keys(param)[0];
+          var value = param[key];
+          formData.append(key, value);
+        });
+
         // notify uploading
         $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploading.backgroundColor, color: this.props.uploading.color});
 
@@ -196,7 +203,8 @@ var Dropzone = React.createClass({
           this.showFlashes(flash);
         }.bind(this),
         error: function(response, status, error) {
-          alert(error);
+          var flash = { "alert-danger": response.responseJSON.error };
+          this.showFlashes(flash);
         }
       });
     }
