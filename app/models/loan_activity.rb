@@ -50,6 +50,38 @@ class LoanActivity < ActiveRecord::Base
     where(loan_id: loan_id, name: name).last
   end
 
+  def self.get_latest_by_loan(loan)
+    return nil if loan.nil?
+
+    loan.loan_activities.find_by_sql("SELECT DISTINCT ON (name)
+      l.*, d.duration
+      FROM loan_activities l
+        LEFT JOIN (
+          SELECT name, SUM (duration) as duration
+          FROM loan_activities
+          GROUP BY name
+        ) d ON ( l.name = d.name )
+      ORDER BY name, created_at DESC, id")
+  end
+
+  def self.get_latest_by_loan_and_conditions(params)
+    return nil if params.blank?
+
+    self.find_by_sql("SELECT DISTINCT ON (name)
+      l.*, d.duration
+      FROM loan_activities l
+        LEFT JOIN (
+          SELECT name, SUM (duration) as duration
+          FROM loan_activities
+          GROUP BY name
+        ) d ON ( l.name = d.name )
+      WHERE
+        l.loan_id = #{params[:loan_id]}
+        AND
+        l.activity_type = #{params[:activity_type]}
+      ORDER BY name, created_at DESC, id")
+  end
+
   def pretty_activity_type
     case activity_type
     when 'loan_submission'
