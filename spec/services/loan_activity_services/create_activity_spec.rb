@@ -16,6 +16,7 @@ describe LoanActivityServices::CreateActivity do
         loan_id: @loan.id,
         loan_member_id: @loan_member.id
       }
+
       @result = LoanActivityServices::CreateActivity.new.call(@loan_member, @loan_activity_params)
     end
 
