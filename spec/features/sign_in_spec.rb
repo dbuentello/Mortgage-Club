@@ -2,7 +2,9 @@ require 'rails_helper'
 
 describe "the signin process", :type => :feature do
   before :each do
-    user = FactoryGirl.create(:borrower_user, email: 'user@example.com', password: 'password', password_confirmation: 'password')
+    user = FactoryGirl.create(:borrower_user_with_borrower,
+      email: 'user@example.com', password: 'password', password_confirmation: 'password',
+    )
     user.save
   end
 

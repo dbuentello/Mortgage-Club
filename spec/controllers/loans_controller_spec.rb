@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe LoansController do
   include_context 'signed in borrower user of loan'
-  let(:other_user) { FactoryGirl.create(:borrower_user) }
+  let(:other_user) { FactoryGirl.create(:borrower_user_with_borrower) }
 
   describe 'GET #new' do
     it 'assigns the requested loan to @loan' do
