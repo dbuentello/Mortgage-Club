@@ -63,7 +63,12 @@ var ActivityTab = React.createClass({
   },
 
   onActionClick: function(event) {
+    var previous_status = this.state.current_status;
     this.state.current_status = event.target.value;
+
+    // immediately change the button status
+    this.disableButton(this.state.current_status);
+
     $.ajax({
       url: '/loan_activities',
       method: 'POST',
@@ -81,14 +86,15 @@ var ActivityTab = React.createClass({
       success: function(response) {
         var flash = { "alert-success": "Updated successfully!" };
         this.showFlashes(flash);
-        this.disableButton(this.state.current_status);
 
         this.reloadActivityList(this.state.current_type);
       }.bind(this),
       error: function(response, status, error) {
         var flash = { "alert-danger": response.responseJSON.error };
         this.showFlashes(flash);
-      }
+
+        this.disableButton(previous_status);
+      }.bind(this)
     });
   },
 
