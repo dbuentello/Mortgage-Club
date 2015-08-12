@@ -246,11 +246,10 @@ var LoanActivity = React.createClass({
       },
       success: function(activities) {
         _.map(activities, function(activity) {
-          if(activity[0]){
+          if (activity[0]) {
             this.disableButton(activity[0].activity_status);
           }
-          else
-          {
+          else {
             this.disableButton();
           }
         }, this);
@@ -271,15 +270,15 @@ var LoanActivity = React.createClass({
         break;
       case '1':
       case 'done':
-        this.setState({disabledDoneButton: true});
         this.setState({disabledStartButton: false});
+        this.setState({disabledDoneButton: true});
         this.setState({disabledPauseButton: true});
         break;
       case '2':
       case 'pause':
-        this.setState({disabledPauseButton: true});
         this.setState({disabledStartButton: false});
         this.setState({disabledDoneButton: false});
+        this.setState({disabledPauseButton: true});
         break;
       default:
         this.setState({disabledStartButton: false});
