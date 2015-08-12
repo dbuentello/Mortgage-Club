@@ -34,9 +34,10 @@ var Property = React.createClass({
                   {type: fields[key].type},
                   {property_id: this.props.property.id}
                 ];
+
                 return(
-                  <div className="drop_zone">
-                    <Dropzone key={key.id} field={fields[key]}
+                  <div className="drop_zone" key={key}>
+                    <Dropzone field={fields[key]}
                       uploadUrl={uploadUrl}
                       downloadUrl={this.state[fields[key].name + '_downloadUrl']}
                       removeUrl={this.state[fields[key].name + '_removedUrl']}

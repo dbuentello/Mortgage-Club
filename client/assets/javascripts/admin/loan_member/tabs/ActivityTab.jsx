@@ -1,6 +1,9 @@
 var _ = require('lodash');
 var React = require('react/addons');
 
+var moment = require('moment');
+require("moment-duration-format");
+
 var FlashHandler = require('mixins/FlashHandler');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 
@@ -40,20 +43,20 @@ var ActivityTab = React.createClass({
   },
 
   onTypeChange: function(event) {
+    this.state.current_type = event.target.value;
+    var firstNameOfCurrentType = TypeNameMapping[this.state.current_type][0];
+
     this.setState({
-      current_type: event.target.value,
-      current_name: TypeNameMapping[event.target.value][0],
-      acctivity_name_list: TypeNameMapping[event.target.value]
+      current_name: firstNameOfCurrentType,
+      acctivity_name_list: TypeNameMapping[this.state.current_type]
     });
 
-    this.setNewActivityStatus(event.target.value, TypeNameMapping[event.target.value][0]);
+    this.setNewActivityStatus(this.state.current_type, firstNameOfCurrentType);
   },
 
   onNameChange: function(event) {
-    this.setState({
-      current_name: event.target.value,
-    });
-    this.setNewActivityStatus(this.state.current_type, event.target.value);
+    this.state.current_name = event.target.value;
+    this.setNewActivityStatus(this.state.current_type, this.state.current_name);
   },
 
   onShownClick: function(event) {
@@ -63,7 +66,12 @@ var ActivityTab = React.createClass({
   },
 
   onActionClick: function(event) {
+    var previous_status = this.state.current_status;
     this.state.current_status = event.target.value;
+
+    // immediately change the button status
+    this.disableButton(this.state.current_status);
+
     $.ajax({
       url: '/loan_activities',
       method: 'POST',
@@ -81,14 +89,15 @@ var ActivityTab = React.createClass({
       success: function(response) {
         var flash = { "alert-success": "Updated successfully!" };
         this.showFlashes(flash);
-        this.disableButton(this.state.current_status);
 
         this.reloadActivityList(this.state.current_type);
       }.bind(this),
       error: function(response, status, error) {
         var flash = { "alert-danger": response.responseJSON.error };
         this.showFlashes(flash);
-      }
+
+        this.disableButton(previous_status);
+      }.bind(this)
     });
   },
 
@@ -104,7 +113,7 @@ var ActivityTab = React.createClass({
               {
                 _.map(ActivityTypes, function(type) {
                   return (
-                    <option value={type.value}>{type.label}</option>
+                    <option value={type.value} key={type.value}>{type.label}</option>
                   )
                 })
               }
@@ -115,7 +124,7 @@ var ActivityTab = React.createClass({
               {
                 _.map(this.state.acctivity_name_list, function(name) {
                   return (
-                    <option value={name}>{name}</option>
+                    <option value={name} key={name}>{name}</option>
                   )
                 })
               }
@@ -124,7 +133,7 @@ var ActivityTab = React.createClass({
           <div className="col-xs-2">
             <div className="checkbox">
               <label>
-                <input type="checkbox" checked={this.state.shown_to_user} onClick={this.onShownClick}/> Shown to user?
+                <input type="checkbox" defaultChecked={this.state.shown_to_user} onClick={this.onShownClick}/> Shown to user?
               </label>
             </div>
           </div>
@@ -148,23 +157,23 @@ var ActivityTab = React.createClass({
           <table className="mtxl table table-bordered table-striped table-hover">
             <thead>
               <tr>
-                <th style={{'width': '25%'}}>Activity Type</th>
+                <th style={{'width': '20%'}}>Activity Type</th>
                 <th style={{'width': '30%'}}>Name</th>
                 <th style={{'width': '8%'}}>Status</th>
                 <th style={{'width': '15%'}}>Duration</th>
                 <th style={{'width': '12%'}}>Shown to user?</th>
-                <th style={{'width': '10%'}}>By</th>
+                <th style={{'width': '15%'}}>By</th>
               </tr>
             </thead>
             <tbody>
               {
                 _.map(this.state.loan_submission_list, function(loan_activity) {
                   return (
-                    <tr>
+                    <tr key={loan_activity.id}>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{loan_activity.pretty_duration}</td>
+                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
@@ -175,11 +184,11 @@ var ActivityTab = React.createClass({
               {
                 _.map(this.state.loan_doc_list, function(loan_activity) {
                   return (
-                    <tr>
+                    <tr key={loan_activity.id}>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{loan_activity.pretty_duration}</td>
+                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
@@ -190,11 +199,11 @@ var ActivityTab = React.createClass({
               {
                 _.map(this.state.closing_list, function(loan_activity) {
                   return (
-                    <tr>
+                    <tr key={loan_activity.id}>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{loan_activity.pretty_duration}</td>
+                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
@@ -205,11 +214,11 @@ var ActivityTab = React.createClass({
               {
                 _.map(this.state.post_closing_list, function(loan_activity) {
                   return (
-                    <tr>
+                    <tr key={loan_activity.id}>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{loan_activity.pretty_duration}</td>
+                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
@@ -238,11 +247,10 @@ var ActivityTab = React.createClass({
       },
       success: function(activities) {
         _.map(activities, function(activity) {
-          if(activity[0]){
+          if (activity[0]) {
             this.disableButton(activity[0].activity_status);
           }
-          else
-          {
+          else {
             this.disableButton();
           }
         }, this);
