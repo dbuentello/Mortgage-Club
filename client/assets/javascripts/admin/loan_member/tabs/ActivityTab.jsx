@@ -157,12 +157,12 @@ var ActivityTab = React.createClass({
           <table className="mtxl table table-bordered table-striped table-hover">
             <thead>
               <tr>
-                <th style={{'width': '25%'}}>Activity Type</th>
+                <th style={{'width': '20%'}}>Activity Type</th>
                 <th style={{'width': '30%'}}>Name</th>
                 <th style={{'width': '8%'}}>Status</th>
                 <th style={{'width': '15%'}}>Duration</th>
                 <th style={{'width': '12%'}}>Shown to user?</th>
-                <th style={{'width': '10%'}}>By</th>
+                <th style={{'width': '15%'}}>By</th>
               </tr>
             </thead>
             <tbody>

@@ -28,9 +28,10 @@ var Loan = React.createClass({
                   {type: fields[key].type},
                   {loan_id: this.props.loan.id}
                 ];
-                return(
-                  <div className="drop_zone">
-                    <Dropzone key={key.id} field={fields[key]}
+
+                return (
+                  <div className="drop_zone" key={key}>
+                    <Dropzone field={fields[key]}
                       uploadUrl={uploadUrl}
                       downloadUrl={this.state[fields[key].name + '_downloadUrl']}
                       removeUrl={this.state[fields[key].name + '_removedUrl']}
@@ -51,7 +52,6 @@ var Loan = React.createClass({
   buildStateFromLoan: function(loan) {
     var state = {};
     _.map(Object.keys(fields), function(key) {
-
       if (this.props.loan[key]) { // has a document
         state[fields[key].name] = this.props.loan[key].attachment_file_name;
         state[fields[key].id] = this.props.loan[key].id;
@@ -59,7 +59,7 @@ var Loan = React.createClass({
                                          '/download?type=' + fields[key].type;
         state[fields[key].name + '_removedUrl'] = '/loan_document_uploader/remove?type=' +
                                          fields[key].type + '&loan_id=' + this.props.loan.id;
-      }else {
+      } else {
         state[fields[key].name] = fields[key].placeholder;
         state[fields[key].name + '_downloadUrl'] = 'javascript:void(0)';
         state[fields[key].name + '_removedUrl'] = 'javascript:void(0)';
