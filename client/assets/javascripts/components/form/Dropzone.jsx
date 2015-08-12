@@ -60,8 +60,10 @@ var Dropzone = React.createClass({
       $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploaded.backgroundColor, color: this.props.uploaded.color});
       $(this.refs.box.getDOMNode()).tooltip({ title: this.props.tip });
       this.setState({ downloadUrl: this.props.downloadUrl });
+      this.setState({ removeUrl: this.props.removeUrl });
     } else {
       this.setState({ downloadUrl: 'javascript:void(0)' });
+      this.setState({ removeUrl: 'javascript:void(0)' });
     };
   },
 
@@ -135,8 +137,8 @@ var Dropzone = React.createClass({
             // update tip after update
             this.setState({ tip: files[0].name });
 
-            // update download button's href
-            this.setState({ downloadUrl: this.props.downloadUrl });
+            this.setState({ downloadUrl: response.download_url });
+            this.setState({ removeUrl: response.remove_url });
 
             // tooltip chosen dropzone
             $(this.refs.box.getDOMNode()).tooltip({ title: files[0].name });
@@ -182,7 +184,7 @@ var Dropzone = React.createClass({
       $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.removing.backgroundColor, color: this.props.removing.color});
 
       $.ajax({
-        url: this.props.removeUrl,
+        url: this.state.removeUrl,
         method: 'DELETE',
         dataType: 'json',
         success: function(response) {
