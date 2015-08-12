@@ -47,6 +47,11 @@ Rails.application.routes.draw do
   end
 
   resources :loan_document_uploader do
+    collection do
+      post 'upload'
+      delete 'remove'
+    end
+
     member do
       get 'download'
     end

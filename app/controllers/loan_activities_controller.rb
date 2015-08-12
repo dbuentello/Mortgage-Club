@@ -99,7 +99,8 @@ class LoanActivitiesController < ApplicationController
         user: {
           only: [ :email ],
           methods: [ :to_s ]
-        }
+        },
+        hud_estimate: {}, hud_final: {}, loan_estimate: {}, uniform_residential_lending_application: {}
       }
     }
   end

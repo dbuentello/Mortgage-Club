@@ -20,10 +20,6 @@ var Property = React.createClass({
   getInitialState: function() {
     return this.buildStateFromProperty(this.props.property);
   },
-  onDrop: function(files, field) {
-    var state = this.buildStateFromProperty(this.props.property);
-    this.setState(state);
-  },
 
   render: function() {
     var uploadUrl = '/property_document_uploader/upload';
@@ -40,7 +36,7 @@ var Property = React.createClass({
                 ];
                 return(
                   <div className="drop_zone">
-                    <Dropzone key={key.id} onDrop={this.onDrop} field={fields[key]}
+                    <Dropzone key={key.id} field={fields[key]}
                       uploadUrl={uploadUrl}
                       downloadUrl={this.state[fields[key].name + '_downloadUrl']}
                       removeUrl={this.state[fields[key].name + '_removedUrl']}

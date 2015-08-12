@@ -24,7 +24,9 @@ class PropertyDocumentUploaderController < ApplicationController
       document.save
     end
 
-    render json: { message: "Uploaded sucessfully" }, status: 200
+    download_url = get_download_url(document)
+    remove_url = get_remove_url(document, property)
+    render json: { message: "Uploaded sucessfully", download_url: download_url, remove_url: remove_url }, status: 200
   end
 
   def remove
@@ -33,5 +35,15 @@ class PropertyDocumentUploaderController < ApplicationController
     document = document_klass.where(property_id: params[:property_id]).last
     document.destroy
     render json: { message: "Removed it sucessfully" }, status: 200
+  end
+
+  private
+
+  def get_download_url(document)
+    download_property_document_uploader_url(document) + '?type=' + document.class_name
+  end
+
+  def get_remove_url(document, property)
+    remove_property_document_uploader_index_url + '?type=' + document.class_name + '&property_id=' + property.id.to_s
   end
 end
