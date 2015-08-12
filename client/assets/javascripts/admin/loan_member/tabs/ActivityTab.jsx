@@ -110,7 +110,7 @@ var ActivityTab = React.createClass({
               {
                 _.map(ActivityTypes, function(type) {
                   return (
-                    <option value={type.value}>{type.label}</option>
+                    <option value={type.value} key={type.value}>{type.label}</option>
                   )
                 })
               }
@@ -121,7 +121,7 @@ var ActivityTab = React.createClass({
               {
                 _.map(this.state.acctivity_name_list, function(name) {
                   return (
-                    <option value={name}>{name}</option>
+                    <option value={name} key={name}>{name}</option>
                   )
                 })
               }
@@ -166,7 +166,7 @@ var ActivityTab = React.createClass({
               {
                 _.map(this.state.loan_submission_list, function(loan_activity) {
                   return (
-                    <tr>
+                    <tr key={loan_activity.id}>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
@@ -181,7 +181,7 @@ var ActivityTab = React.createClass({
               {
                 _.map(this.state.loan_doc_list, function(loan_activity) {
                   return (
-                    <tr>
+                    <tr key={loan_activity.id}>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
@@ -196,7 +196,7 @@ var ActivityTab = React.createClass({
               {
                 _.map(this.state.closing_list, function(loan_activity) {
                   return (
-                    <tr>
+                    <tr key={loan_activity.id}>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
@@ -211,7 +211,7 @@ var ActivityTab = React.createClass({
               {
                 _.map(this.state.post_closing_list, function(loan_activity) {
                   return (
-                    <tr>
+                    <tr key={loan_activity.id}>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
