@@ -40,20 +40,20 @@ var ActivityTab = React.createClass({
   },
 
   onTypeChange: function(event) {
+    this.state.current_type = event.target.value;
+    var firstNameOfCurrentType = TypeNameMapping[this.state.current_type][0];
+
     this.setState({
-      current_type: event.target.value,
-      current_name: TypeNameMapping[event.target.value][0],
-      acctivity_name_list: TypeNameMapping[event.target.value]
+      current_name: firstNameOfCurrentType,
+      acctivity_name_list: TypeNameMapping[this.state.current_type]
     });
 
-    this.setNewActivityStatus(event.target.value, TypeNameMapping[event.target.value][0]);
+    this.setNewActivityStatus(this.state.current_type, firstNameOfCurrentType);
   },
 
   onNameChange: function(event) {
-    this.setState({
-      current_name: event.target.value,
-    });
-    this.setNewActivityStatus(this.state.current_type, event.target.value);
+    this.state.current_name = event.target.value;
+    this.setNewActivityStatus(this.state.current_type, this.state.current_name);
   },
 
   onShownClick: function(event) {
