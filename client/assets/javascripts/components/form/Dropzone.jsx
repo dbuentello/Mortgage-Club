@@ -36,7 +36,7 @@ var Dropzone = React.createClass({
   },
 
   propTypes: {
-    onDrop: React.PropTypes.func.isRequired,
+    onDrop: React.PropTypes.func,
     style: React.PropTypes.object,
     field: React.PropTypes.object, // variables corresponding to this upload box
     supportClick: React.PropTypes.bool,
