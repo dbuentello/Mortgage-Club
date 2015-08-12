@@ -2,6 +2,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 
 var moment = require('moment');
+require("moment-duration-format");
 
 var FlashHandler = require('mixins/FlashHandler');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
@@ -171,7 +172,7 @@ var LoanActivity = React.createClass({
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{moment.duration(loan_activity.duration, "seconds").humanize(true)}</td>
+                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
@@ -186,7 +187,7 @@ var LoanActivity = React.createClass({
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{moment.duration(loan_activity.duration, "seconds").humanize(true)}</td>
+                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
@@ -201,7 +202,7 @@ var LoanActivity = React.createClass({
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{moment.duration(loan_activity.duration, "seconds").humanize(true)}</td>
+                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
@@ -216,7 +217,7 @@ var LoanActivity = React.createClass({
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{moment.duration(loan_activity.duration, "seconds").humanize(true)}</td>
+                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
