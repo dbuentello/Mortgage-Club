@@ -48,6 +48,7 @@ class BorrowerUploaderController < ApplicationController
           paystub.update(attachment: params[:file])
         else
           paystub = borrower.build_first_paystub(attachment: params[:file])
+          paystub.owner = current_user
           paystub.save
         end
       when "2"
@@ -56,6 +57,7 @@ class BorrowerUploaderController < ApplicationController
           paystub.update(attachment: params[:file])
         else
           paystub = borrower.build_second_paystub(attachment: params[:file])
+          paystub.owner = current_user
           paystub.save
         end
       else
@@ -81,6 +83,7 @@ class BorrowerUploaderController < ApplicationController
           bank_statement.update(attachment: params[:file])
         else
           bank_statement = borrower.build_first_bank_statement(attachment: params[:file])
+          bank_statement.owner = current_user
           bank_statement.save
         end
       when "2"
@@ -89,6 +92,7 @@ class BorrowerUploaderController < ApplicationController
           bank_statement.update(attachment: params[:file])
         else
           bank_statement = borrower.build_second_bank_statement(attachment: params[:file])
+          bank_statement.owner = current_user
           bank_statement.save
         end
       else
