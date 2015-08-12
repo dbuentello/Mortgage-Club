@@ -10,7 +10,6 @@ var DocumentTab = require('./tabs/DocumentTab');
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
   render: function() {
-    console.log(this.props.bootstrapData.loan)
     return (
       <div className="content">
         <div className='dashboard-header row mbl'>

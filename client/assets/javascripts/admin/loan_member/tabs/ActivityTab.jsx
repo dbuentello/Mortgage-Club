@@ -37,8 +37,6 @@ var ActivityTab = React.createClass({
 
   componentDidMount: function() {
     this.disableButton(this.props.first_activity.activity_status);
-
-    console.dir(this.props.loan_activities);
   },
 
   onTypeChange: function(event) {
