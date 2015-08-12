@@ -143,6 +143,7 @@ group :development, :test do
   # annotate --exclude tests,fixtures,factories,serializers : model only
   gem 'annotate', '~> 2.6.6'
 
+  gem 'rubocop'
   # Use Capistrano for deployment
   # gem 'capistrano-rails', group: :development
 end

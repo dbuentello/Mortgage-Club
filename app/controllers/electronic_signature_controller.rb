@@ -80,9 +80,9 @@ class ElectronicSignatureController < ApplicationController
         return_url: electronic_signature_embedded_response_url
       )
 
-      render json: { message: view_response }, status: :ok
+      render json: {message: view_response}, status: :ok
     else
-      render json: { message: "don't render iframe" }, status: :ok
+      render json: {message: "don't render iframe"}, status: :ok
     end
   end
 

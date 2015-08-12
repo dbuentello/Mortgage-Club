@@ -1,3 +1,5 @@
 test:
   pre:
     - bundle exec rake assets:webpack
+  post:
+    - bundle exec rubocop

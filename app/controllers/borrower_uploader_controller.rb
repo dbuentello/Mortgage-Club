@@ -73,7 +73,11 @@ class BorrowerUploaderController < ApplicationController
       remove_url = remove_paystub_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
     end
 
+<<<<<<< HEAD
     render json: { message: message, download_url: download_url, remove_url: remove_url }, status: :ok
+=======
+    render json: {message: message}, status: :ok
+>>>>>>> Implement Rubocop
   end
 
   def bank_statement
@@ -111,7 +115,11 @@ class BorrowerUploaderController < ApplicationController
       remove_url = remove_bank_statement_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
     end
 
+<<<<<<< HEAD
     render json: { message: message, download_url: download_url, remove_url: remove_url }, status: :ok
+=======
+    render json: {message: message}, status: :ok
+>>>>>>> Implement Rubocop
   end
 
   def remove_w2
@@ -133,7 +141,7 @@ class BorrowerUploaderController < ApplicationController
       message ||= "File not found"
     end
 
-    render json: { message: message }, status: :ok
+    render json: {message: message}, status: :ok
   end
 
   def remove_paystub
@@ -155,7 +163,7 @@ class BorrowerUploaderController < ApplicationController
       message ||= "File not found"
     end
 
-    render json: { message: message }, status: :ok
+    render json: {message: message}, status: :ok
   end
 
   def remove_bank_statement
@@ -177,7 +185,7 @@ class BorrowerUploaderController < ApplicationController
       message ||= "File not found"
     end
 
-    render json: { message: message }, status: :ok
+    render json: {message: message}, status: :ok
   end
 
   def download_w2
@@ -196,7 +204,7 @@ class BorrowerUploaderController < ApplicationController
       url = Amazon::GetUrlService.new(w2.attachment.s3_object).call
       redirect_to url
     else
-      render json: { message: "You don't have this file yet. Try to upload it!" }
+      render json: {message: "You don't have this file yet. Try to upload it!"}
     end
   end
 
@@ -216,7 +224,7 @@ class BorrowerUploaderController < ApplicationController
       url = Amazon::GetUrlService.new(paystub.attachment.s3_object).call
       redirect_to url
     else
-      render json: { message: "You don't have this file yet. Try to upload it!" }
+      render json: {message: "You don't have this file yet. Try to upload it!"}
     end
   end
 
@@ -236,7 +244,7 @@ class BorrowerUploaderController < ApplicationController
       url = Amazon::GetUrlService.new(bank_statement.attachment.s3_object).call
       redirect_to url
     else
-      render json: { message: "You don't have this file yet. Try to upload it!" }
+      render json: {message: "You don't have this file yet. Try to upload it!"}
     end
   end
 

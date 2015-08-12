@@ -55,7 +55,7 @@ class RatesController < ApplicationController
     }
     @loan.save
 
-    render json: { message: "save loan successfully" }, status: :ok
+    render json: {message: "save loan successfully"}, status: :ok
   end
 
 end

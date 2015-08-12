@@ -18,10 +18,10 @@ class ChargesController < ApplicationController
       :currency    => 'usd'
     )
 
-    render json: { message: "Thanks, you paid $20.00!"}
+    render json: {message: "Thanks, you paid $20.00!"}
 
   rescue Stripe::CardError => e
     flash[:error] = e.message
-    render json: { message: "Something went wrong!"}
+    render json: {message: "Something went wrong!"}
   end
 end
