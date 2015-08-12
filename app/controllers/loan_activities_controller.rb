@@ -45,7 +45,8 @@ class LoanActivitiesController < ApplicationController
         loan_id: loan_activity_params[:loan_id],
         activity_type: loan_activity_params[:activity_type],
         name: loan_activity_params[:name]
-      ).includes(loan_member: :user)
+      ).includes(loan_member: :user).
+      order(created_at: :desc).limit(1)
     else
       loan_activities = LoanActivity.get_latest_by_loan_and_conditions(loan_activity_params)
       ActiveRecord::Associations::Preloader.new.preload(loan_activities, loan_member: :user)
