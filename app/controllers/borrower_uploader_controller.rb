@@ -1,3 +1,4 @@
+# rubocop:disable ClassLength
 class BorrowerUploaderController < ApplicationController
   def w2
     download_url, remove_url = '', ''
