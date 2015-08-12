@@ -14,6 +14,7 @@ AllCops:
     - 'node_modules/**/*'
     - 'spec/spec_helper.rb'
     - 'spec/rails_helper.rb'
+    - 'features/support/_circleci_formatter.rb'
 
 Style/SpaceInsideHashLiteralBraces:
   Enabled: true

@@ -1,5 +1,4 @@
 class BorrowerUploaderController < ApplicationController
-
   def w2
     download_url, remove_url = '', ''
     if params[:file].blank?
@@ -35,7 +34,7 @@ class BorrowerUploaderController < ApplicationController
       remove_url = remove_w2_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
     end
 
-    render json: { message: message, download_url: download_url, remove_url: remove_url }, status: :ok
+    render json: {message: message, download_url: download_url, remove_url: remove_url}, status: :ok
   end
 
   def paystub
@@ -73,11 +72,7 @@ class BorrowerUploaderController < ApplicationController
       remove_url = remove_paystub_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
     end
 
-<<<<<<< HEAD
-    render json: { message: message, download_url: download_url, remove_url: remove_url }, status: :ok
-=======
-    render json: {message: message}, status: :ok
->>>>>>> Implement Rubocop
+    render json: {message: message, download_url: download_url, remove_url: remove_url}, status: :ok
   end
 
   def bank_statement
@@ -115,11 +110,7 @@ class BorrowerUploaderController < ApplicationController
       remove_url = remove_bank_statement_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
     end
 
-<<<<<<< HEAD
-    render json: { message: message, download_url: download_url, remove_url: remove_url }, status: :ok
-=======
-    render json: {message: message}, status: :ok
->>>>>>> Implement Rubocop
+    render json: {message: message, download_url: download_url, remove_url: remove_url}, status: :ok
   end
 
   def remove_w2
