@@ -106,18 +106,18 @@ class LoanActivity < ActiveRecord::Base
     end
   end
 
-  def pretty_duration
-    duration ||= 0
-
-    ActionController::Base.helpers.distance_of_time_in_words(0, duration, include_seconds: true)
-  end
-
   def pretty_user_visible
     user_visible.to_s
   end
 
   def pretty_loan_member_name
     loan_member.user.to_s
+  end
+
+  def pretty_duration
+    duration ||= 0
+
+    ActionController::Base.helpers.distance_of_time_in_words(0, duration, include_seconds: true)
   end
 
   def pretty_updated_at
@@ -127,8 +127,8 @@ class LoanActivity < ActiveRecord::Base
   def as_json(opts={})
     more_options = {
       methods: [
-        :pretty_activity_type, :pretty_activity_status, :pretty_duration,
-        :pretty_user_visible, :pretty_loan_member_name, :pretty_updated_at
+        :pretty_activity_type, :pretty_activity_status,
+        :pretty_user_visible, :pretty_loan_member_name
       ]
     }
     more_options.merge!(opts)

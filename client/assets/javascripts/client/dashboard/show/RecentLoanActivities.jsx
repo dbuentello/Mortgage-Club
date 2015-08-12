@@ -1,6 +1,8 @@
 var _ = require('lodash');
 var React = require('react/addons');
 
+var moment = require('moment');
+
 var RecentLoanActivities = React.createClass({
 
   componentDidMount: function() {
@@ -19,7 +21,7 @@ var RecentLoanActivities = React.createClass({
                 <li className="list-group-item">
                   {activity.name}
                   <br/>
-                  <i><b>{activity.pretty_activity_status}</b> by <b>{activity.pretty_loan_member_name}</b> {activity.pretty_updated_at} ago</i>
+                  <i><b>{activity.pretty_activity_status}</b> by <b>{activity.pretty_loan_member_name}</b> {moment(activity.updated_at).fromNow()}</i>
                 </li>
               )
             })
