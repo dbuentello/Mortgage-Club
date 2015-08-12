@@ -1,6 +1,7 @@
 class BorrowerUploaderController < ApplicationController
 
   def w2
+    download_url, remove_url = '', ''
     if params[:file].blank?
       message = 'File not found'
     else
@@ -30,14 +31,15 @@ class BorrowerUploaderController < ApplicationController
       end
 
       message ||= "Sucessfully for #{borrower.first_name}"
+      download_url = download_w2_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
+      remove_url = remove_w2_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
     end
 
-    download_url = download_w2_borrower_uploader_url(borrower) + '?order=' + params[:order]
-    remove_url = remove_w2_borrower_uploader_url(borrower) + '?order=' + params[:order]
     render json: { message: message, download_url: download_url, remove_url: remove_url }, status: :ok
   end
 
   def paystub
+    download_url, remove_url = '', ''
     if params[:file].blank?
       message = 'File not found'
     else
@@ -67,14 +69,15 @@ class BorrowerUploaderController < ApplicationController
       end
 
       message ||= "Sucessfully for #{borrower.first_name}"
+      download_url = download_paystub_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
+      remove_url = remove_paystub_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
     end
 
-    download_url = download_paystub_borrower_uploader_url(borrower) + '?order=' + params[:order]
-    remove_url = remove_paystub_borrower_uploader_url(borrower) + '?order=' + params[:order]
     render json: { message: message, download_url: download_url, remove_url: remove_url }, status: :ok
   end
 
   def bank_statement
+    download_url, remove_url = '', ''
     if params[:file].blank?
       message = 'File not found'
     else
@@ -104,10 +107,10 @@ class BorrowerUploaderController < ApplicationController
       end
 
       message ||= "Sucessfully for #{borrower.first_name}"
+      download_url = download_bank_statement_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
+      remove_url = remove_bank_statement_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
     end
 
-    download_url = download_bank_statement_borrower_uploader_url(borrower) + '?order=' + params[:order]
-    remove_url = remove_bank_statement_borrower_uploader_url(borrower) + '?order=' + params[:order]
     render json: { message: message, download_url: download_url, remove_url: remove_url }, status: :ok
   end
 
