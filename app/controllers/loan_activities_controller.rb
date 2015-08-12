@@ -20,7 +20,8 @@ class LoanActivitiesController < ApplicationController
     bootstrap(
       loan: loan.as_json(loans_json_options),
       first_activity: first_activity,
-      loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : []
+      loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : [],
+      property: loan.property.as_json(property_json_options)
     )
 
     respond_to do |format|
@@ -87,13 +88,30 @@ class LoanActivitiesController < ApplicationController
 
   def loans_json_options
     {
-      include: [
+      include: {
+        borrower: {
+          include: [
+            :first_bank_statement, :second_bank_statement,
+            :first_paystub, :second_paystub,
+            :first_w2, :second_w2
+          ]
+        },
         user: {
           only: [ :email ],
           methods: [ :to_s ]
-        }
-      ]
+        },
+        hud_estimate: {}, hud_final: {}, loan_estimate: {}, uniform_residential_lending_application: {}
+      }
     }
   end
 
+  def property_json_options
+    {
+      include: [
+        :appraisal_report, :flood_zone_certification, :homeowners_insurance,
+        :inspection_report, :lease_agreement, :mortgage_statement,
+        :purchase_agreement, :risk_report, :termite_report, :title_report
+      ]
+    }
+  end
 end

@@ -2,7 +2,6 @@ var _ = require('lodash');
 var React = require('react/addons');
 
 var ActivitiesInterface = React.createClass({
-  console.log(this.props);
   getInitialState: function() {
     return {
     };

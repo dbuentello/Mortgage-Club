@@ -1,10 +1,11 @@
 class BorrowerUploaderController < ApplicationController
 
   def w2
+    download_url, remove_url = '', ''
     if params[:file].blank?
       message = 'File not found'
     else
-      borrower = Borrower.find_by_id(params[:id])
+      borrower = Borrower.find(params[:id])
 
       case params[:order]
       when "1"
@@ -30,12 +31,15 @@ class BorrowerUploaderController < ApplicationController
       end
 
       message ||= "Sucessfully for #{borrower.first_name}"
+      download_url = download_w2_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
+      remove_url = remove_w2_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
     end
 
-    render json: { message: message }, status: :ok
+    render json: { message: message, download_url: download_url, remove_url: remove_url }, status: :ok
   end
 
   def paystub
+    download_url, remove_url = '', ''
     if params[:file].blank?
       message = 'File not found'
     else
@@ -48,6 +52,7 @@ class BorrowerUploaderController < ApplicationController
           paystub.update(attachment: params[:file])
         else
           paystub = borrower.build_first_paystub(attachment: params[:file])
+          paystub.owner = current_user
           paystub.save
         end
       when "2"
@@ -56,6 +61,7 @@ class BorrowerUploaderController < ApplicationController
           paystub.update(attachment: params[:file])
         else
           paystub = borrower.build_second_paystub(attachment: params[:file])
+          paystub.owner = current_user
           paystub.save
         end
       else
@@ -63,12 +69,15 @@ class BorrowerUploaderController < ApplicationController
       end
 
       message ||= "Sucessfully for #{borrower.first_name}"
+      download_url = download_paystub_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
+      remove_url = remove_paystub_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
     end
 
-    render json: { message: message }, status: :ok
+    render json: { message: message, download_url: download_url, remove_url: remove_url }, status: :ok
   end
 
   def bank_statement
+    download_url, remove_url = '', ''
     if params[:file].blank?
       message = 'File not found'
     else
@@ -81,6 +90,7 @@ class BorrowerUploaderController < ApplicationController
           bank_statement.update(attachment: params[:file])
         else
           bank_statement = borrower.build_first_bank_statement(attachment: params[:file])
+          bank_statement.owner = current_user
           bank_statement.save
         end
       when "2"
@@ -89,6 +99,7 @@ class BorrowerUploaderController < ApplicationController
           bank_statement.update(attachment: params[:file])
         else
           bank_statement = borrower.build_second_bank_statement(attachment: params[:file])
+          bank_statement.owner = current_user
           bank_statement.save
         end
       else
@@ -96,9 +107,11 @@ class BorrowerUploaderController < ApplicationController
       end
 
       message ||= "Sucessfully for #{borrower.first_name}"
+      download_url = download_bank_statement_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
+      remove_url = remove_bank_statement_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
     end
 
-    render json: { message: message }, status: :ok
+    render json: { message: message, download_url: download_url, remove_url: remove_url }, status: :ok
   end
 
   def remove_w2

@@ -1,9 +1,6 @@
 var _ = require('lodash');
 var React = require('react/addons');
 
-var moment = require('moment');
-require("moment-duration-format");
-
 var FlashHandler = require('mixins/FlashHandler');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 
@@ -21,7 +18,7 @@ var TypeNameMapping = {
   3: ["Review loan criteria per lender request"]
 };
 
-var LoanActivity = React.createClass({
+var ActivityTab = React.createClass({
   mixins: [FlashHandler, ObjectHelperMixin],
 
   getInitialState: function() {
@@ -31,17 +28,15 @@ var LoanActivity = React.createClass({
       current_status: 0,
       acctivity_name_list: TypeNameMapping[0],
       shown_to_user: true,
-      loan_submission_list: this.getValue(this.props.bootstrapData.loan_activities, 'loan_submission'),
-      loan_doc_list: this.getValue(this.props.bootstrapData.loan_activities, 'loan_doc'),
-      closing_list: this.getValue(this.props.bootstrapData.loan_activities, 'closing'),
-      post_closing_list: this.getValue(this.props.bootstrapData.loan_activities, 'post_closing')
+      loan_submission_list: this.getValue(this.props.loan_activities, 'loan_submission'),
+      loan_doc_list: this.getValue(this.props.loan_activities, 'loan_doc'),
+      closing_list: this.getValue(this.props.loan_activities, 'closing'),
+      post_closing_list: this.getValue(this.props.loan_activities, 'post_closing')
     };
   },
 
   componentDidMount: function() {
-    this.disableButton(this.props.bootstrapData.first_activity.activity_status);
-
-    // console.dir(this.props.bootstrapData.loan_activities);
+    this.disableButton(this.props.first_activity.activity_status);
   },
 
   onTypeChange: function(event) {
@@ -80,7 +75,7 @@ var LoanActivity = React.createClass({
           activity_status: this.state.current_status,
           name: this.state.current_name,
           user_visible: this.state.shown_to_user,
-          loan_id: this.props.bootstrapData.loan.id
+          loan_id: this.props.loan.id
         }
       },
       success: function(response) {
@@ -98,14 +93,11 @@ var LoanActivity = React.createClass({
   },
 
   render: function() {
-    var current_user = this.props.bootstrapData.currentUser;
-    var loan = this.props.bootstrapData.loan;
+    var current_user = this.props.currentUser;
+    var loan = this.props.loan;
 
     return (
-      <div className='content container'>
-        <h2>Loan member dashboard</h2>
-        <h5>Loan of {loan.user.to_s}</h5>
-
+      <div className='content container boxBasic backgroundBasic'>
         <div className="row ptl">
           <div className="col-xs-4">
             <select className="form-control" onChange={this.onTypeChange}>
@@ -156,12 +148,12 @@ var LoanActivity = React.createClass({
           <table className="mtxl table table-bordered table-striped table-hover">
             <thead>
               <tr>
-                <th style={{'width': '20%'}}>Activity Type</th>
+                <th style={{'width': '25%'}}>Activity Type</th>
                 <th style={{'width': '30%'}}>Name</th>
                 <th style={{'width': '8%'}}>Status</th>
                 <th style={{'width': '15%'}}>Duration</th>
                 <th style={{'width': '12%'}}>Shown to user?</th>
-                <th style={{'width': '12%'}}>By</th>
+                <th style={{'width': '10%'}}>By</th>
               </tr>
             </thead>
             <tbody>
@@ -172,7 +164,7 @@ var LoanActivity = React.createClass({
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
+                      <td>{loan_activity.pretty_duration}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
@@ -187,7 +179,7 @@ var LoanActivity = React.createClass({
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
+                      <td>{loan_activity.pretty_duration}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
@@ -202,7 +194,7 @@ var LoanActivity = React.createClass({
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
+                      <td>{loan_activity.pretty_duration}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
@@ -217,7 +209,7 @@ var LoanActivity = React.createClass({
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
+                      <td>{loan_activity.pretty_duration}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
@@ -241,15 +233,16 @@ var LoanActivity = React.createClass({
         loan_activity: {
           activity_type: activity_type,
           name: activity_name,
-          loan_id: this.props.bootstrapData.loan.id
+          loan_id: this.props.loan.id
         }
       },
       success: function(activities) {
         _.map(activities, function(activity) {
-          if (activity[0]) {
+          if(activity[0]){
             this.disableButton(activity[0].activity_status);
           }
-          else {
+          else
+          {
             this.disableButton();
           }
         }, this);
@@ -270,15 +263,15 @@ var LoanActivity = React.createClass({
         break;
       case '1':
       case 'done':
-        this.setState({disabledStartButton: false});
         this.setState({disabledDoneButton: true});
+        this.setState({disabledStartButton: false});
         this.setState({disabledPauseButton: true});
         break;
       case '2':
       case 'pause':
+        this.setState({disabledPauseButton: true});
         this.setState({disabledStartButton: false});
         this.setState({disabledDoneButton: false});
-        this.setState({disabledPauseButton: true});
         break;
       default:
         this.setState({disabledStartButton: false});
@@ -296,7 +289,7 @@ var LoanActivity = React.createClass({
       data: {
         loan_activity: {
           activity_type: activity_type,
-          loan_id: this.props.bootstrapData.loan.id
+          loan_id: this.props.loan.id
         }
       },
       success: function(response) {
@@ -323,4 +316,4 @@ var LoanActivity = React.createClass({
   }
 });
 
-module.exports = LoanActivity;
+module.exports = ActivityTab;
