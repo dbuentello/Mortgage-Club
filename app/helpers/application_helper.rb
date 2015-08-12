@@ -18,7 +18,7 @@ module ApplicationHelper
     flash.each do |msg_type, message|
       if (bootstrap_class = bootstrap_class_for(msg_type)).present?
         concat(content_tag(:div, message, class: "alert #{bootstrap_class} fade in") do
-          concat content_tag(:button, 'x', class: "close", data: { dismiss: 'alert' })
+          concat content_tag(:button, 'x', class: "close", data: {dismiss: 'alert'})
           concat message
         end)
       end

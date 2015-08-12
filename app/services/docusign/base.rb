@@ -56,10 +56,10 @@ module Docusign
         # options[:document] ||= Documents::FirstW2.first
         file_url = Amazon::GetUrlService.new(options[:document].attachment.s3_object, 3.minutes).call
         file_io = open(file_url)
-        file = { io: file_io, name: options[:document].attachment.instance.attachment_file_name }
+        file = {io: file_io, name: options[:document].attachment.instance.attachment_file_name}
       else
         file_url = "#{Rails.root}/vendor/files/templates/#{options[:template_name]}.pdf"
-        file = { path: file_url, name: "#{options[:template_name]}.pdf" }
+        file = {path: file_url, name: "#{options[:template_name]}.pdf"}
       end
 
       envelope_response = @client.create_envelope_from_document(

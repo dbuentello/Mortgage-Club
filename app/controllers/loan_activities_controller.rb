@@ -83,7 +83,7 @@ class LoanActivitiesController < ApplicationController
 
   def first_activity
     # activity_status: -1 => not existed yet
-    LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: loan.id).last || { activity_status: -1 }
+    LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: loan.id).last || {activity_status: -1}
   end
 
   def loans_json_options
