@@ -133,7 +133,7 @@ var ActivityTab = React.createClass({
           <div className="col-xs-2">
             <div className="checkbox">
               <label>
-                <input type="checkbox" checked={this.state.shown_to_user} onClick={this.onShownClick}/> Shown to user?
+                <input type="checkbox" defaultChecked={this.state.shown_to_user} onClick={this.onShownClick}/> Shown to user?
               </label>
             </div>
           </div>
