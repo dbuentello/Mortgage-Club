@@ -1,6 +1,8 @@
 class CreateComments < ActiveRecord::Migration
   def change
-    create_table :comments do |t|
+    enable_extension 'uuid-ossp'
+
+    create_table :comments, id: :uuid do |t|
       t.string :author
       t.text :text
 

@@ -1,6 +1,6 @@
 class CreateBorrowers < ActiveRecord::Migration
   def change
-    create_table :borrowers do |t|
+    create_table :borrowers, id: :uuid do |t|
       t.string    :first_name
       t.string    :last_name
       t.string    :middle_name
@@ -17,18 +17,18 @@ class CreateBorrowers < ActiveRecord::Migration
       t.decimal   :gross_commission, :precision => 11, :scale => 2
     end
 
-    create_table :borrower_addresses do |t|
-      t.integer :borrower_id
-      t.integer :address_id
+    create_table :borrower_addresses, id: :uuid do |t|
+      t.uuid    :borrower_id
+      t.uuid    :address_id
       t.integer :years_at_address
       t.boolean :is_rental
       t.boolean :is_current
     end
 
-    create_table :borrower_employers do |t|
-      t.integer :borrower_id
+    create_table :borrower_employers, id: :uuid do |t|
+      t.uuid    :borrower_id
       t.string  :employer_name
-      t.integer :employer_address_id
+      t.uuid    :employer_address_id
       t.string  :employment_contact_name
       t.string  :employment_contact_number
       t.string  :job_title
@@ -37,15 +37,15 @@ class CreateBorrowers < ActiveRecord::Migration
       t.boolean :is_current
     end
 
-    create_table :borrower_government_monitoring_info do |t|
-      t.integer :borrower_id
+    create_table :borrower_government_monitoring_info, id: :uuid do |t|
+      t.uuid    :borrower_id
       t.boolean :hispanic_or_latino
       t.integer :gender_type
     end
 
     # creating table for race because we can select multiple race_types per borrower
-    create_table :borrower_race do |t|
-      t.integer :borrower_government_monitoring_info_id
+    create_table :borrower_race, id: :uuid do |t|
+      t.uuid    :borrower_government_monitoring_info_id
       t.integer :race_type
     end
 

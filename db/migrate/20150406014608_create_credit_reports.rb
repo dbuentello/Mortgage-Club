@@ -1,13 +1,13 @@
 class CreateCreditReports < ActiveRecord::Migration
   def change
-    create_table :credit_reports do |t|
-      t.integer  :borrower_id
+    create_table :credit_reports, id: :uuid do |t|
+      t.uuid     :borrower_id, index: true
       t.datetime :date
       t.integer  :score
     end
 
-    create_table :liabilities do |t|
-      t.integer :credit_report_id
+    create_table :liabilities, id: :uuid do |t|
+      t.uuid    :credit_report_id, index: true
       t.string  :name
       # monthly payment
       t.integer :payment
@@ -18,9 +18,6 @@ class CreateCreditReports < ActiveRecord::Migration
       t.decimal :balance, :precision => 11, :scale => 2
     end
 
-    add_column :addresses, :liability_id, :integer
-    add_index :addresses, :liability_id
-    add_index :credit_reports, :borrower_id
-    add_index :liabilities, :credit_report_id
+    add_column :addresses, :liability_id, :uuid, index: true
   end
 end
