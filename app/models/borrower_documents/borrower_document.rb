@@ -35,6 +35,8 @@ class BorrowerDocument < ActiveRecord::Base
       message: ' must be less than or equal to 10MB'
     }
 
+  validates_presence_of :owner
+
   PERMITTED_ATTRS = [
     :type,
     :attachment

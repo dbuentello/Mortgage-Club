@@ -8,7 +8,10 @@
 
 # create user with its borrower
 if User.where(email: 'borrower@gmail.com').blank?
-  user = User.new(email: 'borrower@gmail.com', password: '12345678', password_confirmation: '12345678')
+  user = User.new(
+    email: 'borrower@gmail.com', first_name: 'John', last_name: 'Doe',
+    password: '12345678', password_confirmation: '12345678'
+  )
   user.skip_confirmation!
   user.save
 
@@ -18,25 +21,28 @@ if User.where(email: 'borrower@gmail.com').blank?
   loan = user.loans.build
   loan.save
 
-  hud_estimate = loan.create_hud_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'))
-  hud_final = loan.create_hud_final(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'))
-  loan_estimate = loan.create_loan_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'))
-  loan_estimate = loan.create_uniform_residential_lending_application(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'))
+  hud_estimate = loan.create_hud_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
+  hud_final = loan.create_hud_final(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
+  loan_estimate = loan.create_loan_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
+  loan_estimate = loan.create_uniform_residential_lending_application(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
 
   property = loan.build_property
   property.create_address
   property.save
 
-  appraisal_report = property.create_appraisal_report(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'))
-  mortgage_statement = property.create_mortgage_statement(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'))
-  purchase_agreement = property.create_purchase_agreement(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'))
-  risk_report = property.create_risk_report(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'))
+  appraisal_report = property.create_appraisal_report(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
+  mortgage_statement = property.create_mortgage_statement(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
+  purchase_agreement = property.create_purchase_agreement(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
+  risk_report = property.create_risk_report(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
 
 end
 
 # create staff user
 if User.where(email: 'loan_member@gmail.com').blank?
-  user = User.new(email: 'loan_member@gmail.com', password: '12345678', password_confirmation: '12345678')
+  user = User.new(
+    email: 'loan_member@gmail.com', first_name: 'Mark', last_name: 'Lim',
+    password: '12345678', password_confirmation: '12345678'
+  )
   user.skip_confirmation!
   user.save
 
