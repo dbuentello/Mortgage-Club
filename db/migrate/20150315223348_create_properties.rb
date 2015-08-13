@@ -1,7 +1,7 @@
 class CreateProperties < ActiveRecord::Migration
   def change
-    create_table :properties do |t|
-      t.integer   :address_id
+    create_table :properties, id: :uuid do |t|
+      t.uuid      :address_id
       t.integer   :property_type
       t.integer   :usage_type
       t.datetime  :original_purchase_date

@@ -2,9 +2,9 @@ class CreateSigner < ActiveRecord::Migration
   def change
     create_table :signers do |t|
       t.string :role_name
-      t.integer :recipient_id
-      t.integer :envelope_id
-      t.integer :user_id
+      t.uuid   :recipient_id
+      t.uuid   :envelope_id
+      t.uuid   :user_id
     end
 
     add_index :signers, :envelope_id

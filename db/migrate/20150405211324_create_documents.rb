@@ -2,7 +2,7 @@ class CreateDocuments < ActiveRecord::Migration
   def change
     create_table :documents do |t|
       t.string :type
-      t.integer :borrower_id
+      t.uuid   :borrower_id
     end
 
     add_attachment :documents, :attachment
