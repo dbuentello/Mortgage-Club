@@ -15,7 +15,7 @@ if User.where(email: 'borrower@gmail.com').blank?
   user.create_borrower
   user.add_role :borrower
 
-  loan = user.build_loan
+  loan = user.loans.buid
   loan.save
 
   hud_estimate = loan.create_hud_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'))
