@@ -22,6 +22,8 @@ class BorrowerDocument < ActiveRecord::Base
     s3_permissions: 'authenticated-read',
     path: PAPERCLIP[:default_path]
 
+  belongs_to :owner, polymorphic: true
+
   validates_presence_of :token
 
   validates_attachment :attachment,

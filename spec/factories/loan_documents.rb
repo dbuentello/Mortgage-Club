@@ -6,6 +6,7 @@ FactoryGirl.define do
     ].sample}
 
     f.attachment File.new(Rails.root.join 'spec', 'files', 'sample.png')
+    f.owner { build(:user) }
 
     factory :hud_estimate, class: 'HudEstimate' do
       type { 'HudEstimate' }
