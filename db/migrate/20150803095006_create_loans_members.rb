@@ -1,8 +1,8 @@
 class CreateLoansMembers < ActiveRecord::Migration
   def change
-    create_table :loans_members do |t|
-      t.integer :loan_id
-      t.integer :team_member_id
+    create_table :loans_members, id: :uuid do |t|
+      t.uuid :loan_id
+      t.uuid :team_member_id
     end
 
     add_index(:loans_members, :loan_id)

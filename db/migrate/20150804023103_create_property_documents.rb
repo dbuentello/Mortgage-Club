@@ -1,10 +1,10 @@
 class CreatePropertyDocuments < ActiveRecord::Migration
   def change
-    create_table :property_documents do |t|
-      t.string :type
-      t.integer :owner_id
+    create_table :property_documents, id: :uuid do |t|
+      t.string  :type
+      t.uuid    :owner_id
 
-      t.string :description
+      t.string  :description
       t.timestamps null: false
     end
 

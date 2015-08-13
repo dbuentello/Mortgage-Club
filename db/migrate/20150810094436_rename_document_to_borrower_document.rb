@@ -3,6 +3,6 @@ class RenameDocumentToBorrowerDocument < ActiveRecord::Migration
     rename_table :documents, :borrower_documents
 
     add_column :borrower_documents, :owner_type, :string
-    add_reference :borrower_documents, :borrower, index: true, foreign_key: true
+    add_reference :borrower_documents, :borrower, index: true, foreign_key: true, type: :uuid
   end
 end
