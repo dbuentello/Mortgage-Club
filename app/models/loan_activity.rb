@@ -76,7 +76,7 @@ class LoanActivity < ActiveRecord::Base
           GROUP BY name
         ) d ON ( l.name = d.name )
       WHERE
-        l.loan_id = #{params[:loan_id]}
+        l.loan_id = '#{params[:loan_id]}'
         AND
         l.activity_type = #{params[:activity_type]}
       ORDER BY name, created_at DESC, id")
