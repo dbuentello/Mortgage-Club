@@ -2,9 +2,9 @@ class LoansController < ApplicationController
   before_action :set_loan, only: [:edit, :update, :destroy]
 
   def new
-    loan = Loan.initiate(current_user)
+    @loan = Loan.initiate(current_user)
 
-    redirect_to edit_loan_path(loan)
+    redirect_to edit_loan_path(@loan)
   end
 
   def edit
