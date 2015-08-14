@@ -8,6 +8,7 @@ var fields = {
   hud_final: {label: 'Final settlement statement', name: 'hud_final', placeholder: 'drap file here or browse', type: 'HudFinal'},
   loan_estimate: {label: "Loan estimate", name: 'loan_estimate', placeholder: 'drap file here or browse', type: 'LoanEstimate'},
   uniform_residential_lending_application: {label: 'Loan application form', name: 'uniform_residential_lending_application', placeholder: 'drap file here or browse', type: 'UniformResidentialLendingApplication'},
+  other_loan_report: {label: 'Other', name: 'other_loan_report', placeholder: 'drap file here or browse', type: 'OtherLoanReport', customDescription: true}
 };
 
 var Loan = React.createClass({
@@ -38,6 +39,7 @@ var Loan = React.createClass({
                       tip={this.state[fields[key].name]}
                       maxSize={10000000}
                       customParams={customParams}
+                      supportOtherDescription={fields[key].customDescription}
                     />
                   </div>
                 )

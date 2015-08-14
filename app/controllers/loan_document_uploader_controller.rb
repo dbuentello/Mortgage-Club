@@ -18,10 +18,10 @@ class LoanDocumentUploaderController < ApplicationController
     document = document_klass.where(loan_id: params[:loan_id]).last
     loan = Loan.find(params[:loan_id])
 
-    if document.present?
+    if document.present? && params[:type]!= 'OtherLoanReport'
       document.update(attachment: params[:file])
     else
-      document = document_klass.new(attachment: params[:file], loan: loan)
+      document = document_klass.new(attachment: params[:file], loan: loan, description: params[:description])
       document.owner = current_user
       document.save
     end
