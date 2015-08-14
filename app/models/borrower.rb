@@ -2,7 +2,7 @@
 #
 # Table name: borrowers
 #
-#  id               :integer          not null, primary key
+#  id               :uuid             not null, primary key
 #  dob              :datetime
 #  ssn              :binary
 #  phone            :string
@@ -13,8 +13,8 @@
 #  gross_overtime   :decimal(11, 2)
 #  gross_bonus      :decimal(11, 2)
 #  gross_commission :decimal(11, 2)
-#  loan_id          :integer
-#  user_id          :integer
+#  loan_id          :uuid
+#  user_id          :uuid
 #  dependent_count  :integer
 #
 
@@ -34,7 +34,7 @@ class Borrower < ActiveRecord::Base
   has_one  :second_paystub, inverse_of: :borrower, dependent: :destroy
   has_one  :first_w2, inverse_of: :borrower, dependent: :destroy
   has_one  :second_w2, inverse_of: :borrower, dependent: :destroy
-  has_one  :other_borrower_report, inverse_of: :borrower, dependent: :destroy
+  has_many  :other_borrower_report, inverse_of: :borrower, dependent: :destroy
 
   has_many :borrower_documents, dependent: :destroy
 

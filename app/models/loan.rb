@@ -2,9 +2,9 @@
 #
 # Table name: loans
 #
-#  id                             :integer          not null, primary key
+#  id                             :uuid             not null, primary key
 #  purpose                        :integer
-#  user_id                        :integer
+#  user_id                        :uuid
 #  agency_case_number             :string
 #  lender_case_number             :string
 #  amount                         :decimal(11, 2)
@@ -83,7 +83,7 @@ class Loan < ActiveRecord::Base
   has_one :hud_final, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
   has_one :loan_estimate, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
   has_one :uniform_residential_lending_application, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
-  has_one :other_loan_report, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
+  has_many :other_loan_report, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
   has_many :loan_documents, dependent: :destroy, foreign_key: 'loan_id'
 
   has_many :loan_activities
