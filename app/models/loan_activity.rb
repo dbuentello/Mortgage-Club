@@ -16,6 +16,8 @@
 #
 
 class LoanActivity < ActiveRecord::Base
+  scope :recent_loan_activity, -> { where(user_visible: true).order(created_at: :desc).limit(10) }
+
   LIST = {
     "Prior to Loan Submission" => ["Verify borrower's income", "Verify borrower's down payment", "Verify borrower's rental properties", "Other"],
     "Prior to Loan Docs" => ["Verify borrower's employment", "Ask borrower to submit additional documents"],
@@ -41,8 +43,6 @@ class LoanActivity < ActiveRecord::Base
 
   validates_presence_of :loan, :loan_member
   validates_inclusion_of :user_visible, in: [true, false]
-
-  # validates_uniqueness_of :name, uniqueness: true, scope: :loan_id
 
   def self.get_latest_by_loan_and_name(loan_id, name)
     return nil if loan_id.nil? || name.nil?
@@ -135,5 +135,4 @@ class LoanActivity < ActiveRecord::Base
 
     super(more_options)
   end
-
 end
