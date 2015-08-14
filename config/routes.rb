@@ -86,7 +86,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :loans, only: [:new, :show, :update, :edit] do
+  resources :loans, only: [:new, :update, :edit] do
     collection do
       get 'get_co_borrower_info'
     end

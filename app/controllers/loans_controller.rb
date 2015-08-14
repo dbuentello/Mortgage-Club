@@ -1,16 +1,14 @@
 class LoansController < ApplicationController
-  before_action :set_loan, only: [:new, :edit, :update]
+  before_action :set_loan, only: [:edit, :update]
 
   def new
-    show
+    loan = Loan.initiate(current_user)
+
+    redirect_to edit_loan_path(loan)
   end
 
   def edit
-    show
-  end
-
-  def show
-    @loan = @loan || Loan.find(params[:id])
+    loan = @loan
 
     bootstrap({
       currentLoan: @loan.as_json(loan_json_options),
@@ -23,7 +21,7 @@ class LoansController < ApplicationController
   end
 
   def update
-    @loan = @loan || Loan.find(params[:id])
+    loan = @loan
 
     @borrower_params = co_borrower_params
     if @borrower_params.present?

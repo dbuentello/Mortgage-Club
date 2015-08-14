@@ -2,9 +2,9 @@ class DashboardController < ApplicationController
   before_action :set_loan, only: [:show, :edit]
 
   def show
-    loan = @loan || Loan.find(params[:id])
+    loan = @loan
 
-    property =  loan.property
+    property = loan.property
     borrower = current_user.borrower
 
     # WILL_DO: resolve n+1 query problem
