@@ -28,6 +28,8 @@ var Dashboard = React.createClass({
         activeTab: this.getValue(e.target.attributes, 'aria-controls').value
       });
     }.bind(this));
+
+    // console.dir(this.props.bootstrapData.loan);
   },
 
   render: function() {
@@ -49,7 +51,7 @@ var Dashboard = React.createClass({
           </div>
           <div className='col-xs-4 ptl'>
             <a className='btn btnSml btnSecondary mlm' href='#'>Edit Application</a>
-            <a className='btn btnSml btnPrimary mlm' href='/loans/new'>New Loan</a>
+            <a className='btn btnSml btnPrimary mlm' href={'/loans/' + loan.id + '/edit'}>Edit Loan</a>
           </div>
         </div>
 

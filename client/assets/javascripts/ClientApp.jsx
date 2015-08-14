@@ -69,10 +69,10 @@ window.ClientApp = React.createClass({
 
 var routes = (
   <Route name='app' path='/' handler={ClientApp}>
-    <Route name='new_loan' path='loans/new' handler={LoanInterface}/>
+    <Route name='edit_loan' path='loans/:id/edit' handler={LoanInterface}/>
     <Route name='loan' path='loans/:id' handler={LoanActivityInterface}/>
     <Route name='rates' handler={MortgageRates}/>
-    <Route name='dashboard' path='dashboard' handler={Dashboard}/>
+    <Route name='dashboard' path='dashboard/:id/edit' handler={Dashboard}/>
     <Route name='loan_list' path='dashboard/loans' handler={LoanList}/>
     <DefaultRoute handler={LoanActivityInterface}/>
   </Route>
