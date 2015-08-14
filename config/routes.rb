@@ -26,12 +26,15 @@ Rails.application.routes.draw do
       post 'bank_statement'
       post 'paystub'
       post 'w2'
+      post 'other_borrower_report'
       delete 'remove_bank_statement'
       delete 'remove_paystub'
       delete 'remove_w2'
+      delete 'remove_other_borrower_report'
       get 'download_w2'
       get 'download_paystub'
       get 'download_bank_statement'
+      get 'download_other_borrower_report'
     end
   end
 

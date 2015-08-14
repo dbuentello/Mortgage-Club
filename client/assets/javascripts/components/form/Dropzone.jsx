@@ -114,6 +114,12 @@ var Dropzone = React.createClass({
         return;
       }
 
+      // users must enter their document's description if they upload other types.
+      if (this.props.supportOtherDescription && this.state.otherDescription == '') {
+        alert("You must enter the description.");
+        return;
+      }
+
       if (this.props.uploadUrl) {
         // prepare formData object
         var formData = new FormData();
@@ -244,7 +250,7 @@ var Dropzone = React.createClass({
     }
 
     if (this.props.supportOtherDescription) {
-      var customDescription = <span><input className='mhl' placeholder='description' onChange={this.onChangeDiscription}/></span>
+      var customDescription = <span><input className='mhl' placeholder='Description' onChange={this.onChangeDiscription}/></span>
     }
 
     return (
