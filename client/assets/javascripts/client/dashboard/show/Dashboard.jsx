@@ -32,7 +32,6 @@ var Dashboard = React.createClass({
 
   render: function() {
     var current_user = this.props.bootstrapData.currentUser;
-    var docList = this.props.bootstrapData.doc_list;
     var address = this.props.bootstrapData.address;
     var loan    = this.props.bootstrapData.loan;
     var property = this.props.bootstrapData.loan.property;

@@ -2,10 +2,11 @@ class DashboardController < ApplicationController
   before_action :set_loan, only: [:show]
 
   def show
-    borrower = current_user.borrower
-    # TODO: select loan by params[:loan_id] when we build multi dashboards.
+    # WILL_DO: select loan by params[:loan_id] when we build multi dashboards.
     loan = @loan
+
     property =  loan.property
+    borrower = current_user.borrower
 
     # WILL_DO: resolve n+1 query problem
     bootstrap(
@@ -58,18 +59,21 @@ class DashboardController < ApplicationController
   def contact_list_json_options
     [
       {
+        id: 1,
         name: 'Michael Gifford',
         title: 'Relationship Manager',
         email: 'michael@gmail.com',
         avatar_url: 'https://goo.gl/IpbO1e'
       },
       {
+        id: 2,
         name: 'Jerry Williams',
         title: 'Loan Analyst',
         email: 'jerry@gmail.com',
         avatar_url: 'https://goo.gl/IpbO1e'
       },
       {
+        id: 3,
         name: 'Kristina Rendon',
         title: 'Insurance',
         email: 'kristina@gmail.com',
