@@ -2,12 +2,13 @@ class DashboardController < ApplicationController
   before_action :set_loan, only: [:show, :edit]
 
   def show
+    # WILL_DO: select loan by params[:loan_id] when we build multi dashboards.
+    # WILL_DO: resolve n+1 query problem
     loan = @loan
-
     property = loan.property
     borrower = current_user.borrower
+    closing = loan.closing
 
-    # WILL_DO: resolve n+1 query problem
     bootstrap(
       address: property.address.try(:address),
       loan: loan.as_json(loan_json_options),
@@ -15,7 +16,8 @@ class DashboardController < ApplicationController
       contact_list: contact_list_json_options,
       property_list: property.as_json(property_list_json_options),
       loan_list: loan.as_json(loan_list_json_options),
-      loan_activities: loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10).as_json
+      loan_activities: loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10).as_json,
+      closing_list: closing.as_json(closing_list_json_options)
     )
 
     respond_to do |format|
@@ -116,4 +118,13 @@ class DashboardController < ApplicationController
     ]
   end
 
+  def closing_list_json_options
+    {
+      include: {
+        closing_documents: {
+          methods: [:file_icon_url, :class_name]
+        }
+      }
+    }
+  end
 end
