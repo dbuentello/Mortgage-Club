@@ -132,7 +132,7 @@ class Loan < ActiveRecord::Base
   end
 
   def ltv_formula
-    return unless property && amount
+    return unless (amount && property && property.purchase_price)
 
     (amount / property.purchase_price * 100).ceil
   end
