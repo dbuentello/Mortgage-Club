@@ -18,7 +18,7 @@ if User.where(email: 'borrower@gmail.com').blank?
   user.create_borrower
   user.add_role :borrower
 
-  loan = user.loans.build
+  loan = user.loans.build(amount: Random.rand(100000..200000), interest_rate: Random.rand(5..15))
   loan.save
 
   hud_estimate = loan.create_hud_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
@@ -26,8 +26,8 @@ if User.where(email: 'borrower@gmail.com').blank?
   loan_estimate = loan.create_loan_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
   loan_estimate = loan.create_uniform_residential_lending_application(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
 
-  property = loan.build_property
-  property.create_address
+  property = loan.build_property(purchase_price: Random.rand(100000..200000))
+  property.create_address(street_address: "208 Silver Eagle Road")
   property.save
 
   appraisal_report = property.create_appraisal_report(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)

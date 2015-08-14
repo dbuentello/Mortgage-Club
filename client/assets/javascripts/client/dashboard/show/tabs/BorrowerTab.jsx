@@ -46,6 +46,7 @@ var BorrowerTab = React.createClass({
         </div>
       </div>
     )
+
     return (
       <div role="tabpanel" className="tab-pane active" id="borrower">
         <div className="box boxBasic backgroundBasic">

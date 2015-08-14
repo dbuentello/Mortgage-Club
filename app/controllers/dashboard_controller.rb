@@ -1,11 +1,11 @@
 class DashboardController < ApplicationController
-  before_action :set_loan, only: [:show]
+  before_action :set_loan, only: [:show, :edit]
 
   def show
-    borrower = current_user.borrower
-    # TODO: select loan by params[:loan_id] when we build multi dashboards.
     loan = @loan
-    property =  loan.property
+
+    property = loan.property
+    borrower = current_user.borrower
 
     # WILL_DO: resolve n+1 query problem
     bootstrap(
@@ -23,7 +23,42 @@ class DashboardController < ApplicationController
     end
   end
 
+  def edit
+    show
+  end
+
+  def loans
+    bootstrap(
+      loans: current_user.loans.includes(property: :address).as_json(loan_json_options)
+    )
+
+    respond_to do |format|
+      format.html { render template: 'client_app' }
+    end
+  end
+
   private
+
+  def loan_json_options
+    {
+      only: [:id, :amount, :created_at, :interest_rate],
+      include: {
+        property: {
+          only: [],
+          include: {
+            address: {
+              only: [],
+              methods: :address
+            }
+          },
+          methods: :usage_name
+        }
+      },
+      methods: [
+        :num_of_years, :ltv_formula, :purpose_titleize
+      ]
+    }
+  end
 
   def loan_list_json_options
     {
@@ -58,38 +93,27 @@ class DashboardController < ApplicationController
   def contact_list_json_options
     [
       {
+        id: 1,
         name: 'Michael Gifford',
         title: 'Relationship Manager',
         email: 'michael@gmail.com',
         avatar_url: 'https://goo.gl/IpbO1e'
       },
       {
+        id: 2,
         name: 'Jerry Williams',
         title: 'Loan Analyst',
         email: 'jerry@gmail.com',
         avatar_url: 'https://goo.gl/IpbO1e'
       },
       {
+        id: 3,
         name: 'Kristina Rendon',
         title: 'Insurance',
         email: 'kristina@gmail.com',
         avatar_url: 'https://goo.gl/IpbO1e'
       }
     ]
-  end
-
-  def loan_json_options
-    {
-      include: {
-        property: {
-          include: :address,
-          methods: :usage_name
-        }
-      },
-      methods: [
-        :num_of_years, :ltv_formula, :purpose_titleize
-      ]
-    }
   end
 
 end

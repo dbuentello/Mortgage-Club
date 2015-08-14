@@ -1,12 +1,14 @@
 class LoansController < ApplicationController
-  before_action :set_loan, only: [:new, :update]
+  before_action :set_loan, only: [:edit, :update, :destroy]
 
   def new
-    show
+    @loan = Loan.initiate(current_user)
+
+    redirect_to edit_loan_path(@loan)
   end
 
-  def show
-    @loan = @loan || Loan.find(params[:id])
+  def edit
+    loan = @loan
 
     bootstrap({
       currentLoan: @loan.as_json(loan_json_options),
@@ -19,7 +21,7 @@ class LoansController < ApplicationController
   end
 
   def update
-    @loan = @loan || Loan.find(params[:id])
+    loan = @loan
 
     @borrower_params = co_borrower_params
     if @borrower_params.present?
@@ -35,6 +37,18 @@ class LoansController < ApplicationController
     else
       render json: {error: @loan.errors.full_messages}, status: 500
     end
+  end
+
+  def destroy
+    loan = @loan
+
+    if loan.destroy
+      message = "Sucessfully destroy loan"
+    else
+      message = "Cannot destroy loan"
+    end
+
+    redirect_to loans_dashboard_index_path, notice: message
   end
 
   # GET get_co_borrower_info

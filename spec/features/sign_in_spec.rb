@@ -16,6 +16,6 @@ describe "the signin process", :type => :feature do
     end
     click_button 'Log in'
 
-    expect(current_path).to eq(new_loan_path)
+    expect(current_path).to eq(loans_dashboard_index_path)
   end
 end

@@ -28,11 +28,16 @@ var Dashboard = React.createClass({
         activeTab: this.getValue(e.target.attributes, 'aria-controls').value
       });
     }.bind(this));
+
+    // console.dir(this.props.bootstrapData.loan);
+  },
+
+  confirmDestroyLoan: function() {
+    return confirm('Are you sure to destroy a new loan?');
   },
 
   render: function() {
     var current_user = this.props.bootstrapData.currentUser;
-    var docList = this.props.bootstrapData.doc_list;
     var address = this.props.bootstrapData.address;
     var loan    = this.props.bootstrapData.loan;
     var property = this.props.bootstrapData.loan.property;
@@ -49,8 +54,8 @@ var Dashboard = React.createClass({
             <h4>{this.formatCurrency(loan.amount, '$')}k {loan.num_of_years}-year fixed {loan.ltv_formula}% LTV {property.usage_name} {loan.purpose_titleize} Loan</h4>
           </div>
           <div className='col-xs-4 ptl'>
-            <a className='btn btnSml btnSecondary mlm' href='#'>Edit Application</a>
-            <a className='btn btnSml btnPrimary mlm' href='/loans/new'>New Loan</a>
+            <a className='btn btnSml btnSecondary mlm mbm' href={'/loans/' + loan.id + '/edit'}>Edit Loan</a>
+            <a className='btn btnSml btnDanger mlm mbm' href={'/loans/' + loan.id} data-method='delete' onClick={this.confirmDestroyLoan}>Delete Loan</a>
           </div>
         </div>
 

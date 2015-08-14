@@ -6,8 +6,12 @@ describe LoansController do
 
   describe 'GET #new' do
     it 'assigns the requested loan to @loan' do
-      get :new, id: loan.id, format: :html
-      expect(assigns(:loan)).to eq(loan)
+      old_count = Loan.count
+
+      get :new, format: :html
+
+      expect(assigns(:loan)).to be_truthy
+      expect(Loan.count).to eq(old_count + 1)
     end
   end
 

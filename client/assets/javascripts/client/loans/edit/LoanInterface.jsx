@@ -28,7 +28,7 @@ var LoanInterface = React.createClass({
 
     return (
       <div>
-        <nav className='sideMenu sticky backgroundLowlight pbm'>
+        <nav className='sideMenu sticky backgroundLowlight pbm brs'>
           {_.map(this.state.menu, function (item, i) {
             return (
               <div key={i} className={'row pam bbs man ' + (item.name === activeItem.name ? 'backgroundBlue typeReversed' : 'clickable')} onClick={_.bind(this.goToItem, this, item)}>

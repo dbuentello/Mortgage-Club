@@ -63,15 +63,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # resource :dashboard, only: [:show]
-  get 'dashboard', to: 'dashboard#show'
-
-  resources :loans, only: [:new, :show, :update] do
-    collection do
-      get 'get_co_borrower_info'
-    end
-  end
-
   resources :rates, only: [:index] do
     collection do
       post :select
@@ -92,6 +83,21 @@ Rails.application.routes.draw do
   resources :loan_activities, only: [:index, :show, :create] do
     collection do
       get 'get_activities_by_conditions'
+    end
+  end
+
+  resources :loans, only: [:new, :edit, :update, :destroy] do
+    collection do
+      get 'get_co_borrower_info'
+    end
+  end
+
+  # temporarily use
+  get 'dashboard', to: 'dashboard#show'
+
+  resources :dashboard, only: [:show, :edit] do
+    collection do
+      get :loans
     end
   end
 
