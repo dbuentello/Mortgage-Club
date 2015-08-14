@@ -16,7 +16,7 @@
 #
 
 class LoanActivity < ActiveRecord::Base
-  scope :recent_loan_activity, -> { where(user_visible: true).order(created_at: :desc).limit(10) }
+  scope :recent_loan_activities, -> (limit_num) { where(user_visible: true).order(created_at: :desc).limit(limit_num) }
 
   LIST = {
     "Prior to Loan Submission" => ["Verify borrower's income", "Verify borrower's down payment", "Verify borrower's rental properties", "Other"],
