@@ -4,11 +4,6 @@ var React = require('react/addons');
 var moment = require('moment');
 
 var RecentLoanActivities = React.createClass({
-
-  componentDidMount: function() {
-    // console.dir(this.props.LoanActivityList);
-  },
-
   render: function() {
     var activities = this.props.LoanActivityList;
 

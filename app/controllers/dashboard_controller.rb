@@ -24,6 +24,16 @@ class DashboardController < ApplicationController
     end
   end
 
+  def loans
+    bootstrap(
+      message: 'hello world'
+    )
+
+    respond_to do |format|
+      format.html { render template: 'client_app' }
+    end
+  end
+
   private
 
   def loan_list_json_options

@@ -63,9 +63,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # resource :dashboard, only: [:show]
-  get 'dashboard', to: 'dashboard#show'
-
   resources :loans, only: [:new, :show, :update] do
     collection do
       get 'get_co_borrower_info'
@@ -95,4 +92,12 @@ Rails.application.routes.draw do
     end
   end
 
+  # temporarily use
+  get 'dashboard', to: 'dashboard#show'
+
+  resources :dashboard, only: [:show] do
+    collection do
+      get :loans
+    end
+  end
 end

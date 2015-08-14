@@ -7,11 +7,12 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 var AppStarter = require('tools/AppStarter');
+var FlashHandler = require('mixins/FlashHandler');
 var LoanInterface = require('client/loans/edit/LoanInterface');
 var MortgageRates = require('client/loans/MortgageRates');
 var LoanActivityInterface = require('client/loans/show/LoanActivityInterface');
 var Dashboard = require('client/dashboard/show/Dashboard');
-var FlashHandler = require('mixins/FlashHandler');
+var LoanList = require('client/dashboard/loans/LoanList');
 
 window.ClientApp = React.createClass({
   mixins: [FlashHandler],
@@ -72,6 +73,7 @@ var routes = (
     <Route name='loan' path='loans/:id' handler={LoanActivityInterface}/>
     <Route name='rates' handler={MortgageRates}/>
     <Route name='dashboard' path='dashboard' handler={Dashboard}/>
+    <Route name='loan_list' path='dashboard/loans' handler={LoanList}/>
     <DefaultRoute handler={LoanActivityInterface}/>
   </Route>
 );
