@@ -2,9 +2,9 @@
 #
 # Table name: loans
 #
-#  id                             :integer          not null, primary key
+#  id                             :uuid             not null, primary key
 #  purpose                        :integer
-#  user_id                        :integer
+#  user_id                        :uuid
 #  agency_case_number             :string
 #  lender_case_number             :string
 #  amount                         :decimal(11, 2)
@@ -78,11 +78,13 @@ class Loan < ActiveRecord::Base
 
   has_one :property, inverse_of: :loan, dependent: :destroy
   has_one :envelope, inverse_of: :loan, dependent: :destroy
+  has_one :closing, inverse_of: :loan, dependent: :destroy
 
   has_one :hud_estimate, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
   has_one :hud_final, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
   has_one :loan_estimate, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
   has_one :uniform_residential_lending_application, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
+  has_many :other_loan_reports, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
   has_many :loan_documents, dependent: :destroy, foreign_key: 'loan_id'
 
   has_many :loan_activities
@@ -109,7 +111,7 @@ class Loan < ActiveRecord::Base
   validates :amortization_type, inclusion: {in: %w( Conventional VA FHA USDA 9 ), message: "%{value} is not a valid amortization_type"}, allow_nil: true
 
   def self.initiate(user)
-    Loan.create(user: user, property: Property.create(address: Address.create))
+    Loan.create(user: user, property: Property.create(address: Address.create), closing: Closing.create(name: 'Closing'))
   end
 
   def property_completed

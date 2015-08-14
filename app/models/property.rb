@@ -2,7 +2,7 @@
 #
 # Table name: properties
 #
-#  id                         :integer          not null, primary key
+#  id                         :uuid             not null, primary key
 #  property_type              :integer
 #  usage                      :integer
 #  original_purchase_year     :integer
@@ -13,7 +13,7 @@
 #  estimated_property_tax     :decimal(11, 2)
 #  estimated_hazard_insurance :decimal(11, 2)
 #  is_impound_account         :boolean
-#  loan_id                    :integer
+#  loan_id                    :uuid
 #
 
 class Property < ActiveRecord::Base
@@ -31,6 +31,7 @@ class Property < ActiveRecord::Base
   has_one :inspection_report, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
   has_one :title_report, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
   has_one :risk_report, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
+  has_many :other_property_reports, dependent: :destroy, foreign_key: 'property_id'
   has_many :property_documents, dependent: :destroy, foreign_key: 'property_id'
 
   accepts_nested_attributes_for :address

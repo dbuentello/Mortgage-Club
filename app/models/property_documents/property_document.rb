@@ -62,10 +62,4 @@ class PropertyDocument < ActiveRecord::Base
   def set_private_token
     self.token = Digest::MD5.hexdigest(Time.now.to_s)
   end
-
-  def set_description
-    if description.blank?
-      self.description = type.constantize::DESCRIPTION
-    end
-  end
 end

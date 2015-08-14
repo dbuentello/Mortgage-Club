@@ -25,13 +25,15 @@ var Dropzone = React.createClass({
       empty: {
         backgroundColor: "#FFF",
         color: "#000"
-      }
+      },
+      supportOtherDescription: false
     };
   },
 
   getInitialState: function() {
     return {
-      isDragActive: false
+      isDragActive: false,
+      otherDescription: ''
     }
   },
 
@@ -46,7 +48,8 @@ var Dropzone = React.createClass({
     tip: React.PropTypes.string,
     downloadUrl: React.PropTypes.string,
     removeUrl: React.PropTypes.string,
-    maxSize: React.PropTypes.number
+    maxSize: React.PropTypes.number,
+    supportOtherDescription: React.PropTypes.bool
   },
 
   componentDidMount: function() {
@@ -111,17 +114,28 @@ var Dropzone = React.createClass({
         return;
       }
 
+      // users must enter their document's description if they upload other types.
+      if (this.props.supportOtherDescription && this.state.otherDescription == '') {
+        alert("You must enter the description.");
+        return;
+      }
+
       if (this.props.uploadUrl) {
         // prepare formData object
         var formData = new FormData();
         formData.append('file', files[0]);
 
-        // ex: var params = [{ "username": "Groucho"}];
+        // Custom Params. Ex: var params = [{ "username": "Groucho"}];
         _.map(this.props.customParams, function(param) {
           var key = Object.keys(param)[0];
           var value = param[key];
           formData.append(key, value);
         });
+
+        // Set other description
+        if (this.state.otherDescription != '') {
+          formData.append('description', this.state.otherDescription);
+        }
 
         // notify uploading
         $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploading.backgroundColor, color: this.props.uploading.color});
@@ -170,6 +184,12 @@ var Dropzone = React.createClass({
   onClick: function() {
     if (this.props.supportClick === true) {
       this.open();
+    }
+  },
+
+  onChangeDiscription: function(e) {
+    if (this.props.supportOtherDescription) {
+      this.setState({otherDescription: e.target.value})
     }
   },
 
@@ -229,10 +249,15 @@ var Dropzone = React.createClass({
       var downloadButton = <a href={this.state.downloadUrl} target="_blank"><i className="iconDownload"></i></a>;
     }
 
+    if (this.props.supportOtherDescription) {
+      var customDescription = <span><input className='mhl' placeholder='Description' onChange={this.onChangeDiscription}/></span>
+    }
+
     return (
       <div>
         <label className='col-xs-6'>
           <span className='h7 typeBold'>{this.props.field.label}</span>
+          {customDescription}
         </label>
         <div className='col-xs-6'>
           <div className="row">

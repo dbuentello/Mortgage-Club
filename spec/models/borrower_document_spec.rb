@@ -24,5 +24,6 @@ describe BorrowerDocument do
     expect(FactoryGirl.build(:second_paystub)).to be_valid
     expect(FactoryGirl.build(:first_bank_statement)).to be_valid
     expect(FactoryGirl.build(:second_bank_statement)).to be_valid
+    expect(FactoryGirl.build(:other_borrower_report)).to be_valid
   end
 end

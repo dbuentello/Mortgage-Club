@@ -114,6 +114,36 @@ class BorrowerUploaderController < ApplicationController
     render json: {message: message, download_url: download_url, remove_url: remove_url}, status: :ok
   end
 
+  def other_borrower_report
+    download_url, remove_url = '', ''
+
+    if params[:file].blank?
+      message = 'File not found'
+    else
+      borrower = Borrower.find(params[:id])
+
+      other_borrower_report = OtherBorrowerReport.new(
+        attachment: params[:file],
+        description: params[:description],
+        borrower_id: borrower.id
+      )
+      other_borrower_report.owner = current_user
+      other_borrower_report.save
+
+      message ||= "Sucessfully for #{borrower.first_name}"
+      download_url = download_other_borrower_report_borrower_uploader_url(other_borrower_report)
+      remove_url = remove_other_borrower_report_borrower_uploader_url(other_borrower_report)
+    end
+
+    render json: {message: message, download_url: download_url, remove_url: remove_url}, status: :ok
+  end
+
+  def remove_other_borrower_report
+    other_borrower_report = OtherBorrowerReport.find_by_id(params[:id])
+    other_borrower_report.destroy
+    render json: {message: "Done removed"}, status: :ok
+  end
+
   def remove_w2
     borrower = Borrower.find_by_id(params[:id])
 
@@ -234,6 +264,16 @@ class BorrowerUploaderController < ApplicationController
 
     if bank_statement.present?
       url = Amazon::GetUrlService.new(bank_statement.attachment.s3_object).call
+      redirect_to url
+    else
+      render json: {message: "You don't have this file yet. Try to upload it!"}
+    end
+  end
+
+  def download_other_borrower_report
+    other_borrower_report = OtherBorrowerReport.find(params[:id])
+    if other_borrower_report.present?
+      url = Amazon::GetUrlService.new(other_borrower_report.attachment.s3_object).call
       redirect_to url
     else
       render json: {message: "You don't have this file yet. Try to upload it!"}

@@ -10,6 +10,7 @@ var fields = {
   secondPaystub: {label: 'Paystub - Previous month', name:  'second_paystub', placeholder: 'drap file here or browse', helpText: 'Document uploader.', value: 'second_paystub_value'},
   firstBankStatement: {label: 'Bank statement - Most recent month', name:  'first_bank_statement', placeholder: 'drap file here or browse', helpText: 'Document uploader.', value: 'first_bank_statement_value'},
   secondBankStatement: {label: 'Bank statement - Previous month', name:  'second_bank_statement', placeholder: 'drap file here or browse', helpText: 'Document uploader.', value: 'second_bank_statement_value'},
+  otherBorrowerReport: {label: 'Other', name: 'other_borrower_report', placeholder: 'drap file here or browse'}
 };
 
 var Borrower = React.createClass({
@@ -78,6 +79,15 @@ var Borrower = React.createClass({
               afterRemove={this.refresh}
               tip={this.state[fields.secondBankStatement.name]}
               maxSize={10000000}/>
+
+            <Dropzone onDrop={this.onDrop} field={fields.otherBorrowerReport}
+              uploadUrl={this.state.other_borrower_report_url}
+              downloadUrl={this.state.download_other_borrower_report_url}
+              removeUrl={this.state.remove_other_borrower_report_url}
+              afterRemove={this.refresh}
+              tip={this.state[fields.otherBorrowerReport.name]}
+              maxSize={10000000}
+              supportOtherDescription={true}/>
           </div>
         </div>
       </div>
@@ -104,6 +114,7 @@ var Borrower = React.createClass({
     state.second_paystub_url =  '/borrower_uploader/' + this.props.borrower.id + '/paystub?order=2';
     state.first_bank_statement_url = '/borrower_uploader/' + this.props.borrower.id + '/bank_statement?order=1';
     state.second_bank_statement_url = '/borrower_uploader/' + this.props.borrower.id + '/bank_statement?order=2';
+    state.other_borrower_report_url = '/borrower_uploader/' + this.props.borrower.id + '/other_borrower_report';
 
     if (this.props.borrower.first_w2) {
       state[fields.firstW2.name] = this.props.borrower.first_w2.attachment_file_name;
@@ -163,6 +174,16 @@ var Borrower = React.createClass({
       state[fields.secondBankStatement.name] = fields.secondBankStatement.placeholder;
       state.remove_second_bank_statement_url = 'javascript:void(0)';
       state.download_second_bank_statement_url = 'javascript:void(0)';
+    }
+
+    if (this.props.borrower.other_borrower_report) {
+      state[fields.otherBorrowerReport.name] = this.props.borrower.other_borrower_report.attachment_file_name;
+      state.remove_other_borrower_report_url = '/borrower_uploader/' + this.props.borrower.id + '/remove_other_borrower_report';
+      state.download_other_borrower_report_url = '/borrower_uploader/' + this.props.borrower.id + '/download_other_borrower_report';
+    } else {
+      state[fields.otherBorrowerReport.name] = fields.otherBorrowerReport.placeholder;
+      state.remove_other_borrower_report_url = 'javascript:void(0)';
+      state.download_other_borrower_report_url = 'javascript:void(0)';
     }
 
     return state;

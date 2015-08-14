@@ -1,21 +1,22 @@
 # == Schema Information
 #
-# Table name: borrower_documents
+# Table name: closing_documents
 #
-#  id                      :integer          not null, primary key
+#  id                      :uuid             not null, primary key
 #  type                    :string
-#  owner_id                :integer
+#  owner_type              :string
+#  owner_id                :uuid
+#  description             :string
+#  closing_id              :uuid
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #  attachment_file_name    :string
 #  attachment_content_type :string
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
-#  token                   :string
-#  description             :string
-#  owner_type              :string
-#  borrower_id             :integer
 #
 
-class BorrowerDocument < ActiveRecord::Base
+class ClosingDocument < ActiveRecord::Base
   include Documentation
 
   has_attached_file :attachment,
@@ -48,20 +49,6 @@ class BorrowerDocument < ActiveRecord::Base
 
   before_validation :set_private_token, :on => :create
   before_validation :set_description
-
-  def downloadable?(user)
-    return false if borrower.blank? || user.blank? || user.borrower.blank?
-
-    user.borrower == borrower
-  end
-
-  def name
-    attachment_file_name
-  end
-
-  def url
-    Amazon::GetUrlService.new(attachment.s3_object).call
-  end
 
   private
 
