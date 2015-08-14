@@ -31,5 +31,19 @@ describe LoanActivityServices::CreateActivity do
     it "returns error message with nil value" do
       expect(@result.error_message).to be_nil
     end
+
+    context "user_visible is false" do
+      it "calls SetUserVisibleToFalse service" do
+        @loan_activity_params[:user_visible] = false
+        expect(LoanActivityServices::SetUserVisibleToFalse).to receive(:call)
+        LoanActivityServices::CreateActivity.new.call(@loan_member, @loan_activity_params)
+      end
+    end
+
+    context "user_visible is true" do
+      it "does not call SetUserVisibleToFalse service" do
+        expect(LoanActivityServices::SetUserVisibleToFalse).not_to receive(:call)
+      end
+    end
   end
 end

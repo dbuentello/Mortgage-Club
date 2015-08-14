@@ -22,4 +22,9 @@ module Documentation
   def class_name
     self.class.name
   end
+
+  def owner_name
+    return "Mortgage Club" if self.owner.loan_member?
+    self.owner.to_s
+  end
 end

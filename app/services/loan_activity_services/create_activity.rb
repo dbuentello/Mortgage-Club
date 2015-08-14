@@ -11,6 +11,7 @@ module LoanActivityServices
 
       if @loan_activity.save
         CalculateProcessingTime.new(@loan_activity, previous_loan_activity).call if previous_loan_activity
+        SetUserVisibleToFalse.call(@loan_activity.loan, @loan_activity.name) unless @loan_activity.user_visible
       else
         @error_message = @loan_activity.errors.full_messages.join(". ")
       end

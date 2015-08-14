@@ -6,6 +6,8 @@ class DashboardController < ApplicationController
     # TODO: select loan by params[:loan_id] when we build multi dashboards.
     loan = @loan
     property =  loan.property
+
+    # WILL_DO: resolve n+1 query problem
     bootstrap(
       address: property.address.try(:address),
       loan: loan.as_json(loan_json_options),
@@ -13,7 +15,7 @@ class DashboardController < ApplicationController
       contact_list: contact_list_json_options,
       property_list: property.as_json(property_list_json_options),
       loan_list: loan.as_json(loan_list_json_options),
-      loan_activities: loan.loan_activities.includes(loan_member: :user).order(updated_at: :desc).limit(10).as_json
+      loan_activities: loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10).as_json
     )
 
     respond_to do |format|
@@ -27,7 +29,17 @@ class DashboardController < ApplicationController
     {
       include: {
         loan_documents: {
-          methods: [:file_icon_url, :class_name]
+          methods: [:file_icon_url, :class_name, :owner_name]
+        }
+      }
+    }
+  end
+
+  def borrower_list_json_options
+    {
+      include: {
+        borrower_documents: {
+          methods: [:file_icon_url, :class_name, :owner_name]
         }
       }
     }
@@ -37,7 +49,7 @@ class DashboardController < ApplicationController
     {
       include: {
         property_documents: {
-          methods: [:file_icon_url, :class_name]
+          methods: [:file_icon_url, :class_name, :owner_name]
         }
       }
     }
@@ -80,18 +92,4 @@ class DashboardController < ApplicationController
     }
   end
 
-  def borrower_list_json_options
-    {
-      include: {
-        borrower_documents: {
-          include: {
-            owner: {
-              only: [:first_name]
-            }
-          },
-          methods: [:file_icon_url, :class_name]
-        }
-      }
-    }
-  end
 end
