@@ -13,13 +13,13 @@ class PropertyDocumentUploaderController < ApplicationController
     return render json: {message: 'Property not found'}, status: 500 if params[:property_id].blank?
 
     document_klass = params[:type].constantize
-    document = document_klass.where(property_id: params[:property_id]).last
     property = Property.find(params[:property_id])
+    document = document_klass.where(property_id: params[:property_id]).last
 
-    if document.present?
+    if document.present? && params[:type]!= 'OtherPropertyReport'
       document.update(attachment: params[:file])
     else
-      document = document_klass.new(attachment: params[:file], property: property)
+      document = document_klass.new(attachment: params[:file], property: property, description: params[:description])
       document.owner = current_user
       document.save
     end

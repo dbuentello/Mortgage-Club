@@ -14,6 +14,7 @@ var fields = {
   risk_report: {label: "Home seller's disclosure report", name: 'risk_report', placeholder: 'drap file here or browse', type: 'RiskReport'},
   termite_report: {label: 'Termite report', name: 'termite_report', placeholder: 'drap file here or browse', type: 'TermiteReport'},
   title_report: {label: 'Preliminary title report', name: 'title_report', placeholder: 'drap file here or browse', type: 'TitleReport'},
+  other_property_report: {label: 'Other', name: 'other_property_report', placeholder: 'drap file here or browse', type: 'OtherPropertyReport', customDescription: true}
 };
 
 var Property = React.createClass({
@@ -44,6 +45,7 @@ var Property = React.createClass({
                       tip={this.state[fields[key].name]}
                       maxSize={10000000}
                       customParams={customParams}
+                      supportOtherDescription={fields[key].customDescription}
                     />
                   </div>
                 )
