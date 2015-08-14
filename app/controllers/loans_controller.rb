@@ -1,7 +1,11 @@
 class LoansController < ApplicationController
-  before_action :set_loan, only: [:new, :update]
+  before_action :set_loan, only: [:new, :edit, :update]
 
   def new
+    show
+  end
+
+  def edit
     show
   end
 

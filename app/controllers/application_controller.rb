@@ -14,17 +14,15 @@ class ApplicationController < ActionController::Base
     return if current_user.loan_member?
 
     @loan = current_user.loans.first # get the first own loan
-    if @loan.present?
-      @borrower_type = :borrower
-    else
+    @borrower_type = :borrower
+
+    if @loan.blank?
       @loan = current_user.borrower.loan # or get the co-borrower relationship
 
       if @loan.present?
         @borrower_type = :co_borrower
       else
         @loan = Loan.initiate(current_user) # or create branch new one
-
-        @borrower_type = :borrower
       end
     end
   end
@@ -46,7 +44,7 @@ class ApplicationController < ActionController::Base
     if current_user.loan_member?
       redirect_to loan_activities_path
     else
-      redirect_to new_loan_path
+      redirect_to loans_dashboard_index_path
     end
   end
 
