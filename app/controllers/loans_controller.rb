@@ -1,5 +1,5 @@
 class LoansController < ApplicationController
-  before_action :set_loan, only: [:edit, :update]
+  before_action :set_loan, only: [:edit, :update, :destroy]
 
   def new
     loan = Loan.initiate(current_user)
@@ -37,6 +37,18 @@ class LoansController < ApplicationController
     else
       render json: {error: @loan.errors.full_messages}, status: 500
     end
+  end
+
+  def destroy
+    loan = @loan
+
+    if loan.destroy
+      message = "Sucessfully destroy loan"
+    else
+      message = "Cannot destroy loan"
+    end
+
+    redirect_to loans_dashboard_index_path, notice: message
   end
 
   # GET get_co_borrower_info

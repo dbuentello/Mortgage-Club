@@ -32,6 +32,10 @@ var Dashboard = React.createClass({
     // console.dir(this.props.bootstrapData.loan);
   },
 
+  confirmDestroyLoan: function() {
+    return confirm('Are you sure to destroy a new loan?');
+  },
+
   render: function() {
     var current_user = this.props.bootstrapData.currentUser;
     var address = this.props.bootstrapData.address;
@@ -50,8 +54,8 @@ var Dashboard = React.createClass({
             <h4>{this.formatCurrency(loan.amount, '$')}k {loan.num_of_years}-year fixed {loan.ltv_formula}% LTV {property.usage_name} {loan.purpose_titleize} Loan</h4>
           </div>
           <div className='col-xs-4 ptl'>
-            <a className='btn btnSml btnSecondary mlm' href='#'>Edit Application</a>
-            <a className='btn btnSml btnPrimary mlm' href={'/loans/' + loan.id + '/edit'}>Edit Loan</a>
+            <a className='btn btnSml btnSecondary mlm mbm' href={'/loans/' + loan.id + '/edit'}>Edit Loan</a>
+            <a className='btn btnSml btnDanger mlm mbm' href={'/loans/' + loan.id} data-method='delete' onClick={this.confirmDestroyLoan}>Delete Loan</a>
           </div>
         </div>
 
