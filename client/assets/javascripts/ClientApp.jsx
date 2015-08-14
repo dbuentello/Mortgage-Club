@@ -39,10 +39,10 @@ window.ClientApp = React.createClass({
               <div className='col-xs-6 text-right'>
                 {user
                 ? <span>
-                    <a className='mrm' href='/loans/new' onClick={this.confirmCreateLoan}>New Loan</a>
-                    <a className='mrm' href='/dashboard/loans'>Loans</a>
-                    <span className='typeLowlight mrm'>Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!</span>
-                    <a className='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
+                    <a className='mrl' href='/loans/new' onClick={this.confirmCreateLoan}><i className='iconPlus mrxs'/>New Loan</a>
+                    <a className='mrl' href='/dashboard/loans'><i className='iconFolder mrxs'/>Loans</a>
+                    <span className='typeLowlight mrl'>Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!</span>
+                    <a className='linkTypeReversed' href='/auth/logout' data-method='delete'><i className='iconUser mrxs'/>Log out</a>
                   </span>
                 : <span>
                     <a className='linkTypeReversed mrm' href='/auth/login'>
