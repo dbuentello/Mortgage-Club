@@ -23,5 +23,10 @@ FactoryGirl.define do
     factory :uniform_residential_lending_application, class: 'UniformResidentialLendingApplication' do
       type { 'UniformResidentialLendingApplication' }
     end
+
+    factory :other_loan_report, class: 'OtherLoanReport' do
+      description { Faker::Lorem.word }
+      type { 'OtherLoanReport' }
+    end
   end
 end

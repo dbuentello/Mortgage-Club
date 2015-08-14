@@ -38,6 +38,7 @@ FactoryGirl.define do
   factory :loan_with_all_associations, parent: :loan do |f|
     property
     borrower
+    closing
     association :secondary_borrower, factory: :borrower
   end
 
@@ -45,6 +46,10 @@ FactoryGirl.define do
     after(:build) do |loan, evaluator|
       create_list(:loan_activity, Random.rand(1..3), loan: loan)
     end
+  end
+
+  factory :loan_with_closing, parent: :loan do |f|
+    closing
   end
 
 end

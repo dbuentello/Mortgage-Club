@@ -13,5 +13,6 @@ describe PropertyDocument do
     expect(FactoryGirl.build(:inspection_report)).to be_valid
     expect(FactoryGirl.build(:title_report)).to be_valid
     expect(FactoryGirl.build(:risk_report)).to be_valid
+    expect(FactoryGirl.build(:other_property_report)).to be_valid
   end
 end

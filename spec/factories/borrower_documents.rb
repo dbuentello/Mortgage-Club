@@ -46,5 +46,10 @@ FactoryGirl.define do
     factory :second_bank_statement, class: 'SecondBankStatement' do
       type { 'SecondBankStatement' }
     end
+
+    factory :other_borrower_report, class: 'OtherBorrowerReport' do
+      description { Faker::Lorem.word }
+      type { 'OtherBorrowerReport' }
+    end
   end
 end

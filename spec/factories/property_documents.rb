@@ -49,5 +49,9 @@ FactoryGirl.define do
       type { 'RiskReport' }
     end
 
+    factory :other_property_report, class: 'OtherPropertyReport' do
+      description { Faker::Lorem.word }
+      type { 'OtherPropertyReport' }
+    end
   end
 end
