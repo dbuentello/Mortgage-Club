@@ -19,7 +19,6 @@ class DashboardController < ApplicationController
       loan_activities: loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10).as_json,
       closing_list: closing.as_json(closing_list_json_options)
     )
-
     respond_to do |format|
       format.html { render template: 'client_app' }
     end
