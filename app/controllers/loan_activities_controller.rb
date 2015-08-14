@@ -16,7 +16,7 @@ class LoanActivitiesController < ApplicationController
   def show
     loan_activities = LoanActivity.get_latest_by_loan(loan)
     ActiveRecord::Associations::Preloader.new.preload(loan_activities, loan_member: :user)
-    loan.closing ||= Closing.create(name: 'Closing Test', loan_id: loan.id)
+    loan.closing ||= Closing.create(name: 'Closing', loan_id: loan.id)
     bootstrap(
       loan: loan.as_json(loans_json_options),
       first_activity: first_activity,

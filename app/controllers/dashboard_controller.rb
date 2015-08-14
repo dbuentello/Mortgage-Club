@@ -8,6 +8,7 @@ class DashboardController < ApplicationController
     property = loan.property
     borrower = current_user.borrower
     closing = loan.closing
+    closing ||= Closing.create(name: 'Closing', loan_id: loan.id)
 
     bootstrap(
       address: property.address.try(:address),
