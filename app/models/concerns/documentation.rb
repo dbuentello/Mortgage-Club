@@ -27,4 +27,9 @@ module Documentation
     return "Mortgage Club" if self.owner.loan_member?
     self.owner.to_s
   end
+
+  def set_description
+    return unless description.blank?
+    self.description = type.constantize::DESCRIPTION
+  end
 end

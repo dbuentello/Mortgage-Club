@@ -61,10 +61,4 @@ class LoanDocument < ActiveRecord::Base
   def set_private_token
     self.token = Digest::MD5.hexdigest(Time.now.to_s)
   end
-
-  def set_description
-    return unless description.blank?
-
-    self.description = type.constantize::DESCRIPTION
-  end
 end
