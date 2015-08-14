@@ -116,19 +116,19 @@ class BorrowerUploaderController < ApplicationController
 
   def other_borrower_report
     download_url, remove_url = '', ''
-    byebug
+
     if params[:file].blank?
       message = 'File not found'
     else
       borrower = Borrower.find(params[:id])
-      other_borrower_report = borrower.other_borrower_report
-      if other_borrower_report.present?
-        other_borrower_report.update(attachment: params[:file])
-      else
-        other_borrower_report = borrower.build_other_borrower_report(attachment: params[:file], description: params[:description])
-        other_borrower_report.owner = current_user
-        other_borrower_report.save
-      end
+
+      other_borrower_report = OtherBorrowerReport.new(
+        attachment: params[:file],
+        description: params[:description],
+        borrower_id: borrower.id
+      )
+      other_borrower_report.owner = current_user
+      other_borrower_report.save
 
       message ||= "Sucessfully for #{borrower.first_name}"
       download_url = download_other_borrower_report_borrower_uploader_url(other_borrower_report)
