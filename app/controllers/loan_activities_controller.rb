@@ -16,12 +16,13 @@ class LoanActivitiesController < ApplicationController
   def show
     loan_activities = LoanActivity.get_latest_by_loan(loan)
     ActiveRecord::Associations::Preloader.new.preload(loan_activities, loan_member: :user)
-
+    loan.closing ||= Closing.create(name: 'Closing Test', loan_id: loan.id)
     bootstrap(
       loan: loan.as_json(loans_json_options),
       first_activity: first_activity,
       loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : [],
-      property: loan.property.as_json(property_json_options)
+      property: loan.property.as_json(property_json_options),
+      closing: loan.closing.as_json(closing_json_options)
     )
 
     respond_to do |format|
@@ -100,7 +101,8 @@ class LoanActivitiesController < ApplicationController
           only: [ :email ],
           methods: [ :to_s ]
         },
-        hud_estimate: {}, hud_final: {}, loan_estimate: {}, uniform_residential_lending_application: {}
+        hud_estimate: {}, hud_final: {}, other_loan_reports: {},
+        loan_estimate: {}, uniform_residential_lending_application: {}
       }
     }
   end
@@ -111,6 +113,14 @@ class LoanActivitiesController < ApplicationController
         :appraisal_report, :flood_zone_certification, :homeowners_insurance,
         :inspection_report, :lease_agreement, :mortgage_statement,
         :purchase_agreement, :risk_report, :termite_report, :title_report
+      ]
+    }
+  end
+
+  def closing_json_options
+    {
+      include: [
+        :closing_disclosure, :deed_of_trust, :loan_doc, :other_closing_reports
       ]
     }
   end

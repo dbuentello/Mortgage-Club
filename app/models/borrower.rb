@@ -34,7 +34,7 @@ class Borrower < ActiveRecord::Base
   has_one  :second_paystub, inverse_of: :borrower, dependent: :destroy
   has_one  :first_w2, inverse_of: :borrower, dependent: :destroy
   has_one  :second_w2, inverse_of: :borrower, dependent: :destroy
-  has_many  :other_borrower_report, inverse_of: :borrower, dependent: :destroy
+  has_many  :other_borrower_reports, inverse_of: :borrower, dependent: :destroy
 
   has_many :borrower_documents, dependent: :destroy
 

@@ -60,6 +60,17 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :closing_document_uploader do
+    collection do
+      post 'upload'
+      delete 'remove'
+    end
+
+    member do
+      get 'download'
+    end
+  end
+
   resources :document_uploader do
     member do
       get 'download'

@@ -34,7 +34,7 @@ var Dashboard = React.createClass({
                 <ActivityTab loan={this.props.bootstrapData.loan} first_activity={this.props.bootstrapData.first_activity} loan_activities={this.props.bootstrapData.loan_activities}></ActivityTab>
               </div>
               <div role="tabpanel" className="tab-pane fade" id="document">
-                <DocumentTab loan={this.props.bootstrapData.loan} property={this.props.bootstrapData.property}></DocumentTab>
+                <DocumentTab loan={this.props.bootstrapData.loan} property={this.props.bootstrapData.property} closing={this.props.bootstrapData.closing}></DocumentTab>
               </div>
             </div>
           </div>
