@@ -21,6 +21,10 @@ window.ClientApp = React.createClass({
     router: React.PropTypes.func
   },
 
+  confirmCreateLoan: function() {
+    return confirm('Are you sure to create a new loan?');
+  },
+
   render: function() {
     var user = this.props.currentUser;
 
@@ -35,6 +39,7 @@ window.ClientApp = React.createClass({
               <div className='col-xs-6 text-right'>
                 {user
                 ? <span>
+                    <a className='mrm' href='/loans/new' onClick={this.confirmCreateLoan}>New Loan</a>
                     <a className='mrm' href='/dashboard/loans'>Loans</a>
                     <span className='typeLowlight mrm'>Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!</span>
                     <a className='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
@@ -72,8 +77,8 @@ var routes = (
     <Route name='edit_loan' path='loans/:id/edit' handler={LoanInterface}/>
     <Route name='loan' path='loans/:id' handler={LoanActivityInterface}/>
     <Route name='rates' handler={MortgageRates}/>
-    <Route name='dashboard' path='dashboard/:id/edit' handler={Dashboard}/>
     <Route name='loan_list' path='dashboard/loans' handler={LoanList}/>
+    <Route name='loan_dashboard' path='dashboard/:id/edit' handler={Dashboard}/>
     <DefaultRoute handler={LoanActivityInterface}/>
   </Route>
 );
