@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var moment = require('moment');
 var React = require('react/addons');
 
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
@@ -13,11 +14,11 @@ var LoanList = React.createClass({
   },
 
   componentDidMount: function() {
+    // console.dir(this.props.bootstrapData.loans);
   },
 
   render: function() {
     var current_user = this.props.bootstrapData.currentUser;
-    var loans    = this.props.bootstrapData.loan;
 
     return (
       <div className='dashboard content'>
@@ -40,37 +41,27 @@ var LoanList = React.createClass({
 
                 <div className="loanList mtl">
                   <div className="row">
-                    <div className="col-sm-6 col-md-4">
-                      <div className="thumbnail">
-                        <img src="http://www.bcysth.ca/wp-content/uploads/2015/04/What-are-modular-homes.jpg" width="100%" height="200px"></img>
-                        <div className="caption">
-                          <h3>Loan Address</h3>
-                          <p>Status: ...</p>
-                          <p>Created at: ...</p>
-                          <p>Loan amount: ...</p>
-                          <p>Rate: ...</p>
-                          <p>
-                            <a href="/dashboard" className="btn btn-primary" role="button">Dashboard</a>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-sm-6 col-md-4">
-                      <div className="thumbnail">
-                        <img src="http://hrtinsurancegroup.com/wp-content/uploads/2013/10/Home-Insurance-300x198.jpg" width="100%" height="200px"></img>
-                        <div className="caption">
-                          <h3>Loan Address</h3>
-                          <p>Status: ...</p>
-                          <p>Created at: ...</p>
-                          <p>Loan amount: ...</p>
-                          <p>Rate: ...</p>
-                          <p>
-                            <a href="/dashboard" className="btn btn-primary" role="button">Dashboard</a>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    {
+                      _.map( this.props.bootstrapData.loans, function(loan){
+                        return (
+                          <div className="col-sm-6 col-md-4" key={loan.id}>
+                            <div className="thumbnail">
+                              <img src="http://www.bcysth.ca/wp-content/uploads/2015/04/What-are-modular-homes.jpg" width="100%" height="200px"></img>
+                              <div className="caption">
+                                <h3>{loan.property.address.address}</h3>
+                                <p>Status: Finishing</p>
+                                <p>Created at: {moment(loan.created_at).format('MMM DD, YYYY')}</p>
+                                <p>Loan amount: {loan.amount}</p>
+                                <p>Rate: {loan.interest_rate}%</p>
+                                <p>
+                                  <a href="/dashboard" className="btn btn-primary" role="button">Dashboard</a>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })
+                    }
                   </div>
                 </div>
               </div>

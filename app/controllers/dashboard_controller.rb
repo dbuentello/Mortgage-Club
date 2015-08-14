@@ -26,7 +26,7 @@ class DashboardController < ApplicationController
 
   def loans
     bootstrap(
-      message: 'hello world'
+      loans: current_user.loans.includes(property: :address).as_json(loan_json_options)
     )
 
     respond_to do |format|
@@ -35,6 +35,27 @@ class DashboardController < ApplicationController
   end
 
   private
+
+  def loan_json_options
+    {
+      only: [:id, :amount, :created_at, :interest_rate],
+      include: {
+        property: {
+          only: [],
+          include: {
+            address: {
+              only: [],
+              methods: :address
+            }
+          },
+          methods: :usage_name
+        }
+      },
+      methods: [
+        :num_of_years, :ltv_formula, :purpose_titleize
+      ]
+    }
+  end
 
   def loan_list_json_options
     {
@@ -90,20 +111,6 @@ class DashboardController < ApplicationController
         avatar_url: 'https://goo.gl/IpbO1e'
       }
     ]
-  end
-
-  def loan_json_options
-    {
-      include: {
-        property: {
-          include: :address,
-          methods: :usage_name
-        }
-      },
-      methods: [
-        :num_of_years, :ltv_formula, :purpose_titleize
-      ]
-    }
   end
 
 end
