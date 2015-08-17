@@ -13,6 +13,7 @@ var ClosingTab = require('./tabs/ClosingTab');
 var UserInfo = require('./UserInfo');
 
 var FlashHandler = require('mixins/FlashHandler');
+var ModalLink = require('components/ModalLink');
 
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
@@ -69,29 +70,16 @@ var Dashboard = React.createClass({
           </div>
           <div className='col-xs-4 ptl'>
             <a className='btn btnSml btnSecondary mlm mbm' href={'/loans/' + loan.id + '/edit'}>Edit Loan</a>
-            <a className='btn btnSml btnDanger mlm mbm' href={'/loans/' + loan.id} data-method='delete' onClick={this.destroyLoan}>Delete Loan</a>
 
-            <a className="btn btnSml btnDanger mlm mbm" data-toggle="modal" data-target="#myModal">
-              Delete Loan
-            </a>
+            <ModalLink
+              name="Delete Loan"
+              class="btn btnSml btnDanger mlm mbm"
+              title="Confirmation"
+              body="Are you sure to destroy this loan?"
+              yesCallback={this.destroyLoan}
+            />
 
-            <div className="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 className="modal-title" id="myModalLabel">Confirmation</h4>
-                  </div>
-                  <div className="modal-body">
-                    Are you sure to destroy a new loan?
-                  </div>
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-default" data-dismiss="modal">No</button>
-                    <button type="button" className="btn btn-primary" onClick={this.confirmDestroyLoan}>Yes</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
 
