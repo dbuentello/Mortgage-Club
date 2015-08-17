@@ -62,7 +62,7 @@ var FormProperty = React.createClass({
       {value: 'sfh', name: 'Single Family Home'},
       {value: 'duplex', name: 'Duplex'},
       {value: 'triplex', name: 'Triplex'},
-      {value: 'Fourplex', name: 'Fourplex'}
+      {value: 'fourplex', name: 'Fourplex'}
     ];
 
     var loanPurposes = [
