@@ -1,283 +1,42 @@
 # rubocop:disable ClassLength
 class BorrowerUploaderController < ApplicationController
-  def w2
-    download_url, remove_url = '', ''
-    if params[:file].blank?
-      message = 'File not found'
+  def upload
+    return render json: {message: 'File not found'}, status: 500 if params[:file].blank?
+    return render json: {message: 'Invalid document type'}, status: 500 unless params[:type].present?
+    return render json: {message: 'Borrower not found'}, status: 500 if params[:borrower_id].blank?
+
+    document_klass = params[:type].constantize
+    document = document_klass.where(borrower_id: params[:borrower_id]).last
+    borrower = Borrower.find(params[:borrower_id])
+
+    if document.present? && params[:type]!= 'OtherBorrowerReport'
+      document.update(attachment: params[:file])
     else
-      borrower = Borrower.find(params[:id])
-
-      case params[:order]
-      when "1"
-        w2 = borrower.first_w2
-        if w2.present?
-          w2.update(attachment: params[:file])
-        else
-          w2 = borrower.build_first_w2(attachment: params[:file])
-          w2.owner = current_user
-          w2.save
-        end
-      when "2"
-        w2 = borrower.second_w2
-        if w2.present?
-          w2.update(attachment: params[:file])
-        else
-          w2 = borrower.build_second_w2(attachment: params[:file])
-          w2.owner = current_user
-          w2.save
-        end
-      else
-        message = 'Missing param order'
-      end
-
-      message ||= "Sucessfully for #{borrower.first_name}"
-      download_url = download_w2_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
-      remove_url = remove_w2_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
+      document = document_klass.new(attachment: params[:file], borrower_id: borrower.id, description: params[:description])
+      document.owner = current_user
+      document.save
     end
 
-    render json: {message: message, download_url: download_url, remove_url: remove_url}, status: :ok
+    download_url = get_download_url(document)
+    remove_url = get_remove_url(document, borrower)
+    render json: {message: "Uploaded sucessfully", download_url: download_url, remove_url: remove_url}, status: 200
   end
 
-  def paystub
-    download_url, remove_url = '', ''
-    if params[:file].blank?
-      message = 'File not found'
-    else
-      borrower = Borrower.find_by_id(params[:id])
+  def download
+    return render json: {message: 'File not found'}, status: 500 if params[:id].blank?
+    return render json: {message: 'Invalid document type'}, status: 500 unless params[:type].present?
 
-      case params[:order]
-      when "1"
-        paystub = borrower.first_paystub
-        if paystub.present?
-          paystub.update(attachment: params[:file])
-        else
-          paystub = borrower.build_first_paystub(attachment: params[:file])
-          paystub.owner = current_user
-          paystub.save
-        end
-      when "2"
-        paystub = borrower.second_paystub
-        if paystub.present?
-          paystub.update(attachment: params[:file])
-        else
-          paystub = borrower.build_second_paystub(attachment: params[:file])
-          paystub.owner = current_user
-          paystub.save
-        end
-      else
-        message = 'Missing param order'
-      end
-
-      message ||= "Sucessfully for #{borrower.first_name}"
-      download_url = download_paystub_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
-      remove_url = remove_paystub_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
-    end
-
-    render json: {message: message, download_url: download_url, remove_url: remove_url}, status: :ok
+    document = params[:type].constantize.find(params[:id])
+    url = Amazon::GetUrlService.new(document.attachment.s3_object).call
+    redirect_to url
   end
 
-  def bank_statement
-    download_url, remove_url = '', ''
-    if params[:file].blank?
-      message = 'File not found'
-    else
-      borrower = Borrower.find_by_id(params[:id])
-
-      case params[:order]
-      when "1"
-        bank_statement = borrower.first_bank_statement
-        if bank_statement.present?
-          bank_statement.update(attachment: params[:file])
-        else
-          bank_statement = borrower.build_first_bank_statement(attachment: params[:file])
-          bank_statement.owner = current_user
-          bank_statement.save
-        end
-      when "2"
-        bank_statement = borrower.second_bank_statement
-        if bank_statement.present?
-          bank_statement.update(attachment: params[:file])
-        else
-          bank_statement = borrower.build_second_bank_statement(attachment: params[:file])
-          bank_statement.owner = current_user
-          bank_statement.save
-        end
-      else
-        message = 'Missing param order'
-      end
-
-      message ||= "Sucessfully for #{borrower.first_name}"
-      download_url = download_bank_statement_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
-      remove_url = remove_bank_statement_borrower_uploader_url(borrower) + '?order=' + params[:order].to_s
-    end
-
-    render json: {message: message, download_url: download_url, remove_url: remove_url}, status: :ok
-  end
-
-  def other_borrower_report
-    download_url, remove_url = '', ''
-
-    if params[:file].blank?
-      message = 'File not found'
-    else
-      borrower = Borrower.find(params[:id])
-
-      other_borrower_report = OtherBorrowerReport.new(
-        attachment: params[:file],
-        description: params[:description],
-        borrower_id: borrower.id
-      )
-      other_borrower_report.owner = current_user
-      other_borrower_report.save
-
-      message ||= "Sucessfully for #{borrower.first_name}"
-      download_url = download_other_borrower_report_borrower_uploader_url(other_borrower_report)
-      remove_url = remove_other_borrower_report_borrower_uploader_url(other_borrower_report)
-    end
-
-    render json: {message: message, download_url: download_url, remove_url: remove_url}, status: :ok
-  end
-
-  def remove_other_borrower_report
-    other_borrower_report = OtherBorrowerReport.find_by_id(params[:id])
-    other_borrower_report.destroy
-    render json: {message: "Done removed"}, status: :ok
-  end
-
-  def remove_w2
-    borrower = Borrower.find_by_id(params[:id])
-
-    case params[:order]
-    when "1"
-      w2 = borrower.first_w2
-    when "2"
-      w2 = borrower.second_w2
-    else
-      message = 'Missing param order'
-    end
-
-    if w2.present?
-      message = "Done removed"
-      w2.destroy
-    else
-      message ||= "File not found"
-    end
-
-    render json: {message: message}, status: :ok
-  end
-
-  def remove_paystub
-    borrower = Borrower.find_by_id(params[:id])
-
-    case params[:order]
-    when "1"
-      paystub = borrower.first_paystub
-    when "2"
-      paystub = borrower.second_paystub
-    else
-      message = 'Missing param order'
-    end
-
-    if paystub.present?
-      message = "Done removed"
-      paystub.destroy
-    else
-      message ||= "File not found"
-    end
-
-    render json: {message: message}, status: :ok
-  end
-
-  def remove_bank_statement
-    borrower = Borrower.find_by_id(params[:id])
-
-    case params[:order]
-    when "1"
-      bank_statement = borrower.first_bank_statement
-    when "2"
-      bank_statement = borrower.second_bank_statement
-    else
-      message = 'Missing param order'
-    end
-
-    if bank_statement.present?
-      message = "Done removed"
-      bank_statement.destroy
-    else
-      message ||= "File not found"
-    end
-
-    render json: {message: message}, status: :ok
-  end
-
-  def download_w2
-    borrower = Borrower.find_by_id(params[:id])
-
-    case params[:order]
-    when "1"
-      w2 = borrower.first_w2
-    when "2"
-      w2 = borrower.second_w2
-    else
-      message = 'Missing param order'
-    end
-
-    if w2.present?
-      url = Amazon::GetUrlService.new(w2.attachment.s3_object).call
-      redirect_to url
-    else
-      render json: {message: "You don't have this file yet. Try to upload it!"}
-    end
-  end
-
-  def download_paystub
-    borrower = Borrower.find_by_id(params[:id])
-
-    case params[:order]
-    when "1"
-      paystub = borrower.first_paystub
-    when "2"
-      paystub = borrower.second_paystub
-    else
-      message = 'Missing param order'
-    end
-
-    if paystub.present?
-      url = Amazon::GetUrlService.new(paystub.attachment.s3_object).call
-      redirect_to url
-    else
-      render json: {message: "You don't have this file yet. Try to upload it!"}
-    end
-  end
-
-  def download_bank_statement
-    borrower = Borrower.find_by_id(params[:id])
-
-    case params[:order]
-    when "1"
-      bank_statement = borrower.first_bank_statement
-    when "2"
-      bank_statement = borrower.second_bank_statement
-    else
-      message = 'Missing param order'
-    end
-
-    if bank_statement.present?
-      url = Amazon::GetUrlService.new(bank_statement.attachment.s3_object).call
-      redirect_to url
-    else
-      render json: {message: "You don't have this file yet. Try to upload it!"}
-    end
-  end
-
-  def download_other_borrower_report
-    other_borrower_report = OtherBorrowerReport.find(params[:id])
-    if other_borrower_report.present?
-      url = Amazon::GetUrlService.new(other_borrower_report.attachment.s3_object).call
-      redirect_to url
-    else
-      render json: {message: "You don't have this file yet. Try to upload it!"}
-    end
+  def remove
+    return render json: {message: 'Invalid document type'} unless params[:type].present? && params[:borrower_id].present?
+    document_klass = params[:type].constantize
+    document = document_klass.where(borrower_id: params[:borrower_id]).last
+    document.destroy
+    render json: {message: "Removed it sucessfully"}, status: 200
   end
 
   private
@@ -286,4 +45,11 @@ class BorrowerUploaderController < ApplicationController
     params.permit(:file, :order)
   end
 
+  def get_download_url(document)
+    download_borrower_uploader_url(document) + '?type=' + document.class_name
+  end
+
+  def get_remove_url(document, borrower)
+    remove_borrower_uploader_index_url + '?type=' + document.class_name + '&borrower_id=' + borrower.id.to_s
+  end
 end
