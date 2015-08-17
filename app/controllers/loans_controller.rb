@@ -45,9 +45,7 @@ class LoansController < ApplicationController
   end
 
   def destroy
-    loan = @loan
-
-    if loan.destroy
+    if @loan.destroy
       flash[:success] = "Sucessfully destroy loan"
 
       render json: {}, status: 200

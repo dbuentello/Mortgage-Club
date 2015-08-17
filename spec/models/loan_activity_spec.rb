@@ -26,7 +26,7 @@ describe LoanActivity do
       loan_activity = LoanActivity.new(
         loan: loan,
         loan_member: loan_member,
-        user_visible: 'wrong-data'
+        user_visible: 'false'
       )
       expect { raise loan_activity.valid? }.to raise_error(TypeError)
     end
