@@ -10,5 +10,3 @@ Feature: Edit Loan Page
     When I click on "Income"
       And I should see "W2 - Most recent tax year"
       And I attach the file "spec/files/avatar.png" to the hidden "second_w2"
-      And I wait for 10 seconds
-      And show me the page
