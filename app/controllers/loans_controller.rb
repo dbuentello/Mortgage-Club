@@ -4,6 +4,7 @@ class LoansController < ApplicationController
   def new
     @loan = Loan.initiate(current_user)
 
+    flash[:success] = "Sucessfully create a new loan"
     redirect_to edit_loan_path(@loan)
   end
 
@@ -43,11 +44,11 @@ class LoansController < ApplicationController
     loan = @loan
 
     if loan.destroy
-      message = "Sucessfully destroy loan"
-      render json: {message: message}, status: 200
+      flash[:success] = "Sucessfully destroy loan"
+
+      render json: {}, status: 200
     else
-      message = "Cannot destroy loan"
-      render json: {message: message}, status: 500
+      render json: {message: "Cannot destroy loan"}, status: 500
     end
   end
 

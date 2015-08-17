@@ -41,12 +41,12 @@ var Dashboard = React.createClass({
       method: 'DELETE',
       dataType: 'json',
       success: function(response) {
-        location.href = '/dashboard/loans'
+        location.href = '/dashboard/loans';
       },
       error: function(response, status, error) {
-        var flash = { "alert-danger": response.responseJSON.error };
+        var flash = { "alert-danger": response.message };
         this.showFlashes(flash);
-      }
+      }.bind(this)
     });
   },
 
@@ -78,8 +78,6 @@ var Dashboard = React.createClass({
               body="Are you sure to destroy this loan?"
               yesCallback={this.destroyLoan}
             />
-
-
           </div>
         </div>
 
