@@ -6,6 +6,9 @@ Feature: Edit Loan Page
     And there is a closing with the name "Fake Name"
     And there is a loan with the id "1" and with the amount "500000" and with the num of months "24" and with the purpose "0" and with the property above and with the closing above
     And I login as "testing@man.net" with password "secretpass"
-    Given I am on the edit loan page of "1"
-      And I click "Income"
+    And I click "New Loan"
+    When I click on "Income"
       And I should see "W2 - Most recent tax year"
+      And I attach the file "spec/files/avatar.png" to the hidden "second_w2"
+      And I wait for 10 seconds
+      And show me the page
