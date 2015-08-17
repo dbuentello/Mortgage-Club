@@ -10,7 +10,7 @@ var fields = {
   address: {label: 'Property Address', name: 'address', helpText: 'The full address of the subject property for which you are applying for a loan.'},
   propertyType: {label: 'Property Type', name: 'property_type', helpText: 'The type of building classification of the property.'},
   loanPurpose: {label: 'Purpose of Loan', name: 'purpose', helpText: 'The purpose for taking out the loan in terms of how funds will be used.'},
-  propertyPurpose: {label: 'Property Usage', name: 'usage', helpText: 'The primary purpose of acquiring the subject property.'},
+  propertyPurpose: {label: 'Property Will Be', name: 'usage', helpText: 'The primary purpose of acquiring the subject property.'},
   purchasePrice: {label: 'Purchase Price', name: 'purchase_price', helpText: 'How much are you paying for the subject property?'},
   originalPurchasePrice: {label: 'Original Purchase Price', name: 'original_purchase_price', helpText: 'How much did you pay for the subject property?'},
   originalPurchaseYear: {label: 'Purchase Year', name: 'original_purchase_year', helpText: 'The year in which you bought your home.'}
@@ -87,16 +87,31 @@ var FormProperty = React.createClass({
                 editable={true}
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.address)}
-                placeholder='Please start entering and select from one of the options in the drop-down menu'/>
-              <SelectField
-                label={fields.propertyType.label}
-                keyName={fields.propertyType.name}
-                value={this.state[fields.propertyType.name]}
-                options={propertyTypes}
-                editable={true}
-                onChange={this.onChange}
-                onFocus={this.onFocus.bind(this, fields.propertyType)}
-                allowBlank={true}/>
+                placeholder=''/>
+              <div className='row'>
+                <div className="col-sm-6">
+                  <SelectField
+                    label={fields.propertyType.label}
+                    keyName={fields.propertyType.name}
+                    value={this.state[fields.propertyType.name]}
+                    options={propertyTypes}
+                    editable={true}
+                    onChange={this.onChange}
+                    onFocus={this.onFocus.bind(this, fields.propertyType)}
+                    allowBlank={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <SelectField
+                    label={fields.propertyPurpose.label}
+                    keyName={fields.propertyPurpose.name}
+                    value={this.state[fields.propertyPurpose.name]}
+                    options={propertyPurposes}
+                    editable={true}
+                    onChange={this.onChange}
+                    onFocus={this.onFocus.bind(this, fields.propertyPurpose)}
+                    allowBlank={true}/>
+                </div>
+              </div>
               <SelectField
                 label={fields.loanPurpose.label}
                 keyName={fields.loanPurpose.name}
@@ -105,15 +120,6 @@ var FormProperty = React.createClass({
                 editable={true}
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.loanPurpose)}
-                allowBlank={true}/>
-              <SelectField
-                label={fields.propertyPurpose.label}
-                keyName={fields.propertyPurpose.name}
-                value={this.state[fields.propertyPurpose.name]}
-                options={propertyPurposes}
-                editable={true}
-                onChange={this.onChange}
-                onFocus={this.onFocus.bind(this, fields.propertyPurpose)}
                 allowBlank={true}/>
               {this.state[fields.loanPurpose.name] === null ? null :
                 this.state[fields.loanPurpose.name] == 'purchase'
@@ -158,7 +164,11 @@ var FormProperty = React.createClass({
         <div className='helpSection sticky pull-right overlayRight overlayTop pal bls'>
           {this.state.focusedField
           ? <div>
-              <span className='typeEmphasize'>{this.state.focusedField.label}:</span>
+              <span className='typeEmphasize'>
+                <i className="iconInfo typeFacebook"></i>
+                &nbsp;
+                {this.state.focusedField.label}
+              </span>
               <br/>{this.state.focusedField.helpText}
             </div>
           : null}
