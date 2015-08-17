@@ -20,6 +20,8 @@ require 'devise'
 require 'pundit/rspec'
 require 'capybara/rspec'
 require 'database_cleaner'
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
   # default config from https://github.com/DatabaseCleaner/database_cleaner
