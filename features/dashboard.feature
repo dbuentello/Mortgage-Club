@@ -21,3 +21,14 @@ Feature: Dashboard
       And I click on "Delete Loan"
       And I click on "Yes"
     Then I should be on the loans dashboard index page
+
+  @javascript
+  Scenario: edit a loan
+    Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a property with the purchase price "1000000" and with the usage "0"
+      And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the property above
+      And I login as "testing@man.net" with password "secretpass"
+    Then I follow "Dashboard"
+      And I click on "Edit Loan"
+    Then I should see "Real Estates"
+      And I should see "ESigning"

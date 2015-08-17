@@ -71,6 +71,8 @@ window.ClientApp = React.createClass({
           </div>
         </nav>
 
+        <RouteHandler bootstrapData={this.props}/>
+
         <div className='page-alert'/>
 
         <ModalLink
@@ -79,8 +81,6 @@ window.ClientApp = React.createClass({
           body="Are you sure to create a new loan?"
           yesCallback={this.createLoan}
         />
-
-        <RouteHandler bootstrapData={this.props}/>
       </div>
     );
   },
