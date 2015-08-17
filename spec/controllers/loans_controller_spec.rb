@@ -71,6 +71,5 @@ describe LoansController do
       get :get_co_borrower_info, params, format: :json
       expect(JSON.parse(response.body)["secondary_borrower"]).to be_truthy
     end
-
   end
 end
