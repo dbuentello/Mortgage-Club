@@ -1,13 +1,5 @@
 Feature: Dashboard
   @javascript
-  Scenario: moves to Dashboard page
-    Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
-      And I login as "testing@man.net" with password "secretpass"
-    Then I go to the loans dashboard index page
-      And I should see "Loans"
-      And I should see "Referrals"
-
-  @javascript
   Scenario: display borrower's address and loan's title
     Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a property with the purchase price "1000000" and with the usage "0"
@@ -18,3 +10,14 @@ Feature: Dashboard
     Then I follow "Dashboard"
       And I should see content as "81458 Borer Falls, Apt. 305, West Emiltown, Virginia, 9999"
       And I should see content as "$500,000k 2-year fixed 50% LTV Primary Residence Purchase Loan"
+
+  @javascript
+  Scenario: destroy a loan
+    Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a property with the purchase price "1000000" and with the usage "0"
+      And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the property above
+      And I login as "testing@man.net" with password "secretpass"
+    Then I follow "Dashboard"
+      And I click on "Delete Loan"
+      And I click on "Yes"
+    Then I should be on the loans dashboard index page
