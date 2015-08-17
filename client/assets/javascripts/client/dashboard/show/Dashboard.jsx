@@ -12,8 +12,11 @@ var LoanTab = require('./tabs/LoanTab');
 var ClosingTab = require('./tabs/ClosingTab');
 var UserInfo = require('./UserInfo');
 
+var FlashHandler = require('mixins/FlashHandler');
+var ModalLink = require('components/ModalLink');
+
 var Dashboard = React.createClass({
-  mixins: [ObjectHelperMixin, TextFormatMixin],
+  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
 
   getInitialState: function() {
     return {
@@ -32,8 +35,19 @@ var Dashboard = React.createClass({
     // console.dir(this.props.bootstrapData.loan);
   },
 
-  confirmDestroyLoan: function() {
-    return confirm('Are you sure to destroy a new loan?');
+  destroyLoan: function() {
+    $.ajax({
+      url: '/loans/' + this.props.bootstrapData.loan.id,
+      method: 'DELETE',
+      dataType: 'json',
+      success: function(response) {
+        location.href = '/dashboard/loans';
+      },
+      error: function(response, status, error) {
+        var flash = { "alert-danger": response.message };
+        this.showFlashes(flash);
+      }.bind(this)
+    });
   },
 
   render: function() {
@@ -55,8 +69,16 @@ var Dashboard = React.createClass({
             <h4>{this.formatCurrency(loan.amount, '$')}k {loan.num_of_years}-year fixed {loan.ltv_formula}% LTV {property.usage_name} {loan.purpose_titleize} Loan</h4>
           </div>
           <div className='col-xs-4 ptl'>
-            <a className='btn btnSml btnSecondary mlm mbm' href={'/loans/' + loan.id + '/edit'}>Edit Loan</a>
-            <a className='btn btnSml btnDanger mlm mbm' href={'/loans/' + loan.id} data-method='delete' onClick={this.confirmDestroyLoan}>Delete Loan</a>
+            <a className='btn btnSml btnSecondary mlm mbm' href={'/loans/' + loan.id + '/edit'}><i className="iconPencil mrs"/>Edit Loan</a>
+            <ModalLink
+              id="deleteLoan"
+              icon="iconTrash mrs"
+              name="Delete Loan"
+              class="btn btnSml btnDanger mlm mbm"
+              title="Confirmation"
+              body="Are you sure to destroy this loan?"
+              yesCallback={this.destroyLoan}
+            />
           </div>
         </div>
 

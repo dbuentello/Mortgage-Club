@@ -4,14 +4,17 @@ describe LoansController do
   include_context 'signed in borrower user of loan'
   let(:other_user) { FactoryGirl.create(:borrower_user_with_borrower) }
 
-  describe 'GET #new' do
+  describe 'POST #create' do
     it 'assigns the requested loan to @loan' do
-      old_count = Loan.count
+      expect { post :create, format: :json }.to change{Loan.count}.by(1)
+    end
+  end
 
-      get :new, format: :html
+  describe 'GET #edit' do
+    it 'shows passed id loan' do
+      get :edit, id: loan.id
 
-      expect(assigns(:loan)).to be_truthy
-      expect(Loan.count).to eq(old_count + 1)
+      expect(assigns(:loan)).to eq(loan)
     end
   end
 
@@ -19,6 +22,12 @@ describe LoansController do
     it 'updates a loan and assigns loan to @loan' do
       put :update, id: loan.id, loan: FactoryGirl.attributes_for(:loan), format: :json
       expect(assigns(:loan)).to eq(loan)
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it 'destroys passed id loan' do
+      expect { delete :destroy, id: loan.id, format: :json }.to change{Loan.count}.by(-1)
     end
   end
 
@@ -62,6 +71,5 @@ describe LoansController do
       get :get_co_borrower_info, params, format: :json
       expect(JSON.parse(response.body)["secondary_borrower"]).to be_truthy
     end
-
   end
 end

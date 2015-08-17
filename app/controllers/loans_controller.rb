@@ -1,10 +1,15 @@
 class LoansController < ApplicationController
   before_action :set_loan, only: [:edit, :update, :destroy]
 
-  def new
+  def create
     @loan = Loan.initiate(current_user)
 
-    redirect_to edit_loan_path(@loan)
+    if @loan.save
+      flash[:success] = "Sucessfully create a new loan"
+      render json: {loan_id: @loan.id}, status: 200
+    else
+      render json: {message: "Cannot create new loan"}, status: 500
+    end
   end
 
   def edit
@@ -40,15 +45,13 @@ class LoansController < ApplicationController
   end
 
   def destroy
-    loan = @loan
+    if @loan.destroy
+      flash[:success] = "Sucessfully destroy loan"
 
-    if loan.destroy
-      message = "Sucessfully destroy loan"
+      render json: {}, status: 200
     else
-      message = "Cannot destroy loan"
+      render json: {message: "Cannot destroy loan"}, status: 500
     end
-
-    redirect_to loans_dashboard_index_path, notice: message
   end
 
   # GET get_co_borrower_info
