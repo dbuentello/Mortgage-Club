@@ -14,6 +14,8 @@ var LoanActivityInterface = require('client/loans/show/LoanActivityInterface');
 var Dashboard = require('client/dashboard/show/Dashboard');
 var LoanList = require('client/dashboard/loans/LoanList');
 
+var ModalLink = require('components/ModalLink');
+
 window.ClientApp = React.createClass({
   mixins: [FlashHandler],
 
@@ -21,8 +23,19 @@ window.ClientApp = React.createClass({
     router: React.PropTypes.func
   },
 
-  confirmCreateLoan: function() {
-    return confirm('Are you sure to create a new loan?');
+  createLoan: function() {
+    $.ajax({
+      url: '/loans',
+      method: 'POST',
+      dataType: 'json',
+      success: function(response) {
+        location.href = '/loans/' + response.loan_id + '/edit';
+      },
+      error: function(response, status, error) {
+        var flash = { "alert-danger": response.message };
+        this.showFlashes(flash);
+      }.bind(this)
+    });
   },
 
   render: function() {
@@ -39,7 +52,7 @@ window.ClientApp = React.createClass({
               <div className='col-xs-6 text-right'>
                 {user
                 ? <span>
-                    <a className='mrl' href='/loans/new' onClick={this.confirmCreateLoan}><i className='iconPlus mrxs'/>New Loan</a>
+                    <a className="mrl" data-toggle="modal" data-target="#newLoan" style={{'cursor': 'pointer'}}><i className="iconPlus mrxs"/>New Loan</a>
                     <a className='mrl' href='/dashboard/loans'><i className='iconFolder mrxs'/>Loans</a>
                     <span className='typeLowlight mrl'>Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!</span>
                     <a className='linkTypeReversed' href='/auth/logout' data-method='delete'><i className='iconUser mrxs'/>Log out</a>
@@ -59,6 +72,13 @@ window.ClientApp = React.createClass({
         </nav>
 
         <div className='page-alert'/>
+
+        <ModalLink
+          id="newLoan"
+          title="Confirmation"
+          body="Are you sure to create a new loan?"
+          yesCallback={this.createLoan}
+        />
 
         <RouteHandler bootstrapData={this.props}/>
       </div>

@@ -6,15 +6,17 @@ var React = require('react/addons');
  */
 var ModalLink = React.createClass({
   propTypes: {
+    id: React.PropTypes.string.isRequired,
     name: React.PropTypes.string,
     class: React.PropTypes.string,
-    title: React.PropTypes.string,
-    body: React.PropTypes.string,
+    title: React.PropTypes.string.isRequired,
+    body: React.PropTypes.string.isRequired,
     yesCallback: React.PropTypes.func.isRequired
   },
 
   getDefaultProps: function() {
     return {
+      id: "modal",
       name: "Delete",
       class: "btn",
       title: 'Confirmation',
@@ -22,20 +24,25 @@ var ModalLink = React.createClass({
     };
   },
 
-  onClick: function() {
-  },
-
   render: function() {
+    var dataTarget = '#' + this.props.id;
+    var labelId = this.props.id + 'Label';
+
     return (
       <span>
-        <a className="btn btnSml btnDanger mlm mbm" data-toggle="modal" data-target="#myModal">{this.props.name}</a>
+        {
+          this.props.name ?
+          <a className={this.props.class} data-toggle="modal" data-target={dataTarget}><i className={this.props.icon}/>{this.props.name}</a>
+          :
+          null
+        }
 
-        <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div className="modal fade" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby={labelId}>
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 className="modal-title" id="myModalLabel">{this.props.title}</h4>
+                <h4 className="modal-title" id={labelId}>{this.props.title}</h4>
               </div>
               <div className="modal-body">
                 {this.props.body}

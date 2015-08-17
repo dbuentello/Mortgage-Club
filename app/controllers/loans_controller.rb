@@ -1,11 +1,15 @@
 class LoansController < ApplicationController
   before_action :set_loan, only: [:edit, :update, :destroy]
 
-  def new
+  def create
     @loan = Loan.initiate(current_user)
 
-    flash[:success] = "Sucessfully create a new loan"
-    redirect_to edit_loan_path(@loan)
+    if @loan.save
+      flash[:success] = "Sucessfully create a new loan"
+      render json: {loan_id: @loan.id}, status: 200
+    else
+      render json: {message: "Cannot create new loan"}, status: 500
+    end
   end
 
   def edit

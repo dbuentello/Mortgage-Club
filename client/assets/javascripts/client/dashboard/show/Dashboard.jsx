@@ -70,8 +70,8 @@ var Dashboard = React.createClass({
           </div>
           <div className='col-xs-4 ptl'>
             <a className='btn btnSml btnSecondary mlm mbm' href={'/loans/' + loan.id + '/edit'}>Edit Loan</a>
-
             <ModalLink
+              id="deleteLoan"
               name="Delete Loan"
               class="btn btnSml btnDanger mlm mbm"
               title="Confirmation"
