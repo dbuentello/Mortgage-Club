@@ -17,7 +17,6 @@ var ModalLink = React.createClass({
   getDefaultProps: function() {
     return {
       id: "modal",
-      name: "Delete",
       class: "btn",
       title: 'Confirmation',
       body: 'Are you sure?'
