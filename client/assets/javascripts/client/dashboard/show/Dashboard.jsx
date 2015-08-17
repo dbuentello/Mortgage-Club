@@ -12,8 +12,10 @@ var LoanTab = require('./tabs/LoanTab');
 var ClosingTab = require('./tabs/ClosingTab');
 var UserInfo = require('./UserInfo');
 
+var FlashHandler = require('mixins/FlashHandler');
+
 var Dashboard = React.createClass({
-  mixins: [ObjectHelperMixin, TextFormatMixin],
+  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
 
   getInitialState: function() {
     return {
@@ -32,8 +34,19 @@ var Dashboard = React.createClass({
     // console.dir(this.props.bootstrapData.loan);
   },
 
-  confirmDestroyLoan: function() {
-    return confirm('Are you sure to destroy a new loan?');
+  destroyLoan: function() {
+    $.ajax({
+      url: '/loans/' + this.props.bootstrapData.loan.id,
+      method: 'DELETE',
+      dataType: 'json',
+      success: function(response) {
+        location.href = '/dashboard/loans'
+      },
+      error: function(response, status, error) {
+        var flash = { "alert-danger": response.responseJSON.error };
+        this.showFlashes(flash);
+      }
+    });
   },
 
   render: function() {
@@ -56,7 +69,29 @@ var Dashboard = React.createClass({
           </div>
           <div className='col-xs-4 ptl'>
             <a className='btn btnSml btnSecondary mlm mbm' href={'/loans/' + loan.id + '/edit'}>Edit Loan</a>
-            <a className='btn btnSml btnDanger mlm mbm' href={'/loans/' + loan.id} data-method='delete' onClick={this.confirmDestroyLoan}>Delete Loan</a>
+            <a className='btn btnSml btnDanger mlm mbm' href={'/loans/' + loan.id} data-method='delete' onClick={this.destroyLoan}>Delete Loan</a>
+
+            <a className="btn btnSml btnDanger mlm mbm" data-toggle="modal" data-target="#myModal">
+              Delete Loan
+            </a>
+
+            <div className="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 className="modal-title" id="myModalLabel">Confirmation</h4>
+                  </div>
+                  <div className="modal-body">
+                    Are you sure to destroy a new loan?
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="button" className="btn btn-primary" onClick={this.confirmDestroyLoan}>Yes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

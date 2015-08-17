@@ -44,11 +44,11 @@ class LoansController < ApplicationController
 
     if loan.destroy
       message = "Sucessfully destroy loan"
+      render json: {message: message}, status: 200
     else
       message = "Cannot destroy loan"
+      render json: {message: message}, status: 500
     end
-
-    redirect_to loans_dashboard_index_path, notice: message
   end
 
   # GET get_co_borrower_info
