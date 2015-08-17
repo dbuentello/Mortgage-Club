@@ -203,7 +203,7 @@ var AddressField = React.createClass({
             <span className={this.props.label ? 'h7 typeBold mrs' : null}>{this.props.label}</span>
             <div className='input-group pan'>
               <input className="form-control input-sm" type="text"
-                svalue={val} placeholder={this.props.placeholder}
+                value={val} placeholder={this.props.placeholder}
                 onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange}/>
               <span className='input-group-addon clickable' onClick={this.handleIconClick}><i className='iconLocation'/></span>
             </div>
