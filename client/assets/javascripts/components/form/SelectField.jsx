@@ -79,6 +79,12 @@ var SelectField = React.createClass({
     });
   },
 
+  handleFocus: function(event) {
+    if (typeof this.props.onFocus == 'function') {
+      this.props.onFocus();
+    }
+  },
+
   render: function() {
     var displayText = this.state.name,
         tooltip = this.props.tooltip,
@@ -98,7 +104,7 @@ var SelectField = React.createClass({
           {hasTooltip ?
             <HelpTooltip position={tooltip.position} text={tooltip.text} />
           : null}
-          <select className={classes.editableFieldClasses} name={this.props.name} onChange={this.handleChange} value={this.props.value || ''}>
+          <select className={classes.editableFieldClasses} name={this.props.name} onChange={this.handleChange} onFocus={this.handleFocus} value={this.props.value || ''}>
             {(this.props.placeholder) ? <option value="" disabled={true}>{this.props.placeholder}</option> : null}
             {this.state.options.map(function (option, i) {
               return (
