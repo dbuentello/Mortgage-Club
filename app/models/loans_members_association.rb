@@ -2,10 +2,9 @@
 #
 # Table name: loans_members_associations
 #
-#  id             :uuid             not null, primary key
-#  loan_id        :uuid
-#  team_member_id :uuid
-#
+#  id             :integer          not null, primary key
+#  loan_id        :integer
+#  loan_member_id :integer
 
 class LoansMembersAssociation < ActiveRecord::Base
 
