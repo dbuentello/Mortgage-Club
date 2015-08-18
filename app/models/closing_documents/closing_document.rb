@@ -14,6 +14,7 @@
 #  attachment_content_type :string
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
+#  token                   :string
 #
 
 class ClosingDocument < ActiveRecord::Base

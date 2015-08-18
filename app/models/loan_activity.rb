@@ -2,17 +2,16 @@
 #
 # Table name: loan_activities
 #
-#  id              :integer          not null, primary key
+#  id              :uuid             not null, primary key
 #  name            :string
 #  activity_type   :integer          default(0), not null
 #  activity_status :integer          default(0), not null
 #  user_visible    :boolean          default(FALSE), not null
-#  loan_id         :integer
-#  loan_member_id  :integer
+#  loan_id         :uuid
+#  loan_member_id  :uuid
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  started_at      :datetime
-#  duration        :integer
+#  duration        :integer          default(0)
 #
 
 class LoanActivity < ActiveRecord::Base

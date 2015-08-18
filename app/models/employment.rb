@@ -2,8 +2,8 @@
 #
 # Table name: employments
 #
-#  id                      :integer          not null, primary key
-#  borrower_id             :integer
+#  id                      :uuid             not null, primary key
+#  borrower_id             :uuid
 #  employer_name           :string
 #  employer_contact_name   :string
 #  employer_contact_number :string

@@ -2,16 +2,16 @@
 #
 # Table name: templates
 #
-#  id            :integer          not null, primary key
+#  id            :uuid             not null, primary key
 #  name          :string
 #  state         :string
 #  description   :string
 #  email_subject :string
 #  email_body    :string
 #  docusign_id   :string
-#  creator_id    :integer
-#  created_at    :datetime
-#  updated_at    :datetime
+#  creator_id    :uuid
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 class Template < ActiveRecord::Base

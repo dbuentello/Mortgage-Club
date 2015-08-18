@@ -2,12 +2,12 @@
 #
 # Table name: roles
 #
-#  id            :integer          not null, primary key
+#  id            :uuid             not null, primary key
 #  name          :string
 #  resource_id   :integer
 #  resource_type :string
-#  created_at    :datetime
-#  updated_at    :datetime
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 class Role < ActiveRecord::Base

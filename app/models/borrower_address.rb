@@ -2,8 +2,8 @@
 #
 # Table name: borrower_addresses
 #
-#  id               :integer          not null, primary key
-#  borrower_id      :integer
+#  id               :uuid             not null, primary key
+#  borrower_id      :uuid
 #  years_at_address :integer
 #  is_rental        :boolean
 #  is_current       :boolean          default(FALSE), not null

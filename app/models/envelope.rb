@@ -2,12 +2,12 @@
 #
 # Table name: envelopes
 #
-#  id          :integer          not null, primary key
+#  id          :uuid             not null, primary key
 #  docusign_id :string
-#  template_id :integer
-#  loan_id     :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  template_id :uuid
+#  loan_id     :uuid
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 class Envelope < ActiveRecord::Base

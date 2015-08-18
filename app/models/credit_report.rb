@@ -2,8 +2,8 @@
 #
 # Table name: credit_reports
 #
-#  id          :integer          not null, primary key
-#  borrower_id :integer
+#  id          :uuid             not null, primary key
+#  borrower_id :uuid
 #  date        :datetime
 #  score       :integer
 #

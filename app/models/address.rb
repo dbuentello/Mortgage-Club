@@ -2,17 +2,17 @@
 #
 # Table name: addresses
 #
-#  id                  :integer          not null, primary key
+#  id                  :uuid             not null, primary key
 #  street_address      :string
 #  street_address2     :string
 #  zip                 :string
 #  state               :text
-#  property_id         :integer
-#  borrower_address_id :integer
-#  employment_id       :integer
+#  property_id         :uuid
+#  borrower_address_id :uuid
+#  employment_id       :uuid
 #  city                :text
 #  full_text           :text
-#  liability_id        :integer
+#  liability_id        :uuid
 #
 
 class Address < ActiveRecord::Base

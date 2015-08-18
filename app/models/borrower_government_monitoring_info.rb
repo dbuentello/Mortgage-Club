@@ -2,8 +2,8 @@
 #
 # Table name: borrower_government_monitoring_infos
 #
-#  id                    :integer          not null, primary key
-#  borrower_id           :integer
+#  id                    :uuid             not null, primary key
+#  borrower_id           :uuid
 #  is_hispanic_or_latino :boolean
 #  gender_type           :integer
 #
