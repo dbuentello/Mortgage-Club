@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # namespace :admin do
+  #   root to: "dashboard#index"
+  # end
 
   root 'pages#index'
 
@@ -115,4 +118,8 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :admin do
+    resources :dashboard, only: [:index] do
+    end
+  end
 end
