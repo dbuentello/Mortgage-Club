@@ -11,7 +11,7 @@ class TwilioService
 
     puts "Send from #{from} to #{to}"
 
-    sms =  @client.messages.create(
+    sms = @client.messages.create(
       from: from,
       to: to,
       body: "Hey there! I'm Hoang from Twilio."

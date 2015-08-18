@@ -54,6 +54,8 @@ gem 'react-rails', '~> 1.0'
 
 gem 'httparty'
 
+gem 'rest_client'
+
 gem 'nokogiri'
 
 # file attachment management for ActiveRecord
@@ -103,6 +105,8 @@ gem 'nexmo'
 
 # performance management system, available at http://localhost:4000/newrelic
 gem 'newrelic_rpm'
+
+gem 'asposecloud'
 
 group :development do
   # just run bundle exec erd

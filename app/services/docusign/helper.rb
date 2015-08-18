@@ -97,7 +97,7 @@ module Docusign
                 tab[:height] = option_value[:height]
               end
 
-              tab[:value]  = option_value[:value]
+              tab[:value] = option_value[:value]
             else
               tab[:value] = option_value
             end
