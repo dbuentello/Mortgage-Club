@@ -2,15 +2,15 @@
 #
 # Table name: loan_members
 #
-#  id           :integer          not null, primary key
+#  id           :uuid             not null, primary key
 #  phone_number :string
 #  skype_handle :string
 #  email        :string
+#  user_id      :uuid
 #  employee_id  :integer
 #  nmls_id      :integer
-#  user_id      :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 class LoanMember < ActiveRecord::Base

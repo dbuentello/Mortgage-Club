@@ -2,8 +2,8 @@
 #
 # Table name: borrower_races
 #
-#  id                                     :integer          not null, primary key
-#  borrower_government_monitoring_info_id :integer
+#  id                                     :uuid             not null, primary key
+#  borrower_government_monitoring_info_id :uuid
 #  race_type                              :integer
 #
 

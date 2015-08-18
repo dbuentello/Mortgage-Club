@@ -4,7 +4,7 @@
 #
 #  id                      :integer          not null, primary key
 #  type                    :string
-#  owner_id                :integer
+#  owner_id                :uuid
 #  attachment_file_name    :string
 #  attachment_content_type :string
 #  attachment_file_size    :integer
@@ -12,7 +12,7 @@
 #  token                   :string
 #  description             :string
 #  owner_type              :string
-#  borrower_id             :integer
+#  borrower_id             :uuid
 #
 
 class SecondW2 < BorrowerDocument

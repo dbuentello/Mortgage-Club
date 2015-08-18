@@ -2,19 +2,19 @@
 #
 # Table name: property_documents
 #
-#  id                      :integer          not null, primary key
+#  id                      :uuid             not null, primary key
 #  type                    :string
-#  owner_id                :integer
+#  owner_id                :uuid
 #  description             :string
-#  created_at              :datetime
-#  updated_at              :datetime
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #  attachment_file_name    :string
 #  attachment_content_type :string
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
 #  token                   :string
 #  owner_type              :string
-#  property_id             :integer
+#  property_id             :uuid
 #
 
 class AppraisalReport < PropertyDocument

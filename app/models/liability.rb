@@ -2,8 +2,8 @@
 #
 # Table name: liabilities
 #
-#  id               :integer          not null, primary key
-#  credit_report_id :integer
+#  id               :uuid             not null, primary key
+#  credit_report_id :uuid
 #  name             :string
 #  payment          :integer
 #  months           :integer

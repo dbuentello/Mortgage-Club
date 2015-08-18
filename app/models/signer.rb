@@ -4,11 +4,11 @@
 #
 #  id           :integer          not null, primary key
 #  role_name    :string
-#  recipient_id :integer
-#  envelope_id  :integer
-#  user_id      :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  recipient_id :uuid
+#  envelope_id  :uuid
+#  user_id      :uuid
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 class Signer < ActiveRecord::Base
