@@ -25,6 +25,7 @@ webpack-bundle.js.map
 bundle_PublicApp.js
 bundle_ClientApp.js
 bundle_AdminApp.js
+bundle_LoanMemberApp.js
 .env
 /node_modules
 npm-debug.log

@@ -9,7 +9,7 @@ class LoanActivitiesController < ApplicationController
     bootstrap(loans: @loans.as_json(loans_json_options))
 
     respond_to do |format|
-      format.html { render template: 'admin_app' }
+      format.html { render template: 'loan_member_app' }
     end
   end
 
@@ -26,7 +26,7 @@ class LoanActivitiesController < ApplicationController
     )
 
     respond_to do |format|
-      format.html { render template: 'admin_app' }
+      format.html { render template: 'loan_member_app' }
     end
 
   end
