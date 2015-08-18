@@ -106,6 +106,8 @@ gem 'nexmo'
 # performance management system, available at http://localhost:4000/newrelic
 gem 'newrelic_rpm'
 
+gem 'asposecloud'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'

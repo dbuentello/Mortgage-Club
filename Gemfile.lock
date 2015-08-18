@@ -50,6 +50,7 @@ GEM
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
     arel (6.0.3)
+    asposecloud (1.1.2)
     ast (2.1.0)
     astrolabe (1.3.1)
       parser (~> 2.2)
@@ -410,6 +411,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (~> 2.6.6)
+  asposecloud
   autoprefixer-rails (~> 5.2.1.1)
   awesome_print
   aws-sdk (< 2)
