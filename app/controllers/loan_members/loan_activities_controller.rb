@@ -1,6 +1,4 @@
 class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
-  layout 'loan_member'
-
   def index
     @loans ||= Loan.preload(:user)
 

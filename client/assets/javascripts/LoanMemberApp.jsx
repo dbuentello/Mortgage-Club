@@ -24,7 +24,7 @@ window.LoanMemberApp = React.createClass({
           <div className='plm prl'>
             <div className='row'>
               <div className='col-xs-6 typeLowlight'>
-                MortgageClub Logo
+                <a className='mrl' href='/loan_activities'> MortgageClub </a>
               </div>
               <div className='col-xs-6 text-right'>
                 {user

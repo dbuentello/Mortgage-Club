@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     root to: "loan_members/loan_activities#index", as: :loan_member_root
   end
 
+  authenticated :user, ->(u) { u.has_role?(:admin) } do
+    root to: "admins/loan_assignments#index", as: :admin_root
+  end
+
   unauthenticated do
     root 'pages#index', as: :unauthenticated_root
   end
