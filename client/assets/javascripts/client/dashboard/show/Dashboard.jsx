@@ -41,7 +41,7 @@ var Dashboard = React.createClass({
       method: 'DELETE',
       dataType: 'json',
       success: function(response) {
-        location.href = '/dashboard/loans';
+        location.href = response.redirect_path;
       },
       error: function(response, status, error) {
         var flash = { "alert-danger": response.message };

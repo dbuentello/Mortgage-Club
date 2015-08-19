@@ -47,13 +47,13 @@ window.ClientApp = React.createClass({
           <div className='plm prl'>
             <div className='row'>
               <div className='col-xs-6 typeLowlight'>
-                <a className='mrl' href='/dashboard/loans'> MortgageClub </a>
+                <a className='mrl' href='/my/loans'> MortgageClub </a>
               </div>
               <div className='col-xs-6 text-right'>
                 {user
                 ? <span>
                     <a className="mrl" data-toggle="modal" data-target="#newLoan" style={{'cursor': 'pointer'}}><i className="iconPlus mrxs"/>New Loan</a>
-                    <a className='mrl' href='/dashboard/loans'><i className='iconFolder mrxs'/>Loans</a>
+                    <a className='mrl' href='/my/loans'><i className='iconFolder mrxs'/>Loans</a>
                     <span className='typeLowlight mrl'>Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!</span>
                     <a className='linkTypeReversed' href='/auth/logout' data-method='delete'><i className='iconUser mrxs'/>Log out</a>
                   </span>
@@ -98,8 +98,9 @@ var routes = (
     <Route name='loan' path='loans/:id' handler={LoanActivityInterface}/>
     <Route name='rates' handler={MortgageRates}/>
 
-    <Route name='loan_list' path='dashboard/loans' handler={LoanList}/>
-    <Route name='loan_dashboard' path='dashboard/:id/edit' handler={Dashboard}/>
+    <Route name='loan_list' path='my/loans' handler={LoanList}/>
+    <Route name='loan_dashboard' path='my/loans/:id/dashboard' handler={Dashboard}/>
+
     <DefaultRoute handler={LoanList}/>
   </Route>
 );

@@ -48,7 +48,7 @@ class LoansController < ApplicationController
     if @loan.destroy
       flash[:success] = "Sucessfully destroy loan"
 
-      render json: {}, status: 200
+      render json: {redirect_path: my_loans_path}, status: 200
     else
       render json: {message: "Cannot destroy loan"}, status: 500
     end
