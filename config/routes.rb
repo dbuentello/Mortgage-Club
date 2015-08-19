@@ -110,9 +110,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :dashboard, only: [:edit] do
-    collection do
-      get :loans
+  get '/my/loans', to: 'users/loans#index', as: :my_loans
+
+  scope '/my' do
+    scope module: "users" do
+      resources :loans do
+        get :dashboard
+      end
     end
   end
 

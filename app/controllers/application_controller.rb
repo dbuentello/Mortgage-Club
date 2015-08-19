@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   def set_loan
     return if current_user.loan_member?
 
-    @loan = Loan.find(params[:id])
+    @loan = Loan.find(params[:id] || params[:loan_id])
     @borrower_type = :borrower
 
     if @loan.blank?
