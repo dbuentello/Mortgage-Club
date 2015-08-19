@@ -5,6 +5,7 @@
 #  id             :integer          not null, primary key
 #  loan_id        :integer
 #  loan_member_id :integer
+#  title          :string
 
 class LoansMembersAssociation < ActiveRecord::Base
 
