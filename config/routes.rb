@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'take_home_test', to: 'pages#take_home_test', as: :take_home_test
+
   authenticated :user, ->(u) { u.has_role?(:borrower) } do
     root to: "dashboard#loans", as: :borrower_root
   end
@@ -8,9 +10,9 @@ Rails.application.routes.draw do
     root to: "loan_activities#index", as: :loan_member_root
   end
 
-  root 'pages#index'
-
-  get 'take_home_test', to: 'pages#take_home_test', as: :take_home_test
+  unauthenticated do
+    root 'pages#index', as: :unauthenticated_root
+  end
 
   devise_for :users,
     controllers: {
