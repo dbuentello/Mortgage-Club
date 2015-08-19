@@ -97,9 +97,10 @@ var routes = (
     <Route name='edit_loan' path='loans/:id/edit' handler={LoanInterface}/>
     <Route name='loan' path='loans/:id' handler={LoanActivityInterface}/>
     <Route name='rates' handler={MortgageRates}/>
+
     <Route name='loan_list' path='dashboard/loans' handler={LoanList}/>
     <Route name='loan_dashboard' path='dashboard/:id/edit' handler={Dashboard}/>
-    <DefaultRoute handler={LoanActivityInterface}/>
+    <DefaultRoute handler={LoanList}/>
   </Route>
 );
 

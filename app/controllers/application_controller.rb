@@ -38,16 +38,6 @@ class ApplicationController < ActionController::Base
     }.merge!(data)
   end
 
-  def redirect_if_auth
-    return unless current_user
-
-    if current_user.loan_member?
-      redirect_to loan_activities_path
-    else
-      redirect_to loans_dashboard_index_path
-    end
-  end
-
   def customized_flash
     customized_flash = {}
     flash.each do |msg_type, message|
