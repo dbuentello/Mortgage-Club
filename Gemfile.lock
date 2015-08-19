@@ -301,8 +301,6 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    rest_client (1.8.3)
-      netrc (~> 0.7.7)
     rolify (4.1.1)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
@@ -454,7 +452,7 @@ DEPENDENCIES
   rails_12factor
   react-rails (~> 1.0)
   redis
-  rest_client
+  rest-client
   rolify
   rspec-rails
   rubocop
