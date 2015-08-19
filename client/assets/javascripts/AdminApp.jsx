@@ -56,7 +56,7 @@ window.AdminApp = React.createClass({
 
 var routes = (
   <Route name='app' path='/' handler={AdminApp}>
-    <Route name='loans' path='/admin/loan_assignments' handler={Loans}/>
+    <Route name='loans' path='/loan_assignments' handler={Loans}/>
     <DefaultRoute handler={Loans}/>
   </Route>
 );

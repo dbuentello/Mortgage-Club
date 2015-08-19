@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  # namespace :admin do
-  #   root to: "dashboard#index"
-  # end
-
   root 'pages#index'
 
   get 'take_home_test', to: 'pages#take_home_test', as: :take_home_test
@@ -118,8 +114,8 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :admin do
-    resources :loan_assignments, only: [:index] do
+  scope module: "admins" do
+    resources :loan_assignments, only: [:index, :create, :destroy] do
       collection do
         get :loan_members
       end

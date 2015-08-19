@@ -19,13 +19,48 @@ var Loans = React.createClass({
   componentDidMount: function() {
   },
 
-  onActionClick: function() {
+  onAssignClick: function() {
+    var loan_id = $('.loan-list').val();
+    var member_id = $('.member-list').val();
+    var title = $('.title-list').val();
+
+    $.ajax({
+      url: '/loan_assignments',
+      data: {
+        loan_id: loan_id,
+        loan_member_id: member_id,
+        title: title
+      },
+      dataType: 'json',
+      context: this,
+      method: 'POST',
+      success: function(response) {
+        this.setState({associations: response.associations});
+      }
+    });
+  },
+
+  onRemoveClick: function(event) {
+    var loan_id = $('.loan-list').val();
+    $.ajax({
+      url: '/loan_assignments/' + event.target.value,
+      data: {
+        loan_id: loan_id
+      },
+      dataType: 'json',
+      method: 'DELETE',
+      context: this,
+      success: function(response) {
+        var flash = { "alert-success": "Updated successfully!" };
+        this.showFlashes(flash);
+        this.setState({associations: response.associations});
+      }
+    });
   },
 
   onLoanChange: function(event) {
-    console.dir(event);
     $.ajax({
-      url: '/admin/loan_assignments/loan_members',
+      url: '/loan_assignments/loan_members',
       data: {
         loan_id: event.target.value
       },
@@ -59,7 +94,7 @@ var Loans = React.createClass({
                   <label className='pan'>
                     <span className='h7 typeBold'>Loans</span>
                   </label>
-                  <select className='form-control' onChange={this.onLoanChange}>
+                  <select className='form-control loan-list' onChange={this.onLoanChange}>
                     {
                       _.map(this.props.bootstrapData.loans, function(loan) {
                         return (
@@ -73,11 +108,11 @@ var Loans = React.createClass({
                   <label className='pan'>
                     <span className='h7 typeBold'>Members</span>
                   </label>
-                  <select className='form-control'>
+                  <select className='form-control member-list'>
                     {
                       _.map(this.props.bootstrapData.loan_members, function(member) {
                         return (
-                          <option value={member.id} key={member.id}>{'Loan of ' + member.user.to_s}</option>
+                          <option value={member.id} key={member.id}>{member.user.to_s}</option>
                         )
                       })
                     }
@@ -87,14 +122,14 @@ var Loans = React.createClass({
                   <label className='pan'>
                     <span className='h7 typeBold'>Title</span>
                   </label>
-                  <select className='form-control'>
+                  <select className='form-control title-list'>
                     <option value='sale'>Sale</option>
                     <option value='premier_agent'>Premier Agent</option>
                     <option value='manager'>Manager</option>
                   </select>
                 </div>
                 <div className='col-xs-3 ptl'>
-                  <button className='btn btn-primary' onClick={this.onActionClick}>Assign</button>
+                  <button className='btn btn-primary' onClick={this.onAssignClick}>Assign</button>
                 </div>
               </div>
             </div>
@@ -115,11 +150,11 @@ var Loans = React.createClass({
                       return (
                         <tr key={association.id}>
                           <td>{association.loan_member.user.to_s}</td>
-                          <td>{association.title}</td>
-                          <td><button className='btn btn-danger' onClick={null}>Remove</button></td>
+                          <td>{association.pretty_title}</td>
+                          <td><button className='btn btn-danger' value={association.id} onClick={this.onRemoveClick}>Remove</button></td>
                         </tr>
                       )
-                    })
+                    }, this)
                   }
                 </tbody>
               </table>
