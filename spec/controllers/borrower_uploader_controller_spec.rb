@@ -3,7 +3,7 @@ require 'rails_helper'
 describe BorrowerUploaderController do
   # ignore GET download actions because they use aws methods, which is not available in test environment
   context "upload" do
-    include_context 'signed in borrower user'
+    include_context 'signed in as borrower user'
 
     describe "POST w2" do
       it "returns warning when file is blank" do

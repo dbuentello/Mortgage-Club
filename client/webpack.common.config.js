@@ -6,7 +6,8 @@ module.exports = {
   entry: {
     PublicApp: 'PublicApp',
     ClientApp: 'ClientApp',
-    AdminApp: 'AdminApp'
+    AdminApp: 'AdminApp',
+    LoanMemberApp: 'LoanMemberApp'
   },
   resolve: {
     root: [path.join(__dirname, 'scripts'),

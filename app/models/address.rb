@@ -21,6 +21,8 @@ class Address < ActiveRecord::Base
   belongs_to :employment, inverse_of: :address, foreign_key: 'employment_id'
   belongs_to :liability, inverse_of: :address, foreign_key: 'liability_id'
 
+  after_save :assign_loan_to_billy
+
   PERMITTED_ATTRS = [
     :street_address,
     :street_address2,
@@ -51,5 +53,14 @@ class Address < ActiveRecord::Base
 
   def completed
     address.present?
+  end
+
+  private
+
+  def assign_loan_to_billy
+    return if state != 'CA'
+    return unless property && property.loan.present?
+    return unless user = User.where(email: 'billy@mortgageclub.io').last
+    user.loan_member.loans_members_associations.create(loan_id: property.loan.id)
   end
 end

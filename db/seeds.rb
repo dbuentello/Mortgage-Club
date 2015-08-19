@@ -50,6 +50,30 @@ if User.where(email: 'loan_member@gmail.com').blank?
   user.add_role :loan_member
 end
 
+
+if User.where(email: 'billy@mortgageclub.io').blank?
+  user = User.new(
+    email: 'billy@mortgageclub.io', first_name: 'Billy', last_name: 'Tran',
+    password: '12345678', password_confirmation: '12345678'
+  )
+  user.skip_confirmation!
+  user.save
+
+  user.create_loan_member
+  user.add_role :loan_member
+end
+
+if User.where(email: 'admin@mortgageclub.io').blank?
+  user = User.new(
+    email: 'admin@mortgageclub.io', first_name: 'Admin', last_name: 'Day',
+    password: '12345678', password_confirmation: '12345678'
+  )
+  user.skip_confirmation!
+  user.save
+
+  user.add_role :admin
+end
+
 # if Template.where(name: 'Loan Estimation').blank?
 #   base = Docusign::Base.new
 #   template = base.create_template_object_from_name("Loan Estimation")

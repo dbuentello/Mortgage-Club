@@ -52,4 +52,9 @@ FactoryGirl.define do
     closing
   end
 
+  factory :loan_with_loan_member, parent: :loan do |f|
+    after(:build) do |loan|
+      create(:loans_members_association, loan: loan)
+    end
+  end
 end

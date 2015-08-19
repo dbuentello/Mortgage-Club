@@ -7,9 +7,10 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 var AppStarter = require('tools/AppStarter');
-var Loans = require('./admin/Loans')
+var Loans = require('loan_member/Loans')
+var Dashboard = require('loan_member/Dashboard');
 
-window.AdminApp = React.createClass({
+window.LoanMemberApp = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
@@ -28,7 +29,7 @@ window.AdminApp = React.createClass({
               <div className='col-xs-6 text-right'>
                 {user
                 ? <span>
-                    <a className='mrm' href='/loan_activities'>Loans List</a>
+                    <a className='mrm' href='/loan_activities'>Loan List</a>
                     <span className='typeLowlight mrm'>Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!</span>
                     <a className='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
                   </span>
@@ -55,8 +56,9 @@ window.AdminApp = React.createClass({
 });
 
 var routes = (
-  <Route name='app' path='/' handler={AdminApp}>
-    <Route name='loans' path='/loan_assignments' handler={Loans}/>
+  <Route name='app' path='/' handler={LoanMemberApp}>
+    <Route name='loans' path='/loan_activities' handler={Loans}/>
+    <Route name='loan_activities' path='/loan_activities/:id' handler={Dashboard}/>
     <DefaultRoute handler={Loans}/>
   </Route>
 );
