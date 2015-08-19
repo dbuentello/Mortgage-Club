@@ -1,11 +1,13 @@
 class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
+  layout 'loan_member'
+
   def index
     @loans ||= Loan.preload(:user)
 
     bootstrap(loans: @loans.as_json(loans_json_options))
 
     respond_to do |format|
-      format.html { render template: 'admin_app' }
+      format.html { render template: 'loan_member_app' }
     end
   end
 
@@ -22,7 +24,7 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
     )
 
     respond_to do |format|
-      format.html { render template: 'admin_app' }
+      format.html { render template: 'loan_member_app' }
     end
 
   end

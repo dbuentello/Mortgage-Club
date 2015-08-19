@@ -128,4 +128,11 @@ Rails.application.routes.draw do
     end
   end
 
+  scope module: "admins" do
+    resources :loan_assignments, only: [:index, :create, :destroy] do
+      collection do
+        get :loan_members
+      end
+    end
+  end
 end

@@ -102,6 +102,10 @@ class User < ActiveRecord::Base
     # borrower.nil? && loan_member.present?
   end
 
+  def admin?
+    self.has_role? :admin
+  end
+
   private
 
   def set_private_token
