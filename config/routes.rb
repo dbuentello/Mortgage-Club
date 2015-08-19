@@ -120,6 +120,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :loan_assignments, only: [:index] do
+      collection do
+        get :loan_members
+      end
     end
   end
 end
