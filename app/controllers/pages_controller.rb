@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
   skip_before_filter :authenticate_user!
-  before_filter :redirect_if_auth, only: [:index]
 
   def index
   end

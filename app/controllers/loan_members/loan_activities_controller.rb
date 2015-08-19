@@ -1,7 +1,5 @@
-class LoanActivitiesController < ApplicationController
+class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
   layout 'loan_member'
-
-  before_action :verify_loan_member
 
   def index
     @loans ||= Loan.preload(:user)
@@ -58,10 +56,6 @@ class LoanActivitiesController < ApplicationController
   end
 
   private
-
-  def verify_loan_member
-    redirect_to root_url unless current_user.loan_member?
-  end
 
   def loan_activity_params
     loan_activity_params = params.require(:loan_activity).permit(

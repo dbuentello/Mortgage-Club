@@ -18,7 +18,7 @@ Feature: User
       Then I should not see the avatar "avatar.png"
       And I click "Log out"
       And I login as "testing@man.net" with password "12345678"
-    Then I should be on the loans dashboard index page
+    Then I should see "New Loan"
 
   @javascript
   Scenario: logins as loan_member role

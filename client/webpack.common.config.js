@@ -5,7 +5,7 @@ var path = require('path');
 module.exports = {
   entry: {
     PublicApp: 'PublicApp',
-    ClientApp: 'ClientApp',
+    BorrowerApp: 'BorrowerApp',
     AdminApp: 'AdminApp',
     LoanMemberApp: 'LoanMemberApp'
   },

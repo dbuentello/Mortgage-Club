@@ -8,7 +8,7 @@ Feature: Dashboard
     Then I follow "Dashboard"
       And I click on "Delete Loan"
       And I click on "Yes"
-    Then I should be on the loans dashboard index page
+    Then I should be on the my loans page
 
   @javascript
   Scenario: display borrower's address and loan's title

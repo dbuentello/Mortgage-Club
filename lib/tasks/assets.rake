@@ -22,7 +22,7 @@ namespace :assets do
 
   task :clobber do
     rm_rf "#{Rails.root}/app/assets/javascripts/bundle_PublicApp.js"
-    rm_rf "#{Rails.root}/app/assets/javascripts/bundle_ClientApp.js"
+    rm_rf "#{Rails.root}/app/assets/javascripts/bundle_BorrowerApp.js"
     rm_rf "#{Rails.root}/app/assets/javascripts/bundle_AdminApp.js"
     rm_rf "#{Rails.root}/app/assets/javascripts/bundle_LoanMemberApp.js"
   end

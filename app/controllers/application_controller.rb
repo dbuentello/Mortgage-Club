@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   def set_loan
     return if current_user.loan_member?
 
-    @loan = Loan.find(params[:id])
+    @loan = Loan.find(params[:id] || params[:loan_id])
     @borrower_type = :borrower
 
     if @loan.blank?
@@ -36,19 +36,6 @@ class ApplicationController < ActionController::Base
       } : {},
       flashes: customized_flash
     }.merge!(data)
-  end
-
-  def redirect_if_auth
-    return unless current_user
-
-    if current_user.loan_member?
-      redirect_to loan_activities_path
-    elsif current_user.admin?
-      # sign_out current_user
-      redirect_to loan_assignments_path
-    else
-      redirect_to loans_dashboard_index_path
-    end
   end
 
   def customized_flash

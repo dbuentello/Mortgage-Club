@@ -54,7 +54,7 @@ gem 'react-rails', '~> 1.0'
 
 gem 'httparty'
 
-gem 'rest_client'
+gem 'rest-client'
 
 gem 'nokogiri'
 

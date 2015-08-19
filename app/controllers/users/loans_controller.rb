@@ -1,9 +1,17 @@
-class DashboardController < ApplicationController
-  before_action :set_loan, only: [:show, :edit]
+class Users::LoansController < ApplicationController
+  before_action :set_loan, only: [:dashboard]
 
-  def show
-    # WILL_DO: select loan by params[:loan_id] when we build multi dashboards.
-    # WILL_DO: resolve n+1 query problem
+  def index
+    bootstrap(
+      loans: current_user.loans.includes(property: :address).as_json(loan_json_options)
+    )
+
+    respond_to do |format|
+      format.html { render template: 'borrower_app' }
+    end
+  end
+
+  def dashboard
     loan = @loan
     property = loan.property
     borrower = current_user.borrower
@@ -20,22 +28,9 @@ class DashboardController < ApplicationController
       loan_activities: loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10).as_json,
       closing_list: closing.as_json(closing_list_json_options)
     )
-    respond_to do |format|
-      format.html { render template: 'client_app' }
-    end
-  end
-
-  def edit
-    show
-  end
-
-  def loans
-    bootstrap(
-      loans: current_user.loans.includes(property: :address).as_json(loan_json_options)
-    )
 
     respond_to do |format|
-      format.html { render template: 'client_app' }
+      format.html { render template: 'borrower_app' }
     end
   end
 
@@ -127,4 +122,5 @@ class DashboardController < ApplicationController
       }
     }
   end
+
 end

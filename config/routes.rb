@@ -1,7 +1,18 @@
 Rails.application.routes.draw do
-  root 'pages#index'
 
   get 'take_home_test', to: 'pages#take_home_test', as: :take_home_test
+
+  authenticated :user, ->(u) { u.has_role?(:borrower) } do
+    root to: "users/loans#index", as: :borrower_root
+  end
+
+  authenticated :user, ->(u) { u.has_role?(:loan_member) } do
+    root to: "loan_members/loan_activities#index", as: :loan_member_root
+  end
+
+  unauthenticated do
+    root 'pages#index', as: :unauthenticated_root
+  end
 
   devise_for :users,
     controllers: {
@@ -93,24 +104,27 @@ Rails.application.routes.draw do
   post 'electronic_signature/demo'
   get 'electronic_signature/embedded_response'
 
-  resources :loan_activities, only: [:index, :show, :create] do
-    collection do
-      get 'get_activities_by_conditions'
-    end
-  end
-
   resources :loans, only: [:create, :edit, :update, :destroy] do
     collection do
       get 'get_co_borrower_info'
     end
   end
 
-  # temporarily use
-  get 'dashboard', to: 'dashboard#show'
+  get '/my/loans', to: 'users/loans#index', as: :my_loans
 
-  resources :dashboard, only: [:show, :edit] do
-    collection do
-      get :loans
+  scope '/my' do
+    scope module: "users" do
+      resources :loans do
+        get :dashboard
+      end
+    end
+  end
+
+  scope module: "loan_members" do
+    resources :loan_activities, only: [:index, :show, :create] do
+      collection do
+        get 'get_activities_by_conditions'
+      end
     end
   end
 
