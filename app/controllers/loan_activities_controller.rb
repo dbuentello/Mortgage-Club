@@ -1,5 +1,5 @@
 class LoanActivitiesController < ApplicationController
-  layout 'admin'
+  layout 'loan_member'
 
   before_action :verify_loan_member
 

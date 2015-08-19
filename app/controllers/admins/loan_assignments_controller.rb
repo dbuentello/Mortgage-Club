@@ -29,7 +29,7 @@ class Admins::LoanAssignmentsController < Admins::BaseController
   end
 
   def destroy
-    return unless assignment = @loan.loans_members_associations.where(id: params[:id]).last
+    return render json: {message: 'Assignment not found'}, status: 500 unless assignment = @loan.loans_members_associations.where(id: params[:id]).last
 
     if assignment.destroy
       render json: {
