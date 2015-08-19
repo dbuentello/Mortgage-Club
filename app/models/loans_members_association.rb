@@ -14,7 +14,17 @@ class LoansMembersAssociation < ActiveRecord::Base
     member: 'Loan Member'
   }
 
+  TITLES = {
+    'sale' => 'Sale',
+    'premier_agent' => 'Premier Agent',
+    'manager' => 'Manager'
+  }
+
   belongs_to :loan
   belongs_to :loan_member
 
+  def pretty_title
+    return unless title
+    TITLES[title]
+  end
 end
