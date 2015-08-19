@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  authenticated :user, ->(u) { u.has_role?(:borrower) } do
+    root to: "dashboard#loans", as: :borrower_root
+  end
+
+  authenticated :user, ->(u) { u.has_role?(:loan_member) } do
+    root to: "loan_activities#index", as: :loan_member_root
+  end
+
   root 'pages#index'
 
   get 'take_home_test', to: 'pages#take_home_test', as: :take_home_test
@@ -105,9 +113,6 @@ Rails.application.routes.draw do
       get 'get_co_borrower_info'
     end
   end
-
-  # temporarily use
-  get 'dashboard', to: 'dashboard#show'
 
   resources :dashboard, only: [:edit] do
     collection do
