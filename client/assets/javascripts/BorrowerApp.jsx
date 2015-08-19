@@ -16,7 +16,7 @@ var LoanList = require('client/dashboard/loans/LoanList');
 
 var ModalLink = require('components/ModalLink');
 
-window.ClientApp = React.createClass({
+window.BorrowerApp = React.createClass({
   mixins: [FlashHandler],
 
   contextTypes: {
@@ -93,7 +93,7 @@ window.ClientApp = React.createClass({
 });
 
 var routes = (
-  <Route name='app' path='/' handler={ClientApp}>
+  <Route name='app' path='/' handler={BorrowerApp}>
     <Route name='edit_loan' path='loans/:id/edit' handler={LoanInterface}/>
     <Route name='loan' path='loans/:id' handler={LoanActivityInterface}/>
     <Route name='rates' handler={MortgageRates}/>

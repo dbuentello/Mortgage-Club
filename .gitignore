@@ -23,7 +23,7 @@
 webpack-bundle.js
 webpack-bundle.js.map
 bundle_PublicApp.js
-bundle_ClientApp.js
+bundle_BorrowerApp.js
 bundle_AdminApp.js
 bundle_LoanMemberApp.js
 .env

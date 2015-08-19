@@ -7,7 +7,7 @@ class Users::LoansController < ApplicationController
     )
 
     respond_to do |format|
-      format.html { render template: 'client_app' }
+      format.html { render template: 'borrower_app' }
     end
   end
 
@@ -30,7 +30,7 @@ class Users::LoansController < ApplicationController
     )
 
     respond_to do |format|
-      format.html { render template: 'client_app' }
+      format.html { render template: 'borrower_app' }
     end
   end
 

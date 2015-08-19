@@ -16,6 +16,6 @@
 //= require bootstrap-sprockets
 //= require bootstrap_datepicker
 
-// Important to import jquery_ujs before bundle_ClientApp as that patches jquery xhr to use the authenticity token!
+// Important to import jquery_ujs before bundle_BorrowerApp as that patches jquery xhr to use the authenticity token!
 
-//= require build/bundle_ClientApp
+//= require build/bundle_BorrowerApp
