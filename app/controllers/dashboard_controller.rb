@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
-  before_action :set_loan, only: [:show, :edit]
+  before_action :set_loan, only: [:edit]
 
-  def show
+  def edit
     # WILL_DO: select loan by params[:loan_id] when we build multi dashboards.
     # WILL_DO: resolve n+1 query problem
     loan = @loan
@@ -23,10 +23,6 @@ class DashboardController < ApplicationController
     respond_to do |format|
       format.html { render template: 'client_app' }
     end
-  end
-
-  def edit
-    show
   end
 
   def loans

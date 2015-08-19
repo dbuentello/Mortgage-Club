@@ -144,4 +144,5 @@ class Loan < ActiveRecord::Base
 
     purpose.titleize
   end
+
 end

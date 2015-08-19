@@ -109,7 +109,7 @@ Rails.application.routes.draw do
   # temporarily use
   get 'dashboard', to: 'dashboard#show'
 
-  resources :dashboard, only: [:show, :edit] do
+  resources :dashboard, only: [:edit] do
     collection do
       get :loans
     end
