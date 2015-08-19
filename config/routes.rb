@@ -119,7 +119,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :dashboard, only: [:index] do
+    resources :loan_assignments, only: [:index] do
     end
   end
 end

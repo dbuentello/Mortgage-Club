@@ -7,8 +7,8 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 var AppStarter = require('tools/AppStarter');
-var Loans = require('./admin/loan_member/Loans')
-var Dashboard = require('./admin/loan_member/Dashboard');
+var Loans = require('loan_member/Loans')
+var Dashboard = require('loan_member/Dashboard');
 
 window.LoanMemberApp = React.createClass({
   contextTypes: {

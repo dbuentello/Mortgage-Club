@@ -44,7 +44,8 @@ class ApplicationController < ActionController::Base
     if current_user.loan_member?
       redirect_to loan_activities_path
     elsif current_user.admin?
-      redirect_to admin_dashboard_index_path
+      # sign_out current_user
+      redirect_to admin_loan_assignments_path
     else
       redirect_to loans_dashboard_index_path
     end
