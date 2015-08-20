@@ -37,7 +37,10 @@ module ZillowService
 
     def self.scraping_data_from_zillow(zpid)
       #www.zillow.com/homes/19709750_zpid/
-      browser = Capybara::Session.new(:poltergeist, {js_errors: false})
+      Capybara.register_driver :poltergeist do |app|
+        Capybara::Poltergeist::Driver.new(app, {js_errors: false})
+      end
+      browser = Capybara::Session.new(:poltergeist)
       browser.visit "http://www.zillow.com/homes/" + zpid + "_zpid"
       browser.find('h2', text: "Price / Tax History").click
       data = Nokogiri::HTML.parse(browser.html)
