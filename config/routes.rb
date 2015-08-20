@@ -108,21 +108,20 @@ Rails.application.routes.draw do
   post 'electronic_signature/demo'
   get 'electronic_signature/embedded_response'
 
-  resources :loans, only: [:create, :edit, :update, :destroy] do
-    collection do
-      get 'get_co_borrower_info'
-    end
-  end
-
   get '/my/loans', to: 'users/loans#index', as: :my_loans
 
-  scope '/my' do
-    scope module: "users" do
+  scope module: "users" do
+    scope '/my' do
       resources :loans do
         get :dashboard
       end
     end
+
+    resources :loans, only: [:create, :edit, :update, :destroy] do
+      get :get_co_borrower_info, on: :collection
+    end
   end
+
 
   scope module: "loan_members" do
     resources :loan_activities, only: [:index, :show, :create] do
