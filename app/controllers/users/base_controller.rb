@@ -5,7 +5,7 @@ class Users::BaseController < ApplicationController
 
   def authenticate_borrower!
     unless current_user.borrower?
-      render status: :forbidden, text: "You don't have permmission to access this page!" and return
+      redirect_to borrower_root_url, alert: "The page does not exist or you don't have permmission to access!"
     end
   end
 end

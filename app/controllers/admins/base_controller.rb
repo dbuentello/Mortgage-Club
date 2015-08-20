@@ -6,7 +6,7 @@ class Admins::BaseController < ApplicationController
 
   def authenticate_admin!
     unless current_user.admin?
-      render status: :forbidden, text: "You don't have permmission to access this page!" and return
+      redirect_to admin_root_url, alert: "The page does not exist or you don't have permmission to access!"
     end
   end
 end
