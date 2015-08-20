@@ -4,7 +4,7 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
   def index
     @loans ||= Loan.preload(:user)
 
-    bootstrap(loans: @loans.as_json(loans_json_options))
+    bootstrap(loans: @loans.as_json(loan_list_json_options))
 
     respond_to do |format|
       format.html { render template: 'loan_member_app' }
@@ -78,7 +78,7 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
     LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: loan.id).order(created_at: :desc).limit(1).first || {activity_status: -1}
   end
 
-  def loans_json_options
+  def loan_list_json_options
     {
       include: {
         user: {
