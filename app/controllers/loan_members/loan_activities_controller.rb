@@ -1,5 +1,6 @@
 class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
   def index
+    # WILLDO: solve n+1 query problem
     @loans ||= Loan.preload(:user)
 
     bootstrap(loans: @loans.as_json(loans_json_options))

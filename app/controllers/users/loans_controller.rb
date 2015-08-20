@@ -1,4 +1,4 @@
-class Users::LoansController < ApplicationController
+class Users::LoansController < Users::BaseController
   before_action :set_loan, only: [:dashboard]
 
   def index

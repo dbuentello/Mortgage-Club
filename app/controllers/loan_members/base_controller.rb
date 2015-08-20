@@ -7,7 +7,7 @@ class LoanMembers::BaseController < ApplicationController
 
   def authenticate_loan_member!
     unless current_user.loan_member?
-      render status: :forbidden, text: "You don't have permmission to access this page!" and return
+      redirect_to loan_member_root_url, alert: "The page does not exist or you don't have permmission to access!"
     end
   end
 end

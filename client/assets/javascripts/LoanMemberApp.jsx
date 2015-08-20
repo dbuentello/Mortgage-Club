@@ -6,11 +6,14 @@ var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
+var FlashHandler = require('mixins/FlashHandler');
 var AppStarter = require('tools/AppStarter');
 var Loans = require('loan_member/Loans')
 var Dashboard = require('loan_member/Dashboard');
 
 window.LoanMemberApp = React.createClass({
+  mixins: [FlashHandler],
+
   contextTypes: {
     router: React.PropTypes.func
   },
@@ -52,6 +55,11 @@ window.LoanMemberApp = React.createClass({
         <RouteHandler bootstrapData={this.props}/>
       </div>
     );
+  },
+
+  componentDidMount: function() {
+    var flashes = this.props.flashes;
+    this.showFlashes(flashes);
   }
 });
 
