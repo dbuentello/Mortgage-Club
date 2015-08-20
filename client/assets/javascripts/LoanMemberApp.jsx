@@ -58,10 +58,7 @@ window.LoanMemberApp = React.createClass({
   },
 
   componentDidMount: function() {
-    // show flash message from Rails controller on this Client
     var flashes = this.props.flashes;
-    console.dir(flashes);
-
     this.showFlashes(flashes);
   }
 });
