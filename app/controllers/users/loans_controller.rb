@@ -38,7 +38,7 @@ class Users::LoansController < Users::BaseController
 
   def loan_json_options
     {
-      only: [:id, :amount, :created_at, :interest_rate],
+      only: [ :id, :amount, :created_at, :interest_rate ],
       include: {
         property: {
           only: [],
@@ -61,7 +61,7 @@ class Users::LoansController < Users::BaseController
     {
       include: {
         loan_documents: {
-          methods: [:file_icon_url, :class_name, :owner_name]
+          methods: [ :file_icon_url, :class_name, :owner_name ]
         }
       }
     }
@@ -71,7 +71,7 @@ class Users::LoansController < Users::BaseController
     {
       include: {
         borrower_documents: {
-          methods: [:file_icon_url, :class_name, :owner_name]
+          methods: [ :file_icon_url, :class_name, :owner_name ]
         }
       }
     }
@@ -81,7 +81,7 @@ class Users::LoansController < Users::BaseController
     {
       include: {
         property_documents: {
-          methods: [:file_icon_url, :class_name, :owner_name]
+          methods: [ :file_icon_url, :class_name, :owner_name ]
         }
       }
     }
@@ -117,7 +117,7 @@ class Users::LoansController < Users::BaseController
     {
       include: {
         closing_documents: {
-          methods: [:file_icon_url, :class_name]
+          methods: [ :file_icon_url, :class_name ]
         }
       }
     }
