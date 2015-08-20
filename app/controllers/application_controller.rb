@@ -11,10 +11,8 @@ class ApplicationController < ActionController::Base
   private
 
   def set_loan
-    return if current_user.loan_member?
-
-    @loan = Loan.find(params[:id] || params[:loan_id])
-    @borrower_type = :borrower
+    @loan ||= Loan.find(params[:loan_id] || params[:id])
+    @borrower_type ||= :borrower
 
     if @loan.blank?
       @loan = current_user.borrower.loan # or get the co-borrower relationship
