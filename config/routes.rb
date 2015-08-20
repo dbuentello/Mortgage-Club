@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     get 'signup', to: 'users/registrations#new', as: :custom_signup
   end
 
-  resources :borrower_uploader, only: [] do
+  resources :borrower_document_uploader, only: [] do
     collection do
       post 'upload'
       delete 'remove'

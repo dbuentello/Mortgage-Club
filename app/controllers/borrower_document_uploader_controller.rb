@@ -1,5 +1,5 @@
 # rubocop:disable ClassLength
-class BorrowerUploaderController < ApplicationController
+class BorrowerDocumentUploaderController < ApplicationController
   def upload
     return render json: {message: 'File not found'}, status: 500 if params[:file].blank?
     return render json: {message: 'Invalid document type'}, status: 500 unless params[:type].present?
@@ -41,15 +41,15 @@ class BorrowerUploaderController < ApplicationController
 
   private
 
-  def borrower_uploader_params
+  def borrower_document_uploader_params
     params.permit(:file, :order)
   end
 
   def get_download_url(document)
-    download_borrower_uploader_url(document) + '?type=' + document.class_name
+    download_borrower_document_uploader_url(document) + '?type=' + document.class_name
   end
 
   def get_remove_url(document, borrower)
-    remove_borrower_uploader_index_url + '?type=' + document.class_name + '&borrower_id=' + borrower.id.to_s
+    remove_borrower_document_uploader_index_url + '?type=' + document.class_name + '&borrower_id=' + borrower.id.to_s
   end
 end

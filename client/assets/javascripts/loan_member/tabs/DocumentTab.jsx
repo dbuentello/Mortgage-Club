@@ -59,7 +59,7 @@ var DocumentTab = React.createClass({
         <div id="property_uploader" className="row" style={this.state.displayProperty}>
           <PropertyUploader property={this.props.property}></PropertyUploader>
         </div>
-        <div id="borrower_uploader" className="row" style={this.state.displayBorrower}>
+        <div id="borrower_document_uploader" className="row" style={this.state.displayBorrower}>
           <BorrowerUploader borrower={this.props.loan.borrower}></BorrowerUploader>
         </div>
         <div id="loan_uploader" className="row" style={this.state.displayLoan}>

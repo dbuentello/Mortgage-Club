@@ -56,7 +56,7 @@ var FormIncome = React.createClass({
   },
 
   render: function() {
-    var uploadUrl = '/borrower_uploader/upload';
+    var uploadUrl = '/borrower_document_uploader/upload';
 
     return (
       <div>
@@ -260,9 +260,9 @@ var FormIncome = React.createClass({
       if (borrower[key]) { // has a document
         state[uploader_fields[key].name] = borrower[key].attachment_file_name;
         state[uploader_fields[key].id] = borrower[key].id;
-        state[uploader_fields[key].name + '_downloadUrl'] = '/borrower_uploader/' + borrower[key].id +
+        state[uploader_fields[key].name + '_downloadUrl'] = '/borrower_document_uploader/' + borrower[key].id +
                                          '/download?type=' + uploader_fields[key].type;
-        state[uploader_fields[key].name + '_removedUrl'] = '/borrower_uploader/remove?type=' +
+        state[uploader_fields[key].name + '_removedUrl'] = '/borrower_document_uploader/remove?type=' +
                                          uploader_fields[key].type + '&borrower_id=' + borrower.id;
       }else {
         state[uploader_fields[key].name] = uploader_fields[key].placeholder;
