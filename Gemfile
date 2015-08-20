@@ -108,6 +108,9 @@ gem 'newrelic_rpm'
 
 gem 'asposecloud'
 
+# to crawl data from Zillow
+gem 'poltergeist'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
