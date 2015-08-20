@@ -1,0 +1,129 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://www.zillow.com/webservice/GetDeepSearchResults.htm?address=5045%20Cedar%20Springs%20Rd&citystatezip=75235&zws-id=X1-ZWz1aylbpp3aiz_98wrk
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 20 Aug 2015 07:22:39 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Cache-Control:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Internal-Host:
+      - '002'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '7378'
+      Set-Cookie:
+      - F5P=2921383946.0.0000; path=/
+      - JSESSIONID=890BC659230888328FA64C3367633CE9; Path=/; HttpOnly
+      - JSESSIONID=890BC659230888328FA64C3367633CE9; Path=/; HttpOnly
+      - zguid=22|%5B%229ec28640-30eb-4b8d-9baf-0c668cd7cb81%22%2C%22000000%22%2C%22%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%22%2C%22false%40false%40false%40false%400%400%400%400%400%400%22%2C%220%22%2C%220%22%2C%220%22%2C%2210%22%2C%220%22%2C%220%400%400%400%400%400%22%2C%22%22%5D;
+        Domain=.zillow.com; Expires=Tue, 19-Aug-2025 19:22:40 GMT; Path=/
+      Via:
+      - 1.1 www.zillow.com
+      Vary:
+      - User-Agent
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="utf-8"?><SearchResults:searchresults xsi:schemaLocation="http://www.zillow.com/static/xsd/SearchResults.xsd
+        http://www.zillowstatic.com/vstatic/f7a2366/static/xsd/SearchResults.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SearchResults="http://www.zillow.com/static/xsd/SearchResults.xsd"><request><address>5045
+        Cedar Springs Rd</address><citystatezip>75235</citystatezip></request><message><text>Request
+        successfully processed</text><code>0</code></message><response><results><result><zpid>26697093</zpid><links><homedetails>http://www.zillow.com/homedetails/5045-Cedar-Springs-Rd-APT-116F-Dallas-TX-75235/26697093_zpid/</homedetails><graphsanddata>http://www.zillow.com/homedetails/5045-Cedar-Springs-Rd-APT-116F-Dallas-TX-75235/26697093_zpid/#charts-and-data</graphsanddata><mapthishome>http://www.zillow.com/homes/26697093_zpid/</mapthishome><comparables>http://www.zillow.com/homes/comps/26697093_zpid/</comparables></links><address><street>5045
+        Cedar Springs Rd APT 116F</street><zipcode>75235</zipcode><city>Dallas</city><state>TX</state><latitude>32.823565</latitude><longitude>-96.82865</longitude></address><FIPScounty>48113</FIPScounty><useCode>Condominium</useCode><taxAssessmentYear>2014</taxAssessmentYear><taxAssessment>87550.0</taxAssessment><yearBuilt>1963</yearBuilt><lotSizeSqFt>120000</lotSizeSqFt><finishedSqFt>1030</finishedSqFt><bathrooms>1.5</bathrooms><bedrooms>2</bedrooms><lastSoldDate>07/14/2010</lastSoldDate><zestimate><amount
+        currency="USD">107292</amount><last-updated>08/18/2015</last-updated><oneWeekChange
+        deprecated="true"></oneWeekChange><valueChange duration="30" currency="USD">-1345</valueChange><valuationRange><low
+        currency="USD">98709</low><high currency="USD">115875</high></valuationRange><percentile>0</percentile></zestimate><localRealEstate><region
+        name="Oak Lawn" id="274835" type="neighborhood"><zindexValue>207,700</zindexValue><links><overview>http://www.zillow.com/local-info/TX-Dallas/Oak-Lawn/r_274835/</overview><forSaleByOwner>http://www.zillow.com/oak-lawn-dallas-tx/fsbo/</forSaleByOwner><forSale>http://www.zillow.com/oak-lawn-dallas-tx/</forSale></links></region></localRealEstate></result><result><zpid>26697094</zpid><links><homedetails>http://www.zillow.com/homedetails/5045-Cedar-Springs-Rd-APT-117F-Dallas-TX-75235/26697094_zpid/</homedetails><graphsanddata>http://www.zillow.com/homedetails/5045-Cedar-Springs-Rd-APT-117F-Dallas-TX-75235/26697094_zpid/#charts-and-data</graphsanddata><mapthishome>http://www.zillow.com/homes/26697094_zpid/</mapthishome><comparables>http://www.zillow.com/homes/comps/26697094_zpid/</comparables></links><address><street>5045
+        Cedar Springs Rd APT 117F</street><zipcode>75235</zipcode><city>Dallas</city><state>TX</state><latitude>32.821182</latitude><longitude>-96.823696</longitude></address><FIPScounty>48113</FIPScounty><useCode>Condominium</useCode><taxAssessmentYear>2014</taxAssessmentYear><taxAssessment>70890.0</taxAssessment><yearBuilt>1963</yearBuilt><lotSizeSqFt>119999</lotSizeSqFt><finishedSqFt>834</finishedSqFt><bathrooms>1.0</bathrooms><bedrooms>1</bedrooms><lastSoldDate>11/02/2007</lastSoldDate><zestimate><amount
+        currency="USD">85068</amount><last-updated>08/18/2015</last-updated><oneWeekChange
+        deprecated="true"></oneWeekChange><valueChange duration="30" currency="USD">3006</valueChange><valuationRange><low
+        currency="USD">78263</low><high currency="USD">89321</high></valuationRange><percentile>0</percentile></zestimate><localRealEstate><region
+        name="Oak Lawn" id="274835" type="neighborhood"><zindexValue>207,700</zindexValue><links><overview>http://www.zillow.com/local-info/TX-Dallas/Oak-Lawn/r_274835/</overview><forSaleByOwner>http://www.zillow.com/oak-lawn-dallas-tx/fsbo/</forSaleByOwner><forSale>http://www.zillow.com/oak-lawn-dallas-tx/</forSale></links></region></localRealEstate></result><result><zpid>26697097</zpid><links><homedetails>http://www.zillow.com/homedetails/5045-Cedar-Springs-Rd-APT-216F-Dallas-TX-75235/26697097_zpid/</homedetails><graphsanddata>http://www.zillow.com/homedetails/5045-Cedar-Springs-Rd-APT-216F-Dallas-TX-75235/26697097_zpid/#charts-and-data</graphsanddata><mapthishome>http://www.zillow.com/homes/26697097_zpid/</mapthishome><comparables>http://www.zillow.com/homes/comps/26697097_zpid/</comparables></links><address><street>5045
+        Cedar Springs Rd APT 216F</street><zipcode>75235</zipcode><city>Dallas</city><state>TX</state><latitude>32.821182</latitude><longitude>-96.823696</longitude></address><FIPScounty>48113</FIPScounty><useCode>Condominium</useCode><taxAssessmentYear>2014</taxAssessmentYear><taxAssessment>87550.0</taxAssessment><yearBuilt>1963</yearBuilt><lotSizeSqFt>119999</lotSizeSqFt><finishedSqFt>1030</finishedSqFt><bathrooms>1.5</bathrooms><bedrooms>2</bedrooms><lastSoldDate>04/19/2004</lastSoldDate><zestimate><amount
+        currency="USD">104906</amount><last-updated>08/18/2015</last-updated><oneWeekChange
+        deprecated="true"></oneWeekChange><valueChange duration="30" currency="USD">498</valueChange><valuationRange><low
+        currency="USD">96514</low><high currency="USD">113298</high></valuationRange><percentile>0</percentile></zestimate><localRealEstate><region
+        name="Oak Lawn" id="274835" type="neighborhood"><zindexValue>207,700</zindexValue><links><overview>http://www.zillow.com/local-info/TX-Dallas/Oak-Lawn/r_274835/</overview><forSaleByOwner>http://www.zillow.com/oak-lawn-dallas-tx/fsbo/</forSaleByOwner><forSale>http://www.zillow.com/oak-lawn-dallas-tx/</forSale></links></region></localRealEstate></result><result><zpid>26697098</zpid><links><homedetails>http://www.zillow.com/homedetails/5045-Cedar-Springs-Rd-APT-217-Dallas-TX-75235/26697098_zpid/</homedetails><graphsanddata>http://www.zillow.com/homedetails/5045-Cedar-Springs-Rd-APT-217-Dallas-TX-75235/26697098_zpid/#charts-and-data</graphsanddata><mapthishome>http://www.zillow.com/homes/26697098_zpid/</mapthishome><comparables>http://www.zillow.com/homes/comps/26697098_zpid/</comparables></links><address><street>5045
+        Cedar Springs Rd APT 217</street><zipcode>75235</zipcode><city>Dallas</city><state>TX</state><latitude>32.821182</latitude><longitude>-96.823696</longitude></address><FIPScounty>48113</FIPScounty><useCode>Condominium</useCode><taxAssessmentYear>2014</taxAssessmentYear><taxAssessment>70890.0</taxAssessment><yearBuilt>1963</yearBuilt><lotSizeSqFt>119999</lotSizeSqFt><finishedSqFt>834</finishedSqFt><bathrooms>1.0</bathrooms><lastSoldDate>08/21/2002</lastSoldDate><zestimate><amount
+        currency="USD">83776</amount><last-updated>08/18/2015</last-updated><oneWeekChange
+        deprecated="true"></oneWeekChange><valueChange duration="30" currency="USD">1965</valueChange><valuationRange><low
+        currency="USD">77074</low><high currency="USD">88803</high></valuationRange><percentile>0</percentile></zestimate><localRealEstate><region
+        name="Oak Lawn" id="274835" type="neighborhood"><zindexValue>207,700</zindexValue><links><overview>http://www.zillow.com/local-info/TX-Dallas/Oak-Lawn/r_274835/</overview><forSaleByOwner>http://www.zillow.com/oak-lawn-dallas-tx/fsbo/</forSaleByOwner><forSale>http://www.zillow.com/oak-lawn-dallas-tx/</forSale></links></region></localRealEstate></result></results></response></SearchResults:searchresults><!--
+        H:002  T:45ms  S:3949  R:Thu Aug 20 00:22:40 PDT 2015  B:4.0.18420-release_20150812-biggs-darklighter.693369e~candidate.1b8922d
+        -->
+    http_version: 
+  recorded_at: Thu, 20 Aug 2015 07:22:40 GMT
+- request:
+    method: get
+    uri: http://www.zillow.com/webservice/mortgage/CalculateMonthlyPaymentsAdvanced.htm?price=107292&zip=75235&zws-id=X1-ZWz1aylbpp3aiz_98wrk
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 20 Aug 2015 07:22:41 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Cache-Control:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Internal-Host:
+      - '004'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '1241'
+      Set-Cookie:
+      - F5P=2770389002.0.0000; path=/
+      - JSESSIONID=CF7B9B3A2FE225952AD7450570094F22; Path=/; HttpOnly
+      - JSESSIONID=CF7B9B3A2FE225952AD7450570094F22; Path=/; HttpOnly
+      - zguid=22|%5B%2214bc7283-4b2f-4429-8503-7fb713fffdca%22%2C%22000000%22%2C%22%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%22%2C%22false%40false%40false%40false%400%400%400%400%400%400%22%2C%220%22%2C%220%22%2C%220%22%2C%2210%22%2C%220%22%2C%220%400%400%400%400%400%22%2C%22%22%5D;
+        Domain=.zillow.com; Expires=Tue, 19-Aug-2025 19:22:41 GMT; Path=/
+      Via:
+      - 1.1 www.zillow.com
+      Vary:
+      - User-Agent
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="utf-8"?><MonthlyPaymentsAdvanced:paymentsdetails
+        xsi:schemaLocation="http://www.zillow.com/static/xsd/MonthlyPaymentsAdvanced.xsd
+        http://www.zillowstatic.com/vstatic/f7a2366/static/xsd/MonthlyPaymentsAdvanced.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MonthlyPaymentsAdvanced="http://www.zillow.com/static/xsd/MonthlyPaymentsAdvanced.xsd"><request><price>107292</price><schedule>none</schedule><terminmonths>360</terminmonths><zip>75235</zip><output>xml</output></request><message><text>Request
+        successfully processed</text><code>0</code></message><response><monthlyprincipalandinterest>398</monthlyprincipalandinterest><monthlypropertytaxes>219</monthlypropertytaxes><monthlyhazardinsurance>110</monthlyhazardinsurance><monthlypmi>31</monthlypmi><monthlyhoadues>0</monthlyhoadues><totalmonthlypayment>758</totalmonthlypayment><totalpayments>273051</totalpayments><totalinterest>57428</totalinterest><totalprincipal>85834</totalprincipal><totaltaxesfeesandinsurance>129790</totaltaxesfeesandinsurance></response></MonthlyPaymentsAdvanced:paymentsdetails><!--
+        H:004  T:34ms  S:622  R:Thu Aug 20 00:22:41 PDT 2015  B:4.0.18420-release_20150812-biggs-darklighter.693369e~candidate.1b8922d
+        -->
+    http_version: 
+  recorded_at: Thu, 20 Aug 2015 07:22:41 GMT
+recorded_with: VCR 2.9.3

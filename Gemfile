@@ -108,6 +108,9 @@ gem 'newrelic_rpm'
 
 gem 'asposecloud'
 
+# to crawl data from Zillow
+gem 'poltergeist'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
@@ -165,6 +168,8 @@ group :test do
   gem 'selenium-webdriver'
   gem 'guard-rspec'
   gem 'timecop'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do

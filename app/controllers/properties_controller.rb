@@ -1,6 +1,7 @@
 class PropertiesController < ApplicationController
   def search
-    response = Zillow.search_property(params[:address], params[:citystatezip])
+    # response = Zillow.search_property(params[:address], params[:citystatezip])
+    response = ZillowService::GetPropertyInfo.call(params[:address], params[:citystatezip])
     if response
       render json: response
     else
