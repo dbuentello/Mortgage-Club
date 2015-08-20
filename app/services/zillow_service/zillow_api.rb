@@ -1,4 +1,4 @@
-module ZillowService::Zillow
+module ZillowService::ZillowApi
   USE_CODE = {
     'Unknown'         => nil,
     'SingleFamily'    => :sfh,

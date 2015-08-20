@@ -1,7 +1,7 @@
 module ZillowService
   class GetPropertyInfo
     include HTTParty
-    include ZillowService::Zillow
+    include ZillowService::ZillowApi
 
     def self.call(address, citystatezip)
       property_data = get_property_data(address, citystatezip)
@@ -42,6 +42,7 @@ module ZillowService
 
     def self.parse_payments(monthly_payments, property)
       return if monthly_payments.nil?
+      return if monthly_payments['paymentsdetails']['response'].nil?
 
       property.merge({
         :monthlyTax => monthly_payments['paymentsdetails']['response']['monthlypropertytaxes'],

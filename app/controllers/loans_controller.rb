@@ -38,6 +38,7 @@ class LoansController < ApplicationController
     end
 
     if @loan.reload.update(loan_params)
+      ZillowService::UpdatePropertyTax.delay.call(@loan.property.id)
       render json: {loan: @loan.reload.as_json(loan_json_options)}
     else
       render json: {error: @loan.errors.full_messages}, status: 500

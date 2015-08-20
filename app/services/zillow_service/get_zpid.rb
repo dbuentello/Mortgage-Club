@@ -1,7 +1,7 @@
 module ZillowService
   class GetZpid
     include HTTParty
-    include ZillowService::Zillow
+    include ZillowService::ZillowApi
 
     def self.call(address, citystatezip)
       params = {
@@ -12,7 +12,7 @@ module ZillowService
       response = get('http://www.zillow.com/webservice/GetDeepSearchResults.htm', query: params)
 
       if (response['searchresults'] && response['searchresults']['response'])
-        return response['searchresults']['response']['results']['result']['zpid']
+        return response['searchresults']['response']['results']['result'][0]['zpid']
       end
     end
   end
