@@ -170,7 +170,6 @@ group :test do
   gem 'timecop'
   gem 'vcr'
   gem 'webmock'
-  gem 'puffing-billy'
 end
 
 group :production do
