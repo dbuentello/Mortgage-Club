@@ -54,7 +54,7 @@ module Docusign
       # Get the corresponding document to send over with the achieved signers
       if options[:document]
         # options[:document] ||= Documents::FirstW2.first
-        file_url = Amazon::GetUrlService.new(options[:document].attachment.s3_object, 3.minutes).call
+        file_url = Amazon::GetUrlService.call(options[:document].attachment, 3.minutes)
         file_io = open(file_url)
         file = {io: file_io, name: options[:document].attachment.instance.attachment_file_name}
       else

@@ -27,7 +27,7 @@ class BorrowerDocumentUploaderController < ApplicationController
     return render json: {message: 'Invalid document type'}, status: 500 unless params[:type].present?
 
     document = params[:type].constantize.find(params[:id])
-    url = Amazon::GetUrlService.new(document.attachment.s3_object).call
+    url = Amazon::GetUrlService.call(document.attachment)
     redirect_to url
   end
 

@@ -3,7 +3,7 @@ class PropertyDocumentUploaderController < ApplicationController
   def download
     return render json: {message: 'Invalid document type'} unless params[:type].present? && params[:id].present?
     document = params[:type].constantize.find(params[:id])
-    url = Amazon::GetUrlService.new(document.attachment.s3_object).call
+    url = Amazon::GetUrlService.call(document.attachment)
     redirect_to url
   end
 

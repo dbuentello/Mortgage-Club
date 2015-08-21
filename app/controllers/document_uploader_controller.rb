@@ -4,7 +4,7 @@ class DocumentUploaderController < ApplicationController
     return unless params[:type].present? && params[:id].present?
     document = params[:type].constantize.find(params[:id])
 
-    url = Amazon::GetUrlService.new(document.attachment.s3_object).call
+    url = Amazon::GetUrlService.call(document.attachment)
     redirect_to url
   end
 end
