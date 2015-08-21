@@ -10,75 +10,63 @@ var { Route, RouteHandler, Link } = Router;
 var checkboxFields = {
   outstandingJudgment: {
     label: 'Are there any outstanding judgments against you?',
-    name: 'outstanding_judgment',
-    fieldName: 'outstanding_judgment'
+    name: 'outstanding_judgment'
   },
   bankrupt: {
     label: 'Have you been declared bankrupt in the past 7 years?',
-    name: 'bankrupt',
-    fieldName: 'bankrupt'
+    name: 'bankrupt'
   },
   propertyForeclosed: {
     label: 'Have you had property foreclosed upon or given title or deed in lieu thereof in the last 7 years?',
-    name: 'property_foreclosed',
-    fieldName: 'property_foreclosed'
+    name: 'property_foreclosed'
   },
   partyToLawsuit: {
     label: 'Are you a party to a lawsuit?',
-    name: 'party_to_lawsuit',
-    fieldName: 'party_to_lawsuit'
+    name: 'party_to_lawsuit'
   },
   loanForeclosure: {
     label: 'Have you been obligated on any loan resulted in foreclosure, transfer of title in lieu of foreclosure, or judgment?',
-    name: 'loan_foreclosure',
-    fieldName: 'loan_foreclosure'
+    name: 'loan_foreclosure'
   },
   presentDeliquentLoan: {
     label: 'Are you presently delinquent or in default on any Federal debt or any other loan, mortgage, financial, obligation, bond or loan guarantee?',
-    name: 'present_deliquent_loan',
-    fieldName: 'present_deliquent_loan'
+    name: 'present_deliquent_loan'
   },
   childSupport: {
     label: 'Are you obligated to pay alimony, child support, or separate maintenance?',
-    name: 'child_support',
-    fieldName: 'child_support'
+    name: 'child_support'
   },
   downPaymentBorrowed: {
     label: 'Is any part of the down payment borrowed?',
-    name: 'down_payment_borrowed',
-    fieldName: 'down_payment_borrowed'
+    name: 'down_payment_borrowed'
   },
   coMakerOrEndorser: {
     label: 'Are you a co-maker or endorser on a note?',
-    name: 'co_maker_or_endorser',
-    fieldName: 'co_maker_or_endorser'
+    name: 'co_maker_or_endorser'
   },
   usCitizen: {
     label: 'Are you a U.S citizen?',
-    name: 'us_citizen',
-    fieldName: 'us_citizen'
+    name: 'us_citizen'
   },
   permanentResidentAlien: {
     label: 'Are you a permanent resident alien?',
-    name: 'permanent_resident_alien',
-    fieldName: 'permanent_resident_alien'
+    name: 'permanent_resident_alien'
   },
   ownershipInterest: {
     label: 'Have you had an ownership interest in a property in the last three years?',
-    name: 'ownership_interest',
-    fieldName: 'ownership_interest'
+    name: 'ownership_interest'
   }
 };
 
-var select_box_fields = {
-  typeOfProperty: {label: '(1) What type of property did you own?', name: 'type_of_property', fieldName: 'type_of_property'},
-  titleOfProperty: {label: '(2) How did you hold title to this property?', name: 'title_of_property', fieldName: 'title_of_property'}
+var selectBoxFields = {
+  typeOfProperty: {label: '(1) What type of property did you own?', name: 'type_of_property'},
+  titleOfProperty: {label: '(2) How did you hold title to this property?', name: 'title_of_property'}
 }
 
 var propertyOptions = [
-  {name: 'Primary Residence', value: 1},
-  {name: 'Secondary Resident', value: 2},
-  {name: 'Investment Property', value: 2}
+  {name: 'Primary Residence', value: 'primary_residence'},
+  {name: 'Secondary Resident', value: 'secondary_residence'},
+  {name: 'Investment Property', value: 'investment_property'}
 ];
 
 var titlePropertyOptions = [
@@ -90,16 +78,26 @@ var titlePropertyOptions = [
 var FormDeclarations = React.createClass({
   getInitialState: function() {
     var currentUser = this.props.bootstrapData.currentUser;
-    var state = {};
+    var state = this.buildStateFromLoan(this.props.loan);
 
     _.each(checkboxFields, function (field) {
-      state[field.name] = null;
+      state[field.name] = state[field.name] === null ? null : state[field.name];
       state[field.name + '_display'] = true;
     });
-    state['display_sub_question'] = 'none';
+
+    _.each(selectBoxFields, function (field) {
+      state[field.name] = state[field.name] === null ? null : state[field.name];
+    });
+
+    if(state['ownership_interest'] == true) {
+      state['display_sub_question'] = true;
+    }else {
+      state['display_sub_question'] = 'none';
+    }
 
     return state;
   },
+
   onChange: function(change) {
     var key = Object.keys(change)[0];
     var value = change[key];
@@ -120,6 +118,55 @@ var FormDeclarations = React.createClass({
     }
     this.setState(change);
   },
+
+  save: function() {
+    this.setState({saving: true});
+    this.props.saveLoan(this.buildLoanFromState(), 5);
+  },
+
+  buildStateFromLoan: function(loan) {
+    var declaration = loan.borrower.declaration;
+    var state = {};
+    if (declaration) {
+      _.each(Object.keys(checkboxFields), function(key) {
+        state[checkboxFields[key].name] = declaration[checkboxFields[key].name];
+      });
+      _.each(Object.keys(selectBoxFields), function(key) {
+        state[selectBoxFields[key].name] = declaration[selectBoxFields[key].name];
+      });
+    }
+
+    return state;
+  },
+
+  buildLoanFromState: function() {
+    var loan = {};
+
+    // For borrower data
+    loan.borrower_attributes = {id: this.props.loan.borrower.id};
+
+    var declaration_attributes = {};
+    _.each(checkboxFields, function (field) {
+      declaration_attributes[field.name] = this.state[field.name];
+    }, this);
+
+    if(this.state.ownership_interest == false) {
+      this.state.type_of_property = null;
+      this.state.title_of_property = null;
+    }
+
+    _.each(selectBoxFields, function (field) {
+      declaration_attributes[field.name] = this.state[field.name];
+    }, this);
+
+    if (this.props.loan.borrower.declaration) {
+      declaration_attributes.id = this.props.loan.borrower.declaration.id;
+    }
+
+    loan.borrower_attributes.declaration_attributes = declaration_attributes;
+    return loan;
+  },
+
   render: function() {
     return (
       <div>
@@ -140,25 +187,27 @@ var FormDeclarations = React.createClass({
                   )
                 },this)
               }
-              <div className='selectBox' style={{display: this.state.display_sub_question}}>
+              <div className='selectBox col-xs-6' style={{display: this.state.display_sub_question}}>
                 <SelectField
-                  label={select_box_fields.typeOfProperty.label}
-                  keyName={select_box_fields.typeOfProperty.name}
-                  value={this.state[select_box_fields.typeOfProperty.name]}
+                  label={selectBoxFields.typeOfProperty.label}
+                  keyName={selectBoxFields.typeOfProperty.name}
+                  value={this.state[selectBoxFields.typeOfProperty.name]}
                   options={propertyOptions}
                   editable={true}
                   onChange={this.onChange}/>
                 <SelectField
-                  label={select_box_fields.titleOfProperty.label}
-                  keyName={select_box_fields.titleOfProperty.name}
-                  value={this.state[select_box_fields.titleOfProperty.name]}
+                  label={selectBoxFields.titleOfProperty.label}
+                  keyName={selectBoxFields.titleOfProperty.name}
+                  value={this.state[selectBoxFields.titleOfProperty.name]}
                   options={titlePropertyOptions}
                   editable={true}
                   onChange={this.onChange}/>
               </div>
             </div>
             <div className='box text-right'>
-              <Link to='rates' className='btn btnSml btnPrimary'>Next</Link>
+              <a className='btn btnSml btnPrimary' onClick={this.save} disabled={this.state.saving}>
+                { this.state.saving ? 'Saving' : 'Save and Continue' }<i className='icon iconRight mls'/>
+              </a>
             </div>
           </div>
         </div>
