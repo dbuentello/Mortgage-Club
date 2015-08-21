@@ -5,7 +5,6 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
-var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 var Dropzone = require('components/form/Dropzone');
 

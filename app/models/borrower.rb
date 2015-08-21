@@ -35,13 +35,15 @@ class Borrower < ActiveRecord::Base
   has_one  :first_w2, inverse_of: :borrower, dependent: :destroy
   has_one  :second_w2, inverse_of: :borrower, dependent: :destroy
   has_many :other_borrower_reports, inverse_of: :borrower, dependent: :destroy
-
   has_many :borrower_documents, dependent: :destroy
+
+  has_one  :declaration
 
   accepts_nested_attributes_for :borrower_addresses, allow_destroy: true
   accepts_nested_attributes_for :employments, allow_destroy: true
   accepts_nested_attributes_for :borrower_government_monitoring_info, allow_destroy: true
   accepts_nested_attributes_for :credit_report, allow_destroy: true
+  accepts_nested_attributes_for :declaration, allow_destroy: true
 
   delegate :first_name, :first_name=, to: :user, allow_nil: true
   delegate :last_name, :last_name=, to: :user, allow_nil: true
@@ -67,7 +69,8 @@ class Borrower < ActiveRecord::Base
     borrower_addresses_attributes:                  [:id] + BorrowerAddress::PERMITTED_ATTRS,
     employments_attributes:                         [:id] + Employment::PERMITTED_ATTRS,
     borrower_government_monitoring_info_attributes: [:id] + BorrowerGovernmentMonitoringInfo::PERMITTED_ATTRS,
-    credit_report_attributes:                       [:id] + CreditReport::PERMITTED_ATTRS
+    credit_report_attributes:                       [:id] + CreditReport::PERMITTED_ATTRS,
+    declaration_attributes:                         [:id] + Declaration::PERMITTED_ATTRS
   ]
 
   enum marital_status: {
