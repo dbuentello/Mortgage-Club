@@ -3,12 +3,20 @@ class LoanPresenter
     @loan = loan
   end
 
-  def edit_loan
+  def edit
     @loan.as_json(edit_loan_json_options)
   end
 
-  def show_loan
+  def show
     @loan.as_json(show_loan_json_options)
+  end
+
+  def show_loan_activities
+    @loan.as_json(show_loan_activities_json_options)
+  end
+
+  def show_documents
+    @loan.loan_documents.includes(:owner).as_json(loan_documents_json_options)
   end
 
   private
@@ -46,6 +54,26 @@ class LoanPresenter
     }
   end
 
+  def show_loan_activities_json_options
+    {
+      include: {
+        borrower: {
+          include: [
+            :first_bank_statement, :second_bank_statement,
+            :first_paystub, :second_paystub,
+            :first_w2, :second_w2
+          ]
+        },
+        user: {
+          only: [ :email ],
+          methods: [ :to_s ]
+        },
+        hud_estimate: {}, hud_final: {}, other_loan_reports: {},
+        loan_estimate: {}, uniform_residential_lending_application: {}
+      }
+    }
+  end
+
   def show_loan_json_options
     {
       only: [ :id, :amount, :created_at, :interest_rate ],
@@ -64,6 +92,12 @@ class LoanPresenter
       methods: [
         :num_of_years, :ltv_formula, :purpose_titleize
       ]
+    }
+  end
+
+  def loan_documents_json_options
+    {
+      methods: [ :file_icon_url, :class_name, :owner_name ]
     }
   end
 

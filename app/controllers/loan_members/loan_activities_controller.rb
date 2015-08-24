@@ -2,9 +2,9 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
   before_action :set_loan, only: [:show, :update, :destroy]
 
   def index
-    @loans ||= Loan.preload(:user)
+    loans ||= Loan.preload(:user)
 
-    bootstrap(loans: @loans.as_json(loan_list_json_options))
+    bootstrap(loans: LoansPresenter.new(loans).show)
 
     respond_to do |format|
       format.html { render template: 'loan_member_app' }
@@ -18,11 +18,11 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
     @loan.closing ||= Closing.create(name: 'Closing', loan_id: @loan.id)
 
     bootstrap(
-      loan: @loan.as_json(loan_json_options),
+      loan: LoanPresenter.new(@loan).show_loan_activities,
       first_activity: first_activity(@loan),
       loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : [],
-      property: @loan.property.as_json(property_json_options),
-      closing: @loan.closing.as_json(closing_json_options)
+      property: PropertyPresenter.new(@loan).show,
+      closing: ClosingPresenter.new(@loan.closing).show
     )
 
     respond_to do |format|
@@ -78,52 +78,6 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
     LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: loan.id).order(created_at: :desc).limit(1).first || {activity_status: -1}
   end
 
-  def loan_list_json_options
-    {
-      include: {
-        user: {
-          only: [ :email ],
-          methods: [ :to_s ]
-        }
-      }
-    }
-  end
 
-  def loan_json_options
-    {
-      include: {
-        borrower: {
-          include: [
-            :first_bank_statement, :second_bank_statement,
-            :first_paystub, :second_paystub,
-            :first_w2, :second_w2
-          ]
-        },
-        user: {
-          only: [ :email ],
-          methods: [ :to_s ]
-        },
-        hud_estimate: {}, hud_final: {}, other_loan_reports: {},
-        loan_estimate: {}, uniform_residential_lending_application: {}
-      }
-    }
-  end
 
-  def property_json_options
-    {
-      include: [
-        :appraisal_report, :flood_zone_certification, :homeowners_insurance,
-        :inspection_report, :lease_agreement, :mortgage_statement,
-        :purchase_agreement, :risk_report, :termite_report, :title_report
-      ]
-    }
-  end
-
-  def closing_json_options
-    {
-      include: [
-        :closing_disclosure, :deed_of_trust, :loan_doc, :other_closing_reports
-      ]
-    }
-  end
 end

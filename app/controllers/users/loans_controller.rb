@@ -2,7 +2,6 @@ class Users::LoansController < Users::BaseController
   before_action :set_loan, only: [:dashboard, :edit, :update, :destroy]
 
   def create
-    # WILLDO: solve n+1 query problem
     @loan = Loan.initiate(current_user)
 
     if @loan.save
@@ -15,7 +14,7 @@ class Users::LoansController < Users::BaseController
 
   def edit
     bootstrap({
-      currentLoan: LoanPresenter.new(@loan).edit_loan,
+      currentLoan: LoanPresenter.new(@loan).edit,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower"
     })
 
@@ -38,7 +37,7 @@ class Users::LoansController < Users::BaseController
       loan = @loan.reload
       ZillowService::UpdatePropertyTax.delay.call(loan.property.id)
 
-      render json: {loan: LoanPresenter.new(loan).edit_loan}
+      render json: {loan: LoanPresenter.new(loan).edit}
     else
       render json: {error: @loan.errors.full_messages}, status: 500
     end
@@ -65,7 +64,7 @@ class Users::LoansController < Users::BaseController
         user = User.where(email: params[:email]).first
         borrower = user.borrower
 
-        render json: {secondary_borrower: borrower.as_json(borrower_json_options)}, status: :ok
+        render json: {secondary_borrower: BorrowerPresenter.new(borrower).show}, status: :ok
       else
         render json: {message: 'Invalid email or date of birth or social security number'}, status: :ok
       end
@@ -75,10 +74,8 @@ class Users::LoansController < Users::BaseController
   end
 
   def index
-    loans = current_user.loans.includes(property: :address)
-
     bootstrap(
-      loans: LoanPresenter.new(loans).show_loan
+      loans: LoansPresenter.new(current_user.loans).show
     )
 
     respond_to do |format|
@@ -87,21 +84,23 @@ class Users::LoansController < Users::BaseController
   end
 
   def dashboard
+    borrower = current_user.borrower
+
     loan = @loan
     property = loan.property
-    borrower = current_user.borrower
     closing = loan.closing || Closing.create(name: 'Closing', loan_id: loan.id)
     loan_activities = loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10)
 
+    loan_presenter = LoanPresenter.new(loan)
     bootstrap(
       address: property.address.try(:address),
-      loan: LoanPresenter.new(loan).show_loan,
-      borrower_list: borrower.as_json(borrower_list_json_options),
+      loan: loan_presenter.show,
+      borrower_list: BorrowerPresenter.new(borrower).show_documents,
       contact_list: contact_list_json_options,
-      property_list: property.as_json(property_list_json_options),
-      loan_list: loan.as_json(loan_list_json_options),
-      loan_activities: loan_activities.as_json,
-      closing_list: closing.as_json(closing_list_json_options)
+      property_list: PropertyPresenter.new(property).show_documents,
+      loan_list: loan_presenter.show_documents,
+      loan_activities: loan_activities,
+      closing_list: ClosingPresenter.new(closing).show_documents
     )
 
     respond_to do |format|
@@ -128,52 +127,6 @@ class Users::LoansController < Users::BaseController
     params.permit([:email, :dob, :ssn])
   end
 
-  def borrower_json_options
-    {
-      include: [
-        user: {
-          only: [ :email ]
-        }
-      ],
-      methods: [
-        :current_address, :previous_addresses, :current_employment, :previous_employments,
-        :first_name, :last_name, :middle_name, :suffix
-      ]
-    }
-  end
-
-
-
-  def loan_list_json_options
-    {
-      include: {
-        loan_documents: {
-          methods: [ :file_icon_url, :class_name, :owner_name ]
-        }
-      }
-    }
-  end
-
-  def borrower_list_json_options
-    {
-      include: {
-        borrower_documents: {
-          methods: [ :file_icon_url, :class_name, :owner_name ]
-        }
-      }
-    }
-  end
-
-  def property_list_json_options
-    {
-      include: {
-        property_documents: {
-          methods: [ :file_icon_url, :class_name, :owner_name ]
-        }
-      }
-    }
-  end
-
   def contact_list_json_options
     [
       {
@@ -198,16 +151,6 @@ class Users::LoansController < Users::BaseController
         avatar_url: 'https://goo.gl/IpbO1e'
       }
     ]
-  end
-
-  def closing_list_json_options
-    {
-      include: {
-        closing_documents: {
-          methods: [ :file_icon_url, :class_name ]
-        }
-      }
-    }
   end
 
 end
