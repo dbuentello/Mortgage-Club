@@ -63,11 +63,6 @@ class BorrowerDocument < ActiveRecord::Base
     Amazon::GetUrlService.call(attachment)
   end
 
-  def other_report?
-    return true if type =~ /^Other/
-    false
-  end
-
   private
 
   def set_private_token

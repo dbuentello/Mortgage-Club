@@ -32,4 +32,9 @@ module Documentation
     return unless description.blank?
     self.description = type.constantize::DESCRIPTION
   end
+
+  def other_report?
+    return true if type =~ /^Other/
+    false
+  end
 end
