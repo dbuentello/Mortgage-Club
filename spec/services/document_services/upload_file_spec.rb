@@ -21,8 +21,8 @@ describe DocumentServices::UploadFile do
       )
     end
 
-    it 'returns true after completing service' do
-      expect(service.call).to be true
+    it 'returns a document after completing service' do
+      expect(service.call).to be_a(ClosingDisclosure)
     end
 
     describe "uploads a new document" do
