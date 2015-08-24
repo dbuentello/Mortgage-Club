@@ -14,10 +14,8 @@ class Users::LoansController < Users::BaseController
   end
 
   def edit
-    loan = @loan
-
     bootstrap({
-      currentLoan: @loan.as_json(edit_loan_json_options),
+      currentLoan: LoanPresenter.new(@loan).edit_loan,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower"
     })
 
@@ -38,8 +36,8 @@ class Users::LoansController < Users::BaseController
       end
     end
 
-    if @loan.reload.update(loan_params)
-      render json: {loan: @loan.reload.as_json(edit_loan_json_options)}
+    if @loan = @loan.update(loan_params)
+      render json: {loan: LoanPresenter.new(@loan).edit_loan}
     else
       render json: {error: @loan.errors.full_messages}, status: 500
     end
@@ -76,8 +74,10 @@ class Users::LoansController < Users::BaseController
   end
 
   def index
+    loans = current_user.loans.includes(property: :address)
+
     bootstrap(
-      loans: current_user.loans.includes(property: :address).as_json(loan_json_options)
+      loans: LoanPresenter.new(loans).show_loan
     )
 
     respond_to do |format|
@@ -94,7 +94,7 @@ class Users::LoansController < Users::BaseController
 
     bootstrap(
       address: property.address.try(:address),
-      loan: loan.as_json(loan_json_options),
+      loan: LoanPresenter.new(loan).show_loan,
       borrower_list: borrower.as_json(borrower_list_json_options),
       contact_list: contact_list_json_options,
       property_list: property.as_json(property_list_json_options),
@@ -127,39 +127,6 @@ class Users::LoansController < Users::BaseController
     params.permit([:email, :dob, :ssn])
   end
 
-  def edit_loan_json_options
-    {
-      include: {
-        property: {
-          include: :address
-        },
-        borrower: {
-          include: [
-            :first_bank_statement, :second_bank_statement,
-            :first_paystub, :second_paystub,
-            :first_w2, :second_w2, user: {
-              only: [ :email ]
-            }
-          ],
-          methods: [
-            :current_address, :previous_addresses, :current_employment, :previous_employments,
-            :first_name, :last_name, :middle_name, :suffix
-          ]
-        },
-        secondary_borrower: {
-          include: [
-            user: {
-              only: [ :email ]
-            }
-          ]
-        }
-      },
-      methods: [
-        :property_completed, :borrower_completed, :income_completed
-      ]
-    }
-  end
-
   def borrower_json_options
     {
       include: [
@@ -174,26 +141,7 @@ class Users::LoansController < Users::BaseController
     }
   end
 
-  def loan_json_options
-    {
-      only: [ :id, :amount, :created_at, :interest_rate ],
-      include: {
-        property: {
-          only: [],
-          include: {
-            address: {
-              only: [],
-              methods: :address
-            }
-          },
-          methods: :usage_name
-        }
-      },
-      methods: [
-        :num_of_years, :ltv_formula, :purpose_titleize
-      ]
-    }
-  end
+
 
   def loan_list_json_options
     {
