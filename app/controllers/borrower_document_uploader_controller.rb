@@ -1,54 +1,51 @@
 class BorrowerDocumentUploaderController < ApplicationController
+  def download
+    return render json: {message: 'File not found'}, status: 500 if params[:id].blank?
+    return render json: {message: 'Invalid document type'}, status: 500 unless params[:type].present?
+
+    url = DocumentServices::DownloadFile.call(params[:type], params[:id])
+    redirect_to url
+  end
+
   def upload
     return render json: {message: 'File not found'}, status: 500 if params[:file].blank?
     return render json: {message: 'Invalid document type'}, status: 500 unless params[:type].present?
     return render json: {message: 'Borrower not found'}, status: 500 if params[:borrower_id].blank?
 
-    document_klass = params[:type].constantize
-    document = document_klass.where(borrower_id: params[:borrower_id]).last
-    borrower = Borrower.find(params[:borrower_id])
+    args = {
+      subject_class_name: 'Borrower',
+      document_klass_name: params[:type],
+      foreign_key_name: 'borrower_id',
+      foreign_key_id: params[:borrower_id],
+      current_user: current_user,
+      params: params
+    }
 
-    if document.present? && params[:type]!= 'OtherBorrowerReport'
-      document.update(attachment: params[:file])
-    else
-      document = document_klass.new(attachment: params[:file], borrower_id: borrower.id, description: params[:description])
-      document.owner = current_user
-      document.save
-    end
-
-    download_url = get_download_url(document)
-    remove_url = get_remove_url(document, borrower)
-    render json: {message: "Uploaded sucessfully", download_url: download_url, remove_url: remove_url}, status: 200
-  end
-
-  def download
-    return render json: {message: 'File not found'}, status: 500 if params[:id].blank?
-    return render json: {message: 'Invalid document type'}, status: 500 unless params[:type].present?
-
-    document = params[:type].constantize.find(params[:id])
-    url = Amazon::GetUrlService.call(document.attachment)
-    redirect_to url
+    document = DocumentServices::UploadFile.new(args).call
+    render json: {
+      message: 'Uploaded sucessfully',
+      download_url: get_download_url(document),
+      remove_url: get_remove_url(document)
+    }, status: 200
   end
 
   def remove
-    return render json: {message: 'Invalid document type'} unless params[:type].present? && params[:borrower_id].present?
-    document_klass = params[:type].constantize
-    document = document_klass.where(borrower_id: params[:borrower_id]).last
-    document.destroy
-    render json: {message: "Removed it sucessfully"}, status: 200
+    return render json: {message: 'Invalid document type'} unless params[:type].present? && params[:id].present?
+
+    if DocumentServices::RemoveFile.call(params[:type], params[:id])
+      return render json: {message: 'Removed it sucessfully'}, status: 200
+    else
+      return render json: {messaage: 'Remove file failed'}, status: 500
+    end
   end
 
   private
-
-  def borrower_document_uploader_params
-    params.permit(:file, :order)
-  end
 
   def get_download_url(document)
     download_borrower_document_uploader_url(document) + '?type=' + document.class_name
   end
 
-  def get_remove_url(document, borrower)
-    remove_borrower_document_uploader_index_url + '?type=' + document.class_name + '&borrower_id=' + borrower.id.to_s
+  def get_remove_url(document)
+    remove_borrower_document_uploader_url(document) + '?type=' + document.class_name
   end
 end

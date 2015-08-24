@@ -1,11 +1,9 @@
 class LoanDocumentUploaderController < ApplicationController
-  # TODO: refactor with other document uploaders
   def download
     return render json: {message: 'File not found'}, status: 500 if params[:id].blank?
     return render json: {message: 'Invalid document type'}, status: 500 unless params[:type].present?
 
-    document = params[:type].constantize.find(params[:id])
-    url = Amazon::GetUrlService.call(document.attachment)
+    url = DocumentServices::DownloadFile.call(params[:type], params[:id])
     redirect_to url
   end
 
@@ -14,29 +12,31 @@ class LoanDocumentUploaderController < ApplicationController
     return render json: {message: 'Invalid document type'}, status: 500 unless params[:type].present?
     return render json: {message: 'Loan not found'}, status: 500 if params[:loan_id].blank?
 
-    document_klass = params[:type].constantize
-    document = document_klass.where(loan_id: params[:loan_id]).last
-    loan = Loan.find(params[:loan_id])
+    args = {
+      subject_class_name: 'Loan',
+      document_klass_name: params[:type],
+      foreign_key_name: 'loan_id',
+      foreign_key_id: params[:loan_id],
+      current_user: current_user,
+      params: params
+    }
+    document = DocumentServices::UploadFile.new(args).call
 
-    if document.present? && params[:type]!= 'OtherLoanReport'
-      document.update(attachment: params[:file])
-    else
-      document = document_klass.new(attachment: params[:file], loan: loan, description: params[:description])
-      document.owner = current_user
-      document.save
-    end
-
-    download_url = get_download_url(document)
-    remove_url = get_remove_url(document, loan)
-    render json: {message: "Uploaded sucessfully", download_url: download_url, remove_url: remove_url}, status: 200
+    render json: {
+      message: 'Uploaded sucessfully',
+      download_url: get_download_url(document),
+      remove_url: get_remove_url(document)
+    }, status: 200
   end
 
   def remove
-    return render json: {message: 'Invalid document type'} unless params[:type].present? && params[:loan_id].present?
-    document_klass = params[:type].constantize
-    document = document_klass.where(loan_id: params[:loan_id]).last
-    document.destroy
-    render json: {message: "Removed it sucessfully"}, status: 200
+    return render json: {message: 'Invalid document type'} unless params[:type].present? && params[:id].present?
+
+    if DocumentServices::RemoveFile.call(params[:type], params[:id])
+      return render json: {message: 'Removed it sucessfully'}, status: 200
+    else
+      return render json: {messaage: 'Remove file failed'}, status: 500
+    end
   end
 
   private
@@ -45,7 +45,7 @@ class LoanDocumentUploaderController < ApplicationController
     download_loan_document_uploader_url(document) + '?type=' + document.class_name
   end
 
-  def get_remove_url(document, loan)
-    remove_loan_document_uploader_index_url + '?type=' + document.class_name + '&loan_id=' + loan.id.to_s
+  def get_remove_url(document)
+    remove_loan_document_uploader_url(document) + '?type=' + document.class_name
   end
 end
