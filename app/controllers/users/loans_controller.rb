@@ -65,7 +65,7 @@ class Users::LoansController < Users::BaseController
         user = User.where(email: params[:email]).first
         borrower = user.borrower
 
-        render json: {secondary_borrower: borrower.as_json(borrower_json_options)}, status: :ok
+        render json: {secondary_borrower: BorrowerPresenter.new(borrower).show_borrower}, status: :ok
       else
         render json: {message: 'Invalid email or date of birth or social security number'}, status: :ok
       end
@@ -96,7 +96,7 @@ class Users::LoansController < Users::BaseController
     bootstrap(
       address: property.address.try(:address),
       loan: LoanPresenter.new(loan).show_loan,
-      borrower_list: borrower.as_json(borrower_list_json_options),
+      borrower_list: BorrowerPresenter.new(borrower).show_documents,
       contact_list: contact_list_json_options,
       property_list: property.as_json(property_list_json_options),
       loan_list: loan.as_json(loan_list_json_options),
@@ -128,36 +128,10 @@ class Users::LoansController < Users::BaseController
     params.permit([:email, :dob, :ssn])
   end
 
-  def borrower_json_options
-    {
-      include: [
-        user: {
-          only: [ :email ]
-        }
-      ],
-      methods: [
-        :current_address, :previous_addresses, :current_employment, :previous_employments,
-        :first_name, :last_name, :middle_name, :suffix
-      ]
-    }
-  end
-
-
-
   def loan_list_json_options
     {
       include: {
         loan_documents: {
-          methods: [ :file_icon_url, :class_name, :owner_name ]
-        }
-      }
-    }
-  end
-
-  def borrower_list_json_options
-    {
-      include: {
-        borrower_documents: {
           methods: [ :file_icon_url, :class_name, :owner_name ]
         }
       }
