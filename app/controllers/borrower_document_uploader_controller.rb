@@ -1,4 +1,3 @@
-# rubocop:disable ClassLength
 class BorrowerDocumentUploaderController < ApplicationController
   def upload
     return render json: {message: 'File not found'}, status: 500 if params[:file].blank?
