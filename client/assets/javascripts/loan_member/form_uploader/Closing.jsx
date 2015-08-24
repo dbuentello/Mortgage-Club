@@ -58,8 +58,8 @@ var Closing = React.createClass({
         state[fields[key].id] = this.props.closing[key].id;
         state[fields[key].name + '_downloadUrl'] = '/closing_document_uploader/' + this.props.closing[key].id +
                                          '/download?type=' + fields[key].type;
-        state[fields[key].name + '_removedUrl'] = '/closing_document_uploader/remove?type=' +
-                                         fields[key].type + '&closing_id=' + this.props.closing.id;
+        state[fields[key].name + '_removedUrl'] = '/closing_document_uploader/' + this.props.closing[key].id +
+                                         '/remove?type=' + fields[key].type;
       }else {
         state[fields[key].name] = fields[key].placeholder;
         state[fields[key].name + '_downloadUrl'] = 'javascript:void(0)';

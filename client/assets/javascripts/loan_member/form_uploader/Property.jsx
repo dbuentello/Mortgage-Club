@@ -66,8 +66,8 @@ var Property = React.createClass({
         state[fields[key].id] = this.props.property[key].id;
         state[fields[key].name + '_downloadUrl'] = '/property_document_uploader/' + this.props.property[key].id +
                                          '/download?type=' + fields[key].type;
-        state[fields[key].name + '_removedUrl'] = '/property_document_uploader/remove?type=' +
-                                         fields[key].type + '&property_id=' + this.props.property.id;
+        state[fields[key].name + '_removedUrl'] = '/property_document_uploader/' + this.props.property[key].id +
+                                          '/remove?type=' + fields[key].type;
       }else {
         state[fields[key].name] = fields[key].placeholder;
         state[fields[key].name + '_downloadUrl'] = 'javascript:void(0)';

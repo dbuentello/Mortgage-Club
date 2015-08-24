@@ -60,8 +60,8 @@ var Borrower = React.createClass({
         state[fields[key].id] = this.props.borrower[key].id;
         state[fields[key].name + '_downloadUrl'] = '/borrower_document_uploader/' + this.props.borrower[key].id +
                                          '/download?type=' + fields[key].type;
-        state[fields[key].name + '_removedUrl'] = '/borrower_document_uploader/remove?type=' +
-                                         fields[key].type + '&borrower_id=' + this.props.borrower.id;
+        state[fields[key].name + '_removedUrl'] = '/borrower_document_uploader/' + this.props.borrower[key].id +
+                                         '/remove?type=' + fields[key].type;
       }else {
         state[fields[key].name] = fields[key].placeholder;
         state[fields[key].name + '_downloadUrl'] = 'javascript:void(0)';

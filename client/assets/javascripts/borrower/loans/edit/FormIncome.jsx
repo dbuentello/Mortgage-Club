@@ -262,8 +262,8 @@ var FormIncome = React.createClass({
         state[uploader_fields[key].id] = borrower[key].id;
         state[uploader_fields[key].name + '_downloadUrl'] = '/borrower_document_uploader/' + borrower[key].id +
                                          '/download?type=' + uploader_fields[key].type;
-        state[uploader_fields[key].name + '_removedUrl'] = '/borrower_document_uploader/remove?type=' +
-                                         uploader_fields[key].type + '&borrower_id=' + borrower.id;
+        state[uploader_fields[key].name + '_removedUrl'] = '/borrower_document_uploader/' + borrower[key].id +
+                                         '/remove?type=' + uploader_fields[key].type;
       }else {
         state[uploader_fields[key].name] = uploader_fields[key].placeholder;
         state[uploader_fields[key].name + '_downloadUrl'] = 'javascript:void(0)';

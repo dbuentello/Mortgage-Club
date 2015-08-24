@@ -59,8 +59,8 @@ var Loan = React.createClass({
         state[fields[key].id] = this.props.loan[key].id;
         state[fields[key].name + '_downloadUrl'] = '/loan_document_uploader/' + this.props.loan[key].id +
                                          '/download?type=' + fields[key].type;
-        state[fields[key].name + '_removedUrl'] = '/loan_document_uploader/remove?type=' +
-                                         fields[key].type + '&loan_id=' + this.props.loan.id;
+        state[fields[key].name + '_removedUrl'] = '/loan_document_uploader/' + this.props.loan[key].id +
+                                         '/remove?type=' + fields[key].type;
       } else {
         state[fields[key].name] = fields[key].placeholder;
         state[fields[key].name + '_downloadUrl'] = 'javascript:void(0)';
