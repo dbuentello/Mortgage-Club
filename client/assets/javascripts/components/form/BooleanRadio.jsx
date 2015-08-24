@@ -58,12 +58,12 @@ var BooleanRadioView = React.createClass({
         <div className="control-group mbs" style={{'display': this.props.editable ? null : 'none'}}>
           <label className="radio-inline mrm">
             <input type="radio" value='true' name={this.props.keyName} onChange={this.handleChange}
-              checked={display === this.props.yesLabel} />
+              checked={display === this.props.yesLabel} id={'true_' + this.props.keyName}/>
             {this.props.yesLabel}
           </label>
           <label className="radio-inline">
             <input type="radio" value='false' name={this.props.keyName} onChange={this.handleChange}
-              checked={display === this.props.noLabel} />
+              checked={display === this.props.noLabel} id={'false_' + this.props.keyName}/>
             {this.props.noLabel}
           </label>
         </div>

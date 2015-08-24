@@ -150,9 +150,13 @@ var FormDeclarations = React.createClass({
       declaration_attributes[field.name] = this.state[field.name];
     }, this);
 
-    if(this.state.ownership_interest == false) {
+    if (this.state.ownership_interest == false) {
       this.state.type_of_property = null;
       this.state.title_of_property = null;
+    }
+
+    if (this.state.us_citizen == true) {
+      this.state.permanent_resident_alien = null;
     }
 
     _.each(selectBoxFields, function (field) {
@@ -194,6 +198,7 @@ var FormDeclarations = React.createClass({
                   value={this.state[selectBoxFields.typeOfProperty.name]}
                   options={propertyOptions}
                   editable={true}
+                  name={'type_of_property'}
                   onChange={this.onChange}/>
                 <SelectField
                   label={selectBoxFields.titleOfProperty.label}
@@ -201,6 +206,7 @@ var FormDeclarations = React.createClass({
                   value={this.state[selectBoxFields.titleOfProperty.name]}
                   options={titlePropertyOptions}
                   editable={true}
+                  name={'title_of_property'}
                   onChange={this.onChange}/>
               </div>
             </div>
