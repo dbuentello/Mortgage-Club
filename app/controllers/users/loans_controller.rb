@@ -14,7 +14,7 @@ class Users::LoansController < Users::BaseController
 
   def edit
     bootstrap({
-      currentLoan: LoanPresenter.new(@loan).edit_loan,
+      currentLoan: LoanPresenter.new(@loan).edit,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower"
     })
 
@@ -37,7 +37,7 @@ class Users::LoansController < Users::BaseController
       loan = @loan.reload
       ZillowService::UpdatePropertyTax.delay.call(loan.property.id)
 
-      render json: {loan: LoanPresenter.new(loan).edit_loan}
+      render json: {loan: LoanPresenter.new(loan).edit}
     else
       render json: {error: @loan.errors.full_messages}, status: 500
     end
@@ -64,7 +64,7 @@ class Users::LoansController < Users::BaseController
         user = User.where(email: params[:email]).first
         borrower = user.borrower
 
-        render json: {secondary_borrower: BorrowerPresenter.new(borrower).show_borrower}, status: :ok
+        render json: {secondary_borrower: BorrowerPresenter.new(borrower).show}, status: :ok
       else
         render json: {message: 'Invalid email or date of birth or social security number'}, status: :ok
       end
@@ -74,10 +74,8 @@ class Users::LoansController < Users::BaseController
   end
 
   def index
-    loans = current_user.loans.includes(property: :address)
-
     bootstrap(
-      loans: LoanPresenter.new(loans).show_loan
+      loans: LoansPresenter.new(current_user.loans).show
     )
 
     respond_to do |format|
@@ -96,7 +94,7 @@ class Users::LoansController < Users::BaseController
     loan_presenter = LoanPresenter.new(loan)
     bootstrap(
       address: property.address.try(:address),
-      loan: loan_presenter.show_loan,
+      loan: loan_presenter.show,
       borrower_list: BorrowerPresenter.new(borrower).show_documents,
       contact_list: contact_list_json_options,
       property_list: PropertyPresenter.new(property).show_documents,

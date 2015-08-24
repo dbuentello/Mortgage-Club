@@ -3,12 +3,12 @@ class PropertyPresenter
     @property = property
   end
 
-  def show_documents
-    @property.property_documents.includes(:owner).as_json(property_documents_json_options)
+  def show
+    @property.as_json(show_property_json_options)
   end
 
-  def show_property
-    @property.as_json(show_property_json_options)
+  def show_documents
+    @property.property_documents.includes(:owner).as_json(property_documents_json_options)
   end
 
   private

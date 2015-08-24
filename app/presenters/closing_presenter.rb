@@ -7,7 +7,7 @@ class ClosingPresenter
     @closing.as_json(closing_documents_json_options)
   end
 
-  def show_closing
+  def show
     @closing.as_json(show_closing_json_options)
   end
 

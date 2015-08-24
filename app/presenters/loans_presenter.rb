@@ -3,8 +3,8 @@ class LoansPresenter
     @loans = loans
   end
 
-  def show_loans
-    @loans.as_json(show_loans_json_options)
+  def show
+    @loans.includes(:user, property: :address).as_json(show_loans_json_options)
   end
 
   private
@@ -15,6 +15,9 @@ class LoansPresenter
         user: {
           only: [ :email ],
           methods: [ :to_s ]
+        },
+        property: {
+          include: :address
         }
       }
     }

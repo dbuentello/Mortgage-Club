@@ -4,7 +4,7 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
   def index
     loans ||= Loan.preload(:user)
 
-    bootstrap(loans: LoansPresenter.new(loans).show_loans)
+    bootstrap(loans: LoansPresenter.new(loans).show)
 
     respond_to do |format|
       format.html { render template: 'loan_member_app' }
@@ -21,8 +21,8 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
       loan: LoanPresenter.new(@loan).show_loan_activities,
       first_activity: first_activity(@loan),
       loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : [],
-      property: PropertyPresenter.new(@loan).show_property,
-      closing: ClosingPresenter.new(@loan.closing).show_closing
+      property: PropertyPresenter.new(@loan).show,
+      closing: ClosingPresenter.new(@loan.closing).show
     )
 
     respond_to do |format|

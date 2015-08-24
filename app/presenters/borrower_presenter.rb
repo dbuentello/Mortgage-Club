@@ -3,7 +3,7 @@ class BorrowerPresenter
     @borrower = borrower
   end
 
-  def show_borrower
+  def show
     @borrower.as_json(show_borrower_json_options)
   end
 

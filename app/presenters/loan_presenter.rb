@@ -3,11 +3,11 @@ class LoanPresenter
     @loan = loan
   end
 
-  def edit_loan
+  def edit
     @loan.as_json(edit_loan_json_options)
   end
 
-  def show_loan
+  def show
     @loan.as_json(show_loan_json_options)
   end
 
