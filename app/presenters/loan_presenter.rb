@@ -11,6 +11,10 @@ class LoanPresenter
     @loan.as_json(show_loan_json_options)
   end
 
+  def show_loan_activities
+    @loan.as_json(show_loan_activities_json_options)
+  end
+
   def show_documents
     @loan.loan_documents.includes(:owner).as_json(loan_documents_json_options)
   end
@@ -47,6 +51,26 @@ class LoanPresenter
       methods: [
         :property_completed, :borrower_completed, :income_completed
       ]
+    }
+  end
+
+  def show_loan_activities_json_options
+    {
+      include: {
+        borrower: {
+          include: [
+            :first_bank_statement, :second_bank_statement,
+            :first_paystub, :second_paystub,
+            :first_w2, :second_w2
+          ]
+        },
+        user: {
+          only: [ :email ],
+          methods: [ :to_s ]
+        },
+        hud_estimate: {}, hud_final: {}, other_loan_reports: {},
+        loan_estimate: {}, uniform_residential_lending_application: {}
+      }
     }
   end
 

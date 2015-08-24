@@ -2,12 +2,12 @@ class Admins::LoanAssignmentsController < Admins::BaseController
   before_action :set_loan, except: [:index]
 
   def index
-    loans = Loan.all.includes(:user)
-    loan_members = LoanMember.includes(:user).all
+    loans = Loan.preload(:user)
+    loan_members = LoanMember.includes(:user)
     first_loan_associations = loans.first.loans_members_associations.includes(loan_member: :user)
 
     bootstrap(
-      loans: loans.as_json(loans_json_options),
+      loans: LoansPresenter.new(loans).show_loans,
       loan_members: loan_members.as_json(loan_members_json_options),
       associations: first_loan_associations.as_json(associations_json_options)
     )
@@ -54,17 +54,6 @@ class Admins::LoanAssignmentsController < Admins::BaseController
 
   def reload_loans_members_associations_json
     @loan.loans_members_associations.includes(loan_member: :user).as_json(associations_json_options)
-  end
-
-  def loans_json_options
-    {
-      include: {
-        user: {
-          only: [ :email ],
-          methods: [ :to_s ]
-        }
-      }
-    }
   end
 
   def loan_members_json_options
