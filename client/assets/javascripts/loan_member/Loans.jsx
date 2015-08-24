@@ -6,17 +6,6 @@ var FlashHandler = require('mixins/FlashHandler');
 var Loans = React.createClass({
   mixins: [FlashHandler],
 
-  getInitialState: function() {
-    return {
-    };
-  },
-
-  getDefaultProps: function() {
-  },
-
-  componentDidMount: function() {
-  },
-
   render: function() {
     return (
       <div className='content container'>

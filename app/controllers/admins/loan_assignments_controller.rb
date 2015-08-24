@@ -1,14 +1,15 @@
 class Admins::LoanAssignmentsController < Admins::BaseController
-  before_action :load_loan, except: [:index]
+  before_action :set_loan, except: [:index]
 
   def index
     loans = Loan.all.includes(:user)
     loan_members = LoanMember.includes(:user).all
+    first_loan_associations = loans.first.loans_members_associations.includes(loan_member: :user)
 
     bootstrap(
       loans: loans.as_json(loans_json_options),
       loan_members: loan_members.as_json(loan_members_json_options),
-      associations: loans.first.loans_members_associations.includes(loan_member: :user).as_json(associations_json_options)
+      associations: first_loan_associations.as_json(associations_json_options)
     )
 
     respond_to do |format|
@@ -31,7 +32,9 @@ class Admins::LoanAssignmentsController < Admins::BaseController
   end
 
   def destroy
-    return render json: {message: 'Assignment not found'}, status: 500 unless assignment = @loan.loans_members_associations.where(id: params[:id]).last
+    assignment = @loan.loans_members_associations.where(id: params[:id]).last
+
+    return render json: {message: 'Assignment not found'}, status: 500 unless assignment
 
     if assignment.destroy
       render json: {
@@ -48,10 +51,6 @@ class Admins::LoanAssignmentsController < Admins::BaseController
   end
 
   private
-
-  def load_loan
-    @loan ||= Loan.find(params[:loan_id])
-  end
 
   def reload_loans_members_associations_json
     @loan.loans_members_associations.includes(loan_member: :user).as_json(associations_json_options)
@@ -94,4 +93,5 @@ class Admins::LoanAssignmentsController < Admins::BaseController
       methods: [ :pretty_title ]
     }
   end
+
 end

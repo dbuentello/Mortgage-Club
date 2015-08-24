@@ -81,6 +81,8 @@ class LoanActivity < ActiveRecord::Base
       ORDER BY name, created_at DESC, id")
   end
 
+  # WILL_DO: consider using draper gem to move those pretty methods into
+  #  decorator folder
   def pretty_activity_type
     case activity_type
     when 'loan_submission'
@@ -122,6 +124,7 @@ class LoanActivity < ActiveRecord::Base
   def pretty_updated_at
     ActionController::Base.helpers.time_ago_in_words(updated_at)
   end
+  #===== END WILL_DO
 
   def as_json(opts={})
     more_options = {

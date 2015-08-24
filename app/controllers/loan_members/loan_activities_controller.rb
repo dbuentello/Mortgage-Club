@@ -1,9 +1,10 @@
 class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
+  before_action :set_loan, only: [:show, :update, :destroy]
+
   def index
-    # WILLDO: solve n+1 query problem
     @loans ||= Loan.preload(:user)
 
-    bootstrap(loans: @loans.as_json(loans_json_options))
+    bootstrap(loans: @loans.as_json(loan_list_json_options))
 
     respond_to do |format|
       format.html { render template: 'loan_member_app' }
@@ -11,15 +12,17 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
   end
 
   def show
-    loan_activities = LoanActivity.get_latest_by_loan(loan)
+    loan_activities = LoanActivity.get_latest_by_loan(@loan)
     ActiveRecord::Associations::Preloader.new.preload(loan_activities, loan_member: :user)
-    loan.closing ||= Closing.create(name: 'Closing', loan_id: loan.id)
+
+    @loan.closing ||= Closing.create(name: 'Closing', loan_id: @loan.id)
+
     bootstrap(
-      loan: loan.as_json(loans_json_options),
-      first_activity: first_activity,
+      loan: @loan.as_json(loan_json_options),
+      first_activity: first_activity(@loan),
       loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : [],
-      property: loan.property.as_json(property_json_options),
-      closing: loan.closing.as_json(closing_json_options)
+      property: @loan.property.as_json(property_json_options),
+      closing: @loan.closing.as_json(closing_json_options)
     )
 
     respond_to do |format|
@@ -66,21 +69,27 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
     loan_activity_params
   end
 
-  def loan
-    # WILLDO: Get loan list which loan member handles
-    @loan ||= Loan.find(params[:id])
-  end
-
   def loan_member
     @loan_member ||= current_user.loan_member
   end
 
-  def first_activity
+  def first_activity(loan)
     # activity_status: -1 => not existed yet
     LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: loan.id).order(created_at: :desc).limit(1).first || {activity_status: -1}
   end
 
-  def loans_json_options
+  def loan_list_json_options
+    {
+      include: {
+        user: {
+          only: [ :email ],
+          methods: [ :to_s ]
+        }
+      }
+    }
+  end
+
+  def loan_json_options
     {
       include: {
         borrower: {
