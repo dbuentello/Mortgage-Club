@@ -18,7 +18,7 @@ module DocumentServices
       subject = subject_class.find(foreign_key_id)
 
       if document.present? && !document.other_report?
-        result = document.update(attachment: params[:file])
+        document.update(attachment: params[:file])
       else
         document = document_klass.new(
           attachment: params[:file],
@@ -26,9 +26,9 @@ module DocumentServices
           foreign_key_name => subject.id
         )
         document.owner = current_user
-        result = document.save
+        document.save
       end
-      result
+      document
     end
   end
 end
