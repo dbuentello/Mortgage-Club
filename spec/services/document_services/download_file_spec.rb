@@ -11,14 +11,12 @@ describe DocumentServices::DownloadFile do
     expect(url).not_to be_nil
   end
 
-  context 'document not found' do
-    it 'raises an error if document does not exist' do
-      expect { raise DocumentServices::DownloadFile.new('ClosingDisclosure', 'wrong-id').call }.to raise_error(ActiveRecord::RecordNotFound)
+  context 'invalid params' do
+    it 'raises RecordNotFound if document does not exist' do
+      expect { raise DocumentServices::DownloadFile.new('ClosingDisclosure', 'non-existent-id').call }.to raise_error(ActiveRecord::RecordNotFound)
     end
-  end
 
-  context 'invalid document class name' do
-    it 'raises an error if document class name is invalid' do
+    it 'raises NameError if document class name is invalid' do
       expect { raise DocumentServices::DownloadFile.new('FakeClass', @closing_disclosure.id).call }.to raise_error(NameError)
     end
   end
