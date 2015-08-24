@@ -87,21 +87,23 @@ class Users::LoansController < Users::BaseController
   end
 
   def dashboard
+    borrower = current_user.borrower
+
     loan = @loan
     property = loan.property
-    borrower = current_user.borrower
     closing = loan.closing || Closing.create(name: 'Closing', loan_id: loan.id)
     loan_activities = loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10)
 
+    loan_presenter = LoanPresenter.new(loan)
     bootstrap(
       address: property.address.try(:address),
-      loan: LoanPresenter.new(loan).show_loan,
+      loan: loan_presenter.show_loan,
       borrower_list: BorrowerPresenter.new(borrower).show_documents,
       contact_list: contact_list_json_options,
-      property_list: property.as_json(property_list_json_options),
-      loan_list: loan.as_json(loan_list_json_options),
-      loan_activities: loan_activities.as_json,
-      closing_list: closing.as_json(closing_list_json_options)
+      property_list: PropertyPresenter.new(property).show_documents,
+      loan_list: loan_presenter.show_documents,
+      loan_activities: loan_activities,
+      closing_list: ClosingPresenter.new(closing).show_documents
     )
 
     respond_to do |format|
@@ -128,26 +130,6 @@ class Users::LoansController < Users::BaseController
     params.permit([:email, :dob, :ssn])
   end
 
-  def loan_list_json_options
-    {
-      include: {
-        loan_documents: {
-          methods: [ :file_icon_url, :class_name, :owner_name ]
-        }
-      }
-    }
-  end
-
-  def property_list_json_options
-    {
-      include: {
-        property_documents: {
-          methods: [ :file_icon_url, :class_name, :owner_name ]
-        }
-      }
-    }
-  end
-
   def contact_list_json_options
     [
       {
@@ -172,16 +154,6 @@ class Users::LoansController < Users::BaseController
         avatar_url: 'https://goo.gl/IpbO1e'
       }
     ]
-  end
-
-  def closing_list_json_options
-    {
-      include: {
-        closing_documents: {
-          methods: [ :file_icon_url, :class_name ]
-        }
-      }
-    }
   end
 
 end

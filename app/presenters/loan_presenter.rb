@@ -11,6 +11,10 @@ class LoanPresenter
     @loan.as_json(show_loan_json_options)
   end
 
+  def show_documents
+    @loan.as_json(loan_documents_json_options)
+  end
+
   private
 
   def edit_loan_json_options
@@ -64,6 +68,16 @@ class LoanPresenter
       methods: [
         :num_of_years, :ltv_formula, :purpose_titleize
       ]
+    }
+  end
+
+  def loan_documents_json_options
+    {
+      include: {
+        loan_documents: {
+          methods: [ :file_icon_url, :class_name, :owner_name ]
+        }
+      }
     }
   end
 
