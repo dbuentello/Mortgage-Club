@@ -38,58 +38,44 @@ Rails.application.routes.draw do
   resources :borrower_document_uploader, only: [] do
     collection do
       post 'upload'
-      delete 'remove'
     end
 
     member do
       get 'download'
+      delete 'remove'
     end
-    # member do
-    #   post 'bank_statement'
-    #   post 'paystub'
-    #   post 'w2'
-    #   post 'other_borrower_report'
-    #   delete 'remove_bank_statement'
-    #   delete 'remove_paystub'
-    #   delete 'remove_w2'
-    #   delete 'remove_other_borrower_report'
-    #   get 'download_w2'
-    #   get 'download_paystub'
-    #   get 'download_bank_statement'
-    #   get 'download_other_borrower_report'
-    # end
   end
 
   resources :property_document_uploader do
     collection do
       post 'upload'
-      delete 'remove'
     end
 
     member do
       get 'download'
+      delete 'remove'
     end
   end
 
   resources :loan_document_uploader do
     collection do
       post 'upload'
-      delete 'remove'
     end
 
     member do
       get 'download'
+      delete 'remove'
     end
   end
 
   resources :closing_document_uploader do
     collection do
       post 'upload'
-      delete 'remove'
     end
 
     member do
       get 'download'
+      delete 'remove'
     end
   end
 
