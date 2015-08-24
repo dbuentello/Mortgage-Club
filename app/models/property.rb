@@ -68,4 +68,5 @@ class Property < ActiveRecord::Base
 
     usage.split('_').map(&:capitalize).join(' ')
   end
+
 end

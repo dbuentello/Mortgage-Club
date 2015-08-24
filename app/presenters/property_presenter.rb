@@ -15,5 +15,4 @@ class PropertyPresenter
     }
   end
 
-
 end

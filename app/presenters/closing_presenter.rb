@@ -19,5 +19,4 @@ class ClosingPresenter
     }
   end
 
-
 end
