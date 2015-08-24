@@ -21,7 +21,7 @@ class LoanPresenter
         },
         borrower: {
           include: [
-            :first_bank_statement, :second_bank_statement,
+            :declaration, :first_bank_statement, :second_bank_statement,
             :first_paystub, :second_paystub,
             :first_w2, :second_w2, user: {
               only: [ :email ]

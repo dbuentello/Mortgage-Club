@@ -36,7 +36,9 @@ class Users::LoansController < Users::BaseController
       end
     end
 
-    if @loan = @loan.update(loan_params)
+    if (@loan = @loan.update(loan_params))
+      ZillowService::UpdatePropertyTax.delay.call(@loan.property.id)
+
       render json: {loan: LoanPresenter.new(@loan).edit_loan}
     else
       render json: {error: @loan.errors.full_messages}, status: 500
