@@ -25,8 +25,6 @@ class Users::LoansController < Users::BaseController
   end
 
   def update
-    loan = @loan
-
     @borrower_params = co_borrower_params
     if @borrower_params.present?
       if @borrower_params[:_remove]
@@ -36,10 +34,11 @@ class Users::LoansController < Users::BaseController
       end
     end
 
-    if (@loan = @loan.update(loan_params))
-      ZillowService::UpdatePropertyTax.delay.call(@loan.property.id)
+    if @loan.update(loan_params)
+      loan = @loan.reload
+      ZillowService::UpdatePropertyTax.delay.call(loan.property.id)
 
-      render json: {loan: LoanPresenter.new(@loan).edit_loan}
+      render json: {loan: LoanPresenter.new(loan).edit_loan}
     else
       render json: {error: @loan.errors.full_messages}, status: 500
     end
