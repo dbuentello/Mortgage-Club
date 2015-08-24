@@ -2,7 +2,6 @@ class Users::LoansController < Users::BaseController
   before_action :set_loan, only: [:dashboard, :edit, :update, :destroy]
 
   def create
-    # WILLDO: solve n+1 query problem
     @loan = Loan.initiate(current_user)
 
     if @loan.save
