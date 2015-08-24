@@ -89,8 +89,8 @@ class Users::LoansController < Users::BaseController
     loan = @loan
     property = loan.property
     borrower = current_user.borrower
-    closing = loan.closing
-    closing ||= Closing.create(name: 'Closing', loan_id: loan.id)
+    closing = loan.closing || Closing.create(name: 'Closing', loan_id: loan.id)
+    loan_activities = loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10)
 
     bootstrap(
       address: property.address.try(:address),
@@ -99,7 +99,7 @@ class Users::LoansController < Users::BaseController
       contact_list: contact_list_json_options,
       property_list: property.as_json(property_list_json_options),
       loan_list: loan.as_json(loan_list_json_options),
-      loan_activities: loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10).as_json,
+      loan_activities: loan_activities.as_json,
       closing_list: closing.as_json(closing_list_json_options)
     )
 
