@@ -16,7 +16,7 @@ var Closing = React.createClass({
   },
 
   render: function() {
-    var uploadUrl = '/closing_document_uploader/upload';
+    var uploadUrl = '/document_uploaders/closings/upload';
 
     return (
       <div className='pal'>
@@ -56,9 +56,9 @@ var Closing = React.createClass({
       if (this.props.closing[key]) { // has a document
         state[fields[key].name] = this.props.closing[key].attachment_file_name;
         state[fields[key].id] = this.props.closing[key].id;
-        state[fields[key].name + '_downloadUrl'] = '/closing_document_uploader/' + this.props.closing[key].id +
+        state[fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + this.props.closing[key].id +
                                          '/download?type=' + fields[key].type;
-        state[fields[key].name + '_removedUrl'] = '/closing_document_uploader/' + this.props.closing[key].id +
+        state[fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + this.props.closing[key].id +
                                          '/remove?type=' + fields[key].type;
       }else {
         state[fields[key].name] = fields[key].placeholder;

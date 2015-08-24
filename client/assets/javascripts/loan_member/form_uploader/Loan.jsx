@@ -17,7 +17,7 @@ var Loan = React.createClass({
   },
 
   render: function() {
-    var uploadUrl = '/loan_document_uploader/upload';
+    var uploadUrl = '/document_uploaders/loans/upload';
 
     return (
       <div className='pal'>
@@ -57,9 +57,9 @@ var Loan = React.createClass({
       if (this.props.loan[key]) { // has a document
         state[fields[key].name] = this.props.loan[key].attachment_file_name;
         state[fields[key].id] = this.props.loan[key].id;
-        state[fields[key].name + '_downloadUrl'] = '/loan_document_uploader/' + this.props.loan[key].id +
+        state[fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + this.props.loan[key].id +
                                          '/download?type=' + fields[key].type;
-        state[fields[key].name + '_removedUrl'] = '/loan_document_uploader/' + this.props.loan[key].id +
+        state[fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + this.props.loan[key].id +
                                          '/remove?type=' + fields[key].type;
       } else {
         state[fields[key].name] = fields[key].placeholder;

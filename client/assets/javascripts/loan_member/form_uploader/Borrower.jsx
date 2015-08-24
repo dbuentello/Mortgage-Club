@@ -19,7 +19,7 @@ var Borrower = React.createClass({
   },
 
   render: function() {
-    var uploadUrl = '/borrower_document_uploader/upload';
+    var uploadUrl = '/document_uploaders/borrowers/upload';
 
     return (
       <div className='pal'>
@@ -58,9 +58,9 @@ var Borrower = React.createClass({
       if (this.props.borrower[key]) { // has a document
         state[fields[key].name] = this.props.borrower[key].attachment_file_name;
         state[fields[key].id] = this.props.borrower[key].id;
-        state[fields[key].name + '_downloadUrl'] = '/borrower_document_uploader/' + this.props.borrower[key].id +
+        state[fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + this.props.borrower[key].id +
                                          '/download?type=' + fields[key].type;
-        state[fields[key].name + '_removedUrl'] = '/borrower_document_uploader/' + this.props.borrower[key].id +
+        state[fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + this.props.borrower[key].id +
                                          '/remove?type=' + fields[key].type;
       }else {
         state[fields[key].name] = fields[key].placeholder;
