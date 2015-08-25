@@ -1,9 +1,11 @@
 var _ = require('lodash');
 var React = require('react/addons');
+
 var AddressField = require('components/form/AddressField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 var BooleanRadio = require('components/form/BooleanRadio');
+
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
 

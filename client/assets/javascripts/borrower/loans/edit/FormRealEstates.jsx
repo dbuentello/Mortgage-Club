@@ -1,8 +1,8 @@
 var _ = require('lodash');
-var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
-var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var React = require('react/addons');
+var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
+var TextFormatMixin = require('mixins/TextFormatMixin');
 var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
 var SelectField = require('components/form/SelectField');

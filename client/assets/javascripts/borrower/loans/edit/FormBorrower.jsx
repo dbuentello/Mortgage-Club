@@ -1,4 +1,4 @@
-var _ = require('lodash');
+wvar _ = require('lodash');
 var React = require('react/addons');
 
 var TextFormatMixin = require('mixins/TextFormatMixin');
