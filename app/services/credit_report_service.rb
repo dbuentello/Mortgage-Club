@@ -5,9 +5,8 @@ class CreditReportService
     report = Hash.from_xml(File.open("#{Rails.root}/vendor/files/Sample Credit Report.xml"))
     liabilities = report["RESPONSE_GROUP"]["RESPONSE"]["RESPONSE_DATA"]["CREDIT_RESPONSE"]["CREDIT_LIABILITY"]
 
-    l = Liability.first
     liabilities.each do |liability|
-      break if liability["_CREDITOR"] == nil
+      break if liability["_CREDITOR"].nil?
 
       ap liability
 
