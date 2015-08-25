@@ -1,6 +1,16 @@
 class Users::LoansController < Users::BaseController
   before_action :set_loan, only: [:dashboard, :edit, :update, :destroy]
 
+  def index
+    bootstrap(
+      loans: LoansPresenter.new(current_user.loans).show
+    )
+
+    respond_to do |format|
+      format.html { render template: 'borrower_app' }
+    end
+  end
+
   def create
     @loan = Loan.initiate(current_user)
 
@@ -79,16 +89,6 @@ class Users::LoansController < Users::BaseController
     end
   end
 
-  def index
-    bootstrap(
-      loans: LoansPresenter.new(current_user.loans).show
-    )
-
-    respond_to do |format|
-      format.html { render template: 'borrower_app' }
-    end
-  end
-
   def dashboard
     loan = @loan
     property = loan.property
@@ -96,6 +96,7 @@ class Users::LoansController < Users::BaseController
     loan_activities = loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10)
 
     loan_presenter = LoanPresenter.new(loan)
+
     bootstrap(
       address: property.address.try(:address),
       loan: loan_presenter.show,
