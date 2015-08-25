@@ -19,7 +19,7 @@
 class Property < ActiveRecord::Base
   belongs_to :loan, inverse_of: :property, foreign_key: 'loan_id'
 
-  has_one :address, inverse_of: :property
+  has_one :address, autosave: true, inverse_of: :property
 
   has_one :appraisal_report, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
   has_one :homeowners_insurance, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'

@@ -14,7 +14,7 @@
 
 class Liability < ActiveRecord::Base
   belongs_to :credit_report, inverse_of: :liabilities, foreign_key: 'credit_report_id'
-  has_one :address, inverse_of: :liability, dependent: :destroy
+  has_one :address, inverse_of: :liability, autosave: true, dependent: :destroy
   accepts_nested_attributes_for :address, allow_destroy: true
 
   PERMITTED_ATTRS = [
