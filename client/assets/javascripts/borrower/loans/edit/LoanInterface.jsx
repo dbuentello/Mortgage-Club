@@ -70,7 +70,10 @@ var LoanInterface = React.createClass({
       method: 'PATCH',
       context: this,
       dataType: 'json',
-      data: {loan: loan},
+      data: {
+        loan: loan,
+        current_step: step
+      },
       success: function(response) {
         var menu = this.buildMenu(response.loan);
         this.setState({
