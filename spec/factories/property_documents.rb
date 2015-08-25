@@ -8,6 +8,7 @@ FactoryGirl.define do
 
     f.attachment File.new(Rails.root.join 'spec', 'files', 'sample.png')
     f.owner { build(:user) }
+    f.token { Faker::Lorem.characters(10) }
 
     factory :appraisal_report, class: 'AppraisalReport' do
       type { 'AppraisalReport' }
