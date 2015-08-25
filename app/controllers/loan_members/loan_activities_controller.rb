@@ -21,7 +21,7 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
       loan: LoanPresenter.new(@loan).show_loan_activities,
       first_activity: first_activity(@loan),
       loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : [],
-      property: PropertyPresenter.new(@loan).show,
+      property: PropertyPresenter.new(@loan.property).show,
       closing: ClosingPresenter.new(@loan.closing).show
     )
 
@@ -77,7 +77,5 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
     # activity_status: -1 => not existed yet
     LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: loan.id).order(created_at: :desc).limit(1).first || {activity_status: -1}
   end
-
-
 
 end
