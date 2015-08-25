@@ -4,7 +4,11 @@ module Documentation
   def file_icon_url
     case attachment_content_type
     when *IMAGE_MINE_TYPES
-      icon_name = Amazon::GetUrlService.call(attachment, 10)
+      if Rails.env.test?
+        icon_name = attachment.url
+      else
+        icon_name = Amazon::GetUrlService.new(attachment.s3_object, 10).call
+      end
     when *PDF_MINE_TYPES
       icon_name = 'pdf_icon.png'
     when *MWORD_MINE_TYPES
