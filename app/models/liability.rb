@@ -5,9 +5,11 @@
 #  id               :uuid             not null, primary key
 #  credit_report_id :uuid
 #  name             :string
-#  payment          :integer
+#  payment          :decimal(11, 2)
 #  months           :integer
 #  balance          :decimal(11, 2)
+#  account_type     :string
+#  phone            :string
 #
 
 class Liability < ActiveRecord::Base

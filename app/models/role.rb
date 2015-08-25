@@ -4,7 +4,7 @@
 #
 #  id            :uuid             not null, primary key
 #  name          :string
-#  resource_id   :integer
+#  resource_id   :uuid
 #  resource_type :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
