@@ -6,6 +6,7 @@ FactoryGirl.define do
 
     f.attachment File.new(Rails.root.join 'spec', 'files', 'sample.png')
     f.owner { build(:user) }
+    f.token { Faker::Lorem.characters(10) }
 
     factory :closing_disclosure, class: 'ClosingDisclosure' do
       type { 'ClosingDisclosure' }

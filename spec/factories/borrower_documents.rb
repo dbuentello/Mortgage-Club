@@ -23,6 +23,8 @@ FactoryGirl.define do
 
     f.owner { build(:user) }
 
+    f.token { Faker::Lorem.characters(10) }
+
     factory :first_w2, class: 'FirstW2' do
       type { 'FirstW2' }
     end
