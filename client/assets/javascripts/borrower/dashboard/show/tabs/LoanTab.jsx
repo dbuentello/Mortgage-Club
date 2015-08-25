@@ -23,7 +23,7 @@ var LoanTab = React.createClass({
             </thead>
             <tbody>
             {
-              _.map(this.props.loanList.loan_documents, function(document) {
+              _.map(this.props.loanList, function(document) {
                 return (
                   <tr key={document.id}>
                     <td>
