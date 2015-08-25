@@ -1,9 +1,11 @@
 var _ = require('lodash');
 var React = require('react/addons');
+
 var AddressField = require('components/form/AddressField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 var BooleanRadio = require('components/form/BooleanRadio');
+
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
 
@@ -119,11 +121,6 @@ var FormDeclarations = React.createClass({
     this.setState(change);
   },
 
-  save: function() {
-    this.setState({saving: true});
-    this.props.saveLoan(this.buildLoanFromState(), 5);
-  },
-
   buildStateFromLoan: function(loan) {
     var declaration = loan.borrower.declaration;
     var state = {};
@@ -221,7 +218,13 @@ var FormDeclarations = React.createClass({
         </div>
       </div>
     );
+  },
+
+  save: function() {
+    this.setState({saving: true});
+    this.props.saveLoan(this.buildLoanFromState(), 5);
   }
+
 });
 
 module.exports = FormDeclarations;

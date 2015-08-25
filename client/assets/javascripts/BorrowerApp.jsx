@@ -8,13 +8,14 @@ var RouteHandler = Router.RouteHandler;
 
 var AppStarter = require('tools/AppStarter');
 var FlashHandler = require('mixins/FlashHandler');
-var LoanInterface = require('client/loans/edit/LoanInterface');
-var MortgageRates = require('client/loans/MortgageRates');
-var LoanActivityInterface = require('client/loans/show/LoanActivityInterface');
-var Dashboard = require('client/dashboard/show/Dashboard');
-var LoanList = require('client/dashboard/loans/LoanList');
-
 var ModalLink = require('components/ModalLink');
+
+var LoanInterface = require('borrower/loans/edit/LoanInterface');
+var MortgageRates = require('borrower/loans/MortgageRates');
+var LoanActivityInterface = require('borrower/loans/show/LoanActivityInterface');
+
+var Dashboard = require('borrower/dashboard/show/Dashboard');
+var LoanList = require('borrower/dashboard/loans/LoanList');
 
 window.BorrowerApp = React.createClass({
   mixins: [FlashHandler],

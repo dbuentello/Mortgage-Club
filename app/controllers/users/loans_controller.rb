@@ -35,7 +35,13 @@ class Users::LoansController < Users::BaseController
 
     if @loan.update(loan_params)
       loan = @loan.reload
-      ZillowService::UpdatePropertyTax.delay.call(loan.property.id)
+
+      case params[:current_step]
+      when '0'
+        ZillowService::UpdatePropertyTax.delay.call(loan.property.id)
+      when '2'
+        # run Credit Report
+      end
 
       render json: {loan: LoanPresenter.new(loan).edit}
     else

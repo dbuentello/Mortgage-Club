@@ -3,6 +3,8 @@ var React = require('react/addons');
 
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var FlashHandler = require('mixins/FlashHandler');
+var ModalLink = require('components/ModalLink');
 
 var OverviewTab = require('./tabs/OverviewTab');
 var BorrowerTab = require('./tabs/BorrowerTab');
@@ -11,9 +13,6 @@ var PropertyTab = require('./tabs/PropertyTab');
 var LoanTab = require('./tabs/LoanTab');
 var ClosingTab = require('./tabs/ClosingTab');
 var UserInfo = require('./UserInfo');
-
-var FlashHandler = require('mixins/FlashHandler');
-var ModalLink = require('components/ModalLink');
 
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
