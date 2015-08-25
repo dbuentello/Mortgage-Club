@@ -8,7 +8,7 @@ class BorrowerPresenter
   end
 
   def show_documents
-    @borrower.as_json(borrower_documents_json_options)
+    @borrower.borrower_documents.includes(:owner).as_json(borrower_documents_json_options)
   end
 
   private
@@ -29,11 +29,7 @@ class BorrowerPresenter
 
   def borrower_documents_json_options
     {
-      include: {
-        borrower_documents: {
-          methods: [ :file_icon_url, :class_name, :owner_name ]
-        }
-      }
+      methods: [ :file_icon_url, :class_name, :owner_name ]
     }
   end
 
