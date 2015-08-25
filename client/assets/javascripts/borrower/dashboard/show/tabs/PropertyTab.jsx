@@ -23,7 +23,7 @@ var PropertyTab = React.createClass({
             </thead>
             <tbody>
             {
-              _.map(this.props.propertyList.property_documents, function(document) {
+              _.map(this.props.propertyList, function(document) {
                 return (
                   <tr key={document.id}>
                     <td>

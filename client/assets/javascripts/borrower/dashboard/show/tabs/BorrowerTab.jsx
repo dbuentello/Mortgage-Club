@@ -23,7 +23,7 @@ var BorrowerTab = React.createClass({
             </thead>
             <tbody>
             {
-              _.map(this.props.borrowerList.borrower_documents, function(document) {
+              _.map(this.props.borrowerList, function(document) {
                 return (
                   <tr key={document.id}>
                     <td>
