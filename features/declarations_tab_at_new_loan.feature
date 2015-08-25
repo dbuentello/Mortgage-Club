@@ -1,4 +1,4 @@
-Feature: Declarations
+Feature: DeclarationsTabAtNewLoan
   @javascript
   Scenario: User submit a declaration at new loan page
     When I am at loan management page
