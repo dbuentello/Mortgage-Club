@@ -35,62 +35,6 @@ Rails.application.routes.draw do
     get 'signup', to: 'users/registrations#new', as: :custom_signup
   end
 
-  resources :borrower_uploader, only: [] do
-    member do
-      post 'bank_statement'
-      post 'paystub'
-      post 'w2'
-      post 'other_borrower_report'
-      delete 'remove_bank_statement'
-      delete 'remove_paystub'
-      delete 'remove_w2'
-      delete 'remove_other_borrower_report'
-      get 'download_w2'
-      get 'download_paystub'
-      get 'download_bank_statement'
-      get 'download_other_borrower_report'
-    end
-  end
-
-  resources :property_document_uploader do
-    collection do
-      post 'upload'
-      delete 'remove'
-    end
-
-    member do
-      get 'download'
-    end
-  end
-
-  resources :loan_document_uploader do
-    collection do
-      post 'upload'
-      delete 'remove'
-    end
-
-    member do
-      get 'download'
-    end
-  end
-
-  resources :closing_document_uploader do
-    collection do
-      post 'upload'
-      delete 'remove'
-    end
-
-    member do
-      get 'download'
-    end
-  end
-
-  resources :document_uploader do
-    member do
-      get 'download'
-    end
-  end
-
   resources :rates, only: [:index] do
     collection do
       post :select
@@ -139,4 +83,36 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :document_uploaders do
+    resources :base_document, only: [] do
+      member do
+        get 'download'
+        delete 'remove'
+      end
+    end
+
+    resources :borrowers, only: [] do
+      collection do
+        post 'upload'
+      end
+    end
+
+    resources :closings, only: [] do
+      collection do
+        post 'upload'
+      end
+    end
+
+    resources :loans, only: [] do
+      collection do
+        post 'upload'
+      end
+    end
+
+    resources :properties, only: [] do
+      collection do
+        post 'upload'
+      end
+    end
+  end
 end

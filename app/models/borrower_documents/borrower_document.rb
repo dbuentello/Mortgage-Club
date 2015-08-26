@@ -60,7 +60,7 @@ class BorrowerDocument < ActiveRecord::Base
   end
 
   def url
-    Amazon::GetUrlService.new(attachment.s3_object).call
+    Amazon::GetUrlService.call(attachment)
   end
 
   private

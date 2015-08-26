@@ -4,7 +4,7 @@ module Documentation
   def file_icon_url
     case attachment_content_type
     when *IMAGE_MINE_TYPES
-      icon_name = Amazon::GetUrlService.new(attachment.s3_object, 10).call
+      icon_name = Amazon::GetUrlService.call(attachment, 10)
     when *PDF_MINE_TYPES
       icon_name = 'pdf_icon.png'
     when *MWORD_MINE_TYPES
@@ -31,5 +31,10 @@ module Documentation
   def set_description
     return unless description.blank?
     self.description = type.constantize::DESCRIPTION
+  end
+
+  def other_report?
+    return true if type =~ /^Other/
+    false
   end
 end
