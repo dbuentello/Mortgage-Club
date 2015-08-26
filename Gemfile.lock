@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/hoang1417/docusign_rest.git
+  remote: git://github.com/MortgageClub/docusign_rest.git
   revision: a082672a40d26b32300ae32c0dbbab49f2f6dd31
   branch: master
   specs:
