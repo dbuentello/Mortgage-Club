@@ -1,32 +1,31 @@
 class CreditReportService
   include HTTParty
 
-  def self.get_info
+  def self.get_liabilities(borrower)
     report = Hash.from_xml(File.open("#{Rails.root}/vendor/files/Sample Credit Report.xml"))
-    liabilities = report["RESPONSE_GROUP"]["RESPONSE"]["RESPONSE_DATA"]["CREDIT_RESPONSE"]["CREDIT_LIABILITY"]
+    liabilities_info = report["RESPONSE_GROUP"]["RESPONSE"]["RESPONSE_DATA"]["CREDIT_RESPONSE"]["CREDIT_LIABILITY"]
 
-    liabilities.each do |liability|
-      break if liability["_CREDITOR"].nil?
+    credit_report = borrower.credit_report || borrower.create_credit_report
 
-      ap liability
+    liabilities_info.each do |liability_info|
+      break if liability_info["_CREDITOR"].nil?
 
-      ap liability["_AccountType"]
-      ap liability["_MonthlyPaymentAmount"]
-      ap liability["_UnpaidBalanceAmount"]
+      liability = credit_report.liabilities.build
 
-      ap liability["_CREDITOR"]["CONTACT_DETAIL"]["CONTACT_POINT"]["_Value"]
-      ap liability["_CREDITOR"]["_Name"]
-      ap liability["_CREDITOR"]["_StreetAddress"]
-      ap liability["_CREDITOR"]["_City"]
-      ap liability["_CREDITOR"]["_State"]
-      ap liability["_CREDITOR"]["_PostalCode"]
+      liability.account_type = liability_info["_AccountType"]
+      liability.payment = liability_info["_MonthlyPaymentAmount"]
+      liability.balance = liability_info["_UnpaidBalanceAmount"]
 
-      # l.name = liability["_CREDITOR"]["_Name"]
-      # l.address.street_address = liability["_CREDITOR"]["_StreetAddress"]
-      # l.address.city = liability["_CREDITOR"]["_City"]
-      # l.address.state = liability["_CREDITOR"]["_State"]
-      # l.address.zip = liability["_CREDITOR"]["_PostalCode"]
+      liability.phone = liability_info["_CREDITOR"]["CONTACT_DETAIL"]["CONTACT_POINT"]["_Value"]
+      liability.name = liability_info["_CREDITOR"]["_Name"]
 
+      address = liability.build_address
+      address.street_address = liability_info["_CREDITOR"]["_StreetAddress"]
+      address.city = liability_info["_CREDITOR"]["_City"]
+      address.state = liability_info["_CREDITOR"]["_State"]
+      address.zip = liability_info["_CREDITOR"]["_PostalCode"]
+
+      liability.save
     end
   end
 
