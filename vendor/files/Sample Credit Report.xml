@@ -1,0 +1,376 @@
+<RESPONSE_GROUP MISMOVersionID="2.3.1">
+  <RESPONDING_PARTY _Name="MORTGAGE CREDIT LINK" _StreetAddress="1600 SUNFLOWER AVE STE 100" _City="COSTA MESA" _State="CA" _PostalCode="92626">
+    <CONTACT_DETAIL>
+      <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="7147086950"></CONTACT_POINT>
+      <CONTACT_POINT _RoleType="Work" _Type="Fax" _Value="7147086956"></CONTACT_POINT>
+    </CONTACT_DETAIL>
+  </RESPONDING_PARTY>
+  <RESPOND_TO_PARTY _Name="ABC MORTGAGE" _StreetAddress="10101 SLATER AVE. SUITE 250" _City="FOUNTAIN VALLEY" _State="CA" _PostalCode="92708">
+    <CONTACT_DETAIL>
+      <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="7142822324"></CONTACT_POINT>
+      <CONTACT_POINT _RoleType="Work" _Type="Fax" _Value="7143443444"></CONTACT_POINT>
+    </CONTACT_DETAIL>
+  </RESPOND_TO_PARTY>
+  <RESPONSE ResponseDateTime="2006-06-05T10:21:57-07">
+    <RESPONSE_DATA>
+      <CREDIT_RESPONSE MISMOVersionID="2.3.1" CreditResponseID="CreditResponse1" CreditReportIdentifier="6816" CreditReportFirstIssuedDate="2006-06-05" CreditReportLastUpdatedDate="2006-06-05" CreditReportMergeType="Blend" CreditReportType="Merge" CreditRatingCodeType="Experian">
+        <_DATA_INFORMATION>
+          <DATA_VERSION _Name="MORTGAGECREDITLINK" _Number=""></DATA_VERSION>
+        </_DATA_INFORMATION>
+        <CREDIT_BUREAU _Name="MORTGAGE CREDIT LINK" _StreetAddress="1600 SUNFLOWER AVE STE 100" _City="COSTA MESA" _State="CA" _PostalCode="92626">
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="7147086950"></CONTACT_POINT>
+            <CONTACT_POINT _RoleType="Work" _Type="Fax" _Value="7147086956"></CONTACT_POINT>
+          </CONTACT_DETAIL>
+        </CREDIT_BUREAU>
+        <CREDIT_REPOSITORY_INCLUDED _EquifaxIndicator="Y" _ExperianIndicator="Y" _TransUnionIndicator="Y"></CREDIT_REPOSITORY_INCLUDED>
+        <REQUESTING_PARTY InternalAccountIdentifier="XYZ2" LenderCaseIdentifier="lenderID" _Name="MORTGAGE CLUB, INC." _StreetAddress="400 CLEMENTINA STREET SUITE 416" _City="SAN FRANCISCO" _State="CA" _PostalCode="94103">
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="4152822324"></CONTACT_POINT>
+            <CONTACT_POINT _RoleType="Work" _Type="Fax" _Value="4153443444"></CONTACT_POINT>
+          </CONTACT_DETAIL>
+        </REQUESTING_PARTY>
+        <CREDIT_REQUEST_DATA CreditRequestID="CreditRequest1" BorrowerID="Borrower" CreditReportIdentifier="6816" CreditReportRequestActionType="Reissue" CreditReportType="Merge" CreditRequestDateTime="2007-07-25T11:46:24" CreditRequestType="Individual">
+          <CREDIT_REPOSITORY_INCLUDED _EquifaxIndicator="Y" _ExperianIndicator="Y" _TransUnionIndicator="Y"></CREDIT_REPOSITORY_INCLUDED>
+        </CREDIT_REQUEST_DATA>
+        <BORROWER BorrowerID="Borrower" _FirstName="BILLY" _LastName="TRAN" _MiddleName="H" _PrintPositionType="Borrower" _SSN="000000001" _UnparsedName="BILLY H TRAN" MaritalStatusType="Single">
+          <_RESIDENCE _StreetAddress="1722 SILVER MEADOW CT" _City="SAN JOSE" _State="CA" _PostalCode="95121" BorrowerResidencyType="Current"></_RESIDENCE>
+        </BORROWER>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability1" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2014-05" _AccountOwnershipType="Individual" _AccountReportedDate="2015-08" _AccountStatusType="Open" _AccountType="Mortgage" _DerogatoryDataIndicator="N" _HighCreditAmount="56250" _LastActivityDate="2015-08" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="669" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="55313" CreditBusinessType="Banking" CreditLoanType="Mortgage">
+          <_CREDITOR _Name="MORTGAGE SERVICE CENTER" _StreetAddress="3000 LEADENHALL RD" _City="MOUNT LAUREL" _State="NJ" _PostalCode="08054">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="8003300423"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2014-05"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability2" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2014-05" _AccountOwnershipType="Individual" _AccountReportedDate="2015-08" _AccountStatusType="Open" _AccountType="Mortgage" _DerogatoryDataIndicator="N" _HighCreditAmount="78000" _LastActivityDate="2015-08" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="882" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="76396" CreditBusinessType="Banking" CreditLoanType="Mortgage">
+          <_CREDITOR _Name="MORTGAGE SERVICE CENTER" _StreetAddress="3000 LEADENHALL RD" _City="MOUNT LAUREL" _State="NJ" _PostalCode="08054">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="8003300423"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2014-02"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability3" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2014-05" _AccountOwnershipType="Individual" _AccountReportedDate="2015-07" _AccountStatusType="Open" _AccountType="Mortgage" _DerogatoryDataIndicator="N" _HighCreditAmount="69900" _LastActivityDate="2015-07" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="244" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="69900" CreditBusinessType="Banking" CreditLoanType="Mortgage">
+          <_CREDITOR _Name="FIRST TECH FEDERAL CU" _StreetAddress="PO BOX 2100" _City="BEAVERTON" _State="OR" _PostalCode="97075">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="8558558805"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2014-12"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability4" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2014-05" _AccountOwnershipType="Individual" _AccountReportedDate="2015-07" _AccountStatusType="Open" _AccountType="Mortgage" _DerogatoryDataIndicator="N" _HighCreditAmount="61500" _LastActivityDate="2015-07" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="29" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="1458" CreditBusinessType="Banking" CreditLoanType="Mortgage">
+          <_CREDITOR _Name="PENTAGON FEDERAL CR UN" _StreetAddress="PO BOX 1432" _City="ALEXANDRIA" _State="VA" _PostalCode="22313">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="7038381000"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2014-02"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability5" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2013-12" _AccountOwnershipType="Individual" _AccountReportedDate="2015-07" _AccountStatusType="Open" _AccountType="Installment" _DerogatoryDataIndicator="N" _HighCreditAmount="111607" _LastActivityDate="2015-07" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="681" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="111268" CreditBusinessType="Banking" CreditLoanType="Installment">
+          <_CREDITOR _Name="SALLIE MAE" _StreetAddress="300 CONTINENTAL DR" _City="NEWARK" _State="DE" _PostalCode="19713">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="9999999999"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2014-02"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability6" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2006-01" _AccountOwnershipType="Individual" _AccountReportedDate="2015-07" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="N" _HighCreditAmount="2500" _LastActivityDate="2015-07" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="0" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="0" CreditBusinessType="Banking" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="AMERICAN EXPRESS" _StreetAddress="PO BOX 981537" _City="EL PASO" _State="TX" _PostalCode="79998">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="8008742717"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2006-01"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability7" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2005-05" _AccountOwnershipType="Individual" _AccountReportedDate="2015-08" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="N" _HighCreditAmount="10000" _LastActivityDate="2015-08" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="0" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="0" CreditBusinessType="Banking" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="BANK OF AMERICA" _StreetAddress="PO BOX 982235" _City="EL PASO" _State="TX" _PostalCode="79998">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="8004212110"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2006-01"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability8" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2014-08" _AccountOwnershipType="Individual" _AccountReportedDate="2015-08" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="N" _HighCreditAmount="2000" _LastActivityDate="2015-08" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="0" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="0" CreditBusinessType="Banking" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="BEST BUY/CBNA" _StreetAddress="PO BOX 6497" _City="SIOUX FALLS" _State="SD" _PostalCode="57117">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="8004212110"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2006-01"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability9" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2005-12" _AccountOwnershipType="Individual" _AccountReportedDate="2015-08" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="N" _HighCreditAmount="2000" _LastActivityDate="2015-08" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="0" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="0" CreditBusinessType="Banking" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="CAPITAL ONE NTL ASSOC" _StreetAddress="PO BOX 26030" _City="RICHMOND" _State="VA" _PostalCode="23260">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="8004212110"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2006-01"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability10" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2005-12" _AccountOwnershipType="Individual" _AccountReportedDate="2015-07" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="N" _HighCreditAmount="12800" _LastActivityDate="2015-07" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="0" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="0" CreditBusinessType="Banking" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="CITICARDS CBNA" _StreetAddress="PO BOX 6241" _City="SIOUX FALLS" _State="SD" _PostalCode="57117">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="8009505114"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2006-01"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability11" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2009-07" _AccountOwnershipType="Individual" _AccountReportedDate="2015-08" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="N" _HighCreditAmount="17300" _LastActivityDate="2015-08" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="30" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="30" CreditBusinessType="Banking" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="DISCOVER BANK" _StreetAddress="PO BOX 15316" _City="WILMINGTON" _State="DE" _PostalCode="19850">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="8003472683"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2006-01"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability12" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2013-02" _AccountOwnershipType="Individual" _AccountReportedDate="2015-08" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="N" _HighCreditAmount="46000" _LastActivityDate="2015-08" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="118" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="5899" CreditBusinessType="Banking" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="PENTAGON - BANKCARD" _StreetAddress="PO BOX 1432" _City="ALEXANDRIA" _State="VA" _PostalCode="22313">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="7038381000"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2006-01"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability13" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2011-12" _AccountOwnershipType="Individual" _AccountReportedDate="2015-08" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="N" _HighCreditAmount="4000" _LastActivityDate="2015-08" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="0" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="0" CreditBusinessType="Banking" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="PENTAGON - BANKCARD" _StreetAddress="PO BOX 1432" _City="ALEXANDRIA" _State="VA" _PostalCode="22313">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="7038381000"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2006-01"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability14" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2013-11" _AccountOwnershipType="Individual" _AccountReportedDate="2015-07" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="N" _HighCreditAmount="11000" _LastActivityDate="2015-07" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="30" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="3793" CreditBusinessType="Banking" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="US BANK" _StreetAddress="PO BOX 108" _City="SAINT LOUIS" _State="MO" _PostalCode="63166">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="7038381000"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2006-01"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability15" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference200" _AccountIdentifier="ACCT000002" _AccountOpenedDate="2013-11" _AccountOwnershipType="Individual" _AccountReportedDate="2015-07" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="N" _HighCreditAmount="2500" _LastActivityDate="2015-07" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="0" _MonthsReviewedCount="7" _TermsSourceType="Provided" _UnpaidBalanceAmount="0" CreditBusinessType="Banking" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="US BANK" _StreetAddress="PO BOX 2188" _City="OSHKOSH" _State="WI" _PostalCode="54903">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="8003314738"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="CCCCCCC" _StartDate="2006-01"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>Directory: 8009559900
+              800 BROOKSEDGE BLVD
+              WESTERVILLE, OH 43081
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_LIABILITY CreditLiabilityID="CreditLiability16" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditTradeReferenceID="CreditTradeReference194" _AccountClosedDate="2008-04" _AccountIdentifier="ACCT000003" _AccountOpenedDate="2004-01" _AccountOwnershipType="Individual" _AccountPaidDate="2005-06" _AccountReportedDate="2006-06" _AccountStatusType="Paid" _AccountType="Revolving" _DerogatoryDataIndicator="N" _HighCreditAmount="1500.00" _LastActivityDate="2005-06" _ManualUpdateIndicator="N" _MonthlyPaymentAmount="0.00" _MonthsReviewedCount="35" _TermsSourceType="Provided" _UnpaidBalanceAmount="0.00" CreditBusinessType="Banking" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="DISCOVER FIN SVCS LLC" _StreetAddress="PO BOX 15316" _City="WILMINGTON" _State="DE" _PostalCode="19850">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _RoleType="Work" _Type="Phone" _Value="BYMAILONLY"></CONTACT_POINT>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="C" _Type="AsAgreed"></_CURRENT_RATING>
+          <_PAYMENT_PATTERN _Data="XCCCCCCCCCCCCCCCCCCCCCCCC" _StartDate="2006-06"></_PAYMENT_PATTERN>
+          <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
+            <_Text>ACCOUNT CLOSED AT CONSUMER'S REQUEST
+              Directory: BYMAILONLY
+              PO BOX 15316
+              WILMINGTON, DE 19850
+            </_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_LIABILITY>
+
+        <CREDIT_INQUIRY CreditInquiryID="CreditInquiry43" BorrowerID="Borrower" CreditFileID="CreditFile1" _Name="CREDSTAR" _Date="2006-05-31" CreditBusinessType="MiscellaneousAndPublicRecord">
+          <CREDIT_REPOSITORY _SourceType="MergedData"></CREDIT_REPOSITORY>
+        </CREDIT_INQUIRY>
+        <CREDIT_INQUIRY CreditInquiryID="CreditInquiry45" BorrowerID="Borrower" CreditFileID="CreditFile1" _Name="ANDELER" _Date="2005-10-12" CreditBusinessType="UtilitiesAndFuel">
+          <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="621UE09049"></CREDIT_REPOSITORY>
+        </CREDIT_INQUIRY>
+        <CREDIT_FILE CreditFileID="CreditFile1" BorrowerID="Borrower" CreditRepositorySourceType="Equifax" _InfileDate="2001-06-30" _ResultStatusType="FileReturned">
+          <_BORROWER _AgeYears="26" _BirthDate="1980-05-27" _FirstName="MARISOL" _LastName="TESTCASE" _MiddleName="LEMUS" _SSN="000000001" _UnparsedName="MARISOL LEMUS TESTCASE">
+            <_ALIAS _FirstName="LEMUS" _LastName="TESTCASE" _UnparsedName="LEMUS  TESTCASE"></_ALIAS>
+            <_RESIDENCE _StreetAddress="220 LOCUST AVE  ANTHILL MO 654880001" _City="ANTHILL" _State="MO" _PostalCode="654880001" BorrowerResidencyType="Current">
+              <PARSED_STREET_ADDRESS _HouseNumber="220" _StreetName="LOCUST" _StreetSuffix="AVE"></PARSED_STREET_ADDRESS>
+            </_RESIDENCE>
+            <_RESIDENCE _StreetAddress="7144 S JAMACHA RD  ANTHILL MO 654880001" _City="ANTHILL" _State="MO" _PostalCode="654880001" BorrowerResidencyType="Prior">
+              <PARSED_STREET_ADDRESS _HouseNumber="7144 S" _StreetName="JAMACHA" _StreetSuffix="RD"></PARSED_STREET_ADDRESS>
+            </_RESIDENCE>
+          </_BORROWER>
+        </CREDIT_FILE>
+        <CREDIT_FILE CreditFileID="CreditFile2" BorrowerID="Borrower" CreditRepositorySourceType="TransUnion" _InfileDate="2001-06-01" _ResultStatusType="FileReturned">
+          <_ALERT_MESSAGE _AdverseIndicator="Y" _CategoryType="FACTARiskScoreValue">
+            <_Text>FACTA: Risk Score Value - The Risk Score Value was adversely affected by credit inquiries present in the credit file.</_Text>
+          </_ALERT_MESSAGE>
+          <_BORROWER _FirstName="MARISOL" _LastName="TESTCASE" _MiddleName="L" _SSN="000000001" _UnparsedName="MARISOL L TESTCASE">
+            <_ALIAS _UnparsedName="TESTCASE,LEMUS,M"></_ALIAS>
+            <_RESIDENCE _StreetAddress="220  LOCUST  AV  ANTHILL MO 65488" _City="ANTHILL" _State="MO" _PostalCode="65488" BorrowerResidencyType="Current">
+              <PARSED_STREET_ADDRESS _HouseNumber="220" _StreetName="LOCUST" _StreetSuffix="AV"></PARSED_STREET_ADDRESS>
+            </_RESIDENCE>
+            <EMPLOYER _Name="FLETCHER MOTORCARS" EmploymentPositionDescription="CAR SALES"></EMPLOYER>
+          </_BORROWER>
+        </CREDIT_FILE>
+        <CREDIT_FILE CreditFileID="CreditFile3" BorrowerID="Borrower" CreditRepositorySourceType="Experian" _ResultStatusType="FileReturned">
+          <_BORROWER _AgeYears="26" _FirstName="MARISOL" _LastName="TESTCASE" _SSN="000000001" _UnparsedName="MARISOL  TESTCASE">
+            <_ALIAS _FirstName="LEMUS" _LastName="TESTCASE" _UnparsedName="LEMUS  TESTCASE"></_ALIAS>
+            <_RESIDENCE _StreetAddress="220 LOCUST AVE, ANTHILL, MO 654880001" _City="ANTHILL" _State="MO" _PostalCode="654880001">
+              <PARSED_STREET_ADDRESS _HouseNumber="220" _StreetName="LOCUST" _StreetSuffix="AVE"></PARSED_STREET_ADDRESS>
+            </_RESIDENCE>
+          </_BORROWER>
+        </CREDIT_FILE>
+        <CREDIT_SCORE CreditScoreID="CreditScore61" BorrowerID="Borrower" CreditFileID="CreditFile1" CreditReportIdentifier="6815" CreditRepositorySourceType="Equifax" _FACTAInquiriesIndicator="N" _ModelNameType="EquifaxBeacon5.0" _Value="743">
+          <_FACTOR _Code="00030" _Text="TIME SINCE MOST RECENT ACCOUNT OPENING IS TOO SHORT"></_FACTOR>
+          <_FACTOR _Code="00014" _Text="LENGTH OF TIME ACCOUNTS HAVE BEEN ESTABLISHED"></_FACTOR>
+          <_FACTOR _Code="00008" _Text="TOO MANY INQUIRIES LAST 12 MONTHS"></_FACTOR>
+          <_FACTOR _Code="00012" _Text="LENGTH OF TIME REVOLVING ACCOUNTS HAVE BEEN ESTABLISHED"></_FACTOR>
+        </CREDIT_SCORE>
+        <CREDIT_SCORE CreditScoreID="CreditScore128" BorrowerID="Borrower" CreditFileID="CreditFile2" CreditReportIdentifier="6815" CreditRepositorySourceType="TransUnion" _FACTAInquiriesIndicator="Y" _ModelNameType="FICORiskScoreClassic98" _Value="741">
+          <_FACTOR _Code="014" _Text="LENGTH OF TIME ACCOUNTS HAVE BEEN ESTABLISHED"></_FACTOR>
+          <_FACTOR _Code="012" _Text="LENGTH OF TIME REVOLVING ACCOUNTS HAVE BEEN ESTABLISHED"></_FACTOR>
+          <_FACTOR _Code="008" _Text="TOO MANY INQUIRIES LAST 12 MONTHS"></_FACTOR>
+          <_FACTOR _Code="030" _Text="TIME SINCE MOST RECENT ACCOUNT OPENING IS TOO SHORT"></_FACTOR>
+          <_FACTOR _Code="FA" _Text="INQUIRIES IMPACTED THE CREDIT SCORE"></_FACTOR>
+        </CREDIT_SCORE>
+        <CREDIT_SCORE CreditScoreID="CreditScore160" BorrowerID="Borrower" CreditFileID="CreditFile3" CreditReportIdentifier="6815" CreditRepositorySourceType="Experian" _FACTAInquiriesIndicator="N" _ModelNameType="ExperianFairIsaac" _Value="745">
+          <_FACTOR _Code="14" _Text="LENGTH OF TIME ACCOUNTS HAVE BEEN ESTABLISHED"></_FACTOR>
+          <_FACTOR _Code="08" _Text="TOO MANY INQUIRIES LAST 12 MONTHS"></_FACTOR>
+          <_FACTOR _Code="09" _Text="TOO MANY ACCOUNTS RECENTLY OPENED"></_FACTOR>
+        </CREDIT_SCORE>
+        <REGULATORY_PRODUCT CreditFileID="CreditFile3" BorrowerID="Borrower" CreditRepositorySourceType="Experian" _SourceType="OFAC" _ResultText="EXPERIAN OFAC NAME MATCHING SERVICE: NO MATCH FOUND UNLESS OTHERWISE INDICATED" _ResultStatusType="Clear"></REGULATORY_PRODUCT>
+        <EMBEDDED_FILE _Extension="htm" _Type="HTML">
+          <DOCUMENT>...</DOCUMENT>
+        </EMBEDDED_FILE>
+      </CREDIT_RESPONSE>
+    </RESPONSE_DATA>
+    <STATUS _Name="MLStatus" _Description="READY"></STATUS>
+  </RESPONSE>
+</RESPONSE_GROUP>

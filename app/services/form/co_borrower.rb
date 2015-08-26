@@ -45,7 +45,6 @@ module Form
           is_new_user: !is_existing,
           default_password: default_password || nil
         }
-
         CoBorrowerMailer.notify_being_added(loan.id, email_options).deliver_later
       when :secondary_borrower
         # just update its info

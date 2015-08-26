@@ -11,7 +11,7 @@
 
 class BorrowerAddress < ActiveRecord::Base
   belongs_to :borrower, inverse_of: :borrower_addresses, foreign_key: 'borrower_id'
-  has_one :address, inverse_of: :borrower_address, dependent: :destroy
+  has_one :address, inverse_of: :borrower_address, autosave: true, dependent: :destroy
   accepts_nested_attributes_for :address
 
   PERMITTED_ATTRS = [
