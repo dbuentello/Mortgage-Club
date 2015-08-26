@@ -78,3 +78,13 @@ When /^I am at dashboard page$/ do
     Then I follow "Dashboard"
   }
 end
+
+When /^I clear value in "(.*?)"$/ do |field|
+  patiently do
+    fill_in(field, with: '')
+  end
+end
+
+Then /^the  "(.*?)" field should contain "(.*?)"$/ do |field, value|
+  field_labeled(field).value.should =~ /#{value}/
+end

@@ -109,7 +109,7 @@ var TextField = React.createClass({
             <HelpTooltip position={tooltip.position} text={tooltip.text} />
           : null}
           <input className={classes.editableFieldClasses + (rightAlign ? ' text-right' : '')} type="text" value={this.props.value}
-            onChange={this.handleChange} onBlur={this.props.onBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.name}/>
+            onChange={this.handleChange} onBlur={this.props.onBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.name} id={this.props.keyName}/>
         </label>
         <p className={classes.staticFieldClasses}>{displayText}</p>
       </div>

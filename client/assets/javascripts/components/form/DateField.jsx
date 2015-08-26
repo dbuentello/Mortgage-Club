@@ -57,7 +57,7 @@ var DateFieldView = React.createClass({
           <span className={this.props.label ? 'h7 typeBold mrs' : null}>{this.props.label}</span>
           <div className="input-group date datepicker pan" style={{display: this.props.editable ? null : 'none', zIndex: this.props.zIndex}}>
             <input className={classes.editableFieldClasses} defaultValue={dateVal} type="text" placeholder={this.props.placeholder}
-              onBlur={this.onBlur} onFocus={this.handleFocus}/>
+              onBlur={this.onBlur} onFocus={this.handleFocus} id={this.props.keyName}/>
             <span className="input-group-addon">
               <i className="iconCalendar"/>
             </span>
