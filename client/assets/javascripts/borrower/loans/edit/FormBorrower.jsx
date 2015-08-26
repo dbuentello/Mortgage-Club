@@ -571,7 +571,6 @@ var FormBorrower = React.createClass({
         state[first_borrower_fields.applyingAs.name] = 2;
         state['hasCoBorrower'] = true;
         // state['secondary_borrower_editable'] = false;
-
         // build state for secondary borrower
         state = this.buildStateFromBorrower(state, secondary_borrower, secondary_borrower.user, secondary_borrower_fields);
       } else {
@@ -619,6 +618,8 @@ var FormBorrower = React.createClass({
     state[fields.dependentAges.name] = borrower[fields.dependentAges.fieldName].join(', ');
 
     if (borrower[fields.currentAddress.fieldName]) {
+      console.dir(fields.currentAddress.fieldName)
+      console.dir(borrower[fields.currentAddress.fieldName].address)
       state[fields.currentAddress.name] = borrower[fields.currentAddress.fieldName].address;
       state[fields.currentlyOwn.name] = !borrower[fields.currentAddress.fieldName].is_rental;
       state[fields.yearsInCurrentAddress.name] = borrower[fields.currentAddress.fieldName].years_at_address;
@@ -694,6 +695,7 @@ var FormBorrower = React.createClass({
       var borrower_address_id = null;
       if (typeof this.props.loan.secondary_borrower !== 'undefined' && this.props.loan.secondary_borrower.current_address) {
         borrower_address_id = this.props.loan.secondary_borrower.current_address.id;
+        alert(borrower_address_id);
       };
       loan.secondary_borrower_attributes.borrower_addresses_attributes = [{
         id: borrower_address_id,
@@ -722,9 +724,11 @@ var FormBorrower = React.createClass({
 
     if (this.props.borrower_type == "co_borrower" && (this.state[first_borrower_fields.applyingAs.name] == 1)) {
       // after co-borrower self-remove
+      alert('1111')
       this.props.saveLoan(this.buildLoanFromState(), 1, true);
       location.reload();
     } else {
+      alert('2222')
       this.props.saveLoan(this.buildLoanFromState(), 1);
     } ;
   }

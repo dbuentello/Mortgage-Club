@@ -45,6 +45,10 @@ class LoanPresenter
             user: {
               only: [ :email ]
             }
+          ],
+          methods: [
+            :current_address, :previous_addresses, :current_employment, :previous_employments,
+            :first_name, :last_name, :middle_name, :suffix
           ]
         }
       },

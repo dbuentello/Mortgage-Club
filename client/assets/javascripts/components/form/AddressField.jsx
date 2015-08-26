@@ -204,7 +204,7 @@ var AddressField = React.createClass({
             <div className='input-group pan'>
               <input className="form-control input-sm" type="text"
                 value={val} placeholder={this.props.placeholder}
-                onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange}/>
+                onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange} id={this.props.keyName}/>
               <span className='input-group-addon clickable' onClick={this.handleIconClick}><i className='iconLocation'/></span>
             </div>
           </label>
@@ -246,11 +246,11 @@ var AddressField = React.createClass({
 
   verifyCompletion: function() {
     var address = this.props.address;
+
     if (!address.state || !address.zip || !address.city || !address.street_address) {
       if (!address.street_address) {
         address.street_address = address.full_text;
       }
-
       // this.toggleDetailForm(true);
     }
   },

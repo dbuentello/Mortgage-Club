@@ -35,11 +35,12 @@ class Users::LoansController < Users::BaseController
 
   def update
     @borrower_params = co_borrower_params
+
     if @borrower_params.present?
       if @borrower_params[:_remove]
-        Form::CoBorrower.remove(current_user, @borrower_type, @borrower_params)
+        Form::CoBorrower.remove(current_user, @borrower_type, @borrower_params, @loan)
       else
-        Form::CoBorrower.save(current_user, @borrower_type, @borrower_params)
+        Form::CoBorrower.save(current_user, @borrower_type, @borrower_params, @loan)
       end
     end
 
