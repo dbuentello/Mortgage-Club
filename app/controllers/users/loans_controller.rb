@@ -40,7 +40,7 @@ class Users::LoansController < Users::BaseController
       when '0'
         ZillowService::UpdatePropertyTax.delay.call(loan.property.id)
       when '2'
-        # run Credit Report
+        CreditReportService.delay.get_liabilities(current_user.borrower)
       end
 
       render json: {loan: LoanPresenter.new(loan).edit}
@@ -90,8 +90,6 @@ class Users::LoansController < Users::BaseController
   end
 
   def dashboard
-    borrower = current_user.borrower
-
     loan = @loan
     property = loan.property
     closing = loan.closing || Closing.create(name: 'Closing', loan_id: loan.id)
@@ -101,7 +99,7 @@ class Users::LoansController < Users::BaseController
     bootstrap(
       address: property.address.try(:address),
       loan: loan_presenter.show,
-      borrower_list: BorrowerPresenter.new(borrower).show_documents,
+      borrower_list: BorrowerPresenter.new(current_user.borrower).show_documents,
       contact_list: contact_list_json_options,
       property_list: PropertyPresenter.new(property).show_documents,
       loan_list: loan_presenter.show_documents,
