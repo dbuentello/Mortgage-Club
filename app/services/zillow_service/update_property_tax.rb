@@ -2,7 +2,7 @@ require 'capybara/poltergeist'
 
 module ZillowService
   class UpdatePropertyTax
-    ATTEMPTS = 6
+    ATTEMPTS = 4
 
     def self.call(property_id)
       property = Property.find(property_id)
