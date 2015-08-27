@@ -6,10 +6,8 @@ class ElectronicSignatureController < ApplicationController
     current_loan = current_user.loans.first
     base = Docusign::Base.new
 
-    # get the template name
-    template_name = params[:template_name]
     # get Template info from database
-    template = Template.where(name: template_name).first
+    template = Template.where(name: params[:template_name]).first
 
     # handle none-existing template
     if template.blank?
@@ -52,14 +50,14 @@ class ElectronicSignatureController < ApplicationController
       # create new envelope from template
       if template
         envelope_hash.merge!({
-          template_name: template_name,
+          template_name: params[:template_name],
           template_id: template.docusign_id,
           email_subject: template.email_subject,
           email_body: template.email_body
         })
       else
         envelope_hash.merge!({
-          template_name: template_name,
+          template_name: params[:template_name],
           email_subject: "Electronic Signature Request from Mortgage Club",
           email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
         })
