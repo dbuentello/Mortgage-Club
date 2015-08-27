@@ -1,7 +1,14 @@
 require 'rails_helper'
 
 describe Employment do
+  let(:employment) { FactoryGirl.build(:employment) }
+
   it 'has a valid factory' do
-    expect(FactoryGirl.build(:employment)).to be_valid
+    expect(employment).to be_valid
   end
+
+  it 'has a valid factory with address object' do
+    expect(employment.address).to be_truthy
+  end
+
 end

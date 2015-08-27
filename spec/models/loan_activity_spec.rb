@@ -3,13 +3,21 @@ require "rails_helper"
 describe LoanActivity do
   let(:loan) { FactoryGirl.create(:loan) }
   let(:loan_member) { FactoryGirl.create(:loan_member) }
-  let(:loan_activity) { FactoryGirl.create(:loan_activity) }
 
-  it "has a valid factory" do
-    expect(FactoryGirl.build(:loan_activity)).to be_valid
+  context "with valid params" do
+    let(:loan_activity) { FactoryGirl.create(:loan_activity) }
+
+    it "has a valid factory" do
+      expect(loan_activity).to be_valid
+    end
+
+    it "has a valid factory with loan and loan_member objects" do
+      expect(loan_activity.loan).to be_valid
+      expect(loan_activity.loan_member).to be_valid
+    end
   end
 
-  context "invalid params" do
+  context "with invalid params" do
     it "is invalid without a loan" do
       loan_activity = LoanActivity.new(loan_member: loan_member)
       loan_activity.valid?
