@@ -100,9 +100,10 @@ class Users::LoansController < Users::BaseController
       address: property.address.try(:address),
       loan: loan_presenter.show,
       borrower_list: BorrowerPresenter.new(current_user.borrower).show_documents,
-      contact_list: contact_list_json_options,
+      contact_list: LoanMemberAssociationsPresenter.new(loan.loans_members_associations).show,
       property_list: PropertyPresenter.new(property).show_documents,
       loan_list: loan_presenter.show_documents,
+      manager: LoanMembersPresenter.show(loan.relationship_manager),
       loan_activities: loan_activities,
       closing_list: ClosingPresenter.new(closing).show_documents
     )
@@ -130,31 +131,4 @@ class Users::LoansController < Users::BaseController
   def borrower_info_params
     params.permit([:email, :dob, :ssn])
   end
-
-  def contact_list_json_options
-    [
-      {
-        id: 1,
-        name: 'Michael Gifford',
-        title: 'Relationship Manager',
-        email: 'michael@gmail.com',
-        avatar_url: 'https://goo.gl/IpbO1e'
-      },
-      {
-        id: 2,
-        name: 'Jerry Williams',
-        title: 'Loan Analyst',
-        email: 'jerry@gmail.com',
-        avatar_url: 'https://goo.gl/IpbO1e'
-      },
-      {
-        id: 3,
-        name: 'Kristina Rendon',
-        title: 'Insurance',
-        email: 'kristina@gmail.com',
-        avatar_url: 'https://goo.gl/IpbO1e'
-      }
-    ]
-  end
-
 end

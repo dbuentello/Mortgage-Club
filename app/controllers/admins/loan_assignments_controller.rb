@@ -8,7 +8,7 @@ class Admins::LoanAssignmentsController < Admins::BaseController
 
     bootstrap(
       loans: LoansPresenter.new(loans).show,
-      loan_members: LoanMembersPresenter.new(loan_members).show,
+      loan_members: LoanMembersPresenter.index(loan_members),
       associations: LoanMemberAssociationsPresenter.new(first_loan_associations).show
     )
 
