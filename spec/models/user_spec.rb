@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 describe User do
+  let(:user) { FactoryGirl.build(:user) }
+
   it 'has a valid factory' do
-    expect(FactoryGirl.build(:user)).to be_valid
+    expect(user).to be_valid
+    expect(user.confirmed?).to be true
   end
 
   it 'has a valid borrower_user factory' do

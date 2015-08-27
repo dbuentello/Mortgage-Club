@@ -5,6 +5,8 @@ describe Property do
 
   it 'has a valid factory' do
     expect(property).to be_valid
+    expect(property.address).to be_valid
+
   end
 
   describe '.usage_name' do
