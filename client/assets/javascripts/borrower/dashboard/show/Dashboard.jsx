@@ -12,7 +12,7 @@ var ContactTab = require('./tabs/ContactTab');
 var PropertyTab = require('./tabs/PropertyTab');
 var LoanTab = require('./tabs/LoanTab');
 var ClosingTab = require('./tabs/ClosingTab');
-var UserInfo = require('./UserInfo');
+var RelationshipManager = require('./RelationshipManager');
 
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
@@ -59,6 +59,7 @@ var Dashboard = React.createClass({
     var loanList = this.props.bootstrapData.loan_list;
     var borrowerList = this.props.bootstrapData.borrower_list;
     var closingList = this.props.bootstrapData.closing_list;
+    var manager = this.props.bootstrapData.manager;
 
     return (
       <div className='dashboard content'>
@@ -128,7 +129,7 @@ var Dashboard = React.createClass({
             </div>
 
             <div className='right-side col-xs-4'>
-              <UserInfo Info={current_user} LoanActivities={this.props.bootstrapData.loan_activities} ActiveTab={this.state.activeTab}></UserInfo>
+              <RelationshipManager Manager={manager} LoanActivities={this.props.bootstrapData.loan_activities} ActiveTab={this.state.activeTab}></RelationshipManager>
             </div>
           </div>
         </div>

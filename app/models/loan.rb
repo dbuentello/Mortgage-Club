@@ -145,4 +145,10 @@ class Loan < ActiveRecord::Base
     purpose.titleize
   end
 
+  def relationship_manager
+    return if loans_members_associations.empty?
+
+    association = loans_members_associations.where(loan_id: self.id, title: 'manager').last
+    association.loan_member
+  end
 end

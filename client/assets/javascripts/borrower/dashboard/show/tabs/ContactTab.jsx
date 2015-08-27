@@ -18,11 +18,11 @@ var ContactTab = React.createClass({
                 return (
                   <li key={contact.id}>
                     <div className='col-xs-1 ptl'>
-                      <img src={contact.avatar_url} className="img-circle" width="40px" height="30px"/>
+                      <img src={contact.loan_member.user.avatar_url} className="img-circle" width="40px" height="30px"/>
                     </div>
                     <div className='col-xs-11 ptl'>
-                      <p>{contact.name} ({contact.title})</p>
-                      <p><a herf="#">{contact.email}</a></p>
+                      <p>{contact.loan_member.user.to_s} ({contact.title})</p>
+                      <p><a herf="#">{contact.loan_member.user.email}</a></p>
                     </div>
                   </li>
                 )

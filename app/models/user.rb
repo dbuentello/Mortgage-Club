@@ -106,6 +106,10 @@ class User < ActiveRecord::Base
     self.has_role? :admin
   end
 
+  def avatar_url
+    avatar.url if avatar
+  end
+
   private
 
   def set_private_token
