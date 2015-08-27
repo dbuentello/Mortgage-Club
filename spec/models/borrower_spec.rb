@@ -29,4 +29,13 @@ describe Borrower do
       expect(borrower.second_bank_statement).to be_valid
     end
   end
+
+  context 'when created with user' do
+    let(:borrower) { FactoryGirl.build(:borrower, :with_user) }
+    subject { borrower }
+
+    it 'has documents' do
+      expect(borrower.user).to be_valid
+    end
+  end
 end

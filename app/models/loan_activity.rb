@@ -115,15 +115,15 @@ class LoanActivity < ActiveRecord::Base
     loan_member.user.to_s
   end
 
-  def pretty_duration
-    duration ||= 0
+  # def pretty_duration
+  #   duration ||= 0
 
-    ActionController::Base.helpers.distance_of_time_in_words(0, duration, include_seconds: true)
-  end
+  #   ActionController::Base.helpers.distance_of_time_in_words(0, duration, include_seconds: true)
+  # end
 
-  def pretty_updated_at
-    ActionController::Base.helpers.time_ago_in_words(updated_at)
-  end
+  # def pretty_updated_at
+  #   ActionController::Base.helpers.time_ago_in_words(updated_at)
+  # end
   #===== END WILL_DO
 
   def as_json(opts={})
