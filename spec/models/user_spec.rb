@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User do
-  let(:user) { FactoryGirl.build(:user) }
+  let(:user) { FactoryGirl.create(:user) }
 
   it 'has a valid factory' do
     expect(user).to be_valid
@@ -18,5 +18,11 @@ describe User do
     user = FactoryGirl.create(:loan_member_user)
 
     expect(user.has_role? :loan_member).to be_truthy
+  end
+
+  describe '.avatar_url' do
+    it "returns  avatar'url" do
+      expect(user.avatar_url).to eq("/assets/avatar.png")
+    end
   end
 end

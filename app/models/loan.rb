@@ -149,6 +149,6 @@ class Loan < ActiveRecord::Base
     return if loans_members_associations.empty?
 
     association = loans_members_associations.where(loan_id: self.id, title: 'manager').last
-    association.loan_member
+    association.loan_member if association
   end
 end
