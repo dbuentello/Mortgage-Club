@@ -26,8 +26,8 @@ class ClosingDocument < ActiveRecord::Base
 
   belongs_to :owner, polymorphic: true
 
-  validates :owner, presence: value
-  validates :token, presence: value
+  validates :owner, presence: true
+  validates :token, presence: true
 
   validates_attachment :attachment,
     presence: true,

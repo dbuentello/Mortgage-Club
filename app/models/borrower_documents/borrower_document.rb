@@ -24,7 +24,7 @@ class BorrowerDocument < ActiveRecord::Base
 
   belongs_to :owner, polymorphic: true
 
-  validates :owner, :token, presence: value
+  validates :owner, :token, presence: true
 
   validates_attachment :attachment,
     presence: true,

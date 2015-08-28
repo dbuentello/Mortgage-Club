@@ -40,7 +40,7 @@ class LoanActivity < ActiveRecord::Base
     pause: 2
   }
 
-  validates :loan, :loan_member, presence: value
+  validates :loan, :loan_member, presence: true
 
   validates_inclusion_of :user_visible, in: [true, false]
 
