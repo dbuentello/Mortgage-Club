@@ -16,7 +16,7 @@ class LoanMemberAssociationsPresenter
           include: {
             user: {
               only: [ :email ],
-              methods: [ :to_s ]
+              methods: [ :to_s , :avatar_url]
             }
           }
         }
@@ -24,5 +24,4 @@ class LoanMemberAssociationsPresenter
       methods: [ :pretty_title ]
     }
   end
-
 end

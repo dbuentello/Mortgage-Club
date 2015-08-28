@@ -106,6 +106,14 @@ class User < ActiveRecord::Base
     self.has_role? :admin
   end
 
+  def role_name
+    roles.pluck(:name).join(", ") unless roles.empty?
+  end
+
+  def avatar_url
+    avatar.url if avatar
+  end
+
   private
 
   def set_private_token

@@ -81,6 +81,9 @@ Rails.application.routes.draw do
         get :loan_members
       end
     end
+
+    resources :loan_member_managements do
+    end
   end
 
   namespace :document_uploaders do

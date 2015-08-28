@@ -64,4 +64,29 @@ describe Loan do
       end
     end
   end
+
+  describe '.relationship_manager' do
+    let(:loan_with_loan_member) { FactoryGirl.create(:loan_with_loan_member) }
+
+    context 'loans_members_associations are empty' do
+      it 'returns nil if there is not any loans members associations' do
+        loan.loans_members_associations = []
+        expect(loan.relationship_manager).to be_nil
+      end
+    end
+
+    context 'non existing relationship manager' do
+      it 'returns nil' do
+        loan_with_loan_member.loans_members_associations.last.update(title: 'sale')
+        expect(loan_with_loan_member.relationship_manager).to be_nil
+      end
+    end
+
+    context 'loans_members_associations are valid' do
+      it 'returns a loan member' do
+        loan_with_loan_member.loans_members_associations.last.update(title: 'manager')
+        expect(loan_with_loan_member.relationship_manager).to be_a(LoanMember)
+      end
+    end
+  end
 end

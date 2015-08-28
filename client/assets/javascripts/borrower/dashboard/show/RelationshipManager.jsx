@@ -2,22 +2,26 @@ var React = require('react/addons');
 
 var RecentLoanActivities = require('./RecentLoanActivities');
 
-var UserInfo = React.createClass({
+var RelationshipManager = React.createClass({
   render: function() {
     return (
       <div>
         <h5 className='ptl bbs pbm'>Your Relationship Manager</h5>
-        <div className='ptm typeEmphasize clearfix'>
-          <div className='manager-image pull-left mrm'>
-            <img src='https://avatars0.githubusercontent.com/u/11491751?v=3&s=400' width="80px" height="80px"/>
+        { this.props.Manager ?
+          <div className='ptm typeEmphasize clearfix'>
+            <div className='manager-image pull-left mrm'>
+              <img src={this.props.Manager.user.avatar_url} width="80px" height="80px"/>
+            </div>
+            <div className='manager-info pull-left'>
+              <p>{this.props.Manager.user.to_s}</p>
+              <p>{this.props.Manager.phone_number}</p>
+              <p><a href='javascript:void(0)'>Skype Call</a></p>
+              <p><a href={'mailto:' + this.props.Manager.user.email}>{this.props.Manager.user.email}</a></p>
+            </div>
           </div>
-          <div className='manager-info pull-left'>
-            <p>Billy Tran</p>
-            <p>(Cell) 650-787-7799</p>
-            <p><a href='javascript:void(0)'>Skype Call</a></p>
-            <p><a href='mailto:billy@mortgageclub.io'>billy@mortgageclub.io</a></p>
-          </div>
-        </div>
+          :
+          'There is not relationship manager'
+        }
 
         { (this.props.ActiveTab == 'overview') ?
           <div>
@@ -43,4 +47,4 @@ var UserInfo = React.createClass({
   }
 });
 
-module.exports = UserInfo;
+module.exports = RelationshipManager;
