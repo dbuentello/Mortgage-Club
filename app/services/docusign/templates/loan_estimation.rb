@@ -6,6 +6,7 @@ include NumbersHelper
 module Docusign
   module Templates
     class LoanEstimation
+      # rubocop:disable AbcSize
       def self.get_values_mapping_hash(user, loan)
         property = loan.property
         borrower = user.borrower
@@ -97,7 +98,7 @@ module Docusign
 
         # default values for testing
         values.merge! ({
-          'date_issued' => Time.zone.today.to_time.strftime("%D"),
+          'date_issued' => Time.zone.today.to_time_in_current_zone.strftime("%D"),
           'include_property_taxes_yes_no' => 'x',
           'include_homeowners_insurance_yes_no' => 'x',
           'include_other_yes_no' => 'x',
@@ -106,6 +107,7 @@ module Docusign
 
         values
       end
+      # rubocop:enable AbcSize
     end
   end
 end

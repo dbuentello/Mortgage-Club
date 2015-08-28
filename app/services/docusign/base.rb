@@ -25,7 +25,7 @@ module Docusign
     # Docusign::Base.new.create_envelope_from_template(template_name: "Loan Estimation", email_subject: "New test 01/07/2015", user: {name: "Hoang", email: "le_hoang0306@yahoo.com.vn"}, values: { phone: "0906944722" })
     def create_envelope_from_template(options = {})
       if options[:template_id].blank? && options[:template_name].blank?
-        puts "Error: don't have enough params"
+        Rails.logger.error "Error: don't have enough params"
         return
       end
 

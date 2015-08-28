@@ -9,7 +9,7 @@ module Docusign
     # POST /accounts/#{acct_id}/envelopes
     def create_envelope_from_template(options = {})
       if options[:template_id].blank? && options[:template_name].blank?
-        puts "Error: don't have enough params"
+        Rails.logger.error "Error: don't have enough params"
         return
       end
 
