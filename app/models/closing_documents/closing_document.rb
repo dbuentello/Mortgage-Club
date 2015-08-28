@@ -26,7 +26,8 @@ class ClosingDocument < ActiveRecord::Base
 
   belongs_to :owner, polymorphic: true
 
-  validates_presence_of :token
+  validates :owner, presence: value
+  validates :token, presence: value
 
   validates_attachment :attachment,
     presence: true,
@@ -38,8 +39,6 @@ class ClosingDocument < ActiveRecord::Base
       less_than_or_equal_to: 10.megabytes,
       message: ' must be less than or equal to 10MB'
     }
-
-  validates_presence_of :owner
 
   PERMITTED_ATTRS = [
     :type,

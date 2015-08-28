@@ -40,7 +40,8 @@ class LoanActivity < ActiveRecord::Base
     pause: 2
   }
 
-  validates_presence_of :loan, :loan_member
+  validates :loan, :loan_member, presence: value
+
   validates_inclusion_of :user_visible, in: [true, false]
 
   def self.get_latest_by_loan_and_name(loan_id, name)
