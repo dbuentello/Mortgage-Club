@@ -31,8 +31,8 @@ describe LoanActivityServices::CalculateProcessingTime do
       before(:each) do
         Timecop.freeze
         loan_activity.activity_status = "pause" # current_activity_status
-        @current_time = Time.now
-        @next_time = Time.now + 1.hour
+        @current_time = Time.now.utc
+        @next_time = Time.now.utc + 1.hour
       end
 
       it "updates duration with exactly value" do

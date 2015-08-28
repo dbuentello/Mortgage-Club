@@ -90,7 +90,7 @@ module Form
 
       borrower = Borrower.where(ssn: params[:ssn]).first
 
-      if borrower.present? && (borrower.user.email == params[:email]) && (DateTime.parse(params[:dob]).to_date == borrower.dob.to_date)
+      if borrower.present? && (borrower.user.email == params[:email]) && (DateTime.parse(params[:dob]).utc.to_date == borrower.dob.to_date)
         return true
       else
         return false

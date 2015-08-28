@@ -28,7 +28,7 @@ module LoanActivityServices
         # nil to start
       when "pause", "done"
         # start to pause/done
-        @old_activity.duration = Time.now - @old_activity.created_at.to_time
+        @old_activity.duration = Time.now.utc - @old_activity.created_at.to_time
       end
     end
 

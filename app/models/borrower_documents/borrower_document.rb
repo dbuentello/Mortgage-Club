@@ -64,6 +64,6 @@ class BorrowerDocument < ActiveRecord::Base
   private
 
   def set_private_token
-    self.token = Digest::MD5.hexdigest(Time.now.to_s)
+    self.token = Digest::MD5.hexdigest(Time.now.utc.to_s)
   end
 end
