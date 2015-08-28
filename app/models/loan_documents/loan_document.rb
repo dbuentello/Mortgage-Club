@@ -26,7 +26,7 @@ class LoanDocument < ActiveRecord::Base
 
   belongs_to :owner, polymorphic: true
 
-  validates_presence_of :token
+  validates :owner, :token, presence: true
 
   validates_attachment :attachment,
     presence: true,
@@ -38,8 +38,6 @@ class LoanDocument < ActiveRecord::Base
       less_than_or_equal_to: 10.megabytes,
       message: ' must be less than or equal to 10MB'
     }
-
-  validates_presence_of :owner
 
   PERMITTED_ATTRS = [
     :type,
@@ -60,6 +58,6 @@ class LoanDocument < ActiveRecord::Base
   private
 
   def set_private_token
-    self.token = Digest::MD5.hexdigest(Time.now.to_s)
+    self.token = Digest::MD5.hexdigest(Time.now.utc.to_s)
   end
 end

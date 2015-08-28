@@ -9,7 +9,7 @@ class TwilioService
     # to = '+84906944722'
     to = '+16507877799'
 
-    puts "Send from #{from} to #{to}"
+    Rails.logger.info "Send from #{from} to #{to}"
 
     sms = @client.messages.create(
       from: from,

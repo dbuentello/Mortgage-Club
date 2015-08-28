@@ -20,6 +20,6 @@ class Envelope < ActiveRecord::Base
 
   has_one :user, through: :loan
 
-  validates_presence_of :docusign_id, :template_id, :loan_id
+  validates :docusign_id, :template_id, :loan_id, presence: true
 
 end

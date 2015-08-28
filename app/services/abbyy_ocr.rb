@@ -12,7 +12,7 @@ class AbbyyOcr
     # Parse response xml (see http://ocrsdk.com/documentation/specifications/status-codes)
     xml_data = REXML::Document.new(response)
     error_message = xml_data.elements["error/message"]
-    puts "Error: #{error_message.text}" if error_message
+    Rails.logger.error "Error: #{error_message.text}" if error_message
   end
 
   def self.get_recognized_text
@@ -30,8 +30,8 @@ class AbbyyOcr
     base_url = "http://#{application_id}:#{password}@cloud.ocrsdk.com"
 
     # Upload and process the image (see http://ocrsdk.com/documentation/apireference/processImage)
-    puts "File will be recognized with #{language} language."
-    puts "Uploading file.."
+    Rails.logger.info "File will be recognized with #{language} language."
+    Rails.logger.info "Uploading file.."
     begin
       response = RestClient.post("#{base_url}/processImage?language=#{language}&exportFormat=txt", upload: {
         file: File.new(file_name, 'rb')
@@ -51,7 +51,7 @@ class AbbyyOcr
     end
 
     # Get task information in a loop until task processing finishes
-    puts "Waiting till file is processed.."
+    Rails.logger.info "Waiting till file is processed.."
     while task_status == "InProgress" or task_status == "Queued"
       begin
         # Note: it's recommended that your application waits
@@ -88,7 +88,7 @@ class AbbyyOcr
     download_url = xml_data.elements["response/task"].attributes["resultUrl"]
 
     # Download the result
-    puts "Downloading result.. from #{download_url}"
+    Rails.logger.info "Downloading result.. from #{download_url}"
     recognized_text = RestClient.get(download_url)
 
     # We have the recognized text - output it!

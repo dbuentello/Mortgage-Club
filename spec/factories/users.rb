@@ -9,7 +9,7 @@ FactoryGirl.define do
 
     f.password 'password'
     f.password_confirmation 'password'
-    f.confirmed_at Date.today
+    f.confirmed_at Time.zone.today
 
     factory :borrower_user do
       after(:build) do |user|

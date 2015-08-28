@@ -25,7 +25,7 @@
 class Declaration < ActiveRecord::Base
   belongs_to :borrower
 
-  validates_presence_of :borrower_id
+  validates :borrower_id, presence: true
 
   PERMITTED_ATTRS = [
     :outstanding_judgment,

@@ -19,7 +19,7 @@ class Template < ActiveRecord::Base
 
   has_many :envelopes, inverse_of: :template
 
-  validates_presence_of :name, :docusign_id, :state
+  validates :name, :docusign_id, :state, presence: true
   validates :name, uniqueness: true
 
   after_save :clear_cache
