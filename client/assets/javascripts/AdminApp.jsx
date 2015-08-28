@@ -8,7 +8,9 @@ var RouteHandler = Router.RouteHandler;
 
 var FlashHandler = require('mixins/FlashHandler');
 var AppStarter = require('tools/AppStarter');
-var Loans = require('admin/Loans')
+var Loans = require('admin/Loans');
+var LoanMemberManagements = require('admin/member_managements/Managements');
+var EditPage = require('admin/member_managements/EditPage');
 
 window.AdminApp = React.createClass({
   mixins: [FlashHandler],
@@ -28,12 +30,19 @@ window.AdminApp = React.createClass({
               <div className='col-xs-6 typeLowlight'>
                 <a className='mrl' href='/loan_assignments'> MortgageClub </a>
               </div>
-              <div className='col-xs-6 text-right'>
+              <div className='col-xs-2 text-right pull-right'>
                 {user
-                ? <span>
-                    <span className='typeLowlight mrm'>Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!</span>
-                    <a className='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
-                  </span>
+                ? <div className="dropdown cols10 txtR">
+                    <a href="#">{user.firstName}</a>
+                    <div className="dropdownBox dropdownBoxRight box boxBasic backgroundLowlight">
+                      <ul className="dropdownList">
+                        <li><a href="/loan_member_managements" className="dropdownLink">Loan Members</a></li>
+                        <li><a href="/loan_assignments" className="dropdownLink">Loan Assignment</a></li>
+                        <li><a href="/auth/register/edit" className="dropdownLink">Profile</a></li>
+                        <li><a href="/auth/logout" className="dropdownLink">Log out</a></li>
+                      </ul>
+                    </div>
+                  </div>
                 : <span>
                     <a className='linkTypeReversed mrm' href='/auth/login'>
                       Log in
@@ -64,6 +73,8 @@ window.AdminApp = React.createClass({
 var routes = (
   <Route name='app' path='/' handler={AdminApp}>
     <Route name='loans' path='/loan_assignments' handler={Loans}/>
+    <Route name='loan_member_managements' path='/loan_member_managements' handler={LoanMemberManagements}/>
+    <Route path="/loan_member_managements/:id/edit" handler={EditPage}/>
     <DefaultRoute handler={Loans}/>
   </Route>
 );

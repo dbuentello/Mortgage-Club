@@ -1,6 +1,6 @@
 class LoanMembersPresenter
   def self.index(loan_members)
-    loan_members.includes(:user).as_json(loan_members_json_options)
+    loan_members.includes(user: :roles).as_json(loan_members_json_options)
   end
 
   def self.show(loan_member)
@@ -13,8 +13,8 @@ class LoanMembersPresenter
     {
       include: {
         user: {
-          only: [ :email ],
-          methods: [ :to_s, :avatar_url ]
+          only: [:email, :first_name, :last_name],
+          methods: [:to_s, :avatar_url, :role_name]
         }
       }
     }
