@@ -98,7 +98,7 @@ module Docusign
 
         # default values for testing
         values.merge! ({
-          'date_issued' => Time.zone.today.to_time_in_current_zone.strftime("%D"),
+          'date_issued' => Time.zone.today.in_time_zone.strftime("%D"),
           'include_property_taxes_yes_no' => 'x',
           'include_homeowners_insurance_yes_no' => 'x',
           'include_other_yes_no' => 'x',
