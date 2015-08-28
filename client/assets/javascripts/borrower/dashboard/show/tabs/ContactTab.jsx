@@ -8,27 +8,31 @@ var ContactTab = React.createClass({
     };
     return (
       <div className="box boxBasic backgroundBasic">
-        <div className='boxHead bbs'>
-          <h3 className='typeBold plxl'>Primary Contacts</h3>
-        </div>
         <div className="boxBody ptm">
-          <ul style={ulStyle}>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
             {
               _.map(this.props.contactList, function(contact) {
                 return (
-                  <li key={contact.id}>
-                    <div className='col-xs-1 ptl'>
+                  <tr key={contact.id}>
+                    <td>
                       <img src={contact.loan_member.user.avatar_url} className="img-circle" width="40px" height="30px"/>
-                    </div>
-                    <div className='col-xs-11 ptl'>
-                      <p>{contact.loan_member.user.to_s} ({contact.title})</p>
-                      <p><a herf="#">{contact.loan_member.user.email}</a></p>
-                    </div>
-                  </li>
+                    </td>
+                    <td>{contact.loan_member.user.to_s} ({contact.title})</td>
+                    <td>{contact.loan_member.user.email}</td>
+                  </tr>
                 )
-              })
+              }, this)
             }
-          </ul>
+            </tbody>
+          </table>
         </div>
       </div>
     )
