@@ -41,8 +41,7 @@ class LoanActivity < ActiveRecord::Base
   }
 
   validates :loan, :loan_member, presence: true
-
-  validates_inclusion_of :user_visible, in: [true, false]
+  validates :user_visible, inclusion: [true, false]
 
   def self.get_latest_by_loan_and_name(loan_id, name)
     return nil if loan_id.nil? || name.nil?
