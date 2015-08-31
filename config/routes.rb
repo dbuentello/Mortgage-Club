@@ -49,7 +49,7 @@ Rails.application.routes.draw do
 
   resources :charges, only: [:new, :create]
 
-  post 'electronic_signature/demo'
+  post 'electronic_signature/template'
   get 'electronic_signature/embedded_response'
 
   get '/my/loans', to: 'users/loans#index', as: :my_loans

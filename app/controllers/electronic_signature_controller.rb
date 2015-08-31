@@ -1,9 +1,9 @@
 class ElectronicSignatureController < ApplicationController
-  before_action :set_loan, only: [:demo]
+  before_action :set_loan, only: [:template]
   IS_EMBEDDED = true
 
   # POST
-  def demo
+  def template
     current_loan = @loan || current_user.loans.first
     base = Docusign::Base.new
 
@@ -63,7 +63,6 @@ class ElectronicSignatureController < ApplicationController
           email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
         })
       end
-
       envelope_response = base.create_envelope_from_template(envelope_hash)
 
       # get envelope id to load appropriate view
@@ -84,6 +83,8 @@ class ElectronicSignatureController < ApplicationController
       render json: {message: "don't render iframe"}, status: :ok
     end
   end
+
+
 
   # GET /electronic_signature/embedded_response
   def embedded_response

@@ -14,7 +14,7 @@ var FormESigning = React.createClass({
     e.preventDefault();
 
     $.ajax({
-      url: "/electronic_signature/demo/",
+      url: "/electronic_signature/template/",
       method: 'POST',
       data: {
         template_name: this.state.templateName,
@@ -46,7 +46,7 @@ var FormESigning = React.createClass({
   render: function() {
     var templateOptions = [
       {name: 'Loan Estimate', value: 'Loan Estimate'},
-      {name: 'Other', value: 'Other'}
+      {name: 'Servicing Disclosure', value: 'Servicing Disclosure'}
     ];
 
     return (
