@@ -78,3 +78,9 @@ if Template.where(name: 'Loan Estimate').blank?
   base = Docusign::Base.new
   template = base.create_template_object_from_name("Loan Estimate")
 end
+
+if Template.where(name: 'Servicing Disclosure').blank?
+  base = Docusign::Base.new
+  template = base.create_template_object_from_name("Servicing Disclosure")
+end
+
