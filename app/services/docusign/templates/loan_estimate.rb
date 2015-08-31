@@ -1,4 +1,3 @@
-require 'money'
 include NumbersHelper
 
 module Docusign
@@ -18,8 +17,6 @@ module Docusign
         build_cost_closing
         build_closing_cost_details
       end
-
-      private
 
       def build_header
         @params['applicant_name'] = applicant_name
@@ -85,11 +82,33 @@ module Docusign
       end
 
       def build_closing_cost_details
+        origination_charges
+        services_you_cannot_shop_for
+        services_you_can_shop_for
+
+        @params['loan_costs_total'] = Money.new(loan.loan_costs_total).format
+        # @params['taxes_and_other_government_fees_total'] = Money.new(taxes_and_other_government_fees_total).format
+      end
+
+      private
+
+      def origination_charges
+        @params['application_fee_text'] = 'Application fee'
+        @params['underwriting_fee_text'] = 'Underwriting fee'
         @params['origination_charges_total'] = Money.new(origination_charges_total).format
         @params['points_text'] = "#{loan.points.to_f * 100}%"
         @params['points'] = Money.new(loan.points * loan.amount).format if loan.points && loan.amount
         @params['application_fee'] = Money.new(loan.application_fee).format
         @params['underwriting_fee'] = Money.new(loan.underwriting_fee).format
+      end
+
+      def services_you_cannot_shop_for
+        @params['appraisal_fee_text'] = 'Appraisal fee'
+        @params['credit_report_fee_text'] = 'Credit Report Fee'
+        @params['flood_determination_fee_text'] = 'Flood Determination Fee'
+        @params['flood_monitoring_fee_text'] = 'Flood Monitoring Fee'
+        @params['tax_monitoring_fee_text'] = 'Tax Monitoring Fee'
+        @params['tax_status_research_fee_text'] = 'Tax Status Research Fee'
         @params['services_cannot_shop_total'] = Money.new(loan.services_cannot_shop_total).format
         @params['appraisal_fee'] = Money.new(loan.appraisal_fee).format
         @params['credit_report_fee'] = Money.new(loan.credit_report_fee).format
@@ -97,6 +116,15 @@ module Docusign
         @params['flood_monitoring_fee'] = Money.new(loan.flood_monitoring_fee).format
         @params['tax_monitoring_fee'] = Money.new(loan.tax_monitoring_fee).format
         @params['tax_status_research_fee'] = Money.new(loan.tax_status_research_fee).format
+      end
+
+      def services_you_can_shop_for
+        @params['pest_inspection_fee_text'] = 'Pest Inspection Fee'
+        @params['survey_fee_text'] = 'Survey Fee'
+        @params['insurance_binder_text'] = 'Title - Insurance Binder'
+        @params['lenders_title_policy_text'] = "Title - Lender's Title Policy"
+        @params['settlement_agent_fee_text'] = 'Title - Settlement Agent Fee'
+        @params['title_search_text'] = 'Title - Title Search'
         @params['services_can_shop_total'] = Money.new(loan.services_can_shop_total).format
         @params['pest_inspection_fee'] = Money.new(loan.pest_inspection_fee).format
         @params['survey_fee'] = Money.new(loan.survey_fee).format
@@ -104,10 +132,6 @@ module Docusign
         @params['lenders_title_policy'] = Money.new(loan.lenders_title_policy).format
         @params['settlement_agent_fee'] = Money.new(loan.settlement_agent_fee).format
         @params['title_search'] = Money.new(loan.title_search).format
-        @params['loan_costs_total'] = Money.new(loan.loan_costs_total).format
-        #@params['appraisal_fee_text'] = 'Appraisal fee'
-        # @params['application_fee_text'] = 'Application fee'
-        # @params['underwriting_fee_text'] = 'Underwriting fee'
       end
 
       def add_loan_type
