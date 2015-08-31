@@ -1,9 +1,10 @@
 class ElectronicSignatureController < ApplicationController
+  before_action :set_loan, only: [:demo]
   IS_EMBEDDED = true
 
   # POST
   def demo
-    current_loan = current_user.loans.first
+    current_loan = @loan || current_user.loans.first
     base = Docusign::Base.new
 
     # get Template info from database
@@ -24,7 +25,7 @@ class ElectronicSignatureController < ApplicationController
       envelope_id = envelope.docusign_id
     else
       # Set values to tab labels
-      values = Docusign::Templates::LoanEstimation.get_values_mapping_hash(current_user, current_loan)
+      values = Docusign::Templates::LoanEstimate.new(current_user.borrower, current_loan).params
 
       if IS_EMBEDDED
         envelope_hash = {
@@ -90,11 +91,11 @@ class ElectronicSignatureController < ApplicationController
 
     # ap params
     if params[:event] == "signing_complete"
-      render :text => utility.breakout_path(root_path), content_type: 'text/html'
+      render :text => utility.breakout_path(borrower_root_path), content_type: 'text/html'
     elsif params[:event] == "ttl_expired"
       # the session has been expired
     else
-      render :text => utility.breakout_path(root_path(success: true)), content_type: 'text/html'
+      render :text => utility.breakout_path(borrower_root_path(success: true)), content_type: 'text/html'
     end
   end
 

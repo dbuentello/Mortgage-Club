@@ -6,7 +6,7 @@ var SelectField = require('components/form/SelectField');
 var FormESigning = React.createClass({
   getInitialState: function() {
     return {
-      templateName: 'Loan Estimation'
+      templateName: 'Loan Estimate'
     }
   },
 
@@ -14,10 +14,11 @@ var FormESigning = React.createClass({
     e.preventDefault();
 
     $.ajax({
-      url: "/electronic_signature/demo",
+      url: "/electronic_signature/demo/",
       method: 'POST',
       data: {
-        template_name: this.state.templateName
+        template_name: this.state.templateName,
+        id: this.props.loan.id
       },
       dataType: 'json',
       success: function(response) {
@@ -44,7 +45,7 @@ var FormESigning = React.createClass({
 
   render: function() {
     var templateOptions = [
-      {name: 'Loan Estimation', value: 'Loan Estimation'},
+      {name: 'Loan Estimate', value: 'Loan Estimate'},
       {name: 'Other', value: 'Other'}
     ];
 
