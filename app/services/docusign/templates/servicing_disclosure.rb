@@ -20,7 +20,7 @@ module Docusign
       def build_header
         @params['lender_name'] = loan.lender_name
         @params['lender_address'] = loan.lender_address
-        @params['date'] = Time.now.strftime("%m/%d/%Y")
+        @params['date'] = Time.zone.now.strftime("%m/%d/%Y")
       end
 
       def build_survey
