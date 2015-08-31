@@ -16,10 +16,9 @@ var TakeHomeTest = React.createClass({
       <section className='page-section pvxl'>
         <div className='container mtxl'>
           <div>
-            <p>If you are interested in joining MortgageClub’s engineering team as a full-stack developer, we would love for you to have a go at the challenge below. Depending on your level of interest in MortgageClub and how much of your expertise you want to show us, it may take from about an hour to a couple of days to finish. You have complete freedom to use any combinations of platforms, frameworks, and libraries. We only ask that you leave your code un-minified and readable.</p>
+            <p>If you are interested in joining MortgageClub’s engineering team as a full-stack developer, we would love for you to have a go at the challenge below. Depending on your level of interest in MortgageClub and how much of your expertise you want to show us, it may take from about an hour to a couple of days to finish. We ask that you use React.js for this test and leave your code un-minified and readable.</p>
             <p className='mbs'>
-              Given the following simplified JSON API, please build a user interface that would allow three travelers <code>Amos</code>, <code>Andy</code> and <code>Evie</code> to view each other’s list of visited as well as planned destinations, and allow them to edit their own.
-              The order of priorities is as followed:
+              Given the following simplified JSON API, please build a user interface that would allow three travelers Amos, Andy and Evie to view each other’s list of visited as well as planned destinations, and allow them to edit their own. The order of priorities is as followed:
             </p>
             <ol className='mbl'>
               <li>Functionality</li>
