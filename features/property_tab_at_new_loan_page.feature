@@ -5,7 +5,6 @@ Feature: PropertyTabAtNewLoanPage
       Then I click on "Property"
         And I clear value in "Property Address"
           Then I fill in "Property Address" with "sanf"
-            And I should see "San Francisco"
             And I click on "San Francisco"
         Then I select "Duplex" from "Property Type"
         And I select "Vacation Home" from "Property Will Be"
