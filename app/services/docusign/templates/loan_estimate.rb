@@ -1,3 +1,4 @@
+# rubocop:disable ClassLength
 include NumbersHelper
 
 module Docusign
@@ -15,7 +16,8 @@ module Docusign
         build_loan_terms
         build_projected_payments
         build_cost_closing
-        #build_closing_cost_details
+        build_closing_cost_details
+        remove_zero_value_from_params
       end
 
       def build_header
@@ -41,97 +43,151 @@ module Docusign
 
       def build_loan_terms
         @params['loan_amount'] = Money.new(loan.amount).format
-        @params['loan_amount_increase'] = 'x' if loan.loan_amount_increase
         @params['interest_rate'] = "#{loan.interest_rate.to_f * 100}%"
-        @params['interest_rate_increase'] = 'x' if loan.interest_rate_increase
         @params['monthly_principal_interest'] = Money.new(loan.monthly_payment).format
-        @params['monthly_principal_interest_increase'] = 'x' if loan.monthly_principal_interest_increase
         @params['prepayment_penalty'] = Money.new(loan.prepayment_penalty).format
         @params['prepayment_penalty_amount'] = Money.new(loan.prepayment_penalty_amount).format
-        @params['prepayment_penalty_amount_tooltip'] = 'As high as'
         @params['prepayment_penalty_text'] = loan.prepayment_penalty_text
         @params['balloon_payment'] = loan.balloon_payment
         @params['balloon_payment_text'] = loan.balloon_payment_text
+        @params['prepayment_penalty_amount_tooltip'] = 'As high as'
+        @params['loan_amount_increase'] = 'x' if loan.loan_amount_increase
+        @params['interest_rate_increase'] = 'x' if loan.interest_rate_increase
+        @params['monthly_principal_interest_increase'] = 'x' if loan.monthly_principal_interest_increase
       end
 
       def build_projected_payments
-        @params['payment_calculation_text_1'] = Money.new(loan.payment_calculation).format
+        @params['payment_calculation_text_1'] = loan.payment_calculation
         @params['projected_principal_interest_1'] = Money.new(loan.monthly_payment).format
         @params['projected_mortgage_insurance_1'] = Money.new(loan.pmi).format
-        @params['projected_mortgage_insurance_1_tooltip'] = '+'
         @params['estimated_escrow_1'] = Money.new(estimated_escrow).format
-        @params['estimated_escrow_1_tooltip'] = '+'
         @params['estimated_total_monthly_payment_1'] = Money.new(estimated_total_monthly_payment_1).format
         @params['estimated_taxes_insurance_assessments'] = Money.new(estimated_escrow).format
+        @params['estimated_escrow_1_tooltip'] = '+'
         @params['estimated_taxes_insurance_assessments_text'] = 'a month'
-        @params['include_property_taxes'] = 'x' if loan.include_property_taxes
-        @params['include_homeowners_insurance'] = 'x' if loan.include_homeowners_insurance
-        @params['include_other'] = 'x' if loan.include_other
-        @params['include_other_text'] = 'x' if loan.include_other_text
-        @params['in_escrow_property_taxes'] = 'x' if loan.in_escrow_property_taxes
-        @params['in_escrow_homeowners_insurance'] = 'x' if loan.in_escrow_homeowners_insurance
-        @params['in_escrow_other'] = 'x' if loan.in_escrow_other
+        @params['projected_mortgage_insurance_1_tooltip'] = '+'
+
+        [
+          'include_property_taxes', 'include_homeowners_insurance', 'include_other',
+          'include_other_text', 'in_escrow_property_taxes', 'in_escrow_homeowners_insurance', 'in_escrow_other'
+        ].each do |key|
+          @params[key] = 'x' if loan.method(key).call
+        end
       end
 
       def build_cost_closing
-        @params['estimated_closing_costs'] = Money.new(loan.estimated_closing_costs).format
-        @params['loan_costs'] = Money.new(loan.estimated_loan_costs).format
-        @params['other_costs'] = Money.new(loan.estimated_other_costs).format
-        @params['lender_credits'] = Money.new(loan.lender_credits).format
-        @params['estimated_cash_to_close'] = Money.new(loan.estimated_cash_to_close).format
+        map_number_to_params(
+          [
+            'estimated_closing_costs', 'loan_costs', 'other_costs', 'lender_credits', 'estimated_cash_to_close'
+          ]
+        )
       end
 
       def build_closing_cost_details
         origination_charges
         services_you_cannot_shop_for
         services_you_can_shop_for
+        # taxes_and_other_government_fees
+        # prepaids
+        # initial_escrow_payment_at_closing
 
-        @params['loan_costs_total'] = Money.new(loan.loan_costs_total).format
-        # @params['taxes_and_other_government_fees_total'] = Money.new(taxes_and_other_government_fees_total).format
+        # @params['loan_costs_total'] = Money.new(loan_costs_total).format
+        #@params['owner_title_policy'] = @params['other_total'] = Money.new(loan.owner_title_policy).format
+        #@params['owner_title_policy_text'] = 'Title - Owner Title Policy'
+      end
+
+      def remove_zero_value_from_params
+        @params.reject! { |key| params[key] == "$0.00" }
       end
 
       private
 
       def origination_charges
-        @params['application_fee_text'] = 'Application fee'
-        @params['underwriting_fee_text'] = 'Underwriting fee'
+        map_number_to_params(
+          {
+            'application_fee' => 'Application fee',
+            'underwriting_fee' => 'Underwriting fee',
+          }
+        )
+
         @params['origination_charges_total'] = Money.new(origination_charges_total).format
         @params['points_text'] = "#{loan.points.to_f * 100}%"
         @params['points'] = Money.new(loan.points * loan.amount).format if loan.points && loan.amount
-        @params['application_fee'] = Money.new(loan.application_fee).format
-        @params['underwriting_fee'] = Money.new(loan.underwriting_fee).format
       end
 
       def services_you_cannot_shop_for
-        @params['appraisal_fee_text'] = 'Appraisal fee'
-        @params['credit_report_fee_text'] = 'Credit Report Fee'
-        @params['flood_determination_fee_text'] = 'Flood Determination Fee'
-        @params['flood_monitoring_fee_text'] = 'Flood Monitoring Fee'
-        @params['tax_monitoring_fee_text'] = 'Tax Monitoring Fee'
-        @params['tax_status_research_fee_text'] = 'Tax Status Research Fee'
-        @params['services_cannot_shop_total'] = Money.new(loan.services_cannot_shop_total).format
-        @params['appraisal_fee'] = Money.new(loan.appraisal_fee).format
-        @params['credit_report_fee'] = Money.new(loan.credit_report_fee).format
-        @params['flood_determination_fee'] = Money.new(loan.flood_determination_fee).format
-        @params['flood_monitoring_fee'] = Money.new(loan.flood_monitoring_fee).format
-        @params['tax_monitoring_fee'] = Money.new(loan.tax_monitoring_fee).format
-        @params['tax_status_research_fee'] = Money.new(loan.tax_status_research_fee).format
+        map_number_to_params(
+          {
+            'appraisal_fee' => 'Appraisal fee',
+            'credit_report_fee' => 'Credit Report Fee',
+            'flood_determination_fee' => 'Flood Determination Fee',
+            'flood_monitoring_fee' => 'Flood Monitoring Fee',
+            'tax_monitoring_fee' => 'Tax Monitoring Fee',
+            'tax_status_research_fee' => 'Tax Status Research Fee'
+          }
+        )
+
+        @params['services_cannot_shop_total'] = Money.new(services_cannot_shop_total).format
       end
 
       def services_you_can_shop_for
-        @params['pest_inspection_fee_text'] = 'Pest Inspection Fee'
-        @params['survey_fee_text'] = 'Survey Fee'
-        @params['insurance_binder_text'] = 'Title - Insurance Binder'
-        @params['lenders_title_policy_text'] = "Title - Lender's Title Policy"
-        @params['settlement_agent_fee_text'] = 'Title - Settlement Agent Fee'
-        @params['title_search_text'] = 'Title - Title Search'
-        @params['services_can_shop_total'] = Money.new(loan.services_can_shop_total).format
-        @params['pest_inspection_fee'] = Money.new(loan.pest_inspection_fee).format
-        @params['survey_fee'] = Money.new(loan.survey_fee).format
-        @params['insurance_binder'] = Money.new(loan.insurance_binder).format
-        @params['lenders_title_policy'] = Money.new(loan.lenders_title_policy).format
-        @params['settlement_agent_fee'] = Money.new(loan.settlement_agent_fee).format
-        @params['title_search'] = Money.new(loan.title_search).format
+        map_number_to_params(
+          {
+            'pest_inspection_fee' => 'Pest Inspection Fee',
+            'survey_fee' => 'Survey Fee',
+            'insurance_binder' => 'Title - Insurance Binder',
+            'lenders_title_policy' => "Title - Lender's Title Policy",
+            'settlement_agent_fee' => 'Title - Settlement Agent Fee',
+            'title_search' => 'Title - Title Search'
+          }
+        )
+
+        @params['services_can_shop_total'] = Money.new(services_can_shop_total).format
+      end
+
+      def taxes_and_other_government_fees
+        map_number_to_params(
+          ['recording_fees_and_other_taxes', 'transfer_taxes']
+        )
+        @params['taxes_and_other_government_fees_total'] = Money.new(taxes_and_other_government_fees_total).format
+      end
+
+      def prepaids
+        map_number_to_params(
+          [
+            'homeowners_insurance_premium', 'mortgage_insurance_premium',
+            'prepaid_interest_per_day', 'prepaid_interest', 'property_taxes'
+          ]
+        )
+
+        map_string_to_params(
+          [
+            'homeowners_insurance_premium_months', 'mortgage_insurance_premium_months',
+            'prepaid_interest_days', 'property_taxes_months'
+          ]
+        )
+
+        @params['prepaids_total'] = Money.new(prepaids_total).format
+        @params['prepaid_interest_rate'] = "#{loan.prepaid_interest_rate.to_f * 100}%"
+      end
+
+
+      def initial_escrow_payment_at_closing
+        map_number_to_params(
+          [
+            'initial_homeowner_insurance', 'intial_mortgage_insurance_per_month',
+            'initial_mortgage_insurance', 'initial_property_taxes_per_month', 'initial_property_taxes'
+          ]
+        )
+
+        map_string_to_params(
+          [
+            'initial_homeowner_insurance_months', 'initial_mortgage_insurance_months', 'initial_property_taxes_months'
+          ]
+        )
+
+        @params['initial_homeowner_insurance_per_month'] = @property.estimated_hazard_insurance
+        @params['intial_escrow_payment_total'] = Money.new(intial_escrow_payment_total).format
       end
 
       def add_loan_type
@@ -166,15 +222,63 @@ module Docusign
       end
 
       def origination_charges_total
-        @origination_charges_total ||= loan.points * loan.amount.to_f + loan.application_fee + loan.underwriting_fee
+        @origination_charges_total ||= loan.points * loan.amount + loan.application_fee + loan.underwriting_fee
       end
 
       def estimated_total_monthly_payment_1
-        @estimated_total_monthly_payment_1 ||= loan.monthly_payment.to_f + loan.pmi.to_f + estimated_escrow
+        @estimated_total_monthly_payment_1.to_f ||= loan.monthly_payment + loan.pmi + estimated_escrow
       end
 
       def estimated_escrow
         @estimated_escrow ||= property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f
+      end
+
+      def services_cannot_shop_total
+        @services_cannot_shop_total ||= @params['appraisal_fee'] + @params['credit_report_fee'] +
+                                        @params['flood_determination_fee'] + @params['flood_monitoring_fee'] +
+                                        @params['tax_monitoring_fee'] + @params['tax_status_research_fee']
+      end
+
+      def services_can_shop_total
+        @services_can_shop_total ||= @params['pest_inspection_fee'] + @params['survey_fee'] + @params['insurance_binder'] +
+                                     @params['lenders_title_policy'] + @params['settlement_agent_fee'] + @params['title_search']
+      end
+
+      def loan_costs_total
+        @loan_costs_total ||= origination_charges_total + services_cannot_shop_total + services_can_shop_total
+      end
+
+      def taxes_and_other_government_fees_total
+        @taxes_and_other_government_fees_total ||= @params['recording_fees_and_other_taxes'] + @params['transfer_taxes']
+      end
+
+      def prepaids_total
+        @prepaids_total ||= @params['homeowners_insurance_premium'] + @params['mortgage_insurance_premium'] +
+                            @params['prepaid_interest_per_day'] + @params['prepaid_interest'] + @params['property_taxes']
+      end
+
+      def intial_escrow_payment_total
+        @intial_escrow_payment_total ||= @params['initial_homeowner_insurance'] + @params['initial_mortgage_insurance'] +
+                                         @params['initial_property_taxes']
+      end
+
+      def map_string_to_params(list, object = loan)
+        list.each do |key|
+          @params[key] = object.method(key).call
+        end
+      end
+
+      def map_number_to_params(list, object = loan)
+        if list.class == Array
+          list.each do |key|
+            @params[key] = Money.new(@loan.method(key).call).format
+          end
+        else
+          list.each do |key, value|
+            @params[key] = Money.new(@loan.method(key).call).format
+            @params["#{key}_text"] = value
+          end
+        end
       end
     end
   end

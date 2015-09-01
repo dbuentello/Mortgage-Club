@@ -4,6 +4,6 @@ FactoryGirl.define do
 
     f.years_at_address { Random.rand(1..65) }
     f.is_rental { [true, false].sample }
-    f.is_current { [true, false].sample }
+    f.is_current { true }
   end
 end
