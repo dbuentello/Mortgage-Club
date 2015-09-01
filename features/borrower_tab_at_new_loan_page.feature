@@ -16,7 +16,6 @@ Feature: BorrowerTabAtNewLoanPage
         And I fill in "Years in School" with "12"
       Then I clear value in "Your Current Address"
         When I fill in "Your Current Address" with "sanf"
-          And I should see "San Francisco"
           And I click on "San Francisco"
       And I fill in "Date of Birth" with "03/01/1991"
       Then I click on "Save and Continue"
