@@ -4,7 +4,7 @@ class LoansPresenter
   end
 
   def show
-    @loans.includes(:user, property: :address).as_json(show_loans_json_options)
+    @loans.includes(property: :address).as_json(show_loans_json_options)
   end
 
   private

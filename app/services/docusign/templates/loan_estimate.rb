@@ -87,13 +87,13 @@ module Docusign
         origination_charges
         services_you_cannot_shop_for
         services_you_can_shop_for
-        # taxes_and_other_government_fees
-        # prepaids
-        # initial_escrow_payment_at_closing
+        taxes_and_other_government_fees
+        prepaids
+        initial_escrow_payment_at_closing
 
-        # @params['loan_costs_total'] = Money.new(loan_costs_total).format
-        #@params['owner_title_policy'] = @params['other_total'] = Money.new(loan.owner_title_policy).format
-        #@params['owner_title_policy_text'] = 'Title - Owner Title Policy'
+        @params['loan_costs_total'] = Money.new(loan_costs_total).format
+        @params['owner_title_policy'] = @params['other_total'] = Money.new(loan.owner_title_policy).format
+        @params['owner_title_policy_text'] = 'Title - Owner Title Policy'
       end
 
       def remove_zero_value_from_params
@@ -156,17 +156,18 @@ module Docusign
         map_number_to_params(
           [
             'homeowners_insurance_premium', 'mortgage_insurance_premium',
-            'prepaid_interest_per_day', 'prepaid_interest', 'property_taxes'
+            'prepaid_interest_per_day', 'prepaid_property_taxes'
           ]
         )
 
         map_string_to_params(
           [
             'homeowners_insurance_premium_months', 'mortgage_insurance_premium_months',
-            'prepaid_interest_days', 'property_taxes_months'
+            'prepaid_interest_days', 'prepaid_property_taxes_months'
           ]
         )
 
+        @params['prepaid_interest'] = Money.new(prepaid_interest).format
         @params['prepaids_total'] = Money.new(prepaids_total).format
         @params['prepaid_interest_rate'] = "#{loan.prepaid_interest_rate.to_f * 100}%"
       end
@@ -175,7 +176,6 @@ module Docusign
       def initial_escrow_payment_at_closing
         map_number_to_params(
           [
-            'initial_homeowner_insurance', 'intial_mortgage_insurance_per_month',
             'initial_mortgage_insurance', 'initial_property_taxes_per_month', 'initial_property_taxes'
           ]
         )
@@ -186,7 +186,9 @@ module Docusign
           ]
         )
 
-        @params['initial_homeowner_insurance_per_month'] = @property.estimated_hazard_insurance
+        @params['initial_homeowner_insurance_per_month'] = property.estimated_hazard_insurance
+        @params['intial_mortgage_insurance_per_month'] = loan.pmi_month_premium_amount
+        @params['initial_homeowner_insurance'] = Money.new(initial_homeowner_insurance).format
         @params['intial_escrow_payment_total'] = Money.new(intial_escrow_payment_total).format
       end
 
@@ -252,6 +254,10 @@ module Docusign
         @taxes_and_other_government_fees_total ||= @params['recording_fees_and_other_taxes'] + @params['transfer_taxes']
       end
 
+      def prepaid_interest
+        @prepaid_interest ||= loan.amount * loan.interest_rate * loan.prepaid_interest_days / 360
+      end
+
       def prepaids_total
         @prepaids_total ||= @params['homeowners_insurance_premium'] + @params['mortgage_insurance_premium'] +
                             @params['prepaid_interest_per_day'] + @params['prepaid_interest'] + @params['property_taxes']
@@ -260,6 +266,10 @@ module Docusign
       def intial_escrow_payment_total
         @intial_escrow_payment_total ||= @params['initial_homeowner_insurance'] + @params['initial_mortgage_insurance'] +
                                          @params['initial_property_taxes']
+      end
+
+      def initial_homeowner_insurance
+        @pinitial_homeowner_insurance ||= @params['initial_homeowner_insurance_per_month'] * @params['initial_homeowner_insurance_months']
       end
 
       def map_string_to_params(list, object = loan)

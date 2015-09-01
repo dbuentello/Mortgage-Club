@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "required": [
+    "applicant_name", "sale_price", "applicant_address", "property", "loan_amount"
+  ],
+  "properties" : {
+    "applicant_address" : {
+      "properties" : {
+        "width": { "type" : "integer" },
+        "height": { "type" : "integer" },
+        "value": { "type" : "string" }
+      }
+    },
+    "property" : {
+      "properties" : {
+        "width": { "type" : "integer" },
+        "height": { "type" : "integer" },
+        "value": { "type" : "string" }
+      }
+    }
+  }
+}
