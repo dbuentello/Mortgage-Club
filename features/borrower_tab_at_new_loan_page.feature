@@ -35,11 +35,11 @@ Feature: BorrowerTabAtNewLoanPage
         And I fill in "secondary_borrower_dob" with "01/01/1991"
         And I fill in "secondary_borrower_email" with "co-borrower@gmail.com"
         Then I click on "Save and Continue"
-          And I wait for 15 seconds
+          And I wait for 1 seconds
         Then I should see "W2 - Most recent tax year"
         When I click on "Borrower"
           And I should see "With a co-borrower"
           And the "secondary_borrower_first_name" field should contain "Mark"
           And the "secondary_borrower_last_name" field should contain "Vu"
-          And the "secondary_borrower_dob" field should contain "03/01/1991"
+          And the "secondary_borrower_dob" field should contain "01/01/1991"
           And the "secondary_borrower_email" field should contain "co-borrower@gmail.com"
