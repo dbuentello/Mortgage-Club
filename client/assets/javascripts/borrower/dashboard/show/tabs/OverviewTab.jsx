@@ -1,9 +1,17 @@
 var _ = require('lodash');
 var React = require('react/addons');
 
+var ModalLink = require('components/ModalLink');
+
 var OverviewTab = React.createClass({
   componentDidMount: function() {
     // $('.test').popover('show');
+  },
+  handleUpload: function() {
+    alert("hanlde upload");
+  },
+  handleExplain: function() {
+    alert("hanlde explain");
   },
   render: function() {
     return (
@@ -48,33 +56,38 @@ var OverviewTab = React.createClass({
                   <td>Provide April bank statement</td>
                   <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
                   <td>-</td>
-                  <td><button className="btn btnSml btnDefault">Upload</button></td>
+                  <td><button className="btn btnSml btnDefault" data-toggle="modal" data-target="#explainBox">Upload</button></td>
                 </tr>
                 <tr>
                   <td><span className="iconCancel"></span></td>
                   <td>Provide escrow/title agent information</td>
                   <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
                   <td>-</td>
-                  <td><button className="btn btnSml btnDefault">Explain</button></td>
+                  <td><a className="btn btnSml btnDefault" data-toggle="modal" data-target="#explainBox">Explain</a></td>
                 </tr>
                 <tr>
                   <td><span className="iconCancel"></span></td>
                   <td>Letter of explanation for credit inquires</td>
                   <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
                   <td>-</td>
-                  <td><button className="btn btnSml btnDefault">Explain</button></td>
+                  <td><a className="btn btnSml btnDefault" data-toggle="modal" data-target="#explainBox">Explain</a></td>
                 </tr>
                 <tr>
                   <td><span className="iconCheck"></span></td>
                   <td>Upload a copy of the executed purchase sales</td>
                   <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
                   <td>-</td>
-                  <td><button className="btn btnSml btnDefault">Upload</button></td>
+                  <td><button className="btn btnSml btnDefault" data-toggle="modal" data-target="#explainBox">Upload</button></td>
                 </tr>
               </tbody>
             </table>
 
           </div>
+          <ModalLink
+            id="explainBox"
+            title="Explain"
+            body="<h1>This a explain mode<h1>"
+            yesCallback={this.handleExplain} />
         </div>
       </div>
     )
