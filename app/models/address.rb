@@ -17,7 +17,7 @@
 
 class Address < ActiveRecord::Base
   belongs_to :property, inverse_of: :address, foreign_key: 'property_id'
-  belongs_to :borrower_address, inverse_of: :address, foreign_key: 'borrower_address_id'
+  belongs_to :borrower_address, inverse_of: :address, foreign_key: 'borrower_address_id', touch: true
   belongs_to :employment, inverse_of: :address, foreign_key: 'employment_id'
   belongs_to :liability, inverse_of: :address, foreign_key: 'liability_id'
 
