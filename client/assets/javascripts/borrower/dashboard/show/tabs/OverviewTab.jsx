@@ -2,6 +2,9 @@ var _ = require('lodash');
 var React = require('react/addons');
 
 var OverviewTab = React.createClass({
+  componentDidMount: function() {
+    // $('.test').popover('show');
+  },
   render: function() {
     return (
       <div>
@@ -24,58 +27,50 @@ var OverviewTab = React.createClass({
           <div className='boxHead bbs'>
             <h4 className='typeBold'>Your Loan Checklist</h4>
           </div>
-          <div className="boxBody">
-            <table className="table table-bordered table-primary">
+          <div className="boxBody ptm">
+
+            <table className="table table-striped">
               <thead>
                 <tr>
-                  <th className="clickable plm">
-                    <a>
-                      Name
-                      <span className="sort-actions active prn">
-                        <span className="dropup"></span><span className="caret caret-bottom"></span>
-                      </span>
-                    </a>
-                  </th>
-                  <th className="clickable plm">
-                    <a>
-                      Origin
-                      <span className="sort-actions inactive prn">
-                        <span className="dropup">
-                          <span className="caret caret-top"></span></span><span className="caret caret-bottom">
-                        </span>
-                      </span>
-                    </a>
-                  </th>
-                  <th className="clickable plm">
-                    <a>
-                      Destination
-                      <span className="sort-actions inactive prn">
-                        <span className="dropup">
-                          <span className="caret caret-top"></span></span><span className="caret caret-bottom">
-                        </span>
-                      </span>
-                    </a>
-                  </th>
+                  <th>Status</th>
+                  <th>Task</th>
+                  <th>Info</th>
+                  <th>Due</th>
+                  <th>Action</th>
                 </tr>
               </thead>
-              <tbody className="tam">
+              <tbody>
                 <tr>
-                  <td><a href="#table">Really big speakers</a></td>
-                  <td>Guangzhou, China</td>
-                  <td>San Francisco, CA</td>
+                  <td><span className="iconCheck"></span></td>
+                  <td>Provide April bank statement</td>
+                  <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
+                  <td>-</td>
+                  <td><button className="btn btnSml btnDefault">Upload</button></td>
                 </tr>
                 <tr>
-                  <td><a href="#table">Phenolic Laminated Panel</a></td>
-                  <td>Osaka, Japan</td>
-                  <td>New York, NY</td>
+                  <td><span className="iconCancel"></span></td>
+                  <td>Provide escrow/title agent information</td>
+                  <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
+                  <td>-</td>
+                  <td><button className="btn btnSml btnDefault">Explain</button></td>
                 </tr>
                 <tr>
-                  <td><a href="#table">Dogs and Cats</a></td>
-                  <td>Aabenraa, Denmark</td>
-                  <td>Los Angeles, CA</td>
+                  <td><span className="iconCheck"></span></td>
+                  <td>Letter of explanation for credit inquires</td>
+                  <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
+                  <td>-</td>
+                  <td><button className="btn btnSml btnDefault">Explain</button></td>
+                </tr>
+                <tr>
+                  <td><span className="iconCheck"></span></td>
+                  <td>Upload a copy of the executed purchase sales</td>
+                  <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
+                  <td>-</td>
+                  <td><button className="btn btnSml btnDefault">Upload</button></td>
                 </tr>
               </tbody>
             </table>
+
           </div>
         </div>
       </div>
