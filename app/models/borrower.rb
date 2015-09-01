@@ -80,7 +80,9 @@ class Borrower < ActiveRecord::Base
   }
 
   def current_address
-    borrower_addresses.find_by(is_current: true)
+    Rails.cache.fetch("current_address-#{id}-#{updated_at.to_i}", expires_in: 7.day) do
+      borrower_addresses.find_by(is_current: true)
+    end
   end
 
   def display_current_address
@@ -88,7 +90,9 @@ class Borrower < ActiveRecord::Base
   end
 
   def previous_addresses
-    borrower_addresses.where(is_current: false)
+    Rails.cache.fetch("previous_address-#{id}-#{updated_at.to_i}", expires_in: 7.day) do
+      borrower_addresses.where(is_current: false)
+    end
   end
 
   def current_employment
@@ -96,11 +100,11 @@ class Borrower < ActiveRecord::Base
   end
 
   def previous_employments
-    borrower_addresses.where(is_current: false)
+    employments.where(is_current: false)
   end
 
   def completed?
-    first_name.present? && last_name.present? && dob.present? && ssn.present? && phone.present? &&
+    dob.present? && ssn.present? && phone.present? &&
       years_in_school.present? && marital_status.present? && current_address.present? &&
       (dependent_count == 0 || (dependent_count > 0 && dependent_ages.count > 0))
   end
@@ -109,5 +113,4 @@ class Borrower < ActiveRecord::Base
     gross_income.present? && gross_commission.present? && gross_bonus.present? &&
       gross_overtime.present? && current_employment.try(:completed?)
   end
-
 end
