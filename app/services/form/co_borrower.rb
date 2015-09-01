@@ -30,7 +30,7 @@ module Form
             password: default_password, password_confirmation: default_password,
             borrower_attributes: borrower_params
           )
-          user.confirmed_at = Time.now
+          user.confirmed_at = Time.zone.now
           user.skip_confirmation_notification!
           user.save
           user.reload
