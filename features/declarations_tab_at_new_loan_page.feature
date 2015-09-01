@@ -1,4 +1,4 @@
-Feature: Declarations
+Feature: DeclarationsTabAtNewLoanPage
   @javascript
   Scenario: User submit a declaration at new loan page
     When I am at loan management page
@@ -14,7 +14,6 @@ Feature: Declarations
         And I select "Secondary Resident" from "type_of_property"
         And I select "Other" from "title_of_property"
     Then I click on "Save and Continue"
-      And I wait for 2 seconds
       And I should see "Choose an template to sign"
     Then I click on "Declarations"
       And the radio button "true_outstanding_judgment" should be checked

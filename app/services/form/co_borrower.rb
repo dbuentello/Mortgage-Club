@@ -10,9 +10,8 @@ module Form
       end
     end
 
-    def self.save(current_user, borrower_type, params = {})
+    def self.save(current_user, borrower_type, params = {}, loan)
       borrower_params = params.except(:email)
-
       case borrower_type
       when :borrower
         is_existing = check_existing_borrower(current_user, params[:email])
@@ -20,23 +19,24 @@ module Form
         if is_existing
           user = User.where(email: params[:email]).first
           borrower = user.borrower
-
           # don't allow edit borrower info when he/she already exists
           # borrower.update(borrower_params)
         else
           # create user corresponding with the co-borrower info
           default_password = Digest::MD5.hexdigest(params[:email]).first(10)
-
           user = User.new(
-            email: params[:email], password: default_password, password_confirmation: default_password,
+            email: params[:email],
+            first_name: params[:first_name], last_name: params[:last_name], middle_name: params[:middle_name],
+            password: default_password, password_confirmation: default_password,
             borrower_attributes: borrower_params
           )
-          user.skip_confirmation!
+          user.confirmed_at = Time.zone.now
+          user.skip_confirmation_notification!
           user.save
+          user.reload
         end
 
         # link that new borrower as co-borrower of current loan
-        loan = current_user.loans.first
         loan.secondary_borrower = user.borrower
         loan.save
 
@@ -53,11 +53,10 @@ module Form
       end
     end
 
-    def self.remove(current_user, borrower_type, params = {})
+    def self.remove(current_user, borrower_type, params = {}, loan)
       case borrower_type
       when :borrower
         # unlink that borrower as co-borrower of current loan
-        loan = current_user.loans.first
         secondary_borrower = loan.secondary_borrower
 
         if secondary_borrower
