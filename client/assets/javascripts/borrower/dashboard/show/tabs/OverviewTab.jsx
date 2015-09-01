@@ -25,7 +25,10 @@ var OverviewTab = React.createClass({
 
         <div className="box boxBasic backgroundBasic">
           <div className='boxHead bbs'>
-            <h4 className='typeBold'>Your Loan Checklist</h4>
+            <h4 className='typeBold'>Your Loan Checklist &nbsp;
+              <span className="label label-default">14/17</span>
+            </h4>
+
           </div>
           <div className="boxBody ptm">
 
@@ -55,7 +58,7 @@ var OverviewTab = React.createClass({
                   <td><button className="btn btnSml btnDefault">Explain</button></td>
                 </tr>
                 <tr>
-                  <td><span className="iconCheck"></span></td>
+                  <td><span className="iconCancel"></span></td>
                   <td>Letter of explanation for credit inquires</td>
                   <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
                   <td>-</td>
