@@ -692,13 +692,7 @@ var FormBorrower = React.createClass({
         loan.secondary_borrower_attributes[secondary_borrower_fields.dependentAges.fieldName] = _.map(this.state[secondary_borrower_fields.dependentAges.name].split(','), _.trim);
       };
 
-      var borrower_address_id = null;
-      if (typeof this.props.loan.secondary_borrower !== 'undefined' && this.props.loan.secondary_borrower.current_address) {
-        borrower_address_id = this.props.loan.secondary_borrower.current_address.id;
-        alert(borrower_address_id);
-      };
       loan.secondary_borrower_attributes.borrower_addresses_attributes = [{
-        id: borrower_address_id,
         is_rental: !this.state[secondary_borrower_fields.currentlyOwn.name],
         years_at_address: this.state[secondary_borrower_fields.yearsInCurrentAddress.name],
         address_attributes: this.state[secondary_borrower_fields.currentAddress.name] ? this.state[secondary_borrower_fields.currentAddress.name] : [],
@@ -724,11 +718,9 @@ var FormBorrower = React.createClass({
 
     if (this.props.borrower_type == "co_borrower" && (this.state[first_borrower_fields.applyingAs.name] == 1)) {
       // after co-borrower self-remove
-      alert('1111')
       this.props.saveLoan(this.buildLoanFromState(), 1, true);
       location.reload();
     } else {
-      alert('2222')
       this.props.saveLoan(this.buildLoanFromState(), 1);
     } ;
   }

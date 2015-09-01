@@ -24,14 +24,12 @@ module Form
         else
           # create user corresponding with the co-borrower info
           default_password = Digest::MD5.hexdigest(params[:email]).first(10)
-
           user = User.new(
             email: params[:email],
             first_name: params[:first_name], last_name: params[:last_name], middle_name: params[:middle_name],
             password: default_password, password_confirmation: default_password,
-            #borrower_attributes: borrower_params
+            borrower_attributes: borrower_params
           )
-          byebug
           user.skip_confirmation!
           user.save
           user.reload
