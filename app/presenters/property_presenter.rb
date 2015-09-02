@@ -4,11 +4,15 @@ class PropertyPresenter
   end
 
   def show
-    @property.as_json(show_property_json_options)
+    Rails.cache.fetch("property_presenter_show-#{@property.id}-#{@property.updated_at.to_i}", expires_in: 7.day) do
+      @property.as_json(show_property_json_options)
+    end
   end
 
   def show_documents
-    @property.property_documents.includes(:owner).as_json(property_documents_json_options)
+    Rails.cache.fetch("property_presenter_show_documents-#{@property.id}-#{@property.updated_at.to_i}", expires_in: 7.day) do
+      @property.property_documents.includes(:owner).as_json(property_documents_json_options)
+    end
   end
 
   private

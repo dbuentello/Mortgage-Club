@@ -74,6 +74,8 @@ class User < ActiveRecord::Base
   # Validate the attached image is image/jpg, image/png, etc
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   validates :token, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
   before_validation :set_private_token
 
@@ -94,12 +96,15 @@ class User < ActiveRecord::Base
   end
 
   def borrower?
-    self.has_role? :borrower
+    Rails.cache.fetch("borrower_role-#{id}-#{updated_at.to_i}", expires_in: 7.day) do
+      self.has_role? :borrower
+    end
   end
 
   def loan_member?
-    self.has_role? :loan_member
-    # borrower.nil? && loan_member.present?
+    Rails.cache.fetch("loan_member_role-#{id}-#{updated_at.to_i}", expires_in: 7.day) do
+      self.has_role? :loan_member
+    end
   end
 
   def admin?

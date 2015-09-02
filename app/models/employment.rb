@@ -13,7 +13,7 @@
 #
 
 class Employment < ActiveRecord::Base
-  belongs_to :borrower, inverse_of: :employments, foreign_key: 'borrower_id'
+  belongs_to :borrower, inverse_of: :employments, foreign_key: 'borrower_id', touch: true
   has_one :address, autosave: true, inverse_of: :employment
   accepts_nested_attributes_for :address
 

@@ -96,6 +96,8 @@ class Loan < ActiveRecord::Base
   accepts_nested_attributes_for :borrower, allow_destroy: true
   accepts_nested_attributes_for :secondary_borrower, allow_destroy: true
 
+  delegate :completed?, to: :borrower, prefix: :borrower
+
   PERMITTED_ATTRS = [
     :purpose,
     property_attributes:           [:id] + Property::PERMITTED_ATTRS,
@@ -117,10 +119,6 @@ class Loan < ActiveRecord::Base
   def property_completed
     property.present? && property.address.completed && property.property_type.present? && property.usage.present? && purpose.present? &&
       ((purchase? && property.purchase_price.present?) || (refinance? && property.original_purchase_price.present? && property.original_purchase_year.present?))
-  end
-
-  def borrower_completed
-    borrower.completed?
   end
 
   def income_completed

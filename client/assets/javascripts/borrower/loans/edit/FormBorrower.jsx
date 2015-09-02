@@ -618,9 +618,7 @@ var FormBorrower = React.createClass({
     state[fields.dependentAges.name] = borrower[fields.dependentAges.fieldName].join(', ');
 
     if (borrower[fields.currentAddress.fieldName]) {
-      console.dir(fields.currentAddress.fieldName)
-      console.dir(borrower[fields.currentAddress.fieldName].address)
-      state[fields.currentAddress.name] = borrower[fields.currentAddress.fieldName].address;
+      state[fields.currentAddress.name] = borrower[fields.currentAddress.fieldName].cached_address;
       state[fields.currentlyOwn.name] = !borrower[fields.currentAddress.fieldName].is_rental;
       state[fields.yearsInCurrentAddress.name] = borrower[fields.currentAddress.fieldName].years_at_address;
     };
