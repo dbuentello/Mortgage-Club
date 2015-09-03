@@ -58,7 +58,9 @@ var Form = React.createClass({
         documentTemplate: this.props.checklist.template_id
       };
     }else {
-      return {};
+      return {
+        type: 'question_and_answer'
+      };
     }
   },
 
@@ -163,6 +165,16 @@ var Form = React.createClass({
               onChange={this.onChange}
               editable={true}/>
           </div>
+          <div className='col-sm-6'>
+            <SelectField
+              label='Docusign Template'
+              keyName='documentTemplate'
+              name='checklist[template_id]'
+              value={this.state.documentTemplate}
+              options={document_templates}
+              onChange={this.onChange}
+              editable={true}/>
+          </div>
         </div>
         <div className='form-group' style={{'display': this.state.type == 'submit_document' ? null : 'none'}}>
           <div className='col-sm-6'>
@@ -172,16 +184,6 @@ var Form = React.createClass({
               name='checklist[document_type]'
               value={this.state.documentType}
               options={this.props.documentTypes}
-              onChange={this.onChange}
-              editable={true}/>
-          </div>
-          <div className='col-sm-6'>
-            <SelectField
-              label='Document Template'
-              keyName='documentTemplate'
-              name='checklist[template_id]'
-              value={this.state.documentTemplate}
-              options={document_templates}
               onChange={this.onChange}
               editable={true}/>
           </div>
