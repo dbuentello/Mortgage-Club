@@ -71,7 +71,7 @@ gem 'dotenv-rails'
 gem 'nestive'
 
 # A wrapper gem for the DocuSign REST API
-gem 'docusign_rest', github: 'MortgageClub/docusign_rest', ref: '9e16099263082c6ad'
+gem 'docusign_rest', github: 'MortgageClub/docusign_rest'
 
 # A wrapper gem for Stripe REST API
 gem 'stripe'
