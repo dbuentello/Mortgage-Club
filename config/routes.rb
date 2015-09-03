@@ -67,11 +67,14 @@ Rails.application.routes.draw do
   end
 
 
-  scope module: "loan_members" do
+  namespace :loan_members do
     resources :loan_activities, only: [:index, :show, :create] do
       collection do
         get 'get_activities_by_conditions'
       end
+    end
+
+    resources :checklists do
     end
   end
 

@@ -73,7 +73,7 @@ var ActivityTab = React.createClass({
     this.disableButton(this.state.current_status);
 
     $.ajax({
-      url: '/loan_activities',
+      url: '/loan_members/loan_activities',
       method: 'POST',
       context: this,
       dataType: 'json',
@@ -234,7 +234,7 @@ var ActivityTab = React.createClass({
 
   setNewActivityStatus: function(activity_type, activity_name) {
     $.ajax({
-      url: '/loan_activities/get_activities_by_conditions',
+      url: '/loan_members/loan_activities/get_activities_by_conditions',
       method: 'GET',
       context: this,
       dataType: 'json',
@@ -290,7 +290,7 @@ var ActivityTab = React.createClass({
 
   reloadActivityList: function(activity_type) {
     $.ajax({
-      url: '/loan_activities/get_activities_by_conditions',
+      url: '/loan_members/loan_activities/get_activities_by_conditions',
       method: 'GET',
       context: this,
       dataType: 'json',
