@@ -11,10 +11,12 @@ var Form = React.createClass({
   getDefaultProps: function() {
     return {
       checklistTypes: [
-        {name: 'Question & Answer', value: 'question_and_answer'},
-        {name: 'Submit document', value: 'submit_document'}
+        {name: '', value: ''},
+        {name: 'Explain', value: 'explain'},
+        {name: 'Upload', value: 'upload'}
       ],
       documentTypes: [
+        {name: '', value: ''},
         {name: 'W2 - Most recent tax year', value: 'FirstW2'},
         {name: 'W2 - Previous tax year', value: 'SecondW2'},
         {name: 'Paystub - Most recent month', value: 'FirstPaystub'},
@@ -59,7 +61,7 @@ var Form = React.createClass({
       };
     }else {
       return {
-        type: 'question_and_answer'
+        type: 'explain'
       };
     }
   },
@@ -103,6 +105,7 @@ var Form = React.createClass({
 
   render: function() {
     var document_templates = new Array();
+    document_templates.push({name: '', value: ''});
     _.each(this.props.templates, function(template) {
       document_templates.push({name: template.name, value: template.id})
     })
@@ -155,7 +158,7 @@ var Form = React.createClass({
               editable={true}/>
           </div>
         </div>
-        <div className='form-group' style={{'display': this.state.type == 'question_and_answer' ? null : 'none'}}>
+        <div className='form-group' style={{'display': this.state.type == 'explain' ? null : 'none'}}>
           <div className='col-sm-6'>
             <TextField
               label='Question'
@@ -176,7 +179,7 @@ var Form = React.createClass({
               editable={true}/>
           </div>
         </div>
-        <div className='form-group' style={{'display': this.state.type == 'submit_document' ? null : 'none'}}>
+        <div className='form-group' style={{'display': this.state.type == 'upload' ? null : 'none'}}>
           <div className='col-sm-6'>
             <SelectField
               label='Document Type'
