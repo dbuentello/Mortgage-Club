@@ -108,7 +108,7 @@ var Dashboard = React.createClass({
             <div className='left-side col-xs-8'>
               <div className="tab-content">
                 <div role="tabpanel" className="tab-pane fade in active" id="overview">
-                  <OverviewTab></OverviewTab>
+                  <OverviewTab loan={loan} />
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="property">
                   <PropertyTab propertyList={propertyList}></PropertyTab>

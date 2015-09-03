@@ -2,7 +2,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 
 var ModalChecklist = require('components/ModalChecklist');
-var ModalUpload = require('components/ModalUpload');
+var ModalExplanation = require('components/ModalExplanation');
 
 var OverviewTab = React.createClass({
   componentDidMount: function() {
@@ -85,14 +85,15 @@ var OverviewTab = React.createClass({
 
           </div>
           <ModalChecklist
-            id="explainBox"
-            title="Explain"
-            body="This is explain mode question?"
-            yesCallback={this.handleExplain} />
-          <ModalUpload
             id="uploadBox"
             title="Upload"
-            body="This is upload mode"
+            body="This is the upload mode"
+            yesCallback={this.handleExplain} />
+          <ModalExplanation
+            id="explainBox"
+            title="Generic Explanation"
+            body="Explanation"
+            loan={this.props.loan}
             yesCallback={this.handleUpload} />
         </div>
       </div>

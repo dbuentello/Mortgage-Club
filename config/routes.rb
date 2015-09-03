@@ -51,6 +51,7 @@ Rails.application.routes.draw do
 
   post 'electronic_signature/template'
   get 'electronic_signature/embedded_response'
+  get 'electronic_signature/explain_response'
 
   get '/my/loans', to: 'users/loans#index', as: :my_loans
 

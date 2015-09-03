@@ -4,7 +4,7 @@ var React = require('react/addons');
  * HelpTooltipView renders a pretty little circle with a question mark that
  * displays a helpful tooltip when hovered over.
  */
-var ModalUpload = React.createClass({
+var ModalExplanation = React.createClass({
   propTypes: {
     id: React.PropTypes.string.isRequired,
     name: React.PropTypes.string,
@@ -18,9 +18,13 @@ var ModalUpload = React.createClass({
     return {
       id: "modal-checklist",
       class: "btn",
-      title: 'Confirmation',
+      title: 'Generic Explanation',
       body: 'Are you sure?'
     };
+  },
+
+  componentDidMount: function() {
+    this.loadDocusign();
   },
 
   loadDocusign: function() {
@@ -64,7 +68,7 @@ var ModalUpload = React.createClass({
         }
 
         <div className="modal fade" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby={labelId}>
-          <div className="modal-dialog" role="document">
+          <div className="modal-dialog modal-docusign" role="document">
             <div className="modal-content">
               <div className="modal-header">
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -81,4 +85,4 @@ var ModalUpload = React.createClass({
   }
 });
 
-module.exports = ModalUpload;
+module.exports = ModalExplanation;

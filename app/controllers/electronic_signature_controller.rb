@@ -25,6 +25,8 @@ class ElectronicSignatureController < ApplicationController
       values = Docusign::Templates::LoanEstimate.new(current_user.borrower, current_loan).params
     elsif template.name == "Servicing Disclosure"
       values = Docusign::Templates::ServicingDisclosure.new(current_user.borrower, current_loan).params
+    elsif template.name == "Generic Explanation"
+      values = Docusign::Templates::GenericExplanation.new(current_user.borrower, current_loan).params
     end
 
     if IS_EMBEDDED
@@ -76,6 +78,14 @@ class ElectronicSignatureController < ApplicationController
         email: current_user.email,
         return_url: electronic_signature_embedded_response_url
       )
+      if template.name == "Generic Explanation"
+        view_response = base.client.get_recipient_view(
+        envelope_id: envelope_id,
+        name: current_user.to_s,
+        email: current_user.email,
+        return_url: electronic_signature_explain_response_url(loan_id:current_loan.id)
+      )
+      end
 
       render json: {message: view_response}, status: :ok
     else
@@ -83,7 +93,17 @@ class ElectronicSignatureController < ApplicationController
     end
   end
 
+  def explain_response
+    utility = DocusignRest::Utility.new
 
+    if params[:event] == "signing_complete"
+      render :text => utility.breakout_path(loan_dashboard_path(params[:loan_id])), content_type: 'text/html'
+    elsif params[:event] == "ttl_expired"
+      # the session has been expired
+    else
+      render :text => utility.breakout_path(loan_dashboard_path(params[:loan_id], success: true)), content_type: 'text/html'
+    end
+  end
 
   # GET /electronic_signature/embedded_response
   def embedded_response
