@@ -1,7 +1,6 @@
 GIT
   remote: git://github.com/MortgageClub/docusign_rest.git
-  revision: 9e16099263082c6ad7802c47ce0613fe328b5121
-  ref: 9e16099263082c6ad
+  revision: c7bf2ae2a169e1e1cda42daff1cfa5e9017b0932
   specs:
     docusign_rest (0.1.1)
       json
