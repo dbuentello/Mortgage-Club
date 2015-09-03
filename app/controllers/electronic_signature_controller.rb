@@ -83,7 +83,7 @@ class ElectronicSignatureController < ApplicationController
         envelope_id: envelope_id,
         name: current_user.to_s,
         email: current_user.email,
-        return_url: electronic_signature_explain_response_url(loan_id:current_loan.id)
+        return_url: electronic_signature_explain_response_url(loan_id: current_loan.id)
       )
       end
 

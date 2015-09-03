@@ -15,6 +15,7 @@ module Docusign
       end
 
       private
+
       def build_content
         @params['borrower_name'] = "#{borrower.first_name} #{borrower.last_name}".titleize
         @params['borrower_address'] = borrower.display_current_address

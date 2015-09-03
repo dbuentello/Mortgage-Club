@@ -1,12 +1,13 @@
 var _ = require('lodash');
 var React = require('react/addons');
 
-var ModalChecklist = require('components/ModalChecklist');
+var ModalUpload = require('components/ModalUpload');
 var ModalExplanation = require('components/ModalExplanation');
 
 var OverviewTab = React.createClass({
   componentDidMount: function() {
     // $('.test').popover('show');
+
   },
   handleUpload: function() {
     alert("hanlde upload");
@@ -84,7 +85,7 @@ var OverviewTab = React.createClass({
             </table>
 
           </div>
-          <ModalChecklist
+          <ModalUpload
             id="uploadBox"
             title="Upload"
             body="This is the upload mode"

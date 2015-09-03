@@ -60,6 +60,9 @@ var Dashboard = React.createClass({
     var borrowerList = this.props.bootstrapData.borrower_list;
     var closingList = this.props.bootstrapData.closing_list;
     var manager = this.props.bootstrapData.manager;
+    var checkList = this.props.bootstrapData.loan.checklists;
+
+    console.log(this.props.bootstrapData.loan);
 
     return (
       <div className='dashboard content'>
