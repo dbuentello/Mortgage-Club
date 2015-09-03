@@ -158,6 +158,18 @@ var Form = React.createClass({
               editable={true}/>
           </div>
         </div>
+        <div className='form-group'>
+          <div className='col-sm-6'>
+            <SelectField
+              label='Document Type'
+              keyName='documentType'
+              name='checklist[document_type]'
+              value={this.state.documentType}
+              options={this.props.documentTypes}
+              onChange={this.onChange}
+              editable={true}/>
+          </div>
+        </div>
         <div className='form-group' style={{'display': this.state.type == 'explain' ? null : 'none'}}>
           <div className='col-sm-6'>
             <TextField
@@ -175,18 +187,6 @@ var Form = React.createClass({
               name='checklist[template_id]'
               value={this.state.documentTemplate}
               options={document_templates}
-              onChange={this.onChange}
-              editable={true}/>
-          </div>
-        </div>
-        <div className='form-group' style={{'display': this.state.type == 'upload' ? null : 'none'}}>
-          <div className='col-sm-6'>
-            <SelectField
-              label='Document Type'
-              keyName='documentType'
-              name='checklist[document_type]'
-              value={this.state.documentType}
-              options={this.props.documentTypes}
               onChange={this.onChange}
               editable={true}/>
           </div>
