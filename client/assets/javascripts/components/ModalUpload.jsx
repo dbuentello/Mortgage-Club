@@ -28,7 +28,7 @@ var ModalUpload = React.createClass({
       url: "/electronic_signature/template/",
       method: 'POST',
       data: {
-        template_name: this.state.templateName,
+        template_name: "Generic Explanation",
         id: this.props.loan.id
       },
       dataType: 'json',
