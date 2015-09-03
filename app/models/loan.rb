@@ -92,6 +92,8 @@ class Loan < ActiveRecord::Base
   has_many :loans_members_associations
   has_many :loan_members, through: :loans_members_associations
 
+  has_many :checklists
+
   accepts_nested_attributes_for :property, allow_destroy: true
   accepts_nested_attributes_for :borrower, allow_destroy: true
   accepts_nested_attributes_for :secondary_borrower, allow_destroy: true

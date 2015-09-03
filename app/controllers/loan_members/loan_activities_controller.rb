@@ -22,7 +22,8 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
       first_activity: first_activity(@loan),
       loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : [],
       property: PropertyPresenter.new(@loan.property).show,
-      closing: ClosingPresenter.new(@loan.closing).show
+      closing: ClosingPresenter.new(@loan.closing).show,
+      templates: TemplatesPresenter.index(Template.all)
     )
 
     respond_to do |format|

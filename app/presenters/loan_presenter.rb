@@ -72,6 +72,13 @@ class LoanPresenter
           only: [ :email ],
           methods: [ :to_s ]
         },
+        checklists: {
+          include: {
+            user: {
+              methods: [ :to_s ]
+            }
+          }
+        },
         hud_estimate: {}, hud_final: {}, other_loan_reports: {},
         loan_estimate: {}, uniform_residential_lending_application: {}
       }
