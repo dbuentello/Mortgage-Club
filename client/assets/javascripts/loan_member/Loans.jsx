@@ -14,7 +14,7 @@ var Loans = React.createClass({
           _.map(this.props.bootstrapData.loans, function(loan) {
             return (
               <p key={loan.id}>
-                <a href={"/loan_activities/" + loan.id}>Loan of {loan.user.to_s} (email: {loan.user.email})</a>
+                <a href={"/loan_members/loan_activities/" + loan.id}>Loan of {loan.user.to_s} (email: {loan.user.email})</a>
               </p>
             )
           })
