@@ -84,3 +84,7 @@ if Template.where(name: 'Servicing Disclosure').blank?
   template = base.create_template_object_from_name("Servicing Disclosure")
 end
 
+if Template.where(name: 'Generic Explanation').blank?
+  base = Docusign::Base.new
+  template = base.create_template_object_from_name("Generic Explanation")
+end

@@ -1,7 +1,8 @@
 var _ = require('lodash');
 var React = require('react/addons');
 
-var ModalLink = require('components/ModalLink');
+var ModalChecklist = require('components/ModalChecklist');
+var ModalUpload = require('components/ModalUpload');
 
 var OverviewTab = React.createClass({
   componentDidMount: function() {
@@ -56,7 +57,7 @@ var OverviewTab = React.createClass({
                   <td>Provide April bank statement</td>
                   <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
                   <td>-</td>
-                  <td><button className="btn btnSml btnDefault" data-toggle="modal" data-target="#explainBox">Upload</button></td>
+                  <td><button className="btn btnSml btnDefault" data-toggle="modal" data-target="#uploadBox">Upload</button></td>
                 </tr>
                 <tr>
                   <td><span className="iconCancel"></span></td>
@@ -77,17 +78,22 @@ var OverviewTab = React.createClass({
                   <td>Upload a copy of the executed purchase sales</td>
                   <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
                   <td>-</td>
-                  <td><button className="btn btnSml btnDefault" data-toggle="modal" data-target="#explainBox">Upload</button></td>
+                  <td><button className="btn btnSml btnDefault" data-toggle="modal" data-target="#uploadBox">Upload</button></td>
                 </tr>
               </tbody>
             </table>
 
           </div>
-          <ModalLink
+          <ModalChecklist
             id="explainBox"
             title="Explain"
-            body="<h1>This a explain mode<h1>"
+            body="This is explain mode question?"
             yesCallback={this.handleExplain} />
+          <ModalUpload
+            id="uploadBox"
+            title="Upload"
+            body="This is upload mode"
+            yesCallback={this.handleUpload} />
         </div>
       </div>
     )
