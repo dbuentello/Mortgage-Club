@@ -5,7 +5,7 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var LoanTab = React.createClass({
   mixins: [TextFormatMixin],
   getDownloadUrl: function(id, type) {
-    return '/loan_document_uploader/' + id + '/download?type=' + type
+    return '/document_uploaders/base_document/' + id + '/download?type=' + type
   },
   render: function() {
     return (
