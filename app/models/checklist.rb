@@ -7,6 +7,11 @@ class Checklist < ActiveRecord::Base
 
   def document
     document = self.document_type.constantize.new
-    {label: document.label_name, upload_path: document.upload_path}
+    {
+      label: document.label_name,
+      upload_path: document.upload_path,
+      subject_key_name: document.subject_key_name,
+      subject_name: document.subject_name
+    }
   end
 end

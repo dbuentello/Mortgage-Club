@@ -75,7 +75,7 @@ class LoanPresenter
         checklists: {
           include: {
             user: {
-              methods: [ :document ]
+              methods: [ :to_s ]
             }
           }
         },
@@ -106,6 +106,9 @@ class LoanPresenter
             :first_paystub, :second_paystub,
             :first_w2, :second_w2
           ]
+        },
+        closing: {
+          only: [:id]
         }
       },
       methods: [

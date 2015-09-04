@@ -18,7 +18,8 @@ class ChecklistsPresenter
         user: {
           methods: [:to_s, :avatar_url, :role_name]
         }
-      }
+      },
+      methods: [:document]
     }
   end
 end

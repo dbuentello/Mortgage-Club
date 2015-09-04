@@ -1,5 +1,4 @@
 var React = require('react/addons');
-
 var Dropzone = require('components/form/Dropzone');
 
 
@@ -16,24 +15,15 @@ var ModalUpload = React.createClass({
     yesCallback: React.PropTypes.func.isRequired
   },
   getInitialState: function() {
-    return this.buildStateFromBorrower();
+    return this.buildState();
   },
-  buildStateFromBorrower: function() {
+  buildState: function() {
     var state = {};
-    _.map(Object.keys(fields), function(key) {
-      if (this.props.borrower[key]) { // has a document
-        state[fields[key].name] = this.props.borrower[key].attachment_file_name;
-        state[fields[key].id] = this.props.borrower[key].id;
-        state[fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + this.props.borrower[key].id +
-                                         '/download?type=' + fields[key].type;
-        state[fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + this.props.borrower[key].id +
-                                         '/remove?type=' + fields[key].type;
-      } else {
-        state[fields[key].name] = fields[key].placeholder;
-        state[fields[key].name + '_downloadUrl'] = 'javascript:void(0)';
-        state[fields[key].name + '_removedUrl'] = 'javascript:void(0)';
-      }
-    }, this);
+    var doc_type = this.props.checklist.document_type;
+
+    state[doc_type] = 'drap file here or browse';
+    state[doc_type + '_downloadUrl'] = 'javascript:void(0)';
+    state[doc_type + '_removedUrl'] = 'javascript:void(0)';
     return state;
   },
   getDefaultProps: function() {
@@ -47,8 +37,17 @@ var ModalUpload = React.createClass({
   render: function() {
     var dataTarget = '#' + this.props.id;
     var labelId = this.props.id + 'Label';
+    var document = this.props.checklist.document
+    var doc_type = this.props.checklist.document_type;
+    var field = {label: document.label, name: document.name , placeholder: 'drap file here or browse', type: doc_type}
 
-    var uploadUrl = '/document_uploaders/borrowers/upload';
+    var subject_key_name = document.subject_key_name;
+    var subject_params = {};
+    subject_params[subject_key_name] = this.props.subject.id;
+    var customParams = [
+      {type: doc_type},
+      subject_params
+    ];
 
     return (
       <span>
@@ -68,27 +67,16 @@ var ModalUpload = React.createClass({
               </div>
               <div className="modal-body" >
                 <div className="upload-zone">
-                {
-                  _.map(Object.keys(fields), function(key) {
-                    var customParams = [
-                      {type: fields[key].type},
-                      {borrower_id: this.props.borrower.id}
-                    ];
-                    return(
-                      <div className="drop_zone" key={key}>
-                        <Dropzone field={fields[key]}
-                          uploadUrl={uploadUrl}
-                          downloadUrl={this.state[fields[key].name + '_downloadUrl']}
-                          removeUrl={this.state[fields[key].name + '_removedUrl']}
-                          tip={this.state[fields[key].name]}
-                          maxSize={10000000}
-                          customParams={customParams}
-                          supportOtherDescription={fields[key].customDescription}
-                        />
-                      </div>
-                    )
-                  }, this)
-                }
+                  <div className="drop_zone">
+                    <Dropzone field={field}
+                      uploadUrl={document.upload_path}
+                      downloadUrl={this.state[doc_type + '_downloadUrl']}
+                      removeUrl={this.state[doc_type + '_removedUrl']}
+                      tip={this.state[doc_type]}
+                      maxSize={10000000}
+                      customParams={customParams}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="modal-footer">

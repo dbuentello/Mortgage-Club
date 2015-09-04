@@ -87,54 +87,60 @@ var CheckList = React.createClass({
     handleUpload: function() {
       alert("hanlde upload");
     },
+    getSubject: function(checklist) {
+      if (checklist.document.subject_name == 'Borrower') {
+        return this.props.loan.borrower;
+      } else if (checklist.document.subject_name == 'Property') {
+        return this.props.loan.property;
+      } else if (checklist.document.subject_name == 'Closing') {
+        return this.props.loan.closing;
+      } else if (checklist.document.subject_name == 'Loan') {
+        return this.props.loan;
+      }
+    },
     render: function() {
       var checklist = this.props.checklist;
       var status = checklist.status == "pending" ? "iconCancel" : "iconCheck";
-      var button = checklist.checklist_type == "explain" ? "explain" : "upload"
-      if (checklist.checklist_type == "explain") {
-        return (
-          <tr>
-            <td><span className={status}></span></td>
-            <td>{checklist.name}</td>
-            <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
-            <td>{this.isoToUsDate(checklist.due_date)}</td>
-            <td>
-              <button className="btn btnSml btnDefault" data-toggle="modal" data-target={"#" + button + "Box"}>
-              Explain
-              </button>
+      var button_id = checklist.checklist_type == "explain" ? ("explain-" + checklist.id) : ("upload-" + checklist.id);
 
-              <ModalExplanation
-                id="explainBox"
-                title="Generic Explanation"
-                body="Explanation"
-                loan={this.props.loan}
-                yesCallback={this.handleExplain} />
-            </td>
-          </tr>
-        );
-      } else {
-        return (
-          <tr>
-            <td><span className={status}></span></td>
-            <td>{checklist.name}</td>
-            <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
-            <td>{this.isoToUsDate(checklist.due_date)}</td>
-            <td>
-              <button className="btn btnSml btnDefault" data-toggle="modal" data-target="#uploadBox">
-              Upload
-              </button>
+      return (
+        <tr>
+          <td><span className={status}></span></td>
+          <td>{checklist.name}</td>
+          <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
+          <td>{this.isoToUsDate(checklist.due_date)}</td>
+          <td>
+            { checklist.checklist_type == "explain" ?
+                <div>
+                  <button className="btn btnSml btnDefault" data-toggle="modal" data-target={"#" + button_id}>
+                    Explain
+                  </button>
+                  <ModalExplanation
+                    id={button_id}
+                    title="Generic Explanation"
+                    body="Explanation"
+                    loan={this.props.loan}
+                    yesCallback={this.handleExplain} />
+                </div>
+                :
+                <div>
+                  <button className="btn btnSml btnDefault" data-toggle="modal" data-target={"#" + button_id}>
+                    Upload
+                  </button>
 
-              <ModalUpload
-              id="uploadBox"
-              title="Upload"
-              loan={this.props.loan}
-              borrower={this.props.borrower}
-              checklist={checklist}
-              yesCallback={this.handleUpload} />
-            </td>
-          </tr>
-        );
-      }
+                  <ModalUpload
+                    id={button_id}
+                    title="Upload"
+                    loan={this.props.loan}
+                    borrower={this.props.borrower}
+                    subject={this.getSubject(checklist)}
+                    checklist={checklist}
+                    yesCallback={this.handleUpload} />
+                </div>
+            }
+          </td>
+        </tr>
+      );
     }
 });
 
