@@ -69,6 +69,10 @@ class BorrowerDocument < ActiveRecord::Base
     'borrower_id'
   end
 
+  def upload_path
+    '/document_uploaders/borrowers/upload'
+  end
+
   private
 
   def set_private_token

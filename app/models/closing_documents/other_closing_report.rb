@@ -20,4 +20,8 @@
 class OtherClosingReport < ClosingDocument
   belongs_to :closing, inverse_of: :other_closing_reports, foreign_key: 'closing_id'
   belongs_to :owner, polymorphic: true
+
+  def label_name
+    'Other closing report'
+  end
 end

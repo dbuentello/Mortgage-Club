@@ -22,4 +22,8 @@ class UniformResidentialLendingApplication < LoanDocument
 
   belongs_to :loan, inverse_of: :hud_estimate, foreign_key: 'loan_id'
   belongs_to :owner, polymorphic: true
+
+  def label_name
+    DESCRIPTION
+  end
 end

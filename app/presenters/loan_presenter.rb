@@ -75,7 +75,7 @@ class LoanPresenter
         checklists: {
           include: {
             user: {
-              methods: [ :to_s ]
+              methods: [ :document ]
             }
           }
         },

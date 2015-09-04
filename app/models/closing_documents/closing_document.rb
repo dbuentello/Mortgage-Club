@@ -58,6 +58,10 @@ class ClosingDocument < ActiveRecord::Base
     'closing_id'
   end
 
+  def upload_path
+    '/document_uploaders/closings/upload'
+  end
+
   private
 
   def set_private_token

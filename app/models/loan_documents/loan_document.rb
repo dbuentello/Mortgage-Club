@@ -57,6 +57,10 @@ class LoanDocument < ActiveRecord::Base
     'loan_id'
   end
 
+  def upload_path
+    '/document_uploaders/loans/upload'
+  end
+
   private
 
   def set_private_token

@@ -63,6 +63,10 @@ class PropertyDocument < ActiveRecord::Base
     'property_id'
   end
 
+  def upload_path
+    '/document_uploaders/properties/upload'
+  end
+
   private
 
   def set_private_token

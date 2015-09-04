@@ -20,4 +20,8 @@ class FirstW2 < BorrowerDocument
 
   belongs_to :borrower, inverse_of: :first_w2, touch: true
   belongs_to :owner, polymorphic: true
+
+  def label_name
+    DESCRIPTION
+  end
 end

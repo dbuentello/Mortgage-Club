@@ -13,7 +13,6 @@ var ModalUpload = React.createClass({
     name: React.PropTypes.string,
     class: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
-    body: React.PropTypes.string.isRequired,
     yesCallback: React.PropTypes.func.isRequired
   },
   getInitialState: function() {
@@ -42,7 +41,6 @@ var ModalUpload = React.createClass({
       id: "modal-checklist",
       class: "btn",
       title: 'Confirmation',
-      body: 'Are you sure?'
     };
   },
 

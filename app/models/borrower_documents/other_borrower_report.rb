@@ -18,4 +18,8 @@
 class OtherBorrowerReport < BorrowerDocument
   belongs_to :borrower, inverse_of: :other_borrower_reports, foreign_key: 'borrower_id', touch: true
   belongs_to :owner, polymorphic: true
+
+  def label_name
+    'Other borrower report'
+  end
 end
