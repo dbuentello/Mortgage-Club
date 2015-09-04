@@ -40,10 +40,11 @@ module ZillowService
       end
     end
 
-    def self.parse_payments(monthly_payments, property)
+    def self.parse_payments(monthly_payments, property_data)
       return if monthly_payments.nil?
       return if monthly_payments['paymentsdetails']['response'].nil?
 
+      property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
       property.merge({
         :monthlyTax => monthly_payments['paymentsdetails']['response']['monthlypropertytaxes'],
         :monthlyInsurance => monthly_payments['paymentsdetails']['response']['monthlyhazardinsurance']

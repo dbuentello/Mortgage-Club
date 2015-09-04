@@ -49,6 +49,14 @@ OTHER_MINE_TYPES = [
   'inode/x-empty'
 ]
 
+ZILLOW_PROPERTY_TYPE_MAPPING = {
+  'SingleFamily' => 'Single Family Home',
+  'Duplex' => 'Duplex',
+  'Triplex' => 'Triplex',
+  'Quadruplex' => 'Fourplex',
+  'Condominium' => 'Condo'
+}
+
 ALLOWED_MIME_TYPES = IMAGE_MINE_TYPES + PDF_MINE_TYPES + MWORD_MINE_TYPES +
                      EXCEL_MINE_TYPES + POWERPOINT_MINE_TYPES + OTHER_MINE_TYPES
 
