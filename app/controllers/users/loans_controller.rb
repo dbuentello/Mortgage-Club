@@ -107,7 +107,8 @@ class Users::LoansController < Users::BaseController
       loan_list: loan_presenter.show_documents,
       manager: LoanMembersPresenter.show(loan.relationship_manager),
       loan_activities: loan_activities,
-      closing_list: ClosingPresenter.new(closing).show_documents
+      closing_list: ClosingPresenter.new(closing).show_documents,
+      checklists: ChecklistsPresenter.index(loan.checklists)
     )
 
     respond_to do |format|
