@@ -62,7 +62,6 @@ var Dashboard = React.createClass({
     var manager = this.props.bootstrapData.manager;
     var checkList = this.props.bootstrapData.loan.checklists;
 
-    console.log(this.props.bootstrapData.loan);
 
     return (
       <div className='dashboard content'>
@@ -111,7 +110,7 @@ var Dashboard = React.createClass({
             <div className='left-side col-xs-8'>
               <div className="tab-content">
                 <div role="tabpanel" className="tab-pane fade in active" id="overview">
-                  <OverviewTab loan={loan} />
+                  <OverviewTab loan={loan} borrower={loan.borrower} />
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="property">
                   <PropertyTab propertyList={propertyList}></PropertyTab>

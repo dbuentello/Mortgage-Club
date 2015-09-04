@@ -7,7 +7,6 @@ var ModalExplanation = require('components/ModalExplanation');
 var OverviewTab = React.createClass({
   componentDidMount: function() {
     // $('.test').popover('show');
-
   },
   handleUpload: function() {
     alert("hanlde upload");
@@ -89,6 +88,8 @@ var OverviewTab = React.createClass({
             id="uploadBox"
             title="Upload"
             body="This is the upload mode"
+            loan={this.props.loan}
+            borrower={this.props.borrower}
             yesCallback={this.handleExplain} />
           <ModalExplanation
             id="explainBox"
