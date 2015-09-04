@@ -61,6 +61,14 @@ class BorrowerDocument < ActiveRecord::Base
     Amazon::GetUrlService.call(attachment)
   end
 
+  def subject_name
+    'Borrower'
+  end
+
+  def subject_key_name
+    'borrower_id'
+  end
+
   private
 
   def set_private_token

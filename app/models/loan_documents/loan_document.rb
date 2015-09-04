@@ -49,10 +49,12 @@ class LoanDocument < ActiveRecord::Base
   before_validation :set_private_token, :on => :create
   before_validation :set_description
 
-  def downloadable?(user)
-    # return false if borrower.blank? || user.blank? || user.borrower.blank?
+  def subject_name
+    'Loan'
+  end
 
-    # user.borrower == borrower
+  def subject_key_name
+    'loan_id'
   end
 
   private

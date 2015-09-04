@@ -50,6 +50,14 @@ class ClosingDocument < ActiveRecord::Base
   before_validation :set_private_token, :on => :create
   before_validation :set_description
 
+  def subject_name
+    'Closing'
+  end
+
+  def subject_key_name
+    'closing_id'
+  end
+
   private
 
   def set_private_token

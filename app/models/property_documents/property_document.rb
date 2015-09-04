@@ -55,6 +55,14 @@ class PropertyDocument < ActiveRecord::Base
     # user.borrower == borrower
   end
 
+  def subject_name
+    'Property'
+  end
+
+  def subject_key_name
+    'property_id'
+  end
+
   private
 
   def set_private_token
