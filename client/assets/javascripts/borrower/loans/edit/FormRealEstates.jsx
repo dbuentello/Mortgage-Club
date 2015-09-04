@@ -37,6 +37,11 @@ var FormRealEstates = React.createClass({
     if ( value != null ) {
       if (key.indexOf('.address') > -1 && value.city) {
         var propertyKey = key.replace('.address', '');
+        var property = this.getValue(this.state, propertyKey);
+        property.market_price = null;
+        property.property_type = null;
+        property.estimated_property_tax = null;
+        property.estimated_hazard_insurance = null;
         this.searchProperty(this.getValue(this.state, propertyKey), propertyKey);
       }
 
@@ -50,6 +55,7 @@ var FormRealEstates = React.createClass({
 
   searchProperty: function(property, propertyKey) {
     var address = property.address;
+
     $.ajax({
       url: '/properties/search',
       data: {
@@ -68,11 +74,10 @@ var FormRealEstates = React.createClass({
         var propertyType = this.getValue(response, 'useCode');
         var monthlyTax = this.getValue(response, 'monthlyTax');
         var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
-
-        property.market_price = property.market_price || marketValue;
-        property.property_type = property.property_type || propertyType;
-        property.estimated_property_tax = property.estimated_property_tax || monthlyTax;
-        property.estimated_hazard_insurance = property.estimated_hazard_insurance || monthlyInsurance;
+        property.market_price = marketValue;
+        property.property_type = propertyType;
+        property.estimated_property_tax = monthlyTax;
+        property.estimated_hazard_insurance = monthlyInsurance;
         this.setState(this.setValue(this.state, propertyKey, property));
       }
     });
@@ -80,10 +85,11 @@ var FormRealEstates = React.createClass({
 
   render: function() {
     var propertyTypes = [
-      {value: 'sfh', name: 'Single Family Home'},
-      {value: 'duplex', name: 'Duplex'},
-      {value: 'triplex', name: 'Triplex'},
-      {value: 'Fourplex', name: 'Fourplex'}
+      {value: 'Single Family Home', name: 'Single Family Home'},
+      {value: 'Duplex', name: 'Duplex'},
+      {value: 'Triplex', name: 'Triplex'},
+      {value: 'Fourplex', name: 'Fourplex'},
+      {value: 'Condo', name: 'Condominium'}
     ];
 
     return (
