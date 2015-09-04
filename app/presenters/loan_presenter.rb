@@ -100,7 +100,7 @@ class LoanPresenter
           methods: :usage_name
         },
         borrower: {
-          only:[:id],
+          only: [:id],
           include: [
             :first_bank_statement, :second_bank_statement,
             :first_paystub, :second_paystub,

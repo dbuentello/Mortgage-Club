@@ -1,8 +1,34 @@
 var _ = require('lodash');
 var React = require('react/addons');
+var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var ModalUpload = require('components/ModalUpload');
 var ModalExplanation = require('components/ModalExplanation');
+
+var CheckList = React.createClass({
+    mixins: [TextFormatMixin],
+    render: function() {
+      var checklist = this.props.checklist;
+      var status = checklist.status == "pending" ? "iconCancel" : "iconCheck";
+      var button = checklist.checklist_type == "explain" ? "explain" : "upload"
+
+      return (
+        <tr>
+          <td><span className={status}></span></td>
+          <td>{checklist.name}</td>
+          <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
+          <td>{this.isoToUsDate(checklist.due_date)}</td>
+          <td>
+            <button className="btn btnSml btnDefault"
+            data-toggle="modal"
+            data-target={"#" + button + "Box"}>
+              {button}
+            </button>
+          </td>
+        </tr>
+      );
+    }
+});
 
 var OverviewTab = React.createClass({
   componentDidMount: function() {
@@ -14,7 +40,21 @@ var OverviewTab = React.createClass({
   handleExplain: function() {
     alert("hanlde explain");
   },
+  eachCheckList: function(checklist, i) {
+    return (
+      <CheckList key={checklist.id} index={i} checklist={checklist}/>
+    );
+  },
   render: function() {
+    var checklistCounter = this.props.checklists.length;
+    var pendingCounter = 0;
+    for (var i = 0; i < this.props.checklists.length; i++) {
+      if (this.props.checklists[i].status == "pending") {
+        pendingCounter += 1;
+      }
+    }
+    var completeCounter = checklistCounter - pendingCounter;
+
     return (
       <div>
         <div className="box boxBasic backgroundBasic text-center">
@@ -35,7 +75,7 @@ var OverviewTab = React.createClass({
         <div className="box boxBasic backgroundBasic">
           <div className='boxHead bbs'>
             <h4 className='typeBold'>Your Loan Checklist &nbsp;
-              <span className="label label-default">14/17</span>
+              <span className="label label-default">{completeCounter + "/" + checklistCounter}</span>
             </h4>
 
           </div>
@@ -52,34 +92,7 @@ var OverviewTab = React.createClass({
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><span className="iconCheck"></span></td>
-                  <td>Provide April bank statement</td>
-                  <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
-                  <td>-</td>
-                  <td><button className="btn btnSml btnDefault" data-toggle="modal" data-target="#uploadBox">Upload</button></td>
-                </tr>
-                <tr>
-                  <td><span className="iconCancel"></span></td>
-                  <td>Provide escrow/title agent information</td>
-                  <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
-                  <td>-</td>
-                  <td><a className="btn btnSml btnDefault" data-toggle="modal" data-target="#explainBox">Explain</a></td>
-                </tr>
-                <tr>
-                  <td><span className="iconCancel"></span></td>
-                  <td>Letter of explanation for credit inquires</td>
-                  <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
-                  <td>-</td>
-                  <td><a className="btn btnSml btnDefault" data-toggle="modal" data-target="#explainBox">Explain</a></td>
-                </tr>
-                <tr>
-                  <td><span className="iconCheck"></span></td>
-                  <td>Upload a copy of the executed purchase sales</td>
-                  <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
-                  <td>-</td>
-                  <td><button className="btn btnSml btnDefault" data-toggle="modal" data-target="#uploadBox">Upload</button></td>
-                </tr>
+                {this.props.checklists.map(this.eachCheckList)}
               </tbody>
             </table>
 
