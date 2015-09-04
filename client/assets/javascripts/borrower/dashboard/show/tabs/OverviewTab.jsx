@@ -5,44 +5,19 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var ModalUpload = require('components/ModalUpload');
 var ModalExplanation = require('components/ModalExplanation');
 
-var CheckList = React.createClass({
-    mixins: [TextFormatMixin],
-    render: function() {
-      var checklist = this.props.checklist;
-      var status = checklist.status == "pending" ? "iconCancel" : "iconCheck";
-      var button = checklist.checklist_type == "explain" ? "explain" : "upload"
-
-      return (
-        <tr>
-          <td><span className={status}></span></td>
-          <td>{checklist.name}</td>
-          <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
-          <td>{this.isoToUsDate(checklist.due_date)}</td>
-          <td>
-            <button className="btn btnSml btnDefault"
-            data-toggle="modal"
-            data-target={"#" + button + "Box"}>
-              {button}
-            </button>
-          </td>
-        </tr>
-      );
-    }
-});
 
 var OverviewTab = React.createClass({
   componentDidMount: function() {
     // $('.test').popover('show');
   },
-  handleUpload: function() {
-    alert("hanlde upload");
-  },
-  handleExplain: function() {
-    alert("hanlde explain");
-  },
   eachCheckList: function(checklist, i) {
     return (
-      <CheckList key={checklist.id} index={i} checklist={checklist}/>
+      <CheckList
+        key={checklist.id}
+        index={i}
+        loan={this.props.loan}
+        borrower={this.props.borrower}
+        checklist={checklist} />
     );
   },
   render: function() {
@@ -80,7 +55,6 @@ var OverviewTab = React.createClass({
 
           </div>
           <div className="boxBody ptm">
-
             <table className="table table-striped">
               <thead>
                 <tr>
@@ -95,21 +69,7 @@ var OverviewTab = React.createClass({
                 {this.props.checklists.map(this.eachCheckList)}
               </tbody>
             </table>
-
           </div>
-          <ModalUpload
-            id="uploadBox"
-            title="Upload"
-            body="This is the upload mode"
-            loan={this.props.loan}
-            borrower={this.props.borrower}
-            yesCallback={this.handleExplain} />
-          <ModalExplanation
-            id="explainBox"
-            title="Generic Explanation"
-            body="Explanation"
-            loan={this.props.loan}
-            yesCallback={this.handleUpload} />
         </div>
       </div>
     )
@@ -117,3 +77,64 @@ var OverviewTab = React.createClass({
 });
 
 module.exports = OverviewTab;
+
+var CheckList = React.createClass({
+    mixins: [TextFormatMixin],
+
+    handleExplain: function() {
+      alert("hanlde explain");
+    },
+    handleUpload: function() {
+      alert("hanlde upload");
+    },
+    render: function() {
+      var checklist = this.props.checklist;
+      var status = checklist.status == "pending" ? "iconCancel" : "iconCheck";
+      var button = checklist.checklist_type == "explain" ? "explain" : "upload"
+      if (checklist.checklist_type == "explain") {
+        return (
+          <tr>
+            <td><span className={status}></span></td>
+            <td>{checklist.name}</td>
+            <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
+            <td>{this.isoToUsDate(checklist.due_date)}</td>
+            <td>
+              <button className="btn btnSml btnDefault" data-toggle="modal" data-target={"#" + button + "Box"}>
+              Explain
+              </button>
+
+              <ModalExplanation
+                id="explainBox"
+                title="Generic Explanation"
+                body="Explanation"
+                loan={this.props.loan}
+                yesCallback={this.handleExplain} />
+            </td>
+          </tr>
+        );
+      } else {
+        return (
+          <tr>
+            <td><span className={status}></span></td>
+            <td>{checklist.name}</td>
+            <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
+            <td>{this.isoToUsDate(checklist.due_date)}</td>
+            <td>
+              <button className="btn btnSml btnDefault" data-toggle="modal" data-target="#uploadBox">
+              Upload
+              </button>
+
+              <ModalUpload
+              id="uploadBox"
+              title="Upload"
+              loan={this.props.loan}
+              borrower={this.props.borrower}
+              checklist={checklist}
+              yesCallback={this.handleUpload} />
+            </td>
+          </tr>
+        );
+      }
+    }
+});
+
