@@ -90,7 +90,7 @@ class LoanPresenter
       only: [ :id, :amount, :created_at, :interest_rate ],
       include: {
         property: {
-          only: [],
+          only: [:id],
           include: {
             address: {
               only: [],

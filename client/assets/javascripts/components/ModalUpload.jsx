@@ -1,16 +1,11 @@
 var React = require('react/addons');
 var Dropzone = require('components/form/Dropzone');
 
-
-var fields = {
-  first_w2: {label: 'W2 - Most recent tax year', name: 'first_w2', placeholder: 'drap file here or browse', type: 'FirstW2'}
-};
-
 var ModalUpload = React.createClass({
   propTypes: {
     id: React.PropTypes.string.isRequired,
     name: React.PropTypes.string,
-    class: React.PropTypes.string,
+    klass: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
     yesCallback: React.PropTypes.func.isRequired
   },
@@ -29,7 +24,7 @@ var ModalUpload = React.createClass({
   getDefaultProps: function() {
     return {
       id: "modal-checklist",
-      class: "btn",
+      klass: "btn",
       title: 'Confirmation',
     };
   },
@@ -53,7 +48,7 @@ var ModalUpload = React.createClass({
       <span>
         {
           this.props.name ?
-          <a className={this.props.class} data-toggle="modal" data-target={dataTarget}><i className={this.props.icon}/>{this.props.name}</a>
+          <a className={this.props.klass} data-toggle="modal" data-target={dataTarget}><i className={this.props.icon}/>{this.props.name}</a>
           :
           null
         }
@@ -75,13 +70,13 @@ var ModalUpload = React.createClass({
                       tip={this.state[doc_type]}
                       maxSize={10000000}
                       customParams={customParams}
+                      uploadSuccessCallback={this.props.uploadSuccessCallback}
                     />
                   </div>
                 </div>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" className="btn btn-primary" onClick={this.props.yesCallback}>OK</button>
               </div>
             </div>
           </div>

@@ -160,9 +160,9 @@ var Dropzone = React.createClass({
             // highltight chosen dropzone
             $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploaded.backgroundColor, color: this.props.uploaded.color});
 
-            // console.log(response.message);
             var flash = { "alert-success": "Uploaded successfully!" };
             this.showFlashes(flash);
+            this.props.uploadSuccessCallback();
           }.bind(this),
           cache: false,
           contentType: false,

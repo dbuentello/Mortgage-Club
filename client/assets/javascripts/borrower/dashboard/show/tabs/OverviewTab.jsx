@@ -10,16 +10,35 @@ var OverviewTab = React.createClass({
   componentDidMount: function() {
     // $('.test').popover('show');
   },
-  eachCheckList: function(checklist, i) {
+
+  eachChecklist: function(checklist, i) {
     return (
       <CheckList
         key={checklist.id}
         index={i}
         loan={this.props.loan}
         borrower={this.props.borrower}
-        checklist={checklist} />
+        checklist={checklist}
+        updateChecklistStatus={this.updateChecklistStatus}/>
     );
   },
+
+  updateChecklistStatus: function(checklist) {
+    $.ajax({
+      url: 'update_checklist_status',
+      data: {
+        checklist_id: checklist.id,
+        status: 'done'
+      },
+      dataType: 'json',
+      method: 'POST',
+      context: this,
+      success: function(response) {
+        // do something
+      }
+    });
+  },
+
   render: function() {
     var checklistCounter = this.props.checklists.length;
     var pendingCounter = 0;
@@ -66,7 +85,7 @@ var OverviewTab = React.createClass({
                 </tr>
               </thead>
               <tbody>
-                {this.props.checklists.map(this.eachCheckList)}
+                {this.props.checklists.map(this.eachChecklist)}
               </tbody>
             </table>
           </div>
@@ -81,12 +100,27 @@ module.exports = OverviewTab;
 var CheckList = React.createClass({
     mixins: [TextFormatMixin],
 
+    getInitialState: function() {
+      return {
+        status: this.props.checklist.status == "pending" ? "iconCancel" : "iconCheck"
+      }
+    },
+
     handleExplain: function() {
       alert("hanlde explain");
     },
+
     handleUpload: function() {
       alert("hanlde upload");
     },
+
+    uploadSuccessCallback: function() {
+      this.setState({
+        status: 'iconCheck'
+      });
+      this.props.updateChecklistStatus(this.props.checklist);
+    },
+
     getSubject: function(checklist) {
       if (checklist.document.subject_name == 'Borrower') {
         return this.props.loan.borrower;
@@ -98,14 +132,14 @@ var CheckList = React.createClass({
         return this.props.loan;
       }
     },
+
     render: function() {
       var checklist = this.props.checklist;
-      var status = checklist.status == "pending" ? "iconCancel" : "iconCheck";
       var button_id = checklist.checklist_type == "explain" ? ("explain-" + checklist.id) : ("upload-" + checklist.id);
 
       return (
         <tr>
-          <td><span className={status}></span></td>
+          <td><span className={this.state.status}></span></td>
           <td>{checklist.name}</td>
           <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
           <td>{this.isoToUsDate(checklist.due_date)}</td>
@@ -135,7 +169,8 @@ var CheckList = React.createClass({
                     borrower={this.props.borrower}
                     subject={this.getSubject(checklist)}
                     checklist={checklist}
-                    yesCallback={this.handleUpload} />
+                    yesCallback={this.handleUpload}
+                    uploadSuccessCallback={this.uploadSuccessCallback}/>
                 </div>
             }
           </td>
