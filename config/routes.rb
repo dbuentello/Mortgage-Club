@@ -58,7 +58,10 @@ Rails.application.routes.draw do
   scope module: "users" do
     scope '/my' do
       resources :loans do
-        get :dashboard
+      end
+
+      resources :dashboard do
+        post :update_checklist_status, on: :collection
       end
     end
 
