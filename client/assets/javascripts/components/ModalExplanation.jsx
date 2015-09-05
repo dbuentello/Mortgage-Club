@@ -10,7 +10,6 @@ var ModalExplanation = React.createClass({
     name: React.PropTypes.string,
     class: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
-    body: React.PropTypes.string.isRequired,
     yesCallback: React.PropTypes.func.isRequired
   },
 
@@ -19,7 +18,6 @@ var ModalExplanation = React.createClass({
       id: "modal-checklist",
       class: "btn",
       title: 'Generic Explanation',
-      body: 'Are you sure?'
     };
   },
 

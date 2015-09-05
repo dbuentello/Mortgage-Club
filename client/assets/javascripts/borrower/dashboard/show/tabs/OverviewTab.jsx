@@ -151,9 +151,9 @@ var CheckList = React.createClass({
                   </button>
                   <ModalExplanation
                     id={button_id}
-                    title="Generic Explanation"
-                    body="Explanation"
+                    title={checklist.name}
                     loan={this.props.loan}
+                    checklist={checklist}
                     yesCallback={this.handleExplain} />
                 </div>
                 :
@@ -161,7 +161,6 @@ var CheckList = React.createClass({
                   <button className="btn btnSml btnDefault" data-toggle="modal" data-target={"#" + button_id}>
                     Upload
                   </button>
-
                   <ModalUpload
                     id={button_id}
                     title="Upload"
