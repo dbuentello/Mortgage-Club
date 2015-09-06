@@ -75,9 +75,6 @@ var ModalUpload = React.createClass({
                   </div>
                 </div>
               </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">Cancel</button>
-              </div>
             </div>
           </div>
         </div>
