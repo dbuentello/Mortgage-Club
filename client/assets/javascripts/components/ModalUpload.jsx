@@ -7,7 +7,6 @@ var ModalUpload = React.createClass({
     name: React.PropTypes.string,
     klass: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
-    yesCallback: React.PropTypes.func.isRequired
   },
   getInitialState: function() {
     return this.buildState();

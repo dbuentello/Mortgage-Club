@@ -104,18 +104,26 @@ var CheckList = React.createClass({
 
     getInitialState: function() {
       return {
-        status: this.props.checklist.status == "pending" ? "iconCancel" : "iconCheck"
+        status: this.props.checklist.status == "pending" ? "iconCancel" : "iconCheck",
+        logs: []
       }
     },
-
-    handleExplain: function() {
-      alert("hanlde explain");
+    handleShowModal: function() {
+      this.refs.modal.show();
     },
-
-    handleUpload: function() {
-      alert("hanlde upload");
+    handleExternalHide: function() {
+      this.refs.modal.hide();
     },
-
+    handleDoingNothing: function() {
+      this.handleLog("Remember I said I'd do nothing? ...I lied!", 'danger');
+    },
+    handleLog: function(message, type) {
+      this.setState({
+        logs: [{ type: type
+               , time: new Date().toLocaleTimeString()
+               , message: message}].concat(this.state.logs.slice(0, 3))
+      });
+    },
     uploadSuccessCallback: function() {
       this.setState({
         status: 'iconCheck'
@@ -138,6 +146,11 @@ var CheckList = React.createClass({
     render: function() {
       var checklist = this.props.checklist;
       var button_id = checklist.checklist_type == "explain" ? ("explain-" + checklist.id) : ("upload-" + checklist.id);
+      var logs = this.state.logs.map(function(log) {
+            return <div className={'alert alert-' + log.type}>
+              [<strong>{log.time}</strong>] {log.message}
+            </div>
+          })
 
       return (
         <tr>
@@ -148,15 +161,20 @@ var CheckList = React.createClass({
           <td>
             { checklist.checklist_type == "explain" ?
                 <div>
-                  <button className="btn btnSml btnDefault" data-toggle="modal" data-target={"#" + button_id}>
+                  <button className="btn btnSml btnDefault" onClick={this.handleShowModal} >
                     Explain
                   </button>
                   <ModalExplanation
+                    ref="modal"
+                    show={false}
                     id={button_id}
                     title={checklist.name}
+                    handleShow={this.loadDocusign}
+                    handleShown={this.handleLog.bind(this, 'Modal showing', 'success')}
+                    handleHide={this.handleLog.bind(this, 'Modal about to hide', 'warning')}
+                    handleHidden={this.handleLog.bind(this, 'Modal hidden', 'danger')}
                     loan={this.props.loan}
-                    checklist={checklist}
-                    yesCallback={this.handleExplain} />
+                    checklist={checklist} />
                 </div>
                 :
                 <div>
@@ -170,7 +188,6 @@ var CheckList = React.createClass({
                     borrower={this.props.borrower}
                     subject={this.getSubject(checklist)}
                     checklist={checklist}
-                    yesCallback={this.handleUpload}
                     uploadSuccessCallback={this.uploadSuccessCallback}/>
                 </div>
             }

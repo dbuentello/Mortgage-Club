@@ -1,30 +1,91 @@
 var React = require('react/addons');
+// var ModalMixin = require('mixins/ModalMixin');
 
-/**
- * HelpTooltipView renders a pretty little circle with a question mark that
- * displays a helpful tooltip when hovered over.
- */
+var ModalMixin = function() {
+  var handlerProps = ['handleShow', 'handleShown', 'handleHide', 'handleHidden']
+
+  var bsModalEvents = {
+    handleShow: 'show.bs.modal',
+    handleShown: 'shown.bs.modal',
+    handleHide: 'hide.bs.modal',
+    handleHidden: 'hidden.bs.modal'
+  }
+
+  return {
+    propTypes: {
+      handleShow: React.PropTypes.func,
+      handleShown: React.PropTypes.func,
+      handleHide: React.PropTypes.func,
+      handleHidden: React.PropTypes.func,
+      backdrop: React.PropTypes.bool,
+      keyboard: React.PropTypes.bool,
+      show: React.PropTypes.bool,
+      remote: React.PropTypes.string
+    },
+    getDefaultProps: function() {
+      return {
+        backdrop: true,
+        keyboard: true,
+        show: true,
+        remote: ''
+      }
+    },
+    componentDidMount: function() {
+      var $modal = $(this.getDOMNode()).modal({
+        backdrop: this.props.backdrop,
+        keyboard: this.props.keyboard,
+        show: this.props.show,
+        remote: this.props.remote
+      })
+      handlerProps.forEach(function(prop) {
+        if (this[prop]) {
+          $modal.on(bsModalEvents[prop], this[prop])
+        }
+        if (this.props[prop]) {
+          $modal.on(bsModalEvents[prop], this.props[prop])
+        }
+      }.bind(this))
+    },
+    componentWillUnmount: function() {
+      var $modal = $(this.getDOMNode())
+      handlerProps.forEach(function(prop) {
+        if (this[prop]) {
+          $modal.off(bsModalEvents[prop], this[prop])
+        }
+        if (this.props[prop]) {
+          $modal.off(bsModalEvents[prop], this.props[prop])
+        }
+      }.bind(this))
+    },
+    hide: function() {
+      $(this.getDOMNode()).modal('hide')
+    },
+    show: function() {
+      $(this.getDOMNode()).modal('show')
+      this.loadDocusign()
+    },
+    toggle: function() {
+      $(this.getDOMNode()).modal('toggle')
+    },
+    renderCloseButton: function() {
+      return <button
+        type="button"
+        className="close"
+        onClick={this.hide}
+        dangerouslySetInnerHTML={{__html: '&times'}} />
+    }
+  }
+}()
+
 var ModalExplanation = React.createClass({
+  mixins: [ModalMixin],
+
   propTypes: {
     id: React.PropTypes.string.isRequired,
     name: React.PropTypes.string,
     class: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
-    yesCallback: React.PropTypes.func.isRequired
   },
-
-  getDefaultProps: function() {
-    return {
-      id: "modal-checklist",
-      class: "btn",
-      title: 'Generic Explanation',
-    };
-  },
-
-  componentDidMount: function() {
-    this.loadDocusign();
-  },
-
   loadDocusign: function() {
     $.ajax({
       url: "/my/checklists/load_docusign/",
@@ -36,8 +97,6 @@ var ModalExplanation = React.createClass({
       },
       dataType: 'json',
       success: function(response) {
-        // console.log(response);
-
         if (response.message == "don't render iframe") {
           alert("Okay, done!");
         } else if (response.message == "template does not exist yet") {
@@ -53,33 +112,32 @@ var ModalExplanation = React.createClass({
     });
   },
 
+  getDefaultProps: function() {
+    return {
+      id: "modal-checklist",
+      class: "btn",
+      title: 'Generic Explanation',
+    };
+  },
+
   render: function() {
     var dataTarget = '#' + this.props.id;
     var labelId = this.props.id + 'Label';
 
     return (
-      <span>
-        {
-          this.props.name ?
-          <a className={this.props.class} data-toggle="modal" data-target={dataTarget}><i className={this.props.icon}/>{this.props.name}</a>
-          :
-          null
-        }
-
-        <div className="modal fade" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby={labelId}>
-          <div className="modal-dialog modal-docusign" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 className="modal-title" id={labelId}>{this.props.title}</h4>
-              </div>
-              <div className="modal-body">
-                <iframe ref='iframe' height='600px' width='100%' ></iframe>
-              </div>
+      <div className="modal fade" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby={labelId}>
+        <div className="modal-dialog modal-docusign" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 className="modal-title" id={labelId}>{this.props.title}</h4>
+            </div>
+            <div className="modal-body">
+              <iframe ref='iframe' height='600px' width='100%' ></iframe>
             </div>
           </div>
         </div>
-      </span>
+      </div>
     );
   }
 });
