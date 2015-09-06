@@ -108,7 +108,6 @@ FactoryGirl.define do
 
   factory :loan_with_all_associations, parent: :loan do |f|
     property
-    borrower
     closing
     association :secondary_borrower, factory: :borrower
   end

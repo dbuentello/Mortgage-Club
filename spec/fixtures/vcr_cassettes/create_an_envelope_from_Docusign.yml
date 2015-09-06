@@ -1,0 +1,442 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://demo.docusign.net/restapi/v2/accounts/8844ba87-7f7e-4a6c-bfdf-3e919b5fee19/envelopes/ee4df9c1-80fd-408b-b791-334a1b75d01d/recipients?include_extended=false&include_tabs=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Docusign-Authentication:
+      - '{"Username":"billy@mortgageclub.io","Password":"*dsf3#$sSVd23","IntegratorKey":"MORT-ad25d2f7-4588-4728-976a-81b68bad763a"}'
+      Accept:
+      - json
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '8615'
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Microsoft-IIS/7.5
+      X-Docusign-Node:
+      - DAFE3
+      Date:
+      - Sun, 06 Sep 2015 08:44:32 GMT
+      Set-Cookie:
+      - BIGipDocuSign=!fV4iT7fWPAi9mkWKrcysKZN+a72NC2FfiZUosMO3epvmZCo0XuodCWkbzIUBY4yHUNtrGIeQpRL3IA==;secure;
+        path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"signers\": [\r\n    {\r\n      \"tabs\": {\r\n        \"signHereTabs\":
+        [\r\n          {\r\n            \"name\": \"Signature\",\r\n            \"tabLabel\":
+        \"Signature 1\",\r\n            \"scaleValue\": 1.0,\r\n            \"optional\":
+        \"false\",\r\n            \"documentId\": \"85278153\",\r\n            \"recipientId\":
+        \"89556991\",\r\n            \"pageNumber\": \"1\",\r\n            \"xPosition\":
+        \"78\",\r\n            \"yPosition\": \"484\",\r\n            \"tabId\": \"d4f005cd-8f63-40b5-a97e-970b735e05e0\"\r\n
+        \         },\r\n          {\r\n            \"name\": \"Signature\",\r\n            \"tabLabel\":
+        \"Signature 3\",\r\n            \"scaleValue\": 1.0,\r\n            \"optional\":
+        \"false\",\r\n            \"documentId\": \"85278153\",\r\n            \"recipientId\":
+        \"89556991\",\r\n            \"pageNumber\": \"1\",\r\n            \"xPosition\":
+        \"323\",\r\n            \"yPosition\": \"483\",\r\n            \"tabId\":
+        \"3499465b-7f55-4f74-995b-0a12d0e19941\"\r\n          }\r\n        ],\r\n
+        \       \"dateSignedTabs\": [\r\n          {\r\n            \"name\": \"Date
+        Signed\",\r\n            \"value\": \"\",\r\n            \"tabLabel\": \"Date
+        Signed\",\r\n            \"font\": \"lucidaconsole\",\r\n            \"bold\":
+        \"false\",\r\n            \"italic\": \"false\",\r\n            \"underline\":
+        \"false\",\r\n            \"fontColor\": \"black\",\r\n            \"fontSize\":
+        \"size9\",\r\n            \"documentId\": \"85278153\",\r\n            \"recipientId\":
+        \"89556991\",\r\n            \"pageNumber\": \"1\",\r\n            \"xPosition\":
+        \"218\",\r\n            \"yPosition\": \"518\",\r\n            \"tabId\":
+        \"2af1a077-7393-41c4-952f-16392a0860a8\"\r\n          },\r\n          {\r\n
+        \           \"name\": \"Date Signed\",\r\n            \"value\": \"\",\r\n
+        \           \"tabLabel\": \"Date Signed 3\",\r\n            \"font\": \"lucidaconsole\",\r\n
+        \           \"bold\": \"false\",\r\n            \"italic\": \"false\",\r\n
+        \           \"underline\": \"false\",\r\n            \"fontColor\": \"black\",\r\n
+        \           \"fontSize\": \"size9\",\r\n            \"documentId\": \"85278153\",\r\n
+        \           \"recipientId\": \"89556991\",\r\n            \"pageNumber\":
+        \"1\",\r\n            \"xPosition\": \"468\",\r\n            \"yPosition\":
+        \"518\",\r\n            \"tabId\": \"5392219d-8c93-4653-aa95-48ee6bdcdb8b\"\r\n
+        \         }\r\n        ],\r\n        \"textTabs\": [\r\n          {\r\n            \"height\":
+        55,\r\n            \"isPaymentAmount\": \"false\",\r\n            \"validationPattern\":
+        \"\",\r\n            \"shared\": \"false\",\r\n            \"requireInitialOnSharedChange\":
+        \"false\",\r\n            \"requireAll\": \"false\",\r\n            \"name\":
+        \"lender_address\",\r\n            \"value\": \"\",\r\n            \"width\":
+        162,\r\n            \"required\": \"false\",\r\n            \"locked\": \"true\",\r\n
+        \           \"concealValueOnDocument\": \"false\",\r\n            \"disableAutoSize\":
+        \"false\",\r\n            \"tabLabel\": \"Text1 2\",\r\n            \"font\":
+        \"helvetica\",\r\n            \"bold\": \"false\",\r\n            \"italic\":
+        \"false\",\r\n            \"underline\": \"false\",\r\n            \"fontColor\":
+        \"black\",\r\n            \"fontSize\": \"size9\",\r\n            \"documentId\":
+        \"85278153\",\r\n            \"recipientId\": \"89556991\",\r\n            \"pageNumber\":
+        \"1\",\r\n            \"xPosition\": \"107\",\r\n            \"yPosition\":
+        \"112\",\r\n            \"tabId\": \"6f5fca52-7eab-44fd-937e-13c2ccd7a94a\"\r\n
+        \         },\r\n          {\r\n            \"height\": 22,\r\n            \"isPaymentAmount\":
+        \"false\",\r\n            \"validationPattern\": \"\",\r\n            \"shared\":
+        \"false\",\r\n            \"requireInitialOnSharedChange\": \"false\",\r\n
+        \           \"requireAll\": \"false\",\r\n            \"name\": \"lender_name\",\r\n
+        \           \"value\": \"\",\r\n            \"width\": 162,\r\n            \"required\":
+        \"false\",\r\n            \"locked\": \"true\",\r\n            \"concealValueOnDocument\":
+        \"false\",\r\n            \"disableAutoSize\": \"false\",\r\n            \"tabLabel\":
+        \"Text1\",\r\n            \"font\": \"helvetica\",\r\n            \"bold\":
+        \"false\",\r\n            \"italic\": \"false\",\r\n            \"underline\":
+        \"false\",\r\n            \"fontColor\": \"black\",\r\n            \"fontSize\":
+        \"size9\",\r\n            \"documentId\": \"85278153\",\r\n            \"recipientId\":
+        \"89556991\",\r\n            \"pageNumber\": \"1\",\r\n            \"xPosition\":
+        \"107\",\r\n            \"yPosition\": \"90\",\r\n            \"tabId\": \"bf621dce-60f3-4b1b-90ef-f335c7761e34\"\r\n
+        \         },\r\n          {\r\n            \"height\": 22,\r\n            \"isPaymentAmount\":
+        \"false\",\r\n            \"validationPattern\": \"\",\r\n            \"shared\":
+        \"false\",\r\n            \"requireInitialOnSharedChange\": \"false\",\r\n
+        \           \"requireAll\": \"false\",\r\n            \"name\": \"date\",\r\n
+        \           \"value\": \"\",\r\n            \"width\": 120,\r\n            \"required\":
+        \"false\",\r\n            \"locked\": \"true\",\r\n            \"concealValueOnDocument\":
+        \"false\",\r\n            \"disableAutoSize\": \"false\",\r\n            \"tabLabel\":
+        \"Text2\",\r\n            \"font\": \"helvetica\",\r\n            \"bold\":
+        \"false\",\r\n            \"italic\": \"false\",\r\n            \"underline\":
+        \"false\",\r\n            \"fontColor\": \"black\",\r\n            \"fontSize\":
+        \"size9\",\r\n            \"documentId\": \"85278153\",\r\n            \"recipientId\":
+        \"89556991\",\r\n            \"pageNumber\": \"1\",\r\n            \"xPosition\":
+        \"460\",\r\n            \"yPosition\": \"90\",\r\n            \"tabId\": \"745ed35a-fed0-462a-af29-7fb4b9b34125\"\r\n
+        \         },\r\n          {\r\n            \"height\": 22,\r\n            \"isPaymentAmount\":
+        \"false\",\r\n            \"validationPattern\": \"\",\r\n            \"shared\":
+        \"false\",\r\n            \"requireInitialOnSharedChange\": \"false\",\r\n
+        \           \"requireAll\": \"false\",\r\n            \"name\": \"assign_servicing_loan_outstanding\",\r\n
+        \           \"value\": \"\",\r\n            \"width\": 18,\r\n            \"required\":
+        \"false\",\r\n            \"locked\": \"true\",\r\n            \"concealValueOnDocument\":
+        \"false\",\r\n            \"disableAutoSize\": \"false\",\r\n            \"tabLabel\":
+        \"Text 1\",\r\n            \"font\": \"helvetica\",\r\n            \"bold\":
+        \"false\",\r\n            \"italic\": \"false\",\r\n            \"underline\":
+        \"false\",\r\n            \"fontColor\": \"black\",\r\n            \"fontSize\":
+        \"size9\",\r\n            \"documentId\": \"85278153\",\r\n            \"recipientId\":
+        \"89556991\",\r\n            \"pageNumber\": \"1\",\r\n            \"xPosition\":
+        \"69\",\r\n            \"yPosition\": \"313\",\r\n            \"tabId\": \"bae1f692-2272-499a-8350-9f50535f8fab\"\r\n
+        \         },\r\n          {\r\n            \"height\": 22,\r\n            \"isPaymentAmount\":
+        \"false\",\r\n            \"validationPattern\": \"\",\r\n            \"shared\":
+        \"false\",\r\n            \"requireInitialOnSharedChange\": \"false\",\r\n
+        \           \"requireAll\": \"false\",\r\n            \"name\": \"assign_servicing_loan_before_first_payment\",\r\n
+        \           \"value\": \"\",\r\n            \"width\": 18,\r\n            \"required\":
+        \"false\",\r\n            \"locked\": \"true\",\r\n            \"concealValueOnDocument\":
+        \"false\",\r\n            \"disableAutoSize\": \"false\",\r\n            \"tabLabel\":
+        \"Text 2\",\r\n            \"font\": \"helvetica\",\r\n            \"bold\":
+        \"false\",\r\n            \"italic\": \"false\",\r\n            \"underline\":
+        \"false\",\r\n            \"fontColor\": \"black\",\r\n            \"fontSize\":
+        \"size9\",\r\n            \"documentId\": \"85278153\",\r\n            \"recipientId\":
+        \"89556991\",\r\n            \"pageNumber\": \"1\",\r\n            \"xPosition\":
+        \"69\",\r\n            \"yPosition\": \"349\",\r\n            \"tabId\": \"45dfd8a8-881e-4c0d-a3a7-5b47a11900d8\"\r\n
+        \         },\r\n          {\r\n            \"height\": 22,\r\n            \"isPaymentAmount\":
+        \"false\",\r\n            \"validationPattern\": \"\",\r\n            \"shared\":
+        \"false\",\r\n            \"requireInitialOnSharedChange\": \"false\",\r\n
+        \           \"requireAll\": \"false\",\r\n            \"name\": \"loan_will_be_serviced\",\r\n
+        \           \"value\": \"\",\r\n            \"width\": 18,\r\n            \"required\":
+        \"false\",\r\n            \"locked\": \"true\",\r\n            \"concealValueOnDocument\":
+        \"false\",\r\n            \"disableAutoSize\": \"false\",\r\n            \"tabLabel\":
+        \"Text 3\",\r\n            \"font\": \"helvetica\",\r\n            \"bold\":
+        \"false\",\r\n            \"italic\": \"false\",\r\n            \"underline\":
+        \"false\",\r\n            \"fontColor\": \"black\",\r\n            \"fontSize\":
+        \"size9\",\r\n            \"documentId\": \"85278153\",\r\n            \"recipientId\":
+        \"89556991\",\r\n            \"pageNumber\": \"1\",\r\n            \"xPosition\":
+        \"69\",\r\n            \"yPosition\": \"396\",\r\n            \"tabId\": \"9cbdadb7-c05a-44cd-8055-12b8bc025f85\"\r\n
+        \         }\r\n        ]\r\n      },\r\n      \"isBulkRecipient\": \"false\",\r\n
+        \     \"recipientSuppliesTabs\": \"false\",\r\n      \"name\": \"Billy Tran\",\r\n
+        \     \"email\": \"billytran1222@gmail.com\",\r\n      \"recipientId\": \"89556991\",\r\n
+        \     \"recipientIdGuid\": \"23945cec-792f-4a91-9fb8-71cfbaaa4640\",\r\n      \"requireIdLookup\":
+        \"false\",\r\n      \"userId\": \"310acbaa-44dd-4fb5-ae70-475b59dd9b8a\",\r\n
+        \     \"routingOrder\": \"1\",\r\n      \"note\": \"\",\r\n      \"status\":
+        \"created\",\r\n      \"totalTabCount\": \"10\"\r\n    }\r\n  ],\r\n  \"agents\":
+        [],\r\n  \"editors\": [],\r\n  \"intermediaries\": [],\r\n  \"carbonCopies\":
+        [],\r\n  \"certifiedDeliveries\": [],\r\n  \"inPersonSigners\": [],\r\n  \"recipientCount\":
+        \"1\"\r\n}"
+    http_version: 
+  recorded_at: Sun, 06 Sep 2015 08:44:33 GMT
+- request:
+    method: post
+    uri: https://demo.docusign.net/restapi/v2/accounts/8844ba87-7f7e-4a6c-bfdf-3e919b5fee19/envelopes
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        LS0tLS0tLS0tLS0tLVJ1YnlNdWx0aXBhcnRQb3N0DQpDb250ZW50LVR5cGU6
+        IGFwcGxpY2F0aW9uL2pzb24NCkNvbnRlbnQtRGlzcG9zaXRpb246IGZvcm0t
+        ZGF0YTsgbmFtZT0icG9zdF9ib2R5Ig0KDQp7ImVtYWlsQmx1cmIiOiJRdWkg
+        ZXN0IHZlbmlhbSBlaXVzIGlwc2FtIG1hZ25hbSBoYXJ1bSBhY2N1c2FudGl1
+        bS4gTmloaWwgYXNwZXJpb3JlcyBhcmNoaXRlY3RvIHF1aWEgcXVpc3F1YW0u
+        IEF1dCBleHBsaWNhYm8gcHJvdmlkZW50IHZlcml0YXRpcyBlbmltLiBBdXQg
+        YXV0IHF1YXNpIGVsaWdlbmRpIG5lbW8gbWFnbmkgZXVtIG1heGltZS4iLCJl
+        bWFpbFN1YmplY3QiOiJSZW0gYXJjaGl0ZWN0byByYXRpb25lIGN1cGlkaXRh
+        dGUgdXQgcXVpYnVzZGFtIGxpYmVybyB1dC4iLCJkb2N1bWVudHMiOlt7ImRv
+        Y3VtZW50SWQiOiIxIiwibmFtZSI6IkdlbmVyaWMgRXhwbGFuYXRpb24ucGRm
+        In1dLCJyZWNpcGllbnRzIjp7InNpZ25lcnMiOlt7ImVtYWlsIjoiZ3VzQHN0
+        cmFja2VhZGFtcy5uYW1lIiwibmFtZSI6IldhcnJlbiBTY2htaWR0IiwiYWNj
+        ZXNzQ29kZSI6IiIsImFkZEFjY2Vzc0NvZGVUb0VtYWlsIjpmYWxzZSwiY3Vz
+        dG9tRmllbGRzIjpudWxsLCJpRENoZWNrQ29uZmlndXJhdGlvbk5hbWUiOm51
+        bGwsImlEQ2hlY2tJbmZvcm1hdGlvbklucHV0IjpudWxsLCJpbmhlcml0RW1h
+        aWxOb3RpZmljYXRpb25Db25maWd1cmF0aW9uIjpmYWxzZSwibm90ZSI6IiIs
+        InBob25lQXV0aGVudGljYXRpb24iOm51bGwsInJlY2lwaWVudEF0dGFjaG1l
+        bnQiOm51bGwsInJlY2lwaWVudElkIjoiMSIsInJlcXVpcmVJZExvb2t1cCI6
+        ZmFsc2UsInJvbGVOYW1lIjoiTm9ybWFsIiwicm91dGluZ09yZGVyIjoxLCJz
+        b2NpYWxBdXRoZW50aWNhdGlvbnMiOm51bGwsImNsaWVudFVzZXJJZCI6Imd1
+        c0BzdHJhY2tlYWRhbXMubmFtZSIsImF1dG9OYXZpZ2F0aW9uIjpmYWxzZSwi
+        ZGVmYXVsdFJlY2lwaWVudCI6ZmFsc2UsInNpZ25hdHVyZUluZm8iOm51bGws
+        InRhYnMiOnsiYXBwcm92ZVRhYnMiOm51bGwsImNoZWNrYm94VGFicyI6W10s
+        ImNvbXBhbnlUYWJzIjpudWxsLCJkYXRlU2lnbmVkVGFicyI6W3siZG9jdW1l
+        bnRJZCI6IjEiLCJwYWdlTnVtYmVyIjoiMSIsInJlY2lwaWVudElkIjoxLCJy
+        ZXF1aXJlZCI6ZmFsc2UsInhQb3NpdGlvbiI6IjIxOCIsInlQb3NpdGlvbiI6
+        IjUxOCIsIm5hbWUiOiJEYXRlIFNpZ25lZCIsIm9wdGlvbmFsIjpmYWxzZSwi
+        dGFiTGFiZWwiOiJTaWduYXR1cmUgMSIsImJvbGQiOiJmYWxzZSIsIml0YWxp
+        YyI6ImZhbHNlIiwidW5kZXJsaW5lIjoiZmFsc2UiLCJsb2NrZWQiOmZhbHNl
+        fSx7ImRvY3VtZW50SWQiOiIxIiwicGFnZU51bWJlciI6IjEiLCJyZWNpcGll
+        bnRJZCI6MSwicmVxdWlyZWQiOmZhbHNlLCJ4UG9zaXRpb24iOiI0NjgiLCJ5
+        UG9zaXRpb24iOiI1MTgiLCJuYW1lIjoiRGF0ZSBTaWduZWQiLCJvcHRpb25h
+        bCI6ZmFsc2UsInRhYkxhYmVsIjoiU2lnbmF0dXJlIDEiLCJib2xkIjoiZmFs
+        c2UiLCJpdGFsaWMiOiJmYWxzZSIsInVuZGVybGluZSI6ImZhbHNlIiwibG9j
+        a2VkIjpmYWxzZX1dLCJkYXRlVGFicyI6bnVsbCwiZGVjbGluZVRhYnMiOm51
+        bGwsImVtYWlsVGFicyI6W10sImVudmVsb3BlSWRUYWJzIjpudWxsLCJmdWxs
+        TmFtZVRhYnMiOltdLCJsaXN0VGFicyI6W10sIm5vdGVUYWJzIjpudWxsLCJu
+        dW1iZXJUYWJzIjpudWxsLCJyYWRpb0dyb3VwVGFicyI6W10sImluaXRpYWxI
+        ZXJlVGFicyI6W10sInNpZ25IZXJlVGFicyI6W3siZG9jdW1lbnRJZCI6IjEi
+        LCJwYWdlTnVtYmVyIjoiMSIsInJlY2lwaWVudElkIjoxLCJyZXF1aXJlZCI6
+        ZmFsc2UsInNjYWxlVmFsdWUiOjEsInhQb3NpdGlvbiI6Ijc4IiwieVBvc2l0
+        aW9uIjoiNDg0IiwibmFtZSI6IlNpZ25hdHVyZSIsIm9wdGlvbmFsIjoiZmFs
+        c2UiLCJ0YWJMYWJlbCI6IlNpZ25hdHVyZSAxIiwibG9ja2VkIjpmYWxzZX0s
+        eyJkb2N1bWVudElkIjoiMSIsInBhZ2VOdW1iZXIiOiIxIiwicmVjaXBpZW50
+        SWQiOjEsInJlcXVpcmVkIjpmYWxzZSwic2NhbGVWYWx1ZSI6MSwieFBvc2l0
+        aW9uIjoiMzIzIiwieVBvc2l0aW9uIjoiNDgzIiwibmFtZSI6IlNpZ25hdHVy
+        ZSIsIm9wdGlvbmFsIjoiZmFsc2UiLCJ0YWJMYWJlbCI6IlNpZ25hdHVyZSAx
+        IiwibG9ja2VkIjpmYWxzZX1dLCJzaWduZXJBdHRhY2htZW50VGFicyI6bnVs
+        bCwic3NuVGFicyI6bnVsbCwidGV4dFRhYnMiOlt7ImRvY3VtZW50SWQiOiIx
+        IiwicGFnZU51bWJlciI6IjEiLCJyZWNpcGllbnRJZCI6MSwicmVxdWlyZWQi
+        OiJmYWxzZSIsInNjYWxlVmFsdWUiOjEsInhQb3NpdGlvbiI6IjEwNyIsInlQ
+        b3NpdGlvbiI6IjExMiIsIm5hbWUiOiJsZW5kZXJfYWRkcmVzcyIsIm9wdGlv
+        bmFsIjpmYWxzZSwidGFiTGFiZWwiOiJTaWduYXR1cmUgMSIsImJvbGQiOiJm
+        YWxzZSIsIml0YWxpYyI6ImZhbHNlIiwidW5kZXJsaW5lIjoiZmFsc2UiLCJs
+        b2NrZWQiOiJ0cnVlIn0seyJkb2N1bWVudElkIjoiMSIsInBhZ2VOdW1iZXIi
+        OiIxIiwicmVjaXBpZW50SWQiOjEsInJlcXVpcmVkIjoiZmFsc2UiLCJzY2Fs
+        ZVZhbHVlIjoxLCJ4UG9zaXRpb24iOiIxMDciLCJ5UG9zaXRpb24iOiI5MCIs
+        Im5hbWUiOiJsZW5kZXJfbmFtZSIsIm9wdGlvbmFsIjpmYWxzZSwidGFiTGFi
+        ZWwiOiJTaWduYXR1cmUgMSIsImJvbGQiOiJmYWxzZSIsIml0YWxpYyI6ImZh
+        bHNlIiwidW5kZXJsaW5lIjoiZmFsc2UiLCJsb2NrZWQiOiJ0cnVlIn0seyJk
+        b2N1bWVudElkIjoiMSIsInBhZ2VOdW1iZXIiOiIxIiwicmVjaXBpZW50SWQi
+        OjEsInJlcXVpcmVkIjoiZmFsc2UiLCJzY2FsZVZhbHVlIjoxLCJ4UG9zaXRp
+        b24iOiI0NjAiLCJ5UG9zaXRpb24iOiI5MCIsIm5hbWUiOiJkYXRlIiwib3B0
+        aW9uYWwiOmZhbHNlLCJ0YWJMYWJlbCI6IlNpZ25hdHVyZSAxIiwiYm9sZCI6
+        ImZhbHNlIiwiaXRhbGljIjoiZmFsc2UiLCJ1bmRlcmxpbmUiOiJmYWxzZSIs
+        ImxvY2tlZCI6InRydWUifSx7ImRvY3VtZW50SWQiOiIxIiwicGFnZU51bWJl
+        ciI6IjEiLCJyZWNpcGllbnRJZCI6MSwicmVxdWlyZWQiOiJmYWxzZSIsInNj
+        YWxlVmFsdWUiOjEsInhQb3NpdGlvbiI6IjY5IiwieVBvc2l0aW9uIjoiMzEz
+        IiwibmFtZSI6ImFzc2lnbl9zZXJ2aWNpbmdfbG9hbl9vdXRzdGFuZGluZyIs
+        Im9wdGlvbmFsIjpmYWxzZSwidGFiTGFiZWwiOiJTaWduYXR1cmUgMSIsImJv
+        bGQiOiJmYWxzZSIsIml0YWxpYyI6ImZhbHNlIiwidW5kZXJsaW5lIjoiZmFs
+        c2UiLCJsb2NrZWQiOiJ0cnVlIn0seyJkb2N1bWVudElkIjoiMSIsInBhZ2VO
+        dW1iZXIiOiIxIiwicmVjaXBpZW50SWQiOjEsInJlcXVpcmVkIjoiZmFsc2Ui
+        LCJzY2FsZVZhbHVlIjoxLCJ4UG9zaXRpb24iOiI2OSIsInlQb3NpdGlvbiI6
+        IjM0OSIsIm5hbWUiOiJhc3NpZ25fc2VydmljaW5nX2xvYW5fYmVmb3JlX2Zp
+        cnN0X3BheW1lbnQiLCJvcHRpb25hbCI6ZmFsc2UsInRhYkxhYmVsIjoiU2ln
+        bmF0dXJlIDEiLCJib2xkIjoiZmFsc2UiLCJpdGFsaWMiOiJmYWxzZSIsInVu
+        ZGVybGluZSI6ImZhbHNlIiwibG9ja2VkIjoidHJ1ZSJ9LHsiZG9jdW1lbnRJ
+        ZCI6IjEiLCJwYWdlTnVtYmVyIjoiMSIsInJlY2lwaWVudElkIjoxLCJyZXF1
+        aXJlZCI6ImZhbHNlIiwic2NhbGVWYWx1ZSI6MSwieFBvc2l0aW9uIjoiNjki
+        LCJ5UG9zaXRpb24iOiIzOTYiLCJuYW1lIjoibG9hbl93aWxsX2JlX3NlcnZp
+        Y2VkIiwib3B0aW9uYWwiOmZhbHNlLCJ0YWJMYWJlbCI6IlNpZ25hdHVyZSAx
+        IiwiYm9sZCI6ImZhbHNlIiwiaXRhbGljIjoiZmFsc2UiLCJ1bmRlcmxpbmUi
+        OiJmYWxzZSIsImxvY2tlZCI6InRydWUifV0sInRpdGxlVGFicyI6W10sInpp
+        cFRhYnMiOm51bGx9fV19LCJzdGF0dXMiOiJzZW50IiwiY3VzdG9tRmllbGRz
+        IjpudWxsfQ0KLS0tLS0tLS0tLS0tLVJ1YnlNdWx0aXBhcnRQb3N0DQpDb250
+        ZW50LURpc3Bvc2l0aW9uOiBmaWxlOyBkb2N1bWVudGlkPTE7IG5hbWU9ImZp
+        bGUxIjsgZmlsZW5hbWU9IkdlbmVyaWMgRXhwbGFuYXRpb24ucGRmIg0KQ29u
+        dGVudC1MZW5ndGg6IDU1OTgNCkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24v
+        cGRmDQpDb250ZW50LVRyYW5zZmVyLUVuY29kaW5nOiBiaW5hcnkNCg0KJVBE
+        Ri0xLjMKJcTl8uXrp/Og0MTGCjQgMCBvYmoKPDwgL0xlbmd0aCA1IDAgUiAv
+        RmlsdGVyIC9GbGF0ZURlY29kZSA+PgpzdHJlYW0KeAEtjTsKgDAUBHtPMXba
+        qIkJia3iAQIPPEDQQlDQ3B/8ssXuwMAeBA6Uxyis7XC+5ZyZ2KmHpIiJ5k2K
+        t9dU2nz8DKdx1lfGEzd6yexn/iUbtYhGIQtFXiIro9x34QLMxhkPCmVuZHN0
+        cmVhbQplbmRvYmoKNSAwIG9iago5OQplbmRvYmoKMiAwIG9iago8PCAvVHlw
+        ZSAvUGFnZSAvUGFyZW50IDMgMCBSIC9SZXNvdXJjZXMgNiAwIFIgL0NvbnRl
+        bnRzIDQgMCBSIC9NZWRpYUJveCBbMCAwIDU5NSA4NDJdCj4+CmVuZG9iago2
+        IDAgb2JqCjw8IC9Qcm9jU2V0IFsgL1BERiAvVGV4dCBdIC9Db2xvclNwYWNl
+        IDw8IC9DczEgNyAwIFIgPj4gL0ZvbnQgPDwgL1RUMiA5IDAgUgo+PiA+Pgpl
+        bmRvYmoKMTAgMCBvYmoKPDwgL0xlbmd0aCAxMSAwIFIgL04gMyAvQWx0ZXJu
+        YXRlIC9EZXZpY2VSR0IgL0ZpbHRlciAvRmxhdGVEZWNvZGUgPj4Kc3RyZWFt
+        CngBnZZ3VFPZFofPvTe90BIiICX0GnoJINI7SBUEUYlJgFAChoQmdkQFRhQR
+        KVZkVMABR4ciY0UUC4OCYtcJ8hBQxsFRREXl3YxrCe+tNfPemv3HWd/Z57fX
+        2Wfvfde6AFD8ggTCdFgBgDShWBTu68FcEhPLxPcCGBABDlgBwOFmZgRH+EQC
+        1Py9PZmZqEjGs/buLoBku9ssv1Amc9b/f5EiN0MkBgAKRdU2PH4mF+UClFOz
+        xRky/wTK9JUpMoYxMhahCaKsIuPEr2z2p+Yru8mYlybkoRpZzhm8NJ6Mu1De
+        miXho4wEoVyYJeBno3wHZb1USZoA5fco09P4nEwAMBSZX8znJqFsiTJFFBnu
+        ifICAAiUxDm8cg6L+TlongB4pmfkigSJSWKmEdeYaeXoyGb68bNT+WIxK5TD
+        TeGIeEzP9LQMjjAXgK9vlkUBJVltmWiR7a0c7e1Z1uZo+b/Z3x5+U/09yHr7
+        VfEm7M+eQYyeWd9s7KwvvRYA9iRamx2zvpVVALRtBkDl4axP7yAA8gUAtN6c
+        8x6GbF6SxOIMJwuL7OxscwGfay4r6Df7n4Jvyr+GOfeZy+77VjumFz+BI0kV
+        M2VF5aanpktEzMwMDpfPZP33EP/jwDlpzcnDLJyfwBfxhehVUeiUCYSJaLuF
+        PIFYkC5kCoR/1eF/GDYnBxl+nWsUaHVfAH2FOVC4SQfIbz0AQyMDJG4/egJ9
+        61sQMQrIvrxorZGvc48yev7n+h8LXIpu4UxBIlPm9gyPZHIloiwZo9+EbMEC
+        EpAHdKAKNIEuMAIsYA0cgDNwA94gAISASBADlgMuSAJpQASyQT7YAApBMdgB
+        doNqcADUgXrQBE6CNnAGXARXwA1wCwyAR0AKhsFLMAHegWkIgvAQFaJBqpAW
+        pA+ZQtYQG1oIeUNBUDgUA8VDiZAQkkD50CaoGCqDqqFDUD30I3Qaughdg/qg
+        B9AgNAb9AX2EEZgC02EN2AC2gNmwOxwIR8LL4ER4FZwHF8Db4Uq4Fj4Ot8IX
+        4RvwACyFX8KTCEDICAPRRlgIG/FEQpBYJAERIWuRIqQCqUWakA6kG7mNSJFx
+        5AMGh6FhmBgWxhnjh1mM4WJWYdZiSjDVmGOYVkwX5jZmEDOB+YKlYtWxplgn
+        rD92CTYRm40txFZgj2BbsJexA9hh7DscDsfAGeIccH64GFwybjWuBLcP14y7
+        gOvDDeEm8Xi8Kt4U74IPwXPwYnwhvgp/HH8e348fxr8nkAlaBGuCDyGWICRs
+        JFQQGgjnCP2EEcI0UYGoT3QihhB5xFxiKbGO2EG8SRwmTpMUSYYkF1IkKZm0
+        gVRJaiJdJj0mvSGTyTpkR3IYWUBeT64knyBfJQ+SP1CUKCYUT0ocRULZTjlK
+        uUB5QHlDpVINqG7UWKqYup1aT71EfUp9L0eTM5fzl+PJrZOrkWuV65d7JU+U
+        15d3l18unydfIX9K/qb8uAJRwUDBU4GjsFahRuG0wj2FSUWaopViiGKaYoli
+        g+I1xVElvJKBkrcST6lA6bDSJaUhGkLTpXnSuLRNtDraZdowHUc3pPvTk+nF
+        9B/ovfQJZSVlW+Uo5RzlGuWzylIGwjBg+DNSGaWMk4y7jI/zNOa5z+PP2zav
+        aV7/vCmV+SpuKnyVIpVmlQGVj6pMVW/VFNWdqm2qT9QwaiZqYWrZavvVLquN
+        z6fPd57PnV80/+T8h+qwuol6uPpq9cPqPeqTGpoavhoZGlUalzTGNRmabprJ
+        muWa5zTHtGhaC7UEWuVa57VeMJWZ7sxUZiWzizmhra7tpy3RPqTdqz2tY6iz
+        WGejTrPOE12SLls3Qbdct1N3Qk9LL1gvX69R76E+UZ+tn6S/R79bf8rA0CDa
+        YItBm8GooYqhv2GeYaPhYyOqkavRKqNaozvGOGO2cYrxPuNbJrCJnUmSSY3J
+        TVPY1N5UYLrPtM8Ma+ZoJjSrNbvHorDcWVmsRtagOcM8yHyjeZv5Kws9i1iL
+        nRbdFl8s7SxTLessH1kpWQVYbbTqsPrD2sSaa11jfceGauNjs86m3ea1rakt
+        33a/7X07ml2w3Ra7TrvP9g72Ivsm+zEHPYd4h70O99h0dii7hH3VEevo4bjO
+        8YzjByd7J7HTSaffnVnOKc4NzqMLDBfwF9QtGHLRceG4HHKRLmQujF94cKHU
+        VduV41rr+sxN143ndsRtxN3YPdn9uPsrD0sPkUeLx5Snk+cazwteiJevV5FX
+        r7eS92Lvau+nPjo+iT6NPhO+dr6rfS/4Yf0C/Xb63fPX8Of61/tPBDgErAno
+        CqQERgRWBz4LMgkSBXUEw8EBwbuCHy/SXyRc1BYCQvxDdoU8CTUMXRX6cxgu
+        LDSsJux5uFV4fnh3BC1iRURDxLtIj8jSyEeLjRZLFndGyUfFRdVHTUV7RZdF
+        S5dYLFmz5EaMWowgpj0WHxsVeyR2cqn30t1Lh+Ps4grj7i4zXJaz7NpyteWp
+        y8+ukF/BWXEqHhsfHd8Q/4kTwqnlTK70X7l35QTXk7uH+5LnxivnjfFd+GX8
+        kQSXhLKE0USXxF2JY0muSRVJ4wJPQbXgdbJf8oHkqZSQlKMpM6nRqc1phLT4
+        tNNCJWGKsCtdMz0nvS/DNKMwQ7rKadXuVROiQNGRTChzWWa7mI7+TPVIjCSb
+        JYNZC7Nqst5nR2WfylHMEeb05JrkbssdyfPJ+341ZjV3dWe+dv6G/ME17msO
+        rYXWrlzbuU53XcG64fW+649tIG1I2fDLRsuNZRvfbore1FGgUbC+YGiz7+bG
+        QrlCUeG9Lc5bDmzFbBVs7d1ms61q25ciXtH1YsviiuJPJdyS699ZfVf53cz2
+        hO29pfal+3fgdgh33N3puvNYmWJZXtnQruBdreXM8qLyt7tX7L5WYVtxYA9p
+        j2SPtDKosr1Kr2pH1afqpOqBGo+a5r3qe7ftndrH29e/321/0wGNA8UHPh4U
+        HLx/yPdQa61BbcVh3OGsw8/rouq6v2d/X39E7Ujxkc9HhUelx8KPddU71Nc3
+        qDeUNsKNksax43HHb/3g9UN7E6vpUDOjufgEOCE58eLH+B/vngw82XmKfarp
+        J/2f9rbQWopaodbc1om2pDZpe0x73+mA050dzh0tP5v/fPSM9pmas8pnS8+R
+        zhWcmzmfd37yQsaF8YuJF4c6V3Q+urTk0p2usK7ey4GXr17xuXKp2737/FWX
+        q2euOV07fZ19ve2G/Y3WHruell/sfmnpte9tvelws/2W462OvgV95/pd+y/e
+        9rp95Y7/nRsDiwb67i6+e/9e3D3pfd790QepD14/zHo4/Wj9Y+zjoicKTyqe
+        qj+t/dX412apvfTsoNdgz7OIZ4+GuEMv/5X5r0/DBc+pzytGtEbqR61Hz4z5
+        jN16sfTF8MuMl9Pjhb8p/rb3ldGrn353+71nYsnE8GvR65k/St6ovjn61vZt
+        52To5NN3ae+mp4req74/9oH9oftj9MeR6exP+E+Vn40/d3wJ/PJ4Jm1m5t/3
+        hPP7CmVuZHN0cmVhbQplbmRvYmoKMTEgMCBvYmoKMjYxMgplbmRvYmoKNyAw
+        IG9iagpbIC9JQ0NCYXNlZCAxMCAwIFIgXQplbmRvYmoKMyAwIG9iago8PCAv
+        VHlwZSAvUGFnZXMgL01lZGlhQm94IFswIDAgNTk1IDg0Ml0gL0NvdW50IDEg
+        L0tpZHMgWyAyIDAgUiBdID4+CmVuZG9iagoxMiAwIG9iago8PCAvVHlwZSAv
+        Q2F0YWxvZyAvUGFnZXMgMyAwIFIgPj4KZW5kb2JqCjkgMCBvYmoKPDwgL1R5
+        cGUgL0ZvbnQgL1N1YnR5cGUgL1RydWVUeXBlIC9CYXNlRm9udCAvVUVQR1FV
+        K0NhbGlicmkgL0ZvbnREZXNjcmlwdG9yCjEzIDAgUiAvVG9Vbmljb2RlIDE0
+        IDAgUiAvRmlyc3RDaGFyIDMzIC9MYXN0Q2hhciAzMyAvV2lkdGhzIFsgMjI2
+        IF0gPj4KZW5kb2JqCjE0IDAgb2JqCjw8IC9MZW5ndGggMTUgMCBSIC9GaWx0
+        ZXIgL0ZsYXRlRGVjb2RlID4+CnN0cmVhbQp4AV2Qz2rEIBDG7z7FHLeHRZNb
+        IQhly0IO/UPTPoDRSVZoVCbmkLfvaMMWevADv5nf+Dny0j/3wWeQ7xTtgBkm
+        HxzhGjeyCCPOPoimBedtPm7Vs4tJQjI87GvGpQ9ThK4TAPKDkTXTDqcnF0d8
+        KN4bOSQfZjh9XYbqDFtK37hgyKCE1uBw4nEvJr2aBUFW9Nw7rvu8n5n66/jc
+        EwInYqL5jWSjwzUZi2TCjKJTSnfXqxYY3L/SAYyTvRkSXdtoblaPwOJYWsVi
+        VCWPnjKj/PWezW5EHKsupCYuSXzA+85STOXlen4A1e5xZQplbmRzdHJlYW0K
+        ZW5kb2JqCjE1IDAgb2JqCjIzMwplbmRvYmoKMTMgMCBvYmoKPDwgL1R5cGUg
+        L0ZvbnREZXNjcmlwdG9yIC9Gb250TmFtZSAvVUVQR1FVK0NhbGlicmkgL0Zs
+        YWdzIDQgL0ZvbnRCQm94IFstNTAzIC0zMDcgMTI0MCAxMDI2XQovSXRhbGlj
+        QW5nbGUgMCAvQXNjZW50IDk1MiAvRGVzY2VudCAtMjY5IC9DYXBIZWlnaHQg
+        NjQ0IC9TdGVtViAwIC9YSGVpZ2h0CjQ3NiAvQXZnV2lkdGggNTIxIC9NYXhX
+        aWR0aCAxMzI4IC9Gb250RmlsZTIgMTYgMCBSID4+CmVuZG9iagoxNiAwIG9i
+        ago8PCAvTGVuZ3RoIDE3IDAgUiAvTGVuZ3RoMSA2NTIgL0ZpbHRlciAvRmxh
+        dGVEZWNvZGUgPj4Kc3RyZWFtCngBKykqTWXgYGhgYGZgSM5NLGAAA8YEICWV
+        nlOZBuW3AOkXGamJKRA+wx8gbZYBFIDKmwBplYzckgooPwJIc+TkJ8Pka4B8
+        ttzECqj5DHeAfIW8xNxUiHqmHBAfwiZMMhJWAlTBx8AAUsjEqMAgwHCYgZ2B
+        CUjrM7RBNbMAZUHybEz9IponUuL5bb4ySHKAJXe/rjkDYlzsPeX++9ffbs43
+        HGZALifQBAgA6mOf9/cWAwPXgt+/fi3gfAM2CSoJpphYQNafB7Mh9jAw8DCw
+        ATEDgyLUZpBkCRAyMLAyMPwrZr7EygeMBXYGSwZfBj+gbkFFQTAW4WNiZxdh
+        U1bSYzJVVzMzNjayYzI1UVNW4mMCi5mYmdsxGxvJMTEDVUJE7JhAfEbmS3+i
+        mP3/sjHVKduHGbPKSfGL8LKxMslICOnaqAoER6va6MmyM7OzMbNysGuYOyl5
+        57gq3WIXlBUVkxXi4BCSFROVFWT/e5uV79cnVr7fziw5v6cws1nH2Kswz+Di
+        YGJhY9shJyGpZa3oGcYvLMDCLSwgKMbBLiTIo+ES87dNVAZkhoyoKMSsv74g
+        /zIyCEHDig0UQaGuAe6BodrOiTmZSUWZAN7GWsgKZW5kc3RyZWFtCmVuZG9i
+        agoxNyAwIG9iago0NjAKZW5kb2JqCjE4IDAgb2JqCihNaWNyb3NvZnQgV29y
+        ZCAtIERvY3VtZW50MSkKZW5kb2JqCjE5IDAgb2JqCihNYWMgT1MgWCAxMC4x
+        MC41IFF1YXJ0eiBQREZDb250ZXh0KQplbmRvYmoKMjAgMCBvYmoKKFdvcmQp
+        CmVuZG9iagoyMSAwIG9iagooRDoyMDE1MDkwMzA3MjEwNFowMCcwMCcpCmVu
+        ZG9iagoyMiAwIG9iagooKQplbmRvYmoKMjMgMCBvYmoKWyBdCmVuZG9iagox
+        IDAgb2JqCjw8IC9UaXRsZSAxOCAwIFIgL1Byb2R1Y2VyIDE5IDAgUiAvQ3Jl
+        YXRvciAyMCAwIFIgL0NyZWF0aW9uRGF0ZSAyMSAwIFIgL01vZERhdGUKMjEg
+        MCBSIC9LZXl3b3JkcyAyMiAwIFIgL0FBUEw6S2V5d29yZHMgMjMgMCBSID4+
+        CmVuZG9iagp4cmVmCjAgMjQKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDA0
+        ODE3IDAwMDAwIG4gCjAwMDAwMDAyMTMgMDAwMDAgbiAKMDAwMDAwMzE4NiAw
+        MDAwMCBuIAowMDAwMDAwMDIyIDAwMDAwIG4gCjAwMDAwMDAxOTUgMDAwMDAg
+        biAKMDAwMDAwMDMxNyAwMDAwMCBuIAowMDAwMDAzMTUwIDAwMDAwIG4gCjAw
+        MDAwMDAwMDAgMDAwMDAgbiAKMDAwMDAwMzMxOSAwMDAwMCBuIAowMDAwMDAw
+        NDE0IDAwMDAwIG4gCjAwMDAwMDMxMjkgMDAwMDAgbiAKMDAwMDAwMzI2OSAw
+        MDAwMCBuIAowMDAwMDAzODEwIDAwMDAwIG4gCjAwMDAwMDM0ODEgMDAwMDAg
+        biAKMDAwMDAwMzc5MCAwMDAwMCBuIAowMDAwMDA0MDQ2IDAwMDAwIG4gCjAw
+        MDAwMDQ1OTUgMDAwMDAgbiAKMDAwMDAwNDYxNSAwMDAwMCBuIAowMDAwMDA0
+        NjYwIDAwMDAwIG4gCjAwMDAwMDQ3MTMgMDAwMDAgbiAKMDAwMDAwNDczNiAw
+        MDAwMCBuIAowMDAwMDA0Nzc4IDAwMDAwIG4gCjAwMDAwMDQ3OTcgMDAwMDAg
+        biAKdHJhaWxlcgo8PCAvU2l6ZSAyNCAvUm9vdCAxMiAwIFIgL0luZm8gMSAw
+        IFIgL0lEIFsgPDZlYmY4ZWQyZDZjNTI1OWNkM2Y4NWZmZTk1ZTlkMTA3Pgo8
+        NmViZjhlZDJkNmM1MjU5Y2QzZjg1ZmZlOTVlOWQxMDc+IF0gPj4Kc3RhcnR4
+        cmVmCjQ5NjEKJSVFT0YKDQotLS0tLS0tLS0tLS0tUnVieU11bHRpcGFydFBv
+        c3QtLQ0KDQo=
+    headers:
+      X-Docusign-Authentication:
+      - '{"Username":"billy@mortgageclub.io","Password":"*dsf3#$sSVd23","IntegratorKey":"MORT-ad25d2f7-4588-4728-976a-81b68bad763a"}'
+      Accept:
+      - json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - multipart/form-data; boundary=-----------RubyMultipartPost
+      Content-Length:
+      - '9683'
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '195'
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Microsoft-IIS/7.5
+      X-Ratelimit-Reset:
+      - '1441530000'
+      X-Ratelimit-Limit:
+      - '1000'
+      X-Ratelimit-Remaining:
+      - '986'
+      X-Docusign-Node:
+      - DAFE4
+      Date:
+      - Sun, 06 Sep 2015 08:44:35 GMT
+      Set-Cookie:
+      - BIGipDocuSign=!uNuoNVEKQRpZnQ+KrcysKZN+a72NC25pkDmmRY6nvYiCQq/hU5A7y2FyHu8ujkduPtj4SZCYwQbqPw==;secure;
+        path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"envelopeId\": \"8b532a37-505b-45a9-9263-96d3f1277fc8\",\r\n
+        \ \"uri\": \"/envelopes/8b532a37-505b-45a9-9263-96d3f1277fc8\",\r\n  \"statusDateTime\":
+        \"2015-09-06T08:44:35.0630000Z\",\r\n  \"status\": \"sent\"\r\n}"
+    http_version: 
+  recorded_at: Sun, 06 Sep 2015 08:44:35 GMT
+recorded_with: VCR 2.9.3

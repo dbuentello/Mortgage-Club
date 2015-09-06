@@ -14,8 +14,6 @@ module Docusign
     end
 
     def call
-      return Rails.logger.error "Error: don't have enough params" if template_blank?
-
       @envelope_hash = build_envelope_hash
       envelope_response = client.create_envelope_from_document(
         status: 'sent',
@@ -29,7 +27,6 @@ module Docusign
           build_file
         ]
       )
-
       save_envelope_object_into_database(envelope_response["envelopeId"], @envelope_hash[:template_id], @envelope_hash[:loan_id])
       envelope_response
     end
@@ -90,10 +87,6 @@ module Docusign
       )
       envelope.docusign_id = envelope_id
       envelope.save
-    end
-
-    def template_blank?
-      @envelope_hash[:template_id].blank? && @envelope_hash[:template_name].blank?
     end
   end
 end

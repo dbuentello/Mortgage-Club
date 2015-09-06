@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://demo.docusign.net/restapi/v2/accounts/8844ba87-7f7e-4a6c-bfdf-3e919b5fee19/envelopes/5d46fa35-35ac-4b44-9e28-a72b81582523/views/recipient
+    body:
+      encoding: UTF-8
+      string: '{"authenticationMethod":"email","clientUserId":"faker@gmail.com","email":"faker@gmail.com","returnUrl":"https://google.com","userName":"John
+        Doe"}'
+    headers:
+      X-Docusign-Authentication:
+      - '{"Username":"billy@mortgageclub.io","Password":"*dsf3#$sSVd23","IntegratorKey":"MORT-ad25d2f7-4588-4728-976a-81b68bad763a"}'
+      Accept:
+      - json
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '152'
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Microsoft-IIS/7.5
+      X-Ratelimit-Reset:
+      - '1441537200'
+      X-Ratelimit-Limit:
+      - '1000'
+      X-Ratelimit-Remaining:
+      - '962'
+      X-Docusign-Node:
+      - DADEMOFE2
+      Date:
+      - Sun, 06 Sep 2015 10:43:43 GMT
+      Set-Cookie:
+      - BIGipDocuSign=!2Qip/ZP+NGofV5OKrcysKZN+a72NC8TZOictI42dj3rWFnMDVbOiFBGoM6fZbbo3aI0qYiLDkCJhvA==;secure;
+        path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"errorCode\": \"UNKNOWN_ENVELOPE_RECIPIENT\",\r\n  \"message\":
+        \"The recipient you have identified is not a valid recipient of the specified
+        envelope.\"\r\n}"
+    http_version: 
+  recorded_at: Sun, 06 Sep 2015 10:43:43 GMT
+recorded_with: VCR 2.9.3
