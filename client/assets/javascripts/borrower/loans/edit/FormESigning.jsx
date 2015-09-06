@@ -12,7 +12,7 @@ var FormESigning = React.createClass({
 
   onClick: function(e) {
     e.preventDefault();
-
+    $(this.refs.indicator.getDOMNode()).css("display", "block");
     $.ajax({
       url: "/electronic_signature/template/",
       method: 'POST',
@@ -22,8 +22,6 @@ var FormESigning = React.createClass({
       },
       dataType: 'json',
       success: function(response) {
-        // console.log(response);
-
         if (response.message == "don't render iframe") {
           alert("Okay, done!");
         } else if (response.message == "template does not exist yet") {
@@ -32,8 +30,10 @@ var FormESigning = React.createClass({
           $(this.refs.iframe.getDOMNode()).attr("src", response.message.url);
           $(this.refs.iframe.getDOMNode()).css("display", "block");
         }
+        $(this.refs.indicator.getDOMNode()).css("display", "none");
       }.bind(this),
       error: function(response, status, error) {
+        $(this.refs.indicator.getDOMNode()).css("display", "none");
         alert(error);
       }
     });
@@ -72,6 +72,7 @@ var FormESigning = React.createClass({
 
             <div className='mtl text-left'>
               <iframe ref='iframe' height='600px' width='100%' style={{display: 'none'}}></iframe>
+              <div ref='indicator' className="progress-indicator"><div className="spinner"></div></div>
             </div>
 
           </div>

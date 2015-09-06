@@ -87,6 +87,10 @@ var ModalExplanation = React.createClass({
     title: React.PropTypes.string.isRequired,
   },
   loadDocusign: function() {
+    if ($(this.refs.iframe.getDOMNode()).css('display') == 'block') {
+      return;
+    }
+    $(this.refs.indicator.getDOMNode()).css("display", "block");
     $.ajax({
       url: "/my/checklists/load_docusign/",
       method: 'GET',
@@ -105,8 +109,10 @@ var ModalExplanation = React.createClass({
           $(this.refs.iframe.getDOMNode()).attr("src", response.message.url);
           $(this.refs.iframe.getDOMNode()).css("display", "block");
         }
+        $(this.refs.indicator.getDOMNode()).css("display", "none");
       }.bind(this),
       error: function(response, status, error) {
+        $(this.refs.indicator.getDOMNode()).css("display", "none");
         alert(error);
       }
     });
@@ -133,7 +139,8 @@ var ModalExplanation = React.createClass({
               <h4 className="modal-title" id={labelId}>{this.props.title}</h4>
             </div>
             <div className="modal-body">
-              <iframe ref='iframe' height='600px' width='100%' ></iframe>
+              <iframe ref='iframe' height='600px' width='100%'></iframe>
+              <div ref='indicator' className="progress-indicator"><div className="spinner"></div></div>
             </div>
           </div>
         </div>
