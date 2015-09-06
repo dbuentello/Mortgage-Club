@@ -6,7 +6,7 @@ describe Docusign::CreateEnvelopeService do
   let(:template) { FactoryGirl.create(:template) }
 
   it "creates an envelope from Docusign successfully" do
-    VCR.use_cassette("create an envelope from Docusign") do
+    VCR.use_cassette("create an envelope from Docusign", record: :new_episodes) do
       envelope_response = Docusign::CreateEnvelopeService.new(user, loan, template).call
       expect(envelope_response).to include(
         "envelopeId",
@@ -18,7 +18,7 @@ describe Docusign::CreateEnvelopeService do
   end
 
   it 'saves an envelope to database' do
-    VCR.use_cassette("create an envelope from Docusign") do
+    VCR.use_cassette("create an envelope from Docusign", record: :new_episodes) do
       Docusign::CreateEnvelopeService.new(user, loan, template).call
       expect(Envelope.count).to eq(1)
     end
