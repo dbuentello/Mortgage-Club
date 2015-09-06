@@ -33,4 +33,14 @@ class Template < ActiveRecord::Base
     end
   end
 
+  def template_mapping
+    case name
+    when "Loan Estimate"
+      Docusign::Templates::LoanEstimate
+    when "Servicing Disclosure"
+      Docusign::Templates::ServicingDisclosure
+    when "Generic Explanation"
+      Docusign::Templates::GenericExplanation
+    end
+  end
 end

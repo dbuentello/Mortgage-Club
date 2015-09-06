@@ -3,12 +3,10 @@ include NumbersHelper
 module Docusign
   module Templates
     class ServicingDisclosure
-      attr_accessor :loan, :property, :borrower, :params
+      attr_accessor :loan, :params
 
-      def initialize(borrower, loan)
+      def initialize(loan)
         @loan = loan
-        @property = loan.property
-        @borrower = borrower
         @params = {}
 
         build_header
@@ -28,7 +26,6 @@ module Docusign
         @params['assign_servicing_loan_before_first_payment'] = 'X'
         @params['loan_will_be_serviced'] = 'X'
       end
-
     end
   end
 end

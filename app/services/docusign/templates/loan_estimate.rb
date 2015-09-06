@@ -5,17 +5,17 @@ module Docusign
     class LoanEstimate
       attr_accessor :loan, :property, :borrower, :params
 
-      def initialize(borrower, loan)
+      def initialize(loan)
         @loan = loan
         @property = loan.property
-        @borrower = borrower
+        @borrower = loan.borrower
         @params = {}
 
         build_header
         build_loan_terms
         build_projected_payments
         build_cost_closing
-        build_closing_cost_details
+        #build_closing_cost_details
       end
 
       def build_header

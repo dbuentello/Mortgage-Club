@@ -3,12 +3,11 @@ include NumbersHelper
 module Docusign
   module Templates
     class GenericExplanation
-      attr_accessor :loan, :property, :borrower, :params
+      attr_accessor :loan, :borrower, :params
 
-      def initialize(borrower, loan)
+      def initialize(loan)
         @loan = loan
-        @property = loan.property
-        @borrower = borrower
+        @borrower = loan.borrower
         @params = {}
 
         build_content
@@ -26,7 +25,6 @@ module Docusign
           value: ''
         }
       end
-
     end
   end
 end
