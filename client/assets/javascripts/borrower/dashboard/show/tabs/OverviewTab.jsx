@@ -25,13 +25,15 @@ var OverviewTab = React.createClass({
 
   updateChecklistStatus: function(checklist) {
     $.ajax({
-      url: 'update_checklist_status',
+      url: '/checklists',
       data: {
-        checklist_id: checklist.id,
-        status: 'done'
+        checklist: {
+          id: checklist.id,
+          status: 'done'
+        }
       },
       dataType: 'json',
-      method: 'POST',
+      method: 'PATCH',
       context: this,
       success: function(response) {
         // do something
@@ -154,6 +156,7 @@ var CheckList = React.createClass({
                     title="Generic Explanation"
                     body="Explanation"
                     loan={this.props.loan}
+                    checklist={checklist}
                     yesCallback={this.handleExplain} />
                 </div>
                 :

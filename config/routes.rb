@@ -61,7 +61,13 @@ Rails.application.routes.draw do
       end
 
       resources :dashboard do
-        post :update_checklist_status, on: :collection
+      end
+
+      resources :checklists do
+        collection do
+          get :load_docusign
+          get :docusign_callback
+        end
       end
     end
 

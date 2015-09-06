@@ -28,7 +28,6 @@ class Users::DashboardController < Users::BaseController
   end
 
   def update_checklist_status
-    byebug
     checklist = Checklist.find(params[:checklist_id])
 
     if checklist.update(status: params[:status])

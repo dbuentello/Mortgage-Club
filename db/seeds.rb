@@ -75,16 +75,13 @@ if User.where(email: 'admin@mortgageclub.io').blank?
 end
 
 if Template.where(name: 'Loan Estimate').blank?
-  base = Docusign::Base.new
-  template = base.create_template_object_from_name("Loan Estimate")
+  Docusign::CreateTemplateService.call("Loan Estimate")
 end
 
 if Template.where(name: 'Servicing Disclosure').blank?
-  base = Docusign::Base.new
-  template = base.create_template_object_from_name("Servicing Disclosure")
+  Docusign::CreateTemplateService.call("Servicing Disclosure")
 end
 
 if Template.where(name: 'Generic Explanation').blank?
-  base = Docusign::Base.new
-  template = base.create_template_object_from_name("Generic Explanation")
+  Docusign::CreateTemplateService.call("Generic Explanation")
 end

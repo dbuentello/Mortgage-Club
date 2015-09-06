@@ -29,11 +29,12 @@ var ModalExplanation = React.createClass({
 
   loadDocusign: function() {
     $.ajax({
-      url: "/electronic_signature/template/",
-      method: 'POST',
+      url: "/my/checklists/load_docusign/",
+      method: 'GET',
       data: {
+        id: this.props.checklist.id,
         template_name: "Generic Explanation",
-        id: this.props.loan.id
+        loan_id: this.props.loan.id
       },
       dataType: 'json',
       success: function(response) {
