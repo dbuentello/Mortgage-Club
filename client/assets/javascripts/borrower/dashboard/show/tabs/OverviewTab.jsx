@@ -7,10 +7,6 @@ var ModalExplanation = require('components/ModalExplanation');
 
 
 var OverviewTab = React.createClass({
-  componentDidMount: function() {
-    // $('.test').popover('show');
-  },
-
   eachChecklist: function(checklist, i) {
     return (
       <CheckList
@@ -22,7 +18,6 @@ var OverviewTab = React.createClass({
         updateChecklistStatus={this.updateChecklistStatus}/>
     );
   },
-
   updateChecklistStatus: function(checklist) {
     $.ajax({
       url: '/checklists',
@@ -40,7 +35,6 @@ var OverviewTab = React.createClass({
       }
     });
   },
-
   render: function() {
     var checklistCounter = this.props.checklists.length;
     var pendingCounter = 0;
@@ -99,30 +93,23 @@ var OverviewTab = React.createClass({
 
 module.exports = OverviewTab;
 
+
 var CheckList = React.createClass({
     mixins: [TextFormatMixin],
-
     getInitialState: function() {
       return {
         status: this.props.checklist.status == "pending" ? "iconCancel" : "iconCheck",
         logs: []
       }
     },
+    componentDidMount: function() {
+      $('[data-toggle="popover"]').popover()
+    },
     handleShowModal: function() {
       this.refs.modal.show();
     },
     handleExternalHide: function() {
       this.refs.modal.hide();
-    },
-    handleDoingNothing: function() {
-      this.handleLog("Remember I said I'd do nothing? ...I lied!", 'danger');
-    },
-    handleLog: function(message, type) {
-      this.setState({
-        logs: [{ type: type
-               , time: new Date().toLocaleTimeString()
-               , message: message}].concat(this.state.logs.slice(0, 3))
-      });
     },
     uploadSuccessCallback: function() {
       this.setState({
@@ -146,17 +133,21 @@ var CheckList = React.createClass({
     render: function() {
       var checklist = this.props.checklist;
       var button_id = checklist.checklist_type == "explain" ? ("explain-" + checklist.id) : ("upload-" + checklist.id);
-      var logs = this.state.logs.map(function(log) {
-            return <div className={'alert alert-' + log.type}>
-              [<strong>{log.time}</strong>] {log.message}
-            </div>
-          })
 
       return (
         <tr>
           <td><span className={this.state.status}></span></td>
           <td>{checklist.name}</td>
-          <td><a className="test" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"><span className="iconInfo"></span></a></td>
+          <td>
+            <button
+              className="btnInfo"
+              data-toggle="popover"
+              data-trigger="focus"
+              title="Enter the required entity information"
+              data-content={checklist.description}>
+              <span className="iconInfo"></span>
+            </button>
+          </td>
           <td>{this.isoToUsDate(checklist.due_date)}</td>
           <td>
             { checklist.checklist_type == "explain" ?
@@ -169,10 +160,6 @@ var CheckList = React.createClass({
                     show={false}
                     id={button_id}
                     title={checklist.name}
-                    handleShow={this.loadDocusign}
-                    handleShown={this.handleLog.bind(this, 'Modal showing', 'success')}
-                    handleHide={this.handleLog.bind(this, 'Modal about to hide', 'warning')}
-                    handleHidden={this.handleLog.bind(this, 'Modal hidden', 'danger')}
                     loan={this.props.loan}
                     checklist={checklist} />
                 </div>
@@ -196,4 +183,3 @@ var CheckList = React.createClass({
       );
     }
 });
-
