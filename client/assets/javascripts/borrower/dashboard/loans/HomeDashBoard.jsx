@@ -27,6 +27,8 @@ var HomeDashBoard = React.createClass({
   render: function() {
     var current_user = this.props.bootstrapData.currentUser;
     var loans = this.props.bootstrapData.loans;
+    var refLink = this.props.bootstrapData.refLink;
+
     return (
       <div className='dashboard content'>
         <div className='dashboard-tabs phxl bts backgroundLowlight'>
@@ -48,7 +50,7 @@ var HomeDashBoard = React.createClass({
                 <LoansTab loans={loans} />
               </div>
               <div role="tabpanel" className="tab-pane fade" id="referrals">
-                <ReferralsTab refLink="http://homieo.com/?u=123abc456"/>
+                <ReferralsTab refLink={refLink}/>
               </div>
               <div role="tabpanel" className="tab-pane fade" id="settings">
                 <SettingsTab />

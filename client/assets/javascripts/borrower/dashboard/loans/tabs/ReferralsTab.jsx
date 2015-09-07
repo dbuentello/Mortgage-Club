@@ -30,12 +30,12 @@ var ReferralsTab = React.createClass({
             </div>
             <div className="boxBody ptm">
               <div className="col-md-12">
-                Earn commission when you refer Business Purpose Borrowers(BPBs) to Mortgage Club. Below is your unique referral code. Send this link to potential BPBs or enter their emails into the form and we will invite them on your behalf. Referrals may be automated by Mortgage Club.
+                Earn commission when you refer Business Purpose Borrowers (BPBs) to Mortgage Club. Below is your unique referral code. Send this link to potential BPBs or enter their emails into the form and we will invite them on your behalf. Referrals may be automated by Mortgage Club.
               </div>
-              <div className="form-group ref-form col-md-6">
+              <div className="form-group ref-form col-md-9">
                 <label>Your Referral Link:</label>
                 <div className="input-group">
-                  <input id="refLink" className="form-control" defaultValue={this.props.refLink} readOnly/>
+                  <input id="refLink" className="form-control" onClick={this.copyToClipboard} defaultValue={this.props.refLink} readOnly/>
                   <span className="input-group-btn">
                     <a className="btn btnPrimary btn-copy" onClick={this.copyToClipboard}>
                       COPY TO CLIPBOARD

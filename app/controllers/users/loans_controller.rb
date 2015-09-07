@@ -2,8 +2,10 @@ class Users::LoansController < Users::BaseController
   before_action :set_loan, only: [:edit, :update, :destroy]
 
   def index
+    ref_url = "#{url_for(:only_path => false)}?_u=#{current_user.id}"
     bootstrap(
-      loans: LoansPresenter.new(current_user.loans).show
+      loans: LoansPresenter.new(current_user.loans).show,
+      refLink: ref_url
     )
 
     respond_to do |format|
