@@ -95,10 +95,12 @@ var Form = React.createClass({
         if(response.checklists){
           this.props.onReloadTable(response.checklists);
         }
+        this.setState({saving: false});
       }.bind(this),
       error: function(response, status, error) {
         var flash = { "alert-danger": response.responseJSON.message };
         this.showFlashes(flash);
+        this.setState({saving: false});
       }.bind(this)
     });
   },
