@@ -20,4 +20,8 @@ class FirstPaystub < BorrowerDocument
 
   belongs_to :borrower, inverse_of: :first_paystub, touch: true
   belongs_to :owner, polymorphic: true
+
+  def label_name
+    DESCRIPTION
+  end
 end
