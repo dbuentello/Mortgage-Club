@@ -24,7 +24,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
         message: 'Created successfully'
       }, status: 200
     else
-      render json: {message: "Created failed"}, status: 500
+      render json: {message: checklist.errors.full_messages.first}, status: 500
     end
   end
 

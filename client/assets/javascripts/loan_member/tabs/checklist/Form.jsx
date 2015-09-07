@@ -97,7 +97,7 @@ var Form = React.createClass({
         }
       }.bind(this),
       error: function(response, status, error) {
-        var flash = { "alert-danger": response.message };
+        var flash = { "alert-danger": response.responseJSON.message };
         this.showFlashes(flash);
       }.bind(this)
     });
