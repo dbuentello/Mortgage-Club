@@ -37,8 +37,9 @@ Given /^I wait for (\d+) seconds?$/ do |n|
 end
 
 When /^I attach the file "([^\"]*)" to the hidden "([^\"]*)"$/ do |path, field|
+  page.execute_script("document.getElementsByName('#{field}')[0].className = '';")
   patiently do
-    attach_file(field, File.expand_path(path), visible: false)
+    attach_file(field, File.expand_path(path))
   end
 end
 
