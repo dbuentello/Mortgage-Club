@@ -1,6 +1,26 @@
 var React = require('react/addons');
+var FlashHandler = require('mixins/FlashHandler');
 
 var ReferralsTab = React.createClass({
+  mixins: [FlashHandler],
+
+  copyToClipboard: function() {
+     // create a "hidden" input
+    var aux = document.createElement("input");
+    // assign it the value of the specified element
+    aux.setAttribute("value", this.props.refLink);
+    // append it to the body
+    document.body.appendChild(aux);
+    // highlight its content
+    aux.select();
+    // copy the highlighted text
+    document.execCommand("copy");
+    // remove it from the body
+    document.body.removeChild(aux);
+
+    var flash = { "alert-success": "COPIED" };
+    this.showFlashes(flash);
+  },
   render: function() {
     return (
       <div>
@@ -15,9 +35,11 @@ var ReferralsTab = React.createClass({
               <div className="form-group ref-form col-md-6">
                 <label>Your Referral Link:</label>
                 <div className="input-group">
-                  <input className="form-control" defaultValue="http://homieo.com/?u=123abc323" readOnly/>
+                  <input id="refLink" className="form-control" defaultValue={this.props.refLink} readOnly/>
                   <span className="input-group-btn">
-                    <button className="btn btnPrimary btn-copy" type="button">COPY TO CLIPBOARD</button>
+                    <a className="btn btnPrimary btn-copy" onClick={this.copyToClipboard}>
+                      COPY TO CLIPBOARD
+                    </a>
                   </span>
                 </div>
               </div>

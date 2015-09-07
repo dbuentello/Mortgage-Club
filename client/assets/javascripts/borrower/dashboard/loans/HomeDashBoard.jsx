@@ -48,7 +48,7 @@ var HomeDashBoard = React.createClass({
                 <LoansTab loans={loans} />
               </div>
               <div role="tabpanel" className="tab-pane fade" id="referrals">
-                <ReferralsTab />
+                <ReferralsTab refLink="http://homieo.com/?u=123abc456"/>
               </div>
               <div role="tabpanel" className="tab-pane fade" id="settings">
                 <SettingsTab />
