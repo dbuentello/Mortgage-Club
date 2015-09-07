@@ -12,7 +12,7 @@ var FormESigning = React.createClass({
 
   onClick: function(e) {
     e.preventDefault();
-    $(this.refs.indicator.getDOMNode()).css("display", "block");
+    $(this.refs.btnSign.getDOMNode()).button('loading')
     $.ajax({
       url: "/electronic_signature/template/",
       method: 'POST',
@@ -30,10 +30,10 @@ var FormESigning = React.createClass({
           $(this.refs.iframe.getDOMNode()).attr("src", response.message.url);
           $(this.refs.iframe.getDOMNode()).css("display", "block");
         }
-        $(this.refs.indicator.getDOMNode()).css("display", "none");
+        $(this.refs.btnSign.getDOMNode()).button('reset');
       }.bind(this),
       error: function(response, status, error) {
-        $(this.refs.indicator.getDOMNode()).css("display", "none");
+        $(this.refs.btnSign.getDOMNode()).button('reset');
         alert(error);
       }
     });
@@ -67,12 +67,13 @@ var FormESigning = React.createClass({
 
             <br/>
             <div className='text-left'>
-              <a className='btn btnSml btnPrimary' onClick={this.onClick}>Sign</a>
+              <a ref='btnSign' className='btn btnSml btnPrimary' onClick={this.onClick} data-loading-text="Loading...">
+                Sign
+              </a>
             </div>
 
             <div className='mtl text-left'>
               <iframe ref='iframe' height='600px' width='100%' style={{display: 'none'}}></iframe>
-              <div ref='indicator' className="progress-indicator"><div className="spinner"></div></div>
             </div>
 
           </div>
