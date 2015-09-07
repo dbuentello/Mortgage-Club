@@ -5,7 +5,7 @@ var React = require('react/addons');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 
-var LoanList = React.createClass({
+var HomeDashBoard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
 
   getInitialState: function() {
@@ -46,7 +46,7 @@ var LoanList = React.createClass({
                         return (
                           <div className="col-sm-6 col-md-4" key={loan.id}>
                             <div className="thumbnail">
-                              <img src="http://www.bcysth.ca/wp-content/uploads/2015/04/What-are-modular-homes.jpg" width="100%" height="200px"></img>
+                              <div className="img-home"></div>
                               <div className="caption">
                                 <h3>{loan.property.address.address}</h3>
                                 <p>Status: Finishing</p>
@@ -77,4 +77,4 @@ var LoanList = React.createClass({
   }
 });
 
-module.exports = LoanList;
+module.exports = HomeDashBoard;

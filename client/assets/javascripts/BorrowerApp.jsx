@@ -15,7 +15,7 @@ var MortgageRates = require('borrower/loans/MortgageRates');
 var LoanActivityInterface = require('borrower/loans/show/LoanActivityInterface');
 
 var Dashboard = require('borrower/dashboard/show/Dashboard');
-var LoanList = require('borrower/dashboard/loans/LoanList');
+var HomeDashBoard = require('borrower/dashboard/loans/HomeDashBoard');
 
 window.BorrowerApp = React.createClass({
   mixins: [FlashHandler],
@@ -99,10 +99,10 @@ var routes = (
     <Route name='loan' path='loans/:id' handler={LoanActivityInterface}/>
     <Route name='rates' handler={MortgageRates}/>
 
-    <Route name='loan_list' path='my/loans' handler={LoanList}/>
+    <Route name='loan_list' path='my/loans' handler={HomeDashBoard}/>
     <Route name='loan_dashboard' path='my/dashboard/:id' handler={Dashboard}/>
 
-    <DefaultRoute handler={LoanList}/>
+    <DefaultRoute handler={HomeDashBoard}/>
   </Route>
 );
 
