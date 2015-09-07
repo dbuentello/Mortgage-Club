@@ -22,6 +22,10 @@ textarea {
   resize: vertical;
 }
 
+button.btnInfo:focus {
+  outline:0 !important;
+}
+
 // Modal
 .modal-docusign {
   width: 80%;
