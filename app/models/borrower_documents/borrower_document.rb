@@ -22,7 +22,7 @@ class BorrowerDocument < ActiveRecord::Base
     s3_permissions: 'authenticated-read',
     path: PAPERCLIP[:default_path]
 
-  belongs_to :owner, polymorphic: true, touch: true
+  belongs_to :owner, polymorphic: true
 
   validates :owner, :token, presence: true
 
@@ -59,6 +59,18 @@ class BorrowerDocument < ActiveRecord::Base
 
   def url
     Amazon::GetUrlService.call(attachment)
+  end
+
+  def subject_name
+    'Borrower'
+  end
+
+  def subject_key_name
+    'borrower_id'
+  end
+
+  def upload_path
+    '/document_uploaders/borrowers/upload'
   end
 
   private

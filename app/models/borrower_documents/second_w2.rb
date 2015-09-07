@@ -18,6 +18,10 @@
 class SecondW2 < BorrowerDocument
   DESCRIPTION = "W2 - Previous tax year"
 
-  belongs_to :borrower, inverse_of: :second_w2
+  belongs_to :borrower, inverse_of: :second_w2, touch: true
   belongs_to :owner, polymorphic: true
+
+  def label_name
+    DESCRIPTION
+  end
 end

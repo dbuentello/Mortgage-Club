@@ -72,6 +72,13 @@ class LoanPresenter
           only: [ :email ],
           methods: [ :to_s ]
         },
+        checklists: {
+          include: {
+            user: {
+              methods: [ :to_s ]
+            }
+          }
+        },
         hud_estimate: {}, hud_final: {}, other_loan_reports: {},
         loan_estimate: {}, uniform_residential_lending_application: {}
       }
@@ -83,7 +90,7 @@ class LoanPresenter
       only: [ :id, :amount, :created_at, :interest_rate ],
       include: {
         property: {
-          only: [],
+          only: [:id],
           include: {
             address: {
               only: [],
@@ -91,6 +98,17 @@ class LoanPresenter
             }
           },
           methods: :usage_name
+        },
+        borrower: {
+          only: [:id],
+          include: [
+            :first_bank_statement, :second_bank_statement,
+            :first_paystub, :second_paystub,
+            :first_w2, :second_w2
+          ]
+        },
+        closing: {
+          only: [:id]
         }
       },
       methods: [

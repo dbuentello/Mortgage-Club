@@ -18,6 +18,10 @@
 class SecondPaystub < BorrowerDocument
   DESCRIPTION = "Paystub - Previous month"
 
-  belongs_to :borrower, inverse_of: :second_paystub
+  belongs_to :borrower, inverse_of: :second_paystub, touch: true
   belongs_to :owner, polymorphic: true
+
+  def label_name
+    DESCRIPTION
+  end
 end

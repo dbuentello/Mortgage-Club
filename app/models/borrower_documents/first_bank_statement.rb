@@ -18,6 +18,10 @@
 class FirstBankStatement < BorrowerDocument
   DESCRIPTION = "Bank statement - Most recent month"
 
-  belongs_to :borrower, inverse_of: :first_bank_statement
+  belongs_to :borrower, inverse_of: :first_bank_statement, touch: true
   belongs_to :owner, polymorphic: true
+
+  def label_name
+    DESCRIPTION
+  end
 end

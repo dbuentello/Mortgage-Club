@@ -49,15 +49,25 @@ Rails.application.routes.draw do
 
   resources :charges, only: [:new, :create]
 
-  post 'electronic_signature/demo'
+  post 'electronic_signature/template'
   get 'electronic_signature/embedded_response'
+  get 'electronic_signature/explain_response'
 
   get '/my/loans', to: 'users/loans#index', as: :my_loans
 
   scope module: "users" do
     scope '/my' do
       resources :loans do
-        get :dashboard
+      end
+
+      resources :dashboard do
+      end
+
+      resources :checklists do
+        collection do
+          get :load_docusign
+          get :docusign_callback
+        end
       end
     end
 
@@ -67,11 +77,14 @@ Rails.application.routes.draw do
   end
 
 
-  scope module: "loan_members" do
+  namespace :loan_members do
     resources :loan_activities, only: [:index, :show, :create] do
       collection do
         get 'get_activities_by_conditions'
       end
+    end
+
+    resources :checklists do
     end
   end
 

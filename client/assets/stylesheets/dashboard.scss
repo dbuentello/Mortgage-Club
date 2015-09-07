@@ -17,3 +17,20 @@ span.iconCancel {
 span.label-default {
   padding: .1em .5em .1em
 }
+
+textarea {
+  resize: vertical;
+}
+
+// Modal
+.modal-docusign {
+  width: 80%;
+}
+
+.modal-upload {
+  width: 60%;
+}
+
+.upload-zone {
+  height: 70px;
+}

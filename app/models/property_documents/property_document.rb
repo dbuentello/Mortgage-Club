@@ -24,7 +24,7 @@ class PropertyDocument < ActiveRecord::Base
     s3_permissions: 'authenticated-read',
     path: PAPERCLIP[:default_path]
 
-  belongs_to :owner, polymorphic: true, touch: true
+  belongs_to :owner, polymorphic: true
 
   validates :owner, :token, presence: true
 
@@ -53,6 +53,18 @@ class PropertyDocument < ActiveRecord::Base
     # return false if borrower.blank? || user.blank? || user.borrower.blank?
 
     # user.borrower == borrower
+  end
+
+  def subject_name
+    'Property'
+  end
+
+  def subject_key_name
+    'property_id'
+  end
+
+  def upload_path
+    '/document_uploaders/properties/upload'
   end
 
   private

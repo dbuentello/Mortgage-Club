@@ -22,4 +22,8 @@ class ClosingDisclosure < ClosingDocument
 
   belongs_to :closing, inverse_of: :closing_disclosure, foreign_key: 'closing_id'
   belongs_to :owner, polymorphic: true
+
+  def label_name
+    DESCRIPTION
+  end
 end

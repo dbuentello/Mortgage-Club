@@ -77,7 +77,7 @@ class Loan < ActiveRecord::Base
   has_one :secondary_borrower, inverse_of: :loan, class_name: 'Borrower' # don't destroy Borrower instance when we unset this association
 
   has_one :property, inverse_of: :loan, dependent: :destroy
-  has_one :envelope, inverse_of: :loan, dependent: :destroy
+  has_many :envelope, inverse_of: :loan, dependent: :destroy
   has_one :closing, inverse_of: :loan, dependent: :destroy
 
   has_one :hud_estimate, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
@@ -91,6 +91,8 @@ class Loan < ActiveRecord::Base
 
   has_many :loans_members_associations
   has_many :loan_members, through: :loans_members_associations
+
+  has_many :checklists
 
   accepts_nested_attributes_for :property, allow_destroy: true
   accepts_nested_attributes_for :borrower, allow_destroy: true

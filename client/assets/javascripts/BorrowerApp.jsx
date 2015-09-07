@@ -100,7 +100,7 @@ var routes = (
     <Route name='rates' handler={MortgageRates}/>
 
     <Route name='loan_list' path='my/loans' handler={LoanList}/>
-    <Route name='loan_dashboard' path='my/loans/:id/dashboard' handler={Dashboard}/>
+    <Route name='loan_dashboard' path='my/dashboard/:id' handler={Dashboard}/>
 
     <DefaultRoute handler={LoanList}/>
   </Route>

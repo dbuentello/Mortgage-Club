@@ -5,7 +5,7 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var PropertyTab = React.createClass({
   mixins: [TextFormatMixin],
   getDownloadUrl: function(id, type) {
-    return '/property_document_uploader/' + id + '/download?type=' + type
+    return '/document_uploaders/base_document/' + id + '/download?type=' + type
   },
   render: function() {
     return (

@@ -6,6 +6,7 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var ActivityTab = require('./tabs/ActivityTab');
 var DocumentTab = require('./tabs/DocumentTab');
+var ChecklistTab = require('./tabs/checklist/ChecklistTab');
 
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
@@ -26,6 +27,9 @@ var Dashboard = React.createClass({
             <li role="presentation">
               <a href="#document" aria-controls="document" role="tab" data-toggle="tab">Documents</a>
             </li>
+            <li role="presentation">
+              <a href="#checklist" aria-controls="checklist" role="tab" data-toggle="tab">Checklists</a>
+            </li>
           </ul>
 
           <div className='tabs row'>
@@ -35,6 +39,9 @@ var Dashboard = React.createClass({
               </div>
               <div role="tabpanel" className="tab-pane fade" id="document">
                 <DocumentTab loan={this.props.bootstrapData.loan} property={this.props.bootstrapData.property} closing={this.props.bootstrapData.closing}></DocumentTab>
+              </div>
+              <div role="tabpanel" className="tab-pane fade" id="checklist">
+                <ChecklistTab loan={this.props.bootstrapData.loan} checklists={this.props.bootstrapData.loan.checklists} templates={this.props.bootstrapData.templates}></ChecklistTab>
               </div>
             </div>
           </div>

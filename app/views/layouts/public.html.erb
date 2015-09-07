@@ -7,26 +7,6 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div>
-      <nav class='topMenu backgroundInverse pvm zIndexNavigation overlayFullWidth'>
-        <div class='plm prl'>
-          <div class='row'>
-            <div class='col-xs-6 typeLowlight'>
-              <%= link_to "MortgageClub", unauthenticated_root_path %>
-            </div>
-            <div class='col-xs-6 text-right'>
-              <% if current_user %>
-                <span>
-                  <span class='typeLowlight mrm'>Hello <a class='linkTypeReversed' href='/auth/register/edit' data-method='get'><%= current_user.first_name %></a>!</span>
-                  <a class='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
-                </span>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </div>
-
     <div class="container flashSection">
       <%= flash_messages %>
     </div>

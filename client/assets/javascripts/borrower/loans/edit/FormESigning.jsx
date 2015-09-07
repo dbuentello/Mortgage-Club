@@ -6,23 +6,22 @@ var SelectField = require('components/form/SelectField');
 var FormESigning = React.createClass({
   getInitialState: function() {
     return {
-      templateName: 'Loan Estimation'
+      templateName: 'Loan Estimate'
     }
   },
 
   onClick: function(e) {
     e.preventDefault();
-
+    $(this.refs.btnSign.getDOMNode()).button('loading')
     $.ajax({
-      url: "/electronic_signature/demo",
+      url: "/electronic_signature/template/",
       method: 'POST',
       data: {
-        template_name: this.state.templateName
+        template_name: this.state.templateName,
+        id: this.props.loan.id
       },
       dataType: 'json',
       success: function(response) {
-        // console.log(response);
-
         if (response.message == "don't render iframe") {
           alert("Okay, done!");
         } else if (response.message == "template does not exist yet") {
@@ -31,8 +30,10 @@ var FormESigning = React.createClass({
           $(this.refs.iframe.getDOMNode()).attr("src", response.message.url);
           $(this.refs.iframe.getDOMNode()).css("display", "block");
         }
+        $(this.refs.btnSign.getDOMNode()).button('reset');
       }.bind(this),
       error: function(response, status, error) {
+        $(this.refs.btnSign.getDOMNode()).button('reset');
         alert(error);
       }
     });
@@ -44,8 +45,8 @@ var FormESigning = React.createClass({
 
   render: function() {
     var templateOptions = [
-      {name: 'Loan Estimation', value: 'Loan Estimation'},
-      {name: 'Other', value: 'Other'}
+      {name: 'Loan Estimate', value: 'Loan Estimate'},
+      {name: 'Servicing Disclosure', value: 'Servicing Disclosure'}
     ];
 
     return (
@@ -66,7 +67,9 @@ var FormESigning = React.createClass({
 
             <br/>
             <div className='text-left'>
-              <a className='btn btnSml btnPrimary' onClick={this.onClick}>Sign</a>
+              <a ref='btnSign' className='btn btnSml btnPrimary' onClick={this.onClick} data-loading-text="Loading...">
+                Sign
+              </a>
             </div>
 
             <div className='mtl text-left'>

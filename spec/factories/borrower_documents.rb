@@ -15,6 +15,7 @@
 
 FactoryGirl.define do
   factory :borrower_document do |f|
+
     f.type { ['FirstW2', 'SecondW2', 'FirstPaystub',
       'SecondPaystub', 'FirstBankStatement',
       'SecondBankStatement'].sample }

@@ -24,7 +24,7 @@ class ClosingDocument < ActiveRecord::Base
     s3_permissions: 'authenticated-read',
     path: PAPERCLIP[:default_path]
 
-  belongs_to :owner, polymorphic: true, touch: true
+  belongs_to :owner, polymorphic: true
 
   validates :owner, presence: true
   validates :token, presence: true
@@ -49,6 +49,18 @@ class ClosingDocument < ActiveRecord::Base
 
   before_validation :set_private_token, :on => :create
   before_validation :set_description
+
+  def subject_name
+    'Closing'
+  end
+
+  def subject_key_name
+    'closing_id'
+  end
+
+  def upload_path
+    '/document_uploaders/closings/upload'
+  end
 
   private
 

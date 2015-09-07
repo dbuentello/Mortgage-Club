@@ -54,7 +54,7 @@ var LoanList = React.createClass({
                                 <p>Loan amount: {loan.amount}</p>
                                 <p>Rate: {loan.interest_rate}%</p>
                                 <p>
-                                  <a href={'/my/loans/' + loan.id + '/dashboard'} className="btn btn-primary" role="button"><i className='iconCog mrxs'/>Dashboard</a>
+                                  <a href={'/my/dashboard/' + loan.id} className="btn btn-primary" role="button"><i className='iconCog mrxs'/>Dashboard</a>
                                 </p>
                               </div>
                             </div>

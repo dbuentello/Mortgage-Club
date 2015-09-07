@@ -1,88 +1,22 @@
 class ElectronicSignatureController < ApplicationController
-  IS_EMBEDDED = true
+  before_action :set_loan, only: [:template]
 
-  # POST
-  def demo
-    current_loan = current_user.loans.first
-    base = Docusign::Base.new
-
-    # get the template name
-    template_name = params[:template_name]
-    # get Template info from database
-    template = Template.where(name: template_name).first
-
-    # handle none-existing template
+  def template
+    template = Template.where(name: params[:template_name]).first
     if template.blank?
-      render json: {
-          message: "Template does not exist yet",
-          details: "Template #{params[:template_name]} does not exist yet!"
-        }, status: :ok
-
-      return
+      return render json: {
+              message: "Template does not exist yet",
+              details: "Template #{params[:template_name]} does not exist yet!"
+            }, status: 500
     end
 
-    if (envelope = current_loan.envelope)
-      # get in progress envelope id stored in database to load appropriate view
-      envelope_id = envelope.docusign_id
+    envelope_response = Docusign::CreateEnvelopeService.new(current_user, @loan, template).call
+    recipient_view = Docusign::GetRecipientViewService.call(envelope_response['envelopeId'], current_user, electronic_signature_embedded_response_url)
+
+    if recipient_view
+      render json: {message: recipient_view}, status: 200
     else
-      # Set values to tab labels
-      values = Docusign::Templates::LoanEstimation.get_values_mapping_hash(current_user, current_loan)
-
-      if IS_EMBEDDED
-        envelope_hash = {
-          user: {
-            name: current_user.to_s,
-            email: current_user.email
-          },
-          values: values,
-          embedded: true,
-          loan_id: current_loan.id
-        }
-      else
-        envelope_hash = {
-          user: {
-            name: "Billy",
-            email: "billy@mortgageclub.io"
-          },
-          values: values,
-          loan_id: current_loan.id
-        }
-      end
-
-      # create new envelope from template
-      if template
-        envelope_hash.merge!({
-          template_name: template_name,
-          template_id: template.docusign_id,
-          email_subject: template.email_subject,
-          email_body: template.email_body
-        })
-      else
-        envelope_hash.merge!({
-          template_name: template_name,
-          email_subject: "Electronic Signature Request from Mortgage Club",
-          email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
-        })
-      end
-
-      envelope_response = base.create_envelope_from_template(envelope_hash)
-
-      # get envelope id to load appropriate view
-      envelope_id = envelope_response["envelopeId"]
-    end
-
-    if IS_EMBEDDED
-      # request the view url to embedd to iframe
-      view_response = base.client.get_recipient_view(
-        envelope_id: envelope_id,
-        name: current_user.to_s,
-        email: current_user.email,
-        return_url: electronic_signature_embedded_response_url
-      )
-
-      render json: {message: view_response}, status: :ok
-    else
-      render json: {message: "don't render iframe"}, status: :ok
+      render json: {message: "can't render iframe"}, status: 500
     end
   end
 
@@ -92,12 +26,11 @@ class ElectronicSignatureController < ApplicationController
 
     # ap params
     if params[:event] == "signing_complete"
-      render :text => utility.breakout_path(root_path), content_type: 'text/html'
+      render :text => utility.breakout_path(borrower_root_path), content_type: 'text/html'
     elsif params[:event] == "ttl_expired"
       # the session has been expired
     else
-      render :text => utility.breakout_path(root_path(success: true)), content_type: 'text/html'
+      render :text => utility.breakout_path(borrower_root_path(success: true)), content_type: 'text/html'
     end
   end
-
 end

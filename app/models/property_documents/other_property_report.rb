@@ -18,6 +18,10 @@
 #
 
 class OtherPropertyReport < PropertyDocument
-  belongs_to :property, inverse_of: :other_property_report, foreign_key: 'property_id'
+  belongs_to :property, inverse_of: :other_property_reports, foreign_key: 'property_id'
   belongs_to :owner, polymorphic: true
+
+  def label_name
+    'Other property report'
+  end
 end

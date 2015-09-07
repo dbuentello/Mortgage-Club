@@ -22,4 +22,8 @@ class DeedOfTrust < ClosingDocument
 
   belongs_to :closing, inverse_of: :deed_of_trust, foreign_key: 'closing_id'
   belongs_to :owner, polymorphic: true
+
+  def label_name
+    DESCRIPTION
+  end
 end
