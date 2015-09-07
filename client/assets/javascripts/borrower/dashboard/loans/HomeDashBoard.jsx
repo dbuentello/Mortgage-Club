@@ -5,69 +5,53 @@ var React = require('react/addons');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 
+var LoansTab = require('./tabs/LoansTab');
+var ReferralsTab = require('./tabs/ReferralsTab');
+var SettingsTab = require('./tabs/SettingsTab');
+
 var HomeDashBoard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
 
   getInitialState: function() {
     return {
+      activeTab: 'loans'
     };
   },
-
   componentDidMount: function() {
-    // console.dir(this.props.bootstrapData.loans);
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      this.setState({
+        activeTab: this.getValue(e.target.attributes, 'aria-controls').value
+      });
+    }.bind(this));
   },
-
   render: function() {
     var current_user = this.props.bootstrapData.currentUser;
-
+    var loans = this.props.bootstrapData.loans;
     return (
       <div className='dashboard content'>
         <div className='dashboard-tabs phxl bts backgroundLowlight'>
-          <ul className="nav nav-tabs">
-            <li className="active">
-              <a href="javascript:void(0)">Loans</a>
+          <ul className="nav nav-tabs" role="tablist">
+            <li role="presentation" className="active">
+              <a href="#loans" aria-controls="loans" role="tab" data-toggle="tab">Loans</a>
             </li>
-            <li >
-              <a href="javascript:void(0)">Referrals</a>
+            <li role="presentation">
+              <a href="#referrals" aria-controls="referrals" role="tab" data-toggle="tab">Referrals</a>
             </li>
-            <li >
-              <a href="javascript:void(0)">Settings</a>
+            <li role="presentation">
+              <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a>
             </li>
           </ul>
 
           <div className='tabs'>
             <div className="tab-content">
-              <div className="tab-pane fade in active" id="loanList">
-
-                <div className="loanList mtl">
-                  <div className="row">
-                    {
-                      _.map( this.props.bootstrapData.loans, function(loan){
-                        return (
-                          <div className="col-sm-6 col-md-4" key={loan.id}>
-                            <div className="thumbnail">
-                              <div className="img-home"></div>
-                              <div className="caption">
-                                <h3>{loan.property.address.address}</h3>
-                                <p>Status: Finishing</p>
-                                <p>Created at: {moment(loan.created_at).format('MMM DD, YYYY')}</p>
-                                <p>Loan amount: {loan.amount}</p>
-                                <p>Rate: {loan.interest_rate}%</p>
-                                <p>
-                                  <a href={'/my/dashboard/' + loan.id} className="btn btn-primary" role="button"><i className='iconCog mrxs'/>Dashboard</a>
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      })
-                    }
-                  </div>
-                </div>
+              <div role="tabpanel" className="tab-pane fade in active" id="loans">
+                <LoansTab loans={loans} />
               </div>
-              <div className="tab-pane fade" id="referrals">
+              <div role="tabpanel" className="tab-pane fade" id="referrals">
+                <ReferralsTab />
               </div>
-              <div className="tab-pane fade" id="settings">
+              <div role="tabpanel" className="tab-pane fade" id="settings">
+                <SettingsTab />
               </div>
             </div>
           </div>
