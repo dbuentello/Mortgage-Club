@@ -93,3 +93,8 @@ end
 Then /^the  "(.*?)" field should contain "(.*?)"$/ do |field, value|
   field_labeled(field).value.should =~ /#{value}/
 end
+
+When /^I press "([^\"]*)" in the modal "([^\"]*)"$/ do |text, modal|
+  button = page.find(:xpath, "//div[contains(@id, '#{modal}')]//button[contains(., '#{text}')]")
+  button.click
+end

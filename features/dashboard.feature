@@ -3,7 +3,7 @@ Feature: Dashboard
   Scenario: destroy a loan
     When I am at dashboard page
       And I click on "Delete Loan"
-      And I confirm the browser dialog
+      And I press "Yes" in the modal "deleteLoan"
     Then I should be on the my loans page
 
   @javascript
