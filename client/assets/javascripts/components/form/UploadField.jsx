@@ -24,7 +24,8 @@ var UploadField = React.createClass({
   getInitialState: function() {
     return {
       file: null,
-      progress: null
+      progress: null,
+      btnText: 'Pick a file from your Computer',
     };
   },
 
@@ -35,7 +36,6 @@ var UploadField = React.createClass({
       renderExtra: null,
       shouldHide: false,
       allowDrag: false,
-      btnText: 'Pick a file from your Computer',
       delaySettingState: true,
       showSecondaryButton: false,
       secondaryButtonClass: '',
@@ -97,63 +97,22 @@ var UploadField = React.createClass({
     // });
   },
 
-  handlePickFile: function() {
-    this.$file.trigger('click');
+  handlePickFile: function(event) {
+    this.setState({
+      btnText: 'File was selected!'
+    });
   },
 
   render: function() {
-    var progress = this.state.progress;
-    var btnText = 'Upload Success!';
-
-    if (progress === null) {
-      btnText = this.props.btnText;
-    } else if (progress < 100) {
-      btnText = 'Please wait. Uploading...';
-    }
-
-    var secondaryButton = null;
-    if (this.props.showSecondaryButton) {
-      secondaryButton = (
-        <button className={this.props.secondaryButtonClass + ' mlm'} onClick={this.props.onSecondaryButtonClick}>
-          {this.props.secondaryButtonText}
-        </button>
-      );
-    }
-
     return (
       <div>
         <label className="col-xs-12 pan">
           <span className='h7 typeBold'>{this.props.label}</span>
-          <div className='clearfix'>
-            {this.props.title ? <div className='col-xs-12 typeBold typeLowlight phn mbs'>{this.props.title}</div> : null}
-            {this.props.renderExtra ? this.props.renderExtra() : null}
-
-            <span className={this.props.shouldHide ? 'hidden' : null}>
-              <span className='btn btnSecondary link-file-upload' onClick={this.handlePickFile} disabled={progress !== null}>
-                <span>{btnText}</span>
-                <input ref='file' data-url={this.props.uploadUrl} className='' name={this.props.name} type='file'/>
-              </span>
-              {secondaryButton}
-              {this.props.allowDrag ? (
-                <div className='well draggable text-center mtm'>
-                  <h3>
-                    Or Drag File Here
-                  </h3>
-                </div>
-              ) : null}
-
-              <div className='mtm' style={{display: progress !== null ? null : 'none'}}>
-                <div className='mvs'>{this.state.file ? this.state.file.name : ''}</div>
-                <div className='progress mvn'>
-                  <div className='progress-bar progress-bar-success' role='progressbar'
-                    aria-valuenow={progress} aria-valuemin='0' aria-valuemax='100' style={{width: progress + '%'}}>
-                  </div>
-                </div>
-              </div>
-
-            </span>
-            {this.props.shouldHide ? secondaryButton : null}
-          </div>
+          <br/>
+          <span className='btn btnSecondary link-file-upload col-xs-12' onChange={this.handlePickFile}>
+            <span className='text-right'>{this.state.btnText}</span>
+            <input ref='file' data-url={this.props.uploadUrl} className='hidden' name={this.props.name} type='file'/>
+          </span>
         </label>
       </div>
     );

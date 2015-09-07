@@ -39,7 +39,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
     @user.skip_confirmation!
     @loan_member = @user.build_loan_member(loan_member_params)
 
-    if @user.save && @loan_member.save
+    if @user.save
       @user.add_role :loan_member
 
       render json: {
@@ -48,7 +48,18 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
         message: 'Created sucessfully'
       }, status: 200
     else
-      render json: {message: "Created failed"}, status: 500
+      render json: {message: @user.errors.full_messages.first}, status: 500
+    end
+  end
+
+  def destroy
+    if @loan_member.user.destroy
+      render json: {
+        message: "Removed the #{@loan_member.user.to_s} successfully",
+        loan_members: LoanMembersPresenter.index(LoanMember.all)
+      }, status: 200
+    else
+      render json: {message: "Cannot remove the checklist"}, status: 500
     end
   end
 
