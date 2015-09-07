@@ -15,8 +15,8 @@ Feature: LoanMemberManagements
       And I fill in "Last Name" with "Vu"
       And I fill in "Phone number" with "8889998"
       And I fill in "Skype" with "keeping_fit"
+      And I attach the file "spec/files/avatar.png" to the hidden "loan_member[avatar]"
     Then I click on "Submit"
-      And I wait for 1 seconds
     Then I should see a table with the following rows:
       | Avatar    | Name     | Email                  | Phone number | Skype        | Role          |
       | *         | *        | *                      | *            | *            | loan_member   |

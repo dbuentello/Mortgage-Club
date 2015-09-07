@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+require 'capybara/poltergeist'
 require File.expand_path("../../../spec/support/vcr_setup", __FILE__)
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -27,7 +28,6 @@ require File.expand_path("../../../spec/support/vcr_setup", __FILE__)
 # recommended as it will mask a lot of errors for you!
 #
 ActionController::Base.allow_rescue = false
-
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
 begin
@@ -55,3 +55,9 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
+
+Capybara.javascript_driver = :poltergeist
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, {js_errors: false})
+end
+
