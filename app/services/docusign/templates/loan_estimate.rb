@@ -317,12 +317,11 @@ module Docusign
 
       def lender_broker_info
         map_string_to_params(
-          [
-            'lender_name', 'lender_nmls_id', 'loan_officer_name_1', 'loan_officer_nmls_id_1',
-            'loan_officer_email_1', 'loan_officer_phone_1', 'mortgage_broker_name',
-            'mortgage_broker_nmls_id', 'loan_officer_name_2', 'loan_officer_nmls_id_2',
-            'loan_officer_email_2', 'loan_officer_phone_2'
-          ]
+          %w(
+            lender_name lender_nmls_id loan_officer_name_1 loan_officer_nmls_id_1 loan_officer_email_1
+            loan_officer_phone_1 mortgage_broker_name mortgage_broker_nmls_id loan_officer_name_2 loan_officer_nmls_id_2
+            loan_officer_email_2 loan_officer_phone_2
+          )
         )
       end
 

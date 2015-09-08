@@ -1,7 +1,8 @@
 {
   "type": "object",
   "required": [
-    "applicant_name", "sale_price", "applicant_address", "property", "loan_amount"
+    "applicant_name", "sale_price", "applicant_address", "property", "loan_amount",
+    "date_issued", "purpose", "product", "loan_term"
   ],
   "properties" : {
     "applicant_address" : {

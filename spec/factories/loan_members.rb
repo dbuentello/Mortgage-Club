@@ -6,10 +6,7 @@ FactoryGirl.define do
     f.email { Faker::Internet.email }
     f.employee_id { Faker::Number.number(2) }
     f.nmls_id { Faker::Number.number(6) }
-
-    trait :with_user do
-      user { create(:loan_member_user) }
-    end
+    f.user { create(:loan_member_user) }
 
     factory :loan_member_with_activites, parent: :loan_member do |f|
       after(:build) do |loan_member, evaluator|

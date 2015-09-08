@@ -9,7 +9,6 @@ describe Docusign::Templates::LoanEstimate do
     allow(loan).to receive(:estimated_closing_costs).and_return(6000)
 
     valid_hash = Docusign::Templates::LoanEstimate.new(loan).params
-    byebug
     expect(valid_hash).to match_response_schema("loan_estimate_template")
   end
 end
