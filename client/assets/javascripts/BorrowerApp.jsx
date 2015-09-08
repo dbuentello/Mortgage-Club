@@ -17,6 +17,8 @@ var LoanActivityInterface = require('borrower/loans/show/LoanActivityInterface')
 var Dashboard = require('borrower/dashboard/show/Dashboard');
 var HomeDashBoard = require('borrower/dashboard/loans/HomeDashBoard');
 
+var cookie = require('components/react-cookie');
+
 window.BorrowerApp = React.createClass({
   mixins: [FlashHandler],
 
