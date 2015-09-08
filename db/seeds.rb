@@ -74,6 +74,17 @@ if User.where(email: 'admin@mortgageclub.io').blank?
   user.add_role :admin
 end
 
+if User.where(email: 'coborrower@gmail.com').blank?
+  user = User.new(
+    email: 'coborrower@gmail.com', first_name: 'Tom', last_name: 'Cruise',
+    password: '12345678', password_confirmation: '12345678'
+  )
+  user.skip_confirmation!
+  user.save
+  user.create_borrower
+  user.add_role :borrower
+end
+
 if Template.where(name: 'Loan Estimate').blank?
   Docusign::CreateTemplateService.call("Loan Estimate")
 end
@@ -90,6 +101,11 @@ if Loan.where(lender_name: 'Ficus Bank').blank?
   user = User.where(email: 'borrower@gmail.com').first
   loan = user.loans.build(amount: Random.rand(100000..200000), interest_rate: Random.rand(0.2..1))
   loan.save
+
+  #build cobororwer
+  second_user = User.where(email: 'coborrower@gmail.com').last
+  loan.secondary_borrower = second_user.borrower
+
   hud_estimate = loan.create_hud_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
   hud_final = loan.create_hud_final(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
   loan_estimate = loan.create_loan_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
@@ -126,7 +142,7 @@ if Loan.where(lender_name: 'Ficus Bank').blank?
 
   [
     'homeowners_insurance_premium_months', 'mortgage_insurance_premium_months', 'prepaid_interest_days',
-    'prepaid_property_taxes_months'
+    'prepaid_property_taxes_months', 'initial_homeowner_insurance_months', 'initial_mortgage_insurance_months', 'initial_property_taxes_months'
   ].each do |attribute|
     loan.send("#{attribute}=", Random.rand(1..20))
   end
