@@ -3,8 +3,11 @@ class Users::LoansController < Users::BaseController
 
   def index
     ref_url = "#{url_for(:only_path => false)}?_u=#{current_user.id}"
+    invites = Invite.where(sender_id: current_user.id)
+
     bootstrap(
       loans: LoansPresenter.new(current_user.loans).show,
+      invites: InvitesPresenter.index(invites),
       refLink: ref_url
     )
 

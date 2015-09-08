@@ -113,7 +113,8 @@ var ReferralsTab = React.createClass({
                 <a className="btn btnPrimary btn-invites" onClick={this.sendInvites}>SEND INVITES</a>
               </form>
               <div className="call-info col-md-12">
-                For specificate information regarding commissions, please call us a call at +1 234 567890
+                For specificate information regarding commissions,
+                please call us a call at: +1 123-456-7890
               </div>
             </div>
         </div>

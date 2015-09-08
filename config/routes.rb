@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     get 'signup', to: 'users/registrations#new', as: :custom_signup
   end
 
-  resources :invites
+  resources :invites, only: [:index, :create]
 
   resources :rates, only: [:index] do
     collection do

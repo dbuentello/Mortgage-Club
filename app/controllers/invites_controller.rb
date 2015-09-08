@@ -8,11 +8,17 @@ class InvitesController < ApplicationController
       phone = params[:invite][:phone][i]
       invite = Invite.new(email: email, name: name, phone: phone)
       invite.sender_id = current_user.id
+
       if invite.save
-        InviteMailer.new_user_invite(current_user, invite).deliver_now
-        invite_counter += 1
+        if invite.recipient != nil
+          # the user already exists
+        else
+          InviteMailer.delay.new_user_invite(current_user, invite)
+          invite_counter += 1
+        end
       end
     end
+
     if invite_counter > 0
       render json: {success: true, message: "#{invite_counter} person was successfully invited to Mortgage Club!"}
     else
