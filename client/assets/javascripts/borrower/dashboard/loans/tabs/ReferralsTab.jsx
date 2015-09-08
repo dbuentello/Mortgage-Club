@@ -18,8 +18,36 @@ var ReferralsTab = React.createClass({
     // remove it from the body
     document.body.removeChild(aux);
 
+    document.getElementById("refLink").select();
+
     var flash = { "alert-success": "COPIED" };
     this.showFlashes(flash);
+  },
+
+  sendInvites: function(e) {
+    var form = $(this.refs.formInvite.getDOMNode());
+    $.ajax({
+      url: form.attr('action'),
+      data: form.serialize(),
+      dataType: 'json',
+      method: 'POST',
+      context: this,
+      success: function(response) {
+        var flash = { "alert-success": response.message };
+        if (response.success == false) {
+          flash = { "alert-danger": response.message };
+        } else {
+          $('input.col-sm-3').each(function(index, e) {
+              $(e).val('')
+          });
+        }
+        this.showFlashes(flash);
+      },
+      error: function(response, status, error) {
+        var flash = { "alert-danger": error };
+        this.showFlashes(flash);
+      }
+    });
   },
   render: function() {
     return (
@@ -44,46 +72,46 @@ var ReferralsTab = React.createClass({
                 </div>
               </div>
 
-              <div className="form-group ref-form col-md-12">
+              <form ref='formInvite' id="invite-form" className="form-group ref-form col-md-12" action="/invites" method="post">
                 <label>Invite by Email:</label>
 
                 <div className="row invite-form">
                   <div className="col-md-3">
-                    <input type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email"/>
+                    <input type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
                   </div>
                   <div className="col-md-3">
-                    <input className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name"/>
+                    <input type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
                   </div>
                   <div className="col-md-3">
-                    <input className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)"/>
+                    <input type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
                   </div>
                 </div>
 
                 <div className="row invite-form">
                   <div className="col-md-3">
-                    <input type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email"/>
+                    <input type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
                   </div>
                   <div className="col-md-3">
-                    <input className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name"/>
+                    <input type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
                   </div>
                   <div className="col-md-3">
-                    <input className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)"/>
+                    <input type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
                   </div>
                 </div>
 
                 <div className="row invite-form">
                   <div className="col-md-3">
-                    <input type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email"/>
+                    <input type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
                   </div>
                   <div className="col-md-3">
-                    <input className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name"/>
+                    <input type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
                   </div>
                   <div className="col-md-3">
-                    <input className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)"/>
+                    <input type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
                   </div>
                 </div>
-                <a className="btn btnPrimary btn-invites">SEND INVITES</a>
-              </div>
+                <a className="btn btnPrimary btn-invites" onClick={this.sendInvites}>SEND INVITES</a>
+              </form>
               <div className="call-info col-md-12">
                 For specificate information regarding commissions, please call us a call at +1 234 567890
               </div>
