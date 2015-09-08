@@ -22,7 +22,7 @@ module Docusign
           body: @envelope_hash[:email_body]
         },
         template_id: @envelope_hash[:template_id],
-        signers: build_signers,
+        signers: Docusign::BuildSignatureForEnvelopeService.new(loan, template, @envelope_hash).call,
         files: [
           build_file
         ]
@@ -49,22 +49,6 @@ module Docusign
 
     def mapping_value
       template_mapping.new(loan).params
-    end
-
-    def build_signers
-      signers = []
-      tabs = helper.get_tabs_from_template(
-        template_id: @envelope_hash[:template_id], template_name: @envelope_hash[:template_name],
-        values: @envelope_hash[:values]
-      )
-      signer = {
-        embedded: @envelope_hash[:embedded],
-        name: @envelope_hash[:user][:name],
-        email: @envelope_hash[:user][:email],
-        role_name: 'Normal'
-      }
-      signer = signer.merge(tabs)
-      signers << signer
     end
 
     def build_file

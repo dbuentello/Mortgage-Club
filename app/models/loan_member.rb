@@ -24,4 +24,5 @@ class LoanMember < ActiveRecord::Base
   delegate :first_name, to: :user, allow_nil: true
   delegate :last_name, to: :user, allow_nil: true
 
+  validates :user_id, presence: true
 end
