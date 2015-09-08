@@ -17,6 +17,7 @@ module Docusign
         build_projected_payments
         build_cost_closing
         build_closing_cost_details
+        build_additional_information
         remove_zero_value_from_params
       end
 
@@ -90,10 +91,18 @@ module Docusign
         taxes_and_other_government_fees
         prepaids
         initial_escrow_payment_at_closing
+        other_closing_cost
+        total_closing_costs
+        calculating_cash_to_close
 
         @params['loan_costs_total'] = Money.new(loan_costs_total).format
-        @params['owner_title_policy'] = @params['other_total'] = Money.new(loan.owner_title_policy).format
-        @params['owner_title_policy_text'] = 'Title - Owner Title Policy'
+        @params['total_other_costs'] = Money.new(total_other_costs).format
+      end
+
+      def build_additional_information
+        lender_broker_info
+        comparisons
+        other_considerations
       end
 
       def remove_zero_value_from_params
@@ -270,6 +279,65 @@ module Docusign
 
       def initial_homeowner_insurance
         @pinitial_homeowner_insurance ||= @params['initial_homeowner_insurance_per_month'] * @params['initial_homeowner_insurance_months']
+      end
+
+      def total_other_costs
+        @total_other_costs ||= taxes_and_other_government_fees_total + prepaids_total + intial_escrow_payment_total + loan.owner_title_policy
+      end
+
+      def total_loan_costs_and_other_costs
+        @total_loan_costs_and_other_costs ||= loan_costs_total + total_other_costs
+      end
+
+      def total_closing_costs
+        @params['lender_credits'] = Money.new(loan.lender_credits).format
+        @params['total_loan_costs_and_other_costs'] = Money.new(total_loan_costs_and_other_costs).format
+        @params['total_closing_costs'] = @params['lender_credits'] + @params['total_loan_costs_and_other_costs']
+      end
+
+      def other_closing_cost
+        @params['owner_title_policy'] = @params['other_total'] = Money.new(loan.owner_title_policy).format
+        @params['owner_title_policy_text'] = 'Title - Owner Title Policy'
+      end
+
+      def calculating_cash_to_close
+        map_number_to_params(
+          [
+            'closing_costs_financed', 'down_payment', 'deposit', 'funds_for_borrower', 'seller_credits', 'adjustments_and_other_credits'
+          ]
+        )
+
+        @params['estimated_cash_to_close'] = params['total_closing_costs'] + params['closing_costs_financed'] +
+                                             params['down_payment'] + params['deposit'] + params['funds_for_borrower'] +
+                                             params['seller_credits'] + params['adjustments_and_other_credits']
+      end
+
+      def lender_broker_info
+        map_string_to_params(
+          [
+            'lender_name', 'lender_nmls_id', 'loan_officer_name_1', 'loan_officer_nmls_id_1',
+            'loan_officer_email_1', 'loan_officer_phone_1', 'mortgage_broker_name',
+            'mortgage_broker_nmls_id', 'loan_officer_name_2', 'loan_officer_nmls_id_2',
+            'loan_officer_email_2', 'loan_officer_phone_2'
+          ]
+        )
+      end
+
+      def comparisons
+        map_string_to_params(
+          [
+            'in_5_years_total', 'in_5_years_principal', 'annual_percentage_rate', 'total_interest_percentage'
+          ]
+        )
+      end
+
+      def other_considerations
+        @params['assumption_will_allow'] = 'x' if loan.assumption_will_allow
+        @params['assumption_will_not_allow'] = 'x' if loan.assumption_will_not_allow
+        @params['servicing_service'] = 'x' if loan.servicing_service
+        @params['servicing_transfer'] = 'x' if loan.servicing_transfer
+
+        map_string_to_params(['late_days', 'late_fee_text'])
       end
 
       def map_string_to_params(list, object = loan)
