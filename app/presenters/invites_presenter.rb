@@ -7,7 +7,7 @@ class InvitesPresenter
 
   def self.invite_json_options
     {
-      only: [:id, :email, :name, :phone, :sender_id, :recipient_id]
+      only: [:id, :email, :name, :phone, :sender_id, :recipient_id, :join_at]
     }
   end
 end

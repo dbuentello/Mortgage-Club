@@ -7,6 +7,7 @@ class CreateInvites < ActiveRecord::Migration
       t.string :sender_id
       t.string :recipient_id
       t.string :token
+      t.datetime :join_at
       t.timestamps
     end
   end

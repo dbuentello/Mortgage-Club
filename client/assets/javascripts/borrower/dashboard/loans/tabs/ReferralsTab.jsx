@@ -1,8 +1,9 @@
 var React = require('react/addons');
+var TextFormatMixin = require('mixins/TextFormatMixin');
 var FlashHandler = require('mixins/FlashHandler');
 
 var ReferralsTab = React.createClass({
-  mixins: [FlashHandler],
+  mixins: [FlashHandler, TextFormatMixin],
 
   copyToClipboard: function() {
      // create a "hidden" input
@@ -48,6 +49,20 @@ var ReferralsTab = React.createClass({
         this.showFlashes(flash);
       }
     });
+  },
+  eachInvite: function(invite, i) {
+    return (
+      <tr key={invite.id} index={i}>
+        <td>{invite.email}</td>
+        <td>{invite.name}</td>
+        { invite.join_at != null ?
+          <td>{this.isoToUsDate(invite.join_at)}</td>
+          :
+          <td>-</td>
+        }
+        <td>0</td>
+      </tr>
+    );
   },
   render: function() {
     return (
@@ -133,10 +148,7 @@ var ReferralsTab = React.createClass({
                   </tr>
                 </thead>
                 <tbody>
-                  <td>thien_nga@hotmail.com</td>
-                  <td>Nga T Nguyen</td>
-                  <td>2015-06-01</td>
-                  <td>0</td>
+                  {this.props.invites.map(this.eachInvite)}
                 </tbody>
               </table>
             </div>
