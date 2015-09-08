@@ -46,8 +46,8 @@ module Docusign
       def build_loan_terms
         @params['loan_amount'] = Money.new(loan.amount).format
         @params['interest_rate'] = "#{(loan.interest_rate.to_f * 100).round(3)}%"
-        @params['monthly_principal_interest'] = Money.new(loan.monthly_payment.round(2)).format
-        @params['prepayment_penalty_amount'] = Money.new(loan.prepayment_penalty_amount.round(2)).format
+        @params['monthly_principal_interest'] = Money.new(loan.monthly_payment.to_f.round(2)).format
+        @params['prepayment_penalty_amount'] = Money.new(loan.prepayment_penalty_amount.to_f.round(2)).format
         @params['prepayment_penalty_text'] = loan.prepayment_penalty_text
         @params['balloon_payment_text'] = loan.balloon_payment_text
         @params['prepayment_penalty_amount_tooltip'] = 'As high as'
@@ -60,8 +60,8 @@ module Docusign
 
       def build_projected_payments
         @params['payment_calculation_text_1'] = 'Years 1-5'
-        @params['projected_principal_interest_1'] = Money.new(loan.monthly_payment.round(2)).format
-        @params['projected_mortgage_insurance_1'] = Money.new(loan.pmi.round(2)).format
+        @params['projected_principal_interest_1'] = Money.new(loan.monthly_payment.to_f.round(2)).format
+        @params['projected_mortgage_insurance_1'] = Money.new(loan.pmi.to_f.round(2)).format
         @params['estimated_escrow_1'] = Money.new(estimated_escrow).format
         @params['estimated_total_monthly_payment_1'] = Money.new(estimated_total_monthly_payment_1).format
         @params['estimated_taxes_insurance_assessments'] = Money.new(estimated_escrow).format
@@ -198,8 +198,8 @@ module Docusign
           ]
         )
 
-        @params['initial_homeowner_insurance_per_month'] = property.estimated_hazard_insurance.round(2)
-        @params['intial_mortgage_insurance_per_month'] = loan.pmi_monthly_premium_amount.round(2)
+        @params['initial_homeowner_insurance_per_month'] = property.estimated_hazard_insurance.to_f.round(2)
+        @params['intial_mortgage_insurance_per_month'] = loan.pmi_monthly_premium_amount.to_f.round(2)
         @params['initial_homeowner_insurance'] = Money.new(initial_homeowner_insurance).format
         @params['intial_escrow_payment_total'] = Money.new(intial_escrow_payment_total).format
       end
@@ -289,12 +289,12 @@ module Docusign
       end
 
       def other_closing_cost
-        @params['owner_title_policy'] = @params['other_total'] = Money.new(loan.owner_title_policy.round(2)).format
+        @params['owner_title_policy'] = @params['other_total'] = Money.new(loan.owner_title_policy.to_f.round(2)).format
         @params['owner_title_policy_text'] = 'Title - Owner Title Policy'
       end
 
       def sum_closing_costs
-        @params['lender_credits'] = Money.new(loan.lender_credits.round(2)).format
+        @params['lender_credits'] = Money.new(loan.lender_credits.to_f.round(2)).format
         @params['total_loan_costs_and_other_costs'] = Money.new(total_loan_costs_and_other_costs).format
         @params['total_closing_costs'] = Money.new(total_closing_costs).format
       end
@@ -350,12 +350,12 @@ module Docusign
         if list.class == Array
           list.each do |key|
             number = @loan.method(key).call
-            @params[key] = Money.new(number.round(2)).format
+            @params[key] = Money.new(number.to_f.round(2)).format
           end
         else
           list.each do |key, value|
             number = @loan.method(key).call
-            @params[key] = Money.new(number.round(2)).format
+            @params[key] = Money.new(number.to_f.round(2)).format
             @params["#{key}_text"] = value
           end
         end
