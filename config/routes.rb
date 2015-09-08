@@ -20,20 +20,29 @@ Rails.application.routes.draw do
 
   devise_for :users,
     controllers: {
-      sessions: 'users/sessions', registrations: 'users/registrations',
-      confirmations: 'users/confirmations', passwords: 'users/passwords',
+      sessions: 'users/sessions',
+      registrations: 'users/registrations',
+      confirmations: 'users/confirmations',
+      passwords: 'users/passwords',
       unlocks: 'users/unlocks'
     },
     path: 'auth',
     path_names: {
-      sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification',
-      unlock: 'unblock', registration: 'register', sign_up: 'signup'
+      sign_in: 'login',
+      sign_out: 'logout',
+      password: 'secret',
+      confirmation: 'verification',
+      unlock: 'unblock',
+      registration: 'register',
+      sign_up: 'signup'
     }
 
   devise_scope :user do
     get 'login', to: 'users/sessions#new', as: :custom_login
     get 'signup', to: 'users/registrations#new', as: :custom_signup
   end
+
+  resources :invites, only: [:index, :create]
 
   resources :rates, only: [:index] do
     collection do

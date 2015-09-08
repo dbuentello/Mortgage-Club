@@ -1,5 +1,7 @@
-.thumbnail > img {
+div.img-home {
   height: 200px;
+  width: 100%;
+  content: url(asset_path('home.jpg'));
 }
 
 .boxGuide {
@@ -37,4 +39,28 @@ button.btnInfo:focus {
 
 .upload-zone {
   height: 70px;
+}
+
+// Referrals
+.ref-form {
+  margin-top: 30px;
+}
+
+.btn-copy {
+  padding: 7px 7px;
+}
+
+.invite-form {
+  margin-top: 15px;
+}
+
+.call-info {
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+
+.btn-invites {
+  margin-top: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }

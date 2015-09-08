@@ -30,8 +30,6 @@ var Dashboard = React.createClass({
         activeTab: this.getValue(e.target.attributes, 'aria-controls').value
       });
     }.bind(this));
-
-    // console.dir(this.props.bootstrapData.loan);
   },
 
   destroyLoan: function() {
