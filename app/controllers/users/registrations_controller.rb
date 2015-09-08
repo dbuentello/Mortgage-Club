@@ -7,6 +7,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     @token = params[:invite_token]
+    @invite_code =  params[:invite_code]
 
     super
   end
@@ -14,6 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     @token = params[:invite_token]
+    @invite_code =  params[:invite_code]
 
     build_resource(sign_up_params)
 
@@ -25,6 +27,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
         invite = Invite.find_by_token(@token)
         invite.join_at = Time.zone.now
         invite.save
+      else
+        if !@invite_code.nil?
+          full_name = "#{params[:user][:first_name]} #{params[:user][:last_name]}"
+          invite = Invite.new(email: params[:user][:email], name: full_name)
+          invite.sender_id = @invite_code
+          invite.join_at = Time.zone.now
+          invite.save
+        end
       end
 
       if resource.active_for_authentication?
