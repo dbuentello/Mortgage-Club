@@ -7,7 +7,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     @token = params[:invite_token]
-    @invite_code =  params[:invite_code]
+    @invite_code = params[:invite_code]
 
     super
   end
@@ -15,7 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     @token = params[:invite_token]
-    @invite_code =  params[:invite_code]
+    @invite_code = params[:invite_code]
 
     build_resource(sign_up_params)
 
