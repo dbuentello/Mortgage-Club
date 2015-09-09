@@ -83,6 +83,25 @@ When /^I am at dashboard page$/ do
   }
 end
 
+When /^I am at my loans page$/ do
+  many_steps %{
+    Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a property with the purchase price "1000000" and with the usage "0"
+      And there is a closing with the name "Fake Name"
+      And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the property above and with the closing above
+      And there is a loan_member_user_with_loan_member with the first name "Michael" and the last name "Gifford"
+      And there is a address with the street address "81458 Borer Falls" and the street address2 "Apt. 305" and the city "West Emiltown" and the state "Virginia" and the zip "9999" with the property above
+      And there is a lease agreement with the property above and with the attachment file name "property-document-name"
+      And there is a first w2 with the borrower above and with the attachment file name "borrower-document-name"
+      And there is a hud estimate with the loan above and with the attachment file name "loan-document-name"
+      And there is a closing disclosure with the closing above and with the attachment file name "closing-document-name"
+      And there is a loans members association with the loan above and with the loan member above and with the title "sale"
+      And there is a loans members association with the title "manager" and with the loan above
+      And I login as "testing@man.net" with password "secretpass"
+      And I wait for 1 second
+  }
+end
+
 When /^I clear value in "(.*?)"$/ do |field|
   patiently do
     fill_in(field, with: '')

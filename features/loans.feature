@@ -6,3 +6,10 @@ Feature: Loans
     Then I go to the my loans page
       And I should see "Loans"
       And I should see "Referrals"
+      And I should see "Settings"
+
+  @javascript
+  Scenario: click on tabs
+    When I am at my loans page
+    Then I click on "Referrals"
+      And I should see "Referrals Program"
