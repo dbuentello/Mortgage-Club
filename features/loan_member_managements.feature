@@ -23,7 +23,7 @@ Feature: LoanMemberManagements
       | *         | Cuong Vu | cuongvu0103@gmail.com  | 8889998      | keeping_fit  |
     Then an email should have been sent with:
       """
-      From: elmido.it@gmail.com
+      From: billy@mortgageclub.io
       To: cuongvu0103@gmail.com
       Subject: Confirmation instructions
       """

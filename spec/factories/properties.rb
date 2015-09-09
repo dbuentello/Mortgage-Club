@@ -1,7 +1,5 @@
 FactoryGirl.define do
   factory :property do |f|
-    address
-
     f.property_type { Random.rand(4) }
     f.usage { Random.rand(3) }
     f.purchase_price { Faker::Number.decimal(8, 0) }
@@ -15,5 +13,9 @@ FactoryGirl.define do
 
   factory :rental_property, parent: :property do |f|
     f.gross_rental_income { Faker::Number.number(5) }
+  end
+
+  factory :property_with_address, parent: :property do |f|
+    address
   end
 end
