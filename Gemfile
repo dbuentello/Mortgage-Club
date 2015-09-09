@@ -170,6 +170,7 @@ group :test do
   gem 'timecop'
   gem 'vcr'
   gem 'webmock'
+  gem 'email_spec'
   gem 'json-schema'
 end
 

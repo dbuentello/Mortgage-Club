@@ -140,6 +140,9 @@ GEM
     dotenv-rails (2.0.2)
       dotenv (= 2.0.2)
       railties (~> 4.0)
+    email_spec (1.6.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
     erubis (2.7.0)
     eventmachine (1.0.8)
     execjs (2.6.0)
@@ -445,6 +448,7 @@ DEPENDENCIES
   devise (~> 3.5)
   docusign_rest!
   dotenv-rails
+  email_spec
   factory_girl_rails
   faker
   finance

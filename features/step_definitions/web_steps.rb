@@ -37,8 +37,9 @@ Given /^I wait for (\d+) seconds?$/ do |n|
 end
 
 When /^I attach the file "([^\"]*)" to the hidden "([^\"]*)"$/ do |path, field|
+  page.execute_script("document.getElementsByName('#{field}')[0].className = '';")
   patiently do
-    attach_file(field, File.expand_path(path), visible: false)
+    attach_file(field, File.expand_path(path))
   end
 end
 
@@ -91,4 +92,9 @@ end
 
 Then /^the  "(.*?)" field should contain "(.*?)"$/ do |field, value|
   field_labeled(field).value.should =~ /#{value}/
+end
+
+When /^I press "([^\"]*)" in the modal "([^\"]*)"$/ do |text, modal|
+  button = page.find(:xpath, "//div[contains(@id, '#{modal}')]//button[contains(., '#{text}')]")
+  button.click
 end

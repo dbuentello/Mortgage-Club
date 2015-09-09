@@ -57,7 +57,7 @@ var BooleanRadioView = React.createClass({
         <label className="col-xs-12 pan">{this.props.label}</label>
         <div className="control-group mbs" style={{'display': this.props.editable ? null : 'none'}}>
           <label className="radio-inline mrm">
-            <input type="radio" value='true' name={this.props.keyName} onChange={this.handleChange}
+            <input type="radio" value='true' name={this.props.name} onChange={this.handleChange}
               checked={display === this.props.yesLabel} id={'true_' + this.props.keyName}/>
             {this.props.yesLabel}
           </label>

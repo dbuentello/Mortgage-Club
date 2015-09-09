@@ -36,10 +36,10 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
   def create
     default_password = 'loan_member_password'
     @user = User.new(user_params.merge(password: default_password, password_confirmation: default_password))
-    @user.skip_confirmation!
+    @user.skip_confirmation! unless params[:send_confirmation_email]
     @loan_member = @user.build_loan_member(loan_member_params)
 
-    if @user.save && @loan_member.save
+    if @user.save
       @user.add_role :loan_member
 
       render json: {
@@ -48,7 +48,18 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
         message: 'Created sucessfully'
       }, status: 200
     else
-      render json: {message: "Created failed"}, status: 500
+      render json: {message: @user.errors.full_messages.first}, status: 500
+    end
+  end
+
+  def destroy
+    if @loan_member.user.destroy
+      render json: {
+        message: "Removed the #{@loan_member.user.to_s} successfully",
+        loan_members: LoanMembersPresenter.index(LoanMember.all)
+      }, status: 200
+    else
+      render json: {message: "Cannot remove the checklist"}, status: 500
     end
   end
 

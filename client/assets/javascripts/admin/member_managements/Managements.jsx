@@ -26,7 +26,7 @@ var Managements = React.createClass({
       <div className='content container'>
         <div className='pal'>
           <div className='row'>
-            <h2 className='mbl'>Loan Members</h2>
+            <h2 className='mbl'>Team Members</h2>
             <table className="table table-striped">
               <thead>
                 <tr>
@@ -35,7 +35,6 @@ var Managements = React.createClass({
                   <th>Email</th>
                   <th>Phone number</th>
                   <th>Skype</th>
-                  <th>Role</th>
                   <th></th>
                 </tr>
               </thead>
@@ -51,7 +50,6 @@ var Managements = React.createClass({
                         <td>{member.user.email}</td>
                         <td>{member.phone_number}</td>
                         <td>{member.skype_handle}</td>
-                        <td>{member.user.role_name}</td>
                         <td>
                           <span>
                             <a className='linkTypeReversed btn btn-primary' href={'loan_member_managements/' + member.id + '/edit'} data-method='get'>Edit</a>
