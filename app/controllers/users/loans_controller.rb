@@ -2,14 +2,15 @@ class Users::LoansController < Users::BaseController
   before_action :set_loan, only: [:edit, :update, :destroy]
 
   def index
-    # ref_url = "#{url_for(:only_path => false)}?_u=#{current_user.id}"
-    ref_url = new_user_registration_url(:invite_code => current_user.id)
+    ref_url = "#{url_for(:only_path => false)}?refcode=#{current_user.id}"
     invites = Invite.where(sender_id: current_user.id)
+    @ref_code = params[:refcode]
 
     bootstrap(
       loans: LoansPresenter.new(current_user.loans).show,
       invites: InvitesPresenter.index(invites),
-      refLink: ref_url
+      refCode: @ref_code,
+      refLink: ref_url,
     )
 
     respond_to do |format|
