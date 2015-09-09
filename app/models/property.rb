@@ -63,6 +63,8 @@ class Property < ActiveRecord::Base
     rental_property: 2
   }
 
+  validates_associated :address
+
   def usage_name
     return unless usage
 
