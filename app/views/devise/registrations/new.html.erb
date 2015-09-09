@@ -2,12 +2,9 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-  <% if !@token.nil? %>
-    <%= hidden_field_tag :invite_token, @token %>
-  <% end %>
-  <% if !@invite_code.nil? %>
-    <%= hidden_field_tag :invite_code, @invite_code %>
-  <% end %>
+
+  <%= hidden_field_tag :invite_token, nil %>
+  <%= hidden_field_tag :ref_code, nil %>
 
   <div class="field">
     <%= f.label :first_name %><br>
@@ -47,3 +44,34 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<script type="text/javascript">
+  // Set cookie invite token value
+  <% if !@token.nil? %>
+    document.cookie="_refToken=<%= @token %>";
+  <% end %>
+
+  // Set invite token value
+  var ref_token = getCookie('_refToken');
+  if (ref_token != null) {
+    document.getElementById("invite_token").setAttribute('value', ref_token);
+  }
+
+  // Set refCode value
+  var ref_code = getCookie('_refcode');
+  if (ref_code != null) {
+    document.getElementById("ref_code").setAttribute('value', ref_code);
+  }
+
+  // Get cookie value
+  function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+  }
+</script>

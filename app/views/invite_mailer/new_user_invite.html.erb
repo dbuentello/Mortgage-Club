@@ -1,15 +1,97 @@
-<p><b><%= @sender.to_s %></b> has invited you to join Mortgage Club</p>
-<p>Welcome to Mortgage Club! <b><%= @sender.to_s %></b> thought you would be interested in learning more about how Mortgage Club can make your next loan process and simple and fast experience with dedicated help every step of the way.
-</p>
-<p>
-Work with us on your next loan and save 50% off your first origination fee! On a $200k loan, you could save $2500!
-</p>
-<p>Here are just a few reasons why borrowers love Mortgage Club:</p>
-<ul>
-  <li>Get a term sheet in 3 minutes, close a loan in a few as 10 days.</li>
-  <li>Simple, 100% online process with dedicated help every step of the way.</li>
-  <li>One reliable direct lender across multiple states.</li>
-  <li>No junk fees.</li>
-</ul>
-<p>Start saving time and money now with Mortgage Club. Sign up by clicking the link below.</p>
-<p><%= link_to 'Create Your Free Account', new_user_registration_url(:invite_token => @invite.token) %></p>
+<div style="background-color:#f8f8f8;margin:0;padding:0;min-height:100%!important;width:100%!important">
+   <div class="adM"></div>
+   <center>
+      <table border="0" cellpadding="0" cellspacing="0" height="100%" style="background-color:#f8f8f8" width="100%">
+         <tbody>
+            <tr>
+               <td align="center" style="padding-top:10px;padding-right:20px;padding-bottom:10px;padding-left:20px" valign="top">
+                  <table border="0" cellpadding="0" cellspacing="0" style="width:600px">
+                     <tbody>
+                        <tr>
+                           <td align="left" valign="top">
+                              <b>MortgageClub</b>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td align="center" style="padding-top:15px;padding-bottom:20px" valign="top">
+                              <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-collapse:separate!important;border-radius:4px;border:1px solid #eaeaea" width="100%">
+                                 <tbody>
+                                    <tr>
+                                       <td align="left" style="color:#333;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size:13px;font-weight:normal;font-style:normal;line-height:150%;padding-top:20px;padding-right:20px;padding-bottom:0;padding-left:20px;text-align:left" valign="top">
+                                          <h1 style="color:#555!important;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size:20px;font-weight:500;line-height:115%;margin:0;text-align:left;border-bottom:1px solid #e1e1e1;padding-bottom:15px">
+                                             <p><b><%= @sender.to_s %></b> has invited you to join Mortgage Club</p>
+                                          </h1>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td align="left" style="color:#333;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size:13px;font-weight:normal;font-style:normal;line-height:150%;padding-top:20px;padding-right:20px;padding-bottom:20px;padding-left:20px;text-align:left" valign="top">
+
+                                          <p>Welcome to Mortgage Club! <b><%= @sender.to_s %></b> thought you would be interested in learning more about how Mortgage Club can make your next loan process and simple and fast experience with dedicated help every step of the way.
+                                          </p>
+                                          <p>
+                                          Work with us on your next loan and save 50% off your first origination fee! On a $200k loan, you could save $2500!
+                                          </p>
+                                          <p>Here are just a few reasons why borrowers love Mortgage Club:</p>
+                                          <ul>
+                                            <li>Get a term sheet in 3 minutes, close a loan in a few as 10 days.</li>
+                                            <li>Simple, 100% online process with dedicated help every step of the way.</li>
+                                            <li>One reliable direct lender across multiple states.</li>
+                                            <li>No junk fees.</li>
+                                          </ul>
+                                          <p>Start saving time and money now with Mortgage Club. Sign up by clicking the link below.</p>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td align="left" style="padding-right:20px;padding-bottom:20px;padding-left:20px">
+                                          <table border="0" cellpadding="0" cellspacing="0" style="background-color:#75c65c;border-collapse:separate!important;border-radius:3px">
+                                             <tbody>
+                                                <tr>
+                                                   <td align="left" style="color:#ffffff;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size:13px;font-weight:500;text-transform:capitalize;letter-spacing:1px;line-height:100%;padding-top:12px;padding-bottom:12px;padding-left:18px;padding-right:18px" valign="left">
+                                                      <%= link_to 'Create Your Free Account', custom_signup_url(:invite_token => @invite.token), {style:"text-decoration:none!important;color:#fff"} %>
+                                                   </td>
+                                                </tr>
+                                             </tbody>
+                                          </table>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td align="left" valign="top">
+                              <table border="0" cellpadding="0" cellspacing="0" style="margin-bottom:40px">
+                                 <tbody>
+                                    <tr>
+                                       <td align="left" style="padding-left:20px;color:#888;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.4em" valign="top">
+                                          Copyright © 2015 MortgageClub.
+                                          All rights reserved.
+                                          <br>
+                                          <a href="#" style="color:#333!important;text-decoration:none!important">
+                                          <span style="color:#888!important">MortgageClub address</span>
+                                          </a>
+                                          <br>
+                                          MortgageClub Funding Corporation operates via NMLS ID #111111
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td style="padding-left:20px;padding-top:5px;color:#aaa;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.4em" valign="top">
+                                          <a style="text-decoration:underline;color:#888" href="#" target="_blank">Terms of Use</a>
+                                          &nbsp;•&nbsp;
+                                          <a style="text-decoration:underline;color:#888" href="#" target="_blank">Privacy Policy</a>
+                                          &nbsp;•&nbsp;
+                                          <a style="text-decoration:underline;color:#888" href="#" target="_blank">Login</a>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </center>
+</div>

@@ -29,6 +29,10 @@ var HomeDashBoard = React.createClass({
     var loans = this.props.bootstrapData.loans;
     var refLink = this.props.bootstrapData.refLink;
     var invites = this.props.bootstrapData.invites;
+    var refCode = this.props.bootstrapData.refCode;
+    if (refCode != null) {
+      document.cookie = "_refcode=" + refCode;
+    }
 
     return (
       <div className='dashboard content'>
