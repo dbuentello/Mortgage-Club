@@ -25,11 +25,12 @@ Feature: LoanMemberManagements
       """
       From: billy@mortgageclub.io
       To: cuongvu0103@gmail.com
-      Subject: Confirmation instructions
+      Subject: Welcome to MortgageClub
       """
       And "cuongvu0103@gmail.com" should receive an email
-      And I open the email
-      And I follow "Confirm my account" in the email
+      Then I open the email
+        And I should see "Thank you for joining MortgageClub" in the email body
+        And I follow "Confirm Your Account" in the email
     Then I should see "Your email address has been successfully confirmed."
 
   @javascript
