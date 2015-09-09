@@ -2,6 +2,12 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
+  <% if !@token.nil? %>
+    <%= hidden_field_tag :invite_token, @token %>
+  <% end %>
+  <% if !@invite_code.nil? %>
+    <%= hidden_field_tag :invite_code, @invite_code %>
+  <% end %>
 
   <div class="field">
     <%= f.label :first_name %><br>

@@ -171,6 +171,7 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'email_spec'
+  gem 'json-schema'
 end
 
 group :production do

@@ -1,0 +1,15 @@
+<p><b><%= @sender.to_s %></b> has invited you to join Mortgage Club</p>
+<p>Welcome to Mortgage Club! <b><%= @sender.to_s %></b> thought you would be interested in learning more about how Mortgage Club can make your next loan process and simple and fast experience with dedicated help every step of the way.
+</p>
+<p>
+Work with us on your next loan and save 50% off your first origination fee! On a $200k loan, you could save $2500!
+</p>
+<p>Here are just a few reasons why borrowers love Mortgage Club:</p>
+<ul>
+  <li>Get a term sheet in 3 minutes, close a loan in a few as 10 days.</li>
+  <li>Simple, 100% online process with dedicated help every step of the way.</li>
+  <li>One reliable direct lender across multiple states.</li>
+  <li>No junk fees.</li>
+</ul>
+<p>Start saving time and money now with Mortgage Club. Sign up by clicking the link below.</p>
+<p><%= link_to 'Create Your Free Account', new_user_registration_url(:invite_token => @invite.token) %></p>

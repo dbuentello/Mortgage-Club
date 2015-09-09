@@ -6,7 +6,7 @@ describe LoanMember do
   end
 
   it 'has valid with_user factory' do
-    loan_member = FactoryGirl.build(:loan_member, :with_user)
+    loan_member = FactoryGirl.build(:loan_member)
 
     expect(loan_member).to be_valid
     expect(loan_member.first_name).to be_truthy
