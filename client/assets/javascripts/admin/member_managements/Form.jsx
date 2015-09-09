@@ -4,6 +4,7 @@ var FlashHandler = require('mixins/FlashHandler');
 var TextField = require('components/form/TextField');
 var UploadField = require('components/form/UploadField');
 var ModalLink = require('components/ModalLink');
+var BooleanRadio = require('components/form/BooleanRadio');
 
 var Form = React.createClass({
   mixins: [FlashHandler],
@@ -32,7 +33,9 @@ var Form = React.createClass({
         skypeHandle: this.props.Member.skype_handle
       };
     }else {
-      return {};
+      return {
+        sendConfirmation: true
+      };
     }
   },
 
@@ -168,6 +171,20 @@ var Form = React.createClass({
                 onChange={this.onChange}/>
             </div>
           </div>
+          { !this.props.Member ?
+            <div className="form-group">
+              <div className="col-sm-4">
+                <BooleanRadio
+                  label="Send confirmation email?"
+                  keyName="sendConfirmation"
+                  name="send_confirmation_email"
+                  editable={true}
+                  checked={this.state.sendConfirmation}
+                  onChange={this.onChange}/>
+              </div>
+            </div>
+            : null
+          }
           <div className="form-group">
             <div className="col-sm-10">
               <button className="btn btn-primary" onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? 'Submitting' : 'Submit' }</button>
