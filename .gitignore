@@ -17,6 +17,8 @@
 *.log
 /tmp
 
+/spec/fixtures/*.yml
+
 # Test files
 /public/uploads
 
