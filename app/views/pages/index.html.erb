@@ -74,7 +74,7 @@
 </div>
 
 <script type="text/javascript">
-  <% if !@refcode.nil? %>
+  <% if @refcode.present? %>
     document.cookie="_refcode=<%= @refcode %>";
   <% end %>
 </script>

@@ -11,5 +11,8 @@ Feature: Loans
   @javascript
   Scenario: click on tabs
     When I am at my loans page
-    Then I click on "Referrals"
-      And I should see "Referrals Program"
+      Then I click "Referrals"
+        And I should see "Referrals Program"
+        And I should see "Your Referrals"
+        And I should see "Your Referral Link"
+        And I should see "Invite by Email"

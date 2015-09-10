@@ -47,7 +47,7 @@
 
 <script type="text/javascript">
   // Set cookie invite token value
-  <% if !@token.nil? %>
+  <% if @token.present? %>
     document.cookie="_refToken=<%= @token %>";
   <% end %>
 
