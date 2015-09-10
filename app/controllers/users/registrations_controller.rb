@@ -16,40 +16,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @token = params[:invite_token]
     @invite_code = params[:ref_code]
+    super
 
-    build_resource(sign_up_params)
-
-    resource.save
-    yield resource if block_given?
     if resource.persisted?
       # Update invite join_at
-      if !@token.nil?
-        invite = Invite.find_by_token(@token)
-        invite.join_at = Time.zone.now
-        invite.save
-      else
-        if !@invite_code.nil?
-          full_name = "#{params[:user][:first_name]} #{params[:user][:last_name]}"
-          invite = Invite.new(email: params[:user][:email], name: full_name)
-          invite.sender_id = @invite_code
-          invite.join_at = Time.zone.now
-          invite.save
-        end
-      end
-
-      if resource.active_for_authentication?
-        set_flash_message :notice, :signed_up if is_flashing_format?
-        sign_up(resource_name, resource)
-        respond_with resource, location: after_sign_up_path_for(resource)
-      else
-        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
-        expire_data_after_sign_in!
-        respond_with resource, location: after_inactive_sign_up_path_for(resource)
-      end
-    else
-      clean_up_passwords resource
-      set_minimum_password_length
-      respond_with resource
+      InviteService.update(@token, @invite_code, resource)
     end
 
     if params[:role] == "loan-owner"
