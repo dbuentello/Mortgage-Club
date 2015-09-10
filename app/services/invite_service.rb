@@ -1,5 +1,5 @@
 class InviteService
-  def self.update(token, invite_code, user)
+  def self.call(token, invite_code, user)
     # Update invite join_at
     if token.present?
       invite = Invite.find_by_token(token)
