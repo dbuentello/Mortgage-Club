@@ -150,7 +150,7 @@ if Loan.where(lender_name: 'Ficus Bank').blank?
   [
     'loan_amount_increase', 'interest_rate_increase', 'monthly_principal_interest_increase',
     'prepayment_penalty', 'balloon_payment', 'include_property_taxes', 'include_homeowners_insurance',
-    'include_other', 'include_other_text', 'in_escrow_property_taxes', 'in_escrow_homeowners_insurance', 'rate_lock',
+    'include_other', 'in_escrow_property_taxes', 'in_escrow_homeowners_insurance', 'rate_lock',
     'in_escrow_other', 'assumption_will_allow', 'assumption_will_not_allow', 'servicing_service', 'servicing_transfer'
   ].each do |attribute|
     loan.send("#{attribute}=", [true, false].sample)
@@ -165,6 +165,5 @@ if Loan.where(lender_name: 'Ficus Bank').blank?
   loan.annual_percentage_rate = 0.42
   loan.total_interest_percentage = 0.6945
   loan.late_days = 15
-  loan.late_fee_text = 'the monthly principal and interest payment'
   loan.save
 end

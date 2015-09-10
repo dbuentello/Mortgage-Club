@@ -14,7 +14,7 @@ module Docusign
 
       tabs = helper.get_tabs_from_template(
         template_id: envelope_hash[:template_id], template_name: envelope_hash[:template_name],
-        values: envelope_hash[:values]
+        data: envelope_hash[:data]
       )
       signer = {
         embedded: envelope_hash[:embedded],
@@ -24,6 +24,7 @@ module Docusign
       }
       signer = signer.merge(tabs)
       build_cosignature(signer) if envelope_requires_cosignature?
+      Docusign::AlignTabsForLoanEstimateService.new(signer).call
       signers << signer
     end
 

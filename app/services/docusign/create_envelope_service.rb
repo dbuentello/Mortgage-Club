@@ -15,6 +15,7 @@ module Docusign
 
     def call
       @envelope_hash = build_envelope_hash
+      signers = Docusign::BuildSignatureForEnvelopeService.new(loan, template, @envelope_hash).call
       envelope_response = client.create_envelope_from_document(
         status: 'sent',
         email: {
@@ -22,7 +23,7 @@ module Docusign
           body: @envelope_hash[:email_body]
         },
         template_id: @envelope_hash[:template_id],
-        signers: Docusign::BuildSignatureForEnvelopeService.new(loan, template, @envelope_hash).call,
+        signers: signers,
         files: [
           build_file
         ]
@@ -36,7 +37,7 @@ module Docusign
     def build_envelope_hash
       envelope_hash = {
         user: {name: user.to_s, email: user.email},
-        values: mapping_value,
+        data: mapping_value,
         embedded: true,
         loan_id: loan.id,
         template_name: template.name,

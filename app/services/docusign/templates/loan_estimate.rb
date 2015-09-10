@@ -219,12 +219,7 @@ module Docusign
       end
 
       def add_rate_lock
-        case loan.rate_lock
-        when true
-          @params['rate_lock_yes'] = 'x'
-        when false
-          @params['rate_lock_no'] = 'x'
-        end
+        loan.rate_lock ? (@params['rate_lock_yes'] = 'x') : (@params['rate_lock_no'] = 'x')
       end
 
       def applicant_name
@@ -294,7 +289,7 @@ module Docusign
       end
 
       def sum_closing_costs
-        @params['lender_credits'] = Money.new(loan.lender_credits.to_f.round(2)).format
+        @params['lender_credits'] ||= Money.new(loan.lender_credits.to_f.round(2)).format
         @params['total_loan_costs_and_other_costs'] = Money.new(total_loan_costs_and_other_costs).format
         @params['total_closing_costs'] = Money.new(total_closing_costs).format
       end
@@ -336,8 +331,9 @@ module Docusign
         @params['assumption_will_not_allow'] = 'x' if loan.assumption_will_not_allow
         @params['servicing_service'] = 'x' if loan.servicing_service
         @params['servicing_transfer'] = 'x' if loan.servicing_transfer
-
-        map_string_to_params(['late_days', 'late_fee_text'])
+        @params['late_fee_text_top'] = 'the monthly'
+        @params['late_fee_text_bottom'] ='principal and interest payment'
+        map_string_to_params(['late_days'])
       end
 
       def map_string_to_params(list, object = loan)

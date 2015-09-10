@@ -11,7 +11,7 @@ describe Docusign::BuildSignatureForEnvelopeService do
       sign_here_tabs: [{}],
       date_signed_tabs: [{}]
     })
-
+    allow_any_instance_of(Docusign::AlignTabsForLoanEstimateService).to receive(:call)
     @envelope_hash = {
       user: {name: user.to_s, email: user.email},
       values: {},
