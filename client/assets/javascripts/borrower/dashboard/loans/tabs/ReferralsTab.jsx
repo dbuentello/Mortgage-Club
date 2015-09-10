@@ -92,37 +92,37 @@ var ReferralsTab = React.createClass({
 
                 <div className="row invite-form">
                   <div className="col-md-3">
-                    <input type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
+                    <input id="invite-email-1" type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
                   </div>
                   <div className="col-md-3">
-                    <input type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
+                    <input id="invite-name-1" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
                   </div>
                   <div className="col-md-3">
-                    <input type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
-                  </div>
-                </div>
-
-                <div className="row invite-form">
-                  <div className="col-md-3">
-                    <input type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
-                  </div>
-                  <div className="col-md-3">
-                    <input type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
-                  </div>
-                  <div className="col-md-3">
-                    <input type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
+                    <input id="invite-phone-1" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
                   </div>
                 </div>
 
                 <div className="row invite-form">
                   <div className="col-md-3">
-                    <input type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
+                    <input id="invite-email-2" type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
                   </div>
                   <div className="col-md-3">
-                    <input type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
+                    <input id="invite-name-2" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
                   </div>
                   <div className="col-md-3">
-                    <input type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
+                    <input id="invite-phone-2" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
+                  </div>
+                </div>
+
+                <div className="row invite-form">
+                  <div className="col-md-3">
+                    <input id="invite-email-3" type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
+                  </div>
+                  <div className="col-md-3">
+                    <input id="invite-name-3" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
+                  </div>
+                  <div className="col-md-3">
+                    <input id="invite-phone-3" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
                   </div>
                 </div>
                 <a className="btn btnPrimary btn-invites" onClick={this.sendInvites}>SEND INVITES</a>
