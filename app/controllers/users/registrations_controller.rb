@@ -14,13 +14,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    super
+
     @token = params[:invite_token]
     @invite_code = params[:ref_code]
-    super
 
     if resource.persisted?
       # Update invite join_at
-      InviteService.update(@token, @invite_code, resource)
+      InviteService.delay.call(@token, @invite_code, resource)
     end
 
     if params[:role] == "loan-owner"

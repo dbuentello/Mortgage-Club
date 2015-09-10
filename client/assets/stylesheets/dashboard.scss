@@ -1,7 +1,9 @@
 div.img-home {
   height: 200px;
   width: 100%;
-  content: url(asset_path('home.jpg'));
+  background-image: url(asset_path('home.jpg'));
+  background-repeat:no-repeat;
+  background-size: 100% 100%
 }
 
 .boxGuide {
@@ -47,7 +49,9 @@ button.btnInfo:focus {
 }
 
 .btn-copy {
-  padding: 7px 7px;
+  height: 34px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
 
 .invite-form {
