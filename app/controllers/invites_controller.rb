@@ -12,7 +12,7 @@ class InvitesController < ApplicationController
 
       if invite.save
         if invite.recipient.nil?
-          InviteMailer.delay.new_user_invite(current_user, invite)
+          InviteMailer.new_user_invite(current_user, invite).deliver_later
           invite_counter += 1
         else
           # the user already exists
