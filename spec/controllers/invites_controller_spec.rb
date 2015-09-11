@@ -5,6 +5,9 @@ describe Users::InvitesController do
 
   let(:invite) { FactoryGirl.create(:invite) }
   let(:user) { FactoryGirl.create(:user) }
+  before(:each) do
+    Delayed::Worker.delay_jobs = true
+  end
 
   describe "POST #create invite" do
     describe 'with valid attributes' do
