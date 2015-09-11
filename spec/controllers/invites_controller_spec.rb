@@ -5,6 +5,9 @@ describe Users::InvitesController do
 
   let(:invite) { FactoryGirl.create(:invite) }
   let(:user) { FactoryGirl.create(:user) }
+  before(:each) do
+    Delayed::Worker.delay_jobs = true
+  end
 
   describe "POST #create invite" do
     describe 'with valid attributes' do
@@ -23,7 +26,7 @@ describe Users::InvitesController do
       it "response success" do
         post :create, invite: {email: ["abc@gmail.com"], name: [""], phone: [""]}, format: :json
         expect(response.status).to eq(200)
-        expect(response.body).to eq("{\"success\":true,\"message\":\"1 person was successfully invited to Mortgage Club!\"}")
+        expect(response.body).not_to eq("{\"success\":false,\"message\":\"Error, the email is already invited or not valid!\"}")
       end
     end
 

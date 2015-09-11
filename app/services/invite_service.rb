@@ -3,15 +3,14 @@ class InviteService
     # Update invite join_at
     if token.present?
       invite = Invite.find_by_token(token)
+      invite.name = user.to_s
       invite.join_at = Time.zone.now
+      invite.recipient_id = user.id
       invite.status = 'done'
       invite.save
     else
       if invite_code.present?
-        invite = Invite.new(email: user.email, name: user.to_s, status: 'done')
-        invite.sender_id = invite_code
-        invite.join_at = Time.zone.now
-        invite.save
+        Invite.create(email: user.email, name: user.to_s, status: 'done', sender_id: invite_code, recipient_id: user.id, join_at: Time.zone.now)
       end
     end
   end

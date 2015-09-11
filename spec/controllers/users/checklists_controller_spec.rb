@@ -50,11 +50,11 @@ describe Users::ChecklistsController do
         expect(checklist.status).to eq('done')
       end
 
-      it "calls Docusign::UploadEnvelopeToAmazonService" do
-        allow_any_instance_of(Docusign::UploadEnvelopeToAmazonService).to receive(:call)
-        get :docusign_callback, event: "signing_complete", id: checklist.id, loan_id: checklist.loan.id, envelope_id: "an-envelope-id", user_id: user.id
-        expect(Delayed::Job.count).to eq(1)
-      end
+      # it "calls Docusign::UploadEnvelopeToAmazonService" do
+      #   allow_any_instance_of(Docusign::UploadEnvelopeToAmazonService).to receive(:call)
+      #   get :docusign_callback, event: "signing_complete", id: checklist.id, loan_id: checklist.loan.id, envelope_id: "an-envelope-id", user_id: user.id
+      #   expect(Delayed::Job.count).to eq(1)
+      # end
     end
   end
 end

@@ -86,7 +86,7 @@ end
 
 When /^I am at my loans page$/ do
   many_steps %{
-    Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and with the first name "Billy" and with the last name "Tran"
       And there is a property with the purchase price "1000000" and with the usage "0"
       And there is a closing with the name "Fake Name"
       And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the property above and with the closing above

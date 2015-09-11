@@ -4,25 +4,38 @@ var FlashHandler = require('mixins/FlashHandler');
 
 var ReferralsTab = React.createClass({
   mixins: [FlashHandler, TextFormatMixin],
-
+  getInitialState: function() {
+    return {
+      invites: this.props.invites
+    };
+  },
   copyToClipboard: function() {
-     // create a "hidden" input
-    var aux = document.createElement("input");
-    // assign it the value of the specified element
-    aux.setAttribute("value", this.props.refLink);
-    // append it to the body
-    document.body.appendChild(aux);
-    // highlight its content
-    aux.select();
-    // copy the highlighted text
-    document.execCommand("copy");
-    // remove it from the body
-    document.body.removeChild(aux);
+    try {
+      // create a "hidden" input
+      var aux = document.createElement("input");
+      // assign it the value of the specified element
+      aux.setAttribute("value", this.props.refLink);
+      // append it to the body
+      document.body.appendChild(aux);
+      // highlight its content
+      aux.select();
+      // copy the highlighted text
+      document.execCommand("copy");
+      // remove it from the body
+      document.body.removeChild(aux);
 
+      var flash = { "alert-success": "COPIED" };
+      this.showFlashes(flash);
+    } catch(err) {
+      if (navigator.platform.indexOf('Mac') > -1) {
+        var flash = { "alert-info": "Press ⌘+C to copy." };
+        this.showFlashes(flash);
+      } else {
+        var flash = { "alert-info": "Press Ctrl+C to copy." };
+      this.showFlashes(flash);
+      }
+    }
     document.getElementById("refLink").select();
-
-    var flash = { "alert-success": "COPIED" };
-    this.showFlashes(flash);
   },
 
   sendInvites: function(e) {
@@ -40,6 +53,9 @@ var ReferralsTab = React.createClass({
         } else {
           $('input.col-sm-3').each(function(index, e) {
               $(e).val('')
+          });
+          this.setState({
+            invites: response.invites
           });
         }
         this.showFlashes(flash);
@@ -148,7 +164,7 @@ var ReferralsTab = React.createClass({
                   </tr>
                 </thead>
                 <tbody>
-                  {this.props.invites.map(this.eachInvite)}
+                  {this.state.invites.map(this.eachInvite)}
                 </tbody>
               </table>
             </div>
