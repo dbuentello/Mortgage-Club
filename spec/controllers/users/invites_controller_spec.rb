@@ -23,7 +23,7 @@ describe Users::InvitesController do
       it "response success" do
         post :create, invite: {email: ["abc@gmail.com"], name: [""], phone: [""]}, format: :json
         expect(response.status).to eq(200)
-        expect(response.body).to eq("{\"success\":true,\"message\":\"1 person was successfully invited to Mortgage Club!\"}")
+        expect(response.body).not_to eq("{\"success\":false,\"message\":\"Error, the email is already invited or not valid!\"}")
       end
     end
 
