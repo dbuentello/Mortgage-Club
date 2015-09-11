@@ -17,6 +17,17 @@ Feature: Referrals
         And I fill in "invite-name-3" with "Test 3"
         And I fill in "invite-phone-3" with "090 769 3333"
         Then I click on "SEND INVITES"
+          Then an email should have been sent with:
+            """
+            From: billy@mortgageclub.io
+            To: test1@example.com
+            Subject: Billy Tran has invited you to join Mortgage Club
+            """
+          Then I should see a table with the following rows:
+            | Email                     | Name     | Joined | #Loans Closed |
+            | test1@example.com         | Test 1   | *      | *             |
+            | test2@example.com         | Test 2   | *      | *             |
+            | test3@example.com         | Test 3   | *      | *             |
           And the "invite-email-1" field should contain ""
           And the "invite-email-2" field should contain ""
           And the "invite-email-3" field should contain ""
