@@ -3,6 +3,7 @@ class InviteService
     # Update invite join_at
     if token.present?
       invite = Invite.find_by_token(token)
+      invite.name = user.to_s
       invite.join_at = Time.zone.now
       invite.recipient_id = user.id
       invite.status = 'done'

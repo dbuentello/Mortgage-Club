@@ -4,7 +4,11 @@ var FlashHandler = require('mixins/FlashHandler');
 
 var ReferralsTab = React.createClass({
   mixins: [FlashHandler, TextFormatMixin],
-
+  getInitialState: function() {
+    return {
+      invites: this.props.invites
+    };
+  },
   copyToClipboard: function() {
      // create a "hidden" input
     var aux = document.createElement("input");
@@ -40,6 +44,9 @@ var ReferralsTab = React.createClass({
         } else {
           $('input.col-sm-3').each(function(index, e) {
               $(e).val('')
+          });
+          this.setState({
+            invites: response.invites
           });
         }
         this.showFlashes(flash);
@@ -148,7 +155,7 @@ var ReferralsTab = React.createClass({
                   </tr>
                 </thead>
                 <tbody>
-                  {this.props.invites.map(this.eachInvite)}
+                  {this.state.invites.map(this.eachInvite)}
                 </tbody>
               </table>
             </div>
