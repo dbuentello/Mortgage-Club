@@ -42,6 +42,7 @@ Feature: Referrals
           Then I open the email
             And I should see "<b>Billy Tran</b> has invited you to join Mortgage Club" in the email body
             And I follow "Create Your Free Account" in the email
+              Then the URL should contain "invite_token"
           Then I should see "Sign up"
 
   @javascript
@@ -72,4 +73,3 @@ Feature: Referrals
           Then I should see a table with the following rows:
             | Email                     | Name     | Joined | #Loans Closed |
             | test1@example.com         | Test 1   | *      | *             |
-          And I wait for 10 seconds
