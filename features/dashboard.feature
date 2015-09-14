@@ -16,8 +16,6 @@ Feature: Dashboard
   Scenario: edit a loan
     When I am at dashboard page
       And I click on "Edit Loan"
-    Then I should see "Real Estates"
-      And I should see "ESigning"
 
   @javascript
   Scenario: click on tabs
