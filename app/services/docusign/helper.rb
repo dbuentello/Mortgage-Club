@@ -4,18 +4,6 @@ module Docusign
       @client = args[:client] || DocusignRest::Client.new
     end
 
-    def make_sure_template_name_and_id_exist(options = {})
-      if options[:template_id].blank?
-        options[:template_id] = find_template_id_from_name(options[:template_name])
-      end
-
-      if options[:template_name].blank?
-        options[:template_name] = Template.where(docusign_id: options[:template_id]).first.name
-      end
-
-      options
-    end
-
     # GET template_id
     def find_template_id_from_name(template_name)
       templates = @client.get_templates
@@ -26,19 +14,16 @@ module Docusign
 
     # GET tabs from default recipient of either an envelope or a template
     def get_envelope_recipients_and_tabs(envelope_id)
-      envelope_id ||= '1779f86b-6070-40be-bb6c-cfec9cd579f1'
       recipients = @client.get_envelope_recipients(envelope_id: envelope_id, include_tabs: true)
     end
 
     # GET list of tabs from template name to apply
     # PARAMS: template_id / template_name
-    def get_tabs_from_template(options = {})
-      options = make_sure_template_name_and_id_exist(options)
-
+    def get_tabs_from_template(options = {}, document_id = 1)
       # Request to get the template recipient info
       tabs = {}
       begin
-        # get template tabs values from redis server: https://github.com/redis/redis-rb/blob/master/README.md#storing-objects
+        # get template tabs data from redis server: https://github.com/redis/redis-rb/blob/master/README.md#storing-objects
         tabs = $redis.get(options[:template_name])
 
         if tabs.nil?
@@ -71,7 +56,8 @@ module Docusign
             name: hash["name"],
             page_number: hash["pageNumber"],
             x_position: hash["xPosition"],
-            y_position: hash["yPosition"]
+            y_position: hash["yPosition"],
+            document_id: document_id
           }
 
           # automatically copy attributes from Docusign template
@@ -86,13 +72,12 @@ module Docusign
           tab[:required]   = hash["required"] if hash["required"]
 
           # map value to tab
-          if options[:values] && options[:values][tab[:name]]
-            option_value = options[:values][tab[:name]]
+          if options[:data] && options[:data][tab[:name]]
+            option_value = options[:data][tab[:name]]
 
             if option_value.is_a? Hash
               # if special case, we also set width and height
               if option_value[:width] && option_value[:height]
-                # need to set both width and height if you want bug free
                 tab[:width]  = option_value[:width]
                 tab[:height] = option_value[:height]
               end
@@ -139,38 +124,3 @@ module Docusign
 
   end
 end
-
-# Tabs example:
-# {
-#   "signers" => [
-#     {
-#       "tabs" => {
-#         "signHereTabs" => [
-#           {
-#             "name"=>"Signature", "tabLabel"=>"Signature 1", "scaleValue"=>1.0, "optional"=>"false", "documentId"=>"93881593", "recipientId"=>"91649777", "pageNumber"=>"1", "xPosition"=>"222", "yPosition"=>"86", "tabId"=>"f16770c3-c804-4cf0-9a7c-756e758345c5"
-#           }
-#         ],
-#         "fullNameTabs" => [
-#           {
-#             "name"=>"Full Name", "tabLabel"=>"FullName", "font"=>"arial", "bold"=>"false", "italic"=>"false", "underline"=>"false", "fontColor"=>"black", "fontSize"=>"size9", "documentId"=>"93881593", "recipientId"=>"91649777", "pageNumber"=>"1", "xPosition"=>"104", "yPosition"=>"167", "tabId"=>"259fd706-6704-4356-9422-305b3ea56b28"
-#           }
-#         ],
-#         "dateSignedTabs" => [
-#           {
-#             "name"=>"Date Signed", "value"=>"", "tabLabel"=>"Date Signed", "font"=>"arial", "bold"=>"false", "italic"=>"false", "underline"=>"false", "fontColor"=>"black", "fontSize"=>"size9", "documentId"=>"93881593", "recipientId"=>"91649777", "pageNumber"=>"1", "xPosition"=>"108", "yPosition"=>"110", "tabId"=>"424e0467-bb19-499a-953f-713cce70c5c2"
-#           }
-#         ],
-#         "textTabs" => [
-#           {
-#             "height"=>22, "isPaymentAmount"=>"false", "validationPattern"=>"", "shared"=>"false", "requireInitialOnSharedChange"=>"false", "requireAll"=>"false", "name"=>"Your phone number", "value"=>"", "width"=>120, "required"=>"true", "locked"=>"false", "concealValueOnDocument"=>"false", "disableAutoSize"=>"false", "tabLabel"=>"Phone", "font"=>"arial", "bold"=>"false", "italic"=>"false", "underline"=>"false", "fontColor"=>"black", "fontSize"=>"size9", "documentId"=>"93881593", "recipientId"=>"91649777", "pageNumber"=>"1", "xPosition"=>"223", "yPosition"=>"165", "tabId"=>"d8564be7-a778-4e49-9eee-85bf9a3d4be9"
-#           }
-#         ]
-#       },
-#       "isBulkRecipient"=>"false", "name"=>"Le Hoang", "email"=>"lehoang1417@gmail.com",
-#       "recipientId"=>"91649777", "recipientIdGuid"=>"2a979444-a2b1-4fcf-8a12-6fe7d1c4c73d",
-#       "requireIdLookup"=>"false", "userId"=>"c98e6381-d9b5-4e86-aac4-71525477817a",
-#       "routingOrder"=>"1", "note"=>"", "status"=>"created", "totalTabCount"=>"4"
-#     }
-#   ],
-#   "agents"=>[], "editors"=>[], "intermediaries"=>[], "carbonCopies"=>[], "certifiedDeliveries"=>[], "inPersonSigners"=>[], "recipientCount"=>"1"
-# }
