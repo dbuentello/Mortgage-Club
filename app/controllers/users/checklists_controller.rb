@@ -19,20 +19,19 @@ class Users::ChecklistsController < Users::BaseController
             }, status: 500
     end
 
-    envelope_response = Docusign::CreateEnvelopeService.new(current_user, @loan, template).call
-    docusign_callback_url = docusign_callback_checklists_url(
-      loan_id: @loan.id,
-      id: @checklist.id,
-      envelope_id: envelope_response['envelopeId'],
-      user_id: current_user.id
-    )
-    recipient_view = Docusign::GetRecipientViewService.call(envelope_response['envelopeId'], current_user, docusign_callback_url)
-
-    if recipient_view
-      render json: {message: recipient_view}, status: 200
-    else
-      render json: {message: "can't render iframe"}, status: 500
+    envelope = Docusign::CreateEnvelopeService.new(current_user, @loan, [template]).call
+    if envelope
+      docusign_callback_url = docusign_callback_checklists_url(
+        loan_id: @loan.id,
+        id: @checklist.id,
+        envelope_id: envelope['envelopeId'],
+        user_id: current_user.id
+      )
+      recipient_view = Docusign::GetRecipientViewService.call(envelope['envelopeId'], current_user, docusign_callback_url)
+      return render json: {message: recipient_view}, status: 200 if recipient_view
     end
+
+    render json: {message: "can't render iframe"}, status: 500
   end
 
   def docusign_callback

@@ -4,18 +4,6 @@ module Docusign
       @client = args[:client] || DocusignRest::Client.new
     end
 
-    def make_sure_template_name_and_id_exist(options = {})
-      if options[:template_id].blank?
-        options[:template_id] = find_template_id_from_name(options[:template_name])
-      end
-
-      if options[:template_name].blank?
-        options[:template_name] = Template.where(docusign_id: options[:template_id]).first.name
-      end
-
-      options
-    end
-
     # GET template_id
     def find_template_id_from_name(template_name)
       templates = @client.get_templates
@@ -26,15 +14,12 @@ module Docusign
 
     # GET tabs from default recipient of either an envelope or a template
     def get_envelope_recipients_and_tabs(envelope_id)
-      envelope_id ||= '1779f86b-6070-40be-bb6c-cfec9cd579f1'
       recipients = @client.get_envelope_recipients(envelope_id: envelope_id, include_tabs: true)
     end
 
     # GET list of tabs from template name to apply
     # PARAMS: template_id / template_name
-    def get_tabs_from_template(options = {})
-      options = make_sure_template_name_and_id_exist(options)
-
+    def get_tabs_from_template(options = {}, document_id = 1)
       # Request to get the template recipient info
       tabs = {}
       begin
@@ -71,7 +56,8 @@ module Docusign
             name: hash["name"],
             page_number: hash["pageNumber"],
             x_position: hash["xPosition"],
-            y_position: hash["yPosition"]
+            y_position: hash["yPosition"],
+            document_id: document_id
           }
 
           # automatically copy attributes from Docusign template
