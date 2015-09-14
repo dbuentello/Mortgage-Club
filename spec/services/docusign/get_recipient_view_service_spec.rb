@@ -12,11 +12,11 @@ describe Docusign::GetRecipientViewService do
   end
 
   context "invalid recipient's info" do
-    it "returns an error" do
+    it "returns nil" do
       envelope_id = '5d46fa35-35ac-4b44-9e28-a72b81582523'
       user = double(to_s: 'John Doe', email: 'faker@gmail.com')
       view = Docusign::GetRecipientViewService.call(envelope_id, user, 'https://google.com')
-      expect(view).to include("errorCode")
+      expect(view).to be_nil
     end
   end
 end

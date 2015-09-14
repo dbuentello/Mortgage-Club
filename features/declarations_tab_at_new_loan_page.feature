@@ -14,7 +14,7 @@ Feature: DeclarationsTabAtNewLoanPage
         And I select "Secondary Resident" from "type_of_property"
         And I select "Other" from "title_of_property"
     Then I click on "Save and Continue"
-      And I should see "Choose an template to sign"
+      And I should see "Loading...please wait"
     Then I click on "Declarations"
       And the radio button "true_outstanding_judgment" should be checked
       And the radio button "false_co_maker_or_endorser" should be checked
