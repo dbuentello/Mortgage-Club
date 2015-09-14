@@ -5,6 +5,7 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var AddressField = require('components/form/AddressField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
+var BooleanRadio = require('components/form/BooleanRadio');
 
 var fields = {
   address: {label: 'Property Address', name: 'address', helpText: 'The full address of the subject property for which you are applying for a loan.'},
@@ -31,7 +32,6 @@ var FormProperty = React.createClass({
         this.searchProperty(address);
       }
     }
-
     this.setState(change);
   },
 
@@ -112,17 +112,17 @@ var FormProperty = React.createClass({
                     allowBlank={true}/>
                 </div>
               </div>
-              <SelectField
+              <BooleanRadio
                 label={fields.loanPurpose.label}
+                checked={this.state[fields.loanPurpose.name]}
                 keyName={fields.loanPurpose.name}
-                value={this.state[fields.loanPurpose.name]}
-                options={loanPurposes}
                 editable={true}
-                onChange={this.onChange}
+                yesLabel="Purchase"
+                noLabel="Refinance"
                 onFocus={this.onFocus.bind(this, fields.loanPurpose)}
-                allowBlank={true}/>
+                onChange={this.onChange}/>
               {this.state[fields.loanPurpose.name] === null ? null :
-                this.state[fields.loanPurpose.name] == 'purchase'
+                this.state[fields.loanPurpose.name] == true
                 ? <TextField
                     label={fields.purchasePrice.label}
                     keyName={fields.purchasePrice.name}
@@ -187,7 +187,14 @@ var FormProperty = React.createClass({
     var property = loan.property;
     var state = {};
 
-    state[fields.loanPurpose.name] = loan[fields.loanPurpose.name];
+    if (loan[fields.loanPurpose.name] == 'purchase') {
+      state[fields.loanPurpose.name] = true;
+    } else if (loan[fields.loanPurpose.name] == 'refinance') {
+      state[fields.loanPurpose.name] = false;
+    } else {
+      state[fields.loanPurpose.name] = loan[fields.loanPurpose.name];
+    }
+
     state[fields.address.name] = property[fields.address.name];
     state[fields.propertyType.name] = property[fields.propertyType.name];
     state[fields.propertyPurpose.name] = property[fields.propertyPurpose.name];
@@ -200,7 +207,17 @@ var FormProperty = React.createClass({
 
   buildLoanFromState: function() {
     var loan = {};
-    loan[fields.loanPurpose.name] = this.state[fields.loanPurpose.name];
+    var purpose = this.state[fields.loanPurpose.name];
+    if (purpose != null) {
+      if (purpose == true) {
+        loan[fields.loanPurpose.name] = 'purchase';
+      } else {
+        loan[fields.loanPurpose.name] = 'refinance';
+      }
+    } else {
+      loan[fields.loanPurpose.name] = purpose;
+    }
+
     loan.property_attributes = {id: this.props.loan.property.id};
     loan.property_attributes[fields.propertyType.name] = this.state[fields.propertyType.name];
     loan.property_attributes[fields.propertyPurpose.name] = this.state[fields.propertyPurpose.name];
