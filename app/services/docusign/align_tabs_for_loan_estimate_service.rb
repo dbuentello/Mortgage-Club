@@ -216,9 +216,9 @@ module Docusign
     def align_considerations_tabs(field)
       case field[:name]
       when *%w(late_days late_fee_text_top)
-        field[:y_position] = 495
-      when 'late_fee_text_bottom'
-        field[:y_position] = 479
+        field[:y_position] = 497
+      when "late_fee_text_bottom"
+        field[:y_position] = 500
         field[:x_position] = 165
       else
         field[:x_position] = 165
