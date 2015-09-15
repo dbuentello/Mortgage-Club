@@ -117,3 +117,7 @@ When /^I press "([^\"]*)" in the modal "([^\"]*)"$/ do |text, modal|
   button = page.find(:xpath, "//div[contains(@id, '#{modal}')]//button[contains(., '#{text}')]")
   button.click
 end
+
+When /^I click on "([^\"]*)" in the "([^\"]*)"$/ do |text, element|
+  find(element, text: text).click
+end

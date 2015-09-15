@@ -33,11 +33,15 @@ var LoanInterface = React.createClass({
         <nav className='sideMenu sticky backgroundLowlight pbm brs'>
           {_.map(this.state.menu, function (item, i) {
             return (
-              <div key={i} className={'row pam bbs man ' + (item.name === activeItem.name ? 'backgroundBlue typeReversed' : 'clickable')} onClick={_.bind(this.goToItem, this, item)}>
-                <div className='col-xs-9 pan'><i className={item.icon + ' mrxs'}/><span className='h5 typeDeemphasize'>{item.name}</span></div>
-                {item.complete ?
-                  <div className='col-xs-3 pan text-right typeReversed'><i className='icon iconCheck paxs bas circle xsm backgroundGreen'/></div>
-                : null}
+              <div key={i} id={"tab"+item.name} className={'row pam bbs man ' + (item.name === activeItem.name ? 'backgroundBlue typeReversed' : 'clickable')} onClick={_.bind(this.goToItem, this, item)}>
+                <div className='col-xs-9 pan'>
+                  <i className={item.icon + ' mrxs'}/>
+                  <span className='h5 typeDeemphasize'>{item.name}</span></div>
+                  {item.complete ?
+                    <div className='col-xs-3 pan text-right typeReversed'>
+                      <i className='icon iconCheck paxs bas circle xsm backgroundGreen'/>
+                    </div>
+                  : null}
               </div>
             );
           }, this)}
