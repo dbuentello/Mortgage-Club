@@ -26,14 +26,4 @@ class Users::DashboardController < Users::BaseController
       format.html { render template: 'borrower_app' }
     end
   end
-
-  def update_checklist_status
-    checklist = Checklist.find(params[:checklist_id])
-
-    if checklist.update(status: params[:status])
-      render json: {message: 'Updated successfully'}, status: 200
-    else
-      render json: {message: "Cannot update the checklist"}, status: 500
-    end
-  end
 end
