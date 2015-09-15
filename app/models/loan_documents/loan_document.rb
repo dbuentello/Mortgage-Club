@@ -20,6 +20,8 @@
 class LoanDocument < ActiveRecord::Base
   include Documentation
 
+  DOCUMENT_LIST = %w(HudEstimate HudFinal LoanEstimate UniformResidentialLendingApplication OtherLoanReport)
+
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',
     path: PAPERCLIP[:default_path]

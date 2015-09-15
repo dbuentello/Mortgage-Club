@@ -6,6 +6,7 @@ require("moment-duration-format");
 
 var FlashHandler = require('mixins/FlashHandler');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
+var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var ActivityTypes = [
   { "value": 0, "label": "Prior to Loan Submission" },
@@ -22,7 +23,7 @@ var TypeNameMapping = {
 };
 
 var ActivityTab = React.createClass({
-  mixins: [FlashHandler, ObjectHelperMixin],
+  mixins: [FlashHandler, ObjectHelperMixin, TextFormatMixin],
 
   getInitialState: function() {
     return {
@@ -160,6 +161,8 @@ var ActivityTab = React.createClass({
                 <th style={{'width': '20%'}}>Activity Type</th>
                 <th style={{'width': '30%'}}>Name</th>
                 <th style={{'width': '8%'}}>Status</th>
+                <th style={{'width': '10%'}}>Start Date</th>
+                <th style={{'width': '10%'}}>End Date</th>
                 <th style={{'width': '15%'}}>Duration</th>
                 <th style={{'width': '12%'}}>Shown to user?</th>
                 <th style={{'width': '15%'}}>By</th>
@@ -173,12 +176,14 @@ var ActivityTab = React.createClass({
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
+                      <td>{this.isoToUsDate(loan_activity.start_date)}</td>
+                      <td>{this.isoToUsDate(loan_activity.end_date)}</td>
                       <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
                   )
-                })
+                },this)
               }
 
               {
@@ -188,12 +193,14 @@ var ActivityTab = React.createClass({
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
+                      <td>{this.isoToUsDate(loan_activity.start_date)}</td>
+                      <td>{this.isoToUsDate(loan_activity.end_date)}</td>
                       <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
                   )
-                })
+                },this)
               }
 
               {
@@ -203,12 +210,14 @@ var ActivityTab = React.createClass({
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
+                      <td>{this.isoToUsDate(loan_activity.start_date)}</td>
+                      <td>{this.isoToUsDate(loan_activity.end_date)}</td>
                       <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
                   )
-                })
+                },this)
               }
 
               {
@@ -218,12 +227,14 @@ var ActivityTab = React.createClass({
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
                       <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
+                      <td>{this.isoToUsDate(loan_activity.start_date)}</td>
+                      <td>{this.isoToUsDate(loan_activity.end_date)}</td>
                       <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
                       <td>{loan_activity.pretty_user_visible}</td>
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
                   )
-                })
+                },this)
               }
             </tbody>
           </table>

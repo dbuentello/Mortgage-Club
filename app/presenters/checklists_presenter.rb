@@ -19,7 +19,7 @@ class ChecklistsPresenter
           methods: [:to_s, :avatar_url, :role_name]
         }
       },
-      methods: [:document]
+      methods: [:document_info]
     }
   end
 end

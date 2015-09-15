@@ -18,6 +18,8 @@
 class BorrowerDocument < ActiveRecord::Base
   include Documentation
 
+  DOCUMENT_LIST = %w(FirstW2 SecondW2 FirstPaystub SecondPaystub FirstBankStatement SecondBankStatement OtherBorrowerReport)
+
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',
     path: PAPERCLIP[:default_path]
