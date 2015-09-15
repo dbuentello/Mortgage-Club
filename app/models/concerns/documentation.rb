@@ -33,7 +33,7 @@ module Documentation
   end
 
   def set_description
-    return unless description.blank?
+    return if description.present?
     self.description = type.constantize::DESCRIPTION
   end
 

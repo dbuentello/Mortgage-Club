@@ -20,6 +20,9 @@
 class PropertyDocument < ActiveRecord::Base
   include Documentation
 
+  DOCUMENT_LIST = %w(AppraisalReport FloodZoneCertification HomeownersInsurance
+                    InspectionReport LeaseAgreement MortgageStatement PurchaseAgreement
+                    RiskReport TermiteReport TitleReport OtherPropertyReport)
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',
     path: PAPERCLIP[:default_path]
