@@ -1,37 +1,6 @@
 class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
   before_action :set_loan, only: [:show, :update, :destroy]
 
-  def index
-    loans ||= Loan.preload(:user)
-
-    bootstrap(loans: LoansPresenter.new(loans).show)
-
-    respond_to do |format|
-      format.html { render template: 'loan_member_app' }
-    end
-  end
-
-  def show
-    loan_activities = LoanActivity.get_latest_by_loan(@loan)
-    ActiveRecord::Associations::Preloader.new.preload(loan_activities, loan_member: :user)
-
-    @loan.closing ||= Closing.create(name: 'Closing', loan_id: @loan.id)
-
-    bootstrap(
-      loan: LoanPresenter.new(@loan).show_loan_activities,
-      first_activity: first_activity(@loan),
-      loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : [],
-      property: PropertyPresenter.new(@loan.property).show,
-      closing: ClosingPresenter.new(@loan.closing).show,
-      templates: TemplatesPresenter.index(Template.all)
-    )
-
-    respond_to do |format|
-      format.html { render template: 'loan_member_app' }
-    end
-
-  end
-
   def create
     result = LoanActivityServices::CreateActivity.new.call(loan_member, loan_activity_params)
 
@@ -67,16 +36,11 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
 
     loan_activity_params[:activity_type] = loan_activity_params[:activity_type].to_i
     loan_activity_params[:activity_status] = loan_activity_params[:activity_status].to_i
+    loan_activity_params[:start_date] = Time.zone.now
     loan_activity_params
   end
 
   def loan_member
     @loan_member ||= current_user.loan_member
   end
-
-  def first_activity(loan)
-    # activity_status: -1 => not existed yet
-    LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: loan.id).order(created_at: :desc).limit(1).first || {activity_status: -1}
-  end
-
 end
