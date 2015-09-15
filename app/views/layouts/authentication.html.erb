@@ -3,12 +3,11 @@
     <div class='plm prl'>
       <div class='row'>
         <div class='col-xs-6 typeLowlight'>
-          <a class='mrl' href='/loan_activities'> MortgageClub </a>
+          <a class='mrl' href="/"> MortgageClub </a>
         </div>
         <div class='col-xs-6 text-right'>
           <% if current_user %>
             <span>
-              <a class='mrm' href='/loan_members/loan_activities'>Loan List</a>
               <span class='typeLowlight mrm'>Hello <a class='linkTypeReversed' href='/auth/register/edit' data-method='get'><%= current_user.to_s %></a>!</span>
               <a class='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
             </span>

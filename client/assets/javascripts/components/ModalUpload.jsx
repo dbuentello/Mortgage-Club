@@ -31,7 +31,7 @@ var ModalUpload = React.createClass({
   render: function() {
     var dataTarget = '#' + this.props.id;
     var labelId = this.props.id + 'Label';
-    var document = this.props.checklist.document
+    var document = this.props.checklist.document_info
     var doc_type = this.props.checklist.document_type;
     var field = {label: document.label, name: document.name , placeholder: 'drap file here or browse', type: doc_type}
 
