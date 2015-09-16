@@ -68,13 +68,18 @@ var Property = React.createClass({
     this.setState(this.setValue(this.state, key, value));
   },
 
+  remove: function(index) {
+    this.props.onRemove(index);
+  },
+
   onFocus: function(field) {
     this.setState({focusedField: field});
   },
 
   render: function() {
+    var index = this.props.index;
     return (
-      <div className={'box mtn mbm pam bas roundedCorners' + (this.props.index % 2 === 0 ? ' backgroundLowlight' : '')} >
+      <div className={'box mtn mbm pam bas roundedCorners' + (index % 2 === 0 ? ' backgroundLowlight' : '')} >
         <div className='row'>
           <div className='col-xs-6'>
             <AddressField
@@ -205,14 +210,18 @@ var Property = React.createClass({
               editable={true}
               onChange={this.onChange}/>
           </div>
+          { this.props.isShowRemove == true
+            ? <div className='box text-right col-xs-6'>
+                <a className="remove clickable" onClick={this.remove.bind(this, index)}>
+                  Remove
+                </a>
+              </div>
+            : null
+          }
         </div>
-
       </div>
     );
   }
-
 });
-
-
 
 module.exports = Property;

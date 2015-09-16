@@ -79,7 +79,13 @@ var FormAssetsAndLiabilities = React.createClass({
 
   eachProperty: function(property, index) {
     return (
-      <Property key={index} index={index} property={property} isPrimary={false}/>
+      <Property
+        key={index}
+        index={index}
+        property={property}
+        isPrimary={false}
+        isShowRemove={this.state.rental_properties.length > 1}
+        onRemove={this.removeProperty}/>
     );
   },
 
@@ -117,7 +123,8 @@ var FormAssetsAndLiabilities = React.createClass({
                   </a>
                 </div>
               </div>
-            : null}
+              : null
+            }
           </div>
 
           <div className='box text-right phl'>
@@ -127,12 +134,13 @@ var FormAssetsAndLiabilities = React.createClass({
 
         <div className='helpSection sticky pull-right overlayRight overlayTop pal bls'>
           {this.state.focusedField && this.state.focusedField.helpText
-          ? <div>
-              <span className='typeEmphasize'>{this.state.focusedField.label}:</span>
-              <br/>
-              {this.state.focusedField.helpText}
-            </div>
-          : null}
+            ? <div>
+                <span className='typeEmphasize'>{this.state.focusedField.label}:</span>
+                <br/>
+                {this.state.focusedField.helpText}
+              </div>
+            : null
+          }
         </div>
       </div>
     );
@@ -143,7 +151,9 @@ var FormAssetsAndLiabilities = React.createClass({
   },
 
   removeProperty: function(index) {
-    this.setState({rental_properties: {$splice: [[index, 1]]}});
+    var arr = this.state.rental_properties;
+    arr.splice(index, 1);
+    this.setState({rental_properties: arr});
   },
 
   getPrimaryProperty: function() {
