@@ -119,12 +119,36 @@ class Loan < ActiveRecord::Base
   end
 
   def property_completed
-    property.present? && property.address.present? && property.address.completed && property.property_type.present? && property.usage.present? && purpose.present? &&
-      ((purchase? && property.purchase_price.present?) || (refinance? && property.original_purchase_price.present? && property.original_purchase_year.present?))
+    property.present? &&
+    property.address.present? &&
+    property.address.completed &&
+    property.property_type.present? &&
+    property.usage.present? &&
+    purpose.present? &&
+      ((purchase? &&
+        property.purchase_price.present?) || (refinance? &&
+        property.original_purchase_price.present? &&
+        property.original_purchase_year.present?))
+  end
+
+  def borrower_completed
+    false
   end
 
   def income_completed
     borrower.income_completed?
+  end
+
+  def credit_completed
+    false
+  end
+
+  def assets_completed
+    false
+  end
+
+  def declarations_completed
+    false
   end
 
   def num_of_years

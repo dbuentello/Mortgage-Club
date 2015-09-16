@@ -53,7 +53,7 @@ class LoanPresenter
         }
       },
       methods: [
-        :property_completed, :borrower_completed?, :income_completed
+        :property_completed, :borrower_completed, :income_completed, :credit_completed, :assets_completed, :declarations_completed
       ]
     }
   end
