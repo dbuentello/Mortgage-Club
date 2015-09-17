@@ -45,7 +45,7 @@ Feature: Referrals
             And I follow "Create Your Free Account" in the email
               Then the URL should contain "invite_token"
           Then I should see "Sign up"
-
+      Then I turn on delayed jobs
   @javascript
   Scenario: referrals email invalid
     When I am at my loans page
