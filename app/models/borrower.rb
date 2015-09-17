@@ -104,7 +104,8 @@ class Borrower < ActiveRecord::Base
   end
 
   def completed?
-    dob.present? && ssn.present? && phone.present? &&
+    first_name.present? && last_name.present? &&
+    ssn.present? && dob.present? && phone.present? &&
       years_in_school.present? && marital_status.present? && current_address.present? &&
       (dependent_count == 0 || (dependent_count > 0 && dependent_ages.count > 0))
   end

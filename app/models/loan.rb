@@ -123,7 +123,11 @@ class Loan < ActiveRecord::Base
   end
 
   def borrower_completed
-    false
+    if secondary_borrower.present?
+      borrower.completed? && secondary_borrower.completed?
+    else
+      borrower.completed?
+    end
   end
 
   def income_completed
