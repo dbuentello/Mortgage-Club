@@ -2,6 +2,7 @@ Feature: PropertyTabAtNewLoanPage
   @javascript
   Scenario: user submits a new property
     When I am at loan management page
+      And I run the background jobs
       Then I click on "Property"
         And I select "Duplex" from "Property Type"
         And I select "Vacation Home" from "Property Will Be"
@@ -9,7 +10,7 @@ Feature: PropertyTabAtNewLoanPage
         And I clear value in "Purchase Price"
           Then I fill in "Purchase Price" with "12345"
         Then I click on "Save and Continue"
-        And I wait for 1 seconds
+        And I wait for 4 seconds
         And I should see "I am applying"
       When I click on "Property"
         Then I should see "Duplex"
