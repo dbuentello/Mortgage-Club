@@ -112,6 +112,7 @@ gem 'asposecloud'
 
 # to crawl data from Zillow
 gem 'poltergeist'
+gem 'selenium-webdriver'
 
 gem 'rollbar', '~> 2.2.1'
 
@@ -171,7 +172,7 @@ group :test do
   gem 'cucumber_factory'
   gem 'spreewald'
   gem 'launchy'
-  gem 'selenium-webdriver'
+  # gem 'selenium-webdriver'
   gem 'guard-rspec'
   gem 'timecop'
   gem 'vcr'
