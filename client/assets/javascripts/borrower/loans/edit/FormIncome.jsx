@@ -7,6 +7,8 @@ var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
 var TextField = require('components/form/TextField');
 var Dropzone = require('components/form/Dropzone');
+var SelectField = require('components/form/SelectField');
+var OtherIncome = require('./OtherIncome');
 
 var fields = {
   employerName: {label: 'Name of current employer', name: 'employer_name', helpText: 'I am a helpful text.'},
@@ -30,7 +32,6 @@ var uploader_fields = {
   second_bank_statement: {label: 'Bank statement - Previous month', name: 'second_bank_statement', placeholder: 'drap file here or browse', type: 'SecondBankStatement'}
 };
 
-
 var FormIncome = React.createClass({
   mixins: [TextFormatMixin],
 
@@ -53,6 +54,12 @@ var FormIncome = React.createClass({
   refresh: function() {
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 2, true);
+  },
+
+  eachOtherIncome: function(income, index) {
+    return (
+      <OtherIncome key={index} index={index} income={income}  onRemove={this.removeOtherIncome} />
+    );
   },
 
   render: function() {
@@ -167,46 +174,18 @@ var FormIncome = React.createClass({
                     onChange={this.onChange}
                     placeholder='e.g. 99,000'/>
                 </div>
-                <div className='col-sm-6'>
-                  <TextField
-                    label={fields.grossOvertime.label}
-                    keyName={fields.grossOvertime.name}
-                    value={this.state[fields.grossOvertime.name]}
-                    liveFormat={true}
-                    format={this.formatCurrency}
-                    editable={true}
-                    onFocus={this.onFocus.bind(this, fields.grossOvertime)}
-                    onChange={this.onChange}
-                    placeholder='e.g. 99,000'/>
+              </div>
+
+              {this.state.otherIncomes.map(this.eachOtherIncome)}
+
+              <div className='row'>
+                <div className='box col-md-6'>
+                  <a className="clickable" onClick={this.addOtherIncome}>
+                    Add other income
+                  </a>
                 </div>
               </div>
 
-              <div className='row'>
-                <div className='col-sm-6'>
-                  <TextField
-                    label={fields.grossBonus.label}
-                    keyName={fields.grossBonus.name}
-                    value={this.state[fields.grossBonus.name]}
-                    liveFormat={true}
-                    format={this.formatCurrency}
-                    editable={true}
-                    onFocus={this.onFocus.bind(this, fields.grossBonus)}
-                    onChange={this.onChange}
-                    placeholder='e.g. 99,000'/>
-                </div>
-                <div className='col-sm-6'>
-                  <TextField
-                    label={fields.grossCommission.label}
-                    keyName={fields.grossCommission.name}
-                    value={this.state[fields.grossCommission.name]}
-                    liveFormat={true}
-                    format={this.formatCurrency}
-                    editable={true}
-                    onFocus={this.onFocus.bind(this, fields.grossCommission)}
-                    onChange={this.onChange}
-                    placeholder='e.g. 99,000'/>
-                </div>
-              </div>
             </div>
 
             <div className='box text-right'>
@@ -271,6 +250,8 @@ var FormIncome = React.createClass({
       }
     }, this);
 
+    state.otherIncomes = [];
+
     return state;
   },
 
@@ -296,6 +277,23 @@ var FormIncome = React.createClass({
     }];
 
     return loan;
+  },
+
+  getDefaultOtherIncomes: function() {
+    return [{
+      type: null,
+      amount: null
+    }];
+  },
+
+  addOtherIncome: function() {
+    this.setState({otherIncomes: this.state.otherIncomes.concat(this.getDefaultOtherIncomes())});
+  },
+
+  removeOtherIncome: function(index) {
+    var arr = this.state.otherIncomes;
+    arr.splice(index, 1);
+    this.setState({otherIncomes: arr});
   },
 
   save: function() {

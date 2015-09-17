@@ -7,7 +7,7 @@ var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
-var BooleanRadio = require('components/form/BooleanRadio');
+var BooleanRadio = require('components/form/BooleanRadio')
 
 var first_borrower_fields = {
   applyingAs: {label: 'I am applying', name: 'first_borrower_apply_as', fieldName: 'apply_as', helpText: 'I am a helpful text.'},
@@ -24,10 +24,10 @@ var first_borrower_fields = {
   numberOfDependents: {label: 'Number of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null},
   dependentAges: {label: 'Ages of Dependents', name: 'first_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null},
   currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null},
-  currentlyOwn: {label: 'Do you own this property?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null},
+  currentlyOwn: {label: 'Do you own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null},
   yearsInCurrentAddress: {label: 'Number of years you have lived in this address', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null},
-  previousAddress: {label: 'Previous Address', name: 'first_borrower_previous_address', fieldName: 'previous_address', helpText: null},
-  previouslyOwn: {label: 'Do you own this property?', name: 'first_borrower_previously_own', fieldName: 'previously_own', helpText: null},
+  previousAddress: {label: 'Your previous address', name: 'first_borrower_previous_address', fieldName: 'previous_address', helpText: null},
+  previouslyOwn: {label: 'Do you own or rent?', name: 'first_borrower_previously_own', fieldName: 'previously_own', helpText: null},
   yearsInPreviousAddress: {label: 'Number of years you have lived in this address', name: 'first_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null}
 };
 
@@ -45,10 +45,10 @@ var secondary_borrower_fields = {
   numberOfDependents: {label: 'Number of dependents', name: 'secondary_borrower_dependent_count', fieldName: 'dependent_count', helpText: null},
   dependentAges: {label: 'Ages of Dependents', name: 'secondary_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null},
   currentAddress: {label: 'Your Current Address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null},
-  currentlyOwn: {label: 'Do you own this property?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null},
+  currentlyOwn: {label: 'Do you own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null},
   yearsInCurrentAddress: {label: 'Number of years you have lived in this address', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null},
-  previousAddress: {label: 'Previous Address', name: 'secondary_borrower_previous_address', fieldName: 'previous_address', helpText: null},
-  previouslyOwn: {label: 'Do you own this property?', name: 'secondary_borrower_previously_own', fieldName: 'previously_own', helpText: null},
+  previousAddress: {label: 'Your previous address', name: 'secondary_borrower_previous_address', fieldName: 'previous_address', helpText: null},
+  previouslyOwn: {label: 'Do you own or rent?', name: 'secondary_borrower_previously_own', fieldName: 'previously_own', helpText: null},
   yearsInPreviousAddress: {label: 'Number of years he/she has lived in this address', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null}
 };
 
@@ -96,8 +96,6 @@ var FormBorrower = React.createClass({
         },
         dataType: 'json',
         success: function(response) {
-          // console.log('auto fill');
-
           var change = {};
           if (response.secondary_borrower) {
             change = this.buildStateFromBorrower(change, response.secondary_borrower, response.secondary_borrower.user, secondary_borrower_fields);
