@@ -19,10 +19,10 @@ module ZillowService
     private
 
     def self.set_up_crawler
-      Capybara.register_driver :poltergeist do |app|
-        Capybara::Poltergeist::Driver.new(app, {js_errors: false})
-      end
-      @session = Capybara::Session.new(:poltergeist)
+      # Capybara.register_driver :poltergeist do |app|
+      #   Capybara::Poltergeist::Driver.new(app, {js_errors: false})
+      # end
+      @session = Capybara::Session.new(:selenium)
     end
 
     def self.fill_in_form(zipcode)
