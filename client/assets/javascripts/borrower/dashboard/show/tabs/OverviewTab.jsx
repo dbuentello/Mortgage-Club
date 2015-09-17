@@ -119,13 +119,13 @@ var CheckList = React.createClass({
     },
 
     getSubject: function(checklist) {
-      if (checklist.document.subject_name == 'Borrower') {
+      if (checklist.document_info.subject_name == 'Borrower') {
         return this.props.loan.borrower;
-      } else if (checklist.document.subject_name == 'Property') {
+      } else if (checklist.document_info.subject_name == 'Property') {
         return this.props.loan.property;
-      } else if (checklist.document.subject_name == 'Closing') {
+      } else if (checklist.document_info.subject_name == 'Closing') {
         return this.props.loan.closing;
-      } else if (checklist.document.subject_name == 'Loan') {
+      } else if (checklist.document_info.subject_name == 'Loan') {
         return this.props.loan;
       }
     },
@@ -144,7 +144,7 @@ var CheckList = React.createClass({
               data-toggle="popover"
               data-trigger="focus"
               title="Enter the required entity information"
-              data-content={checklist.description}>
+              data-content={checklist.info}>
               <span className="iconInfo"></span>
             </button>
           </td>

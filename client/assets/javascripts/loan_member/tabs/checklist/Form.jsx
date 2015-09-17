@@ -4,6 +4,35 @@ var DateField = require('components/form/DateField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 var FlashHandler = require('mixins/FlashHandler');
+var documentDescription = {
+  'AppraisalReport': 'Appraised property value',
+  'FloodZoneCertification': 'Flood zone certification',
+  'HomeownersInsurance': "Homeowner's insurance",
+  'InspectionReport': 'Home inspection report',
+  'LeaseAgreement': 'Lease agreement',
+  'MortgageStatement': 'Latest mortgage statement of subject property',
+  'PurchaseAgreement': 'Executed purchase agreement',
+  'RiskReport': "Home seller's disclosure report",
+  'TermiteReport': 'Termite report',
+  'TitleReport': 'Preliminary title report',
+  'OtherPropertyReport': 'Other Property Report',
+  'FirstW2': 'W2 - Most recent tax year',
+  'SecondW2': 'W2 - Previous tax year',
+  'FirstPaystub': 'Paystub - Most recent month',
+  'SecondPaystub': 'Paystub - Previous month',
+  'FirstBankStatement': 'Bank statement - Most recent month',
+  'SecondBankStatement': 'Bank statement - Previous month',
+  'OtherBorrowerReport': 'Other Borrower Report',
+  'HudEstimate': 'Estimated settlement statement',
+  'HudFinal': 'Final settlement statement',
+  'LoanEstimate': 'Loan estimate',
+  'UniformResidentialLendingApplication': 'Loan application form',
+  'OtherLoanReport': 'Other Loan Report',
+  'ClosingDisclosure': 'Closing Disclosure',
+  'DeedOfTrust': 'Deed of Trust',
+  'LoanDoc': 'Closing - Loan Document',
+  'OtherClosingReport': 'Other Closing Report'
+ };
 
 var Form = React.createClass({
   mixins: [FlashHandler],
@@ -15,36 +44,12 @@ var Form = React.createClass({
         {name: 'Explain', value: 'explain'},
         {name: 'Upload', value: 'upload'}
       ],
-      documentTypes: [
-        {name: '', value: ''},
-        {name: 'W2 - Most recent tax year', value: 'FirstW2'},
-        {name: 'W2 - Previous tax year', value: 'SecondW2'},
-        {name: 'Paystub - Most recent month', value: 'FirstPaystub'},
-        {name: 'Paystub - Previous month', value: 'SecondPaystub'},
-        {name: 'Bank statement - Most recent month', value: 'FirstBankStatement'},
-        {name: 'Bank statement - Previous month', value: 'SecondBankStatement'},
-        {name: 'Other Borrower Report', value: 'OtherBorrowerReport'},
-        {name: 'Closing Disclosure', value: 'ClosingDisclosure'},
-        {name: 'Deed of Trust', value: 'DeedOfTrust'},
-        {name: 'Closing - Loan Document', value: 'LoanDoc'},
-        {name: 'Other Closing Report', value: 'OtherClosingReport'},
-        {name: 'Estimated settlement statement', value: 'HudEstimate'},
-        {name: 'Final settlement statement', value: 'HudFinal'},
-        {name: 'Loan estimate', value: 'LoanEstimate'},
-        {name: 'Loan application form', value: 'UniformResidentialLendingApplication'},
-        {name: 'Other Loan Report', value: 'OtherLoanReport'},
-        {name: 'Appraised property value', value: 'AppraisalReport'},
-        {name: 'Flood zone certification', value: 'FloodZoneCertification'},
-        {name: "Homeowner's insurance", value: 'HomeownersInsurance'},
-        {name: 'Home inspection report', value: 'InspectionReport'},
-        {name: 'Lease agreement', value: 'LeaseAgreement'},
-        {name: 'Latest mortgage statement of subject property', value: 'MortgageStatement'},
-        {name: 'Executed purchase agreement', value: 'PurchaseAgreement'},
-        {name: "Home seller's disclosure report", value: 'RiskReport'},
-        {name: 'Termite report', value: 'TermiteReport'},
-        {name: 'Preliminary title report', value: 'TitleReport'},
-        {name: 'Other Closing Report', value: 'OtherPropertyReport'}
-      ],
+      documents: [
+        {name: 'Property', value: 'property'},
+        {name: 'Borrower', value: 'borrower'},
+        {name: 'Loan', value: 'loan'},
+        {name: 'Closing', value: 'closing'},
+      ]
     };
   },
 
@@ -53,21 +58,111 @@ var Form = React.createClass({
       return {
         type: this.props.checklist.checklist_type,
         name: this.props.checklist.name,
-        description: this.props.checklist.description,
+        info: this.props.checklist.info,
         dueDate: this.props.checklist.due_date,
         question: this.props.checklist.question,
+        document: this.props.checklist.document,
         documentType: this.props.checklist.document_type,
-        documentTemplate: this.props.checklist.template_id
+        documentTemplate: this.props.checklist.template_id,
+        description: this.props.checklist.document_description,
+        documentTypes: this.loadDocumentTypes(this.props.checklist.document)
       };
     }else {
       return {
-        type: 'explain'
+        type: 'explain',
+        document: 'property',
+        description: 'Appraised property value',
+        documentType: 'AppraisalReport',
+        documentTypes: [
+          {name: 'Appraised property value', value: 'AppraisalReport'},
+          {name: 'Flood zone certification', value: 'FloodZoneCertification'},
+          {name: "Homeowner's insurance", value: 'HomeownersInsurance'},
+          {name: 'Home inspection report', value: 'InspectionReport'},
+          {name: 'Lease agreement', value: 'LeaseAgreement'},
+          {name: 'Latest mortgage statement of subject property', value: 'MortgageStatement'},
+          {name: 'Executed purchase agreement', value: 'PurchaseAgreement'},
+          {name: "Home seller's disclosure report", value: 'RiskReport'},
+          {name: 'Termite report', value: 'TermiteReport'},
+          {name: 'Preliminary title report', value: 'TitleReport'},
+          {name: 'Other Property Report', value: 'OtherPropertyReport'}
+        ]
       };
     }
   },
 
   onChange: function(change) {
     this.setState(change);
+    var key = Object.keys(change)[0];
+    var value = change[key];
+    switch(key) {
+      case "document":
+        var documentTypes = this.loadDocumentTypes(value);
+        this.setState({documentTypes});
+        if(documentTypes.length > 0){
+          this.setState({description: documentTypes[0].name})
+        }
+        break;
+      case "documentType":
+        this.setState({description: documentDescription[value]});
+        break;
+      case "type":
+        this.setState({
+          question: null,
+          documentTemplate: null
+        })
+        break;
+    }
+  },
+
+  loadDocumentTypes: function(document) {
+    switch(document) {
+      case "property":
+        var documentTypes = [
+          {name: 'Appraised property value', value: 'AppraisalReport'},
+          {name: 'Flood zone certification', value: 'FloodZoneCertification'},
+          {name: "Homeowner's insurance", value: 'HomeownersInsurance'},
+          {name: 'Home inspection report', value: 'InspectionReport'},
+          {name: 'Lease agreement', value: 'LeaseAgreement'},
+          {name: 'Latest mortgage statement of subject property', value: 'MortgageStatement'},
+          {name: 'Executed purchase agreement', value: 'PurchaseAgreement'},
+          {name: "Home seller's disclosure report", value: 'RiskReport'},
+          {name: 'Termite report', value: 'TermiteReport'},
+          {name: 'Preliminary title report', value: 'TitleReport'},
+          {name: 'Other Property Report', value: 'OtherPropertyReport'}
+        ]
+        break;
+      case "borrower":
+        var documentTypes = [
+          {name: 'W2 - Most recent tax year', value: 'FirstW2'},
+          {name: 'W2 - Previous tax year', value: 'SecondW2'},
+          {name: 'Paystub - Most recent month', value: 'FirstPaystub'},
+          {name: 'Paystub - Previous month', value: 'SecondPaystub'},
+          {name: 'Bank statement - Most recent month', value: 'FirstBankStatement'},
+          {name: 'Bank statement - Previous month', value: 'SecondBankStatement'},
+          {name: 'Other Borrower Report', value: 'OtherBorrowerReport'},
+        ]
+        break;
+      case "loan":
+        var documentTypes = [
+          {name: 'Estimated settlement statement', value: 'HudEstimate'},
+          {name: 'Final settlement statement', value: 'HudFinal'},
+          {name: 'Loan estimate', value: 'LoanEstimate'},
+          {name: 'Loan application form', value: 'UniformResidentialLendingApplication'},
+          {name: 'Other Loan Report', value: 'OtherLoanReport'},
+        ]
+        break;
+      case "closing":
+        var documentTypes = [
+          {name: 'Closing Disclosure', value: 'ClosingDisclosure'},
+          {name: 'Deed of Trust', value: 'DeedOfTrust'},
+          {name: 'Closing - Loan Document', value: 'LoanDoc'},
+          {name: 'Other Closing Report', value: 'OtherClosingReport'},
+        ]
+        break;
+      default:
+        var documentTypes = []
+    }
+    return documentTypes;
   },
 
   onClick: function(event) {
@@ -82,7 +177,7 @@ var Form = React.createClass({
           {
             type: response.checklist.checklist_type,
             name: response.checklist.name,
-            description: response.checklist.description,
+            info: response.checklist.info,
             dueDate: response.checklist.due_date,
             question: response.checklist.question,
             documentType: response.checklist.document_type,
@@ -152,28 +247,47 @@ var Form = React.createClass({
         <div className='form-group'>
           <div className='col-sm-6'>
             <TextField
-              label='Description'
-              keyName='description'
-              name='checklist[description]'
-              value={this.state.description}
+              label='Info'
+              keyName='info'
+              name='checklist[info]'
+              value={this.state.info}
               onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
         <div className='form-group'>
-          <div className='col-sm-6'>
+          <div className='col-sm-4'>
+            <SelectField
+              label='Document'
+              keyName='document'
+              name='checklist[document]'
+              value={this.state.document}
+              options={this.props.documents}
+              onChange={this.onChange}
+              editable={true}/>
+          </div>
+          <div className='col-sm-4'>
             <SelectField
               label='Document Type'
               keyName='documentType'
               name='checklist[document_type]'
               value={this.state.documentType}
-              options={this.props.documentTypes}
+              options={this.state.documentTypes}
+              onChange={this.onChange}
+              editable={true}/>
+          </div>
+          <div className='col-sm-4'>
+            <TextField
+              label='Document Description'
+              keyName='description'
+              name='checklist[document_description]'
+              value={this.state.description}
               onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
         <div className='form-group' style={{'display': this.state.type == 'explain' ? null : 'none'}}>
-          <div className='col-sm-6'>
+          <div className='col-sm-4'>
             <TextField
               label='Question'
               keyName='question'
@@ -182,7 +296,7 @@ var Form = React.createClass({
               onChange={this.onChange}
               editable={true}/>
           </div>
-          <div className='col-sm-6'>
+          <div className='col-sm-4'>
             <SelectField
               label='Docusign Template'
               keyName='documentTemplate'

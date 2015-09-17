@@ -14,7 +14,6 @@ Feature: BorrowerTabAtNewLoanPage
         And I fill in "Social Security Number" with "222222222"
       Then I clear value in "Years in School"
         And I fill in "Years in School" with "12"
-
       And I fill in "Date of Birth" with "03/01/1991"
       Then I click on "Save and Continue"
         And I wait for 1 seconds

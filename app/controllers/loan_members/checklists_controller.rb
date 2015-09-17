@@ -1,16 +1,7 @@
 class LoanMembers::ChecklistsController < LoanMembers::BaseController
   before_action :set_loan, except: [:edit, :destroy]
+  before_action :authenticate_loan!
   before_action :set_checklist, except: [:index, :create]
-
-  # def index
-  #   checklists = Checklist.where(loan_id: @loan.id)
-
-  #   bootstrap(checklists: ChecklistsPresenter.index(checklists))
-
-  #   respond_to do |format|
-  #     format.html { render template: 'loan_member_app' }
-  #   end
-  # end
 
   def create
     checklist = Checklist.new(checklist_params)
@@ -41,7 +32,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
 
   def update
     if @checklist.update(checklist_params)
-      render json: {checklist: ChecklistsPresenter.show(@checklist), message: 'Updated successfully'}, status: 200
+      render json: {checklist: ChecklistsPresenter.show(@checklist), message: "Updated successfully"}, status: 200
     else
       render json: {message: "Updated failed"}, status: 500
     end
@@ -65,10 +56,16 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
 
   def checklist_params
     params[:checklist][:due_date] = Date.strptime(params[:checklist][:due_date], "%m/%d/%Y") if params[:checklist][:due_date].present?
-    params.require(:checklist).permit(:checklist_type, :document_type, :name, :description, :question, :due_date, :template_id)
+    params.require(:checklist).permit(:checklist_type, :document_type, :document, :name, :document_description, :question, :due_date, :template_id, :info)
   end
 
   def set_checklist
     @checklist = Checklist.find(params[:id])
+  end
+
+  def authenticate_loan!
+    if @loan && !current_user.loan_member.handle_this_loan?(@loan)
+      redirect_to unauthenticated_root_path, alert: "The page does not exist or you don't have permmission to access!"
+    end
   end
 end

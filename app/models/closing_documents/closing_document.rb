@@ -20,6 +20,8 @@
 class ClosingDocument < ActiveRecord::Base
   include Documentation
 
+  DOCUMENT_LIST = %w(ClosingDisclosure DeedOfTrust LoanDoc OtherClosingReport)
+
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',
     path: PAPERCLIP[:default_path]

@@ -22,7 +22,7 @@ module Docusign
         current_user: user,
         params: {
           file: File.new(envelope_path),
-          description: checklist.description
+          description: checklist.document_description
         }
       }
       DocumentServices::UploadFile.new(args).call

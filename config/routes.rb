@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   authenticated :user, ->(u) { u.has_role?(:loan_member) } do
-    root to: "loan_members/loan_activities#index", as: :loan_member_root
+    root to: "loan_members/loans#index", as: :loan_member_root
   end
 
   authenticated :user, ->(u) { u.has_role?(:admin) } do
@@ -94,6 +94,12 @@ Rails.application.routes.draw do
     end
 
     resources :checklists do
+    end
+
+    resources :loans do
+    end
+
+    resources :dashboard do
     end
   end
 

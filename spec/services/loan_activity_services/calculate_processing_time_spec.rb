@@ -27,7 +27,7 @@ describe LoanActivityServices::CalculateProcessingTime do
       end
     end
 
-    context "when current_activity_status is pause or done" do
+    context "when current_activity_status is pause" do
       before(:each) do
         Timecop.freeze
         loan_activity.activity_status = "pause" # current_activity_status
@@ -39,6 +39,12 @@ describe LoanActivityServices::CalculateProcessingTime do
         Timecop.travel(@next_time)
         LoanActivityServices::CalculateProcessingTime.new(loan_activity, previous_loan_activity).call
         expect(previous_loan_activity.duration).to eq(@next_time - @current_time)
+      end
+
+      it "sets end_date for an old activity" do
+        Timecop.travel(@next_time)
+        LoanActivityServices::CalculateProcessingTime.new(loan_activity, previous_loan_activity).call
+        expect(previous_loan_activity.end_date.to_i).to eq(@next_time.to_i)
       end
     end
   end
