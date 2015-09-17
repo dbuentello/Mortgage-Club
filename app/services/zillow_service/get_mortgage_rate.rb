@@ -8,12 +8,12 @@ module ZillowService
 
     def self.call(zipcode)
       return unless zipcode
-      Rails.cache.fetch("mortgage-rates-#{zipcode}-#{Time.zone.now.to_date.to_s}", expires_in: 12.hour) do
+      # Rails.cache.fetch("mortgage-rates-#{zipcode}-#{Time.zone.now.to_date.to_s}", expires_in: 12.hour) do
         zipcode = zipcode[0..4] if zipcode.length > 5
         set_up_crawler
         fill_in_form(zipcode)
         get_lenders
-      end
+      # end
     end
 
     private
@@ -23,14 +23,12 @@ module ZillowService
         Capybara::Poltergeist::Driver.new(app, {js_errors: false})
       end
       @session = Capybara::Session.new(:poltergeist)
-      @session.driver.headers = {
-        "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X)"
-      }
     end
 
     def self.fill_in_form(zipcode)
       @session.visit "http://www.zillow.com/mortgage-rates/"
-      @session.find('a', text: "Advanced").click
+      sleep(3)
+      @session.find('.zmm-lrf-advanced-link-block .zmm-lrf-advanced-link-show').click
       @session.select('Purchase', from: 'Loan purpose')
       @session.fill_in('ZIP code', with: zipcode)
       @session.fill_in('Purchase price', with: '500000')
