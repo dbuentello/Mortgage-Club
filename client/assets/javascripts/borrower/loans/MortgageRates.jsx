@@ -12,12 +12,11 @@ var MortgageRates = React.createClass({
   componentDidMount: function() {
     $.ajax({
       method: 'GET',
-      url: window.location.pathname,
+      url: '/rates?loan_id=e8e30aff-450d-4895-af7a-3dcfa539358a',
       data: {data: true},
       context: this,
       dataType: 'json',
       success: function(response) {
-        // var rates = this.getValue(response, 'Result.TransactionData.PRODUCTS.PRODUCT');
         this.setState({ loaded: true, rates: response });
       },
       error: function(response, status, error) {
@@ -27,19 +26,19 @@ var MortgageRates = React.createClass({
   },
 
   onSelect: function(rate) {
-    // console.dir(rate);
-    $.ajax({
-      url: '/rates/select',
-      method: 'POST',
-      dataType: 'json',
-      data: {rate: rate},
-      success: function(response) {
-        this.context.router.transitionTo('new_loan');
-      }.bind(this),
-      error: function(response, status, error) {
-        alert(error);
-      }
-    });
+    console.dir(rate)
+    // $.ajax({
+    //   url: '/rates/select',
+    //   method: 'POST',
+    //   dataType: 'json',
+    //   data: {rate: rate},
+    //   success: function(response) {
+    //     this.context.router.transitionTo('new_loan');
+    //   }.bind(this),
+    //   error: function(response, status, error) {
+    //     alert(error);
+    //   }
+    // });
   },
 
   render: function() {
@@ -68,20 +67,20 @@ var MortgageRates = React.createClass({
           return (
             <div key={index} className={'row mhn roundedCorners bas mvm pvm' + (index % 2 === 0 ? ' backgroundLowlight' : '')}>
               <div className='col-sm-3'>
-                <div className='typeBold'>{rate.EntityName}</div>
+                <div className='typeBold'>{rate.lender.name}</div>
                 Logo
                 <div>
-                  <span className='typeLowlight'>NMLS: </span>#Some number
+                  <span className='typeLowlight'>NMLS: </span>{rate.lender.nmls}
                 </div>
               </div>
               <div className='col-sm-6'>
-                {rate.ProductName}<br/>
-                {this.commafy(rate.OriginationAPR, 3)}% APR
+                {rate.loan["Loan product"]}<br/>
+                {this.commafy(rate.loan["APR"], 3)}% APR
                 <span className='typeLowlight mlm'>Monthly Payment: </span>
-                {this.formatCurrency(rate.OriginationPandI, '$')}<br/>
-                <span className='typeLowlight'>Rate: </span>{this.commafy(rate.Rate, 3)}%
+                {this.formatCurrency(rate.loan["Payment (principal & interest)"], '$')}<br/>
+                <span className='typeLowlight'>Rate: </span>{this.commafy(rate.loan["Interest rate"], 3)}%
                 <span className='typeLowlight mlm'>Total Closing Cost: </span>
-                {this.formatCurrency(rate.OriginationTotalClosingCost, '$')}
+                {this.formatCurrency(rate.fees["Total Estimated Fees"], '$')}
               </div>
               <div className='col-sm-3 pull-right text-right'>
                 <a className='btn btm Sml btnPrimary' onClick={_.bind(this.onSelect, null, rate)}>Select</a>
@@ -96,15 +95,15 @@ var MortgageRates = React.createClass({
   sortBy: function(field) {
     if (field == 'apr') {
       this.setState({rates: _.sortBy(this.state.rates, function (rate) {
-        return parseFloat(rate.OriginationAPR);
+        return parseFloat(rate.loan["APR"]);
       })});
     } else if (field == 'pmt') {
       this.setState({rates: _.sortBy(this.state.rates, function (rate) {
-        return parseFloat(rate.OriginationPandI);
+        return parseFloat(rate.loan["Payment (principal & interest)"]);
       })});
     } else if (field == 'rate') {
       this.setState({rates: _.sortBy(this.state.rates, function (rate) {
-        return parseFloat(rate.Rate);
+        return parseFloat(rate.loan["Interest rate"]);
       })});
     }
   }
