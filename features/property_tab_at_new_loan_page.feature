@@ -2,7 +2,6 @@ Feature: PropertyTabAtNewLoanPage
   @javascript
   Scenario: user submits a new property
     When I am at loan management page
-      And I run the background jobs
       Then I click on "Property"
         And I select "Duplex" from "Property Type"
         And I select "Vacation Home" from "Property Will Be"

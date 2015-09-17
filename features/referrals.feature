@@ -2,6 +2,7 @@ Feature: Referrals
   @javascript
   Scenario: send referrals email
     When I am at my loans page
+      And I turn off delayed jobs
       Then I click "Referrals"
         And I should see "Referrals Program"
         And I should see "Your Referrals"

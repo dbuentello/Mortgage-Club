@@ -24,8 +24,12 @@ When /^a GET request is sent to "(.*?)"$/ do |url|
   visit url
 end
 
-When /^I run the background jobs$/ do
+When /^I turn on delayed jobs$/ do
   Delayed::Worker.delay_jobs = true
+end
+
+When /^I turn off delayed jobs$/ do
+  Delayed::Worker.delay_jobs = false
 end
 
 When /^I should see content as "(.*)"$/ do |content|
