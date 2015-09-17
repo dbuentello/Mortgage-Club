@@ -11,6 +11,7 @@ FactoryGirl.define do
     f.status { 'pending' }
     f.document_type { 'FirstBankStatement' }
     f.document { 'borrower' }
+    f.checklist_type { 'explain' }
 
     factory :checklist_explain do
       checklist_type { 'explain' }
