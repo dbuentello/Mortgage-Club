@@ -29,7 +29,6 @@ module ZillowService
       @session.visit "http://www.zillow.com/mortgage-rates/"
       sleep(3)
       @session.find('.zmm-lrf-advanced-link-block .zmm-lrf-advanced-link-show').click
-      @session.find('a', text: "Advanced").click
       @session.select('Purchase', from: 'Loan purpose')
       @session.fill_in('ZIP code', with: zipcode)
       @session.fill_in('Purchase price', with: '500000')
