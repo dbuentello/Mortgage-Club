@@ -22,13 +22,14 @@ module ZillowService
         Capybara::Poltergeist::Driver.new(app, {js_errors: false})
       end
       @session = Capybara::Session.new(:poltergeist)
+      @session.driver.headers = { 'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X)" }
     end
 
     def self.get_request_code(zipcode)
       Rails.logger.info "visit to Zillow"
       number_of_try = 0
       data = Nokogiri::HTML.parse(@session.html)
-      while data.css(".zmm-quote-website-link").empty? && number_of_try < 3
+      while data.css(".zmm-quote-website-link").empty? && number_of_try < 5
         @session.visit "http://www.zillow.com/mortgage-rates/"
         sleep(10)
         data = Nokogiri::HTML.parse(@session.html)
