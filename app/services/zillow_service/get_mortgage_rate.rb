@@ -29,17 +29,21 @@ module ZillowService
       user_session_id = "userSessionId=2de70907-6e58-45f6-a7e8-dc2efb69e261" # hardcode session ID
       @session.visit "https://mortgageapi.zillow.com/submitRequest?property.type=SingleFamilyHome&property.use=Primary&property.zipCode=#{zipcode}&property.value=500000&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000&borrower.monthlyDebts=0&borrower.selfEmployed=false&borrower.hasBankruptcy=false&borrower.hasForeclosure=false&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year&desiredPrograms.2=ARM5&purchase.downPayment=100000&purchase.firstTimeBuyer=false&purchase.newConstruction=false&partnerId=RD-CZMBMCZ&#{user_session_id}"
       request_code = @session.text.split('":"').last.chomp('"}')
+      Rails.logger.info request_code
+      request_code
     end
 
     def self.get_lenders(zipcode)
       begin
         return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
+        Rails.logger.info "visit to get rates"
         @session.visit("http://www.zillow.com/mortgage-rates/#request=#{request_code}")
         sleep(10)
         data = Nokogiri::HTML.parse(@session.html)
         lenders = []
         return if no_result?(data)
         data.css(".zmm-pagination-list li").each_with_index do |_, index|
+          Rails.logger.info "page #{index + 1}"
           break if index > MAX_PAGE
           if index != 0
             @session.find(".zmm-pagination-list li a", text: index).click
@@ -64,11 +68,13 @@ module ZillowService
               nmls = data.css(".zmm-qdp-subtitle-list li")[0].text.gsub(/[^0-9\.]/,'')
             end
             @session.find(".zsg-icon-x-thin ").click
-            {
+            result = {
               lender: {name: lender_name, nmls: nmls},
               loan: get_loan_details(data),
               fees: get_lender_fees(data)
             }
+            Rails.logger.info "result: #{result}"
+            result
           end
         end
         return lenders.flatten
