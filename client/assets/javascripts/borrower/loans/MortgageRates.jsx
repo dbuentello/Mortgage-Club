@@ -12,8 +12,8 @@ var MortgageRates = React.createClass({
   componentDidMount: function() {
     $.ajax({
       method: 'GET',
-      url: '/rates?loan_id=e8e30aff-450d-4895-af7a-3dcfa539358a',
-      data: {data: true},
+      url: '/rates',
+      data: {},
       context: this,
       dataType: 'json',
       success: function(response) {
