@@ -67,20 +67,20 @@ var MortgageRates = React.createClass({
           return (
             <div key={index} className={'row mhn roundedCorners bas mvm pvm' + (index % 2 === 0 ? ' backgroundLowlight' : '')}>
               <div className='col-sm-3'>
-                <div className='typeBold'>{rate.lender.name}</div>
+                <div className='typeBold'>{rate.lender_name}</div>
                 Logo
                 <div>
-                  <span className='typeLowlight'>NMLS: </span>{rate.lender.nmls}
+                  <span className='typeLowlight'>NMLS: </span>{rate.nmls}
                 </div>
               </div>
               <div className='col-sm-6'>
-                {rate.loan["Loan product"]}<br/>
-                {this.commafy(rate.loan["APR"], 3)}% APR
+                {rate.product}<br/>
+                {this.commafy(rate.apr, 3)}% APR
                 <span className='typeLowlight mlm'>Monthly Payment: </span>
-                {this.formatCurrency(rate.loan["Payment (principal & interest)"], '$')}<br/>
-                <span className='typeLowlight'>Rate: </span>{this.commafy(rate.loan["Interest rate"], 3)}%
+                {this.formatCurrency(rate.monthly_payment, '$')}<br/>
+                <span className='typeLowlight'>Rate: </span>{this.commafy(rate.interest_rate, 3)}%
                 <span className='typeLowlight mlm'>Total Closing Cost: </span>
-                {this.formatCurrency(rate.fees["Total Estimated Fees"], '$')}
+                {this.formatCurrency(rate.total_fee, '$')}
               </div>
               <div className='col-sm-3 pull-right text-right'>
                 <a className='btn btm Sml btnPrimary' onClick={_.bind(this.onSelect, null, rate)}>Select</a>
@@ -95,15 +95,15 @@ var MortgageRates = React.createClass({
   sortBy: function(field) {
     if (field == 'apr') {
       this.setState({rates: _.sortBy(this.state.rates, function (rate) {
-        return parseFloat(rate.loan["APR"]);
+        return parseFloat(rate.apr);
       })});
     } else if (field == 'pmt') {
       this.setState({rates: _.sortBy(this.state.rates, function (rate) {
-        return parseFloat(rate.loan["Payment (principal & interest)"]);
+        return parseFloat(rate.monthly_payment);
       })});
     } else if (field == 'rate') {
       this.setState({rates: _.sortBy(this.state.rates, function (rate) {
-        return parseFloat(rate.loan["Interest rate"]);
+        return parseFloat(rate.interest_rate);
       })});
     }
   }
