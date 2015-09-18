@@ -41,6 +41,7 @@ module ZillowService
         data = Nokogiri::HTML.parse(@session.html)
         attempt = 0
         while data.css(".zmm-pagination-list li").empty? && attempt < 6
+          sleep(5)
           attempt += 1
           data = Nokogiri::HTML.parse(@session.html)
         end
@@ -62,7 +63,7 @@ module ZillowService
             nmls = ''
             button.click
             while (data.css(".zmm-qdp-subtitle-list li").empty? && attempt < 6)
-              sleep(1)
+              sleep(5)
               attempt += 1
               data = Nokogiri::HTML.parse(@session.html)
             end
