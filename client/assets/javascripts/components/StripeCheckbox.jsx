@@ -11,7 +11,7 @@ var StripeCheckbox = React.createClass({
   mixins: [ReactScriptLoaderMixin],
   getInitialState: function() {
     return {
-      agree: false
+      agree: this.props.agree
     };
   },
 
@@ -82,9 +82,7 @@ var StripeCheckbox = React.createClass({
   },
 
   onClick: function() {
-    this.setState({
-      agree: !this.state.agree
-    });
+    this.setState({agree: !this.state.agree});
     if (this.state.agree == false) {
       if (StripeButton.scriptDidError) {
         console.log('failed to load script');
@@ -95,6 +93,7 @@ var StripeCheckbox = React.createClass({
         this.hasPendingClick = true;
       }
     }
+    this.props.save(!this.state.agree);
   },
 
   render: function() {

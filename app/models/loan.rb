@@ -101,6 +101,7 @@ class Loan < ActiveRecord::Base
   delegate :completed?, to: :borrower, prefix: :borrower
 
   PERMITTED_ATTRS = [
+    :credit_check_agree,
     :purpose,
     property_attributes:           [:id] + Property::PERMITTED_ATTRS,
     borrower_attributes:           [:id] + Borrower::PERMITTED_ATTRS
@@ -135,7 +136,7 @@ class Loan < ActiveRecord::Base
   end
 
   def credit_completed
-    false
+    credit_check_agree
   end
 
   def assets_completed

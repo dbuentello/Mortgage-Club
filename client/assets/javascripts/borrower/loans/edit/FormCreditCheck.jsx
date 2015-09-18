@@ -13,14 +13,20 @@ var FormCreditCheck = React.createClass({
   getInitialState: function() {
     var currentUser = this.props.bootstrapData.currentUser;
     var state = {};
+    state.credit_check_agree = this.props.loan.credit_check_agree;
     return state;
   },
 
   onChange: function(change) {
+    console.log(change);
   },
 
-  onFocus: function(field) {
-    this.setState({focusedField: field});
+  save: function(agree) {
+    console.log(agree);
+    this.setState({saving: true});
+    var loan = {};
+    loan.credit_check_agree = agree
+    this.props.saveLoan(loan, 3, true);
   },
 
   render: function() {
@@ -34,14 +40,14 @@ var FormCreditCheck = React.createClass({
 
             <div className='box row'>
               <div className='col-xs-12'>
-                <StripeCheckbox />
+                <StripeCheckbox agree={this.state.credit_check_agree} save={this.save} />
               </div>
             </div>
           </div>
         </div>
       </div>
     );
-  }
+  },
 });
 
 module.exports = FormCreditCheck;
