@@ -9,6 +9,7 @@ module ZillowService
 
     def self.call(zipcode)
       return unless zipcode
+      Rails.logger.info "Start - get mortgage rates"
       Rails.cache.fetch("zillow-mortgage-rates-#{zipcode}-#{Time.zone.now.to_date.to_s}", expires_in: 12.hour) do
         zipcode = zipcode[0..4] if zipcode.length > 5
         set_up_crawler
@@ -34,12 +35,15 @@ module ZillowService
 
     def self.get_lenders(zipcode)
       return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
+      Rails.logger.info "request_code #{request_code}"
 
       response = HTTParty.get("https://mortgageapi.zillow.com/getQuotes?partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
       data = JSON.parse(response.body)
       data["quotes"] ||= []
       lenders = []
       count = 0
+
+      Rails.logger.info "iterate quotes"
 
       data["quotes"].each do |quote_id, _|
         break if count > NUMBER_OF_LENDERS
@@ -72,6 +76,7 @@ module ZillowService
           loan_amount: loan_amount, interest_rate: interest_rate, product: product, total_fee: total_fee, fees: fees, down_payment: 100000
         }
       end
+      Rails.logger.info lenders
       lenders
     end
   end
