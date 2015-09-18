@@ -72,16 +72,21 @@ module ZillowService
           lenders << buttons.map do |button|
             data = Nokogiri::HTML.parse(@session.html)
             number_of_try = 0
-            while (data.css(".zmm-qdp-subtitle-list li").empty? && number_of_try < 3)
+            nmls = ''
+            while (data.css(".zmm-qdp-subtitle-list li").empty? && number_of_try < 5)
               button.click
-              sleep(3)
+              sleep(5)
               number_of_try += 1
               data = Nokogiri::HTML.parse(@session.html)
             end
             Rails.logger.info "get lender_name"
             lender_name = data.css(".zmm-quote-details-content .zsg-h1").text
             Rails.logger.info "get nmls"
-            nmls = data.css(".zmm-qdp-subtitle-list li")[0].text.gsub(/[^0-9\.]/,'')
+            if data.css(".zmm-qdp-subtitle-list li").empty?
+              Rails.logger.error "cannot get nmls"
+            else
+              nmls = data.css(".zmm-qdp-subtitle-list li")[0].text.gsub(/[^0-9\.]/,'')
+            end
             @session.find(".zsg-icon-x-thin ").click
             result = {
               lender: {name: lender_name, nmls: nmls},
