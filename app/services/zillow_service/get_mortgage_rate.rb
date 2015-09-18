@@ -38,10 +38,15 @@ module ZillowService
         return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
         Rails.logger.info "visit to get rates"
         @session.visit("http://www.zillow.com/mortgage-rates/#request=#{request_code}")
-        sleep(10)
         data = Nokogiri::HTML.parse(@session.html)
+        attempt = 0
+        while data.css(".zmm-pagination-list li").empty? && attempt < 6
+          attempt += 1
+          data = Nokogiri::HTML.parse(@session.html)
+        end
         lenders = []
         return if no_result?(data)
+
         data.css(".zmm-pagination-list li").each_with_index do |_, index|
           Rails.logger.info "page #{index + 1}"
           break if index > MAX_PAGE
@@ -53,12 +58,12 @@ module ZillowService
           buttons = @session.all(".zmm-quote-card-button")
           lenders << buttons.map do |button|
             data = Nokogiri::HTML.parse(@session.html)
-            number_of_try = 0
+            attempt = 0
             nmls = ''
-            while (data.css(".zmm-qdp-subtitle-list li").empty? && number_of_try < 5)
-              button.click
-              sleep(5)
-              number_of_try += 1
+            button.click
+            while (data.css(".zmm-qdp-subtitle-list li").empty? && attempt < 6)
+              sleep(1)
+              attempt += 1
               data = Nokogiri::HTML.parse(@session.html)
             end
             lender_name = data.css(".zmm-quote-details-content .zsg-h1").text
