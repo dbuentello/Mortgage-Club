@@ -11,8 +11,7 @@ module ZillowService
       Rails.cache.fetch("mortgage-rates-#{zipcode}-#{Time.zone.now.to_date.to_s}", expires_in: 12.hour) do
         zipcode = zipcode[0..4] if zipcode.length > 5
         set_up_crawler
-        fill_in_form(zipcode)
-        get_lenders
+        get_lenders(zipcode)
       end
     end
 
@@ -25,33 +24,29 @@ module ZillowService
       @session = Capybara::Session.new(:poltergeist)
     end
 
-    def self.fill_in_form(zipcode)
+    def self.get_request_code(zipcode)
       @session.visit "http://www.zillow.com/mortgage-rates/"
-      sleep(1)
-      @session.find('.zmm-lrf-advanced-link-block .zmm-lrf-advanced-link-show').trigger('click')
-      sleep(2)
-      @session.select('Purchase', from: 'Loan purpose')
-      @session.find('#zmm-lrf-input-zipcode').set(zipcode)
-      @session.find('#zmm-lrf-input-purprice').set('500000')
-      @session.find('#zmm-lrf-input-dpamount').set('100000')
-      @session.find('#zmm-lrf-input-annualincome').set('200000')
-      @session.select('760 and above', from: 'Credit score')
-      @session.select('Single family home', from: 'Property type')
-      @session.select('Primary residence', from: 'How is home used?')
-      @session.select('No', from: 'First-time buyer?')
-      @session.select('No', from: 'New construction?')
-      @session.click_on('Get rates')
-      sleep(15)
+      sleep(5)
+      data = Nokogiri::HTML.parse(@session.html)
+      #https://mortgageapi.zillow.com/quote-website?partnerId=RD-BFBSMTN&quoteId=ZQ-VQRLSZVF&userSessionId=8a7eccd8-3c9f-4454-a11a-6dba3ced3c1a
+      url = data.css(".zmm-quote-website-link")[0]["href"]
+      user_session_id = url.split("&").last
+      @session.visit "https://mortgageapi.zillow.com/submitRequest?property.type=SingleFamilyHome&property.use=Primary&property.zipCode=#{zipcode}&property.value=500000&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000&borrower.monthlyDebts=0&borrower.selfEmployed=false&borrower.hasBankruptcy=false&borrower.hasForeclosure=false&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year&desiredPrograms.2=ARM5&purchase.downPayment=100000&purchase.firstTimeBuyer=false&purchase.newConstruction=false&partnerId=RD-CZMBMCZ&#{user_session_id}"
+      request_code = @session.text.split('":"').last.chomp('"}')
+      # http://www.zillow.com/mortgage-rates/#request=ZR-DCQRBGXN
     end
 
-    def self.get_lenders
+    def self.get_lenders(zipcode)
       begin
+        request_code = get_request_code(zipcode)
+        @session.visit("http://www.zillow.com/mortgage-rates/#request=#{request_code}")
+        sleep(7)
         data = Nokogiri::HTML.parse(@session.html)
         lenders = []
         return if no_result?(data)
         buttons = @session.all(".zmm-quote-card-button")
         data.css(".zmm-pagination-list li").each_with_index do |_, index|
-          break if index >= MAX_PAGE
+          break if index > MAX_PAGE
           if index != 0
             @session.find(".zmm-pagination-list li a", text: index).click
             sleep(1)
@@ -72,10 +67,10 @@ module ZillowService
             }
           end
         end
+        return lenders.flatten
       rescue StandardError => error
         Rails.logger.error error.message
       end
-      lenders.flatten
     end
 
     def self.get_lender_fees(data)
@@ -97,6 +92,7 @@ module ZillowService
           fees[fee_name] = fee.gsub(/[^0-9\.]/,'').to_f
         end
       end
+      fees
     end
 
     def self.get_loan_details(data)
@@ -116,9 +112,10 @@ module ZillowService
       data.css(".zmm-qdp-loan-details-section .zmm-table_tooltips tr").each do |tr|
         info_name = tr.css("th").text
         value = tr.css("td").text
-        loan_details[info_name]  = value
-
-        next if ["Loan product", "Quote ID", "Date submitted"].include? info_name
+        if ["Loan product", "Quote ID", "Date submitted"].include? info_name
+          loan_details[info_name]  = value.strip!
+          next
+        end
 
         if value.include?("(")
           loan_details[info_name] = ("-" << value.gsub(/[^0-9\.]/,'')).to_f
