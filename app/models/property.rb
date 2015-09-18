@@ -67,8 +67,15 @@ class Property < ActiveRecord::Base
 
   def usage_name
     return unless usage
-
     usage.split('_').map(&:capitalize).join(' ')
+  end
+
+  def completed?
+    property_type.present? && usage.present? && address.present? && address.completed
+  end
+
+  def refinance_completed?
+    original_purchase_price.present? && original_purchase_year.present?
   end
 
 end

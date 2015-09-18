@@ -8,12 +8,12 @@ module ZillowService
 
     def self.call(zipcode)
       return unless zipcode
-      # Rails.cache.fetch("mortgage-rates-#{zipcode}-#{Time.zone.now.to_date.to_s}", expires_in: 12.hour) do
+      Rails.cache.fetch("mortgage-rates-#{zipcode}-#{Time.zone.now.to_date.to_s}", expires_in: 12.hour) do
         zipcode = zipcode[0..4] if zipcode.length > 5
         set_up_crawler
         fill_in_form(zipcode)
         get_lenders
-      # end
+      end
     end
 
     private

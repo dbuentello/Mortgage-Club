@@ -50,22 +50,18 @@ var OtherIncome = React.createClass({
             onChange={this.onChange}
             allowBlank={true} />
         </div>
-        { this.state.income.type != null
-          ? <div><div className='col-sm-5'>
-              <TextField
-                label='Annual Gross Amount'
-                keyName={'income.amount'}
-                value={this.state.income.amount}
-                editable={true}
-                onChange={this.onChange}/>
-            </div>
-            <div className='col-sm-1'>
-              <a className="iconTrash clickable" onClick={this.remove.bind(this, index)} >
-              </a>
-            </div>
-            </div>
-          : null
-      }
+
+        <div className='col-sm-5'>
+          <TextField
+            label='Annual Gross Amount'
+            keyName={'income.amount'}
+            value={this.state.income.amount}
+            editable={true}
+            onChange={this.onChange}/>
+        </div>
+        <div className='col-sm-1'>
+          <a className="iconTrash clickable" onClick={this.remove.bind(this, index)} />
+        </div>
       </div>
     );
   }

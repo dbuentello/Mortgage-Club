@@ -119,7 +119,7 @@ class Loan < ActiveRecord::Base
   end
 
   def property_completed
-    property_completed? && purpose_completed?
+    property.completed? && purpose_completed?
   end
 
   def borrower_completed
@@ -147,25 +147,9 @@ class Loan < ActiveRecord::Base
   end
 
   def purpose_completed?
-    purpose.present? && (purchase_completed? || refinance_completed?)
+    purpose.present? && (purchase? && property.purchase_price.present? ||
+      refinance? && property.refinance_completed?)
   end
-
-  def purchase_completed?
-    purchase? && property.purchase_price.present?
-  end
-
-  def refinance_completed?
-    refinance? && property.original_purchase_price.present? && property.original_purchase_year.present?
-  end
-
-  def property_completed?
-    property.present? && property.property_type.present? && property.usage.present? && property_address_completed?
-  end
-
-  def property_address_completed?
-    property.address.present? && property.address.completed
-  end
-
 
   def num_of_years
     return unless num_of_months
