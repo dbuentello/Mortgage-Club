@@ -27,28 +27,27 @@ module ZillowService
 
     def self.get_request_code(zipcode)
       Rails.logger.info "visit to Zillow"
-      number_of_try = 0
-      data = Nokogiri::HTML.parse(@session.html)
-      while data.css(".zmm-quote-website-link").empty? && number_of_try < 5
-        @session.visit "http://www.zillow.com/mortgage-rates/"
-        sleep(10)
-        data = Nokogiri::HTML.parse(@session.html)
-        number_of_try += 1
-        Rails.logger.info "get request code retry: #{number_of_try}"
-        #https://mortgageapi.zillow.com/quote-website?partnerId=RD-BFBSMTN&quoteId=ZQ-VQRLSZVF&userSessionId=8a7eccd8-3c9f-4454-a11a-6dba3ced3c1a
-      end
+      # number_of_try = 0
+      # get user_session_id
+      # while data.css(".zmm-quote-website-link").empty? && number_of_try < 5
+      #   @session.visit "http://www.zillow.com/mortgage-rates/"
+      #   sleep(10)
+      #   data = Nokogiri::HTML.parse(@session.html)
+      #   number_of_try += 1
+      #   Rails.logger.info "get request code retry: #{number_of_try}"
+      #   #https://mortgageapi.zillow.com/quote-website?partnerId=RD-BFBSMTN&quoteId=ZQ-VQRLSZVF&userSessionId=8a7eccd8-3c9f-4454-a11a-6dba3ced3c1a
+      # end
 
-      unless data.css(".zmm-quote-website-link").empty?
-        Rails.logger.info "get user_session_id"
-        url = data.css(".zmm-quote-website-link")[0]["href"]
-        user_session_id = url.split("&").last
-        Rails.logger.info "visit to Zillow to get request_code with userSessionId: #{user_session_id}"
-        @session.visit "https://mortgageapi.zillow.com/submitRequest?property.type=SingleFamilyHome&property.use=Primary&property.zipCode=#{zipcode}&property.value=500000&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000&borrower.monthlyDebts=0&borrower.selfEmployed=false&borrower.hasBankruptcy=false&borrower.hasForeclosure=false&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year&desiredPrograms.2=ARM5&purchase.downPayment=100000&purchase.firstTimeBuyer=false&purchase.newConstruction=false&partnerId=RD-CZMBMCZ&#{user_session_id}"
-        request_code = @session.text.split('":"').last.chomp('"}')
-        Rails.logger.info "request_code #{request_code}"
-        request_code
+      Rails.logger.info "get user_session_id"
+      # url = data.css(".zmm-quote-website-link")[0]["href"]
+      # user_session_id = url.split("&").last
+      user_session_id = "9c8ca880-8ea2-4ea3-89c0-d42b82ea8a1a" # hardcode session ID
+      Rails.logger.info "visit to Zillow to get request_code with userSessionId: #{user_session_id}"
+      @session.visit "https://mortgageapi.zillow.com/submitRequest?property.type=SingleFamilyHome&property.use=Primary&property.zipCode=#{zipcode}&property.value=500000&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000&borrower.monthlyDebts=0&borrower.selfEmployed=false&borrower.hasBankruptcy=false&borrower.hasForeclosure=false&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year&desiredPrograms.2=ARM5&purchase.downPayment=100000&purchase.firstTimeBuyer=false&purchase.newConstruction=false&partnerId=RD-CZMBMCZ&#{user_session_id}"
+      request_code = @session.text.split('":"').last.chomp('"}')
+      Rails.logger.info "request_code #{request_code}"
+      request_code
         # http://www.zillow.com/mortgage-rates/#request=ZR-DCQRBGXN
-      end
     end
 
     def self.get_lenders(zipcode)
