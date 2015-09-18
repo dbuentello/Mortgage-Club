@@ -27,8 +27,9 @@ module ZillowService
 
     def self.fill_in_form(zipcode)
       @session.visit "http://www.zillow.com/mortgage-rates/"
-      sleep(3)
-      @session.find('.zmm-lrf-advanced-link-block .zmm-lrf-advanced-link-show').click
+      sleep(1)
+      @session.find('.zmm-lrf-advanced-link-block .zmm-lrf-advanced-link-show').trigger('click')
+      sleep(2)
       @session.select('Purchase', from: 'Loan purpose')
       @session.fill_in('ZIP code', with: zipcode)
       @session.fill_in('Purchase price', with: '500000')
