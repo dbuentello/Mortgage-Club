@@ -28,53 +28,11 @@ var FormAssetsAndLiabilities = React.createClass({
   onChange: function(change) {
     var key = _.keys(change)[0];
     var value = _.values(change)[0];
-
-    if ( value != null ) {
-      if (key.indexOf('.address') > -1 && value.city) {
-        var propertyKey = key.replace('.address', '');
-        var property = this.getValue(this.state, propertyKey);
-        property.market_price = null;
-        property.property_type = null;
-        property.estimated_property_tax = null;
-        property.estimated_hazard_insurance = null;
-        this.searchProperty(this.getValue(this.state, propertyKey), propertyKey);
-      }
-    }
     this.setState(this.setValue(this.state, key, value));
   },
 
   onFocus: function(field) {
     this.setState({focusedField: field});
-  },
-
-  searchProperty: function(property, propertyKey) {
-    var address = property.address;
-
-    $.ajax({
-      url: '/properties/search',
-      data: {
-        address: [address.street_address, address.street_address2].join(' '),
-        citystatezip: [address.city, address.state, address.zip].join(' ')
-      },
-      dataType: 'json',
-      context: this,
-      success: function(response) {
-        if (response.message == 'cannot find') {
-          // actually 404 error
-          return;
-        }
-
-        var marketValue = this.getValue(response, 'zestimate.amount.__content__');
-        var propertyType = this.getValue(response, 'useCode');
-        var monthlyTax = this.getValue(response, 'monthlyTax');
-        var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
-        property.market_price = marketValue;
-        property.property_type = propertyType;
-        property.estimated_property_tax = monthlyTax;
-        property.estimated_hazard_insurance = monthlyInsurance;
-        this.setState(this.setValue(this.state, propertyKey, property));
-      }
-    });
   },
 
   eachProperty: function(property, index) {
@@ -162,15 +120,15 @@ var FormAssetsAndLiabilities = React.createClass({
       property_type: null,
       mortgage_payment: null,
       other_mortgage_payment: null,
-      market_value: null,
+      market_price: null,
       financing: null,
       other_financing: null,
       mortgage_insurance: null,
       mortgage_include_escrows: null,
-      homeowner_insurance: null,
-      property_tax: null,
+      estimated_hazard_insurance: null,
+      estimated_property_tax: null,
       hoa_due: null,
-      monthly_rent: null
+      gross_rental_income: null
     };
   },
 
@@ -180,15 +138,15 @@ var FormAssetsAndLiabilities = React.createClass({
       property_type: null,
       mortgage_payment: null,
       other_mortgage_payment: null,
-      market_value: null,
+      market_price: null,
       financing: null,
       other_financing: null,
       mortgage_insurance: null,
       mortgage_include_escrows: null,
-      homeowner_insurance: null,
-      property_tax: null,
+      estimated_hazard_insurance: null,
+      estimated_property_tax: null,
       hoa_due: null,
-      monthly_rent: null
+      gross_rental_income: null
     }];
   },
 

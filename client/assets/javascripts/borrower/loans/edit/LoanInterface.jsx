@@ -5,7 +5,6 @@ var Property = require('./FormProperty');
 var Borrower = require('./FormBorrower');
 var Income = require('./FormIncome');
 var AssetsAndLiabilities = require('./FormAssetsAndLiabilities');
-var RealEstates = require('./FormRealEstates');
 var Declarations = require('./FormDeclarations');
 var ESigning = require('./FormESigning');
 var CreditCheck = require('./FormCreditCheck');

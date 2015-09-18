@@ -68,6 +68,36 @@ var Property = React.createClass({
     this.setState(this.setValue(this.state, key, value));
   },
 
+  searchProperty: function(property, propertyKey) {
+    var address = property.address;
+    console.dir(address);
+    $.ajax({
+      url: '/properties/search',
+      data: {
+        address: [address.street_address, address.street_address2].join(' '),
+        citystatezip: [address.city, address.state, address.zip].join(' ')
+      },
+      dataType: 'json',
+      context: this,
+      success: function(response) {
+        console.dir(response);
+        if (response.message == 'cannot find') {
+          // actually 404 error
+          return;
+        }
+        var market_price = this.getValue(response, 'zestimate.amount.__content__');
+        var propertyType = this.getValue(response, 'useCode');
+        var monthlyTax = this.getValue(response, 'monthlyTax');
+        var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
+        property.market_price = market_price;
+        property.property_type = propertyType;
+        property.estimated_property_tax = monthlyTax;
+        property.estimated_hazard_insurance = monthlyInsurance;
+        this.setState(this.setValue(this.state, propertyKey, property));
+      }
+    });
+  },
+
   remove: function(index) {
     this.props.onRemove(index);
   },
@@ -103,8 +133,8 @@ var Property = React.createClass({
           <div className='col-xs-3'>
             <TextField
               label='Estimated Market Value'
-              keyName={'property.market_value'}
-              value={this.state.property.market_value}
+              keyName={'property.market_price'}
+              value={this.state.property.market_price}
               editable={true}
               onChange={this.onChange}/>
           </div>
@@ -179,16 +209,16 @@ var Property = React.createClass({
           <div className='col-xs-6'>
             <TextField
               label='Homeowner’s Insurance'
-              keyName={'property.homeowner_insurance'}
-              value={this.state.property.homeowner_insurance}
+              keyName={'property.estimated_hazard_insurance'}
+              value={this.state.property.estimated_hazard_insurance}
               editable={true}
               onChange={this.onChange}/>
           </div>
           <div className='col-xs-3'>
             <TextField
               label='Property Tax'
-              keyName={'property.property_tax'}
-              value={this.state.property.property_tax}
+              keyName={'property.estimated_property_tax'}
+              value={this.state.property.estimated_property_tax}
               editable={true}
               onChange={this.onChange}/>
           </div>
@@ -205,8 +235,8 @@ var Property = React.createClass({
           <div className='col-xs-6'>
             <TextField
               label='Monthly rent'
-              keyName={'property.monthly_rent'}
-              value={this.state.property.monthly_rent}
+              keyName={'property.gross_rental_income'}
+              value={this.state.property.gross_rental_income}
               editable={true}
               onChange={this.onChange}/>
           </div>
