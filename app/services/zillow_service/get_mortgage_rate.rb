@@ -27,15 +27,17 @@ module ZillowService
     def self.get_request_code(zipcode)
       number_of_try = 0
       data = Nokogiri::HTML.parse(@session.html)
-      while data.css(".zmm-quote-website-link").empty? && number_of_try < MAX_PAGE
+      while data.css(".zmm-quote-website-link").empty? && number_of_try < 3
         @session.visit "http://www.zillow.com/mortgage-rates/"
         sleep(10)
         data = Nokogiri::HTML.parse(@session.html)
         number_of_try += 1
+        Rails.logger.info "get request code retry: #{number_of_try}"
+        Rails.logger.info data
         #https://mortgageapi.zillow.com/quote-website?partnerId=RD-BFBSMTN&quoteId=ZQ-VQRLSZVF&userSessionId=8a7eccd8-3c9f-4454-a11a-6dba3ced3c1a
       end
 
-      if data.css(".zmm-quote-website-link").empty?
+      unless data.css(".zmm-quote-website-link").empty?
         url = data.css(".zmm-quote-website-link")[0]["href"]
         user_session_id = url.split("&").last
         @session.visit "https://mortgageapi.zillow.com/submitRequest?property.type=SingleFamilyHome&property.use=Primary&property.zipCode=#{zipcode}&property.value=500000&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000&borrower.monthlyDebts=0&borrower.selfEmployed=false&borrower.hasBankruptcy=false&borrower.hasForeclosure=false&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year&desiredPrograms.2=ARM5&purchase.downPayment=100000&purchase.firstTimeBuyer=false&purchase.newConstruction=false&partnerId=RD-CZMBMCZ&#{user_session_id}"
