@@ -31,12 +31,11 @@ module ZillowService
       @session.find('.zmm-lrf-advanced-link-block .zmm-lrf-advanced-link-show').trigger('click')
       sleep(2)
       @session.select('Purchase', from: 'Loan purpose')
-      @session.fill_in('ZIP code', with: zipcode)
-      @session.fill_in('Purchase price', with: '500000')
-      @session.fill_in('Down payment', with: '100000')
+      @session.find('#zmm-lrf-input-zipcode').set(zipcode)
+      @session.find('#zmm-lrf-input-purprice').set('500000')
+      @session.find('#zmm-lrf-input-dpamount').set('100000')
+      @session.find('#zmm-lrf-input-annualincome').set('200000')
       @session.select('760 and above', from: 'Credit score')
-      @session.fill_in('Monthly debts', with: '800')
-      @session.fill_in('Annual income', with: '200000')
       @session.select('Single family home', from: 'Property type')
       @session.select('Primary residence', from: 'How is home used?')
       @session.select('No', from: 'First-time buyer?')
@@ -66,7 +65,6 @@ module ZillowService
             lender_name = data.css(".zmm-quote-details-content .zsg-h1").text
             nmls = data.css(".zmm-qdp-subtitle-list li")[0].text.gsub(/[^0-9\.]/,'')
             @session.find(".zsg-icon-x-thin ").click
-
             {
               lender: {name: lender_name, nmls: nmls},
               loan: get_loan_details(data),
