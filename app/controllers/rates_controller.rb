@@ -1,6 +1,10 @@
 class RatesController < ApplicationController
   def index
-    @loan = Loan.last
+    if params[:loan_id]
+      @loan = Loan.find(params[:loan_id])
+    else
+      @loan = Loan.last
+    end
     zipcode = @loan.property.address.zip
     bootstrap
 
