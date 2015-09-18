@@ -1,6 +1,6 @@
 class RatesController < ApplicationController
   def index
-    @loan = Loan.first
+    @loan = Loan.last
     zipcode = @loan.property.address.zip
     bootstrap
 

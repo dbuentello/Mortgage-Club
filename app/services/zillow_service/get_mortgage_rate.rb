@@ -8,11 +8,11 @@ module ZillowService
 
     def self.call(zipcode)
       return unless zipcode
-      Rails.cache.fetch("mortgage-rates-#{zipcode}-#{Time.zone.now.to_date.to_s}", expires_in: 12.hour) do
+      # Rails.cache.fetch("mortgage-rates-#{zipcode}-#{Time.zone.now.to_date.to_s}", expires_in: 12.hour) do
         zipcode = zipcode[0..4] if zipcode.length > 5
         set_up_crawler
         get_lenders(zipcode)
-      end
+      # end
     end
 
     private
@@ -25,22 +25,30 @@ module ZillowService
     end
 
     def self.get_request_code(zipcode)
-      @session.visit "http://www.zillow.com/mortgage-rates/"
-      sleep(5)
+      number_of_try = 0
       data = Nokogiri::HTML.parse(@session.html)
-      #https://mortgageapi.zillow.com/quote-website?partnerId=RD-BFBSMTN&quoteId=ZQ-VQRLSZVF&userSessionId=8a7eccd8-3c9f-4454-a11a-6dba3ced3c1a
-      url = data.css(".zmm-quote-website-link")[0]["href"]
-      user_session_id = url.split("&").last
-      @session.visit "https://mortgageapi.zillow.com/submitRequest?property.type=SingleFamilyHome&property.use=Primary&property.zipCode=#{zipcode}&property.value=500000&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000&borrower.monthlyDebts=0&borrower.selfEmployed=false&borrower.hasBankruptcy=false&borrower.hasForeclosure=false&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year&desiredPrograms.2=ARM5&purchase.downPayment=100000&purchase.firstTimeBuyer=false&purchase.newConstruction=false&partnerId=RD-CZMBMCZ&#{user_session_id}"
-      request_code = @session.text.split('":"').last.chomp('"}')
-      # http://www.zillow.com/mortgage-rates/#request=ZR-DCQRBGXN
+      while data.css(".zmm-quote-website-link").empty? && number_of_try < MAX_PAGE
+        @session.visit "http://www.zillow.com/mortgage-rates/"
+        sleep(10)
+        data = Nokogiri::HTML.parse(@session.html)
+        number_of_try += 1
+        #https://mortgageapi.zillow.com/quote-website?partnerId=RD-BFBSMTN&quoteId=ZQ-VQRLSZVF&userSessionId=8a7eccd8-3c9f-4454-a11a-6dba3ced3c1a
+      end
+
+      if data.css(".zmm-quote-website-link").empty?
+        url = data.css(".zmm-quote-website-link")[0]["href"]
+        user_session_id = url.split("&").last
+        @session.visit "https://mortgageapi.zillow.com/submitRequest?property.type=SingleFamilyHome&property.use=Primary&property.zipCode=#{zipcode}&property.value=500000&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000&borrower.monthlyDebts=0&borrower.selfEmployed=false&borrower.hasBankruptcy=false&borrower.hasForeclosure=false&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year&desiredPrograms.2=ARM5&purchase.downPayment=100000&purchase.firstTimeBuyer=false&purchase.newConstruction=false&partnerId=RD-CZMBMCZ&#{user_session_id}"
+        request_code = @session.text.split('":"').last.chomp('"}')
+        # http://www.zillow.com/mortgage-rates/#request=ZR-DCQRBGXN
+      end
     end
 
     def self.get_lenders(zipcode)
       begin
-        request_code = get_request_code(zipcode)
+        return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
         @session.visit("http://www.zillow.com/mortgage-rates/#request=#{request_code}")
-        sleep(7)
+        sleep(10)
         data = Nokogiri::HTML.parse(@session.html)
         lenders = []
         return if no_result?(data)
