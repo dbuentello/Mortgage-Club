@@ -25,6 +25,7 @@ module ZillowService
     end
 
     def self.get_request_code(zipcode)
+      p "visit to Zillow"
       number_of_try = 0
       data = Nokogiri::HTML.parse(@session.html)
       while data.css(".zmm-quote-website-link").empty? && number_of_try < 3
@@ -32,16 +33,19 @@ module ZillowService
         sleep(10)
         data = Nokogiri::HTML.parse(@session.html)
         number_of_try += 1
-        Rails.logger.info "get request code retry: #{number_of_try}"
-        Rails.logger.info data
+        p "get request code retry: #{number_of_try}"
         #https://mortgageapi.zillow.com/quote-website?partnerId=RD-BFBSMTN&quoteId=ZQ-VQRLSZVF&userSessionId=8a7eccd8-3c9f-4454-a11a-6dba3ced3c1a
       end
 
       unless data.css(".zmm-quote-website-link").empty?
+        p "get user_session_id"
         url = data.css(".zmm-quote-website-link")[0]["href"]
         user_session_id = url.split("&").last
+        p "visit to Zillow to get request_code with userSessionId: #{user_session_id}"
         @session.visit "https://mortgageapi.zillow.com/submitRequest?property.type=SingleFamilyHome&property.use=Primary&property.zipCode=#{zipcode}&property.value=500000&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000&borrower.monthlyDebts=0&borrower.selfEmployed=false&borrower.hasBankruptcy=false&borrower.hasForeclosure=false&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year&desiredPrograms.2=ARM5&purchase.downPayment=100000&purchase.firstTimeBuyer=false&purchase.newConstruction=false&partnerId=RD-CZMBMCZ&#{user_session_id}"
         request_code = @session.text.split('":"').last.chomp('"}')
+        p "request_code #{request_code}"
+        request_code
         # http://www.zillow.com/mortgage-rates/#request=ZR-DCQRBGXN
       end
     end
@@ -54,27 +58,38 @@ module ZillowService
         data = Nokogiri::HTML.parse(@session.html)
         lenders = []
         return if no_result?(data)
-        buttons = @session.all(".zmm-quote-card-button")
+        p "iterate page"
         data.css(".zmm-pagination-list li").each_with_index do |_, index|
+          p "page number #{index + 1}"
           break if index > MAX_PAGE
           if index != 0
             @session.find(".zmm-pagination-list li a", text: index).click
             sleep(1)
             data = Nokogiri::HTML.parse(@session.html)
           end
+          p "iterate buttons"
           buttons = @session.all(".zmm-quote-card-button")
           lenders << buttons.map do |button|
-            button.click
-            sleep(1)
             data = Nokogiri::HTML.parse(@session.html)
+            number_of_try = 0
+            while (data.css(".zmm-qdp-subtitle-list li").empty? && number_of_try < 3)
+              button.click
+              sleep(3)
+              number_of_try += 1
+              data = Nokogiri::HTML.parse(@session.html)
+            end
+            p "get lender_name"
             lender_name = data.css(".zmm-quote-details-content .zsg-h1").text
+            p "get nmls"
             nmls = data.css(".zmm-qdp-subtitle-list li")[0].text.gsub(/[^0-9\.]/,'')
             @session.find(".zsg-icon-x-thin ").click
-            {
+            result = {
               lender: {name: lender_name, nmls: nmls},
               loan: get_loan_details(data),
               fees: get_lender_fees(data)
             }
+            p result
+            result
           end
         end
         return lenders.flatten
