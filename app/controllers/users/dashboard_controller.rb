@@ -10,11 +10,11 @@ class Users::DashboardController < Users::BaseController
     loan_presenter = LoanPresenter.new(loan)
 
     bootstrap(
-      address: property.address.try(:address),
+      address: property.first.address.try(:address),
       loan: loan_presenter.show,
       borrower_list: BorrowerPresenter.new(current_user.borrower).show_documents,
       contact_list: LoanMemberAssociationsPresenter.new(loan.loans_members_associations).show,
-      property_list: PropertyPresenter.new(property).show_documents,
+      property_list: PropertyPresenter.new(property.first).show_documents,
       loan_list: loan_presenter.show_documents,
       manager: LoanMembersPresenter.show(loan.relationship_manager),
       loan_activities: loan_activities,

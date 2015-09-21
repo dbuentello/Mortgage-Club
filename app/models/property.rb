@@ -46,7 +46,10 @@ class Property < ActiveRecord::Base
     :market_price,
     :estimated_property_tax,
     :estimated_hazard_insurance,
+    :estimated_mortgage_insurance,
+    :mortgage_includes_escrows,
     :is_impound_account,
+    :hoa_due,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 
@@ -61,6 +64,13 @@ class Property < ActiveRecord::Base
     primary_residence: 0,
     vacation_home: 1,
     rental_property: 2
+  }
+
+  enum mortgage_includes_escrows: {
+    taxes_and_insurance: 0,
+    taxes_only: 1,
+    no: 2,
+    not_sure: 3
   }
 
   validates_associated :address

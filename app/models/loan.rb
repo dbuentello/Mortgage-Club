@@ -76,7 +76,7 @@ class Loan < ActiveRecord::Base
   has_one :borrower, through: :user
   has_one :secondary_borrower, inverse_of: :loan, class_name: 'Borrower' # don't destroy Borrower instance when we unset this association
 
-  has_one :property, inverse_of: :loan, dependent: :destroy
+  has_many :property, inverse_of: :loan, dependent: :destroy
   has_many :envelope, inverse_of: :loan, dependent: :destroy
   has_one :closing, inverse_of: :loan, dependent: :destroy
 
@@ -120,7 +120,7 @@ class Loan < ActiveRecord::Base
   end
 
   def property_completed
-    property.completed? && purpose_completed?
+    property.size > 0 && property.first.completed? && purpose_completed?
   end
 
   def borrower_completed
@@ -148,8 +148,8 @@ class Loan < ActiveRecord::Base
   end
 
   def purpose_completed?
-    purpose.present? && (purchase? && property.purchase_price.present? ||
-      refinance? && property.refinance_completed?)
+    purpose.present? && (purchase? && property.first.purchase_price.present? ||
+      refinance? && property.first.refinance_completed?)
   end
 
   def num_of_years
@@ -159,9 +159,9 @@ class Loan < ActiveRecord::Base
   end
 
   def ltv_formula
-    return unless (amount && property && property.purchase_price)
+    return unless (amount && property && property.first.purchase_price)
 
-    (amount / property.purchase_price * 100).ceil
+    (amount / property.first.purchase_price * 100).ceil
   end
 
   def purpose_titleize

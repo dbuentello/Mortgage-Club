@@ -7,36 +7,33 @@ var AddressField = require('components/form/AddressField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 
-var fields = {
-  ownsRental: {label: '', name: 'owns_rental', helpText: null},
-};
-
 var propertyTypes = [
-      {value: 'Single Family Home', name: 'Single Family Home'},
-      {value: 'Duplex', name: 'Duplex'},
-      {value: 'Triplex', name: 'Triplex'},
-      {value: 'Fourplex', name: 'Fourplex'},
-      {value: 'Condo', name: 'Condominium'}
-    ];
+  {value: 'sfh', name: 'Single Family Home'},
+  {value: 'duplex', name: 'Duplex'},
+  {value: 'triplex', name: 'Triplex'},
+  {value: 'fourplex', name: 'Fourplex'}
+];
+
 var mortgagePayments = [
-      {value: '1', name: '1'},
-      {value: '2', name: '2'},
-      {value: '3', name: '3'},
-      {value: 'Other', name: 'Other'}
-    ];
+  {value: '1', name: '1'},
+  {value: '2', name: '2'},
+  {value: '3', name: '3'},
+  {value: 'Other', name: 'Other'}
+];
+
 var otherFinancings = [
-      {value: '1', name: '1'},
-      {value: '2', name: '2'},
-      {value: '3', name: '3'},
-      {value: 'Other', name: 'Other'}
-    ];
+  {value: '1', name: '1'},
+  {value: '2', name: '2'},
+  {value: '3', name: '3'},
+  {value: 'Other', name: 'Other'}
+];
 
 var mortgageInclueEscrows = [
-      {value: '1', name: "Yes, include my property taxs and insurance"},
-      {value: '2', name: "Yes, include my property taxes only"},
-      {value: '3', name: "No, I will pay my taxes and insurance myself"},
-      {value: '4', name: "I'm not sure"}
-    ];
+  {value: 'taxes_and_insurance', name: "Yes, include my property taxes and insurance"},
+  {value: 'taxes_only', name: "Yes, include my property taxes only"},
+  {value: 'no', name: "No, I will pay my taxes and insurance myself"},
+  {value: 'not_sure', name: "I'm not sure"}
+];
 
 var Property = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
@@ -70,7 +67,6 @@ var Property = React.createClass({
 
   searchProperty: function(property, propertyKey) {
     var address = property.address;
-    console.dir(address);
     $.ajax({
       url: '/properties/search',
       data: {
@@ -80,7 +76,6 @@ var Property = React.createClass({
       dataType: 'json',
       context: this,
       success: function(response) {
-        console.dir(response);
         if (response.message == 'cannot find') {
           // actually 404 error
           return;
@@ -108,6 +103,7 @@ var Property = React.createClass({
 
   render: function() {
     var index = this.props.index;
+    console.dir(this.state.property);
     return (
       <div className={'box mtn mbm pam bas roundedCorners' + (index % 2 === 0 ? ' backgroundLowlight' : '')} >
         <div className='row'>
@@ -189,16 +185,16 @@ var Property = React.createClass({
           <div className='col-xs-6'>
             <TextField
               label='Mortgage Insurance (if applicable)'
-              keyName={'property.mortgage_insurance'}
-              value={this.state.property.mortgage_insurance}
+              keyName={'property.estimated_mortgage_insurance'}
+              value={this.state.property.estimated_mortgage_insurance}
               editable={true}
               onChange={this.onChange}/>
           </div>
           <div className='col-xs-6'>
             <SelectField
               label='Does your mortgage payment include escrows?'
-              keyName={'property.mortgage_include_escrows'}
-              value={this.state.property.mortgage_include_escrows}
+              keyName={'property.mortgage_includes_escrows'}
+              value={this.state.property.mortgage_includes_escrows}
               options={mortgageInclueEscrows}
               editable={true}
               onChange={this.onChange}

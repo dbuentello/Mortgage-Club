@@ -184,7 +184,7 @@ var FormProperty = React.createClass({
   },
 
   buildStateFromLoan: function(loan) {
-    var property = loan.property;
+    var property = loan.property[0];
     var state = {};
 
     if (loan[fields.loanPurpose.name] == 'purchase') {
@@ -195,7 +195,8 @@ var FormProperty = React.createClass({
       state[fields.loanPurpose.name] = loan[fields.loanPurpose.name];
     }
 
-    state[fields.address.name] = property[fields.address.name];
+    state['property_id'] = property.id;
+    state[fields.address.name] = property.address;
     state[fields.propertyType.name] = property[fields.propertyType.name];
     state[fields.propertyPurpose.name] = property[fields.propertyPurpose.name];
     state[fields.purchasePrice.name] = this.formatCurrency(property[fields.purchasePrice.name]);
@@ -218,7 +219,7 @@ var FormProperty = React.createClass({
       loan[fields.loanPurpose.name] = purpose;
     }
 
-    loan.property_attributes = {id: this.props.loan.property.id};
+    loan.property_attributes = {id: this.state['property_id']};
     loan.property_attributes[fields.propertyType.name] = this.state[fields.propertyType.name];
     loan.property_attributes[fields.propertyPurpose.name] = this.state[fields.propertyPurpose.name];
     loan.property_attributes[fields.purchasePrice.name] = this.currencyToNumber(this.state[fields.purchasePrice.name]);

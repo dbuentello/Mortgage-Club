@@ -8,7 +8,7 @@ var LoansTab = React.createClass({
         <div className="thumbnail">
           <div className="img-home"></div>
           <div className="caption">
-            <h3>{loan.property.address.address}</h3>
+            <h3>{loan.property[0].address.address}</h3>
             <p>Status: Finishing</p>
             <p>Created at: {moment(loan.created_at).format('MMM DD, YYYY')}</p>
             <p>Loan amount: {loan.amount}</p>

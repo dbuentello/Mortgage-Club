@@ -21,7 +21,7 @@ var FormAssetsAndLiabilities = React.createClass({
       state[field.name] = null;
     });
 
-    state.rental_properties = this.getDefaultProperties();
+    state.rental_properties = this.props.loan.property;
     return state;
   },
 
@@ -29,6 +29,10 @@ var FormAssetsAndLiabilities = React.createClass({
     var key = _.keys(change)[0];
     var value = _.values(change)[0];
     this.setState(this.setValue(this.state, key, value));
+
+    if (change.owns_rental == true && this.state.rental_properties.length == 1) {
+      this.addProperty();
+    }
   },
 
   onFocus: function(field) {
@@ -36,6 +40,9 @@ var FormAssetsAndLiabilities = React.createClass({
   },
 
   eachProperty: function(property, index) {
+    if(index == 0) {
+      return;
+    }
     return (
       <Property
         key={index}
@@ -54,7 +61,7 @@ var FormAssetsAndLiabilities = React.createClass({
           <div className='pal'>
             <div className='box mvn'>
               <h5 className='typeDeemphasize'>Your primary residence</h5>
-              <Property property={this.getPrimaryProperty} isPrimary={true} />
+              <Property property={this.state.rental_properties[0]} isPrimary={true} />
             </div>
           </div>
 
@@ -85,8 +92,10 @@ var FormAssetsAndLiabilities = React.createClass({
             }
           </div>
 
-          <div className='box text-right phl'>
-            <a className='btn btnSml btnPrimary'>Next</a>
+          <div className='box text-right'>
+            <a className='btn btnSml btnPrimary' onClick={this.save} disabled={this.state.saving}>
+              {this.state.saving ? 'Saving' : 'Save and Continue'}<i className='icon iconRight mls'/>
+            </a>
           </div>
         </div>
 
@@ -114,24 +123,6 @@ var FormAssetsAndLiabilities = React.createClass({
     this.setState({rental_properties: arr});
   },
 
-  getPrimaryProperty: function() {
-    return {
-      address: {},
-      property_type: null,
-      mortgage_payment: null,
-      other_mortgage_payment: null,
-      market_price: null,
-      financing: null,
-      other_financing: null,
-      mortgage_insurance: null,
-      mortgage_include_escrows: null,
-      estimated_hazard_insurance: null,
-      estimated_property_tax: null,
-      hoa_due: null,
-      gross_rental_income: null
-    };
-  },
-
   getDefaultProperties: function() {
     return [{
       address: {},
@@ -141,8 +132,8 @@ var FormAssetsAndLiabilities = React.createClass({
       market_price: null,
       financing: null,
       other_financing: null,
-      mortgage_insurance: null,
-      mortgage_include_escrows: null,
+      mortgage_includes_escrows: null,
+      estimated_mortgage_insurance: null,
       estimated_hazard_insurance: null,
       estimated_property_tax: null,
       hoa_due: null,
