@@ -113,6 +113,10 @@ gem 'asposecloud'
 # to crawl data from Zillow
 gem 'poltergeist'
 
+gem 'rollbar', '~> 2.2.1'
+
+gem "skylight"
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'

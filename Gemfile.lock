@@ -315,6 +315,7 @@ GEM
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     rolify (4.1.1)
+    rollbar (2.2.1)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -362,6 +363,8 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0)
     shellany (0.0.1)
+    skylight (0.4.3)
+      activesupport (>= 3.0.0)
     slop (3.6.0)
     spreewald (1.2.12)
       capybara
@@ -478,11 +481,13 @@ DEPENDENCIES
   redis
   rest-client
   rolify
+  rollbar (~> 2.2.1)
   rspec-rails
   rubocop
   sass-rails
   sdoc
   selenium-webdriver
+  skylight
   spreewald
   spring
   stripe
