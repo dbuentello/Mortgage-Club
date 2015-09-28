@@ -10,7 +10,6 @@ Feature: Dashboard
   Scenario: display borrower's address and loan's title
     When I am at dashboard page
       And I should see content as "81458 Borer Falls, Apt. 305, West Emiltown, Virginia, 9999"
-      And I should see content as "$500,000k 2-year fixed 50% LTV Primary Residence Purchase Loan"
 
   @javascript
   Scenario: edit a loan

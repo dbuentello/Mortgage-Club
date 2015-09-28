@@ -219,14 +219,14 @@ var FormProperty = React.createClass({
       loan[fields.loanPurpose.name] = purpose;
     }
 
-    loan.property_attributes = {id: this.state['property_id']};
-    loan.property_attributes[fields.propertyType.name] = this.state[fields.propertyType.name];
-    loan.property_attributes[fields.propertyPurpose.name] = this.state[fields.propertyPurpose.name];
-    loan.property_attributes[fields.purchasePrice.name] = this.currencyToNumber(this.state[fields.purchasePrice.name]);
-    loan.property_attributes[fields.originalPurchasePrice.name] = this.currencyToNumber(this.state[fields.originalPurchasePrice.name]);
-    loan.property_attributes[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
-    loan.property_attributes.address_attributes = this.state.address;
-    loan.property_attributes.zpid = this.state.property ? this.state.property.zpid : null;
+    loan.properties_attributes = {id: this.state['property_id']};
+    loan.properties_attributes[fields.propertyType.name] = this.state[fields.propertyType.name];
+    loan.properties_attributes[fields.propertyPurpose.name] = this.state[fields.propertyPurpose.name];
+    loan.properties_attributes[fields.purchasePrice.name] = this.currencyToNumber(this.state[fields.purchasePrice.name]);
+    loan.properties_attributes[fields.originalPurchasePrice.name] = this.currencyToNumber(this.state[fields.originalPurchasePrice.name]);
+    loan.properties_attributes[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
+    loan.properties_attributes.address_attributes = this.state.address;
+    loan.properties_attributes.zpid = this.state.property ? this.state.property.zpid : null;
     return loan;
   },
 

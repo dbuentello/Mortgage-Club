@@ -103,9 +103,8 @@ class Loan < ActiveRecord::Base
   PERMITTED_ATTRS = [
     :credit_check_agree,
     :purpose,
-    properties_attributes:    [:id] + Property::PERMITTED_ATTRS,
-    borrower_attributes:           [:id] + Borrower::PERMITTED_ATTRS
-    # secondary_borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
+    properties_attributes: [:id] + Property::PERMITTED_ATTRS,
+    borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
   ]
 
   enum purpose: {
@@ -116,7 +115,7 @@ class Loan < ActiveRecord::Base
   validates :amortization_type, inclusion: {in: %w( Conventional VA FHA USDA 9 ), message: "%{value} is not a valid amortization_type"}, allow_nil: true
 
   def self.initiate(user)
-    loan = Loan.create(user: user, properties: [Property.create(address: Address.create)], closing: Closing.create(name: 'Closing'))
+    loan = Loan.create(user: user, properties: [Property.create(address: Address.create, is_primary: true)], closing: Closing.create(name: 'Closing'))
   end
 
   def property_completed
