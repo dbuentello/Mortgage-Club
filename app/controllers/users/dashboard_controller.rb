@@ -3,18 +3,18 @@ class Users::DashboardController < Users::BaseController
 
   def show
     loan = @loan
-    property = loan.property
+    property = loan.primary_property
     closing = loan.closing || Closing.create(name: 'Closing', loan_id: loan.id)
     loan_activities = loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10)
 
     loan_presenter = LoanPresenter.new(loan)
 
     bootstrap(
-      address: property.first.address.try(:address),
+      address: property.address.try(:address),
       loan: loan_presenter.show,
       borrower_list: BorrowerPresenter.new(current_user.borrower).show_documents,
       contact_list: LoanMemberAssociationsPresenter.new(loan.loans_members_associations).show,
-      property_list: PropertyPresenter.new(property.first).show_documents,
+      property_list: PropertyPresenter.new(property).show_documents,
       loan_list: loan_presenter.show_documents,
       manager: LoanMembersPresenter.show(loan.relationship_manager),
       loan_activities: loan_activities,

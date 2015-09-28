@@ -76,7 +76,7 @@ class Loan < ActiveRecord::Base
   has_one :borrower, through: :user
   has_one :secondary_borrower, inverse_of: :loan, class_name: 'Borrower' # don't destroy Borrower instance when we unset this association
 
-  has_many :property, inverse_of: :loan, dependent: :destroy
+  has_many :properties, dependent: :destroy
   has_many :envelope, inverse_of: :loan, dependent: :destroy
   has_one :closing, inverse_of: :loan, dependent: :destroy
 
@@ -94,7 +94,7 @@ class Loan < ActiveRecord::Base
 
   has_many :checklists
 
-  accepts_nested_attributes_for :property, allow_destroy: true
+  accepts_nested_attributes_for :properties, allow_destroy: true
   accepts_nested_attributes_for :borrower, allow_destroy: true
   accepts_nested_attributes_for :secondary_borrower, allow_destroy: true
 
@@ -120,7 +120,7 @@ class Loan < ActiveRecord::Base
   end
 
   def property_completed
-    property.size > 0 && property.first.completed? && purpose_completed?
+    properties.size > 0 && primary_property && primary_property.completed? && purpose_completed?
   end
 
   def borrower_completed
@@ -148,8 +148,16 @@ class Loan < ActiveRecord::Base
   end
 
   def purpose_completed?
-    purpose.present? && (purchase? && property.first.purchase_price.present? ||
-      refinance? && property.first.refinance_completed?)
+    purpose.present? && primary_property && (purchase? && primary_property.purchase_price.present? ||
+      refinance? && primary_property.refinance_completed?)
+  end
+
+  def primary_property
+    properties.find { |p| p.is_primary == true }
+  end
+
+  def rental_properties
+    properties.select { |p| p.is_primary == false }
   end
 
   def num_of_years
@@ -159,9 +167,9 @@ class Loan < ActiveRecord::Base
   end
 
   def ltv_formula
-    return unless (amount && property && property.first.purchase_price)
+    return unless (amount && properties && primary_property && primary_property.purchase_price)
 
-    (amount / property.first.purchase_price * 100).ceil
+    (amount / primary_property.purchase_price * 100).ceil
   end
 
   def purpose_titleize

@@ -17,7 +17,7 @@
 #
 
 class Property < ActiveRecord::Base
-  belongs_to :loan, inverse_of: :property, foreign_key: 'loan_id'
+  belongs_to :loan, foreign_key: 'loan_id'
 
   has_one :address, autosave: true, inverse_of: :property
 
@@ -50,6 +50,7 @@ class Property < ActiveRecord::Base
     :mortgage_includes_escrows,
     :is_impound_account,
     :hoa_due,
+    :is_primary,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 

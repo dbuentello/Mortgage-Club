@@ -94,7 +94,7 @@ describe Loan do
     context 'property and amount are valid' do
       before(:each) do
         @property = FactoryGirl.create(:property)
-        loan.property = @property
+        loan.primary_property = @property
       end
 
       it 'returns ltv_formula value' do

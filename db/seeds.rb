@@ -26,7 +26,7 @@ if User.where(email: 'borrower@gmail.com').blank?
   loan_estimate = loan.create_loan_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
   loan_estimate = loan.create_uniform_residential_lending_application(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
 
-  property = loan.build_property(purchase_price: Random.rand(100000..200000))
+  property = Property.new(purchase_price: Random.rand(100000..200000), is_primary: true, loan_id: loan.id)
   property.create_address(street_address: "208 Silver Eagle Road")
   property.save
 
@@ -85,6 +85,28 @@ if User.where(email: 'coborrower@gmail.com').blank?
   user.add_role :borrower
 end
 
+if User.where(email: 'purchase_1borrower@gmail.com').blank?
+  new_user_emails = [
+    "purchase_1borrower@gmail.com",
+    "refinance_1borrower@gmail.com",
+    "purchase_2borrowers@gmail.com",
+    "refinance_2borrowers@gmail.com"
+  ]
+
+  i = 1
+  new_user_emails.each do |e|
+    user = User.new(
+      email: e, first_name: 'Borrower', last_name: i.to_s,
+      password: '12345678', password_confirmation: '12345678'
+    )
+    user.skip_confirmation!
+    user.save
+    user.create_borrower
+    user.add_role :borrower
+    i += 1
+  end
+end
+
 if Template.where(name: 'Loan Estimate').blank?
   Docusign::CreateTemplateService.call("Loan Estimate")
 end
@@ -110,7 +132,7 @@ if Loan.where(lender_name: 'Ficus Bank').blank?
   hud_final = loan.create_hud_final(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
   loan_estimate = loan.create_loan_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
   loan_estimate = loan.create_uniform_residential_lending_application(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
-  property = loan.build_property(purchase_price: Random.rand(100000..200000))
+  property = Property.new(purchase_price: Random.rand(100000..200000), is_primary: true, loan_id: loan.id)
   property.create_address(street_address: "208 Silver Eagle Road")
   property.save
   appraisal_report = property.create_appraisal_report(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)

@@ -184,7 +184,7 @@ var FormProperty = React.createClass({
   },
 
   buildStateFromLoan: function(loan) {
-    var property = loan.property[0];
+    var property = loan.primary_property;
     var state = {};
 
     if (loan[fields.loanPurpose.name] == 'purchase') {

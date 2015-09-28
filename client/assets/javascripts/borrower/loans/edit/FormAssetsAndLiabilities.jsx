@@ -21,7 +21,8 @@ var FormAssetsAndLiabilities = React.createClass({
       state[field.name] = null;
     });
 
-    state.rental_properties = this.props.loan.property;
+    state.rental_properties = this.props.loan.rental_properties;
+    state.primary_property = this.props.loan.primary_property;
     return state;
   },
 
@@ -30,7 +31,7 @@ var FormAssetsAndLiabilities = React.createClass({
     var value = _.values(change)[0];
     this.setState(this.setValue(this.state, key, value));
 
-    if (change.owns_rental == true && this.state.rental_properties.length == 1) {
+    if (change.owns_rental == true && this.state.rental_properties.length == 0) {
       this.addProperty();
     }
   },
@@ -40,15 +41,11 @@ var FormAssetsAndLiabilities = React.createClass({
   },
 
   eachProperty: function(property, index) {
-    if(index == 0) {
-      return;
-    }
     return (
       <Property
         key={index}
         index={index}
         property={property}
-        isPrimary={false}
         isShowRemove={this.state.rental_properties.length > 1}
         onRemove={this.removeProperty}/>
     );
@@ -61,7 +58,7 @@ var FormAssetsAndLiabilities = React.createClass({
           <div className='pal'>
             <div className='box mvn'>
               <h5 className='typeDeemphasize'>Your primary residence</h5>
-              <Property property={this.state.rental_properties[0]} isPrimary={true} />
+              <Property property={this.state.primary_property} />
             </div>
           </div>
 
@@ -114,7 +111,7 @@ var FormAssetsAndLiabilities = React.createClass({
   },
 
   addProperty: function() {
-    this.setState({rental_properties: this.state.rental_properties.concat(this.getDefaultProperties())});
+    this.setState({rental_properties: this.state.rental_properties.concat(this.getDefaultProperty())});
   },
 
   removeProperty: function(index) {
@@ -123,8 +120,8 @@ var FormAssetsAndLiabilities = React.createClass({
     this.setState({rental_properties: arr});
   },
 
-  getDefaultProperties: function() {
-    return [{
+  getDefaultProperty: function() {
+    return {
       address: {},
       property_type: null,
       mortgage_payment: null,
@@ -138,7 +135,7 @@ var FormAssetsAndLiabilities = React.createClass({
       estimated_property_tax: null,
       hoa_due: null,
       gross_rental_income: null
-    }];
+    };
   },
 
 });

@@ -12,7 +12,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       loan: LoanPresenter.new(@loan).show_loan_activities,
       first_activity: first_activity(@loan),
       loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : [],
-      property: PropertyPresenter.new(@loan.property.first).show,
+      property: PropertyPresenter.new(@loan.primary_property).show,
       closing: ClosingPresenter.new(@loan.closing).show,
       templates: TemplatesPresenter.index(Template.all)
     )

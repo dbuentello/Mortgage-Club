@@ -37,9 +37,6 @@ var mortgageInclueEscrows = [
 
 var Property = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
-  propTypes: {
-    isPrimary: React.PropTypes.bool.isRequired,
-  },
 
   getInitialState: function() {
     var state = {};
@@ -103,7 +100,6 @@ var Property = React.createClass({
 
   render: function() {
     var index = this.props.index;
-    console.dir(this.state.property);
     return (
       <div className={'box mtn mbm pam bas roundedCorners' + (index % 2 === 0 ? ' backgroundLowlight' : '')} >
         <div className='row'>
@@ -227,7 +223,7 @@ var Property = React.createClass({
               onChange={this.onChange}/>
           </div>
         </div>
-        <div className='row' style={{display: this.props.isPrimary ? 'none' : null}}>
+        <div className='row' style={{display: this.state.property.is_primary ? 'none' : null}}>
           <div className='col-xs-6'>
             <TextField
               label='Monthly rent'

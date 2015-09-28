@@ -2,7 +2,7 @@ class RatesController < ApplicationController
   before_action :set_loan
 
   def index
-    zipcode = @loan.property.address.zip
+    zipcode = @loan.primary_property.address.zip
     bootstrap
 
     respond_to do |format|
