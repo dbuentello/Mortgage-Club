@@ -116,8 +116,7 @@ class Loan < ActiveRecord::Base
   validates :amortization_type, inclusion: {in: %w( Conventional VA FHA USDA 9 ), message: "%{value} is not a valid amortization_type"}, allow_nil: true
 
   def self.initiate(user)
-    loan = Loan.create(user: user, closing: Closing.create(name: 'Closing'))
-    Property.create(address: Address.create, loan_id: loan.id)
+    loan = Loan.create(user: user, properties: [Property.create(address: Address.create)], closing: Closing.create(name: 'Closing'))
   end
 
   def property_completed
