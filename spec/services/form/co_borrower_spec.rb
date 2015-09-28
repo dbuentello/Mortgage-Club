@@ -8,7 +8,7 @@ describe Form::CoBorrower do
     user.save
 
     # create loan base on user
-    loan = FactoryGirl.create(:loan_with_property, user: user)
+    loan = FactoryGirl.create(:loan_with_properties, user: user)
 
     user = FactoryGirl.build(:borrower_user, email: 'test2@gmail.com', password: '12345678',
       password_confirmation: '12345678')

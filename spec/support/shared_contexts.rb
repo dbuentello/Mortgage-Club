@@ -12,7 +12,7 @@ RSpec.shared_context 'signed in as loan member user' do
 end
 
 RSpec.shared_context 'signed in as borrower user of loan' do
-  let(:loan) { FactoryGirl.create :loan_with_property }
+  let(:loan) { FactoryGirl.create :loan_with_properties }
   before { login_with loan.user }
 end
 
