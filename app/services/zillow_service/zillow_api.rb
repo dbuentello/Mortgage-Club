@@ -8,5 +8,6 @@ module ZillowService::ZillowApi
     'Condominium'     => :sfh
   }
 
-  ZILLOW_KEY = "X1-ZWz1aylbpp3aiz_98wrk"
+  # ZILLOW_KEY = "X1-ZWz1aylbpp3aiz_98wrk"
+  ZILLOW_KEY = "X1-ZWz1a4mphgfggb_7zykg"
 end

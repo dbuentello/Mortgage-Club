@@ -32,7 +32,7 @@ module ZillowService
         Capybara::Poltergeist::Driver.new(app, {js_errors: false})
       end
       @session = Capybara::Session.new(:poltergeist)
-      @session.driver.headers = { 'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X)" }
+      @session.driver.headers = {'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X)"}
     end
 
     def self.get_request_code(zipcode)
