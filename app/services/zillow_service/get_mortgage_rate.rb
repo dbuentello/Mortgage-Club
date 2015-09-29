@@ -3,17 +3,26 @@ require 'capybara/poltergeist'
 
 module ZillowService
   class GetMortgageRate
+    include HTTParty
     include Capybara::DSL
-    MAX_PAGE = 3
+    NUMBER_OF_LENDERS = 25
 
     def self.call(zipcode)
       return unless zipcode
-      Rails.cache.fetch("mortgage-rates-#{zipcode}-#{Time.zone.now.to_date.to_s}", expires_in: 12.hour) do
-        zipcode = zipcode[0..4] if zipcode.length > 5
+
+      zipcode = zipcode[0..4] if zipcode.length > 5
+      cache_key = "zillow-mortgage-rates-#{zipcode}"
+
+      if lenders = $redis.get(cache_key)
+        lenders = JSON.parse lenders
+      else
         set_up_crawler
-        fill_in_form(zipcode)
-        get_lenders
+        lenders = get_lenders(zipcode)
+        $redis.set(cache_key, lenders.to_json)
+        $redis.expire(cache_key, 8.hour.to_i)
       end
+
+      lenders
     end
 
     private
@@ -23,115 +32,60 @@ module ZillowService
         Capybara::Poltergeist::Driver.new(app, {js_errors: false})
       end
       @session = Capybara::Session.new(:poltergeist)
+      @session.driver.headers = {'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X)"}
     end
 
-    def self.fill_in_form(zipcode)
-      @session.visit "http://www.zillow.com/mortgage-rates/"
-      sleep(3)
-      @session.find('.zmm-lrf-advanced-link-block .zmm-lrf-advanced-link-show').click
-      @session.select('Purchase', from: 'Loan purpose')
-      @session.fill_in('ZIP code', with: zipcode)
-      @session.fill_in('Purchase price', with: '500000')
-      @session.fill_in('Down payment', with: '100000')
-      @session.select('760 and above', from: 'Credit score')
-      @session.fill_in('Monthly debts', with: '800')
-      @session.fill_in('Annual income', with: '200000')
-      @session.select('Single family home', from: 'Property type')
-      @session.select('Primary residence', from: 'How is home used?')
-      @session.select('No', from: 'First-time buyer?')
-      @session.select('No', from: 'New construction?')
-      @session.click_on('Get rates')
-      sleep(15)
+    def self.get_request_code(zipcode)
+      user_session_id = "userSessionId=2de70907-6e58-45f6-a7e8-dc2efb69e261" # hardcode session ID
+      @session.visit "https://mortgageapi.zillow.com/submitRequest?property.type=SingleFamilyHome&property.use=Primary&property.zipCode=#{zipcode}&property.value=500000&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000&borrower.monthlyDebts=0&borrower.selfEmployed=false&borrower.hasBankruptcy=false&borrower.hasForeclosure=false&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year&desiredPrograms.2=ARM5&purchase.downPayment=100000&purchase.firstTimeBuyer=false&purchase.newConstruction=false&partnerId=RD-CZMBMCZ&#{user_session_id}"
+      request_code = @session.text.split('":"').last.chomp('"}')
     end
 
-    def self.get_lenders
-      begin
-        data = Nokogiri::HTML.parse(@session.html)
-        lenders = []
-        return if no_result?(data)
-        buttons = @session.all(".zmm-quote-card-button")
-        data.css(".zmm-pagination-list li").each_with_index do |_, index|
-          break if index >= MAX_PAGE
-          if index != 0
-            @session.find(".zmm-pagination-list li a", text: index).click
-            sleep(1)
-            data = Nokogiri::HTML.parse(@session.html)
-          end
-          buttons = @session.all(".zmm-quote-card-button")
-          lenders << buttons.map do |button|
-            button.click
-            sleep(1)
-            data = Nokogiri::HTML.parse(@session.html)
-            lender_name = data.css(".zmm-quote-details-content .zsg-h1").text
-            nmls = data.css(".zmm-qdp-subtitle-list li")[0].text.gsub(/[^0-9\.]/,'')
-            @session.find(".zsg-icon-x-thin ").click
+    def self.get_lenders(zipcode)
+      return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
+      Rails.logger.info "request_code #{request_code}"
 
-            {
-              lender: {name: lender_name, nmls: nmls},
-              loan: get_loan_details(data),
-              fees: get_lender_fees(data)
-            }
-          end
-        end
-      rescue StandardError => error
-        Rails.logger.error error.message
-      end
-      lenders.flatten
-    end
+      response = HTTParty.get("https://mortgageapi.zillow.com/getQuotes?partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
+      data = JSON.parse(response.body)
+      data["quotes"] ||= []
+      lenders = []
+      count = 0
 
-    def self.get_lender_fees(data)
-      fees = {
-        "Loan origination fee" => 0,
-        "Underwriting fee" => 0,
-        "Appraisal fee" => 0,
-        "Lender credit" => 0,
-        "Tax service fee" => 0,
-        "Credit report fee" => 0,
-        "Total Estimated Fees" => 0
-      }
-      data.css(".zmm-quote-details-fees .zmm-table_tooltips tr").each do |tr|
-        fee_name = tr.css("th").text
-        fee = tr.css("td").text
-        if fee.include?("(")
-          fees[fee_name] = ("-" << fee.gsub(/[^0-9\.]/,'')).to_f
+      Rails.logger.info "iterate quotes"
+
+      data["quotes"].each do |quote_id, _|
+        break if count > NUMBER_OF_LENDERS
+
+        response = HTTParty.get("https://mortgageapi.zillow.com/getQuote?partnerId=RD-CZMBMCZ&quoteId=#{quote_id}&includeRequest=true&includeLender=true&includeLenderRatings=true&includeLenderDisclaimers=true&includeLenderContactPhone=true&includeNote=true")
+        lender_data = JSON.parse(response.body)
+        info = lender_data["lender"]
+        quote = lender_data["quote"]
+        lender_name = info["businessName"]
+        nmls = info["nmlsLicense"]
+        website = info["profileWebsiteURL"]
+        apr = quote["apr"]
+        monthly_payment = quote["monthlyPayment"]
+        loan_amount = quote["loanAmount"]
+        interest_rate = quote["rate"]
+        if quote["arm"]
+          product = "#{quote["arm"]["fixedRateMonths"] / 12}/1 ARM"
         else
-          fees[fee_name] = fee.gsub(/[^0-9\.]/,'').to_f
+          product = "#{quote["termMonths"] / 12} year fixed"
         end
-      end
-    end
-
-    def self.get_loan_details(data)
-      loan_details = {
-        "Interest rate" => 0,
-        "APR" => 0,
-        "Payment (principal & interest)" => 0,
-        "Loan amount" => 0,
-        "Down payment" => 0,
-        "Base loan amount" => 0,
-        "Total loan amount" => 0,
-        "FHA upfront MI premium" => 0,
-        "Loan product" => "",
-        "Quote ID" => "",
-        "Date submitted" => ""
-      }
-      data.css(".zmm-qdp-loan-details-section .zmm-table_tooltips tr").each do |tr|
-        info_name = tr.css("th").text
-        value = tr.css("td").text
-        loan_details[info_name]  = value
-
-        next if ["Loan product", "Quote ID", "Date submitted"].include? info_name
-
-        if value.include?("(")
-          loan_details[info_name] = ("-" << value.gsub(/[^0-9\.]/,'')).to_f
-        else
-          loan_details[info_name] = value.gsub(/[^0-9\.]/,'').to_f
+        total_fee = 0
+        fees = {}
+        quote["fees"].map do |fee|
+          fees[fee["name"]] = fee["amount"]
+          total_fee += fee["amount"]
         end
+        count += 1
+        lenders << {
+          lender_name: lender_name, nmls: nmls, website: website, apr: apr, monthly_payment: monthly_payment,
+          loan_amount: loan_amount, interest_rate: interest_rate, product: product, total_fee: total_fee, fees: fees, down_payment: 100000
+        }
       end
-      loan_details
-    end
-
-    def self.no_result?(data)
-      data.css(".zmm-loan-request-errors").text != ""
+      Rails.logger.info lenders
+      lenders
     end
   end
 end
