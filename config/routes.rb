@@ -66,8 +66,8 @@ Rails.application.routes.draw do
 
   scope module: "users" do
     scope '/my' do
-      resources :loans do
-      end
+      # resources :loans do
+      # end
 
       resources :dashboard do
       end
