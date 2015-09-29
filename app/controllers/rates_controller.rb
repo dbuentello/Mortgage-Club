@@ -1,7 +1,6 @@
 class RatesController < ApplicationController
-  before_action :set_loan
-
   def index
+    @loan = Loan.last
     zipcode = @loan.property.address.zip
     bootstrap
 

@@ -99,15 +99,6 @@ gem 'finance'
 # A Ruby client library for Redis
 gem 'redis'
 
-# communicating with the Twilio API and generating TwiML
-gem 'twilio-ruby', '~> 4.2.1'
-
-# A Ruby wrapper for the Nexmo API
-gem 'nexmo'
-
-# performance management system, available at http://localhost:4000/newrelic
-gem 'newrelic_rpm'
-
 gem 'asposecloud'
 
 # to crawl data from Zillow
