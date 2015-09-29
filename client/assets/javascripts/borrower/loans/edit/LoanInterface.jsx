@@ -6,7 +6,6 @@ var Borrower = require('./FormBorrower');
 var Income = require('./FormIncome/FormIncome');
 var AssetsAndLiabilities = require('./FormAssetsAndLiabilities/FormAssetsAndLiabilities');
 var Declarations = require('./FormDeclarations');
-var ESigning = require('./FormESigning');
 var CreditCheck = require('./FormCreditCheck');
 
 var LoanInterface = React.createClass({

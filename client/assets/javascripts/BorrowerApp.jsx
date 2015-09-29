@@ -12,6 +12,7 @@ var ModalLink = require('components/ModalLink');
 
 var LoanInterface = require('borrower/loans/edit/LoanInterface');
 var MortgageRates = require('borrower/loans/MortgageRates');
+var ESigning = require('borrower/loans/ESigning');
 var LoanActivityInterface = require('borrower/loans/show/LoanActivityInterface');
 
 var Dashboard = require('borrower/dashboard/show/Dashboard');
@@ -98,10 +99,9 @@ var routes = (
     <Route name='edit_loan' path='loans/:id/edit' handler={LoanInterface}/>
     <Route name='loan' path='loans/:id' handler={LoanActivityInterface}/>
     <Route name='rates' handler={MortgageRates}/>
-
     <Route name='loan_list' path='my/loans' handler={HomeDashBoard}/>
     <Route name='loan_dashboard' path='my/dashboard/:id' handler={Dashboard}/>
-
+    <Route name='esigning' path='esigning/:id' handler={ESigning}/>
     <DefaultRoute handler={HomeDashBoard}/>
   </Route>
 );
