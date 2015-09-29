@@ -60,9 +60,9 @@ describe LoanActivityServices::CalculateProcessingTime do
       end
     end
 
-    context "when current_activity_status is done" do
-      it "will do something in the future"
-    end
+    # context "when current_activity_status is done" do
+    #   it "will do something in the future"
+    # end
   end
 
   describe ".done_switcher" do

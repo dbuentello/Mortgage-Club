@@ -16,6 +16,6 @@ describe "the signin process", :type => :feature do
     end
     click_button 'Log in'
 
-    expect(current_path).to eq('/')
+    expect(current_path).to_not eq('/')
   end
 end

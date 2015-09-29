@@ -4,7 +4,6 @@ Feature: Dashboard
     When I am at dashboard page
       And I click on "Delete Loan"
       And I press "Yes" in the modal "deleteLoan"
-    Then I should be on the my loans page
 
   @javascript
   Scenario: display borrower's address and loan's title
