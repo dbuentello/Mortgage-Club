@@ -23,6 +23,7 @@ var FormAssetsAndLiabilities = React.createClass({
 
     state.rental_properties = this.props.loan.rental_properties;
     state.primary_property = this.props.loan.primary_property;
+    state.saving = false;
     return state;
   },
 
@@ -137,6 +138,29 @@ var FormAssetsAndLiabilities = React.createClass({
       gross_rental_income: null
     };
   },
+
+  save: function() {
+    console.dir(this.state.rental_properties);
+    this.setState({saving: true});
+
+    $.ajax({
+      url: '/properties/',
+      method: 'POST',
+      context: this,
+      dataType: 'json',
+      data: {
+        loan_id: this.props.loan.id,
+        primary_property: this.state.primary_property,
+        rental_properties: this.state.rental_properties
+      },
+      success: function(response) {
+        console.dir(response);
+      },
+      error: function(response, status, error) {
+        alert(error);
+      }
+    });
+  }
 
 });
 

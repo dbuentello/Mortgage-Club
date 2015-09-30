@@ -1,4 +1,15 @@
 class PropertiesController < ApplicationController
+
+  def create
+    @properties = CreatePropertyForm.new(params[:loan_id], params[:primary_property], params[:rental_properties])
+
+    if @properties.save
+      render json: {message: 'ok'}
+    else
+      render json: {message: 'not ok'}
+    end
+  end
+
   def search
     # response = Zillow.search_property(params[:address], params[:citystatezip])
     response = ZillowService::GetPropertyInfo.call(params[:address], params[:citystatezip])
