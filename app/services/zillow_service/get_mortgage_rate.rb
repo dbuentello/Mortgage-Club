@@ -5,7 +5,6 @@ module ZillowService
   class GetMortgageRate
     include HTTParty
     include Capybara::DSL
-    NUMBER_OF_LENDERS = 25
 
     def self.call(zipcode)
       return unless zipcode
@@ -14,14 +13,13 @@ module ZillowService
       cache_key = "zillow-mortgage-rates-#{zipcode}"
 
       if lenders = REDIS.get(cache_key)
-        lenders = JSON.parse lenders
+        lenders = JSON.parse(lenders)
       else
         set_up_crawler
         lenders = get_lenders(zipcode)
         REDIS.set(cache_key, lenders.to_json)
         REDIS.expire(cache_key, 8.hour.to_i)
       end
-
       lenders
     end
 
@@ -29,7 +27,7 @@ module ZillowService
 
     def self.set_up_crawler
       Capybara.register_driver :poltergeist do |app|
-        Capybara::Poltergeist::Driver.new(app, {js_errors: false})
+        Capybara::Poltergeist::Driver.new(app, {js_errors: false, timeout: 60})
       end
       @session = Capybara::Session.new(:poltergeist)
       @session.driver.headers = {'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X)"}
@@ -37,13 +35,12 @@ module ZillowService
 
     def self.get_request_code(zipcode)
       user_session_id = "userSessionId=2de70907-6e58-45f6-a7e8-dc2efb69e261" # hardcode session ID
-      @session.visit "https://mortgageapi.zillow.com/submitRequest?property.type=SingleFamilyHome&property.use=Primary&property.zipCode=#{zipcode}&property.value=500000&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000&borrower.monthlyDebts=0&borrower.selfEmployed=false&borrower.hasBankruptcy=false&borrower.hasForeclosure=false&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year&desiredPrograms.2=ARM5&purchase.downPayment=100000&purchase.firstTimeBuyer=false&purchase.newConstruction=false&partnerId=RD-CZMBMCZ&#{user_session_id}"
+      @session.visit "https://mortgageapi.zillow.com/submitRequest?property.type=SingleFamilyHome&property.use=Primary&property.zipCode=#{zipcode}&property.value=500000&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000&borrower.monthlyDebts=0&borrower.selfEmployed=false&borrower.hasBankruptcy=false&borrower.hasForeclosure=false&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year&desiredPrograms.2=ARM5&desiredPrograms.3=Fixed20Year&desiredPrograms.4=Fixed10Year&desiredPrograms.5=ARM7&desiredPrograms.6=ARM3&purchase.downPayment=100000&purchase.firstTimeBuyer=false&purchase.newConstruction=false&partnerId=RD-CZMBMCZ&#{user_session_id}"
       request_code = @session.text.split('":"').last.chomp('"}')
     end
 
     def self.get_lenders(zipcode)
       return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
-      Rails.logger.info "request_code #{request_code}"
 
       response = HTTParty.get("https://mortgageapi.zillow.com/getQuotes?partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
       data = JSON.parse(response.body)
@@ -51,11 +48,7 @@ module ZillowService
       lenders = []
       count = 0
 
-      Rails.logger.info "iterate quotes"
-
       data["quotes"].each do |quote_id, _|
-        break if count > NUMBER_OF_LENDERS
-
         response = HTTParty.get("https://mortgageapi.zillow.com/getQuote?partnerId=RD-CZMBMCZ&quoteId=#{quote_id}&includeRequest=true&includeLender=true&includeLenderRatings=true&includeLenderDisclaimers=true&includeLenderContactPhone=true&includeNote=true")
         lender_data = JSON.parse(response.body)
         info = lender_data["lender"]
@@ -84,7 +77,6 @@ module ZillowService
           loan_amount: loan_amount, interest_rate: interest_rate, product: product, total_fee: total_fee, fees: fees, down_payment: 100000
         }
       end
-      Rails.logger.info lenders
       lenders
     end
   end
