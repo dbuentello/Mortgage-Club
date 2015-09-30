@@ -21,6 +21,7 @@ var FormAssetsAndLiabilities = React.createClass({
       state[field.name] = null;
     });
 
+    state.own_investment_property = this.props.loan.own_investment_property;
     state.rental_properties = this.props.loan.rental_properties;
     state.primary_property = this.props.loan.primary_property;
     state.saving = false;
@@ -32,7 +33,7 @@ var FormAssetsAndLiabilities = React.createClass({
     var value = _.values(change)[0];
     this.setState(this.setValue(this.state, key, value));
 
-    if (change.owns_rental == true && this.state.rental_properties.length == 0) {
+    if (change.own_investment_property == true && this.state.rental_properties.length == 0) {
       this.addProperty();
     }
   },
@@ -67,14 +68,14 @@ var FormAssetsAndLiabilities = React.createClass({
             <div className='box mvn'>
               <h5 className='typeDeemphasize'>Do you own investment property?</h5>
               <BooleanRadio
-                label={fields.ownsRental.label}
-                checked={this.state[fields.ownsRental.name]}
-                keyName={fields.ownsRental.name}
+                label=''
+                checked={this.state.own_investment_property}
+                keyName={"own_investment_property"}
                 editable={true}
                 onChange={this.onChange}/>
             </div>
 
-            {this.state.owns_rental ?
+            {this.state.own_investment_property ?
               <div>
                 <div className='h5 typeDeemphasize'>
                   Please provide the following information for all of your rental properties:
@@ -151,7 +152,8 @@ var FormAssetsAndLiabilities = React.createClass({
       data: {
         loan_id: this.props.loan.id,
         primary_property: this.state.primary_property,
-        rental_properties: this.state.rental_properties
+        rental_properties: this.state.rental_properties,
+        own_investment_property: this.state.own_investment_property
       },
       success: function(response) {
         console.dir(response);

@@ -139,7 +139,13 @@ class Loan < ActiveRecord::Base
   end
 
   def assets_completed
-    false
+    primary_property && primary_property.completed? &&
+    primary_property.market_price.present? &&
+    primary_property.estimated_mortgage_insurance.present? &&
+    primary_property.mortgage_includes_escrows.present? &&
+    primary_property.estimated_property_tax.present? &&
+    primary_property.estimated_hazard_insurance.present? &&
+    primary_property.hoa_due.present?
   end
 
   def declarations_completed
