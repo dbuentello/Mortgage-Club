@@ -264,7 +264,7 @@ var Dropzone = React.createClass({
             <div ref='box' className={className} style={style} onClick={this.onClick} onDragLeave={this.onDragLeave}
               onDragOver={this.onDragOver} onDrop={this.onDrop}>
               <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
-                onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name}>
+                onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
               </input>
               <div className='tip'>
                 {this.state.tip}

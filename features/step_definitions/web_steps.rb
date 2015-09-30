@@ -42,6 +42,7 @@ end
 
 When /^I attach the file "([^\"]*)" to the hidden "([^\"]*)"$/ do |path, field|
   page.execute_script("document.getElementsByName('#{field}')[0].className = '';")
+  page.execute_script("document.getElementsByName('#{field}')[0].setAttribute('style', 'display:block;')")
   patiently do
     attach_file(field, File.expand_path(path))
   end
@@ -137,4 +138,15 @@ end
 
 When /^I click on "([^\"]*)" in the "([^\"]*)"$/ do |text, element|
   find(element, text: text).click
+end
+
+When /^I drag the file "([^\"]*)" to "([^\"]*)"$/ do |file, field|
+  page.execute_script("document.getElementsByName('#{field}')[0].className = '';")
+  page.execute_script("document.getElementsByName('#{field}')[0].setAttribute('style', 'display:block;')")
+  patiently do
+    attach_file(field, File.expand_path(file))
+  end
+  draggable = page.find(".topMenu")
+  droppable = page.find("##{field}")
+  draggable.drag_to(droppable)
 end

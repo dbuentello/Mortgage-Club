@@ -24,17 +24,17 @@ module Docusign
       tabs = {}
       begin
         # get template tabs data from redis server: https://github.com/redis/redis-rb/blob/master/README.md#storing-objects
-        tabs = $redis.get(options[:template_name])
+        tabs = REDIS.get(options[:template_name])
 
         if tabs.nil?
           tabs = get_envelope_recipients_and_tabs(options[:template_id])
           tabs = tabs["signers"][0]["tabs"]
 
           # store tabs into redis
-          $redis.set(options[:template_name], tabs.to_json)
+          REDIS.set(options[:template_name], tabs.to_json)
 
           # Expire the cache, every 3 hours
-          $redis.expire(options[:template_name], 3.hour.to_i)
+          REDIS.expire(options[:template_name], 3.hour.to_i)
         else
           tabs = JSON.parse tabs
         end
