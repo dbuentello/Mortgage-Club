@@ -14,10 +14,10 @@ Feature: IncomeTabAtNewLoanPage
         And I fill in "Months at this employer" with "12"
         And I fill in "Contact Name" with "Cuong Vu"
         And I fill in "Contact Phone Number" with "0912345678"
-        And I fill in "Annual Gross Income" with "12345432"
+        And I fill in "Annual Gross Income" with "123454"
       Then I click on "Add other income"
         And I select "Bonus" from "Income Type"
-        And I fill in "Annual Gross Amount" with "9876789"
+        And I fill in "Annual Gross Amount" with "98767"
         And I click on "Save and Continue"
         And I wait for 1 seconds
       Then I should see "We’re now ready to get a real-time credit check to verify your credit score and review your credit history"
