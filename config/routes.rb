@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   get 'take_home_test', to: 'pages#take_home_test', as: :take_home_test
+  get '/esigning/:id', to: 'electronic_signature#new'
 
   authenticated :user, ->(u) { u.has_role?(:borrower) } do
     root to: "users/loans#index", as: :borrower_root
@@ -58,9 +59,9 @@ Rails.application.routes.draw do
 
   resources :charges, only: [:new, :create]
 
-  post 'electronic_signature/template'
-  get 'electronic_signature/embedded_response'
-  get 'electronic_signature/explain_response'
+  resources :electronic_signature, only: [:new, :create] do
+    get 'embedded_response', on: :collection
+  end
 
   get '/my/loans', to: 'users/loans#index', as: :my_loans
 

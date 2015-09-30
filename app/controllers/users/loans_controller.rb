@@ -4,11 +4,10 @@ class Users::LoansController < Users::BaseController
   def index
     if current_user.loans.size < 1
       loan = Loan.initiate(current_user)
-      if loan.save
-        redirect_to edit_loan_path(loan)
-        return
-      end
+      return redirect_to edit_loan_path(loan) if loan.save
+      return borrower_root_path
     end
+
     ref_url = "#{url_for(:only_path => false)}?refcode=#{current_user.id}"
     invites = Invite.where(sender_id: current_user.id)
     @ref_code = params[:refcode]

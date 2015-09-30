@@ -1,7 +1,17 @@
 class ElectronicSignatureController < ApplicationController
-  before_action :set_loan, only: [:template]
+  before_action :set_loan, only: [:new, :create]
 
-  def template
+  def new
+    bootstrap({
+      loan: LoanPresenter.new(@loan).show
+    })
+
+    respond_to do |format|
+      format.html { render template: 'borrower_app' }
+    end
+  end
+
+  def create
     templates = Template.where(name: ["Loan Estimate", "Servicing Disclosure"])
     if templates.empty?
       return render json: {
@@ -15,7 +25,7 @@ class ElectronicSignatureController < ApplicationController
       recipient_view = Docusign::GetRecipientViewService.call(
         envelope['envelopeId'],
         current_user,
-        electronic_signature_embedded_response_url
+        embedded_response_electronic_signature_index_url
       )
       return render json: {message: recipient_view}, status: 200 if recipient_view
     end
