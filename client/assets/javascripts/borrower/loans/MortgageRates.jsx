@@ -26,19 +26,8 @@ var MortgageRates = React.createClass({
   },
 
   onSelect: function(rate) {
-    console.dir(rate)
-    // $.ajax({
-    //   url: '/rates/select',
-    //   method: 'POST',
-    //   dataType: 'json',
-    //   data: {rate: rate},
-    //   success: function(response) {
-    //     this.context.router.transitionTo('new_loan');
-    //   }.bind(this),
-    //   error: function(response, status, error) {
-    //     alert(error);
-    //   }
-    // });
+    console.log('loan ', this.props.bootstrapData.currentLoan.id);
+    location.href = '/esigning/' + this.props.bootstrapData.currentLoan.id;
   },
 
   render: function() {

@@ -38,11 +38,11 @@ var ESigning = React.createClass({
   render: function() {
     return (
       <div>
-        <div className='iframeContent'>
+        <div className='iframeContentFull'>
           <div className='pal'>
             <div className='row'>
               <div className='col-xs-3'>
-                <h4 style={{display: this.state.loaded ? 'none' : null}}>Loading...please wait</h4>
+                <h5 style={{display: this.state.loaded ? 'none' : null}}>Loading...please wait</h5>
               </div>
             </div>
 
