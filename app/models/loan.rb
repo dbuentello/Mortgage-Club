@@ -159,7 +159,6 @@ class Loan < ActiveRecord::Base
 
   def primary_property
     properties.includes(:address).find { |p| p.is_primary == true }
-
   end
 
   def rental_properties
