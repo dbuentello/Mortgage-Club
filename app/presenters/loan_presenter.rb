@@ -24,7 +24,7 @@ class LoanPresenter
   def edit_loan_json_options
     {
       include: {
-        properties: {
+        rental_properties: {
           include: :address
         },
         primary_property: {

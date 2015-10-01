@@ -91,7 +91,23 @@ var Property = React.createClass({
   },
 
   remove: function(index) {
-    this.props.onRemove(index);
+    if (this.state.property.id != null) {
+      console.log("delete property: ", this.state.property.id);
+      $.ajax({
+        url: '/properties/' + this.state.property.id,
+        method: 'DELETE',
+        context: this,
+        dataType: 'json',
+        success: function(response) {
+          this.props.onRemove(index);
+        },
+        error: function(response, status, error) {
+          alert(error);
+        }
+      });
+    } else {
+      this.props.onRemove(index);
+    }
   },
 
   onFocus: function(field) {

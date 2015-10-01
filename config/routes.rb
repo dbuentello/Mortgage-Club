@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :properties, only: [:create] do
+  resources :properties, only: [:create, :destroy] do
     collection do
       get :search
     end

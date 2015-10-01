@@ -13,6 +13,11 @@ class PropertiesController < ApplicationController
     end
   end
 
+  def destroy
+    Property.find_by_id(params[:id]).destroy
+    render json: {message: 'ok'}
+  end
+
   def search
     # response = Zillow.search_property(params[:address], params[:citystatezip])
     response = ZillowService::GetPropertyInfo.call(params[:address], params[:citystatezip])
