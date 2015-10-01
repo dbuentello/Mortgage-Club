@@ -146,6 +146,13 @@ var FormAssetsAndLiabilities = React.createClass({
     var primary_property = this.state.primary_property;
     primary_property.address_attributes = primary_property.address;
 
+    var rental_properties = [];
+    for (var i = 0; i < this.state.rental_properties.length; i++) {
+      var rental_property = this.state.rental_properties[i];
+      rental_property.address_attributes = rental_property.address;
+      rental_properties.push(rental_property);
+    }
+
     $.ajax({
       url: '/properties/',
       method: 'POST',
@@ -154,7 +161,7 @@ var FormAssetsAndLiabilities = React.createClass({
       data: {
         loan_id: this.props.loan.id,
         primary_property: primary_property,
-        rental_properties: this.state.rental_properties,
+        rental_properties: rental_properties,
         own_investment_property: this.state.own_investment_property
       },
       success: function(response) {
