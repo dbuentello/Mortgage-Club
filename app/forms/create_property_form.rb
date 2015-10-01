@@ -13,8 +13,6 @@ class CreatePropertyForm
 
   def save
     loan = Loan.find_by_id(@loan_id)
-    loan.primary_property.update(property_params(@primary_property))
-
     if @rental_properties.present?
       i = 0
       @rental_properties.each do |property|
@@ -29,13 +27,13 @@ class CreatePropertyForm
         i += 1
       end
     end
-    true
+    loan.primary_property.update(property_params(@primary_property))
   end
 
   private
 
   def property_params(params)
-    params.permit(Property::PERMITTED_ATTRS);
+    params.permit(Property::PERMITTED_ATTRS)
   end
 
 end

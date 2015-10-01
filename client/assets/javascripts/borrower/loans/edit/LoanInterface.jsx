@@ -25,7 +25,7 @@ var LoanInterface = React.createClass({
   render: function() {
     var activeItem = this.state.active;
 
-    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save}/>;
+    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu}/>;
 
     return (
       <div>
@@ -63,6 +63,26 @@ var LoanInterface = React.createClass({
     return menu;
   },
 
+  setupMenu: function(response, step, skip_change_page) {
+    var menu = this.buildMenu(response.loan);
+    this.setState({
+      loan: response.loan,
+      menu: menu
+    });
+
+    skip_change_page = (typeof skip_change_page !== 'undefined') ? true : false;
+    if (skip_change_page) {
+      // TODO: identify what it does when reset active state
+      this.setState({
+        active: menu[step]
+      });
+    } else {
+      this.setState({
+        active: menu[step + 1] || menu[0]
+      });
+    }
+  },
+
   save: function(loan, step, skip_change_page) {
     $.ajax({
       url: '/loans/' + this.state.loan.id,
@@ -74,23 +94,7 @@ var LoanInterface = React.createClass({
         current_step: step
       },
       success: function(response) {
-        var menu = this.buildMenu(response.loan);
-        this.setState({
-          loan: response.loan,
-          menu: menu
-        });
-
-        skip_change_page = (typeof skip_change_page !== 'undefined') ? true : false;
-        if (skip_change_page) {
-          // TODO: identify what it does when reset active state
-          this.setState({
-            active: menu[step]
-          });
-        } else {
-          this.setState({
-            active: menu[step + 1] || menu[0]
-          });
-        }
+        this.setupMenu(response, step, skip_change_page);
       },
       error: function(response, status, error) {
         alert(error);

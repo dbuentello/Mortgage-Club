@@ -165,7 +165,7 @@ var FormAssetsAndLiabilities = React.createClass({
         own_investment_property: this.state.own_investment_property
       },
       success: function(response) {
-        console.dir(response);
+        this.props.setupMenu(response, 4);
         this.setState({saving: false});
       },
       error: function(response, status, error) {

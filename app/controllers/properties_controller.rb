@@ -7,9 +7,9 @@ class PropertiesController < ApplicationController
     @properties = CreatePropertyForm.new(params[:loan_id], params[:primary_property], params[:rental_properties])
 
     if @properties.save
-      render json: {message: 'ok'}
+      render json: {loan: LoanPresenter.new(loan).edit}
     else
-      render json: {message: 'not ok'}
+      render json: {message: 'error'}
     end
   end
 
