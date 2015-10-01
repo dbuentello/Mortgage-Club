@@ -49,7 +49,7 @@ class Users::LoansController < Users::BaseController
 
   def update
     @borrower_params = co_borrower_params
-
+    byebug
     if @borrower_params.present?
       if @borrower_params[:_remove]
         Form::CoBorrower.remove(current_user, @borrower_type, @borrower_params, @loan)
