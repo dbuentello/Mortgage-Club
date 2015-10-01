@@ -35,21 +35,40 @@ module ZillowService
 
     def self.get_request_code(zipcode)
       user_session_id = "userSessionId=2de70907-6e58-45f6-a7e8-dc2efb69e261" # hardcode session ID
-      @session.visit "https://mortgageapi.zillow.com/submitRequest?property.type=SingleFamilyHome&property.use=Primary&property.zipCode=#{zipcode}&property.value=500000&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000&borrower.monthlyDebts=0&borrower.selfEmployed=false&borrower.hasBankruptcy=false&borrower.hasForeclosure=false&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year&desiredPrograms.2=ARM5&desiredPrograms.3=Fixed20Year&desiredPrograms.4=Fixed10Year&desiredPrograms.5=ARM7&desiredPrograms.6=ARM3&purchase.downPayment=100000&purchase.firstTimeBuyer=false&purchase.newConstruction=false&partnerId=RD-CZMBMCZ&#{user_session_id}"
+      @session.visit "https://mortgageapi.zillow.com/submitRequest?"\
+                      "property.type=SingleFamilyHome&property.use=Primary"\
+                      "&property.zipCode=#{zipcode}&property.value=500000"\
+                      "&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000"\
+                      "&borrower.monthlyDebts=0&borrower.selfEmployed=false"\
+                      "&borrower.hasBankruptcy=false&borrower.hasForeclosure=false"\
+                      "&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year"\
+                      "&desiredPrograms.2=ARM5&desiredPrograms.3=Fixed20Year"\
+                      "&desiredPrograms.4=Fixed10Year&desiredPrograms.5=ARM7"\
+                      "&desiredPrograms.6=ARM3&purchase.downPayment=100000"\
+                      "&purchase.firstTimeBuyer=false&purchase.newConstruction=false"\
+                      "&partnerId=RD-CZMBMCZ&#{user_session_id}"
       request_code = @session.text.split('":"').last.chomp('"}')
     end
 
     def self.get_lenders(zipcode)
       return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
 
-      response = HTTParty.get("https://mortgageapi.zillow.com/getQuotes?partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
+      response = HTTParty.get("https://mortgageapi.zillow.com/getQuotes?"\
+                              "partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}"\
+                              "&includeRequest=true&includeLenders=true"\
+                              "&includeLendersRatings=true&includeLendersDisclaimers=true"\
+                              "&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
       data = JSON.parse(response.body)
       data["quotes"] ||= []
       lenders = []
       count = 0
 
       data["quotes"].each do |quote_id, _|
-        response = HTTParty.get("https://mortgageapi.zillow.com/getQuote?partnerId=RD-CZMBMCZ&quoteId=#{quote_id}&includeRequest=true&includeLender=true&includeLenderRatings=true&includeLenderDisclaimers=true&includeLenderContactPhone=true&includeNote=true")
+        response = HTTParty.get("https://mortgageapi.zillow.com/getQuote?"\
+                                "partnerId=RD-CZMBMCZ&quoteId=#{quote_id}"\
+                                "&includeRequest=true&includeLender=true"\
+                                "&includeLenderRatings=true&includeLenderDisclaimers=true"\
+                                "&includeLenderContactPhone=true&includeNote=true")
         lender_data = JSON.parse(response.body)
         info = lender_data["lender"]
         quote = lender_data["quote"]
