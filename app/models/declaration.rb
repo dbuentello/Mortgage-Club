@@ -46,9 +46,9 @@ class Declaration < ActiveRecord::Base
 
   def completed?
     !(outstanding_judgment.nil? && bankrupt.nil? && property_foreclosed.nil? &&
-    party_to_lawsuit.nil? && loan_foreclosure.nil? && nil_deliquent_loan.nil &&
-    child_support.nil? && down_payment_borrowed.nil? && co_maker_or_endorser.nil? &&
-    us_citizen.nil? && permanent_resident_alien.nil && ownership_interest.nil &&
+    party_to_lawsuit.nil? && loan_foreclosure.nil? && child_support.nil? &&
+    down_payment_borrowed.nil? && co_maker_or_endorser.nil? &&
+    us_citizen.nil? && permanent_resident_alien.nil? && ownership_interest.nil? &&
     type_of_property.nil? && title_of_property.nil?)
   end
 
