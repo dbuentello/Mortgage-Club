@@ -141,8 +141,10 @@ var FormAssetsAndLiabilities = React.createClass({
   },
 
   save: function() {
-    console.dir(this.state.rental_properties);
     this.setState({saving: true});
+
+    var primary_property = this.state.primary_property;
+    primary_property.address_attributes = primary_property.address;
 
     $.ajax({
       url: '/properties/',
@@ -151,15 +153,17 @@ var FormAssetsAndLiabilities = React.createClass({
       dataType: 'json',
       data: {
         loan_id: this.props.loan.id,
-        primary_property: this.state.primary_property,
+        primary_property: primary_property,
         rental_properties: this.state.rental_properties,
         own_investment_property: this.state.own_investment_property
       },
       success: function(response) {
         console.dir(response);
+        this.setState({saving: false});
       },
       error: function(response, status, error) {
         alert(error);
+        this.setState({saving: false});
       }
     });
   }

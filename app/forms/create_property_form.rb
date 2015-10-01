@@ -15,29 +15,20 @@ class CreatePropertyForm
     loan_primary_property = Loan.find_by_id(@loan_id).primary_property
     loan_primary_property.update(property_params(@primary_property))
 
-    if @rental_properties.present?
-      @rental_properties.each do |property|
-        new_property = Property.new(property_params(property[1]))
-        new_property.loan_id = @loan_id
-        new_property.save
-      end
-    end
+    # if @rental_properties.present?
+    #   @rental_properties.each do |property|
+    #     new_property = Property.new(property_params(property[1]))
+    #     new_property.loan_id = @loan_id
+    #     new_property.save
+    #   end
+    # end
     true
   end
 
   private
 
   def property_params(params)
-      params.permit(
-        :property_type,
-        :market_price,
-        :estimated_mortgage_insurance,
-        :mortgage_includes_escrows,
-        :estimated_property_tax,
-        :estimated_hazard_insurance,
-        :hoa_due,
-        :gross_rental_income,
-      );
+    params.permit(Property::PERMITTED_ATTRS);
   end
 
 end

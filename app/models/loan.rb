@@ -158,11 +158,12 @@ class Loan < ActiveRecord::Base
   end
 
   def primary_property
-    properties.find { |p| p.is_primary == true }
+    properties.includes(:address).find { |p| p.is_primary == true }
+
   end
 
   def rental_properties
-    properties.select { |p| p.is_primary == false }
+    properties.includes(:address).select { |p| p.is_primary == false }
   end
 
   def num_of_years
