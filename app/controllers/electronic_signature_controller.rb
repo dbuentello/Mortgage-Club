@@ -37,13 +37,13 @@ class ElectronicSignatureController < ApplicationController
   def embedded_response
     utility = DocusignRest::Utility.new
 
-    # ap params
+    # TODO: Change loan id
     if params[:event] == "signing_complete"
-      render :text => utility.breakout_path(borrower_root_path), content_type: 'text/html'
+      render :text => utility.breakout_path("/my/dashboard/#{Loan.last.id}"), content_type: 'text/html'
     elsif params[:event] == "ttl_expired"
       # the session has been expired
     else
-      render :text => utility.breakout_path(borrower_root_path(success: true)), content_type: 'text/html'
+      render :text => utility.breakout_path("/my/dashboard/#{Loan.last.id}"), content_type: 'text/html'
     end
   end
 end
