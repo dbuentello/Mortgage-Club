@@ -149,7 +149,7 @@ class Loan < ActiveRecord::Base
   end
 
   def declarations_completed
-    false
+    borrower.declaration.completed?
   end
 
   def purpose_completed?
