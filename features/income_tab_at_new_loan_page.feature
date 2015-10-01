@@ -22,8 +22,7 @@ Feature: IncomeTabAtNewLoanPage
           And I fill in "Annual Gross Income" with "123454"
       Then I click on "Save and Continue"
         And I wait for 1 seconds
-      Then I should see "Current Bank Balance"
-        And I click on "Income" in the "#tabIncome"
+      And I click on "Income" in the "#tabIncome"
         Then I should see "Software Engineer"
           And I should see "Cuong Vu"
           And I should see "0912345678"

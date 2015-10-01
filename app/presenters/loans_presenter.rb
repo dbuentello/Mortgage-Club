@@ -4,7 +4,7 @@ class LoansPresenter
   end
 
   def show
-    @loans.includes(property: :address).as_json(show_loans_json_options)
+    @loans.includes(properties: :address).as_json(show_loans_json_options)
   end
 
   private
@@ -16,7 +16,10 @@ class LoansPresenter
           only: [ :email ],
           methods: [ :to_s ]
         },
-        property: {
+        properties: {
+          include: :address
+        },
+        primary_property: {
           include: :address
         }
       }

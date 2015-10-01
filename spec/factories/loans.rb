@@ -98,8 +98,10 @@ FactoryGirl.define do
     f.pmi { Faker::Number.decimal(6, 2) }
   end
 
-  factory :loan_with_property, parent: :loan do |f|
-    property
+  factory :loan_with_properties, parent: :loan do |f|
+    after(:build) do |loan, property|
+      create_list(:property, Random.rand(1..3), loan: loan)
+    end
   end
 
   factory :loan_with_secondary_borrower, parent: :loan do |f|
@@ -107,7 +109,9 @@ FactoryGirl.define do
   end
 
   factory :loan_with_all_associations, parent: :loan do |f|
-    property
+    after(:build) do |loan, property|
+      create_list(:property, Random.rand(1..3), loan: loan)
+    end
     closing
     association :secondary_borrower, factory: :borrower
   end

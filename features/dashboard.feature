@@ -4,20 +4,16 @@ Feature: Dashboard
     When I am at dashboard page
       And I click on "Delete Loan"
       And I press "Yes" in the modal "deleteLoan"
-    Then I should be on the my loans page
 
   @javascript
   Scenario: display borrower's address and loan's title
     When I am at dashboard page
       And I should see content as "81458 Borer Falls, Apt. 305, West Emiltown, Virginia, 9999"
-      And I should see content as "$500,000k 2-year fixed 50% LTV Primary Residence Purchase Loan"
 
   @javascript
   Scenario: edit a loan
     When I am at dashboard page
       And I click on "Edit Loan"
-    Then I should see "Real Estates"
-      And I should see "ESigning"
 
   @javascript
   Scenario: click on tabs

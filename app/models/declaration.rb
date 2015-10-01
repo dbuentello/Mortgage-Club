@@ -8,7 +8,7 @@
 #  property_foreclosed      :boolean
 #  party_to_lawsuit         :boolean
 #  loan_foreclosure         :boolean
-#  present_deliquent_loan   :boolean
+#  nil_deliquent_loan   :boolean
 #  child_support            :boolean
 #  down_payment_borrowed    :boolean
 #  co_maker_or_endorser     :boolean
@@ -33,7 +33,7 @@ class Declaration < ActiveRecord::Base
     :property_foreclosed,
     :party_to_lawsuit,
     :loan_foreclosure,
-    :present_deliquent_loan,
+    :nil_deliquent_loan,
     :child_support,
     :down_payment_borrowed,
     :co_maker_or_endorser,
@@ -43,4 +43,13 @@ class Declaration < ActiveRecord::Base
     :type_of_property,
     :title_of_property
   ]
+
+  def completed?
+    !(outstanding_judgment.nil? && bankrupt.nil? && property_foreclosed.nil? &&
+    party_to_lawsuit.nil? && loan_foreclosure.nil? && nil_deliquent_loan.nil &&
+    child_support.nil? && down_payment_borrowed.nil? && co_maker_or_endorser.nil? &&
+    us_citizen.nil? && permanent_resident_alien.nil && ownership_interest.nil &&
+    type_of_property.nil? && title_of_property.nil?)
+  end
+
 end

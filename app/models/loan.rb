@@ -76,7 +76,7 @@ class Loan < ActiveRecord::Base
   has_one :borrower, through: :user
   has_one :secondary_borrower, inverse_of: :loan, class_name: 'Borrower' # don't destroy Borrower instance when we unset this association
 
-  has_one :property, inverse_of: :loan, dependent: :destroy
+  has_many :properties, dependent: :destroy
   has_many :envelope, inverse_of: :loan, dependent: :destroy
   has_one :closing, inverse_of: :loan, dependent: :destroy
 
@@ -94,17 +94,17 @@ class Loan < ActiveRecord::Base
 
   has_many :checklists
 
-  accepts_nested_attributes_for :property, allow_destroy: true
+  accepts_nested_attributes_for :properties, allow_destroy: true
   accepts_nested_attributes_for :borrower, allow_destroy: true
   accepts_nested_attributes_for :secondary_borrower, allow_destroy: true
 
   delegate :completed?, to: :borrower, prefix: :borrower
 
   PERMITTED_ATTRS = [
+    :credit_check_agree,
     :purpose,
-    property_attributes:           [:id] + Property::PERMITTED_ATTRS,
-    borrower_attributes:           [:id] + Borrower::PERMITTED_ATTRS
-    # secondary_borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
+    properties_attributes: [:id] + Property::PERMITTED_ATTRS,
+    borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
   ]
 
   enum purpose: {
@@ -115,16 +115,55 @@ class Loan < ActiveRecord::Base
   validates :amortization_type, inclusion: {in: %w( Conventional VA FHA USDA 9 ), message: "%{value} is not a valid amortization_type"}, allow_nil: true
 
   def self.initiate(user)
-    Loan.create(user: user, property: Property.create(address: Address.create), closing: Closing.create(name: 'Closing'))
+    loan = Loan.create(user: user, properties: [Property.create(address: Address.create, is_primary: true)], closing: Closing.create(name: 'Closing'))
   end
 
   def property_completed
-    property.present? && property.address.present? && property.address.completed && property.property_type.present? && property.usage.present? && purpose.present? &&
-      ((purchase? && property.purchase_price.present?) || (refinance? && property.original_purchase_price.present? && property.original_purchase_year.present?))
+    properties.size > 0 && primary_property && primary_property.completed? && purpose_completed?
+  end
+
+  def borrower_completed
+    if secondary_borrower.present?
+      borrower.completed? && secondary_borrower.completed?
+    else
+      borrower.completed?
+    end
   end
 
   def income_completed
     borrower.income_completed?
+  end
+
+  def credit_completed
+    credit_check_agree
+  end
+
+  def assets_completed
+    primary_property && primary_property.completed? &&
+    primary_property.market_price.present? &&
+    primary_property.estimated_mortgage_insurance.present? &&
+    primary_property.mortgage_includes_escrows.present? &&
+    primary_property.estimated_property_tax.present? &&
+    primary_property.estimated_hazard_insurance.present? &&
+    primary_property.hoa_due.present?
+  end
+
+  def declarations_completed
+    borrower.declaration && borrower.declaration.completed?
+  end
+
+  def purpose_completed?
+    purpose.present? && primary_property && (purchase? && primary_property.purchase_price.present? ||
+      refinance? && primary_property.refinance_completed?)
+  end
+
+  def primary_property
+    properties.includes(:address).find { |p| p.is_primary == true }
+  end
+
+  def rental_properties
+    rental_properties = properties.includes(:address).select { |p| p.is_primary == false }
+    rental_properties.sort_by(&:created_at)
   end
 
   def num_of_years
@@ -134,9 +173,9 @@ class Loan < ActiveRecord::Base
   end
 
   def ltv_formula
-    return unless (amount && property && property.purchase_price)
+    return unless (amount && properties && primary_property && primary_property.purchase_price)
 
-    (amount / property.purchase_price * 100).ceil
+    (amount / primary_property.purchase_price * 100).ceil
   end
 
   def purpose_titleize

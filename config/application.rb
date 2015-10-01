@@ -21,6 +21,7 @@ module MortgageClub
     # config.i18n.default_locale = :de
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
     config.autoload_paths += Dir[Rails.root.join('app', 'services', '{**}')]
+    config.autoload_paths += Dir[Rails.root.join('app', 'forms', '{**}')]
     config.autoload_paths += Dir[Rails.root.join('app', 'presenters', '{**}')]
 
     # For not swallow errors in after_commit/after_rollback callbacks.

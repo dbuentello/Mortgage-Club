@@ -2,10 +2,10 @@ Feature: PropertyTabAtNewLoanPage
   @javascript
   Scenario: user submits a new property
     When I am at loan management page
-      Then I click on "Property"
+      Then I click on "Property" in the "#tabProperty"
         And I select "Duplex" from "Property Type"
         And I select "Vacation Home" from "Property Will Be"
-        And I select "Purchase" from "Purpose of Loan"
+        And I choose "Purchase"
         And I clear value in "Purchase Price"
           Then I fill in "Purchase Price" with "12345"
         Then I click on "Save and Continue"

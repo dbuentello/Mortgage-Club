@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Docusign::Templates::LoanEstimate do
-  let(:loan) { FactoryGirl.create(:loan_with_property) }
+  let(:loan) { FactoryGirl.create(:loan_with_properties) }
 
   it 'returns a valid structure' do
     allow(loan).to receive(:insurance_binder).and_return(2000)

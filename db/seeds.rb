@@ -107,29 +107,6 @@ if User.where(email: 'purchase_1borrower@gmail.com').blank?
   end
 end
 
-
-if User.where(email: 'purchase_1borrower@gmail.com').blank?
-  new_user_emails = [
-    "purchase_1borrower@gmail.com",
-    "refinance_1borrower@gmail.com",
-    "purchase_2borrowers@gmail.com",
-    "refinance_2borrowers@gmail.com"
-  ]
-
-  i = 1
-  new_user_emails.each do |e|
-    user = User.new(
-      email: e, first_name: 'Borrower', last_name: i.to_s,
-      password: '12345678', password_confirmation: '12345678'
-    )
-    user.skip_confirmation!
-    user.save
-    user.create_borrower
-    user.add_role :borrower
-    i += 1
-  end
-end
-
 if Template.where(name: 'Loan Estimate').blank?
   Docusign::CreateTemplateService.call("Loan Estimate")
 end

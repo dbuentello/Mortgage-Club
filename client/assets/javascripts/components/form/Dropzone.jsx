@@ -221,7 +221,7 @@ var Dropzone = React.createClass({
           $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.empty.backgroundColor, color: this.props.empty.color});
 
           // console.log(response.message);
-          var flash = { "alert-danger": "Removed successfully!" };
+          var flash = { "alert-success": "Removed successfully!" };
           this.showFlashes(flash);
         }.bind(this),
         error: function(response, status, error) {

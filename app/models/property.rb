@@ -17,7 +17,7 @@
 #
 
 class Property < ActiveRecord::Base
-  belongs_to :loan, inverse_of: :property, foreign_key: 'loan_id'
+  belongs_to :loan, foreign_key: 'loan_id'
 
   has_one :address, autosave: true, inverse_of: :property
 
@@ -46,7 +46,11 @@ class Property < ActiveRecord::Base
     :market_price,
     :estimated_property_tax,
     :estimated_hazard_insurance,
+    :estimated_mortgage_insurance,
+    :mortgage_includes_escrows,
     :is_impound_account,
+    :hoa_due,
+    :is_primary,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 
@@ -63,12 +67,26 @@ class Property < ActiveRecord::Base
     rental_property: 2
   }
 
+  enum mortgage_includes_escrows: {
+    taxes_and_insurance: 0,
+    taxes_only: 1,
+    no: 2,
+    not_sure: 3
+  }
+
   validates_associated :address
 
   def usage_name
     return unless usage
-
     usage.split('_').map(&:capitalize).join(' ')
+  end
+
+  def completed?
+    property_type.present? && usage.present? && address.present? && address.completed
+  end
+
+  def refinance_completed?
+    original_purchase_price.present? && original_purchase_year.present?
   end
 
 end

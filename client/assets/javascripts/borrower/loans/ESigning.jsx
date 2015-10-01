@@ -3,7 +3,7 @@ var React = require('react/addons');
 
 var SelectField = require('components/form/SelectField');
 
-var FormESigning = React.createClass({
+var ESigning = React.createClass({
   getInitialState: function() {
     return {
       loaded: false
@@ -16,10 +16,10 @@ var FormESigning = React.createClass({
 
   componentDidMount: function() {
     $.ajax({
-      url: "/electronic_signature/template/",
+      url: "/electronic_signature",
       method: 'POST',
       data: {
-        id: this.props.loan.id
+        id: this.props.bootstrapData.loan.id
       },
       dataType: 'json',
       success: function(response) {
@@ -38,11 +38,11 @@ var FormESigning = React.createClass({
   render: function() {
     return (
       <div>
-        <div className='iframeContent'>
+        <div className='iframeContentFull'>
           <div className='pal'>
             <div className='row'>
               <div className='col-xs-3'>
-                <h4 style={{display: this.state.loaded ? 'none' : null}}>Loading...please wait</h4>
+                <h5 style={{display: this.state.loaded ? 'none' : null}}>Loading...please wait</h5>
               </div>
             </div>
 
@@ -57,4 +57,4 @@ var FormESigning = React.createClass({
   }
 });
 
-module.exports = FormESigning;
+module.exports = ESigning;

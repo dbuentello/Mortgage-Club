@@ -24,7 +24,10 @@ class LoanPresenter
   def edit_loan_json_options
     {
       include: {
-        property: {
+        rental_properties: {
+          include: :address
+        },
+        primary_property: {
           include: :address
         },
         borrower: {
@@ -53,7 +56,7 @@ class LoanPresenter
         }
       },
       methods: [
-        :property_completed, :borrower_completed?, :income_completed
+        :property_completed, :borrower_completed, :income_completed, :credit_completed, :assets_completed, :declarations_completed, :primary_property, :rental_properties
       ]
     }
   end
@@ -89,7 +92,7 @@ class LoanPresenter
     {
       only: [ :id, :amount, :created_at, :interest_rate ],
       include: {
-        property: {
+        properties: {
           only: [:id],
           include: {
             address: {
@@ -112,7 +115,7 @@ class LoanPresenter
         }
       },
       methods: [
-        :num_of_years, :ltv_formula, :purpose_titleize
+        :num_of_years, :ltv_formula, :purpose_titleize, :primary_property
       ]
     }
   end

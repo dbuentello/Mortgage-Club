@@ -4,11 +4,11 @@ var React = require('react/addons');
 var LoansTab = React.createClass({
   eachLoan: function(loan, i) {
     return (
-      <div className="col-sm-6 col-md-4" key={loan.id}>
+      <div className="col-sm-6 col-md-4" key={loan.id} index={i}>
         <div className="thumbnail">
           <div className="img-home"></div>
           <div className="caption">
-            <h3>{loan.property.address.address}</h3>
+            <h3></h3>
             <p>Status: Finishing</p>
             <p>Created at: {moment(loan.created_at).format('MMM DD, YYYY')}</p>
             <p>Loan amount: {loan.amount}</p>

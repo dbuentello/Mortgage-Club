@@ -104,13 +104,18 @@ class Borrower < ActiveRecord::Base
   end
 
   def completed?
-    dob.present? && ssn.present? && phone.present? &&
+    first_name.present? && last_name.present? &&
+    ssn.present? && dob.present? && phone.present? &&
       years_in_school.present? && marital_status.present? && current_address.present? &&
       (dependent_count == 0 || (dependent_count > 0 && dependent_ages.count > 0))
   end
 
   def income_completed?
-    gross_income.present? && gross_commission.present? && gross_bonus.present? &&
-      gross_overtime.present? && current_employment.try(:completed?)
+    gross_income.present? && #gross_commission.present? &&
+      #gross_bonus.present? && gross_overtime.present? &&
+      first_w2.present? && second_w2.present? &&
+      first_paystub.present? && second_paystub.present? &&
+      first_bank_statement.present? && second_bank_statement.present? &&
+      current_employment.try(:completed?)
   end
 end

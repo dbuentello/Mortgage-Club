@@ -8,7 +8,7 @@ module Docusign
 
       def initialize(loan)
         @loan = loan
-        @property = loan.property
+        @property = loan.primary_property
         @borrower = loan.borrower
         @params = {}
 

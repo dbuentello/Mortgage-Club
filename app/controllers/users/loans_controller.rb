@@ -2,6 +2,12 @@ class Users::LoansController < Users::BaseController
   before_action :set_loan, only: [:edit, :update, :destroy]
 
   def index
+    if current_user.loans.size < 1
+      loan = Loan.initiate(current_user)
+      return redirect_to edit_loan_path(loan) if loan.save
+      return borrower_root_path
+    end
+
     ref_url = "#{url_for(:only_path => false)}?refcode=#{current_user.id}"
     invites = Invite.where(sender_id: current_user.id)
     @ref_code = params[:refcode]
@@ -56,8 +62,8 @@ class Users::LoansController < Users::BaseController
 
       case params[:current_step]
       when '0'
-        ZillowService::UpdatePropertyTax.delay.call(loan.property.id)
-        ZillowService::GetMortgageRate.delay.call(loan.property.address.zip)
+        ZillowService::UpdatePropertyTax.delay.call(loan.primary_property.id)
+        ZillowService::GetMortgageRate.delay.call(loan.primary_property.address.zip)
       when '2'
         CreditReportService.delay.get_liabilities(current_user.borrower)
       end

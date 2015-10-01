@@ -3,11 +3,10 @@ var React = require('react/addons');
 
 var Property = require('./FormProperty');
 var Borrower = require('./FormBorrower');
-var Income = require('./FormIncome');
-var AssetsAndLiabilities = require('./FormAssetsAndLiabilities');
-var RealEstates = require('./FormRealEstates');
+var Income = require('./FormIncome/FormIncome');
+var AssetsAndLiabilities = require('./FormAssetsAndLiabilities/FormAssetsAndLiabilities');
 var Declarations = require('./FormDeclarations');
-var ESigning = require('./FormESigning');
+var CreditCheck = require('./FormCreditCheck');
 
 var LoanInterface = React.createClass({
   getInitialState: function() {
@@ -26,7 +25,7 @@ var LoanInterface = React.createClass({
   render: function() {
     var activeItem = this.state.active;
 
-    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save}/>;
+    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu}/>;
 
     return (
       <div>
@@ -48,7 +47,7 @@ var LoanInterface = React.createClass({
   },
 
   goToItem: function(item) {
-    this.autosave(this.props.bootstrapData.currentLoan, this.state.active.step);
+    // this.autosave(this.props.bootstrapData.currentLoan, this.state.active.step);
     this.setState({active: item});
   },
 
@@ -57,13 +56,31 @@ var LoanInterface = React.createClass({
       {name: 'Property', complete: loan.property_completed, icon: 'iconHome', step: 0, Content: Property},
       {name: 'Borrower', complete: loan.borrower_completed, icon: 'iconUser', step: 1, Content: Borrower},
       {name: 'Income', complete: loan.income_completed, icon: 'iconTicket', step: 2, Content: Income},
-      {name: 'Assets and Liabilities', complete: false, icon: 'iconVcard', step: 3, Content: AssetsAndLiabilities},
-      {name: 'Real Estates', complete: false, icon: 'iconHome', step: 4, Content: RealEstates},
-      {name: 'Declarations', complete: false, icon: 'iconClipboard', step: 5, Content: Declarations},
-      {name: 'ESigning', complete: false, icon: 'iconClipboard', step: 6, Content: ESigning}
+      {name: 'Credit Check', complete: loan.credit_completed, icon: 'iconCreditCard', step: 3, Content: CreditCheck},
+      {name: 'Assets and Liabilities', complete: loan.assets_completed, icon: 'iconVcard', step: 4, Content: AssetsAndLiabilities},
+      {name: 'Declarations', complete: loan.declarations_completed, icon: 'iconClipboard', step: 5, Content: Declarations},
     ];
-
     return menu;
+  },
+
+  setupMenu: function(response, step, skip_change_page) {
+    var menu = this.buildMenu(response.loan);
+    this.setState({
+      loan: response.loan,
+      menu: menu
+    });
+
+    skip_change_page = (typeof skip_change_page !== 'undefined') ? true : false;
+    if (skip_change_page) {
+      // TODO: identify what it does when reset active state
+      this.setState({
+        active: menu[step]
+      });
+    } else {
+      this.setState({
+        active: menu[step + 1] || menu[0]
+      });
+    }
   },
 
   save: function(loan, step, skip_change_page) {
@@ -77,23 +94,7 @@ var LoanInterface = React.createClass({
         current_step: step
       },
       success: function(response) {
-        var menu = this.buildMenu(response.loan);
-        this.setState({
-          loan: response.loan,
-          menu: menu
-        });
-
-        skip_change_page = (typeof skip_change_page !== 'undefined') ? true : false;
-        if (skip_change_page) {
-          // TODO: identify what it does when reset active state
-          this.setState({
-            active: menu[step]
-          });
-        } else {
-          this.setState({
-            active: menu[step + 1] || menu[0]
-          });
-        }
+        this.setupMenu(response, step, skip_change_page);
       },
       error: function(response, status, error) {
         alert(error);

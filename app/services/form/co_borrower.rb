@@ -64,6 +64,8 @@ module Form
           secondary_borrower.loan = nil
           secondary_borrower.save
 
+          loan.secondary_borrower = nil
+          loan.save
           # send email to co-borrower to let him know
           CoBorrowerMailer.notify_being_removed(loan.id, secondary_borrower.id).deliver_later
         end
