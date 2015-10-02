@@ -103,8 +103,10 @@ module ZillowService
         interest_rate = quote["rate"]
         if quote["arm"]
           product = "#{quote["arm"]["fixedRateMonths"] / 12}/1 ARM"
+          duration = quote["arm"]["fixedRateMonths"]
         else
           product = "#{quote["termMonths"] / 12} year fixed"
+          duration = quote["termMonths"]
         end
         total_fee = 0
         fees = {}
@@ -115,7 +117,8 @@ module ZillowService
         count += 1
         lenders << {
           lender_name: lender_name, nmls: nmls, website: website, apr: apr, monthly_payment: monthly_payment,
-          loan_amount: loan_amount, interest_rate: interest_rate, product: product, total_fee: total_fee, fees: fees, down_payment: 100000
+          loan_amount: loan_amount, interest_rate: interest_rate, product: product, total_fee: total_fee,
+          fees: fees, down_payment: 100000, duration: duration
         }
       end
       lenders

@@ -97,9 +97,6 @@ gem 'daemons'
 # dealing with money and currency conversion.
 gem 'money'
 
-# A library for financial calculations in Ruby
-gem 'finance'
-
 # A Ruby client library for Redis
 gem 'redis'
 
@@ -110,7 +107,7 @@ gem 'poltergeist'
 
 gem 'rollbar', '~> 2.2.1'
 
-gem "skylight"
+gem 'finance', github: 'MortgageClub/finance', branch: 'master'
 
 group :development do
   # just run bundle exec erd
@@ -181,4 +178,6 @@ group :production do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', platforms: :ruby
+
+  gem 'skylight'
 end
