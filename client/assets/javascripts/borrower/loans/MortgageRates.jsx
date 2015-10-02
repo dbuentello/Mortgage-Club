@@ -9,20 +9,10 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var MortgageRates = React.createClass({
   mixins: [LoaderMixin, ObjectHelperMixin, TextFormatMixin, Navigation],
 
-  componentDidMount: function() {
-    $.ajax({
-      method: 'GET',
-      url: '/rates',
-      data: {},
-      context: this,
-      dataType: 'json',
-      success: function(response) {
-        this.setState({ loaded: true, rates: response });
-      },
-      error: function(response, status, error) {
-
-      }
-    });
+  getInitialState: function() {
+    return {
+      rates: this.props.bootstrapData.rates
+    }
   },
 
   onSelect: function(rate) {
@@ -31,14 +21,6 @@ var MortgageRates = React.createClass({
   },
 
   render: function() {
-    if (!this.state.loaded) {
-      return (
-        <div className='content container text-center'>
-          {this.renderLoader()}
-        </div>
-      );
-    }
-
     return (
       <div className='content container'>
         <div className='row mtl'>
