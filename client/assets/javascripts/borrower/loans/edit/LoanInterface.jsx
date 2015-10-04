@@ -94,7 +94,11 @@ var LoanInterface = React.createClass({
         current_step: step
       },
       success: function(response) {
-        if (last_step == false) this.setupMenu(response, step, skip_change_page);
+        if (last_step == false) {
+          this.setupMenu(response, step, skip_change_page);
+        } else {
+          location.href = '/rates?loan_id=' + this.state.loan.id;
+        }
       },
       error: function(response, status, error) {
         alert(error);
