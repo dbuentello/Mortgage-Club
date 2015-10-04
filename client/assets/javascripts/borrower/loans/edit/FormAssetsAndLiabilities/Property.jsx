@@ -47,7 +47,6 @@ var Property = React.createClass({
   onChange: function(change) {
     var key = _.keys(change)[0];
     var value = _.values(change)[0];
-
     if ( value != null ) {
       if (key.indexOf('.address') > -1 && value.city) {
         var propertyKey = key.replace('.address', '');
@@ -94,6 +93,7 @@ var Property = React.createClass({
     for (var i=0, iLen=propertyTypes.length; i<iLen; i++) {
       if (propertyTypes[i]['name'] == type_name) return propertyTypes[i]['value'];
     }
+    return null;
   },
 
   remove: function(index) {
@@ -136,7 +136,7 @@ var Property = React.createClass({
           <div className='col-xs-3'>
             <SelectField
               label='Property Type'
-              keyName={'property_type'}
+              keyName={'property.property_type'}
               value={this.state.property.property_type}
               options={propertyTypes}
               editable={true}
@@ -146,7 +146,7 @@ var Property = React.createClass({
           <div className='col-xs-3'>
             <TextField
               label='Estimated Market Value'
-              keyName={'market_price'}
+              keyName={'property.market_price'}
               value={this.state.property.market_price}
               editable={true}
               onChange={this.onChange}/>
@@ -156,7 +156,7 @@ var Property = React.createClass({
           <div className='col-xs-6'>
             <SelectField
               label='Mortgage Payment'
-              keyName={'mortgage_payment'}
+              keyName={'property.mortgage_payment'}
               value={this.state.property.mortgage_payment}
               options={mortgagePayments}
               editable={true}
@@ -167,7 +167,7 @@ var Property = React.createClass({
             ? <div className='col-xs-6'>
                 <TextField
                   label='Other'
-                  keyName={'other_mortgage_payment'}
+                  keyName={'property.other_mortgage_payment'}
                   value={this.state.property.other_mortgage_payment}
                   editable={true}
                   onChange={this.onChange}/>
@@ -179,7 +179,7 @@ var Property = React.createClass({
           <div className='col-xs-6'>
             <SelectField
               label='Other Financing (if applicable)'
-              keyName={'financing'}
+              keyName={'property.financing'}
               value={this.state.property.financing}
               options={otherFinancings}
               editable={true}
@@ -190,7 +190,7 @@ var Property = React.createClass({
             ? <div className='col-xs-6'>
                 <TextField
                   label='Other'
-                  keyName={'other_financing'}
+                  keyName={'property.other_financing'}
                   value={this.state.property.other_financing}
                   editable={true}
                   onChange={this.onChange}/>
@@ -202,7 +202,7 @@ var Property = React.createClass({
           <div className='col-xs-6'>
             <TextField
               label='Mortgage Insurance (if applicable)'
-              keyName={'estimated_mortgage_insurance'}
+              keyName={'property.estimated_mortgage_insurance'}
               value={this.state.property.estimated_mortgage_insurance}
               editable={true}
               onChange={this.onChange}/>
@@ -210,7 +210,7 @@ var Property = React.createClass({
           <div className='col-xs-6'>
             <SelectField
               label='Does your mortgage payment include escrows?'
-              keyName={'mortgage_includes_escrows'}
+              keyName={'property.mortgage_includes_escrows'}
               value={this.state.property.mortgage_includes_escrows}
               options={mortgageInclueEscrows}
               editable={true}
@@ -222,7 +222,7 @@ var Property = React.createClass({
           <div className='col-xs-6'>
             <TextField
               label='Homeowner’s Insurance'
-              keyName={'estimated_hazard_insurance'}
+              keyName={'property.estimated_hazard_insurance'}
               value={this.state.property.estimated_hazard_insurance}
               editable={true}
               onChange={this.onChange}/>
@@ -230,7 +230,7 @@ var Property = React.createClass({
           <div className='col-xs-3'>
             <TextField
               label='Property Tax'
-              keyName={'estimated_property_tax'}
+              keyName={'property.estimated_property_tax'}
               value={this.state.property.estimated_property_tax}
               editable={true}
               onChange={this.onChange}/>
@@ -238,7 +238,7 @@ var Property = React.createClass({
           <div className='col-xs-3 pln'>
             <TextField
               label='HOA Due (if applicable)'
-              keyName={'hoa_due'}
+              keyName={'property.hoa_due'}
               value={this.state.property.hoa_due}
               editable={true}
               onChange={this.onChange}/>
@@ -248,7 +248,7 @@ var Property = React.createClass({
           <div className='col-xs-6'>
             <TextField
               label='Monthly rent'
-              keyName={'gross_rental_income'}
+              keyName={'property.gross_rental_income'}
               value={this.state.property.gross_rental_income}
               editable={true}
               onChange={this.onChange}/>
