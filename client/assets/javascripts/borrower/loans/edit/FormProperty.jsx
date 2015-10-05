@@ -17,6 +17,25 @@ var fields = {
   originalPurchaseYear: {label: 'Purchase Year', name: 'original_purchase_year', helpText: 'The year in which you bought your home.'}
 };
 
+var propertyTypes = [
+  {value: 'sfh', name: 'Single Family Home'},
+  {value: 'duplex', name: 'Duplex'},
+  {value: 'triplex', name: 'Triplex'},
+  {value: 'fourplex', name: 'Fourplex'},
+  {value: 'condo', name: 'Condo'}
+];
+
+var loanPurposes = [
+  {value: 'purchase', name: 'Purchase'},
+  {value: 'refinance', name: 'Refinance'}
+];
+
+var propertyPurposes = [
+  {value: 'primary_residence', name: 'Primary Residence'},
+  {value: 'vacation_home', name: 'Vacation Home'},
+  {value: 'rental_property', name: 'Rental Property'}
+];
+
 var FormProperty = React.createClass({
   mixins: [TextFormatMixin],
 
@@ -58,24 +77,6 @@ var FormProperty = React.createClass({
   },
 
   render: function() {
-    var propertyTypes = [
-      {value: 'sfh', name: 'Single Family Home'},
-      {value: 'duplex', name: 'Duplex'},
-      {value: 'triplex', name: 'Triplex'},
-      {value: 'fourplex', name: 'Fourplex'}
-    ];
-
-    var loanPurposes = [
-      {value: 'purchase', name: 'Purchase'},
-      {value: 'refinance', name: 'Refinance'}
-    ];
-
-    var propertyPurposes = [
-      {value: 'primary_residence', name: 'Primary Residence'},
-      {value: 'vacation_home', name: 'Vacation Home'},
-      {value: 'rental_property', name: 'Rental Property'}
-    ];
-
     return (
       <div>
         <div className='formContent'>
@@ -89,17 +90,6 @@ var FormProperty = React.createClass({
                 onFocus={this.onFocus.bind(this, fields.address)}
                 placeholder=''/>
               <div className='row'>
-                <div className="col-sm-6">
-                  <SelectField
-                    label={fields.propertyType.label}
-                    keyName={fields.propertyType.name}
-                    value={this.state[fields.propertyType.name]}
-                    options={propertyTypes}
-                    editable={true}
-                    onChange={this.onChange}
-                    onFocus={this.onFocus.bind(this, fields.propertyType)}
-                    allowBlank={true}/>
-                </div>
                 <div className="col-sm-6">
                   <SelectField
                     label={fields.propertyPurpose.label}

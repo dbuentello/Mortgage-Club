@@ -11,7 +11,8 @@ var propertyTypes = [
   {value: 'sfh', name: 'Single Family Home'},
   {value: 'duplex', name: 'Duplex'},
   {value: 'triplex', name: 'Triplex'},
-  {value: 'fourplex', name: 'Fourplex'}
+  {value: 'fourplex', name: 'Fourplex'},
+  {value: 'condo', name: 'Condo'}
 ];
 
 var mortgagePayments = [
