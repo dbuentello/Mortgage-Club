@@ -52,16 +52,27 @@ module ZillowService
 
     def self.get_lenders(zipcode)
       return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
+      Rails.logger.error ">>>>"
+      Rails.logger.error request_code
 
       response = RestClient.get("https://mortgageapi.zillow.com/getQuotes?"\
                               "partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}"\
                               "&includeRequest=true&includeLenders=true"\
                               "&includeLendersRatings=true&includeLendersDisclaimers=true"\
                               "&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
+
+      Rails.logger.error("https://mortgageapi.zillow.com/getQuotes?"\
+                              "partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}"\
+                              "&includeRequest=true&includeLenders=true"\
+                              "&includeLendersRatings=true&includeLendersDisclaimers=true"\
+                              "&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
+      Rails.logger.error(">>>>")
       data = JSON.parse(response.body)
       data["quotes"] ||= []
       lenders = []
       count = 0
+
+      Rails.logger.error data
 
       data["quotes"].each do |quote_id, _|
         response = RestClient.get("https://mortgageapi.zillow.com/getQuote?"\
