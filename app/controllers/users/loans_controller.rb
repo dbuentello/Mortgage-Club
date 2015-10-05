@@ -59,8 +59,8 @@ class Users::LoansController < Users::BaseController
 
     if @loan.update(loan_params)
       loan = @loan.reload
-
-      case params[:current_step]
+      step = params[:current_step].to_s
+      case step
       when '0'
         ZillowService::UpdatePropertyTax.delay.call(loan.primary_property.id)
         ZillowService::GetMortgageRate.delay.call(loan.primary_property.address.zip)
