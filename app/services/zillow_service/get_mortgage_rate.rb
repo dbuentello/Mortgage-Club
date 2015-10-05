@@ -55,17 +55,10 @@ module ZillowService
       Rails.logger.error ">>>>"
       Rails.logger.error request_code
 
-      response = RestClient.get("https://mortgageapi.zillow.com/getQuotes?"\
-                              "partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}"\
-                              "&includeRequest=true&includeLenders=true"\
-                              "&includeLendersRatings=true&includeLendersDisclaimers=true"\
-                              "&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
+      response = RestClient.get("https://mortgageapi.zillow.com/getQuotes?partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
 
-      Rails.logger.error("https://mortgageapi.zillow.com/getQuotes?"\
-                              "partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}"\
-                              "&includeRequest=true&includeLenders=true"\
-                              "&includeLendersRatings=true&includeLendersDisclaimers=true"\
-                              "&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
+      Rails.logger.error("https://mortgageapi.zillow.com/getQuotes?partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
+
       Rails.logger.error(">>>>")
       data = JSON.parse(response.body)
       data["quotes"] ||= []
