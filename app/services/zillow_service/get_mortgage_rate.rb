@@ -60,7 +60,7 @@ module ZillowService
         builder.response :oj
         builder.adapter Faraday.default_adapter
         builder.params['partnerId'] = 'RD-CZMBMCZ'
-        builder.params['requestRef.id'] = request_code
+        builder.params['requestRef.id'] = 'ZR-PYTKFRJZ'#request_code
         builder.params['includeRequest'] = true
         builder.params['includeLenders'] = true
         builder.params['includeLendersRatings'] = true
@@ -92,7 +92,7 @@ module ZillowService
         #                         "&includeLenderRatings=true&includeLenderDisclaimers=true"\
         #                         "&includeLenderContactPhone=true&includeNote=true")
 
-        connection = Faraday.new("https://mortgageapi.zillow.com/getQuote") do |builder|
+        conn = Faraday.new("https://mortgageapi.zillow.com/getQuote") do |builder|
           builder.response :oj
           builder.adapter Faraday.default_adapter
           builder.params['partnerId'] = 'RD-CZMBMCZ'
@@ -104,7 +104,7 @@ module ZillowService
           builder.params['includeLenderContactPhone'] = true
           builder.params['includeNote'] = true
         end
-        response_body = connection.get.body
+        response_body = conn.get.body
 
         lender_data = response_body
         info = lender_data["lender"]
