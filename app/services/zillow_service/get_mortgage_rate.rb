@@ -63,14 +63,14 @@ module ZillowService
       p "https://mortgageapi.zillow.com/getQuotes?partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings"
 
       p "---->"
-      p response
+      Rails.logger.error response
       data = JSON.parse(response.body)
       data["quotes"] ||= []
       lenders = []
       count = 0
 
       p "------"
-      p data
+      Rails.logger.error data
       p "------"
       data["quotes"].each do |quote_id, _|
         response = HTTParty.get("https://mortgageapi.zillow.com/getQuote?"\
