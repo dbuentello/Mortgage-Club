@@ -12,14 +12,14 @@ module ZillowService
       zipcode = zipcode[0..4] if zipcode.length > 5
       cache_key = "zillow-mortgage-rates-#{zipcode}"
 
-      if lenders = REDIS.get(cache_key)
-        lenders = JSON.parse(lenders)
-      else
+      # if lenders = REDIS.get(cache_key)
+      #   lenders = JSON.parse(lenders)
+      # else
         set_up_crawler
         lenders = get_lenders(zipcode)
         REDIS.set(cache_key, lenders.to_json)
         REDIS.expire(cache_key, 8.hour.to_i)
-      end
+      # end
       lenders
     end
 
