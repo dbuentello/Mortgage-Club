@@ -16,7 +16,6 @@ var MortgageRates = React.createClass({
   },
 
   onSelect: function(rate) {
-    console.log('loan ', this.props.bootstrapData.currentLoan.id);
     location.href = '/esigning/' + this.props.bootstrapData.currentLoan.id;
   },
 

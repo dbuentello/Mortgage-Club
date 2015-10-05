@@ -25,7 +25,7 @@ class ElectronicSignatureController < ApplicationController
       recipient_view = Docusign::GetRecipientViewService.call(
         envelope['envelopeId'],
         current_user,
-        embedded_response_electronic_signature_index_url
+        embedded_response_electronic_signature_index_url(loan_id: params[:id])
       )
       return render json: {message: recipient_view}, status: 200 if recipient_view
     end
@@ -37,13 +37,12 @@ class ElectronicSignatureController < ApplicationController
   def embedded_response
     utility = DocusignRest::Utility.new
 
-    # TODO: Change loan id
     if params[:event] == "signing_complete"
-      render :text => utility.breakout_path("/my/dashboard/#{Loan.last.id}"), content_type: 'text/html'
+      render :text => utility.breakout_path("/my/dashboard/#{params[:loan_id]}"), content_type: 'text/html'
     elsif params[:event] == "ttl_expired"
       # the session has been expired
     else
-      render :text => utility.breakout_path("/my/dashboard/#{Loan.last.id}"), content_type: 'text/html'
+      render :text => utility.breakout_path("/my/dashboard/#{params[:loan_id]}"), content_type: 'text/html'
     end
   end
 end
