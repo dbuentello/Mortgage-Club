@@ -20,6 +20,8 @@ module ZillowService
         REDIS.set(cache_key, lenders.to_json)
         REDIS.expire(cache_key, 8.hour.to_i)
       end
+      Rails.logger.error ">>> lender:"
+      Rails.logger.error lenders
       lenders
     end
 
