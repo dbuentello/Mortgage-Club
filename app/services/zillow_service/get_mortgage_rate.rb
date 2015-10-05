@@ -58,16 +58,8 @@ module ZillowService
       return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
       p "----->"
       p request_code
-      response = HTTParty.get("https://mortgageapi.zillow.com/getQuotes?"\
-                              "partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}"\
-                              "&includeRequest=true&includeLenders=true"\
-                              "&includeLendersRatings=true&includeLendersDisclaimers=true"\
-                              "&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
-      p "https://mortgageapi.zillow.com/getQuotes?"\
-                              "partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}"\
-                              "&includeRequest=true&includeLenders=true"\
-                              "&includeLendersRatings=true&includeLendersDisclaimers=true"\
-                              "&sorts.0=SponsoredRelevance&sorts.1=LenderRatings"
+      response = HTTParty.get("https://mortgageapi.zillow.com/getQuotes?partnerId=#{request_code}&requestRef.id=ZR-ZFGHSVBG&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
+
       p "---->"
       p response
       data = JSON.parse(response.body)
