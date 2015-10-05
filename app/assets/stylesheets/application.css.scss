@@ -9,6 +9,7 @@ $rails: true;
 @import "bootstrap-sprockets";
 
 @import "bootstrap_datepicker";
+@import "d3.slider";
 @import "dropzone-custom";
 
 body {
@@ -78,4 +79,22 @@ body {
   }
 }
 
-
+.mortgage-rates {
+  .charts {
+    rect {
+      fill: rgb(224, 224, 224);
+    }
+    rect:hover {
+      fill: #bad80a;
+    }
+    .highlight {
+      fill: #bad80a;
+    }
+    .bar_chart {
+      margin-bottom: -5px;
+    }
+    .slider {
+      width: 760px;
+    }
+  }
+}
