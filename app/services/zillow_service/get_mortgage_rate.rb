@@ -17,6 +17,10 @@ module ZillowService
       else
         set_up_crawler
         lenders = get_lenders(zipcode)
+
+        Rails.logger.error ">>> lender:"
+        Rails.logger.error lenders
+
         REDIS.set(cache_key, lenders.to_json)
         REDIS.expire(cache_key, 8.hour.to_i)
       end
@@ -64,7 +68,8 @@ module ZillowService
       data["quotes"] ||= []
       lenders = []
       count = 0
-
+      Rails.logger.error ">>> data:"
+      Rails.logger.error data
       data["quotes"].each do |quote_id, _|
         response = HTTParty.get("https://mortgageapi.zillow.com/getQuote?"\
                                 "partnerId=RD-CZMBMCZ&quoteId=#{quote_id}"\
