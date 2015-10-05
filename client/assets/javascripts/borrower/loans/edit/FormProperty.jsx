@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 
 var AddressField = require('components/form/AddressField');
 var SelectField = require('components/form/SelectField');
@@ -9,7 +10,6 @@ var BooleanRadio = require('components/form/BooleanRadio');
 
 var fields = {
   address: {label: 'Property Address', name: 'address', helpText: 'The full address of the subject property for which you are applying for a loan.'},
-  propertyType: {label: 'Property Type', name: 'property_type', helpText: 'The type of building classification of the property.'},
   loanPurpose: {label: 'Purpose of Loan', name: 'purpose', helpText: 'The purpose for taking out the loan in terms of how funds will be used.'},
   propertyPurpose: {label: 'Property Will Be', name: 'usage', helpText: 'The primary purpose of acquiring the subject property.'},
   purchasePrice: {label: 'Purchase Price', name: 'purchase_price', helpText: 'How much are you paying for the subject property?'},
@@ -37,7 +37,7 @@ var propertyPurposes = [
 ];
 
 var FormProperty = React.createClass({
-  mixins: [TextFormatMixin],
+  mixins: [ObjectHelperMixin, TextFormatMixin],
 
   getInitialState: function() {
     return this.buildStateFromLoan(this.props.loan);
@@ -68,12 +68,30 @@ var FormProperty = React.createClass({
       dataType: 'json',
       context: this,
       success: function(response) {
-        if (this.state.property_type === null) {
-          this.setState({property_type: response.useCode});
+        if (response.message == 'cannot find') {
+          return;
         }
-        this.setState({property: response});
+        var propertyType = this.getPropertyType(this.getValue(response, 'useCode'));
+        var marketPrice = this.getValue(response, 'zestimate.amount.__content__');
+        var monthlyTax = this.getValue(response, 'monthlyTax');
+        var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
+
+        this.setState({
+          property_type: propertyType,
+          market_price: marketPrice,
+          estimated_property_tax: monthlyTax,
+          estimated_hazard_insurance: monthlyInsurance,
+        });
+        console.dir(this.state);
       }
     });
+  },
+
+  getPropertyType: function(type_name) {
+    for (var i=0, iLen=propertyTypes.length; i<iLen; i++) {
+      if (propertyTypes[i]['name'] == type_name) return propertyTypes[i]['value'];
+    }
+    return null;
   },
 
   render: function() {
@@ -187,11 +205,15 @@ var FormProperty = React.createClass({
 
     state['property_id'] = property.id;
     state[fields.address.name] = property.address;
-    state[fields.propertyType.name] = property[fields.propertyType.name];
     state[fields.propertyPurpose.name] = property[fields.propertyPurpose.name];
     state[fields.purchasePrice.name] = this.formatCurrency(property[fields.purchasePrice.name]);
     state[fields.originalPurchasePrice.name] = this.formatCurrency(property[fields.originalPurchasePrice.name]);
     state[fields.originalPurchaseYear.name] = property[fields.originalPurchaseYear.name];
+
+    state['property_type'] = property.property_type;
+    state['market_price'] = property.market_price;
+    state['estimated_hazard_insurance'] = property.estimated_hazard_insurance;
+    state['estimated_property_tax'] = property.estimated_property_tax;
 
     return state;
   },
@@ -210,13 +232,17 @@ var FormProperty = React.createClass({
     }
 
     loan.properties_attributes = {id: this.state['property_id']};
-    loan.properties_attributes[fields.propertyType.name] = this.state[fields.propertyType.name];
     loan.properties_attributes[fields.propertyPurpose.name] = this.state[fields.propertyPurpose.name];
     loan.properties_attributes[fields.purchasePrice.name] = this.currencyToNumber(this.state[fields.purchasePrice.name]);
     loan.properties_attributes[fields.originalPurchasePrice.name] = this.currencyToNumber(this.state[fields.originalPurchasePrice.name]);
     loan.properties_attributes[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
     loan.properties_attributes.address_attributes = this.state.address;
     loan.properties_attributes.zpid = this.state.property ? this.state.property.zpid : null;
+
+    loan.properties_attributes['property_type'] = this.state['property_type'];
+    loan.properties_attributes['market_price'] = this.state['market_price'];
+    loan.properties_attributes['estimated_hazard_insurance'] = this.state['estimated_hazard_insurance'];
+    loan.properties_attributes['estimated_property_tax'] = this.state['estimated_property_tax'];
     return loan;
   },
 
