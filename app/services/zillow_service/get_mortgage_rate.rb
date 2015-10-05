@@ -12,14 +12,14 @@ module ZillowService
       zipcode = zipcode[0..4] if zipcode.length > 5
       cache_key = "zillow-mortgage-rates-#{zipcode}"
 
-      # if lenders = REDIS.get(cache_key)
-      #   lenders = JSON.parse(lenders)
-      # else
+      if lenders = REDIS.get(cache_key)
+        lenders = JSON.parse(lenders)
+      else
         set_up_crawler
         lenders = get_lenders(zipcode)
         REDIS.set(cache_key, lenders.to_json)
         REDIS.expire(cache_key, 8.hour.to_i)
-      # end
+      end
       lenders
     end
 
@@ -60,7 +60,7 @@ module ZillowService
         builder.response :oj
         builder.adapter Faraday.default_adapter
         builder.params['partnerId'] = 'RD-CZMBMCZ'
-        builder.params['requestRef.id'] = 'ZR-PYTKFRJZ'#request_code
+        builder.params['requestRef.id'] = request_code #'ZR-PYTKFRJZ'
         builder.params['includeRequest'] = true
         builder.params['includeLenders'] = true
         builder.params['includeLendersRatings'] = true
@@ -68,10 +68,7 @@ module ZillowService
         builder.params['sorts.0'] = 'SponsoredRelevance'
         builder.params['sorts.1'] = 'LenderRatings'
       end
-
       response_body = connection.get.body
-
-      # response = RestClient.get("https://mortgageapi.zillow.com/getQuotes?partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
 
       Rails.logger.error("https://mortgageapi.zillow.com/getQuotes?partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
 
@@ -86,12 +83,6 @@ module ZillowService
       Rails.logger.error data
 
       data["quotes"].each do |quote_id, _|
-        # response = RestClient.get("https://mortgageapi.zillow.com/getQuote?"\
-        #                         "partnerId=RD-CZMBMCZ&quoteId=#{quote_id}"\
-        #                         "&includeRequest=true&includeLender=true"\
-        #                         "&includeLenderRatings=true&includeLenderDisclaimers=true"\
-        #                         "&includeLenderContactPhone=true&includeNote=true")
-
         conn = Faraday.new("https://mortgageapi.zillow.com/getQuote") do |builder|
           builder.response :oj
           builder.adapter Faraday.default_adapter
