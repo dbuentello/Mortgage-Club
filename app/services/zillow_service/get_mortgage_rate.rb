@@ -63,6 +63,13 @@ module ZillowService
                               "&includeRequest=true&includeLenders=true"\
                               "&includeLendersRatings=true&includeLendersDisclaimers=true"\
                               "&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
+      p "https://mortgageapi.zillow.com/getQuotes?"\
+                              "partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}"\
+                              "&includeRequest=true&includeLenders=true"\
+                              "&includeLendersRatings=true&includeLendersDisclaimers=true"\
+                              "&sorts.0=SponsoredRelevance&sorts.1=LenderRatings"
+      p "---->"
+      p response
       data = JSON.parse(response.body)
       data["quotes"] ||= []
       lenders = []
