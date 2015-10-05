@@ -65,6 +65,9 @@ module ZillowService
       lenders = []
       count = 0
 
+      p "------"
+      p data
+      p "------"
       data["quotes"].each do |quote_id, _|
         response = HTTParty.get("https://mortgageapi.zillow.com/getQuote?"\
                                 "partnerId=RD-CZMBMCZ&quoteId=#{quote_id}"\

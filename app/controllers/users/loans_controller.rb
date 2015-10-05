@@ -63,6 +63,7 @@ class Users::LoansController < Users::BaseController
       case step
       when '0'
         ZillowService::UpdatePropertyTax.delay.call(loan.primary_property.id)
+        p ">>>> start crawl: #{loan.primary_property.address.zip}"
         ZillowService::GetMortgageRate.call(loan.primary_property.address.zip)
       when '2'
         CreditReportService.delay.get_liabilities(current_user.borrower)
