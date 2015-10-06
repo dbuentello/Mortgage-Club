@@ -11,8 +11,17 @@ describe RatesController do
 
   describe "GET index" do
     it "show list rate" do
+      allow(RateServices::GetLenderRates).to receive(:call).and_return([{"lender_name": "Sebonic Financial", "nmls": "66247", "website": "https://www.securecontactpage.com/sebonic-financial/1", "apr": 3.38, "monthly_payment": 2294, "loan_amount": 400000, "interest_rate": 3.375, "product": "20 year fixed", "total_fee": 1395, "fees": {"Loan origination fee": 895, "Appraisal fee": 500}, "down_payment": 100000}])
       get :index, :loan_id => loan.id
       expect(response.status).to eq(200)
+      expect(assigns(:bootstrap_data)[:rates][0][:lender_name]).to eq('Sebonic Financial')
+    end
+
+    it "not found rate" do
+      allow(RateServices::GetLenderRates).to receive(:call).and_return([])
+      get :index, :loan_id => loan.id
+      expect(response.status).to eq(200)
+      expect(assigns(:bootstrap_data)[:rates]).to eq([])
     end
   end
 
