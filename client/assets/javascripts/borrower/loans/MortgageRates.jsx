@@ -5,6 +5,7 @@ var Navigation = require('react-router').Navigation;
 var LoaderMixin = require('mixins/LoaderMixin');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var yearSlider, avgRateSlider, taxRateSlider;
 
 var MortgageRates = React.createClass({
   mixins: [LoaderMixin, ObjectHelperMixin, TextFormatMixin, Navigation],
@@ -23,47 +24,75 @@ var MortgageRates = React.createClass({
     this.buildYearsChart();
     this.buildAverageRatesChart();
     this.buildTaxRatesChart();
+    $('.slider').css('width', '765px');
   },
 
   buildTaxRatesChart: function() {
     // build slider
-    this.generateSliderChart('.tax_rate_chart .slider', 'tax_rect_nth', 6, 0, 50, 1, '.selected_tax_rate .value');
+    taxRateSlider = this.generateSliderChart('.tax_rate_chart .slider', 'tax_rect_nth', 0, 50, 1, '.selected_tax_rate .value');
+    taxRateSlider.value(20);
 
     // build bar chart
     var rates = [];
-    for(var i = 1; i <= 50; i++) {
+    for(var i = 0; i <= 50; i++) {
       rates.push(i);
     }
     this.generateBarChart(rates, ".tax_rate_chart .bar_chart", "tax_rect_nth");
+
+    // set default value
+    d3.select(".tax_rect_nth20").attr("class", "highlight tax_rect_nth20");
+    $('.tax_rate_chart .value').val('20%');
   },
 
   buildAverageRatesChart: function() {
     // build slider
-    this.generateSliderChart('.average_rate_chart .slider', 'avg_rect_nth', 6, -10, 20, 1, '.selected_avg_rate .value', 10);
+    avgRateSlider = this.generateSliderChart('.average_rate_chart .slider', 'avg_rect_nth', -10, 20, 1, '.selected_avg_rate .value', 10);
+    avgRateSlider.value(8);
 
     // build bar chart
     var rates = [];
-    for(var i = 1; i <= 30; i++) {
+    for(var i = 0; i <= 30; i++) {
       rates.push(i);
     }
     this.generateBarChart(rates, ".average_rate_chart .bar_chart", "avg_rect_nth");
+
+    // set default value
+    d3.select(".avg_rect_nth18").attr("class", "highlight avg_rect_nth18");
+    $('.average_rate_chart .value').val('8%');
   },
 
   buildYearsChart: function() {
     // build slider
-    this.generateSliderChart('.years_chart .slider', 'year_rect_nth', 4, 0, 40, 1, '.selected_year .value');
+    yearSlider = this.generateSliderChart('.years_chart .slider', 'year_rect_nth', 0, 30, 1, '.selected_year .value');
+    yearSlider.value(9);
+
     // build bar chart
     var years = [];
-    for(var i = 1; i <= 40; i++) {
+    for(var i = 0; i <= 30; i++) {
       years.push(i);
     }
     this.generateBarChart(years, ".years_chart .bar_chart", "year_rect_nth");
+
+    // set default value
+    d3.select(".year_rect_nth9").attr("class", "highlight year_rect_nth9");
+    $('.years_chart .value').val('9 years');
   },
 
-  generateSliderChart: function(selection, rectKlassName, tick, min, max, step, input, normalized_number = 0) {
+  generateSliderChart: function(selection, rectKlassName, min, max, step, input, normalized_number = 0) {
+    var text_display = '';
     // build slider
-    var slider = d3.slider().axis(d3.svg.axis().orient("bottom").ticks(tick)).min(min).max(max).step(step).on('slide', function(event, value) {
-      $(input).text(value);
+    var slider = d3.slider().axis(d3.svg.axis().orient("bottom").ticks(4)).min(min).max(max).scale(d3.scale.linear().domain([min, max])).step(step).on('slide', function(event, value) {
+      value = Math.ceil(value);
+      switch(rectKlassName){
+        case "year_rect_nth":
+          text_display = (value > 1) ? (value + " years") : (value + " year");
+          break;
+        case "avg_rect_nth":
+        case "tax_rect_nth":
+          text_display = value + "%";
+          break;
+      }
+      $(input).val(text_display);
       for(var i = 0; i <= 50; i++) {
         var klassName = rectKlassName + i;
         d3.select("." + klassName).attr("class", klassName);
@@ -73,10 +102,12 @@ var MortgageRates = React.createClass({
       d3.select("." + klassName).attr("class", "highlight " + klassName);
     });
     d3.select(selection).call(slider);
+    slider.value(1); // fix the bug of d3.js slider
+    return slider;
   },
 
   generateBarChart: function(data, selection, rectKlassName) {
-    var width = 760,
+    var width = 764,
         height = 100;
 
     var y = d3.scale.linear().range([height, 0]);
@@ -101,6 +132,65 @@ var MortgageRates = React.createClass({
         .attr("class", function(d) { return rectKlassName + d });
   },
 
+  onBlur: function(type) {
+    var value = 0;
+
+    switch(type) {
+      case 'year':
+        value = $('.years_chart .value').val();
+        value = this.correctValue(value, 'year');
+        yearSlider.value(value);
+        this.clearHighlightBar('year_rect_nth');
+        d3.select(".year_rect_nth" + value).attr("class", "highlight year_rect_nth" + value);
+        var postfix = value > 1 ? ' years' : ' year';
+        $('.years_chart .value').val(value + postfix)
+        break;
+      case 'avg_rate':
+        value = $('.average_rate_chart .value').val();
+        value = this.correctValue(value, 'avg_rate');
+        avgRateSlider.value(value);
+        this.clearHighlightBar('avg_rect_nth');
+        d3.select(".avg_rect_nth" + (value + 10)).attr("class", "highlight avg_rect_nth" + (value + 10));
+        $('.average_rate_chart .value').val(value + '%')
+        break;
+      case 'tax_rate':
+        value = $('.tax_rate_chart .value').val();
+        value = this.correctValue(value, 'tax_rate');
+        taxRateSlider.value(value);
+        this.clearHighlightBar('tax_rect_nth');
+        d3.select(".tax_rect_nth" + value).attr("class", "highlight tax_rect_nth" + value);
+        $('.tax_rate_chart .value').val(value + '%')
+        break;
+    }
+  },
+
+  correctValue: function(value, type) {
+    value = value.match(/\d+/)[0];
+    value = parseInt(value);
+    switch(type) {
+      case 'year':
+        value = value < 0 ? 0 : value;
+        value = value > 30 ? 30 : value;
+        break;
+      case 'avg_rate':
+        value = value < -10 ? -10 : value;
+        value = value > 20 ? 20 : value;
+        break;
+      case 'tax_rate':
+        value = value < 0 ? 0 : value;
+        value = value > 50 ? 50: value;
+        break;
+    }
+    return value;
+  },
+
+  clearHighlightBar: function(rectKlassName) {
+    for(var i = 0; i <= 50; i++) {
+      var klassName = rectKlassName + i;
+      d3.select("." + klassName).attr("class", klassName);
+    }
+  },
+
   onSelect: function(rate) {
   },
 
@@ -117,10 +207,13 @@ var MortgageRates = React.createClass({
       <div className='content container mortgage-rates'>
         <div className='charts'>
           <div className='years_chart mtxl'>
+            <div className= 'row'>
+              <h3>How Long Do You Plan To Stay?</h3>
+              <p>Buying tends to be better the longer you stay because the upfront fees are spread out over many years</p>
+            </div>
             <div className='row'>
-              <div className='col-xs-2 ptxl selected_year'>
-                <span className='value'>0</span>
-                <span className='postfix'> years</span>
+              <div className='col-xs-2 selected_year'>
+                <input className="value" onBlur={_.bind(this.onBlur, null, 'year')}/>
               </div>
               <div className='col-xs-9'>
                 <svg className='bar_chart'></svg>
@@ -129,10 +222,12 @@ var MortgageRates = React.createClass({
             </div>
           </div>
           <div className='average_rate_chart mtxl'>
+            <div className= 'row'>
+              <h3>{"What's your average rate of return on your personal investments?"}</h3>
+            </div>
             <div className='row'>
-              <div className='col-xs-2 ptxl selected_avg_rate'>
-                <span className='value'>0</span>
-                <span className='postfix'>%</span>
+              <div className='col-xs-2 selected_avg_rate'>
+                <input className="value" onBlur={_.bind(this.onBlur, null, 'avg_rate')}/>
               </div>
               <div className='col-xs-9'>
                 <svg className='bar_chart'></svg>
@@ -141,10 +236,12 @@ var MortgageRates = React.createClass({
             </div>
           </div>
           <div className='tax_rate_chart mtxl'>
+            <div className= 'row'>
+              <h3>How do you file your taxes:</h3>
+            </div>
             <div className='row'>
-              <div className='col-xs-2 ptxl selected_tax_rate'>
-                <span className='value'>0</span>
-                <span className='postfix'>%</span>
+              <div className='col-xs-2 selected_tax_rate'>
+                <input className="value" onBlur={_.bind(this.onBlur, null, 'tax_rate')}/>
               </div>
               <div className='col-xs-9'>
                 <svg className='bar_chart'></svg>

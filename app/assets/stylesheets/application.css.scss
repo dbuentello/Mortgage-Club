@@ -95,6 +95,27 @@ body {
     }
     .slider {
       width: 760px;
+      .d3-slider-handle {
+        margin-left: -0.7em;
+      }
+    }
+    input {
+      width: 100%;
+      border: none;
+      border-radius: 0;
+      border-bottom: solid 1px #ddd;
+      font: inherit;
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 14px;
+      padding: 4px 0;
+      background-color: #f8f8f8;
+    }
+    input:focus {
+      outline-width: 0;
+    }
+    .selected_year, .selected_avg_rate, .selected_tax_rate {
+      padding-top: 74px;
     }
   }
 }
