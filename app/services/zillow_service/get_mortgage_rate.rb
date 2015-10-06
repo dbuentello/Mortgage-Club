@@ -55,32 +55,20 @@ module ZillowService
       Rails.logger.error ">>>>"
       Rails.logger.error request_code
 
-
-      connection = Faraday.new("https://mortgageapi.zillow.com/getQuotes") do |builder|
-        builder.response :oj
-        builder.adapter Faraday.default_adapter
-        builder.params['partnerId'] = 'RD-CZMBMCZ'
-        builder.params['requestRef.id'] = request_code #'ZR-PYTKFRJZ'
-        builder.params['includeRequest'] = true
-        builder.params['includeLenders'] = true
-        builder.params['includeLendersRatings'] = true
-        builder.params['includeLendersDisclaimers'] = true
-        builder.params['sorts.0'] = 'SponsoredRelevance'
-        builder.params['sorts.1'] = 'LenderRatings'
-      end
-      response_body = connection.get.body
-
-      Rails.logger.error("https://mortgageapi.zillow.com/getQuotes?partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
-
-      Rails.logger.error(">>>>")
-      Rails.logger.error response_body
-
-      data = response_body
+      data = {}
       data["quotes"] ||= []
       lenders = []
       count = 0
 
-      Rails.logger.error data
+      while count <= 10 && data["quotes"].empty?
+        response = HTTParty.get("https://mortgageapi.zillow.com/getQuotes?partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
+
+        data = JSON.parse(response.body)
+        count += 1
+        p "---> count: #{count}"
+        Rails.logger.error(">>>>")
+        Rails.logger.error data
+      end
 
       data["quotes"].each do |quote_id, _|
         conn = Faraday.new("https://mortgageapi.zillow.com/getQuote") do |builder|
