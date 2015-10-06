@@ -2,11 +2,12 @@ require 'rails_helper'
 
 describe Property do
   let(:property) { FactoryGirl.create(:property_with_address) }
+  let (:primary_property) {FactoryGirl.create(:primary_property)}
+  let(:rental_property) {FactoryGirl.create(:rental_property)}
 
   it 'has a valid factory' do
     expect(property).to be_valid
     expect(property.address).to be_valid
-
   end
 
   describe '.usage_name' do
@@ -24,4 +25,21 @@ describe Property do
       end
     end
   end
+
+  describe 'primary_property' do
+    context 'is_primary ' do
+      it 'property is primary' do
+        expect(primary_property.is_primary).to eq(true)
+      end
+    end
+  end
+
+  describe 'rental_property' do
+    context 'is_rental property' do
+      it 'property is not primary' do
+        expect(rental_property.is_primary).to eq(false)
+      end
+    end
+  end
+
 end

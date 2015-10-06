@@ -84,6 +84,42 @@ describe Loan do
     expect(loan.loan_activities.size).to be >= 1
   end
 
+  describe '.primary_property' do
+    context 'primary_property is nil' do
+      it 'returns nil' do
+        expect(loan.primary_property).to be_nil
+      end
+    end
+
+    context 'loan has primary_property' do
+      before(:each) do
+        @loan = FactoryGirl.create(:loan_with_properties)
+      end
+
+      it 'returns primary_property value' do
+        expect(@loan.primary_property).not_to be_nil
+      end
+    end
+  end
+
+  describe '.rental_properties' do
+    context 'rental_properties is nil' do
+      it 'returns nil' do
+        expect(loan.rental_properties).to eq([])
+      end
+    end
+
+    context 'loan has rental_properties' do
+      before(:each) do
+        @loan = FactoryGirl.create(:loan_with_properties)
+      end
+
+      it 'returns rental_properties value' do
+        expect(@loan.rental_properties).not_to be_nil
+      end
+    end
+  end
+
   describe '.ltv_formula' do
     context 'property or amount is nil' do
       it 'returns nil' do
