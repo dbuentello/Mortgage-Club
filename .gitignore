@@ -17,8 +17,8 @@
 *.log
 /tmp
 
-/spec/fixtures/*.yml
-/spec/fixtures/vcr_cassettes/*.yml
+#/spec/fixtures/*.yml
+#/spec/fixtures/vcr_cassettes/*.yml
 
 # Test files
 /public/uploads
