@@ -222,9 +222,7 @@ var FormDeclarations = React.createClass({
 
   save: function() {
     this.setState({saving: true});
-    this.props.saveLoan(this.buildLoanFromState(), 5, true);
-    // TODO: Move rates page when all tab completed
-    location.href = '/rates?loan_id=' + this.props.loan.id;
+    this.props.saveLoan(this.buildLoanFromState(), 5, true, true);
   }
 
 });

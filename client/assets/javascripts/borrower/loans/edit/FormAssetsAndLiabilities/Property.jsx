@@ -11,7 +11,8 @@ var propertyTypes = [
   {value: 'sfh', name: 'Single Family Home'},
   {value: 'duplex', name: 'Duplex'},
   {value: 'triplex', name: 'Triplex'},
-  {value: 'fourplex', name: 'Fourplex'}
+  {value: 'fourplex', name: 'Fourplex'},
+  {value: 'condo', name: 'Condo'}
 ];
 
 var mortgagePayments = [
@@ -47,7 +48,6 @@ var Property = React.createClass({
   onChange: function(change) {
     var key = _.keys(change)[0];
     var value = _.values(change)[0];
-
     if ( value != null ) {
       if (key.indexOf('.address') > -1 && value.city) {
         var propertyKey = key.replace('.address', '');
@@ -78,7 +78,7 @@ var Property = React.createClass({
           return;
         }
         var market_price = this.getValue(response, 'zestimate.amount.__content__');
-        var propertyType = this.getValue(response, 'useCode');
+        var propertyType = this.getPropertyType(this.getValue(response, 'useCode'));
         var monthlyTax = this.getValue(response, 'monthlyTax');
         var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
         property.market_price = market_price;
@@ -90,9 +90,15 @@ var Property = React.createClass({
     });
   },
 
+  getPropertyType: function(type_name) {
+    for (var i=0, iLen=propertyTypes.length; i<iLen; i++) {
+      if (propertyTypes[i]['name'] == type_name) return propertyTypes[i]['value'];
+    }
+    return null;
+  },
+
   remove: function(index) {
     if (this.state.property.id != null) {
-      console.log("delete property: ", this.state.property.id);
       $.ajax({
         url: '/properties/' + this.state.property.id,
         method: 'DELETE',

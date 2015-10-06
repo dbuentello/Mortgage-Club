@@ -56,6 +56,10 @@ gem 'httparty'
 
 gem 'rest-client'
 
+gem 'faraday'
+gem 'faraday_middleware'
+gem 'faraday_middleware-parse_oj', '~> 0.3.0'
+
 gem 'nokogiri'
 
 # file attachment management for ActiveRecord

@@ -53,23 +53,45 @@ module ZillowService
     def self.get_lenders(zipcode)
       return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
 
-      response = HTTParty.get("https://mortgageapi.zillow.com/getQuotes?"\
-                              "partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}"\
-                              "&includeRequest=true&includeLenders=true"\
-                              "&includeLendersRatings=true&includeLendersDisclaimers=true"\
-                              "&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
-      data = JSON.parse(response.body)
+      data = {}
       data["quotes"] ||= []
       lenders = []
       count = 0
 
+      while count <= 10 && data["quotes"].empty?
+        connection = Faraday.new("https://mortgageapi.zillow.com/getQuotes") do |builder|
+          builder.response :oj
+          builder.adapter Faraday.default_adapter
+          builder.params['partnerId'] = 'RD-CZMBMCZ'
+          builder.params['requestRef.id'] = request_code
+          builder.params['includeRequest'] = true
+          builder.params['includeLenders'] = true
+          builder.params['includeLendersRatings'] = true
+          builder.params['includeLendersDisclaimers'] = true
+          builder.params['sorts.0'] = 'SponsoredRelevance'
+          builder.params['sorts.1'] = 'LenderRatings'
+        end
+
+        data = connection.get.body
+        count += 1
+      end
+
       data["quotes"].each do |quote_id, _|
-        response = HTTParty.get("https://mortgageapi.zillow.com/getQuote?"\
-                                "partnerId=RD-CZMBMCZ&quoteId=#{quote_id}"\
-                                "&includeRequest=true&includeLender=true"\
-                                "&includeLenderRatings=true&includeLenderDisclaimers=true"\
-                                "&includeLenderContactPhone=true&includeNote=true")
-        lender_data = JSON.parse(response.body)
+        conn = Faraday.new("https://mortgageapi.zillow.com/getQuote") do |builder|
+          builder.response :oj
+          builder.adapter Faraday.default_adapter
+          builder.params['partnerId'] = 'RD-CZMBMCZ'
+          builder.params['quoteId'] = quote_id
+          builder.params['includeRequest'] = true
+          builder.params['includeLender'] = true
+          builder.params['includeLenderRatings'] = true
+          builder.params['includeLenderDisclaimers'] = true
+          builder.params['includeLenderContactPhone'] = true
+          builder.params['includeNote'] = true
+        end
+        response_body = conn.get.body
+
+        lender_data = response_body
         info = lender_data["lender"]
         quote = lender_data["quote"]
         lender_name = info["businessName"]

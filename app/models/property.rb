@@ -58,7 +58,8 @@ class Property < ActiveRecord::Base
     sfh: 0,
     duplex: 1,
     triplex: 2,
-    fourplex: 3
+    fourplex: 3,
+    condo: 4
   }
 
   enum usage: {
