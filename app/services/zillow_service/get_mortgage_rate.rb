@@ -73,7 +73,6 @@ module ZillowService
         end
 
         data = connection.get.body
-        p ">>>> try: #{count}"
         count += 1
       end
 
