@@ -52,8 +52,6 @@ module ZillowService
 
     def self.get_lenders(zipcode)
       return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
-      Rails.logger.error ">>>>"
-      Rails.logger.error request_code
 
       data = {}
       data["quotes"] ||= []
@@ -61,13 +59,22 @@ module ZillowService
       count = 0
 
       while count <= 10 && data["quotes"].empty?
-        response = HTTParty.get("https://mortgageapi.zillow.com/getQuotes?partnerId=RD-CZMBMCZ&requestRef.id=#{request_code}&includeRequest=true&includeLenders=true&includeLendersRatings=true&includeLendersDisclaimers=true&sorts.0=SponsoredRelevance&sorts.1=LenderRatings")
+        connection = Faraday.new("https://mortgageapi.zillow.com/getQuotes") do |builder|
+          builder.response :oj
+          builder.adapter Faraday.default_adapter
+          builder.params['partnerId'] = 'RD-CZMBMCZ'
+          builder.params['requestRef.id'] = request_code
+          builder.params['includeRequest'] = true
+          builder.params['includeLenders'] = true
+          builder.params['includeLendersRatings'] = true
+          builder.params['includeLendersDisclaimers'] = true
+          builder.params['sorts.0'] = 'SponsoredRelevance'
+          builder.params['sorts.1'] = 'LenderRatings'
+        end
 
-        data = JSON.parse(response.body)
+        data = connection.get.body
+        p ">>>> try: #{count}"
         count += 1
-        p "---> count: #{count}"
-        Rails.logger.error(">>>>")
-        Rails.logger.error data
       end
 
       data["quotes"].each do |quote_id, _|
