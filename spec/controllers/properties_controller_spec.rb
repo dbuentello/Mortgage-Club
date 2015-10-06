@@ -20,14 +20,37 @@ describe PropertiesController do
       post :create, params
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['loan']).not_to eq(nil)
+      expect(JSON.parse(response.body)['loan']['rental_properties'].size).to eq(1)
     end
   end
 
   describe "DELETE #destroy" do
-    it "remove a property" do
+    it "remove a valid property" do
       delete :destroy, id: @property.id
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['message']).to eq('ok')
+    end
+
+    it "remove a invalid property" do
+      delete :destroy, id: 'invalid-property'
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)['message']).to eq('error')
+    end
+  end
+
+  describe "GET #search" do
+    it "seach with valid address" do
+      search_params = {address:'Schenectady', citystatezip:'Schenectady NY 12302'}
+      get :search, search_params
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)['zestimate']).not_to eq(nil)
+    end
+
+    it "seach with invalid address" do
+      search_params = {address:'this-is-a-invalid-address', citystatezip:'this-is-a-invalid-city-zip'}
+      get :search, search_params
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)['zestimate']).to eq(nil)
     end
   end
 
