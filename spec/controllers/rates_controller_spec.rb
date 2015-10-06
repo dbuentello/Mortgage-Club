@@ -1,11 +1,12 @@
 require "rails_helper"
 
 describe RatesController do
+
   include_context "signed in as borrower user of loan"
+
   before(:each) {
-    property = FactoryGirl.build(:property, property_type: 'sfh', is_primary: true, loan_id: loan.id)
-    property.save
-    address = FactoryGirl.build(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: property.id)
+    loan.primary_property.update(property_type: 'sfh')
+    address = FactoryGirl.build(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: loan.primary_property.id)
     address.save
   }
 
