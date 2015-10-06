@@ -40,14 +40,14 @@ describe PropertiesController do
 
   describe "GET #search" do
     it "seach with valid address" do
-      search_params = {address:'Schenectady', citystatezip:'Schenectady NY 12302'}
+      search_params = {address: 'Schenectady', citystatezip: 'Schenectady NY 12302'}
       get :search, search_params
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['zestimate']).not_to eq(nil)
     end
 
     it "seach with invalid address" do
-      search_params = {address:'this-is-a-invalid-address', citystatezip:'this-is-a-invalid-city-zip'}
+      search_params = {address: 'this-is-a-invalid-address', citystatezip: 'this-is-a-invalid-city-zip'}
       get :search, search_params
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['zestimate']).to eq(nil)
