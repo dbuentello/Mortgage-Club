@@ -17,6 +17,8 @@ FactoryGirl.define do
   end
 
   factory :property_with_address, parent: :property do |f|
-    address
+    after(:build) do |property, address|
+      create(:address, property: property)
+    end
   end
 end
