@@ -12,7 +12,14 @@ FactoryGirl.define do
     f.is_primary { true }
   end
 
+  factory :primary_property, parent: :property do |f|
+    f.property_type {'sfh'}
+    f.usage {'primary_residence'}
+    f.is_primary { true }
+  end
+
   factory :rental_property, parent: :property do |f|
+    f.is_primary {false}
     f.gross_rental_income { Faker::Number.number(5) }
   end
 
