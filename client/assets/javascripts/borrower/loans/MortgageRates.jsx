@@ -5,19 +5,25 @@ var Navigation = require('react-router').Navigation;
 var LoaderMixin = require('mixins/LoaderMixin');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var MortgageCalculatorMixin = require('mixins/MortgageCalculatorMixin');
 var yearSlider, avgRateSlider, taxRateSlider;
 
 var MortgageRates = React.createClass({
-  mixins: [LoaderMixin, ObjectHelperMixin, TextFormatMixin, Navigation],
+  mixins: [LoaderMixin, ObjectHelperMixin, TextFormatMixin, Navigation, MortgageCalculatorMixin],
 
   getInitialState: function() {
     return {
-      rates: this.props.bootstrapData.rates
+      rates: this.props.bootstrapData.rates,
+      expectedMortgageDuration: 20,
+      effectiveTaxRate: 0.08,
+      investmentReturnRate: 0.2,
+      helpMeChoose: false
     }
   },
 
   onSelect: function(rate) {
-    location.href = '/esigning/' + this.props.bootstrapData.currentLoan.id;
+    console.dir(rate['fees'])
+    // location.href = '/esigning/' + this.props.bootstrapData.currentLoan.id;
   },
 
   componentDidMount: function() {
@@ -86,10 +92,15 @@ var MortgageRates = React.createClass({
       switch(rectKlassName){
         case "year_rect_nth":
           text_display = (value > 1) ? (value + " years") : (value + " year");
+          this.setState({'expectedMortgageDuration': value});
           break;
         case "avg_rect_nth":
+          text_display = value + "%";
+          this.setState({'investmentReturnRate': (value / 100)});
+          break;
         case "tax_rect_nth":
           text_display = value + "%";
+          this.setState({'effectiveTaxRate': (value / 100)});
           break;
       }
       $(input).val(text_display);
@@ -100,7 +111,9 @@ var MortgageRates = React.createClass({
       value += normalized_number
       klassName = rectKlassName + value;
       d3.select("." + klassName).attr("class", "highlight " + klassName);
-    });
+
+      this.helpMeChoose();
+    }.bind(this));
     d3.select(selection).call(slider);
     slider.value(1); // fix the bug of d3.js slider
     return slider;
@@ -139,6 +152,7 @@ var MortgageRates = React.createClass({
       case 'year':
         value = $('.years_chart .value').val();
         value = this.correctValue(value, 'year');
+        this.setState({'expectedMortgageDuration': value});
         yearSlider.value(value);
         this.clearHighlightBar('year_rect_nth');
         d3.select(".year_rect_nth" + value).attr("class", "highlight year_rect_nth" + value);
@@ -148,6 +162,7 @@ var MortgageRates = React.createClass({
       case 'avg_rate':
         value = $('.average_rate_chart .value').val();
         value = this.correctValue(value, 'avg_rate');
+        this.setState({'investmentReturnRate': (value / 100)});
         avgRateSlider.value(value);
         this.clearHighlightBar('avg_rect_nth');
         d3.select(".avg_rect_nth" + (value + 10)).attr("class", "highlight avg_rect_nth" + (value + 10));
@@ -156,12 +171,14 @@ var MortgageRates = React.createClass({
       case 'tax_rate':
         value = $('.tax_rate_chart .value').val();
         value = this.correctValue(value, 'tax_rate');
+        this.setState({'effectiveTaxRate': (value / 100)});
         taxRateSlider.value(value);
         this.clearHighlightBar('tax_rect_nth');
         d3.select(".tax_rect_nth" + value).attr("class", "highlight tax_rect_nth" + value);
         $('.tax_rate_chart .value').val(value + '%')
         break;
     }
+    this.helpMeChoose();
   },
 
   correctValue: function(value, type) {
@@ -191,18 +208,19 @@ var MortgageRates = React.createClass({
     }
   },
 
-  onSelect: function(rate) {
+  helpMeChoose: function() {
+    var sortedRates = _.sortBy(this.state.rates, function (rate) {
+      var totalCost = this.totalCost(rate, this.state.effectiveTaxRate, this.state.investmentReturnRate, this.state.expectedMortgageDuration);
+      rate['total_cost'] = totalCost;
+      return totalCost;
+    }.bind(this));
+    this.setState({
+      sortedRates: sortedRates,
+      helpMeChoose: true
+    });
   },
 
   render: function() {
-    // if (!this.state.loaded) {
-    //   return (
-    //     <div className='content container text-center'>
-    //       {this.renderLoader()}
-    //     </div>
-    //   );
-    // }
-
     return (
       <div className='content container mortgage-rates'>
         <div className='charts'>
@@ -213,7 +231,7 @@ var MortgageRates = React.createClass({
             </div>
             <div className='row'>
               <div className='col-xs-2 selected_year'>
-                <input className="value" onBlur={_.bind(this.onBlur, null, 'year')}/>
+                <input className="value" onChange={this.onChange} onBlur={_.bind(this.onBlur, null, 'year')}/>
               </div>
               <div className='col-xs-9'>
                 <svg className='bar_chart'></svg>
@@ -228,6 +246,7 @@ var MortgageRates = React.createClass({
             <div className='row'>
               <div className='col-xs-2 selected_avg_rate'>
                 <input className="value" onBlur={_.bind(this.onBlur, null, 'avg_rate')}/>
+                <p>Investment return rate</p>
               </div>
               <div className='col-xs-9'>
                 <svg className='bar_chart'></svg>
@@ -242,6 +261,7 @@ var MortgageRates = React.createClass({
             <div className='row'>
               <div className='col-xs-2 selected_tax_rate'>
                 <input className="value" onBlur={_.bind(this.onBlur, null, 'tax_rate')}/>
+                <p>Marginal tax rate</p>
               </div>
               <div className='col-xs-9'>
                 <svg className='bar_chart'></svg>
@@ -261,31 +281,60 @@ var MortgageRates = React.createClass({
             <a className='btn btnSml btnAction'>Help me choose</a>
           </div>
         </div>
-        {_.map(this.state.rates, function (rate, index) {
-          return (
-            <div key={index} className={'row mhn roundedCorners bas mvm pvm' + (index % 2 === 0 ? ' backgroundLowlight' : '')}>
-              <div className='col-sm-3'>
-                <div className='typeBold'>{rate.lender_name}</div>
-                Logo
-                <div>
-                  <span className='typeLowlight'>NMLS: </span>{rate.nmls}
+        this.state.helpMeChoose ?
+          {_.map(this.state.sortedRates, function (rate, index) {
+            return (
+              <div key={index} className={'row mhn roundedCorners bas mvm pvm' + (index % 2 === 0 ? ' backgroundLowlight' : '')}>
+                <div className='col-sm-3'>
+                  <div className='typeBold'>{rate.lender_name}</div>
+                  Logo
+                  <div>
+                    <span className='typeLowlight'>NMLS: </span>{rate.nmls}
+                  </div>
+                </div>
+                <div className='col-sm-6'>
+                  {rate.product}<br/>
+                  {this.commafy(rate.apr, 3)}% APR
+                  <span className='typeLowlight mlm'>Monthly Payment: </span>
+                  {this.formatCurrency(rate.monthly_payment, '$')}<br/>
+                  <span className='typeLowlight'>Rate: </span>{this.commafy(rate.interest_rate, 3)}%
+                  <span className='typeLowlight mlm'>Total Closing Cost: </span>
+                  {this.formatCurrency(rate.total_fee, '$')}
+                  <span className='typeLowlight mlm'>Total Cost: </span>
+                  {this.formatCurrency(rate.total_cost, '$')}
+                </div>
+                <div className='col-sm-3 pull-right text-right'>
+                  <a className='btn btm Sml btnPrimary' onClick={_.bind(this.onSelect, null, rate)}>Select</a>
                 </div>
               </div>
-              <div className='col-sm-6'>
-                {rate.product}<br/>
-                {this.commafy(rate.apr, 3)}% APR
-                <span className='typeLowlight mlm'>Monthly Payment: </span>
-                {this.formatCurrency(rate.monthly_payment, '$')}<br/>
-                <span className='typeLowlight'>Rate: </span>{this.commafy(rate.interest_rate, 3)}%
-                <span className='typeLowlight mlm'>Total Closing Cost: </span>
-                {this.formatCurrency(rate.total_fee, '$')}
+            );
+          }, this)}
+        :
+          {_.map(this.state.rates, function (rate, index) {
+            return (
+              <div key={index} className={'row mhn roundedCorners bas mvm pvm' + (index % 2 === 0 ? ' backgroundLowlight' : '')}>
+                <div className='col-sm-3'>
+                  <div className='typeBold'>{rate.lender_name}</div>
+                  Logo
+                  <div>
+                    <span className='typeLowlight'>NMLS: </span>{rate.nmls}
+                  </div>
+                </div>
+                <div className='col-sm-6'>
+                  {rate.product}<br/>
+                  {this.commafy(rate.apr, 3)}% APR
+                  <span className='typeLowlight mlm'>Monthly Payment: </span>
+                  {this.formatCurrency(rate.monthly_payment, '$')}<br/>
+                  <span className='typeLowlight'>Rate: </span>{this.commafy(rate.interest_rate, 3)}%
+                  <span className='typeLowlight mlm'>Total Closing Cost: </span>
+                  {this.formatCurrency(rate.total_fee, '$')}
+                </div>
+                <div className='col-sm-3 pull-right text-right'>
+                  <a className='btn btm Sml btnPrimary' onClick={_.bind(this.onSelect, null, rate)}>Select</a>
+                </div>
               </div>
-              <div className='col-sm-3 pull-right text-right'>
-                <a className='btn btm Sml btnPrimary' onClick={_.bind(this.onSelect, null, rate)}>Select</a>
-              </div>
-            </div>
-          );
-        }, this)}
+            );
+          }, this)}
       </div>
     );
   },
