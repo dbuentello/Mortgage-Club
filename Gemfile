@@ -173,6 +173,7 @@ group :test do
   gem 'webmock'
   gem 'email_spec'
   gem 'json-schema'
+  gem 'simplecov', require: false
 end
 
 group :production do

@@ -134,6 +134,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.0.2)
@@ -369,6 +370,11 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0)
     shellany (0.0.1)
+    simplecov (0.10.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     skylight (0.4.3)
       activesupport (>= 3.0.0)
     slop (3.6.0)
@@ -490,6 +496,7 @@ DEPENDENCIES
   sass-rails
   sdoc
   selenium-webdriver
+  simplecov
   skylight
   spreewald
   spring
