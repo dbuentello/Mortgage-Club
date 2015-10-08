@@ -101,24 +101,27 @@ module ZillowService
         monthly_payment = quote["monthlyPayment"]
         loan_amount = quote["loanAmount"]
         interest_rate = quote["rate"]
+        lender_credit = quote["lenderCredit"]
+
         if quote["arm"]
           product = "#{quote["arm"]["fixedRateMonths"] / 12}/1 ARM"
-          duration = quote["arm"]["fixedRateMonths"]
+          period = quote["arm"]["fixedRateMonths"]
         else
           product = "#{quote["termMonths"] / 12} year fixed"
-          duration = quote["termMonths"]
+          period = quote["termMonths"]
         end
+
         total_fee = 0
         fees = {}
-        quote["fees"].map do |fee|
+        quote["fees"].each do |fee|
           fees[fee["name"]] = fee["amount"]
           total_fee += fee["amount"]
         end
-        count += 1
+
         lenders << {
           lender_name: lender_name, nmls: nmls, website: website, apr: apr, monthly_payment: monthly_payment,
           loan_amount: loan_amount, interest_rate: interest_rate, product: product, total_fee: total_fee,
-          fees: fees, down_payment: 100000, duration: duration
+          fees: fees, down_payment: 100000, period: period, lender_credit: lender_credit
         }
       end
       lenders
