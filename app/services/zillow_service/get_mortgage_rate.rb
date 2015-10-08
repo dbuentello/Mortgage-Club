@@ -52,79 +52,83 @@ module ZillowService
 
     def self.get_lenders(zipcode)
       return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
+      quotes = get_quotes(request_code)
 
-      data = {}
-      data["quotes"] ||= []
-      lenders = []
-      count = 0
+      connection = Faraday.new("https://mortgageapi.zillow.com/getQuote") do |builder|
+        builder.response :oj
+        builder.adapter Faraday.default_adapter
+        builder.params['partnerId'] = 'RD-CZMBMCZ'
+        builder.params['includeRequest'] = true
+        builder.params['includeLender'] = true
+        builder.params['includeLenderRatings'] = true
+        builder.params['includeLenderDisclaimers'] = true
+        builder.params['includeLenderContactPhone'] = true
+        builder.params['includeNote'] = true
+      end
 
-      while count <= 10 && data["quotes"].empty?
-        connection = Faraday.new("https://mortgageapi.zillow.com/getQuotes") do |builder|
-          builder.response :oj
-          builder.adapter Faraday.default_adapter
-          builder.params['partnerId'] = 'RD-CZMBMCZ'
-          builder.params['requestRef.id'] = request_code
-          builder.params['includeRequest'] = true
-          builder.params['includeLenders'] = true
-          builder.params['includeLendersRatings'] = true
-          builder.params['includeLendersDisclaimers'] = true
-          builder.params['sorts.0'] = 'SponsoredRelevance'
-          builder.params['sorts.1'] = 'LenderRatings'
+      quotes.map do |quote_id, _|
+        response = connection.get do |request|
+          request.params['quoteId'] = quote_id
         end
+        standardlize_data(response.body)
+      end
+    end
 
+    def self.get_quotes(request_code)
+      connection = Faraday.new("https://mortgageapi.zillow.com/getQuotes") do |builder|
+        builder.response :oj
+        builder.adapter Faraday.default_adapter
+        builder.params['partnerId'] = 'RD-CZMBMCZ'
+        builder.params['requestRef.id'] = request_code
+        builder.params['includeRequest'] = true
+        builder.params['includeLenders'] = true
+        builder.params['includeLendersRatings'] = true
+        builder.params['includeLendersDisclaimers'] = true
+        builder.params['sorts.0'] = 'SponsoredRelevance'
+        builder.params['sorts.1'] = 'LenderRatings'
+      end
+
+      data = connection.get.body
+      count = 0 # Fix bug on Heroku: data["quotes"] might be empty in first request.
+      while count <= 10 && data["quotes"].empty?
         data = connection.get.body
         count += 1
       end
+      data["quotes"]
+    end
 
-      data["quotes"].each do |quote_id, _|
-        conn = Faraday.new("https://mortgageapi.zillow.com/getQuote") do |builder|
-          builder.response :oj
-          builder.adapter Faraday.default_adapter
-          builder.params['partnerId'] = 'RD-CZMBMCZ'
-          builder.params['quoteId'] = quote_id
-          builder.params['includeRequest'] = true
-          builder.params['includeLender'] = true
-          builder.params['includeLenderRatings'] = true
-          builder.params['includeLenderDisclaimers'] = true
-          builder.params['includeLenderContactPhone'] = true
-          builder.params['includeNote'] = true
-        end
-        response_body = conn.get.body
+    def self.standardlize_data(lender_data)
+      info = lender_data["lender"]
+      quote = lender_data["quote"]
+      lender_name = info["businessName"]
+      nmls = info["nmlsLicense"]
+      website = info["profileWebsiteURL"]
+      apr = quote["apr"]
+      monthly_payment = quote["monthlyPayment"]
+      loan_amount = quote["loanAmount"]
+      interest_rate = quote["rate"]
+      lender_credit = quote["lenderCredit"]
 
-        lender_data = response_body
-        info = lender_data["lender"]
-        quote = lender_data["quote"]
-        lender_name = info["businessName"]
-        nmls = info["nmlsLicense"]
-        website = info["profileWebsiteURL"]
-        apr = quote["apr"]
-        monthly_payment = quote["monthlyPayment"]
-        loan_amount = quote["loanAmount"]
-        interest_rate = quote["rate"]
-        lender_credit = quote["lenderCredit"]
-
-        if quote["arm"]
-          product = "#{quote["arm"]["fixedRateMonths"] / 12}/1 ARM"
-          period = quote["arm"]["fixedRateMonths"]
-        else
-          product = "#{quote["termMonths"] / 12} year fixed"
-          period = quote["termMonths"]
-        end
-
-        total_fee = 0
-        fees = {}
-        quote["fees"].each do |fee|
-          fees[fee["name"]] = fee["amount"]
-          total_fee += fee["amount"]
-        end
-
-        lenders << {
-          lender_name: lender_name, nmls: nmls, website: website, apr: apr, monthly_payment: monthly_payment,
-          loan_amount: loan_amount, interest_rate: interest_rate, product: product, total_fee: total_fee,
-          fees: fees, down_payment: 100000, period: period, lender_credit: lender_credit
-        }
+      if quote["arm"]
+        product = "#{quote["arm"]["fixedRateMonths"] / 12}/1 ARM"
+        period = quote["arm"]["fixedRateMonths"]
+      else
+        product = "#{quote["termMonths"] / 12} year fixed"
+        period = quote["termMonths"]
       end
-      lenders
+
+      total_fee = 0
+      fees = {}
+      quote["fees"].each do |fee|
+        fees[fee["name"]] = fee["amount"]
+        total_fee += fee["amount"]
+      end
+
+      {
+        lender_name: lender_name, nmls: nmls, website: website, apr: apr, monthly_payment: monthly_payment,
+        loan_amount: loan_amount, interest_rate: interest_rate, product: product, total_fee: total_fee,
+        fees: fees, down_payment: 100000, period: period, lender_credit: lender_credit
+      }
     end
   end
 end
