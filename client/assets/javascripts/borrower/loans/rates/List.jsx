@@ -35,6 +35,24 @@ var List = React.createClass({
                   <span className='typeLowlight'>Rate: </span>{this.commafy(rate.interest_rate, 3)}%
                   <span className='typeLowlight mlm'>Total Closing Cost: </span>
                   {this.formatCurrency(rate.total_fee, '$')}
+                  <span className='typeLowlight mlm'>Zillow periods: </span>
+                  {rate.period}
+                  <br/>
+                  <span className='typeLowlight mlm'>Lender credit: </span>
+                  {this.formatCurrency(rate.lender_credit, '$')}
+                  <br/>
+                  <span className='typeLowlight mlm'>Fees: </span>
+                  <ul>
+                    {
+                      _.map(Object.keys(rate.fees), function(key){
+                        return (
+                          <li key={key}>{key}: {rate.fees[key]}</li>
+                        )
+                      })
+                    }
+                  </ul>
+                  <span className='typeLowlight mlm'>Total Cost: </span>
+                  {this.formatCurrency(rate.total_cost, '$')}
                 </div>
                 <div className='col-sm-3 pull-right text-right'>
                   <a className='btn btm Sml btnPrimary' onClick={_.bind(this.onSelect, null, rate)}>Select</a>

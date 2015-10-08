@@ -9,6 +9,7 @@ var HelpMeChoose = React.createClass({
   mixins: [TextFormatMixin],
 
   propTypes: {
+    chooseBestRates: React.PropTypes.func,
   },
 
   getInitialState: function() {
