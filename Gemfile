@@ -107,8 +107,6 @@ gem 'poltergeist'
 
 gem 'rollbar', '~> 2.2.1'
 
-gem 'finance', github: 'MortgageClub/finance', branch: 'master'
-
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
