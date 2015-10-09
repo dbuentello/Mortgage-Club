@@ -61,6 +61,7 @@ var MortgageCalculatorMixin = {
     var upFrontCash = this.upFrontCash(quote["down_payment"], quote["fees"], quote["lender_credit"]);
     var opportunityCostOfUpfrontCash = this.opportunityCostOfUpfrontCash(investmentReturnRate, expectedMortgageDuration, upFrontCash);
     var opportunityCostOfMonthlyPayment = this.opportunityCostOfMonthlyPayment(monthlyPayment, investmentReturnRate, expectedMortgageDuration);
+
     return totalInterestPaidTaxAdjusted + opportunityCostOfUpfrontCash + opportunityCostOfMonthlyPayment;
   }
 }

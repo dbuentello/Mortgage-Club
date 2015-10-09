@@ -111,7 +111,7 @@ var HelpMeChoose = React.createClass({
   },
 
   generateBarChart: function(data, selection, rectKlassName) {
-    var width = 764,
+    var width = 765,
         height = 100;
 
     var y = d3.scale.linear().range([height, 0]);
@@ -213,6 +213,9 @@ var HelpMeChoose = React.createClass({
             <div className='col-xs-9'>
               <svg className='bar_chart'></svg>
               <div className='slider'></div>
+            </div>
+            <div className='col-xs-1'>
+              <a className='btn btnSml btnAction' onClick={this.props.helpMeChoose}>Back to rates</a>
             </div>
           </div>
         </div>

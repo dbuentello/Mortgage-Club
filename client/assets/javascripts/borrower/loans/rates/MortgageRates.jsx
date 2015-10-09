@@ -8,7 +8,6 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var MortgageCalculatorMixin = require('mixins/MortgageCalculatorMixin');
 var List = require('./List');
 var HelpMeChoose = require('./HelpMeChoose');
-var sortedRates;
 
 var MortgageRates = React.createClass({
   mixins: [LoaderMixin, ObjectHelperMixin, TextFormatMixin, Navigation, MortgageCalculatorMixin],
@@ -16,6 +15,7 @@ var MortgageRates = React.createClass({
   getInitialState: function() {
     return {
       rates: this.props.bootstrapData.rates,
+      bestRates: null,
       helpMeChoose: false
     }
   },
@@ -28,22 +28,31 @@ var MortgageRates = React.createClass({
   chooseBestRates: function(periods, avgRate, taxRate) {
     var totalCost = 0;
 
-    sortedRates = _.sortBy(this.state.rates, function (rate) {
-      totalCost = this.totalCost(rate, taxRate, avgRate, periods);
-      rate['total_cost'] = totalCost;
-      return totalCost;
+    var bestRates = _.sortBy(this.state.rates, function (rate) {
+      rate['total_cost'] = this.totalCost(rate, taxRate, avgRate, periods);
+      return rate['total_cost'];
     }.bind(this));
-    // sortedRates = sortedRates.slice(0, 5);
+
+    bestRates = bestRates.slice(0, 3);
 
     this.setState({
+      bestRates: bestRates,
       helpMeChoose: true
     });
+  },
+
+  helpMeChoose: function() {
+    this.setState({helpMeChoose: !this.state.helpMeChoose});
   },
 
   render: function() {
     return (
       <div className='content container mortgage-rates'>
-        <HelpMeChoose chooseBestRates={this.chooseBestRates}/>
+        {this.state.helpMeChoose ?
+          <HelpMeChoose chooseBestRates={this.chooseBestRates} helpMeChoose={this.helpMeChoose}/>
+        :
+          null
+        }
         <div className='row mtl'>
           <div className='col-sm-6'>
             <span className='typeLowlight'>Sort by:</span>
@@ -52,11 +61,15 @@ var MortgageRates = React.createClass({
             <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'rate')}>Rate</a>
           </div>
           <div className='col-sm-6 text-right'>
-            <a className='btn btnSml btnAction'>Help me choose</a>
+            {this.state.helpMeChoose ?
+              null
+            :
+              <a className='btn btnSml btnAction' onClick={this.helpMeChoose}>Help me choose</a>
+            }
           </div>
         </div>
         {this.state.helpMeChoose ?
-          <List rates={sortedRates}/>
+          <List rates={this.state.bestRates}/>
         :
           <List rates={this.state.rates}/>
         }
@@ -65,18 +78,28 @@ var MortgageRates = React.createClass({
   },
 
   sortBy: function(field) {
+    var rates = this.state.helpMeChoose ? this.state.bestRates : this.state.rates;
+
     if (field == 'apr') {
-      this.setState({rates: _.sortBy(this.state.rates, function (rate) {
+      var sortedRates = _.sortBy(rates, function (rate) {
         return parseFloat(rate.apr);
-      })});
+      });
     } else if (field == 'pmt') {
-      this.setState({rates: _.sortBy(this.state.rates, function (rate) {
+      var sortedRates = _.sortBy(rates, function (rate) {
         return parseFloat(rate.monthly_payment);
-      })});
+      });
     } else if (field == 'rate') {
-      this.setState({rates: _.sortBy(this.state.rates, function (rate) {
+      var sortedRates = _.sortBy(rates, function (rate) {
         return parseFloat(rate.interest_rate);
-      })});
+      });
+    }
+
+    console.dir(this.state.helpMeChoose);
+    if(this.state.helpMeChoose) {
+      this.setState({bestRates: sortedRates});
+    }
+    else {
+      this.setState({rates: sortedRates});
     }
   }
 });
