@@ -62,7 +62,17 @@ var MortgageCalculatorMixin = {
     var opportunityCostOfUpfrontCash = this.opportunityCostOfUpfrontCash(investmentReturnRate, expectedMortgageDuration, upFrontCash);
     var opportunityCostOfMonthlyPayment = this.opportunityCostOfMonthlyPayment(monthlyPayment, investmentReturnRate, expectedMortgageDuration);
 
-    return totalInterestPaidTaxAdjusted + opportunityCostOfUpfrontCash + opportunityCostOfMonthlyPayment;
+    var totalCost = totalInterestPaidTaxAdjusted + opportunityCostOfUpfrontCash + opportunityCostOfMonthlyPayment;
+    var result = {
+      'monthlyPayment': monthlyPayment,
+      'totalInterestPaid': totalInterestPaid,
+      'totalInterestPaidTaxAdjusted': totalInterestPaidTaxAdjusted,
+      'upFrontCash': upFrontCash,
+      'opportunityCostOfUpfrontCash': opportunityCostOfUpfrontCash,
+      'opportunityCostOfMonthlyPayment': opportunityCostOfMonthlyPayment,
+      'totalCost': totalCost
+    }
+    return result;
   }
 }
 module.exports = MortgageCalculatorMixin;

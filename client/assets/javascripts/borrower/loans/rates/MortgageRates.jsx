@@ -27,14 +27,17 @@ var MortgageRates = React.createClass({
 
   chooseBestRates: function(periods, avgRate, taxRate) {
     var totalCost = 0;
-
+    var result;
     var bestRates = _.sortBy(this.state.rates, function (rate) {
-      rate['total_cost'] = this.totalCost(rate, taxRate, avgRate, periods);
+      result = this.totalCost(rate, taxRate, avgRate, periods);
+      rate['total_cost'] = result['totalCost'];
+      rate['result'] = result;
       return rate['total_cost'];
     }.bind(this));
 
     bestRates = bestRates.slice(0, 3);
 
+    console.dir(bestRates[0]['result']);
     this.setState({
       bestRates: bestRates,
       helpMeChoose: true
