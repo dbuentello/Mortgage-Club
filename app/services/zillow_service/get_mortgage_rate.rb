@@ -10,7 +10,7 @@ module ZillowService
       return unless zipcode
 
       zipcode = zipcode[0..4] if zipcode.length > 5
-      cache_key = "debug-zillow-mortgage-rates-#{zipcode}"
+      cache_key = "zillow-mortgage-rates-#{zipcode}"
 
       if lenders = REDIS.get(cache_key)
         lenders = JSON.parse(lenders)
