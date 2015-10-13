@@ -10,7 +10,7 @@ module ZillowService
       return unless zipcode
 
       zipcode = zipcode[0..4] if zipcode.length > 5
-      cache_key = "zillow-mortgage-rates-#{zipcode}"
+      cache_key = "debug-zillow-mortgage-rates-#{zipcode}"
 
       if lenders = REDIS.get(cache_key)
         lenders = JSON.parse(lenders)
@@ -124,6 +124,7 @@ module ZillowService
         total_fee += fee["amount"]
       end
 
+      Rails.logger.error(lender_data) if lender_name == 'Home Point Financial Corporation'
       {
         lender_name: lender_name, nmls: nmls, website: website, apr: apr, monthly_payment: monthly_payment,
         loan_amount: loan_amount, interest_rate: interest_rate, product: product, total_fee: total_fee,
