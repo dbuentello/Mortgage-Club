@@ -97,9 +97,6 @@ gem 'daemons'
 # dealing with money and currency conversion.
 gem 'money'
 
-# A library for financial calculations in Ruby
-gem 'finance'
-
 # A Ruby client library for Redis
 gem 'redis'
 
@@ -109,8 +106,6 @@ gem 'asposecloud'
 gem 'poltergeist'
 
 gem 'rollbar', '~> 2.2.1'
-
-gem "skylight"
 
 group :development do
   # just run bundle exec erd
@@ -128,9 +123,6 @@ end
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
-  # Access an IRB console on exceptions page and /console in development
-  gem 'web-console', '~> 2.0.0.beta2'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
@@ -182,4 +174,6 @@ group :production do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', platforms: :ruby
+
+  gem 'skylight'
 end

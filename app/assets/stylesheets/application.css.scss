@@ -9,6 +9,7 @@ $rails: true;
 @import "bootstrap-sprockets";
 
 @import "bootstrap_datepicker";
+@import "d3.slider";
 @import "dropzone-custom";
 @import "homepage";
 
@@ -23,6 +24,99 @@ body {
   font-family:'aileronregular';
   overflow-x:hidden;
   overflow-x:hidden;
+}
+
+.mortgage-rates {
+  .helpmechoose {
+    left: 5%;
+    right: 5%;
+    h3 {
+      font-size: 19px;
+    }
+    .calculator {
+      rect {
+        fill: rgb(224, 224, 224);
+      }
+      rect:hover {
+        fill: #bad80a;
+      }
+      .highlight {
+        fill: #bad80a;
+      }
+      .bar_chart {
+        margin-bottom: -5px;
+      }
+      .calc-form {
+        position: relative;
+        margin-top: 20px;
+        .range {
+          float: right;
+          .slider {
+            width: 400px;
+            background-color: #e6e6e6;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,.3);
+            border-radius: 10px;
+            border: none;
+            .d3-slider-handle {
+              top: -.4em;
+              width: 1.5em;
+              height: 1.5em;
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+      .value {
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        border-bottom: solid 1px #ddd;
+        font: inherit;
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 14px;
+        padding: 4px 0;
+      }
+      .value:focus {
+        outline-width: 0;
+      }
+    }
+    .best-rate {
+      border: 1px solid #d2d2d2;
+      border-radius: 3px;
+      padding: 25px;
+      .secondary-cost {
+        line-height: 1.437em;
+        font-weight: 300;
+        color: #999;
+        font-size: 16px;
+      }
+      .bankname {
+        text-align: center;
+        img {
+          width: 100%;
+        }
+      }
+      .monthly-payment {
+        text-align: center;
+        background: #bad80a;
+        padding: 15px 0 10px 0;
+        line-height: 1.437em;
+        margin-bottom: 20px;
+
+        .value {
+          font-size: 34px;
+        }
+        .primary-cost-unit {
+          display: inline-block;
+          text-align: left;
+          line-height: 1em;
+          font-size: 14px;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
 }
 
 hr {

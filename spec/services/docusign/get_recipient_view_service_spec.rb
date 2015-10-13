@@ -4,7 +4,7 @@ include Rails.application.routes.url_helpers
 describe Docusign::GetRecipientViewService do
   context "valid envelope" do
     it "returns a recipient view from Docusign" do
-      envelope_id = '5d46fa35-35ac-4b44-9e28-a72b81582523'
+      envelope_id = 'bd396f16-4b9b-449f-8be9-c8c5b95ac1b3'
       user = double(to_s: 'John Doe', email: 'borrower@gmail.com')
       view = Docusign::GetRecipientViewService.call(envelope_id, user, 'https://google.com')
       expect(view).to include("url")
@@ -13,7 +13,7 @@ describe Docusign::GetRecipientViewService do
 
   context "invalid recipient's info" do
     it "returns nil" do
-      envelope_id = '5d46fa35-35ac-4b44-9e28-a72b81582523'
+      envelope_id = 'bd396f16-4b9b-449f-8be9-c8c5b95ac1b3'
       user = double(to_s: 'John Doe', email: 'faker@gmail.com')
       view = Docusign::GetRecipientViewService.call(envelope_id, user, 'https://google.com')
       expect(view).to be_nil

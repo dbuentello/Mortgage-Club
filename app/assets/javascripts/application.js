@@ -15,6 +15,8 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap_datepicker
+//= require d3.min
+//= require d3.slider
 
 // Important to import jquery_ujs before bundle_BorrowerApp as that patches jquery xhr to use the authenticity token!
 

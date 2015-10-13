@@ -11,7 +11,7 @@ var FlashHandler = require('mixins/FlashHandler');
 var ModalLink = require('components/ModalLink');
 
 var LoanInterface = require('borrower/loans/edit/LoanInterface');
-var MortgageRates = require('borrower/loans/MortgageRates');
+var MortgageRates = require('borrower/loans/rates/MortgageRates');
 var ESigning = require('borrower/loans/ESigning');
 var LoanActivityInterface = require('borrower/loans/show/LoanActivityInterface');
 
