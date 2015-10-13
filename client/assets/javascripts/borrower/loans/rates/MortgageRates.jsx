@@ -15,31 +15,32 @@ var MortgageRates = React.createClass({
   getInitialState: function() {
     return {
       rates: this.props.bootstrapData.rates,
-      bestRates: null,
+      possibleRates: null,
+      bestRate: null,
       helpMeChoose: false
     }
   },
 
   onSelect: function(rate) {
-    console.dir(rate['fees'])
+    // console.dir(rate['fees'])
     // location.href = '/esigning/' + this.props.bootstrapData.currentLoan.id;
   },
 
-  chooseBestRates: function(periods, avgRate, taxRate) {
+  choosePossibleRates: function(periods, avgRate, taxRate) {
     var totalCost = 0;
     var result;
-    var bestRates = _.sortBy(this.state.rates, function (rate) {
+    var possibleRates = _.sortBy(this.state.rates, function (rate) {
       result = this.totalCost(rate, taxRate, avgRate, periods);
       rate['total_cost'] = result['totalCost'];
       rate['result'] = result;
       return rate['total_cost'];
     }.bind(this));
 
-    bestRates = bestRates.slice(0, 3);
+    possibleRates = possibleRates.slice(0, 3);
 
-    console.dir(bestRates[0]['result']);
     this.setState({
-      bestRates: bestRates,
+      possibleRates: possibleRates,
+      bestRate: possibleRates[0],
       helpMeChoose: true
     });
   },
@@ -52,7 +53,7 @@ var MortgageRates = React.createClass({
     return (
       <div className='content container mortgage-rates'>
         {this.state.helpMeChoose ?
-          <HelpMeChoose chooseBestRates={this.chooseBestRates} helpMeChoose={this.helpMeChoose}/>
+          <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate}/>
         :
           null
         }
@@ -72,7 +73,7 @@ var MortgageRates = React.createClass({
           </div>
         </div>
         {this.state.helpMeChoose ?
-          <List rates={this.state.bestRates}/>
+          <List rates={this.state.possibleRates}/>
         :
           <List rates={this.state.rates}/>
         }
@@ -81,7 +82,7 @@ var MortgageRates = React.createClass({
   },
 
   sortBy: function(field) {
-    var rates = this.state.helpMeChoose ? this.state.bestRates : this.state.rates;
+    var rates = this.state.helpMeChoose ? this.state.possibleRates : this.state.rates;
 
     if (field == 'apr') {
       var sortedRates = _.sortBy(rates, function (rate) {
@@ -97,9 +98,9 @@ var MortgageRates = React.createClass({
       });
     }
 
-    console.dir(this.state.helpMeChoose);
+    // console.dir(this.state.helpMeChoose);
     if(this.state.helpMeChoose) {
-      this.setState({bestRates: sortedRates});
+      this.setState({possibleRates: sortedRates});
     }
     else {
       this.setState({rates: sortedRates});

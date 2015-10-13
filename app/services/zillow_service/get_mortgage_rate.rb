@@ -106,7 +106,7 @@ module ZillowService
       apr = quote["apr"]
       monthly_payment = quote["monthlyPayment"]
       loan_amount = quote["loanAmount"]
-      interest_rate = quote["rate"].to_f / 100;
+      interest_rate = quote["rate"].to_f / 100
       lender_credit = quote["lenderCredit"]
 
       if quote["arm"]

@@ -9,7 +9,7 @@ var HelpMeChoose = React.createClass({
   mixins: [TextFormatMixin],
 
   propTypes: {
-    chooseBestRates: React.PropTypes.func,
+    choosePossibleRates: React.PropTypes.func,
   },
 
   getInitialState: function() {
@@ -22,20 +22,12 @@ var HelpMeChoose = React.createClass({
     this.buildYearsChart();
     this.buildAverageRatesChart();
     this.buildTaxRatesChart();
-    $('.slider').css('width', '765px');
   },
 
   buildTaxRatesChart: function() {
     // build slider
     taxRateSlider = this.generateSliderChart('.tax_rate_chart .slider', 'tax_rect_nth', 0, 50, 1, '.selected_tax_rate .value');
     taxRateSlider.value(20);
-
-    // build bar chart
-    var rates = [];
-    for(var i = 0; i <= 50; i++) {
-      rates.push(i);
-    }
-    this.generateBarChart(rates, ".tax_rate_chart .bar_chart", "tax_rect_nth");
 
     // set default value
     d3.select(".tax_rect_nth20").attr("class", "highlight tax_rect_nth20");
@@ -44,15 +36,8 @@ var HelpMeChoose = React.createClass({
 
   buildAverageRatesChart: function() {
     // build slider
-    avgRateSlider = this.generateSliderChart('.average_rate_chart .slider', 'avg_rect_nth', -10, 20, 1, '.selected_avg_rate .value', 10);
+    avgRateSlider = this.generateSliderChart('.average_rate_chart .slider', 'avg_rect_nth', 0, 30, 1, '.selected_avg_rate .value', 10);
     avgRateSlider.value(8);
-
-    // build bar chart
-    var rates = [];
-    for(var i = 0; i <= 30; i++) {
-      rates.push(i);
-    }
-    this.generateBarChart(rates, ".average_rate_chart .bar_chart", "avg_rect_nth");
 
     // set default value
     d3.select(".avg_rect_nth18").attr("class", "highlight avg_rect_nth18");
@@ -63,13 +48,6 @@ var HelpMeChoose = React.createClass({
     // build slider
     yearSlider = this.generateSliderChart('.years_chart .slider', 'year_rect_nth', 0, 30, 1, '.selected_year .value');
     yearSlider.value(9);
-
-    // build bar chart
-    var years = [];
-    for(var i = 0; i <= 30; i++) {
-      years.push(i);
-    }
-    this.generateBarChart(years, ".years_chart .bar_chart", "year_rect_nth");
 
     // set default value
     d3.select(".year_rect_nth9").attr("class", "highlight year_rect_nth9");
@@ -103,37 +81,11 @@ var HelpMeChoose = React.createClass({
       value += normalized_number;
       klassName = rectKlassName + value;
       d3.select("." + klassName).attr("class", "highlight " + klassName);
-      this.props.chooseBestRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate);
+      this.props.choosePossibleRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate);
     }.bind(this));
     d3.select(selection).call(slider);
     slider.value(1); // fix the bug of d3.js slider
     return slider;
-  },
-
-  generateBarChart: function(data, selection, rectKlassName) {
-    var width = 765,
-        height = 100;
-
-    var y = d3.scale.linear().range([height, 0]);
-
-    var chart = d3.select(selection)
-      .attr("width", width)
-      .attr("height", height);
-
-    y.domain([0, d3.max(data, function(d) { return d; })]);
-
-    var barWidth = width / data.length;
-
-    var bar = chart.selectAll("g")
-        .data(data)
-      .enter().append("g")
-        .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
-
-    bar.append("rect")
-        .attr("y", function(d) { return y(d); })
-        .attr("height", function(d) { return height - y(d); })
-        .attr("width", barWidth - 1)
-        .attr("class", function(d) { return rectKlassName + d });
   },
 
   onBlur: function(type) {
@@ -168,7 +120,7 @@ var HelpMeChoose = React.createClass({
         $('.tax_rate_chart .value').val(value + '%')
         break;
     }
-    this.props.chooseBestRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate);
+    this.props.choosePossibleRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate);
   },
 
   correctValue: function(value, type) {
@@ -180,8 +132,8 @@ var HelpMeChoose = React.createClass({
         value = value > 30 ? 30 : value;
         break;
       case 'avg_rate':
-        value = value < -10 ? -10 : value;
-        value = value > 20 ? 20 : value;
+        value = value < 0 ? 0 : value;
+        value = value > 30 ? 30 : value;
         break;
       case 'tax_rate':
         value = value < 0 ? 0 : value;
@@ -200,69 +152,136 @@ var HelpMeChoose = React.createClass({
 
   render: function() {
     return (
-      <div className='charts'>
-        <div className='years_chart mtxl'>
-          <div className= 'row'>
-            <h3>How Long Do You Plan To Stay?</h3>
-            <p>Buying tends to be better the longer you stay because the upfront fees are spread out over many years</p>
-          </div>
-          <div className='row'>
-            <div className='col-xs-2 selected_year'>
-              <input className="value" onBlur={_.bind(this.onBlur, null, 'year')}/>
+      <div className='row helpmechoose'>
+        <div className='col-lg-7'>
+          <div className='col-lg-11 calculator'>
+            <div className='years_chart mtxl'>
+              <div className='row'>
+                <div className='col-lg-12'>
+                  <h3>How Long Do You Plan To Stay?</h3>
+                  <p>Buying tends to be better the longer you stay because the upfront fees are spread out over many years</p>
+                </div>
+              </div>
+              <div className='row calc-form'>
+                <div className='col-lg-2 selected_year'>
+                  <input className="value" onBlur={_.bind(this.onBlur, null, 'year')}/>
+                </div>
+                <div className='col-lg-9 range'>
+                  <div className='slider'></div>
+                </div>
+              </div>
             </div>
-            <div className='col-xs-9'>
-              <svg className='bar_chart'></svg>
-              <div className='slider'></div>
+            <div className='average_rate_chart mtxl'>
+              <div className= 'row'>
+                <div className='col-lg-12'>
+                  <h3>{"What's your average rate of return on your personal investments?"}</h3>
+                </div>
+              </div>
+              <div className='row calc-form'>
+                <div className='col-lg-2 selected_avg_rate'>
+                  <input className="value" onBlur={_.bind(this.onBlur, null, 'avg_rate')}/>
+                  <p>Investment return rate</p>
+                </div>
+                <div className='col-lg-9 range'>
+                  <div className='slider'></div>
+                </div>
+              </div>
             </div>
-            <div className='col-xs-1'>
-              <a className='btn btnSml btnAction' onClick={this.props.helpMeChoose}>Back to rates</a>
-            </div>
-          </div>
-        </div>
-        <div className='average_rate_chart mtxl'>
-          <div className= 'row'>
-            <h3>{"What's your average rate of return on your personal investments?"}</h3>
-          </div>
-          <div className='row'>
-            <div className='col-xs-2 selected_avg_rate'>
-              <input className="value" onBlur={_.bind(this.onBlur, null, 'avg_rate')}/>
-              <p>Investment return rate</p>
-            </div>
-            <div className='col-xs-9'>
-              <svg className='bar_chart'></svg>
-              <div className='slider'></div>
-            </div>
-          </div>
-        </div>
-        <div className='tax_rate_chart mtxl'>
-          <div className= 'row'>
-            <div className='col-xs-4'>
-              <h3>How do you file your taxes:</h3>
-            </div>
-            <div className='col-xs-6 mtm'>
-              <div className="control-group mbs">
-                <label className="radio-inline mrm">
-                  <input type="radio" value='true' onChange={this.onChange}/>
-                  Individual Return
-                </label>
-                <label className="radio-inline">
-                  <input type="radio" value='false' onChange={this.onChange}/>
-                  Joint Return
-                </label>
+            <div className='tax_rate_chart mtxl'>
+              <div className= 'row'>
+                <div className='col-lg-6'>
+                  <h3>How do you file your taxes:</h3>
+                </div>
+                <div className='col-lg-6 mtm'>
+                  <div className="control-group mbs">
+                    <label className="radio-inline mrm">
+                      <input type="radio" value='true' onChange={this.onChange}/>
+                      Individual Return
+                    </label>
+                    <label className="radio-inline">
+                      <input type="radio" value='false' onChange={this.onChange}/>
+                      Joint Return
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div className='row calc-form'>
+                <div className='col-lg-2 selected_tax_rate'>
+                  <input className="value" onBlur={_.bind(this.onBlur, null, 'tax_rate')}/>
+                  <p>Marginal tax rate</p>
+                </div>
+                <div className='col-lg-9 range'>
+                  <div className='slider'></div>
+                </div>
               </div>
             </div>
           </div>
-          <div className='row'>
-            <div className='col-xs-2 selected_tax_rate'>
-              <input className="value" onBlur={_.bind(this.onBlur, null, 'tax_rate')}/>
-              <p>Marginal tax rate</p>
+        </div>
+        {
+          this.props.bestRate ?
+          <div className='col-lg-5 best-rate'>
+            <div className='row'>
+              <h2>Your Best Option</h2>
             </div>
-            <div className='col-xs-9'>
-              <svg className='bar_chart'></svg>
-              <div className='slider'></div>
+            <div className='row bankname'>
+              <h1>{this.props.bestRate.lender_name}</h1>
+            </div>
+            <div className='row monthly-payment'>
+              <b className='value'>{this.formatCurrency(this.props.bestRate.monthly_payment, '$')}</b>
+              <div className="primary-cost-unit">PER<br/>MONTH</div>
+            </div>
+            <div className='row secondary-cost'>
+              <div className='col-lg-6'>
+                NMLS
+              </div>
+              <div className='col-lg-6'>
+                {this.props.bestRate.nmls}
+              </div>
+            </div>
+            <div className='row secondary-cost'>
+              <div className='col-lg-6'>
+                Loan type
+              </div>
+              <div className='col-lg-6'>
+                {this.props.bestRate.product}
+              </div>
+            </div>
+            <div className='row secondary-cost'>
+              <div className='col-lg-6'>
+                Rate
+              </div>
+              <div className='col-lg-6'>
+                {this.commafy(this.props.bestRate.interest_rate, 3)}%
+              </div>
+            </div>
+            <div className='row secondary-cost'>
+              <div className='col-lg-6'>
+                APR
+              </div>
+              <div className='col-lg-6'>
+                {this.commafy(this.props.bestRate.apr, 3)}%
+              </div>
+            </div>
+            <div className='row secondary-cost'>
+              <div className='col-lg-6'>
+                Total Closing Cost
+              </div>
+              <div className='col-lg-6'>
+                {this.formatCurrency(this.props.bestRate.total_fee, '$')}
+              </div>
+            </div>
+            <div className='row secondary-cost'>
+              <div className='col-lg-6'>
+                Total Cost
+              </div>
+              <div className='col-lg-6'>
+                {this.formatCurrency(this.props.bestRate.total_cost, '$')}
+              </div>
             </div>
           </div>
-        </div>
+        : null
+        }
+
       </div>
     )
   }
