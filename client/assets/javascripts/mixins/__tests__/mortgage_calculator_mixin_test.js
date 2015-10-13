@@ -17,8 +17,7 @@ describe('mortgage calculator for total cost', function() {
 
   it('calculates total Interest Paid correctly', function() {
     var tests = [
-      {params: [100000, 0.04, 60, 477.415295465453], expected: 19092.43},
-      {params: [100000, 0.0001, 60, 278.195810181016], expected: 45.9}
+      {params: [400000, 0.024900000000000002, 9, 2665.27], expected: 65931.25},
     ];
 
     tests.forEach(function (test) {

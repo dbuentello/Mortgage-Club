@@ -7,10 +7,12 @@ var MortgageCalculatorMixin = {
     return Math.round(am * 100) / 100;
   },
 
-  totalInterestPaid: function(amount, rate, numOfPeriods, monthlyPayment) {
+  totalInterestPaid: function(amount, rate, expectedMortgageDuration, monthlyPayment) {
     var monthlyInterestRate = rate / 12;
     var totalInterest = 0;
-    for(var i = 1; i <= numOfPeriods; i++) {
+    expectedMortgageDuration = expectedMortgageDuration * 12;
+
+    for(var i = 1; i <= expectedMortgageDuration; i++) {
       interestPayment = Math.round(amount * monthlyInterestRate * 100) / 100;
       principalPayment = monthlyPayment - interestPayment;
       amount -= principalPayment;
