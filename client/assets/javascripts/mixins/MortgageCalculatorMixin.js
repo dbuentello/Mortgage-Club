@@ -58,7 +58,7 @@ var MortgageCalculatorMixin = {
 
   totalCost: function(quote, effectiveTaxRate, investmentReturnRate, expectedMortgageDuration) {
     var monthlyPayment = this.monthlyPayment(quote["loan_amount"], quote["interest_rate"], quote["period"]);
-    var totalInterestPaid =  this.totalInterestPaid(quote["loan_amount"], quote["interest_rate"], quote["period"], monthlyPayment);
+    var totalInterestPaid =  this.totalInterestPaid(quote["loan_amount"], quote["interest_rate"], expectedMortgageDuration, monthlyPayment);
     var totalInterestPaidTaxAdjusted = this.totalInterestPaidTaxAdjusted(totalInterestPaid, effectiveTaxRate);
     var upFrontCash = this.upFrontCash(quote["down_payment"], quote["fees"], quote["lender_credit"]);
     var opportunityCostOfUpfrontCash = this.opportunityCostOfUpfrontCash(investmentReturnRate, expectedMortgageDuration, upFrontCash);
