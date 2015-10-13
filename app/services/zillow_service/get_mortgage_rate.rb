@@ -124,7 +124,8 @@ module ZillowService
         total_fee += fee["amount"]
       end
 
-      Rails.logger.error(lender_data) if lender_name == 'Home Point Financial Corporation'
+      Rails.logger.error("Period was nil: #{lender_data}") unless period
+
       {
         lender_name: lender_name, nmls: nmls, website: website, apr: apr, monthly_payment: monthly_payment,
         loan_amount: loan_amount, interest_rate: interest_rate, product: product, total_fee: total_fee,
