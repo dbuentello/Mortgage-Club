@@ -9,10 +9,6 @@ var List = React.createClass({
     rates: React.PropTypes.array
   },
 
-  onSelect: function(selection) {
-
-  },
-
   render: function() {
     return (
       <div className='rates-list'>
@@ -55,7 +51,7 @@ var List = React.createClass({
                   {this.formatCurrency(rate.total_cost, '$')}
                 </div>
                 <div className='col-sm-3 pull-right text-right'>
-                  <a className='btn btm Sml btnPrimary' onClick={_.bind(this.onSelect, null, rate)}>Select</a>
+                  <a className='btn btm Sml btnPrimary' onClick={_.bind(this.props.selectRate, null, rate)}>Select</a>
                 </div>
               </div>
             );

@@ -145,7 +145,8 @@ if Loan.where(lender_name: 'Ficus Bank').blank?
   property.save
 
   #loan
-  loan.amortization_type = ['Conventional', 'VA', 'FHA'].sample
+  loan.amortization_type = ['15 year fixed', '30 year fixed'].sample
+  loan.loan_type = ['Conventional', 'VA', 'FHA'].sample
   loan.num_of_months = Random.rand(12..36)
 
   [

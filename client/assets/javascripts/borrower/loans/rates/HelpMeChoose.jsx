@@ -278,6 +278,9 @@ var HelpMeChoose = React.createClass({
                 {this.formatCurrency(this.props.bestRate.total_cost, '$')}
               </div>
             </div>
+            <div className='row'>
+              <a className='btn btnLrg mtm btn-primary col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.props.bestRate)}>Select</a>
+            </div>
           </div>
         : null
         }
