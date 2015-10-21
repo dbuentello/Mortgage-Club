@@ -5,10 +5,8 @@ class CoBorrowerMailer < ActionMailer::Base
     @loan = Loan.find loan_id
     @secondary_borrower = @loan.secondary_borrower
 
-    @is_new_user = params[:is_new_user] || false
-    if @is_new_user
-      @default_password = params[:default_password]
-    end
+    @is_new_user = params[:is_new_user]
+    @default_password = params[:default_password] if @is_new_user
 
     mail(
       to: @secondary_borrower.user.email,
@@ -35,5 +33,4 @@ class CoBorrowerMailer < ActionMailer::Base
       subject: "Your co-borrower #{@secondary_borrower.user.to_s} has left your loan"
     )
   end
-
 end
