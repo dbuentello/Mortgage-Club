@@ -48,16 +48,6 @@ class Users::LoansController < Users::BaseController
   end
 
   def update
-    @borrower_params = co_borrower_params
-
-    if @borrower_params.present?
-      if @borrower_params[:_remove]
-        Form::CoBorrower.remove(current_user, @borrower_type, @borrower_params, @loan)
-      else
-        Form::CoBorrower.save(current_user, @borrower_type, @borrower_params, @loan)
-      end
-    end
-
     if @loan.update(loan_params)
       loan = @loan.reload
       step = params[:current_step].to_s if params[:current_step].present?
@@ -89,24 +79,24 @@ class Users::LoansController < Users::BaseController
   end
 
   # GET get_co_borrower_info
-  def get_co_borrower_info
-    is_existing = Form::CoBorrower.check_existing_borrower(current_user, params[:email])
+  # def get_secondary_borrower_info
+  #   is_existing = Form::CoBorrower.check_existing_borrower(current_user, params[:email])
 
-    if is_existing
-      is_valid = Form::CoBorrower.check_valid_borrower(borrower_info_params)
+  #   if is_existing
+  #     is_valid = Form::CoBorrower.check_valid_borrower(borrower_info_params)
 
-      if is_valid
-        user = User.where(email: params[:email]).first
-        borrower = user.borrower
+  #     if is_valid
+  #       user = User.where(email: params[:email]).first
+  #       borrower = user.borrower
 
-        render json: {secondary_borrower: BorrowerPresenter.new(borrower).show}, status: :ok
-      else
-        render json: {message: 'Invalid email or date of birth or social security number'}, status: :ok
-      end
-    else
-      render json: {message: 'Not found'}, status: :ok
-    end
-  end
+  #       render json: {secondary_borrower: BorrowerPresenter.new(borrower).show}, status: :ok
+  #     else
+  #       render json: {message: 'Invalid email or date of birth or social security number'}, status: :ok
+  #     end
+  #   else
+  #     render json: {message: 'Not found'}, status: :ok
+  #   end
+  # end
 
   private
 

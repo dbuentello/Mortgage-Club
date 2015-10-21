@@ -32,9 +32,9 @@ describe Users::LoansController do
     end
   end
 
-  describe 'GET #get_co_borrower_info' do
+  describe 'GET #get_secondary_borrower_info' do
     it "returns warning when email hasn't been existed" do
-      get :get_co_borrower_info, id: loan.id, email: "random_email@abc.com", format: :json
+      get :get_secondary_borrower_info, id: loan.id, email: "random_email@abc.com", format: :json
 
       expect(JSON.parse(response.body)["message"]).to eq('Not found')
     end
@@ -46,7 +46,7 @@ describe Users::LoansController do
         ssn: "32323232"
       }
 
-      get :get_co_borrower_info, params, format: :json
+      get :get_secondary_borrower_info, params, format: :json
       expect(JSON.parse(response.body)["message"]).to eq('Invalid email or date of birth or social security number')
     end
 
@@ -57,7 +57,7 @@ describe Users::LoansController do
         dob: other_user.borrower.dob
       }
 
-      get :get_co_borrower_info, params, format: :json
+      get :get_secondary_borrower_info, params, format: :json
       expect(JSON.parse(response.body)["message"]).to eq('Invalid email or date of birth or social security number')
     end
 
@@ -69,7 +69,7 @@ describe Users::LoansController do
         ssn: other_user.borrower.ssn
       }
 
-      get :get_co_borrower_info, params, format: :json
+      get :get_secondary_borrower_info, params, format: :json
       expect(JSON.parse(response.body)["secondary_borrower"]).to be_truthy
     end
   end
