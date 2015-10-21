@@ -19,7 +19,7 @@ class BorrowerAddress < ActiveRecord::Base
     :years_at_address,
     :is_rental,
     :is_current,
-    address_attributes: [:id] + Address::PERMITTED_ATTRS
+    # address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 
   def cached_address
