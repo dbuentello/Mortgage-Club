@@ -7,7 +7,7 @@ class UserForm
 
   def assign_value_to_attributes
     user.assign_attributes(user_params)
-    set_confirmation if skip_confirmation
+    set_confirmation unless skip_confirmation
   end
 
   def save
