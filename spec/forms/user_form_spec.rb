@@ -1,5 +1,6 @@
 require "rails_helper"
 
+
 describe UserForm do
   before(:each) do
     @params = {
@@ -28,44 +29,52 @@ describe UserForm do
     end
   end
 
-  describe "#set_confirmation" do
+  describe "#do_not_send_confirmation" do
     context "skip confirmation" do
+      before(:each) { @form.skip_confirmation = true }
+
+      it "calls do_not_send_confirmation method" do
+        expect(@form).to receive(:do_not_send_confirmation)
+        @form.assign_value_to_attributes
+      end
+
       it "does not send any email" do
-        @form.skip_confirmation = true
-        @form.assign_value_to_attributes
-
-        expect(@form.user.confirmation_token).to be_nil
-        expect(@form.user.confirmation_sent_at).to be_nil
-      end
-    end
-
-    context "confirmation" do
-      it "calls set_confirmation method" do
-        expect(@form).to receive(:set_confirmation)
-
-        @form.skip_confirmation = false
-        @form.assign_value_to_attributes
-      end
-
-      it "sends confirmation email" do
-        @form.skip_confirmation = false
         @form.assign_value_to_attributes
 
         expect(@form.user.confirmed_at).not_to be_nil
       end
     end
+
+    context "confirmation" do
+      it "sends confirmation email" do
+        @form.skip_confirmation = false
+        @form.assign_value_to_attributes
+
+        expect(@form.user.confirmed_at).to be_nil
+      end
+    end
   end
 
   describe "#save" do
+    it "calls assign_value_to_attributes method" do
+      expect(@form).to receive(:assign_value_to_attributes)
+      @form.save
+    end
+
     context "valid params" do
-      it "calls assign_value_to_attributes method" do
-        expect(@form).to receive(:assign_value_to_attributes)
-        @form.save
+      it "returns true" do
+        expect(@form.save).to be_truthy
       end
 
       it "creates a new user successfully" do
         @form.save
+
         expect(@form.user.persisted?).to be_truthy
+        expect(@form.user.first_name).to eq("Cuong")
+        expect(@form.user.last_name).to eq("Vu")
+        expect(@form.user.middle_name).to eq("Manh")
+        expect(@form.user.suffix).to eq("Mr")
+        expect(@form.user.email).to eq("cuong@gmail.com")
       end
     end
 

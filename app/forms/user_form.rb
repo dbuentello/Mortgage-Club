@@ -7,7 +7,7 @@ class UserForm
 
   def assign_value_to_attributes
     user.assign_attributes(user_params)
-    set_confirmation unless skip_confirmation
+    do_not_send_confirmation if skip_confirmation
   end
 
   def save
@@ -23,7 +23,7 @@ class UserForm
     @user ||= User.new
   end
 
-  def set_confirmation
+  def do_not_send_confirmation
     user.confirmed_at = Time.zone.now
     user.skip_confirmation_notification!
   end

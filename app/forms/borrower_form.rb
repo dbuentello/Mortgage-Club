@@ -9,19 +9,24 @@ class BorrowerForm
     address.assign_attributes(address_params)
     borrower_address.assign_attributes(borrower_address_params)
     borrower.assign_attributes(borrower_params)
-    secondary_borrower.assign_attributes(secondary_borrower_params) if params[:has_secondary_borrower]
+    secondary_borrower.assign_attributes(secondary_borrower_params) if params[:has_secondary_borrower] == "true"
+  end
+
+  def setup_associations
+    borrower_address.address = address
+    borrower.borrower_addresses << borrower_address
   end
 
   def save
     assign_value_to_attributes
     setup_associations
-    return false unless valid?
 
+    return false unless valid?
     ActiveRecord::Base.transaction do
-      address.save!
-      borrower_address.save!
       borrower.save!
       secondary_borrower.save! if params[:has_secondary_borrower]
+      address.save!
+      borrower_address.save!
     end
   end
 
@@ -42,11 +47,6 @@ class BorrowerForm
   end
 
   private
-
-  def setup_associations
-    borrower_address.address = address
-    borrower.borrower_addresses << borrower_address
-  end
 
   def validate_attributes
     add_errors(address.errors) if address.invalid?
