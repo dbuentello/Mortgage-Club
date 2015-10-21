@@ -95,7 +95,10 @@ Rails.application.routes.draw do
     end
 
     resources :loans, only: [:create, :edit, :update, :destroy] do
-      get :get_co_borrower_info, on: :collection
+      get :get_secondary_borrower_info, on: :collection
+    end
+
+    resources :borrowers, only: [:update] do
     end
   end
 
