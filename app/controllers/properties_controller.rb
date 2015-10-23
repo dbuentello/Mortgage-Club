@@ -1,11 +1,9 @@
 class PropertiesController < ApplicationController
-
   def create
     loan = Loan.find_by_id(params[:loan_id])
     loan.own_investment_property = params[:own_investment_property]
     loan.save
     credit_report_id = loan.borrower.credit_report.try(:id)
-
     @properties = CreatePropertyForm.new(params[:loan_id], params[:primary_property], params[:rental_properties], credit_report_id)
 
     if @properties.save
