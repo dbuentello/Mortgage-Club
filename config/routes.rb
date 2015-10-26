@@ -147,4 +147,10 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :ocr_notifications do
+    post 'receive', on: :collection
+  end
+
+  post 'receive', to: 'ocr_notifications#receive'
 end
