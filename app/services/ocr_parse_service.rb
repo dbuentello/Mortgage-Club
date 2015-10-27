@@ -1,6 +1,7 @@
 require 'securerandom'
 
 class OcrParseService
+  include HTTParty
   PATH = "#{Rails.root}/documents/"
 
   def self.call(raw_post)
@@ -10,13 +11,13 @@ class OcrParseService
     key = record["s3"]["object"]["key"]
     region = record["awsRegion"]
 
-    s3 = Aws::S3::Client.new(region: region)
+    s3 = AWS::S3::Client.new
     extension = File.extname(key)
     file_name = PATH << random_name << extension
 
-    File.open(file_name, 'wb') do |file|
-      response = s3.get_object({bucket: bucket_name, key: key}, target: file)
-    end
+    response = s3.get_object({bucket_name: bucket_name, key: key})
+    doc = Nokogiri::XML(response.data[:data])
+    # doc.css('_EmployerName').first.content
   end
 
   def self.random_name

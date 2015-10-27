@@ -66,7 +66,7 @@ gem 'nokogiri'
 gem 'paperclip'
 
 # official AWS SDK for Ruby
-gem 'aws-sdk', '~> 2'
+gem 'aws-sdk', '< 2'
 
 # Load environment variables
 gem 'dotenv-rails'
