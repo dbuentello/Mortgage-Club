@@ -1,6 +1,7 @@
 class CreateOcr < ActiveRecord::Migration
   def change
     create_table :ocrs do |t|
+      t.string :borrower_id
       t.text :employer_name_1
       t.text :employer_name_2
       t.text :address_first_line_1
