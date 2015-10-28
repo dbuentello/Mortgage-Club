@@ -12,10 +12,19 @@ class OcrParseService
     s3 = AWS::S3::Client.new
     response = s3.get_object({bucket_name: bucket_name, key: key})
     data = Nokogiri::XML(response.data[:data])
-    update_data(data)
+
+    file_name = File.basename key, '.xml'
+    doc_type = file_name.split('-').first
+    borrower_id = file_name.gsub("#{doc_type}-", '')
+    borrower = Borrower.find_by_id(borrower_id)
+    if borrower.present?
+      if doc_type == 'FirstPaystub' or doc_type == 'SecondPaystub'
+        update_paystub(data, borrower, doc_type)
+      end
+    end
   end
 
-  def self.update_data(data)
+  def self.update_paystub(data, borrower, doc_type)
     employer_name = data.at_css('_EmployerName').content
     address_first_line = data.at_css('_EmployerAddressFirstLine').content
     address_second_line = data.at_css('_EmployerAddressSecondLine').content
@@ -24,11 +33,29 @@ class OcrParseService
     current_salary = data.at_css('_CurrentSalary').content
     ytd_salary = data.at_css('_YTDSalary').content
     current_earnings = data.at_css('_CurrentEarnings').content
-    pay_frequency = 'monthly'
 
-    if period_beginning.present? and period_ending.present?
-      period_beginning = Date.strptime(period_beginning, "%m/%d/%Y")
-      period_ending = Date.strptime(period_ending, "%m/%d/%Y")
+    ocr = borrower.ocr.present? ? borrower.ocr : borrower.create_ocr
+    if doc_type == 'FirstPaystub'
+      ocr.update(
+        employer_name_1: employer_name,
+        address_first_line_1: address_first_line,
+        address_second_line_1: address_second_line,
+        period_beginning_1: period_beginning,
+        period_ending_1: period_ending,
+        current_salary_1: current_salary,
+        ytd_salary_1: ytd_salary,
+        current_earnings_1: current_earnings
+      )
+    else
+      ocr.update(
+        employer_name_2: employer_name,
+        address_first_line_2: address_first_line,
+        address_second_line_2: address_second_line,
+        period_beginning_2: period_beginning,
+        period_ending_2: period_ending,
+        current_salary_2: current_salary,
+        ytd_salary_2: ytd_salary,
+        current_earnings_2: current_earnings)
     end
   end
 end
