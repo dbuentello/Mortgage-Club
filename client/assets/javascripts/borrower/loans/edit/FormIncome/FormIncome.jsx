@@ -237,7 +237,7 @@ var FormIncome = React.createClass({
 
     _.map(Object.keys(uploader_fields), function(key) {
       if (borrower[key]) { // has a document
-        state[uploader_fields[key].name] = borrower[key].attachment_file_name;
+        state[uploader_fields[key].name] = borrower[key].original_filename;
         state[uploader_fields[key].id] = borrower[key].id;
         state[uploader_fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + borrower[key].id +
                                          '/download?type=' + uploader_fields[key].type;

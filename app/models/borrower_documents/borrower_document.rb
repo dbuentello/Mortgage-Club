@@ -41,6 +41,7 @@ class BorrowerDocument < ActiveRecord::Base
 
   PERMITTED_ATTRS = [
     :type,
+    :original_file_name,
     :attachment
   ]
 
