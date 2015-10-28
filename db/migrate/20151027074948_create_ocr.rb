@@ -18,7 +18,6 @@ class CreateOcr < ActiveRecord::Migration
       t.decimal :ytd_salary_2, :precision => 11, :scale => 2
       t.decimal :current_earnings_1, :precision => 11, :scale => 2
       t.decimal :current_earnings_2, :precision => 11, :scale => 2
-      t.string :pay_frequency
     end
   end
 end
