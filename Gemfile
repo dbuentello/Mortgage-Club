@@ -107,6 +107,8 @@ gem 'poltergeist'
 
 gem 'rollbar', '~> 2.2.1'
 
+gem 'fuzzy-string-match'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
