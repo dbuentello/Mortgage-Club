@@ -1,7 +1,7 @@
 class CreateOcr < ActiveRecord::Migration
   def change
-    create_table :ocrs do |t|
-      t.string :borrower_id
+    create_table :ocrs, id: :uuid do |t|
+      t.references :borrower, index: true, foreign_key: true, type: :uuid
       t.text :employer_name_1
       t.text :employer_name_2
       t.text :address_first_line_1
