@@ -9,7 +9,7 @@ class OcrParseService
 
     s3 = AWS::S3::Client.new
     response = s3.get_object({bucket_name: bucket_name, key: key})
-    data = Nokogiri::XML(response.data[:data])
+    data = Nokogiri::XML(response.data[:data]) if response.present?
 
     file_name = File.basename key, '.xml'
     doc_type = file_name.split('-').first

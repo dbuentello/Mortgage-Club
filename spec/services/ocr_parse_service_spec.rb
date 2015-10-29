@@ -45,13 +45,13 @@ describe OcrParseService do
       }.to_json
     }
 
-    allow_any_instance_of(AWS::S3::Client).to receive(:get_object).and_return("")
+    allow_any_instance_of(AWS::S3::Client::V20060301).to receive(:get_object).and_return("")
   end
 
-  # it "parse a xml file" do
-  #   expect_any_instance_of(AWS::S3::Client).to receive(:get_object)
-  #   OcrParseService.call(@raw_post)
-  # end
+  it "parse a xml file" do
+    expect_any_instance_of(AWS::S3::Client::V20060301).to receive(:get_object)
+    OcrParseService.call(@raw_post)
+  end
 
   it "call OcrParseService" do
     expect(OcrParseService.call(@raw_post)).to eq('2fde4a53-0f89-413b-9a02-dfdd9dec4da5')
