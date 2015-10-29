@@ -25,6 +25,9 @@ class Employment < ActiveRecord::Base
     :job_title,
     :duration,
     :is_current,
+    :pay_frequency,
+    :current_salary,
+    :ytd_salary,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 

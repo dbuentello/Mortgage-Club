@@ -90,13 +90,13 @@ module OcrServices
     end
 
     def biweekly_frequency?
-      date_of_month(ocr_data.period_ending_1) - date_of_month(ocr_data.period_beginning_1) == 14 &&
-      date_of_month(ocr_data.period_ending_2) - date_of_month(ocr_data.period_beginning_2) == 14
+      date_of_month(ocr_data.period_ending_1) - date_of_month(ocr_data.period_beginning_1) == 13 &&
+      date_of_month(ocr_data.period_ending_2) - date_of_month(ocr_data.period_beginning_2) == 13
     end
 
     def weekly_frequency?
-      date_of_month(ocr_data.period_ending_1) - date_of_month(ocr_data.period_beginning_1) == 7 &&
-      date_of_month(ocr_data.period_ending_2) - date_of_month(ocr_data.period_beginning_2) == 7
+      date_of_month(ocr_data.period_ending_1) - date_of_month(ocr_data.period_beginning_1) == 6 &&
+      date_of_month(ocr_data.period_ending_2) - date_of_month(ocr_data.period_beginning_2) == 6
     end
 
     def valid_salary?(first_salary, last_salary)
