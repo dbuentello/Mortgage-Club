@@ -12,13 +12,17 @@ module DocumentServices
     end
 
     def call
-      # document = document_klass.where(closing_id: params[:closing_id]).last
       document = document_klass.where(foreign_key_name => foreign_key_id).last
-      # subject = Closing.find('this-is-an-id')
       subject = subject_class.find(foreign_key_id)
 
       if document.present? && !document.other_report?
-        document.update(attachment: params[:file])
+        document.attachment = params[:file]
+        if subject_class.to_s == 'Borrower'
+          file_extension = File.extname document.attachment_file_name
+          document.attachment_file_name = "#{document_klass}-#{foreign_key_id}#{file_extension}"
+          document.original_filename = params[:original_filename]
+        end
+        document.save
       else
         document = document_klass.new(
           attachment: params[:file],
