@@ -1,5 +1,3 @@
-require 'securerandom'
-
 class OcrParseService
   include HTTParty
 
@@ -22,6 +20,7 @@ class OcrParseService
         update_paystub(data, borrower, doc_type)
       end
     end
+    borrower_id
   end
 
   def self.update_paystub(data, borrower, doc_type)
