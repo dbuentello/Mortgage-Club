@@ -104,9 +104,9 @@ describe OcrServices::StandardizePaystubData do
       it "returns biweekly" do
         yesterday = Time.zone.now - 1.day
         ocr_data.period_ending_1 = yesterday
-        ocr_data.period_beginning_1 = yesterday - 14.days
+        ocr_data.period_beginning_1 = yesterday - 13.days
         ocr_data.period_ending_2 = yesterday
-        ocr_data.period_beginning_2 = yesterday - 14.days
+        ocr_data.period_beginning_2 = yesterday - 13.days
         ocr_data.save
         service = OcrServices::StandardizePaystubData.new(borrower.id)
 
@@ -118,9 +118,9 @@ describe OcrServices::StandardizePaystubData do
       it "returns weekly" do
         yesterday = Time.zone.now - 1.day
         ocr_data.period_ending_1 = yesterday
-        ocr_data.period_beginning_1 = yesterday - 7.days
+        ocr_data.period_beginning_1 = yesterday - 6.days
         ocr_data.period_ending_2 = yesterday
-        ocr_data.period_beginning_2 = yesterday - 7.days
+        ocr_data.period_beginning_2 = yesterday - 6.days
         ocr_data.save
         service = OcrServices::StandardizePaystubData.new(borrower.id)
 
