@@ -73,10 +73,14 @@ module OcrServices
     end
 
     def date_of_month(datetime)
+      return 0 if datetime.nil?
+
       datetime.strftime("%d").to_i
     end
 
     def date_is_end_of_month?(datetime)
+      return false if datetime.nil?
+
       datetime.to_i == datetime.end_of_month.to_i
     end
 

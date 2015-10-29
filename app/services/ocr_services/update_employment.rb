@@ -2,7 +2,7 @@ module OcrServices
   class UpdateEmployment
     attr_reader :data, :borrower_id, :employment
 
-    def initialized(data, borrower_id)
+    def initialize(data, borrower_id)
       @data = data
       @borrower_id = borrower_id
       @employment = Employment.where(borrower_id: borrower_id).last
@@ -40,7 +40,8 @@ module OcrServices
         employer_name: data[:employer_name],
         pay_frequency: data[:period],
         current_salary: data[:current_salary],
-        ytd_salary: data[:ytd_salary]
+        ytd_salary: data[:ytd_salary],
+        is_current: true
       )
     end
 

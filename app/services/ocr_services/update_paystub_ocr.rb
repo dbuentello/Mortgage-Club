@@ -1,20 +1,21 @@
 module OcrServices
   class UpdatePaystubOcr
-    attr_reader :data, :borrower_id, :ocr_data
+    attr_reader :data, :borrower_id, :ocr_data, :order_of_paystub
 
     def initialize(data, borrower_id)
       @data = data
       @borrower_id = borrower_id
       @ocr_data = Ocr.where(borrower_id: borrower_id).last
+      @order_of_paystub = data[:order_of_paystub]
     end
 
     def call
       return create_new_ocr_record if @ocr_data.nil?
 
-      if ocr_data.saved_first_paystub_result?
-        update_second_paystub_to_ocr
-      else
+      if order_of_paystub == 1
         update_first_paystub_to_ocr
+      elsif order_of_paystub == 2
+        update_second_paystub_to_ocr
       end
 
       ocr_data
