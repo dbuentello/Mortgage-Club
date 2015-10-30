@@ -17,10 +17,8 @@ module DocumentServices
 
       if document.present? && !document.other_report?
         document.attachment = params[:file]
-        if subject_class.to_s == 'Borrower'
-          document.attachment_file_name = "#{document_klass}-#{foreign_key_id}#{file_extension}"
-          document.original_filename = params[:original_filename]
-        end
+        document.attachment_file_name = "#{document_klass}-#{foreign_key_id}#{file_extension}"
+        document.original_filename = params[:original_filename]
         document.save
       else
         document = document_klass.new(
