@@ -18,7 +18,6 @@ module DocumentServices
       if document.present? && !document.other_report?
         document.attachment = params[:file]
         if subject_class.to_s == 'Borrower'
-          file_extension = File.extname document.attachment_file_name
           document.attachment_file_name = "#{document_klass}-#{foreign_key_id}#{file_extension}"
           document.original_filename = params[:original_filename]
         end
@@ -26,6 +25,8 @@ module DocumentServices
       else
         document = document_klass.new(
           attachment: params[:file],
+          original_filename: params[:file].original_filename,
+          attachment_file_name: "#{document_klass}-#{foreign_key_id}#{file_extension}",
           description: params[:description],
           foreign_key_name => subject.id
         )
@@ -33,6 +34,10 @@ module DocumentServices
         document.save
       end
       document
+    end
+
+    def file_extension
+      File.extname(params[:file].original_filename)
     end
   end
 end
