@@ -22,6 +22,7 @@ class ElectronicSignatureController < ApplicationController
 
     # TODO: only update loan's data after user signed contract
     RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], fees_params, lender_params)
+    @loan.reload
 
     envelope = Docusign::CreateEnvelopeService.new(current_user, @loan, templates).call
 
