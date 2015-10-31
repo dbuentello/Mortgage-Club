@@ -17,7 +17,7 @@ Feature: BorrowerTabAtNewLoanPage
         And I fill in "Years in School" with "12"
       And I fill in "Date of Birth" with "03/01/1991"
       Then I click on "Save and Continue"
-        And I wait for 1 seconds
+        And I wait for 2 seconds
       Then I should see "W2 - Most recent tax year"
       When I click on "Borrower"
         And I should see "As an individual"
