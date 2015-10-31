@@ -17,20 +17,20 @@ var DocusignIframe = React.createClass({
       url: "/electronic_signature",
       method: 'POST',
       data: {
-        id: this.props.loanID,
+        id: this.props.bootstrapData.loan.id,
         fees: {
-          appraisal_fee: this.props.rate.fees["Appraisal fee"],
-          credit_report_fee: this.props.rate.fees["Credit report fee"],
-          origination_fee: this.props.rate.fees["Loan origination fee"],
+          appraisal_fee: this.props.bootstrapData.rate.fees["Appraisal fee"],
+          credit_report_fee: this.props.bootstrapData.rate.fees["Credit report fee"],
+          origination_fee: this.props.bootstrapData.rate.fees["Loan origination fee"],
         },
         lender: {
-          name: this.props.rate.lender_name,
-          lender_nmls_id: this.props.rate.nmls,
-          interest_rate: this.props.rate.interest_rate,
-          period:  this.props.rate.period,
-          amortization_type: this.props.rate.product,
-          monthly_payment: this.props.rate.monthly_payment,
-          apr: this.props.rate.apr
+          name: this.props.bootstrapData.rate.lender_name,
+          lender_nmls_id: this.props.bootstrapData.rate.nmls,
+          interest_rate: this.props.bootstrapData.rate.interest_rate,
+          period:  this.props.bootstrapData.rate.period,
+          amortization_type: this.props.bootstrapData.rate.product,
+          monthly_payment: this.props.bootstrapData.rate.monthly_payment,
+          apr: this.props.bootstrapData.rate.apr
         }
       },
       dataType: 'json',

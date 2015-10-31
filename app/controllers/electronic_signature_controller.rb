@@ -3,7 +3,8 @@ class ElectronicSignatureController < ApplicationController
 
   def new
     bootstrap({
-      loan: LoanPresenter.new(@loan).show
+      loan: LoanPresenter.new(@loan).show,
+      rate: params[:rate],
     })
 
     respond_to do |format|
@@ -22,6 +23,7 @@ class ElectronicSignatureController < ApplicationController
 
     # TODO: only update loan's data after user signed contract
     RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], fees_params, lender_params)
+    @loan.reload
 
     envelope = Docusign::CreateEnvelopeService.new(current_user, @loan, templates).call
 

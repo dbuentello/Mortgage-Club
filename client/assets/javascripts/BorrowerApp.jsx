@@ -12,7 +12,7 @@ var ModalLink = require('components/ModalLink');
 
 var LoanInterface = require('borrower/loans/edit/LoanInterface');
 var MortgageRates = require('borrower/loans/rates/MortgageRates');
-var ESigning = require('borrower/loans/ESigning');
+var ESigning = require('borrower/loans/DocusignIframe');
 var LoanActivityInterface = require('borrower/loans/show/LoanActivityInterface');
 
 var Dashboard = require('borrower/dashboard/show/Dashboard');

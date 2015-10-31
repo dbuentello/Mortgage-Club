@@ -2,6 +2,7 @@ Feature: IncomeTabAtNewLoanPage
   @javascript
   Scenario: User submits PDF files
     When I am at loan management page
+      And I should see "Income"
       And I click on "Income" in the "#tabIncome"
       Then I drag the file "spec/files/sample.png" to "first_paystub"
         And I wait for 2 seconds
@@ -21,7 +22,7 @@ Feature: IncomeTabAtNewLoanPage
         Then I clear value in "Base Income"
           And I fill in "Base Income" with "123454"
       Then I click on "Save and Continue"
-        And I wait for 1 seconds
+        And I wait for 2 seconds
       And I click on "Income" in the "#tabIncome"
         Then I should see "Software Engineer"
           And I should see "Cuong Vu"

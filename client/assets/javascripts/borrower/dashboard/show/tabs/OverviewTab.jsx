@@ -57,11 +57,6 @@ var OverviewTab = React.createClass({
             Go ahead and click 'Get Started' on the items below to start working through your open items
           </div>
         </div>
-
-        <div className='text-center'>
-          We display additional documents that user need to submit
-        </div>
-
         <div className="box boxBasic backgroundBasic">
           <div className='boxHead bbs'>
             <h4 className='typeBold'>Your Loan Checklist &nbsp;

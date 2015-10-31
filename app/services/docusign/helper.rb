@@ -21,31 +21,8 @@ module Docusign
     # PARAMS: template_id / template_name
     def get_tabs_from_template(options = {}, document_id = 1)
       # Request to get the template recipient info
-      tabs = {}
-      begin
-        # get template tabs data from redis server: https://github.com/redis/redis-rb/blob/master/README.md#storing-objects
-        tabs = REDIS.get(options[:template_name])
-
-        if tabs.nil?
-          tabs = get_envelope_recipients_and_tabs(options[:template_id])
-          tabs = tabs["signers"][0]["tabs"]
-
-          # store tabs into redis
-          REDIS.set(options[:template_name], tabs.to_json)
-
-          # Expire the cache, every 3 hours
-          REDIS.expire(options[:template_name], 3.hour.to_i)
-        else
-          tabs = JSON.parse tabs
-        end
-
-      rescue Exception => e
-        # whatever the error is, we must return api results :-)
-        tabs = get_envelope_recipients_and_tabs(options[:template_id])
-        tabs = tabs["signers"][0]["tabs"]
-
-        Rails.logger.error(e)
-      end
+      tabs = get_envelope_recipients_and_tabs(options[:template_id])
+      tabs = tabs["signers"][0]["tabs"]
 
       # convert javascript tabs to ruby tabs
       ruby_tabs = {}

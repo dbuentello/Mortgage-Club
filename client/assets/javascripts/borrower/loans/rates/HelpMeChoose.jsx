@@ -150,6 +150,10 @@ var HelpMeChoose = React.createClass({
     }
   },
 
+  selectFileType: function(file_type) {
+    this.setState({file_type: file_type})
+  },
+
   render: function() {
     return (
       <div className='row helpmechoose'>
@@ -195,11 +199,11 @@ var HelpMeChoose = React.createClass({
                 <div className='col-lg-6 mtm'>
                   <div className="control-group mbs">
                     <label className="radio-inline mrm">
-                      <input type="radio" value='true' onChange={this.onChange}/>
+                      <input type="radio" value='true' checked={this.state.file_type === "individual"} onChange={_.bind(this.selectFileType, null, 'individual')}/>
                       Individual Return
                     </label>
                     <label className="radio-inline">
-                      <input type="radio" value='false' onChange={this.onChange}/>
+                      <input type="radio" value='false' checked={this.state.file_type === "joint"} onChange={_.bind(this.selectFileType, null, 'joint')}/>
                       Joint Return
                     </label>
                   </div>
@@ -251,7 +255,7 @@ var HelpMeChoose = React.createClass({
                 Rate
               </div>
               <div className='col-lg-6'>
-                {this.commafy(this.props.bestRate.interest_rate, 3)}%
+                {this.commafy(this.props.bestRate.interest_rate * 100, 3)}%
               </div>
             </div>
             <div className='row secondary-cost'>
@@ -272,7 +276,7 @@ var HelpMeChoose = React.createClass({
             </div>
             <div className='row secondary-cost'>
               <div className='col-lg-6'>
-                Total Cost
+                True Cost of Mortgage
               </div>
               <div className='col-lg-6'>
                 {this.formatCurrency(this.props.bestRate.total_cost, '$')}

@@ -5,10 +5,14 @@ module OcrServices
     def initialize(data, borrower_id)
       @data = data
       @borrower_id = borrower_id
-      @employment = Employment.where(borrower_id: borrower_id).last
+      if @borrower = Borrower.find_by_id(borrower_id)
+        @employment = @borrower.current_employment
+      end
     end
 
     def call
+      return unless @borrower
+
       if employment.present?
         update_employment
       else

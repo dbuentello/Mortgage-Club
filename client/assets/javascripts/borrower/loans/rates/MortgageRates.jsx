@@ -8,7 +8,6 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var MortgageCalculatorMixin = require('mixins/MortgageCalculatorMixin');
 var List = require('./List');
 var HelpMeChoose = require('./HelpMeChoose');
-var DocusignIframe = require('./DocusignIframe');
 
 var MortgageRates = React.createClass({
   mixins: [LoaderMixin, ObjectHelperMixin, TextFormatMixin, Navigation, MortgageCalculatorMixin],
@@ -48,6 +47,10 @@ var MortgageRates = React.createClass({
       signDoc: true,
       selectedRate: rate
     });
+    var params = {};
+    params["rate"] = rate;
+    params = $.param(params);
+    location.href = "esigning/" + this.props.bootstrapData.currentLoan.id + "?" + params;
   },
 
   helpMeChoose: function() {
@@ -59,55 +62,47 @@ var MortgageRates = React.createClass({
     var guaranteeMessage = "We're showing the best 3 loan options for you";
 
     return (
-      <div>
-
-        { this.state.signDoc
+      <div className='content container mortgage-rates'>
+        { this.state.helpMeChoose
           ?
-            <DocusignIframe loanID={this.props.bootstrapData.currentLoan.id} rate={this.state.selectedRate}/>
+            <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
           :
-            <div className='content container mortgage-rates'>
-              { this.state.helpMeChoose
-                ?
-                  <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
-                :
-                null
-              }
-              <div className='row mtl'>
-                { this.state.helpMeChoose
-                  ?
-                    null
-                  :
-                    <div className='col-sm-6'>
-                      <span className='typeLowlight'>Sort by:</span>
-                      <a className='clickable mlm' onClick={_.bind(this.sortBy, null, 'apr')}>APR</a>
-                      <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'pmt')}>Monthly Payment</a>
-                      <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'rate')}>Rate</a>
-                    </div>
-                }
-                { this.state.possibleRates
-                  ?
-                    <div className='col-sm-6'>
-                      <b>{guaranteeMessage}</b>
-                    </div>
-                  :
-                    null
-                }
-                <div className='col-sm-6 text-right'>
-                  { this.state.helpMeChoose
-                    ?
-                      null
-                    :
-                      <a className='btn btnSml btnAction' onClick={this.helpMeChoose}>Help me choose</a>
-                  }
-                </div>
+          null
+        }
+        <div className='row mtl'>
+          { this.state.helpMeChoose
+            ?
+              null
+            :
+              <div className='col-sm-6'>
+                <span className='typeLowlight'>Sort by:</span>
+                <a className='clickable mlm' onClick={_.bind(this.sortBy, null, 'apr')}>APR</a>
+                <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'pmt')}>Monthly Payment</a>
+                <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'rate')}>Rate</a>
               </div>
-              { this.state.helpMeChoose
-                ?
-                  <List rates={this.state.possibleRates} selectRate={this.selectRate}/>
-                :
-                  <List rates={this.state.rates} selectRate={this.selectRate}/>
-              }
-            </div>
+          }
+          { this.state.possibleRates
+            ?
+              <div className='col-sm-6'>
+                <b>{guaranteeMessage}</b>
+              </div>
+            :
+              null
+          }
+          <div className='col-sm-6 text-right'>
+            { this.state.helpMeChoose
+              ?
+                null
+              :
+                <a className='btn btnSml btnAction' onClick={this.helpMeChoose}>Help me choose</a>
+            }
+          </div>
+        </div>
+        { this.state.helpMeChoose
+          ?
+            <List rates={this.state.possibleRates} selectRate={this.selectRate} displayTotalCost={true}/>
+          :
+            <List rates={this.state.rates} selectRate={this.selectRate} displayTotalCost={false}/>
         }
       </div>
     );

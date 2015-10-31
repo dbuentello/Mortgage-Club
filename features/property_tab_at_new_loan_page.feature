@@ -2,6 +2,7 @@ Feature: PropertyTabAtNewLoanPage
   @javascript
   Scenario: user submits a new property
     When I am at loan management page
+      And I should see "Property"
       Then I click on "Property" in the "#tabProperty"
         And I select "Vacation Home" from "Property Will Be"
         And I choose "Purchase"

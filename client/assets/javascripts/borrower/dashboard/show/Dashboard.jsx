@@ -65,7 +65,13 @@ var Dashboard = React.createClass({
         <div className='dashboard-header row mbl'>
           <div className='col-xs-offset-2 col-xs-6 ptl'>
             <h3 className='typeBold'>{address}</h3>
-            <h4>{this.formatCurrency(loan.amount, '$')}k {loan.num_of_years}-year fixed {loan.ltv_formula}% LTV {property.usage_name} {loan.purpose_titleize} Loan</h4>
+            {
+              loan.amount
+              ?
+                <h4>{this.formatCurrency(loan.amount, '$')} {loan.amortization_type} {property.usage_name} {loan.purpose_titleize} Loan</h4>
+              :
+                null
+            }
           </div>
           <div className='col-xs-4 ptl'>
             <a className='btn btnSml btnSecondary mlm mbm' href={'/loans/' + loan.id + '/edit'}><i className="iconPencil mrs"/>Edit Loan</a>

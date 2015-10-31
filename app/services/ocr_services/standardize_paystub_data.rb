@@ -13,42 +13,43 @@ module OcrServices
       return Rails.logger.error "Borrower #{borrower_id} does not have OCR data" if ocr_data.nil?
 
       {
-        employer_name: standardized_employer_name,
-        employer_address: standardized_employer_address,
-        period: standardized_period,
-        current_salary: standardized_salary,
-        ytd_salary: standardized_ytd_salary
+        employer_name: employer_name,
+        employer_full_address: employer_full_address,
+        employer_street_address: employer_street_address,
+        period: period,
+        current_salary: salary,
+        ytd_salary: ytd_salary
       }
     end
 
-    def standardized_employer_name
+    def employer_name
       return if percentage_similarity(ocr_data.employer_name_1, ocr_data.employer_name_2) < 0.97
 
       (ocr_data.employer_name_1.length > ocr_data.employer_name_2.length) ? ocr_data.employer_name_1 : ocr_data.employer_name_2
     end
 
-    def standardized_employer_address
-      first_line = standardized_employer_address_line(ocr_data.address_first_line_1, ocr_data.address_first_line_2)
-      second_line = standardized_employer_address_line(ocr_data.address_second_line_1, ocr_data.address_second_line_2)
+    def employer_full_address
+      first_line = employer_address_line(ocr_data.address_first_line_1, ocr_data.address_first_line_2)
+      second_line = employer_address_line(ocr_data.address_second_line_1, ocr_data.address_second_line_2)
 
       return first_line << " " << second_line if first_line.present? && second_line.present?
       return first_line if first_line.present?
       return second_line if second_line.present?
     end
 
-    def standardized_employer_address_line(first_address, last_address)
+    def employer_address_line(first_address, last_address)
       return if percentage_similarity(first_address, last_address) < 0.97
 
       (first_address.length > last_address.length) ? first_address : last_address
     end
 
-    def standardized_period
+    def period
       return "semimonthly" if semimonthly_frequency?
       return "biweekly" if biweekly_frequency?
       return "weekly" if weekly_frequency?
     end
 
-    def standardized_salary
+    def salary
       if valid_salary?(ocr_data.current_salary_1, ocr_data.current_salary_2)
         return (ocr_data.current_salary_1 > ocr_data.current_salary_2 ? ocr_data.current_salary_1 : ocr_data.current_salary_2).ceil
       end
@@ -58,10 +59,15 @@ module OcrServices
       end
     end
 
-    def standardized_ytd_salary
+    def ytd_salary
       return unless valid_salary?(ocr_data.ytd_salary_1, ocr_data.ytd_salary_2)
 
       (ocr_data.ytd_salary_1 > ocr_data.ytd_salary_2 ? ocr_data.ytd_salary_1 : ocr_data.ytd_salary_2).ceil
+    end
+
+    def employer_street_address
+      first_line = employer_address_line(ocr_data.address_first_line_1, ocr_data.address_first_line_2)
+      return first_line if first_line.present?
     end
 
     private

@@ -51,6 +51,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :employments, only: [:show] do
+  end
+
   resources :properties, only: [:create, :destroy] do
     collection do
       get :search

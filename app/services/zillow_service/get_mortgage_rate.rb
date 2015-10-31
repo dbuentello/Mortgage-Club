@@ -6,17 +6,18 @@ module ZillowService
     include HTTParty
     include Capybara::DSL
 
-    def self.call(zipcode)
-      return unless zipcode
+    def self.call(loan_id, zipcode)
+      return unless zipcode && loan_id.present?
 
       zipcode = zipcode[0..4] if zipcode.length > 5
-      cache_key = "zillow-mortgage-rates-#{zipcode}"
+      cache_key = "tet-zillow-mortgage-rates-#{loan_id}-#{zipcode}"
 
       if lenders = REDIS.get(cache_key)
         lenders = JSON.parse(lenders)
       else
+        loan = Loan.find(loan_id)
         set_up_crawler
-        lenders = get_lenders(zipcode)
+        lenders = get_lenders(loan, zipcode)
         REDIS.set(cache_key, lenders.to_json)
         REDIS.expire(cache_key, 8.hour.to_i)
       end
@@ -33,27 +34,36 @@ module ZillowService
       @session.driver.headers = {'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X)"}
     end
 
-    def self.get_request_code(zipcode)
+    def self.get_request_code(loan, zipcode)
+      purchase_price = loan.primary_property.purchase_price.round
+      down_payment = (purchase_price * 0.2).round
+
+      if employment = loan.borrower.current_employment
+        annual_income = (employment.current_salary * 12).round
+      else
+        annual_income = 200000
+      end
+
       user_session_id = "userSessionId=2de70907-6e58-45f6-a7e8-dc2efb69e261" # hardcode session ID
-      @session.visit "https://mortgageapi.zillow.com/submitRequest?"\
+      url =           "https://mortgageapi.zillow.com/submitRequest?"\
                       "property.type=SingleFamilyHome&property.use=Primary"\
-                      "&property.zipCode=#{zipcode}&property.value=500000"\
-                      "&borrower.creditScoreRange=R_760_&borrower.annualIncome=200000"\
+                      "&property.zipCode=#{zipcode}&property.value=#{purchase_price}"\
+                      "&borrower.creditScoreRange=R_760_&borrower.annualIncome=#{annual_income}"\
                       "&borrower.monthlyDebts=0&borrower.selfEmployed=false"\
                       "&borrower.hasBankruptcy=false&borrower.hasForeclosure=false"\
                       "&desiredPrograms.0=Fixed30Year&desiredPrograms.1=Fixed15Year"\
                       "&desiredPrograms.2=ARM5&desiredPrograms.3=Fixed20Year"\
                       "&desiredPrograms.4=Fixed10Year&desiredPrograms.5=ARM7"\
-                      "&desiredPrograms.6=ARM3&purchase.downPayment=100000"\
+                      "&desiredPrograms.6=ARM3&purchase.downPayment=#{down_payment}"\
                       "&purchase.firstTimeBuyer=false&purchase.newConstruction=false"\
                       "&partnerId=RD-CZMBMCZ&#{user_session_id}"
+      @session.visit url
       request_code = @session.text.split('":"').last.chomp('"}')
     end
 
-    def self.get_lenders(zipcode)
-      return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(zipcode)
+    def self.get_lenders(loan, zipcode)
+      return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(loan, zipcode)
       quotes = get_quotes(request_code)
-
       connection = Faraday.new("https://mortgageapi.zillow.com/getQuote") do |builder|
         builder.response :oj
         builder.adapter Faraday.default_adapter
@@ -87,9 +97,12 @@ module ZillowService
         builder.params['sorts.0'] = 'SponsoredRelevance'
         builder.params['sorts.1'] = 'LenderRatings'
       end
-
       data = connection.get.body
+
+      return [] if data["error"].present?
+
       count = 0 # Fix bug on Heroku: data["quotes"] might be empty in first request.
+
       while count <= 10 && data["quotes"].empty?
         data = connection.get.body
         count += 1

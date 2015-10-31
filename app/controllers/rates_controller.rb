@@ -2,7 +2,7 @@ class RatesController < ApplicationController
   def index
     @loan = Loan.find(params[:loan_id])
     zipcode = @loan.primary_property.address.zip
-    rates = RateServices::GetLenderRates.call(zipcode)
+    rates = RateServices::GetLenderRates.call(@loan.id, zipcode)
 
     bootstrap({
       currentLoan: LoanPresenter.new(@loan).edit,

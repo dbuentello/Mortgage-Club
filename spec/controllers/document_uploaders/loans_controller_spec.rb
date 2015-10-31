@@ -3,13 +3,21 @@ require 'rails_helper'
 describe DocumentUploaders::LoansController do
   include_context 'signed in as loan member user'
 
-  before(:each) { @loan = FactoryGirl.create(:loan) }
+  before(:each) do
+    @loan = FactoryGirl.create(:loan)
+    file = File.new(Rails.root.join 'spec', 'files', 'sample.pdf')
+    @uploaded_file = ActionDispatch::Http::UploadedFile.new(
+      tempfile: file,
+      filename: File.basename(file),
+    )
+    @uploaded_file.content_type = 'application/pdf' # it's so weird
+  end
 
   describe 'POST #upload' do
     it "uploads a new document" do
       post :upload, loan_id: @loan.id,
                     type: 'HudEstimate',
-                    file: File.new(Rails.root.join 'spec', 'files', 'sample.pdf'),
+                    file: @uploaded_file,
                     format: :json
 
       @loan.reload
@@ -19,7 +27,7 @@ describe DocumentUploaders::LoansController do
     it 'renders necessary response' do
       post :upload, loan_id: @loan.id,
                     type: 'HudEstimate',
-                    file: File.new(Rails.root.join 'spec', 'files', 'sample.pdf'),
+                    file: @uploaded_file,
                     format: :json
       parsed_body = JSON.parse(response.body)
 

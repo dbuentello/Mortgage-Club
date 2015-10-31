@@ -62,8 +62,9 @@ class Users::LoansController < Users::BaseController
       step = params[:current_step].to_s if params[:current_step].present?
       case step
       when '0'
+        loan.update(amount: loan.primary_property.purchase_price * 0.8)
         ZillowService::UpdatePropertyTax.delay.call(loan.primary_property.id)
-        ZillowService::GetMortgageRate.delay.call(loan.primary_property.address.zip)
+        ZillowService::GetMortgageRate.delay.call(loan.id, loan.primary_property.address.zip)
       when '2'
         CreditReportService.delay.get_liabilities(current_user.borrower)
       end

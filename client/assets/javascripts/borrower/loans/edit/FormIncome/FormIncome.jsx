@@ -27,8 +27,8 @@ var fields = {
 var uploader_fields = {
   first_w2: {label: 'W2 - Most recent tax year', name: 'first_w2', placeholder: 'drap file here or browse', type: 'FirstW2'},
   second_w2: {label: 'W2 - Previous tax year', name: 'second_w2', placeholder: 'drap file here or browse', type: 'SecondW2'},
-  first_paystub: {label: "Paystub - Most recent month", name: 'first_paystub', placeholder: 'drap file here or browse', type: 'FirstPaystub'},
-  second_paystub: {label: 'Paystub - Previous month', name: 'second_paystub', placeholder: 'drap file here or browse', type: 'SecondPaystub'},
+  first_paystub: {label: "Paystub - Most recent period", name: 'first_paystub', placeholder: 'drap file here or browse', type: 'FirstPaystub'},
+  second_paystub: {label: 'Paystub - Previous period', name: 'second_paystub', placeholder: 'drap file here or browse', type: 'SecondPaystub'},
   first_bank_statement: {label: 'Bank statement - Most recent month', name: 'first_bank_statement', placeholder: 'drap file here or browse', type: 'FirstBankStatement'},
   second_bank_statement: {label: 'Bank statement - Previous month', name: 'second_bank_statement', placeholder: 'drap file here or browse', type: 'SecondBankStatement'}
 };
@@ -69,6 +69,30 @@ var FormIncome = React.createClass({
     );
   },
 
+  afterUploadingDocument: function() {
+    if (this.props.loan.borrower.current_employment) {
+      setTimeout(_.bind(this.updateEmploymentData), 10000);
+    }
+  },
+
+  updateEmploymentData: function() {
+    var employment_id = this.props.loan.borrower.current_employment.id;
+
+    $.ajax({
+      url: "/employments/" + employment_id,
+      method: "GET",
+      success: function(response) {
+        var employment = response.employment;
+        var state = {};
+        state[fields.employerName.name] = employment[fields.employerName.name];
+        state[fields.employerAddress.name] = employment[fields.employerAddress.name];
+        state[fields.baseIncome.name] = this.formatCurrency(employment[fields.baseIncome.name]);
+        state[fields.incomeFrequency.name] = employment[fields.incomeFrequency.name];
+        this.setState(state);
+      }.bind(this)
+    });
+  },
+
   render: function() {
     var uploadUrl = '/document_uploaders/borrowers/upload';
 
@@ -98,7 +122,7 @@ var FormIncome = React.createClass({
                           maxSize={10000000}
                           customParams={customParams}
                           supportOtherDescription={uploader_fields[key].customDescription}
-                        />
+                          uploadSuccessCallback={this.afterUploadingDocument}/>
                       </div>
                     )
                   }, this)
@@ -116,14 +140,22 @@ var FormIncome = React.createClass({
                     onChange={this.onChange}/>
                 </div>
                 <div className='col-sm-6'>
-                  <AddressField
+                  <TextField
+                    label={fields.employerAddress.label}
+                    keyName={fields.employerAddress.name}
+                    value={this.state[fields.employerAddress.name].full_text}
+                    editable={true}
+                    onFocus={this.onFocus.bind(this, fields.employerAddress)}
+                    onChange={this.onChange}/>
+
+                  {/* <AddressField
                     label={fields.employerAddress.label}
                     address={this.state[fields.employerAddress.name]}
                     keyName={fields.employerAddress.name}
                     editable={true}
                     onFocus={this.onFocus.bind(this, fields.employerAddress)}
                     onChange={this.onChange}
-                    placeholder='Please enter the address of the employer'/>
+                    placeholder='Please enter the address of the employer'/> */}
                 </div>
               </div>
 
@@ -257,6 +289,9 @@ var FormIncome = React.createClass({
     state[fields.grossBonus.name] = this.formatCurrency(borrower[fields.grossBonus.name]);
     state[fields.grossCommission.name] = this.formatCurrency(borrower[fields.grossCommission.name]);
 
+    if (!state[fields.employerAddress.name]) {
+      state[fields.employerAddress.name] = {full_text: ''};
+    }
     _.map(Object.keys(uploader_fields), function(key) {
       if (borrower[key]) { // has a document
         state[uploader_fields[key].name] = borrower[key].original_filename;
