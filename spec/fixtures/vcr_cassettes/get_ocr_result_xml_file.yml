@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://dev-homieo.s3-us-west-2.amazonaws.com/ocr_results/SecondPaystub-2fde4a53-0f89-413b-9a02-dfdd9dec4da5.xml
+    uri: https://dev-homieo.s3-us-west-2.amazonaws.com/ocr_results/TestSecondPaystub-2fde4a53-0f89-413b-9a02-dfdd9dec4da5.xml
     body:
       encoding: US-ASCII
       string: ''
@@ -14,9 +14,9 @@ http_interactions:
       User-Agent:
       - aws-sdk-ruby/1.66.0 ruby/2.2.2 x86_64-darwin14
       Date:
-      - Sat, 31 Oct 2015 16:22:16 GMT
+      - Sat, 31 Oct 2015 17:14:49 GMT
       Authorization:
-      - AWS AKIAJMBWEMFKHMHKB73A:0RTm/myA/cNm5N5jBU3A8j+yAuU=
+      - AWS AKIAJMBWEMFKHMHKB73A:ssit7xXDQQ8YScqei1h30F9VmUc=
       Accept:
       - "*/*"
   response:
@@ -25,13 +25,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - gCDHHDDD/Ta0Ac5KlvF47qooHk9D2T16Xo4nPpVVOYFeBtutCoNGqr9ZbcZAirgPb17B10Ei4EM=
+      - idbPUbB0cs9d5lpca1oG5jiE2SH2Gtb9v6grHTJpTuNw5Vb55JGbNDpkPHLZqWocMEhHI65KJdg=
       X-Amz-Request-Id:
-      - 5614FC04E7EBF531
+      - 9DECADDD49DA79BA
       Date:
-      - Sat, 31 Oct 2015 16:22:18 GMT
+      - Sat, 31 Oct 2015 17:14:52 GMT
       Last-Modified:
-      - Sat, 31 Oct 2015 07:38:35 GMT
+      - Sat, 31 Oct 2015 17:12:34 GMT
       Etag:
       - '"9817a6d1fcb7d4a2feb3fea0907d66bd"'
       Accept-Ranges:
@@ -65,5 +65,5 @@ http_interactions:
         CgkJPF9DdXJyZW50RWFybmluZ3MvPg0KCTwvX1BheVN0dWJzOl9QYXlTdHVi
         cz4NCjwvZm9ybTpEb2N1bWVudHM+
     http_version: 
-  recorded_at: Sat, 31 Oct 2015 16:22:18 GMT
+  recorded_at: Sat, 31 Oct 2015 17:14:51 GMT
 recorded_with: VCR 2.9.3
