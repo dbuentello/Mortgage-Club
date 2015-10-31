@@ -3,7 +3,8 @@ class ElectronicSignatureController < ApplicationController
 
   def new
     bootstrap({
-      loan: LoanPresenter.new(@loan).show
+      loan: LoanPresenter.new(@loan).show,
+      rate: params[:rate],
     })
 
     respond_to do |format|

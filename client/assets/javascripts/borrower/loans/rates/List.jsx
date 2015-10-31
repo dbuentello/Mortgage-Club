@@ -28,27 +28,33 @@ var List = React.createClass({
                   {this.commafy(rate.apr, 3)}% APR
                   <span className='typeLowlight mlm'>Monthly Payment: </span>
                   {this.formatCurrency(rate.monthly_payment, '$')}<br/>
-                  <span className='typeLowlight'>Rate: </span>{this.commafy(rate.interest_rate, 3)}%
+                  <span className='typeLowlight'>Rate: </span>{this.commafy(rate.interest_rate * 100)}%
                   <span className='typeLowlight mlm'>Total Closing Cost: </span>
                   {this.formatCurrency(rate.total_fee, '$')}
-                  <span className='typeLowlight mlm'>Zillow periods: </span>
-                  {rate.period}
                   <br/>
                   <span className='typeLowlight mlm'>Lender credit: </span>
-                  {this.formatCurrency(rate.lender_credit, '$')}
+                  {rate.lender_credit ? this.formatCurrency(rate.lender_credit, '$') : "$0"}
                   <br/>
                   <span className='typeLowlight mlm'>Fees: </span>
                   <ul>
                     {
                       _.map(Object.keys(rate.fees), function(key){
                         return (
-                          <li key={key}>{key}: {rate.fees[key]}</li>
+                          <li key={key}>{key}: {this.formatCurrency(rate.fees[key], '$')}</li>
                         )
-                      })
+                      }, this)
                     }
                   </ul>
-                  <span className='typeLowlight mlm'>Total Cost: </span>
-                  {this.formatCurrency(rate.total_cost, '$')}
+                  {
+                    this.props.displayTotalCost
+                    ?
+                      <div>
+                        <span className='typeLowlight mlm'>True Cost of Mortgage: </span>
+                        {this.formatCurrency(rate.total_cost, '$')}
+                      </div>
+                    :
+                      null
+                  }
                 </div>
                 <div className='col-sm-3 pull-right text-right'>
                   <a className='btn btm Sml btnPrimary' onClick={_.bind(this.props.selectRate, null, rate)}>Select</a>

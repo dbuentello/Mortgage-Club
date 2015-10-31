@@ -61,6 +61,6 @@ class Address < ActiveRecord::Base
     return if state != 'CA'
     return unless property && property.loan.present?
     return unless user = User.where(email: 'billy@mortgageclub.io').last
-    user.loan_member.loans_members_associations.create(loan_id: property.loan.id)
+    user.loan_member.loans_members_associations.find_or_create_by(loan_id: property.loan.id)
   end
 end
