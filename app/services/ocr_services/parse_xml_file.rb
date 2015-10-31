@@ -12,23 +12,22 @@ module OcrServices
 
       s3 = AWS::S3::Client.new
       response = s3.get_object({bucket_name: bucket_name, key: key})
-      data = Nokogiri::XML(response.data[:data]) if response.present?
-      if data.present?
-        {
-          employer_name: data.at_css('_EmployerName').content,
-          address_first_line: data.at_css('_EmployerAddressFirstLine').content,
-          address_second_line: data.at_css('_EmployerAddressSecondLine').content,
-          period_beginning: data.at_css('_PeriodBeginning').content,
-          period_ending: data.at_css('_PeriodEnding').content,
-          current_salary: data.at_css('_CurrentSalary').content,
-          ytd_salary: data.at_css('_YTDSalary').content,
-          current_earnings: data.at_css('_CurrentEarnings').content,
-          borrower_id: borrower_id = file_name.gsub("#{doc_type}-", ''),
-          order_of_paystub: get_order_of_paystub(doc_type)
-        }
-      else
-        {}
-      end
+      return {} if response.blank?
+
+      data = Nokogiri::XML(response.data[:data])
+
+      {
+        employer_name: data.at_css('_EmployerName').content,
+        address_first_line: data.at_css('_EmployerAddressFirstLine').content,
+        address_second_line: data.at_css('_EmployerAddressSecondLine').content,
+        period_beginning: data.at_css('_PeriodBeginning').content,
+        period_ending: data.at_css('_PeriodEnding').content,
+        current_salary: data.at_css('_CurrentSalary').content,
+        ytd_salary: data.at_css('_YTDSalary').content,
+        current_earnings: data.at_css('_CurrentEarnings').content,
+        borrower_id: borrower_id = file_name.gsub("#{doc_type}-", ''),
+        order_of_paystub: get_order_of_paystub(doc_type)
+      }
     end
 
     def self.get_order_of_paystub(doc_type)
