@@ -2,6 +2,7 @@ Feature: BorrowerTabAtNewLoanPage
   @javascript
   Scenario: user submits a new borrower
     When I am at loan management page
+      And I should see "Borrower"
       And I click on "Borrower"
       Then I select "As an individual" from "I am applying"
       Then I clear value in "First Name"
@@ -31,7 +32,7 @@ Feature: BorrowerTabAtNewLoanPage
         And I fill in "secondary_borrower_dob" with "01/01/1991"
         And I fill in "secondary_borrower_email" with "co-borrower@gmail.com"
         Then I click on "Save and Continue"
-          And I wait for 1 seconds
+          And I wait for 2 seconds
         Then I should see "W2 - Most recent tax year"
         When I click on "Borrower"
           And I should see "With a co-borrower"

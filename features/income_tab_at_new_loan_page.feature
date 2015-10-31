@@ -2,6 +2,7 @@ Feature: IncomeTabAtNewLoanPage
   @javascript
   Scenario: User submits PDF files
     When I am at loan management page
+      And I should see "Income"
       And I click on "Income" in the "#tabIncome"
       Then I drag the file "spec/files/sample.png" to "first_paystub"
         And I wait for 2 seconds
