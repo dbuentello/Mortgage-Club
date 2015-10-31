@@ -289,6 +289,9 @@ var FormIncome = React.createClass({
     state[fields.grossBonus.name] = this.formatCurrency(borrower[fields.grossBonus.name]);
     state[fields.grossCommission.name] = this.formatCurrency(borrower[fields.grossCommission.name]);
 
+    if (!state[fields.employerAddress.name]) {
+      state[fields.employerAddress.name] = {full_text: ''};
+    }
     _.map(Object.keys(uploader_fields), function(key) {
       if (borrower[key]) { // has a document
         state[uploader_fields[key].name] = borrower[key].original_filename;
