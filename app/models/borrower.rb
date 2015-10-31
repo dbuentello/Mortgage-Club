@@ -98,7 +98,7 @@ class Borrower < ActiveRecord::Base
   end
 
   def current_employment
-    employments.find_by(is_current: true)
+    @current_employment ||= employments.find_by(is_current: true)
   end
 
   def previous_employments
@@ -117,5 +117,10 @@ class Borrower < ActiveRecord::Base
       first_paystub.present? && second_paystub.present? &&
       first_bank_statement.present? && second_bank_statement.present? &&
       current_employment.try(:completed?)
+  end
+
+  #borrower.total_income = base income + overtime + bonus + commission + interest + rental income
+  def total_income
+    current_employment.current_salary.to_f + gross_overtime.to_f + gross_commission.to_f
   end
 end
