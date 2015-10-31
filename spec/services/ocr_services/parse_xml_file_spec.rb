@@ -44,16 +44,25 @@ describe OcrServices::ParseXmlFile do
         ]
       }.to_json
     }
-
-    allow_any_instance_of(AWS::S3::Client::V20060301).to receive(:get_object).and_return("")
-  end
-
-  it "parse a xml file" do
-    expect_any_instance_of(AWS::S3::Client::V20060301).to receive(:get_object)
-    OcrServices::ParseXmlFile.call(@raw_post)
   end
 
   it "call OcrParseService" do
-    expect(OcrServices::ParseXmlFile.call(@raw_post)).to eq({})
+    VCR.use_cassette("get ocr result xml file") do
+      response = OcrServices::ParseXmlFile.call(@raw_post)
+      expect(response).to eq(
+        {
+          :employer_name=>"BRIAN R FONG DDS INC",
+          :address_first_line=>"3426 MURDOCH DR",
+          :address_second_line=>"Palo Alto CA 94306",
+          :period_beginning=>"4/1/2015",
+          :period_ending=>"4/30/2015",
+          :current_salary=>"7916.67",
+          :ytd_salary=>"63333.36",
+          :current_earnings=>"",
+          :borrower_id=>"2fde4a53-0f89-413b-9a02-dfdd9dec4da5",
+          :order_of_paystub=>2,
+        }
+      )
+    end
   end
 end
