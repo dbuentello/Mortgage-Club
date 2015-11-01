@@ -1,0 +1,135 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://dev-homieo.s3-us-west-2.amazonaws.com/ocr_results/TestSecondPaystub-2fde4a53-0f89-413b-9a02-dfdd9dec4da5.xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.66.0 ruby/2.2.2 x86_64-darwin14
+      Date:
+      - Sat, 31 Oct 2015 17:14:49 GMT
+      Authorization:
+      - AWS AKIAJMBWEMFKHMHKB73A:ssit7xXDQQ8YScqei1h30F9VmUc=
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - idbPUbB0cs9d5lpca1oG5jiE2SH2Gtb9v6grHTJpTuNw5Vb55JGbNDpkPHLZqWocMEhHI65KJdg=
+      X-Amz-Request-Id:
+      - 9DECADDD49DA79BA
+      Date:
+      - Sat, 31 Oct 2015 17:14:52 GMT
+      Last-Modified:
+      - Sat, 31 Oct 2015 17:12:34 GMT
+      Etag:
+      - '"9817a6d1fcb7d4a2feb3fea0907d66bd"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '831'
+      Server:
+      - AmazonS3
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxm
+        b3JtOkRvY3VtZW50cyB4bWxuczpmb3JtPSJodHRwOi8vd3d3LmFiYnl5LmNv
+        bS9GbGV4aUNhcHR1cmUvU2NoZW1hcy9FeHBvcnQvRm9ybURhdGEueHNkIiB4
+        bWxuczphZGREYXRhPSJodHRwOi8vd3d3LmFiYnl5LmNvbS9GbGV4aUNhcHR1
+        cmUvU2NoZW1hcy9FeHBvcnQvQWRkaXRpb25hbEZvcm1EYXRhLnhzZCIgeG1s
+        bnM6eHNpPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYS1pbnN0
+        YW5jZSI+DQoJPF9QYXlTdHViczpfUGF5U3R1YnMgeG1sbnM6X1BheVN0dWJz
+        PSJodHRwOi8vd3d3LmFiYnl5LmNvbS9GbGV4aUNhcHR1cmUvU2NoZW1hcy9F
+        eHBvcnQvUGF5U3R1YnMueHNkIj4NCgkJPF9FbXBsb3llck5hbWU+QlJJQU4g
+        UiBGT05HIEREUyBJTkM8L19FbXBsb3llck5hbWU+DQoJCTxfRW1wbG95ZXJB
+        ZGRyZXNzRmlyc3RMaW5lPjM0MjYgTVVSRE9DSCBEUjwvX0VtcGxveWVyQWRk
+        cmVzc0ZpcnN0TGluZT4NCgkJPF9QZXJpb2RCZWdpbm5pbmc+NC8xLzIwMTU8
+        L19QZXJpb2RCZWdpbm5pbmc+DQogICAgPF9QZXJpb2RFbmRpbmc+NC8zMC8y
+        MDE1PC9fUGVyaW9kRW5kaW5nPg0KCQk8X0N1cnJlbnRTYWxhcnk+NzkxNi42
+        NzwvX0N1cnJlbnRTYWxhcnk+DQoJCTxfWVREU2FsYXJ5PjYzMzMzLjM2PC9f
+        WVREU2FsYXJ5Pg0KCQk8X0VtcGxveWVyQWRkcmVzc1NlY29uZExpbmU+UGFs
+        byBBbHRvIENBIDk0MzA2PC9fRW1wbG95ZXJBZGRyZXNzU2Vjb25kTGluZT4N
+        CgkJPF9DdXJyZW50RWFybmluZ3MvPg0KCTwvX1BheVN0dWJzOl9QYXlTdHVi
+        cz4NCjwvZm9ybTpEb2N1bWVudHM+
+    http_version: 
+  recorded_at: Sat, 31 Oct 2015 17:14:51 GMT
+- request:
+    method: get
+    uri: https://dev-homieo.s3.amazonaws.com/ocr_results/TestSecondPaystub-2fde4a53-0f89-413b-9a02-dfdd9dec4da5.xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.66.0 ruby/2.2.2 x86_64-darwin14
+      Date:
+      - Sun, 01 Nov 2015 02:00:07 GMT
+      Authorization:
+      - AWS AKIAJMBWEMFKHMHKB73A:ztv8BJ75Osfx9hecMQGGzkTeLQQ=
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - YZQ5nMy4N7wxjvMmWqdYhO+LdvItJHAvHGIIEtmHwOHiNqcakL4SUMq/+nCNRwbauUo51+0mtI4=
+      X-Amz-Request-Id:
+      - 3D9146C8B5E76F5B
+      Date:
+      - Sun, 01 Nov 2015 02:00:10 GMT
+      Last-Modified:
+      - Sat, 31 Oct 2015 17:12:34 GMT
+      Etag:
+      - '"9817a6d1fcb7d4a2feb3fea0907d66bd"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '831'
+      Server:
+      - AmazonS3
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxm
+        b3JtOkRvY3VtZW50cyB4bWxuczpmb3JtPSJodHRwOi8vd3d3LmFiYnl5LmNv
+        bS9GbGV4aUNhcHR1cmUvU2NoZW1hcy9FeHBvcnQvRm9ybURhdGEueHNkIiB4
+        bWxuczphZGREYXRhPSJodHRwOi8vd3d3LmFiYnl5LmNvbS9GbGV4aUNhcHR1
+        cmUvU2NoZW1hcy9FeHBvcnQvQWRkaXRpb25hbEZvcm1EYXRhLnhzZCIgeG1s
+        bnM6eHNpPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYS1pbnN0
+        YW5jZSI+DQoJPF9QYXlTdHViczpfUGF5U3R1YnMgeG1sbnM6X1BheVN0dWJz
+        PSJodHRwOi8vd3d3LmFiYnl5LmNvbS9GbGV4aUNhcHR1cmUvU2NoZW1hcy9F
+        eHBvcnQvUGF5U3R1YnMueHNkIj4NCgkJPF9FbXBsb3llck5hbWU+QlJJQU4g
+        UiBGT05HIEREUyBJTkM8L19FbXBsb3llck5hbWU+DQoJCTxfRW1wbG95ZXJB
+        ZGRyZXNzRmlyc3RMaW5lPjM0MjYgTVVSRE9DSCBEUjwvX0VtcGxveWVyQWRk
+        cmVzc0ZpcnN0TGluZT4NCgkJPF9QZXJpb2RCZWdpbm5pbmc+NC8xLzIwMTU8
+        L19QZXJpb2RCZWdpbm5pbmc+DQogICAgPF9QZXJpb2RFbmRpbmc+NC8zMC8y
+        MDE1PC9fUGVyaW9kRW5kaW5nPg0KCQk8X0N1cnJlbnRTYWxhcnk+NzkxNi42
+        NzwvX0N1cnJlbnRTYWxhcnk+DQoJCTxfWVREU2FsYXJ5PjYzMzMzLjM2PC9f
+        WVREU2FsYXJ5Pg0KCQk8X0VtcGxveWVyQWRkcmVzc1NlY29uZExpbmU+UGFs
+        byBBbHRvIENBIDk0MzA2PC9fRW1wbG95ZXJBZGRyZXNzU2Vjb25kTGluZT4N
+        CgkJPF9DdXJyZW50RWFybmluZ3MvPg0KCTwvX1BheVN0dWJzOl9QYXlTdHVi
+        cz4NCjwvZm9ybTpEb2N1bWVudHM+
+    http_version: 
+  recorded_at: Sun, 01 Nov 2015 02:00:10 GMT
+recorded_with: VCR 2.9.3
