@@ -37,8 +37,9 @@ module ZillowService
     def self.get_request_code(loan, zipcode)
       purchase_price = loan.primary_property.purchase_price.round
       down_payment = (purchase_price * 0.2).round
+      employment = loan.borrower.current_employment
 
-      if employment = loan.borrower.current_employment
+      if employment.present? && employment.current_salary.present?
         annual_income = (employment.current_salary * 12).round
       else
         annual_income = 200000
