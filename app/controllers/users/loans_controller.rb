@@ -6,7 +6,6 @@ class Users::LoansController < Users::BaseController
     if current_user.loans.size < 1
       loan = Loan.initiate(current_user)
       return redirect_to edit_loan_path(loan)
-      return borrower_root_path
     end
 
     ref_url = "#{url_for(:only_path => false)}?refcode=#{current_user.id}"

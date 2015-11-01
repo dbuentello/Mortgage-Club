@@ -119,8 +119,8 @@ class Borrower < ActiveRecord::Base
       current_employment.try(:completed?)
   end
 
-  #borrower.total_income = base income + overtime + bonus + commission + interest + rental income
   def total_income
-    current_employment.current_salary.to_f + gross_overtime.to_f + gross_commission.to_f
+    current_salary = current_employment.present? ? current_employment.current_salary.to_f : 0
+    current_salary + gross_overtime.to_f + gross_commission.to_f
   end
 end

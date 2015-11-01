@@ -113,4 +113,14 @@ class Property < ActiveRecord::Base
   def liability_payments
     liabilities.sum(:payment)
   end
+
+  def mortgage_payment
+    liability = liabilities.where(liability_type: 'Mortgage').last
+    mortgage_payment = liability.present? ? liability.payment.to_f : 0
+  end
+
+  def other_financing
+    liability = liabilities.where(liability_type: 'OtherFinancing').last
+    other_financing = liability.present? ? liability.payment.to_f : 0
+  end
 end
