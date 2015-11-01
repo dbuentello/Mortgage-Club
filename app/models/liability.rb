@@ -19,6 +19,8 @@ class Liability < ActiveRecord::Base
 
   accepts_nested_attributes_for :address, allow_destroy: true
 
+  validates :name, :payment, presence: true
+
   PERMITTED_ATTRS = [
     :name,
     # monthly payment
