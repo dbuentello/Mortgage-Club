@@ -33,6 +33,7 @@ class Property < ActiveRecord::Base
   has_one :risk_report, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
   has_many :other_property_reports, dependent: :destroy, foreign_key: 'property_id'
   has_many :property_documents, dependent: :destroy, foreign_key: 'property_id'
+  has_many :liabilities, dependent: :destroy, foreign_key: 'property_id'
 
   accepts_nested_attributes_for :address
 
