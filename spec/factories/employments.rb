@@ -8,7 +8,6 @@ FactoryGirl.define do
     employer_contact_number { Faker::PhoneNumber.cell_phone }
     job_title { Faker::Lorem.word }
     duration { Random.rand(1..100) }
-    is_current { [true, false].sample }
-
+    is_current { false }
   end
 end

@@ -25,18 +25,18 @@ describe Property do
     end
   end
 
-  describe '#actual_rent' do
+  describe '#actual_rental_income' do
     context 'gross_rental_income is present' do
       it 'returns right value' do
         property.gross_rental_income = 100
-        expect(property.actual_rent).to eq(75)
+        expect(property.actual_rental_income).to eq(75)
       end
     end
 
     context 'gross_rental_income is nil' do
       it 'returns 0' do
         property.gross_rental_income = nil
-        expect(property.actual_rent).to eq(0)
+        expect(property.actual_rental_income).to eq(0)
       end
     end
   end
