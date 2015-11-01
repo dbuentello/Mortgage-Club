@@ -11,13 +11,13 @@ module OcrServices
     end
 
     def call
-      return unless @borrower
+      return unless @borrower && data
 
       if employment.present?
         update_employment
       else
-        employment = create_new_employment
-        create_employer_address(employment)
+        new_employment = create_new_employment
+        create_employer_address(new_employment)
       end
     end
 
@@ -31,7 +31,7 @@ module OcrServices
         ytd_salary: data[:ytd_salary]
       )
 
-      if employment.address
+      if employment.address.present?
         update_employer_address
       else
         create_employer_address(employment)

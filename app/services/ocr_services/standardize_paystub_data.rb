@@ -2,9 +2,10 @@ require 'fuzzystringmatch'
 
 module OcrServices
   class StandardizePaystubData
-    attr_reader :ocr_data
+    attr_reader :ocr_data, :borrower_id
 
     def initialize(borrower_id)
+      @borrower_id = borrower_id
       @ocr_data = Ocr.where(borrower_id: borrower_id).last
       @jarow = FuzzyStringMatch::JaroWinkler.create(:pure)
     end

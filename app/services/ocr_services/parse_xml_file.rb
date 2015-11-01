@@ -4,6 +4,8 @@ module OcrServices
 
     def self.call(raw_post)
       message = JSON.parse(raw_post["Message"])
+      return {} unless message["Records"].present?
+
       record = message["Records"].first
       bucket_name = record["s3"]["bucket"]["name"]
       key = record["s3"]["object"]["key"]
@@ -12,6 +14,7 @@ module OcrServices
 
       s3 = AWS::S3::Client.new
       response = s3.get_object({bucket_name: bucket_name, key: key})
+
       return {} if response.blank?
 
       data = Nokogiri::XML(response.data[:data])

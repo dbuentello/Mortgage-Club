@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :employment do |f|
     address
+    borrower
 
     employer_name { Faker::Name.name }
     employer_contact_name { Faker::Name.name }
