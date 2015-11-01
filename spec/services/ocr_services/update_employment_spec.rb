@@ -14,7 +14,9 @@ describe OcrServices::UpdateEmployment do
 
   context "existent borrower" do
     context "existent employment" do
-      let!(:employment) { FactoryGirl.create(:employment, borrower: borrower, is_current: true) }
+      before(:each) do
+        @employment = FactoryGirl.create(:employment, borrower: borrower, is_current: true)
+      end
 
       it "calls #update_employment" do
         expect_any_instance_of(OcrServices::UpdateEmployment).to receive(:update_employment)
@@ -24,12 +26,12 @@ describe OcrServices::UpdateEmployment do
       describe "#update_employment" do
         it "updates right value for employment" do
           OcrServices::UpdateEmployment.new(data, borrower.id).call
-          employment.reload
+          @employment.reload
 
-          expect(employment.employer_name).to eq("Apple Inc")
-          expect(employment.pay_frequency).to eq("monthly")
-          expect(employment.current_salary).to eq(5000)
-          expect(employment.ytd_salary).to eq(40000)
+          expect(@employment.employer_name).to eq("Apple Inc")
+          expect(@employment.pay_frequency).to eq("monthly")
+          expect(@employment.current_salary).to eq(5000)
+          expect(@employment.ytd_salary).to eq(40000)
         end
 
         context "existent address" do
@@ -41,16 +43,16 @@ describe OcrServices::UpdateEmployment do
           describe "#update_employer_address" do
             it "updates full_text field of address" do
               OcrServices::UpdateEmployment.new(data, borrower.id).call
-              employment.reload
+              @employment.address.reload
 
-              expect(employment.address.full_text).to eq("1 Infinite Loop Cupertino CA 95014")
+              expect(@employment.address.full_text).to eq("1 Infinite Loop Cupertino CA 95014")
             end
           end
         end
 
         context "non-existent address" do
           it "calls #create_employer_address" do
-            employment.address = nil
+            @employment.address = nil
             expect_any_instance_of(OcrServices::UpdateEmployment).to receive(:create_employer_address)
             OcrServices::UpdateEmployment.new(data, borrower.id).call
           end
