@@ -1,8 +1,6 @@
 require "rails_helper"
 
 describe OcrServices::UpdatePaystubOcr do
-  Timecop.freeze(Time.zone.now)
-
   let(:borrower) { FactoryGirl.create(:borrower) }
   let(:data) do
     {
@@ -32,14 +30,14 @@ describe OcrServices::UpdatePaystubOcr do
         OcrServices::UpdatePaystubOcr.new(data, borrower.id).call
         ocr_result.reload
 
-        expect(ocr_result[:employer_name_1]).to eq("Apple Inc")
-        expect(ocr_result[:address_first_line_1]).to eq("1 Infinite Loop Cupertino")
-        expect(ocr_result[:address_second_line_1]).to eq("CA 95014")
-        expect(ocr_result[:period_beginning_1]).to eq(Time.zone.now)
-        expect(ocr_result[:period_ending_1]).to eq(Time.zone.now + 30.days)
-        expect(ocr_result[:current_salary_1]).to eq(5000)
-        expect(ocr_result[:ytd_salary_1]).to eq(40000)
-        expect(ocr_result[:current_earnings_1]).to eq(0)
+        expect(ocr_result.employer_name_1).to eq("Apple Inc")
+        expect(ocr_result.address_first_line_1).to eq("1 Infinite Loop Cupertino")
+        expect(ocr_result.address_second_line_1).to eq("CA 95014")
+        expect(ocr_result.period_beginning_1.to_date).to eq(Time.zone.now.to_date)
+        expect(ocr_result.period_ending_1.to_date).to eq((Time.zone.now + 30.days).to_date)
+        expect(ocr_result.current_salary_1).to eq(5000)
+        expect(ocr_result.ytd_salary_1).to eq(40000)
+        expect(ocr_result.current_earnings_1).to eq(0)
       end
     end
 
@@ -55,14 +53,14 @@ describe OcrServices::UpdatePaystubOcr do
         OcrServices::UpdatePaystubOcr.new(data, borrower.id).call
         ocr_result.reload
 
-        expect(ocr_result[:employer_name_2]).to eq("Apple Inc")
-        expect(ocr_result[:address_first_line_2]).to eq("1 Infinite Loop Cupertino")
-        expect(ocr_result[:address_second_line_2]).to eq("CA 95014")
-        expect(ocr_result[:period_beginning_2]).to eq(Time.zone.now)
-        expect(ocr_result[:period_ending_2]).to eq(Time.zone.now + 30.days)
-        expect(ocr_result[:current_salary_2]).to eq(5000)
-        expect(ocr_result[:ytd_salary_2]).to eq(40000)
-        expect(ocr_result[:current_earnings_2]).to eq(0)
+        expect(ocr_result.employer_name_2).to eq("Apple Inc")
+        expect(ocr_result.address_first_line_2).to eq("1 Infinite Loop Cupertino")
+        expect(ocr_result.address_second_line_2).to eq("CA 95014")
+        expect(ocr_result.period_beginning_2.to_date).to eq(Time.zone.now.to_date)
+        expect(ocr_result.period_ending_2.to_date).to eq((Time.zone.now + 30.days).to_date)
+        expect(ocr_result.current_salary_2).to eq(5000)
+        expect(ocr_result.ytd_salary_2).to eq(40000)
+        expect(ocr_result.current_earnings_2).to eq(0)
       end
     end
   end
@@ -74,14 +72,14 @@ describe OcrServices::UpdatePaystubOcr do
 
     it "creates a new OCR's record with right value" do
       ocr_result = OcrServices::UpdatePaystubOcr.new(data, borrower.id).call
-      expect(ocr_result[:employer_name_1]).to eq("Apple Inc")
-      expect(ocr_result[:address_first_line_1]).to eq("1 Infinite Loop Cupertino")
-      expect(ocr_result[:address_second_line_1]).to eq("CA 95014")
-      expect(ocr_result[:period_beginning_1]).to eq(Time.zone.now)
-      expect(ocr_result[:period_ending_1]).to eq(Time.zone.now + 30.days)
-      expect(ocr_result[:current_salary_1]).to eq(5000)
-      expect(ocr_result[:ytd_salary_1]).to eq(40000)
-      expect(ocr_result[:current_earnings_1]).to eq(0)
+      expect(ocr_result.employer_name_1).to eq("Apple Inc")
+      expect(ocr_result.address_first_line_1).to eq("1 Infinite Loop Cupertino")
+      expect(ocr_result.address_second_line_1).to eq("CA 95014")
+      expect(ocr_result.period_beginning_1.to_date).to eq(Time.zone.now.to_date)
+      expect(ocr_result.period_ending_1.to_date).to eq((Time.zone.now + 30.days).to_date)
+      expect(ocr_result.current_salary_1).to eq(5000)
+      expect(ocr_result.ytd_salary_1).to eq(40000)
+      expect(ocr_result.current_earnings_1).to eq(0)
     end
   end
 end
