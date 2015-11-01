@@ -80,5 +80,8 @@ describe OcrServices::UpdateEmployment do
   end
 
   context "non-existent borrower" do
+    it "returns nil" do
+      expect(OcrServices::UpdateEmployment.new(nil, nil).call).to be_nil
+    end
   end
 end
