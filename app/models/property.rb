@@ -106,7 +106,11 @@ class Property < ActiveRecord::Base
     errors.add(:liabilities, "can't have more than two liabilities") if liabilities.count > 2
   end
 
-  def actual_rent
+  def actual_rental_income
     gross_rental_income.to_f * 0.75
+  end
+
+  def liability_payments
+    liabilities.sum(:payment)
   end
 end

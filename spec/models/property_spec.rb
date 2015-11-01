@@ -40,4 +40,12 @@ describe Property do
       end
     end
   end
+
+  describe '#liability_payments' do
+    let!(:liability) { FactoryGirl.create(:liability, property: property) }
+
+    it 'returns sum of liability payments' do
+      expect(property.liability_payments).to eq(liability.payment)
+    end
+  end
 end
