@@ -5,7 +5,7 @@ class Users::LoansController < Users::BaseController
   def index
     if current_user.loans.size < 1
       loan = Loan.initiate(current_user)
-      return redirect_to edit_loan_path(loan) if loan.save
+      return redirect_to edit_loan_path(loan)
       return borrower_root_path
     end
 
