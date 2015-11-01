@@ -9,7 +9,7 @@ describe Property do
 
   end
 
-  describe '.usage_name' do
+  describe '#usage_name' do
     context 'usage is nil' do
       it 'returns nil' do
         property.usage = nil
@@ -21,6 +21,22 @@ describe Property do
       it 'returns usage name' do
         property.usage = 1
         expect(property.usage_name).to eq('Vacation Home')
+      end
+    end
+  end
+
+  describe '#actual_rent' do
+    context 'gross_rental_income is present' do
+      it 'returns right value' do
+        property.gross_rental_income = 100
+        expect(property.actual_rent).to eq(75)
+      end
+    end
+
+    context 'gross_rental_income is nil' do
+      it 'returns 0' do
+        property.gross_rental_income = nil
+        expect(property.actual_rent).to eq(0)
       end
     end
   end
