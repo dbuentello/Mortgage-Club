@@ -14,7 +14,7 @@ module CreditReportServices
         liability.phone = credit_liability.css('_CREDITOR').css('CONTACT_DETAIL').css('CONTACT_POINT').first.attributes['_Value'].value
         creditor_attributes = credit_liability.css('_CREDITOR').first.attributes
         liability.name = creditor_attributes['_Name'].value
-        next if !liability.valid? or is_duplicate(liability)
+        next if !liability.valid? or duplicate?(liability)
 
         street_address = creditor_attributes['_StreetAddress'].value
         city = creditor_attributes['_City'].value
@@ -26,7 +26,7 @@ module CreditReportServices
       end
     end
 
-    def self.is_duplicate(liability)
+    def self.duplicate?(liability)
       Liability.all.each do |l|
         if liability.account_type == l.account_type &&
           liability.payment == l.payment &&
