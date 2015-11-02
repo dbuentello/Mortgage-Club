@@ -31,6 +31,7 @@ class CreatePropertyForm
   end
 
   private
+
   def property_params(params)
     params.permit(Property::PERMITTED_ATTRS)
   end
