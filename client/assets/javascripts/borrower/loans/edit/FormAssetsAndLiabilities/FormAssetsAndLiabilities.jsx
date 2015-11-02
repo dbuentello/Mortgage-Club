@@ -25,6 +25,13 @@ var FormAssetsAndLiabilities = React.createClass({
     state.rental_properties = this.props.loan.rental_properties;
     state.primary_property = this.props.loan.primary_property;
     state.saving = false;
+
+    state.liabilities = [];
+    var liabilities = this.props.bootstrapData.liabilities;
+    for (var i = 0; i < liabilities.length; i++) {
+      state.liabilities.push({value: liabilities[i].id, name: liabilities[i].payment});
+    }
+    state.liabilities.push({value: 'Other', name: 'Other'});
     return state;
   },
 
@@ -48,6 +55,7 @@ var FormAssetsAndLiabilities = React.createClass({
         key={index}
         index={index}
         property={property}
+        liabilities = {this.state.liabilities}
         isShowRemove={this.state.rental_properties.length > 1}
         onRemove={this.removeProperty}/>
     );
@@ -60,7 +68,9 @@ var FormAssetsAndLiabilities = React.createClass({
           <div className='pal'>
             <div className='box mvn'>
               <h5 className='typeDeemphasize'>Your primary residence</h5>
-              <Property property={this.state.primary_property} />
+              <Property
+                property={this.state.primary_property}
+                liabilities={this.state.liabilities} />
             </div>
           </div>
 

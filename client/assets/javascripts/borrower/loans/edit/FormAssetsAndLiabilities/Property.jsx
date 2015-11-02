@@ -15,20 +15,6 @@ var propertyTypes = [
   {value: 'condo', name: 'Condo'}
 ];
 
-var mortgagePayments = [
-  {value: '1', name: '1'},
-  {value: '2', name: '2'},
-  {value: '3', name: '3'},
-  {value: 'Other', name: 'Other'}
-];
-
-var otherFinancings = [
-  {value: '1', name: '1'},
-  {value: '2', name: '2'},
-  {value: '3', name: '3'},
-  {value: 'Other', name: 'Other'}
-];
-
 var mortgageInclueEscrows = [
   {value: 'taxes_and_insurance', name: "Yes, include my property taxes and insurance"},
   {value: 'taxes_only', name: "Yes, include my property taxes only"},
@@ -159,7 +145,7 @@ var Property = React.createClass({
               label='Mortgage Payment'
               keyName={'property.mortgage_payment'}
               value={this.state.property.mortgage_payment}
-              options={mortgagePayments}
+              options={this.props.liabilities}
               editable={true}
               onChange={this.onChange}
               allowBlank={true}/>
@@ -182,7 +168,7 @@ var Property = React.createClass({
               label='Other Financing (if applicable)'
               keyName={'property.financing'}
               value={this.state.property.financing}
-              options={otherFinancings}
+              options={this.props.liabilities}
               editable={true}
               onChange={this.onChange}
               allowBlank={true}/>

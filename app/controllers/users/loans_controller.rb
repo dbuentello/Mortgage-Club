@@ -36,8 +36,12 @@ class Users::LoansController < Users::BaseController
   end
 
   def edit
+    CreditReportServices::ParseSampleXml.call
+    liabilities = Liability.all
+
     bootstrap({
       currentLoan: LoanPresenter.new(@loan).edit,
+      liabilities: liabilities,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower"
     })
 
