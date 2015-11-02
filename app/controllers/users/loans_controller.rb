@@ -36,8 +36,7 @@ class Users::LoansController < Users::BaseController
   end
 
   def edit
-    CreditReportServices::ParseSampleXml.call
-    liabilities = Liability.all
+    liabilities = CreditReportServices::ParseSampleXml.call(@loan.borrower)
 
     bootstrap({
       currentLoan: LoanPresenter.new(@loan).edit,
@@ -70,7 +69,7 @@ class Users::LoansController < Users::BaseController
         ZillowService::UpdatePropertyTax.delay.call(loan.primary_property.id)
         ZillowService::GetMortgageRate.delay.call(loan.id, loan.primary_property.address.zip)
       when '2'
-        CreditReportService.delay.get_liabilities(current_user.borrower)
+        # CreditReportService.delay.get_liabilities(current_user.borrower)
       end
 
       render json: {loan: LoanPresenter.new(loan).edit}
