@@ -52,6 +52,10 @@ class Property < ActiveRecord::Base
     :is_impound_account,
     :hoa_due,
     :is_primary,
+    :mortgage_payment,
+    :other_mortgage_payment,
+    :financing,
+    :other_financing,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 
@@ -90,5 +94,4 @@ class Property < ActiveRecord::Base
   def refinance_completed?
     original_purchase_price.present? && original_purchase_year.present?
   end
-
 end
