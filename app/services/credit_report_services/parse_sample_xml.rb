@@ -10,10 +10,11 @@ module CreditReportServices
         liability.account_type = credit_liability.attributes['_AccountType'].value
         liability.payment = credit_liability.attributes['_MonthlyPaymentAmount'].value
         liability.balance = credit_liability.attributes['_UnpaidBalanceAmount'].value
+
         liability.phone = credit_liability.css('_CREDITOR').css('CONTACT_DETAIL').css('CONTACT_POINT').first.attributes['_Value'].value
         creditor_attributes = credit_liability.css('_CREDITOR').first.attributes
         liability.name = creditor_attributes['_Name'].value
-        next if liability.valid?
+        next if !liability.valid? or is_duplicate(liability)
 
         street_address = creditor_attributes['_StreetAddress'].value
         city = creditor_attributes['_City'].value
@@ -23,6 +24,17 @@ module CreditReportServices
 
         liability.save
       end
+    end
+
+    def self.is_duplicate(liability)
+      Liability.all.each do |l|
+        if liability.account_type == l.account_type &&
+          liability.payment == l.payment &&
+          liability.name == l.name
+          return true
+        end
+      end
+      false
     end
   end
 end
