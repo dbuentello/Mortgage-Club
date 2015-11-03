@@ -21,19 +21,58 @@ var mortgageInclueEscrows = [
   {value: 'no', name: "No, I will pay my taxes and insurance myself"},
   {value: 'not_sure', name: "I'm not sure"}
 ];
+var otherFinancingID;
+var mortgagePaymentID;
 
 var Property = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
 
   getInitialState: function() {
     var state = {};
-    state.property = this.props.property
+    state.property = this.props.property;
+    state.property.mortgagePayment = this.props.property.mortgage_payment ? this.props.property.mortgage_payment.id : null;
+    state.property.otherFinancing = this.props.property.other_financing ? this.props.property.other_financing.id : null;
+    state.mortgageLiabilities = this.reloadMortgageLiabilities(state.property.otherFinancing);
+    state.otherFinancingLiabilities = this.reloadOtherFinancingLiabilities(state.property.mortgagePayment);
+    // state.mortgageLiabilities = this.reloadMortgageLiabilities(state.otherFinancing);
+    // state.otherFinancingLiabilities = this.reloadOtherFinancingLiabilities(state.mortgagePayment);
+    state.setOtherMortgagePayment = false;
+    state.setOtherFinancing = false;
     return state;
   },
 
   onChange: function(change) {
     var key = _.keys(change)[0];
     var value = _.values(change)[0];
+
+    if (key == 'property.mortgagePayment') {
+      if (value == 'Mortgage') {
+        this.setState({setOtherMortgagePayment: true});
+      }
+      else {
+        // var unSelectedLiability = this.state.selectedMortgageLiability;
+        // this.setState({selectedMortgageLiability: value});
+        // this.props.keepTrackOfSelectedLiabilities(unSelectedLiability, value);
+        this.setState({
+          otherFinancingLiabilities: this.reloadOtherFinancingLiabilities(value)
+        });
+      }
+    }
+
+    if (key == 'property.otherFinancing') {
+      if (value == 'OtherFinancing') {
+        this.setState({setOtherFinancing: true});
+      }
+      else {
+        // var unSelectedLiability = this.state.selectedOtherFinancingLiability;
+        // this.setState({selectedOtherFinancingLiability: value});
+        // this.props.keepTrackOfSelectedLiabilities(unSelectedLiability, this.state.selectedOtherFinancingLiability);
+        this.setState({
+          mortgageLiabilities: this.reloadMortgageLiabilities(value)
+        });
+      }
+    }
+
     if ( value != null ) {
       if (key.indexOf('.address') > -1 && value.city) {
         var propertyKey = key.replace('.address', '');
@@ -46,6 +85,28 @@ var Property = React.createClass({
       }
     }
     this.setState(this.setValue(this.state, key, value));
+  },
+
+  reloadMortgageLiabilities: function(selectedLiability) {
+    var mortgageLiabilities = [];
+    for (var i = 0; i < this.props.liabilities.length; i++) {
+      if (this.props.liabilities[i].id != selectedLiability){
+        mortgageLiabilities.push({value: this.props.liabilities[i].id, name: this.formatCurrency(this.props.liabilities[i].payment)});
+      }
+    }
+    mortgageLiabilities.push({value: 'Mortgage', name: 'Other'});
+    return mortgageLiabilities;
+  },
+
+  reloadOtherFinancingLiabilities: function(selectedLiability) {
+    var otherFinancingLiabilities = [];
+    for (var i = 0; i < this.props.liabilities.length; i++) {
+      if (this.props.liabilities[i].id != selectedLiability){
+        otherFinancingLiabilities.push({value: this.props.liabilities[i].id, name: this.formatCurrency(this.props.liabilities[i].payment)});
+      }
+    }
+    otherFinancingLiabilities.push({value: 'OtherFinancing', name: 'Other'});
+    return otherFinancingLiabilities;
   },
 
   searchProperty: function(property, propertyKey) {
@@ -106,8 +167,18 @@ var Property = React.createClass({
     this.setState({focusedField: field});
   },
 
+  // componentDidMount: function() {
+  //   var state = {};
+  //   state.mortgagePayment = this.props.property.mortgage_payment ? this.props.property.mortgage_payment.id : null;
+  //   state.otherFinancing = this.props.property.other_financing ? this.props.property.other_financing.id : null;
+  //   state.mortgageLiabilities = this.reloadMortgageLiabilities(state.otherFinancing);
+  //   state.otherFinancingLiabilities = this.reloadOtherFinancingLiabilities(state.mortgagePayment);
+  //   this.setState(state);
+  // },
+
   render: function() {
     var index = this.props.index;
+
     return (
       <div className={'box mtn mbm pam bas roundedCorners' + (index % 2 === 0 ? ' backgroundLowlight' : '')} >
         <div className='row'>
@@ -143,19 +214,18 @@ var Property = React.createClass({
           <div className='col-xs-6'>
             <SelectField
               label='Mortgage Payment'
-              keyName={'property.mortgage_payment'}
-              value={this.state.property.mortgage_payment}
-              options={this.props.liabilities}
+              keyName={'property.mortgagePayment'}
+              options={this.state.mortgageLiabilities}
+              value={this.state.property.mortgagePayment}
               editable={true}
               onChange={this.onChange}
               allowBlank={true}/>
           </div>
-          { this.state.property.mortgage_payment == "Other"
+          { this.state.setOtherMortgagePayment
             ? <div className='col-xs-6'>
                 <TextField
                   label='Other'
-                  keyName={'property.other_mortgage_payment'}
-                  value={this.state.property.other_mortgage_payment}
+                  keyName={'property.other_mortgage_payment_amount'}
                   editable={true}
                   onChange={this.onChange}/>
               </div>
@@ -166,19 +236,18 @@ var Property = React.createClass({
           <div className='col-xs-6'>
             <SelectField
               label='Other Financing (if applicable)'
-              keyName={'property.financing'}
-              value={this.state.property.financing}
-              options={this.props.liabilities}
+              keyName={'property.otherFinancing'}
+              value={this.state.property.otherFinancing}
+              options={this.state.otherFinancingLiabilities}
               editable={true}
               onChange={this.onChange}
               allowBlank={true}/>
           </div>
-          { this.state.property.financing == "Other"
+          { this.state.setOtherFinancing
             ? <div className='col-xs-6'>
                 <TextField
                   label='Other'
-                  keyName={'property.other_financing'}
-                  value={this.state.property.other_financing}
+                  keyName={'property.other_financing_amount'}
                   editable={true}
                   onChange={this.onChange}/>
               </div>

@@ -52,10 +52,6 @@ class Property < ActiveRecord::Base
     :is_impound_account,
     :hoa_due,
     :is_primary,
-    :mortgage_payment,
-    :other_mortgage_payment,
-    :financing,
-    :other_financing,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 
@@ -81,6 +77,15 @@ class Property < ActiveRecord::Base
   }
 
   validates_associated :address
+  validate :do_not_have_more_than_two_liabilities
+
+  def mortgage_payment
+    liabilities.where(account_type: "Mortgage").last
+  end
+
+  def other_financing
+    liabilities.where.not(account_type: "Mortgage").last
+  end
 
   def usage_name
     return unless usage
@@ -93,5 +98,11 @@ class Property < ActiveRecord::Base
 
   def refinance_completed?
     original_purchase_price.present? && original_purchase_year.present?
+  end
+
+  private
+
+  def do_not_have_more_than_two_liabilities
+    errors.add(:liabilities, "can't have more than two liabilities") if liabilities.count > 2
   end
 end
