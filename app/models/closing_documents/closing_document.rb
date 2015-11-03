@@ -44,6 +44,7 @@ class ClosingDocument < ActiveRecord::Base
 
   PERMITTED_ATTRS = [
     :type,
+    :original_file_name,
     :attachment
   ]
 
