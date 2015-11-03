@@ -40,14 +40,13 @@ class Address < ActiveRecord::Base
       street_address,
       street_address2,
       city,
-      state,
-      zip
+      state
     ].compact.reject{|x| x.blank?}
 
     if components.empty?
       full_text
     else
-      components.join(', ')
+      "#{components.join(', ')} #{zip}"
     end
   end
 
