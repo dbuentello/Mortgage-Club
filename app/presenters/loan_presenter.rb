@@ -90,7 +90,7 @@ class LoanPresenter
 
   def show_loan_json_options
     {
-      only: [ :id, :amount, :created_at, :interest_rate ],
+      only: [ :id, :amount, :created_at, :interest_rate, :amortization_type ],
       include: {
         properties: {
           only: [:id],
