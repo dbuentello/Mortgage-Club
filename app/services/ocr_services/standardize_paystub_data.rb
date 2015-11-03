@@ -91,7 +91,7 @@ module OcrServices
     end
 
     def biweekly_frequency?
-      ocr_data.period_ending_1.to_i - ocr_data.period_beginning_1.to_i == thirteen_days  &&
+      ocr_data.period_ending_1.to_i - ocr_data.period_beginning_1.to_i == thirteen_days &&
       ocr_data.period_ending_2.to_i - ocr_data.period_beginning_2.to_i == thirteen_days
     end
 
