@@ -28,7 +28,7 @@ var List = React.createClass({
                   {this.commafy(rate.apr, 3)}% APR
                   <span className='typeLowlight mlm'>Monthly Payment: </span>
                   {this.formatCurrency(rate.monthly_payment, '$')}<br/>
-                  <span className='typeLowlight'>Rate: </span>{this.commafy(rate.interest_rate * 100)}%
+                  <span className='typeLowlight'>Rate: </span>{this.commafy(rate.interest_rate * 100, 3)}%
                   <span className='typeLowlight mlm'>Total Closing Cost: </span>
                   {this.formatCurrency(rate.total_fee, '$')}
                   <br/>
