@@ -79,12 +79,6 @@ module OcrServices
       @jarow.getDistance(first_str, last_str)
     end
 
-    def date_of_month(datetime)
-      return 0 if datetime.nil?
-
-      datetime.strftime("%d").to_i
-    end
-
     def date_is_end_of_month?(datetime)
       return false if datetime.nil?
 
@@ -97,18 +91,32 @@ module OcrServices
     end
 
     def biweekly_frequency?
-      date_of_month(ocr_data.period_ending_1) - date_of_month(ocr_data.period_beginning_1) == 13 &&
-      date_of_month(ocr_data.period_ending_2) - date_of_month(ocr_data.period_beginning_2) == 13
+      ocr_data.period_ending_1.to_i - ocr_data.period_beginning_1.to_i == thirteen_days  &&
+      ocr_data.period_ending_2.to_i - ocr_data.period_beginning_2.to_i == thirteen_days
     end
 
     def weekly_frequency?
-      date_of_month(ocr_data.period_ending_1) - date_of_month(ocr_data.period_beginning_1) == 6 &&
-      date_of_month(ocr_data.period_ending_2) - date_of_month(ocr_data.period_beginning_2) == 6
+      ocr_data.period_ending_1.to_i - ocr_data.period_beginning_1.to_i == six_days &&
+      ocr_data.period_ending_2.to_i - ocr_data.period_beginning_2.to_i == six_days
     end
 
     def valid_salary?(first_salary, last_salary)
       ratio = first_salary.to_f / last_salary.to_f
       0.95 <= ratio && ratio <= 1.05
+    end
+
+    def date_of_month(datetime)
+      return 0 if datetime.nil?
+
+      datetime.strftime("%d").to_i
+    end
+
+    def thirteen_days
+      13 * 86400
+    end
+
+    def six_days
+      6 * 86400
     end
   end
 end
