@@ -15,6 +15,7 @@ describe OcrServices::UpdateEmployment do
   context "existent borrower" do
     context "existent employment" do
       before(:each) do
+        borrower.employments.destroy_all
         @employment = FactoryGirl.create(:employment, borrower: borrower, is_current: true)
       end
 
