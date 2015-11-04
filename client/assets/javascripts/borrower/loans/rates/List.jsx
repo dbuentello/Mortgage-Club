@@ -30,7 +30,7 @@ var List = React.createClass({
                   {this.formatCurrency(rate.monthly_payment, '$')}<br/>
                   <span className='typeLowlight'>Rate: </span>{this.commafy(rate.interest_rate * 100, 3)}%
                   <span className='typeLowlight mlm'>Total Closing Cost: </span>
-                  {this.formatCurrency(rate.total_fee, '$')}
+                  {this.formatCurrency(rate.total_closing_cost, '$')}
                   <br/>
                   <span className='typeLowlight mlm'>Lender credit: </span>
                   {rate.lender_credit ? this.formatCurrency(rate.lender_credit, '$') : "$0"}

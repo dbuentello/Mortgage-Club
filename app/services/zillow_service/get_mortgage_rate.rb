@@ -10,7 +10,7 @@ module ZillowService
       return unless zipcode && loan_id.present?
 
       zipcode = zipcode[0..4] if zipcode.length > 5
-      cache_key = "tet-zillow-mortgage-rates-#{loan_id}-#{zipcode}"
+      cache_key = "zillow-mortgage-rates-#{loan_id}-#{zipcode}"
 
       if lenders = REDIS.get(cache_key)
         lenders = JSON.parse(lenders)
@@ -34,17 +34,7 @@ module ZillowService
       @session.driver.headers = {'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X)"}
     end
 
-    def self.get_request_code(loan, zipcode)
-      purchase_price = loan.primary_property.purchase_price.round
-      down_payment = (purchase_price * 0.2).round
-      employment = loan.borrower.current_employment
-
-      if employment.present? && employment.current_salary.present?
-        annual_income = (employment.current_salary * 12).round
-      else
-        annual_income = 200000
-      end
-
+    def self.get_request_code(loan, zipcode, purchase_price, down_payment, annual_income)
       user_session_id = "userSessionId=2de70907-6e58-45f6-a7e8-dc2efb69e261" # hardcode session ID
       url =           "https://mortgageapi.zillow.com/submitRequest?"\
                       "property.type=SingleFamilyHome&property.use=Primary"\
@@ -63,7 +53,14 @@ module ZillowService
     end
 
     def self.get_lenders(loan, zipcode)
-      return Rails.logger.error("Cannot get request code") unless request_code = get_request_code(loan, zipcode)
+      purchase_price = get_purchase_price(loan)
+      down_payment = get_down_payment(purchase_price)
+      annual_income = get_annual_income(loan)
+
+      unless request_code = get_request_code(loan, zipcode, purchase_price, down_payment, annual_income)
+        return Rails.logger.error("Cannot get request code")
+      end
+
       quotes = get_quotes(request_code)
       connection = Faraday.new("https://mortgageapi.zillow.com/getQuote") do |builder|
         builder.response :oj
@@ -81,7 +78,7 @@ module ZillowService
         response = connection.get do |request|
           request.params['quoteId'] = quote_id
         end
-        standardlize_data(response.body)
+        standardlize_data(response.body, down_payment)
       end
     end
 
@@ -111,7 +108,7 @@ module ZillowService
       data["quotes"]
     end
 
-    def self.standardlize_data(lender_data)
+    def self.standardlize_data(lender_data, down_payment)
       info = lender_data["lender"]
       quote = lender_data["quote"]
       lender_name = info["businessName"]
@@ -138,15 +135,36 @@ module ZillowService
         total_fee += fee["amount"]
       end
 
-      total_fee -= lender_credit if lender_credit.present?
+      lender_credit = lender_credit.present? ? lender_credit : 0
+      total_closing_cost = total_fee - lender_credit
 
       Rails.logger.error("Period was nil: #{lender_data}") unless period
 
       {
         lender_name: lender_name, nmls: nmls, website: website, apr: apr, monthly_payment: monthly_payment,
         loan_amount: loan_amount, interest_rate: interest_rate, product: product, total_fee: total_fee,
-        fees: fees, down_payment: 100000, period: period, lender_credit: lender_credit
+        fees: fees, down_payment: down_payment, period: period, lender_credit: lender_credit,
+        total_closing_cost: total_closing_cost
       }
+    end
+
+    def self.get_purchase_price(loan)
+      loan.primary_property.purchase_price.round
+    end
+
+    def self.get_down_payment(purchase_price)
+      (purchase_price * 0.2).round
+    end
+
+    def self.get_annual_income(loan)
+      employment = loan.borrower.current_employment
+
+      if employment.present? && employment.current_salary.present?
+        annual_income = (employment.current_salary * 12).round
+      else
+        annual_income = 200000
+      end
+      annual_income
     end
   end
 end

@@ -25,10 +25,10 @@ class LoanPresenter
     {
       include: {
         rental_properties: {
-          include: :address
+          include: [:address, :mortgage_payment, :other_financing]
         },
         primary_property: {
-          include: :address
+          include: [:address, :mortgage_payment, :other_financing]
         },
         borrower: {
           include: [

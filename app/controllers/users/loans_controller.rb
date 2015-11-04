@@ -1,5 +1,6 @@
 class Users::LoansController < Users::BaseController
   before_action :set_loan, only: [:edit, :update, :destroy]
+  before_action :load_liabilities, only: [:edit]
 
   def index
     if current_user.loans.size < 1
@@ -38,6 +39,7 @@ class Users::LoansController < Users::BaseController
   def edit
     bootstrap({
       currentLoan: LoanPresenter.new(@loan).edit,
+      liabilities: @liabilities,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower"
     })
 
@@ -66,7 +68,7 @@ class Users::LoansController < Users::BaseController
         ZillowService::UpdatePropertyTax.delay.call(loan.primary_property.id)
         ZillowService::GetMortgageRate.delay.call(loan.id, loan.primary_property.address.zip)
       when '2'
-        CreditReportService.delay.get_liabilities(current_user.borrower)
+        # CreditReportService.delay.get_liabilities(current_user.borrower)
       end
 
       render json: {loan: LoanPresenter.new(loan).edit}
@@ -106,6 +108,15 @@ class Users::LoansController < Users::BaseController
   end
 
   private
+
+  def load_liabilities
+    credit_report = @loan.borrower.credit_report
+    if credit_report.liabilities.present?
+      @liabilities = credit_report.liabilities
+    else
+      @liabilities = CreditReportServices::ParseSampleXml.call(@loan.borrower)
+    end
+  end
 
   def loan_params
     params.require(:loan).permit(Loan::PERMITTED_ATTRS)
