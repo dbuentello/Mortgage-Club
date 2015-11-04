@@ -34,6 +34,7 @@ class CreatePropertyForm
           property.liabilities.update_all(property_id: nil)
           handle_liability(rental_params[:mortgagePayment], property, "Mortgage", rental_params)
           handle_liability(rental_params[:otherFinancing], property, "OtherFinancing", rental_params)
+          update_mortgage_payment(property)
         end
       end
 
@@ -41,6 +42,7 @@ class CreatePropertyForm
       loan.primary_property.liabilities.update_all(property_id: nil)
       handle_liability(@primary_property[:mortgagePayment], loan.primary_property, "Mortgage", @primary_property)
       handle_liability(@primary_property[:otherFinancing], loan.primary_property, "OtherFinancing", @primary_property)
+      update_mortgage_payment(loan.primary_property)
     end
     true
   end
@@ -53,6 +55,21 @@ class CreatePropertyForm
       liability = create_liability(payment, account_type)
       link_liability_to_property(property.id, liability.id, account_type)
     end
+  end
+
+  def update_mortgage_payment(property)
+    return unless property.mortgage_payment_liability
+
+    mortgage_payment = property.mortgage_payment_liability.payment.to_f
+    case property.mortgage_includes_escrows
+    when "taxes_and_insurance"
+      mortgage_payment = mortgage_payment - property.estimated_property_tax.to_f - property.estimated_hazard_insurance.to_f
+    when "taxes_only"
+      mortgage_payment = mortgage_payment - property.estimated_property_tax.to_f
+    when "no"
+      mortgage_payment = mortgage_payment - property.estimated_hazard_insurance.to_f
+    end
+    property.update(mortgage_payment: mortgage_payment)
   end
 
   private

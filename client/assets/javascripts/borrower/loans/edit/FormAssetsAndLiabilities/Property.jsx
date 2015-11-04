@@ -16,10 +16,10 @@ var propertyTypes = [
 ];
 
 var mortgageInclueEscrows = [
-  {value: 'taxes_and_insurance', name: "Yes, include my property taxes and insurance"},
-  {value: 'taxes_only', name: "Yes, include my property taxes only"},
-  {value: 'no', name: "No, I will pay my taxes and insurance myself"},
-  {value: 'not_sure', name: "I'm not sure"}
+  {value: "taxes_and_insurance", name: "Yes, include my property taxes and insurance"},
+  {value: "taxes_only", name: "Yes, include my property taxes only"},
+  {value: "no", name: "No, it doesn't include taxes or insurance"},
+  {value: "not_sure", name: "I'm not sure"}
 ];
 var otherFinancingID;
 var mortgagePaymentID;
@@ -30,8 +30,8 @@ var Property = React.createClass({
   getInitialState: function() {
     var state = {};
     state.property = this.props.property;
-    state.property.mortgagePayment = this.props.property.mortgage_payment ? this.props.property.mortgage_payment.id : null;
-    state.property.otherFinancing = this.props.property.other_financing ? this.props.property.other_financing.id : null;
+    state.property.mortgagePayment = this.props.property.mortgage_payment_liability ? this.props.property.mortgage_payment_liability.id : null;
+    state.property.otherFinancing = this.props.property.other_financing_liability ? this.props.property.other_financing_liability.id : null;
     state.mortgageLiabilities = this.reloadMortgageLiabilities(state.property.otherFinancing);
     state.otherFinancingLiabilities = this.reloadOtherFinancingLiabilities(state.property.mortgagePayment);
     // state.mortgageLiabilities = this.reloadMortgageLiabilities(state.otherFinancing);
@@ -224,7 +224,7 @@ var Property = React.createClass({
           { this.state.setOtherMortgagePayment
             ? <div className='col-xs-6'>
                 <TextField
-                  label='Other'
+                  label='Other Amount'
                   keyName={'property.other_mortgage_payment_amount'}
                   editable={true}
                   onChange={this.onChange}/>
@@ -246,7 +246,7 @@ var Property = React.createClass({
           { this.state.setOtherFinancing
             ? <div className='col-xs-6'>
                 <TextField
-                  label='Other'
+                  label='Other Amount'
                   keyName={'property.other_financing_amount'}
                   editable={true}
                   onChange={this.onChange}/>
