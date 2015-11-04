@@ -25,10 +25,11 @@ class PropertiesController < ApplicationController
     response = ZillowService::GetPropertyInfo.call(params[:address], params[:citystatezip])
 
     if response
+      byebug
       render json: convert_property_type(response)
     else
       # render status: 404, nothing: true
-      render json: {message: 'cannot find'}, status: 500
+      render json: {message: 'cannot find'}
     end
   end
 
