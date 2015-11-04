@@ -22,6 +22,7 @@ var HelpMeChoose = React.createClass({
     this.buildYearsChart();
     this.buildAverageRatesChart();
     this.buildTaxRatesChart();
+    this.props.choosePossibleRates(9, 0.08, 0.2);
   },
 
   buildTaxRatesChart: function() {
@@ -150,10 +151,6 @@ var HelpMeChoose = React.createClass({
     }
   },
 
-  selectFileType: function(file_type) {
-    this.setState({file_type: file_type})
-  },
-
   render: function() {
     return (
       <div className='row helpmechoose'>
@@ -163,7 +160,7 @@ var HelpMeChoose = React.createClass({
               <div className='row'>
                 <div className='col-lg-12'>
                   <h3>How Long Do You Plan To Stay?</h3>
-                  <p>Buying tends to be better the longer you stay because the upfront fees are spread out over many years</p>
+                  <p>30-year fixed mortgage tends to be better the longer you stay because interest rates are likely to rise gradually over the next several years.</p>
                 </div>
               </div>
               <div className='row calc-form'>
@@ -179,6 +176,7 @@ var HelpMeChoose = React.createClass({
               <div className= 'row'>
                 <div className='col-lg-12'>
                   <h3>{"What's your average rate of return on your personal investments?"}</h3>
+                  <p>You might be better off spending less money upfront on your mortgage and invest the cash elsewhre.</p>
                 </div>
               </div>
               <div className='row calc-form'>
@@ -193,26 +191,14 @@ var HelpMeChoose = React.createClass({
             </div>
             <div className='tax_rate_chart mtxl'>
               <div className= 'row'>
-                <div className='col-lg-6'>
-                  <h3>How do you file your taxes:</h3>
-                </div>
-                <div className='col-lg-6 mtm'>
-                  <div className="control-group mbs">
-                    <label className="radio-inline mrm">
-                      <input type="radio" value='true' checked={this.state.file_type === "individual"} onChange={_.bind(this.selectFileType, null, 'individual')}/>
-                      Individual Return
-                    </label>
-                    <label className="radio-inline">
-                      <input type="radio" value='false' checked={this.state.file_type === "joint"} onChange={_.bind(this.selectFileType, null, 'joint')}/>
-                      Joint Return
-                    </label>
-                  </div>
+                <div className='col-lg-12'>
+                  <h3>Your combined federal and state income tax rate</h3>
                 </div>
               </div>
               <div className='row calc-form'>
                 <div className='col-lg-2 selected_tax_rate'>
                   <input className="value" onBlur={_.bind(this.onBlur, null, 'tax_rate')}/>
-                  <p>Marginal tax rate</p>
+                  <p>Effective tax rate</p>
                 </div>
                 <div className='col-lg-9 range'>
                   <div className='slider'></div>
