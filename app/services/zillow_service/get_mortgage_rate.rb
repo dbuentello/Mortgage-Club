@@ -138,14 +138,16 @@ module ZillowService
         total_fee += fee["amount"]
       end
 
-      total_fee -= lender_credit if lender_credit.present?
+      lender_credit = lender_credit.present? ? lender_credit : 0
+      total_closing_cost = total_fee - lender_credit
 
       Rails.logger.error("Period was nil: #{lender_data}") unless period
 
       {
         lender_name: lender_name, nmls: nmls, website: website, apr: apr, monthly_payment: monthly_payment,
         loan_amount: loan_amount, interest_rate: interest_rate, product: product, total_fee: total_fee,
-        fees: fees, down_payment: 100000, period: period, lender_credit: lender_credit
+        fees: fees, down_payment: 100000, period: period, lender_credit: lender_credit,
+        total_closing_cost: total_closing_cost
       }
     end
   end
