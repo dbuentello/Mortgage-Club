@@ -47,6 +47,11 @@ var FormIncome = React.createClass({
   },
 
   onChange: function(change) {
+    var key = Object.keys(change)[0];
+    var value = change[key];
+    if (key == 'address' && value == null) {
+      change['address'] = '';
+    }
     this.setState(change);
   },
 
@@ -324,7 +329,7 @@ var FormIncome = React.createClass({
     loan.borrower_attributes.employments_attributes = [{
       id: currentEmployment ? currentEmployment.id : null,
       employer_name: this.state[fields.employerName.name],
-      address_attributes: this.state[fields.employerAddress.name],
+      address_attributes: { 'full_text': this.state[fields.employerAddress.name]},
       job_title: this.state[fields.jobTitle.name],
       duration: this.state[fields.monthsAtEmployer.name],
       employer_contact_name: this.state[fields.employerContactName.name],
