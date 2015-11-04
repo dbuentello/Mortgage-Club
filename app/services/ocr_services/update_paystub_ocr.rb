@@ -1,6 +1,6 @@
 module OcrServices
   class UpdatePaystubOcr
-    attr_reader :data, :borrower_id, :ocr_data, :order_of_paystub
+    attr_accessor :data, :borrower_id, :ocr_data, :order_of_paystub
 
     def initialize(data, borrower_id)
       @data = data
@@ -10,6 +10,7 @@ module OcrServices
     end
 
     def call
+      clean_data
       return create_new_ocr_record if @ocr_data.nil?
 
       if order_of_paystub == 1
@@ -19,6 +20,16 @@ module OcrServices
       end
 
       ocr_data
+    end
+
+    def clean_data
+      if @data[:current_salary].present?
+        @data[:current_salary] = @data[:current_salary].gsub(",","").to_f
+      end
+
+      if @data[:ytd_salary].present?
+        @data[:ytd_salary] = @data[:ytd_salary].gsub(",","").to_f
+      end
     end
 
     private
@@ -51,6 +62,7 @@ module OcrServices
     end
 
     def update_second_paystub_to_ocr
+      byebug
       ocr_data.update(
         employer_name_2: data[:employer_name],
         address_first_line_2: data[:address_first_line],

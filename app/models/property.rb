@@ -100,12 +100,6 @@ class Property < ActiveRecord::Base
     original_purchase_price.present? && original_purchase_year.present?
   end
 
-  private
-
-  def do_not_have_more_than_two_liabilities
-    errors.add(:liabilities, "can't have more than two liabilities") if liabilities.count > 2
-  end
-
   def actual_rental_income
     gross_rental_income.to_f * 0.75
   end
@@ -122,5 +116,11 @@ class Property < ActiveRecord::Base
   def other_financing
     liability = liabilities.where(liability_type: 'OtherFinancing').last
     other_financing = liability.present? ? liability.payment.to_f : 0
+  end
+
+  private
+
+  def do_not_have_more_than_two_liabilities
+    errors.add(:liabilities, "can't have more than two liabilities") if liabilities.count > 2
   end
 end
