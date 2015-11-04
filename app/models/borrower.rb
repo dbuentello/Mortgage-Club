@@ -113,9 +113,7 @@ class Borrower < ActiveRecord::Base
   end
 
   def income_completed?
-    gross_income.present? && #gross_commission.present? &&
-      #gross_bonus.present? && gross_overtime.present? &&
-      first_w2.present? && second_w2.present? &&
+    first_w2.present? && second_w2.present? &&
       first_paystub.present? && second_paystub.present? &&
       first_bank_statement.present? && second_bank_statement.present? &&
       current_employment.try(:completed?)
