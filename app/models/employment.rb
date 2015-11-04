@@ -32,7 +32,8 @@ class Employment < ActiveRecord::Base
   ]
 
   def completed?
-    employer_name.present? && address.present? && employer_contact_name.present? && employer_contact_number.present?
+    employer_name.present? && address.present? && employer_contact_name.present? && employer_contact_number.present? && current_salary.present?
+    true
   end
 
   def as_json(opts={})
