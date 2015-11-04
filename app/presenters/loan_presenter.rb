@@ -25,12 +25,10 @@ class LoanPresenter
     {
       include: {
         rental_properties: {
-          include: :address,
-          include: [:mortgage_payment, :other_financing]
+          include: [:address, :mortgage_payment, :other_financing]
         },
         primary_property: {
-          include: :address,
-          include: [:mortgage_payment, :other_financing]
+          include: [:address, :mortgage_payment, :other_financing]
         },
         borrower: {
           include: [
@@ -92,7 +90,7 @@ class LoanPresenter
 
   def show_loan_json_options
     {
-      only: [ :id, :amount, :created_at, :interest_rate ],
+      only: [ :id, :amount, :created_at, :interest_rate, :amortization_type ],
       include: {
         properties: {
           only: [:id],

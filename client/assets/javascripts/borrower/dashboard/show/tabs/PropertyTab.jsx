@@ -8,6 +8,7 @@ var PropertyTab = React.createClass({
     return '/document_uploaders/base_document/' + id + '/download?type=' + type
   },
   render: function() {
+    console.dir(this.props.propertyList);
     return (
       <div className="box boxBasic backgroundBasic">
         <div className="boxBody ptm">
@@ -29,7 +30,7 @@ var PropertyTab = React.createClass({
                     <td>
                       <span><img src={document.file_icon_url} width="40px" height="30px"/></span>
                       &nbsp;&nbsp;&nbsp;
-                      <span>{document.attachment_file_name}</span>
+                      <span>{document.original_filename == null ? document.attachment_file_name : document.original_filename}</span>
                     </td>
                     <td>{document.owner_name}</td>
                     <td>{document.description}</td>
