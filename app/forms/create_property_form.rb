@@ -63,7 +63,7 @@ class CreatePropertyForm
     mortgage_payment = property.mortgage_payment_liability.payment.to_f
     case property.mortgage_includes_escrows
     when "taxes_and_insurance"
-      mortgage_payment =  mortgage_payment - property.estimated_property_tax.to_f - property.estimated_hazard_insurance.to_f
+      mortgage_payment = mortgage_payment - property.estimated_property_tax.to_f - property.estimated_hazard_insurance.to_f
     when "taxes_only"
       mortgage_payment = mortgage_payment - property.estimated_property_tax.to_f
     when "no"
