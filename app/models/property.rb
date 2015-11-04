@@ -79,11 +79,11 @@ class Property < ActiveRecord::Base
   validates_associated :address
   validate :do_not_have_more_than_two_liabilities
 
-  def mortgage_payment
+  def mortgage_payment_liability
     liabilities.where(account_type: "Mortgage").last
   end
 
-  def other_financing
+  def other_financing_liability
     liabilities.where.not(account_type: "Mortgage").last
   end
 

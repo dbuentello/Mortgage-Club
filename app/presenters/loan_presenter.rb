@@ -25,17 +25,19 @@ class LoanPresenter
     {
       include: {
         rental_properties: {
-          include: [:address, :mortgage_payment, :other_financing]
+          include: :address,
+          methods: [:mortgage_payment_liability, :other_financing_liability]
         },
         primary_property: {
-          include: [:address, :mortgage_payment, :other_financing]
+          include: :address,
+          methods: [:mortgage_payment_liability, :other_financing_liability]
         },
         borrower: {
           include: [
             :declaration, :first_bank_statement, :second_bank_statement,
             :first_paystub, :second_paystub,
             :first_w2, :second_w2, user: {
-              only: [ :email ]
+              only: [ :email, :first_name ]
             }
           ],
           methods: [
