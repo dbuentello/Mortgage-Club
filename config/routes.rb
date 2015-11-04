@@ -51,6 +51,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :underwriting, only: [:index]
+
   resources :employments, only: [:show] do
   end
 
