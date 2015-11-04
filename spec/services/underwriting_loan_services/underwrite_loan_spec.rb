@@ -81,13 +81,39 @@ describe UnderwritingLoanServices::UnderwriteLoan do
   end
 
   describe "#valid_loan?" do
+    context "valid loan" do
+      it "returns true" do
+        @service.error_messages = []
+        expect(@service.valid_loan?).to be_truthy
+      end
+    end
+
+    context "invalid loan" do
+      it "returns false" do
+        @service.error_messages = ["Error message"]
+        expect(@service.valid_loan?).to be_falsey
+      end
+    end
   end
 
   describe "#call" do
     context "valid loan" do
+      before(:each) do
+        @service.address.state = "CA"
+        allow_any_instance_of(Borrower).to receive(:credit_score).and_return(999)
+        allow(UnderwritingLoanServices::CalculateDebtToIncome).to receive(:call).and_return(0.5)
+        allow(UnderwritingLoanServices::CalculateHousingExpenseRatio).to receive(:call).and_return(0.26)
+      end
+
+      it "returns true" do
+        expect(@service.call).to be_truthy
+      end
     end
 
     context "invalid loan" do
+      it "returns false" do
+        expect(@service.call).to be_falsey
+      end
     end
   end
 end

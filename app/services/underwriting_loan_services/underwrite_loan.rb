@@ -58,7 +58,6 @@ module UnderwritingLoanServices
       debt_to_income = UnderwritingLoanServices::CalculateDebtToIncome.call(loan)
       ratio = UnderwritingLoanServices::CalculateHousingExpenseRatio.call(loan)
 
-      byebug
       if debt_to_income > 0.5
         @error_messages << "Your debt-to-income ratio is too high. We can't find any loan programs for you."
       end

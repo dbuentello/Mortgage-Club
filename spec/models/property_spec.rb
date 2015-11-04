@@ -51,7 +51,7 @@ describe Property do
 
   describe '#mortgage_payment' do
     context 'existent mortgage liability' do
-      let!(:liability) { FactoryGirl.create(:liability, liability_type: 'Mortgage' ,property: property) }
+      let!(:liability) { FactoryGirl.create(:liability, account_type: 'Mortgage' ,property: property) }
 
       it 'returns payment of mortgage liability' do
         expect(property.mortgage_payment).to eq(liability.payment)
@@ -67,7 +67,7 @@ describe Property do
 
   describe '#other_financing' do
     context 'existent other financing liability' do
-      let!(:liability) { FactoryGirl.create(:liability, liability_type: 'OtherFinancing' ,property: property) }
+      let!(:liability) { FactoryGirl.create(:liability, account_type: 'OtherFinancing' ,property: property) }
 
       it 'returns payment of other financing liability' do
         expect(property.other_financing).to eq(liability.payment)

@@ -125,6 +125,6 @@ class Borrower < ActiveRecord::Base
   end
 
   def credit_score
-    credit_reports.sum(:score)
+    credit_report.score
   end
 end

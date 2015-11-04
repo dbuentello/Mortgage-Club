@@ -23,12 +23,12 @@ module OcrServices
     end
 
     def clean_data
-      if @data[:current_salary].present?
-        @data[:current_salary] = @data[:current_salary].gsub(",","").to_f
+      if @data[:current_salary].present? && @data[:current_salary].is_a?(String)
+        @data[:current_salary] = @data[:current_salary].delete(",").to_f
       end
 
-      if @data[:ytd_salary].present?
-        @data[:ytd_salary] = @data[:ytd_salary].gsub(",","").to_f
+      if @data[:ytd_salary].present? && @data[:ytd_salary].is_a?(String)
+        @data[:ytd_salary] = @data[:ytd_salary].delete(",").to_f
       end
     end
 
@@ -62,7 +62,6 @@ module OcrServices
     end
 
     def update_second_paystub_to_ocr
-      byebug
       ocr_data.update(
         employer_name_2: data[:employer_name],
         address_first_line_2: data[:address_first_line],

@@ -109,13 +109,13 @@ class Property < ActiveRecord::Base
   end
 
   def mortgage_payment
-    liability = liabilities.where(liability_type: 'Mortgage').last
-    mortgage_payment = liability.present? ? liability.payment.to_f : 0
+    liability = liabilities.where(account_type: 'Mortgage').last
+    liability.present? ? liability.payment.to_f : 0
   end
 
   def other_financing
-    liability = liabilities.where(liability_type: 'OtherFinancing').last
-    other_financing = liability.present? ? liability.payment.to_f : 0
+    liability = liabilities.where(account_type: 'OtherFinancing').last
+    liability.present? ? liability.payment.to_f : 0
   end
 
   private
