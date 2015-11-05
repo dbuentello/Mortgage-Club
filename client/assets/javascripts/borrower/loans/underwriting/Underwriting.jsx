@@ -26,13 +26,13 @@ var Underwriting = React.createClass({
 
     switch(counter) {
       case 10:
-        document.getElementById("status").innerHTML = "Verifying borrower's credit score.";
+        document.getElementById("status").innerHTML = "Verifying borrower's credit score";
         break;
       case 20:
-        document.getElementById("status").innerHTML = "Verifying borrower's income.";
+        document.getElementById("status").innerHTML = "Verifying borrower's income";
         break;
       case 30:
-        document.getElementById("status").innerHTML = "Calculating debt-to-income ratio.";
+        document.getElementById("status").innerHTML = "Calculating debt-to-income ratio";
         break;
       case 40:
         document.getElementById("status").innerHTML = "Verifying down payment and cash reserves";
@@ -126,14 +126,19 @@ var Underwriting = React.createClass({
             </div>
           </div>
         </div>
-        <div id='errors' className='row mtl outer hidden'>
-          <div className='box col-sm-12'>
-            <div id='error'></div>
+        <div id='errors' className='row mtl hidden'>
+          <div className='box mtn'>
+            <div className='col-sm-3'></div>
+            <div className='col-sm-6'>
+              <div id='error'></div>
+            </div>
+            <div className='col-sm-3'></div>
           </div>
-          <div className='box text-center'>
+
+          <div className='box backToLoan'>
             <a className='btn btnSml btnPrimary' onClick={this.backToLoan}>
-              <i className='icon iconLeft mls'/>
-               Back to Loan
+              <i className='icon iconLeft mrl'/>
+              Back to Loan
             </a>
           </div>
         </div>
