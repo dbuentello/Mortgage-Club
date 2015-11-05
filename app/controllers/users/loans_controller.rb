@@ -5,8 +5,7 @@ class Users::LoansController < Users::BaseController
   def index
     if current_user.loans.size < 1
       loan = Loan.initiate(current_user)
-      return redirect_to edit_loan_path(loan) if loan.save
-      return borrower_root_path
+      return redirect_to edit_loan_path(loan)
     end
 
     ref_url = "#{url_for(:only_path => false)}?refcode=#{current_user.id}"
@@ -66,7 +65,9 @@ class Users::LoansController < Users::BaseController
       when '0'
         loan.update(amount: loan.primary_property.purchase_price * 0.8)
         ZillowService::UpdatePropertyTax.delay.call(loan.primary_property.id)
-        ZillowService::GetMortgageRate.delay.call(loan.id, loan.primary_property.address.zip)
+        if loan.primary_property.address && loan.primary_property.address.zip
+          ZillowService::GetMortgageRate.delay.call(loan.id, loan.primary_property.address.zip)
+        end
       when '2'
         # CreditReportService.delay.get_liabilities(current_user.borrower)
       end

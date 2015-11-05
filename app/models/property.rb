@@ -100,6 +100,24 @@ class Property < ActiveRecord::Base
     original_purchase_price.present? && original_purchase_year.present?
   end
 
+  def actual_rental_income
+    gross_rental_income.to_f * 0.75
+  end
+
+  def liability_payments
+    liabilities.sum(:payment)
+  end
+
+  def mortgage_payment
+    liability = liabilities.where(account_type: 'Mortgage').last
+    liability.present? ? liability.payment.to_f : 0
+  end
+
+  def other_financing
+    liability = liabilities.where(account_type: 'OtherFinancing').last
+    liability.present? ? liability.payment.to_f : 0
+  end
+
   private
 
   def do_not_have_more_than_two_liabilities
