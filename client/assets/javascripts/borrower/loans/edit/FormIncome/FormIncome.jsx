@@ -13,6 +13,7 @@ var OtherIncome = require('./OtherIncome');
 var fields = {
   employerName: {label: 'Name of current employer', name: 'employer_name', helpText: 'I am a helpful text.'},
   employerAddress: {label: 'Address of current employer', name: 'address', helpText: null},
+  employerFullTextAddress: {name: 'full_text', helpText: null},
   jobTitle: {label: 'Job Title', name: 'job_title', helpText: null},
   monthsAtEmployer: {label: 'Years at this employer', name: 'duration', helpText: null},
   employerContactName: {label: 'Contact Name', name: 'employer_contact_name', helpText: null},
@@ -76,7 +77,7 @@ var FormIncome = React.createClass({
 
   afterUploadingDocument: function() {
     if (this.props.loan.borrower.current_employment) {
-      setTimeout(_.bind(this.updateEmploymentData), 10000);
+      setTimeout(_.bind(this.updateEmploymentData), 25000);
     }
   },
 
@@ -91,6 +92,9 @@ var FormIncome = React.createClass({
         var state = {};
         state[fields.employerName.name] = employment[fields.employerName.name];
         state[fields.employerAddress.name] = employment[fields.employerAddress.name];
+        if (employment[fields.employerAddress.name]) {
+          state[fields.employerFullTextAddress.name] = employment[fields.employerAddress.name].full_text;
+        }
         state[fields.baseIncome.name] = this.formatCurrency(employment[fields.baseIncome.name]);
         state[fields.incomeFrequency.name] = employment[fields.incomeFrequency.name];
         this.setState(state);
@@ -147,10 +151,10 @@ var FormIncome = React.createClass({
                 <div className='col-sm-6'>
                   <TextField
                     label={fields.employerAddress.label}
-                    keyName={fields.employerAddress.name}
-                    value={this.state[fields.employerAddress.name].full_text}
+                    keyName={fields.employerFullTextAddress.name}
+                    value={this.state[fields.employerFullTextAddress.name]}
                     editable={true}
-                    onFocus={this.onFocus.bind(this, fields.employerAddress)}
+                    onFocus={this.onFocus.bind(this, fields.employerFullTextAddress)}
                     onChange={this.onChange}/>
 
                   {/* <AddressField
@@ -297,6 +301,8 @@ var FormIncome = React.createClass({
     if (!state[fields.employerAddress.name]) {
       state[fields.employerAddress.name] = {full_text: ''};
     }
+    state[fields.employerFullTextAddress.name] = state[fields.employerAddress.name].full_text;
+
     _.map(Object.keys(uploader_fields), function(key) {
       if (borrower[key]) { // has a document
         state[uploader_fields[key].name] = borrower[key].original_filename;
@@ -329,7 +335,7 @@ var FormIncome = React.createClass({
     loan.borrower_attributes.employments_attributes = [{
       id: currentEmployment ? currentEmployment.id : null,
       employer_name: this.state[fields.employerName.name],
-      address_attributes: { 'full_text': this.state[fields.employerAddress.name]},
+      address_attributes: { 'full_text': this.state[fields.employerFullTextAddress.name]},
       job_title: this.state[fields.jobTitle.name],
       duration: this.state[fields.monthsAtEmployer.name],
       employer_contact_name: this.state[fields.employerContactName.name],

@@ -11,14 +11,6 @@ var fields = {
   ownsRental: {label: '', name: 'owns_rental', helpText: null},
 };
 
-var warn = console.warn;
-console.warn = function(warning) {
-  if (/(setState)/.test(warning)) {
-    throw new Error(warning);
-  }
-  warn.apply(console, arguments);
-};
-
 var FormAssetsAndLiabilities = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
 

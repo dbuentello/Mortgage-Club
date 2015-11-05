@@ -74,12 +74,18 @@ module ZillowService
         builder.params['includeNote'] = true
       end
 
-      quotes.map do |quote_id, _|
+
+      count = 0 # get some rates for demo purpose only
+      results = []
+      quotes.each do |quote_id, _|
+        count += 1
         response = connection.get do |request|
           request.params['quoteId'] = quote_id
         end
-        standardlize_data(response.body, down_payment)
+        results << standardlize_data(response.body, down_payment)
+        break if count > 20
       end
+      results
     end
 
     def self.get_quotes(request_code)
@@ -149,22 +155,25 @@ module ZillowService
     end
 
     def self.get_purchase_price(loan)
-      loan.primary_property.purchase_price.round
+      500000
+      # loan.primary_property.purchase_price.round
     end
 
     def self.get_down_payment(purchase_price)
-      (purchase_price * 0.2).round
+      100000
+      # (purchase_price * 0.2).round
     end
 
     def self.get_annual_income(loan)
-      employment = loan.borrower.current_employment
+      200000
+      # employment = loan.borrower.current_employment
 
-      if employment.present? && employment.current_salary.present?
-        annual_income = (employment.current_salary * 12).round
-      else
-        annual_income = 200000
-      end
-      annual_income
+      # if employment.present? && employment.current_salary.present?
+      #   annual_income = (employment.current_salary * 12).round
+      # else
+      #   annual_income = 200000
+      # end
+      # annual_income
     end
   end
 end
