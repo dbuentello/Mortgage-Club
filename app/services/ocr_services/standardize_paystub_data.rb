@@ -82,7 +82,7 @@ module OcrServices
     def date_is_end_of_month?(datetime)
       return false if datetime.nil?
 
-      datetime.to_i == datetime.end_of_month.to_i
+      datetime.end_of_day.to_i == datetime.end_of_month.to_i
     end
 
     def semimonthly_frequency?
