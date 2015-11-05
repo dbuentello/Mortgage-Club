@@ -11,8 +11,8 @@ module OcrServices
     end
 
     def call
-      clean_data
       return unless @borrower && data
+      clean_data
 
       if employment.present?
         update_employment
