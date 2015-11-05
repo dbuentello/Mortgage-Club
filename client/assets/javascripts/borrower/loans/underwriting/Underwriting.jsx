@@ -6,7 +6,8 @@ var timer;
 var Underwriting = React.createClass({
   getInitialState: function() {
     return {
-      percentCounter: 0
+      percentCounter: 0,
+      validLoan: true
     }
   },
 
@@ -35,6 +36,7 @@ var Underwriting = React.createClass({
         document.getElementById("status").innerHTML = "Verifying down payment and cash reserves";
         break;
       case 50:
+        this.checkingLoan(this.props.bootstrapData.currentLoan.id);
         document.getElementById("status").innerHTML = "Calculating loan-to-value ratio";
         break;
       case 60:
@@ -48,16 +50,51 @@ var Underwriting = React.createClass({
         break;
       case 100:
         window.clearInterval(timer);
+        this.moveToRatesPage();
         break;
       default:
         break;
     }
   },
 
+  checkingLoan: function(loan_id) {
+    $.ajax({
+      url: '/underwriting/check_loan',
+      data: {
+        loan_id: loan_id
+      },
+      dataType: 'json',
+      context: this,
+      success: function(response) {
+        if (response.message == 'ok') {
+          this.setState({
+            validLoan: true
+          });
+        } else {
+          this.showErrors(response.errors);
+        }
+      }
+    });
+  },
+
+  moveToRatesPage: function() {
+    location.href = '/rates?loan_id=' + this.props.bootstrapData.currentLoan.id;
+  },
+
+  showErrors: function(errors) {
+    window.clearInterval(timer);
+
+    var full_error = errors.join("\n")
+    document.getElementById("errors").innerHTML = full_error;
+    this.setState({
+      validLoan: false
+    });
+  },
+
   render: function() {
     return (
-      <div className='content container underwriting-text '>
-        <div className='row mtl'>
+      <div className='content container'>
+        <div className='row mtl underwriting-text'>
           <div className='col-sm-5'>
             <div id="percent" className="percent outer">0%</div>
           </div>
@@ -66,6 +103,11 @@ var Underwriting = React.createClass({
             <div className="row1">
               <div id="status">Checking property eligibility</div>
             </div>
+          </div>
+        </div>
+        <div className='row mtl outer'>
+          <div className='col-sm-12'>
+            <div id='errors'></div>
           </div>
         </div>
       </div>

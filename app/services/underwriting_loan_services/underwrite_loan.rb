@@ -48,7 +48,7 @@ module UnderwritingLoanServices
     end
 
     def verify_credit_score
-      if borrower.credit_score < 620
+      if borrower.credit_score.nil? || borrower.credit_score < 620
         @error_messages << "Sorry, your credit score is below the minimum required to obtain a mortgage."
       end
     end
