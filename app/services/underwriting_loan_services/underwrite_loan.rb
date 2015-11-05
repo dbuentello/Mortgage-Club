@@ -11,6 +11,8 @@ module UnderwritingLoanServices
     end
 
     def call
+      find_eligible_loan_programs # call it first for demo purpose
+
       verify_property
       verify_property_eligibility
       verify_credit_score
@@ -21,7 +23,7 @@ module UnderwritingLoanServices
       # verify_borrower_experience
 
       if valid_loan?
-        find_eligible_loan_programs
+        # find_eligible_loan_programs
         return true
       else
         return false
