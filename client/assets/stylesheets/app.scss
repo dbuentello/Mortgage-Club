@@ -164,6 +164,10 @@ $helpSectionWidth: 300px;
   font-size: 24px;
 }
 
+#percent {
+  text-align: right;
+}
+
 .outer {
   width: 100%;
   text-align: center;
@@ -175,4 +179,8 @@ $helpSectionWidth: 300px;
 
 #errors {
   color: red;
+}
+
+.hidden {
+  display: none;
 }

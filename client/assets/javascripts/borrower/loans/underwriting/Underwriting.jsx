@@ -7,12 +7,14 @@ var Underwriting = React.createClass({
   getInitialState: function() {
     return {
       percentCounter: 0,
-      validLoan: true
+      validLoan: true,
+      loanErrors: []
     }
   },
 
   componentDidMount: function() {
     timer = window.setInterval(this.incrementPercent, 200);
+    this.checkingLoan(this.props.bootstrapData.currentLoan.id);
   },
 
   incrementPercent: function() {
@@ -36,8 +38,10 @@ var Underwriting = React.createClass({
         document.getElementById("status").innerHTML = "Verifying down payment and cash reserves";
         break;
       case 50:
-        this.checkingLoan(this.props.bootstrapData.currentLoan.id);
         document.getElementById("status").innerHTML = "Calculating loan-to-value ratio";
+        if (this.state.loanErrors.length > 0) {
+          this.showErrors(this.state.loanErrors);
+        }
         break;
       case 60:
         document.getElementById("status").innerHTML = "Verifying borrower's experience";
@@ -71,8 +75,16 @@ var Underwriting = React.createClass({
             validLoan: true
           });
         } else {
-          this.showErrors(response.errors);
+          this.setState({
+            loanErrors: response.errors
+          });
+          if (this.state.percentCounter >= 50) {
+            this.showErrors(response.errors);
+          }
         }
+      },
+      error: function(response, status, error) {
+        console.log(error);
       }
     });
   },
@@ -83,31 +95,46 @@ var Underwriting = React.createClass({
 
   showErrors: function(errors) {
     window.clearInterval(timer);
+    document.getElementById("underwriting").remove();
 
-    var full_error = errors.join("\n")
-    document.getElementById("errors").innerHTML = full_error;
+    var full_error = ""
+    for (var i = 0; i < errors.length; i++) {
+      full_error += "<li>" + errors[i] + "</li>"
+    }
+    document.getElementById("error").innerHTML = full_error;
+    document.getElementById("errors").classList.remove("hidden");
     this.setState({
       validLoan: false
     });
   },
 
+  backToLoan: function() {
+    location.href = '/loans/' + this.props.bootstrapData.currentLoan.id + '/edit';
+  },
+
   render: function() {
     return (
       <div className='content container'>
-        <div className='row mtl underwriting-text'>
+        <div id='underwriting' className='row mtl underwriting-text'>
           <div className='col-sm-5'>
-            <div id="percent" className="percent outer">0%</div>
+            <div id="percent">0%</div>
           </div>
 
-          <div className='col-sm-6'>
+          <div className='col-sm-7'>
             <div className="row1">
               <div id="status">Checking property eligibility</div>
             </div>
           </div>
         </div>
-        <div className='row mtl outer'>
-          <div className='col-sm-12'>
-            <div id='errors'></div>
+        <div id='errors' className='row mtl outer hidden'>
+          <div className='box col-sm-12'>
+            <div id='error'></div>
+          </div>
+          <div className='box text-center'>
+            <a className='btn btnSml btnPrimary' onClick={this.backToLoan}>
+              <i className='icon iconLeft mls'/>
+               Back to Loan
+            </a>
           </div>
         </div>
       </div>
