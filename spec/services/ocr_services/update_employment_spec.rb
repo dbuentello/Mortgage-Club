@@ -8,7 +8,7 @@ describe OcrServices::UpdateEmployment do
       period: "monthly",
       current_salary: 5000,
       ytd_salary: 40000,
-      employer_address: "1 Infinite Loop Cupertino CA 95014"
+      employer_full_address: "1 Infinite Loop Cupertino CA 95014"
     }
   end
 
