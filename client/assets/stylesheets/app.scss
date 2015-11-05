@@ -158,3 +158,17 @@ $helpSectionWidth: 300px;
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
 }
+
+// Underwriting
+.underwriting-text {
+  font-size: 24px;
+}
+
+.outer {
+  width: 100%;
+  text-align: center;
+}
+
+.inner {
+  display: inline-block;
+}
