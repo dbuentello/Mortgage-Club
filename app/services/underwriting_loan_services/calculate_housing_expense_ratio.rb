@@ -4,9 +4,9 @@ module UnderwritingLoanServices
       primary_property = loan.primary_property
       borrower = loan.borrower
 
-      (primary_property.liability_payments + primary_property.estimated_mortgage_insurance +
-      primary_property.estimated_hazard_insurance + primary_property.estimated_property_tax +
-      primary_property.hoa_due) / borrower.total_income
+      (primary_property.liability_payments + primary_property.estimated_mortgage_insurance.to_f +
+      primary_property.estimated_hazard_insurance.to_f + primary_property.estimated_property_tax.to_f +
+      primary_property.hoa_due.to_f) / borrower.total_income
     end
   end
 end

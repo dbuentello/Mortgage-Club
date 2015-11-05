@@ -51,6 +51,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :underwriting, only: [:index] do
+    collection do
+      get :check_loan
+    end
+  end
+
   resources :employments, only: [:show] do
   end
 

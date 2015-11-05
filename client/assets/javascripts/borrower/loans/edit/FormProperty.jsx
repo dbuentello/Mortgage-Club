@@ -82,7 +82,6 @@ var FormProperty = React.createClass({
           estimated_property_tax: monthlyTax,
           estimated_hazard_insurance: monthlyInsurance,
         });
-        console.dir(this.state);
       }
     });
   },
