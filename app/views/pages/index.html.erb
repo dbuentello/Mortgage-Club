@@ -49,7 +49,10 @@
 
         <div id="home-right" class="col-md-6">
           <div id="home-right-header">
-            <h1 class="text-uppercase">MORTGAGE RATES <span className="iconInfo"></span></h1>
+            <h1 class="text-uppercase">
+              MORTGAGE RATES
+              <%= image_tag("info.png", class: 'info-button', title:"We haven't launched yet but if we ... today. We'd offer these rates. Rates ... in APRs which reflect interest rate ... broker fees, discount points and so .. costs. BTW, our competitors rates") %>
+            </h1>
             <p class="">(as of <%= @last_updated %>)</p>
           </div>
 
