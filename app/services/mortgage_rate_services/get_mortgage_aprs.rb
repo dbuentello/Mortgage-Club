@@ -24,26 +24,26 @@ module MortgageRateServices
       end
       mortgage_aprs
     end
-  end
 
-  def self.default_aprs
-    {
-      zillow: {
-        apr_30_year: nil,
-        apr_15_year: nil,
-        apr_5_libor: nil
-      },
-      quicken_loans: {
-        apr_30_year: nil,
-        apr_15_year: nil,
-        apr_5_libor: nil
-      },
-      wells_fargo: {
-        apr_30_year: nil,
-        apr_15_year: nil,
-        apr_5_libor: nil
-      },
-      updated_at: Time.zone.now
-    }
+    def self.default_aprs
+      {
+        zillow: {
+          apr_30_year: nil,
+          apr_15_year: nil,
+          apr_5_libor: nil
+        },
+        quicken_loans: {
+          apr_30_year: nil,
+          apr_15_year: nil,
+          apr_5_libor: nil
+        },
+        wells_fargo: {
+          apr_30_year: nil,
+          apr_15_year: nil,
+          apr_5_libor: nil
+        },
+        updated_at: Time.zone.now
+      }
+    end
   end
 end
