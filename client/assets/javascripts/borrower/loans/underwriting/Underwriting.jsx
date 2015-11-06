@@ -13,7 +13,7 @@ var Underwriting = React.createClass({
   },
 
   componentDidMount: function() {
-    timer = window.setInterval(this.incrementPercent, 200);
+    timer = window.setInterval(this.incrementPercent, 100);
     this.checkingLoan(this.props.bootstrapData.currentLoan.id);
   },
 
