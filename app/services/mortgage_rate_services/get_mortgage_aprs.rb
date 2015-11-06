@@ -1,7 +1,8 @@
 module MortgageRateServices
   class GetMortgageAprs
-
     def self.call(refresh_cache = false)
+      return default_aprs if Rails.env.test?
+
       cache_key = "mortgage-apr"
 
       if !refresh_cache && mortgage_aprs = REDIS.get(cache_key)
@@ -23,5 +24,26 @@ module MortgageRateServices
       end
       mortgage_aprs
     end
+  end
+
+  def self.default_aprs
+    {
+      zillow: {
+        apr_30_year: nil,
+        apr_15_year: nil,
+        apr_5_libor: nil
+      },
+      quicken_loans: {
+        apr_30_year: nil,
+        apr_15_year: nil,
+        apr_5_libor: nil
+      },
+      wells_fargo: {
+        apr_30_year: nil,
+        apr_15_year: nil,
+        apr_5_libor: nil
+      },
+      updated_at: Time.zone.now
+    }
   end
 end

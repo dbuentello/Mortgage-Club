@@ -16,11 +16,11 @@ module MortgageRateServices
           product_link_text = product_link.first.text
           apr = rate.css('.rateTable__product__apr').text.split('%').first.delete('(').to_f
           if product_link_text == 'VA 5/1 ARM (1/1/5)'
-            apr_5_libor = apr
+            apr_5_libor = apr.to_f
           elsif product_link_text == '15-Year Fixed'
-            apr_15_year = apr
+            apr_15_year = apr.to_f
           elsif product_link_text == '30-Year Fixed'
-            apr_30_year = apr
+            apr_30_year = apr.to_f
           else
             next
           end

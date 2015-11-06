@@ -41,7 +41,7 @@ Feature: Referrals
           And "test1@mortgageclub.io" should receive an email
           Then I open the email
             And I should see "<b>Billy Tran</b> has invited you to join Mortgage Club" in the email body
-            And I should see "Create Your Free Account" in the email body
+            And I should see "?invite_token=" in the email body
       Then I turn on delayed jobs
   @javascript
   Scenario: referrals email invalid
