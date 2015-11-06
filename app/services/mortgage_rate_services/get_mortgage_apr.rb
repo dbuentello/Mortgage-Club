@@ -1,10 +1,10 @@
 module MortgageRateServices
   class GetMortgageApr
 
-    def self.call
+    def self.call(refresh_cache = false)
       cache_key = "mortgage-apr"
 
-      if mortgage_aprs = REDIS.get(cache_key)
+      if !refresh_cache && mortgage_aprs = REDIS.get(cache_key)
         mortgage_aprs = JSON.parse(mortgage_aprs)
       else
         zillow = MortgageRateServices::Zillow.call
