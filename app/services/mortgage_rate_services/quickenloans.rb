@@ -28,9 +28,9 @@ module MortgageRateServices
       end
 
       {
-        apr_30_year: apr_30_year,
-        apr_15_year: apr_15_year,
-        apr_5_libor: apr_5_libor
+        "apr_30_year" => apr_30_year,
+        "apr_15_year" => apr_15_year,
+        "apr_5_libor" => apr_5_libor
       }
     end
   end

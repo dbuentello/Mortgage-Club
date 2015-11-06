@@ -10,9 +10,9 @@ module MortgageRateServices
       }).call
 
       {
-        apr_30_year: get_lowest_rates(get_rates("30 year fixed")),
-        apr_15_year: get_lowest_rates(get_rates("15 year fixed")),
-        apr_5_libor: get_lowest_rates(get_rates("5/1 ARM"))
+        "apr_30_year" => get_lowest_rates(get_rates("30 year fixed")),
+        "apr_15_year" => get_lowest_rates(get_rates("15 year fixed")),
+        "apr_5_libor" => get_lowest_rates(get_rates("5/1 ARM"))
       }
     end
 

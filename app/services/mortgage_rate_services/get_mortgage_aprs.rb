@@ -13,12 +13,11 @@ module MortgageRateServices
         wells_fargo = MortgageRateServices::Wellsfargo.call
 
         mortgage_aprs = {
-          zillow: zillow,
-          quicken_loans: quicken_loans,
-          wells_fargo: wells_fargo,
-          updated_at: Time.zone.now
+          "zillow" => zillow,
+          "quicken_loans" => quicken_loans,
+          "wells_fargo" => wells_fargo,
+          "updated_at" => Time.zone.now
         }
-
         REDIS.set(cache_key, mortgage_aprs.to_json)
         REDIS.expire(cache_key, 24.hour.to_i)
       end
@@ -27,22 +26,22 @@ module MortgageRateServices
 
     def self.default_aprs
       {
-        zillow: {
-          apr_30_year: nil,
-          apr_15_year: nil,
-          apr_5_libor: nil
+        "zillow" => {
+          "apr_30_year" => 0,
+          "apr_15_year" => 0,
+          "apr_5_libor" => 0
         },
-        quicken_loans: {
-          apr_30_year: nil,
-          apr_15_year: nil,
-          apr_5_libor: nil
+        "quicken_loans" => {
+          "apr_30_year" => 0,
+          "apr_15_year" => 0,
+          "apr_5_libor" => 0
         },
-        wells_fargo: {
-          apr_30_year: nil,
-          apr_15_year: nil,
-          apr_5_libor: nil
+        "wells_fargo" => {
+          "apr_30_year" => 0,
+          "apr_15_year" => 0,
+          "apr_5_libor" => 0
         },
-        updated_at: Time.zone.now
+        "updated_at" => Time.zone.now
       }
     end
   end
