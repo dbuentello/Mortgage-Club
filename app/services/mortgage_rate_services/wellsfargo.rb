@@ -12,11 +12,11 @@ module MortgageRateServices
 
       doc.css('#productName').each do |rate|
         if rate.text == '5/1 ARM FHA' && rate.at_css('a').attr('href') == '/mortgage/rates/purchase-assumptions?prod=5'
-          apr_5_libor = rate.parent.css('td').last.text.gsub('%', '')
+          apr_5_libor = rate.parent.css('td').last.text.delete('%')
         elsif rate.text == '15-Year Fixed Rate' && rate.at_css('a').attr('href') == '/mortgage/rates/purchase-assumptions?prod=3'
-          apr_15_year = rate.parent.css('td').last.text.gsub('%', '')
+          apr_15_year = rate.parent.css('td').last.text.delete('%')
         elsif rate.text == '30-Year Fixed Rate' && rate.at_css('a').attr('href') == '/mortgage/rates/purchase-assumptions?prod=1'
-          apr_30_year = rate.parent.css('td').last.text.gsub('%', '')
+          apr_30_year = rate.parent.css('td').last.text.delete('%')
         else
           next
         end
