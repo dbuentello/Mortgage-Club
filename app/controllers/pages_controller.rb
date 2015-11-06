@@ -4,6 +4,7 @@ class PagesController < ApplicationController
 
   def index
     @refcode = params[:refcode]
+    @mortgage_aprs = MortgageRateServices::GetMortgageApr.call
   end
 
   def take_home_test

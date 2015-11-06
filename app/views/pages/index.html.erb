@@ -54,42 +54,27 @@
 
           <table class="table homeTable">
             <tr class="table-header">
-              <td>Programs</td><td>Interest rate</td><td>Points</td><td>APR</td>
+              <td>Programs</td><td>Mortgage Club</td><td>Wells Fargo</td><td>Quicken Loans</td>
             </tr>
             <tr>
-              <td>30 Year Fixed<hr/></td><td>3.875%<hr/></td><td>0.000%<hr/></td><td>3.925%<hr/></td>
+              <td>30 Year Fixed<hr/></td>
+              <td><%= @mortgage_aprs['zillow']['apr_30_year'] %>%<hr/></td>
+              <td><%= @mortgage_aprs['wells_fargo']['apr_30_year'] %>%<hr/></td>
+              <td><%= @mortgage_aprs['quicken_loans']['apr_30_year'] %>%<hr/></td>
             </tr>
             <tr>
-              <td>15 Year Fixed<hr/></td><td>3.250%<hr/></td><td>0.000%<hr/></td><td>3.356%<hr/></td>
+              <td>15 Year Fixed<hr/></td>
+              <td><%= @mortgage_aprs['zillow']['apr_15_year'] %>%<hr/></td>
+              <td><%= @mortgage_aprs['wells_fargo']['apr_15_year'] %>%<hr/></td>
+              <td><%= @mortgage_aprs['quicken_loans']['apr_15_year'] %>%<hr/></td>
             </tr>
             <tr>
-              <td>7/1 LIBOR ARM<hr/></td><td>3.150%<hr/></td><td>0.000%<hr/></td><td>3.115%<hr/></td>
-            </tr>
-            <tr>
-              <td>5/1 LIBOR ARM<hr/></td><td>3.250%<hr/></td><td>0.000%<hr/></td><td>3.525%<hr/></td>
+              <td>5/1 Libor ARM<hr/></td>
+              <td><%= @mortgage_aprs['zillow']['apr_5_libor'] %>%<hr/></td>
+              <td><%= @mortgage_aprs['wells_fargo']['apr_5_libor'] %>%<hr/></td>
+              <td><%= @mortgage_aprs['quicken_loans']['apr_5_libor'] %>%<hr/></td>
             </tr>
           </table>
-          <!--
-          <div id="home-right-header">
-            <h1 class="text-uppercase">Today's best rates</h1>
-          </div>
-
-          <div id="home-right-table">
-            <h5>Programs</h5>
-            <div>
-              <div class="home-right-small on"><p>30 Year Fixed</p></div>
-              <div class="home-right-small"><p>15 Year Fixed</p></div>
-              <div class="home-right-small"><p>7/1 LIBOR ARM</p></div>
-              <div class="home-right-small"><p>5/1 LIBOR ARM</p></div>
-            </div>
-          </div>
-
-          <div id="home-right-table2">
-            <div class="home-right-small2"><div class="bigger"><p>3.875%</p></div><div class="smaller">interest rate</div></div>
-            <div class="home-right-small2"><div class="bigger"><p>0.000%</p></div><div class="smaller">Points</div></div>
-            <div class="home-right-small2"><div class="bigger"><p>3.825%</p></div><div class="smaller">APR</div></div>
-          </div>
-          -->
         </div>
       </div>
     </div>
