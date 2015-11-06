@@ -14,7 +14,8 @@ module MortgageRateServices
         mortgage_aprs = {
           zillow: zillow,
           quicken_loans: quicken_loans,
-          wells_fargo: wells_fargo
+          wells_fargo: wells_fargo,
+          updated_at: Time.zone.now
         }
 
         REDIS.set(cache_key, mortgage_aprs.to_json)

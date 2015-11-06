@@ -5,6 +5,8 @@ class PagesController < ApplicationController
   def index
     @refcode = params[:refcode]
     @mortgage_aprs = MortgageRateServices::GetMortgageAprs.call
+    @last_updated = Time.parse(@mortgage_aprs['updated_at']).strftime('%b %d, %G %R%P %Z')
+
   end
 
   def take_home_test
