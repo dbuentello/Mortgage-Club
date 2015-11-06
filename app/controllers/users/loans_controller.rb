@@ -66,7 +66,7 @@ class Users::LoansController < Users::BaseController
         loan.update(amount: loan.primary_property.purchase_price * 0.8)
         ZillowService::UpdatePropertyTax.delay.call(loan.primary_property.id)
         if loan.primary_property.address && loan.primary_property.address.zip
-          ZillowService::GetMortgageRate.delay.call(loan.id, loan.primary_property.address.zip)
+          ZillowService::GetMortgageRates.new(loan.id, loan.primary_property.address.zip).delay.call
         end
       when '2'
         # CreditReportService.delay.get_liabilities(current_user.borrower)

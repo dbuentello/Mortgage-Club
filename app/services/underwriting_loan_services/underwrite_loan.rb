@@ -80,7 +80,7 @@ module UnderwritingLoanServices
 
     def find_eligible_loan_programs
       if address.zip.present?
-        ZillowService::GetMortgageRate.delay.call(loan.id, address.zip)
+        ZillowService::GetMortgageRates.new(loan.id, address.zip).delay.call
       end
     end
 
