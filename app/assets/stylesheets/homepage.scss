@@ -117,6 +117,12 @@
     -webkit-box-shadow: inset 0 8px 6px -6px #999;
          -moz-box-shadow: inset 0 8px 6px -6px #999;
               box-shadow: inset 0 8px 6px -6px #999;
+    .rates {
+      .tooltip-inner {
+        min-width: 250px;
+        font-size: 15px;
+      }
+    }
   }
 
   #home-left {
@@ -186,6 +192,15 @@
     font-weight:600;
   }
 
+  .info-button {
+    width: 25px;
+    margin-left: 5px;
+  }
+
+  #home-right-header p{
+    color:white;
+  }
+
   .homeTable {
     background:white;
     color:black;
@@ -225,7 +240,7 @@
   }
 
   .homeTable tr td:nth-child(2) {
-    width:25%;
+    width:28%;
   }
 
   .homeTable td:last-child {

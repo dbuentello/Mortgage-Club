@@ -2,39 +2,40 @@ require 'capybara'
 require 'capybara/poltergeist'
 
 module ZillowService
-  class GetMortgageRate
+  class CrawlZillowRates
     include HTTParty
     include Capybara::DSL
 
-    def self.call(loan_id, zipcode)
-      return unless zipcode && loan_id.present?
+    attr_accessor :zipcode, :purchase_price, :down_payment, :annual_income, :number_of_results, :crawler
 
-      zipcode = zipcode[0..4] if zipcode.length > 5
-      cache_key = "zillow-mortgage-rates-#{loan_id}-#{zipcode}"
-
-      if lenders = REDIS.get(cache_key)
-        lenders = JSON.parse(lenders)
-      else
-        loan = Loan.find(loan_id)
-        set_up_crawler
-        lenders = get_lenders(loan, zipcode)
-        REDIS.set(cache_key, lenders.to_json)
-        REDIS.expire(cache_key, 8.hour.to_i)
-      end
-      lenders
+    def initialize(args)
+      @zipcode = args[:zipcode]
+      @purchase_price = args[:purchase_price]
+      @down_payment = args[:down_payment]
+      @annual_income = args[:annual_income]
+      @number_of_results = args[:number_of_results]
+      @crawler = set_up_crawler
     end
 
-    private
+    def call
+      raise "zipcode is missing!" unless zipcode.present?
 
-    def self.set_up_crawler
+      request_code = get_request_code(zipcode, purchase_price, down_payment, annual_income)
+      quotes = get_quotes(request_code)
+      get_rates(quotes)
+    end
+
+    def set_up_crawler
       Capybara.register_driver :poltergeist do |app|
         Capybara::Poltergeist::Driver.new(app, {js_errors: false, timeout: 60})
       end
-      @session = Capybara::Session.new(:poltergeist)
-      @session.driver.headers = {'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X)"}
+      crawler = Capybara::Session.new(:poltergeist)
+      crawler.driver.headers = {'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X)"}
+      crawler
     end
 
-    def self.get_request_code(loan, zipcode, purchase_price, down_payment, annual_income)
+
+    def get_request_code(zipcode, purchase_price, down_payment, annual_income)
       user_session_id = "userSessionId=2de70907-6e58-45f6-a7e8-dc2efb69e261" # hardcode session ID
       url =           "https://mortgageapi.zillow.com/submitRequest?"\
                       "property.type=SingleFamilyHome&property.use=Primary"\
@@ -48,20 +49,11 @@ module ZillowService
                       "&desiredPrograms.6=ARM3&purchase.downPayment=#{down_payment}"\
                       "&purchase.firstTimeBuyer=false&purchase.newConstruction=false"\
                       "&partnerId=RD-CZMBMCZ&#{user_session_id}"
-      @session.visit url
-      request_code = @session.text.split('":"').last.chomp('"}')
+      crawler.visit url
+      request_code = crawler.text.split('":"').last.chomp('"}')
     end
 
-    def self.get_lenders(loan, zipcode)
-      purchase_price = get_purchase_price(loan)
-      down_payment = get_down_payment(purchase_price)
-      annual_income = get_annual_income(loan)
-
-      unless request_code = get_request_code(loan, zipcode, purchase_price, down_payment, annual_income)
-        return Rails.logger.error("Cannot get request code")
-      end
-
-      quotes = get_quotes(request_code)
+    def get_rates(quotes)
       connection = Faraday.new("https://mortgageapi.zillow.com/getQuote") do |builder|
         builder.response :oj
         builder.adapter Faraday.default_adapter
@@ -75,20 +67,23 @@ module ZillowService
       end
 
 
-      count = 0 # get some rates for demo purpose only
+      count = 0
       results = []
+      @number_of_results ||= quotes.length
+      quote_id_str = 'quoteId'
+
       quotes.each do |quote_id, _|
         count += 1
         response = connection.get do |request|
-          request.params['quoteId'] = quote_id
+          request.params[quote_id_str] = quote_id
         end
         results << standardlize_data(response.body, down_payment)
-        break if count > 20
+        break if count > @number_of_results
       end
       results
     end
 
-    def self.get_quotes(request_code)
+    def get_quotes(request_code)
       connection = Faraday.new("https://mortgageapi.zillow.com/getQuotes") do |builder|
         builder.response :oj
         builder.adapter Faraday.default_adapter
@@ -114,7 +109,7 @@ module ZillowService
       data["quotes"]
     end
 
-    def self.standardlize_data(lender_data, down_payment)
+    def standardlize_data(lender_data, down_payment)
       info = lender_data["lender"]
       quote = lender_data["quote"]
       lender_name = info["businessName"]
@@ -152,28 +147,6 @@ module ZillowService
         fees: fees, down_payment: down_payment, period: period, lender_credit: lender_credit,
         total_closing_cost: total_closing_cost
       }
-    end
-
-    def self.get_purchase_price(loan)
-      500000
-      # loan.primary_property.purchase_price.round
-    end
-
-    def self.get_down_payment(purchase_price)
-      100000
-      # (purchase_price * 0.2).round
-    end
-
-    def self.get_annual_income(loan)
-      200000
-      # employment = loan.borrower.current_employment
-
-      # if employment.present? && employment.current_salary.present?
-      #   annual_income = (employment.current_salary * 12).round
-      # else
-      #   annual_income = 200000
-      # end
-      # annual_income
     end
   end
 end
