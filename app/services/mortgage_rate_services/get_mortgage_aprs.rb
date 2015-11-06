@@ -1,5 +1,5 @@
 module MortgageRateServices
-  class GetMortgageApr
+  class GetMortgageAprs
 
     def self.call
       cache_key = "mortgage-apr"
