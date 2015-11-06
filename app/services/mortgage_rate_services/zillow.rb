@@ -5,8 +5,7 @@ module MortgageRateServices
         zipcode: 94103,
         purchase_price: 500000,
         down_payment: 100000,
-        annual_income: 200000,
-        number_of_results: 25
+        annual_income: 200000
       }).call
 
       {
