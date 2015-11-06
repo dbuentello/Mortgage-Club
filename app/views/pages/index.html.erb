@@ -38,6 +38,7 @@
     <div class="container">
       <div class="row">
         <div id="home-left" class="col-md-6">
+          <span class="glyphicon glyphicon-info-sign"></span>
           <div id="home-left-header"><h1>Always save time and money on your mortgage</h1></div>
           <p class="lead">Mortgage Club is the first real-time mortgage marketplace where you can easily apply, shop, and lock in the best loan in 10 mins. Lowest rate guaranteed from over 50 partner lenders on our platform.</p>
           <% if Rails.env.production? %>
@@ -51,7 +52,7 @@
           <div id="home-right-header">
             <h1 class="text-uppercase">
               MORTGAGE RATES
-              <%= image_tag("info.png", class: 'info-button', title:"We haven't launched yet but if we ... today. We'd offer these rates. Rates ... in APRs which reflect interest rate ... broker fees, discount points and so .. costs. BTW, our competitors rates") %>
+              <%= image_tag("info.png", class: 'info-button', title:"We haven’t launched yet but if we were live today, we’d offer these rates. Rates are displayed in APRs which reflect interest rate as well as broker fees, discount points and some closing costs. BTW, our competitors’ rates are real too!") %>
             </h1>
             <p class="">(as of <%= @last_updated %>)</p>
           </div>
@@ -62,21 +63,21 @@
             </tr>
             <tr>
               <td>30 Year Fixed<hr/></td>
-              <td><%= @mortgage_aprs['zillow']['apr_30_year'] %>%<hr/></td>
-              <td><%= @mortgage_aprs['wells_fargo']['apr_30_year'] %>%<hr/></td>
-              <td><%= @mortgage_aprs['quicken_loans']['apr_30_year'] %>%<hr/></td>
+              <td><%= sprintf('%.3f', @mortgage_aprs['zillow']['apr_30_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f', @mortgage_aprs['wells_fargo']['apr_30_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f', @mortgage_aprs['quicken_loans']['apr_30_year']) %>%<hr/></td>
             </tr>
             <tr>
               <td>15 Year Fixed<hr/></td>
-              <td><%= @mortgage_aprs['zillow']['apr_15_year'] %>%<hr/></td>
-              <td><%= @mortgage_aprs['wells_fargo']['apr_15_year'] %>%<hr/></td>
-              <td><%= @mortgage_aprs['quicken_loans']['apr_15_year'] %>%<hr/></td>
+              <td><%= sprintf('%.3f', @mortgage_aprs['zillow']['apr_15_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f', @mortgage_aprs['wells_fargo']['apr_15_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f', @mortgage_aprs['quicken_loans']['apr_15_year']) %>%<hr/></td>
             </tr>
             <tr>
               <td>5/1 Libor ARM<hr/></td>
-              <td><%= @mortgage_aprs['zillow']['apr_5_libor'] %>%<hr/></td>
-              <td><%= @mortgage_aprs['wells_fargo']['apr_5_libor'] %>%<hr/></td>
-              <td><%= @mortgage_aprs['quicken_loans']['apr_5_libor'] %>%<hr/></td>
+              <td><%= sprintf('%.3f', @mortgage_aprs['zillow']['apr_5_libor']) %>%<hr/></td>
+              <td><%= sprintf('%.3f', @mortgage_aprs['wells_fargo']['apr_5_libor']) %>%<hr/></td>
+              <td><%= sprintf('%.3f', @mortgage_aprs['quicken_loans']['apr_5_libor']) %>%<hr/></td>
             </tr>
           </table>
         </div>
