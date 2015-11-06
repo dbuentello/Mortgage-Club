@@ -38,7 +38,6 @@ Feature: Referrals
             To: test1@mortgageclub.io
             Subject: Billy Tran has invited you to join Mortgage Club
             """
-          And I click on "Log out"
           And "test1@mortgageclub.io" should receive an email
           Then I open the email
             And I should see "<b>Billy Tran</b> has invited you to join Mortgage Club" in the email body
