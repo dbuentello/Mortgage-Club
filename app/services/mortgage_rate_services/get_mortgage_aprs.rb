@@ -12,6 +12,8 @@ module MortgageRateServices
         quicken_loans = MortgageRateServices::Quickenloans.call
         wells_fargo = MortgageRateServices::Wellsfargo.call
 
+        edit_rates(zillow, quicken_loans, wells_fargo)
+
         mortgage_aprs = {
           "zillow" => zillow,
           "quicken_loans" => quicken_loans,
@@ -43,6 +45,18 @@ module MortgageRateServices
         },
         "updated_at" => Time.zone.now
       }
+    end
+
+    def self.edit_rates(zillow, quicken_loans, wells_fargo)
+      zillow.each do |type, rate|
+        if should_edit_rate?(rate, quicken_loans[type], wells_fargo[type])
+          zillow[type] = (quicken_loans[type] > wells_fargo[type]) ? (wells_fargo[type] - 0.125) : (quicken_loans[type] - 0.125)
+        end
+      end
+    end
+
+    def self.should_edit_rate?(zillow_rate, quicken_loans_rate, wells_fargo_rate)
+      zillow_rate == 0 || zillow_rate > quicken_loans_rate || zillow_rate > wells_fargo_rate
     end
   end
 end
