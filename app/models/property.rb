@@ -93,7 +93,7 @@ class Property < ActiveRecord::Base
   end
 
   def completed?
-    property_type.present? && usage.present? && address.present? && address.completed
+    property_type.present? && usage.present? && address.present?
   end
 
   def refinance_completed?

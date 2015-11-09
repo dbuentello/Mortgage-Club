@@ -119,7 +119,7 @@ class Loan < ActiveRecord::Base
   end
 
   def property_completed
-    properties.size > 0 && primary_property && primary_property.completed? && purpose_completed?
+    primary_property && primary_property.completed? && purpose_completed?
   end
 
   def borrower_completed
@@ -158,7 +158,7 @@ class Loan < ActiveRecord::Base
   end
 
   def primary_property
-    properties.includes(:address).find { |p| p.is_primary == true }
+    @primary_property ||= properties.includes(:address).find { |p| p.is_primary == true }
   end
 
   def rental_properties
