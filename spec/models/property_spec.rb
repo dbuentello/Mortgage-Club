@@ -49,34 +49,34 @@ describe Property do
     end
   end
 
-  describe '#mortgage_payment_amount' do
+  describe '#mortgage_payment' do
     context 'existent mortgage liability' do
       let!(:liability) { FactoryGirl.create(:liability, account_type: 'Mortgage' ,property: property) }
 
       it 'returns payment of mortgage liability' do
-        expect(property.mortgage_payment_amount).to eq(liability.payment)
+        expect(property.mortgage_payment).to eq(liability.payment)
       end
     end
 
     context 'non-existent mortgage liability' do
       it 'returns 0' do
-        expect(property.mortgage_payment_amount).to eq(0)
+        expect(property.mortgage_payment).to eq(0)
       end
     end
   end
 
-  describe '#other_financing_amount' do
+  describe '#other_financing' do
     context 'existent other financing liability' do
       let!(:liability) { FactoryGirl.create(:liability, account_type: 'OtherFinancing' ,property: property) }
 
       it 'returns payment of other financing liability' do
-        expect(property.other_financing_amount).to eq(liability.payment)
+        expect(property.other_financing).to eq(liability.payment)
       end
     end
 
     context 'non-existent other financing liability' do
       it 'returns 0' do
-        expect(property.other_financing_amount).to eq(0)
+        expect(property.other_financing).to eq(0)
       end
     end
   end

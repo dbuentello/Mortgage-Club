@@ -70,7 +70,7 @@ module ZillowService
       count = 0
       results = []
       @number_of_results ||= quotes.length
-      quote_id_str = 'quoteId'.freeze
+      quote_id_str = 'quoteId'
 
       quotes.each do |quote_id, _|
         count += 1
@@ -110,30 +110,30 @@ module ZillowService
     end
 
     def standardlize_data(lender_data, down_payment)
-      info = lender_data["lender".freeze]
-      quote = lender_data["quote".freeze]
-      lender_name = info["businessName".freeze]
-      nmls = info["nmlsLicense".freeze]
-      website = info["profileWebsiteURL".freeze]
-      apr = quote["apr".freeze]
-      monthly_payment = quote["monthlyPayment".freeze]
-      loan_amount = quote["loanAmount".freeze]
-      interest_rate = quote["rate".freeze].to_f / 100
-      lender_credit = quote["lenderCredit".freeze]
+      info = lender_data["lender"]
+      quote = lender_data["quote"]
+      lender_name = info["businessName"]
+      nmls = info["nmlsLicense"]
+      website = info["profileWebsiteURL"]
+      apr = quote["apr"]
+      monthly_payment = quote["monthlyPayment"]
+      loan_amount = quote["loanAmount"]
+      interest_rate = quote["rate"].to_f / 100
+      lender_credit = quote["lenderCredit"]
 
-      if quote["arm".freeze]
-        product = "#{quote["arm".freeze]["fixedRateMonths"] / 12}/1 ARM".freeze
-        period = quote["arm"]["fixedRateMonths".freeze]
+      if quote["arm"]
+        product = "#{quote["arm"]["fixedRateMonths"] / 12}/1 ARM"
+        period = quote["arm"]["fixedRateMonths"]
       else
-        product = "#{quote["termMonths"] / 12} year fixed".freeze
-        period = quote["termMonths".freeze]
+        product = "#{quote["termMonths"] / 12} year fixed"
+        period = quote["termMonths"]
       end
 
       total_fee = 0
       fees = {}
-      quote["fees".freeze].each do |fee|
-        fees[fee["name".freeze]] = fee["amount".freeze]
-        total_fee += fee["amount".freeze]
+      quote["fees"].each do |fee|
+        fees[fee["name"]] = fee["amount"]
+        total_fee += fee["amount"]
       end
 
       lender_credit = lender_credit.present? ? lender_credit : 0

@@ -8,6 +8,7 @@ var PropertyTab = React.createClass({
     return '/document_uploaders/base_document/' + id + '/download?type=' + type
   },
   render: function() {
+    console.dir(this.props.propertyList);
     return (
       <div className="box boxBasic backgroundBasic">
         <div className="boxBody ptm">

@@ -12,7 +12,7 @@ module UnderwritingLoanServices
 
     def self.sum_investment(properties)
       properties.inject(0) do |sum, property|
-        sum + property.mortgage_payment_amount + property.other_financing_amount
+        sum + property.mortgage_payment + property.other_financing
       end
     end
   end

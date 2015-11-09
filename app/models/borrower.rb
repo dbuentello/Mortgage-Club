@@ -127,8 +127,4 @@ class Borrower < ActiveRecord::Base
   def credit_score
     credit_report.score
   end
-
-  def update_declaration_completed(assertion)
-    self.update(declaration_completed: assertion)
-  end
 end

@@ -167,6 +167,15 @@ var Property = React.createClass({
     this.setState({focusedField: field});
   },
 
+  // componentDidMount: function() {
+  //   var state = {};
+  //   state.mortgagePayment = this.props.property.mortgage_payment ? this.props.property.mortgage_payment.id : null;
+  //   state.otherFinancing = this.props.property.other_financing ? this.props.property.other_financing.id : null;
+  //   state.mortgageLiabilities = this.reloadMortgageLiabilities(state.otherFinancing);
+  //   state.otherFinancingLiabilities = this.reloadOtherFinancingLiabilities(state.mortgagePayment);
+  //   this.setState(state);
+  // },
+
   render: function() {
     var index = this.props.index;
 
