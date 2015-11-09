@@ -122,10 +122,22 @@ class LoanPresenter
     }
   end
 
+  def show_loan_dashboard_json_options
+    {
+      include: {
+        borrower: { only: [:id] },
+        closing: { only: [:id] },
+      },
+      only: [:id, :amount, :created_at, :interest_rate, :amortization_type],
+      methods: [
+        :num_of_years, :ltv_formula, :purpose_titleize, :primary_property
+      ]
+    }
+  end
+
   def loan_documents_json_options
     {
       methods: [ :file_icon_url, :class_name, :owner_name ]
     }
   end
-
 end
