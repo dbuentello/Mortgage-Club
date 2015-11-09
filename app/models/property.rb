@@ -108,12 +108,12 @@ class Property < ActiveRecord::Base
     liabilities.sum(:payment)
   end
 
-  def mortgage_payment_amount
+  def mortgage_payment
     liability = liabilities.where(account_type: 'Mortgage').last
     liability.present? ? liability.payment.to_f : 0
   end
 
-  def other_financing_amount
+  def other_financing
     liability = liabilities.where(account_type: 'OtherFinancing').last
     liability.present? ? liability.payment.to_f : 0
   end
