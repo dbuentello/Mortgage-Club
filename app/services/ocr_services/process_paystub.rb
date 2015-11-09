@@ -11,8 +11,8 @@ module OcrServices
 
       paystub_ocr = OcrServices::UpdatePaystubOcr.new(data, borrower_id).call
       # if paystub_ocr.saved_two_paystub_result? # demo purpose only
-        standardized_data = OcrServices::StandardizePaystubData.new(borrower_id).call
-        OcrServices::UpdateEmployment.new(standardized_data, borrower_id).call if standardized_data.present?
+      standardized_data = OcrServices::StandardizePaystubData.new(borrower_id).call
+      OcrServices::UpdateEmployment.new(standardized_data, borrower_id).call if standardized_data.present?
       # end
     end
   end

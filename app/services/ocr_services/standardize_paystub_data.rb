@@ -24,7 +24,7 @@ module OcrServices
     end
 
     def employer_name
-      return ocr_data.employer_name_1 # demo purpose only
+      ocr_data.employer_name_1 # demo purpose only
 
       # return if percentage_similarity(ocr_data.employer_name_1, ocr_data.employer_name_2) < 0.97
 
@@ -55,7 +55,7 @@ module OcrServices
     end
 
     def salary
-      return ocr_data.current_salary_1 # demo purpose only
+      ocr_data.current_salary_1 # demo purpose only
 
       # if valid_salary?(ocr_data.current_salary_1, ocr_data.current_salary_2)
       #   return (ocr_data.current_salary_1 > ocr_data.current_salary_2 ? ocr_data.current_salary_1 : ocr_data.current_salary_2).ceil
@@ -67,7 +67,7 @@ module OcrServices
     end
 
     def ytd_salary
-      return ocr_data.ytd_salary_1 # demo purpose only
+      ocr_data.ytd_salary_1 # demo purpose only
 
       # return unless valid_salary?(ocr_data.ytd_salary_1, ocr_data.ytd_salary_2)
 
@@ -75,7 +75,7 @@ module OcrServices
     end
 
     def employer_street_address
-      return ocr_data.address_first_line_1 # demo purpose only
+      ocr_data.address_first_line_1 # demo purpose only
 
       # first_line = employer_address_line(ocr_data.address_first_line_1, ocr_data.address_first_line_2)
       # return first_line if first_line.present?

@@ -12,7 +12,7 @@ module UnderwritingLoanServices
 
     def call
       find_eligible_loan_programs # call it first for demo purpose
-      return true # demo purpose only
+      true # demo purpose only
 
       # verify_property
       # verify_property_eligibility
