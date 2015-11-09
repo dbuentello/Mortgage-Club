@@ -37,17 +37,12 @@
 
     <div class="container">
       <div class="row">
-        <div id="home-left" class="col-md-6">
-          <div id="home-left-header"><h1>Always save time and money on your mortgage</h1></div>
-          <p class="lead">Mortgage Club is the first real-time mortgage marketplace where you can easily apply, shop, and lock in the best loan in 10 mins. Lowest rate guaranteed from over 50 partner lenders on our platform.</p>
-          <% if Rails.env.production? %>
-            <a id="applyBtn" class="btn btn-lg theBtn text-uppercase col-md-offset-4" href="http://www.mortgageclub.io/loans/cd70d96b-3902-44dd-a840-9ef762aa96a2/edit" role="button">find my rate</a>
-          <% else %>
-            <a id="applyBtn" class="btn btn-lg theBtn text-uppercase col-md-offset-4" href="/signup" role="button">find my rate</a>
-          <% end %>
+        <div id="home-left" class="col-md-12">
+          <div id="home-left-header"><h1>The easiest way to get a mortgage.</h1></div>
+          <p class="lead">Apply in minutes. Shop all qualified loan programs. Lock in the best mortgage immediately.</p>
         </div>
 
-        <div id="home-right" class="col-md-6 rates">
+        <div id="home-right" class="col-md-offset-3 col-md-6 rates">
           <div id="home-right-header">
             <h1 class="text-uppercase">
               MORTGAGE RATES
@@ -79,6 +74,13 @@
               <td><%= sprintf('%.3f', @mortgage_aprs['quicken_loans']['apr_5_libor']) %>%<hr/></td>
             </tr>
           </table>
+          <div>
+            <% if Rails.env.production? %>
+              <a id="applyBtn" class="btn btn-lg theBtn text-uppercase" href="http://www.mortgageclub.io/loans/cd70d96b-3902-44dd-a840-9ef762aa96a2/edit" role="button">find my rate</a>
+            <% else %>
+              <a id="applyBtn" class="btn btn-lg theBtn text-uppercase" href="/signup" role="button">find my rate</a>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
@@ -115,21 +117,23 @@
         <div class="col-md-4 col-md-offset-4 textBubble">
           <div class="row">
             <div id="top-info" class="col-md-12">
-              Total savings of $37,893 over 30 years.
+              Total savings of $27,772.94 over 9 years.
             </div>
           </div>
           <div class="row">
             <div id="left-info" class="col-md-6 col-sm-6 col-xs-6">
-              <h6>MortgageClub</h6>
-              <p>3.75% rate (3.825% APR)</p>
-              <p>$800 lender fees</p>
-              <p>$1,200 lender credit</p>
+              <h6>Mortgage Club</h6>
+              <p>$500k 30-year fixed</p>
+              <p>3.625% rate (3.625% APR)</p>
+              <p>$0 origination fees</p>
+              <p>$2,500 Mortgage Club rebate</p>
             </div>
             <div id="right-info" class="col-md-6 col-sm-6 col-xs-6">
               <h6>Wells Fargo</h6>
-              <p>3.825% rate (3.93% APR)</p>
-              <p>$1,400 lender fees</p>
-              <p>$0 lender credit</p>
+              <p>$500k 30-year fixed</p>
+              <p>4.125% rate (4.221% APR)</p>
+              <p>$900 origination fees</p>
+              <p>$0 rebate</p>
             </div>
           </div>
         </div>
@@ -166,7 +170,7 @@
           <div class="bigNum">2</div>
           <div class="whyText">
             <h6>Save Time</h6>
-            <p>By leveraging our technology, you can complete the loan application online in 10 mins and close your loan in 15.</p>
+            <p>By leveraging our technology, you can complete the loan application online in 10 mins and close your loan in 15 days.</p>
           </div>
         </div>
       </div>
@@ -221,7 +225,7 @@
           <div class="bigNum">1</div>
           <div class="whyText">
             <h6>Apply</h6>
-            <p>Spend 10 mins to give us your info, upload your documents, and we handle the rest. Our proprietarya technology can extract data from your documents and public records to minimize manual data entry.</p>
+            <p>Spend 10 mins to give us your info, upload your documents, and we handle the rest. Our proprietary technology can extract data from your documents and public records to minimize manual data entry.</p>
           </div>
         </div>
 
@@ -280,24 +284,24 @@
 
       <div class="clients row">
         <div class="client col-md-4 col-sm-4 col-xs-12 clearfix">
-          <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae ipsum iaculis est aliquet sodaasles.”</p>
-          <%= image_tag("client1.jpg") %>
-          <h4>Gus M.</h4>
-          <h6>Tuscon, AZ</h6>
+          <p>“We saved a ton of money on fees and our refinancing rate was great. I would highly recommend MortgageClub to my friends.”</p>
+          <%= image_tag("client1.png") %>
+          <h4>Antonio & Nikki</h4>
+          <h6>Alameda, CA</h6>
         </div>
 
         <div class="client col-md-4 col-sm-4 col-xs-12 clearfix">
-          <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae ipsum iaculis est aliquet sodaasles.”</p>
-          <%= image_tag("client2.jpg") %>
-          <h4>Jeffrey B.</h4>
-          <h6>Las Vegas, NY</h6>
+          <p>“MortgageClub is a delight to work with. Within less than a month from the date of our application, we received a check for our loan.”</p>
+          <%= image_tag("client2.png") %>
+          <h4>Vinh & Theresa</h4>
+          <h6>Danville, CA</h6>
         </div>
 
         <div class="client col-md-4 col-sm-4 col-xs-12 clearfix">
-          <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae ipsum iaculis est aliquet sodaasles.”</p>
+          <p>“I chose MortgageClub because they had the lowest advertised rate and closing costs as I looked at mortgage re-fi's on the Zillow web site.”</p>
           <%= image_tag("client3.jpg") %>
-          <h4>Michael L.</h4>
-          <h6>Phoenix, AZ</h6>
+          <h4>Paul</h4>
+          <h6>San Mateo, CA</h6>
         </div>
       </div>
     </div>

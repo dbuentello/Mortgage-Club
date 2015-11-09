@@ -126,26 +126,26 @@
   }
 
   #home-left {
-    text-align:left;
-    padding-top:60px;
+    text-align:center;
+    padding-top:10px;
   }
 
   #home-left h1 {
-    font-size:1.7em;
+    font-size:2.7em;
     color: white;
-    padding:15px 5px;
+    padding:5px 5px;
     margin:0;
-    font-weight:500;
+    font-weight:600;
   }
 
   #home-left p {
-    margin: 25px 20px;
+    margin: 5px 20px;
     color: white;
     font-size:1.6em;
     line-height:1.6em;
     font-family:'aileronlight';
     letter-spacing:0.06em;
-    text-align:left;
+    text-align:center;
 
   }
 
@@ -168,8 +168,7 @@
 
   #home-right {
     text-align:center;
-    margin-bottom:100px;
-    margin-top:60px;
+    margin-top:20px;
     padding-left:20px;
     padding-right:20px;
     padding-bottom:35px;
@@ -182,18 +181,18 @@
   }
 
   #home-right-header h1{
-    font-size:1.75em;
+    font-size:1.25em;
+    font-family: 'aileronsemibold';
     color:white;
     padding-top:10px;
     padding-bottom:10px;
     margin:0;
     letter-spacing:.05em;
-    font-size:2em;
     font-weight:600;
   }
 
   .info-button {
-    width: 25px;
+    width: 22px;
     margin-left: 5px;
   }
 
@@ -364,7 +363,7 @@
   }
 
   #left-info, #right-info {
-    padding-top:57px;
+    padding-top:70px;
     padding-left:20px;
     padding-right:0;
   }
@@ -524,7 +523,8 @@
   }
 
   .client img {
-    padding-top:40px;
+    border-radius: 50%;
+    margin-top:20px;
     width:35%;
     height:auto;
   }
