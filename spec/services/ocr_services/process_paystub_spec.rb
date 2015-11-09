@@ -9,13 +9,13 @@ describe OcrServices::ProcessPaystub do
     OcrServices::ProcessPaystub.call(nil)
   end
 
-  it "calls UpdatePaystubOcr service" do
-    allow(OcrServices::ParseXmlFile).to receive(:call).and_return({
-      borrower_id: borrower.id
-    })
-    expect_any_instance_of(OcrServices::UpdatePaystubOcr).to receive(:call).and_return(ocr_with_first_document)
-    OcrServices::ProcessPaystub.call(nil)
-  end
+  # it "calls UpdatePaystubOcr service" do
+  #   allow(OcrServices::ParseXmlFile).to receive(:call).and_return({
+  #     borrower_id: borrower.id
+  #   })
+  #   expect_any_instance_of(OcrServices::UpdatePaystubOcr).to receive(:call).and_return(ocr_with_first_document)
+  #   OcrServices::ProcessPaystub.call(nil)
+  # end
 
   context "saved_two_paystub_result?" do
     let(:ocr) { FactoryGirl.create(:ocr_with_full_data) }
