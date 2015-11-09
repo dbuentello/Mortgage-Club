@@ -125,8 +125,8 @@ class LoanPresenter
   def show_loan_dashboard_json_options
     {
       include: {
-        borrower: { only: [:id] },
-        closing: { only: [:id] },
+        borrower: {only: [:id]},
+        closing: {only: [:id]},
       },
       only: [:id, :amount, :created_at, :interest_rate, :amortization_type],
       methods: [
