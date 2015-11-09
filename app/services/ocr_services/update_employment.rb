@@ -12,23 +12,12 @@ module OcrServices
 
     def call
       return unless @borrower && data
-      clean_data
 
       if employment.present?
         update_employment
       else
         new_employment = create_new_employment
         create_employer_address(new_employment)
-      end
-    end
-
-    def clean_data
-      if @data[:current_salary].present? && @data[:current_salary].is_a?(String)
-        @data[:current_salary] = @data[:current_salary].delete(",").to_f
-      end
-
-      if @data[:ytd_salary].present? && @data[:ytd_salary].is_a?(String)
-        @data[:ytd_salary] = @data[:ytd_salary].delete(",").to_f
       end
     end
 
