@@ -69,6 +69,7 @@ module ZillowService
 
       count = 0
       results = []
+
       @number_of_results ||= quotes.length
       quote_id_str = 'quoteId'.freeze
 
@@ -102,11 +103,12 @@ module ZillowService
 
       count = 0 # Fix bug on Heroku: data["quotes"] might be empty in first request.
 
-      while count <= 10 && data["quotes"].empty?
+      while count <= 10 && data["quotes".freeze].empty?
         data = connection.get.body
         count += 1
       end
-      data["quotes"]
+
+      quotes = data["quotes"].sort_by { |k, v| v["apr"] }.to_h
     end
 
     def standardlize_data(lender_data, down_payment)
