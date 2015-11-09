@@ -99,6 +99,8 @@ class Loan < ActiveRecord::Base
   accepts_nested_attributes_for :secondary_borrower, allow_destroy: true
 
   delegate :completed?, to: :borrower, prefix: :borrower
+  delegate :income_completed, to: :borrower, allow_nil: true
+  delegate :declaration_completed, to: :borrower, allow_nil: true
 
   PERMITTED_ATTRS = [
     :credit_check_agree,
@@ -130,10 +132,6 @@ class Loan < ActiveRecord::Base
     end
   end
 
-  def income_completed
-    borrower.income_completed?
-  end
-
   def credit_completed
     credit_check_agree
   end
@@ -146,10 +144,6 @@ class Loan < ActiveRecord::Base
     primary_property.estimated_property_tax.present? &&
     primary_property.estimated_hazard_insurance.present? &&
     primary_property.hoa_due.present?
-  end
-
-  def declarations_completed
-    borrower.declaration && borrower.declaration.completed?
   end
 
   def purpose_completed?
@@ -185,8 +179,6 @@ class Loan < ActiveRecord::Base
   end
 
   def relationship_manager
-    return if loans_members_associations.empty?
-
     association = loans_members_associations.where(loan_id: self.id, title: 'manager').last
     association.loan_member if association
   end

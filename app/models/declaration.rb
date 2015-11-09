@@ -44,6 +44,8 @@ class Declaration < ActiveRecord::Base
     :title_of_property
   ]
 
+  after_save :update_declaration_completed_for_borrower
+
   def completed?
     !(outstanding_judgment.nil? && bankrupt.nil? && property_foreclosed.nil? &&
     party_to_lawsuit.nil? && loan_foreclosure.nil? && child_support.nil? &&
@@ -52,4 +54,9 @@ class Declaration < ActiveRecord::Base
     type_of_property.nil? && title_of_property.nil?)
   end
 
+  def update_declaration_completed_for_borrower
+    return unless borrower
+
+    borrower.update_declaration_completed(completed?)
+  end
 end
