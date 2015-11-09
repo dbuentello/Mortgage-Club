@@ -82,7 +82,9 @@ class Borrower < ActiveRecord::Base
   }
 
   def current_address
-    borrower_addresses.find_by(is_current: true)
+    Rails.cache.fetch("current_address-#{id}-#{updated_at.to_i}", expires_in: 7.day) do
+      borrower_addresses.find_by(is_current: true)
+    end
   end
 
   def display_current_address
@@ -90,7 +92,9 @@ class Borrower < ActiveRecord::Base
   end
 
   def previous_addresses
-    borrower_addresses.where(is_current: false)
+    Rails.cache.fetch("previous_address-#{id}-#{updated_at.to_i}", expires_in: 7.day) do
+      borrower_addresses.where(is_current: false)
+    end
   end
 
   def current_employment
