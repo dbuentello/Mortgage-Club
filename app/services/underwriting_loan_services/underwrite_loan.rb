@@ -12,22 +12,23 @@ module UnderwritingLoanServices
 
     def call
       find_eligible_loan_programs # call it first for demo purpose
+      true # demo purpose only
 
-      verify_property
-      verify_property_eligibility
-      verify_credit_score
-      # verifying_borrower_income
-      verify_debt_to_income_and_ratio
-      # verify_down_payment_and_cash_reserves
-      # calculate_loan_to_value_ratio
-      # verify_borrower_experience
+      # verify_property
+      # verify_property_eligibility
+      # verify_credit_score
+      # # verifying_borrower_income
+      # verify_debt_to_income_and_ratio
+      # # verify_down_payment_and_cash_reserves
+      # # calculate_loan_to_value_ratio
+      # # verify_borrower_experience
 
-      if valid_loan?
-        # find_eligible_loan_programs
-        return true
-      else
-        return false
-      end
+      # if valid_loan?
+      #   # find_eligible_loan_programs
+      #   return true
+      # else
+      #   return false
+      # end
     end
 
 
