@@ -49,6 +49,7 @@ class BorrowerDocument < ActiveRecord::Base
 
   before_validation :set_private_token, :on => :create
   before_validation :set_description
+  after_save :update_income_completed_for_borrower
 
   def downloadable?(user)
     return false if borrower.blank? || user.blank? || user.borrower.blank?
@@ -77,6 +78,11 @@ class BorrowerDocument < ActiveRecord::Base
   end
 
   private
+
+  def update_income_completed_for_borrower
+    return unless borrower = owner.borrower
+    borrower.update(income_completed: borrower.income_completed?)
+  end
 
   def set_private_token
     self.token = Digest::MD5.hexdigest(Time.now.utc.to_s)

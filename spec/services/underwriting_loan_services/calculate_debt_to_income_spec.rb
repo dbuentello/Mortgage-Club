@@ -20,8 +20,8 @@ describe UnderwritingLoanServices::CalculateDebtToIncome do
 
   describe ".sum_investment" do
     it "returns sum of property's investment" do
-      sum = first_property.mortgage_payment + first_property.other_financing +
-            second_property.mortgage_payment + second_property.other_financing
+      sum = first_property.mortgage_payment_amount + first_property.other_financing_amount +
+            second_property.mortgage_payment_amount + second_property.other_financing_amount
       expect(
         UnderwritingLoanServices::CalculateDebtToIncome.sum_investment(
           loan.rental_properties

@@ -13,7 +13,7 @@ class Users::LoansController < Users::BaseController
     @ref_code = params[:refcode]
 
     bootstrap(
-      loans: LoansPresenter.new(current_user.loans).show,
+      loans: LoansPresenter.new(current_user.loans).show_dashboard,
       invites: InvitesPresenter.index(invites),
       refCode: @ref_code,
       refLink: ref_url,
@@ -112,9 +112,9 @@ class Users::LoansController < Users::BaseController
 
   def load_liabilities
     credit_report = @loan.borrower.credit_report
-    if credit_report.liabilities.present?
-      @liabilities = credit_report.liabilities
-    else
+    @liabilities = credit_report.liabilities
+
+    if @liabilities.empty?
       @liabilities = CreditReportServices::ParseSampleXml.call(@loan.borrower)
     end
   end

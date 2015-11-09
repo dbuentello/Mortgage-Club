@@ -11,6 +11,10 @@ class LoanPresenter
     @loan.as_json(show_loan_json_options)
   end
 
+  def show_dashboard
+    @loan.as_json(show_loan_dashboard_json_options)
+  end
+
   def show_loan_activities
     @loan.as_json(show_loan_activities_json_options)
   end
@@ -58,7 +62,7 @@ class LoanPresenter
         }
       },
       methods: [
-        :property_completed, :borrower_completed, :income_completed, :credit_completed, :assets_completed, :declarations_completed, :primary_property, :rental_properties
+        :property_completed, :borrower_completed, :credit_completed, :assets_completed, :primary_property, :rental_properties
       ]
     }
   end
@@ -116,6 +120,15 @@ class LoanPresenter
           only: [:id]
         }
       },
+      methods: [
+        :num_of_years, :ltv_formula, :purpose_titleize, :primary_property
+      ]
+    }
+  end
+
+  def show_loan_dashboard_json_options
+    {
+      only: [ :id, :amount, :created_at, :interest_rate, :amortization_type ],
       methods: [
         :num_of_years, :ltv_formula, :purpose_titleize, :primary_property
       ]
