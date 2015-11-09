@@ -77,7 +77,7 @@ var FormIncome = React.createClass({
 
   afterUploadingDocument: function() {
     if (this.props.loan.borrower.current_employment) {
-      setTimeout(_.bind(this.updateEmploymentData), 25000);
+      setTimeout(_.bind(this.updateEmploymentData), 10000);
     }
   },
 

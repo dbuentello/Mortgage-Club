@@ -36,7 +36,7 @@ module ZillowService
         purchase_price: purchase_price,
         down_payment: down_payment,
         annual_income: annual_income,
-        number_of_results: 20
+        number_of_results: 25
       }).call
     end
 
