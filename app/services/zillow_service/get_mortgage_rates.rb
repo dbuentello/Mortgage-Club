@@ -20,7 +20,7 @@ module ZillowService
       else
         rates = call_crawler_to_get_rates
         REDIS.set(cache_key, rates.to_json)
-        REDIS.expire(cache_key, 8.hour.to_i)
+        REDIS.expire(cache_key, 1.hour.to_i)
       end
 
       rates
