@@ -139,7 +139,7 @@ var Property = React.createClass({
 
   getPropertyType: function(type_name) {
     for (var i=0, iLen=propertyTypes.length; i<iLen; i++) {
-      if (propertyTypes[i]['name'] == type_name) return propertyTypes[i]['value'];
+      if (propertyTypes[i]['value'] == type_name) return propertyTypes[i]['value'];
     }
     return null;
   },
