@@ -51,14 +51,20 @@ module MortgageRateServices
       zillow.each do |type, rate|
         quicken_loans_rate = quicken_loans[type]
         wells_fargo_rate = wells_fargo[type]
-        if should_edit_rate?(rate, quicken_loans_rate, wells_fargo_rate)
-          zillow[type] = [quicken_loans_rate, wells_fargo_rate].min - 0.538
+        offset = (type == "apr_30_year") ? 0.538 : 0.125
+
+        if should_edit_rate?(rate, quicken_loans_rate, wells_fargo_rate, type)
+          zillow[type] = [quicken_loans_rate, wells_fargo_rate].min - offset
         end
       end
     end
 
-    def self.should_edit_rate?(zillow_rate, quicken_loans_rate, wells_fargo_rate)
-      zillow_rate == 0 || zillow_rate > ([quicken_loans_rate, wells_fargo_rate].min - 0.375)
+    def self.should_edit_rate?(zillow_rate, quicken_loans_rate, wells_fargo_rate, type)
+      if type == "apr_30_year"
+        return (zillow_rate == 0 || zillow_rate > ([quicken_loans_rate, wells_fargo_rate].min - 0.375))
+      else
+        return (zillow_rate == 0 || zillow_rate > [quicken_loans_rate, wells_fargo_rate].min)
+      end
     end
   end
 end
