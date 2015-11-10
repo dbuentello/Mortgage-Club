@@ -5,7 +5,7 @@ module ZillowService
     def initialize(loan_id, zipcode)
       @loan = Loan.find_by_id(loan_id)
       @loan_id = loan_id
-      @zipcode = zipcode
+      @zipcode = zipcode.to_s
     end
 
     def call
