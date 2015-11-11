@@ -135,7 +135,7 @@ module ZillowService
       fees = {}
       quote["fees".freeze].each do |fee|
         fees[fee["name".freeze]] = fee["amount".freeze]
-        total_fee += fee["amount".freeze]
+        total_fee += fee["amount"]
       end
 
       lender_credit = lender_credit.present? ? lender_credit : 0
