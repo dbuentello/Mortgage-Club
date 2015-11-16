@@ -5,11 +5,11 @@ var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var BooleanRadio = require('components/form/BooleanRadio');
 var Property = require('./Property');
+var SelectedLiabilityArr = [];
 
 var fields = {
   ownsRental: {label: '', name: 'owns_rental', helpText: null},
 };
-
 
 var FormAssetsAndLiabilities = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
@@ -21,10 +21,15 @@ var FormAssetsAndLiabilities = React.createClass({
       state[field.name] = null;
     });
 
+    state.liabilities = _.sortBy(this.props.bootstrapData.liabilities, function (lib) {
+      return parseFloat(lib.payment);
+    });
+
     state.own_investment_property = this.props.loan.own_investment_property;
     state.rental_properties = this.props.loan.rental_properties;
     state.primary_property = this.props.loan.primary_property;
     state.saving = false;
+
     return state;
   },
 
@@ -32,7 +37,6 @@ var FormAssetsAndLiabilities = React.createClass({
     var key = _.keys(change)[0];
     var value = _.values(change)[0];
     this.setState(this.setValue(this.state, key, value));
-
     if (change.own_investment_property == true && this.state.rental_properties.length == 0) {
       this.addProperty();
     }
@@ -48,10 +52,28 @@ var FormAssetsAndLiabilities = React.createClass({
         key={index}
         index={index}
         property={property}
+        liabilities = {this.state.liabilities}
         isShowRemove={this.state.rental_properties.length > 1}
         onRemove={this.removeProperty}/>
     );
   },
+
+  // keepTrackOfSelectedLiabilities: function(unselectedLiability, selectedLiability) {
+  //   var liabilities = [];
+  //   _.remove(SelectedLiabilityArr, function(liabilityID) { return liabilityID == unselectedLiability; });
+  //   if (selectedLiability) {
+  //     SelectedLiabilityArr.push(selectedLiability);
+  //   }
+
+  //   _.each(this.props.bootstrapData.liabilities, function (liability) {
+  //     if (SelectedLiabilityArr.indexOf(liability.id) <= -1) {
+  //       liabilities.push(liability);
+  //     }
+  //   });
+
+  //   console.dir(liabilities);
+  //   this.setState({liabilities: liabilities});
+  // },
 
   render: function() {
     return (
@@ -60,7 +82,9 @@ var FormAssetsAndLiabilities = React.createClass({
           <div className='pal'>
             <div className='box mvn'>
               <h5 className='typeDeemphasize'>Your primary residence</h5>
-              <Property property={this.state.primary_property} />
+              <Property
+                property={this.state.primary_property}
+                liabilities={this.state.liabilities}/>
             </div>
           </div>
 
@@ -126,11 +150,9 @@ var FormAssetsAndLiabilities = React.createClass({
     return {
       address: {},
       property_type: null,
-      mortgage_payment: null,
       other_mortgage_payment: null,
       market_price: null,
       financing: null,
-      other_financing: null,
       mortgage_includes_escrows: null,
       estimated_mortgage_insurance: null,
       estimated_hazard_insurance: null,
@@ -166,11 +188,12 @@ var FormAssetsAndLiabilities = React.createClass({
       },
       success: function(response) {
         this.props.setupMenu(response, 4);
-        this.setState({saving: false});
+        this.props.bootstrapData.liabilities = response.liabilities;
+        // this.setState({saving: false});
       },
       error: function(response, status, error) {
-        alert(error);
-        this.setState({saving: false});
+        alert(response.responseJSON.message);
+        // this.setState({saving: false});
       }
     });
   }

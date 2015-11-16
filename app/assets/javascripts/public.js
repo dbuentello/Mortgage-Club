@@ -13,6 +13,7 @@
 //= require lodash
 //= require jquery
 //= require jquery_ujs
+//= require elevator.min
 //= require bootstrap-sprockets
 
 // Important to import jquery_ujs before bundle_PublicApp as that patches jquery xhr to use the authenticity token!

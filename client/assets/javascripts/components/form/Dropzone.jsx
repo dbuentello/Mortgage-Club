@@ -137,6 +137,9 @@ var Dropzone = React.createClass({
           formData.append('description', this.state.otherDescription);
         }
 
+        // Set original filename
+        formData.append('original_filename', files[0].name);
+
         // notify uploading
         $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploading.backgroundColor, color: this.props.uploading.color});
 
@@ -162,7 +165,7 @@ var Dropzone = React.createClass({
 
             var flash = { "alert-success": "Uploaded successfully!" };
             this.showFlashes(flash);
-            this.props.uploadSuccessCallback;
+            this.props.uploadSuccessCallback();
           }.bind(this),
           cache: false,
           contentType: false,

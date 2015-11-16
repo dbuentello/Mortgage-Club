@@ -11,8 +11,9 @@ var FlashHandler = require('mixins/FlashHandler');
 var ModalLink = require('components/ModalLink');
 
 var LoanInterface = require('borrower/loans/edit/LoanInterface');
-var MortgageRates = require('borrower/loans/MortgageRates');
-var ESigning = require('borrower/loans/ESigning');
+var MortgageRates = require('borrower/loans/rates/MortgageRates');
+var Underwriting = require('borrower/loans/underwriting/Underwriting');
+var ESigning = require('borrower/loans/DocusignIframe');
 var LoanActivityInterface = require('borrower/loans/show/LoanActivityInterface');
 
 var Dashboard = require('borrower/dashboard/show/Dashboard');
@@ -98,6 +99,7 @@ var routes = (
   <Route name='app' path='/' handler={BorrowerApp}>
     <Route name='edit_loan' path='loans/:id/edit' handler={LoanInterface}/>
     <Route name='loan' path='loans/:id' handler={LoanActivityInterface}/>
+    <Route name='underwriting' handler={Underwriting}/>
     <Route name='rates' handler={MortgageRates}/>
     <Route name='loan_list' path='my/loans' handler={HomeDashBoard}/>
     <Route name='loan_dashboard' path='my/dashboard/:id' handler={Dashboard}/>

@@ -5,6 +5,7 @@ describe PropertiesController do
   include_context "signed in as borrower user of loan"
   before(:each) {
     loan.primary_property.update(property_type: 'sfh')
+    loan.borrower.create_credit_report
     address = FactoryGirl.build(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: loan.primary_property.id)
     address.save
 

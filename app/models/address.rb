@@ -40,14 +40,13 @@ class Address < ActiveRecord::Base
       street_address,
       street_address2,
       city,
-      state,
-      zip
+      state
     ].compact.reject{|x| x.blank?}
 
     if components.empty?
       full_text
     else
-      components.join(', ')
+      "#{components.join(', ')} #{zip}"
     end
   end
 
@@ -60,7 +59,7 @@ class Address < ActiveRecord::Base
   def assign_loan_to_billy
     return if state != 'CA'
     return unless property && property.loan.present?
-    return unless user = User.where(email: 'billy@mortgageclub.io').last
-    user.loan_member.loans_members_associations.create(loan_id: property.loan.id)
+    return unless user = User.where(email: 'billy@mortgageclub.co').last
+    user.loan_member.loans_members_associations.find_or_create_by(loan_id: property.loan.id)
   end
 end

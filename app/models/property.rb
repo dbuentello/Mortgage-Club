@@ -33,6 +33,7 @@ class Property < ActiveRecord::Base
   has_one :risk_report, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
   has_many :other_property_reports, dependent: :destroy, foreign_key: 'property_id'
   has_many :property_documents, dependent: :destroy, foreign_key: 'property_id'
+  has_many :liabilities, dependent: :destroy, foreign_key: 'property_id'
 
   accepts_nested_attributes_for :address
 
@@ -76,6 +77,15 @@ class Property < ActiveRecord::Base
   }
 
   validates_associated :address
+  validate :do_not_have_more_than_two_liabilities
+
+  def mortgage_payment_liability
+    liabilities.where(account_type: "Mortgage").last
+  end
+
+  def other_financing_liability
+    liabilities.where.not(account_type: "Mortgage").last
+  end
 
   def usage_name
     return unless usage
@@ -90,4 +100,27 @@ class Property < ActiveRecord::Base
     original_purchase_price.present? && original_purchase_year.present?
   end
 
+  def actual_rental_income
+    gross_rental_income.to_f * 0.75
+  end
+
+  def liability_payments
+    liabilities.sum(:payment)
+  end
+
+  def mortgage_payment
+    liability = liabilities.where(account_type: 'Mortgage').last
+    liability.present? ? liability.payment.to_f : 0
+  end
+
+  def other_financing
+    liability = liabilities.where(account_type: 'OtherFinancing').last
+    liability.present? ? liability.payment.to_f : 0
+  end
+
+  private
+
+  def do_not_have_more_than_two_liabilities
+    errors.add(:liabilities, "can't have more than two liabilities") if liabilities.count > 2
+  end
 end

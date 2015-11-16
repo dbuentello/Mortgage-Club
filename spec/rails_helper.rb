@@ -7,6 +7,17 @@ require 'rspec/rails'
 require 'devise'
 require "support/vcr_setup"
 
+require 'simplecov'
+
+Delayed::Worker.delay_jobs = true
+
+# save to CircleCI's artifacts directory if we're on CircleCI
+if ENV['CIRCLE_ARTIFACTS']
+  dir = File.join(ENV['CIRCLE_ARTIFACTS'], "coverage")
+  SimpleCov.coverage_dir(dir)
+end
+SimpleCov.start
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }

@@ -6,6 +6,13 @@ describe DocumentServices::UploadFile do
 
   context "valid params" do
     let(:service) do
+      file = File.new(Rails.root.join 'spec', 'files', 'sample.pdf')
+      uploaded_file = ActionDispatch::Http::UploadedFile.new(
+        tempfile: file,
+        filename: File.basename(file),
+      )
+      uploaded_file.content_type = 'application/pdf' # it's so weird
+
       DocumentServices::UploadFile.new(
         {
           subject_class_name: 'Closing',
@@ -14,7 +21,7 @@ describe DocumentServices::UploadFile do
           foreign_key_id: closing.id,
           current_user: user,
           params: {
-            file: File.new(Rails.root.join 'spec', 'files', 'sample.pdf'),
+            file: uploaded_file,
             description: "Closing Disclosure"
           }
         }
@@ -65,7 +72,6 @@ describe DocumentServices::UploadFile do
         foreign_key_id: closing.id,
         current_user: user,
         params: {
-          file: File.new(Rails.root.join 'spec', 'files', 'sample.pdf'),
           description: "Closing Disclosure"
         }
       }

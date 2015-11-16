@@ -38,13 +38,10 @@ Feature: Referrals
             To: test1@mortgageclub.io
             Subject: Billy Tran has invited you to join Mortgage Club
             """
-          And I click on "Log out"
           And "test1@mortgageclub.io" should receive an email
           Then I open the email
             And I should see "<b>Billy Tran</b> has invited you to join Mortgage Club" in the email body
-            And I follow "Create Your Free Account" in the email
-              Then the URL should contain "invite_token"
-          Then I should see "Sign up"
+            And I should see "?invite_token=" in the email body
       Then I turn on delayed jobs
   @javascript
   Scenario: referrals email invalid

@@ -51,6 +51,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :underwriting, only: [:index] do
+    collection do
+      get :check_loan
+    end
+  end
+
+  resources :employments, only: [:show] do
+  end
+
   resources :properties, only: [:create, :destroy] do
     collection do
       get :search
@@ -147,4 +156,10 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :ocr_notifications do
+    post 'receive', on: :collection
+  end
+
+  post 'receive', to: 'ocr_notifications#receive'
 end

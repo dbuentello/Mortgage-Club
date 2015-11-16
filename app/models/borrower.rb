@@ -34,6 +34,8 @@ class Borrower < ActiveRecord::Base
   has_one  :second_paystub, inverse_of: :borrower, dependent: :destroy
   has_one  :first_w2, inverse_of: :borrower, dependent: :destroy
   has_one  :second_w2, inverse_of: :borrower, dependent: :destroy
+  has_one  :ocr, inverse_of: :borrower, dependent: :destroy
+
   has_many :other_borrower_reports, inverse_of: :borrower, dependent: :destroy
   has_many :borrower_documents, dependent: :destroy
 
@@ -96,7 +98,7 @@ class Borrower < ActiveRecord::Base
   end
 
   def current_employment
-    employments.find_by(is_current: true)
+    @current_employment ||= employments.find_by(is_current: true)
   end
 
   def previous_employments
@@ -111,11 +113,17 @@ class Borrower < ActiveRecord::Base
   end
 
   def income_completed?
-    gross_income.present? && #gross_commission.present? &&
-      #gross_bonus.present? && gross_overtime.present? &&
-      first_w2.present? && second_w2.present? &&
+    first_w2.present? && second_w2.present? &&
       first_paystub.present? && second_paystub.present? &&
       first_bank_statement.present? && second_bank_statement.present? &&
       current_employment.try(:completed?)
+  end
+
+  def credit_score
+    credit_report.score
+  end
+
+  def current_salary
+    current_employment.present? ? current_employment.current_salary.to_f : 0
   end
 end

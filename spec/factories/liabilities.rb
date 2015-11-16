@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :liability do |f|
     address
+    property
 
     f.name { Faker::Company.name }
     f.payment { Random.rand(100..5000) }

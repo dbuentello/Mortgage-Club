@@ -13,9 +13,17 @@ function getFormattedAddress(addressable) {
     addressable.street_address,
     addressable.street_address2,
     addressable.city,
-    addressable.state,
-    addressable.zip
+    addressable.state
   ]).join(', ');
+
+  if(address && addressable.zip) {
+    address += " " + addressable.zip;
+    return address;
+  }
+  else {
+    return addressable.full_text;
+  }
+
 
   return (!address) ? addressable.full_text : address;
 }

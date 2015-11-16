@@ -25,11 +25,15 @@ class Employment < ActiveRecord::Base
     :job_title,
     :duration,
     :is_current,
+    :pay_frequency,
+    :current_salary,
+    :ytd_salary,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 
   def completed?
-    employer_name.present? && address.present? && employer_contact_name.present? && employer_contact_number.present?
+    employer_name.present? && address.present? && employer_contact_name.present? && employer_contact_number.present? && current_salary.present?
+    true
   end
 
   def as_json(opts={})

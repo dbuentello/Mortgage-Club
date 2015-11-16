@@ -2,6 +2,7 @@ Feature: DeclarationsTabAtNewLoanPage
   @javascript
   Scenario: User submit a declaration at new loan page
     When I am at loan management page
+      And I should see "Declarations"
       And I click on "Declarations"
       And I choose "true_outstanding_judgment"
       And I choose "false_co_maker_or_endorser"

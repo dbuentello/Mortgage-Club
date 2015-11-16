@@ -9,73 +9,118 @@ $rails: true;
 @import "bootstrap-sprockets";
 
 @import "bootstrap_datepicker";
+@import "d3.slider";
 @import "dropzone-custom";
+@import "homepage";
 
-body {
-  background: #f8f8f8;
+@font-face {
+  font-family: 'aileronregular';
+  src: url(asset_path("aileron-regular-webfont.eot"));
+  src: url(asset_path("aileron-regular-webfont.woff")) format('woff'),
+       url(asset_path("aileron-regular-webfont.ttf")) format('truetype');
 }
 
-.homepage {
-  .navbar-brand {
-    font-size: 22px;
-    margin: 15px 0px;
-  }
+body {
+  font-family:'aileronregular';
+  overflow-x:hidden;
+  overflow-x:hidden;
+}
 
-  .header-right {
-    .navbar-nav {
-      list-style: none;
-
-      li:first-child {
+.mortgage-rates {
+  .helpmechoose {
+    left: 5%;
+    right: 5%;
+    h3 {
+      font-size: 19px;
+    }
+    .calculator {
+      rect {
+        fill: rgb(224, 224, 224);
+      }
+      rect:hover {
+        fill: #bad80a;
+      }
+      .highlight {
+        fill: #bad80a;
+      }
+      .bar_chart {
+        margin-bottom: -5px;
+      }
+      .calc-form {
+        position: relative;
+        margin-top: 20px;
+        .range {
+          float: right;
+          .slider {
+            width: 400px;
+            background-color: #e6e6e6;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,.3);
+            border-radius: 10px;
+            border: none;
+            .d3-slider-handle {
+              top: -.4em;
+              width: 1.5em;
+              height: 1.5em;
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+      .value {
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        border-bottom: solid 1px #ddd;
+        font: inherit;
         font-size: 18px;
+        font-weight: 300;
+        line-height: 14px;
+        padding: 4px 0;
       }
-      li:not(:first-child) {
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-left: 10px;
-        margin-right: 5px;
+      .value:focus {
+        outline-width: 0;
       }
     }
-  }
-
-  .middle {
-    .jumbotron {
-      h2, h3 {
-        color: #FFFFFF !important;
+    .best-rate {
+      border: 1px solid #d2d2d2;
+      border-radius: 3px;
+      padding: 25px;
+      .secondary-cost {
+        line-height: 1.437em;
+        font-weight: 300;
+        color: #999;
+        font-size: 16px;
       }
-      padding: 20px 60px 20px 60px;
-      margin-bottom: 30px;
-      background-color: #337ab7;
-      color: #FFFFFF;
-    }
-
-    .description {
-      padding-top: 10px;
-      font-size: 18px;
-    }
-
-    .best-rates {
-      h3 {
+      .bankname {
         text-align: center;
+        img {
+          width: 100%;
+        }
       }
-      table {
-        th, td {
-          text-align: center;
+      .monthly-payment {
+        text-align: center;
+        background: #bad80a;
+        padding: 15px 0 10px 0;
+        line-height: 1.437em;
+        margin-bottom: 20px;
+
+        .value {
+          font-size: 34px;
+        }
+        .primary-cost-unit {
+          display: inline-block;
+          text-align: left;
+          line-height: 1em;
+          font-size: 14px;
+          margin-left: 5px;
         }
       }
     }
-
-    .apply-section {
-      padding-left: 45%;
-    }
-  }
-
-  .bottom {
-    .neighborhood {
-      background: url(asset_path('neighborhood.png')) no-repeat;
-      width: 1100px;
-      height: 178px;
-    }
   }
 }
 
-
+hr {
+  color:#e1e1e1;
+  height:1px;
+  background-color:#e1e1e1;
+}

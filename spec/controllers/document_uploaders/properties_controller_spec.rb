@@ -3,13 +3,21 @@ require 'rails_helper'
 describe DocumentUploaders::PropertiesController do
   include_context 'signed in as loan member user'
 
-  before(:each) { @property = FactoryGirl.create(:property) }
+  before(:each) do
+    @property = FactoryGirl.create(:property)
+    file = File.new(Rails.root.join 'spec', 'files', 'sample.pdf')
+    @uploaded_file = ActionDispatch::Http::UploadedFile.new(
+      tempfile: file,
+      filename: File.basename(file),
+    )
+    @uploaded_file.content_type = 'application/pdf' # it's so weird
+  end
 
   describe 'POST #upload' do
     it 'uploads a new document' do
       post :upload, property_id: @property.id,
                     type: 'FloodZoneCertification',
-                    file: File.new(Rails.root.join 'spec', 'files', 'sample.pdf'),
+                    file: @uploaded_file,
                     format: :json
 
       @property.reload
@@ -19,7 +27,7 @@ describe DocumentUploaders::PropertiesController do
     it 'renders necessary response' do
       post :upload, property_id: @property.id,
                     type: 'FloodZoneCertification',
-                    file: File.new(Rails.root.join 'spec', 'files', 'sample.pdf'),
+                    file: @uploaded_file,
                     format: :json
       parsed_body = JSON.parse(response.body)
 

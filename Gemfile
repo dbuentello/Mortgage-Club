@@ -19,7 +19,7 @@ gem 'rolify'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
-gem 'bootstrap-sass', '~> 3.3.1'
+gem 'bootstrap-sass', '~> 3.3.5'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -97,9 +97,6 @@ gem 'daemons'
 # dealing with money and currency conversion.
 gem 'money'
 
-# A library for financial calculations in Ruby
-gem 'finance'
-
 # A Ruby client library for Redis
 gem 'redis'
 
@@ -110,7 +107,7 @@ gem 'poltergeist'
 
 gem 'rollbar', '~> 2.2.1'
 
-gem "skylight"
+gem 'fuzzy-string-match'
 
 group :development do
   # just run bundle exec erd
@@ -128,9 +125,6 @@ end
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
-  # Access an IRB console on exceptions page and /console in development
-  gem 'web-console', '~> 2.0.0.beta2'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
@@ -173,6 +167,7 @@ group :test do
   gem 'webmock'
   gem 'email_spec'
   gem 'json-schema'
+  gem 'simplecov', require: false
 end
 
 group :production do
@@ -181,4 +176,6 @@ group :production do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', platforms: :ruby
+
+  gem 'skylight'
 end

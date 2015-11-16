@@ -97,7 +97,8 @@ var LoanInterface = React.createClass({
         if (last_step == false) {
           this.setupMenu(response, step, skip_change_page);
         } else {
-          location.href = '/rates?loan_id=' + this.state.loan.id;
+          location.href = '/underwriting?loan_id=' + this.state.loan.id;
+          // location.href = '/rates?loan_id=' + this.state.loan.id;
         }
       },
       error: function(response, status, error) {

@@ -23,21 +23,19 @@ module ZillowService
     def self.get_monthly_payments_advanced(property_data)
       return unless property_data['searchresults'] && property_data['searchresults']['response']
 
-      @monthly_payments ||= begin
-        property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
-        property.merge!({
-          useCode: USE_CODE[property['useCode']]
-        })
+      property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
+      property.merge!({
+        useCode: USE_CODE[property['useCode']]
+      })
 
-        params = {
-          'zip' => property['address']['zipcode'],
-          'price' => property['zestimate']['amount']['__content__'],
-          'zws-id' => ZILLOW_KEY
-        }
+      params = {
+        'zip' => property['address']['zipcode'],
+        'price' => property['zestimate']['amount']['__content__'],
+        'zws-id' => ZILLOW_KEY
+      }
 
-        get('http://www.zillow.com/webservice/mortgage/CalculateMonthlyPaymentsAdvanced.htm', query: params)
-        #parse_payments(get('http://www.zillow.com/webservice/mortgage/CalculateMonthlyPaymentsAdvanced.htm', :query => params), property)
-      end
+      get('http://www.zillow.com/webservice/mortgage/CalculateMonthlyPaymentsAdvanced.htm', query: params)
+      #parse_payments(get('http://www.zillow.com/webservice/mortgage/CalculateMonthlyPaymentsAdvanced.htm', :query => params), property)
     end
 
     def self.parse_payments(monthly_payments, property_data)

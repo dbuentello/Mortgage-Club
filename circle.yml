@@ -3,3 +3,6 @@ test:
     - bundle exec rake assets:webpack
   post:
     - bundle exec rubocop
+general:
+  artifacts:
+    - "~/simplecov" # relative to the user's home directory
