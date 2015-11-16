@@ -10,7 +10,6 @@ describe Borrower do
     end
 
     it 'has valid associations' do
-      expect(borrower.credit_report).to be_valid
       expect(borrower.employments.count).to eq(1)
       expect(borrower.borrower_addresses.count).to eq(1)
     end

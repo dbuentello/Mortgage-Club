@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :borrower, aliases: [:secondary_borrower] do |f|
     borrower_government_monitoring_info
-    credit_report
 
     f.dob { Time.zone.today - Random.rand(21..100).to_i.years }
     f.phone { Faker::PhoneNumber.phone_number }

@@ -3,6 +3,7 @@ require 'rails_helper'
 describe Users::LoansController do
   include_context 'signed in as borrower user of loan'
   let(:other_user) { FactoryGirl.create(:borrower_user_with_borrower) }
+  let!(:credit_report) { FactoryGirl.create(:credit_report, borrower: loan.borrower)}
 
   describe 'POST #create' do
     it 'assigns the requested loan to @loan' do

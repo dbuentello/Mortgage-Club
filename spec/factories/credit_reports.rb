@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :credit_report do |f|
+    borrower
     f.date { Faker::Date.between(59.days.ago, Time.zone.today) }
     f.score { Random.rand(300..850) }
 
