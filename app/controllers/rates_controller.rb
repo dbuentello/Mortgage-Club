@@ -18,6 +18,8 @@ class RatesController < ApplicationController
 
   # for debug purpose, it'll be removed in future
   def get_debug_info
+    return {} unless @loan.borrower.credit_report
+
     borrower = @loan.borrower
     primary_property = @loan.primary_property
     properties = @loan.properties.map do |property|
@@ -38,7 +40,7 @@ class RatesController < ApplicationController
       credit_score: borrower.credit_score,
       debt_to_income: UnderwritingLoanServices::CalculateDebtToIncome.call(@loan),
       housing_expense: UnderwritingLoanServices::CalculateHousingExpenseRatio.call(@loan),
-      sum_liability_payment: UnderwritingLoanServices::CalculateDebtToIncome.sum_liability_payment(@loan.properties),
+      sum_liability_payment: borrower.credit_report.sum_liability_payment,
       sum_investment: UnderwritingLoanServices::CalculateDebtToIncome.sum_investment(@loan.rental_properties),
       primary_liability_payments: primary_property.liability_payments,
       primary_estimated_mortgage_insurance: primary_property.estimated_mortgage_insurance.to_f,
