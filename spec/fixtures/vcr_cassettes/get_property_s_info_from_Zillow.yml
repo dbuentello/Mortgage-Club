@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 Nov 2015 14:21:53 GMT
+      - Mon, 16 Nov 2015 15:11:11 GMT
       Server:
       - Apache-Coyote/1.1
       Cache-Control:
@@ -27,17 +27,17 @@ http_interactions:
       Expires:
       - Thu, 01 Jan 1970 00:00:00 GMT
       X-Internal-Host:
-      - '004'
+      - '002'
       Content-Type:
       - text/xml;charset=UTF-8
       Content-Length:
       - '7233'
       Set-Cookie:
-      - F5P=2904606730.0.0000; path=/
-      - JSESSIONID=A709FB6BEED076ADA2D375AF99FF8001; Path=/; HttpOnly
-      - JSESSIONID=A709FB6BEED076ADA2D375AF99FF8001; Path=/; HttpOnly
-      - zguid=22|%5B%2217fb6723-8c39-467d-a03f-f88708749e6a%22%2C%22000000%22%2C%22%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%22%2C%22false%40false%40false%40false%400%400%400%400%400%400%22%2C%220%22%2C%220%22%2C%220%22%2C%2210%22%2C%220%22%2C%220%400%400%400%400%400%22%2C%22%22%5D;
-        Domain=.zillow.com; Expires=Sun, 16-Nov-2025 02:21:53 GMT; Path=/
+      - F5P=2552285194.0.0000; path=/
+      - JSESSIONID=0BC6E894497244C40FF3FE318FDEA228; Path=/; HttpOnly
+      - JSESSIONID=0BC6E894497244C40FF3FE318FDEA228; Path=/; HttpOnly
+      - zguid=22|%5B%22c2fd54c5-b008-4d4f-98a3-38fc77000263%22%2C%22000000%22%2C%22%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%22%2C%22false%40false%40false%40false%400%400%400%400%400%400%22%2C%220%22%2C%220%22%2C%220%22%2C%2210%22%2C%220%22%2C%220%400%400%400%400%400%22%2C%22%22%5D;
+        Domain=.zillow.com; Expires=Sun, 16-Nov-2025 03:11:12 GMT; Path=/
       Via:
       - 1.1 www.zillow.com
       Vary:
@@ -69,10 +69,10 @@ http_interactions:
         deprecated="true"></oneWeekChange><valueChange duration="30" currency="USD">1081</valueChange><valuationRange><low
         currency="USD">84619</low><high currency="USD">94417</high></valuationRange><percentile>0</percentile></zestimate><localRealEstate><region
         name="Oak Lawn" id="274835" type="neighborhood"><links><overview>http://www.zillow.com/local-info/TX-Dallas/Oak-Lawn/r_274835/</overview><forSaleByOwner>http://www.zillow.com/oak-lawn-dallas-tx/fsbo/</forSaleByOwner><forSale>http://www.zillow.com/oak-lawn-dallas-tx/</forSale></links></region></localRealEstate></result></results></response></SearchResults:searchresults><!--
-        H:004  T:24ms  S:3862  R:Mon Nov 16 06:21:53 PST 2015  B:4.0.22014-master.71729a2~hotfix_pre.cb723ac
+        H:002  T:25ms  S:3862  R:Mon Nov 16 07:11:12 PST 2015  B:4.0.22014-master.71729a2~hotfix_pre.cb723ac
         -->
-    http_version: 
-  recorded_at: Mon, 16 Nov 2015 14:21:53 GMT
+    http_version:
+  recorded_at: Wed, 11 Nov 2015 00:00:04 GMT
 - request:
     method: get
     uri: http://www.zillow.com/webservice/mortgage/CalculateMonthlyPaymentsAdvanced.htm?price=106710&zip=75235&zws-id=X1-ZWz1a4mphgfggb_7zykg
@@ -92,7 +92,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 Nov 2015 14:21:53 GMT
+      - Mon, 16 Nov 2015 15:11:12 GMT
       Server:
       - Apache-Coyote/1.1
       Cache-Control:
@@ -100,17 +100,17 @@ http_interactions:
       Expires:
       - Thu, 01 Jan 1970 00:00:00 GMT
       X-Internal-Host:
-      - '004'
+      - '002'
       Content-Type:
       - text/xml;charset=UTF-8
       Content-Length:
       - '1212'
       Set-Cookie:
-      - F5P=2535507978.0.0000; path=/
-      - JSESSIONID=8F77E8BAC6928079B31759EEBECB4114; Path=/; HttpOnly
-      - JSESSIONID=8F77E8BAC6928079B31759EEBECB4114; Path=/; HttpOnly
-      - zguid=22|%5B%22f720fe94-c31b-43cd-a200-4da4da0d98f2%22%2C%22000000%22%2C%22%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%22%2C%22false%40false%40false%40false%400%400%400%400%400%400%22%2C%220%22%2C%220%22%2C%220%22%2C%2210%22%2C%220%22%2C%220%400%400%400%400%400%22%2C%22%22%5D;
-        Domain=.zillow.com; Expires=Sun, 16-Nov-2025 02:21:53 GMT; Path=/
+      - F5P=2954938378.0.0000; path=/
+      - JSESSIONID=1B57D1E491FBC0BB7E42C921A1138CA8; Path=/; HttpOnly
+      - JSESSIONID=1B57D1E491FBC0BB7E42C921A1138CA8; Path=/; HttpOnly
+      - zguid=22|%5B%2264529f3d-b11a-4abb-8d6f-96eb634f381b%22%2C%22000000%22%2C%22%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%22%2C%22false%40false%40false%40false%400%400%400%400%400%400%22%2C%220%22%2C%220%22%2C%220%22%2C%2210%22%2C%220%22%2C%220%400%400%400%400%400%22%2C%22%22%5D;
+        Domain=.zillow.com; Expires=Sun, 16-Nov-2025 03:11:12 GMT; Path=/
       Via:
       - 1.1 www.zillow.com
       Vary:
@@ -121,9 +121,9 @@ http_interactions:
         xsi:schemaLocation="http://www.zillow.com/static/xsd/MonthlyPaymentsAdvanced.xsd
         http://www.zillowstatic.com/vstatic/d4e5868/static/xsd/MonthlyPaymentsAdvanced.xsd"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MonthlyPaymentsAdvanced="http://www.zillow.com/static/xsd/MonthlyPaymentsAdvanced.xsd"><request><price>106710</price><schedule>none</schedule><terminmonths>360</terminmonths><zip>75235</zip><output>xml</output></request><message><text>Request
-        successfully processed</text><code>0</code></message><response><monthlyprincipalandinterest>398</monthlyprincipalandinterest><monthlypropertytaxes>218</monthlypropertytaxes><monthlyhazardinsurance>110</monthlyhazardinsurance><monthlypmi>0</monthlypmi><monthlyhoadues>0</monthlyhoadues><totalmonthlypayment>726</totalmonthlypayment><totalpayments>261232</totalpayments><totalinterest>57832</totalinterest><totalprincipal>85368</totalprincipal><totaltaxesfeesandinsurance>118032</totaltaxesfeesandinsurance></response></MonthlyPaymentsAdvanced:paymentsdetails><!--
-        H:004  T:4ms  S:622  R:Mon Nov 16 06:21:54 PST 2015  B:4.0.22014-master.71729a2~hotfix_pre.cb723ac
+        successfully processed</text><code>0</code></message><response><monthlyprincipalandinterest>398</monthlyprincipalandinterest><monthlypropertytaxes>129</monthlypropertytaxes><monthlyhazardinsurance>87</monthlyhazardinsurance><monthlypmi>0</monthlypmi><monthlyhoadues>0</monthlyhoadues><totalmonthlypayment>726</totalmonthlypayment><totalpayments>261267</totalpayments><totalinterest>57867</totalinterest><totalprincipal>85368</totalprincipal><totaltaxesfeesandinsurance>118032</totaltaxesfeesandinsurance></response></MonthlyPaymentsAdvanced:paymentsdetails><!--
+        H:002  T:7ms  S:622  R:Mon Nov 16 07:11:12 PST 2015  B:4.0.22014-master.71729a2~hotfix_pre.cb723ac
         -->
-    http_version: 
-  recorded_at: Mon, 16 Nov 2015 14:21:54 GMT
+    http_version:
+  recorded_at: Wed, 11 Nov 2015 00:00:04 GMT
 recorded_with: VCR 2.9.3
