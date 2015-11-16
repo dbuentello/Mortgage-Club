@@ -63,6 +63,39 @@ var MortgageRates = React.createClass({
 
     return (
       <div className='content container mortgage-rates'>
+        <ul>
+          {
+            _.map(Object.keys(this.props.bootstrapData.debug_info), function(key){
+              if(key != "properties") {
+                return (
+                  <li key={key}>{key}: {this.props.bootstrapData.debug_info[key]}</li>
+                )
+              }
+            }, this)
+          }
+        </ul>
+        <h4>Properties:</h4>
+        <ol>
+          {
+            _.map(this.props.bootstrapData.debug_info.properties, function(property) {
+              return (
+                <li>
+                  <ul>
+                    <li>is_primary: {property.is_primary}</li>
+                    <li>liability_payments: {property.liability_payments}</li>
+                    <li>mortgage_payment: {property.mortgage_payment}</li>
+                    <li>other_financing: {property.other_financing}</li>
+                    <li>actual_rental_income: {property.actual_rental_income}</li>
+                    <li>estimated_property_tax: {property.estimated_property_tax}</li>
+                    <li>estimated_hazard_insurance: {property.estimated_hazard_insurance}</li>
+                    <li>estimated_mortgage_insurance: {property.estimated_mortgage_insurance}</li>
+                    <li>hoa_due: {property.hoa_due}</li>
+                  </ul>
+                </li>
+              )
+            }, this)
+          }
+        </ol>
         { this.state.helpMeChoose
           ?
             <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>

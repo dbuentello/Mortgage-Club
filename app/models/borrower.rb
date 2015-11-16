@@ -119,12 +119,11 @@ class Borrower < ActiveRecord::Base
       current_employment.try(:completed?)
   end
 
-  def total_income
-    current_salary = current_employment.present? ? current_employment.current_salary.to_f : 0
-    current_salary + gross_overtime.to_f + gross_commission.to_f
-  end
-
   def credit_score
     credit_report.score
+  end
+
+  def current_salary
+    current_employment.present? ? current_employment.current_salary.to_f : 0
   end
 end
