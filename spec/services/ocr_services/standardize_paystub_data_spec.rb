@@ -88,6 +88,8 @@ describe OcrServices::StandardizePaystubData do
   end
 
   describe "#period" do
+    before(:each) { Timecop.travel(Time.zone.local(2015, 11, 11)) }
+
     context "semimonthly_frequency" do
       it "returns semimonthly" do
         end_of_month = Time.zone.now.end_of_month

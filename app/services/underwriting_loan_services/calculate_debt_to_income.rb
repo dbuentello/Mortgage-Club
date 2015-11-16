@@ -1,7 +1,9 @@
 module UnderwritingLoanServices
   class CalculateDebtToIncome
     def self.call(loan)
-      sum_liability_payment(loan.properties) - sum_investment(loan.rental_properties)
+      borrower = loan.borrower
+      total_income = UnderwritingLoanServices::CalculateTotalIncome.call(loan)
+      (sum_liability_payment(loan.properties) - sum_investment(loan.rental_properties)) / total_income
     end
 
     def self.sum_liability_payment(properties)
