@@ -5,7 +5,7 @@ FactoryGirl.define do
     f.score { Random.rand(300..850) }
 
     after(:build) do |credit_report, evaluator|
-      create_list(:liability, Random.rand(0..5), credit_report: credit_report)
+      create_list(:liability, Random.rand(1..5), credit_report: credit_report)
     end
   end
 end
