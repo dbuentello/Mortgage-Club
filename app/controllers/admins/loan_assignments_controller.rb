@@ -18,15 +18,17 @@ class Admins::LoanAssignmentsController < Admins::BaseController
   end
 
   def create
-    loan_member = LoanMember.find(params[:loan_member_id])
+    if params[:title].present?
+      loan_member = LoanMember.find(params[:loan_member_id])
 
-    assignment = LoansMembersAssociation.find_or_initialize_by(
-      loan_id: @loan.id,
-      loan_member_id: loan_member.id
-    )
+      assignment = LoansMembersAssociation.find_or_initialize_by(
+        loan_id: @loan.id,
+        loan_member_id: loan_member.id
+      )
 
-    assignment.title = params[:title]
-    assignment.save
+      assignment.title = params[:title]
+      assignment.save
+    end
 
     render json: {associations: reload_loans_members_associations_json}, status: 200
   end

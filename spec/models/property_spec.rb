@@ -2,14 +2,15 @@ require 'rails_helper'
 
 describe Property do
   let(:property) { FactoryGirl.create(:property_with_address) }
+  let (:primary_property) {FactoryGirl.create(:primary_property)}
+  let(:rental_property) {FactoryGirl.create(:rental_property)}
 
   it 'has a valid factory' do
     expect(property).to be_valid
     expect(property.address).to be_valid
-
   end
 
-  describe '#usage_name' do
+  describe '.usage_name' do
     context 'usage is nil' do
       it 'returns nil' do
         property.usage = nil
@@ -25,59 +26,20 @@ describe Property do
     end
   end
 
-  describe '#actual_rental_income' do
-    context 'gross_rental_income is present' do
-      it 'returns right value' do
-        property.gross_rental_income = 100
-        expect(property.actual_rental_income).to eq(75)
-      end
-    end
-
-    context 'gross_rental_income is nil' do
-      it 'returns 0' do
-        property.gross_rental_income = nil
-        expect(property.actual_rental_income).to eq(0)
+  describe 'primary_property' do
+    context 'is_primary ' do
+      it 'property is primary' do
+        expect(primary_property.is_primary).to eq(true)
       end
     end
   end
 
-  describe '#liability_payments' do
-    let!(:liability) { FactoryGirl.create(:liability, property: property) }
-
-    it 'returns sum of liability payments' do
-      expect(property.liability_payments).to eq(liability.payment)
-    end
-  end
-
-  describe '#mortgage_payment' do
-    context 'existent mortgage liability' do
-      let!(:liability) { FactoryGirl.create(:liability, account_type: 'Mortgage' ,property: property) }
-
-      it 'returns payment of mortgage liability' do
-        expect(property.mortgage_payment).to eq(liability.payment)
-      end
-    end
-
-    context 'non-existent mortgage liability' do
-      it 'returns 0' do
-        expect(property.mortgage_payment).to eq(0)
+  describe 'rental_property' do
+    context 'is_rental property' do
+      it 'property is not primary' do
+        expect(rental_property.is_primary).to eq(false)
       end
     end
   end
 
-  describe '#other_financing' do
-    context 'existent other financing liability' do
-      let!(:liability) { FactoryGirl.create(:liability, account_type: 'OtherFinancing' ,property: property) }
-
-      it 'returns payment of other financing liability' do
-        expect(property.other_financing).to eq(liability.payment)
-      end
-    end
-
-    context 'non-existent other financing liability' do
-      it 'returns 0' do
-        expect(property.other_financing).to eq(0)
-      end
-    end
-  end
 end

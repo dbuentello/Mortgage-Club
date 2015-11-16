@@ -16,8 +16,13 @@ class PropertiesController < ApplicationController
   end
 
   def destroy
-    Property.find_by_id(params[:id]).destroy
-    render json: {message: "ok"}
+    property = Property.find_by_id(params[:id])
+    if property.present?
+      property.destroy
+      render json: {message: 'ok'}
+    else
+      render json: {message: 'error'}
+    end
   end
 
   def search
