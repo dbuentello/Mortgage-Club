@@ -112,7 +112,7 @@ class Users::LoansController < Users::BaseController
 
   def load_liabilities
     credit_report = @loan.borrower.credit_report
-    if credit_report.liabilities.present?
+    if credit_report.present? && credit_report.liabilities.present?
       @liabilities = credit_report.liabilities
     else
       @liabilities = CreditReportServices::ParseSampleXml.call(@loan.borrower)

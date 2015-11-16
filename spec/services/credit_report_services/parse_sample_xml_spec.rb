@@ -77,6 +77,7 @@ describe CreditReportServices::ParseSampleXml do
 
     context "duplicate liability" do
       it "returns true" do
+        credit_report.reload
         expect(
           CreditReportServices::ParseSampleXml.duplicate?(credit_report, @credit_liability)
         ).to be_truthy
