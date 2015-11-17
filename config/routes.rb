@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   get 'take_home_test', to: 'pages#take_home_test', as: :take_home_test
+  get 'home_test_rates', to: 'pages#home_test_rates'
+
   get '/esigning/:id', to: 'electronic_signature#new'
 
   authenticated :user, ->(u) { u.has_role?(:borrower) } do
