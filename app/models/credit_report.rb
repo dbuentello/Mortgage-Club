@@ -18,4 +18,8 @@ class CreditReport < ActiveRecord::Base
     :score,
     liabilities_attributes: [:id] + Liability::PERMITTED_ATTRS
   ]
+
+  def sum_liability_payment
+    liabilities.sum(:payment)
+  end
 end

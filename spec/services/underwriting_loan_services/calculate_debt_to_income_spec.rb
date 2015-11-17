@@ -8,16 +8,6 @@ describe UnderwritingLoanServices::CalculateDebtToIncome do
   let!(:mortgage_liability) { FactoryGirl.create(:liability, account_type: "Mortgage", property: first_property) }
   let!(:other_liability) { FactoryGirl.create(:liability, account_type: "OtherFinancing", property: second_property) }
 
-  describe ".sum_liability_payment" do
-    it "returns sum of liability's payment" do
-      expect(
-        UnderwritingLoanServices::CalculateDebtToIncome.sum_liability_payment(
-          loan.properties
-        )
-      ).to eq(primary_property.liability_payments + first_property.liability_payments + second_property.liability_payments)
-    end
-  end
-
   describe ".sum_investment" do
     it "returns sum of property's investment" do
       sum = first_property.mortgage_payment + first_property.other_financing +
