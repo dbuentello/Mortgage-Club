@@ -16,4 +16,14 @@ class PagesController < ApplicationController
       format.html { render template: 'public_app' }
     end
   end
+
+  def home_test_rates
+    if @rates = REDIS.get("rates_for_home_test")
+      @rates = JSON.parse(@rates)
+    else
+      @rates = []
+    end
+
+    render json: {rates: @rates}, status: 200
+  end
 end
