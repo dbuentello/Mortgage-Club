@@ -15,8 +15,8 @@ describe PropertiesController do
     address.save
   }
 
-  describe "POST #create" do
-    it "update primary property" do
+  describe "#create" do
+    it "updates primary property" do
       params = {loan_id: loan.id, own_investment_property: true, primary_property: FactoryGirl.attributes_for(:primary_property), rental_properties: []}
       post :create, params
       expect(response.status).to eq(200)
@@ -25,21 +25,21 @@ describe PropertiesController do
     end
   end
 
-  describe "DELETE #destroy" do
-    it "remove a valid property" do
+  describe "#destroy" do
+    it "when property is valid" do
       delete :destroy, id: @property.id
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['message']).to eq('ok')
     end
 
-    it "remove a invalid property" do
+    it "when property invalid" do
       delete :destroy, id: 'invalid-property'
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['message']).to eq('error')
     end
   end
 
-  describe "GET #search" do
+  describe "#search" do
     it "seach with valid address" do
       search_params = {address: 'Schenectady', citystatezip: 'Schenectady NY 12302'}
       get :search, search_params
