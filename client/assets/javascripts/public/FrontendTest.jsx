@@ -30,7 +30,7 @@ var FrontendTest = React.createClass({
             </ul>
             <h5>Note: You can get rates from an endpoint: http://mortgageclub.io/home_test_rates</h5>
             <p className='mtl'>This is a sample user interface</p>
-            <img src='http://s23.postimg.org/wf1jwqmyj/Screen_Shot_2015_11_16_at_5_24_44_PM.png'/>
+            <img style={{marginBottom: '100px'}} src='http://s23.postimg.org/wf1jwqmyj/Screen_Shot_2015_11_16_at_5_24_44_PM.png'/>
             <img src='http://s4.postimg.org/t8dcb6nt9/Screen_Shot_2015_11_16_at_5_41_29_PM.png'/>
           </div>
         </div>
