@@ -11,7 +11,7 @@ class OcrNotificationsController < ApplicationController
       if raw_post["SubscribeURL"].present?
         ConfirmSubscriptionService.call(raw_post)
       else
-        OcrServices::ProcessPaystub.call(raw_post)
+        PaystubOcrServices::ProcessPaystub.call(raw_post)
       end
     end
     render nothing: true, status: 200, content_type: 'text/html'

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe OcrServices::StandardizePaystubData do
+describe PaystubOcrServices::StandardizePaystubData do
   let(:borrower) { FactoryGirl.create(:borrower) }
   let!(:ocr_data) { FactoryGirl.create(:ocr_with_full_data, borrower: borrower) }
 
@@ -10,7 +10,7 @@ describe OcrServices::StandardizePaystubData do
         ocr_data.employer_name_1 = "Mortgage Club"
         ocr_data.employer_name_2 = "Mortgage Clu"
         ocr_data.save
-        service = OcrServices::StandardizePaystubData.new(borrower.id)
+        service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
         expect(service.employer_name).to eq("Mortgage Club")
       end
@@ -21,7 +21,7 @@ describe OcrServices::StandardizePaystubData do
     #     ocr_data.employer_name_1 = "Mortgage Club"
     #     ocr_data.employer_name_2 = "Lending Home"
     #     ocr_data.save
-    #     service = OcrServices::StandardizePaystubData.new(borrower.id)
+    #     service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
     #     expect(service.employer_name).to be_nil
     #   end
@@ -30,8 +30,8 @@ describe OcrServices::StandardizePaystubData do
 
   describe "#employer_full_address" do
     # it "calls #employer_address_line" do
-    #   expect_any_instance_of(OcrServices::StandardizePaystubData).to receive(:employer_address_line).twice
-    #   OcrServices::StandardizePaystubData.new(borrower.id).employer_full_address
+    #   expect_any_instance_of(PaystubOcrServices::StandardizePaystubData).to receive(:employer_address_line).twice
+    #   PaystubOcrServices::StandardizePaystubData.new(borrower.id).employer_full_address
     # end
 
     context "first line and second line" do
@@ -41,7 +41,7 @@ describe OcrServices::StandardizePaystubData do
         ocr_data.address_second_line_1 = "Q5, TP.HCM"
         ocr_data.address_second_line_2 = "Q5, TP.HCM"
         ocr_data.save
-        service = OcrServices::StandardizePaystubData.new(borrower.id)
+        service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
         expect(service.employer_full_address).to eq("227 Nguyen Van Cu Q5, TP.HCM")
       end
@@ -54,7 +54,7 @@ describe OcrServices::StandardizePaystubData do
       #   ocr_data.address_second_line_1 = "Ba Dinh, Hanoi"
       #   ocr_data.address_second_line_2 = "Q5, TP.HCM"
       #   ocr_data.save
-      #   service = OcrServices::StandardizePaystubData.new(borrower.id)
+      #   service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
       #   expect(service.employer_full_address).to eq("227 Nguyen Van Cu")
       # end
@@ -67,7 +67,7 @@ describe OcrServices::StandardizePaystubData do
       #   ocr_data.address_second_line_1 = "Q5, TP.HCM"
       #   ocr_data.address_second_line_2 = "Q5, TP.HCM"
       #   ocr_data.save
-      #   service = OcrServices::StandardizePaystubData.new(borrower.id)
+      #   service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
       #   expect(service.employer_full_address).to eq("Q5, TP.HCM")
       # end
@@ -80,7 +80,7 @@ describe OcrServices::StandardizePaystubData do
       #   ocr_data.address_second_line_1 = "Ba Dinh, Hanoi"
       #   ocr_data.address_second_line_2 = "Q5, TP.HCM"
       #   ocr_data.save
-      #   service = OcrServices::StandardizePaystubData.new(borrower.id)
+      #   service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
       #   expect(service.employer_full_address).to be_nil
       # end
@@ -96,7 +96,7 @@ describe OcrServices::StandardizePaystubData do
         ocr_data.period_ending_1 = end_of_month
         ocr_data.period_ending_2 = end_of_month
         ocr_data.save
-        service = OcrServices::StandardizePaystubData.new(borrower.id)
+        service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
         expect(service.period).to eq("semimonthly")
       end
@@ -110,7 +110,7 @@ describe OcrServices::StandardizePaystubData do
         ocr_data.period_ending_2 = yesterday
         ocr_data.period_beginning_2 = yesterday - 13.days
         ocr_data.save
-        service = OcrServices::StandardizePaystubData.new(borrower.id)
+        service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
         expect(service.period).to eq("biweekly")
       end
@@ -124,7 +124,7 @@ describe OcrServices::StandardizePaystubData do
         ocr_data.period_ending_2 = yesterday
         ocr_data.period_beginning_2 = yesterday - 6.days
         ocr_data.save
-        service = OcrServices::StandardizePaystubData.new(borrower.id)
+        service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
         expect(service.period).to eq("weekly")
       end
@@ -137,7 +137,7 @@ describe OcrServices::StandardizePaystubData do
         ocr_data.current_salary_1 = 123456
         ocr_data.current_salary_2 = 123456
         ocr_data.save
-        service = OcrServices::StandardizePaystubData.new(borrower.id)
+        service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
         expect(service.salary).to eq([ocr_data.current_salary_1, ocr_data.current_salary_2].max.ceil)
       end
@@ -154,7 +154,7 @@ describe OcrServices::StandardizePaystubData do
           ocr_data.current_earnings_1 = 123456
           ocr_data.current_earnings_2 = 123456
           ocr_data.save
-          service = OcrServices::StandardizePaystubData.new(borrower.id)
+          service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
           expect(service.salary).to eq([ocr_data.current_earnings_1, ocr_data.current_earnings_2].max.ceil)
         end
@@ -165,7 +165,7 @@ describe OcrServices::StandardizePaystubData do
         #   ocr_data.current_earnings_1 = 123456
         #   ocr_data.current_earnings_2 = 1
         #   ocr_data.save
-        #   service = OcrServices::StandardizePaystubData.new(borrower.id)
+        #   service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
         #   expect(service.salary).to be_nil
         # end
@@ -179,7 +179,7 @@ describe OcrServices::StandardizePaystubData do
         ocr_data.ytd_salary_1 = 123456
         ocr_data.ytd_salary_2 = 123456
         ocr_data.save
-        service = OcrServices::StandardizePaystubData.new(borrower.id)
+        service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
         expect(service.ytd_salary).to eq([ocr_data.ytd_salary_1, ocr_data.ytd_salary_2].max.ceil)
       end
@@ -190,7 +190,7 @@ describe OcrServices::StandardizePaystubData do
       #   ocr_data.ytd_salary_1 = 123456
       #   ocr_data.ytd_salary_2 = 1
       #   ocr_data.save
-      #   service = OcrServices::StandardizePaystubData.new(borrower.id)
+      #   service = PaystubOcrServices::StandardizePaystubData.new(borrower.id)
 
       #   expect(service.ytd_salary).to be_nil
       # end

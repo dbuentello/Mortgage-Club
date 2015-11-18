@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe OcrServices::UpdateEmployment do
+describe PaystubOcrServices::UpdateEmployment do
   let(:borrower) { FactoryGirl.create(:borrower) }
   let(:data) do
     {
@@ -20,13 +20,13 @@ describe OcrServices::UpdateEmployment do
       end
 
       it "calls #update_employment" do
-        expect_any_instance_of(OcrServices::UpdateEmployment).to receive(:update_employment)
-        OcrServices::UpdateEmployment.new(data, borrower.id).call
+        expect_any_instance_of(PaystubOcrServices::UpdateEmployment).to receive(:update_employment)
+        PaystubOcrServices::UpdateEmployment.new(data, borrower.id).call
       end
 
       describe "#update_employment" do
         it "updates right value for employment" do
-          OcrServices::UpdateEmployment.new(data, borrower.id).call
+          PaystubOcrServices::UpdateEmployment.new(data, borrower.id).call
           @employment.reload
 
           expect(@employment.employer_name).to eq("Apple Inc")
@@ -37,13 +37,13 @@ describe OcrServices::UpdateEmployment do
 
         context "existent address" do
           it "calls #update_employer_address" do
-            expect_any_instance_of(OcrServices::UpdateEmployment).to receive(:update_employer_address)
-            OcrServices::UpdateEmployment.new(data, borrower.id).call
+            expect_any_instance_of(PaystubOcrServices::UpdateEmployment).to receive(:update_employer_address)
+            PaystubOcrServices::UpdateEmployment.new(data, borrower.id).call
           end
 
           describe "#update_employer_address" do
             it "updates full_text field of address" do
-              OcrServices::UpdateEmployment.new(data, borrower.id).call
+              PaystubOcrServices::UpdateEmployment.new(data, borrower.id).call
               @employment.address.reload
 
               expect(@employment.address.full_text).to eq("1 Infinite Loop Cupertino CA 95014")
@@ -54,8 +54,8 @@ describe OcrServices::UpdateEmployment do
         context "non-existent address" do
           it "calls #create_employer_address" do
             @employment.address = nil
-            expect_any_instance_of(OcrServices::UpdateEmployment).to receive(:create_employer_address)
-            OcrServices::UpdateEmployment.new(data, borrower.id).call
+            expect_any_instance_of(PaystubOcrServices::UpdateEmployment).to receive(:create_employer_address)
+            PaystubOcrServices::UpdateEmployment.new(data, borrower.id).call
           end
         end
       end
@@ -68,13 +68,13 @@ describe OcrServices::UpdateEmployment do
 
       describe "#create_new_employment" do
         it "creates a new employment" do
-          expect { OcrServices::UpdateEmployment.new(data, borrower.id).call }.to change{Employment.count}.by(1)
+          expect { PaystubOcrServices::UpdateEmployment.new(data, borrower.id).call }.to change{Employment.count}.by(1)
         end
       end
 
       describe "#create_employer_address" do
         it "creates a new address" do
-          expect { OcrServices::UpdateEmployment.new(data, borrower.id).call }.to change{Address.count}.by(1)
+          expect { PaystubOcrServices::UpdateEmployment.new(data, borrower.id).call }.to change{Address.count}.by(1)
         end
       end
     end
@@ -82,7 +82,7 @@ describe OcrServices::UpdateEmployment do
 
   context "non-existent borrower" do
     it "returns nil" do
-      expect(OcrServices::UpdateEmployment.new(nil, nil).call).to be_nil
+      expect(PaystubOcrServices::UpdateEmployment.new(nil, nil).call).to be_nil
     end
   end
 end

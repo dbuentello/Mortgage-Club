@@ -1,4 +1,4 @@
-module OcrServices
+module PaystubOcrServices
   class UpdatePaystubOcr
     attr_accessor :data, :borrower_id, :ocr_data, :order_of_paystub
 

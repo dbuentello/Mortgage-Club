@@ -1,6 +1,6 @@
 require 'fuzzystringmatch'
 
-module OcrServices
+module PaystubOcrServices
   class StandardizePaystubData
     attr_reader :ocr_data, :borrower_id
 

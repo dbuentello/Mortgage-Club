@@ -1,4 +1,4 @@
-module OcrServices
+module PaystubOcrServices
   class UpdateEmployment
     attr_reader :data, :borrower_id, :employment
 

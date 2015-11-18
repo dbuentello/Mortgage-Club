@@ -1,4 +1,4 @@
-module OcrServices
+module PaystubOcrServices
   class ParseXmlFile
     include HTTParty
 

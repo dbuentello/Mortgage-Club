@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe OcrServices::UpdatePaystubOcr do
+describe PaystubOcrServices::UpdatePaystubOcr do
   let(:borrower) { FactoryGirl.create(:borrower) }
   let(:data) do
     {
@@ -22,12 +22,12 @@ describe OcrServices::UpdatePaystubOcr do
       before(:each) { data[:order_of_paystub] = 1 }
 
       it "calls #update_first_paystub_to_ocr" do
-        expect_any_instance_of(OcrServices::UpdatePaystubOcr).to receive(:update_first_paystub_to_ocr)
-        OcrServices::UpdatePaystubOcr.new(data, borrower.id).call
+        expect_any_instance_of(PaystubOcrServices::UpdatePaystubOcr).to receive(:update_first_paystub_to_ocr)
+        PaystubOcrServices::UpdatePaystubOcr.new(data, borrower.id).call
       end
 
       it "updates data for field having suffix _1" do
-        OcrServices::UpdatePaystubOcr.new(data, borrower.id).call
+        PaystubOcrServices::UpdatePaystubOcr.new(data, borrower.id).call
         ocr_result.reload
 
         expect(ocr_result.employer_name_1).to eq("Apple Inc")
@@ -45,12 +45,12 @@ describe OcrServices::UpdatePaystubOcr do
       before(:each) { data[:order_of_paystub] = 2 }
 
       it "calls #update_second_paystub_to_ocr" do
-        expect_any_instance_of(OcrServices::UpdatePaystubOcr).to receive(:update_second_paystub_to_ocr)
-        OcrServices::UpdatePaystubOcr.new(data, borrower.id).call
+        expect_any_instance_of(PaystubOcrServices::UpdatePaystubOcr).to receive(:update_second_paystub_to_ocr)
+        PaystubOcrServices::UpdatePaystubOcr.new(data, borrower.id).call
       end
 
       it "updates data for field having suffix _2" do
-        OcrServices::UpdatePaystubOcr.new(data, borrower.id).call
+        PaystubOcrServices::UpdatePaystubOcr.new(data, borrower.id).call
         ocr_result.reload
 
         expect(ocr_result.employer_name_2).to eq("Apple Inc")
@@ -67,11 +67,11 @@ describe OcrServices::UpdatePaystubOcr do
 
   context "non-existent OCR's result" do
     it "creates a new OCR's record" do
-      expect { OcrServices::UpdatePaystubOcr.new(data, borrower.id).call }.to change{Ocr.count}.by(1)
+      expect { PaystubOcrServices::UpdatePaystubOcr.new(data, borrower.id).call }.to change{Ocr.count}.by(1)
     end
 
     it "creates a new OCR's record with right value" do
-      ocr_result = OcrServices::UpdatePaystubOcr.new(data, borrower.id).call
+      ocr_result = PaystubOcrServices::UpdatePaystubOcr.new(data, borrower.id).call
       expect(ocr_result.employer_name_1).to eq("Apple Inc")
       expect(ocr_result.address_first_line_1).to eq("1 Infinite Loop Cupertino")
       expect(ocr_result.address_second_line_1).to eq("CA 95014")

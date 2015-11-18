@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe OcrServices::ParseXmlFile do
+describe PaystubOcrServices::ParseXmlFile do
   before(:each) do
     @raw_post = {
       "Message" => {
@@ -39,7 +39,7 @@ describe OcrServices::ParseXmlFile do
 
   it "call OcrParseService" do
     VCR.use_cassette("get ocr result xml file", :record => :new_episodes) do
-      response = OcrServices::ParseXmlFile.call(@raw_post)
+      response = PaystubOcrServices::ParseXmlFile.call(@raw_post)
       expect(response).to eq(
         {
           :employer_name => "BRIAN R FONG DDS INC",
