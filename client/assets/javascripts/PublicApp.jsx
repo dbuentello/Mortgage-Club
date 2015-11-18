@@ -7,7 +7,8 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 var AppStarter = require('tools/AppStarter');
-var TakeHomeTest = require('public/TakeHomeTest');
+var FrontendTest = require('public/FrontendTest');
+var BackendTest = require('public/BackendTest');
 
 window.PublicApp = React.createClass({
   contextTypes: {
@@ -25,8 +26,9 @@ window.PublicApp = React.createClass({
 
 var routes = (
   <Route name='app' path='/' handler={PublicApp}>
-    <Route name='take_home_test' handler={TakeHomeTest}/>
-    <DefaultRoute handler={TakeHomeTest}/>
+    <Route name='frontend_test' handler={FrontendTest}/>
+    <Route name='backend_test' handler={BackendTest}/>
+    <DefaultRoute handler={BackendTest}/>
   </Route>
 );
 

@@ -11,7 +11,13 @@ class PagesController < ApplicationController
     end
   end
 
-  def take_home_test
+  def backend_test
+    respond_to do |format|
+      format.html { render template: 'public_app' }
+    end
+  end
+
+  def frontend_test
     respond_to do |format|
       format.html { render template: 'public_app' }
     end
