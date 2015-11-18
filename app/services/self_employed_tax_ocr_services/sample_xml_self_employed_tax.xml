@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<form:Documents xmlns:form="http://www.abbyy.com/FlexiCapture/Schemas/Export/FormData.xsd" xmlns:addData="http://www.abbyy.com/FlexiCapture/Schemas/Export/AdditionalFormData.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<_DocumentSection1:_DocumentSection1 addData:DocumentState="Correct" xmlns:_DocumentSection1="http://www.abbyy.com/FlexiCapture/Schemas/Export/Paystubs.xsd">
+		<_NetProfitOrLoss>1000.1</_NetProfitOrLoss>
+		<_Depletion>2323.</_Depletion>
+		<_Depreciation>2992.</_Depreciation>
+		<_BusinessOfYourHome>4552.</_BusinessOfYourHome>
+		<_Amortization>12332.</_Amortization>
+	</_DocumentSection1:_DocumentSection1>
+</form:Documents>
