@@ -8,7 +8,8 @@ var BackendTest = React.createClass({
       <section className='page-section pvxl'>
         <div className='container mtxl'>
           <div>
-            <p>If you are interested in joining MortgageClub’s engineering team as a Ruby on Rails developer, we would love for you to have a go at the challenge below. This is a good chance for you to learn more about the stuff that we do, as well as for us to learn more about your coding style. This test should take about half a day to finish.</p>
+            <img src='http://s10.postimg.org/6sgmwxfhl/logo.jpg'/>
+            <p className='mtl'>If you are interested in joining MortgageClub’s engineering team as a Ruby on Rails developer, we would love for you to have a go at the challenge below. This is a good chance for you to learn more about the stuff that we do, as well as for us to learn more about your coding style. This test should take about half a day to finish.</p>
             <p className='mbs'>Mortgage underwriting in the United States is the process a lender uses to determine if the risk of offering a mortgage loan to a particular borrower under certain parameters is acceptable. In this take home test, we’ll use Rails to build a simple underwriting engine. The interface will allow users to create a loan with borrower and property info. Based on user provided data, the application will determine if loan is approved or not.</p>
             <h4>Underwriting has 3 steps</h4>
             <ol className='mbl'>
@@ -35,8 +36,8 @@ var BackendTest = React.createClass({
             <p className='mtl'>This is a sample user interface. Please note that the focus of this programming test is on the back-end stuff, you don’t need to spend too much time on the user interface.</p>
 
 
-            <img src="http://s18.postimg.org/3s1pxdp3t/Screen_Shot_2015_11_18_at_9_50_40_AM.png"/>
-            <img src="http://s17.postimg.org/d5zz9xttr/Screen_Shot_2015_11_18_at_9_50_56_AM.png"/>
+            <img src='http://s2.postimg.org/3silvhfex/primary_property.jpg'/>
+            <img src='http://s8.postimg.org/c91ghtcf9/Screen_Shot_2015_11_17_at_10_12_37_AM.png'/>
           </div>
         </div>
       </section>

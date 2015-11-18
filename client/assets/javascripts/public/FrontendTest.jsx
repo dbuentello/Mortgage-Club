@@ -8,7 +8,8 @@ var FrontendTest = React.createClass({
       <section className='page-section pvxl'>
         <div className='container mtxl'>
           <div>
-            <p>If you are interested in joining MortgageClub’s engineering team as a front end developer, we would love for you to have a go at the challenge below. This is a good chance for you to learn more about the stuff that we do, as well as for us to learn more about your coding style. This test should take about half a day to finish.</p>
+            <img src='http://s10.postimg.org/6sgmwxfhl/logo.jpg'/>
+            <p className='mtl'>If you are interested in joining MortgageClub’s engineering team as a front end developer, we would love for you to have a go at the challenge below. This is a good chance for you to learn more about the stuff that we do, as well as for us to learn more about your coding style. This test should take about half a day to finish.</p>
             <p className='mbs'>
               Mortgages are so complicated that {"it's very hard for borrowers to choose the best loan program, even for experienced borrowers. By applying the Discounted Cash Flow model in finance to mortgages, we have come up with the True Cost of Mortgage model (patent-pending) to help borrowers choose the best loan program."}
             </p>
