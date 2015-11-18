@@ -25,18 +25,20 @@ describe PropertiesController do
     end
   end
 
-  describe "#destroy" do
-    it "when property is valid" do
+  context 'when property is valid' do
+    it {
       delete :destroy, id: @property.id
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['message']).to eq('ok')
-    end
+    }
+  end
 
-    it "when property invalid" do
+  context 'when property invalid' do
+    it {
       delete :destroy, id: 'invalid-property'
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['message']).to eq('error')
-    end
+    }
   end
 
   describe "#search" do
