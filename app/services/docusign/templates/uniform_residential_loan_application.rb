@@ -38,6 +38,40 @@ module Docusign
         # year_built
       end
 
+      def build_section_3
+        build_borrower_info("borrower")
+        build_borrower_info("co_borrower") if loan.secondary_borrower.present?
+      end
+
+      def build_borrower_info(role)
+        @params[role + "_name"] = borrower.full_name
+        @params[role + "_social_security_number"] = borrower.ssn
+        @params[role + "_home_phone"] = borrower.phone
+        @params[role + "_dob"] = borrower.dob
+        @params[role + "_yrs_school"] = borrower.years_in_school
+        @params[role + "_married"] = "x" if borrower.married?
+        @params[role + "_unmarried"] = "x" if borrower.unmarried?
+        @params[role + "_separated"] = "x" if borrower.separated?
+        @params[role + "_dependents_no"] = borrower.dependent_count
+        @params[role + "_dependents_ages"] = borrower.dependent_ages
+        @params[role + "_present_address"] = borrower.display_current_address
+        # @params[role + "_present_address_own"] =
+        # @params[role + "_present_address_rent"] =
+        # @params[role + "_present_address_no_yrs"] =
+        @params[role + "_former_address"] = borrower.display_previous_address
+        # @params[role + "_former_address_own"] =
+        # @params[role + "_former_address_rent"] =
+        # @params[role + "_former_address_no_yrs"] =
+        # create_table "borrower_addresses", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+        #   t.uuid     "borrower_id"
+        #   t.integer  "years_at_address"
+        #   t.boolean  "is_rental"
+        #   t.boolean  "is_current",       default: false, null: false
+        #   t.datetime "created_at"
+        #   t.datetime "updated_at"
+        # end
+      end
+
       def build_refinance_loan
         @params["loan_purpose_refinance"] = "x"
         @params["refinance_year_acquired"] = property.original_purchase_year

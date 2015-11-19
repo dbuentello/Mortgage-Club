@@ -88,6 +88,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def full_name
+    "#{first_name} #{middle_name} #{last_name}"
+  end
+
   def borrower?
     Rails.cache.fetch("borrower_role-#{id}-#{updated_at.to_i}", expires_in: 7.day) do
       self.has_role? :borrower
