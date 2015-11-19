@@ -10,7 +10,7 @@ module Docusign
         @params = {}
       end
 
-      def build_part_1
+      def build_section_1
         # agency_case_number. These fields will be mapped after we have loan shifter.
         # lender_case_number
         build_loan_type
