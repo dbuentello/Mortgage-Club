@@ -125,6 +125,19 @@ class Loan < ActiveRecord::Base
 
   def can_submit_to_lender
     return if self.sent? || self.read? || self.finish?
+
     true
+  end
+
+  def fixed_rate_amortization?
+    return false unless amortization_type
+
+    amortization_type.include? "fixed"
+  end
+
+  def arm_amortization?
+    return false unless amortization_type
+
+    amortization_type.include? "ARM"
   end
 end
