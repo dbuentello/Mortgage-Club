@@ -21,7 +21,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       })
     end
 
-    it "adds 'x' to only one amortization type" do
+    it "marks 'x' to only one amortization type" do
       @service.loan.amortization_type = "5/1 ARM"
       @service.build_section_1
       expect(@service.params["amortization_fixed_rate"]).not_to eq("x")
@@ -29,7 +29,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
 
     context "fixed rate" do
-      it "adds 'x' to param's amortization" do
+      it "marks 'x' to param's amortization" do
         @service.loan.amortization_type = "30 year fixed"
         @service.build_section_1
         expect(@service.params["amortization_fixed_rate"]).to eq("x")
@@ -37,7 +37,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
 
     context "arm" do
-      it "adds 'x' to param's amortization" do
+      it "marks 'x' to param's amortization" do
         @service.loan.amortization_type = "5/1 ARM"
         @service.build_section_1
         expect(@service.params["amortization_arm"]).to eq("x")
@@ -45,8 +45,62 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
   end
 
+  describe "#build_section_2" do
+    before(:each) { @property = loan.primary_property }
+
+    it "maps right values" do
+      @service.build_section_2
+      expect(@service.params).to include({
+        "property_address" => @property.address.try(:address),
+        "no_of_units" => @property.no_of_unit,
+        "legal_description" => "See preliminary title",
+        "property_title" => "To Be Determined",
+        "property_manner" => "To Be Determined in escrow",
+        "property_fee_simple" => "x"
+      })
+    end
+
+    it "marks 'x' to only one property's usage" do
+      @service.property.usage = "primary_residence"
+      @service.build_section_2
+
+      expect(@service.params["secondary_property"]).not_to eq("x")
+      expect(@service.params["investment_property"]).not_to eq("x")
+      expect(@service.params["primary_property"]).to eq("x")
+    end
+
+    it "marks 'x' to only one property's purpose" do
+      @service.loan.purpose = "purchase"
+      @service.build_section_2
+
+      expect(@service.params["loan_purpose_refinance"]).not_to eq("x")
+      expect(@service.params["loan_purpose_purchase"]).to eq("x")
+    end
+
+    context "purchase" do
+      it "marks 'x' to purpose purchase" do
+        @service.loan.purpose = "purchase"
+        @service.build_section_2
+
+        expect(@service.params["loan_purpose_purchase"]).to eq("x")
+      end
+    end
+
+    context "refinance" do
+      it "maps right values relating to refinance" do
+        @service.build_section_2
+        expect(@service.params).to include({
+          "loan_purpose_refinance" => "x",
+          "refinance_year_acquired" => @property.original_purchase_year,
+          "refinance_original_cost" => @property.original_purchase_price,
+          "refinance_amount_existing_liens" => @property.refinance_amount
+        })
+      end
+    end
+  end
+
   describe "#build_loan_type" do
-    it "adds 'x' to only one mortgage applied type" do
+    it "marks 'x' to only one mortgage applied type" do
       @service.loan.loan_type = "Conventional"
       @service.build_section_1
       expect(@service.params['mortgage_applied_fha']).not_to eq("x")
@@ -57,7 +111,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
 
     context "Conventional" do
-      it "adds 'x' to param's mortgage applied" do
+      it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "Conventional"
         @service.build_section_1
         expect(@service.params['mortgage_applied_conventional']).to eq("x")
@@ -65,7 +119,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
 
     context "FHA" do
-      it "adds 'x' to param's mortgage applied" do
+      it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "FHA"
         @service.build_section_1
         expect(@service.params['mortgage_applied_fha']).to eq("x")
@@ -73,7 +127,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
 
     context "USDA" do
-      it "adds 'x' to param's mortgage applied" do
+      it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "USDA"
         @service.build_section_1
         expect(@service.params['mortgage_applied_usda']).to eq("x")
@@ -81,7 +135,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
 
     context "VA" do
-      it "adds 'x' to param's mortgage applied" do
+      it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "VA"
         @service.build_section_1
         expect(@service.params['mortgage_applied_va']).to eq("x")
@@ -89,7 +143,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
 
     context "Other" do
-      it "adds 'x' to param's mortgage applied" do
+      it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "LoremIpsum"
         @service.build_section_1
         expect(@service.params['mortgage_applied_other']).to eq("x")
