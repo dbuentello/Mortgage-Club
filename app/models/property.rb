@@ -120,4 +120,23 @@ class Property < ActiveRecord::Base
     end
     self.update(mortgage_payment: mortgage_payment - fee)
   end
+
+  def no_of_unit
+    case property_type
+    when "sfh", "condo"
+      return 1
+    when "duplex"
+      return 2
+    when "triplex"
+      return 3
+    when "fourplex"
+      return 4
+    end
+  end
+
+  def refinance_amount
+    return 0 unless loan.refinance?
+
+    mortgage_payment_liability.present? ? mortgage_payment : other_financing
+  end
 end
