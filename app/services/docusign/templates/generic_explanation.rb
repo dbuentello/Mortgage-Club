@@ -1,5 +1,3 @@
-include NumbersHelper
-
 module Docusign
   module Templates
     class GenericExplanation

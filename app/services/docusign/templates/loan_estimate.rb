@@ -1,6 +1,4 @@
 # rubocop:disable ClassLength
-include NumbersHelper
-
 module Docusign
   module Templates
     class LoanEstimate
