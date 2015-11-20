@@ -38,7 +38,7 @@ describe OcrServices::ParseXmlFile do
   end
 
   it "call OcrParseService" do
-    VCR.use_cassette("get ocr result xml file", :record => :new_episodes) do
+    VCR.use_cassette("get ocr result xml file") do
       response = OcrServices::ParseXmlFile.call(@raw_post)
       expect(response).to eq(
         {
