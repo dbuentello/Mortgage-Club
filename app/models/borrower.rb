@@ -82,15 +82,17 @@ class Borrower < ActiveRecord::Base
   end
 
   def previous_address
+    return unless must_have_previous_address?
+
     borrower_addresses.find_by(is_current: false)
   end
 
   def must_have_previous_address?
-    current_address && current_address.years_at_address.to_f <= 1
+    current_address && current_address.years_at_address.to_f < 2
   end
 
   def display_previous_address
-    previous_addresses.last.try(:address).try(:address) || 'No Address'
+    previous_address.try(:address).try(:address) || 'No Address'
   end
 
   def current_employment
