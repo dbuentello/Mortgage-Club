@@ -131,4 +131,8 @@ class Borrower < ActiveRecord::Base
   def current_salary
     current_employment.present? ? current_employment.current_salary.to_f : 0
   end
+
+  def total_income
+    current_salary + gross_overtime.to_f + gross_bonus.to_f + gross_commission.to_f
+  end
 end
