@@ -39,7 +39,7 @@ module Docusign
       end
 
       def build_section_3
-        build_borrower_info("borrower",  borrower)
+        build_borrower_info("borrower", borrower)
         build_borrower_info("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
       end
 

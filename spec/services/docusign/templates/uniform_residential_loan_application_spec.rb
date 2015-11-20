@@ -88,6 +88,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
 
     context "refinance" do
       it "maps right values relating to refinance" do
+        @service.loan.purpose = "refinance"
         @service.build_section_2
         expect(@service.params).to include({
           "loan_purpose_refinance" => "x",
@@ -96,6 +97,49 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
           "refinance_amount_existing_liens" => @property.refinance_amount
         })
       end
+    end
+  end
+
+  describe "#build_section_3" do
+    it "calls #build_borrower_info" do
+      expect_any_instance_of(
+        Docusign::Templates::UniformResidentialLoanApplication
+      ).to receive(:build_borrower_info).with("borrower", @service.borrower)
+
+      @service.build_section_3
+    end
+
+    context "secondary borrower" do
+      it "calls #build_borrower_info" do
+        @service.loan.secondary_borrower = loan.borrower
+        expect_any_instance_of(
+          Docusign::Templates::UniformResidentialLoanApplication
+        ).to receive(:build_borrower_info).at_least(:twice)
+
+        @service.build_section_3
+      end
+    end
+  end
+
+  describe "#build_borrower_info" do
+    it "maps right values" do
+      @service.borrower.marital_status = "married"
+      @service.build_borrower_info("borrower", @service.borrower)
+
+      expect(@service.params).to include({
+        "borrower_name" => @service.borrower.full_name,
+        "borrower_social_security_number" => @service.borrower.ssn,
+        "borrower_home_phone" => @service.borrower.phone,
+        "borrower_dob" => @service.borrower.dob,
+        "borrower_yrs_school" => @service.borrower.years_in_school,
+        "borrower_married" => "x",
+        "borrower_dependents_no" => @service.borrower.dependent_count,
+        "borrower_dependents_ages" => @service.borrower.dependent_ages,
+        "borrower_present_address" => @service.borrower.display_current_address,
+        "borrower_present_address_no_yrs" => @service.borrower.current_address.try(:years_at_address),
+        "borrower_former_address" => @service.borrower.display_previous_address,
+        "borrower_former_address_no_yrs" => @service.borrower.previous_address.try(:years_at_address)
+      })
     end
   end
 
