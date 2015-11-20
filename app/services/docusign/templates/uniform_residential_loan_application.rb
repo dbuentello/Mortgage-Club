@@ -39,11 +39,11 @@ module Docusign
       end
 
       def build_section_3
-        build_borrower_info("borrower")
-        build_borrower_info("co_borrower") if loan.secondary_borrower.present?
+        build_borrower_info("borrower",  borrower)
+        build_borrower_info("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
       end
 
-      def build_borrower_info(role)
+      def build_borrower_info(role, borrower)
         @params[role + "_name"] = borrower.full_name
         @params[role + "_social_security_number"] = borrower.ssn
         @params[role + "_home_phone"] = borrower.phone
@@ -55,21 +55,13 @@ module Docusign
         @params[role + "_dependents_no"] = borrower.dependent_count
         @params[role + "_dependents_ages"] = borrower.dependent_ages
         @params[role + "_present_address"] = borrower.display_current_address
-        # @params[role + "_present_address_own"] =
-        # @params[role + "_present_address_rent"] =
-        # @params[role + "_present_address_no_yrs"] =
+        @params[role + "_present_address_own"] = "x" unless borrower.current_address.try(:is_rental)
+        @params[role + "_present_address_rent"] = "x" if borrower.current_address.try(:is_rental)
+        @params[role + "_present_address_no_yrs"] = borrower.current_address.try(:years_at_address)
         @params[role + "_former_address"] = borrower.display_previous_address
-        # @params[role + "_former_address_own"] =
-        # @params[role + "_former_address_rent"] =
-        # @params[role + "_former_address_no_yrs"] =
-        # create_table "borrower_addresses", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-        #   t.uuid     "borrower_id"
-        #   t.integer  "years_at_address"
-        #   t.boolean  "is_rental"
-        #   t.boolean  "is_current",       default: false, null: false
-        #   t.datetime "created_at"
-        #   t.datetime "updated_at"
-        # end
+        @params[role + "_former_address_own"] = "x" unless borrower.previous_address.try(:is_rental)
+        @params[role + "_former_address_rent"] = "x" if borrower.previous_address.try(:is_rental)
+        @params[role + "_former_address_no_yrs"] = borrower.previous_address.try(:years_at_address)
       end
 
       def build_refinance_loan
