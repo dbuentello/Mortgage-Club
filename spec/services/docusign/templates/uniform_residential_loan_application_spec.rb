@@ -121,6 +121,83 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
   end
 
+  describe "#build_section_4" do
+    it "calls #build_employment_info" do
+      expect_any_instance_of(
+        Docusign::Templates::UniformResidentialLoanApplication
+      ).to receive(:build_employment_info).with("borrower", @service.borrower)
+
+      @service.build_section_4
+    end
+
+    context "secondary borrower" do
+      it "calls #build_employment_info" do
+        @service.loan.secondary_borrower = loan.borrower
+        expect_any_instance_of(
+          Docusign::Templates::UniformResidentialLoanApplication
+        ).to receive(:build_employment_info).at_least(:twice)
+
+        @service.build_section_4
+      end
+    end
+  end
+
+  describe "#build_section_5" do
+    it "calls #build_gross_monthly_income" do
+      expect_any_instance_of(
+        Docusign::Templates::UniformResidentialLoanApplication
+      ).to receive(:build_gross_monthly_income).with("borrower", @service.borrower)
+
+      @service.build_section_5
+    end
+
+    context "secondary borrower" do
+      it "calls #build_gross_monthly_income" do
+        @service.loan.secondary_borrower = loan.borrower
+        expect_any_instance_of(
+          Docusign::Templates::UniformResidentialLoanApplication
+        ).to receive(:build_gross_monthly_income).at_least(:twice)
+
+        @service.build_section_5
+      end
+    end
+  end
+
+  describe "#build_gross_monthly_income" do
+    it "maps right values" do
+      borrower = @service.borrower
+      @service.build_gross_monthly_income("borrower", borrower)
+
+      expect(@service.params).to include({
+        "borrower_base_income" => Money.new(borrower.current_salary * 100).format,
+        "borrower_overtime" => Money.new(borrower.gross_overtime.to_f * 100).format,
+        "borrower_bonuses" => Money.new(borrower.gross_bonus.to_f * 100).format,
+        "borrower_commissions" => Money.new(borrower.gross_commission.to_f * 100).format,
+        "borrower_total_income" => Money.new(borrower.total_income.to_f * 100).format,
+        "total_base_income" => borrower.current_salary,
+        "total_overtime" => borrower.gross_overtime.to_f,
+        "total_bonuses" => borrower.gross_bonus.to_f,
+        "total_commissions" => borrower.gross_commission.to_f
+      })
+    end
+  end
+
+  describe "#build_employment_info" do
+    it "maps right values" do
+      current_employment = @service.borrower.current_employment
+      @service.build_employment_info("borrower", @service.borrower)
+
+      expect(@service.params).to include({
+        "borrower_yrs_job" => current_employment.duration,
+        "borrower_yrs_employed" => current_employment.duration,
+        "borrower_name_employer_1" => current_employment.employer_contact_name,
+        "borrower_address_employer_1" => current_employment.full_address,
+        "borrower_position_1" => current_employment.job_title,
+        "borrower_business_phone_1" => current_employment.employer_contact_number
+      })
+    end
+  end
+
   describe "#build_borrower_info" do
     it "maps right values" do
       @service.borrower.marital_status = "married"
