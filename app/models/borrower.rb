@@ -95,6 +95,10 @@ class Borrower < ActiveRecord::Base
     previous_address.try(:address).try(:address) || 'No Address'
   end
 
+  def require_previous_address?
+    current_address && current_address.years_at_address && current_address.years_at_address < 2
+  end
+
   def current_employment
     @current_employment ||= employments.find_by(is_current: true)
   end
