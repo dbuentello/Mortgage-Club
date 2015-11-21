@@ -32,7 +32,7 @@ var checkboxFields = {
   },
   presentDeliquentLoan: {
     label: 'Are you presently delinquent or in default on any Federal debt or any other loan, mortgage, financial, obligation, bond or loan guarantee?',
-    name: 'present_deliquent_loan'
+    name: 'present_delinquent_loan'
   },
   childSupport: {
     label: 'Are you obligated to pay alimony, child support, or separate maintenance?',
@@ -66,15 +66,15 @@ var selectBoxFields = {
 }
 
 var propertyOptions = [
-  {name: 'Primary Residence', value: 'primary_residence'},
-  {name: 'Secondary Resident', value: 'secondary_residence'},
-  {name: 'Investment Property', value: 'investment_property'}
+  {name: 'Primary Residence', value: 'PR'},
+  {name: 'Secondary Resident', value: 'SH'},
+  {name: 'Investment Property', value: 'IP'}
 ];
 
 var titlePropertyOptions = [
-  {name: 'Self', value: 'self'},
-  {name: 'With spouse', value: 'with_spouse'},
-  {name: 'Other', value: 'other'}
+  {name: 'Self', value: 'S'},
+  {name: 'With spouse', value: 'SP'},
+  {name: 'Other', value: 'O'}
 ]
 
 var FormDeclarations = React.createClass({
