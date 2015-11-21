@@ -163,6 +163,63 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
   end
 
+  describe "#build_section_7" do
+    it "calls #build_declaration" do
+      expect_any_instance_of(
+        Docusign::Templates::UniformResidentialLoanApplication
+      ).to receive(:build_declaration).with("borrower", @service.borrower)
+
+      @service.build_section_7
+    end
+
+    context "secondary borrower" do
+      it "calls #build_gross_monthly_income" do
+        @service.loan.secondary_borrower = loan.borrower
+        expect_any_instance_of(
+          Docusign::Templates::UniformResidentialLoanApplication
+        ).to receive(:build_declaration).at_least(:twice)
+
+        @service.build_section_7
+      end
+    end
+  end
+
+  describe "#build_declaration" do
+    let!(:declaration) { FactoryGirl.create(:declaration, borrower: @service.borrower)}
+    it "maps right values" do
+      borrower = @service.borrower
+      @service.build_declaration("borrower", borrower)
+      expect(@service.params).to include({
+        "declarations_borrower_a_yes" => declaration.outstanding_judgment ? "x" : nil,
+        "declarations_borrower_b_yes" => declaration.bankrupt ? "x" : nil,
+        "declarations_borrower_c_yes" => declaration.property_foreclosed ? "x" : nil,
+        "declarations_borrower_d_yes" => declaration.party_to_lawsuit ? "x" : nil,
+        "declarations_borrower_e_yes" => declaration.loan_foreclosure ? "x" : nil,
+        "declarations_borrower_f_yes" => declaration.present_delinquent_loan ? "x" : nil,
+        "declarations_borrower_g_yes" => declaration.child_support ? "x" : nil,
+        "declarations_borrower_h_yes" => declaration.down_payment_borrowed ? "x" : nil,
+        "declarations_borrower_i_yes" => declaration.co_maker_or_endorser ? "x" : nil,
+        "declarations_borrower_j_yes" => declaration.us_citizen ? "x" : nil,
+        "declarations_borrower_k_yes" => declaration.permanent_resident_alien ? "x" : nil,
+        "declarations_borrower_m_yes" => declaration.ownership_interest ? "x" : nil,
+        "declarations_borrower_a_no" => declaration.outstanding_judgment ? nil : "x",
+        "declarations_borrower_b_no" => declaration.bankrupt ? nil : "x",
+        "declarations_borrower_c_no" => declaration.property_foreclosed ? nil : "x",
+        "declarations_borrower_d_no" => declaration.party_to_lawsuit ? nil : "x",
+        "declarations_borrower_e_no" => declaration.loan_foreclosure ? nil : "x",
+        "declarations_borrower_f_no" => declaration.present_delinquent_loan ? nil : "x",
+        "declarations_borrower_g_no" => declaration.child_support ? nil : "x",
+        "declarations_borrower_h_no" => declaration.down_payment_borrowed ? nil : "x",
+        "declarations_borrower_i_no" => declaration.co_maker_or_endorser ? nil : "x",
+        "declarations_borrower_j_no" => declaration.us_citizen ? nil : "x",
+        "declarations_borrower_k_no" => declaration.permanent_resident_alien ? nil : "x",
+        "declarations_borrower_m_no" => declaration.ownership_interest ? nil : "x",
+        "declarations_borrower_m_1"  => declaration.type_of_property,
+        "declarations_borrower_m_2"  => declaration.title_of_property
+      })
+    end
+  end
+
   describe "#build_gross_monthly_income" do
     it "maps right values" do
       borrower = @service.borrower
