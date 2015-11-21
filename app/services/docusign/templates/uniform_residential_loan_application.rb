@@ -61,6 +61,55 @@ module Docusign
         # proposed_mortgage_insurance, proposed_homeowner, proposed_total_expense
       end
 
+      def build_section_6
+      end
+
+      def build_section_7
+        # purchase_price
+        # alterations_repairs
+        # refinance
+        # estimated_prepaid_items
+        # estimated_closing_costs
+        # pmi_funding_fee
+        # total_cost
+        build_declaration("borrower", borrower)
+        build_declaration("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
+      end
+
+      def build_declaration(role, borrower)
+        #declarations_borrower_l_yes
+        declaration = borrower.declaration
+        prefix = "declarations_".freeze
+        midfix = (role + "_").freeze
+        yes_answer = "_yes".freeze
+        no_answer = "_no".freeze
+        boolean_mapping = {
+          "a" => "outstanding_judgment",
+          "b" => "bankrupt",
+          "c" => "property_foreclosed",
+          "d" => "party_to_lawsuit",
+          "e" => "loan_foreclosure",
+          "f" => "present_delinquent_loan",
+          "g" => "child_support",
+          "h" => "down_payment_borrowed",
+          "i" => "co_maker_or_endorser",
+          "j" => "us_citizen",
+          "k" => "permanent_resident_alien",
+          "m" => "ownership_interest"
+        }
+        # Ex: @params["declarations_" + role + "_b_yes"] = "x" if declaration.bankrupt
+        boolean_mapping.each do |key, field|
+          @params[prefix + midfix + key + yes_answer] = @params[prefix + midfix + key + no_answer] = nil
+          if declaration.send(field)
+            @params[prefix + midfix + key + yes_answer] = "x".freeze
+          else
+            @params[prefix + midfix + key + no_answer] = "x".freeze
+          end
+        end
+        @params[prefix + midfix + "m_1"] = declaration.type_of_property
+        @params[prefix + midfix + "m_2"] = declaration.title_of_property
+      end
+
       def build_gross_monthly_income(role, borrower)
         # borrower_dividends, borrower_net, borrower_other
         [
