@@ -14,7 +14,7 @@ module Docusign
 
     def call
       @envelope_hash = build_envelope_hash
-      signers = Docusign::BuildSignatureForEnvelopeService.new(loan, templates, @envelope_hash).call
+      signers = Docusign::GenerateSignersForEnvelopeService.new(loan, templates, @envelope_hash).call
       envelope_response = client.create_envelope_from_composite_template(
         status: 'sent',
         email: {

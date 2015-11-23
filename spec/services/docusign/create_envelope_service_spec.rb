@@ -20,9 +20,14 @@ describe Docusign::CreateEnvelopeService do
     )
   end
 
-  it "calls create_envelope_from_composite_template from DocusignRest::Client" do
+  it "calls DocusignRest::Client#create_envelope_from_composite_template" do
     expect_any_instance_of(DocusignRest::Client).to receive(:create_envelope_from_composite_template)
     expect_any_instance_of(Docusign::BuildSignatureForEnvelopeService).to receive(:call)
+    Docusign::CreateEnvelopeService.new(user, loan, [template, secondary_template]).call
+  end
+
+  it "calls GenerateSignersForEnvelopeService service" do
+    expect_any_instance_of(Docusign::GenerateSignersForEnvelopeService).to receive(:call)
     Docusign::CreateEnvelopeService.new(user, loan, [template, secondary_template]).call
   end
 

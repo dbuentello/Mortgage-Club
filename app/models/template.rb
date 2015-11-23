@@ -47,28 +47,6 @@ class Template < ActiveRecord::Base
 
   # TODO: it will be an attribute when we have an interface to CRUD templates.
   def may_need_coapplicant_signature?
-    return true if name == "Loan Estimate"
-    false
-  end
-
-  # TODO: in the future each template has different position
-  def cosignature_position
-    return unless may_need_coapplicant_signature?
-    {
-      x_position: 340,
-      y_position: 672,
-      page_number: 3,
-      optional: false
-    }
-  end
-
-  # TODO: in the future each template has different position
-  def codate_signed_position
-    return unless may_need_coapplicant_signature?
-    {
-      x_position: 480,
-      y_position: 709,
-      page_number: 3
-    }
+    ["Loan Estimate", "Servicing Disclosure"].include? name
   end
 end
