@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe Docusign::Templates::UniformResidentialLoanApplication do
   let!(:loan) { FactoryGirl.create(:loan_with_properties) }
+  let!(:declaration) { FactoryGirl.create(:declaration, borrower: loan.borrower)}
   before(:each) do
     @service = Docusign::Templates::UniformResidentialLoanApplication.new(loan)
   end
@@ -164,12 +165,31 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
   end
 
   describe "#build_section_7" do
+    it "maps right values" do
+      total_cost_transactions = 0 + loan.estimated_prepaid_items.to_f +
+                                  loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f
+      @service.build_section_7
+      expect(@service.params).to include({
+        "estimated_prepaid_items" => loan.estimated_prepaid_items,
+        "estimated_closing_costs" => loan.estimated_closing_costs,
+        "pmi_funding_fee" => loan.pmi_mip_funding_fee,
+        "other_credit" => loan.other_credits,
+        "loan_amount_exclude_pmi_mip" => loan.amount - loan.pmi_mip_funding_fee.to_f,
+        "pmi_mip_funding_fee_financed" => loan.pmi_mip_funding_fee_financed,
+        "total_loan_amount" => loan.amount,
+        "total_cost_transactions" => total_cost_transactions,
+        "borrower_cash" => total_cost_transactions - loan.other_credits.to_f - loan.amount
+      })
+    end
+  end
+
+  describe "#build_section_8" do
     it "calls #build_declaration" do
       expect_any_instance_of(
         Docusign::Templates::UniformResidentialLoanApplication
       ).to receive(:build_declaration).with("borrower", @service.borrower)
 
-      @service.build_section_7
+      @service.build_section_8
     end
 
     context "secondary borrower" do
@@ -179,13 +199,12 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
           Docusign::Templates::UniformResidentialLoanApplication
         ).to receive(:build_declaration).at_least(:twice)
 
-        @service.build_section_7
+        @service.build_section_8
       end
     end
   end
 
   describe "#build_declaration" do
-    let!(:declaration) { FactoryGirl.create(:declaration, borrower: @service.borrower)}
     it "maps right values" do
       borrower = @service.borrower
       @service.build_declaration("borrower", borrower)
