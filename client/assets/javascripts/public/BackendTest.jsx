@@ -19,7 +19,7 @@ var BackendTest = React.createClass({
               </li>
               <li>
                 <b>{"Verifying borrower's credit score"}</b>
-                <p className='mbl'>{"If"} <b>credit_score</b> {"> 620, application displays an error message"} <i>"Sorry, your credit score is below the minimum required to obtain a mortgage."</i></p>
+                <p className='mbl'>{"If"} <b>credit_score</b> {"< 620, application displays an error message"} <i>"Sorry, your credit score is below the minimum required to obtain a mortgage."</i></p>
               </li>
               <li>
                 <b>Verifying housing-expense ratio</b>
