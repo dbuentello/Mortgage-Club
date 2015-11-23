@@ -9,6 +9,9 @@ module Docusign
         @borrower = loan.borrower
         @credit_report = borrower.credit_report
         @params = {}
+      end
+
+      def build
         build_section_1
         build_section_2
         build_section_3
@@ -16,6 +19,8 @@ module Docusign
         build_section_5
         build_section_6
         build_section_7
+        build_section_8
+        params
       end
 
       def build_section_1
@@ -83,15 +88,32 @@ module Docusign
       end
 
       def build_section_7
-        # purchase_price
-        # alterations_repairs
-        # refinance
-        # estimated_prepaid_items
-        # estimated_closing_costs
-        # pmi_funding_fee
-        # total_cost
+        # wait for Subject Property's front-end
+        purchase_price = 0
+        refinance = 0
+        # leave blank now
+        subordinate_financing = 0
+        closing_costs_paid_by_seller = 0
+
+        @params["estimated_prepaid_items"] = loan.estimated_prepaid_items
+        @params["estimated_closing_costs"] = loan.estimated_closing_costs
+        @params["pmi_funding_fee"] = loan.pmi_mip_funding_fee
+        @params["other_credit"] = loan.other_credits
+        @params["loan_amount_exclude_pmi_mip"] = loan.amount - loan.pmi_mip_funding_fee.to_f
+        @params["pmi_mip_funding_fee_financed"] = loan.pmi_mip_funding_fee_financed
+        @params["total_loan_amount"] = loan.amount
+        @params["borrower_cash"] = total_cost_transactions(purchase_price) - subordinate_financing - closing_costs_paid_by_seller - loan.other_credits.to_f - loan.amount
+        @params["total_cost_transactions"] = total_cost_transactions(purchase_price)
+      end
+
+      def build_section_8
         build_declaration("borrower", borrower)
         build_declaration("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
+      end
+
+      def total_cost_transactions(purchase_price)
+        @total_cost_transactions ||= purchase_price + loan.estimated_prepaid_items.to_f +
+                                  loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f
       end
 
       def build_declaration(role, borrower)
@@ -140,7 +162,6 @@ module Docusign
         @params[role + "_bonuses"] = Money.new(borrower.gross_bonus.to_f * 100).format
         @params[role + "_commissions"] = Money.new(borrower.gross_commission.to_f * 100).format
         @params[role + "_total_income"] = Money.new(borrower.total_income.to_f * 100).format
-
         @params["total_base_income"] += borrower.current_salary
         @params["total_overtime"] += borrower.gross_overtime.to_f
         @params["total_bonuses"] += borrower.gross_bonus.to_f
