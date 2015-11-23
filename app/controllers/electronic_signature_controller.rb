@@ -13,7 +13,7 @@ class ElectronicSignatureController < ApplicationController
   end
 
   def create
-    templates = Template.where(name: ["Loan Estimate", "Servicing Disclosure"])
+    templates = Template.where(name: ["Loan Estimate", "Servicing Disclosure", "Uniform Residential Loan Application"])
     if templates.empty?
       return render json: {
               message: "Template does not exist yet",

@@ -24,8 +24,11 @@ module Docusign
         server_template_ids: template_ids,
         signers: signers
       )
-      save_envelope_object_into_database(envelope_response["envelopeId"], @envelope_hash[:loan_id])
-      return envelope_response if envelope_response["errorCode"].nil?
+
+      if envelope_response["errorCode"].nil?
+        save_envelope_object_into_database(envelope_response["envelopeId"], @envelope_hash[:loan_id])
+        return envelope_response
+      end
     end
 
     private

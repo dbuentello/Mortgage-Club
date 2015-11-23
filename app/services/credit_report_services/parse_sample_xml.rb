@@ -44,6 +44,7 @@ module CreditReportServices
       creditor = get_creditor(credit_liability)
       {
         account_type: credit_liability.attributes['_AccountType'].value,
+        account_number: credit_liability.attributes['_AccountIdentifier'],
         payment: credit_liability.attributes['_MonthlyPaymentAmount'].value.to_f,
         balance: credit_liability.attributes['_UnpaidBalanceAmount'].value.to_f,
         phone: creditor.css('CONTACT_DETAIL').css('CONTACT_POINT').first.attributes['_Value'].value,

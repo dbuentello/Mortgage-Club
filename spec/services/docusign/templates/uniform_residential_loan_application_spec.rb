@@ -268,7 +268,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         "borrower_yrs_school" => @service.borrower.years_in_school,
         "borrower_married" => "x",
         "borrower_dependents_no" => @service.borrower.dependent_count,
-        "borrower_dependents_ages" => @service.borrower.dependent_ages,
+        "borrower_dependents_ages" => @service.borrower.dependent_ages.join(", "),
         "borrower_present_address" => @service.borrower.display_current_address,
         "borrower_present_address_no_yrs" => @service.borrower.current_address.try(:years_at_address),
         "borrower_former_address" => @service.borrower.display_previous_address,

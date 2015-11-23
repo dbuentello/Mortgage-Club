@@ -1,13 +1,21 @@
 module Docusign
   module Templates
     class UniformResidentialLoanApplication
-      attr_accessor :loan, :property, :borrower, :params
+      attr_accessor :loan, :property, :borrower, :credit_report, :params
 
       def initialize(loan)
         @loan = loan
         @property = loan.primary_property
         @borrower = loan.borrower
+        @credit_report = borrower.credit_report
         @params = {}
+        build_section_1
+        build_section_2
+        build_section_3
+        build_section_4
+        build_section_5
+        build_section_6
+        build_section_7
       end
 
       def build_section_1
@@ -62,6 +70,16 @@ module Docusign
       end
 
       def build_section_6
+        return unless credit_report
+
+        credit_report.liabilities.includes(:address).each_with_index do |liability, index|
+          nth = index.to_s
+          @params["liabilities_name_" + nth] = liability.name
+          @params["liabilities_address_" + nth] = liability.address.address
+          # @params["payment_months_" + nth] = liability.payment.to_f / liability.months.to_f
+          @params["unpaid_balance_" + nth] = liability.balance
+          @params["liabilities_acct_no_" + nth] = liability.account_number
+        end
       end
 
       def build_section_7
@@ -151,7 +169,7 @@ module Docusign
         @params[role + "_unmarried"] = "x" if borrower.unmarried?
         @params[role + "_separated"] = "x" if borrower.separated?
         @params[role + "_dependents_no"] = borrower.dependent_count
-        @params[role + "_dependents_ages"] = borrower.dependent_ages
+        @params[role + "_dependents_ages"] = borrower.dependent_ages.join(", ")
         @params[role + "_present_address"] = borrower.display_current_address
         @params[role + "_present_address_own"] = "x" unless borrower.current_address.try(:is_rental)
         @params[role + "_present_address_rent"] = "x" if borrower.current_address.try(:is_rental)

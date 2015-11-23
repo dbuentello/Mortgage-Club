@@ -122,6 +122,10 @@ if Lender.where(name: 'Dummy Lender').blank?
   end
 end
 
+if Template.where(name: 'Uniform Residential Loan Application').blank?
+  Docusign::CreateTemplateService.call("Uniform Residential Loan Application")
+end
+
 # if Loan.where(lender_name: 'Ficus Bank').blank?
 #   user = User.where(email: 'borrower@gmail.com').first
 #   loan = user.loans.build(amount: Random.rand(100000..200000), interest_rate: Random.rand(0.2..1))

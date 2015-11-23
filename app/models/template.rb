@@ -23,6 +23,18 @@ class Template < ActiveRecord::Base
   validates :name, :docusign_id, :state, presence: true
   validates :name, uniqueness: true
 
+  after_save :clear_cache
+
+  # clear cache for Docusign tabs
+  def clear_cache
+    begin
+      REDIS.del name if REDIS.get(name)
+    rescue Exception => e
+      Rails.logger.error(e)
+    end
+  end
+
+  # TODO: Refactor this method, it's a bad practice
   def template_mapping
     case name
     when "Loan Estimate"
@@ -31,6 +43,8 @@ class Template < ActiveRecord::Base
       Docusign::Templates::ServicingDisclosure
     when "Generic Explanation"
       Docusign::Templates::GenericExplanation
+    when "Uniform Residential Loan Application"
+      Docusign::Templates::UniformResidentialLoanApplication
     end
   end
 
@@ -42,6 +56,8 @@ class Template < ActiveRecord::Base
       Docusign::Alignment::ServicingDisclosureService
     when "Generic Explanation"
       Docusign::Alignment::GenericExplanationService
+    when "Uniform Residential Loan Application"
+      Docusign::AlignTabsForUniformResidentialService
     end
   end
 
