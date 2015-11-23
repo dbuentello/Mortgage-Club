@@ -9,7 +9,9 @@ module Docusign
         @property = loan.subject_property
         @borrower = loan.borrower
         @params = {}
+      end
 
+      def build
         build_header
         build_loan_terms
         build_projected_payments
@@ -17,6 +19,7 @@ module Docusign
         build_closing_cost_details
         build_additional_information
         remove_zero_value_from_params
+        params
       end
 
       def build_header

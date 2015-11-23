@@ -11,6 +11,11 @@ module Docusign
         build_content
       end
 
+      def build
+        build_content
+        params
+      end
+
       private
 
       def build_content

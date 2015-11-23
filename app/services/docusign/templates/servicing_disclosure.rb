@@ -6,9 +6,12 @@ module Docusign
       def initialize(loan)
         @loan = loan
         @params = {}
+      end
 
+      def build
         build_header
         build_survey
+        params
       end
 
       private

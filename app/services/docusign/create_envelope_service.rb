@@ -50,7 +50,7 @@ module Docusign
 
     def mapping_value
       templates.map do |template|
-        template.template_mapping.new(loan).params
+        template.template_mapping.new(loan).build
       end
     end
 
