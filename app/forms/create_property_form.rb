@@ -7,7 +7,7 @@ class CreatePropertyForm
     @loan = Loan.find_by_id(loan_id)
     @primary_property = loan.primary_property
     @primary_property_params = primary_property_params
-    @rental_properties_params = rental_properties_params
+    @rental_properties_params = rental_properties_params || []
     @credit_report_id = credit_report_id
   end
 
