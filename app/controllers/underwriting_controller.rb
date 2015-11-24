@@ -24,10 +24,10 @@ class UnderwritingController < ApplicationController
     return {} unless @loan.borrower.credit_report
 
     borrower = @loan.borrower
-    primary_property = @loan.primary_property
+    subject_property = @loan.subject_property
     properties = @loan.properties.map do |property|
       {
-        is_primary: primary_property.id == property.id ? 1 : 0,
+        is_subject: subject_property.id == property.id ? 1 : 0,
         liability_payments: property.liability_payments,
         mortgage_payment: property.mortgage_payment,
         other_financing: property.other_financing,
@@ -45,11 +45,11 @@ class UnderwritingController < ApplicationController
       housing_expense: UnderwritingLoanServices::CalculateHousingExpenseRatio.call(@loan),
       sum_liability_payment: borrower.credit_report.sum_liability_payment,
       sum_investment: UnderwritingLoanServices::CalculateDebtToIncome.sum_investment(@loan.rental_properties),
-      primary_liability_payments: primary_property.liability_payments,
-      primary_estimated_mortgage_insurance: primary_property.estimated_mortgage_insurance.to_f,
-      primary_estimated_hazard_insurance: primary_property.estimated_hazard_insurance.to_f,
-      primary_estimated_property_tax: primary_property.estimated_property_tax.to_f,
-      primary_hoa_due: primary_property.hoa_due.to_f,
+      primary_liability_payments: subject_property.liability_payments,
+      primary_estimated_mortgage_insurance: subject_property.estimated_mortgage_insurance.to_f,
+      primary_estimated_hazard_insurance: subject_property.estimated_hazard_insurance.to_f,
+      primary_estimated_property_tax: subject_property.estimated_property_tax.to_f,
+      primary_hoa_due: subject_property.hoa_due.to_f,
       total_income: UnderwritingLoanServices::CalculateTotalIncome.call(@loan),
       rental_income: UnderwritingLoanServices::CalculateRentalIncome.call(@loan),
       current_salary: borrower.current_salary,
