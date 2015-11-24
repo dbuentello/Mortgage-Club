@@ -279,9 +279,9 @@ var FormBorrower = React.createClass({
               <div className='row'>
                 <div className='col-xs-6'>
                   <BooleanRadio
-                    label={first_borrower_fields.currentlyOwn.label}
-                    checked={this.state[first_borrower_fields.currentlyOwn.name]}
-                    keyName={first_borrower_fields.currentlyOwn.name}
+                    label={borrower_fields.currentlyOwn.label}
+                    checked={this.state[borrower_fields.currentlyOwn.name]}
+                    keyName={borrower_fields.currentlyOwn.name}
                     yesLabel={"Own"}
                     noLabel={"Rent"}
                     editable={this.state.borrower_editable}
