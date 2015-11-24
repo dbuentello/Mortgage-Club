@@ -53,24 +53,24 @@
 
           <table class="table homeTable">
             <tr class="table-header">
-              <td>Programs</td><td>Mortgage Club</td><td>Wells Fargo</td><td>Quicken Loans</td>
+              <td>Programs</td><td>Mortgage Club</td><td>Chase</td><td>Quicken Loans</td>
             </tr>
             <tr>
               <td>30 Year Fixed<hr/></td>
               <td><%= sprintf('%.3f', @mortgage_aprs['zillow']['apr_30_year']) %>%<hr/></td>
-              <td><%= sprintf('%.3f', @mortgage_aprs['wells_fargo']['apr_30_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f', @mortgage_aprs['chase']['apr_30_year']) %>%<hr/></td>
               <td><%= sprintf('%.3f', @mortgage_aprs['quicken_loans']['apr_30_year']) %>%<hr/></td>
             </tr>
             <tr>
               <td>15 Year Fixed<hr/></td>
               <td><%= sprintf('%.3f', @mortgage_aprs['zillow']['apr_15_year']) %>%<hr/></td>
-              <td><%= sprintf('%.3f', @mortgage_aprs['wells_fargo']['apr_15_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f', @mortgage_aprs['chase']['apr_15_year']) %>%<hr/></td>
               <td><%= sprintf('%.3f', @mortgage_aprs['quicken_loans']['apr_15_year']) %>%<hr/></td>
             </tr>
             <tr>
               <td>5/1 Libor ARM<hr/></td>
               <td><%= sprintf('%.3f', @mortgage_aprs['zillow']['apr_5_libor']) %>%<hr/></td>
-              <td><%= sprintf('%.3f', @mortgage_aprs['wells_fargo']['apr_5_libor']) %>%<hr/></td>
+              <td><%= sprintf('%.3f', @mortgage_aprs['chase']['apr_5_libor']) %>%<hr/></td>
               <td><%= sprintf('%.3f', @mortgage_aprs['quicken_loans']['apr_5_libor']) %>%<hr/></td>
             </tr>
           </table>
