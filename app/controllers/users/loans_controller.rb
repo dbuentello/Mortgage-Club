@@ -48,7 +48,6 @@ class Users::LoansController < Users::BaseController
   end
 
   def update
-    byebug
     if @loan.update(loan_params)
       loan = @loan.reload
       step = params[:current_step].to_s if params[:current_step].present?
