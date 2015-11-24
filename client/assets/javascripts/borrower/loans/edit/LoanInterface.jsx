@@ -7,6 +7,7 @@ var Income = require('./FormIncome/FormIncome');
 var AssetsAndLiabilities = require('./FormAssetsAndLiabilities/FormAssetsAndLiabilities');
 var Declarations = require('./FormDeclarations');
 var CreditCheck = require('./FormCreditCheck');
+var Documents = require('./FormDocuments');
 
 var LoanInterface = React.createClass({
   getInitialState: function() {
@@ -55,6 +56,7 @@ var LoanInterface = React.createClass({
     var menu = [
       {name: 'Property', complete: loan.property_completed, icon: 'iconHome', step: 0, Content: Property},
       {name: 'Borrower', complete: loan.borrower_completed, icon: 'iconUser', step: 1, Content: Borrower},
+      {name: 'Documents', complete: loan.income_completed, icon: 'iconTicket', step: 2, Content: Documents},
       {name: 'Income', complete: loan.income_completed, icon: 'iconTicket', step: 2, Content: Income},
       {name: 'Credit Check', complete: loan.credit_completed, icon: 'iconCreditCard', step: 3, Content: CreditCheck},
       {name: 'Assets and Liabilities', complete: loan.assets_completed, icon: 'iconVcard', step: 4, Content: AssetsAndLiabilities},
