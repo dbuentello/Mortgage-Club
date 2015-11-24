@@ -161,8 +161,12 @@ class Loan < ActiveRecord::Base
     properties.includes(:address).find { |p| p.is_primary == true }
   end
 
+  def subject_property
+    properties.includes(:address).find { |p| p.is_subject == true }
+  end
+
   def rental_properties
-    rental_properties = properties.includes(:address).select { |p| p.is_primary == false }
+    rental_properties = properties.includes(:address).select { |p| p.is_primary == false && p.is_subject == false }
     rental_properties.sort_by(&:created_at)
   end
 
