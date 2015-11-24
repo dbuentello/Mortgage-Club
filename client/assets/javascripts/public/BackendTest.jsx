@@ -19,7 +19,7 @@ var BackendTest = React.createClass({
               </li>
               <li>
                 <b>{"Verifying borrower's credit score"}</b>
-                <p className='mbl'>{"If"} <b>credit_score</b> {"> 620, application displays an error message"} <i>"Sorry, your credit score is below the minimum required to obtain a mortgage."</i></p>
+                <p className='mbl'>{"If"} <b>credit_score</b> {"< 620, application displays an error message"} <i>"Sorry, your credit score is below the minimum required to obtain a mortgage."</i></p>
               </li>
               <li>
                 <b>Verifying housing-expense ratio</b>
@@ -27,12 +27,13 @@ var BackendTest = React.createClass({
               </li>
             </ol>
             <p>If the loan satisfies above conditions, the application should display a success message <i>"Congratulations, your loan was approved."</i></p>
-            <h4>Underwriting formulas:</h4>
+            <h4>Underwriting formulas</h4>
             <ul className='mbl'>
               <li><b>total_income</b> = base income + rental income + commission</li>
               <li><b>housing_expense_ratio</b> = (primary residence’s mortgage payment + primary residence’s mortgage insurance + primary residence’s homeowner’s Insurance + primary residence’s property tax + primary residence’s hoa due) / total income</li>
             </ul>
             <h5>Note: Writing test is compulsory and high test coverage is a big plus.</h5>
+            <h5>Please send us your Github's repository and application demo's URL.</h5>
             <p className='mtl'>This is a sample user interface. Please note that the focus of this programming test is on the back-end stuff, you don’t need to spend too much time on the user interface.</p>
 
 
