@@ -238,12 +238,16 @@ var FormProperty = React.createClass({
     loan.properties_attributes.address_attributes = this.state.address;
     loan.properties_attributes.zpid = this.state.property ? this.state.property.zpid : null;
     loan.properties_attributes.is_subject = true
-
-    loan.properties_attributes['property_type'] = this.state['property_type'];
-    loan.properties_attributes['market_price'] = this.state['market_price'];
-    loan.properties_attributes['estimated_hazard_insurance'] = this.state['estimated_hazard_insurance'];
-    loan.properties_attributes['estimated_property_tax'] = this.state['estimated_property_tax'];
+    loan.properties_attributes.property_type = this.state['property_type'];
+    loan.properties_attributes.market_price = this.state['market_price'];
+    loan.properties_attributes.estimated_hazard_insurance = this.state['estimated_hazard_insurance'];
+    loan.properties_attributes.estimated_property_tax = this.state['estimated_property_tax'];
+    loan.properties_attributes.is_primary = this.isPrimaryProperty();
     return loan;
+  },
+
+  isPrimaryProperty: function() {
+    this.state[fields.propertyPurpose.name] == 'primary_residence'
   },
 
   save: function() {
