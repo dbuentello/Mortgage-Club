@@ -12,6 +12,7 @@ FactoryGirl.define do
     f.hoa_due { Faker::Number.number(4) }
     f.is_impound_account { [true, false].sample }
     f.is_primary { true }
+    f.is_subject { false }
   end
 
   factory :primary_property, parent: :property do |f|
@@ -20,7 +21,7 @@ FactoryGirl.define do
   end
 
   factory :subject_property, parent: :property do |f|
-    f.subject_property { true }
+    f.is_subject { true }
     f.is_primary { false }
   end
 

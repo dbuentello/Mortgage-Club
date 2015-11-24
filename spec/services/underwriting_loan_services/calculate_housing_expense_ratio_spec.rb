@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe UnderwritingLoanServices::CalculateHousingExpenseRatio do
   let(:loan) { FactoryGirl.create(:loan) }
-  let!(:subject_property) { FactoryGirl.create(:rental_property, is_primary: true, loan: loan) }
+  let!(:subject_property) { FactoryGirl.create(:rental_property, is_subject: true, loan: loan) }
 
   it "returns housing expense ratio" do
     total_income = UnderwritingLoanServices::CalculateTotalIncome.call(loan)
