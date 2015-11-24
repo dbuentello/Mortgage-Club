@@ -44,7 +44,7 @@ module ZillowService
 
     def get_purchase_price(loan)
       500000
-      # loan.primary_property.purchase_price.round
+      # loan.subject_property.purchase_price.round
     end
 
     def get_down_payment(purchase_price)

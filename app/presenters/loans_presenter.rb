@@ -21,7 +21,10 @@ class LoansPresenter
         },
         primary_property: {
           include: :address
-        }
+        },
+        subject_property: {
+          include: :address
+        },
       }
     }
   end

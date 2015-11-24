@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :property do |f|
-    f.property_type { Random.rand(4) }
+    f.property_type { ["sfh", "duplex", "triplex", "fourplex", "condo"].sample }
     f.usage { Random.rand(3) }
     f.purchase_price { Faker::Number.decimal(8, 0) }
     f.original_purchase_year { Date.new(1900 + Random.rand(114)) }
@@ -15,9 +15,13 @@ FactoryGirl.define do
   end
 
   factory :primary_property, parent: :property do |f|
-    f.property_type {'sfh'}
     f.usage {'primary_residence'}
     f.is_primary { true }
+  end
+
+  factory :subject_property, parent: :property do |f|
+    f.subject_property { true }
+    f.is_primary { false }
   end
 
   factory :rental_property, parent: :property do |f|
