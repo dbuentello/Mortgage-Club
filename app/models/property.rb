@@ -52,6 +52,7 @@ class Property < ActiveRecord::Base
     :is_impound_account,
     :hoa_due,
     :is_primary,
+    :is_subject,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 

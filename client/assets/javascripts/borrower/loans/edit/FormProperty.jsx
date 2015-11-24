@@ -237,6 +237,7 @@ var FormProperty = React.createClass({
     loan.properties_attributes[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
     loan.properties_attributes.address_attributes = this.state.address;
     loan.properties_attributes.zpid = this.state.property ? this.state.property.zpid : null;
+    loan.properties_attributes.is_subject = true
 
     loan.properties_attributes['property_type'] = this.state['property_type'];
     loan.properties_attributes['market_price'] = this.state['market_price'];
