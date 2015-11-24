@@ -119,6 +119,21 @@ class Property < ActiveRecord::Base
     liability.present? ? liability.payment.to_f : 0
   end
 
+  def update_mortgage_payment_amount
+    return unless mortgage_payment_liability && mortgage_includes_escrows
+
+    mortgage_payment = mortgage_payment_liability.payment.to_f
+    case mortgage_includes_escrows
+    when "taxes_and_insurance"
+      fee = estimated_property_tax.to_f - estimated_hazard_insurance.to_f
+    when "taxes_only"
+      fee = estimated_property_tax.to_f
+    when "no"
+      fee = estimated_hazard_insurance.to_f
+    end
+    self.update(mortgage_payment: mortgage_payment - fee)
+  end
+
   private
 
   def do_not_have_more_than_two_liabilities
