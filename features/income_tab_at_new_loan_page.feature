@@ -4,12 +4,6 @@ Feature: IncomeTabAtNewLoanPage
     When I am at loan management page
       And I should see "Income"
       And I click on "Income" in the "#tabIncome"
-      Then I drag the file "spec/files/sample.png" to "first_paystub"
-        And I wait for 2 seconds
-        And I should see "sample.png"
-      Then I drag the file "spec/files/sample.pdf" to "first_bank_statement"
-        And I wait for 2 seconds
-        And I should see "sample.pdf"
       Then I fill in "Name of current employer" with "Any Company"
         Then I clear value in "Job Title"
           And I fill in "Job Title" with "Software Engineer"
@@ -28,3 +22,9 @@ Feature: IncomeTabAtNewLoanPage
           And I should see "Cuong Vu"
           And I should see "0912345678"
           And I should see "$123,454"
+      And I should see "Documents"
+      And I click on "Documents" in the "#tabDocuments"
+      And I wait for 5 seconds
+      Then I drag the file "spec/files/sample.pdf" to "first_bank_statement"
+        And I wait for 2 seconds
+        And I should see "sample.pdf"

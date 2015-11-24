@@ -57,10 +57,10 @@ var LoanInterface = React.createClass({
       {name: 'Property', complete: loan.property_completed, icon: 'iconHome', step: 0, Content: Property},
       {name: 'Borrower', complete: loan.borrower_completed, icon: 'iconUser', step: 1, Content: Borrower},
       {name: 'Documents', complete: loan.income_completed, icon: 'iconTicket', step: 2, Content: Documents},
-      {name: 'Income', complete: loan.income_completed, icon: 'iconTicket', step: 2, Content: Income},
-      {name: 'Credit Check', complete: loan.credit_completed, icon: 'iconCreditCard', step: 3, Content: CreditCheck},
-      {name: 'Assets and Liabilities', complete: loan.assets_completed, icon: 'iconVcard', step: 4, Content: AssetsAndLiabilities},
-      {name: 'Declarations', complete: loan.declarations_completed, icon: 'iconClipboard', step: 5, Content: Declarations},
+      {name: 'Income', complete: loan.income_completed, icon: 'iconTicket', step: 3, Content: Income},
+      {name: 'Credit Check', complete: loan.credit_completed, icon: 'iconCreditCard', step: 4, Content: CreditCheck},
+      {name: 'Assets and Liabilities', complete: loan.assets_completed, icon: 'iconVcard', step: 5, Content: AssetsAndLiabilities},
+      {name: 'Declarations', complete: loan.declarations_completed, icon: 'iconClipboard', step: 6, Content: Declarations},
     ];
     return menu;
   },

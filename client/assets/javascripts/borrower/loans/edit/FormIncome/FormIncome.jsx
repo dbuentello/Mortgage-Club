@@ -299,7 +299,7 @@ var FormIncome = React.createClass({
 
   save: function() {
     this.setState({saving: true});
-    this.props.saveLoan(this.buildLoanFromState(), 2);
+    this.props.saveLoan(this.buildLoanFromState(), 3);
   }
 });
 
