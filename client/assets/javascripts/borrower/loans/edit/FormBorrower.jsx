@@ -10,8 +10,8 @@ var TextField = require('components/form/TextField');
 var BooleanRadio = require('components/form/BooleanRadio')
 
 var borrower_fields = {
-  applyingAs: {label: 'I am applying', name: 'first_borrower_apply_as', fieldName: 'apply_as', helpText: 'I am a helpful text.'},
   email: {label: 'Email', name: 'first_borrower_email', fieldName: 'email', helpText: null},
+  applyingAs: {label: 'I am applying', name: 'first_borrower_apply_as', fieldName: 'apply_as', helpText: 'I am a helpful text.'},
   firstName: {label: 'First Name', name: 'first_borrower_first_name', fieldName: 'first_name', helpText: null},
   middleName: {label: 'Middle Name', name: 'first_borrower_middle_name', fieldName: 'middle_name', helpText: null},
   lastName: {label: 'Last Name', name: 'first_borrower_last_name', fieldName: 'last_name', helpText: null},
@@ -213,16 +213,6 @@ var FormBorrower = React.createClass({
                     liveFormat={true}
                     format={this.formatPhoneNumber}
                     onFocus={this.onFocus.bind(this, borrower_fields.phone)}
-                    onChange={this.onChange}/>
-                </div>
-                <div className='col-xs-3'>
-                  <TextField
-                    label={borrower_fields.email.label}
-                    keyName={borrower_fields.email.name}
-                    value={this.state[borrower_fields.email.name]}
-                    editable={this.state.borrower_editable}
-                    liveFormat={true}
-                    onFocus={this.onFocus.bind(this, borrower_fields.email)}
                     onChange={this.onChange}/>
                 </div>
               </div>
@@ -606,7 +596,6 @@ var FormBorrower = React.createClass({
 
   buildStateFromBorrower: function(state, borrower, borrower_user, fields) {
     state[fields.email.name] = borrower_user[fields.email.fieldName];
-
     state[fields.firstName.name] = borrower[fields.firstName.fieldName];
     state[fields.middleName.name] = borrower[fields.middleName.fieldName];
     state[fields.lastName.name] = borrower[fields.lastName.fieldName];
@@ -625,6 +614,12 @@ var FormBorrower = React.createClass({
       state[fields.yearsInCurrentAddress.name] = borrower[fields.currentAddress.fieldName].years_at_address;
     };
 
+    if (borrower[fields.previousAddress.fieldName]) {
+      state[fields.previousAddress.name] = borrower[fields.previousAddress.fieldName].cached_address;
+      state[fields.previouslyOwn.name] = !borrower[fields.previousAddress.fieldName].is_rental;
+      state[fields.yearsInPreviousAddress.name] = borrower[fields.previousAddress.fieldName].years_at_address;
+    };
+
     return state;
   },
 
@@ -638,23 +633,32 @@ var FormBorrower = React.createClass({
       alert('You have to type at least email, first name and last name of the co-borrower');
       return;
     }
-
     this.setState({saving: true});
-
     $.ajax({
       url: '/borrowers/' + this.props.loan.borrower.id,
       method: 'PATCH',
       context: this,
       dataType: 'json',
       data: {
-        loan_id: this.props.loan.id,
-        borrower_address_id: this.getBorrowerAddressID(),
-        address: this.getAddress(),
-        borrower_address: this.getBorrowerAddress(),
-        borrower: this.getBorrower(borrower_fields),
-        secondary_borrower: this.getBorrower(secondary_borrower_fields),
+        borrower: {
+          current_borrower_address_id: this.getCurrentBorrowerAddressID(this.props.loan.borrower),
+          current_address: this.getCurrentAddress(borrower_fields),
+          previous_address: this.getPreviousAddress(borrower_fields),
+          current_borrower_address: this.getCurrentBorrowerAddress(borrower_fields),
+          previous_borrower_address: this.getPreviousBorrowerAddress(borrower_fields),
+          borrower: this.getBorrower(borrower_fields)
+        },
+        secondary_borrower: {
+          current_borrower_address_id: this.getCurrentBorrowerAddressID(this.props.loan.secondary_borrower),
+          current_address: this.getCurrentAddress(secondary_borrower_fields),
+          previous_address: this.getPreviousAddress(secondary_borrower_fields),
+          current_borrower_address: this.getCurrentBorrowerAddress(secondary_borrower_fields),
+          previous_borrower_address: this.getPreviousBorrowerAddress(secondary_borrower_fields),
+          borrower: this.getBorrower(secondary_borrower_fields),
+        },
         remove_secondary_borrower: this.state[borrower_fields.applyingAs.name] == 1,
-        has_secondary_borrower: this.state[borrower_fields.applyingAs.name] == 2
+        has_secondary_borrower: this.state[borrower_fields.applyingAs.name] == 2,
+        loan_id: this.props.loan.id,
       },
       success: function(response) {
         this.props.setupMenu(response, 1);
@@ -667,21 +671,33 @@ var FormBorrower = React.createClass({
     });
   },
 
-  getAddress: function() {
-    return this.state[borrower_fields.currentAddress.name] ? this.state[borrower_fields.currentAddress.name] : [];
+  getCurrentAddress: function(fields) {
+    return this.state[fields.currentAddress.name] ? this.state[fields.currentAddress.name] : {no_data: true};
   },
 
-  getBorrowerAddress: function() {
+  getPreviousAddress: function(fields) {
+    return this.state[fields.previousAddress.name] ? this.state[fields.previousAddress.name] : {no_data: true};
+  },
+
+  getCurrentBorrowerAddress: function(fields) {
     return {
-      is_rental: !this.state[borrower_fields.currentlyOwn.name],
-      years_at_address: this.state[borrower_fields.yearsInCurrentAddress.name],
+      is_rental: !this.state[fields.currentlyOwn.name],
+      years_at_address: this.state[fields.yearsInCurrentAddress.name],
       is_current: true
     };
   },
 
-  getBorrowerAddressID: function() {
-    if (this.props.loan.borrower.current_address) {
-      return this.props.loan.borrower.current_address.id;
+  getPreviousBorrowerAddress: function(fields) {
+    return {
+      is_rental: !this.state[fields.previouslyOwn.name],
+      years_at_address: this.state[fields.yearsInPreviousAddress.name],
+      is_current: false
+    };
+  },
+
+  getCurrentBorrowerAddressID: function(borrower) {
+    if (borrower && borrower.current_address) {
+      return borrower.current_address.id;
     };
   },
 

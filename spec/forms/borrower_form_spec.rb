@@ -5,41 +5,38 @@ describe BorrowerForm do
 
   before(:each) do
     @params = {
-      address: {
+      current_address: {
         street_address: "227 Nguyen Van Cu",
         city: "HCM",
         zip: "70000"
       },
-      borrower_address: {
+      current_borrower_address: {
         years_at_address: 10,
         is_rental: true,
-        is_current: false
+        is_current: true
       },
       borrower: {
         phone: "090009099",
         dependent_ages: [12],
         dependent_count: 10
-      },
-      secondary_borrower: {
-
       }
     }
-    @form = BorrowerForm.new(params: @params, borrower: borrower)
+    @form = BorrowerForm.new(form_params: @params, borrower: borrower)
   end
 
   describe "#assign_value_to_attributes" do
     before(:each) { @form.assign_value_to_attributes }
 
     it "assigns value to address's attributes" do
-      expect(@form.address.street_address).to eq("227 Nguyen Van Cu")
-      expect(@form.address.city).to eq("HCM")
-      expect(@form.address.zip).to eq("70000")
+      expect(@form.current_address.street_address).to eq("227 Nguyen Van Cu")
+      expect(@form.current_address.city).to eq("HCM")
+      expect(@form.current_address.zip).to eq("70000")
     end
 
     it "assigns value to borrower_address's attributes" do
-      expect(@form.borrower_address.years_at_address).to eq(10)
-      expect(@form.borrower_address.is_rental).to eq(true)
-      expect(@form.borrower_address.is_current).to eq(false)
+      expect(@form.current_borrower_address.years_at_address).to eq(10)
+      expect(@form.current_borrower_address.is_rental).to eq(true)
+      expect(@form.current_borrower_address.is_current).to eq(true)
     end
 
     it "assigns value to borrower's attributes" do
@@ -53,8 +50,8 @@ describe BorrowerForm do
     it "assigns associations" do
       @form.setup_associations
 
-      expect(@form.borrower_address.address).to eq(@form.address)
-      expect(@form.borrower.borrower_addresses).to include(@form.borrower_address)
+      expect(@form.current_borrower_address.address).to eq(@form.current_address)
+      expect(@form.borrower.borrower_addresses).to include(@form.current_borrower_address)
     end
   end
 
@@ -77,17 +74,17 @@ describe BorrowerForm do
       end
 
       it "creates a new address successfully" do
-        expect(@form.address.persisted?).to be_truthy
-        expect(@form.address.street_address).to eq("227 Nguyen Van Cu")
-        expect(@form.address.city).to eq("HCM")
-        expect(@form.address.zip).to eq("70000")
+        expect(@form.current_address.persisted?).to be_truthy
+        expect(@form.current_address.street_address).to eq("227 Nguyen Van Cu")
+        expect(@form.current_address.city).to eq("HCM")
+        expect(@form.current_address.zip).to eq("70000")
       end
 
       it "creates a new borrower address successfully" do
-        expect(@form.borrower_address.persisted?).to be_truthy
-        expect(@form.borrower_address.years_at_address).to eq(10)
-        expect(@form.borrower_address.is_rental).to eq(true)
-        expect(@form.borrower_address.is_current).to eq(false)
+        expect(@form.current_borrower_address.persisted?).to be_truthy
+        expect(@form.current_borrower_address.years_at_address).to eq(10)
+        expect(@form.current_borrower_address.is_rental).to eq(true)
+        expect(@form.current_borrower_address.is_current).to eq(true)
       end
 
       it "updates a borrower successfully" do

@@ -1,17 +1,17 @@
 module BorrowerServices
   class AssignSecondaryBorrowerToLoan
-    attr_accessor :loan, :owner, :secondary_borrower, :params
+    attr_accessor :loan, :owner, :secondary_borrower, :secondary_params
 
-    def initialize(loan, params, secondary_borrower)
+    def initialize(loan, secondary_params, secondary_borrower)
       @loan = loan
-      @params = params
+      @secondary_params = secondary_params
       @owner = existing_user ? existing_user : create_owner
       @secondary_borrower = secondary_borrower
       @new_secondary_borrower = loan_has_new_secondary_borrower?(secondary_borrower)
     end
 
     def call
-      return unless owner
+      return unless owner && secondary_params[:borrower][:email].present?
 
       owner.borrower = secondary_borrower
       loan.secondary_borrower = secondary_borrower
@@ -24,7 +24,7 @@ module BorrowerServices
     private
 
     def existing_user
-      @existing_user ||= User.where(email: params[:secondary_borrower][:email]).last
+      @existing_user ||= User.where(email: secondary_params[:borrower][:email]).last
     end
 
     def create_owner
@@ -33,7 +33,7 @@ module BorrowerServices
     end
 
     def default_password
-      @default_password ||= Digest::MD5.hexdigest(params[:secondary_borrower][:email]).first(10)
+      @default_password ||= Digest::MD5.hexdigest(secondary_params[:borrower][:email]).first(10)
     end
 
     def send_email_to_secondary_borrower
@@ -52,7 +52,7 @@ module BorrowerServices
 
     def user_params
       user_params = {}
-      user_params[:user] = params[:secondary_borrower]
+      user_params[:user] = secondary_params[:borrower]
       user_params[:user][:password] = user_params[:user][:password_confirmation] = default_password
       user_params
     end
