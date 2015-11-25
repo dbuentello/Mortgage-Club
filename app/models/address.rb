@@ -22,6 +22,7 @@ class Address < ActiveRecord::Base
   belongs_to :liability, inverse_of: :address, foreign_key: 'liability_id'
 
   after_save :assign_loan_to_billy
+  validates :full_text, presence: true
 
   PERMITTED_ATTRS = [
     :street_address,

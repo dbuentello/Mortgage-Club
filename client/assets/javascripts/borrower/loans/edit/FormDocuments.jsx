@@ -114,7 +114,6 @@ var FormDocuments = React.createClass({
   buildStateFromLoan: function(loan) {
     var borrower = loan.borrower;
     var state = {};
-    var currentEmployment = borrower.current_employment || {};
 
     _.map(Object.keys(uploader_fields), function(key) {
       if (borrower[key]) { // has a document
@@ -130,14 +129,11 @@ var FormDocuments = React.createClass({
         state[uploader_fields[key].name + '_removedUrl'] = 'javascript:void(0)';
       }
     }, this);
-
-    state.otherIncomes = [];
     return state;
   },
 
   buildLoanFromState: function() {
-    var loan = {};
-    var currentEmployment = this.props.loan.borrower.current_employment;
+    var loan = this.props.loan;
     return loan;
   },
 

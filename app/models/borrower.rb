@@ -112,6 +112,12 @@ class Borrower < ActiveRecord::Base
       (dependent_count == 0 || (dependent_count > 0 && dependent_ages.count > 0))
   end
 
+  def documents_completed?
+    first_w2.present? && second_w2.present? &&
+      first_paystub.present? && second_paystub.present? &&
+      first_bank_statement.present? && second_bank_statement.present?
+  end
+
   def income_completed?
     first_w2.present? && second_w2.present? &&
       first_paystub.present? && second_paystub.present? &&
