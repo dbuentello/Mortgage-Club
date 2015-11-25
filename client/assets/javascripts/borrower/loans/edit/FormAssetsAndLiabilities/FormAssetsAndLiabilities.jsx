@@ -28,6 +28,7 @@ var FormAssetsAndLiabilities = React.createClass({
     state.own_investment_property = this.props.loan.own_investment_property;
     state.rental_properties = this.props.loan.rental_properties;
     state.primary_property = this.props.loan.primary_property;
+    state.subject_property = this.props.loan.subject_property;
     state.saving = false;
 
     return state;
@@ -79,15 +80,34 @@ var FormAssetsAndLiabilities = React.createClass({
     return (
       <div>
         <div className='formContent'>
-          <div className='pal'>
-            <div className='box mvn'>
-              <h5 className='typeDeemphasize'>Your primary residence</h5>
-              <Property
-                property={this.state.primary_property}
-                liabilities={this.state.liabilities}/>
-            </div>
-          </div>
-
+          {
+            this.state.subject_property
+            ?
+              <div className='pal'>
+                <div className='box mvn'>
+                  <h5 className='typeDeemphasize'>Your subject residence</h5>
+                  <Property
+                    property={this.state.subject_property}
+                    liabilities={this.state.liabilities}/>
+                </div>
+              </div>
+            :
+              null
+          }
+          {
+            (this.state.primary_property && this.state.primary_property != this.state.subject_property)
+            ?
+              <div className='pal'>
+                <div className='box mvn'>
+                  <h5 className='typeDeemphasize'>Your primary residence</h5>
+                  <Property
+                    property={this.state.primary_property}
+                    liabilities={this.state.liabilities}/>
+                </div>
+              </div>
+            :
+              null
+          }
           <div className='pal'>
             <div className='box mvn'>
               <h5 className='typeDeemphasize'>Do you own investment property?</h5>
@@ -166,7 +186,14 @@ var FormAssetsAndLiabilities = React.createClass({
     this.setState({saving: true});
 
     var primary_property = this.state.primary_property;
-    primary_property.address_attributes = primary_property.address;
+    if (primary_property){
+      primary_property.address_attributes = primary_property.address;
+    }
+
+    var subject_property = this.state.subject_property;
+    if (subject_property){
+      subject_property.address_attributes = subject_property.address;
+    }
 
     var rental_properties = [];
     for (var i = 0; i < this.state.rental_properties.length; i++) {
@@ -183,6 +210,7 @@ var FormAssetsAndLiabilities = React.createClass({
       data: {
         loan_id: this.props.loan.id,
         primary_property: primary_property,
+        subject_property: subject_property,
         rental_properties: rental_properties,
         own_investment_property: this.state.own_investment_property
       },

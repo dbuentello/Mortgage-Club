@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe UnderwritingLoanServices::UnderwriteLoan do
   let!(:loan) { FactoryGirl.create(:loan) }
-  let!(:property) { FactoryGirl.create(:property_with_address, loan: loan) }
+  let!(:property) { FactoryGirl.create(:property_with_address, is_subject: true, loan: loan) }
   let!(:borrower) { FactoryGirl.create(:borrower, loan: loan) }
 
   before(:each) do

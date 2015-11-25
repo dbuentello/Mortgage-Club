@@ -128,12 +128,10 @@ describe Loan do
     end
 
     context 'property and amount are valid' do
-      before(:each) do
-        @property = FactoryGirl.create(:property, is_primary: true, loan_id: loan.id)
-      end
+      let(:property) { FactoryGirl.create(:subject_property, loan: loan) }
 
       it 'returns ltv_formula value' do
-        expected_value = (loan.amount / @property.purchase_price * 100).ceil
+        expected_value = (loan.amount / property.purchase_price * 100).ceil
         expect(loan.ltv_formula).to eq(expected_value)
       end
     end

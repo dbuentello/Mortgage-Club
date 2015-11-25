@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
       @loan = current_user.borrower.loan # or get the co-borrower relationship
 
       if @loan.present?
-        @borrower_type = :co_borrower
+        @borrower_type = :secondary_borrower
       else
         @loan = Loan.initiate(current_user) # or create branch new one
       end

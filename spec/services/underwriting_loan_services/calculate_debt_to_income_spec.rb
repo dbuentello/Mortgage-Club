@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe UnderwritingLoanServices::CalculateDebtToIncome do
   let(:loan) { FactoryGirl.create(:loan) }
-  let!(:primary_property) { FactoryGirl.create(:rental_property, is_primary: true, loan: loan) }
+  let!(:subject_property) { FactoryGirl.create(:rental_property, is_primary: true, loan: loan) }
   let!(:first_property) { FactoryGirl.create(:rental_property, is_primary: false, loan: loan) }
   let!(:second_property) { FactoryGirl.create(:rental_property, is_primary: false, loan: loan) }
   let!(:mortgage_liability) { FactoryGirl.create(:liability, account_type: "Mortgage", property: first_property) }

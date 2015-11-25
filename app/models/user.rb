@@ -90,8 +90,7 @@ class User < ActiveRecord::Base
     :email,
     :password,
     :password_confirmation,
-    :avatar,
-    borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
+    :avatar
   ]
 
   def to_s

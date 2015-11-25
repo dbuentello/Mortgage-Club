@@ -1,14 +1,3 @@
-# == Schema Information
-#
-# Table name: borrower_addresses
-#
-#  id               :uuid             not null, primary key
-#  borrower_id      :uuid
-#  years_at_address :integer
-#  is_rental        :boolean
-#  is_current       :boolean          default(FALSE), not null
-#
-
 class BorrowerAddress < ActiveRecord::Base
   belongs_to :borrower, inverse_of: :borrower_addresses, foreign_key: 'borrower_id', touch: true
   has_one :address, inverse_of: :borrower_address, autosave: true, dependent: :destroy
@@ -19,7 +8,8 @@ class BorrowerAddress < ActiveRecord::Base
     :years_at_address,
     :is_rental,
     :is_current,
-    address_attributes: [:id] + Address::PERMITTED_ATTRS
+    :monthly_rent
+    # address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 
   def cached_address

@@ -32,6 +32,10 @@ class LoanPresenter
           include: :address,
           methods: [:mortgage_payment_liability, :other_financing_liability]
         },
+        subject_property: {
+          include: :address,
+          methods: [:mortgage_payment_liability, :other_financing_liability]
+        },
         borrower: {
           include: [
             :declaration, :first_bank_statement, :second_bank_statement,
@@ -41,7 +45,7 @@ class LoanPresenter
             }
           ],
           methods: [
-            :current_address, :previous_addresses, :current_employment, :previous_employments,
+            :current_address, :previous_address, :current_employment, :previous_employments,
             :first_name, :last_name, :middle_name, :suffix
           ]
         },
@@ -52,13 +56,13 @@ class LoanPresenter
             }
           ],
           methods: [
-            :current_address, :previous_addresses, :current_employment, :previous_employments,
+            :current_address, :previous_address, :current_employment, :previous_employments,
             :first_name, :last_name, :middle_name, :suffix
           ]
         }
       },
       methods: [
-        :property_completed, :borrower_completed, :income_completed, :credit_completed, :assets_completed, :declarations_completed, :primary_property, :rental_properties
+        :property_completed, :borrower_completed, :income_completed, :credit_completed, :assets_completed, :declarations_completed, :primary_property, :subject_property, :rental_properties
       ]
     }
   end
@@ -117,7 +121,7 @@ class LoanPresenter
         }
       },
       methods: [
-        :num_of_years, :ltv_formula, :purpose_titleize, :primary_property
+        :num_of_years, :ltv_formula, :purpose_titleize, :primary_property, :subject_property
       ]
     }
   end
