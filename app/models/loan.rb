@@ -115,7 +115,7 @@ class Loan < ActiveRecord::Base
   validates :loan_type, inclusion: {in: %w( Conventional VA FHA USDA 9 ), message: "%{value} is not a valid loan_type"}, allow_nil: true
 
   def self.initiate(user)
-    loan = Loan.create(user: user, properties: [Property.create(address: Address.create, is_primary: true)], closing: Closing.create(name: 'Closing'))
+    loan = Loan.create(user: user, properties: [Property.create(address: Address.create, is_subject: true)], closing: Closing.create(name: 'Closing'))
   end
 
   def property_completed
