@@ -56,7 +56,7 @@ var Borrower = React.createClass({
     var state = {};
     _.map(Object.keys(fields), function(key) {
       if (this.props.borrower[key]) { // has a document
-        state[fields[key].name] = this.props.borrower[key].attachment_file_name;
+        state[fields[key].name] = this.props.borrower[key].original_filename;
         state[fields[key].id] = this.props.borrower[key].id;
         state[fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + this.props.borrower[key].id +
                                          '/download?type=' + fields[key].type;

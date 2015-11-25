@@ -34,6 +34,10 @@ class Borrower < ActiveRecord::Base
   has_one  :second_paystub, inverse_of: :borrower, dependent: :destroy
   has_one  :first_w2, inverse_of: :borrower, dependent: :destroy
   has_one  :second_w2, inverse_of: :borrower, dependent: :destroy
+  has_one  :first_personal_tax_return, inverse_of: :borrower, dependent: :destroy
+  has_one  :second_personal_tax_return, inverse_of: :borrower, dependent: :destroy
+  has_one  :first_business_tax_return, inverse_of: :borrower, dependent: :destroy
+  has_one  :second_business_tax_return, inverse_of: :borrower, dependent: :destroy
   has_one  :ocr, inverse_of: :borrower, dependent: :destroy
 
   has_many :other_borrower_reports, inverse_of: :borrower, dependent: :destroy
@@ -118,9 +122,6 @@ class Borrower < ActiveRecord::Base
   end
 
   def income_completed?
-    first_w2.present? && second_w2.present? &&
-      first_paystub.present? && second_paystub.present? &&
-      first_bank_statement.present? && second_bank_statement.present? &&
       current_employment.try(:completed?)
   end
 
