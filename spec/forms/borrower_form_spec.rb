@@ -1,36 +1,40 @@
 require "rails_helper"
 
 describe BorrowerForm do
-  let!(:borrower) { FactoryGirl.create(:borrower) }
+  let(:loan) { FactoryGirl.create(:loan) }
+  let(:borrower) { FactoryGirl.create(:borrower) }
+  let(:borrower_address) { FactoryGirl.create(:borrower_address, borrower: borrower) }
+  let(:address) { FactoryGirl.create(:address, borrower_address: borrower_address) }
 
   before(:each) do
     @params = {
-      current_address: {
-        street_address: "227 Nguyen Van Cu",
-        city: "HCM",
-        zip: "70000"
-      },
+      current_address: {},
       current_borrower_address: {
         years_at_address: 10,
-        is_rental: true,
-        is_current: true
+        is_rental: true
       },
       borrower: {
         phone: "090009099",
         dependent_ages: [12],
         dependent_count: 10
-      }
+      },
+      loan_id: loan.id
     }
-    @form = BorrowerForm.new(form_params: @params, borrower: borrower)
+    @form = BorrowerForm.new(
+      form_params: @params,
+      borrower: borrower,
+      current_address: address,
+      current_borrower_address: borrower_address
+    )
   end
 
   describe "#assign_value_to_attributes" do
     before(:each) { @form.assign_value_to_attributes }
 
     it "assigns value to address's attributes" do
-      expect(@form.current_address.street_address).to eq("227 Nguyen Van Cu")
-      expect(@form.current_address.city).to eq("HCM")
-      expect(@form.current_address.zip).to eq("70000")
+      expect(@form.current_address.street_address).to eq(address.street_address)
+      expect(@form.current_address.city).to eq(address.city)
+      expect(@form.current_address.zip).to eq(address.zip)
     end
 
     it "assigns value to borrower_address's attributes" do
@@ -75,9 +79,9 @@ describe BorrowerForm do
 
       it "creates a new address successfully" do
         expect(@form.current_address.persisted?).to be_truthy
-        expect(@form.current_address.street_address).to eq("227 Nguyen Van Cu")
-        expect(@form.current_address.city).to eq("HCM")
-        expect(@form.current_address.zip).to eq("70000")
+        expect(@form.current_address.street_address).to eq(address.street_address)
+        expect(@form.current_address.city).to eq(address.city)
+        expect(@form.current_address.zip).to eq(address.zip)
       end
 
       it "creates a new borrower address successfully" do
