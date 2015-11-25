@@ -300,10 +300,10 @@ var Property = React.createClass({
               onChange={this.onChange}/>
           </div>
         </div>
-        <div className='row' style={{display: this.state.property.is_primary ? 'none' : null}}>
+        <div className='row' style={{display: (this.state.property.is_subject && this.state.property.usage == 'rental_property') ? null : 'none'}}>
           <div className='col-xs-6'>
             <TextField
-              label='Monthly rent'
+              label='Estimated Rental Income'
               keyName={'property.gross_rental_income'}
               value={this.state.property.gross_rental_income}
               editable={true}

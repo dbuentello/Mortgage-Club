@@ -1,14 +1,17 @@
 class CreatePropertyForm
   include ActiveModel::Model
 
-  attr_accessor :loan, :primary_property, :rental_properties_params, :primary_property_params, :credit_report_id
+  attr_accessor :loan, :primary_property, :subject_property, :credit_report_id,
+                :primary_property_params, :subject_property_params, :rental_properties_params
 
-  def initialize(loan_id, primary_property_params, rental_properties_params, credit_report_id)
-    @loan = Loan.find_by_id(loan_id)
+  def initialize(args)
+    @loan = Loan.find_by_id(args[:loan_id])
     @primary_property = loan.primary_property
-    @primary_property_params = primary_property_params
-    @rental_properties_params = rental_properties_params || []
-    @credit_report_id = credit_report_id
+    @subject_property = loan.subject_property
+    @primary_property_params = args[:primary_property]
+    @subject_property_params = args[:subject_property]
+    @rental_properties_params = args[:rental_properties] || []
+    @credit_report_id = args[:credit_report_id]
   end
 
   # validates :loan_id, :properties, presence: true
@@ -17,6 +20,7 @@ class CreatePropertyForm
 
     ActiveRecord::Base.transaction do
       update_rental_properties
+      update_subject_property
       update_primary_property
     end
     true
@@ -37,7 +41,17 @@ class CreatePropertyForm
     end
   end
 
+  def update_subject_property
+    return unless subject_property
+
+    subject_property.update(property_params(subject_property_params))
+    subject_property.update_mortgage_payment_amount
+    update_liabilities(subject_property, subject_property_params)
+  end
+
   def update_primary_property
+    return unless primary_property
+
     primary_property.update(property_params(primary_property_params))
     primary_property.update_mortgage_payment_amount
     update_liabilities(primary_property, primary_property_params)

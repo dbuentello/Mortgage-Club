@@ -4,7 +4,13 @@ class PropertiesController < ApplicationController
     loan.own_investment_property = params[:own_investment_property]
     loan.save
     credit_report_id = loan.borrower.credit_report.try(:id)
-    @properties = CreatePropertyForm.new(params[:loan_id], params[:primary_property], params[:rental_properties], credit_report_id)
+    @properties = CreatePropertyForm.new({
+      loan_id: params[:loan_id],
+      credit_report_id: credit_report_id,
+      subject_property: params[:subject_property],
+      primary_property: params[:primary_property],
+      rental_properties: params[:rental_properties]
+    })
 
     if @properties.save
       render json: {loan: LoanPresenter.new(loan).edit, liabilities: load_liabilities(loan)}

@@ -15,7 +15,8 @@ class Users::BorrowersController < Users::BaseController
 
       if applying_with_secondary_borrower?
         secondary_borrower_form = BorrowerForm.new(
-          form_params: get_form_params(params[:secondary_borrower]), borrower: secondary_borrower
+          form_params: get_form_params(params[:secondary_borrower]), borrower: secondary_borrower,
+          current_borrower_address: secondary_current_borrower_address, current_address: secondary_current_address
         )
         if secondary_borrower_form.save
           BorrowerServices::AssignSecondaryBorrowerToLoan.new(@loan, params[:secondary_borrower], secondary_borrower_form.borrower).call
@@ -57,5 +58,15 @@ class Users::BorrowersController < Users::BaseController
       borrower: borrower_params.require(:borrower).permit(Borrower::PERMITTED_ATTRS),
       loan_id: params[:loan_id]
     }
+  end
+
+  def secondary_current_borrower_address
+    return BorrowerAddress.new unless secondary_borrower.current_address
+    @loan.secondary_borrower.current_address
+  end
+
+  def secondary_current_address
+    return Address.new unless secondary_borrower.current_address && secondary_borrower.current_address.address
+    @loan.secondary_borrower.current_address.address
   end
 end

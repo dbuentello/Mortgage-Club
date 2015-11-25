@@ -28,7 +28,9 @@ var borrower_fields = {
   yearsInCurrentAddress: {label: 'Number of years you have lived in this address', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null},
   previousAddress: {label: 'Your previous address', name: 'first_borrower_previous_address', fieldName: 'previous_address', helpText: null},
   previouslyOwn: {label: 'Do you own or rent?', name: 'first_borrower_previously_own', fieldName: 'previously_own', helpText: null},
-  yearsInPreviousAddress: {label: 'Number of years you have lived in this address', name: 'first_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null}
+  yearsInPreviousAddress: {label: 'Number of years you have lived in this address', name: 'first_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null},
+  currentMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null},
+  previousMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null}
 };
 
 var secondary_borrower_fields = {
@@ -49,7 +51,9 @@ var secondary_borrower_fields = {
   yearsInCurrentAddress: {label: 'Number of years co-borrower has lived in this address', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null},
   previousAddress: {label: 'Your previous address', name: 'secondary_borrower_previous_address', fieldName: 'previous_address', helpText: null},
   previouslyOwn: {label: 'Do you own or rent?', name: 'secondary_borrower_previously_own', fieldName: 'previously_own', helpText: null},
-  yearsInPreviousAddress: {label: 'Number of years he/she has lived in this address', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null}
+  yearsInPreviousAddress: {label: 'Number of years he/she has lived in this address', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null},
+  currentMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null},
+  previousMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null}
 };
 
 var FormBorrower = React.createClass({
@@ -267,7 +271,7 @@ var FormBorrower = React.createClass({
                 onChange={this.onChange}
                 placeholder=''/>
               <div className='row'>
-                <div className='col-xs-6'>
+                <div className='col-xs-3'>
                   <BooleanRadio
                     label={borrower_fields.currentlyOwn.label}
                     checked={this.state[borrower_fields.currentlyOwn.name]}
@@ -277,6 +281,20 @@ var FormBorrower = React.createClass({
                     editable={this.state.borrower_editable}
                     onFocus={this.onFocus.bind(this, borrower_fields.currentlyOwn)}
                     onChange={this.onChange}/>
+                </div>
+                <div className='col-xs-3'>
+                  { this.state[borrower_fields.currentlyOwn.name] ? null
+                    :
+                      <TextField
+                        label={borrower_fields.currentMonthlyRent.label}
+                        value={this.state[borrower_fields.currentMonthlyRent.name]}
+                        keyName={borrower_fields.currentMonthlyRent.name}
+                        editable={this.state.borrower_editable}
+                        liveFormat={true}
+                        format={this.formatCurrency}
+                        onFocus={this.onFocus.bind(this, borrower_fields.currentMonthlyRent)}
+                        onChange={this.onChange}/>
+                  }
                 </div>
                 <div className='col-xs-6'>
                   <TextField
@@ -299,15 +317,30 @@ var FormBorrower = React.createClass({
                     onChange={this.onChange}
                     placeholder=''/>
                   <div className='row'>
-                    <div className='col-xs-6'>
+                    <div className='col-xs-3'>
                       <BooleanRadio
                         label={borrower_fields.previouslyOwn.label}
                         checked={this.state[borrower_fields.previouslyOwn.name]}
                         keyName={borrower_fields.previouslyOwn.name}
+                        yesLabel={"Own"}
+                        noLabel={"Rent"}
                         editable={this.state.borrower_editable}
                         onFocus={this.onFocus.bind(this, borrower_fields.previouslyOwn)}
-                        onChange={this.onChange}
-                        placeholder='Please enter your previous address'/>
+                        onChange={this.onChange}/>
+                    </div>
+                    <div className='col-xs-3'>
+                      { this.state[borrower_fields.previouslyOwn.name] ? null
+                        :
+                          <TextField
+                            label={borrower_fields.previousMonthlyRent.label}
+                            value={this.state[borrower_fields.previousMonthlyRent.name]}
+                            keyName={borrower_fields.previousMonthlyRent.name}
+                            editable={this.state.borrower_editable}
+                            liveFormat={true}
+                            format={this.formatCurrency}
+                            onFocus={this.onFocus.bind(this, borrower_fields.previousMonthlyRent)}
+                            onChange={this.onChange}/>
+                      }
                     </div>
                     <div className='col-xs-6'>
                       <TextField
@@ -461,7 +494,7 @@ var FormBorrower = React.createClass({
                   onChange={this.onChange}
                   placeholder=''/>
                 <div className='row'>
-                  <div className='col-xs-6'>
+                  <div className='col-xs-3'>
                     <BooleanRadio
                       label={secondary_borrower_fields.currentlyOwn.label}
                       checked={this.state[secondary_borrower_fields.currentlyOwn.name]}
@@ -471,6 +504,20 @@ var FormBorrower = React.createClass({
                       editable={this.state.secondary_borrower_editable}
                       onFocus={this.onFocus.bind(this, secondary_borrower_fields.currentlyOwn)}
                       onChange={this.onChange}/>
+                  </div>
+                  <div className='col-xs-3'>
+                    { this.state[secondary_borrower_fields.currentlyOwn.name] ? null
+                      :
+                        <TextField
+                          label={secondary_borrower_fields.currentMonthlyRent.label}
+                          value={this.state[secondary_borrower_fields.currentMonthlyRent.name]}
+                          keyName={secondary_borrower_fields.currentMonthlyRent.name}
+                          editable={this.state.secondary_borrower_editable}
+                          liveFormat={true}
+                          format={this.formatCurrency}
+                          onFocus={this.onFocus.bind(this, secondary_borrower_fields.currentMonthlyRent)}
+                          onChange={this.onChange}/>
+                    }
                   </div>
                   <div className='col-xs-6'>
                     <TextField
@@ -493,15 +540,28 @@ var FormBorrower = React.createClass({
                       onChange={this.onChange}
                       placeholder=''/>
                     <div className='row'>
-                      <div className='col-xs-6'>
+                      <div className='col-xs-3'>
                         <BooleanRadio
                           label={secondary_borrower_fields.previouslyOwn.label}
                           checked={this.state[secondary_borrower_fields.previouslyOwn.name]}
                           keyName={secondary_borrower_fields.previouslyOwn.name}
+                          yesLabel={"Own"}
+                          noLabel={"Rent"}
                           editable={this.state.secondary_borrower_editable}
                           onFocus={this.onFocus.bind(this, secondary_borrower_fields.previouslyOwn)}
-                          onChange={this.onChange}
-                          placeholder=''/>
+                          onChange={this.onChange}/>
+                      </div>
+                      <div className='col-xs-3'>
+                        { this.state[secondary_borrower_fields.currentlyOwn.name] ? null
+                          :
+                            <TextField
+                              label={secondary_borrower_fields.previousMonthlyRent.label}
+                              value={this.state[secondary_borrower_fields.previousMonthlyRent.name]}
+                              keyName={secondary_borrower_fields.previousMonthlyRent.name}
+                              editable={this.state.secondary_borrower_editable}
+                              onFocus={this.onFocus.bind(this, secondary_borrower_fields.previousMonthlyRent)}
+                              onChange={this.onChange}/>
+                        }
                       </div>
                       <div className='col-xs-6'>
                         <TextField
@@ -608,16 +668,24 @@ var FormBorrower = React.createClass({
     state[fields.numberOfDependents.name] = borrower[fields.numberOfDependents.fieldName];
     state[fields.dependentAges.name] = borrower[fields.dependentAges.fieldName].join(', ');
 
-    if (borrower[fields.currentAddress.fieldName]) {
-      state[fields.currentAddress.name] = borrower[fields.currentAddress.fieldName].cached_address;
-      state[fields.currentlyOwn.name] = !borrower[fields.currentAddress.fieldName].is_rental;
-      state[fields.yearsInCurrentAddress.name] = borrower[fields.currentAddress.fieldName].years_at_address;
+    var currentBorrowerAddress = borrower[fields.currentAddress.fieldName];
+    if (currentBorrowerAddress) {
+      state[fields.currentAddress.name] = currentBorrowerAddress.cached_address;
+      state[fields.yearsInCurrentAddress.name] = currentBorrowerAddress.years_at_address;
+      state[fields.currentlyOwn.name] = !currentBorrowerAddress.is_rental;
+      if (currentBorrowerAddress.is_rental) {
+        state[fields.currentMonthlyRent.name] = this.formatCurrency(currentBorrowerAddress.monthly_rent);
+      }
     };
 
-    if (borrower[fields.previousAddress.fieldName]) {
-      state[fields.previousAddress.name] = borrower[fields.previousAddress.fieldName].cached_address;
-      state[fields.previouslyOwn.name] = !borrower[fields.previousAddress.fieldName].is_rental;
-      state[fields.yearsInPreviousAddress.name] = borrower[fields.previousAddress.fieldName].years_at_address;
+    var previousBorrowerAddress = borrower[fields.previousAddress.fieldName];
+    if (previousBorrowerAddress) {
+      state[fields.previousAddress.name] = previousBorrowerAddress.cached_address;
+      state[fields.previouslyOwn.name] = !previousBorrowerAddress.is_rental;
+      state[fields.yearsInPreviousAddress.name] = previousBorrowerAddress.years_at_address;
+      if (previousBorrowerAddress.is_rental) {
+        state[fields.previousMonthlyRent.name] = this.formatCurrency(previousBorrowerAddress.monthly_rent);
+      }
     };
 
     return state;
@@ -683,6 +751,7 @@ var FormBorrower = React.createClass({
     return {
       is_rental: !this.state[fields.currentlyOwn.name],
       years_at_address: this.state[fields.yearsInCurrentAddress.name],
+      monthly_rent: this.currencyToNumber(this.state[fields.currentMonthlyRent.name]),
       is_current: true
     };
   },
@@ -691,6 +760,7 @@ var FormBorrower = React.createClass({
     return {
       is_rental: !this.state[fields.previouslyOwn.name],
       years_at_address: this.state[fields.yearsInPreviousAddress.name],
+      monthly_rent: this.currencyToNumber(this.state[fields.previousMonthlyRent.name]),
       is_current: false
     };
   },

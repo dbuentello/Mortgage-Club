@@ -16,7 +16,11 @@ class BorrowerForm
       borrower.save!
       current_address.save!
       current_borrower_address.save!
-      create_primary_property unless current_borrower_address.is_rental
+      if current_borrower_address.is_rental
+        unset_primary_property
+      else
+        create_primary_property
+      end
 
       if borrower.must_have_previous_address?
         previous_address.save!
@@ -45,16 +49,15 @@ class BorrowerForm
     property.save!
   end
 
+  def unset_primary_property
+    loan = Loan.find(form_params[:loan_id])
+    if property = loan.primary_property
+      property.update(is_primary: false)
+    end
+  end
+
   def previous_address
     @previous_address ||= Address.new(form_params[:previous_address])
-  end
-
-  def current_borrower_address
-    @current_borrower_address ||= BorrowerAddress.new
-  end
-
-  def current_address
-    @current_address ||= Address.new
   end
 
   def previous_borrower_address
