@@ -15,16 +15,6 @@ describe PropertiesController do
     address.save
   }
 
-  describe "#create" do
-    it "updates primary property" do
-      params = {loan_id: loan.id, own_investment_property: true, primary_property: FactoryGirl.attributes_for(:primary_property), rental_properties: []}
-      post :create, params
-      expect(response.status).to eq(200)
-      expect(JSON.parse(response.body)['loan']).not_to eq(nil)
-      expect(JSON.parse(response.body)['loan']['rental_properties'].size).to eq(1)
-    end
-  end
-
   context 'when property is valid' do
     it {
       delete :destroy, id: @property.id

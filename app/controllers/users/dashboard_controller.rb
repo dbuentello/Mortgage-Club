@@ -3,7 +3,7 @@ class Users::DashboardController < Users::BaseController
 
   def show
     loan = @loan
-    property = loan.primary_property
+    property = loan.subject_property
     closing = loan.closing || Closing.create(name: 'Closing', loan_id: loan.id)
     loan_activities = loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10)
 

@@ -21,7 +21,7 @@ class BorrowerPresenter
         }
       ],
       methods: [
-        :current_address, :previous_addresses, :current_employment, :previous_employments,
+        :current_address, :previous_address, :current_employment, :previous_employments,
         :first_name, :last_name, :middle_name, :suffix
       ]
     }

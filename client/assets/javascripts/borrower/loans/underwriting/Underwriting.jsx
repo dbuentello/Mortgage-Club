@@ -166,7 +166,7 @@ var Underwriting = React.createClass({
                     return (
                       <li>
                         <ul>
-                          <li>is_primary: {property.is_primary}</li>
+                          <li>is_subject: {property.is_subject}</li>
                           <li>liability_payments: {property.liability_payments}</li>
                           <li>mortgage_payment: {property.mortgage_payment}</li>
                           <li>other_financing: {property.other_financing}</li>

@@ -5,7 +5,7 @@ module UnderwritingLoanServices
     def initialize(loan)
       @loan = loan
       @error_messages = []
-      @property = loan.primary_property
+      @property = loan.subject_property
       @borrower = loan.borrower
       @address = @property.address
     end

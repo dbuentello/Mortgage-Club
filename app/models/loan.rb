@@ -115,11 +115,11 @@ class Loan < ActiveRecord::Base
   validates :loan_type, inclusion: {in: %w( Conventional VA FHA USDA 9 ), message: "%{value} is not a valid loan_type"}, allow_nil: true
 
   def self.initiate(user)
-    loan = Loan.create(user: user, properties: [Property.create(address: Address.create, is_primary: true)], closing: Closing.create(name: 'Closing'))
+    loan = Loan.create(user: user, properties: [Property.create(address: Address.create, is_subject: true)], closing: Closing.create(name: 'Closing'))
   end
 
   def property_completed
-    properties.size > 0 && primary_property && primary_property.completed? && purpose_completed?
+    properties.size > 0 && subject_property && subject_property.completed? && purpose_completed?
   end
 
   def borrower_completed
@@ -143,13 +143,13 @@ class Loan < ActiveRecord::Base
   end
 
   def assets_completed
-    primary_property && primary_property.completed? &&
-    primary_property.market_price.present? &&
-    primary_property.estimated_mortgage_insurance.present? &&
-    primary_property.mortgage_includes_escrows.present? &&
-    primary_property.estimated_property_tax.present? &&
-    primary_property.estimated_hazard_insurance.present? &&
-    primary_property.hoa_due.present?
+    subject_property && subject_property.completed? &&
+    subject_property.market_price.present? &&
+    subject_property.estimated_mortgage_insurance.present? &&
+    subject_property.mortgage_includes_escrows.present? &&
+    subject_property.estimated_property_tax.present? &&
+    subject_property.estimated_hazard_insurance.present? &&
+    subject_property.hoa_due.present?
   end
 
   def declarations_completed
@@ -157,16 +157,20 @@ class Loan < ActiveRecord::Base
   end
 
   def purpose_completed?
-    purpose.present? && primary_property && (purchase? && primary_property.purchase_price.present? ||
-      refinance? && primary_property.refinance_completed?)
+    purpose.present? && subject_property && (purchase? && subject_property.purchase_price.present? ||
+      refinance? && subject_property.refinance_completed?)
   end
 
   def primary_property
     properties.includes(:address).find { |p| p.is_primary == true }
   end
 
+  def subject_property
+    properties.includes(:address).find { |p| p.is_subject == true }
+  end
+
   def rental_properties
-    rental_properties = properties.includes(:address).select { |p| p.is_primary == false }
+    rental_properties = properties.includes(:address).select { |p| p.is_primary == false && p.is_subject == false }
     rental_properties.sort_by(&:created_at)
   end
 
@@ -177,9 +181,9 @@ class Loan < ActiveRecord::Base
   end
 
   def ltv_formula
-    return unless (amount && properties && primary_property && primary_property.purchase_price)
+    return unless (amount && properties && subject_property && subject_property.purchase_price)
 
-    (amount / primary_property.purchase_price * 100).ceil
+    (amount / subject_property.purchase_price * 100).ceil
   end
 
   def purpose_titleize

@@ -30,6 +30,7 @@ FactoryGirl.define do
   factory :loan_with_properties, parent: :loan do |f|
     after(:build) do |loan, property|
       create_list(:property, Random.rand(1..3), loan: loan)
+      loan.properties.first.update(is_subject: true)
     end
   end
 
@@ -40,6 +41,7 @@ FactoryGirl.define do
   factory :loan_with_all_associations, parent: :loan do |f|
     after(:build) do |loan, property|
       create_list(:property, Random.rand(1..3), loan: loan)
+      loan.properties.first.update(is_subject: true)
     end
     closing
     association :secondary_borrower, factory: :borrower

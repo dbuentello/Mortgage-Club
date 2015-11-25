@@ -133,7 +133,10 @@ module ZillowService
 
       total_fee = 0
       fees = {}
-      quote["fees".freeze].each do |fee|
+
+      return {} unless quote["fees".freeze]
+
+      quote["fees"].each do |fee|
         fees[fee["name".freeze]] = fee["amount".freeze]
         total_fee += fee["amount"]
       end

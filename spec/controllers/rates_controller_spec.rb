@@ -5,8 +5,8 @@ describe RatesController do
   include_context "signed in as borrower user of loan"
 
   before(:each) {
-    loan.primary_property.update(property_type: 'sfh')
-    address = FactoryGirl.build(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: loan.primary_property.id)
+    loan.subject_property.update(property_type: 'sfh')
+    address = FactoryGirl.build(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: loan.subject_property.id)
     address.save
   }
 
