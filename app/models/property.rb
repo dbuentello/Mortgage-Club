@@ -1,21 +1,3 @@
-# == Schema Information
-#
-# Table name: properties
-#
-#  id                         :uuid             not null, primary key
-#  property_type              :integer
-#  usage                      :integer
-#  original_purchase_year     :integer
-#  original_purchase_price    :decimal(13, 2)
-#  purchase_price             :decimal(13, 2)
-#  market_price               :decimal(13, 2)
-#  gross_rental_income        :decimal(11, 2)
-#  estimated_property_tax     :decimal(11, 2)
-#  estimated_hazard_insurance :decimal(11, 2)
-#  is_impound_account         :boolean
-#  loan_id                    :uuid
-#
-
 class Property < ActiveRecord::Base
   belongs_to :loan, foreign_key: 'loan_id'
 
@@ -41,6 +23,7 @@ class Property < ActiveRecord::Base
     :hoa_due,
     :is_primary,
     :is_subject,
+    :year_built,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 
@@ -137,6 +120,10 @@ class Property < ActiveRecord::Base
   def refinance_amount
     return 0 unless loan.refinance?
 
-    mortgage_payment_liability.present? ? mortgage_payment : other_financing
+    mortgage_payment_liability.present? ? mortgage_payment_liability.balance.to_f : other_financing_liability.balance.to_f
+  end
+
+  def total_liability_balance
+    mortgage_payment_liability.balance.to_f + other_financing_liability.balance.to_f
   end
 end
