@@ -62,6 +62,7 @@ module Docusign
       end
 
       def build_section_5
+        @params["borrower_net"] = UnderwritingLoanServices::CalculateRentalIncome.call(loan)
         build_gross_monthly_income("borrower", borrower)
         build_gross_monthly_income("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
         build_housing_expense("proposed", subject_property)
@@ -162,7 +163,6 @@ module Docusign
       end
 
       def build_gross_monthly_income(role, borrower)
-        # borrower_dividends, borrower_net, borrower_other
         [
           "total_base_income", "total_overtime", "total_bonuses", "total_commissions",
           "total_dividends", "total_net", "total_other", "final_total"
@@ -172,6 +172,7 @@ module Docusign
         @params[role + "_overtime"] = Money.new(borrower.gross_overtime.to_f * 100).format
         @params[role + "_bonuses"] = Money.new(borrower.gross_bonus.to_f * 100).format
         @params[role + "_commissions"] = Money.new(borrower.gross_commission.to_f * 100).format
+        @params[role + "_dividends"] = Money.new(borrower.gross_interest * 100).format
         @params[role + "_total_income"] = Money.new(borrower.total_income.to_f * 100).format
         @params["total_base_income"] += borrower.current_salary
         @params["total_overtime"] += borrower.gross_overtime.to_f

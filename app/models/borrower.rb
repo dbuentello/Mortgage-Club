@@ -133,6 +133,6 @@ class Borrower < ActiveRecord::Base
   end
 
   def total_income
-    current_salary + gross_overtime.to_f + gross_bonus.to_f + gross_commission.to_f
+    current_salary + gross_overtime.to_f + gross_bonus.to_f + gross_commission.to_f + gross_interest.to_f
   end
 end
