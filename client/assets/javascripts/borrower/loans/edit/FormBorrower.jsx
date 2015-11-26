@@ -24,7 +24,8 @@ var borrower_fields = {
   numberOfDependents: {label: 'Number of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null},
   dependentAges: {label: 'Ages of Dependents', name: 'first_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null},
   currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null},
-  currentlyOwn: {label: 'Do you own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null},
+  currentlyOwn: {label: 'Own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null},
+  selfEmployed: {label: 'Are you self-employed?', name: 'first_borrower_self_employed', fieldName: 'self_employed', helpText: null},
   yearsInCurrentAddress: {label: 'Number of years you have lived in this address', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null},
   previousAddress: {label: 'Your previous address', name: 'first_borrower_previous_address', fieldName: 'previous_address', helpText: null},
   previouslyOwn: {label: 'Do you own or rent?', name: 'first_borrower_previously_own', fieldName: 'previously_own', helpText: null},
@@ -47,11 +48,12 @@ var secondary_borrower_fields = {
   numberOfDependents: {label: 'Number of dependents', name: 'secondary_borrower_dependent_count', fieldName: 'dependent_count', helpText: null},
   dependentAges: {label: 'Ages of Dependents', name: 'secondary_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null},
   currentAddress: {label: 'Your co-borrower current address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null},
-  currentlyOwn: {label: 'Does your co-borrower own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null},
-  yearsInCurrentAddress: {label: 'Number of years co-borrower has lived in this address', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null},
+  currentlyOwn: {label: 'Own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null},
+  selfEmployed: {label: 'Is your co-borrower self-employed?', name: 'secondary_borrower_self_employed', fieldName: 'self_employed', helpText: null},
+  yearsInCurrentAddress: {label: 'Number of years your co-borrower has lived in this address', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null},
   previousAddress: {label: 'Your previous address', name: 'secondary_borrower_previous_address', fieldName: 'previous_address', helpText: null},
   previouslyOwn: {label: 'Do you own or rent?', name: 'secondary_borrower_previously_own', fieldName: 'previously_own', helpText: null},
-  yearsInPreviousAddress: {label: 'Number of years he/she has lived in this address', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null},
+  yearsInPreviousAddress: {label: 'Number of years your co-borrower has lived in this address', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null},
   currentMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null},
   previousMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null}
 };
@@ -354,6 +356,19 @@ var FormBorrower = React.createClass({
                   </div>
                 </div>
               : null }
+              <div className='row'>
+                <div className='col-xs-12'>
+                  <BooleanRadio
+                    label={borrower_fields.selfEmployed.label}
+                    checked={this.state[borrower_fields.selfEmployed.name]}
+                    keyName={borrower_fields.selfEmployed.name}
+                    yesLabel={"Yes"}
+                    noLabel={"No"}
+                    editable={this.state.borrower_editable}
+                    onFocus={this.onFocus.bind(this, borrower_fields.selfEmployed)}
+                    onChange={this.onChange}/>
+                </div>
+              </div>
             </div>
             <hr/>
             { this.state.hasSecondaryBorrower ?
@@ -575,6 +590,19 @@ var FormBorrower = React.createClass({
                     </div>
                   </div>
                 : null }
+                <div className='row'>
+                  <div className='col-xs-12'>
+                    <BooleanRadio
+                      label={secondary_borrower_fields.selfEmployed.label}
+                      checked={this.state[secondary_borrower_fields.selfEmployed.name]}
+                      keyName={secondary_borrower_fields.selfEmployed.name}
+                      yesLabel={"Yes"}
+                      noLabel={"No"}
+                      editable={this.state.borrower_editable}
+                      onFocus={this.onFocus.bind(this, secondary_borrower_fields.selfEmployed)}
+                      onChange={this.onChange}/>
+                  </div>
+                </div>
               </div>
             : null }
 
@@ -667,6 +695,7 @@ var FormBorrower = React.createClass({
     state[fields.maritalStatus.name] = borrower[fields.maritalStatus.fieldName];
     state[fields.numberOfDependents.name] = borrower[fields.numberOfDependents.fieldName];
     state[fields.dependentAges.name] = borrower[fields.dependentAges.fieldName].join(', ');
+    state[fields.selfEmployed.name] = borrower[fields.selfEmployed.fieldName];
 
     var currentBorrowerAddress = borrower[fields.currentAddress.fieldName];
     if (currentBorrowerAddress) {
@@ -789,7 +818,11 @@ var FormBorrower = React.createClass({
     borrower[fields.yearsInSchool.fieldName] = this.state[fields.yearsInSchool.name];
     borrower[fields.maritalStatus.fieldName] = this.state[fields.maritalStatus.name];
     borrower[fields.numberOfDependents.fieldName] = this.state[fields.numberOfDependents.name];
+    if (!this.state[fields.numberOfDependents.name]) {
+      borrower[fields.numberOfDependents.fieldName] = 0;
+    }
     borrower[fields.dependentAges.fieldName] = dependentAges;
+    borrower[fields.selfEmployed.fieldName] = this.state[fields.selfEmployed.name];;
     return borrower;
   }
 });

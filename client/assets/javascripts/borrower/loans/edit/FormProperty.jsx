@@ -2,6 +2,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
+var FlashHandler = require('mixins/FlashHandler');
 
 var AddressField = require('components/form/AddressField');
 var SelectField = require('components/form/SelectField');
@@ -37,7 +38,7 @@ var propertyPurposes = [
 ];
 
 var FormProperty = React.createClass({
-  mixins: [ObjectHelperMixin, TextFormatMixin],
+  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
 
   getInitialState: function() {
     return this.buildStateFromLoan(this.props.loan);
@@ -252,7 +253,19 @@ var FormProperty = React.createClass({
 
   save: function() {
     this.setState({saving: true});
-    this.props.saveLoan(this.buildLoanFromState(), 0);
+    if (!this.state[fields.address.name]) {
+      var flash = { "alert-danger": "Address can't be blank." };
+      this.showFlashes(flash);
+    } else if (!this.state[fields.propertyPurpose.name]) {
+      var flash = { "alert-danger": "Property Will Be can't be blank." };
+      this.showFlashes(flash);
+    } else if (!this.state[fields.loanPurpose.name]) {
+      var flash = { "alert-danger": "Purpose of Loan can't be blank." };
+      this.showFlashes(flash);
+    } else {
+      this.props.saveLoan(this.buildLoanFromState(), 0);
+    }
+    this.setState({saving: false});
   }
 });
 
