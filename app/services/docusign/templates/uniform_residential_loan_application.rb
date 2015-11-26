@@ -172,7 +172,7 @@ module Docusign
         @params[role + "_overtime"] = Money.new(borrower.gross_overtime.to_f * 100).format
         @params[role + "_bonuses"] = Money.new(borrower.gross_bonus.to_f * 100).format
         @params[role + "_commissions"] = Money.new(borrower.gross_commission.to_f * 100).format
-        @params[role + "_dividends"] = Money.new(borrower.gross_interest * 100).format
+        @params[role + "_dividends"] = Money.new(borrower.gross_interest.to_f * 100).format
         @params[role + "_total_income"] = Money.new(borrower.total_income.to_f * 100).format
         @params["total_base_income"] += borrower.current_salary
         @params["total_overtime"] += borrower.gross_overtime.to_f
