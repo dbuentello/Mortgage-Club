@@ -80,10 +80,10 @@ var FormDocuments = React.createClass({
 
     if (borrower.self_employed == true) {
       upload_fields = self_employed_fields;
-      co_upload_fields = this.state['file_taxes_jointly'] == true ? co_file_taxes_jointly_fields : co_no_file_taxes_jointly_fields
+      co_upload_fields = this.state['is_file_taxes_jointly'] == true ? co_file_taxes_jointly_fields : co_no_file_taxes_jointly_fields
     } else {
       upload_fields = owner_fields;
-      co_upload_fields = this.state['file_taxes_jointly'] == true ? co_borrower_fields : co_borrower_no_file_taxes_jointly_fields
+      co_upload_fields = this.state['is_file_taxes_jointly'] == true ? co_borrower_fields : co_borrower_no_file_taxes_jointly_fields
     }
 
     return (
@@ -131,8 +131,8 @@ var FormDocuments = React.createClass({
                   <div className='col-xs-12'>
                     <BooleanRadio
                       label="Do you and your co-borrower file taxes jointly?"
-                      checked={this.state['file_taxes_jointly']}
-                      keyName="file_taxes_jointly"
+                      checked={this.state['is_file_taxes_jointly']}
+                      keyName="is_file_taxes_jointly"
                       editable={true}
                       yesLabel="Yes"
                       noLabel="No"
@@ -140,7 +140,7 @@ var FormDocuments = React.createClass({
                   </div>
                 </div>
                 {
-                  this.state['file_taxes_jointly'] == null ? null
+                  this.state['is_file_taxes_jointly'] == null ? null
                     :<div>
                       <div className='row'>
                         <p className="box-description col-sm-12">
@@ -210,6 +210,7 @@ var FormDocuments = React.createClass({
     var borrower = loan.borrower;
     var secondary_borrower = loan.secondary_borrower;
     var state = {};
+    state['is_file_taxes_jointly'] = loan.borrower.is_file_taxes_jointly;
 
     this.setStateForUploadFields(borrower, state, owner_upload_fields);
     if (secondary_borrower) {
@@ -238,6 +239,8 @@ var FormDocuments = React.createClass({
 
   buildLoanFromState: function() {
     var loan = this.props.loan;
+    loan.borrower_attributes = {id: this.props.loan.borrower.id};
+    loan.borrower_attributes['is_file_taxes_jointly'] = this.state['is_file_taxes_jointly'];
     return loan;
   },
 
