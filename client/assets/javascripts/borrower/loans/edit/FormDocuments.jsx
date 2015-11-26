@@ -118,18 +118,10 @@ var FormDocuments = React.createClass({
 
   buildStateFromLoan: function(loan) {
     var borrower = loan.borrower;
-    var secondary_borrower = loan.secondary_borrower
-    var state = {};
-    this.setStateForUploadFields(borrower, state, upload_fields);
-    // console.dir(state);
-    // if (secondary_borrower) {
-    //   this.setStateForUploadFields(secondary_borrower, state, upload_fields);
-    // }
-    console.dir(state);
-    return state;
-  },
+    // var secondary_borrower = loan.secondary_borrower
+    console.dir(borrower);
 
-  setStateForUploadFields: function(borrower, state, upload_fields) {
+    var state = {};
     _.map(Object.keys(upload_fields), function(key) {
       if (borrower[key]) { // has a document
         state[upload_fields[key].name] = borrower[key].original_filename;
@@ -144,6 +136,8 @@ var FormDocuments = React.createClass({
         state[upload_fields[key].name + '_removedUrl'] = 'javascript:void(0)';
       }
     }, this);
+    console.dir(state);
+    return state;
   },
 
   buildLoanFromState: function() {

@@ -38,6 +38,8 @@ class Borrower < ActiveRecord::Base
   has_one  :second_personal_tax_return, inverse_of: :borrower, dependent: :destroy
   has_one  :first_business_tax_return, inverse_of: :borrower, dependent: :destroy
   has_one  :second_business_tax_return, inverse_of: :borrower, dependent: :destroy
+  has_one  :first_federal_tax_return, inverse_of: :borrower, dependent: :destroy
+  has_one  :second_federal_tax_return, inverse_of: :borrower, dependent: :destroy
   has_one  :ocr, inverse_of: :borrower, dependent: :destroy
 
   has_many :other_borrower_reports, inverse_of: :borrower, dependent: :destroy

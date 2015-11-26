@@ -40,7 +40,11 @@ class LoanPresenter
           include: [
             :declaration, :first_bank_statement, :second_bank_statement,
             :first_paystub, :second_paystub,
-            :first_w2, :second_w2, user: {
+            :first_w2, :second_w2,
+            :first_personal_tax_return, :second_personal_tax_return,
+            :first_business_tax_return, :second_business_tax_return,
+            :first_federal_tax_return, :second_federal_tax_return,
+            user: {
               only: [ :email, :first_name ]
             }
           ],
@@ -74,7 +78,10 @@ class LoanPresenter
           include: [
             :first_bank_statement, :second_bank_statement,
             :first_paystub, :second_paystub,
-            :first_w2, :second_w2
+            :first_w2, :second_w2,
+            :first_personal_tax_return, :second_personal_tax_return,
+            :first_business_tax_return, :second_business_tax_return,
+            :first_federal_tax_return, :second_federal_tax_return
           ]
         },
         user: {
@@ -113,7 +120,10 @@ class LoanPresenter
           include: [
             :first_bank_statement, :second_bank_statement,
             :first_paystub, :second_paystub,
-            :first_w2, :second_w2
+            :first_w2, :second_w2,
+            :first_personal_tax_return, :second_personal_tax_return,
+            :first_business_tax_return, :second_business_tax_return,
+            :first_federal_tax_return, :second_federal_tax_return
           ]
         },
         closing: {
