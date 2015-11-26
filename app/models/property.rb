@@ -119,11 +119,13 @@ class Property < ActiveRecord::Base
 
   def refinance_amount
     return 0 unless loan.refinance?
-
-    mortgage_payment_liability.present? ? mortgage_payment_liability.balance.to_f : other_financing_liability.balance.to_f
+    return mortgage_payment_liability.balance.to_f if mortgage_payment_liability
+    other_financing_liability.balance.to_f if other_financing_liability
   end
 
   def total_liability_balance
-    mortgage_payment_liability.balance.to_f + other_financing_liability.balance.to_f
+    mortgage_balance = mortgage_payment_liability ? mortgage_payment_liability.balance.to_f : 0
+    other_balance = other_financing_liability ? other_financing_liability.balance.to_f : 0
+    mortgage_balance + other_balance
   end
 end
