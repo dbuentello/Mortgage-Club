@@ -68,6 +68,7 @@ class Borrower < ActiveRecord::Base
     :gross_overtime,
     :gross_bonus,
     :gross_commission,
+    :gross_interest,
     employments_attributes:                         [:id] + Employment::PERMITTED_ATTRS,
     borrower_government_monitoring_info_attributes: [:id] + BorrowerGovernmentMonitoringInfo::PERMITTED_ATTRS,
     credit_report_attributes:                       [:id] + CreditReport::PERMITTED_ATTRS,

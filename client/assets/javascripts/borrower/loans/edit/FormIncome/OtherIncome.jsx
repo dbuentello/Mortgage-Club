@@ -19,16 +19,19 @@ var OtherIncome = React.createClass({
   getInitialState: function() {
     var state = {};
     state.income = this.props.income
+    console.dir("bbb")
+    console.dir(this.props.income)
     return state;
   },
 
   onChange: function(change) {
     var key = _.keys(change)[0];
-    var value = _.values(change)[0]
+    var value = _.values(change)[0];
     this.setState(this.setValue(this.state, key, value));
   },
 
   remove: function(index) {
+    console.dir(index)
     this.props.onRemove(index);
   },
 
@@ -39,7 +42,7 @@ var OtherIncome = React.createClass({
   render: function() {
     var index = this.props.index;
     return (
-      <div className='row'>
+      <div className={this.state.income.type + ' row'}>
         <div className='col-sm-6'>
           <SelectField
             label='Income Type'
