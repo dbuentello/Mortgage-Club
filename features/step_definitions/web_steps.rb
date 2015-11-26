@@ -149,3 +149,27 @@ When /^I drag the file "([^\"]*)" to "([^\"]*)"$/ do |file, field|
   droppable = page.find("##{field}")
   draggable.drag_to(droppable)
 end
+
+When /^I select "([^\"]*)" from "([^\"]*)" at "([^\"]*)"$/ do |value, field, element|
+  within(:css, element) do
+    select(value, from: field)
+  end
+end
+
+When /^I fill in "([^\"]*)" with "([^\"]*)" at "([^\"]*)"$/ do |field, value, element|
+  within(:css, element) do
+    fill_in(field, with: value)
+  end
+end
+
+When /^At "([^\"]*)" I clear value in "(.*?)"$/ do |element, field|
+  within(:css, element) do
+    patiently do
+      fill_in(field, with: '')
+    end
+  end
+end
+
+When /^I click link with div "(.*?)"$/ do |element|
+  find(element).click
+end

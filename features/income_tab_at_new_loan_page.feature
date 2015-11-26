@@ -1,6 +1,6 @@
 Feature: IncomeTabAtNewLoanPage
   @javascript
-  Scenario: User submits PDF files
+  Scenario: User updates his income detail
     When I am at loan management page
       And I should see "Income"
       And I click on "Income" in the "#tabIncome"
@@ -15,16 +15,26 @@ Feature: IncomeTabAtNewLoanPage
           And I fill in "Job Title" with "Software Engineer"
         Then I clear value in "Years at this employer"
           And I fill in "Years at this employer" with "12"
-        Then I clear value in "Contact Name"
-          And I fill in "Contact Name" with "Cuong Vu"
-        Then I clear value in "Contact Phone Number"
-          And I fill in "Contact Phone Number" with "0912345678"
-        Then I clear value in "Base Income"
-          And I fill in "Base Income" with "123454"
+      Then I clear value in "Contact Name"
+        And I fill in "Contact Name" with "Cuong Vu"
+      Then I clear value in "Contact Phone Number"
+        And I fill in "Contact Phone Number" with "0912345678"
+      Then I clear value in "Base Income"
+        And I fill in "Base Income" with "123454"
+      # Then I click link with div ".overtime .iconTrash"
+      #   And I click link with div ".commission .iconTrash"
+      #   And I click link with div ".bonus .iconTrash"
+      # Then I click on "Add other income"
+      #   And I should see "Income Type"
+      #   And I should see "Annual Gross Amount"
+      #   And I select "Interest" from "Income Type"
+      #   And I clear value in "Annual Gross Amount"
+      #   And I fill in "Annual Gross Amount" with "9876"
       Then I click on "Save and Continue"
-        And I wait for 2 seconds
+        And I wait for 1 seconds
       And I click on "Income" in the "#tabIncome"
         Then I should see "Software Engineer"
           And I should see "Cuong Vu"
           And I should see "0912345678"
           And I should see "$123,454"
+          # And I should see "9876"
