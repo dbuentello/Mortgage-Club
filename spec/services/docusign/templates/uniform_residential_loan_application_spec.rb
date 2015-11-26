@@ -47,13 +47,14 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
   end
 
   describe "#build_section_2" do
-    before(:each) { @property = loan.primary_property }
+    before(:each) { @service.loan.purpose = "purchase" }
 
     it "maps right values" do
+      property = loan.subject_property
       @service.build_section_2
       expect(@service.params).to include({
-        "property_address" => @property.address.try(:address),
-        "no_of_units" => @property.no_of_unit,
+        "property_address" => property.address.try(:address),
+        "no_of_units" => property.no_of_unit,
         "legal_description" => "See preliminary title",
         "property_title" => "To Be Determined",
         "property_manner" => "To Be Determined in escrow",
@@ -62,7 +63,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
 
     it "marks 'x' to only one property's usage" do
-      @service.property.usage = "primary_residence"
+      @service.subject_property.usage = "primary_residence"
       @service.build_section_2
 
       expect(@service.params["secondary_property"]).not_to eq("x")
@@ -71,7 +72,6 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
 
     it "marks 'x' to only one property's purpose" do
-      @service.loan.purpose = "purchase"
       @service.build_section_2
 
       expect(@service.params["loan_purpose_refinance"]).not_to eq("x")
@@ -88,15 +88,12 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
 
     context "refinance" do
-      it "maps right values relating to refinance" do
+      it "calls #build_refinance_loan" do
         @service.loan.purpose = "refinance"
+        expect_any_instance_of(
+          Docusign::Templates::UniformResidentialLoanApplication
+        ).to receive(:build_refinance_loan)
         @service.build_section_2
-        expect(@service.params).to include({
-          "loan_purpose_refinance" => "x",
-          "refinance_year_acquired" => @property.original_purchase_year,
-          "refinance_original_cost" => @property.original_purchase_price,
-          "refinance_amount_existing_liens" => @property.refinance_amount
-        })
       end
     end
   end
@@ -152,6 +149,15 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.build_section_5
     end
 
+    it "calls #build_housing_expense" do
+      @service.primary_property = nil
+      expect_any_instance_of(
+        Docusign::Templates::UniformResidentialLoanApplication
+      ).to receive(:build_housing_expense).with("proposed", @service.subject_property)
+
+      @service.build_section_5
+    end
+
     context "secondary borrower" do
       it "calls #build_gross_monthly_income" do
         @service.loan.secondary_borrower = loan.borrower
@@ -162,24 +168,45 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         @service.build_section_5
       end
     end
+
+    context "primary property" do
+      it "calls #build_housing_expense" do
+        @service.primary_property = @service.subject_property
+        expect_any_instance_of(
+          Docusign::Templates::UniformResidentialLoanApplication
+        ).to receive(:build_housing_expense).at_least(:twice)
+
+        @service.build_section_5
+      end
+    end
   end
 
   describe "#build_section_7" do
     it "maps right values" do
-      total_cost_transactions = 0 + loan.estimated_prepaid_items.to_f +
+      total_cost_transactions = loan.subject_property.purchase_price + loan.estimated_prepaid_items.to_f +
                                   loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f
       @service.build_section_7
       expect(@service.params).to include({
-        "estimated_prepaid_items" => loan.estimated_prepaid_items,
-        "estimated_closing_costs" => loan.estimated_closing_costs,
-        "pmi_funding_fee" => loan.pmi_mip_funding_fee,
-        "other_credit" => loan.other_credits,
-        "loan_amount_exclude_pmi_mip" => loan.amount - loan.pmi_mip_funding_fee.to_f,
-        "pmi_mip_funding_fee_financed" => loan.pmi_mip_funding_fee_financed,
-        "total_loan_amount" => loan.amount,
-        "total_cost_transactions" => total_cost_transactions,
-        "borrower_cash" => total_cost_transactions - loan.other_credits.to_f - loan.amount
+        "estimated_prepaid_items" => Money.new(loan.estimated_prepaid_items * 100).format,
+        "estimated_closing_costs" => Money.new(loan.estimated_closing_costs * 100).format,
+        "pmi_funding_fee" => Money.new(loan.pmi_mip_funding_fee * 100).format,
+        "other_credit" => Money.new(loan.other_credits * 100).format,
+        "loan_amount_exclude_pmi_mip" => Money.new((loan.amount - loan.pmi_mip_funding_fee.to_f) * 100).format,
+        "pmi_mip_funding_fee_financed" => Money.new(loan.pmi_mip_funding_fee_financed * 100).format,
+        "total_loan_amount" => Money.new(loan.amount * 100).format,
+        "total_cost_transactions" => Money.new(total_cost_transactions * 100).format,
+        "borrower_cash" => Money.new((total_cost_transactions - loan.other_credits.to_f - loan.amount) * 100).format
       })
+    end
+
+    context "refinance" do
+      it "maps right values" do
+        @service.loan.purpose = "refinance"
+        @service.build_section_7
+        expect(@service.params).to include({
+          "refinance" => Money.new(@service.loan.amount * 100).format
+        })
+      end
     end
   end
 
@@ -204,10 +231,47 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     end
   end
 
+  describe "#build_housing_expense" do
+    context "subject property" do
+      it "maps right values" do
+        property = @service.subject_property
+        @service.build_housing_expense("proposed", property)
+        expect(@service.params).to include({
+          "proposed_first_mortgage" => Money.new(property.mortgage_payment * 100).format,
+          "proposed_other_financing" => Money.new(property.other_financing * 100).format,
+          "proposed_hazard_insurance" => Money.new(property.estimated_hazard_insurance * 100).format,
+          "proposed_estate_taxes" => Money.new(property.estimated_property_tax * 100).format,
+          "proposed_mortgage_insurance" => Money.new(property.estimated_mortgage_insurance * 100).format,
+          "proposed_homeowner" => Money.new(property.hoa_due * 100).format,
+          "proposed_total_expense" => Money.new((property.mortgage_payment + property.other_financing +
+                                              property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
+                                              property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f) * 100).format
+        })
+      end
+    end
+
+    context "primary property" do
+      it "maps right values" do
+        property = @service.primary_property
+        @service.build_housing_expense("present", property)
+        expect(@service.params).to include({
+          "present_first_mortgage" => Money.new(property.mortgage_payment * 100).format,
+          "present_other_financing" => Money.new(property.other_financing * 100).format,
+          "present_hazard_insurance" => Money.new(property.estimated_hazard_insurance * 100).format,
+          "present_estate_taxes" => Money.new(property.estimated_property_tax * 100).format,
+          "present_mortgage_insurance" => Money.new(property.estimated_mortgage_insurance * 100).format,
+          "present_homeowner" => Money.new(property.hoa_due * 100).format,
+          "present_total_expense" => Money.new((property.mortgage_payment + property.other_financing +
+                                              property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
+                                              property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f) * 100).format
+        })
+      end
+    end
+  end
+
   describe "#build_declaration" do
     it "maps right values" do
-      borrower = @service.borrower
-      @service.build_declaration("borrower", borrower)
+      @service.build_declaration("borrower", @service.borrower)
       expect(@service.params).to include({
         "declarations_borrower_a_yes" => declaration.outstanding_judgment ? "x" : nil,
         "declarations_borrower_b_yes" => declaration.bankrupt ? "x" : nil,
@@ -345,6 +409,23 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         @service.build_section_1
         expect(@service.params['mortgage_applied_other']).to eq("x")
       end
+    end
+  end
+
+  describe "#build_refinance_loan" do
+    it "maps right values relating to refinance" do
+      property = @service.loan.subject_property
+      purpose_of_refinance = (@service.loan.amount > property.total_liability_balance) ? "Cash out" : "Rate and term"
+      @service.build_refinance_loan
+
+      expect(@service.params).to include({
+        "loan_purpose_refinance" => "x",
+        "refinance_year_acquired" => property.original_purchase_year,
+        "refinance_original_cost" => Money.new(property.original_purchase_price * 100).format,
+        "refinance_amount_existing_liens" => Money.new(property.refinance_amount * 100).format,
+        "purpose_of_refinance" => purpose_of_refinance,
+        "year_built" => property.year_built
+      })
     end
   end
 end
