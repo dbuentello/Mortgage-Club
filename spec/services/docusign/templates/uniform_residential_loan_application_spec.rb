@@ -417,11 +417,10 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       property = @service.loan.subject_property
       purpose_of_refinance = (@service.loan.amount > property.total_liability_balance) ? "Cash out" : "Rate and term"
       @service.build_refinance_loan
-
       expect(@service.params).to include({
         "loan_purpose_refinance" => "x",
         "refinance_year_acquired" => property.original_purchase_year,
-        "refinance_original_cost" => Money.new(property.original_purchase_price * 100).format,
+        "refinance_original_cost" => Money.new(property.original_purchase_price.to_f * 100).format,
         "refinance_amount_existing_liens" => Money.new(property.refinance_amount * 100).format,
         "purpose_of_refinance" => purpose_of_refinance,
         "year_built" => property.year_built

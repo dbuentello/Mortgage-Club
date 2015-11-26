@@ -215,7 +215,7 @@ module Docusign
       def build_refinance_loan
         @params["loan_purpose_refinance"] = "x"
         @params["refinance_year_acquired"] = subject_property.original_purchase_year
-        @params["refinance_original_cost"] = Money.new(subject_property.original_purchase_price * 100).format
+        @params["refinance_original_cost"] = Money.new(subject_property.original_purchase_price.to_f * 100).format
         @params["refinance_amount_existing_liens"] = Money.new(subject_property.refinance_amount * 100).format
 
         if loan.amount > subject_property.total_liability_balance
