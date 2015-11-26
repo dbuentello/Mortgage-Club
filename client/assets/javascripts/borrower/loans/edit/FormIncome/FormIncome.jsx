@@ -70,11 +70,27 @@ var FormIncome = React.createClass({
     this.props.saveLoan(this.buildLoanFromState(), 2, true);
   },
 
+  changeIncomeType: function(value, i) {
+    var arr = this.state.otherIncomes;
+    arr[i].type = value;
+    this.setState({otherIncomes: arr});
+  },
+
+  changeIncomeAmount: function(value, i) {
+    var arr = this.state.otherIncomes;
+    arr[i].amount = value;
+    this.setState({otherIncomes: arr});
+  },
+
   eachOtherIncome: function(income, index) {
-    console.dir('==')
-    console.dir(income)
     return (
-      <OtherIncome key={index} index={index} income={income}  onRemove={this.removeOtherIncome}/>
+      <OtherIncome key={index}
+        index={index}
+        type={income.type}
+        amount={income.amount}
+        onChangeType={this.changeIncomeType}
+        onChangeAmount={this.changeIncomeAmount}
+        onRemove={this.removeOtherIncome}/>
     );
   },
 
@@ -387,7 +403,6 @@ var FormIncome = React.createClass({
     var arr = this.state.otherIncomes;
     arr.splice(index, 1);
     this.setState({otherIncomes: arr});
-    console.dir(this.state.otherIncomes)
   },
 
   save: function() {
