@@ -1,9 +1,8 @@
+# rubocop:disable ClassLength
 module Docusign
   module Templates
     class UniformResidentialLoanApplication
-      attr_accessor :loan, :borrower,
-                    :subject_property, :primary_property,
-                    :credit_report, :params
+      attr_accessor :loan, :borrower, :subject_property, :primary_property, :credit_report, :params
 
       def initialize(loan)
         @loan = loan
@@ -27,7 +26,7 @@ module Docusign
       end
 
       def build_section_1
-        # agency_case_number. These fields will be mapped after we have loan shifter.
+        # agency_case_number
         # lender_case_number
         build_loan_type
         @params["loan_amount"] = Money.new(loan.amount.to_f * 100).format
@@ -111,12 +110,9 @@ module Docusign
         @params[type + "_estate_taxes"] = Money.new(property.estimated_property_tax * 100).format
         @params[type + "_mortgage_insurance"] = Money.new(property.estimated_mortgage_insurance * 100).format
         @params[type + "_homeowner"] = Money.new(property.hoa_due * 100).format
-        @params[type + "_total_expense"] =  Money.new((property.mortgage_payment +
-                                            property.other_financing +
-                                            property.estimated_hazard_insurance.to_f +
-                                            property.estimated_property_tax.to_f +
-                                            property.estimated_mortgage_insurance.to_f +
-                                            property.hoa_due.to_f) * 100).format
+        @params[type + "_total_expense"] = Money.new((property.mortgage_payment + property.other_financing +
+                                            property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
+                                            property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f) * 100).format
       end
 
       def total_cost_transactions
