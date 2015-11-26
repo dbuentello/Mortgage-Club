@@ -1,11 +1,14 @@
 module Docusign
   module Templates
     class UniformResidentialLoanApplication
-      attr_accessor :loan, :property, :borrower, :credit_report, :params
+      attr_accessor :loan, :borrower,
+                    :subject_property, :primary_property,
+                    :credit_report, :params
 
       def initialize(loan)
         @loan = loan
-        @property = loan.primary_property
+        @subject_property = loan.subject_property
+        @primary_property = loan.primary_property
         @borrower = loan.borrower
         @credit_report = borrower.credit_report
         @params = {}
@@ -35,20 +38,17 @@ module Docusign
       end
 
       def build_section_2
-        @params["property_address"] = property.address.try(:address)
-        @params["no_of_units"] = property.no_of_unit
+        @params["property_address"] = subject_property.address.try(:address)
+        @params["no_of_units"] = subject_property.no_of_unit
         @params["legal_description"] = "See preliminary title"
         @params["loan_purpose_purchase"] = "x" if loan.purchase?
-        build_refinance_loan if loan.refinance?
-        @params["primary_property"] = "x" if property.primary_residence?
-        @params["secondary_property"] = "x" if property.vacation_home?
-        @params["investment_property"] = "x" if property.rental_property?
+        @params["primary_property"] = "x" if subject_property.primary_residence?
+        @params["secondary_property"] = "x" if subject_property.vacation_home?
+        @params["investment_property"] = "x" if subject_property.rental_property?
         @params["property_title"] = "To Be Determined"
         @params["property_manner"] = "To Be Determined in escrow"
         @params["property_fee_simple"] = "x"
-        # purpose_of_refinance
-        # source_down_payment
-        # year_built
+        build_refinance_loan if loan.refinance?
       end
 
       def build_section_3
@@ -65,13 +65,8 @@ module Docusign
       def build_section_5
         build_gross_monthly_income("borrower", borrower)
         build_gross_monthly_income("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
-
-        # TODO: these below fields will be mapped after we complete UI for subject property
-        # present_rent, present_first_mortgage, present_other_financing
-        # present_hazard_insurance, present_estate_taxes, present_mortgage_insurance
-        # present_homeowner, present_total_expense, proposed_first_mortgage
-        # proposed_other_financing, proposed_hazard_insurance, proposed_estate_taxes
-        # proposed_mortgage_insurance, proposed_homeowner, proposed_total_expense
+        build_housing_expense("proposed", subject_property)
+        build_housing_expense("present", primary_property) if primary_property
       end
 
       def build_section_6
@@ -81,29 +76,26 @@ module Docusign
           nth = index.to_s
           @params["liabilities_name_" + nth] = liability.name
           @params["liabilities_address_" + nth] = liability.address.address
-          # @params["payment_months_" + nth] = liability.payment.to_f / liability.months.to_f
+          @params["payment_months_" + nth] = liability.payment.to_f / liability.months.to_f
           @params["unpaid_balance_" + nth] = liability.balance
           @params["liabilities_acct_no_" + nth] = liability.account_number
         end
       end
 
       def build_section_7
-        # wait for Subject Property's front-end
-        purchase_price = 0
-        refinance = 0
         # leave blank now
-        subordinate_financing = 0
-        closing_costs_paid_by_seller = 0
-
-        @params["estimated_prepaid_items"] = loan.estimated_prepaid_items
-        @params["estimated_closing_costs"] = loan.estimated_closing_costs
-        @params["pmi_funding_fee"] = loan.pmi_mip_funding_fee
-        @params["other_credit"] = loan.other_credits
-        @params["loan_amount_exclude_pmi_mip"] = loan.amount - loan.pmi_mip_funding_fee.to_f
-        @params["pmi_mip_funding_fee_financed"] = loan.pmi_mip_funding_fee_financed
-        @params["total_loan_amount"] = loan.amount
-        @params["borrower_cash"] = total_cost_transactions(purchase_price) - subordinate_financing - closing_costs_paid_by_seller - loan.other_credits.to_f - loan.amount
-        @params["total_cost_transactions"] = total_cost_transactions(purchase_price)
+        # subordinate_financing
+        # closing_costs_paid_by_seller
+        @params["refinance"] = Money.new(loan.amount * 100).format if loan.refinance?
+        @params["estimated_prepaid_items"] = Money.new(loan.estimated_prepaid_items.to_f * 100).format
+        @params["estimated_closing_costs"] = Money.new(loan.estimated_closing_costs.to_f * 100).format
+        @params["pmi_funding_fee"] = Money.new(loan.pmi_mip_funding_fee.to_f * 100).format
+        @params["other_credit"] = Money.new(loan.other_credits.to_f * 100).format
+        @params["loan_amount_exclude_pmi_mip"] = Money.new((loan.amount.to_f - loan.pmi_mip_funding_fee.to_f) * 100).format
+        @params["pmi_mip_funding_fee_financed"] = Money.new(loan.pmi_mip_funding_fee_financed.to_f * 100).format
+        @params["total_loan_amount"] = Money.new(loan.amount.to_f * 100).format
+        @params["borrower_cash"] = Money.new(borrower_cash * 100).format
+        @params["total_cost_transactions"] = Money.new(total_cost_transactions * 100).format
       end
 
       def build_section_8
@@ -111,9 +103,32 @@ module Docusign
         build_declaration("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
       end
 
-      def total_cost_transactions(purchase_price)
-        @total_cost_transactions ||= purchase_price + loan.estimated_prepaid_items.to_f +
-                                  loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f
+      def build_housing_expense(type, property)
+        @params[type + "_rent"] = Money.new(borrower.current_address.monthly_rent * 100).format if primary_property && borrower.current_address.is_rental
+        @params[type + "_first_mortgage"] = Money.new(property.mortgage_payment * 100).format
+        @params[type + "_other_financing"] = Money.new(property.other_financing * 100).format
+        @params[type + "_hazard_insurance"] = Money.new(property.estimated_hazard_insurance * 100).format
+        @params[type + "_estate_taxes"] = Money.new(property.estimated_property_tax * 100).format
+        @params[type + "_mortgage_insurance"] = Money.new(property.estimated_mortgage_insurance * 100).format
+        @params[type + "_homeowner"] = Money.new(property.hoa_due * 100).format
+        @params[type + "_total_expense"] =  Money.new((property.mortgage_payment +
+                                            property.other_financing +
+                                            property.estimated_hazard_insurance.to_f +
+                                            property.estimated_property_tax.to_f +
+                                            property.estimated_mortgage_insurance.to_f +
+                                            property.hoa_due.to_f) * 100).format
+      end
+
+      def total_cost_transactions
+        @total_cost_transactions ||=  subject_property.purchase_price.to_f + loan.estimated_prepaid_items.to_f +
+                                      loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f
+      end
+
+      def borrower_cash
+        subordinate_financing = 0
+        closing_costs_paid_by_seller = 0
+        total_cost_transactions - subordinate_financing - closing_costs_paid_by_seller -
+          loan.other_credits.to_f - loan.amount.to_f
       end
 
       def build_declaration(role, borrower)
@@ -203,9 +218,18 @@ module Docusign
 
       def build_refinance_loan
         @params["loan_purpose_refinance"] = "x"
-        @params["refinance_year_acquired"] = property.original_purchase_year
-        @params["refinance_original_cost"] = property.original_purchase_price
-        @params["refinance_amount_existing_liens"] = property.refinance_amount
+        @params["refinance_year_acquired"] = subject_property.original_purchase_year
+        @params["refinance_original_cost"] = Money.new(subject_property.original_purchase_price * 100).format
+        @params["refinance_amount_existing_liens"] = Money.new(subject_property.refinance_amount * 100).format
+
+        if loan.amount > subject_property.total_liability_balance
+          @params["purpose_of_refinance"] = "Cash out"
+        else
+          @params["purpose_of_refinance"] = "Rate and term"
+        end
+        @params["year_built"] = subject_property.year_built
+        #If exists Asset.Bank account then source_down_payment = "Checking account"
+        # source_down_payment
       end
 
       def build_loan_type
