@@ -6,6 +6,12 @@ namespace :db do
     Documents::SecondPaystub.destroy_all
     Documents::FirstBankStatement.destroy_all
     Documents::SecondBankStatement.destroy_all
+    Documents::FirstBusinessTaxReturn.destroy_all
+    Documents::SecondBusinessTaxReturn.destroy_all
+    Documents::FirstPersonalTaxReturn.destroy_all
+    Documents::SecondPersonalTaxReturn.destroy_all
+    Documents::FirstFederalTaxReturn.destroy_all
+    Documents::SecondFederalTaxReturn.destroy_all
   end
 
   namespace :migrate do

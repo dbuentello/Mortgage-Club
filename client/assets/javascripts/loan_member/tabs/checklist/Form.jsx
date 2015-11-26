@@ -22,6 +22,12 @@ var documentDescription = {
   'SecondPaystub': 'Paystub - Previous month',
   'FirstBankStatement': 'Bank statement - Most recent month',
   'SecondBankStatement': 'Bank statement - Previous month',
+  'FirstBusinessTaxReturn': 'Business tax return - Most recent year',
+  'SecondBusinessTaxReturn': 'Business tax return - Previous year',
+  'FirstPersonalTaxReturn': 'Personal tax return - Most recent year',
+  'SecondPersonalTaxReturn': 'Personal tax return - Previous year',
+  'FirstFederalTaxReturn': 'Federal tax return - Most recent year',
+  'SecondFederalTaxReturn': 'Federal tax return - Previous year',
   'OtherBorrowerReport': 'Other Borrower Report',
   'HudEstimate': 'Estimated settlement statement',
   'HudFinal': 'Final settlement statement',
@@ -133,6 +139,13 @@ var Form = React.createClass({
         break;
       case "borrower":
         var documentTypes = [
+          {name: 'Business tax return - Most recent year', value: 'FirstBusinessTaxReturn'},
+          {name: 'Business tax return - Previous year', value: 'SecondBusinessTaxReturn'},
+          {name: 'Personal tax return - Most recent year', value: 'FirstPersonalTaxReturn'},
+          {name: 'Personal tax return - Previous year', value: 'SecondPersonalTaxReturn'},
+          {name: 'Federal tax return - Most recent year', value: 'FirstFederalTaxReturn'},
+          {name: 'Federal tax return - Previous year', value: 'SecondFederalTaxReturn'},
+
           {name: 'W2 - Most recent tax year', value: 'FirstW2'},
           {name: 'W2 - Previous tax year', value: 'SecondW2'},
           {name: 'Paystub - Most recent month', value: 'FirstPaystub'},

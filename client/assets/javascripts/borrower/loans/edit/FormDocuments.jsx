@@ -5,21 +5,20 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var Dropzone = require('components/form/Dropzone');
 var SelectField = require('components/form/SelectField');
 
-var uploader_fields = {
+var upload_fields = {
+  first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'first_personal_tax_return', placeholder: 'drap file here or browse', type: 'FirstPersonalTaxReturn'},
+  second_personal_tax_return: {label: 'Personal tax return - Previous year', name: 'second_personal_tax_return', placeholder: 'drap file here or browse', type: 'SecondPersonalTaxReturn'},
+  first_business_tax_return: {label: 'Business tax return - Most recent year', name: 'first_business_tax_return', placeholder: 'drap file here or browse', type: 'FirstBusinessTaxReturn'},
+  second_business_tax_return: {label: 'Business tax return - Previous year', name: 'second_business_tax_return', placeholder: 'drap file here or browse', type: 'SecondBusinessTaxReturn'},
   first_w2: {label: 'W2 - Most recent tax year', name: 'first_w2', placeholder: 'drap file here or browse', type: 'FirstW2'},
   second_w2: {label: 'W2 - Previous tax year', name: 'second_w2', placeholder: 'drap file here or browse', type: 'SecondW2'},
   first_paystub: {label: "Paystub - Most recent period", name: 'first_paystub', placeholder: 'drap file here or browse', type: 'FirstPaystub'},
   second_paystub: {label: 'Paystub - Previous period', name: 'second_paystub', placeholder: 'drap file here or browse', type: 'SecondPaystub'},
+  first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'first_federal_tax_return', placeholder: 'drap file here or browse', type: 'FirstFederalTaxReturn'},
+  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'second_federal_tax_return', placeholder: 'drap file here or browse', type: 'SecondFederalTaxReturn'},
   first_bank_statement: {label: 'Bank statement - Most recent month', name: 'first_bank_statement', placeholder: 'drap file here or browse', type: 'FirstBankStatement'},
-  second_bank_statement: {label: 'Bank statement - Previous month', name: 'second_bank_statement', placeholder: 'drap file here or browse', type: 'SecondBankStatement'},
-
-
-  // first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'first_personal_tax_return', placeholder: 'drap file here or browse', type: 'FirstPersonalTaxReturn'},
-  // second_personal_tax_return: {label: 'Personal tax return - Previous year', name: 'second_personal_tax_return', placeholder: 'drap file here or browse', type: 'SecondPersonalTaxReturn'},
-  // first_business_tax_return: {label: 'Business tax return - Most recent year', name: 'first_business_tax_return', placeholder: 'drap file here or browse', type: 'FirstBusinessTaxReturn'},
-  // second_business_tax_return: {label: 'Business tax return - Previous year', name: 'second_business_tax_return', placeholder: 'drap file here or browse', type: 'SecondBusinessTaxReturn'}
+  second_bank_statement: {label: 'Bank statement - Previous month', name: 'second_bank_statement', placeholder: 'drap file here or browse', type: 'SecondBankStatement'}
 };
-
 
 var FormDocuments = React.createClass({
   mixins: [TextFormatMixin],
@@ -63,22 +62,22 @@ var FormDocuments = React.createClass({
               </div>
               <div className='row'>
                 {
-                  _.map(Object.keys(uploader_fields), function(key) {
+                  _.map(Object.keys(upload_fields), function(key) {
                     var customParams = [
-                      {type: uploader_fields[key].type},
+                      {type: upload_fields[key].type},
                       {borrower_id: this.props.loan.borrower.id}
                     ];
 
                     return(
                       <div className="drop_zone" key={key}>
-                        <Dropzone field={uploader_fields[key]}
+                        <Dropzone field={upload_fields[key]}
                           uploadUrl={uploadUrl}
-                          downloadUrl={this.state[uploader_fields[key].name + '_downloadUrl']}
-                          removeUrl={this.state[uploader_fields[key].name + '_removedUrl']}
-                          tip={this.state[uploader_fields[key].name]}
+                          downloadUrl={this.state[upload_fields[key].name + '_downloadUrl']}
+                          removeUrl={this.state[upload_fields[key].name + '_removedUrl']}
+                          tip={this.state[upload_fields[key].name]}
                           maxSize={10000000}
                           customParams={customParams}
-                          supportOtherDescription={uploader_fields[key].customDescription}
+                          supportOtherDescription={upload_fields[key].customDescription}
                           uploadSuccessCallback={this.afterUploadingDocument}/>
                       </div>
                     )
@@ -119,23 +118,32 @@ var FormDocuments = React.createClass({
 
   buildStateFromLoan: function(loan) {
     var borrower = loan.borrower;
+    var secondary_borrower = loan.secondary_borrower
     var state = {};
+    this.setStateForUploadFields(borrower, state, upload_fields);
+    // console.dir(state);
+    // if (secondary_borrower) {
+    //   this.setStateForUploadFields(secondary_borrower, state, upload_fields);
+    // }
+    console.dir(state);
+    return state;
+  },
 
-    _.map(Object.keys(uploader_fields), function(key) {
+  setStateForUploadFields: function(borrower, state, upload_fields) {
+    _.map(Object.keys(upload_fields), function(key) {
       if (borrower[key]) { // has a document
-        state[uploader_fields[key].name] = borrower[key].original_filename;
-        state[uploader_fields[key].id] = borrower[key].id;
-        state[uploader_fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + borrower[key].id +
-                                         '/download?type=' + uploader_fields[key].type;
-        state[uploader_fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + borrower[key].id +
-                                         '/remove?type=' + uploader_fields[key].type;
+        state[upload_fields[key].name] = borrower[key].original_filename;
+        state[upload_fields[key].id] = borrower[key].id;
+        state[upload_fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + borrower[key].id +
+                                         '/download?type=' + upload_fields[key].type;
+        state[upload_fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + borrower[key].id +
+                                         '/remove?type=' + upload_fields[key].type;
       } else {
-        state[uploader_fields[key].name] = uploader_fields[key].placeholder;
-        state[uploader_fields[key].name + '_downloadUrl'] = 'javascript:void(0)';
-        state[uploader_fields[key].name + '_removedUrl'] = 'javascript:void(0)';
+        state[upload_fields[key].name] = upload_fields[key].placeholder;
+        state[upload_fields[key].name + '_downloadUrl'] = 'javascript:void(0)';
+        state[upload_fields[key].name + '_removedUrl'] = 'javascript:void(0)';
       }
     }, this);
-    return state;
   },
 
   buildLoanFromState: function() {
