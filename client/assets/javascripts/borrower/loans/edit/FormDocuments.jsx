@@ -5,7 +5,7 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var Dropzone = require('components/form/Dropzone');
 var SelectField = require('components/form/SelectField');
 
-var upload_fields = {
+var owner_upload_fields = {
   first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'first_personal_tax_return', placeholder: 'drap file here or browse', type: 'FirstPersonalTaxReturn'},
   second_personal_tax_return: {label: 'Personal tax return - Previous year', name: 'second_personal_tax_return', placeholder: 'drap file here or browse', type: 'SecondPersonalTaxReturn'},
   first_business_tax_return: {label: 'Business tax return - Most recent year', name: 'first_business_tax_return', placeholder: 'drap file here or browse', type: 'FirstBusinessTaxReturn'},
@@ -18,6 +18,21 @@ var upload_fields = {
   second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'second_federal_tax_return', placeholder: 'drap file here or browse', type: 'SecondFederalTaxReturn'},
   first_bank_statement: {label: 'Bank statement - Most recent month', name: 'first_bank_statement', placeholder: 'drap file here or browse', type: 'FirstBankStatement'},
   second_bank_statement: {label: 'Bank statement - Previous month', name: 'second_bank_statement', placeholder: 'drap file here or browse', type: 'SecondBankStatement'}
+};
+
+var co_borrower_upload_fields = {
+  first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'co_first_personal_tax_return', placeholder: 'drap file here or browse', type: 'FirstPersonalTaxReturn'},
+  second_personal_tax_return: {label: 'Personal tax return - Previous year', name: 'co_second_personal_tax_return', placeholder: 'drap file here or browse', type: 'SecondPersonalTaxReturn'},
+  first_business_tax_return: {label: 'Business tax return - Most recent year', name: 'co_first_business_tax_return', placeholder: 'drap file here or browse', type: 'FirstBusinessTaxReturn'},
+  second_business_tax_return: {label: 'Business tax return - Previous year', name: 'co_second_business_tax_return', placeholder: 'drap file here or browse', type: 'SecondBusinessTaxReturn'},
+  first_w2: {label: 'W2 - Most recent tax year', name: 'co_first_w2', placeholder: 'drap file here or browse', type: 'FirstW2'},
+  second_w2: {label: 'W2 - Previous tax year', name: 'co_second_w2', placeholder: 'drap file here or browse', type: 'SecondW2'},
+  first_paystub: {label: "Paystub - Most recent period", name: 'co_first_paystub', placeholder: 'drap file here or browse', type: 'FirstPaystub'},
+  second_paystub: {label: 'Paystub - Previous period', name: 'co_second_paystub', placeholder: 'drap file here or browse', type: 'SecondPaystub'},
+  first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'co_first_federal_tax_return', placeholder: 'drap file here or browse', type: 'FirstFederalTaxReturn'},
+  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'co_second_federal_tax_return', placeholder: 'drap file here or browse', type: 'SecondFederalTaxReturn'},
+  first_bank_statement: {label: 'Bank statement - Most recent month', name: 'co_first_bank_statement', placeholder: 'drap file here or browse', type: 'FirstBankStatement'},
+  second_bank_statement: {label: 'Bank statement - Previous month', name: 'co_second_bank_statement', placeholder: 'drap file here or browse', type: 'SecondBankStatement'}
 };
 
 var FormDocuments = React.createClass({
@@ -51,6 +66,17 @@ var FormDocuments = React.createClass({
 
   render: function() {
     var uploadUrl = '/document_uploaders/borrowers/upload';
+    var borrower = this.props.loan.borrower;
+    var secondary_borrower = this.props.loan.secondary_borrower;
+    var owner_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub', 'first_federal_tax_return', 'second_federal_tax_return',  'first_bank_statement', 'second_bank_statement'];
+    var self_employed_fields = ['first_personal_tax_return', 'second_personal_tax_return', 'first_business_tax_return', 'second_business_tax_return', 'first_bank_statement', 'second_bank_statement'];
+
+    var upload_fields = [];
+    if (borrower.self_employed == true) {
+      upload_fields = self_employed_fields;
+    } else {
+      upload_fields = owner_fields;
+    }
 
     return (
       <div>
@@ -62,25 +88,27 @@ var FormDocuments = React.createClass({
               </div>
               <div className='row'>
                 {
-                  _.map(Object.keys(upload_fields), function(key) {
-                    var customParams = [
-                      {type: upload_fields[key].type},
-                      {borrower_id: this.props.loan.borrower.id}
-                    ];
 
-                    return(
-                      <div className="drop_zone" key={key}>
-                        <Dropzone field={upload_fields[key]}
-                          uploadUrl={uploadUrl}
-                          downloadUrl={this.state[upload_fields[key].name + '_downloadUrl']}
-                          removeUrl={this.state[upload_fields[key].name + '_removedUrl']}
-                          tip={this.state[upload_fields[key].name]}
-                          maxSize={10000000}
-                          customParams={customParams}
-                          supportOtherDescription={upload_fields[key].customDescription}
-                          uploadSuccessCallback={this.afterUploadingDocument}/>
-                      </div>
-                    )
+                  _.map(Object.keys(owner_upload_fields), function(key) {
+                    if (upload_fields.indexOf(key) > -1) {
+                      var customParams = [
+                        {type: owner_upload_fields[key].type},
+                        {borrower_id: borrower.id}
+                      ];
+                      return(
+                        <div className="drop_zone" key={key}>
+                          <Dropzone field={owner_upload_fields[key]}
+                            uploadUrl={uploadUrl}
+                            downloadUrl={this.state[owner_upload_fields[key].name + '_downloadUrl']}
+                            removeUrl={this.state[owner_upload_fields[key].name + '_removedUrl']}
+                            tip={this.state[owner_upload_fields[key].name]}
+                            maxSize={10000000}
+                            customParams={customParams}
+                            supportOtherDescription={owner_upload_fields[key].customDescription}
+                            uploadSuccessCallback={this.afterUploadingDocument}/>
+                        </div>
+                      )
+                    }
                   }, this)
                 }
               </div>
@@ -106,22 +134,28 @@ var FormDocuments = React.createClass({
     );
   },
 
+  afterUploadingDocument: function() {
+  },
+
   componentWillReceiveProps: function(nextProps) {
     this.setState(_.extend(this.buildStateFromLoan(nextProps.loan), {
       saving: false
     }));
   },
 
-  display_document: function(file_name) {
-    return;
-  },
-
   buildStateFromLoan: function(loan) {
     var borrower = loan.borrower;
-    // var secondary_borrower = loan.secondary_borrower
-    console.dir(borrower);
-
+    var secondary_borrower = loan.secondary_borrower;
     var state = {};
+
+    this.setStateForUploadFields(borrower, state, owner_upload_fields);
+    if (secondary_borrower) {
+      this.setStateForUploadFields(secondary_borrower, state, co_borrower_upload_fields);
+    }
+    return state;
+  },
+
+  setStateForUploadFields: function(borrower, state, upload_fields) {
     _.map(Object.keys(upload_fields), function(key) {
       if (borrower[key]) { // has a document
         state[upload_fields[key].name] = borrower[key].original_filename;
@@ -136,8 +170,6 @@ var FormDocuments = React.createClass({
         state[upload_fields[key].name + '_removedUrl'] = 'javascript:void(0)';
       }
     }, this);
-    console.dir(state);
-    return state;
   },
 
   buildLoanFromState: function() {
