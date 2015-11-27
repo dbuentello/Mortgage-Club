@@ -2,6 +2,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var FlashHandler = require('mixins/FlashHandler');
 
 var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
@@ -58,8 +59,19 @@ var secondary_borrower_fields = {
   previousMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null}
 };
 
+var borrowerCountOptions = [
+  {name: 'As an individual', value: 1},
+  {name: 'With a co-borrower', value: 2}
+];
+
+var maritalStatuses = [
+  {name: 'Married', value: 'married'},
+  {name: 'Unmarried', value: 'unmarried'},
+  {name: 'Separated', value: 'separated'}
+];
+
 var FormBorrower = React.createClass({
-  mixins: [TextFormatMixin],
+  mixins: [TextFormatMixin, FlashHandler],
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
@@ -123,17 +135,6 @@ var FormBorrower = React.createClass({
   },
 
   render: function() {
-    var borrowerCountOptions = [
-      {name: 'As an individual', value: 1},
-      {name: 'With a co-borrower', value: 2}
-    ];
-
-    var maritalStatuses = [
-      {name: 'Married', value: 'married'},
-      {name: 'Unmarried', value: 'unmarried'},
-      {name: 'Separated', value: 'separated'}
-    ];
-
     return (
       <div>
         <div className='formContent'>
@@ -720,14 +721,46 @@ var FormBorrower = React.createClass({
     return state;
   },
 
-  save: function() {
+  valid: function() {
     // don't allow submit when missing co-borrower info
+    if ((this.state[borrower_fields.email.name] == null) ||
+          (this.state[borrower_fields.firstName.name] == null) ||
+          (this.state[borrower_fields.lastName.name] == null ||
+          (this.state[borrower_fields.dob.name] == null) ||
+          (this.state[borrower_fields.ssn.name] == null) ||
+          (this.state[borrower_fields.phone.name] == null) ||
+          (this.state[borrower_fields.yearsInSchool.name] == null) ||
+          (this.state[borrower_fields.currentAddress.name] == null) ||
+          (this.state[borrower_fields.currentlyOwn.name] == null) ||
+          (this.state[borrower_fields.yearsInCurrentAddress.name] == null) ||
+          (this.state[borrower_fields.selfEmployed.name] == null))
+        ) {
+      var flash = { "alert-danger": 'You have to type at least email, first name and last name of you.' };
+      this.showFlashes(flash);
+      return false;
+    }
     if (this.state[borrower_fields.applyingAs.name] == 2 && (
           (this.state[secondary_borrower_fields.email.name] == null) ||
           (this.state[secondary_borrower_fields.firstName.name] == null) ||
-          (this.state[secondary_borrower_fields.lastName.name] == null)
+          (this.state[secondary_borrower_fields.lastName.name] == null ||
+          (this.state[secondary_borrower_fields.dob.name] == null) ||
+          (this.state[secondary_borrower_fields.ssn.name] == null) ||
+          (this.state[secondary_borrower_fields.phone.name] == null) ||
+          (this.state[secondary_borrower_fields.yearsInSchool.name] == null) ||
+          (this.state[secondary_borrower_fields.currentAddress.name] == null) ||
+          (this.state[secondary_borrower_fields.currentlyOwn.name] == null) ||
+          (this.state[secondary_borrower_fields.yearsInCurrentAddress.name] == null) ||
+          (this.state[secondary_borrower_fields.selfEmployed.name] == null))
         )) {
-      alert('You have to type at least email, first name and last name of the co-borrower');
+      var flash = { "alert-danger": 'You have to type at least email, first name and last name of the co-borrower.' };
+      this.showFlashes(flash);
+      return false;
+    }
+    return true
+  },
+
+  save: function() {
+    if (this.valid() == false) {
       return;
     }
     this.setState({saving: true});
