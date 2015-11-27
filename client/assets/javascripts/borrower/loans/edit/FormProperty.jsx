@@ -253,19 +253,39 @@ var FormProperty = React.createClass({
 
   save: function() {
     this.setState({saving: true});
-    if (!this.state[fields.address.name]) {
-      var flash = { "alert-danger": "Address can't be blank." };
-      this.showFlashes(flash);
-    } else if (!this.state[fields.propertyPurpose.name]) {
-      var flash = { "alert-danger": "Property Will Be can't be blank." };
-      this.showFlashes(flash);
-    } else if (!this.state[fields.loanPurpose.name]) {
-      var flash = { "alert-danger": "Purpose of Loan can't be blank." };
+    var messages = [];
+
+    if (!this.state[fields.address.name].full_text) {
+      messages.push("Address can't be blank.");
+    }
+    if (!this.state[fields.propertyPurpose.name]) {
+      messages.push("Property Will Be can't be blank.");
+    }
+    console.log(this.state[fields.loanPurpose.name]);
+    if (this.state[fields.loanPurpose.name] == null) {
+      messages.push("Purpose of Loan can't be blank.");
+    } else {
+      if (this.state[fields.loanPurpose.name] == true) {
+        if (!this.state[fields.purchasePrice.name]) {
+          messages.push("Purchase Price can't be blank.");
+        }
+      } else {
+        if (!this.state[fields.originalPurchasePrice.name]) {
+          messages.push("Original Purchase Price can't be blank.");
+        }
+        if (!this.state[fields.originalPurchaseYear.name]) {
+          messages.push("Purchase Year can't be blank.");
+        }
+      }
+    }
+    var full_message = messages.join('\n');
+    if (full_message) {
+      this.setState({saving: false});
+      var flash = { "alert-danger": full_message };
       this.showFlashes(flash);
     } else {
       this.props.saveLoan(this.buildLoanFromState(), 0);
     }
-    this.setState({saving: false});
   }
 });
 

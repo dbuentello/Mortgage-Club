@@ -221,7 +221,6 @@ var FormDocuments = React.createClass({
     if (secondary_borrower) {
       this.setStateForUploadFields(secondary_borrower, state, co_borrower_upload_fields);
     }
-    console.dir(state);
     return state;
   },
 
