@@ -18,7 +18,7 @@
 class BorrowerDocument < ActiveRecord::Base
   include Documentation
 
-  DOCUMENT_LIST = %w(FirstW2 SecondW2 FirstPaystub SecondPaystub FirstBankStatement SecondBankStatement OtherBorrowerReport)
+  DOCUMENT_LIST = %w(FirstW2 SecondW2 FirstPaystub SecondPaystub FirstBankStatement SecondBankStatement FirstFederalTaxReturn SecondFederalTaxReturn FirstPersonalTaxReturn SecondPersonalTaxReturn FirstBusinessTaxReturn SecondBusinessTaxReturn OtherBorrowerReport)
 
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',

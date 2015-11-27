@@ -10,6 +10,13 @@ var fields = {
   second_paystub: {label: 'Paystub - Previous month', name: 'second_paystub', placeholder: 'drap file here or browse', type: 'SecondPaystub'},
   first_bank_statement: {label: 'Bank statement - Most recent month', name: 'first_bank_statement', placeholder: 'drap file here or browse', type: 'FirstBankStatement'},
   second_bank_statement: {label: 'Bank statement - Previous month', name: 'second_bank_statement', placeholder: 'drap file here or browse', type: 'SecondBankStatement'},
+
+  first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'first_personal_tax_return', placeholder: 'drap file here or browse', type: 'FirstPersonalTaxReturn'},
+  second_personal_tax_return: {label: 'Personal tax return - Previous year', name: 'second_personal_tax_return', placeholder: 'drap file here or browse', type: 'SecondPersonalTaxReturn'},
+  first_business_tax_return: {label: 'Business tax return - Most recent year', name: 'first_business_tax_return', placeholder: 'drap file here or browse', type: 'FirstBusinessTaxReturn'},
+  second_business_tax_return: {label: 'Business tax return - Previous year', name: 'second_business_tax_return', placeholder: 'drap file here or browse', type: 'SecondBusinessTaxReturn'},
+  first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'first_federal_tax_return', placeholder: 'drap file here or browse', type: 'FirstFederalTaxReturn'},
+  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'second_federal_tax_return', placeholder: 'drap file here or browse', type: 'SecondFederalTaxReturn'},
   other_borrower_report: {label: 'Other', name: 'other_borrower_report', placeholder: 'drap file here or browse', type: 'OtherBorrowerReport', customDescription: true}
 };
 
@@ -56,7 +63,7 @@ var Borrower = React.createClass({
     var state = {};
     _.map(Object.keys(fields), function(key) {
       if (this.props.borrower[key]) { // has a document
-        state[fields[key].name] = this.props.borrower[key].attachment_file_name;
+        state[fields[key].name] = this.props.borrower[key].original_filename;
         state[fields[key].id] = this.props.borrower[key].id;
         state[fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + this.props.borrower[key].id +
                                          '/download?type=' + fields[key].type;

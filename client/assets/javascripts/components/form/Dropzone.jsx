@@ -49,7 +49,8 @@ var Dropzone = React.createClass({
     downloadUrl: React.PropTypes.string,
     removeUrl: React.PropTypes.string,
     maxSize: React.PropTypes.number,
-    supportOtherDescription: React.PropTypes.bool
+    supportOtherDescription: React.PropTypes.bool,
+    uploadSuccessCallback: React.PropTypes.func
   },
 
   componentDidMount: function() {

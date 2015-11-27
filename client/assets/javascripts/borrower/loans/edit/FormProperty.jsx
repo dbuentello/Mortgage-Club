@@ -2,6 +2,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
+var FlashHandler = require('mixins/FlashHandler');
 
 var AddressField = require('components/form/AddressField');
 var SelectField = require('components/form/SelectField');
@@ -37,7 +38,7 @@ var propertyPurposes = [
 ];
 
 var FormProperty = React.createClass({
-  mixins: [ObjectHelperMixin, TextFormatMixin],
+  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
 
   getInitialState: function() {
     return this.buildStateFromLoan(this.props.loan);
@@ -252,7 +253,39 @@ var FormProperty = React.createClass({
 
   save: function() {
     this.setState({saving: true});
-    this.props.saveLoan(this.buildLoanFromState(), 0);
+    var messages = [];
+
+    if (!this.state[fields.address.name].full_text) {
+      messages.push("Address can't be blank.");
+    }
+    if (!this.state[fields.propertyPurpose.name]) {
+      messages.push("Property Will Be can't be blank.");
+    }
+    console.log(this.state[fields.loanPurpose.name]);
+    if (this.state[fields.loanPurpose.name] == null) {
+      messages.push("Purpose of Loan can't be blank.");
+    } else {
+      if (this.state[fields.loanPurpose.name] == true) {
+        if (!this.state[fields.purchasePrice.name]) {
+          messages.push("Purchase Price can't be blank.");
+        }
+      } else {
+        if (!this.state[fields.originalPurchasePrice.name]) {
+          messages.push("Original Purchase Price can't be blank.");
+        }
+        if (!this.state[fields.originalPurchaseYear.name]) {
+          messages.push("Purchase Year can't be blank.");
+        }
+      }
+    }
+    var full_message = messages.join('\n');
+    if (full_message) {
+      this.setState({saving: false});
+      var flash = { "alert-danger": full_message };
+      this.showFlashes(flash);
+    } else {
+      this.props.saveLoan(this.buildLoanFromState(), 0);
+    }
   }
 });
 

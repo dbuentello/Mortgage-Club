@@ -130,6 +130,10 @@ class Loan < ActiveRecord::Base
     end
   end
 
+  def documents_completed
+    borrower.documents_completed?
+  end
+
   def income_completed
     borrower.income_completed?
   end

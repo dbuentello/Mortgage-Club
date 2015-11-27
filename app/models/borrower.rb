@@ -34,6 +34,12 @@ class Borrower < ActiveRecord::Base
   has_one  :second_paystub, inverse_of: :borrower, dependent: :destroy
   has_one  :first_w2, inverse_of: :borrower, dependent: :destroy
   has_one  :second_w2, inverse_of: :borrower, dependent: :destroy
+  has_one  :first_personal_tax_return, inverse_of: :borrower, dependent: :destroy
+  has_one  :second_personal_tax_return, inverse_of: :borrower, dependent: :destroy
+  has_one  :first_business_tax_return, inverse_of: :borrower, dependent: :destroy
+  has_one  :second_business_tax_return, inverse_of: :borrower, dependent: :destroy
+  has_one  :first_federal_tax_return, inverse_of: :borrower, dependent: :destroy
+  has_one  :second_federal_tax_return, inverse_of: :borrower, dependent: :destroy
   has_one  :ocr, inverse_of: :borrower, dependent: :destroy
 
   has_many :other_borrower_reports, inverse_of: :borrower, dependent: :destroy
@@ -69,6 +75,8 @@ class Borrower < ActiveRecord::Base
     :gross_bonus,
     :gross_commission,
     :gross_interest,
+    :self_employed,
+    :is_file_taxes_jointly,
     employments_attributes:                         [:id] + Employment::PERMITTED_ATTRS,
     borrower_government_monitoring_info_attributes: [:id] + BorrowerGovernmentMonitoringInfo::PERMITTED_ATTRS,
     credit_report_attributes:                       [:id] + CreditReport::PERMITTED_ATTRS,
@@ -112,10 +120,13 @@ class Borrower < ActiveRecord::Base
       (dependent_count == 0 || (dependent_count > 0 && dependent_ages.count > 0))
   end
 
-  def income_completed?
+  def documents_completed?
     first_w2.present? && second_w2.present? &&
       first_paystub.present? && second_paystub.present? &&
-      first_bank_statement.present? && second_bank_statement.present? &&
+      first_bank_statement.present? && second_bank_statement.present?
+  end
+
+  def income_completed?
       current_employment.try(:completed?)
   end
 

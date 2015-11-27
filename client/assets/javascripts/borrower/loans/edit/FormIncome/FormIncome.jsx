@@ -6,7 +6,6 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
 var TextField = require('components/form/TextField');
-var Dropzone = require('components/form/Dropzone');
 var SelectField = require('components/form/SelectField');
 var OtherIncome = require('./OtherIncome');
 
@@ -24,15 +23,6 @@ var fields = {
   grossCommission: {label: 'Annual Gross Commission', name: 'gross_commission', helpText: null},
   grossInterest: {label: 'Annual Gross Interest', name: 'gross_interest', helpText: null},
   incomeFrequency: {label: 'Income frequency', name: 'pay_frequency', helpText: null}
-};
-
-var uploader_fields = {
-  first_w2: {label: 'W2 - Most recent tax year', name: 'first_w2', placeholder: 'drap file here or browse', type: 'FirstW2'},
-  second_w2: {label: 'W2 - Previous tax year', name: 'second_w2', placeholder: 'drap file here or browse', type: 'SecondW2'},
-  first_paystub: {label: "Paystub - Most recent period", name: 'first_paystub', placeholder: 'drap file here or browse', type: 'FirstPaystub'},
-  second_paystub: {label: 'Paystub - Previous period', name: 'second_paystub', placeholder: 'drap file here or browse', type: 'SecondPaystub'},
-  first_bank_statement: {label: 'Bank statement - Most recent month', name: 'first_bank_statement', placeholder: 'drap file here or browse', type: 'FirstBankStatement'},
-  second_bank_statement: {label: 'Bank statement - Previous month', name: 'second_bank_statement', placeholder: 'drap file here or browse', type: 'SecondBankStatement'}
 };
 
 var incomeFrequencies = [
@@ -61,15 +51,6 @@ var FormIncome = React.createClass({
     this.setState({focusedField: field});
   },
 
-  onDrop: function(files, field) {
-    this.refresh();
-  },
-
-  refresh: function() {
-    this.setState({saving: true});
-    this.props.saveLoan(this.buildLoanFromState(), 2, true);
-  },
-
   changeIncomeType: function(value, i) {
     var arr = this.state.otherIncomes;
     arr[i].type = value;
@@ -84,7 +65,8 @@ var FormIncome = React.createClass({
 
   eachOtherIncome: function(income, index) {
     return (
-      <OtherIncome key={index}
+      <OtherIncome
+        key={index}
         index={index}
         type={income.type}
         amount={income.amount}
@@ -95,68 +77,14 @@ var FormIncome = React.createClass({
   },
 
   afterUploadingDocument: function() {
-    if (this.props.loan.borrower.current_employment) {
-      setTimeout(_.bind(this.updateEmploymentData), 10000);
-    }
-  },
-
-  updateEmploymentData: function() {
-    var employment_id = this.props.loan.borrower.current_employment.id;
-
-    $.ajax({
-      url: "/employments/" + employment_id,
-      method: "GET",
-      success: function(response) {
-        var employment = response.employment;
-        var state = {};
-        state[fields.employerName.name] = employment[fields.employerName.name];
-        state[fields.employerAddress.name] = employment[fields.employerAddress.name];
-        if (employment[fields.employerAddress.name]) {
-          state[fields.employerFullTextAddress.name] = employment[fields.employerAddress.name].full_text;
-        }
-        state[fields.baseIncome.name] = this.formatCurrency(employment[fields.baseIncome.name]);
-        state[fields.incomeFrequency.name] = employment[fields.incomeFrequency.name];
-        this.setState(state);
-      }.bind(this)
-    });
   },
 
   render: function() {
-    var uploadUrl = '/document_uploaders/borrowers/upload';
-
     return (
       <div>
         <div className='formContent'>
           <div className='pal'>
             <div className='box mtn'>
-              <div className='row'>
-                <p style={{fontSize: 15}}>At the minimum, we’d need these documents before we can lock-in your mortgage rate. Please upload them now so our proprietary technology can try to extract the data and save you some time inputting it.</p>
-              </div>
-              <div className='row'>
-                {
-                  _.map(Object.keys(uploader_fields), function(key) {
-                    var customParams = [
-                      {type: uploader_fields[key].type},
-                      {borrower_id: this.props.loan.borrower.id}
-                    ];
-
-                    return(
-                      <div className="drop_zone" key={key}>
-                        <Dropzone field={uploader_fields[key]}
-                          uploadUrl={uploadUrl}
-                          downloadUrl={this.state[uploader_fields[key].name + '_downloadUrl']}
-                          removeUrl={this.state[uploader_fields[key].name + '_removedUrl']}
-                          tip={this.state[uploader_fields[key].name]}
-                          maxSize={10000000}
-                          customParams={customParams}
-                          supportOtherDescription={uploader_fields[key].customDescription}
-                          uploadSuccessCallback={this.afterUploadingDocument}/>
-                      </div>
-                    )
-                  }, this)
-                }
-              </div>
-
               <div className='row'>
                 <div className='col-sm-6'>
                   <TextField
@@ -334,22 +262,6 @@ var FormIncome = React.createClass({
       state[fields.employerAddress.name] = {full_text: ''};
     }
     state[fields.employerFullTextAddress.name] = state[fields.employerAddress.name].full_text;
-
-    _.map(Object.keys(uploader_fields), function(key) {
-      if (borrower[key]) { // has a document
-        state[uploader_fields[key].name] = borrower[key].original_filename;
-        state[uploader_fields[key].id] = borrower[key].id;
-        state[uploader_fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + borrower[key].id +
-                                         '/download?type=' + uploader_fields[key].type;
-        state[uploader_fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + borrower[key].id +
-                                         '/remove?type=' + uploader_fields[key].type;
-      }else {
-        state[uploader_fields[key].name] = uploader_fields[key].placeholder;
-        state[uploader_fields[key].name + '_downloadUrl'] = 'javascript:void(0)';
-        state[uploader_fields[key].name + '_removedUrl'] = 'javascript:void(0)';
-      }
-    }, this);
-
     return state;
   },
 
@@ -407,7 +319,7 @@ var FormIncome = React.createClass({
 
   save: function() {
     this.setState({saving: true});
-    this.props.saveLoan(this.buildLoanFromState(), 2);
+    this.props.saveLoan(this.buildLoanFromState(), 3);
   }
 });
 

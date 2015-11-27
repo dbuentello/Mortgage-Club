@@ -58,7 +58,7 @@ class Users::LoansController < Users::BaseController
         if loan.subject_property.address && loan.subject_property.address.zip
           ZillowService::GetMortgageRates.new(loan.id, loan.subject_property.address.zip).delay.call
         end
-      when '2'
+      when '3'
         # CreditReportService.delay.get_liabilities(current_user.borrower)
       end
 
