@@ -2,7 +2,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 
 var Property = require('./FormProperty');
-var Borrower = require('./FormBorrower');
+var Borrower = require('./FormBorrower/Form');
 var Income = require('./FormIncome/FormIncome');
 var AssetsAndLiabilities = require('./FormAssetsAndLiabilities/FormAssetsAndLiabilities');
 var Declarations = require('./FormDeclarations');

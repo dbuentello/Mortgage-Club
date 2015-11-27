@@ -1,9 +1,9 @@
+require "benchmark"
 class BorrowerForm
   include ActiveModel::Model
 
-  attr_accessor :borrower, :secondary_borrower,
-                :current_address, :current_borrower_address,
-                :form_params
+  attr_accessor :borrower, :loan, :form_params, :is_secondary_borrower,
+                :current_address, :current_borrower_address
 
   validate :validate_attributes
 
@@ -12,19 +12,23 @@ class BorrowerForm
     setup_associations
     return false unless valid?
 
+
     ActiveRecord::Base.transaction do
       borrower.save!
       current_address.save!
       current_borrower_address.save!
-      if current_borrower_address.is_rental
-        unset_primary_property
-      else
-        create_primary_property
+
+      unless is_secondary_borrower
+        if borrower_rents_house?
+          unset_primary_property
+        else
+          create_primary_property
+        end
       end
 
       if borrower.must_have_previous_address?
-        previous_address.save!
         previous_borrower_address.save!
+        previous_address.save!
       elsif borrower.previous_address
         borrower.previous_address.destroy
       end
@@ -44,16 +48,17 @@ class BorrowerForm
   end
 
   def create_primary_property
-    property = Property.find_or_initialize_by(is_primary: true, loan_id: form_params[:loan_id])
-    property.address = current_address
+    if property = current_address.property
+      property.is_primary = true
+    else
+      property = Property.new(loan: loan, is_primary: true)
+      property.address = current_address
+    end
     property.save!
   end
 
   def unset_primary_property
-    loan = Loan.find(form_params[:loan_id])
-    if property = loan.primary_property
-      property.update(is_primary: false)
-    end
+    loan.primary_property.update(is_primary: false) if loan.primary_property
   end
 
   def previous_address
@@ -70,6 +75,10 @@ class BorrowerForm
   end
 
   private
+
+  def borrower_rents_house?
+    current_borrower_address.is_rental
+  end
 
   def validate_attributes
     add_errors(address.errors) if current_address.invalid?

@@ -78,7 +78,6 @@ class Property < ActiveRecord::Base
   }
 
   validates_associated :address
-  validate :do_not_have_more_than_two_liabilities
 
   def mortgage_payment_liability
     liabilities.where(account_type: "Mortgage").last
@@ -132,11 +131,5 @@ class Property < ActiveRecord::Base
       fee = estimated_hazard_insurance.to_f
     end
     self.update(mortgage_payment: mortgage_payment - fee)
-  end
-
-  private
-
-  def do_not_have_more_than_two_liabilities
-    errors.add(:liabilities, "can't have more than two liabilities") if liabilities.count > 2
   end
 end
