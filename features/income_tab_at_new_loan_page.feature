@@ -15,9 +15,6 @@ Feature: IncomeTabAtNewLoanPage
         And I fill in "Contact Phone Number" with "0912345678"
       Then I clear value in "Base Income"
         And I fill in "Base Income" with "123454"
-      Then I click link with div ".overtime .iconTrash"
-        And I click link with div ".commission .iconTrash"
-        And I click link with div ".bonus .iconTrash"
       Then I click on "Add other income"
         And I should see "Income Type"
         And I should see "Annual Gross Amount"
@@ -37,4 +34,3 @@ Feature: IncomeTabAtNewLoanPage
       Then I drag the file "spec/files/sample.pdf" to "first_bank_statement"
         And I wait for 2 seconds
         And I should see "sample.pdf"
-          And I should see "9876"
