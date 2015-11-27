@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var FlashHandler = require('mixins/FlashHandler');
 
 var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
@@ -63,7 +64,7 @@ var secondary_borrower_fields = {
 };
 
 var Form = React.createClass({
-  mixins: [TextFormatMixin],
+  mixins: [TextFormatMixin, FlashHandler],
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
@@ -117,6 +118,7 @@ var Form = React.createClass({
                 dob={this.state[borrower_fields.dob.name]}
                 ssn={this.state[borrower_fields.ssn.name]}
                 phone={this.state[borrower_fields.phone.name]}
+                email={this.state[borrower_fields.email.name]}
                 yearsInSchool={this.state[borrower_fields.yearsInSchool.name]}
                 maritalStatus={this.state[borrower_fields.maritalStatus.name]}
                 numberOfDependents={this.state[borrower_fields.numberOfDependents.name]}
@@ -307,6 +309,7 @@ var Form = React.createClass({
 
   valid: function() {
     // don't allow submit when missing co-borrower info
+    console.log(this.state[borrower_fields.email.name]);
     if ((this.state[borrower_fields.email.name] == null) ||
           (this.state[borrower_fields.firstName.name] == null) ||
           (this.state[borrower_fields.lastName.name] == null ||
@@ -319,7 +322,7 @@ var Form = React.createClass({
           (this.state[borrower_fields.yearsInCurrentAddress.name] == null) ||
           (this.state[borrower_fields.selfEmployed.name] == null))
         ) {
-      var flash = { "alert-danger": 'You have to type at least email, first name and last name of you.' };
+      var flash = { "alert-danger": 'You have to type at least First Name, Last Name, Date of Birth, Social Security Number, Phone Number, Email, Years in School, Your Current Address and Number of years you have lived in this address of you.' };
       this.showFlashes(flash);
       return false;
     }
@@ -336,7 +339,7 @@ var Form = React.createClass({
           (this.state[secondary_borrower_fields.yearsInCurrentAddress.name] == null) ||
           (this.state[secondary_borrower_fields.selfEmployed.name] == null))
         )) {
-      var flash = { "alert-danger": 'You have to type at least email, first name and last name of the co-borrower.' };
+      var flash = { "alert-danger": 'You have to type at least First Name, Last Name, Date of Birth, Social Security Number, Phone Number, Email, Years in School, Your Current Address and Number of years you have lived in this address of the co-borrower.' };
       this.showFlashes(flash);
       return false;
     }
@@ -435,6 +438,9 @@ var Form = React.createClass({
     borrower[fields.yearsInSchool.fieldName] = this.state[fields.yearsInSchool.name];
     borrower[fields.maritalStatus.fieldName] = this.state[fields.maritalStatus.name];
     borrower[fields.numberOfDependents.fieldName] = this.state[fields.numberOfDependents.name];
+    if (!this.state[fields.numberOfDependents.name]) {
+      borrower[fields.numberOfDependents.fieldName] = 0;
+    }
     borrower[fields.dependentAges.fieldName] = dependentAges;
     borrower[fields.selfEmployed.fieldName] = this.state[fields.selfEmployed.name];
     return borrower;
