@@ -55,7 +55,7 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 Capybara.ignore_hidden_elements = false
-Capybara.default_wait_time = 15
+Capybara.default_max_wait_time = 15
 
 require 'simplecov'
 
