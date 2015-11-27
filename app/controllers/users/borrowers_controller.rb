@@ -5,22 +5,22 @@ class Users::BorrowersController < Users::BaseController
     borrower_form = BorrowerForm.new(
       form_params: get_form_params(params[:borrower]), borrower: borrower,
       current_borrower_address: borrower.current_address,
-      current_address: borrower.current_address.address
+      current_address: borrower.current_address.address,
+      loan: @loan
     )
 
     if borrower_form.save
-      if applying_as_individual?
-        BorrowerServices::RemoveSecondaryBorrower.call(current_user, @loan, @borrower_type)
-      end
-
       if applying_with_secondary_borrower?
         secondary_borrower_form = BorrowerForm.new(
           form_params: get_form_params(params[:secondary_borrower]), borrower: secondary_borrower,
-          current_borrower_address: secondary_current_borrower_address, current_address: secondary_current_address
+          current_borrower_address: secondary_current_borrower_address, current_address: secondary_current_address,
+          loan: @loan, is_secondary_borrower: true
         )
         if secondary_borrower_form.save
           BorrowerServices::AssignSecondaryBorrowerToLoan.new(@loan, params[:secondary_borrower], secondary_borrower_form.borrower).call
         end
+      else
+        BorrowerServices::RemoveSecondaryBorrower.call(current_user, @loan, @borrower_type)
       end
 
       @loan.reload
@@ -35,10 +35,6 @@ class Users::BorrowersController < Users::BaseController
 
   def applying_with_secondary_borrower?
     params[:has_secondary_borrower] && params[:has_secondary_borrower] == "true"
-  end
-
-  def applying_as_individual?
-    params[:remove_secondary_borrower] == "true"
   end
 
   def borrower

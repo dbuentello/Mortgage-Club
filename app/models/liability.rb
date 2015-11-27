@@ -29,4 +29,16 @@ class Liability < ActiveRecord::Base
     :balance,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
+
+  validate :property_cannot_have_more_than_two_liabilities
+
+  private
+
+  def property_cannot_have_more_than_two_liabilities
+    return unless property_id
+
+    if Liability.where(property_id: property_id).count == 2
+      errors.add(:liabilities, "Property can't have more than two liabilities")
+    end
+  end
 end
