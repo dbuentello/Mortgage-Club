@@ -17,15 +17,20 @@ var OtherIncome = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
 
   getInitialState: function() {
-    var state = {};
-    state.income = this.props.income
-    return state;
+    return {
+      income: this.props.income
+    };
   },
 
   onChange: function(change) {
-    var key = _.keys(change)[0];
-    var value = _.values(change)[0]
-    this.setState(this.setValue(this.state, key, value));
+    var key = Object.keys(change)[0];
+    var value = change[key];
+    if (key == 'income.type') {
+      this.props.onChangeType(value, this.props.index);
+    }
+    if (key == 'income.amount') {
+      this.props.onChangeAmount(value, this.props.index);
+    }
   },
 
   remove: function(index) {
@@ -39,12 +44,13 @@ var OtherIncome = React.createClass({
   render: function() {
     var index = this.props.index;
     return (
-      <div className='row'>
+      <div className={this.props.type + ' row'}>
         <div className='col-sm-6'>
           <SelectField
             label='Income Type'
+            ref="incomeType"
             keyName={'income.type'}
-            value={this.state.income.type}
+            value={this.props.type}
             options={otherIncomes}
             editable={true}
             onChange={this.onChange}
@@ -54,8 +60,9 @@ var OtherIncome = React.createClass({
         <div className='col-sm-5'>
           <TextField
             label='Annual Gross Amount'
+            ref="incomeAmount"
             keyName={'income.amount'}
-            value={this.state.income.amount}
+            value={this.props.amount}
             editable={true}
             onChange={this.onChange}/>
         </div>

@@ -76,6 +76,7 @@ class Borrower < ActiveRecord::Base
     :gross_commission,
     :self_employed,
     :is_file_taxes_jointly,
+    :gross_interest,
     employments_attributes:                         [:id] + Employment::PERMITTED_ATTRS,
     borrower_government_monitoring_info_attributes: [:id] + BorrowerGovernmentMonitoringInfo::PERMITTED_ATTRS,
     credit_report_attributes:                       [:id] + CreditReport::PERMITTED_ATTRS,

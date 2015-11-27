@@ -21,6 +21,7 @@ var fields = {
   grossOvertime: {label: 'Annual Gross Overtime', name: 'gross_overtime', helpText: null},
   grossBonus: {label: 'Annual Gross Bonus', name: 'gross_bonus', helpText: null},
   grossCommission: {label: 'Annual Gross Commission', name: 'gross_commission', helpText: null},
+  grossInterest: {label: 'Annual Gross Interest', name: 'gross_interest', helpText: null},
   incomeFrequency: {label: 'Income frequency', name: 'pay_frequency', helpText: null}
 };
 
@@ -55,9 +56,27 @@ var FormIncome = React.createClass({
     this.props.saveLoan(this.buildLoanFromState(), 2, true);
   },
 
+  changeIncomeType: function(value, i) {
+    var arr = this.state.otherIncomes;
+    arr[i].type = value;
+    this.setState({otherIncomes: arr});
+  },
+
+  changeIncomeAmount: function(value, i) {
+    var arr = this.state.otherIncomes;
+    arr[i].amount = value;
+    this.setState({otherIncomes: arr});
+  },
+
   eachOtherIncome: function(income, index) {
     return (
-      <OtherIncome key={index} index={index} income={income}  onRemove={this.removeOtherIncome} />
+      <OtherIncome key={index}
+        index={index}
+        type={income.type}
+        amount={income.amount}
+        onChangeType={this.changeIncomeType}
+        onChangeAmount={this.changeIncomeAmount}
+        onRemove={this.removeOtherIncome}/>
     );
   },
 
@@ -172,7 +191,6 @@ var FormIncome = React.createClass({
                     onChange={this.onChange}
                     placeholder='e.g. 99,000'/>
                 </div>
-
                 <div className='col-sm-6'>
                   <SelectField
                     label={fields.incomeFrequency.label}
@@ -241,17 +259,38 @@ var FormIncome = React.createClass({
     state[fields.baseIncome.name] = this.formatCurrency(currentEmployment[fields.baseIncome.name]);
     state[fields.incomeFrequency.name] = currentEmployment[fields.incomeFrequency.name];
 
-    state[fields.grossOvertime.name] = this.formatCurrency(borrower[fields.grossOvertime.name]);
-    state[fields.grossBonus.name] = this.formatCurrency(borrower[fields.grossBonus.name]);
-    state[fields.grossCommission.name] = this.formatCurrency(borrower[fields.grossCommission.name]);
+    state.otherIncomes = []
+
+    if (borrower.gross_overtime){
+      state.otherIncomes.push({
+        type: 'overtime',
+        amount: borrower.gross_overtime
+      });
+    }
+    if (borrower.gross_bonus){
+      state.otherIncomes.push({
+        type: 'bonus',
+        amount: borrower.gross_bonus
+      });
+    }
+    if (borrower.gross_commission){
+      state.otherIncomes.push({
+        type: 'commission',
+        amount: borrower.gross_commission
+      });
+    }
+    if (borrower.gross_interest){
+      state.otherIncomes.push({
+        type: 'interest',
+        amount: borrower.gross_interest
+      });
+    }
 
     if (!state[fields.employerAddress.name]) {
       state[fields.employerAddress.name] = {full_text: ''};
     }
     state[fields.employerFullTextAddress.name] = state[fields.employerAddress.name].full_text;
-
     state.otherIncomes = [];
-
     return state;
   },
 
@@ -260,9 +299,10 @@ var FormIncome = React.createClass({
     var currentEmployment = this.props.loan.borrower.current_employment;
 
     loan.borrower_attributes = {id: this.props.loan.borrower.id};
-    loan.borrower_attributes[fields.grossOvertime.name] = this.currencyToNumber(this.state[fields.grossOvertime.name]);
-    loan.borrower_attributes[fields.grossBonus.name] = this.currencyToNumber(this.state[fields.grossBonus.name]);
-    loan.borrower_attributes[fields.grossCommission.name] = this.currencyToNumber(this.state[fields.grossCommission.name]);
+    loan.borrower_attributes[fields.grossOvertime.name] = this.getOtherIncome('overtime');
+    loan.borrower_attributes[fields.grossBonus.name] = this.getOtherIncome('bonus');
+    loan.borrower_attributes[fields.grossCommission.name] = this.getOtherIncome('commission');
+    loan.borrower_attributes[fields.grossInterest.name] = this.getOtherIncome('interest');
 
     loan.borrower_attributes.employments_attributes = [{
       id: currentEmployment ? currentEmployment.id : null,
@@ -278,6 +318,15 @@ var FormIncome = React.createClass({
     }];
 
     return loan;
+  },
+
+  getOtherIncome: function(type) {
+    var amount = null;
+    _.each(this.state.otherIncomes, function(income) {
+      if (income.type == type)
+        return amount = income.amount;
+    });
+    return amount;
   },
 
   getDefaultOtherIncomes: function() {
