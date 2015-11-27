@@ -115,7 +115,6 @@ var Form = React.createClass({
                 dob={this.state[borrower_fields.dob.name]}
                 ssn={this.state[borrower_fields.ssn.name]}
                 phone={this.state[borrower_fields.phone.name]}
-                email={this.state[borrower_fields.email.name]}
                 yearsInSchool={this.state[borrower_fields.yearsInSchool.name]}
                 maritalStatus={this.state[borrower_fields.maritalStatus.name]}
                 numberOfDependents={this.state[borrower_fields.numberOfDependents.name]}

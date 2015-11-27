@@ -90,6 +90,15 @@ var Borrower = React.createClass({
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.phone)}
               onChange={this.props.onChange}/>
           </div>
+          <div className='col-xs-3'>
+            <TextField
+              label={this.props.fields.email.label}
+              keyName={this.props.fields.email.name}
+              value={this.props.email}
+              editable={true}
+              onFocus={_.bind(this.props.onFocus, this, this.props.fields.email)}
+              onChange={this.props.onChange}/>
+          </div>
         </div>
         <div className='row'>
           <div className='col-xs-3'>
