@@ -16,12 +16,6 @@ var otherIncomes = [
 var OtherIncome = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
 
-  getInitialState: function() {
-    return {
-      income: this.props.income
-    };
-  },
-
   onChange: function(change) {
     var key = Object.keys(change)[0];
     var value = change[key];
@@ -35,10 +29,6 @@ var OtherIncome = React.createClass({
 
   remove: function(index) {
     this.props.onRemove(index);
-  },
-
-  onFocus: function(field) {
-    this.setState({focusedField: field});
   },
 
   render: function() {
