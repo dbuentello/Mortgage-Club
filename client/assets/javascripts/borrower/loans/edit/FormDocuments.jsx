@@ -66,6 +66,7 @@ var FormDocuments = React.createClass({
     var uploadUrl = '/document_uploaders/borrowers/upload';
     var borrower = this.props.loan.borrower;
     var secondary_borrower = this.props.loan.secondary_borrower;
+
     var owner_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub', 'first_federal_tax_return', 'second_federal_tax_return',  'first_bank_statement', 'second_bank_statement'];
     var self_employed_fields = ['first_personal_tax_return', 'second_personal_tax_return', 'first_business_tax_return', 'second_business_tax_return', 'first_bank_statement', 'second_bank_statement'];
 
@@ -80,10 +81,15 @@ var FormDocuments = React.createClass({
 
     if (borrower.self_employed == true) {
       upload_fields = self_employed_fields;
-      co_upload_fields = this.state['is_file_taxes_jointly'] == true ? co_file_taxes_jointly_fields : co_no_file_taxes_jointly_fields
     } else {
       upload_fields = owner_fields;
-      co_upload_fields = this.state['is_file_taxes_jointly'] == true ? co_borrower_fields : co_borrower_no_file_taxes_jointly_fields
+    }
+    if (secondary_borrower) {
+      if (secondary_borrower.self_employed == true) {
+        co_upload_fields = this.state['is_file_taxes_jointly'] == true ? co_file_taxes_jointly_fields : co_no_file_taxes_jointly_fields
+      } else {
+        co_upload_fields = this.state['is_file_taxes_jointly'] == true ? co_borrower_fields : co_borrower_no_file_taxes_jointly_fields
+      }
     }
 
     return (
@@ -122,7 +128,6 @@ var FormDocuments = React.createClass({
                 }
               </div>
             </div>
-
 
             {
               secondary_borrower == null ? null
