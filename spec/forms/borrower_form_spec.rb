@@ -24,7 +24,8 @@ describe BorrowerForm do
       form_params: @params,
       borrower: borrower,
       current_address: address,
-      current_borrower_address: borrower_address
+      current_borrower_address: borrower_address,
+      loan: loan
     )
   end
 
