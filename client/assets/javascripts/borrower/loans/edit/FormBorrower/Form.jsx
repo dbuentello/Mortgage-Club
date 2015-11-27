@@ -309,7 +309,6 @@ var Form = React.createClass({
 
   valid: function() {
     // don't allow submit when missing co-borrower info
-    console.log(this.state[borrower_fields.email.name]);
     if ((this.state[borrower_fields.email.name] == null) ||
           (this.state[borrower_fields.firstName.name] == null) ||
           (this.state[borrower_fields.lastName.name] == null ||
