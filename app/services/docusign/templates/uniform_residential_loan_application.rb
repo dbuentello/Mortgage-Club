@@ -62,7 +62,7 @@ module Docusign
       end
 
       def build_section_5
-        @params["borrower_net"] = UnderwritingLoanServices::CalculateRentalIncome.call(loan)
+        @params["borrower_net"] = @params["total_net"] = UnderwritingLoanServices::CalculateRentalIncome.call(loan)
         build_gross_monthly_income("borrower", borrower)
         build_gross_monthly_income("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
         build_housing_expense("proposed", subject_property)
@@ -71,11 +71,10 @@ module Docusign
 
       def build_section_6
         return unless credit_report
-
         credit_report.liabilities.includes(:address).each_with_index do |liability, index|
           nth = index.to_s
           @params["liabilities_name_" + nth] = liability.name
-          @params["liabilities_address_" + nth] = liability.address.address
+          @params["liabilities_address_" + nth] = liability.address.address if liability.address
           @params["payment_months_" + nth] = liability.payment.to_f / liability.months.to_f
           @params["unpaid_balance_" + nth] = liability.balance
           @params["liabilities_acct_no_" + nth] = liability.account_number
@@ -86,6 +85,7 @@ module Docusign
         # leave blank now
         # subordinate_financing
         # closing_costs_paid_by_seller
+        @params["purchase_price"] = Money.new(subject_property.purchase_price.to_f * 100).format
         @params["refinance"] = Money.new(loan.amount * 100).format if loan.refinance?
         @params["estimated_prepaid_items"] = Money.new(loan.estimated_prepaid_items.to_f * 100).format
         @params["estimated_closing_costs"] = Money.new(loan.estimated_closing_costs.to_f * 100).format
@@ -130,7 +130,7 @@ module Docusign
 
       def build_declaration(role, borrower)
         #declarations_borrower_l_yes
-        declaration = borrower.declaration
+        return unless declaration = borrower.declaration
         prefix = "declarations_".freeze
         midfix = (role + "_").freeze
         yes_answer = "_yes".freeze
@@ -186,7 +186,7 @@ module Docusign
         #borrower_self_employed_1
         @params[role + "_yrs_job"] = current_employment.duration
         @params[role + "_yrs_employed"] = current_employment.duration
-        @params[role + "_name_employer_1"] = current_employment.employer_contact_name
+        @params[role + "_name_employer_1"] = current_employment.employer_name
         @params[role + "_address_employer_1"] = current_employment.full_address
         @params[role + "_position_1"] = current_employment.job_title
         @params[role + "_business_phone_1"] = current_employment.employer_contact_number

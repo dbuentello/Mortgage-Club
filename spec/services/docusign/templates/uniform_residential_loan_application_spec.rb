@@ -187,6 +187,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
                                   loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f
       @service.build_section_7
       expect(@service.params).to include({
+        "purchase_price" => Money.new(loan.subject_property.purchase_price.to_f * 100).format,
         "estimated_prepaid_items" => Money.new(loan.estimated_prepaid_items * 100).format,
         "estimated_closing_costs" => Money.new(loan.estimated_closing_costs * 100).format,
         "pmi_funding_fee" => Money.new(loan.pmi_mip_funding_fee * 100).format,
@@ -330,7 +331,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       expect(@service.params).to include({
         "borrower_yrs_job" => current_employment.duration,
         "borrower_yrs_employed" => current_employment.duration,
-        "borrower_name_employer_1" => current_employment.employer_contact_name,
+        "borrower_name_employer_1" => current_employment.employer_name,
         "borrower_address_employer_1" => current_employment.full_address,
         "borrower_position_1" => current_employment.job_title,
         "borrower_business_phone_1" => current_employment.employer_contact_number
