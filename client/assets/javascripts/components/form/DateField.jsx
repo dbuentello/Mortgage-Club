@@ -39,9 +39,8 @@ var DateFieldView = React.createClass({
     return {valid: true};
   },
 
-  onBlur: function() {
+  onBlur: function(event) {
     this.handleChange(event);
-
     if (this.props.onBlur) {
       this.props.onBlur(event);
     }
