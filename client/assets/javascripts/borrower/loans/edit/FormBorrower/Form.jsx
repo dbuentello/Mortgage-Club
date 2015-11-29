@@ -378,7 +378,6 @@ var Form = React.createClass({
       },
       success: function(response) {
         this.props.setupMenu(response, 1);
-        this.setState({saving: false});
       },
       error: function(response, status, error) {
         alert(error);
