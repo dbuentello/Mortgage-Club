@@ -9,6 +9,7 @@ describe BorrowerForm do
   before(:each) do
     @params = {
       current_address: {},
+      previous_borrower_address: {},
       current_borrower_address: {
         years_at_address: 10,
         is_rental: true

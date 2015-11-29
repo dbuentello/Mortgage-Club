@@ -4,7 +4,6 @@ Feature: DocumentsTabAtNewLoanPage
     When I am at loan management page
       And I should see "Documents"
       And I click on "Documents" in the "#tabDocuments"
-      And I wait for 2 seconds
       And I should see "W2 - Most recent tax year"
       And I should see "W2 - Previous tax year"
       And I should see "Paystub - Most recent period"
@@ -75,3 +74,4 @@ Feature: DocumentsTabAtNewLoanPage
           And I should see "Bank statement - Most recent month"
           And I should see "Bank statement - Previous month"
         Then I click on "Save and Continue"
+          And I should see "Name of current employer"
