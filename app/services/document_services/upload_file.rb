@@ -9,6 +9,7 @@ module DocumentServices
     end
 
     def call
+      return false if args[:subject_type].blank?
       return false unless subjectable
 
       document = Document.find_or_initialize_by(subjectable: subjectable, document_type: args[:document_type])
