@@ -7,7 +7,8 @@ class Document < ActiveRecord::Base
     path: PAPERCLIP[:default_path]
 
   belongs_to :subjectable, polymorphic: true
-  validates :token, presence: true
+  belongs_to :user
+  validates :subjectable_type, :subjectable_id, :token, :description, :document_type, presence: true
 
   validates_attachment :attachment,
     presence: true,
@@ -29,7 +30,6 @@ class Document < ActiveRecord::Base
   EXPIRE_VIEW_SECONDS = 3
 
   before_validation :set_private_token, on: :create
-  before_validation :set_description, on: :create
 
   def url
     Amazon::GetUrlService.call(attachment)

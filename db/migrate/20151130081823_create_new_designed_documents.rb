@@ -2,8 +2,8 @@ class CreateNewDesignedDocuments < ActiveRecord::Migration
   def change
     create_table :documents, id: :uuid do |t|
       t.string  :document_type
-      t.string  :subject_type
-      t.uuid    :subject_id
+      t.string  :subjectable_type
+      t.uuid    :subjectable_id
       t.string  :description
       t.string  :original_filename
       t.string  :token
@@ -12,8 +12,8 @@ class CreateNewDesignedDocuments < ActiveRecord::Migration
     end
 
     add_attachment :documents, :attachment
-    add_index :documents, :subject_id
-    add_index :documents, :subject_type
+    add_index :documents, :subjectable_id
+    add_index :documents, :subjectable_type
     add_index :documents, :document_type
   end
 end
