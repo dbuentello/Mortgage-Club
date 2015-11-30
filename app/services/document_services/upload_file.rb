@@ -1,42 +1,30 @@
 module DocumentServices
   class UploadFile
-    attr_accessor :subject_class, :document_klass, :foreign_key_name, :foreign_key_id, :current_user, :params
+    attr_accessor :subject, :current_user, :params, :args
 
     def initialize(args)
-      @subject_class = args[:subject_class_name].constantize
-      @document_klass = args[:document_klass_name].constantize
-      @foreign_key_name = args[:foreign_key_name]
-      @foreign_key_id = args[:foreign_key_id]
-      @current_user = args[:current_user]
+      @args = args
       @params = args[:params]
+      @current_user = args[:current_user]
     end
 
     def call
-      document = document_klass.where(foreign_key_name => foreign_key_id).last
-      subject = subject_class.find(foreign_key_id)
+      return false unless subjectable
 
-      if document.present? && !document.other_report?
-        document.attachment = params[:file]
-        document.attachment_file_name = "#{document_klass}-#{foreign_key_id}#{file_extension}"
-        document.original_filename = params[:original_filename]
-        document.save
-      else
-        document = document_klass.new(
-          attachment: params[:file],
-          original_filename: params[:file].original_filename,
-          attachment_file_name: "#{document_klass}-#{foreign_key_id}#{file_extension}",
-          description: params[:description],
-          foreign_key_name => subject.id
-        )
-        document.owner = current_user
-        if subject_class.to_s == 'Borrower'
-          file_extension = File.extname document.attachment_file_name
-          document.attachment_file_name = "#{document_klass}-#{foreign_key_id}#{file_extension}"
-          document.original_filename = params[:original_filename]
-        end
-        document.save
-      end
+      document = Document.find_or_initialize_by(subjectable: subjectable, document_type: args[:document_type])
+      document.attachment = params[:file]
+      document.original_filename = params[:original_filename]
+      document.description = params[:description]
+      document.attachment_file_name = "#{args[:subject_type].constantize}-#{args[:subject_id]}#{file_extension}"
+      document.user = current_user
+      document.save
       document
+    end
+
+    private
+
+    def subjectable
+      @subjectable ||= args[:subject_type].constantize.find_by_id(args[:subject_id])
     end
 
     def file_extension
