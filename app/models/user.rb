@@ -50,17 +50,6 @@ class User < ActiveRecord::Base
 
   has_one :borrower, inverse_of: :user, autosave: :true, dependent: :destroy
   has_one :loan_member, inverse_of: :user, autosave: :true, dependent: :destroy
-
-  has_one :appraisal_report, as: :owner, dependent: :destroy
-  has_one :homeowners_insurance, as: :owner, dependent: :destroy
-  has_one :mortgage_statement, as: :owner, dependent: :destroy
-  has_one :lease_agreement, as: :owner, dependent: :destroy
-  has_one :purchase_agreement, as: :owner, dependent: :destroy
-  has_one :flood_zone_certification, as: :owner, dependent: :destroy
-  has_one :termite_report, as: :owner, dependent: :destroy
-  has_one :inspection_report, as: :owner, dependent: :destroy
-  has_one :title_report, as: :owner, dependent: :destroy
-  has_one :risk_report, as: :owner, dependent: :destroy
   has_many :borrower_documents, as: :owner
 
   has_many :documents
