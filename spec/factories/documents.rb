@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :document do |f|
+    user
     f.description { "This is a description" }
     f.attachment { File.new(Rails.root.join 'spec', 'files', 'sample.png') }
     f.token { Faker::Lorem.characters(10) }
-    f.user_id { create(:user) }
 
     factory :borrower_document, parent: :document do |f|
       f.subjectable { create(:borrower) }
