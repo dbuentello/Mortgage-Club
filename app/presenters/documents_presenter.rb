@@ -11,6 +11,11 @@ class DocumentsPresenter
 
   def document_json_options
     {
+      include: {
+        user: {
+          methods: [:to_s]
+        }
+      },
       methods: [:file_icon_url]
     }
   end
