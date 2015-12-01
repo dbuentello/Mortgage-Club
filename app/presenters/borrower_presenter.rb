@@ -16,6 +16,7 @@ class BorrowerPresenter
   def show_borrower_json_options
     {
       include: [
+        :documents,
         user: {
           only: [ :email ]
         }
@@ -32,5 +33,4 @@ class BorrowerPresenter
       methods: [ :file_icon_url, :class_name, :owner_name ]
     }
   end
-
 end

@@ -26,7 +26,7 @@ var Borrower = React.createClass({
   },
 
   render: function() {
-    var uploadUrl = '/document_uploaders/borrowers/upload';
+    var uploadUrl = '/document_uploaders/base_document/upload';
 
     return (
       <div className='pal'>
@@ -35,8 +35,10 @@ var Borrower = React.createClass({
             {
               _.map(Object.keys(fields), function(key) {
                 var customParams = [
-                  {type: fields[key].type},
-                  {borrower_id: this.props.borrower.id}
+                  {document_type: key},
+                  {subject_id: this.props.borrower.id},
+                  {subject_type: "Borrower"},
+                  {description: fields[key].label}
                 ];
                 return(
                   <div className="drop_zone" key={key}>
@@ -47,8 +49,7 @@ var Borrower = React.createClass({
                       tip={this.state[fields[key].name]}
                       maxSize={10000000}
                       customParams={customParams}
-                      supportOtherDescription={fields[key].customDescription}
-                    />
+                      supportOtherDescription={fields[key].customDescription}/>
                   </div>
                 )
               }, this)
@@ -62,13 +63,12 @@ var Borrower = React.createClass({
   buildStateFromBorrower: function() {
     var state = {};
     _.map(Object.keys(fields), function(key) {
-      if (this.props.borrower[key]) { // has a document
-        state[fields[key].name] = this.props.borrower[key].original_filename;
-        state[fields[key].id] = this.props.borrower[key].id;
-        state[fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + this.props.borrower[key].id +
-                                         '/download?type=' + fields[key].type;
-        state[fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + this.props.borrower[key].id +
-                                         '/remove?type=' + fields[key].type;
+      var borrower_document = _.find(this.props.borrower.documents, { 'document_type': key });
+      if (borrower_document) {
+        state[fields[key].name] = borrower_document.original_filename;
+        state[fields[key].id] = borrower_document.id;
+        state[fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + borrower_document.id + '/download';
+        state[fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + borrower_document.id + '/remove';
       }else {
         state[fields[key].name] = fields[key].placeholder;
         state[fields[key].name + '_downloadUrl'] = 'javascript:void(0)';

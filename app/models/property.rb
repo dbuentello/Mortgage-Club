@@ -34,6 +34,7 @@ class Property < ActiveRecord::Base
   has_many :other_property_reports, dependent: :destroy, foreign_key: 'property_id'
   has_many :property_documents, dependent: :destroy, foreign_key: 'property_id'
   has_many :liabilities, dependent: :destroy, foreign_key: 'property_id'
+  has_many :documents, as: :subjectable, dependent: :destroy
 
   accepts_nested_attributes_for :address
 

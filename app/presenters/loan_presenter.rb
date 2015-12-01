@@ -82,16 +82,6 @@ class LoanPresenter
   def show_loan_activities_json_options
     {
       include: {
-        borrower: {
-          include: [
-            :first_bank_statement, :second_bank_statement,
-            :first_paystub, :second_paystub,
-            :first_w2, :second_w2,
-            :first_personal_tax_return, :second_personal_tax_return,
-            :first_business_tax_return, :second_business_tax_return,
-            :first_federal_tax_return, :second_federal_tax_return
-          ]
-        },
         user: {
           only: [ :email ],
           methods: [ :to_s ]
@@ -103,8 +93,7 @@ class LoanPresenter
             }
           }
         },
-        hud_estimate: {}, hud_final: {}, other_loan_reports: {},
-        loan_estimate: {}, uniform_residential_lending_application: {}
+        documents: {}
       }
     }
   end
