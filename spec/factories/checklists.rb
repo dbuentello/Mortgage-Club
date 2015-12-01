@@ -9,8 +9,8 @@ FactoryGirl.define do
     f.info { Faker::Lorem.sentence }
     f.due_date { Faker::Date.forward(10) }
     f.status { 'pending' }
-    f.document_type { 'FirstBankStatement' }
-    f.document { 'borrower' }
+    f.document_type { 'first_w2' }
+    f.subject_name { 'Borrower' }
     f.checklist_type { 'explain' }
 
     factory :checklist_explain do

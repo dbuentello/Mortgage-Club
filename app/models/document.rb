@@ -69,7 +69,7 @@ class Document < ActiveRecord::Base
     when "Loan"
       return if LOAN_LIST.include? document_type
     when "Closing"
-      return if CLOSING_LIST.inclue? document_type
+      return if CLOSING_LIST.include? document_type
     end
     errors.add(:document_type, "must belong to a proper document")
   end

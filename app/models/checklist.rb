@@ -8,6 +8,22 @@ class Checklist < ActiveRecord::Base
             :document_type, :loan_id, presence: true
   validate :document_type_must_belong_to_proper_document
 
+
+  def subject_id
+    loan = Loan.find(loan_id)
+    case subject_name
+    when "Property"
+      subject_id = loan.subject_property.id
+    when "Borrower"
+      subject_id = loan.borrower.id
+    when "Closing"
+      subject_id = loan.closing.id
+    when "Loan"
+      subject_id = loan.id
+    end
+    subject_id
+  end
+
   private
 
   def document_type_must_belong_to_proper_document
