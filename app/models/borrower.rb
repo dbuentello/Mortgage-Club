@@ -44,6 +44,7 @@ class Borrower < ActiveRecord::Base
 
   has_many :other_borrower_reports, inverse_of: :borrower, dependent: :destroy
   has_many :borrower_documents, dependent: :destroy
+  has_many :assets
 
   has_one  :declaration
 
@@ -80,7 +81,8 @@ class Borrower < ActiveRecord::Base
     employments_attributes:                         [:id] + Employment::PERMITTED_ATTRS,
     borrower_government_monitoring_info_attributes: [:id] + BorrowerGovernmentMonitoringInfo::PERMITTED_ATTRS,
     credit_report_attributes:                       [:id] + CreditReport::PERMITTED_ATTRS,
-    declaration_attributes:                         [:id] + Declaration::PERMITTED_ATTRS
+    declaration_attributes:                         [:id] + Declaration::PERMITTED_ATTRS,
+    assets_attributes: [:id] + Asset::PERMITTED_ATTRS
   ]
 
   enum marital_status: {

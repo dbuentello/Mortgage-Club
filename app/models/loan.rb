@@ -91,6 +91,7 @@ class Loan < ActiveRecord::Base
 
   has_many :loans_members_associations
   has_many :loan_members, through: :loans_members_associations
+  # has_many :assets, through: :borrower
 
   has_many :checklists
 

@@ -70,6 +70,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :assets, path: 'borrower_assets', only: [:create]
+
   resources :charges, only: [:new, :create]
 
   resources :electronic_signature, only: [:new, :create] do
@@ -99,6 +101,7 @@ Rails.application.routes.draw do
     end
 
     resources :borrowers, only: [:update] do
+      resources :assets
     end
   end
 

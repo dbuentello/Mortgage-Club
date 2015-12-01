@@ -41,7 +41,7 @@ class Users::LoansController < Users::BaseController
       liabilities: @liabilities,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower"
     })
-
+    p @bootstrap_data
     respond_to do |format|
       format.html { render template: 'borrower_app' }
     end

@@ -44,6 +44,7 @@ class LoanPresenter
             :first_personal_tax_return, :second_personal_tax_return,
             :first_business_tax_return, :second_business_tax_return,
             :first_federal_tax_return, :second_federal_tax_return,
+            :assets,
             user: {
               only: [ :email, :first_name ]
             }

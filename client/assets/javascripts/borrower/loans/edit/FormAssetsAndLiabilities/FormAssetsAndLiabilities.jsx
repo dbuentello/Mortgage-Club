@@ -5,6 +5,8 @@ var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var BooleanRadio = require('components/form/BooleanRadio');
 var Property = require('./Property');
+var Asset = require('./Asset');
+
 var SelectedLiabilityArr = [];
 
 var fields = {
@@ -30,6 +32,7 @@ var FormAssetsAndLiabilities = React.createClass({
     state.primary_property = this.props.loan.primary_property;
     state.subject_property = this.props.loan.subject_property;
     state.saving = false;
+    state.assets = this.props.loan.borrower.assets;
 
     return state;
   },
@@ -59,6 +62,14 @@ var FormAssetsAndLiabilities = React.createClass({
     );
   },
 
+  eachAsset: function(asset, index) {
+    return (
+      <Asset asset={asset}
+             index={index}
+             key={asset.id}
+             onRemove={this.removeAsset}/>
+    );
+  },
   // keepTrackOfSelectedLiabilities: function(unselectedLiability, selectedLiability) {
   //   var liabilities = [];
   //   _.remove(SelectedLiabilityArr, function(liabilityID) { return liabilityID == unselectedLiability; });
@@ -80,12 +91,23 @@ var FormAssetsAndLiabilities = React.createClass({
     return (
       <div>
         <div className='formContent'>
+          <div className='pal'>
+            <div className='box mvn'>
+              <h5 className='typeDeemphasize'>Your financial assets</h5>
+              {this.state.assets.map(this.eachAsset)}
+              <div>
+                <a className='btn btnSml btnAction phm' onClick={this.addAsset}>
+                  <i className='icon iconPlus mrxs'/> Add Asset
+                </a>
+              </div>
+            </div>
+          </div>
           {
             this.state.subject_property
             ?
               <div className='pal'>
                 <div className='box mvn'>
-                  <h5 className='typeDeemphasize'>Your subject residence</h5>
+                  <h5 className='typeDeemphasize'>The property you're buying</h5>
                   <Property
                     property={this.state.subject_property}
                     liabilities={this.state.liabilities}/>
@@ -182,6 +204,24 @@ var FormAssetsAndLiabilities = React.createClass({
     };
   },
 
+  addAsset: function(){
+    this.setState({assets: this.state.assets.concat(this.getDefaultAsset())});
+  },
+
+  removeAsset: function(index){
+    var _assets = this.state.assets;
+    _assets.splice(index, 1);
+    this.setState({assets: _assets});
+  },
+
+  getDefaultAsset: function(){
+    return {
+      institution_name: null,
+      asset_type: null,
+      current_balance: null
+    }
+  },
+
   save: function() {
     this.setState({saving: true});
 
@@ -203,29 +243,38 @@ var FormAssetsAndLiabilities = React.createClass({
     }
 
     $.ajax({
-      url: '/properties/',
+      url: '/borrowers/' + this.props.loan.borrower.id + '/assets',
       method: 'POST',
       context: this,
       dataType: 'json',
-      data: {
-        loan_id: this.props.loan.id,
-        primary_property: primary_property,
-        subject_property: subject_property,
-        rental_properties: rental_properties,
-        own_investment_property: this.state.own_investment_property
-      },
-      success: function(response) {
-        this.props.setupMenu(response, 5);
-        this.props.bootstrapData.liabilities = response.liabilities;
-        // this.setState({saving: false});
-      },
-      error: function(response, status, error) {
-        alert(response.responseJSON.message);
-        // this.setState({saving: false});
+      contentType: 'application/json',
+      data: JSON.stringify({assets: this.state.assets}),
+      success: function(resp){
+        $.ajax({
+          url: '/properties/',
+          method: 'POST',
+          context: this,
+          dataType: 'json',
+          data: {
+            loan_id: this.props.loan.id,
+            primary_property: primary_property,
+            subject_property: subject_property,
+            rental_properties: rental_properties,
+            own_investment_property: this.state.own_investment_property
+          },
+          success: function(response) {
+            this.props.setupMenu(response, 5);
+            this.props.bootstrapData.liabilities = response.liabilities;
+            // this.setState({saving: false});
+          },
+          error: function(response, status, error) {
+            alert(response.responseJSON.message);
+            // this.setState({saving: false});
+          }
+        });
       }
     });
   }
-
 });
 
 module.exports = FormAssetsAndLiabilities;
