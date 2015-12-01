@@ -178,7 +178,6 @@ var Property = React.createClass({
 
   render: function() {
     var index = this.props.index;
-
     return (
       <div className={'box mtn mbm pam bas roundedCorners' + (index % 2 === 0 ? ' backgroundLowlight' : '')} >
         <div className='row'>
@@ -309,8 +308,10 @@ var Property = React.createClass({
               editable={true}
               onChange={this.onChange}/>
           </div>
+        </div>
+        <div className='row'>
           { this.props.isShowRemove == true
-            ? <div className='box text-right col-xs-6'>
+            ? <div className='box text-right col-xs-11'>
                 <a className="remove clickable" onClick={this.remove.bind(this, index)}>
                   Remove
                 </a>

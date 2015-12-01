@@ -53,10 +53,10 @@ var Dashboard = React.createClass({
     var loan    = this.props.bootstrapData.loan;
     var property = this.props.bootstrapData.loan.subject_property;
     var contactList = this.props.bootstrapData.contact_list;
-    var propertyList = this.props.bootstrapData.property_list;
-    var loanList = this.props.bootstrapData.loan_list;
-    var borrowerList = this.props.bootstrapData.borrower_list;
-    var closingList = this.props.bootstrapData.closing_list;
+    var propertyDocuments = this.props.bootstrapData.property_documents;
+    var loanDocuments = this.props.bootstrapData.loan_documents;
+    var borrowerDocuments = this.props.bootstrapData.borrower_documents;
+    var closingDocuments = this.props.bootstrapData.closing_documents;
     var manager = this.props.bootstrapData.manager;
     var checklists = this.props.bootstrapData.checklists;
 
@@ -116,16 +116,16 @@ var Dashboard = React.createClass({
                   <OverviewTab loan={loan} borrower={loan.borrower} checklists={checklists} />
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="property">
-                  <PropertyTab propertyList={propertyList}></PropertyTab>
+                  <PropertyTab propertyDocuments={propertyDocuments}></PropertyTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="borrower">
-                  <BorrowerTab borrowerList={borrowerList}></BorrowerTab>
+                  <BorrowerTab borrowerDocuments={borrowerDocuments}></BorrowerTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="loan">
-                  <LoanTab loanList={loanList}></LoanTab>
+                  <LoanTab loanDocuments={loanDocuments}></LoanTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="closing">
-                  <ClosingTab closingList={closingList}></ClosingTab>
+                  <ClosingTab closingDocuments={closingDocuments}></ClosingTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="contacts">
                   <ContactTab contactList={contactList}></ContactTab>

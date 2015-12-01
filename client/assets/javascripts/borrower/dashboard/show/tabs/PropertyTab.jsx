@@ -4,11 +4,10 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var PropertyTab = React.createClass({
   mixins: [TextFormatMixin],
-  getDownloadUrl: function(id, type) {
-    return '/document_uploaders/base_document/' + id + '/download?type=' + type
+  getDownloadUrl: function(id) {
+    return '/document_uploaders/base_document/' + id + '/download';
   },
   render: function() {
-    console.dir(this.props.propertyList);
     return (
       <div className="box boxBasic backgroundBasic">
         <div className="boxBody ptm">
@@ -24,7 +23,7 @@ var PropertyTab = React.createClass({
             </thead>
             <tbody>
             {
-              _.map(this.props.propertyList, function(document) {
+              _.map(this.props.propertyDocuments, function(document) {
                 return (
                   <tr key={document.id}>
                     <td>
@@ -32,11 +31,11 @@ var PropertyTab = React.createClass({
                       &nbsp;&nbsp;&nbsp;
                       <span>{document.original_filename == null ? document.attachment_file_name : document.original_filename}</span>
                     </td>
-                    <td>{document.owner_name}</td>
+                    <td>{document.user.to_s}</td>
                     <td>{document.description}</td>
                     <td>{this.isoToUsDate(document.updated_at)}</td>
                     <td>
-                      <a href={this.getDownloadUrl(document.id, document.class_name)} download><i className="iconDownload"></i></a>
+                      <a href={this.getDownloadUrl(document.id)} download><i className="iconDownload"></i></a>
                     </td>
                   </tr>
                 )

@@ -27,29 +27,5 @@ FactoryGirl.define do
     trait :with_user do
       user { build(:borrower_user) }
     end
-
-    factory :borrower_with_documents do |f|
-      first_w2
-      second_w2
-      first_paystub
-      second_paystub
-      first_bank_statement
-      second_bank_statement
-    end
-
-    factory :borrower_with_w2 do |f|
-      first_w2
-      second_w2
-    end
-
-    factory :borrower_with_paystub do |f|
-      first_paystub
-      second_paystub
-    end
-
-    factory :borrower_with_bank_statement do |f|
-      first_bank_statement
-      second_bank_statement
-    end
   end
 end

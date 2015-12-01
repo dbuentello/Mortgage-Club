@@ -166,16 +166,18 @@ var Dropzone = React.createClass({
 
             var flash = { "alert-success": "Uploaded successfully!" };
             this.showFlashes(flash);
-            this.props.uploadSuccessCallback();
+            if (this.props.uploadSuccessCallback) {
+              this.props.uploadSuccessCallback();
+            }
           }.bind(this),
           cache: false,
           contentType: false,
           processData: false,
           async: true,
           error: function(response, status, error) {
-            alert(error);
-            return;
-          }
+            var flash = { "alert-danger": response.responseJSON.message };
+            this.showFlashes(flash);
+          }.bind(this)
         });
       }
 

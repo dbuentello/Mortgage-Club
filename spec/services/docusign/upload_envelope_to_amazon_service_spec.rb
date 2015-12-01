@@ -1,12 +1,9 @@
 require 'rails_helper'
 
 describe Docusign::UploadEnvelopeToAmazonService do
-  let(:checklist) { FactoryGirl.create(:checklist_explain, document_type: 'FirstBankStatement') }
+  let(:checklist) { FactoryGirl.create(:checklist_explain, document_type: 'first_bank_statement') }
   let(:borrower) { FactoryGirl.create(:borrower, loan: checklist.loan) }
-
-  before(:each) do
-    first_bank_statement = FactoryGirl.create(:first_bank_statement, borrower: borrower)
-  end
+  let!(:document) { FactoryGirl.create(:borrower_document, subjectable: borrower) }
 
   before(:each) do
     @envelope_id = 'f2916f5a-f290-44ed-887a-5a3ec29ffe72'
