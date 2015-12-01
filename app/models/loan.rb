@@ -72,28 +72,15 @@ class Loan < ActiveRecord::Base
   resourcify
 
   belongs_to :user, inverse_of: :loans, foreign_key: 'user_id'
-
   has_one :borrower, through: :user
   has_one :secondary_borrower, inverse_of: :loan, class_name: 'Borrower' # don't destroy Borrower instance when we unset this association
-
   has_many :properties, dependent: :destroy
   has_many :envelope, inverse_of: :loan, dependent: :destroy
   has_one :closing, inverse_of: :loan, dependent: :destroy
-
-  has_one :hud_estimate, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
-  has_one :hud_final, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
-  has_one :loan_estimate, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
-  has_one :uniform_residential_lending_application, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
-  has_many :other_loan_reports, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
-  has_many :loan_documents, dependent: :destroy, foreign_key: 'loan_id'
-
   has_many :documents, as: :subjectable, dependent: :destroy
-
   has_many :loan_activities
-
   has_many :loans_members_associations
   has_many :loan_members, through: :loans_members_associations
-
   has_many :checklists
 
   accepts_nested_attributes_for :properties, allow_destroy: true

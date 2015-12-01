@@ -19,7 +19,7 @@ class Document < ActiveRecord::Base
 
   belongs_to :subjectable, polymorphic: true
   belongs_to :user
-  validates :subjectable_type, :subjectable_id, :token, :description, :document_type, presence: true
+  validates :user_id, :subjectable_type, :subjectable_id, :token, :description, :document_type, presence: true
 
   validates_attachment :attachment,
     presence: true,

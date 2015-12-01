@@ -20,19 +20,6 @@ class Property < ActiveRecord::Base
   belongs_to :loan, foreign_key: 'loan_id'
 
   has_one :address, autosave: true, inverse_of: :property
-
-  has_one :appraisal_report, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
-  has_one :homeowners_insurance, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
-  has_one :mortgage_statement, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
-  has_one :lease_agreement, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
-  has_one :purchase_agreement, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
-  has_one :flood_zone_certification, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
-  has_one :termite_report, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
-  has_one :inspection_report, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
-  has_one :title_report, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
-  has_one :risk_report, inverse_of: :property, dependent: :destroy, foreign_key: 'property_id'
-  has_many :other_property_reports, dependent: :destroy, foreign_key: 'property_id'
-  has_many :property_documents, dependent: :destroy, foreign_key: 'property_id'
   has_many :liabilities, dependent: :destroy, foreign_key: 'property_id'
   has_many :documents, as: :subjectable, dependent: :destroy
 
