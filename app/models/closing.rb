@@ -16,4 +16,6 @@ class Closing < ActiveRecord::Base
   has_one :loan_doc, inverse_of: :closing, dependent: :destroy, foreign_key: 'closing_id'
   has_many :other_closing_reports, dependent: :destroy, foreign_key: 'closing_id'
   has_many :closing_documents, dependent: :destroy, foreign_key: 'closing_id'
+
+  has_many :documents, as: :subjectable, dependent: :destroy
 end

@@ -44,6 +44,7 @@ class Borrower < ActiveRecord::Base
 
   has_many :other_borrower_reports, inverse_of: :borrower, dependent: :destroy
   has_many :borrower_documents, dependent: :destroy
+  has_many :documents, as: :subjectable, dependent: :destroy
 
   has_one  :declaration
 

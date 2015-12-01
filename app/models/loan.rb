@@ -87,6 +87,8 @@ class Loan < ActiveRecord::Base
   has_many :other_loan_reports, inverse_of: :loan, dependent: :destroy, foreign_key: 'loan_id'
   has_many :loan_documents, dependent: :destroy, foreign_key: 'loan_id'
 
+  has_many :documents, as: :subjectable, dependent: :destroy
+
   has_many :loan_activities
 
   has_many :loans_members_associations
