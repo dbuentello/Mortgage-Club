@@ -18,8 +18,7 @@ module DocumentServices
       document.description = params[:description]
       document.attachment_file_name = "#{args[:subject_type].constantize}-#{args[:subject_id]}#{file_extension}"
       document.user = current_user
-      document.save
-      document
+      return document if document.save
     end
 
     private
