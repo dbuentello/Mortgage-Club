@@ -175,9 +175,9 @@ var Dropzone = React.createClass({
           processData: false,
           async: true,
           error: function(response, status, error) {
-            alert(error);
-            return;
-          }
+            var flash = { "alert-danger": response.responseJSON.message };
+            this.showFlashes(flash);
+          }.bind(this)
         });
       }
 

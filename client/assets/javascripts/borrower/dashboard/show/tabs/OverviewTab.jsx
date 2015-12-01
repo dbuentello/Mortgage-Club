@@ -1,9 +1,8 @@
 var _ = require('lodash');
 var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
-
-var ModalUpload = require('components/ModalUpload');
-var ModalExplanation = require('components/ModalExplanation');
+var ChecklistUpload = require('../ChecklistUpload');
+var ChecklistExplanation = require('../ChecklistExplanation');
 
 
 var OverviewTab = React.createClass({
@@ -20,10 +19,9 @@ var OverviewTab = React.createClass({
   },
   updateChecklistStatus: function(checklist) {
     $.ajax({
-      url: '/checklists',
+      url: '/my/checklists/' + checklist.id,
       data: {
         checklist: {
-          id: checklist.id,
           status: 'done'
         }
       },
@@ -91,21 +89,26 @@ module.exports = OverviewTab;
 
 var CheckList = React.createClass({
     mixins: [TextFormatMixin],
+
     getInitialState: function() {
       return {
         status: this.props.checklist.status == "pending" ? "iconCancel" : "iconCheck",
         logs: []
       }
     },
+
     componentDidMount: function() {
       $('[data-toggle="popover"]').popover()
     },
+
     handleShowModal: function() {
       this.refs.modal.show();
     },
+
     handleExternalHide: function() {
       this.refs.modal.hide();
     },
+
     uploadSuccessCallback: function() {
       this.setState({
         status: 'iconCheck'
@@ -114,13 +117,13 @@ var CheckList = React.createClass({
     },
 
     getSubject: function(checklist) {
-      if (checklist.document_info.subject_name == 'Borrower') {
+      if (checklist.subject_name == 'Borrower') {
         return this.props.loan.borrower;
-      } else if (checklist.document_info.subject_name == 'Property') {
+      } else if (checklist.subject_name == 'Property') {
         return this.props.loan.subject_property;
-      } else if (checklist.document_info.subject_name == 'Closing') {
+      } else if (checklist.subject_name == 'Closing') {
         return this.props.loan.closing;
-      } else if (checklist.document_info.subject_name == 'Loan') {
+      } else if (checklist.subject_name == 'Loan') {
         return this.props.loan;
       }
     },
@@ -148,28 +151,28 @@ var CheckList = React.createClass({
             { checklist.checklist_type == "explain" ?
                 <div>
                   <button className="btn btnSml btnDefault" onClick={this.handleShowModal} >
-                    Explain
+                    {checklist.status == "done" ? "Review" : "Explain"}
                   </button>
-                  <ModalExplanation
+                  <ChecklistExplanation
                     ref="modal"
                     show={false}
                     id={button_id}
                     title={checklist.name}
                     loan={this.props.loan}
-                    checklist={checklist} />
+                    checklist={checklist}/>
                 </div>
                 :
                 <div>
                   <button className="btn btnSml btnDefault" data-toggle="modal" data-target={"#" + button_id}>
-                    Upload
+                    {checklist.status == "done" ? "Review" : "Upload"}
                   </button>
-                  <ModalUpload
+                  <ChecklistUpload
                     id={button_id}
                     title="Upload"
                     loan={this.props.loan}
                     borrower={this.props.borrower}
-                    subject={this.getSubject(checklist)}
                     checklist={checklist}
+                    subject={this.getSubject(checklist)}
                     uploadSuccessCallback={this.uploadSuccessCallback}/>
                 </div>
             }

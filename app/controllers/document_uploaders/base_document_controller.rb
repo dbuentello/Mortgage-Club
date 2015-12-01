@@ -12,7 +12,7 @@ class DocumentUploaders::BaseDocumentController < ApplicationController
     if DocumentServices::RemoveFile.call(params[:id])
       return render json: {message: 'Removed it sucessfully'}, status: 200
     else
-      return render json: {messaage: 'Remove file failed'}, status: 500
+      return render json: {message: 'Remove file failed'}, status: 500
     end
   end
 
@@ -36,7 +36,7 @@ class DocumentUploaders::BaseDocumentController < ApplicationController
         remove_url: get_remove_url(document)
       }, status: 200
     else
-      return render json: {messaage: 'Upload file failed'}, status: 500
+      return render json: {message: 'Upload file failed'}, status: 500
     end
   end
 

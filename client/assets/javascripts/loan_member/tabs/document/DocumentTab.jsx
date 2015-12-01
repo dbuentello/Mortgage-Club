@@ -1,9 +1,5 @@
 var _ = require('lodash');
 var React = require('react/addons');
-// var BorrowerUploader = require('../form_uploader/Borrower');
-// var PropertyUploader = require('../form_uploader/Property');
-// var LoanUploader = require('../form_uploader/Loan');
-// var ClosingUploader = require('../form_uploader/Closing');
 var Upload = require('./Upload');
 
 var borrower_fields = {

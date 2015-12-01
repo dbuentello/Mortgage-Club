@@ -51,7 +51,7 @@ class Users::ChecklistsController < Users::BaseController
   private
 
   def checklist_params
-    params.require(:checklist).permit(:checklist_type, :document_type, :name, :description, :question, :due_date, :template_id)
+    params.require(:checklist).permit(:checklist_type, :document_type, :name, :description, :question, :due_date, :template_id, :status)
   end
 
   def load_checklist
