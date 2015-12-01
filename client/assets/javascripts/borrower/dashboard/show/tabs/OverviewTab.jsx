@@ -117,7 +117,7 @@ var CheckList = React.createClass({
       if (checklist.document_info.subject_name == 'Borrower') {
         return this.props.loan.borrower;
       } else if (checklist.document_info.subject_name == 'Property') {
-        return this.props.loan.property;
+        return this.props.loan.subject_property;
       } else if (checklist.document_info.subject_name == 'Closing') {
         return this.props.loan.closing;
       } else if (checklist.document_info.subject_name == 'Loan') {
