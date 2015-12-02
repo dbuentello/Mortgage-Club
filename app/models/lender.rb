@@ -6,6 +6,8 @@
 #
 
 class Lender < ActiveRecord::Base
+  validates :name, presence: true
+
   PERMITTED_ATTRS = [
     :name,
     :website,

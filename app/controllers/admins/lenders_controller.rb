@@ -25,8 +25,7 @@ class Admins::LendersController < Admins::BaseController
     if @lender.save
       render json: @lender
     else
-      Rails.logger.error @lender.errors.full_messages
-      render json: {}, status: :unprocessable_entity
+      render json: {message: @lender.errors.full_messages.first}, status: :unprocessable_entity
     end
   end
 
@@ -44,8 +43,7 @@ class Admins::LendersController < Admins::BaseController
     if @lender.update(lender_params)
       render json: {}
     else
-      Rails.logger.error @lender.errors.full_messages
-      render json: {}, status: :unprocessable_entity
+      render json: {message: @lender.errors.full_messages.first}, status: :unprocessable_entity
     end
   end
 

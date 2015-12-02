@@ -1,8 +1,11 @@
 var React = require('react/addons');
 var TextField = require('components/form/TextField');
 var ModalLink = require('components/ModalLink');
+var FlashHandler = require('mixins/FlashHandler');
 
 var LenderForm = React.createClass({
+  mixins: [FlashHandler],
+
   getInitialState: function() {
     var lender = this.props.bootstrapData.lender;
     
@@ -16,6 +19,7 @@ var LenderForm = React.createClass({
       contact_name: lender.contact_name,
       contact_email: lender.contact_email,
       contact_phone: lender.contact_phone,
+      saving: false
     }
   },
 
@@ -25,6 +29,7 @@ var LenderForm = React.createClass({
 
   handleSubmit: function(e) {
     e.preventDefault();
+    this.setState({saving: true});
 
     if (this.state.id) {
       $.ajax({
@@ -35,7 +40,12 @@ var LenderForm = React.createClass({
         data: JSON.stringify(this.state),
         success: function(resp) {
           location.href = '/lenders';
-        }
+        },
+        error: function(resp) {
+          var flash = { "alert-danger": resp.responseJSON.message };
+          this.showFlashes(flash);
+          this.setState({saving: false});
+        }.bind(this)
       });
     }
     else {
@@ -47,7 +57,12 @@ var LenderForm = React.createClass({
         data: JSON.stringify(this.state),
         success: function(resp) {
           location.href = '/lenders';
-        }
+        },
+        error: function(resp) {
+          var flash = { "alert-danger": resp.responseJSON.message };
+          this.showFlashes(flash);
+          this.setState({saving: false});
+        }.bind(this)
       });
     }
   },
@@ -147,8 +162,12 @@ var LenderForm = React.createClass({
               </div>
             </div>
             <button className="btn btn-primary btn-sm" type="submit">Save</button> &nbsp;
-            <button className="btn btn-danger btn-sm" data-toggle="modal" data-target="#removeLender">Delete</button>
+
+            {this.state.id ?
+              <a className="btn btn-danger btn-sm" data-toggle="modal" data-target="#removeLender">Delete</a> : null
+            }
           </form>
+
           <ModalLink
             id="removeLender"
             title="Confirmation"
