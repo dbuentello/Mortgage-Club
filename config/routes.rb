@@ -122,7 +122,6 @@ Rails.application.routes.draw do
     resources :lender_documents do
       member do
         get 'download'
-        delete 'remove'
       end
     end
   end

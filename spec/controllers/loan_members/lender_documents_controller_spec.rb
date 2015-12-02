@@ -37,7 +37,7 @@ describe LoanMembers::LenderDocumentsController do
           lender_document: LenderDocumentsPresenter.show(loan.lender_documents.last),
           lender_documents: LenderDocumentsPresenter.index(loan.lender_documents),
           download_url: download_loan_members_lender_document_path(loan.lender_documents.last),
-          remove_url: remove_loan_members_lender_document_path(loan.lender_documents.last),
+          remove_url: loan_members_lender_document_path(loan.lender_documents.last),
           message: "Created successfully"
         }.to_json
 
@@ -65,9 +65,9 @@ describe LoanMembers::LenderDocumentsController do
     end
   end
 
-  describe "#remove" do
+  describe "#destroy" do
     context "successful" do
-      before(:each) { get :remove, id: document.id }
+      before(:each) { delete :destroy, id: document.id }
 
       it "removes a document" do
         expect(LenderDocument.count).to eq(0)
@@ -80,9 +80,9 @@ describe LoanMembers::LenderDocumentsController do
 
     context "failed" do
       it "renders error message" do
-        allow_any_instance_of(LenderDocument).to receive(:destroyed?).and_return(false)
+        allow_any_instance_of(LenderDocument).to receive(:destroy).and_return(false)
 
-        get :remove, id: document.id
+        delete :destroy, id: document.id
 
         expect(JSON.parse(response.body)["message"]).to eq("Remove file failed")
       end

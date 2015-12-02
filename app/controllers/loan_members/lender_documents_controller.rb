@@ -1,6 +1,6 @@
 class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
   before_action :set_loan, only: [:create]
-  before_action :set_document, only: [:download, :remove]
+  before_action :set_document, only: [:download, :destroy]
 
   def create
     # TODO: loan_id & required_template_id
@@ -27,9 +27,8 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
     redirect_to url
   end
 
-  def remove
-    @document.destroy
-    if @document.destroyed?
+  def destroy
+    if @document.destroy
       return render json: {message: 'Removed it sucessfully'}, status: 200
     else
       return render json: {message: 'Remove file failed'}, status: 500
@@ -47,6 +46,6 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
   end
 
   def get_remove_url(document)
-    remove_loan_members_lender_document_path(document)
+    loan_members_lender_document_path(document)
   end
 end
