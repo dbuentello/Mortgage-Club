@@ -33,7 +33,11 @@ var FormAssetsAndLiabilities = React.createClass({
     state.subject_property = this.props.loan.subject_property;
     state.saving = false;
     state.assets = this.props.loan.borrower.assets;
-
+    if (state.assets.length == 0) {
+      var defaultAsset = this.getDefaultAsset();
+      defaultAsset.asset_type = 'checkings';
+      state.assets.push(defaultAsset)
+    }
     return state;
   },
 
@@ -66,7 +70,8 @@ var FormAssetsAndLiabilities = React.createClass({
     return (
       <Asset asset={asset}
              index={index}
-             key={asset.id}
+             key={index}
+             onUpdate={this.updateAsset}
              onRemove={this.removeAsset}/>
     );
   },
@@ -204,17 +209,22 @@ var FormAssetsAndLiabilities = React.createClass({
     };
   },
 
-  addAsset: function(){
+  addAsset: function() {
     this.setState({assets: this.state.assets.concat(this.getDefaultAsset())});
   },
 
-  removeAsset: function(index){
+  updateAsset: function(index, asset){
+    console.log(asset);
+    _.assign(this.state.assets[index], asset);
+  },
+
+  removeAsset: function(index) {
     var _assets = this.state.assets;
     _assets.splice(index, 1);
     this.setState({assets: _assets});
   },
 
-  getDefaultAsset: function(){
+  getDefaultAsset: function() {
     return {
       institution_name: null,
       asset_type: null,
@@ -242,13 +252,21 @@ var FormAssetsAndLiabilities = React.createClass({
       rental_properties.push(rental_property);
     }
 
+    var _assets = [];
+    _.each(this.state.assets, function(asset){
+      if (asset.institution_name){
+        asset.current_balance = this.currencyToNumber(asset.current_balance);
+        _assets.push(asset);
+      }
+    }, this);
+
     $.ajax({
-      url: '/borrowers/' + this.props.loan.borrower.id + '/assets',
+      url: '/borrower_assets',
       method: 'POST',
       context: this,
       dataType: 'json',
       contentType: 'application/json',
-      data: JSON.stringify({assets: this.state.assets}),
+      data: JSON.stringify({assets: _assets}),
       success: function(resp){
         $.ajax({
           url: '/properties/',

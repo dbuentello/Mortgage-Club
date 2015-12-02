@@ -24,7 +24,9 @@ var Asset = React.createClass({
   },
 
   onChange: function (change) {
-    this.setState(change);
+    this.setState(change, function(){
+      this.props.onUpdate(this.props.index, this.state);
+    });
   },
 
   handleRemove: function(){
@@ -52,6 +54,7 @@ var Asset = React.createClass({
               options={assetTypes}
               editable={true}
               onChange={this.onChange}
+              allowBlank={true}
               value={this.state.asset_type}/>
           </div>
         </div>
