@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var TextField = require('components/form/TextField');
 var FlashHandler = require('mixins/FlashHandler');
+var ModalLink = require('components/ModalLink');
 
 var TemplateForm = React.createClass({
   mixins: [FlashHandler],
@@ -54,8 +55,27 @@ var TemplateForm = React.createClass({
       });
     }
   },
+
+  handleRemove: function() {
+    $.ajax({
+      url: '/lenders/' + this.props.lender.id + '/templates/' + this.props.template.id,
+      method: 'DELETE',
+      dataType: 'json',
+      contentType: 'application/json',
+      success: function(resp) {
+        location.href = '/lenders/' + this.props.lender.id + '/templates';
+      }.bind(this),
+      error: function(resp) {
+        var flash = { "alert-danger": resp.responseJSON.message };
+        this.showFlashes(flash);
+        this.setState({saving: false});
+      }.bind(this)
+    });
+  },
+
   render: function() {
     return (
+      <div>
       <form className="form-horizontal lender-template-form" onSubmit={this.handleSubmit}>
         <div className="form-group">
           <div className="col-sm-4">
@@ -77,8 +97,18 @@ var TemplateForm = React.createClass({
               onChange={this.onChange}/>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary">Save</button>
+        <button type="submit" className="btn btn-primary">Save</button> &nbsp;
+        {this.props.template.id ?
+          <a className="btn btn-danger btn-sm" data-toggle="modal" data-target="#removeTemplate">Delete</a> : null
+        }
       </form>
+        <ModalLink
+          id="removeTemplate"
+          title="Confirmation"
+          body="Are you sure to remove this template?"
+          yesCallback={this.handleRemove}
+          />
+      </div>
     );
   }
 });
