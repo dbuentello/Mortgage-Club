@@ -118,6 +118,13 @@ Rails.application.routes.draw do
 
     resources :dashboard do
     end
+
+    resources :lender_documents do
+      member do
+        get 'download'
+        delete 'remove'
+      end
+    end
   end
 
   scope module: "admins" do

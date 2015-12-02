@@ -4,7 +4,9 @@ class LenderDocument < ActiveRecord::Base
     s3_permissions: 'authenticated-read',
     path: PAPERCLIP[:default_path]
 
+  belongs_to :loan
   belongs_to :user
+
   validates :user_id, :loan_id, :token, :description, presence: true
   validates_attachment :attachment,
     presence: true,

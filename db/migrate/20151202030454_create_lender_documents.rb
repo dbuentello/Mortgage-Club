@@ -2,7 +2,7 @@ class CreateLenderDocuments < ActiveRecord::Migration
   def change
     create_table :lender_documents, id: :uuid do |t|
       t.string  :description
-      t.string :token
+      t.string  :token
       t.references :user, index: true, foreign_key: true, type: :uuid
       t.references :loan, index: true, foreign_key: true, type: :uuid
       t.timestamps null: false
