@@ -26,9 +26,8 @@ class ClosingPresenter
   def show_closing_json_options
     {
       include: [
-        :closing_disclosure, :deed_of_trust, :loan_doc, :other_closing_reports
+        :documents
       ]
     }
   end
-
 end

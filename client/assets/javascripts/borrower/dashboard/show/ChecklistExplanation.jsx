@@ -77,7 +77,7 @@ var ModalMixin = function() {
   }
 }()
 
-var ModalExplanation = React.createClass({
+var ChecklistExplanation = React.createClass({
   mixins: [ModalMixin],
 
   propTypes: {
@@ -149,4 +149,4 @@ var ModalExplanation = React.createClass({
   }
 });
 
-module.exports = ModalExplanation;
+module.exports = ChecklistExplanation;

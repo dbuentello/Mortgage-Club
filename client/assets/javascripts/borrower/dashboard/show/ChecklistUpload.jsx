@@ -1,16 +1,18 @@
 var React = require('react/addons');
 var Dropzone = require('components/form/Dropzone');
 
-var ModalUpload = React.createClass({
+var ChecklistUpload = React.createClass({
   propTypes: {
     id: React.PropTypes.string.isRequired,
     name: React.PropTypes.string,
     klass: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
   },
+
   getInitialState: function() {
     return this.buildState();
   },
+
   buildState: function() {
     var state = {};
     var doc_type = this.props.checklist.document_type;
@@ -20,6 +22,7 @@ var ModalUpload = React.createClass({
     state[doc_type + '_removedUrl'] = 'javascript:void(0)';
     return state;
   },
+
   getDefaultProps: function() {
     return {
       id: "modal-checklist",
@@ -29,20 +32,18 @@ var ModalUpload = React.createClass({
   },
 
   render: function() {
+    var checklist = this.props.checklist;
     var dataTarget = '#' + this.props.id;
     var labelId = this.props.id + 'Label';
-    var document = this.props.checklist.document_info
-    var doc_type = this.props.checklist.document_type;
-    var field = {label: document.label, name: document.name , placeholder: 'drap file here or browse', type: doc_type}
+    var field = {label: checklist.document_description, name: checklist.document_type , placeholder: 'drap file here or browse'}
+    var uploadUrl = '/document_uploaders/base_document/upload';
 
-    var subject_key_name = document.subject_key_name;
-    var subject_params = {};
-    subject_params[subject_key_name] = this.props.subject.id;
     var customParams = [
-      {type: doc_type},
-      subject_params
+      {document_type: checklist.document_type},
+      {subject_id: this.props.subject.id},
+      {subject_type: checklist.subject_name},
+      {description: checklist.document_description}
     ];
-
     return (
       <span>
         {
@@ -63,14 +64,13 @@ var ModalUpload = React.createClass({
                 <div className="upload-zone">
                   <div className="drop_zone">
                     <Dropzone field={field}
-                      uploadUrl={document.upload_path}
-                      downloadUrl={this.state[doc_type + '_downloadUrl']}
-                      removeUrl={this.state[doc_type + '_removedUrl']}
-                      tip={this.state[doc_type]}
+                      uploadUrl={uploadUrl}
+                      downloadUrl={this.state[checklist.document_type + '_downloadUrl']}
+                      removeUrl={this.state[checklist.document_type + '_removedUrl']}
+                      tip={this.state[checklist.document_type]}
                       maxSize={10000000}
                       customParams={customParams}
-                      uploadSuccessCallback={this.props.uploadSuccessCallback}
-                    />
+                      uploadSuccessCallback={this.props.uploadSuccessCallback}/>
                   </div>
                 </div>
               </div>
@@ -82,4 +82,4 @@ var ModalUpload = React.createClass({
   }
 });
 
-module.exports = ModalUpload;
+module.exports = ChecklistUpload;

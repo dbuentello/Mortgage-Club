@@ -4,8 +4,8 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var BorrowerTab = React.createClass({
   mixins: [TextFormatMixin],
-  getDownloadUrl: function(id, type) {
-    return '/document_uploaders/base_document/' + id + '/download?type=' + type
+  getDownloadUrl: function(id) {
+    return '/document_uploaders/base_document/' + id + '/download';
   },
   render: function() {
     return (
@@ -23,7 +23,7 @@ var BorrowerTab = React.createClass({
             </thead>
             <tbody>
             {
-              _.map(this.props.borrowerList, function(document) {
+              _.map(this.props.borrowerDocuments, function(document) {
                 return (
                   <tr key={document.id}>
                     <td>
@@ -31,11 +31,11 @@ var BorrowerTab = React.createClass({
                       &nbsp;&nbsp;&nbsp;
                       <span>{document.original_filename == null ? document.attachment_file_name : document.original_filename}</span>
                     </td>
-                    <td>{document.owner_name}</td>
+                    <td>{document.user.to_s}</td>
                     <td>{document.description}</td>
                     <td>{this.isoToUsDate(document.attachment_updated_at)}</td>
                     <td>
-                      <a href={this.getDownloadUrl(document.id, document.class_name)} download><i className="iconDownload"></i></a>
+                      <a href={this.getDownloadUrl(document.id)} download><i className="iconDownload"></i></a>
                     </td>
                   </tr>
                 )

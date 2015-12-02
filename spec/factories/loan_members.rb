@@ -13,6 +13,5 @@ FactoryGirl.define do
         create_list(:loan_activity, Random.rand(1..3), loan_member: loan_member)
       end
     end
-
   end
 end

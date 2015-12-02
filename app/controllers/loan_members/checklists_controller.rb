@@ -9,7 +9,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
     checklist.loan = @loan
 
     if checklist.save
-     render json: {
+      render json: {
         checklist: ChecklistsPresenter.show(checklist),
         checklists: ChecklistsPresenter.index(@loan.checklists),
         message: 'Created successfully'
@@ -56,7 +56,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
 
   def checklist_params
     params[:checklist][:due_date] = Date.strptime(params[:checklist][:due_date], "%m/%d/%Y") if params[:checklist][:due_date].present?
-    params.require(:checklist).permit(:checklist_type, :document_type, :document, :name, :document_description, :question, :due_date, :template_id, :info)
+    params.require(:checklist).permit(:checklist_type, :document_type, :subject_name, :name, :document_description, :question, :due_date, :template_id, :info)
   end
 
   def set_checklist

@@ -21,31 +21,12 @@
 class Borrower < ActiveRecord::Base
   belongs_to :user, inverse_of: :borrower, foreign_key: 'user_id', autosave: true
   belongs_to :loan, inverse_of: :secondary_borrower, foreign_key: 'loan_id'
-
   has_one   :borrower_government_monitoring_info, inverse_of: :borrower, dependent: :destroy
   has_one   :credit_report, inverse_of: :borrower, dependent: :destroy
-
   has_many  :borrower_addresses, inverse_of: :borrower, dependent: :destroy
   has_many  :employments, inverse_of: :borrower, dependent: :destroy
-
-  has_one  :first_bank_statement, inverse_of: :borrower, dependent: :destroy
-  has_one  :second_bank_statement, inverse_of: :borrower, dependent: :destroy
-  has_one  :first_paystub, inverse_of: :borrower, dependent: :destroy
-  has_one  :second_paystub, inverse_of: :borrower, dependent: :destroy
-  has_one  :first_w2, inverse_of: :borrower, dependent: :destroy
-  has_one  :second_w2, inverse_of: :borrower, dependent: :destroy
-  has_one  :first_personal_tax_return, inverse_of: :borrower, dependent: :destroy
-  has_one  :second_personal_tax_return, inverse_of: :borrower, dependent: :destroy
-  has_one  :first_business_tax_return, inverse_of: :borrower, dependent: :destroy
-  has_one  :second_business_tax_return, inverse_of: :borrower, dependent: :destroy
-  has_one  :first_federal_tax_return, inverse_of: :borrower, dependent: :destroy
-  has_one  :second_federal_tax_return, inverse_of: :borrower, dependent: :destroy
   has_one  :ocr, inverse_of: :borrower, dependent: :destroy
-
-  has_many :other_borrower_reports, inverse_of: :borrower, dependent: :destroy
-  has_many :borrower_documents, dependent: :destroy
-  has_many :assets
-
+  has_many :documents, as: :subjectable, dependent: :destroy
   has_one  :declaration
 
   accepts_nested_attributes_for :borrower_addresses, allow_destroy: true
@@ -81,8 +62,7 @@ class Borrower < ActiveRecord::Base
     employments_attributes:                         [:id] + Employment::PERMITTED_ATTRS,
     borrower_government_monitoring_info_attributes: [:id] + BorrowerGovernmentMonitoringInfo::PERMITTED_ATTRS,
     credit_report_attributes:                       [:id] + CreditReport::PERMITTED_ATTRS,
-    declaration_attributes:                         [:id] + Declaration::PERMITTED_ATTRS,
-    assets_attributes: [:id] + Asset::PERMITTED_ATTRS
+    declaration_attributes:                         [:id] + Declaration::PERMITTED_ATTRS
   ]
 
   enum marital_status: {

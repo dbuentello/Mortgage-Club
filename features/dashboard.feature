@@ -20,12 +20,6 @@ Feature: Dashboard
     When I am at dashboard page
     Then I click "Property"
       And I should see "property-document-name"
-    Then I click "Borrower"
-      And I should see "borrower-document-name"
-    Then I click "Loan"
-      And I should see "loan-document-name"
-    Then I click "Closing"
-      And I should see "closing-document-name"
     Then I click on "Contacts"
       And I should see "Michael Gifford"
       And I should see "(manager)"

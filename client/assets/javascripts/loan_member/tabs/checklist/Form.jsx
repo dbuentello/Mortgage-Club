@@ -5,39 +5,39 @@ var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 var FlashHandler = require('mixins/FlashHandler');
 var documentDescription = {
-  'AppraisalReport': 'Appraised property value',
-  'FloodZoneCertification': 'Flood zone certification',
-  'HomeownersInsurance': "Homeowner's insurance",
-  'InspectionReport': 'Home inspection report',
-  'LeaseAgreement': 'Lease agreement',
-  'MortgageStatement': 'Latest mortgage statement of subject property',
-  'PurchaseAgreement': 'Executed purchase agreement',
-  'RiskReport': "Home seller's disclosure report",
-  'TermiteReport': 'Termite report',
-  'TitleReport': 'Preliminary title report',
-  'OtherPropertyReport': 'Other Property Report',
-  'FirstW2': 'W2 - Most recent tax year',
-  'SecondW2': 'W2 - Previous tax year',
-  'FirstPaystub': 'Paystub - Most recent month',
-  'SecondPaystub': 'Paystub - Previous month',
-  'FirstBankStatement': 'Bank statement - Most recent month',
-  'SecondBankStatement': 'Bank statement - Previous month',
-  'FirstBusinessTaxReturn': 'Business tax return - Most recent year',
-  'SecondBusinessTaxReturn': 'Business tax return - Previous year',
-  'FirstPersonalTaxReturn': 'Personal tax return - Most recent year',
-  'SecondPersonalTaxReturn': 'Personal tax return - Previous year',
-  'FirstFederalTaxReturn': 'Federal tax return - Most recent year',
-  'SecondFederalTaxReturn': 'Federal tax return - Previous year',
-  'OtherBorrowerReport': 'Other Borrower Report',
-  'HudEstimate': 'Estimated settlement statement',
-  'HudFinal': 'Final settlement statement',
-  'LoanEstimate': 'Loan estimate',
-  'UniformResidentialLendingApplication': 'Loan application form',
-  'OtherLoanReport': 'Other Loan Report',
-  'ClosingDisclosure': 'Closing Disclosure',
-  'DeedOfTrust': 'Deed of Trust',
-  'LoanDoc': 'Closing - Loan Document',
-  'OtherClosingReport': 'Other Closing Report'
+  'appraisal_report': 'Appraised property value',
+  'flood_zone_certification': 'Flood zone certification',
+  'homeowners_insurance': "Homeowner's insurance",
+  'inspection_report': 'Home inspection report',
+  'lease_agreement': 'Lease agreement',
+  'mortgage_statement': 'Latest mortgage statement of subject property',
+  'purchase_agreement': 'Executed purchase agreement',
+  'risk_report': "Home seller's disclosure report",
+  'termite_report': 'Termite report',
+  'title_report': 'Preliminary title report',
+  'other_property_report': 'Other Property Report',
+  'first_w2': 'W2 - Most recent tax year',
+  'second_w2': 'W2 - Previous tax year',
+  'first_paystub': 'Paystub - Most recent month',
+  'second_paystub': 'Paystub - Previous month',
+  'first_bank_statement': 'Bank statement - Most recent month',
+  'second_bank_statement': 'Bank statement - Previous month',
+  'first_business_tax_return': 'Business tax return - Most recent year',
+  'second_business_tax_return': 'Business tax return - Previous year',
+  'first_personal_tax_return': 'Personal tax return - Most recent year',
+  'second_personal_tax_return': 'Personal tax return - Previous year',
+  'first_federal_tax_return': 'Federal tax return - Most recent year',
+  'second_federal_tax_return': 'Federal tax return - Previous year',
+  'other_borrower_report': 'Other Borrower Report',
+  'hud_estimate': 'Estimated settlement statement',
+  'hud_final': 'Final settlement statement',
+  'loan_estimate': 'Loan estimate',
+  'uniform_residential_lending_application': 'Loan application form',
+  'other_loan_report': 'Other Loan Report',
+  'closing_disclosure': 'Closing Disclosure',
+  'deed_of_trust': 'Deed of Trust',
+  'loan_doc': 'Closing - Loan Document',
+  'other_closing_report': 'Other Closing Report'
  };
 
 var Form = React.createClass({
@@ -50,11 +50,11 @@ var Form = React.createClass({
         {name: 'Explain', value: 'explain'},
         {name: 'Upload', value: 'upload'}
       ],
-      documents: [
-        {name: 'Property', value: 'property'},
-        {name: 'Borrower', value: 'borrower'},
-        {name: 'Loan', value: 'loan'},
-        {name: 'Closing', value: 'closing'},
+      subjects: [
+        {name: 'Property', value: 'Property'},
+        {name: 'Borrower', value: 'Borrower'},
+        {name: 'Loan', value: 'Loan'},
+        {name: 'Closing', value: 'Closing'},
       ]
     };
   },
@@ -67,30 +67,30 @@ var Form = React.createClass({
         info: this.props.checklist.info,
         dueDate: this.props.checklist.due_date,
         question: this.props.checklist.question,
-        document: this.props.checklist.document,
+        subject_name: this.props.checklist.subject_name,
         documentType: this.props.checklist.document_type,
         documentTemplate: this.props.checklist.template_id,
         description: this.props.checklist.document_description,
-        documentTypes: this.loadDocumentTypes(this.props.checklist.document)
+        documentTypes: this.loadDocumentTypes(this.props.checklist.subject_name)
       };
-    }else {
+    } else {
       return {
         type: 'explain',
-        document: 'property',
+        subject_name: 'Property',
         description: 'Appraised property value',
         documentType: 'AppraisalReport',
         documentTypes: [
-          {name: 'Appraised property value', value: 'AppraisalReport'},
-          {name: 'Flood zone certification', value: 'FloodZoneCertification'},
-          {name: "Homeowner's insurance", value: 'HomeownersInsurance'},
-          {name: 'Home inspection report', value: 'InspectionReport'},
-          {name: 'Lease agreement', value: 'LeaseAgreement'},
-          {name: 'Latest mortgage statement of subject property', value: 'MortgageStatement'},
-          {name: 'Executed purchase agreement', value: 'PurchaseAgreement'},
-          {name: "Home seller's disclosure report", value: 'RiskReport'},
-          {name: 'Termite report', value: 'TermiteReport'},
-          {name: 'Preliminary title report', value: 'TitleReport'},
-          {name: 'Other Property Report', value: 'OtherPropertyReport'}
+          {name: 'Appraised property value', value: 'appraisal_report'},
+          {name: 'Flood zone certification', value: 'flood_zone_certification'},
+          {name: "Homeowner's insurance", value: 'homeowners_insurance'},
+          {name: 'Home inspection report', value: 'inspection_report'},
+          {name: 'Lease agreement', value: 'lease_agreement'},
+          {name: 'Latest mortgage statement of subject property', value: 'mortgage_statement'},
+          {name: 'Executed purchase agreement', value: 'purchase_agreement'},
+          {name: "Home seller's disclosure report", value: 'risk_report'},
+          {name: 'Termite report', value: 'termite_report'},
+          {name: 'Preliminary title report', value: 'title_report'},
+          {name: 'Other Property Report', value: 'other_property_report'}
         ]
       };
     }
@@ -101,7 +101,7 @@ var Form = React.createClass({
     var key = Object.keys(change)[0];
     var value = change[key];
     switch(key) {
-      case "document":
+      case "subjectName":
         var documentTypes = this.loadDocumentTypes(value);
         this.setState({documentTypes});
         if(documentTypes.length > 0){
@@ -122,54 +122,53 @@ var Form = React.createClass({
 
   loadDocumentTypes: function(document) {
     switch(document) {
-      case "property":
+      case "Property":
         var documentTypes = [
-          {name: 'Appraised property value', value: 'AppraisalReport'},
-          {name: 'Flood zone certification', value: 'FloodZoneCertification'},
-          {name: "Homeowner's insurance", value: 'HomeownersInsurance'},
-          {name: 'Home inspection report', value: 'InspectionReport'},
-          {name: 'Lease agreement', value: 'LeaseAgreement'},
-          {name: 'Latest mortgage statement of subject property', value: 'MortgageStatement'},
-          {name: 'Executed purchase agreement', value: 'PurchaseAgreement'},
-          {name: "Home seller's disclosure report", value: 'RiskReport'},
-          {name: 'Termite report', value: 'TermiteReport'},
-          {name: 'Preliminary title report', value: 'TitleReport'},
-          {name: 'Other Property Report', value: 'OtherPropertyReport'}
+          {name: 'Appraised property value', value: 'appraisal_report'},
+          {name: 'Flood zone certification', value: 'flood_zone_certification'},
+          {name: "Homeowner's insurance", value: 'homeowners_insurance'},
+          {name: 'Home inspection report', value: 'inspection_report'},
+          {name: 'Lease agreement', value: 'lease_agreement'},
+          {name: 'Latest mortgage statement of subject property', value: 'mortgage_statement'},
+          {name: 'Executed purchase agreement', value: 'purchase_agreement'},
+          {name: "Home seller's disclosure report", value: 'risk_report'},
+          {name: 'Termite report', value: 'termite_report'},
+          {name: 'Preliminary title report', value: 'title_report'},
+          {name: 'Other Property Report', value: 'other_property_report'}
         ]
         break;
-      case "borrower":
+      case "Borrower":
         var documentTypes = [
-          {name: 'Business tax return - Most recent year', value: 'FirstBusinessTaxReturn'},
-          {name: 'Business tax return - Previous year', value: 'SecondBusinessTaxReturn'},
-          {name: 'Personal tax return - Most recent year', value: 'FirstPersonalTaxReturn'},
-          {name: 'Personal tax return - Previous year', value: 'SecondPersonalTaxReturn'},
-          {name: 'Federal tax return - Most recent year', value: 'FirstFederalTaxReturn'},
-          {name: 'Federal tax return - Previous year', value: 'SecondFederalTaxReturn'},
-
-          {name: 'W2 - Most recent tax year', value: 'FirstW2'},
-          {name: 'W2 - Previous tax year', value: 'SecondW2'},
-          {name: 'Paystub - Most recent month', value: 'FirstPaystub'},
-          {name: 'Paystub - Previous month', value: 'SecondPaystub'},
-          {name: 'Bank statement - Most recent month', value: 'FirstBankStatement'},
-          {name: 'Bank statement - Previous month', value: 'SecondBankStatement'},
-          {name: 'Other Borrower Report', value: 'OtherBorrowerReport'},
+          {name: 'Business tax return - Most recent year', value: 'first_business_tax_return'},
+          {name: 'Business tax return - Previous year', value: 'second_business_tax_return'},
+          {name: 'Personal tax return - Most recent year', value: 'first_personal_tax_return'},
+          {name: 'Personal tax return - Previous year', value: 'second_personal_tax_return'},
+          {name: 'Federal tax return - Most recent year', value: 'first_federal_tax_return'},
+          {name: 'Federal tax return - Previous year', value: 'second_federal_tax_return'},
+          {name: 'W2 - Most recent tax year', value: 'first_w2'},
+          {name: 'W2 - Previous tax year', value: 'second_w2'},
+          {name: 'Paystub - Most recent month', value: 'first_paystub'},
+          {name: 'Paystub - Previous month', value: 'second_paystub'},
+          {name: 'Bank statement - Most recent month', value: 'first_bank_statement'},
+          {name: 'Bank statement - Previous month', value: 'second_bank_statement'},
+          {name: 'Other Borrower Report', value: 'other_borrower_report'},
         ]
         break;
-      case "loan":
+      case "Loan":
         var documentTypes = [
-          {name: 'Estimated settlement statement', value: 'HudEstimate'},
-          {name: 'Final settlement statement', value: 'HudFinal'},
-          {name: 'Loan estimate', value: 'LoanEstimate'},
-          {name: 'Loan application form', value: 'UniformResidentialLendingApplication'},
-          {name: 'Other Loan Report', value: 'OtherLoanReport'},
+          {name: 'Estimated settlement statement', value: 'hud_estimate'},
+          {name: 'Final settlement statement', value: 'hud_final'},
+          {name: 'Loan estimate', value: 'loan_estimate'},
+          {name: 'Loan application form', value: 'uniform_residential_lending_application'},
+          {name: 'Other Loan Report', value: 'other_loan_report'},
         ]
         break;
-      case "closing":
+      case "Closing":
         var documentTypes = [
-          {name: 'Closing Disclosure', value: 'ClosingDisclosure'},
-          {name: 'Deed of Trust', value: 'DeedOfTrust'},
-          {name: 'Closing - Loan Document', value: 'LoanDoc'},
-          {name: 'Other Closing Report', value: 'OtherClosingReport'},
+          {name: 'Closing Disclosure', value: 'closing_disclosure'},
+          {name: 'Deed of Trust', value: 'deed_of_trust'},
+          {name: 'Closing - Loan Document', value: 'loan_doc'},
+          {name: 'Other Closing Report', value: 'other_closing_report'},
         ]
         break;
       default:
@@ -222,7 +221,6 @@ var Form = React.createClass({
     return (
       <form className='form-horizontal form-checklist'>
         <input type='hidden' value={this.props.loan.id} name='loan_id'/>
-
         <div className='form-group'>
           <div className='col-sm-4'>
             <SelectField
@@ -271,11 +269,11 @@ var Form = React.createClass({
         <div className='form-group'>
           <div className='col-sm-4'>
             <SelectField
-              label='Document'
-              keyName='document'
-              name='checklist[document]'
-              value={this.state.document}
-              options={this.props.documents}
+              label='Subject'
+              keyName='subjectName'
+              name='checklist[subject_name]'
+              value={this.state.subjectName}
+              options={this.props.subjects}
               onChange={this.onChange}
               editable={true}/>
           </div>

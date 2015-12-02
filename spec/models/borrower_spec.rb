@@ -15,20 +15,6 @@ describe Borrower do
     end
   end
 
-  context 'when created with documents' do
-    let(:borrower) { FactoryGirl.build(:borrower_with_documents) }
-    subject { borrower }
-
-    it 'has documents' do
-      expect(borrower.first_w2).to be_valid
-      expect(borrower.second_w2).to be_valid
-      expect(borrower.first_paystub).to be_valid
-      expect(borrower.second_paystub).to be_valid
-      expect(borrower.first_bank_statement).to be_valid
-      expect(borrower.second_bank_statement).to be_valid
-    end
-  end
-
   context 'when created with user' do
     let(:borrower) { FactoryGirl.build(:borrower, :with_user) }
     subject { borrower }
