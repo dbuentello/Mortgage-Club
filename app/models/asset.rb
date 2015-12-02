@@ -30,11 +30,11 @@ class Asset < ActiveRecord::Base
         asset_id = asset_param[:id]
 
         if asset_id.nil? # New asset
-          asset = borrower.assets.create!(asset_param.permit(Asset::PERMITTED_ATTRS))
+          asset = borrower.assets.create!(asset_param)
           asset_id = asset.id
         else
           asset = borrower.assets.find(asset_id)
-          asset.update!(asset_param.permit(Asset::PERMITTED_ATTRS))
+          asset.update!(asset_param)
         end
 
         asset_ids << asset_id
