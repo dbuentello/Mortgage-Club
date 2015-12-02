@@ -28,6 +28,7 @@ class Borrower < ActiveRecord::Base
   has_one  :ocr, inverse_of: :borrower, dependent: :destroy
   has_many :documents, as: :subjectable, dependent: :destroy
   has_one  :declaration
+  has_many :assets
 
   accepts_nested_attributes_for :borrower_addresses, allow_destroy: true
   accepts_nested_attributes_for :employments, allow_destroy: true
