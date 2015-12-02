@@ -11,7 +11,7 @@ var LenderDocumentTab = React.createClass({
         state[template.id] = lender_document.id;
         state[template.id + "_name"] = lender_document.attachment_file_name;
         state[template.id + "_downloadUrl"] = "/loan_members/lender_documents/" + lender_document.id + "/download";
-        state[template.id + "_removedUrl"] = "/loan_members/lender_documents/" + lender_document.id + "/remove";
+        state[template.id + "_removedUrl"] = "/loan_members/lender_documents/" + lender_document.id;
       }else {
         state[template.id + "_name"] = "drap file here or browse";
         state[template.id + "_downloadUrl"] = "javascript:void(0)";

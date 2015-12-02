@@ -234,7 +234,7 @@ var FormDocuments = React.createClass({
         state[upload_fields[key].id] = borrower_document.id;
         state[upload_fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + borrower_document.id + '/download';
 
-        state[upload_fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + borrower_document.id + '/remove';
+        state[upload_fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + borrower_document.id;
       } else {
         state[upload_fields[key].name] = upload_fields[key].placeholder;
         state[upload_fields[key].name + '_downloadUrl'] = 'javascript:void(0)';

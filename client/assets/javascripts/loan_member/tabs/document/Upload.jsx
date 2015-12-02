@@ -11,7 +11,7 @@ var Upload = React.createClass({
         state[this.props.fields[key].name] = lender_document.original_filename;
         state[this.props.fields[key].id] = lender_document.id;
         state[this.props.fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + lender_document.id + '/download';
-        state[this.props.fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + lender_document.id + '/remove';
+        state[this.props.fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + lender_document.id;
       }else {
         state[this.props.fields[key].name] = this.props.fields[key].placeholder;
         state[this.props.fields[key].name + '_downloadUrl'] = 'javascript:void(0)';

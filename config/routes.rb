@@ -142,14 +142,13 @@ Rails.application.routes.draw do
   end
 
   namespace :document_uploaders do
-    resources :base_document, only: [] do
+    resources :base_document, only: [:destroy] do
       collection do
         post 'upload'
       end
 
       member do
         get 'download'
-        delete 'remove'
       end
     end
 
