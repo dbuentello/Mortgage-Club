@@ -11,7 +11,9 @@
 class Asset < ActiveRecord::Base
   belongs_to :borrower
 
-  validates_presence_of :institution_name, :asset_type, :current_balance
+  validates :institution_name, presence: true
+  validates :asset_type, presence: true
+  validates :current_balance, presence: true
 
   enum asset_type: [:checkings, :savings, :investment, :retirement, :other]
 
@@ -25,8 +27,7 @@ class Asset < ActiveRecord::Base
     asset_params ||= []
 
     self.transaction do
-      asset_ids = []
-      asset_params.each do |asset_param|
+      asset_ids = asset_params.map do |asset_param|
         asset_id = asset_param[:id]
 
         if asset_id.nil? # New asset
@@ -37,7 +38,7 @@ class Asset < ActiveRecord::Base
           asset.update!(asset_param)
         end
 
-        asset_ids << asset_id
+        asset_id
       end
 
       borrower.assets.where.not(id: asset_ids).destroy_all
