@@ -15,6 +15,9 @@ var EditPage = require('admin/member_managements/EditPage');
 var Lenders = require('admin/lenders/Lenders');
 var LenderForm = require('admin/lenders/LenderForm');
 
+var LenderTemplates = require('admin/lenders/LenderTemplates');
+var EditTemplate = require('admin/lenders/EditTemplate');
+
 window.AdminApp = React.createClass({
   mixins: [FlashHandler],
 
@@ -82,6 +85,8 @@ var routes = (
     <Route path="/lenders" handler={Lenders}/>
     <Route path="/lenders/new" handler={LenderForm}/>
     <Route path="/lenders/:id/edit" handler={LenderForm}/>
+    <Route path="/lenders/:id/templates" handler={LenderTemplates}/>
+    <Route path="/lenders/:id/templates/:id/edit" handler={EditTemplate}/>
     <DefaultRoute handler={Loans}/>
   </Route>
 );

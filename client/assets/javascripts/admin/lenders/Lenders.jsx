@@ -30,7 +30,7 @@ var Lenders = React.createClass({
               {
                 _.map(this.props.bootstrapData.lenders, function(lender){
                     return (
-                      <tr>
+                      <tr key={lender.id}>
                         <td>{lender.name}</td>
                         <td>{lender.website}</td>
                         <td>{lender.rate_sheet}</td>
@@ -40,6 +40,7 @@ var Lenders = React.createClass({
                         <td>{lender.contact_email}</td>
                         <td>{lender.contact_phone}</td>
                         <th>
+                          <a className="btn btn-primary btn-sm" href={"/lenders/" + lender.id + "/templates"}>Templates</a>
                           <a className='linkTypeReversed btn btn-primary btn-sm' href={'/lenders/' + lender.id + '/edit'}>Edit</a>
                         </th>
                       </tr>

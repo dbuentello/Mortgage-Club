@@ -85,7 +85,6 @@ var LenderForm = React.createClass({
       <div className='pal'>
         <div className='row'>
           {this.state.id ? <h2 className='mbl'>Edit Lender</h2> : <h2 className='mbl'>New Lender</h2>}
-
           <form className="form-horizontal lender-form" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <div className="col-sm-6">
