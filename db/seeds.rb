@@ -120,16 +120,7 @@ if Template.where(name: 'Generic Explanation').blank?
 end
 
 if Lender.where(name: 'Dummy Lender').blank?
-  lender = Lender.create(
-    name: 'Dummy Lender',
-    website: 'dummy.com',
-    rate_sheet: 'dummy.com/rate_sheet',
-    lock_rate_email: 'lock@dummy.com',
-    docs_email: 'docs@dummy.com',
-    contact_email: 'support@dummy.com',
-    contact_name: 'John Doe',
-    contact_phone: '01-1234-678'
-  )
+  lender = Lender.create_dummy_lender
 
   template = LenderTemplate.new(name: "Wholesale Submission Form", description: "This is a wholesale submission form")
   requirement = template.lender_template_requirements.build(lender: lender)
