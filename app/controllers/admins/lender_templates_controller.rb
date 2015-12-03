@@ -13,7 +13,7 @@ class Admins::LenderTemplatesController < Admins::BaseController
 
   def create
     template = LenderTemplate.new(template_params)
-    requirement = template.lender_template_requirements.build(lender: @lender)
+    requirement = template.lender_template_requirements.find_or_initialize_by(lender: @lender)
 
     if requirement.save
       render json: template

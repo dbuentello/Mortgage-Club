@@ -119,6 +119,20 @@ if Template.where(name: 'Generic Explanation').blank?
   Docusign::CreateTemplateService.call("Generic Explanation")
 end
 
+if Lender.where(name: 'Dummy Lender').blank?
+  lender = Lender.create_dummy_lender
+
+  template = LenderTemplate.new(name: "Wholesale Submission Form", description: "This is a wholesale submission form")
+  requirement = template.lender_template_requirements.build(lender: lender)
+  requirement.save!
+
+  Loan.all.each do |loan|
+    next if loan.lender
+    loan.lender = lender
+    loan.save!
+  end
+end
+
 # if Loan.where(lender_name: 'Ficus Bank').blank?
 #   user = User.where(email: 'borrower@gmail.com').first
 #   loan = user.loans.build(amount: Random.rand(100000..200000), interest_rate: Random.rand(0.2..1))

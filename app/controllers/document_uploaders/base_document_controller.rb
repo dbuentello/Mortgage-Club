@@ -1,15 +1,15 @@
 class DocumentUploaders::BaseDocumentController < ApplicationController
-  def download
-    return render json: {message: 'File not found'}, status: 500 if params[:id].blank?
+  before_action :set_document, only: [:download, :destroy]
 
-    url = DocumentServices::DownloadFile.call(params[:id])
+  def download
+    url = Amazon::GetUrlService.call(@document.attachment, 10.seconds)
     redirect_to url
   end
 
-  def remove
-    return render json: {message: 'Invalid document type'}, status: 500 if params[:id].blank?
+  def destroy
+    @document = Document.find_by_id(params[:id])
 
-    if DocumentServices::RemoveFile.call(params[:id])
+    if @document.destroy
       return render json: {message: 'Removed it sucessfully'}, status: 200
     else
       return render json: {message: 'Remove file failed'}, status: 500
@@ -42,11 +42,15 @@ class DocumentUploaders::BaseDocumentController < ApplicationController
 
   private
 
+  def set_document
+    return render json: {message: 'File is not found'}, status: 500 unless @document = Document.find_by_id(params[:id])
+  end
+
   def get_download_url(document)
     download_document_uploaders_base_document_path(document)
   end
 
   def get_remove_url(document)
-    remove_document_uploaders_base_document_path(document)
+    document_uploaders_base_document_path(document)
   end
 end

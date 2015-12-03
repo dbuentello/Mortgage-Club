@@ -11,7 +11,7 @@ var Lenders = React.createClass({
         <div className='pal'>
           <div className='row'>
             <h2 className='mbl'>Lenders</h2>
-            <a className="btn btnSml btnAction mlm" href="/lenders/new">Add Lender</a>
+            <a className="btn btnSml btnAction" href="/lenders/new">Add Lender</a>
             <table className="table table-striped">
               <thead>
               <tr>
@@ -22,7 +22,6 @@ var Lenders = React.createClass({
                 <th>Docs Email</th>
                 <th>Contact Name</th>
                 <th>Contact Email</th>
-                <th>Contact Phone</th>
                 <th></th>
               </tr>
               </thead>
@@ -38,7 +37,6 @@ var Lenders = React.createClass({
                         <td>{lender.docs_email}</td>
                         <td>{lender.contact_name}</td>
                         <td>{lender.contact_email}</td>
-                        <td>{lender.contact_phone}</td>
                         <th>
                           <a className="btn btn-primary btn-sm col-sm-10 mbm" href={"/lenders/" + lender.id + "/lender_templates"}>Templates</a>
                           <a className="linkTypeReversed btn btn-primary btn-sm col-sm-10" href={'/lenders/' + lender.id + '/edit'}>Edit</a>

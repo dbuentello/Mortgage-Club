@@ -118,6 +118,12 @@ Rails.application.routes.draw do
 
     resources :dashboard do
     end
+
+    resources :lender_documents do
+      member do
+        get 'download'
+      end
+    end
   end
 
   scope module: "admins" do
@@ -136,14 +142,13 @@ Rails.application.routes.draw do
   end
 
   namespace :document_uploaders do
-    resources :base_document, only: [] do
+    resources :base_document, only: [:destroy] do
       collection do
         post 'upload'
       end
 
       member do
         get 'download'
-        delete 'remove'
       end
     end
 

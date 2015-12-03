@@ -15,7 +15,8 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       borrower: BorrowerPresenter.new(@loan.borrower).show,
       property: PropertyPresenter.new(@loan.subject_property).show,
       closing: ClosingPresenter.new(@loan.closing).show,
-      templates: TemplatesPresenter.index(Template.all)
+      templates: TemplatesPresenter.index(Template.all),
+      lender_templates: get_lender_templates
     )
 
     respond_to do |format|
@@ -25,7 +26,13 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
 
   private
 
+  def get_lender_templates
+    return [] unless @loan.lender
+    LenderTemplatesPresenter.index(@loan.lender.lender_templates.order(:is_other))
+  end
+
   def first_activity(loan)
+    # TODO: refactor it
     # activity_status: -1 => not existed yet
     LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: loan.id).order(created_at: :desc).limit(1).first || {activity_status: -1}
   end

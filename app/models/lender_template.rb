@@ -13,4 +13,10 @@ class LenderTemplate < ActiveRecord::Base
   has_many :lenders, through: :lender_template_requirements
 
   PERMITTED_ATTRS = [:name, :description]
+
+  def self.create_other_template(lender)
+    template = self.find_or_initialize_by(name: "Other Document", description: "This is an other form", is_other: true)
+    requirement = template.lender_template_requirements.find_or_initialize_by(lender: lender)
+    requirement.save
+  end
 end

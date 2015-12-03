@@ -38,6 +38,9 @@ class Lender < ActiveRecord::Base
 
   has_many :lender_template_requirements, dependent: :destroy
   has_many :lender_templates, through: :lender_template_requirements
+  has_many :loans
+
+  after_save :create_other_lender_template
 
   PERMITTED_ATTRS = [
     :name,
@@ -49,4 +52,30 @@ class Lender < ActiveRecord::Base
     :contact_name,
     :contact_phone
   ]
+
+  def self.dummy_lender
+    return if lender = Lender.where(name: "Dummy Lender").last
+    create_dummy_lender
+  end
+
+  def self.create_dummy_lender
+    Lender.create(
+      name: 'Dummy Lender',
+      website: 'dummy.com',
+      rate_sheet: 'dummy.com/rate_sheet',
+      lock_rate_email: 'lock@dummy.com',
+      docs_email: 'docs@dummy.com',
+      contact_email: 'support@dummy.com',
+      contact_name: 'John Doe',
+      contact_phone: '01-1234-678'
+    )
+  end
+
+  private
+
+  def create_other_lender_template
+    if lender_templates.empty? || lender_templates.where(is_other: true).nil?
+      LenderTemplate.create_other_template(self)
+    end
+  end
 end

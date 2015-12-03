@@ -13,6 +13,8 @@ class Document < ActiveRecord::Base
                     inspection_report lease_agreement mortgage_statement purchase_agreement
                     risk_report termite_report title_report other_property_report)
 
+  EXPIRE_VIEW_SECONDS = 5
+
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',
     path: PAPERCLIP[:default_path]
@@ -40,16 +42,10 @@ class Document < ActiveRecord::Base
     :attachment
   ]
 
-  EXPIRE_VIEW_SECONDS = 3
-
   before_validation :set_private_token, on: :create
 
   def url
     Amazon::GetUrlService.call(attachment)
-  end
-
-  def upload_path
-    '/document_uploaders/upload'
   end
 
   private

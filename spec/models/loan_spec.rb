@@ -1,78 +1,16 @@
-# == Schema Information
-#
-# Table name: loans
-#
-#  id                                  :uuid             not null, primary key
-#  purpose                             :integer
-#  user_id                             :uuid
-#  agency_case_number                  :string
-#  lender_case_number                  :string
-#  amount                              :decimal(11, 2)
-#  interest_rate                       :decimal(9, 3)
-#  num_of_months                       :integer
-#  amortization_type                   :string
-#  rate_lock                           :boolean
-#  refinance                           :decimal(11, 2)
-#  estimated_prepaid_items             :decimal(11, 2)
-#  estimated_closing_costs             :decimal(11, 2)
-#  pmi_mip_funding_fee                 :decimal(11, 2)
-#  borrower_closing_costs              :decimal(11, 2)
-#  other_credits                       :decimal(11, 2)
-#  other_credits_explain               :string
-#  pmi_mip_funding_fee_financed        :decimal(11, 2)
-#  loan_type                           :string
-#  prepayment_penalty                  :boolean
-#  balloon_payment                     :boolean
-#  monthly_payment                     :decimal(11, 2)
-#  prepayment_penalty_amount           :decimal(11, 2)
-#  pmi                                 :decimal(11, 2)
-#  loan_amount_increase                :boolean
-#  interest_rate_increase              :boolean
-#  included_property_taxes             :boolean
-#  included_homeowners_insurance       :boolean
-#  included_other                      :boolean
-#  included_other_text                 :boolean
-#  in_escrow_property_taxes            :boolean
-#  in_escrow_homeowners_insurance      :boolean
-#  in_escrow_other                     :boolean
-#  loan_costs                          :decimal(11, 2)
-#  other_costs                         :decimal(11, 2)
-#  lender_credits                      :decimal(11, 2)
-#  estimated_cash_to_close             :decimal(11, 2)
-#  lender_name                         :string
-#  fha_upfront_premium_amount          :decimal(11, 2)
-#  term_months                         :integer
-#  lock_period                         :integer
-#  margin                              :decimal(11, 2)
-#  pmi_annual_premium_mount            :decimal(11, 2)
-#  pmi_monthly_premium_amount          :decimal(11, 2)
-#  pmi_monthly_premium_percent         :decimal(11, 4)
-#  pmi_required                        :boolean
-#  apr                                 :decimal(11, 3)
-#  price                               :decimal(11, 3)
-#  product_code                        :string
-#  product_index                       :integer
-#  total_margin_adjustment             :decimal(11, 2)
-#  total_price_adjustment              :decimal(11, 2)
-#  total_rate_adjustment               :decimal(11, 2)
-#  srp_adjustment                      :decimal(11, 2)
-#  appraisal_fee                       :decimal(11, 2)
-#  city_county_deed_stamp_fee          :decimal(11, 2)
-#  credit_report_fee                   :decimal(11, 2)
-#  document_preparation_fee            :decimal(11, 2)
-#  flood_certification                 :decimal(11, 2)
-#  origination_fee                     :decimal(11, 2)
-#  settlement_fee                      :decimal(11, 2)
-#  state_deed_tax_stamp_fee            :decimal(11, 2)
-#  tax_related_service_fee             :decimal(11, 2)
-#  title_insurance_fee                 :decimal(11, 2)
-#  monthly_principal_interest_increase :boolean
-#
-
 require 'rails_helper'
 
 describe Loan do
   let(:loan) { FactoryGirl.create(:loan) }
+  it { should have_many(:properties) }
+  it { should have_many(:envelopes) }
+  it { should have_many(:documents) }
+  it { should have_many(:loan_activities) }
+  it { should have_many(:loans_members_associations) }
+  it { should have_many(:loan_members) }
+  it { should have_many(:checklists) }
+  it { should have_many(:lender_documents) }
+  it { should belong_to(:lender) }
 
   it 'has a valid factory' do
     expect(loan).to be_valid
@@ -116,23 +54,6 @@ describe Loan do
 
       it 'returns rental_properties value' do
         expect(@loan.rental_properties).not_to be_nil
-      end
-    end
-  end
-
-  describe '.ltv_formula' do
-    context 'property or amount is nil' do
-      it 'returns nil' do
-        expect(loan.ltv_formula).to be_nil
-      end
-    end
-
-    context 'property and amount are valid' do
-      let(:property) { FactoryGirl.create(:subject_property, loan: loan) }
-
-      it 'returns ltv_formula value' do
-        expected_value = (loan.amount / property.purchase_price * 100).ceil
-        expect(loan.ltv_formula).to eq(expected_value)
       end
     end
   end
