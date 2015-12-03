@@ -371,6 +371,8 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0)
     shellany (0.0.1)
+    shoulda-matchers (3.0.1)
+      activesupport (>= 4.0.0)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -492,6 +494,7 @@ DEPENDENCIES
   sass-rails
   sdoc
   selenium-webdriver
+  shoulda-matchers (~> 3.0)
   simplecov
   skylight
   spreewald
