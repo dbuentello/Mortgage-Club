@@ -81,7 +81,8 @@ class LoanPresenter
             }
           }
         },
-        documents: {}
+        documents: {},
+        lender_documents: {}
       }
     }
   end

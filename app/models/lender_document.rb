@@ -6,8 +6,9 @@ class LenderDocument < ActiveRecord::Base
 
   belongs_to :loan
   belongs_to :user
+  belongs_to :lender_template
 
-  validates :user_id, :loan_id, :token, :description, presence: true
+  validates :user_id, :loan_id, :token, :lender_template_id, :description, presence: true
   validates_attachment :attachment,
     presence: true,
     content_type: {

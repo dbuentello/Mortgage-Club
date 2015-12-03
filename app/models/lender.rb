@@ -54,7 +54,21 @@ class Lender < ActiveRecord::Base
   ]
 
   def self.dummy_lender
-    Lender.where(name: "Dummy Lender").last
+    return if lender = Lender.where(name: "Dummy Lender").last
+    create_dummy_lender
+  end
+
+  def self.create_dummy_lender
+    Lender.create(
+      name: 'Dummy Lender',
+      website: 'dummy.com',
+      rate_sheet: 'dummy.com/rate_sheet',
+      lock_rate_email: 'lock@dummy.com',
+      docs_email: 'docs@dummy.com',
+      contact_email: 'support@dummy.com',
+      contact_name: 'John Doe',
+      contact_phone: '01-1234-678'
+    )
   end
 
   private

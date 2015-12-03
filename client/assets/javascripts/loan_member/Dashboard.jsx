@@ -9,14 +9,6 @@ var DocumentTab = require("./tabs/document/DocumentTab");
 var LenderDocumentTab = require("./tabs/lender_document/LenderDocumentTab");
 var ChecklistTab = require("./tabs/checklist/ChecklistTab");
 
-// fake templates to work temporarily
-var templates = [
-{id: "1", name: "Wholesale Submission Form", description: "This is a Wholesale Submission Form"},
-{id: "2", name: "Complete 1003 dated", description: "This is a Complete 1003 dated Form"},
-{id: "3", name: "Loan Estimate within 3 days of the 10003", description: "This is a Loan Estimate 1003 Form"},
-{id: "4", name: "Other Document", description: "This is an other document", is_other: true},
-]
-
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
   render: function() {
@@ -53,7 +45,7 @@ var Dashboard = React.createClass({
                 <DocumentTab loan={this.props.bootstrapData.loan} borrower={this.props.bootstrapData.borrower} property={this.props.bootstrapData.property} closing={this.props.bootstrapData.closing}></DocumentTab>
               </div>
               <div role="tabpanel" className="tab-pane fade" id="lender_document">
-                <LenderDocumentTab loan={this.props.bootstrapData.loan} templates={templates}></LenderDocumentTab>
+                <LenderDocumentTab loan={this.props.bootstrapData.loan} lender_templates={this.props.bootstrapData.lender_templates}></LenderDocumentTab>
               </div>
               <div role="tabpanel" className="tab-pane fade" id="checklist">
                 <ChecklistTab loan={this.props.bootstrapData.loan} checklists={this.props.bootstrapData.loan.checklists} templates={this.props.bootstrapData.templates}></ChecklistTab>

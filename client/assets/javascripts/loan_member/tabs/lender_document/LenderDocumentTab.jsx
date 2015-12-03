@@ -5,8 +5,9 @@ var Dropzone = require("components/form/Dropzone");
 var LenderDocumentTab = React.createClass({
   getInitialState: function() {
     var state = {};
-    _.each(this.props.templates, function(template) {
-      var lender_document = _.find(this.props.loan.lender_documents, {"required_template_id": template.id});
+    _.each(this.props.lender_templates, function(template) {
+      console.dir(this.props.loan.lender_documents)
+      var lender_document = _.find(this.props.loan.lender_documents, {"lender_template_id": template.id});
       if (lender_document) {
         state[template.id] = lender_document.id;
         state[template.id + "_name"] = lender_document.attachment_file_name;
@@ -28,14 +29,13 @@ var LenderDocumentTab = React.createClass({
           <div className='box mtn'>
             <div className='row'>
               {
-                _.map(this.props.templates, function(template) {
+                _.map(this.props.lender_templates, function(template) {
                   var fields = {label: template.name, name: template.name.replace(/ /g,''), placeholder: 'drap file here or browse'};
                   var customParams = [
                     {template_id: template.id},
                     {description: template.description},
                     {loan_id: this.props.loan.id}
                   ];
-                  console.dir(this.state[template.id + '_downloadUrl']);
                   return(
                     <div className="drop_zone" key={template.id}>
                       <Dropzone field={fields}
