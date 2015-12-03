@@ -120,7 +120,7 @@ if Template.where(name: 'Generic Explanation').blank?
 end
 
 if Lender.where(name: 'Dummy Lender').blank?
-  Lender.create(
+  lender = Lender.create(
     name: 'Dummy Lender',
     website: 'dummy.com',
     rate_sheet: 'dummy.com/rate_sheet',
@@ -130,6 +130,12 @@ if Lender.where(name: 'Dummy Lender').blank?
     contact_name: 'John Doe',
     contact_phone: '01-1234-678'
   )
+
+  Loan.all.each do |loan|
+    next if loan.lender
+    loan.lender = lender
+    loan.save!
+  end
 end
 
 # if Loan.where(lender_name: 'Ficus Bank').blank?
