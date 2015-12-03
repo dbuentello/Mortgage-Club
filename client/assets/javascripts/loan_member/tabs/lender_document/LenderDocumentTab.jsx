@@ -6,7 +6,6 @@ var LenderDocumentTab = React.createClass({
   getInitialState: function() {
     var state = {};
     _.each(this.props.lender_templates, function(template) {
-      console.dir(this.props.loan.lender_documents)
       var lender_document = _.find(this.props.loan.lender_documents, {"lender_template_id": template.id});
       if (lender_document) {
         state[template.id] = lender_document.id;
