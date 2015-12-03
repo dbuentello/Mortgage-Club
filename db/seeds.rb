@@ -131,6 +131,10 @@ if Lender.where(name: 'Dummy Lender').blank?
     contact_phone: '01-1234-678'
   )
 
+  template = LenderTemplate.new(name: "Wholesale Submission Form", description: "This is a wholesale submission form")
+  requirement = template.lender_template_requirements.build(lender: lender)
+  requirement.save!
+
   Loan.all.each do |loan|
     next if loan.lender
     loan.lender = lender

@@ -40,6 +40,8 @@ class Lender < ActiveRecord::Base
   has_many :lender_templates, through: :lender_template_requirements
   has_many :loans
 
+  after_save :create_other_lender_template
+
   PERMITTED_ATTRS = [
     :name,
     :website,
@@ -53,5 +55,13 @@ class Lender < ActiveRecord::Base
 
   def self.dummy_lender
     Lender.where(name: "Dummy Lender").last
+  end
+
+  private
+
+  def create_other_lender_template
+    if lender_templates.empty? || lender_templates.where(is_other: true).nil?
+      LenderTemplate.create_other_template(self)
+    end
   end
 end

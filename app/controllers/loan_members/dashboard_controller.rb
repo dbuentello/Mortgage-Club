@@ -15,7 +15,8 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       borrower: BorrowerPresenter.new(@loan.borrower).show,
       property: PropertyPresenter.new(@loan.subject_property).show,
       closing: ClosingPresenter.new(@loan.closing).show,
-      templates: TemplatesPresenter.index(Template.all)
+      templates: TemplatesPresenter.index(Template.all),
+      lender_templates: LenderTemplatesPresenter.index(@loan.lender.lender_templates)
     )
 
     respond_to do |format|
