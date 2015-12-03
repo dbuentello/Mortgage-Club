@@ -58,23 +58,6 @@ describe Loan do
     end
   end
 
-  describe '.ltv_formula' do
-    context 'property or amount is nil' do
-      it 'returns nil' do
-        expect(loan.ltv_formula).to be_nil
-      end
-    end
-
-    context 'property and amount are valid' do
-      let(:property) { FactoryGirl.create(:subject_property, loan: loan) }
-
-      it 'returns ltv_formula value' do
-        expected_value = (loan.amount / property.purchase_price * 100).ceil
-        expect(loan.ltv_formula).to eq(expected_value)
-      end
-    end
-  end
-
   describe '.num_of_years' do
     context 'num_of_months is nil' do
       it 'returns nil' do

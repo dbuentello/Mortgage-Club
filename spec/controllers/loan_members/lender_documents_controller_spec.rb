@@ -3,7 +3,8 @@ require "rails_helper"
 describe LoanMembers::LenderDocumentsController do
   include_context 'signed in as loan member user'
   let(:loan) { FactoryGirl.create(:loan) }
-  let(:document) { FactoryGirl.create(:lender_document, loan: loan) }
+  let(:lender) { FactoryGirl.create(:lender) }
+  let(:document) { FactoryGirl.create(:lender_document, loan: loan, lender_template: lender.lender_templates.last) }
 
   before(:each) do
     allow(Amazon::GetUrlService).to receive(:call).and_return("http://google.com")
@@ -20,6 +21,7 @@ describe LoanMembers::LenderDocumentsController do
       it "creates a new document" do
         expect {
           post :create, loan_id: loan.id,
+                        template_id: lender.lender_templates.last,
                         description: "This is a description",
                         file: @uploaded_file,
                         format: :json
@@ -29,6 +31,7 @@ describe LoanMembers::LenderDocumentsController do
 
       it "renders document's info" do
         post :create, loan_id: loan.id,
+                      template_id: lender.lender_templates.last,
                       description: "This is a description",
                       file: @uploaded_file,
                       format: :json
@@ -45,11 +48,23 @@ describe LoanMembers::LenderDocumentsController do
       end
     end
 
-    context "failed" do
+    context "missing lender template id" do
+      it "renders error message" do
+        post :create, loan_id: loan.id,
+                      description: "This is a description",
+                      file: @uploaded_file,
+                      format: :json
+
+        expect(JSON.parse(response.body)["message"]).to eq("Template is not found")
+      end
+    end
+
+    context "save failed" do
       it "renders error message" do
         allow_any_instance_of(LenderDocument).to receive(:save).and_return(false)
 
         post :create, loan_id: loan.id,
+                      template_id: lender.lender_templates.last,
                       file: @uploaded_file,
                       format: :json
 

@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe RateServices::UpdateLoanDataFromSelectedRate do
   let(:loan) { FactoryGirl.create(:loan) }
+  let!(:lender) { FactoryGirl.create(:lender, name: "Sebonic Financial") }
 
   before(:each) do
     @fees = {
