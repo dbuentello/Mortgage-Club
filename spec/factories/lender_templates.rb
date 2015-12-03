@@ -1,7 +1,6 @@
 FactoryGirl.define do
-  factory :lender_template do
-    name "MyString"
-description "MyString"
+  factory :lender_template do |f|
+    f.name { Faker::App.name }
+    f.description { Faker::Lorem.sentence }
   end
-
 end

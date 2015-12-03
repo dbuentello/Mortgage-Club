@@ -1,5 +1,11 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe LenderTemplate, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe LenderTemplate do
+  it { should have_many(:lender_template_requirements) }
+  it { should have_many(:lenders) }
+  it { should validate_presence_of(:name) }
+
+  it "has a valid factory" do
+    expect(FactoryGirl.build(:lender_template)).to be_valid
+  end
 end
