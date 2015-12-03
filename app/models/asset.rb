@@ -43,5 +43,9 @@ class Asset < ActiveRecord::Base
 
       borrower.assets.where.not(id: asset_ids).destroy_all
     end
+    true
+  rescue ActiveRecord::RecordInvalid => exception
+    Rails.logger.error(exception)
+    false
   end
 end

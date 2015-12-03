@@ -4,6 +4,7 @@ var React = require('react/addons');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var BooleanRadio = require('components/form/BooleanRadio');
+var FlashHandler = require('mixins/FlashHandler');
 var Property = require('./Property');
 var Asset = require('./Asset');
 
@@ -14,7 +15,7 @@ var fields = {
 };
 
 var FormAssetsAndLiabilities = React.createClass({
-  mixins: [ObjectHelperMixin, TextFormatMixin],
+  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
 
   getInitialState: function() {
     var currentUser = this.props.bootstrapData.currentUser;
@@ -112,7 +113,7 @@ var FormAssetsAndLiabilities = React.createClass({
             ?
               <div className='pal'>
                 <div className='box mvn'>
-                  <h5 className='typeDeemphasize'>The property you're buying</h5>
+                  <h5 className='typeDeemphasize'>{"The property you're buying"}</h5>
                   <Property
                     property={this.state.subject_property}
                     liabilities={this.state.liabilities}/>
@@ -214,7 +215,6 @@ var FormAssetsAndLiabilities = React.createClass({
   },
 
   updateAsset: function(index, asset){
-    console.log(asset);
     _.assign(this.state.assets[index], asset);
   },
 
@@ -233,6 +233,7 @@ var FormAssetsAndLiabilities = React.createClass({
   },
 
   save: function() {
+    var valid = true;
     this.setState({saving: true});
 
     var primary_property = this.state.primary_property;
@@ -254,11 +255,23 @@ var FormAssetsAndLiabilities = React.createClass({
 
     var _assets = [];
     _.each(this.state.assets, function(asset){
-      if (asset.institution_name){
-        asset.current_balance = this.currencyToNumber(asset.current_balance);
-        _assets.push(asset);
+      // if (asset.institution_name){
+      //   asset.current_balance = this.currencyToNumber(asset.current_balance);
+      //   _assets.push(asset);
+      // }
+      if (asset.institution_name == null || asset.current_balance == null || asset.asset_type == null){
+        var flash = { "alert-danger": 'You must provide info about Institution Name, Asset Type and Current Balance.' };
+        this.showFlashes(flash);
+        valid = false;
+        this.setState({saving: false});
       }
+      asset.current_balance = this.currencyToNumber(asset.current_balance);
+      _assets.push(asset);
     }, this);
+
+    if (valid == false){
+      return;
+    }
 
     $.ajax({
       url: '/borrower_assets',
@@ -286,11 +299,17 @@ var FormAssetsAndLiabilities = React.createClass({
             // this.setState({saving: false});
           },
           error: function(response, status, error) {
+            this.setState({saving: false});
             alert(response.responseJSON.message);
             // this.setState({saving: false});
           }
         });
-      }
+      },
+      error: function(response, status, error) {
+        this.setState({saving: false});
+        var flash = { "alert-danger": response.responseJSON.message };
+        this.showFlashes(flash);
+      }.bind(this)
     });
   }
 });
