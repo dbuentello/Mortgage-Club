@@ -111,7 +111,7 @@ class LoanPresenter
         }
       },
       methods: [
-        :num_of_years, :ltv_formula, :purpose_titleize, :primary_property, :subject_property
+        :num_of_years, :purpose_titleize, :primary_property, :subject_property
       ]
     }
   end

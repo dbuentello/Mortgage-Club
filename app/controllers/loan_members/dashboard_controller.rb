@@ -26,6 +26,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
   private
 
   def first_activity(loan)
+    # TODO: refactor it
     # activity_status: -1 => not existed yet
     LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: loan.id).order(created_at: :desc).limit(1).first || {activity_status: -1}
   end

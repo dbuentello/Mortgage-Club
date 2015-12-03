@@ -38,6 +38,7 @@ class Lender < ActiveRecord::Base
 
   has_many :lender_template_requirements, dependent: :destroy
   has_many :lender_templates, through: :lender_template_requirements
+  has_many :loans
 
   PERMITTED_ATTRS = [
     :name,
@@ -49,4 +50,8 @@ class Lender < ActiveRecord::Base
     :contact_name,
     :contact_phone
   ]
+
+  def self.dummy_lender
+    Lender.where(name: "Dummy Lender").last
+  end
 end
