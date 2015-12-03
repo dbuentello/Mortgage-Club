@@ -4,7 +4,7 @@ class Admins::LenderTemplatesController < Admins::BaseController
 
   def index
     bootstrap(lender: @lender,
-              templates: @lender.templates)
+              templates: @lender.lender_templates)
 
     respond_to do |format|
       format.html { render template: 'admin_app' }
@@ -12,12 +12,13 @@ class Admins::LenderTemplatesController < Admins::BaseController
   end
 
   def create
-    @template = @lender.templates.new(template_params)
+    template = LenderTemplate.new(template_params)
+    requirement = template.lender_template_requirements.build(lender: @lender)
 
-    if @template.save
-      render json: @template
+    if requirement.save
+      render json: template
     else
-      render json: {message: @template.errors.full_messages.first}, status: :unprocessable_entity
+      render json: {message: requirement.errors.full_messages.first}, status: :unprocessable_entity
     end
   end
 
@@ -56,6 +57,6 @@ class Admins::LenderTemplatesController < Admins::BaseController
   end
 
   def load_template
-    @template = @lender.templates.find(params[:id])
+    @template = @lender.lender_templates.find(params[:id])
   end
 end

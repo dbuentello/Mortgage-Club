@@ -10,9 +10,7 @@ class Admins::LendersController < Admins::BaseController
   end
 
   def new
-    bootstrap(
-      lender: Lender.new
-    )
+    bootstrap(lender: Lender.new)
 
     respond_to do |format|
       format.html { render template: 'admin_app' }
@@ -30,9 +28,7 @@ class Admins::LendersController < Admins::BaseController
   end
 
   def edit
-    bootstrap(
-      lender: @lender
-    )
+    bootstrap(lender: @lender)
 
     respond_to do |format|
       format.html { render template: 'admin_app' }

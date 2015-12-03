@@ -131,7 +131,7 @@ Rails.application.routes.draw do
     end
 
     resources :lenders do
-      resources :lender_templates, path: :templates
+      resources :lender_templates
     end
   end
 

@@ -42,6 +42,7 @@ window.AdminApp = React.createClass({
                     <a href="#">{user.firstName}</a>
                     <div className="dropdownBox dropdownBoxRight box boxBasic backgroundLowlight">
                       <ul className="dropdownList">
+                        <li><a href="/lenders" className="dropdownLink">Lenders</a></li>
                         <li><a href="/loan_member_managements" className="dropdownLink">Loan Members</a></li>
                         <li><a href="/loan_assignments" className="dropdownLink">Loan Assignment</a></li>
                         <li><a href="/lenders" className="dropdownLink">Lenders</a></li>
@@ -85,8 +86,8 @@ var routes = (
     <Route path="/lenders" handler={Lenders}/>
     <Route path="/lenders/new" handler={LenderForm}/>
     <Route path="/lenders/:id/edit" handler={LenderForm}/>
-    <Route path="/lenders/:id/templates" handler={LenderTemplates}/>
-    <Route path="/lenders/:id/templates/:id/edit" handler={EditTemplate}/>
+    <Route path="/lenders/:id/lender_templates" handler={LenderTemplates}/>
+    <Route path="/lenders/:id/lender_templates/:id/edit" handler={EditTemplate}/>
     <DefaultRoute handler={Loans}/>
   </Route>
 );

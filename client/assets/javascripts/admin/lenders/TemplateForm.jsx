@@ -22,13 +22,13 @@ var TemplateForm = React.createClass({
 
     if (this.props.template.id) {
       $.ajax({
-        url: '/lenders/' + this.props.lender.id + '/templates/' + this.props.template.id,
+        url: '/lenders/' + this.props.lender.id + '/lender_templates/' + this.props.template.id,
         method: 'PUT',
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify(this.state),
         success: function(resp) {
-          location.href = '/lenders/' + this.props.lender.id + '/templates';
+          location.href = '/lenders/' + this.props.lender.id + '/lender_templates';
         }.bind(this),
         error: function(resp) {
           var flash = { "alert-danger": resp.responseJSON.message };
@@ -38,7 +38,7 @@ var TemplateForm = React.createClass({
       });
     } else{
       $.ajax({
-        url: '/lenders/' + this.props.lender.id + '/templates',
+        url: '/lenders/' + this.props.lender.id + '/lender_templates',
         method: 'POST',
         dataType: 'json',
         contentType: 'application/json',
@@ -58,12 +58,12 @@ var TemplateForm = React.createClass({
 
   handleRemove: function() {
     $.ajax({
-      url: '/lenders/' + this.props.lender.id + '/templates/' + this.props.template.id,
+      url: '/lenders/' + this.props.lender.id + '/lender_templates/' + this.props.template.id,
       method: 'DELETE',
       dataType: 'json',
       contentType: 'application/json',
       success: function(resp) {
-        location.href = '/lenders/' + this.props.lender.id + '/templates';
+        location.href = '/lenders/' + this.props.lender.id + '/lender_templates';
       }.bind(this),
       error: function(resp) {
         var flash = { "alert-danger": resp.responseJSON.message };

@@ -36,11 +36,11 @@ var LenderTemplates = React.createClass({
                       <td>{template.name}</td>
                       <td>{template.description}</td>
                       <th>
-                        <a className='linkTypeReversed btn btn-primary btn-sm' href={'/lenders/' + template.lender_id + '/templates/' + template.id + '/edit'}>Edit</a>
+                        <a className='linkTypeReversed btn btn-primary btn-sm' href={'/lenders/' + this.props.bootstrapData.lender.id + '/lender_templates/' + template.id + '/edit'}>Edit</a>
                       </th>
                     </tr>
                   )
-                })
+                }, this)
               }
               </tbody>
             </table>
