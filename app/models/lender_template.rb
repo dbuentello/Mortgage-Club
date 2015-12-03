@@ -5,12 +5,12 @@
 #  id                         :uuid             not null, primary key
 #  name                       :string
 #  description                :string
-#  lender_id                  :uuid
 
 class LenderTemplate < ActiveRecord::Base
-  belongs_to :lender
-
   validates :name, presence: true
+
+  has_many :lender_template_requirements, dependent: :destroy
+  has_many :lenders, through: :lender_template_requirements
 
   PERMITTED_ATTRS = [:name, :description]
 end
