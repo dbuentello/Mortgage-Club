@@ -98,8 +98,8 @@ Rails.application.routes.draw do
       get :get_secondary_borrower_info, on: :collection
     end
 
-    resources :borrowers, only: [:update] do
-    end
+    resources :borrowers, only: [:update]
+    resources :assets, path: 'borrower_assets', only: [:create]
   end
 
 

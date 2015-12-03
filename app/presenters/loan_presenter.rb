@@ -38,7 +38,7 @@ class LoanPresenter
         },
         borrower: {
           include: [
-            :declaration, :documents,
+            :declaration, :documents, :assets,
             user: {
               only: [ :email, :first_name ]
             }

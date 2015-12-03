@@ -4,7 +4,10 @@ var React = require('react/addons');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var BooleanRadio = require('components/form/BooleanRadio');
+var FlashHandler = require('mixins/FlashHandler');
 var Property = require('./Property');
+var Asset = require('./Asset');
+
 var SelectedLiabilityArr = [];
 
 var fields = {
@@ -12,7 +15,7 @@ var fields = {
 };
 
 var FormAssetsAndLiabilities = React.createClass({
-  mixins: [ObjectHelperMixin, TextFormatMixin],
+  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
 
   getInitialState: function() {
     var currentUser = this.props.bootstrapData.currentUser;
@@ -30,7 +33,12 @@ var FormAssetsAndLiabilities = React.createClass({
     state.primary_property = this.props.loan.primary_property;
     state.subject_property = this.props.loan.subject_property;
     state.saving = false;
-
+    state.assets = this.props.loan.borrower.assets;
+    if (state.assets.length == 0) {
+      var defaultAsset = this.getDefaultAsset();
+      defaultAsset.asset_type = 'checkings';
+      state.assets.push(defaultAsset)
+    }
     return state;
   },
 
@@ -59,6 +67,15 @@ var FormAssetsAndLiabilities = React.createClass({
     );
   },
 
+  eachAsset: function(asset, index) {
+    return (
+      <Asset asset={asset}
+             index={index}
+             key={index}
+             onUpdate={this.updateAsset}
+             onRemove={this.removeAsset}/>
+    );
+  },
   // keepTrackOfSelectedLiabilities: function(unselectedLiability, selectedLiability) {
   //   var liabilities = [];
   //   _.remove(SelectedLiabilityArr, function(liabilityID) { return liabilityID == unselectedLiability; });
@@ -80,12 +97,23 @@ var FormAssetsAndLiabilities = React.createClass({
     return (
       <div>
         <div className='formContent'>
+          <div className='pal'>
+            <div className='box mvn'>
+              <h5 className='typeDeemphasize'>Your financial assets</h5>
+              {this.state.assets.map(this.eachAsset)}
+              <div>
+                <a className='btn btnSml btnAction phm' onClick={this.addAsset}>
+                  <i className='icon iconPlus mrxs'/> Add Asset
+                </a>
+              </div>
+            </div>
+          </div>
           {
             this.state.subject_property
             ?
               <div className='pal'>
                 <div className='box mvn'>
-                  <h5 className='typeDeemphasize'>Your subject residence</h5>
+                  <h5 className='typeDeemphasize'>{"The property you're buying"}</h5>
                   <Property
                     property={this.state.subject_property}
                     liabilities={this.state.liabilities}/>
@@ -182,7 +210,30 @@ var FormAssetsAndLiabilities = React.createClass({
     };
   },
 
+  addAsset: function() {
+    this.setState({assets: this.state.assets.concat(this.getDefaultAsset())});
+  },
+
+  updateAsset: function(index, asset){
+    _.assign(this.state.assets[index], asset);
+  },
+
+  removeAsset: function(index) {
+    var _assets = this.state.assets;
+    _assets.splice(index, 1);
+    this.setState({assets: _assets});
+  },
+
+  getDefaultAsset: function() {
+    return {
+      institution_name: null,
+      asset_type: null,
+      current_balance: null
+    }
+  },
+
   save: function() {
+    var valid = true;
     this.setState({saving: true});
 
     var primary_property = this.state.primary_property;
@@ -202,30 +253,65 @@ var FormAssetsAndLiabilities = React.createClass({
       rental_properties.push(rental_property);
     }
 
+    var _assets = [];
+    _.each(this.state.assets, function(asset){
+      // if (asset.institution_name){
+      //   asset.current_balance = this.currencyToNumber(asset.current_balance);
+      //   _assets.push(asset);
+      // }
+      if (asset.institution_name == null || asset.current_balance == null || asset.asset_type == null){
+        var flash = { "alert-danger": 'You must provide info about Institution Name, Asset Type and Current Balance.' };
+        this.showFlashes(flash);
+        valid = false;
+        this.setState({saving: false});
+      }
+      asset.current_balance = this.currencyToNumber(asset.current_balance);
+      _assets.push(asset);
+    }, this);
+
+    if (valid == false){
+      return;
+    }
+
     $.ajax({
-      url: '/properties/',
+      url: '/borrower_assets',
       method: 'POST',
       context: this,
       dataType: 'json',
-      data: {
-        loan_id: this.props.loan.id,
-        primary_property: primary_property,
-        subject_property: subject_property,
-        rental_properties: rental_properties,
-        own_investment_property: this.state.own_investment_property
-      },
-      success: function(response) {
-        this.props.setupMenu(response, 5);
-        this.props.bootstrapData.liabilities = response.liabilities;
-        // this.setState({saving: false});
+      contentType: 'application/json',
+      data: JSON.stringify({assets: _assets}),
+      success: function(resp){
+        $.ajax({
+          url: '/properties/',
+          method: 'POST',
+          context: this,
+          dataType: 'json',
+          data: {
+            loan_id: this.props.loan.id,
+            primary_property: primary_property,
+            subject_property: subject_property,
+            rental_properties: rental_properties,
+            own_investment_property: this.state.own_investment_property
+          },
+          success: function(response) {
+            this.props.setupMenu(response, 5);
+            this.props.bootstrapData.liabilities = response.liabilities;
+            // this.setState({saving: false});
+          },
+          error: function(response, status, error) {
+            this.setState({saving: false});
+            alert(response.responseJSON.message);
+            // this.setState({saving: false});
+          }
+        });
       },
       error: function(response, status, error) {
-        alert(response.responseJSON.message);
-        // this.setState({saving: false});
-      }
+        this.setState({saving: false});
+        var flash = { "alert-danger": response.responseJSON.message };
+        this.showFlashes(flash);
+      }.bind(this)
     });
   }
-
 });
 
 module.exports = FormAssetsAndLiabilities;
