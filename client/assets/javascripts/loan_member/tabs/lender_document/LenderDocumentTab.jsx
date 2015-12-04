@@ -10,6 +10,8 @@ var LenderDocumentTab = React.createClass({
     var state = {};
 
     state["saving"] = false;
+    state["can_submit"] = this.props.loan.can_submit_to_lender;
+
     _.each(this.props.lender_templates, function(template) {
       var lender_document = _.find(this.props.loan.lender_documents, {"lender_template_id": template.id});
       if (lender_document) {
@@ -41,6 +43,7 @@ var LenderDocumentTab = React.createClass({
         var flash = { "alert-success": response.message };
         this.showFlashes(flash);
         this.setState({saving: false});
+        this.setState({can_submit: false});
       }.bind(this),
       error: function(response, status, error) {
         var flash = { "alert-danger": response.responseJSON.message };
@@ -79,9 +82,15 @@ var LenderDocumentTab = React.createClass({
                 }, this)
               }
             </div>
-            <div className="row">
-              <button style={{backgroundColor: "#15c0f1", color: "#FFFFFF"}} className="btn" onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? "SUBMITTING" : "SUBMIT TO LENDER" }</button>
-            </div>
+            {
+              this.state.can_submit
+              ?
+                <div className="row">
+                  <button style={{backgroundColor: "#15c0f1", color: "#FFFFFF"}} className="btn" onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? "SUBMITTING" : "SUBMIT TO LENDER" }</button>
+                </div>
+              :
+                null
+            }
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ class SubmitApplicationToLenderService
   end
 
   def call
-    return false unless loan && staff && @loan.lender
+    return false unless loan && loan.can_submit_to_lender && staff && @loan.lender
 
     documents_info = get_documents_info
     templates_name = get_templates_name
@@ -20,7 +20,8 @@ class SubmitApplicationToLenderService
       lender_email: @loan.lender.lock_rate_email,
       loan_member_name: staff.to_s,
       loan_member_email: "#{staff.to_s} <#{staff.email}>",
-      client_name: get_client_name
+      client_name: get_client_name,
+      loan_id: loan.id
     }).deliver_later
     true
   end

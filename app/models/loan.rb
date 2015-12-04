@@ -33,6 +33,14 @@ class Loan < ActiveRecord::Base
     refinance: 1
   }
 
+  enum status: {
+    pending: 0,
+    has_lender: 1,
+    sent: 2,
+    read: 3,
+    finish: 4
+  }
+
   validates :loan_type, inclusion: {in: %w( Conventional VA FHA USDA 9 ), message: "%{value} is not a valid loan_type"}, allow_nil: true
 
   def self.initiate(user)
@@ -112,5 +120,10 @@ class Loan < ActiveRecord::Base
 
     association = loans_members_associations.where(loan_id: self.id, title: 'manager').last
     association.loan_member if association
+  end
+
+  def can_submit_to_lender
+    return if self.sent? || self.read? || self.finish?
+    true
   end
 end

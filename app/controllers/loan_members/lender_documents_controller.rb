@@ -38,6 +38,7 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
 
   def submit_to_lender
     if SubmitApplicationToLenderService.new(@loan, current_user).call
+      @loan.sent!
       return render json: {message: "Sent to lender sucessfully"}, status: 200
     else
       return render json: {message: "Failed to send application to lender"}, status: 500

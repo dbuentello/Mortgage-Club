@@ -11,8 +11,8 @@ class LoanPresenter
     @loan.as_json(show_loan_json_options)
   end
 
-  def show_loan_activities
-    @loan.as_json(show_loan_activities_json_options)
+  def show_at_loan_member_dashboard
+    @loan.as_json(show_at_loan_member_dashboard_json_options)
   end
 
   def show_documents
@@ -67,7 +67,7 @@ class LoanPresenter
     }
   end
 
-  def show_loan_activities_json_options
+  def show_at_loan_member_dashboard_json_options
     {
       include: {
         user: {
@@ -83,7 +83,8 @@ class LoanPresenter
         },
         documents: {},
         lender_documents: {}
-      }
+      },
+      methods: :can_submit_to_lender
     }
   end
 
