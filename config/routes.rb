@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
-  get 'take_home_test', to: 'pages#take_home_test', as: :take_home_test
-  get 'home_test_rates', to: 'pages#home_test_rates'
-  get 'backend_test', to: 'pages#backend_test'
-  get 'frontend_test', to: 'pages#frontend_test'
+  get "take_home_test", to: "pages#take_home_test", as: :take_home_test
+  get "home_test_rates", to: "pages#home_test_rates"
+  get "backend_test", to: "pages#backend_test"
+  get "frontend_test", to: "pages#frontend_test"
 
-  get '/esigning/:id', to: 'electronic_signature#new'
+  get "/esigning/:id", to: "electronic_signature#new"
 
   authenticated :user, ->(u) { u.has_role?(:borrower) } do
     root to: "users/loans#index", as: :borrower_root
@@ -20,31 +20,31 @@ Rails.application.routes.draw do
   end
 
   unauthenticated do
-    root 'pages#index', as: :unauthenticated_root
+    root "pages#index", as: :unauthenticated_root
   end
 
   devise_for :users,
     controllers: {
-      sessions: 'users/sessions',
-      registrations: 'users/registrations',
-      confirmations: 'users/confirmations',
-      passwords: 'users/passwords',
-      unlocks: 'users/unlocks'
+      sessions: "users/sessions",
+      registrations: "users/registrations",
+      confirmations: "users/confirmations",
+      passwords: "users/passwords",
+      unlocks: "users/unlocks"
     },
-    path: 'auth',
+    path: "auth",
     path_names: {
-      sign_in: 'login',
-      sign_out: 'logout',
-      password: 'secret',
-      confirmation: 'verification',
-      unlock: 'unblock',
-      registration: 'register',
-      sign_up: 'signup'
+      sign_in: "login",
+      sign_out: "logout",
+      password: "secret",
+      confirmation: "verification",
+      unlock: "unblock",
+      registration: "register",
+      sign_up: "signup"
     }
 
   devise_scope :user do
-    get 'login', to: 'users/sessions#new', as: :custom_login
-    get 'signup', to: 'users/registrations#new', as: :custom_signup
+    get "login", to: "users/sessions#new", as: :custom_login
+    get "signup", to: "users/registrations#new", as: :custom_signup
   end
 
   resources :invites, only: [:index, :create]
@@ -73,13 +73,13 @@ Rails.application.routes.draw do
   resources :charges, only: [:new, :create]
 
   resources :electronic_signature, only: [:new, :create] do
-    get 'embedded_response', on: :collection
+    get "embedded_response", on: :collection
   end
 
-  get '/my/loans', to: 'users/loans#index', as: :my_loans
+  get "/my/loans", to: "users/loans#index", as: :my_loans
 
   scope module: "users" do
-    scope '/my' do
+    scope "/my" do
       # resources :loans do
       # end
 
@@ -99,14 +99,14 @@ Rails.application.routes.draw do
     end
 
     resources :borrowers, only: [:update]
-    resources :assets, path: 'borrower_assets', only: [:create]
+    resources :assets, path: "borrower_assets", only: [:create]
   end
 
 
   namespace :loan_members do
     resources :loan_activities, only: [:index, :show, :create] do
       collection do
-        get 'get_activities_by_conditions'
+        get "get_activities_by_conditions"
       end
     end
 
@@ -121,7 +121,11 @@ Rails.application.routes.draw do
 
     resources :lender_documents do
       member do
-        get 'download'
+        get "download"
+      end
+
+      collection do
+        post "submit_to_lender"
       end
     end
   end
@@ -144,42 +148,42 @@ Rails.application.routes.draw do
   namespace :document_uploaders do
     resources :base_document, only: [:destroy] do
       collection do
-        post 'upload'
+        post "upload"
       end
 
       member do
-        get 'download'
+        get "download"
       end
     end
 
     resources :borrowers, only: [] do
       collection do
-        post 'upload'
+        post "upload"
       end
     end
 
     resources :closings, only: [] do
       collection do
-        post 'upload'
+        post "upload"
       end
     end
 
     resources :loans, only: [] do
       collection do
-        post 'upload'
+        post "upload"
       end
     end
 
     resources :properties, only: [] do
       collection do
-        post 'upload'
+        post "upload"
       end
     end
   end
 
   resources :ocr_notifications do
-    post 'receive', on: :collection
+    post "receive", on: :collection
   end
 
-  post 'receive', to: 'ocr_notifications#receive'
+  post "receive", to: "ocr_notifications#receive"
 end

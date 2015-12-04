@@ -1,0 +1,23 @@
+<p>Dear <%= @args[:lender_name] %>,</p>
+
+<p>I’d like to request a rate lock-in for loan #loan_number.</p>
+
+<p>Please find attached the supporting documents stacked in the following order.</p>
+
+<ol>
+  <% @args[:templates_name].each do |name| %>
+    <li><%= name %></li>
+  <% end %>
+</ol>
+
+<p>Please do not hesitate to contact me if you have any questions, day or night. We are a Silicon Valley startup and we aim to deliver a WOW mortgage experience for our mutual client, <%= @args[:client_name] %>.</p>
+
+<br/>
+
+Yours sincerely,
+<p><%= @args[:loan_member_name] %></p>
+<p>Relationship Manager</p>
+<p>(650) 787-7799  |  <%= @args[:loan_member_email] %></p>
+<p>The easiest way to get a mortgage</p>
+<p><a href="http://www.mortgageclub.co">APPLY NOW</a></p>
+<img src="#{asset_url('logo_email.png')}"/>

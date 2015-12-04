@@ -1,10 +1,15 @@
 var _ = require("lodash");
 var React = require("react/addons");
 var Dropzone = require("components/form/Dropzone");
+var FlashHandler = require('mixins/FlashHandler');
 
 var LenderDocumentTab = React.createClass({
+  mixins: [FlashHandler],
+
   getInitialState: function() {
     var state = {};
+
+    state["saving"] = false;
     _.each(this.props.lender_templates, function(template) {
       var lender_document = _.find(this.props.loan.lender_documents, {"lender_template_id": template.id});
       if (lender_document) {
@@ -19,6 +24,30 @@ var LenderDocumentTab = React.createClass({
       }
     }, this);
     return state;
+  },
+
+  onClick: function() {
+    this.setState({saving: true});
+
+    $.ajax({
+      url: "/loan_members/lender_documents/submit_to_lender",
+      method: "POST",
+      context: this,
+      dataType: "json",
+      data: {
+        loan_id: this.props.loan.id
+      },
+      success: function(response) {
+        var flash = { "alert-success": response.message };
+        this.showFlashes(flash);
+        this.setState({saving: false});
+      }.bind(this),
+      error: function(response, status, error) {
+        var flash = { "alert-danger": response.responseJSON.message };
+        this.showFlashes(flash);
+        this.setState({saving: false});
+      }.bind(this)
+    });
   },
 
   render: function() {
@@ -38,9 +67,9 @@ var LenderDocumentTab = React.createClass({
                   return(
                     <div className="drop_zone" key={template.id}>
                       <Dropzone field={fields}
-                        uploadUrl={'/loan_members/lender_documents/'}
-                        downloadUrl={this.state[template.id + '_downloadUrl']}
-                        removeUrl={this.state[template.id + '_removedUrl']}
+                        uploadUrl={"/loan_members/lender_documents/"}
+                        downloadUrl={this.state[template.id + "_downloadUrl"]}
+                        removeUrl={this.state[template.id + "_removedUrl"]}
                         tip={this.state[template.id + "_name"]}
                         maxSize={10000000}
                         customParams={customParams}
@@ -49,6 +78,9 @@ var LenderDocumentTab = React.createClass({
                   )
                 }, this)
               }
+            </div>
+            <div className="row">
+              <button style={{backgroundColor: "#15c0f1", color: "#FFFFFF"}} className="btn" onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? "SUBMITTING" : "SUBMIT TO LENDER" }</button>
             </div>
           </div>
         </div>
