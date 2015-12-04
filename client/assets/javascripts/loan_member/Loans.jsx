@@ -15,6 +15,14 @@ var Loans = React.createClass({
             return (
               <p key={loan.id}>
                 <a href={"/loan_members/dashboard/" + loan.id}>Loan of {loan.user.to_s} (email: {loan.user.email})</a>
+
+                &nbsp;
+                {
+                  loan.status == "read"
+                  ?
+                    <span className="label label-success">Read by lender</span>
+                  : null
+                }
               </p>
             )
           })

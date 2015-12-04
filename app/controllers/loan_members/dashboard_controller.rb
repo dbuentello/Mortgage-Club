@@ -9,7 +9,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
     @loan.closing ||= Closing.create(name: 'Closing', loan_id: @loan.id)
 
     bootstrap(
-      loan: LoanPresenter.new(@loan).show_loan_activities,
+      loan: LoanPresenter.new(@loan).show_at_loan_member_dashboard,
       first_activity: first_activity(@loan),
       loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : [],
       borrower: BorrowerPresenter.new(@loan.borrower).show,
