@@ -36,11 +36,11 @@ class Template < ActiveRecord::Base
   def template_alignment
     case name
     when "Loan Estimate"
-      Docusign::AlignTabsForLoanEstimateService
+      Docusign::Alignment::LoanEstimateService
     when "Servicing Disclosure"
-      Docusign::AlignTabsForServicingDisclosureService
+      Docusign::Alignment::ServicingDisclosureService
     when "Generic Explanation"
-      Docusign::AlignTabsForGenericExplanationService
+      Docusign::Alignment::GenericExplanationService
     end
   end
 
