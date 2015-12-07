@@ -10,11 +10,25 @@ var TemplateForm = React.createClass({
   getInitialState: function() {
     return {
       name: this.props.lender_template.name,
-      description: this.props.lender_template.description
+      description: this.props.lender_template.description,
+      displayName: false,
+      template_id: this.props.lender_template.template_id
     }
   },
 
   onChange: function(change) {
+    var key = _.keys(change)[0];
+    var value = _.values(change)[0];
+    if (key == "template_id" && value == "other") {
+      this.setState({displayName: true});
+      this.setState({name: ""});
+    }
+    else if (key == "template_id") {
+      var docusign_template = _.find(this.props.docusignTemplates, { 'id': value });
+      this.setState({displayName: false});
+      this.setState({name: docusign_template.name});
+    }
+
     this.setState(change);
   },
 
@@ -77,11 +91,10 @@ var TemplateForm = React.createClass({
   getDocusignTemplateOptions: function() {
     var options = [];
     options.push({name: "", value: ""});
-
     _.each(this.props.docusignTemplates, function(template) {
       options.push({name: template.name, value: template.id});
     });
-
+    options.push({name: "Other", value: "other"});
     return options;
   },
 
@@ -100,16 +113,22 @@ var TemplateForm = React.createClass({
               editable={true}/>
           </div>
         </div>
-        <div className="form-group">
-          <div className="col-sm-4">
-            <TextField
-              label="Name"
-              keyName="name"
-              value={this.state.name}
-              editable={true}
-              onChange={this.onChange}/>
-          </div>
-        </div>
+        {
+          this.state.displayName
+          ?
+            <div className="form-group">
+              <div className="col-sm-4">
+                <TextField
+                  label="Name"
+                  keyName="name"
+                  value={this.state.name}
+                  editable={true}
+                  onChange={this.onChange}/>
+              </div>
+            </div>
+          :
+            null
+        }
         <div className="form-group">
           <div className="col-sm-4">
             <TextField
@@ -129,8 +148,7 @@ var TemplateForm = React.createClass({
           id="removeTemplate"
           title="Confirmation"
           body="Are you sure to remove this template?"
-          yesCallback={this.handleRemove}
-          />
+          yesCallback={this.handleRemove}/>
       </div>
     );
   }

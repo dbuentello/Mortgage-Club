@@ -18,10 +18,10 @@ class Admins::LenderTemplatesController < Admins::BaseController
     lender_template = LenderTemplate.new(template_params)
     requirement = lender_template.lender_template_requirements.find_or_initialize_by(lender: @lender)
 
-    if requirement.save
+    if lender_template.save
       render json: lender_template
     else
-      render json: {message: requirement.errors.full_messages.first}, status: :unprocessable_entity
+      render json: {message: lender_template.errors.full_messages.first}, status: :unprocessable_entity
     end
   end
 
