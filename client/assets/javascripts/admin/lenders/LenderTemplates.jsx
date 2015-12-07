@@ -4,14 +4,14 @@ var TemplateForm = require('./TemplateForm');
 var LenderTemplates = React.createClass({
   getInitialState: function() {
     return {
-      templates: this.props.bootstrapData.templates
+      lender_templates: this.props.bootstrapData.lender_templates
     };
   },
 
-  templateAdded: function(template) {
-    var templates = this.state.templates;
-    templates.push(template);
-    this.setState({templates: templates});
+  templateAdded: function(lender_template) {
+    var lender_templates = this.state.lender_templates;
+    lender_templates.push(lender_template);
+    this.setState({lender_templates: lender_templates});
   },
 
   render: function() {
@@ -30,7 +30,7 @@ var LenderTemplates = React.createClass({
               </thead>
               <tbody>
               {
-                _.map(this.state.templates, function(template){
+                _.map(this.state.lender_templates, function(template){
                   return (
                     <tr key={template.id}>
                       <td>{template.name}</td>
@@ -45,7 +45,7 @@ var LenderTemplates = React.createClass({
               </tbody>
             </table>
             <h3>Add Template</h3>
-            <TemplateForm template={{}} lender={this.props.bootstrapData.lender}
+            <TemplateForm lender_template={{}} lender={this.props.bootstrapData.lender} docusignTemplates={this.props.bootstrapData.docusign_templates}
                           onSave={this.templateAdded}/>
           </div>
         </div>

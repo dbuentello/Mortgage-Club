@@ -11,8 +11,8 @@ var EditTemplate = React.createClass({
      <div className='content container'>
        <div className='pal'>
          <h2>Edit Template </h2>
-         <TemplateForm template={this.props.bootstrapData.template}
-                       lender={this.props.bootstrapData.lender}
+         <TemplateForm lender_template={this.props.bootstrapData.lender_template}
+                       lender={this.props.bootstrapData.lender} docusignTemplates={this.props.bootstrapData.docusign_templates}
                        onSave={this.templateSaved}/>
        </div>
      </div>

@@ -2,14 +2,15 @@ var React = require('react/addons');
 var TextField = require('components/form/TextField');
 var FlashHandler = require('mixins/FlashHandler');
 var ModalLink = require('components/ModalLink');
+var SelectField = require('components/form/SelectField');
 
 var TemplateForm = React.createClass({
   mixins: [FlashHandler],
 
   getInitialState: function() {
     return {
-      name: this.props.template.name,
-      description: this.props.template.description
+      name: this.props.lender_template.name,
+      description: this.props.lender_template.description
     }
   },
 
@@ -20,9 +21,9 @@ var TemplateForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
 
-    if (this.props.template.id) {
+    if (this.props.lender_template.id) {
       $.ajax({
-        url: '/lenders/' + this.props.lender.id + '/lender_templates/' + this.props.template.id,
+        url: '/lenders/' + this.props.lender.id + '/lender_templates/' + this.props.lender_template.id,
         method: 'PUT',
         dataType: 'json',
         contentType: 'application/json',
@@ -58,7 +59,7 @@ var TemplateForm = React.createClass({
 
   handleRemove: function() {
     $.ajax({
-      url: '/lenders/' + this.props.lender.id + '/lender_templates/' + this.props.template.id,
+      url: '/lenders/' + this.props.lender.id + '/lender_templates/' + this.props.lender_template.id,
       method: 'DELETE',
       dataType: 'json',
       contentType: 'application/json',
@@ -73,10 +74,32 @@ var TemplateForm = React.createClass({
     });
   },
 
+  getDocusignTemplateOptions: function() {
+    var options = [];
+    options.push({name: "", value: ""});
+
+    _.each(this.props.docusignTemplates, function(template) {
+      options.push({name: template.name, value: template.id});
+    });
+
+    return options;
+  },
+
   render: function() {
     return (
       <div>
       <form className="form-horizontal lender-template-form" onSubmit={this.handleSubmit}>
+        <div className="form-group">
+          <div className="col-sm-4">
+            <SelectField
+              label="Document"
+              keyName="template_id"
+              value={this.state.template_id}
+              options={this.getDocusignTemplateOptions()}
+              onChange={this.onChange}
+              editable={true}/>
+          </div>
+        </div>
         <div className="form-group">
           <div className="col-sm-4">
             <TextField
@@ -98,7 +121,7 @@ var TemplateForm = React.createClass({
           </div>
         </div>
         <button type="submit" className="btn btn-primary">Save</button> &nbsp;
-        {this.props.template.id ?
+        {this.props.lender_template.id ?
           <a className="btn btn-danger btn-sm" data-toggle="modal" data-target="#removeTemplate">Delete</a> : null
         }
       </form>
