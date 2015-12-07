@@ -24,10 +24,10 @@ class Users::ChecklistsController < Users::BaseController
       docusign_callback_url = docusign_callback_checklists_url(
         loan_id: @loan.id,
         id: @checklist.id,
-        envelope_id: envelope['envelopeId'],
+        envelope_id: envelope["envelopeId"],
         user_id: current_user.id
       )
-      recipient_view = Docusign::GetRecipientViewService.call(envelope['envelopeId'], current_user, docusign_callback_url)
+      recipient_view = Docusign::GetRecipientViewService.call(envelope["envelopeId"], current_user, docusign_callback_url)
       return render json: {message: recipient_view}, status: 200 if recipient_view
     end
 
@@ -38,13 +38,13 @@ class Users::ChecklistsController < Users::BaseController
     utility = DocusignRest::Utility.new
 
     if params[:event] == "signing_complete"
-      @checklist.update(status: 'done')
+      @checklist.update(status: "done")
       Docusign::UploadEnvelopeToAmazonService.new(params[:envelope_id], @checklist.id, params[:user_id]).delay.call
-      render text: utility.breakout_path(dashboard_url(params[:loan_id])), content_type: 'text/html'
+      render text: utility.breakout_path(dashboard_url(params[:loan_id])), content_type: "text/html"
     elsif params[:event] == "ttl_expired"
       # the session has been expired
     else
-      render text: utility.breakout_path(dashboard_url(params[:loan_id], success: true)), content_type: 'text/html'
+      render text: utility.breakout_path(dashboard_url(params[:loan_id], success: true)), content_type: "text/html"
     end
   end
 
