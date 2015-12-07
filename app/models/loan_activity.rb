@@ -112,6 +112,8 @@ class LoanActivity < ActiveRecord::Base
   end
 
   def pretty_loan_member_name
+    return "" unless loan_member
+
     loan_member.user.to_s
   end
 

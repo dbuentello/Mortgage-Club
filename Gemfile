@@ -141,10 +141,6 @@ group :development, :test do
   # A library for setting up Ruby objects as test data
   gem 'factory_girl_rails'
 
-  # Add a comment summarizing the current schema
-  # annotate --exclude tests,fixtures,factories,serializers : model only
-  gem 'annotate', '~> 2.6.6'
-
   gem 'rubocop'
   # Use Capistrano for deployment
   # gem 'capistrano-rails', group: :development

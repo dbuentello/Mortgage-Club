@@ -49,9 +49,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    annotate (2.6.10)
-      activerecord (>= 3.2, <= 4.3)
-      rake (~> 10.4)
     arel (6.0.3)
     asposecloud (1.1.2)
     ast (2.1.0)
@@ -438,7 +435,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  annotate (~> 2.6.6)
   asposecloud
   autoprefixer-rails (~> 5.2.1.1)
   awesome_print

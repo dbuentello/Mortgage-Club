@@ -16,22 +16,11 @@
 
 class Template < ActiveRecord::Base
   belongs_to :creator, inverse_of: :templates, class_name: "User", foreign_key: 'creator_id'
-
   has_many :envelopes, inverse_of: :template
+  has_many :lender_templates
 
   validates :name, :docusign_id, :state, presence: true
   validates :name, uniqueness: true
-
-  after_save :clear_cache
-
-  # clear cache for Docusign tabs
-  def clear_cache
-    begin
-      REDIS.del name if REDIS.get(name)
-    rescue Exception => e
-      Rails.logger.error(e)
-    end
-  end
 
   def template_mapping
     case name

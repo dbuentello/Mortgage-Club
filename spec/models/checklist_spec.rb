@@ -20,31 +20,51 @@ describe Checklist do
     let!(:closing) { FactoryGirl.create(:closing, loan: loan)}
     let(:checklist) { FactoryGirl.create(:checklist, loan: loan) }
 
-    context "borrower" do
+    context "with borrower subject" do
       it "returns right id of subject" do
         checklist.subject_name = "Borrower"
         expect(checklist.subject_id).to eq(loan.borrower.id)
       end
     end
 
-    context "property" do
+    context "with property subject" do
       it "returns right id of subject" do
         checklist.subject_name = "Property"
         expect(checklist.subject_id).to eq(loan.subject_property.id)
       end
     end
 
-    context "closing" do
+    context "with closing subject" do
       it "returns right id of subject" do
         checklist.subject_name = "Closing"
         expect(checklist.subject_id).to eq(loan.closing.id)
       end
     end
 
-    context "loan" do
+    context "with loan subject" do
       it "returns right id of subject" do
         checklist.subject_name = "Loan"
         expect(checklist.subject_id).to eq(loan.id)
+      end
+    end
+  end
+
+  describe "#subject_name_must_belong_to_proper_subject" do
+    before(:each) { @checklist = FactoryGirl.build(:checklist) }
+
+    context "with valid subject name" do
+      it "does not raise an error" do
+        @checklist.subject_name = "Borrower"
+        @checklist.valid?
+        expect(@checklist.errors).to be_empty
+      end
+    end
+
+    context "with invalid subject name" do
+      it "raises an error" do
+        @checklist.subject_name = "Fake Subject"
+        @checklist.valid?
+        expect(@checklist.errors[:subject_name]).to include("must belong to a proper subject")
       end
     end
   end

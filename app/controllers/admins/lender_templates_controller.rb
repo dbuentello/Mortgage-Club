@@ -1,10 +1,13 @@
 class Admins::LenderTemplatesController < Admins::BaseController
   before_action :load_lender
-  before_action :load_template, only: [:edit, :update, :destroy]
+  before_action :load_lender_template, only: [:edit, :update, :destroy]
 
   def index
-    bootstrap(lender: @lender,
-              templates: @lender.lender_templates)
+    bootstrap(
+      lender: @lender,
+      lender_templates: @lender.lender_templates,
+      docusign_templates: Template.all
+    )
 
     respond_to do |format|
       format.html { render template: 'admin_app' }
@@ -12,20 +15,21 @@ class Admins::LenderTemplatesController < Admins::BaseController
   end
 
   def create
-    template = LenderTemplate.new(template_params)
-    requirement = template.lender_template_requirements.find_or_initialize_by(lender: @lender)
+    lender_template = LenderTemplate.new(template_params)
+    requirement = lender_template.lender_template_requirements.find_or_initialize_by(lender: @lender)
 
-    if requirement.save
-      render json: template
+    if lender_template.save
+      render json: lender_template
     else
-      render json: {message: requirement.errors.full_messages.first}, status: :unprocessable_entity
+      render json: {message: lender_template.errors.full_messages.first}, status: :unprocessable_entity
     end
   end
 
   def edit
     bootstrap(
       lender: @lender,
-      template: @template
+      lender_template: @lender_template,
+      docusign_templates: Template.all
     )
 
     respond_to do |format|
@@ -34,15 +38,15 @@ class Admins::LenderTemplatesController < Admins::BaseController
   end
 
   def update
-    if @template.update(template_params)
+    if @lender_template.update(template_params)
       render json: {}
     else
-      render json: {message: @template.errors.full_messages.first}, status: :unprocessable_entity
+      render json: {message: @lender_template.errors.full_messages.first}, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @template.destroy
+    @lender_template.destroy
     render json: {}
   end
 
@@ -56,7 +60,7 @@ class Admins::LenderTemplatesController < Admins::BaseController
     @lender = Lender.find(params[:lender_id])
   end
 
-  def load_template
-    @template = @lender.lender_templates.find(params[:id])
+  def load_lender_template
+    @lender_template = @lender.lender_templates.find(params[:id])
   end
 end
