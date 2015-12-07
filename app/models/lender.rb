@@ -54,7 +54,7 @@ class Lender < ActiveRecord::Base
   ]
 
   def self.dummy_lender
-    return if lender = Lender.where(name: "Dummy Lender").last
+    return lender if lender = Lender.where(name: "Dummy Lender").last
     create_dummy_lender
   end
 
