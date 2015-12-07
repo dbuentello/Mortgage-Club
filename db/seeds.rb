@@ -38,9 +38,9 @@ if User.where(email: 'borrower@gmail.com').blank?
 end
 
 # create staff user
-if User.where(email: 'loan_member@gmail.com').blank?
+if User.where(email: 'loan_member@mortgageclub.co').blank?
   user = User.new(
-    email: 'loan_member@gmail.com', first_name: 'Mark', last_name: 'Lim',
+    email: 'loan_member@mortgageclub.co', first_name: 'Mark', last_name: 'Lim',
     password: '12345678', password_confirmation: '12345678'
   )
   user.skip_confirmation!
