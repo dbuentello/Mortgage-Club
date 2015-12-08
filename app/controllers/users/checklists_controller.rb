@@ -39,7 +39,7 @@ class Users::ChecklistsController < Users::BaseController
 
     if params[:event] == "signing_complete"
       @checklist.update(status: "done")
-      Docusign::UploadEnvelopeToAmazonService.new(params[:envelope_id], @checklist.id, params[:user_id]).delay.call
+      Docusign::MapChecklistExplanationToLenderDocument.new(params[:envelope_id], @checklist.id, params[:user_id]).delay.call
       render text: utility.breakout_path(dashboard_url(params[:loan_id])), content_type: "text/html"
     elsif params[:event] == "ttl_expired"
       # the session has been expired

@@ -10,7 +10,7 @@ module Docusign
     end
 
     def call
-      return false unless envelope_id && user && loan && loan.lender
+      return false unless envelope_id.present? && user && loan && loan.lender
 
       LenderDocument.transaction do
         loan.lender_templates.each do |lender_template|
@@ -25,9 +25,10 @@ module Docusign
           lender_document.user = user
           lender_document.attachment = File.new(file_path)
           lender_document.save!
-          File.delete(file_path)
+          File.delete(file_path) if File.exist?(file_path)
         end
       end
+      true
     end
 
     private
