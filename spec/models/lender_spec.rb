@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Lender, type: :model do
+describe Lender do
   it { should have_many(:lender_template_requirements) }
   it { should have_many(:lender_templates) }
   it { should have_many(:loans) }
