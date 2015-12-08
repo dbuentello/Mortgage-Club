@@ -20,6 +20,7 @@ class Loan < ActiveRecord::Base
   accepts_nested_attributes_for :secondary_borrower, allow_destroy: true
 
   delegate :completed?, to: :borrower, prefix: :borrower
+  delegate :lender_templates, to: :lender, allow_nil: true
 
   PERMITTED_ATTRS = [
     :credit_check_agree,

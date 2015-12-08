@@ -14,6 +14,7 @@ FactoryGirl.define do
     f.checklist_type { 'explain' }
 
     factory :checklist_explain do
+      name { Faker::Lorem.sentence }
       checklist_type { 'explain' }
       question { Faker::Lorem.sentence }
     end

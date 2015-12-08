@@ -17,7 +17,8 @@
 class Template < ActiveRecord::Base
   belongs_to :creator, inverse_of: :templates, class_name: "User", foreign_key: 'creator_id'
   has_many :envelopes, inverse_of: :template
-  has_many :lender_templates
+  has_many :lender_templates, dependent: :destroy
+  has_many :checklists, dependent: :destroy
 
   validates :name, :docusign_id, :state, presence: true
   validates :name, uniqueness: true
@@ -36,11 +37,11 @@ class Template < ActiveRecord::Base
   def template_alignment
     case name
     when "Loan Estimate"
-      Docusign::AlignTabsForLoanEstimateService
+      Docusign::Alignment::LoanEstimateService
     when "Servicing Disclosure"
-      Docusign::AlignTabsForServicingDisclosureService
+      Docusign::Alignment::ServicingDisclosureService
     when "Generic Explanation"
-      Docusign::AlignTabsForGenericExplanationService
+      Docusign::Alignment::GenericExplanationService
     end
   end
 
