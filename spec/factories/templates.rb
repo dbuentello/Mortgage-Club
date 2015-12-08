@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :template do |f|
-    f.name { "Generic Explanation" }
+    f.name { Faker::Lorem.word }
     f.state { Faker::Address.state }
     f.description { Faker::Lorem.sentence }
     f.email_subject { Faker::Lorem.sentence }
