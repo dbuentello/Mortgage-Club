@@ -14,6 +14,8 @@
 
 class Lender < ActiveRecord::Base
   validates :name, presence: true
+  validates :website, presence: true
+  validates :rate_sheet, presence: true
 
   validates :lock_rate_email,
     presence: true,
@@ -35,6 +37,10 @@ class Lender < ActiveRecord::Base
     format: {
       with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
     }
+
+  validates :contact_name, presence: true
+  validates :contact_phone, presence: true
+
 
   has_many :lender_template_requirements, dependent: :destroy
   has_many :lender_templates, through: :lender_template_requirements
@@ -63,14 +69,14 @@ class Lender < ActiveRecord::Base
 
   def self.create_dummy_lender
     Lender.create(
-      name: 'Dummy Lender',
-      website: 'dummy.com',
-      rate_sheet: 'dummy.com/rate_sheet',
-      lock_rate_email: 'lock@dummy.com',
-      docs_email: 'docs@dummy.com',
-      contact_email: 'support@dummy.com',
-      contact_name: 'John Doe',
-      contact_phone: '01-1234-678'
+      name: "Dummy Lender",
+      website: "dummy.com",
+      rate_sheet: "dummy.com/rate_sheet",
+      lock_rate_email: "lock@dummy.com",
+      docs_email: "docs@dummy.com",
+      contact_email: "support@dummy.com",
+      contact_name: "John Doe",
+      contact_phone: "01-1234-678"
     )
   end
 
