@@ -8,7 +8,7 @@ var LenderForm = React.createClass({
 
   getInitialState: function() {
     var lender = this.props.bootstrapData.lender;
-    
+
     return {
       id: lender.id,
       name: lender.name,
@@ -85,6 +85,7 @@ var LenderForm = React.createClass({
       <div className='pal'>
         <div className='row'>
           {this.state.id ? <h2 className='mbl'>Edit Lender</h2> : <h2 className='mbl'>New Lender</h2>}
+          <span className="text-warning"><i> All fields are required </i></span>
           <form className="form-horizontal lender-form" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <div className="col-sm-6">
