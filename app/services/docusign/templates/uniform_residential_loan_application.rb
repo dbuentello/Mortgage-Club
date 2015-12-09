@@ -104,13 +104,13 @@ module Docusign
       end
 
       def build_housing_expense(type, property)
-        @params[type + "_rent"] = Money.new(borrower.current_address.monthly_rent * 100).format if primary_property && borrower.current_address.is_rental
+        @params[type + "_rent"] = Money.new(borrower.current_address.monthly_rent.to_f * 100).format if primary_property && borrower.current_address.is_rental
         @params[type + "_first_mortgage"] = Money.new(property.mortgage_payment * 100).format
         @params[type + "_other_financing"] = Money.new(property.other_financing * 100).format
-        @params[type + "_hazard_insurance"] = Money.new(property.estimated_hazard_insurance * 100).format
-        @params[type + "_estate_taxes"] = Money.new(property.estimated_property_tax * 100).format
-        @params[type + "_mortgage_insurance"] = Money.new(property.estimated_mortgage_insurance * 100).format
-        @params[type + "_homeowner"] = Money.new(property.hoa_due * 100).format
+        @params[type + "_hazard_insurance"] = Money.new(property.estimated_hazard_insurance.to_f * 100).format
+        @params[type + "_estate_taxes"] = Money.new(property.estimated_property_tax.to_f * 100).format
+        @params[type + "_mortgage_insurance"] = Money.new(property.estimated_mortgage_insurance.to_f * 100).format
+        @params[type + "_homeowner"] = Money.new(property.hoa_due.to_f * 100).format
         @params[type + "_total_expense"] = Money.new((property.mortgage_payment + property.other_financing +
                                             property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
                                             property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f) * 100).format
