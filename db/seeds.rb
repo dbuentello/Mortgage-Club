@@ -21,20 +21,9 @@ if User.where(email: 'borrower@gmail.com').blank?
   loan = user.loans.build(amount: Random.rand(100000..200000), interest_rate: Random.rand(0.2..1))
   loan.save
 
-  hud_estimate = loan.create_hud_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
-  hud_final = loan.create_hud_final(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
-  loan_estimate = loan.create_loan_estimate(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
-  loan_estimate = loan.create_uniform_residential_lending_application(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
-
   property = Property.new(purchase_price: Random.rand(100000..200000), is_primary: true, loan_id: loan.id)
   property.create_address(street_address: "208 Silver Eagle Road")
   property.save
-
-  appraisal_report = property.create_appraisal_report(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
-  mortgage_statement = property.create_mortgage_statement(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
-  purchase_agreement = property.create_purchase_agreement(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
-  risk_report = property.create_risk_report(attachment: File.new(Rails.root.join 'spec', 'files', 'sample.docx'), owner: user)
-
 end
 
 # create staff user
