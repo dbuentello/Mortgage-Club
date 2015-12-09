@@ -124,9 +124,9 @@ class Loan < ActiveRecord::Base
   end
 
   def can_submit_to_lender
-    return if self.sent? || self.read? || self.finish?
-
-    true
+    true # will update it when we have rules
+    # return if self.sent? || self.read? || self.finish?
+    # true
   end
 
   def fixed_rate_amortization?

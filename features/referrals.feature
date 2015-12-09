@@ -34,7 +34,7 @@ Feature: Referrals
           And the "invite-phone-1" field should contain ""
           Then an email should have been sent with:
             """
-            From: billy@mortgageclub.io
+            From: hello@mortgageclub.co
             To: test1@mortgageclub.io
             Subject: Billy Tran has invited you to join Mortgage Club
             """
