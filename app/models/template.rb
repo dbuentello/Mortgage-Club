@@ -57,7 +57,7 @@ class Template < ActiveRecord::Base
     when "Generic Explanation"
       Docusign::Alignment::GenericExplanationService
     when "Uniform Residential Loan Application"
-      Docusign::AlignTabsForUniformResidentialService
+      Docusign::Alignment::UniformResidentialService
     end
   end
 

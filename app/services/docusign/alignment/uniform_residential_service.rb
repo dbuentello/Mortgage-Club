@@ -1,5 +1,5 @@
 module Docusign
-  class AlignTabsForUniformResidentialService
+  class UniformResidentialService
     attr_accessor :tabs
 
     def initialize(tabs)
