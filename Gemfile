@@ -83,9 +83,6 @@ gem 'docusign_rest', git: 'https://7c584ddbcdc592cbd464e3701e359948d3125a15:x-oa
 gem 'stripe'
 # gem 'omniauth-stripe-connect'
 
-# Pretty print your Ruby objects with style
-gem 'awesome_print'
-
 # ActiveRecord backend integration for DelayedJob 3.0+
 gem 'delayed_job_active_record'
 
@@ -144,6 +141,9 @@ group :development, :test do
   gem 'rubocop'
   # Use Capistrano for deployment
   # gem 'capistrano-rails', group: :development
+
+  # Pretty print your Ruby objects with style
+  gem 'awesome_print'
 end
 
 group :test do

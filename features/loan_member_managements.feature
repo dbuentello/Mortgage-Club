@@ -23,13 +23,13 @@ Feature: LoanMemberManagements
       | *         | Cuong Vu | cuongvu0103@gmail.com  | 8889998      | keeping_fit  |
     Then an email should have been sent with:
       """
-      From: billy@mortgageclub.io
+      From: hello@mortgageclub.co
       To: cuongvu0103@gmail.com
       Subject: Welcome to MortgageClub
       """
       And "cuongvu0103@gmail.com" should receive an email
       Then I open the email
-        And I should see "Thank you for joining MortgageClub" in the email body
+        And I should see "Thanks for signing up" in the email body
         And I follow "Confirm Your Account" in the email
     Then I should see "Your email address has been successfully confirmed."
 
