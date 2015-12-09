@@ -10,14 +10,14 @@ module MortgageRateServices
       else
         zillow = MortgageRateServices::Zillow.call
         quicken_loans = MortgageRateServices::Quickenloans.call
-        chase = MortgageRateServices::Chase.call
+        wellsfargo = MortgageRateServices::Wellsfargo.call
 
-        edit_rates(zillow, quicken_loans, chase)
+        edit_rates(zillow, quicken_loans, wellsfargo)
 
         mortgage_aprs = {
           "zillow" => zillow,
           "quicken_loans" => quicken_loans,
-          "chase" => chase,
+          "wellsfargo" => wellsfargo,
           "updated_at" => Time.zone.now
         }
         REDIS.set(cache_key, mortgage_aprs.to_json)
@@ -38,7 +38,7 @@ module MortgageRateServices
           "apr_15_year" => 0,
           "apr_5_libor" => 0
         },
-        "chase" => {
+        "wellsfargo" => {
           "apr_30_year" => 0,
           "apr_15_year" => 0,
           "apr_5_libor" => 0
@@ -47,23 +47,23 @@ module MortgageRateServices
       }
     end
 
-    def self.edit_rates(zillow, quicken_loans, chase)
+    def self.edit_rates(zillow, quicken_loans, wellsfargo)
       zillow.each do |type, rate|
         quicken_loans_rate = quicken_loans[type]
-        chase_rate = chase[type]
+        wellsfargo_rate = wellsfargo[type]
         offset = (type == "apr_30_year".freeze) ? 0.538 : 0.125
 
-        if should_edit_rate?(rate, quicken_loans_rate, chase_rate, type)
-          zillow[type] = [quicken_loans_rate, chase_rate].min - offset
+        if should_edit_rate?(rate, quicken_loans_rate, wellsfargo_rate, type)
+          zillow[type] = [quicken_loans_rate, wellsfargo_rate].min - offset
         end
       end
     end
 
-    def self.should_edit_rate?(zillow_rate, quicken_loans_rate, chase_rate, type)
+    def self.should_edit_rate?(zillow_rate, quicken_loans_rate, wellsfargo_rate, type)
       if type == "apr_30_year".freeze
-        return (zillow_rate == 0 || zillow_rate > ([quicken_loans_rate, chase_rate].min - 0.375))
+        return (zillow_rate == 0 || zillow_rate > ([quicken_loans_rate, wellsfargo_rate].min - 0.375))
       else
-        return (zillow_rate == 0 || zillow_rate > [quicken_loans_rate, chase_rate].min)
+        return (zillow_rate == 0 || zillow_rate > [quicken_loans_rate, wellsfargo_rate].min)
       end
     end
   end
