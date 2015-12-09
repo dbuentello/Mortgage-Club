@@ -104,8 +104,12 @@ if Template.where(name: "Servicing Disclosure").blank?
   Docusign::CreateTemplateService.call("Servicing Disclosure", {document_order: 2})
 end
 
+if Template.where(name: 'Uniform Residential Loan Application').blank?
+  Docusign::CreateTemplateService.call("Uniform Residential Loan Application", {document_order: 3})
+end
+
 if Template.where(name: "Generic Explanation").blank?
-  Docusign::CreateTemplateService.call("Generic Explanation", {document_order: 3})
+  Docusign::CreateTemplateService.call("Generic Explanation", {document_order: 4})
 end
 
 if Lender.where(name: 'Dummy Lender').blank?

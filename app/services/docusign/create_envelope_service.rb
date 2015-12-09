@@ -14,7 +14,7 @@ module Docusign
 
     def call
       @envelope_hash = build_envelope_hash
-      signers = Docusign::BuildSignatureForEnvelopeService.new(loan, templates, @envelope_hash).call
+      signers = Docusign::GenerateSignersForEnvelopeService.new(loan, templates, @envelope_hash).call
       envelope_response = client.create_envelope_from_composite_template(
         status: 'sent',
         email: {
@@ -24,8 +24,11 @@ module Docusign
         server_template_ids: template_ids,
         signers: signers
       )
-      save_envelope_object_into_database(envelope_response["envelopeId"], @envelope_hash[:loan_id])
-      return envelope_response if envelope_response["errorCode"].nil?
+
+      if envelope_response["errorCode"].nil?
+        save_envelope_object_into_database(envelope_response["envelopeId"], @envelope_hash[:loan_id])
+        return envelope_response
+      end
     end
 
     private
@@ -47,7 +50,7 @@ module Docusign
 
     def mapping_value
       templates.map do |template|
-        template.template_mapping.new(loan).params
+        template.template_mapping.new(loan).build
       end
     end
 

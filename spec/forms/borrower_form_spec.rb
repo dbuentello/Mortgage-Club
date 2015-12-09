@@ -9,6 +9,7 @@ describe BorrowerForm do
   before(:each) do
     @params = {
       current_address: {},
+      previous_address: {},
       previous_borrower_address: {},
       current_borrower_address: {
         years_at_address: 10,
@@ -19,7 +20,7 @@ describe BorrowerForm do
         dependent_ages: [12],
         dependent_count: 10
       },
-      loan_id: loan.id
+      loan_id: loan.id,
     }
     @form = BorrowerForm.new(
       form_params: @params,

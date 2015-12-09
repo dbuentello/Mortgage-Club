@@ -76,12 +76,14 @@ var FormProperty = React.createClass({
         var marketPrice = this.getValue(response, 'zestimate.amount.__content__');
         var monthlyTax = this.getValue(response, 'monthlyTax');
         var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
+        var yearBuilt = this.getValue(response, 'yearBuilt');
 
         this.setState({
           property_type: propertyType,
           market_price: marketPrice,
           estimated_property_tax: monthlyTax,
           estimated_hazard_insurance: monthlyInsurance,
+          year_built: yearBuilt
         });
       }
     });
@@ -214,6 +216,7 @@ var FormProperty = React.createClass({
     state['market_price'] = property.market_price;
     state['estimated_hazard_insurance'] = property.estimated_hazard_insurance;
     state['estimated_property_tax'] = property.estimated_property_tax;
+    state['year_built'] = property.year_built;
 
     return state;
   },
@@ -239,11 +242,12 @@ var FormProperty = React.createClass({
     loan.properties_attributes.address_attributes = this.state.address;
     loan.properties_attributes.zpid = this.state.property ? this.state.property.zpid : null;
     loan.properties_attributes.is_subject = true
-    loan.properties_attributes.property_type = this.state['property_type'];
-    loan.properties_attributes.market_price = this.state['market_price'];
-    loan.properties_attributes.estimated_hazard_insurance = this.state['estimated_hazard_insurance'];
-    loan.properties_attributes.estimated_property_tax = this.state['estimated_property_tax'];
+    loan.properties_attributes.property_type = this.state.property_type;
+    loan.properties_attributes.market_price = this.state.market_price;
+    loan.properties_attributes.estimated_hazard_insurance = this.state.estimated_hazard_insurance;
+    loan.properties_attributes.estimated_property_tax = this.state.estimated_property_tax;
     loan.properties_attributes.is_primary = this.isPrimaryProperty();
+    loan.properties_attributes.year_built = this.state.year_built;
     return loan;
   },
 

@@ -1,5 +1,3 @@
-include NumbersHelper
-
 module Docusign
   module Templates
     class GenericExplanation
@@ -11,6 +9,11 @@ module Docusign
         @params = {}
 
         build_content
+      end
+
+      def build
+        build_content
+        params
       end
 
       private
