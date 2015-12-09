@@ -140,4 +140,8 @@ class Loan < ActiveRecord::Base
 
     amortization_type.include? "ARM"
   end
+
+  def other_lender_documents
+    lender_documents.joins(:lender_template).where("is_other = ?", true)
+  end
 end

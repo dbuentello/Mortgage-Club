@@ -1,7 +1,8 @@
 var _ = require("lodash");
 var React = require("react/addons");
 var Dropzone = require("components/form/Dropzone");
-var FlashHandler = require('mixins/FlashHandler');
+var FlashHandler = require("mixins/FlashHandler");
+var OtherDocument = require("./OtherDocument");
 
 var LenderDocumentTab = React.createClass({
   mixins: [FlashHandler],
@@ -9,10 +10,10 @@ var LenderDocumentTab = React.createClass({
   getInitialState: function() {
     var state = {};
 
-    state["saving"] = false;
-    state["can_submit"] = this.props.loan.can_submit_to_lender;
+    state.saving = false;
+    state.can_submit = this.props.loan.can_submit_to_lender;
 
-    _.each(this.props.lender_templates, function(template) {
+    _.each(this.props.lenderTemplates, function(template) {
       var lender_document = _.find(this.props.loan.lender_documents, {"lender_template_id": template.id});
       if (lender_document) {
         state[template.id] = lender_document.id;
@@ -25,6 +26,18 @@ var LenderDocumentTab = React.createClass({
         state[template.id + "_removedUrl"] = "javascript:void(0)";
       }
     }, this);
+
+    if (this.props.loan.other_lender_documents.length > 0) {
+      state.other_lender_documents = this.props.loan.other_lender_documents;
+      _.each(state.other_lender_documents, function(lender_document) {
+        lender_document.downloadUrl = "/loan_members/lender_documents/" + lender_document.id + "/download";
+        lender_document.removedUrl = "/loan_members/lender_documents/" + lender_document.id;
+      }, this);
+    }
+    else {
+      state.other_lender_documents = this.getDefaultOtherDocument();
+    }
+
     return state;
   },
 
@@ -43,7 +56,7 @@ var LenderDocumentTab = React.createClass({
         var flash = { "alert-success": response.message };
         this.showFlashes(flash);
         this.setState({saving: false});
-        this.setState({can_submit: false});
+        // this.setState({can_submit: false});
       }.bind(this),
       error: function(response, status, error) {
         var flash = { "alert-danger": response.responseJSON.message };
@@ -53,14 +66,28 @@ var LenderDocumentTab = React.createClass({
     });
   },
 
+  getDefaultOtherDocument: function() {
+    return [{
+      description: "Other Document",
+      label: "Other Document",
+      otherTemplate: this.props.otherLenderTemplate,
+      loanId: this.props.loan.id,
+      downloadUrl: "javascript:void(0)",
+      removeUrl: "javascript:void(0)",
+      name: ""
+    }];
+  },
+
+
   render: function() {
+    console.dir(this.props.otherLenderTemplate)
     return (
       <div className="content container backgroundBasic">
         <div className="pal">
           <div className="box mtn">
             <div className="row">
               {
-                _.map(this.props.lender_templates, function(template) {
+                _.map(this.props.lenderTemplates, function(template) {
                   var fields = {label: template.name, name: template.name.replace(/ /g,""), placeholder: 'drag file here or browse'};
                   var customParams = [
                     {template_id: template.id},
@@ -77,6 +104,19 @@ var LenderDocumentTab = React.createClass({
                         maxSize={10000000}
                         customParams={customParams}
                         supportOtherDescription={template.is_other}/>
+                    </div>
+                  )
+                }, this)
+              }
+              {
+                _.map(this.state.other_lender_documents, function(lender_document) {
+                  return(
+                    <div className="drop_zone" key={lender_document.id}>
+                      <OtherDocument label={lender_document.description}
+                        otherTemplate={this.props.otherLenderTemplate}
+                        loanId={this.props.loan.id}
+                        downloadUrl={lender_document.downloadUrl}
+                        removeUrl={lender_document.removeUrl}/>
                     </div>
                   )
                 }, this)

@@ -46,7 +46,7 @@ var Dashboard = React.createClass({
                 <DocumentTab loan={this.props.bootstrapData.loan} borrower={this.props.bootstrapData.borrower} property={this.props.bootstrapData.property} closing={this.props.bootstrapData.closing}></DocumentTab>
               </div>
               <div role="tabpanel" className="tab-pane fade" id="lender_document">
-                <LenderDocumentTab loan={this.props.bootstrapData.loan} lender_templates={this.props.bootstrapData.lender_templates}></LenderDocumentTab>
+                <LenderDocumentTab loan={this.props.bootstrapData.loan} lenderTemplates={this.props.bootstrapData.lender_templates} otherLenderTemplate={this.props.bootstrapData.other_lender_template}></LenderDocumentTab>
               </div>
               <div role="tabpanel" className="tab-pane fade" id="checklist">
                 <ChecklistTab loan={this.props.bootstrapData.loan} checklists={this.props.bootstrapData.loan.checklists} templates={this.props.bootstrapData.templates}></ChecklistTab>
