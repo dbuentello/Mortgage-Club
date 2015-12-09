@@ -7,33 +7,33 @@ var SelectField = require('components/form/SelectField');
 var BooleanRadio = require('components/form/BooleanRadio');
 
 var owner_upload_fields = {
-  first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'first_personal_tax_return', placeholder: 'drap file here or browse'},
-  second_personal_tax_return: {label: 'Personal tax return - Previous year', name: 'second_personal_tax_return', placeholder: 'drap file here or browse'},
-  first_business_tax_return: {label: 'Business tax return - Most recent year', name: 'first_business_tax_return', placeholder: 'drap file here or browse'},
-  second_business_tax_return: {label: 'Business tax return - Previous year', name: 'second_business_tax_return', placeholder: 'drap file here or browse'},
-  first_w2: {label: 'W2 - Most recent tax year', name: 'first_w2', placeholder: 'drap file here or browse'},
-  second_w2: {label: 'W2 - Previous tax year', name: 'second_w2', placeholder: 'drap file here or browse'},
-  first_paystub: {label: "Paystub - Most recent period", name: 'first_paystub', placeholder: 'drap file here or browse'},
-  second_paystub: {label: 'Paystub - Previous period', name: 'second_paystub', placeholder: 'drap file here or browse'},
-  first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'first_federal_tax_return', placeholder: 'drap file here or browse'},
-  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'second_federal_tax_return', placeholder: 'drap file here or browse'},
-  first_bank_statement: {label: 'Bank statement - Most recent month', name: 'first_bank_statement', placeholder: 'drap file here or browse'},
-  second_bank_statement: {label: 'Bank statement - Previous month', name: 'second_bank_statement', placeholder: 'drap file here or browse'}
+  first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'first_personal_tax_return', placeholder: 'drag file here or browse'},
+  second_personal_tax_return: {label: 'Personal tax return - Previous year', name: 'second_personal_tax_return', placeholder: 'drag file here or browse'},
+  first_business_tax_return: {label: 'Business tax return - Most recent year', name: 'first_business_tax_return', placeholder: 'drag file here or browse'},
+  second_business_tax_return: {label: 'Business tax return - Previous year', name: 'second_business_tax_return', placeholder: 'drag file here or browse'},
+  first_w2: {label: 'W2 - Most recent tax year', name: 'first_w2', placeholder: 'drag file here or browse'},
+  second_w2: {label: 'W2 - Previous tax year', name: 'second_w2', placeholder: 'drag file here or browse'},
+  first_paystub: {label: "Paystub - Most recent period", name: 'first_paystub', placeholder: 'drag file here or browse'},
+  second_paystub: {label: 'Paystub - Previous period', name: 'second_paystub', placeholder: 'drag file here or browse'},
+  first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'first_federal_tax_return', placeholder: 'drag file here or browse'},
+  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'second_federal_tax_return', placeholder: 'drag file here or browse'},
+  first_bank_statement: {label: 'Bank statement - Most recent month', name: 'first_bank_statement', placeholder: 'drag file here or browse'},
+  second_bank_statement: {label: 'Bank statement - Previous month', name: 'second_bank_statement', placeholder: 'drag file here or browse'}
 };
 
 var co_borrower_upload_fields = {
-  first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'co_first_personal_tax_return', placeholder: 'drap file here or browse'},
-  second_personal_tax_return: {label: 'Personal tax return - Previous year', name: 'co_second_personal_tax_return', placeholder: 'drap file here or browse'},
-  first_business_tax_return: {label: 'Business tax return - Most recent year', name: 'co_first_business_tax_return', placeholder: 'drap file here or browse'},
-  second_business_tax_return: {label: 'Business tax return - Previous year', name: 'co_second_business_tax_return', placeholder: 'drap file here or browse'},
-  first_w2: {label: 'W2 - Most recent tax year', name: 'co_first_w2', placeholder: 'drap file here or browse'},
-  second_w2: {label: 'W2 - Previous tax year', name: 'co_second_w2', placeholder: 'drap file here or browse'},
-  first_paystub: {label: "Paystub - Most recent period", name: 'co_first_paystub', placeholder: 'drap file here or browse'},
-  second_paystub: {label: 'Paystub - Previous period', name: 'co_second_paystub', placeholder: 'drap file here or browse'},
-  first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'co_first_federal_tax_return', placeholder: 'drap file here or browse'},
-  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'co_second_federal_tax_return', placeholder: 'drap file here or browse'},
-  first_bank_statement: {label: 'Bank statement - Most recent month', name: 'co_first_bank_statement', placeholder: 'drap file here or browse'},
-  second_bank_statement: {label: 'Bank statement - Previous month', name: 'co_second_bank_statement', placeholder: 'drap file here or browse'}
+  first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'co_first_personal_tax_return', placeholder: 'drag file here or browse'},
+  second_personal_tax_return: {label: 'Personal tax return - Previous year', name: 'co_second_personal_tax_return', placeholder: 'drag file here or browse'},
+  first_business_tax_return: {label: 'Business tax return - Most recent year', name: 'co_first_business_tax_return', placeholder: 'drag file here or browse'},
+  second_business_tax_return: {label: 'Business tax return - Previous year', name: 'co_second_business_tax_return', placeholder: 'drag file here or browse'},
+  first_w2: {label: 'W2 - Most recent tax year', name: 'co_first_w2', placeholder: 'drag file here or browse'},
+  second_w2: {label: 'W2 - Previous tax year', name: 'co_second_w2', placeholder: 'drag file here or browse'},
+  first_paystub: {label: "Paystub - Most recent period", name: 'co_first_paystub', placeholder: 'drag file here or browse'},
+  second_paystub: {label: 'Paystub - Previous period', name: 'co_second_paystub', placeholder: 'drag file here or browse'},
+  first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'co_first_federal_tax_return', placeholder: 'drag file here or browse'},
+  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'co_second_federal_tax_return', placeholder: 'drag file here or browse'},
+  first_bank_statement: {label: 'Bank statement - Most recent month', name: 'co_first_bank_statement', placeholder: 'drag file here or browse'},
+  second_bank_statement: {label: 'Bank statement - Previous month', name: 'co_second_bank_statement', placeholder: 'drag file here or browse'}
 };
 
 var FormDocuments = React.createClass({

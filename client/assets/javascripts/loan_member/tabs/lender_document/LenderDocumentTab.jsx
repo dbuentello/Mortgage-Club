@@ -20,7 +20,7 @@ var LenderDocumentTab = React.createClass({
         state[template.id + "_downloadUrl"] = "/loan_members/lender_documents/" + lender_document.id + "/download";
         state[template.id + "_removedUrl"] = "/loan_members/lender_documents/" + lender_document.id;
       }else {
-        state[template.id + "_name"] = "drap file here or browse";
+        state[template.id + "_name"] = "drag file here or browse";
         state[template.id + "_downloadUrl"] = "javascript:void(0)";
         state[template.id + "_removedUrl"] = "javascript:void(0)";
       }
@@ -55,13 +55,13 @@ var LenderDocumentTab = React.createClass({
 
   render: function() {
     return (
-      <div className='content container backgroundBasic'>
-        <div className='pal'>
-          <div className='box mtn'>
-            <div className='row'>
+      <div className="content container backgroundBasic">
+        <div className="pal">
+          <div className="box mtn">
+            <div className="row">
               {
                 _.map(this.props.lender_templates, function(template) {
-                  var fields = {label: template.name, name: template.name.replace(/ /g,''), placeholder: 'drap file here or browse'};
+                  var fields = {label: template.name, name: template.name.replace(/ /g,""), placeholder: 'drag file here or browse'};
                   var customParams = [
                     {template_id: template.id},
                     {description: template.description},
