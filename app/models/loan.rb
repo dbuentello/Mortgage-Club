@@ -20,6 +20,7 @@ class Loan < ActiveRecord::Base
   accepts_nested_attributes_for :secondary_borrower, allow_destroy: true
 
   delegate :completed?, to: :borrower, prefix: :borrower
+  delegate :lender_templates, to: :lender, allow_nil: true
 
   PERMITTED_ATTRS = [
     :credit_check_agree,
@@ -126,5 +127,17 @@ class Loan < ActiveRecord::Base
     true # will update it when we have rules
     # return if self.sent? || self.read? || self.finish?
     # true
+  end
+
+  def fixed_rate_amortization?
+    return false unless amortization_type
+
+    amortization_type.include? "fixed"
+  end
+
+  def arm_amortization?
+    return false unless amortization_type
+
+    amortization_type.include? "ARM"
   end
 end

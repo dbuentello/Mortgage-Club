@@ -13,7 +13,7 @@ class ElectronicSignatureController < ApplicationController
   end
 
   def create
-    templates = Template.where(name: ["Loan Estimate", "Servicing Disclosure"])
+    templates = Template.where(name: ["Loan Estimate", "Servicing Disclosure", "Uniform Residential Loan Application"])
     if templates.empty?
       return render json: {
               message: "Template does not exist yet",
@@ -31,7 +31,11 @@ class ElectronicSignatureController < ApplicationController
       recipient_view = Docusign::GetRecipientViewService.call(
         envelope['envelopeId'],
         current_user,
-        embedded_response_electronic_signature_index_url(loan_id: params[:id])
+        embedded_response_electronic_signature_index_url(
+          loan_id: params[:id],
+          envelope_id: envelope['envelopeId'],
+          user_id: current_user.id
+        )
       )
       return render json: {message: recipient_view}, status: 200 if recipient_view
     end
@@ -44,6 +48,7 @@ class ElectronicSignatureController < ApplicationController
     utility = DocusignRest::Utility.new
 
     if params[:event] == "signing_complete"
+      Docusign::MapEnvelopeToLenderDocument.new(params[:envelope_id], params[:user_id], params[:loan_id]).delay.call
       render text: utility.breakout_path("/my/dashboard/#{params[:loan_id]}"), content_type: 'text/html'
     elsif params[:event] == "ttl_expired"
       # the session has been expired

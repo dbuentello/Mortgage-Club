@@ -20,6 +20,10 @@ class LenderTemplate < ActiveRecord::Base
 
   PERMITTED_ATTRS = [:name, :description, :template_id]
 
+  def docusign_envelope?
+    template.present?
+  end
+
   def self.create_other_template(lender)
     template = self.find_or_initialize_by(name: "Other Document", description: "This is an other form", is_other: true)
     requirement = template.lender_template_requirements.find_or_initialize_by(lender: lender)

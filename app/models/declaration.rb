@@ -33,7 +33,7 @@ class Declaration < ActiveRecord::Base
     :property_foreclosed,
     :party_to_lawsuit,
     :loan_foreclosure,
-    :nil_deliquent_loan,
+    :present_delinquent_loan,
     :child_support,
     :down_payment_borrowed,
     :co_maker_or_endorser,
@@ -51,5 +51,4 @@ class Declaration < ActiveRecord::Base
     us_citizen.nil? && permanent_resident_alien.nil? && ownership_interest.nil? &&
     type_of_property.nil? && title_of_property.nil?)
   end
-
 end

@@ -17,11 +17,24 @@
 class Template < ActiveRecord::Base
   belongs_to :creator, inverse_of: :templates, class_name: "User", foreign_key: 'creator_id'
   has_many :envelopes, inverse_of: :template
-  has_many :lender_templates
+  has_many :lender_templates, dependent: :destroy
+  has_many :checklists, dependent: :destroy
 
   validates :name, :docusign_id, :state, presence: true
   validates :name, uniqueness: true
 
+  after_save :clear_cache
+
+  # clear cache for Docusign tabs
+  def clear_cache
+    begin
+      REDIS.del name if REDIS.get(name)
+    rescue Exception => e
+      Rails.logger.error(e)
+    end
+  end
+
+  # TODO: Refactor this method, it's a bad practice
   def template_mapping
     case name
     when "Loan Estimate"
@@ -30,44 +43,26 @@ class Template < ActiveRecord::Base
       Docusign::Templates::ServicingDisclosure
     when "Generic Explanation"
       Docusign::Templates::GenericExplanation
+    when "Uniform Residential Loan Application"
+      Docusign::Templates::UniformResidentialLoanApplication
     end
   end
 
   def template_alignment
     case name
     when "Loan Estimate"
-      Docusign::AlignTabsForLoanEstimateService
+      Docusign::Alignment::LoanEstimateService
     when "Servicing Disclosure"
-      Docusign::AlignTabsForServicingDisclosureService
+      Docusign::Alignment::ServicingDisclosureService
     when "Generic Explanation"
-      Docusign::AlignTabsForGenericExplanationService
+      Docusign::Alignment::GenericExplanationService
+    when "Uniform Residential Loan Application"
+      Docusign::Alignment::UniformResidentialService
     end
   end
 
   # TODO: it will be an attribute when we have an interface to CRUD templates.
   def may_need_coapplicant_signature?
-    return true if name == "Loan Estimate"
-    false
-  end
-
-  # TODO: in the future each template has different position
-  def cosignature_position
-    return unless may_need_coapplicant_signature?
-    {
-      x_position: 340,
-      y_position: 672,
-      page_number: 3,
-      optional: false
-    }
-  end
-
-  # TODO: in the future each template has different position
-  def codate_signed_position
-    return unless may_need_coapplicant_signature?
-    {
-      x_position: 480,
-      y_position: 709,
-      page_number: 3
-    }
+    ["Loan Estimate", "Servicing Disclosure"].include? name
   end
 end

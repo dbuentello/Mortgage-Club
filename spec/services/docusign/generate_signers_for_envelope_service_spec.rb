@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Docusign::BuildSignatureForEnvelopeService do
+describe Docusign::GenerateSignersForEnvelopeService do
   let(:user) { FactoryGirl.create(:user) }
   let(:loan) { FactoryGirl.create(:loan_with_all_associations) }
   let(:template) { FactoryGirl.create(:template, name: "Loan Estimate") }
@@ -8,17 +8,17 @@ describe Docusign::BuildSignatureForEnvelopeService do
 
   before(:each) do
     allow_any_instance_of(Docusign::Helper).to receive(:get_tabs_from_template).and_return({
-      sign_here_tabs: [{}],
-      date_signed_tabs: [{}]
+      sign_here_tabs: [{}, {}],
+      date_signed_tabs: [{}, {}]
     })
-    allow_any_instance_of(Docusign::AlignTabsForLoanEstimateService).to receive(:call)
+    allow_any_instance_of(Docusign::Alignment::LoanEstimateService).to receive(:call)
     @envelope_hash = {
       user: {name: user.to_s, email: user.email},
       data: {},
       embedded: true,
       loan_id: loan.id,
     }
-    @signature = Docusign::BuildSignatureForEnvelopeService.new(loan, [template], @envelope_hash).call
+    @signature = Docusign::GenerateSignersForEnvelopeService.new(loan, [template], @envelope_hash).call
   end
 
   it "returns an array" do
@@ -45,7 +45,7 @@ describe Docusign::BuildSignatureForEnvelopeService do
 
     describe '.envelope_requires_cosignature?' do
       it "returns false" do
-        service = Docusign::BuildSignatureForEnvelopeService.new(loan, [template], @envelope_hash)
+        service = Docusign::GenerateSignersForEnvelopeService.new(loan, [template], @envelope_hash)
         expect(service.send(:envelope_requires_cosignature?, template)).to eq(false)
       end
     end
@@ -57,12 +57,13 @@ describe Docusign::BuildSignatureForEnvelopeService do
     end
 
     it "creates two signer in sign_here_tabs" do
+      @signature = Docusign::GenerateSignersForEnvelopeService.new(loan, [template], @envelope_hash).call
       expect(@signature.last[:sign_here_tabs].size).to eq(2)
     end
 
     describe '.envelope_requires_cosignature?' do
       it "returns true" do
-        service = Docusign::BuildSignatureForEnvelopeService.new(loan, [template], @envelope_hash)
+        service = Docusign::GenerateSignersForEnvelopeService.new(loan, [template], @envelope_hash)
         expect(service.send(:envelope_requires_cosignature?, template)).to eq(true)
       end
     end

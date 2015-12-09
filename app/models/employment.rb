@@ -36,6 +36,12 @@ class Employment < ActiveRecord::Base
     true
   end
 
+  def full_address
+    return unless address
+
+    address.full_text
+  end
+
   def as_json(opts={})
     more_options = {
       include: :address

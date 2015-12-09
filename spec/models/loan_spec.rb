@@ -114,4 +114,36 @@ describe Loan do
       end
     end
   end
+
+  describe '#fixed_rate_amortization?' do
+    context 'fixed rate' do
+      it 'returns true' do
+        loan.amortization_type = '30 year fixed'
+        expect(loan.fixed_rate_amortization?).to be_truthy
+      end
+    end
+
+    context "other types" do
+      it 'returns false' do
+        loan.amortization_type = 'LoremIpsum'
+        expect(loan.fixed_rate_amortization?).to be_falsey
+      end
+    end
+  end
+
+  describe '#arm_amortization?' do
+    context 'ARM' do
+      it 'returns true' do
+        loan.amortization_type = '5/1 ARM'
+        expect(loan.arm_amortization?).to be_truthy
+      end
+    end
+
+    context "other types" do
+      it 'returns false' do
+        loan.amortization_type = 'LoremIpsum'
+        expect(loan.arm_amortization?).to be_falsey
+      end
+    end
+  end
 end

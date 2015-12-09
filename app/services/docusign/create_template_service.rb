@@ -20,7 +20,8 @@ module Docusign
         description: options[:description],
         email_subject: options[:email_subject],
         email_body: options[:email_body],
-        creator_id: options[:user_id]
+        creator_id: options[:user_id],
+        document_order: options[:document_order]
       }
       template.save
       template

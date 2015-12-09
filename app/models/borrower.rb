@@ -39,6 +39,7 @@ class Borrower < ActiveRecord::Base
   delegate :first_name, :first_name=, to: :user, allow_nil: true
   delegate :last_name, :last_name=, to: :user, allow_nil: true
   delegate :middle_name, :middle_name=, to: :user, allow_nil: true
+  delegate :full_name, to: :user
   delegate :suffix, :suffix=, to: :user, allow_nil: true
 
   PERMITTED_ATTRS = [
@@ -81,11 +82,17 @@ class Borrower < ActiveRecord::Base
   end
 
   def previous_address
+    return unless must_have_previous_address?
+
     borrower_addresses.find_by(is_current: false)
   end
 
   def must_have_previous_address?
-    current_address && current_address.years_at_address.to_f <= 1
+    current_address && current_address.years_at_address.to_f < 2
+  end
+
+  def display_previous_address
+    previous_address.try(:address).try(:address) || 'No Address'
   end
 
   def current_employment
@@ -119,5 +126,9 @@ class Borrower < ActiveRecord::Base
 
   def current_salary
     current_employment.present? ? current_employment.current_salary.to_f : 0
+  end
+
+  def total_income
+    current_salary + gross_overtime.to_f + gross_bonus.to_f + gross_commission.to_f + gross_interest.to_f
   end
 end
