@@ -16,17 +16,16 @@
 
         <div class="collapse navbar-collapse mortgageNav" id="links-home">
           <ul class="nav nav-pills navbar-right">
-            <% if Rails.env.production? %>
-              <li><a id="signupBtn" class="btn btn-ms theBtn text-uppercase" href="http://www.mortgageclub.io/loans/cd70d96b-3902-44dd-a840-9ef762aa96a2/edit" role="button">Find my rate</a></li>
-            <% else %>
               <li>
                 <a id="loginBtn" class="btn btn-ms btn-success theBtn" href="/login" role="button">
                   <%= image_tag("loginICON.png", id: "loginImg") %>
                   Log in
                 </a>
               </li>
-              <li><a id="signupBtn" class="btn btn-ms theBtn text-uppercase" href="/signup" role="button">Find my rate</a></li>
-            <% end %>
+              <li>
+                <a id="signupBtn" class="btn btn-ms theBtn text-uppercase" href="/signup" role="button">Find my rate
+                </a>
+              </li>
           </ul>
         </div>
       </nav>
@@ -75,11 +74,7 @@
             </tr>
           </table>
           <div>
-            <% if Rails.env.production? %>
-              <a id="applyBtn" class="btn btn-lg theBtn text-uppercase" href="http://www.mortgageclub.io/loans/cd70d96b-3902-44dd-a840-9ef762aa96a2/edit" role="button">find my rate</a>
-            <% else %>
-              <a id="applyBtn" class="btn btn-lg theBtn text-uppercase" href="/signup" role="button">find my rate</a>
-            <% end %>
+            <a id="applyBtn" class="btn btn-lg theBtn text-uppercase" href="/signup" role="button">find my rate</a>
           </div>
         </div>
       </div>
