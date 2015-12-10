@@ -21,7 +21,8 @@ var OtherDocument = React.createClass({
           tip={this.props.name}
           maxSize={10000000}
           customParams={customParams}
-          supportOtherDescription={this.props.supportOtherDescription}/>
+          supportOtherDescription={this.props.supportOtherDescription}
+          uploadSuccessCallback={this.props.uploadSuccessCallback}/>
       </div>
     )
   }

@@ -1,21 +1,29 @@
 class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
-  before_action :set_loan, only: [:create, :submit_to_lender]
+  before_action :set_loan, only: [:create, :submit_to_lender, :get_other_documents]
   before_action :set_document, only: [:download, :destroy]
 
   def create
     return render json: {message: "Template is not found"}, status: 500 unless template = LenderTemplate.find_by_id(params[:template_id])
 
-    lender_document = LenderDocument.find_or_initialize_by(loan: @loan, lender_template: template)
-    lender_document.attachment = params[:file]
-    lender_document.description = params[:description]
-    lender_document.user = current_user
+    service = LenderDocumentServices::UploadFile.new({
+      loan: @loan,
+      template: template,
+      file: params[:file],
+      description: params[:description],
+      user: current_user
+    })
 
-    if lender_document.save
+    # lender_document = LenderDocument.find_or_initialize_by(loan: @loan, lender_template: template)
+    # lender_document.attachment = params[:file]
+    # lender_document.description = params[:description]
+    # lender_document.user = current_user
+
+    if service.call
       render json: {
-        lender_document: LenderDocumentsPresenter.show(lender_document),
+        lender_document: LenderDocumentsPresenter.show(service.lender_document),
         lender_documents: LenderDocumentsPresenter.index(@loan.lender_documents),
-        download_url: get_download_url(lender_document),
-        remove_url: get_remove_url(lender_document),
+        download_url: get_download_url(service.lender_document),
+        remove_url: get_remove_url(service.lender_document),
         message: "Created successfully"
       }, status: 200
     else
@@ -43,6 +51,12 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
     else
       return render json: {message: "Failed to send application to lender"}, status: 500
     end
+  end
+
+  def get_other_documents
+    render json: {
+      lender_documents: LenderDocumentsPresenter.index(@loan.other_lender_documents),
+    }, status: 200
   end
 
   private

@@ -126,6 +126,7 @@ Rails.application.routes.draw do
 
       collection do
         post "submit_to_lender"
+        get "get_other_documents"
       end
     end
   end

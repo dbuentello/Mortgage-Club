@@ -33,7 +33,7 @@ var LenderDocumentTab = React.createClass({
       state.other_lender_documents = this.props.loan.other_lender_documents;
       _.each(state.other_lender_documents, function(lender_document) {
         lender_document.downloadUrl = "/loan_members/lender_documents/" + lender_document.id + "/download";
-        lender_document.removedUrl = "/loan_members/lender_documents/" + lender_document.id;
+        lender_document.removeUrl = "/loan_members/lender_documents/" + lender_document.id;
       }, this);
     }
 
@@ -77,6 +77,24 @@ var LenderDocumentTab = React.createClass({
     };
   },
 
+  reloadOtherDocuments: function() {
+    $.ajax({
+      url: "/loan_members/lender_documents/get_other_documents",
+      method: "GET",
+      context: this,
+      dataType: "json",
+      data: {
+        loan_id: this.props.loan.id
+      },
+      success: function(response) {
+        if(response.lender_documents.length > 0) {
+          var other_documents = response.lender_documents;
+          other_documents.push(this.getDefaultOtherDocument())
+          this.setState({other_lender_documents: other_documents});
+        }
+      }.bind(this)
+    });
+  },
 
   render: function() {
     return (
@@ -115,7 +133,8 @@ var LenderDocumentTab = React.createClass({
                         loanId={this.props.loan.id}
                         downloadUrl={lender_document.downloadUrl}
                         removeUrl={lender_document.removeUrl}
-                        supportOtherDescription={lender_document.description ? false : true}/>
+                        supportOtherDescription={lender_document.description ? false : true}
+                        uploadSuccessCallback={this.reloadOtherDocuments}/>
                     </div>
                   )
                 }, this)
