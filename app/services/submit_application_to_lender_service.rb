@@ -49,7 +49,7 @@ class SubmitApplicationToLenderService
 
   def get_filename(document)
     if document.lender_template.is_other
-      filename = document.description << File.extname(document.attachment_file_name)
+      filename = document.description + File.extname(document.attachment_file_name)
     else
       filename = document.lender_template.name + File.extname(document.attachment_file_name)
     end
