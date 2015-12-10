@@ -45,35 +45,37 @@ window.BorrowerApp = React.createClass({
     var user = this.props.currentUser;
 
     return (
-      <div>
-        <nav className='topMenu sticky backgroundInverse pvm zIndexNavigation overlayFullWidth'>
-          <div className='plm prl'>
-            <div className='row'>
-              <div className='col-xs-6 typeLowlight'>
-                <a className='mrl' href='/my/loans'> MortgageClub </a>
-              </div>
-              <div className='col-xs-6 text-right'>
-                {user
-                ? <span>
-                    <a className="mrl" data-toggle="modal" data-target="#newLoan" style={{'cursor': 'pointer'}}><i className="iconPlus mrxs"/>New Loan</a>
-                    <a className='mrl' href='/my/loans'><i className='iconFolder mrxs'/>Loans</a>
-                    <span className='typeLowlight mrl'>Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!</span>
-                    <a className='linkTypeReversed' href='/auth/logout' data-method='delete'><i className='iconUser mrxs'/>Log out</a>
-                  </span>
-                : <span>
-                    <a className='linkTypeReversed mrm' href='/auth/login'>
-                      Log in
-                    </a>
-                    <a className='linkTypeReversed mrm' href='/auth/register/signup'>
-                      Sign up
-                    </a>
-                  </span>
-                }
-              </div>
+      <div className="header clearfix shadowBottom account-nav">
+        <div className="container">
+          <nav className="navbar navbar-default mortgageNav">
+            <div className="navbar-header">
+              <a className="navbar-brand logo" href="index.html"><img src="/mortgageclubLOGO.png" alt="MortageClub"/></a>
+              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#links-home" aria-expanded="false">
+                <span className="sr-only">Toggle navigation</span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
             </div>
-          </div>
-        </nav>
-
+            <div className="collapse navbar-collapse mortgageNav" id="links-home">
+              <ul className="nav nav-pills navbar-right">
+                <li><a id="newLoanBtn" className="btn btn-ms btn-success theBtn text-uppercase" href="login.html" role="button"><p><span className="glyphicon glyphicon-plus-sign"></span>new loan</p></a></li>
+                <li><a id="loanBtn" className="btn btn-ms theBtn text-uppercase" href="#" role="button"><img id="loanBtnImg" src="/icons/loanBtn.png" atl="loan"/>loan</a></li>
+                <li><div className="dropdown">
+                  <button className="btn btn-default dropdown-toggle theBtn" id="accountBtn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <img id="accountBtnImg" src="/icons/userBtn.png" atl="account">Ryan</img>
+                  <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="accountBtn">
+                  <li><a href="#">My Profile</a></li>
+                  <li><a href="#">Referrals</a></li>
+                  <li><a href="#"><img id="logoutImg" src="/logoutICON.png" alt="arrow"/>Log Out</a></li>
+                  </ul>
+                </div></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
         <RouteHandler bootstrapData={this.props}/>
 
         <div className='page-alert'/>
@@ -82,8 +84,7 @@ window.BorrowerApp = React.createClass({
           id="newLoan"
           title="Confirmation"
           body="Are you sure to create a new loan?"
-          yesCallback={this.createLoan}
-        />
+          yesCallback={this.createLoan}/>
       </div>
     );
   },
