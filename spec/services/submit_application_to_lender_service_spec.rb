@@ -16,8 +16,8 @@ describe SubmitApplicationToLenderService do
       message_delivery = instance_double(ActionMailer::MessageDelivery)
 
       expect(LoanMemberMailer).to receive(:submit_application).with({
-        documents_info: [{url: "http://example.com", file_name: lender_document.attachment_file_name}],
-        templates_name: [loan.lender.lender_templates.where(is_other: false).last.name],
+        documents_info: [{url: "http://example.com", file_name: lender_document.lender_template.name << File.extname(lender_document.attachment_file_name)}],
+        templates_name: loan.lender.lender_templates.pluck(:description),
         lender_name: loan.lender.name,
         lender_email: loan.lender.lock_rate_email,
         loan_member_name: staff.to_s,
