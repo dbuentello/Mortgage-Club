@@ -13,11 +13,6 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
       user: current_user
     })
 
-    # lender_document = LenderDocument.find_or_initialize_by(loan: @loan, lender_template: template)
-    # lender_document.attachment = params[:file]
-    # lender_document.description = params[:description]
-    # lender_document.user = current_user
-
     if service.call
       render json: {
         lender_document: LenderDocumentsPresenter.show(service.lender_document),
