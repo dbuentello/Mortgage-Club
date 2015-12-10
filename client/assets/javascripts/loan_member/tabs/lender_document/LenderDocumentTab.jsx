@@ -27,6 +27,8 @@ var LenderDocumentTab = React.createClass({
       }
     }, this);
 
+    state.other_lender_documents = [];
+
     if (this.props.loan.other_lender_documents.length > 0) {
       state.other_lender_documents = this.props.loan.other_lender_documents;
       _.each(state.other_lender_documents, function(lender_document) {
@@ -34,9 +36,8 @@ var LenderDocumentTab = React.createClass({
         lender_document.removedUrl = "/loan_members/lender_documents/" + lender_document.id;
       }, this);
     }
-    else {
-      state.other_lender_documents = this.getDefaultOtherDocument();
-    }
+
+    state.other_lender_documents.push(this.getDefaultOtherDocument());
 
     return state;
   },
@@ -67,20 +68,17 @@ var LenderDocumentTab = React.createClass({
   },
 
   getDefaultOtherDocument: function() {
-    return [{
-      description: "Other Document",
-      label: "Other Document",
+    return {
       otherTemplate: this.props.otherLenderTemplate,
       loanId: this.props.loan.id,
       downloadUrl: "javascript:void(0)",
       removeUrl: "javascript:void(0)",
-      name: ""
-    }];
+      attachment_file_name: ""
+    };
   },
 
 
   render: function() {
-    console.dir(this.props.otherLenderTemplate)
     return (
       <div className="content container backgroundBasic">
         <div className="pal">
@@ -102,21 +100,22 @@ var LenderDocumentTab = React.createClass({
                         removeUrl={this.state[template.id + "_removedUrl"]}
                         tip={this.state[template.id + "_name"]}
                         maxSize={10000000}
-                        customParams={customParams}
-                        supportOtherDescription={template.is_other}/>
+                        customParams={customParams}/>
                     </div>
                   )
                 }, this)
               }
               {
-                _.map(this.state.other_lender_documents, function(lender_document) {
+                _.map(this.state.other_lender_documents, function(lender_document, index) {
                   return(
-                    <div className="drop_zone" key={lender_document.id}>
-                      <OtherDocument label={lender_document.description}
+                    <div className="drop_zone" key={index}>
+                      <OtherDocument name={lender_document.attachment_file_name}
+                        label={lender_document.description}
                         otherTemplate={this.props.otherLenderTemplate}
                         loanId={this.props.loan.id}
                         downloadUrl={lender_document.downloadUrl}
-                        removeUrl={lender_document.removeUrl}/>
+                        removeUrl={lender_document.removeUrl}
+                        supportOtherDescription={lender_document.description ? false : true}/>
                     </div>
                   )
                 }, this)

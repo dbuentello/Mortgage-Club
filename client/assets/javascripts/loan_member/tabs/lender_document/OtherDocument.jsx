@@ -5,10 +5,10 @@ var FlashHandler = require("mixins/FlashHandler");
 
 var OtherDocument = React.createClass({
   render: function() {
-    var fields = {label: this.props.label, placeholder: "drag file here or browse"};
+    var label = this.props.label ? this.props.label : "Other Document";
+    var fields = {label: label, placeholder: "drag file here or browse"};
     var customParams = [
       {template_id: this.props.otherTemplate.id},
-      {description: this.props.otherTemplate.description},
       {loan_id: this.props.loanId}
     ];
 
@@ -21,7 +21,7 @@ var OtherDocument = React.createClass({
           tip={this.props.name}
           maxSize={10000000}
           customParams={customParams}
-          supportOtherDescription={true}/>
+          supportOtherDescription={this.props.supportOtherDescription}/>
       </div>
     )
   }
