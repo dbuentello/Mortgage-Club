@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
   has_many :borrower_documents, as: :owner
 
   has_many :documents
+  has_many :checklists, dependent: :destroy
 
   has_attached_file :avatar, path: PAPERCLIP[:default_path], default_url: ActionController::Base.helpers.asset_path('avatar.png')
 
