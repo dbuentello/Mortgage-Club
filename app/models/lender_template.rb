@@ -16,6 +16,8 @@ class LenderTemplate < ActiveRecord::Base
 
   has_many :lender_template_requirements, dependent: :destroy
   has_many :lenders, through: :lender_template_requirements
+  has_many :lender_templates, dependent: :destroy
+
   belongs_to :template
 
   PERMITTED_ATTRS = [:name, :description, :template_id]

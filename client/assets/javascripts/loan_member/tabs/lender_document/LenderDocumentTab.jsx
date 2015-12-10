@@ -104,7 +104,7 @@ var LenderDocumentTab = React.createClass({
             <div className="row">
               {
                 _.map(this.props.lenderTemplates, function(template) {
-                  var fields = {label: template.name, name: template.name.replace(/ /g,""), placeholder: 'drag file here or browse'};
+                  var fields = {label: template.description, name: template.name.replace(/ /g,""), placeholder: 'drag file here or browse'};
                   var customParams = [
                     {template_id: template.id},
                     {description: template.description},

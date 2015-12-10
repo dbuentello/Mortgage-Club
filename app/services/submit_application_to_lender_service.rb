@@ -32,7 +32,7 @@ class SubmitApplicationToLenderService
     loan.lender_documents.map do |document|
       {
         url: Amazon::GetUrlService.call(document.attachment, 6.months.seconds),
-        file_name: document.attachment_file_name
+        file_name: get_filename(document)
       }
     end
   end
@@ -44,6 +44,15 @@ class SubmitApplicationToLenderService
   end
 
   def get_templates_name
-    @loan.lender.lender_templates.map { |template| template.name if template.is_other == false }.compact
+    @loan.lender.lender_templates.map { |template| template.description if template.description }.compact
+  end
+
+  def get_filename(document)
+    if document.lender_template.is_other
+      filename = document.description << File.extname(document.attachment_file_name)
+    else
+      filename = document.lender_template.name + File.extname(document.attachment_file_name)
+    end
+    filename
   end
 end
