@@ -1,7 +1,7 @@
 class LenderDocument < ActiveRecord::Base
   EXPIRE_VIEW_SECONDS = 5
   has_attached_file :attachment,
-    s3_permissions: 'authenticated-read',
+    s3_permissions: "authenticated-read",
     path: PAPERCLIP[:default_path]
 
   belongs_to :loan
@@ -13,11 +13,11 @@ class LenderDocument < ActiveRecord::Base
     presence: true,
     content_type: {
       content_type: ALLOWED_MIME_TYPES,
-      message: ' allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images'
+      message: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
     },
     size: {
       less_than_or_equal_to: 10.megabytes,
-      message: ' must be less than or equal to 10MB'
+      message: " must be less than or equal to 10MB"
     }
 
   before_validation :set_private_token, on: :create

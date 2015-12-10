@@ -1,7 +1,8 @@
 var _ = require("lodash");
 var React = require("react/addons");
 var Dropzone = require("components/form/Dropzone");
-var FlashHandler = require('mixins/FlashHandler');
+var FlashHandler = require("mixins/FlashHandler");
+var OtherDocument = require("./OtherDocument");
 
 var LenderDocumentTab = React.createClass({
   mixins: [FlashHandler],
@@ -9,10 +10,10 @@ var LenderDocumentTab = React.createClass({
   getInitialState: function() {
     var state = {};
 
-    state["saving"] = false;
-    state["can_submit"] = this.props.loan.can_submit_to_lender;
+    state.saving = false;
+    state.can_submit = this.props.loan.can_submit_to_lender;
 
-    _.each(this.props.lender_templates, function(template) {
+    _.each(this.props.lenderTemplates, function(template) {
       var lender_document = _.find(this.props.loan.lender_documents, {"lender_template_id": template.id});
       if (lender_document) {
         state[template.id] = lender_document.id;
@@ -20,11 +21,24 @@ var LenderDocumentTab = React.createClass({
         state[template.id + "_downloadUrl"] = "/loan_members/lender_documents/" + lender_document.id + "/download";
         state[template.id + "_removedUrl"] = "/loan_members/lender_documents/" + lender_document.id;
       }else {
-        state[template.id + "_name"] = "drap file here or browse";
+        state[template.id + "_name"] = "drag file here or browse";
         state[template.id + "_downloadUrl"] = "javascript:void(0)";
         state[template.id + "_removedUrl"] = "javascript:void(0)";
       }
     }, this);
+
+    state.other_lender_documents = [];
+
+    if (this.props.loan.other_lender_documents.length > 0) {
+      state.other_lender_documents = this.props.loan.other_lender_documents;
+      _.each(state.other_lender_documents, function(lender_document) {
+        lender_document.downloadUrl = "/loan_members/lender_documents/" + lender_document.id + "/download";
+        lender_document.removeUrl = "/loan_members/lender_documents/" + lender_document.id;
+      }, this);
+    }
+
+    state.other_lender_documents.push(this.getDefaultOtherDocument());
+
     return state;
   },
 
@@ -43,7 +57,7 @@ var LenderDocumentTab = React.createClass({
         var flash = { "alert-success": response.message };
         this.showFlashes(flash);
         this.setState({saving: false});
-        this.setState({can_submit: false});
+        // this.setState({can_submit: false});
       }.bind(this),
       error: function(response, status, error) {
         var flash = { "alert-danger": response.responseJSON.message };
@@ -53,15 +67,44 @@ var LenderDocumentTab = React.createClass({
     });
   },
 
+  getDefaultOtherDocument: function() {
+    return {
+      otherTemplate: this.props.otherLenderTemplate,
+      loanId: this.props.loan.id,
+      downloadUrl: "javascript:void(0)",
+      removeUrl: "javascript:void(0)",
+      attachment_file_name: ""
+    };
+  },
+
+  reloadOtherDocuments: function() {
+    $.ajax({
+      url: "/loan_members/lender_documents/get_other_documents",
+      method: "GET",
+      context: this,
+      dataType: "json",
+      data: {
+        loan_id: this.props.loan.id
+      },
+      success: function(response) {
+        if(response.lender_documents.length > 0) {
+          var other_documents = response.lender_documents;
+          other_documents.push(this.getDefaultOtherDocument())
+          this.setState({other_lender_documents: other_documents});
+        }
+      }.bind(this)
+    });
+  },
+
   render: function() {
     return (
-      <div className='content container backgroundBasic'>
-        <div className='pal'>
-          <div className='box mtn'>
-            <div className='row'>
+      <div className="content container backgroundBasic">
+        <div className="pal">
+          <div className="box mtn">
+            <div className="row">
               {
-                _.map(this.props.lender_templates, function(template) {
-                  var fields = {label: template.name, name: template.name.replace(/ /g,''), placeholder: 'drap file here or browse'};
+                _.map(this.props.lenderTemplates, function(template) {
+                  var fields = {label: template.description, name: template.name.replace(/ /g,""), placeholder: 'drag file here or browse'};
                   var customParams = [
                     {template_id: template.id},
                     {description: template.description},
@@ -75,8 +118,23 @@ var LenderDocumentTab = React.createClass({
                         removeUrl={this.state[template.id + "_removedUrl"]}
                         tip={this.state[template.id + "_name"]}
                         maxSize={10000000}
-                        customParams={customParams}
-                        supportOtherDescription={template.is_other}/>
+                        customParams={customParams}/>
+                    </div>
+                  )
+                }, this)
+              }
+              {
+                _.map(this.state.other_lender_documents, function(lender_document, index) {
+                  return(
+                    <div className="drop_zone" key={index}>
+                      <OtherDocument name={lender_document.attachment_file_name}
+                        label={lender_document.description}
+                        otherTemplate={this.props.otherLenderTemplate}
+                        loanId={this.props.loan.id}
+                        downloadUrl={lender_document.downloadUrl}
+                        removeUrl={lender_document.removeUrl}
+                        supportOtherDescription={lender_document.description ? false : true}
+                        uploadSuccessCallback={this.reloadOtherDocuments}/>
                     </div>
                   )
                 }, this)

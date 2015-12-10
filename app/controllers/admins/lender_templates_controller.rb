@@ -5,7 +5,7 @@ class Admins::LenderTemplatesController < Admins::BaseController
   def index
     bootstrap(
       lender: @lender,
-      lender_templates: @lender.lender_templates,
+      lender_templates: @lender.lender_templates.where(is_other: false),
       docusign_templates: Template.all
     )
 

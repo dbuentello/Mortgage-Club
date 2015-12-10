@@ -16,7 +16,8 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       property: PropertyPresenter.new(@loan.subject_property).show,
       closing: ClosingPresenter.new(@loan.closing).show,
       templates: TemplatesPresenter.index(Template.all),
-      lender_templates: get_lender_templates
+      lender_templates: get_lender_templates,
+      other_lender_template: get_other_template
     )
 
     respond_to do |format|
@@ -28,7 +29,12 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
 
   def get_lender_templates
     return [] unless @loan.lender
-    LenderTemplatesPresenter.index(@loan.lender.lender_templates.order(:is_other))
+    LenderTemplatesPresenter.index(@loan.lender.lender_templates.where(is_other: false))
+  end
+
+  def get_other_template
+    return [] unless @loan.lender
+    LenderTemplatesPresenter.show(@loan.lender.lender_templates.where(is_other: true).last)
   end
 
   def first_activity(loan)

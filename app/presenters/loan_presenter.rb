@@ -84,7 +84,7 @@ class LoanPresenter
         documents: {},
         lender_documents: {}
       },
-      methods: :can_submit_to_lender
+      methods: [:can_submit_to_lender, :other_lender_documents]
     }
   end
 
