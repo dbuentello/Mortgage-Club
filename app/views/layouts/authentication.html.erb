@@ -17,10 +17,10 @@
         <div class="collapse navbar-collapse mortgageNav" id="links-home">
           <ul class="nav nav-pills navbar-right">
             <li>
-            <a id="loginBtn" class="btn btn-ms btn-success theBtn text-uppercase" href="login.html" role="button">
-              <%= image_tag image_path("loginICON.png"), id: "loginImg" %>
-              Log in
-            </a>
+              <%= link_to new_user_session_path, class: "btn btn-ms btn-success theBtn text-uppercase", id: "loginBtn" do %>
+                <%= image_tag image_path("loginICON.png"), id: "loginImg" %>
+                Log in
+              <% end %>
             </li>
             <li><a id="signupBtn" class="btn btn-ms theBtn text-uppercase" href="#" role="button">Find my rate</a></li>
           </ul>
