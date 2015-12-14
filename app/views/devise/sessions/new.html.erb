@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "form-horizontal text-center"}) do |f| %>
           <h2 class="text-uppercase">log in</h2>
           <div class="form-group">
             <div class="col-sm-12">
@@ -43,3 +43,14 @@
     </div>
   </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    var elevator = new Elevator({
+    element: document.querySelector('#backtopBtn'),
+    duration:2000,
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
+  })
+</script>
