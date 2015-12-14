@@ -3,8 +3,8 @@ var _ = require('lodash');
 var React = require('react/addons');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
-var SelectField = require('components/form/SelectField');
-var TextField = require('components/form/TextField');
+var SelectField = require('components/form/NewSelectField');
+var TextField = require('components/form/NewTextField');
 
 var otherIncomes = [
       {value: 'overtime', name: 'Overtime'},
@@ -34,8 +34,8 @@ var OtherIncome = React.createClass({
   render: function() {
     var index = this.props.index;
     return (
-      <div className={this.props.type + ' row'}>
-        <div className='col-sm-6'>
+      <div className={this.props.type + ' form-group'}>
+        <div className='col-md-6'>
           <SelectField
             label='Income Type'
             ref="incomeType"
@@ -46,8 +46,7 @@ var OtherIncome = React.createClass({
             onChange={this.onChange}
             allowBlank={true} />
         </div>
-
-        <div className='col-sm-5'>
+        <div className='col-md-5'>
           <TextField
             label='Annual Gross Amount'
             ref="incomeAmount"

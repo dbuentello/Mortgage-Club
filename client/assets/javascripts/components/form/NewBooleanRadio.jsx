@@ -36,15 +36,13 @@ var BooleanRadioView = React.createClass({
     return {
       yesLabel: 'Yes',
       noLabel: 'No',
-      unknownLabel: 'Unknown',
-      tooltip: {}
+      unknownLabel: 'Unknown'
     };
   },
 
   render: function() {
     var display = this.props.unknownLabel,
-        tooltip = this.props.tooltip,
-        hasTooltip = tooltip.hasOwnProperty('text') && tooltip.hasOwnProperty('position');
+        customColumn = this.props.customColumn || "col-xs-6";
 
     if (this.props.checked) {
       display = this.props.yesLabel;
@@ -56,7 +54,7 @@ var BooleanRadioView = React.createClass({
       <div>
         <h6>{this.props.label}</h6>
         <div className="row">
-          <div className="col-xs-6">
+          <div className={customColumn}>
             <input type="radio" value="true" name={this.props.name} onChange={this.handleChange}
               checked={display === this.props.yesLabel} id={"true_" + this.props.keyName}/>
 
@@ -65,11 +63,11 @@ var BooleanRadioView = React.createClass({
               {this.props.yesLabel}
             </label>
           </div>
-          <div className="col-xs-6">
+          <div className={customColumn}>
             <input type="radio" value="false" name={this.props.keyName} onChange={this.handleChange}
               checked={display === this.props.noLabel} id={'false_' + this.props.keyName}/>
             <label for="own" className="customRadio">
-              <span><span></span></span>{this.props.noLabel}
+              <span className="first-circle"><span className="second-circle"></span></span>{this.props.noLabel}
             </label>
           </div>
         </div>

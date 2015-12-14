@@ -3,9 +3,9 @@ var _ = require('lodash');
 var React = require('react/addons');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
-var AddressField = require('components/form/AddressField');
-var SelectField = require('components/form/SelectField');
-var TextField = require('components/form/TextField');
+var AddressField = require('components/form/NewAddressField');
+var SelectField = require('components/form/NewSelectField');
+var TextField = require('components/form/NewTextField');
 
 var propertyTypes = [
   {value: 'sfh', name: 'Single Family Home'},
@@ -179,9 +179,9 @@ var Property = React.createClass({
   render: function() {
     var index = this.props.index;
     return (
-      <div className={'box mtn mbm pam bas roundedCorners' + (index % 2 === 0 ? ' backgroundLowlight' : '')} >
-        <div className='row'>
-          <div className='col-xs-6'>
+      <div>
+        <div className='form-group'>
+          <div className='col-md-12'>
             <AddressField
               label='Address'
               address={this.state.property.address}
@@ -190,7 +190,9 @@ var Property = React.createClass({
               onChange={this.onChange}
               placeholder='Please select from one of the drop-down options'/>
           </div>
-          <div className='col-xs-3'>
+        </div>
+        <div className='form-group'>
+          <div className='col-md-6'>
             <SelectField
               label='Property Type'
               keyName={'property.property_type'}
@@ -200,7 +202,7 @@ var Property = React.createClass({
               onChange={this.onChange}
               allowBlank={true}/>
           </div>
-          <div className='col-xs-3'>
+          <div className='col-md-6'>
             <TextField
               label='Estimated Market Value'
               keyName={'property.market_price'}
@@ -209,8 +211,8 @@ var Property = React.createClass({
               onChange={this.onChange}/>
           </div>
         </div>
-        <div className='row'>
-          <div className='col-xs-6'>
+        <div className='form-group'>
+          <div className='col-md-6'>
             <SelectField
               label='Mortgage Payment'
               keyName={'property.mortgagePayment'}
@@ -221,7 +223,7 @@ var Property = React.createClass({
               allowBlank={true}/>
           </div>
           { this.state.setOtherMortgagePayment
-            ? <div className='col-xs-6'>
+            ? <div className='col-md-6'>
                 <TextField
                   label='Other Amount'
                   keyName={'property.other_mortgage_payment_amount'}
@@ -231,8 +233,8 @@ var Property = React.createClass({
             : null
           }
         </div>
-        <div className='row'>
-          <div className='col-xs-6'>
+        <div className='form-group'>
+          <div className='col-md-6'>
             <SelectField
               label='Other Financing (if applicable)'
               keyName={'property.otherFinancing'}
@@ -243,7 +245,7 @@ var Property = React.createClass({
               allowBlank={true}/>
           </div>
           { this.state.setOtherFinancing
-            ? <div className='col-xs-6'>
+            ? <div className='col-md-6'>
                 <TextField
                   label='Other Amount'
                   keyName={'property.other_financing_amount'}
@@ -253,8 +255,8 @@ var Property = React.createClass({
             : null
           }
         </div>
-        <div className='row'>
-          <div className='col-xs-6'>
+        <div className='form-group'>
+          <div className='col-md-6'>
             <TextField
               label='Mortgage Insurance (if applicable)'
               keyName={'property.estimated_mortgage_insurance'}
@@ -262,7 +264,7 @@ var Property = React.createClass({
               editable={true}
               onChange={this.onChange}/>
           </div>
-          <div className='col-xs-6'>
+          <div className='col-md-6'>
             <SelectField
               label='Does your mortgage payment include escrows?'
               keyName={'property.mortgage_includes_escrows'}
@@ -273,8 +275,8 @@ var Property = React.createClass({
               allowBlank={true}/>
           </div>
         </div>
-        <div className='row'>
-          <div className='col-xs-6'>
+        <div className='form-group'>
+          <div className='col-md-6'>
             <TextField
               label='Homeowner’s Insurance'
               keyName={'property.estimated_hazard_insurance'}
@@ -282,7 +284,7 @@ var Property = React.createClass({
               editable={true}
               onChange={this.onChange}/>
           </div>
-          <div className='col-xs-3'>
+          <div className='col-md-3'>
             <TextField
               label='Property Tax'
               keyName={'property.estimated_property_tax'}
@@ -290,7 +292,7 @@ var Property = React.createClass({
               editable={true}
               onChange={this.onChange}/>
           </div>
-          <div className='col-xs-3 pln'>
+          <div className='col-md-3 pln'>
             <TextField
               label='HOA Due (if applicable)'
               keyName={'property.hoa_due'}
@@ -299,8 +301,8 @@ var Property = React.createClass({
               onChange={this.onChange}/>
           </div>
         </div>
-        <div className='row' style={{display: (this.state.property.is_subject && this.state.property.usage == 'rental_property') ? null : 'none'}}>
-          <div className='col-xs-6'>
+        <div className='form-group' style={{display: (this.state.property.is_subject && this.state.property.usage == 'rental_property') ? null : 'none'}}>
+          <div className='col-md-6'>
             <TextField
               label='Estimated Rental Income'
               keyName={'property.gross_rental_income'}
@@ -309,7 +311,7 @@ var Property = React.createClass({
               onChange={this.onChange}/>
           </div>
         </div>
-        <div className='row'>
+        <div className='form-group'>
           { this.props.isShowRemove == true
             ? <div className='box text-right col-xs-11'>
                 <a className="remove clickable" onClick={this.remove.bind(this, index)}>

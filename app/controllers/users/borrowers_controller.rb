@@ -2,6 +2,7 @@ class Users::BorrowersController < Users::BaseController
   before_action :set_loan, only: [:update]
 
   def update
+    byebug
     borrower_form = BorrowerForm.new(
       form_params: get_form_params(params[:borrower]), borrower: borrower,
       current_borrower_address: borrower.current_address,

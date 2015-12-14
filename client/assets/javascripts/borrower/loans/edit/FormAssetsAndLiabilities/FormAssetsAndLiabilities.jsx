@@ -3,7 +3,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
-var BooleanRadio = require('components/form/BooleanRadio');
+var BooleanRadio = require('components/form/NewBooleanRadio');
 var FlashHandler = require('mixins/FlashHandler');
 var Property = require('./Property');
 var Asset = require('./Asset');
@@ -95,29 +95,28 @@ var FormAssetsAndLiabilities = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <div className='formContent'>
-          <div className='pal'>
-            <div className='box mvn'>
-              <h5 className='typeDeemphasize'>Your financial assets</h5>
-              {this.state.assets.map(this.eachAsset)}
-              <div>
-                <a className='btn btnSml btnAction phm' onClick={this.addAsset}>
-                  <i className='icon iconPlus mrxs'/> Add Asset
-                </a>
-              </div>
+      <div className='col-sm-8 col-xs-12 account-content'>
+        <form className='form-horizontal'>
+          <div className='form-group'>
+            <h3 className='text-uppercase'>Your financial assets</h3>
+            {this.state.assets.map(this.eachAsset)}
+          </div>
+          <div className='form-group'>
+            <div className='col-md-12 clickable' onClick={this.addAsset}>
+              <h5>
+                <span className="glyphicon glyphicon-plus-sign"></span>
+                  Add asset
+              </h5>
             </div>
           </div>
           {
             this.state.subject_property
             ?
-              <div className='pal'>
-                <div className='box mvn'>
-                  <h5 className='typeDeemphasize'>{"The property you're buying"}</h5>
-                  <Property
-                    property={this.state.subject_property}
-                    liabilities={this.state.liabilities}/>
-                </div>
+              <div className='form-group'>
+                <h3 className='text-uppercase'>{"The property you're buying"}</h3>
+                <Property
+                  property={this.state.subject_property}
+                  liabilities={this.state.liabilities}/>
               </div>
             :
               null
@@ -125,20 +124,18 @@ var FormAssetsAndLiabilities = React.createClass({
           {
             (this.state.primary_property && this.state.primary_property != this.state.subject_property)
             ?
-              <div className='pal'>
-                <div className='box mvn'>
-                  <h5 className='typeDeemphasize'>Your primary residence</h5>
-                  <Property
-                    property={this.state.primary_property}
-                    liabilities={this.state.liabilities}/>
-                </div>
+              <div className='form-group'>
+                <h3 className='text-uppercase'>Your primary residence</h3>
+                <Property
+                  property={this.state.primary_property}
+                  liabilities={this.state.liabilities}/>
               </div>
             :
               null
           }
-          <div className='pal'>
-            <div className='box mvn'>
-              <h5 className='typeDeemphasize'>Do you own investment property?</h5>
+          <div className='form-group'>
+            <div className='col-md-6'>
+              <h5>Do you own investment property?</h5>
               <BooleanRadio
                 label=''
                 checked={this.state.own_investment_property}
@@ -146,40 +143,32 @@ var FormAssetsAndLiabilities = React.createClass({
                 editable={true}
                 onChange={this.onChange}/>
             </div>
-
-            {this.state.own_investment_property ?
-              <div>
-                <div className='h5 typeDeemphasize'>
-                  Please provide the following information for all of your rental properties:
-                </div>
-                {this.state.rental_properties.map(this.eachProperty)}
-                <div>
-                  <a className='btn btnSml btnAction phm' onClick={this.addProperty}>
-                    <i className='icon iconPlus mrxs'/> Add property
-                  </a>
+          </div>
+          {
+            this.state.own_investment_property
+            ?
+            <div>
+              <div className='form-group'>
+                <h5>Please provide the following information for all of your rental properties:</h5>
+              </div>
+              {this.state.rental_properties.map(this.eachProperty)}
+              <div className='form-group'>
+                <div className='col-md-12 clickable' onClick={this.addProperty}>
+                  <h5>
+                    <span className="glyphicon glyphicon-plus-sign"></span>
+                    Add property
+                  </h5>
                 </div>
               </div>
-              : null
-            }
-          </div>
-
-          <div className='box text-right'>
-            <a className='btn btnSml btnPrimary' onClick={this.save} disabled={this.state.saving}>
-              {this.state.saving ? 'Saving' : 'Save and Continue'}<i className='icon iconRight mls'/>
-            </a>
-          </div>
-        </div>
-
-        <div className='helpSection sticky pull-right overlayRight overlayTop pal bls'>
-          {this.state.focusedField && this.state.focusedField.helpText
-            ? <div>
-                <span className='typeEmphasize'>{this.state.focusedField.label}:</span>
-                <br/>
-                {this.state.focusedField.helpText}
-              </div>
+            </div>
             : null
           }
-        </div>
+          <div className="form-group">
+            <div className="col-md-12">
+              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+            </div>
+          </div>
+        </form>
       </div>
     );
   },

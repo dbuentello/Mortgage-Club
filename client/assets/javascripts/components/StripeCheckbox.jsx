@@ -98,8 +98,9 @@ var StripeCheckbox = React.createClass({
 
   render: function() {
     return (
-      <div className="checkbox">
-        <label><input type="checkbox" value="" checked={this.state.agree} onChange={this.onClick}/>
+      <div>
+        <input type="checkbox" value="" checked={this.state.agree} onChange={this.onClick}/>
+        <label className="customCheckbox blueCheckBox" for="creditcheck">
           I agree to the E-Sign Consent, Information Certification and Authorization Agreement, State Disclosure, Privacy Policy, and Terms of Use.
         </label>
       </div>

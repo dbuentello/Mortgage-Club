@@ -59,20 +59,20 @@ var Borrower = React.createClass({
           </div>
         </div>
         <div className="form-group">
-          <div className="col-md-6">
-            { this.props.fields.email
+            { this.props.email
               ?
-              <TextField
-                label={this.props.fields.email.label}
-                keyName={this.props.fields.email.name}
-                value={this.props.email}
-                customClass={"account-text-input"}
-                onFocus={_.bind(this.props.onFocus, this, this.props.fields.email)}
-                onChange={this.props.onChange}/>
+              <div className="col-md-6">
+                <TextField
+                  label={this.props.fields.email.label}
+                  keyName={this.props.fields.email.name}
+                  value={this.props.email}
+                  customClass={"account-text-input"}
+                  onFocus={_.bind(this.props.onFocus, this, this.props.fields.email)}
+                  onChange={this.props.onChange}/>
+              </div>
               :
                 null
             }
-          </div>
           <div className="col-md-6">
             <DateField
               label={this.props.fields.dob.label}
@@ -199,7 +199,21 @@ var Borrower = React.createClass({
               onChange={this.props.onChange}/>
           </div>
         </div>
+        <div className="form-group">
+          <div className="col-md-4">
+            <BooleanRadio
+              label={this.props.fields.selfEmployed.label}
+              checked={this.props.selfEmployed}
+              keyName={this.props.fields.selfEmployed.name}
+              yesLabel={"Yes"}
+              noLabel={"No"}
+              editable={true}
+              onFocus={_.bind(this.props.onFocus, this, this.props.fields.selfEmployed)}
+              onChange={this.props.onChange}/>
+          </div>
+        </div>
         { parseInt(this.props.yearsInCurrentAddress, 10) < 2 ?
+          <div>
           <div className="form-group">
             <div className="col-md-12">
               <AddressField
@@ -211,43 +225,46 @@ var Borrower = React.createClass({
                 onChange={this.props.onChange}
                 placeholder=""/>
             </div>
-            <div className="form-group">
-              <div className="col-md-3">
-                <BooleanRadio
-                  label={this.props.fields.previouslyOwn.label}
-                  checked={this.props.previouslyOwn}
-                  keyName={this.props.fields.previouslyOwn.name}
-                  yesLabel={"Own"}
-                  noLabel={"Rent"}
-                  editable={true}
-                  onFocus={_.bind(this.props.onFocus, this, this.props.fields.previouslyOwn)}
-                  onChange={this.props.onChange}/>
-              </div>
-              <div className="col-md-3">
-                { this.props.previouslyOwn ? null
-                  :
-                    <TextField
-                      label={this.props.fields.previousMonthlyRent.label}
-                      value={this.props.previousMonthlyRent}
-                      keyName={this.props.fields.previousMonthlyRent.name}
-                      customClass={"account-text-input"}
-                      liveFormat={true}
-                      format={this.formatCurrency}
-                      onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyRent)}
-                      onChange={this.props.onChange}/>
-                }
-              </div>
-              <div className="col-xs-6">
-                <TextField
-                  label={this.props.fields.yearsInPreviousAddress.label}
-                  value={this.props.yearsInPreviousAddress}
-                  keyName={this.props.fields.yearsInPreviousAddress.name}
-                  customClass={"account-text-input"}
-                  onFocus={_.bind(this.props.onFocus, this, this.props.fields.yearsInPreviousAddress)}
-                  onChange={this.props.onChange}/>
-              </div>
+          </div>
+          <div className="form-group">
+            <div className="col-md-6">
+              <BooleanRadio
+                label={this.props.fields.previouslyOwn.label}
+                checked={this.props.previouslyOwn}
+                keyName={this.props.fields.previouslyOwn.name}
+                yesLabel={"Own"}
+                noLabel={"Rent"}
+                editable={true}
+                onFocus={_.bind(this.props.onFocus, this, this.props.fields.previouslyOwn)}
+                onChange={this.props.onChange}/>
+            </div>
+            <div className="col-md-4">
+              { this.props.previouslyOwn ? null
+                :
+                  <TextField
+                    label={this.props.fields.previousMonthlyRent.label}
+                    value={this.props.previousMonthlyRent}
+                    keyName={this.props.fields.previousMonthlyRent.name}
+                    customClass={"account-text-input"}
+                    liveFormat={true}
+                    format={this.formatCurrency}
+                    onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyRent)}
+                    onChange={this.props.onChange}/>
+              }
             </div>
           </div>
+          <div className="form-group">
+            <div className="col-xs-6">
+              <TextField
+                label={this.props.fields.yearsInPreviousAddress.label}
+                value={this.props.yearsInPreviousAddress}
+                keyName={this.props.fields.yearsInPreviousAddress.name}
+                customClass={"account-text-input"}
+                onFocus={_.bind(this.props.onFocus, this, this.props.fields.yearsInPreviousAddress)}
+                onChange={this.props.onChange}/>
+            </div>
+          </div>
+        </div>
         : null }
       </div>
     )
