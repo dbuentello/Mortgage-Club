@@ -98,11 +98,11 @@ button[type=submit] {padding:11px 26px; border-radius:6px; box-shadow:none; font
   height:90px;
 
   img {
-    position:relative;
+    position:relative !important;
     top:initial;
     right:initial;
     left:initial;
-    border:none;
+    border:none !important;
     bottom:initial;
   }
 
