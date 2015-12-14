@@ -44,7 +44,10 @@ class SubmitApplicationToLenderService
   end
 
   def get_templates_name
-    @loan.lender.lender_templates.map { |template| template.description if template.description }.compact
+    templates_name = loan.lender.lender_templates.order("is_other").map do |lender_template|
+      lender_template.is_other? ? lender_template.lender_documents.map {|document| document.description } : lender_template.description
+    end
+    templates_name.flatten!
   end
 
   def get_filename(document)
