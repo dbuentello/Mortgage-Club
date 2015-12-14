@@ -42,49 +42,15 @@ window.BorrowerApp = React.createClass({
   },
 
   render: function() {
-    var user = this.props.currentUser;
-
     return (
-      <div className="header clearfix shadowBottom account-nav">
-        <div className="container">
-          <nav className="navbar navbar-default mortgageNav">
-            <div className="navbar-header">
-              <a className="navbar-brand logo" href="index.html"><img src="/mortgageclubLOGO.png" alt="MortageClub"/></a>
-              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#links-home" aria-expanded="false">
-                <span className="sr-only">Toggle navigation</span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </button>
-            </div>
-            <div className="collapse navbar-collapse mortgageNav" id="links-home">
-              <ul className="nav nav-pills navbar-right">
-                <li><a id="newLoanBtn" className="btn btn-ms btn-success theBtn text-uppercase" href="login.html" role="button"><p><span className="glyphicon glyphicon-plus-sign"></span>new loan</p></a></li>
-                <li><a id="loanBtn" className="btn btn-ms theBtn text-uppercase" href="#" role="button"><img id="loanBtnImg" src="/icons/loanBtn.png" atl="loan"/>loan</a></li>
-                <li><div className="dropdown">
-                  <button className="btn btn-default dropdown-toggle theBtn" id="accountBtn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  <img id="accountBtnImg" src="/icons/userBtn.png" atl="account">Ryan</img>
-                  <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
-                  </button>
-                  <ul className="dropdown-menu" aria-labelledby="accountBtn">
-                  <li><a href="#">My Profile</a></li>
-                  <li><a href="#">Referrals</a></li>
-                  <li><a href="#"><img id="logoutImg" src="/logoutICON.png" alt="arrow"/>Log Out</a></li>
-                  </ul>
-                </div></li>
-              </ul>
-            </div>
-          </nav>
-        </div>
+      <div className="content accountPart">
         <RouteHandler bootstrapData={this.props}/>
-
-        <div className='page-alert'/>
-
         <ModalLink
-          id="newLoan"
-          title="Confirmation"
-          body="Are you sure to create a new loan?"
-          yesCallback={this.createLoan}/>
+            id="newLoan"
+            title="Confirmation"
+            body="Are you sure to create a new loan?"
+            yesCallback={this.createLoan}/>
+        <div className='page-alert'/>
       </div>
     );
   },

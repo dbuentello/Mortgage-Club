@@ -1,0 +1,87 @@
+.form-group {margin-top:35px;}
+.form-group:last-child {margin-bottom:60px}
+
+.form-group input:not([type=checkbox]):not([type=radio]) {border:none; border-bottom:#c3c3c3 1px solid; outline:0; box-shadow:none; border-radius:0; padding:6px 5px; height:37px;}
+.form-group input:not([type=checkbox]):not([type=radio]):focus {border-bottom:#15c0f1 1px solid;}
+
+/*checkbox*/
+.form-group input[type=checkbox] {display:none;line-height: 16px;}
+.form-group label.customCheckbox:before {border-radius:0; border:#c3c3c3 1px solid; content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;line-height: 16px;}
+.form-group label.customCheckbox.blueCheckBox:before {
+    background:#15c0f1;
+    border:none;
+    content: "\00a0";
+}
+.form-group input[type=checkbox]:checked + label:before {
+    content: "\2713";
+    font-size: 1em;
+    color: #15c0f1;
+    text-align: center;
+    line-height: 16px;
+}
+
+.form-group input[type=checkbox]:checked + label.blueCheckBox:before {
+    text-indent:-5px;
+    color:white;
+}
+
+.modal-md .form-group input[type=checkbox]:checked + label.blueCheckBox:before {
+    text-indent:2px;
+}
+
+.form-group label.customCheckbox {color:#a1a1a1; letter-spacing:.03em; font-family:"aileronlight"; margin-top:10px;}
+.form-group label.customCheckbox.blueCheckBox {color:#555555; font-style:italic; text-indent:-25px; margin-left:25px; font-weight:300;}
+
+.modal-md .form-group label.blueCheckBox {float:left; font-style:normal; padding-left:15px;}
+
+/*radio*/
+.form-group input[type=radio] {opacity:0; width:20px; height:20px; position:absolute; bottom:5px; left:15px; z-index:10;}
+.form-group input[type=radio] + label {z-index:0; min-height:20px;}
+.form-group input[type=radio] + label>span.first-circle{
+  border-radius:0;
+  border:#545454 1px solid;
+  border-radius:50%;
+  position:relative;
+  float:left;
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.form-group input[type=radio]:checked + label>span>span.second-circle{
+  background:#545454;
+  width: 14px;
+  height: 14px;
+  border-radius:50%;
+  position:absolute; top:2px; left:2px;
+}
+.form-group label.customRadio{color:#2f2f2f; letter-spacing:.03em; font-family:"aileronlight"; margin-top:10px; font-weight:500;}
+
+.form-group input:focus {border:none; border-bottom:#15c0f1 1px solid; box-shadow:none; }
+.form-group input:focus ~ img:not(.flag){border-left: #15c0f1 1px solid;}
+
+.form-group img {
+  position:absolute;
+  top:6px;
+  right:15px;
+  border-left: #c3c3c3 1px solid;
+}
+
+::-webkit-input-placeholder {font-style:italic;}
+
+:-moz-placeholder {font-style:italic;}
+
+::-moz-placeholder {font-style:italic;}
+
+:-ms-input-placeholder {font-style:italic;}
+
+button[type=submit] {padding:11px 26px; border-radius:6px; box-shadow:none; font-size:1.1em; width:140px; border:#15c0f1 1px solid;}
+.loginPart button[type=submit] {width:160px;}
+
+.form-group h5 {margin-top:15px;color:#c3c3c3;}
+
+.form-group h5 a {color:#15c0f1}

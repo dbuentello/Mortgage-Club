@@ -1,13 +1,13 @@
-var _ = require('lodash');
-var React = require('react/addons');
+var _ = require("lodash");
+var React = require("react/addons");
 
-var Property = require('./FormProperty');
-var Borrower = require('./FormBorrower/Form');
-var Income = require('./FormIncome/FormIncome');
-var AssetsAndLiabilities = require('./FormAssetsAndLiabilities/FormAssetsAndLiabilities');
-var Declarations = require('./FormDeclarations');
-var CreditCheck = require('./FormCreditCheck');
-var Documents = require('./FormDocuments');
+var Property = require("./FormProperty");
+var Borrower = require("./FormBorrower/Form");
+var Income = require("./FormIncome/FormIncome");
+var AssetsAndLiabilities = require("./FormAssetsAndLiabilities/FormAssetsAndLiabilities");
+var Declarations = require("./FormDeclarations");
+var CreditCheck = require("./FormCreditCheck");
+var Documents = require("./FormDocuments");
 
 var LoanInterface = React.createClass({
   getInitialState: function() {
@@ -29,20 +29,32 @@ var LoanInterface = React.createClass({
     var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu}/>;
 
     return (
-      <div>
-        <nav className='sideMenu sticky backgroundLowlight pbm brs'>
-          {_.map(this.state.menu, function (item, i) {
-            return (
-              <div key={i} id={"tab"+item.name} className={'row pam bbs man ' + (item.name === activeItem.name ? 'backgroundBlue typeReversed' : 'clickable')} onClick={_.bind(this.goToItem, this, item)}>
-                <div className='col-xs-9 pan'><i className={item.icon + ' mrxs'}/><span className='h5 typeDeemphasize'>{item.name}</span></div>
-                {item.complete ?
-                  <div className='col-xs-3 pan text-right typeReversed'><i className='icon iconCheck paxs bas circle xsm backgroundGreen'/></div>
-                : null}
-              </div>
-            );
-          }, this)}
-        </nav>
-        {content}
+      <div className="container">
+        <div className="row">
+          <div className="col-xs-4 subnav">
+            <div id="sidebar">
+              <ul>
+                {_.map(this.state.menu, function (item, i) {
+
+                  return (
+                    <li key={i} id={"tab"+item.name} className={this.getKlassNameLiSidebar(item, activeItem)}>
+                      <a href="#" onClick={_.bind(this.goToItem, this, item)}>
+                        <img src={item.iconSrc} alt={item.name}>{item.name}</img>
+                        <span className="done-sign glyphicon glyphicon-ok"></span>
+                      </a>
+                    </li>
+                  );
+                }, this)}
+              </ul>
+            </div>
+            <div className="swipe-area">
+              <a href="#" data-toggle=".subnav" id="sidebar-toggle">
+                <span className="glyphicon glyphicon-arrow-right"></span>
+              </a>
+            </div>
+          </div>
+          {content}
+        </div>
       </div>
     );
   },
@@ -54,13 +66,13 @@ var LoanInterface = React.createClass({
 
   buildMenu: function(loan) {
     var menu = [
-      {name: 'Property', complete: loan.property_completed, icon: 'iconHome', step: 0, Content: Property},
-      {name: 'Borrower', complete: loan.borrower_completed, icon: 'iconUser', step: 1, Content: Borrower},
-      {name: 'Documents', complete: loan.documents_completed, icon: 'iconTicket', step: 2, Content: Documents},
-      {name: 'Income', complete: loan.income_completed, icon: 'iconTicket', step: 3, Content: Income},
-      {name: 'Credit Check', complete: loan.credit_completed, icon: 'iconCreditCard', step: 4, Content: CreditCheck},
-      {name: 'Assets and Liabilities', complete: loan.assets_completed, icon: 'iconVcard', step: 5, Content: AssetsAndLiabilities},
-      {name: 'Declarations', complete: loan.declarations_completed, icon: 'iconClipboard', step: 6, Content: Declarations},
+      {name: "Property", complete: loan.property_completed, iconSrc: "/icons/property.png", step: 0, Content: Property},
+      {name: "Borrower", complete: loan.borrower_completed, iconSrc: "/icons/borrower.png", step: 1, Content: Borrower},
+      {name: "Documents", complete: loan.documents_completed, iconSrc: "/icons/income.png", step: 2, Content: Documents},
+      {name: "Income", complete: loan.income_completed, iconSrc: "/icons/income.png", step: 3, Content: Income},
+      {name: "Credit Check", complete: loan.credit_completed, iconSrc: "/icons/creditcheck.png", step: 4, Content: CreditCheck},
+      {name: "Assets and Liabilities", complete: loan.assets_completed, iconSrc: "/icons/assets.png", step: 5, Content: AssetsAndLiabilities},
+      {name: "Declarations", complete: loan.declarations_completed, iconSrc: "/icons/declarations.png", step: 6, Content: Declarations},
     ];
     return menu;
   },
@@ -72,7 +84,7 @@ var LoanInterface = React.createClass({
       menu: menu
     });
 
-    skip_change_page = (typeof skip_change_page !== 'undefined') ? true : false;
+    skip_change_page = (typeof skip_change_page !== "undefined") ? true : false;
     if (skip_change_page) {
       // TODO: identify what it does when reset active state
       this.setState({
@@ -87,10 +99,10 @@ var LoanInterface = React.createClass({
 
   save: function(loan, step, skip_change_page, last_step = false) {
     $.ajax({
-      url: '/loans/' + this.state.loan.id,
-      method: 'PATCH',
+      url: "/loans/" + this.state.loan.id,
+      method: "PATCH",
       context: this,
-      dataType: 'json',
+      dataType: "json",
       data: {
         loan: loan,
         current_step: step
@@ -99,8 +111,8 @@ var LoanInterface = React.createClass({
         if (last_step == false) {
           this.setupMenu(response, step, skip_change_page);
         } else {
-          location.href = '/underwriting?loan_id=' + this.state.loan.id;
-          // location.href = '/rates?loan_id=' + this.state.loan.id;
+          location.href = "/underwriting?loan_id=" + this.state.loan.id;
+          // location.href = "/rates?loan_id=" + this.state.loan.id;
         }
       },
       error: function(response, status, error) {
@@ -111,10 +123,10 @@ var LoanInterface = React.createClass({
 
   autosave: function(loan, step) {
     $.ajax({
-      url: '/loans/' + this.state.loan.id,
-      method: 'PATCH',
+      url: "/loans/" + this.state.loan.id,
+      method: "PATCH",
       context: this,
-      dataType: 'json',
+      dataType: "json",
       data: {
         loan: loan,
         current_step: step
@@ -126,6 +138,14 @@ var LoanInterface = React.createClass({
         // do something else
       }
     });
+  },
+
+  getKlassNameLiSidebar: function(item, activeItem) {
+    var klassName = item.complete ? "done" : "";
+    if (item.name === activeItem.name) {
+      klassName += " active";
+    }
+    return klassName;
   }
 });
 

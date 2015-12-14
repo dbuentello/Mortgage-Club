@@ -5,14 +5,15 @@ $rails: true;
 // Those scss files are located under client/assets/stylesheets,
 // which has been added to the Rails asset pipeline search path.
 // See config/initializers/assets.rb.
-@import "bootstrap-custom";
 @import "bootstrap-sprockets";
-
+@import "bootstrap-custom";
 @import "bootstrap_datepicker";
 @import "d3.slider";
 @import "dropzone-custom";
 @import "homepage";
 @import "lenders";
+@import "form";
+@import "new-loan";
 
 @font-face {
   font-family: 'aileronregular';
@@ -38,9 +39,11 @@ $rails: true;
 }
 
 body {
-  font-family:'aileronregular';
-  overflow-x:hidden;
-  overflow-x:hidden;
+  font-family: 'aileronregular';
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 150px;
 }
 
 .mortgage-rates {
@@ -190,24 +193,23 @@ hr {
     .dropdown-menu>li>a:hover #logoutImg{filter:brightness(100%); -webkit-filter:brightness(100%);}
   }
 
-  .navbar-collapse {
-    #newLoanBtn {
-      border-radius:0;
-      height:90px;
-      margin-top:-29px;
-      display:table;
+  #newLoanBtn {
+    border-radius:0;
+    height:90px;
+    margin-top:-29px;
+    display:table;
 
-      p {
-        display:table-cell;
-        vertical-align:middle;
-      }
-      span {
-        margin-right:7px;
-      }
+    p {
+      display:table-cell;
+      vertical-align:middle;
     }
-    #newLoanBtn:hover {
-      border:none;
+    span {
+      margin-right:7px;
     }
+  }
+
+  #newLoanBtn:hover {
+    border:none;
   }
 
   .nav-pills>li+li {

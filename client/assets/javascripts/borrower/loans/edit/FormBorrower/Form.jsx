@@ -5,7 +5,7 @@ var FlashHandler = require('mixins/FlashHandler');
 
 var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
-var SelectField = require('components/form/SelectField');
+var SelectField = require('components/form/NewSelectField');
 var TextField = require('components/form/TextField');
 var BooleanRadio = require('components/form/BooleanRadio');
 var Borrower = require('./Borrower');
@@ -92,50 +92,47 @@ var Form = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <div className='formContent'>
-          <div className='pal'>
-            <div className='box mtn'>
-              <div className='row'>
-                <div className='col-xs-6'>
-                  <SelectField
-                    label={borrower_fields.applyingAs.label}
-                    keyName={borrower_fields.applyingAs.name}
-                    value={this.state[borrower_fields.applyingAs.name]}
-                    options={borrowerCountOptions}
-                    editable={this.state.borrower_editable}
-                    onFocus={this.onFocus.bind(this, borrower_fields.applyingAs)}
-                    onChange={this.coBorrowerHanlder}/>
-                </div>
-              </div>
-              <Borrower
-                loan={this.props.loan}
-                fields={borrower_fields}
-                firstName={this.state[borrower_fields.firstName.name]}
-                middleName={this.state[borrower_fields.middleName.name]}
-                lastName={this.state[borrower_fields.lastName.name]}
-                suffix={this.state[borrower_fields.suffix.name]}
-                dob={this.state[borrower_fields.dob.name]}
-                ssn={this.state[borrower_fields.ssn.name]}
-                phone={this.state[borrower_fields.phone.name]}
-                email={this.state[borrower_fields.email.name]}
-                yearsInSchool={this.state[borrower_fields.yearsInSchool.name]}
-                maritalStatus={this.state[borrower_fields.maritalStatus.name]}
-                numberOfDependents={this.state[borrower_fields.numberOfDependents.name]}
-                dependentAges={this.state[borrower_fields.dependentAges.name]}
-                currentMonthlyRent={this.state[borrower_fields.currentMonthlyRent.name]}
-                yearsInCurrentAddress={this.state[borrower_fields.yearsInCurrentAddress.name]}
-                previousMonthlyRent={this.state[borrower_fields.previousMonthlyRent.name]}
-                yearsInPreviousAddress={this.state[borrower_fields.yearsInPreviousAddress.name]}
-                currentAddress={this.state[borrower_fields.currentAddress.name]}
-                previousAddress={this.state[borrower_fields.previousAddress.name]}
-                currentlyOwn={this.state[borrower_fields.currentlyOwn.name]}
-                previouslyOwn={this.state[borrower_fields.previouslyOwn.name]}
-                onChange={this.onChange}
-                onFocus={this.onFocus}/>
+      <div className="col-xs-8 account-content">
+        <form className="form-horizontal">
+          <div className="form-group">
+            <div className="col-md-6">
+              <SelectField
+              label={borrower_fields.applyingAs.label}
+              keyName={borrower_fields.applyingAs.name}
+              value={this.state[borrower_fields.applyingAs.name]}
+              options={borrowerCountOptions}
+              editable={this.state.borrower_editable}
+              onFocus={this.onFocus.bind(this, borrower_fields.applyingAs)}
+              onChange={this.coBorrowerHanlder}/>
+            </div>
+          </div>
+          <Borrower
+            loan={this.props.loan}
+            fields={borrower_fields}
+            firstName={this.state[borrower_fields.firstName.name]}
+            middleName={this.state[borrower_fields.middleName.name]}
+            lastName={this.state[borrower_fields.lastName.name]}
+            suffix={this.state[borrower_fields.suffix.name]}
+            dob={this.state[borrower_fields.dob.name]}
+            ssn={this.state[borrower_fields.ssn.name]}
+            phone={this.state[borrower_fields.phone.name]}
+            yearsInSchool={this.state[borrower_fields.yearsInSchool.name]}
+            maritalStatus={this.state[borrower_fields.maritalStatus.name]}
+            numberOfDependents={this.state[borrower_fields.numberOfDependents.name]}
+            dependentAges={this.state[borrower_fields.dependentAges.name]}
+            currentMonthlyRent={this.state[borrower_fields.currentMonthlyRent.name]}
+            yearsInCurrentAddress={this.state[borrower_fields.yearsInCurrentAddress.name]}
+            previousMonthlyRent={this.state[borrower_fields.previousMonthlyRent.name]}
+            yearsInPreviousAddress={this.state[borrower_fields.yearsInPreviousAddress.name]}
+            currentAddress={this.state[borrower_fields.currentAddress.name]}
+            previousAddress={this.state[borrower_fields.previousAddress.name]}
+            currentlyOwn={this.state[borrower_fields.currentlyOwn.name]}
+            previouslyOwn={this.state[borrower_fields.previouslyOwn.name]}
+            onChange={this.onChange}
+            onFocus={this.onFocus}/>
 
-              <div className='row'>
-                <div className='col-xs-12'>
+              <div className="form-group">
+                <div className="col-md-12">
                   <BooleanRadio
                     label={borrower_fields.selfEmployed.label}
                     checked={this.state[borrower_fields.selfEmployed.name]}
@@ -147,10 +144,9 @@ var Form = React.createClass({
                     onChange={this.onChange}/>
                 </div>
               </div>
-            </div>
             <hr/>
             { this.state.hasSecondaryBorrower ?
-              <div className='box mtn'>
+              <div className="box mtn">
                 <h5>Please provide information about your co-borrower</h5>
                 <Borrower
                   loan={this.props.loan}
@@ -178,8 +174,8 @@ var Form = React.createClass({
                   onChange={this.onChange}
                   onFocus={this.onFocus}/>
 
-                <div className='row'>
-                  <div className='col-xs-12'>
+                <div className="form-group">
+                  <div className="col-md-12">
                     <BooleanRadio
                       label={secondary_borrower_fields.selfEmployed.label}
                       checked={this.state[secondary_borrower_fields.selfEmployed.name]}
@@ -193,22 +189,12 @@ var Form = React.createClass({
                 </div>
               </div>
             : null }
-            <div className='box text-right'>
-              <a className='btn btnSml btnPrimary' onClick={this.save}>
-                { this.state.saving ? 'Saving' : 'Save and Continue' }<i className='icon iconRight mls'/>
-              </a>
+            <div className="form-group">
+              <div className="col-md-12">
+                <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div className='helpSection sticky pull-right overlayRight overlayTop pal bls'>
-          { this.state.focusedField && this.state.focusedField.helpText
-          ? <div>
-              <span className='typeEmphasize'>{this.state.focusedField.label}:</span>
-              <br/>{this.state.focusedField.helpText}
-            </div>
-          : null }
-        </div>
+        </form>
       </div>
     );
   },

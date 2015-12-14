@@ -140,7 +140,7 @@ When /^I drag the file "([^\"]*)" to "([^\"]*)"$/ do |file, field|
   patiently do
     attach_file(field, File.expand_path(file))
   end
-  draggable = page.find(".topMenu")
+  draggable = page.find(".account-nav")
   droppable = page.find("##{field}")
   draggable.drag_to(droppable)
 end
