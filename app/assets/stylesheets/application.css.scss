@@ -14,6 +14,7 @@ $rails: true;
 @import "lenders";
 @import "form";
 @import "new-loan";
+@import "devise";
 
 @font-face {
   font-family: 'aileronregular';
@@ -281,4 +282,3 @@ hr {
     filter:brightness(10000%); -webkit-filter:brightness(10000%)
   }
 }
-
