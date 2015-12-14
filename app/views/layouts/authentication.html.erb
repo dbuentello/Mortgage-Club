@@ -1,32 +1,48 @@
 <%= extends :public do %>
-  <nav class='topMenu sticky backgroundInverse pvm zIndexNavigation overlayFullWidth mbl'>
-    <div class='plm prl'>
-      <div class='row'>
-        <div class='col-xs-6 typeLowlight'>
-          <a class='mrl' href="/"> MortgageClub </a>
+  <div class="header clearfix shadowBottom">
+    <div class="container">
+      <nav class="navbar navbar-default mortgageNav">
+        <div class="navbar-header">
+        <a class="navbar-brand logo" href="index.html">
+          <img src="mortgageclubLOGO.png") alt: "MortageClub" />
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#links-home" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          </button>
+
         </div>
-        <div class='col-xs-6 text-right'>
-          <% if current_user %>
-            <span>
-              <span class='typeLowlight mrm'>Hello <a class='linkTypeReversed' href='/auth/register/edit' data-method='get'><%= current_user.to_s %></a>!</span>
-              <a class='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
-            </span>
-          <% else %>
-            <span>
-              <a class='linkTypeReversed mrm' href='/auth/login'>
-                Log in
-              </a>
-              <a class='linkTypeReversed mrm' href='/auth/register/signup'>
-                Sign up
-              </a>
-            </span>
-          <% end %>
+
+        <div class="collapse navbar-collapse mortgageNav" id="links-home">
+          <ul class="nav nav-pills navbar-right">
+            <li>
+            <a id="loginBtn" class="btn btn-ms btn-success theBtn text-uppercase" href="login.html" role="button">
+              <%= image_tag image_path("loginICON.png"), id: "loginImg" %>
+              Log in
+            </a>
+            </li>
+            <li><a id="signupBtn" class="btn btn-ms theBtn text-uppercase" href="#" role="button">Find my rate</a></li>
+          </ul>
         </div>
+      </nav>
+    </div>
+  </div>
+  <%= yield %>
+  <footer class="footer content">
+    <div class="container">
+      <%= image_tag("footerLogo.png", id: "footerLogo") %>
+      <%= image_tag("backtotopBtn.png", id: "backtopBtn") %>
+      <div class="footerRight">
+        <div>
+          <%= image_tag("fb.png") %>
+          <%= image_tag("twitter.png") %>
+          <%= image_tag("linked.png") %>
+          <%= image_tag("youtube.png") %>
+          <%= image_tag("rss.png") %>
+        </div>
+        <p>&copy; 2015 Copyright by MortgageClub</p>
       </div>
     </div>
-  </nav>
-  <br/>
-  <div class="auth-form">
-    <%= yield %>
-  </div>
+  </footer>
 <% end %>
