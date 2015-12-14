@@ -46,22 +46,15 @@ var DateFieldView = React.createClass({
   },
 
   render: function() {
-    var classes = this.getFieldClasses(this.props.editable, this.props.isLarge, this.props.valid),
-        dateVal = this.isoToUsDate(this.props.value) || this.props.emptyStaticText;
+    var dateVal = this.isoToUsDate(this.props.value) || this.props.emptyStaticText;
 
     return (
       <div>
-        <label className="col-xs-12 pan">
-          <span className={this.props.label ? 'h7 typeBold mrs' : null}>{this.props.label}</span>
-          <div className="input-group date datepicker pan" style={{display: this.props.editable ? null : 'none', zIndex: this.props.zIndex}}>
-            <input className={classes.editableFieldClasses} defaultValue={dateVal} type="text" placeholder={this.props.placeholder}
-              onBlur={this.onBlur} onFocus={this.handleFocus} id={this.props.keyName} name={this.props.name}/>
-            <span className="input-group-addon">
-              <i className="iconCalendar"/>
-            </span>
-          </div>
-        </label>
-        <p className={classes.staticFieldClasses}>{dateVal}</p>
+        <h6>{this.props.label}</h6>
+        <input className={"form-control " + this.props.customClass} defaultValue={dateVal} type="text" placeholder={this.props.placeholder}
+          onBlur={this.onBlur} onFocus={this.handleFocus} id={this.props.keyName} name={this.props.name}/>
+        <img src="/icons/date.png" alt="title"/>
+        <p>{dateVal}</p>
       </div>
     );
   },
