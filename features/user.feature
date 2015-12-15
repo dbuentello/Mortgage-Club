@@ -16,7 +16,7 @@ Feature: User
       And I change password as "12345678" with current password "secretpass"
       And I press "Change"
       Then I should not see the avatar "avatar.png"
-      And I click "Log out"
+      And I click "Log Out"
       And I login as "testing@man.net" with password "12345678"
     Then I should see "New Loan"
 

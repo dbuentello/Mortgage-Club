@@ -24,13 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       InviteService.delay.call(@token, @invite_code, resource)
     end
 
-    if params[:role] == "loan-owner"
-      resource.create_borrower
-      resource.add_role :borrower
-    else
-      resource.create_loan_member
-      resource.add_role :loan_member
-    end
+    resource.create_borrower
   end
 
   # GET /resource/edit
