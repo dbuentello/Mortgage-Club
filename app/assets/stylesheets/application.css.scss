@@ -47,6 +47,12 @@ body {
   padding-bottom: 150px;
 }
 
+.content {
+  position: relative;
+  width: 100%;
+  width: 100%;
+}
+
 .mortgage-rates {
   .helpmechoose {
     left: 5%;
@@ -257,7 +263,7 @@ hr {
     margin-top: -9px;
   }
 
-  .theBtn {background:#15c0f1; border-color:#15c0f1; color:white; padding: 6px 12px;}
+  .theBtn {background:#15c0f1; border-color:#15c0f1; color:white;}
 
   .theBtn:hover {background:white; color:#15c0f1;  border-color:#15c0f1;}
 

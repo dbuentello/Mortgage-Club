@@ -2,7 +2,7 @@
   <div class="container">
     <nav class="collapse navbar-collapse mortgageNav">
       <div class="navbar-header">
-        <a class="navbar-brand logo" href="index.html"><img src="/mortgageclubLOGO.png" alt="MortageClub"/></a>
+        <a class="navbar-brand logo" href="/"><img src="/mortgageclubLOGO1.png" alt="MortageClub"/></a>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#links-home" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
@@ -28,7 +28,7 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="accountBtn">
                   <li><%= link_to "My Profile", edit_user_registration_path(current_user) %></li>
-                  <li><%= link_to "Log Out", destroy_user_session_path(current_user), method: :delete %>
+                  <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %>
                 </ul>
               </div>
             </li>
