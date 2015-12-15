@@ -22,8 +22,6 @@ Feature: BorrowerTabAtNewLoanPage
       Then I clear value in "Your Current Address"
         And I fill in "Your Current Address" with "Long Beach, CA, United States"
       Then I choose "true_first_borrower_currently_own"
-      Then I clear value in "Number of years you have lived here"
-        And I fill in "Number of years you have lived here" with "3"
       Then I click on "Save and Continue"
         And I wait for 2 seconds
         And I should see "W2 - Most recent tax year"
