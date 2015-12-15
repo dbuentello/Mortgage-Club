@@ -1,5 +1,5 @@
 Given /^I am not authenticated$/ do
-  visit('/users/sign_out')
+  visit('/auth/logout')
 end
 
 Given /^I am a new, authenticated user$/ do

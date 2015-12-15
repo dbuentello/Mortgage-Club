@@ -12,8 +12,8 @@ Feature: DeclarationsTabAtNewLoanPage
       And I choose "true_ownership_interest"
         Then I should see "(1) What type of property did you own?"
         And I should see "(2) How did you hold title to this property?"
-        And I select "Secondary Resident" from "type_of_property"
-        And I select "Other" from "title_of_property"
+        And I select "Secondary Resident" from "(1) What type of property did you own?"
+        And I select "Other" from "(2) How did you hold title to this property?"
     Then I click on "Declarations"
       And the radio button "true_outstanding_judgment" should be checked
       And the radio button "false_co_maker_or_endorser" should be checked

@@ -16,9 +16,11 @@
     <div class="container flashSection">
       <%= flash_messages %>
     </div>
-
+    <%= render "/shared/header" %>
     <%= yield %>
-    <% unless Rails.env.test? %>
+    <%= render "/shared/footer" %>
+
+    <% if Rails.env.production? %>
       <!--Start of Zopim Live Chat Script-->
       <script type="text/javascript">
         window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=

@@ -1,10 +1,10 @@
 var _ = require('lodash');
 var React = require('react/addons');
 
-var AddressField = require('components/form/AddressField');
-var SelectField = require('components/form/SelectField');
-var TextField = require('components/form/TextField');
-var BooleanRadio = require('components/form/BooleanRadio');
+var AddressField = require('components/form/NewAddressField');
+var SelectField = require('components/form/NewSelectField');
+var TextField = require('components/form/NewTextField');
+var BooleanRadio = require('components/form/NewBooleanRadio');
 
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
@@ -170,59 +170,61 @@ var FormDeclarations = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <div className='formContent'>
-          <div className='pal'>
-            <div className='box mtn'>
-              {
-                _.map(Object.keys(checkboxFields), function(key) {
-                  return (
-                    <div key={key} style={{display: this.state[checkboxFields[key].name + '_display']}}>
-                      <BooleanRadio
-                        label={checkboxFields[key].label}
-                        keyName={checkboxFields[key].name}
-                        editable={true}
-                        checked={this.state[checkboxFields[key].name]}
-                        onChange={this.onChange}/>
-                    </div>
-                  )
-                },this)
-              }
-              <div className='selectBox col-xs-6' style={{display: this.state.display_sub_question}}>
-                <SelectField
-                  label={selectBoxFields.typeOfProperty.label}
-                  keyName={selectBoxFields.typeOfProperty.name}
-                  value={this.state[selectBoxFields.typeOfProperty.name]}
-                  options={propertyOptions}
-                  editable={true}
-                  name={'type_of_property'}
-                  onChange={this.onChange}/>
-                <SelectField
-                  label={selectBoxFields.titleOfProperty.label}
-                  keyName={selectBoxFields.titleOfProperty.name}
-                  value={this.state[selectBoxFields.titleOfProperty.name]}
-                  options={titlePropertyOptions}
-                  editable={true}
-                  name={'title_of_property'}
-                  onChange={this.onChange}/>
-              </div>
-            </div>
-            <div className='box text-right'>
-              <a className='btn btnSml btnPrimary' onClick={this.save} disabled={this.state.saving}>
-                { this.state.saving ? 'Saving' : 'Save and Continue' }<i className='icon iconRight mls'/>
-              </a>
+      <div className='col-sm-9 col-xs-12 account-content'>
+        <form className='form-horizontal'>
+          {
+            _.map(Object.keys(checkboxFields), function(key) {
+              return (
+                <div className='form-group' key={key} style={{display: this.state[checkboxFields[key].name + '_display']}}>
+                  <BooleanRadio
+                    label={checkboxFields[key].label}
+                    keyName={checkboxFields[key].name}
+                    customColumn={"col-xs-2"}
+                    editable={true}
+                    checked={this.state[checkboxFields[key].name]}
+                    onChange={this.onChange}/>
+                </div>
+              )
+            },this)
+          }
+          <div className='form-group' style={{display: this.state.display_sub_question}}>
+            <div className="col-md-6">
+              <SelectField
+                label={selectBoxFields.typeOfProperty.label}
+                keyName={selectBoxFields.typeOfProperty.name}
+                value={this.state[selectBoxFields.typeOfProperty.name]}
+                options={propertyOptions}
+                editable={true}
+                name={'type_of_property'}
+                onChange={this.onChange}/>
             </div>
           </div>
-        </div>
-        <div className='helpSection sticky pull-right overlayRight overlayTop'>
-        </div>
+          <div className='form-group' style={{display: this.state.display_sub_question}}>
+            <div className="col-md-6">
+              <SelectField
+                label={selectBoxFields.titleOfProperty.label}
+                keyName={selectBoxFields.titleOfProperty.name}
+                value={this.state[selectBoxFields.titleOfProperty.name]}
+                options={titlePropertyOptions}
+                editable={true}
+                name={'title_of_property'}
+                onChange={this.onChange}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-md-12">
+              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+            </div>
+          </div>
+        </form>
       </div>
     );
   },
 
-  save: function() {
+  save: function(event) {
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 6, true, true);
+    event.preventDefault();
   }
 
 });

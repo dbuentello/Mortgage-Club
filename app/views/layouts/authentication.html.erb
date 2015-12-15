@@ -1,32 +1,5 @@
 <%= extends :public do %>
-  <nav class='topMenu sticky backgroundInverse pvm zIndexNavigation overlayFullWidth mbl'>
-    <div class='plm prl'>
-      <div class='row'>
-        <div class='col-xs-6 typeLowlight'>
-          <a class='mrl' href="/"> MortgageClub </a>
-        </div>
-        <div class='col-xs-6 text-right'>
-          <% if current_user %>
-            <span>
-              <span class='typeLowlight mrm'>Hello <a class='linkTypeReversed' href='/auth/register/edit' data-method='get'><%= current_user.to_s %></a>!</span>
-              <a class='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
-            </span>
-          <% else %>
-            <span>
-              <a class='linkTypeReversed mrm' href='/auth/login'>
-                Log in
-              </a>
-              <a class='linkTypeReversed mrm' href='/auth/register/signup'>
-                Sign up
-              </a>
-            </span>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </nav>
-  <br/>
-  <div class="auth-form">
+  <div class="authentication-part">
     <%= yield %>
   </div>
 <% end %>

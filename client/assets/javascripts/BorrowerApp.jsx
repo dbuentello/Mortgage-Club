@@ -42,48 +42,15 @@ window.BorrowerApp = React.createClass({
   },
 
   render: function() {
-    var user = this.props.currentUser;
-
     return (
-      <div>
-        <nav className='topMenu sticky backgroundInverse pvm zIndexNavigation overlayFullWidth'>
-          <div className='plm prl'>
-            <div className='row'>
-              <div className='col-xs-6 typeLowlight'>
-                <a className='mrl' href='/my/loans'> MortgageClub </a>
-              </div>
-              <div className='col-xs-6 text-right'>
-                {user
-                ? <span>
-                    <a className="mrl" data-toggle="modal" data-target="#newLoan" style={{'cursor': 'pointer'}}><i className="iconPlus mrxs"/>New Loan</a>
-                    <a className='mrl' href='/my/loans'><i className='iconFolder mrxs'/>Loans</a>
-                    <span className='typeLowlight mrl'>Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!</span>
-                    <a className='linkTypeReversed' href='/auth/logout' data-method='delete'><i className='iconUser mrxs'/>Log out</a>
-                  </span>
-                : <span>
-                    <a className='linkTypeReversed mrm' href='/auth/login'>
-                      Log in
-                    </a>
-                    <a className='linkTypeReversed mrm' href='/auth/register/signup'>
-                      Sign up
-                    </a>
-                  </span>
-                }
-              </div>
-            </div>
-          </div>
-        </nav>
-
+      <div className="content accountPart">
         <RouteHandler bootstrapData={this.props}/>
-
-        <div className='page-alert'/>
-
         <ModalLink
-          id="newLoan"
-          title="Confirmation"
-          body="Are you sure to create a new loan?"
-          yesCallback={this.createLoan}
-        />
+            id="newLoan"
+            title="Confirmation"
+            body="Are you sure to create a new loan?"
+            yesCallback={this.createLoan}/>
+        <div className='page-alert'/>
       </div>
     );
   },

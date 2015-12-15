@@ -1,4 +1,3 @@
-
 var React = require('react/addons');
 var StaticFieldMixin = require('mixins/StaticFieldMixin');
 var UpdateChangeMixin = require('mixins/UpdateChangeMixin');

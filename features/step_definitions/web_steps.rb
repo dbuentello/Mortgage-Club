@@ -33,7 +33,7 @@ When /^I turn off delayed jobs$/ do
 end
 
 When /^I should see content as "(.*)"$/ do |content|
-  expect(page).to have_content("#{content}")
+  expect(page).to have_selector("input[value='#{content}']")
 end
 
 Given /^I wait for (\d+) seconds?$/ do |n|
@@ -140,7 +140,7 @@ When /^I drag the file "([^\"]*)" to "([^\"]*)"$/ do |file, field|
   patiently do
     attach_file(field, File.expand_path(file))
   end
-  draggable = page.find(".topMenu")
+  draggable = page.find("body")
   droppable = page.find("##{field}")
   draggable.drag_to(droppable)
 end

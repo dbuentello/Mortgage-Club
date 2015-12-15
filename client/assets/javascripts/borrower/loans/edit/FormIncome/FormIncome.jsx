@@ -3,10 +3,10 @@ var React = require('react/addons');
 
 var TextFormatMixin = require('mixins/TextFormatMixin');
 
-var AddressField = require('components/form/AddressField');
-var DateField = require('components/form/DateField');
-var TextField = require('components/form/TextField');
-var SelectField = require('components/form/SelectField');
+var AddressField = require('components/form/NewAddressField');
+var DateField = require('components/form/NewDateField');
+var TextField = require('components/form/NewTextField');
+var SelectField = require('components/form/NewSelectField');
 var OtherIncome = require('./OtherIncome');
 
 var fields = {
@@ -76,134 +76,114 @@ var FormIncome = React.createClass({
     );
   },
 
-  afterUploadingDocument: function() {
-  },
-
   render: function() {
     return (
-      <div>
-        <div className='formContent'>
-          <div className='pal'>
-            <div className='box mtn'>
-              <div className='row'>
-                <div className='col-sm-6'>
-                  <TextField
-                    label={fields.employerName.label}
-                    keyName={fields.employerName.name}
-                    value={this.state[fields.employerName.name]}
-                    editable={true}
-                    onFocus={this.onFocus.bind(this, fields.employerName)}
-                    onChange={this.onChange}/>
-                </div>
-                <div className='col-sm-6'>
-                  <TextField
-                    label={fields.employerAddress.label}
-                    keyName={fields.employerFullTextAddress.name}
-                    value={this.state[fields.employerFullTextAddress.name]}
-                    editable={true}
-                    onFocus={this.onFocus.bind(this, fields.employerFullTextAddress)}
-                    onChange={this.onChange}/>
-                </div>
-              </div>
-
-              <div className='row'>
-                <div className='col-sm-6'>
-                  <TextField
-                    label={fields.jobTitle.label}
-                    keyName={fields.jobTitle.name}
-                    value={this.state[fields.jobTitle.name]}
-                    editable={true}
-                    onFocus={this.onFocus.bind(this, fields.jobTitle)}
-                    onChange={this.onChange}/>
-                </div>
-                <div className='col-sm-6'>
-                  <TextField
-                    label={fields.monthsAtEmployer.label}
-                    keyName={fields.monthsAtEmployer.name}
-                    value={this.state[fields.monthsAtEmployer.name]}
-                    editable={true}
-                    onFocus={this.onFocus.bind(this, fields.monthsAtEmployer)}
-                    onChange={this.onChange}/>
-                </div>
-              </div>
-
-              <div className='h5 typeDeemphasize'>Best contact to confirm employment:</div>
-              <div className='row'>
-                <div className='col-sm-6'>
-                  <TextField
-                    label={fields.employerContactName.label}
-                    keyName={fields.employerContactName.name}
-                    value={this.state[fields.employerContactName.name]}
-                    editable={true}
-                    onFocus={this.onFocus.bind(this, fields.employerContactName)}
-                    onChange={this.onChange}/>
-                </div>
-                <div className='col-sm-6'>
-                  <TextField
-                    label={fields.employerContactNumber.label}
-                    keyName={fields.employerContactNumber.name}
-                    value={this.state[fields.employerContactNumber.name]}
-                    editable={true}
-                    onFocus={this.onFocus.bind(this, fields.employerContactNumber)}
-                    onChange={this.onChange}/>
-                </div>
-              </div>
-
-              <div className='h5 typeDeemphasize'>Income details:</div>
-              <div className='row'>
-                <div className='col-sm-6'>
-                  <TextField
-                    label={fields.baseIncome.label}
-                    keyName={fields.baseIncome.name}
-                    value={this.state[fields.baseIncome.name]}
-                    liveFormat={true}
-                    format={this.formatCurrency}
-                    editable={true}
-                    onFocus={this.onFocus.bind(this, fields.baseIncome)}
-                    onChange={this.onChange}
-                    placeholder='e.g. 99,000'/>
-                </div>
-                <div className='col-sm-6'>
-                  <SelectField
-                    label={fields.incomeFrequency.label}
-                    keyName={fields.incomeFrequency.name}
-                    value={this.state[fields.incomeFrequency.name]}
-                    options={incomeFrequencies}
-                    editable={true}
-                    onChange={this.onChange}
-                    onFocus={this.onFocus.bind(this, fields.incomeFrequency)}
-                    allowBlank={true}/>
-                </div>
-              </div>
-
-              {this.state.otherIncomes.map(this.eachOtherIncome)}
-
-              <div className='row'>
-                <div className='box col-md-6'>
-                  <a className="clickable" onClick={this.addOtherIncome}>
-                    Add other income
-                  </a>
-                </div>
-              </div>
-
+      <div className='col-xs-9 account-content'>
+        <form className='form-horizontal'>
+          <div className='form-group'>
+            <div className='col-md-6'>
+              <TextField
+                label={fields.employerName.label}
+                keyName={fields.employerName.name}
+                value={this.state[fields.employerName.name]}
+                editable={true}
+                onFocus={this.onFocus.bind(this, fields.employerName)}
+                onChange={this.onChange}/>
             </div>
-
-            <div className='box text-right'>
-              <a className='btn btnSml btnPrimary' onClick={this.save} disabled={this.state.saving}>
-                {this.state.saving ? 'Saving' : 'Save and Continue'}<i className='icon iconRight mls'/>
-              </a>
+            <div className='col-md-6'>
+              <TextField
+                label={fields.employerAddress.label}
+                keyName={fields.employerFullTextAddress.name}
+                value={this.state[fields.employerFullTextAddress.name]}
+                editable={true}
+                onFocus={this.onFocus.bind(this, fields.employerFullTextAddress)}
+                onChange={this.onChange}/>
             </div>
           </div>
-        </div>
-
-        <div className='helpSection sticky pull-right overlayRight overlayTop pal bls'>
-          {this.state.focusedField && this.state.focusedField.helpText
-          ? <div>
-              <span className='typeEmphasize'>{this.state.focusedField.label}:</span>
-              <br/>{this.state.focusedField.helpText}
+          <div className='form-group'>
+            <div className='col-md-6'>
+              <TextField
+                label={fields.jobTitle.label}
+                keyName={fields.jobTitle.name}
+                value={this.state[fields.jobTitle.name]}
+                editable={true}
+                onFocus={this.onFocus.bind(this, fields.jobTitle)}
+                onChange={this.onChange}/>
             </div>
-          : null}
-        </div>
+            <div className='col-md-6'>
+              <TextField
+                label={fields.monthsAtEmployer.label}
+                keyName={fields.monthsAtEmployer.name}
+                value={this.state[fields.monthsAtEmployer.name]}
+                editable={true}
+                onFocus={this.onFocus.bind(this, fields.monthsAtEmployer)}
+                onChange={this.onChange}/>
+            </div>
+          </div>
+          <h3 className="text-uppercase">best contact to confirm employment</h3>
+          <div className='form-group'>
+            <div className='col-md-6'>
+              <TextField
+                label={fields.employerContactName.label}
+                keyName={fields.employerContactName.name}
+                value={this.state[fields.employerContactName.name]}
+                editable={true}
+                onFocus={this.onFocus.bind(this, fields.employerContactName)}
+                onChange={this.onChange}/>
+            </div>
+            <div className='col-md-6'>
+              <TextField
+                label={fields.employerContactNumber.label}
+                keyName={fields.employerContactNumber.name}
+                value={this.state[fields.employerContactNumber.name]}
+                editable={true}
+                onFocus={this.onFocus.bind(this, fields.employerContactNumber)}
+                onChange={this.onChange}/>
+            </div>
+          </div>
+          <h3 className="text-uppercase">income details</h3>
+          <div className='form-group'>
+            <div className='col-md-6'>
+              <TextField
+                label={fields.baseIncome.label}
+                keyName={fields.baseIncome.name}
+                value={this.state[fields.baseIncome.name]}
+                liveFormat={true}
+                format={this.formatCurrency}
+                editable={true}
+                onFocus={this.onFocus.bind(this, fields.baseIncome)}
+                onChange={this.onChange}
+                placeholder='e.g. 99,000'/>
+            </div>
+            <div className='col-md-6'>
+              <SelectField
+                label={fields.incomeFrequency.label}
+                keyName={fields.incomeFrequency.name}
+                value={this.state[fields.incomeFrequency.name]}
+                options={incomeFrequencies}
+                editable={true}
+                onChange={this.onChange}
+                onFocus={this.onFocus.bind(this, fields.incomeFrequency)}
+                allowBlank={true}/>
+            </div>
+          </div>
+
+          {this.state.otherIncomes.map(this.eachOtherIncome)}
+
+          <div className='form-group'>
+            <div className='col-md-12 clickable' onClick={this.addOtherIncome}>
+              <h5>
+                <span className="glyphicon glyphicon-plus-sign"></span>
+                  Add other income
+              </h5>
+            </div>
+          </div>
+          <div className='form-group'>
+            <div className='col-md-12'>
+              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+            </div>
+          </div>
+        </form>
       </div>
     );
   },
@@ -317,9 +297,10 @@ var FormIncome = React.createClass({
     this.setState({otherIncomes: arr});
   },
 
-  save: function() {
+  save: function(event) {
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 3);
+    event.preventDefault();
   }
 });
 
