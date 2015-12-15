@@ -282,3 +282,98 @@ hr {
     filter:brightness(10000%); -webkit-filter:brightness(10000%)
   }
 }
+
+.modal-md {
+  max-width:405px;
+
+  .modal-content {padding:0 20px;}
+
+  p {clear:left; text-align:left; padding:0 15px;}
+
+  h2 {color:#15c0f1; font-weight:600; font-size:1.5em; margin-bottom:0;}
+
+  h3 {color:#555; font-weight:300; font-size:1em; margin-top:5px;}
+
+  #continueBtn {float:none; font-size:1.7em;}
+
+  .form-group:last-child {margin-bottom:20px;}
+
+  .form-group img.info-img {position:relative; float:right; border:none; display:inline-block; margin-top:5px;}
+
+  #mobile {padding-left:25px;}
+
+  img.flag {left:5px; border:none;}
+
+  .closeBtn {position:absolute; right:15px; top:15px; color:#aaa; font-size:1.5em; z-index:999; transition: transform .5s ease;}
+
+  .closeBtn:hover {transform:rotate(45deg); cursor:pointer;}
+}
+
+#loginBtn {
+  background:white;
+  color:#a1a1a1;
+  border-color:#a1a1a1;
+  width:140px;
+}
+
+#loginBtn:hover {
+  background: white;
+  color: #15c0f1;
+  border-color: #15c0f1;
+}
+
+#loginBtn:hover #loginImg {
+  animation:loginAnim 2s infinite;
+  -webkit-animation:loginAnim 2s infinite;
+}
+
+#loginImg {
+  height:18px;
+  width:auto;
+  margin-right:10px;
+  margin-top:-4px;
+}
+
+@keyframes loginAnim {
+  0% {transform:translateX(0);}
+  25% {transform:translateX(2px);}
+  50% {transform:translateX(-3px);}
+  75% {transform:translateX(2px);}
+  100% {transform:translateX(0);}
+}
+
+@-webkit-keyframes loginAnim {
+  0% {-webkit-transform:translateX(0);}
+  25% {-webkit-transform:translateX(2px);}
+  50% {-webkit-transform:translateX(-3px);}
+  75% {-webkit-transform:translateX(2px);}
+  100% {-webkit-transform:translateX(0);}
+}
+
+#signupBtn {
+  width:140px;
+}
+
+@media (min-width:384px) and (max-width: 414px) {
+  #signupBtn {
+    width:100%;
+  }
+}
+
+@media (min-width:375px) and (max-width: 384px) {
+  #signupBtn {
+    width:100%;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 375px) {
+  #signupBtn {
+    width:100%;
+  }
+}
+
+@media (max-width: 320px) {
+  #signupBtn {
+    width:100%;
+  }
+}

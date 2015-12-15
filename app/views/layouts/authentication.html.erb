@@ -1,50 +1,5 @@
 <%= extends :public do %>
   <div class="authentication-part">
-    <div class="header clearfix shadowBottom">
-      <div class="container">
-        <nav class="navbar navbar-default mortgageNav">
-          <div class="navbar-header">
-          <a class="navbar-brand logo" href="index.html">
-            <img src="/mortgageclubLOGO.png") alt: "MortageClub" />
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#links-home" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
-
-          </div>
-
-          <div class="collapse navbar-collapse mortgageNav" id="links-home">
-            <ul class="nav nav-pills navbar-right">
-              <li>
-                <%= link_to new_user_session_path, class: "btn btn-ms btn-success theBtn text-uppercase", id: "loginBtn" do %>
-                  <%= image_tag image_path("loginICON.png"), id: "loginImg" %>
-                  Log in
-                <% end %>
-              </li>
-              <li><a id="signupBtn" class="btn btn-ms theBtn text-uppercase" href="#" role="button">Find my rate</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </div>
     <%= yield %>
-    <footer class="footer content">
-      <div class="container">
-        <%= image_tag("footerLogo.png", id: "footerLogo") %>
-        <%= image_tag("backtotopBtn.png", id: "backtopBtn") %>
-        <div class="footerRight">
-          <div>
-            <%= image_tag("fb.png") %>
-            <%= image_tag("twitter.png") %>
-            <%= image_tag("linked.png") %>
-            <%= image_tag("youtube.png") %>
-            <%= image_tag("rss.png") %>
-          </div>
-          <p>&copy; 2015 Copyright by MortgageClub</p>
-        </div>
-      </div>
-    </footer>
   </div>
 <% end %>

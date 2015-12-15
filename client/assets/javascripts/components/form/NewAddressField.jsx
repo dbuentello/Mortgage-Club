@@ -218,7 +218,7 @@ var AddressField = React.createClass({
         }
         <input className="form-control" type="text"
           value={val} placeholder={this.props.placeholder}
-          onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange} id={this.props.keyName}/>
+          onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange} id={this.props.keyName} name={this.props.label}/>
         <img src="/icons/address.png" alt="title"/>
       </div>
     );

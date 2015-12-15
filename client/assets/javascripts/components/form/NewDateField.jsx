@@ -52,7 +52,7 @@ var DateFieldView = React.createClass({
       <div>
         <h6>{this.props.label}</h6>
         <input className={"form-control " + this.props.customClass} defaultValue={dateVal} type="text" placeholder={this.props.placeholder}
-          onBlur={this.onBlur} onFocus={this.handleFocus} id={this.props.keyName} name={this.props.name}/>
+          onBlur={this.onBlur} onFocus={this.handleFocus} id={this.props.keyName} name={this.props.label}/>
         <img src="/icons/date.png" alt="title"/>
       </div>
     );

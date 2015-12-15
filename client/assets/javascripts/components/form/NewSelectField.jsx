@@ -98,7 +98,7 @@ var NewSelectField = React.createClass({
           :
             null
         }
-        <select className="form-control" name={this.props.name} onChange={this.handleChange} onFocus={this.handleFocus} value={this.props.value || ''}>
+        <select className="form-control" name={this.props.label} onChange={this.handleChange} onFocus={this.handleFocus} value={this.props.value || ''}>
           {(this.props.placeholder) ? <option value="" disabled={true}>{this.props.placeholder}</option> : null}
           {this.state.options.map(function (option, i) {
             return (
