@@ -95,6 +95,7 @@ var LoanInterface = React.createClass({
         active: menu[step + 1] || menu[0]
       });
     }
+
   },
 
   save: function(loan, step, skip_change_page, last_step = false) {

@@ -246,6 +246,7 @@ hr {
     border-top-right-radius:0;
     border-bottom-right-radius:0;
     text-align:left;
+    padding: 6px 12px;
 
     img {margin-left:10px;}
 
@@ -286,6 +287,10 @@ hr {
     margin-right:10px;
     margin-top:-4px;
     filter:brightness(10000%); -webkit-filter:brightness(10000%)
+  }
+
+  .logo img{
+    width:200px;
   }
 }
 

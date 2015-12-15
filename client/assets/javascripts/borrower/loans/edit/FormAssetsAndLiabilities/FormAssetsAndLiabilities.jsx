@@ -221,7 +221,7 @@ var FormAssetsAndLiabilities = React.createClass({
     }
   },
 
-  save: function() {
+  save: function(event) {
     var valid = true;
     this.setState({saving: true});
 
@@ -300,6 +300,8 @@ var FormAssetsAndLiabilities = React.createClass({
         this.showFlashes(flash);
       }.bind(this)
     });
+
+    event.preventDefault();
   }
 });
 

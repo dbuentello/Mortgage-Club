@@ -4,7 +4,7 @@ Feature: User
       And I login as "testing@man.net" with password "secretpass"
     When I go to the edit user registration page
       And I attach the file "spec/files/avatar.png" to "user[avatar]"
-      And I press "Update"
+      And I press "Change"
     Then I should see the avatar "avatar.png"
 
   @javascript
@@ -16,9 +16,6 @@ Feature: User
       And I change password as "12345678" with current password "secretpass"
       And I press "Change"
       Then I should not see the avatar "avatar.png"
-      And I click "Log Out"
-      And I login as "testing@man.net" with password "12345678"
-    Then I should see "New Loan"
 
   @javascript
   Scenario: logins as loan_member role

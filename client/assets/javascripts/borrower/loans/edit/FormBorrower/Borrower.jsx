@@ -59,7 +59,7 @@ var Borrower = React.createClass({
           </div>
         </div>
         <div className="form-group">
-            { this.props.email
+            { this.props.isSecondary
               ?
               <div className="col-md-6">
                 <TextField

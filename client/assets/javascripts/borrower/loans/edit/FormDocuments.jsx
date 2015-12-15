@@ -143,9 +143,9 @@ var FormDocuments = React.createClass({
             : null
           }
           {
-            this.state.is_file_taxes_jointly
-            ?
-              <div>
+            this.state.is_file_taxes_jointly == null
+            ? null
+            : <div>
                 <div className='row'>
                   <p className="box-description col-sm-12">
                     Please upload the following documents for your co-borrower.
@@ -175,8 +175,6 @@ var FormDocuments = React.createClass({
                   }, this)
                 }
               </div>
-            :
-              null
             }
           <div className='form-group'>
             <div className='col-md-12'>
@@ -230,9 +228,10 @@ var FormDocuments = React.createClass({
     return loan;
   },
 
-  save: function() {
+  save: function(event) {
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 2);
+    event.preventDefault();
   }
 });
 

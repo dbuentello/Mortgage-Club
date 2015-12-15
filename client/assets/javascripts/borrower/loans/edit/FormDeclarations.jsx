@@ -221,9 +221,10 @@ var FormDeclarations = React.createClass({
     );
   },
 
-  save: function() {
+  save: function(event) {
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 6, true, true);
+    event.preventDefault();
   }
 
 });

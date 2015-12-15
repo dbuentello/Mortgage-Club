@@ -161,13 +161,14 @@ var Form = React.createClass({
                   currentlyOwn={this.state[secondary_borrower_fields.currentlyOwn.name]}
                   previouslyOwn={this.state[secondary_borrower_fields.previouslyOwn.name]}
                   selfEmployed={this.state[secondary_borrower_fields.selfEmployed.name]}
+                  isSecondary={true}
                   onChange={this.onChange}
                   onFocus={this.onFocus}/>
               </div>
             : null }
             <div className="form-group">
               <div className="col-md-12">
-                <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                <button type="submit" className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
               </div>
             </div>
         </form>
@@ -307,10 +308,11 @@ var Form = React.createClass({
     return true
   },
 
-  save: function() {
+  save: function(event) {
     if (this.valid() == false) {
       return;
     }
+
     this.setState({saving: true});
     $.ajax({
       url: '/borrowers/' + this.props.loan.borrower.id,
@@ -346,6 +348,8 @@ var Form = React.createClass({
         this.setState({saving: false});
       }
     });
+
+    event.preventDefault();
   },
 
   getCurrentAddress: function(fields) {

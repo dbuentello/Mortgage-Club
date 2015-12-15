@@ -297,9 +297,10 @@ var FormIncome = React.createClass({
     this.setState({otherIncomes: arr});
   },
 
-  save: function() {
+  save: function(event) {
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 3);
+    event.preventDefault();
   }
 });
 

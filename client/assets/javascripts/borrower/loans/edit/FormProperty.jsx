@@ -249,7 +249,7 @@ var FormProperty = React.createClass({
     this.state[fields.propertyPurpose.name] == "primary_residence"
   },
 
-  save: function() {
+  save: function(event) {
     this.setState({saving: true});
     var messages = [];
 
@@ -284,6 +284,7 @@ var FormProperty = React.createClass({
     } else {
       this.props.saveLoan(this.buildLoanFromState(), 0);
     }
+    event.preventDefault();
   }
 });
 

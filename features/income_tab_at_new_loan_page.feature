@@ -3,7 +3,7 @@ Feature: IncomeTabAtNewLoanPage
   Scenario: User updates his income detail
     When I am at loan management page
       And I should see "Income"
-      And I click on "Income" in the "#tabIncome"
+      And I click "Income" in the "#tabIncome"
       Then I fill in "Name of current employer" with "Any Company"
         Then I clear value in "Job Title"
           And I fill in "Job Title" with "Software Engineer"
@@ -25,15 +25,15 @@ Feature: IncomeTabAtNewLoanPage
         And I clear value in "Annual Gross Amount"
         And I fill in "Annual Gross Amount" with "9876"
       Then I click on "Save and Continue"
-        And I wait for 1 seconds
-      And I click on "Income" in the "#tabIncome"
-        Then I should see "Software Engineer"
-          And I should see "Cuong Vu"
-          And I should see "0912345678"
-          And I should see "$123,454"
-      And I should see "Documents"
-      And I click on "Documents" in the "#tabDocuments"
-      And I wait for 5 seconds
-      Then I drag the file "spec/files/sample.pdf" to "first_bank_statement"
         And I wait for 2 seconds
-        And I should see "sample.pdf"
+      And I click "Income" in the "#tabIncome"
+        Then I should see content as "Software Engineer"
+          And I should see content as "Cuong Vu"
+          And I should see content as "0912345678"
+          And I should see content as "$123,454"
+      And I should see "Documents"
+      # And I click "Documents" in the "#tabDocuments"
+      # And I wait for 2 seconds
+      # Then I drag the file "spec/files/sample.pdf" to "first_personal_tax_return"
+      #   And I wait for 2 seconds
+      #   And I should see "sample.pdf"

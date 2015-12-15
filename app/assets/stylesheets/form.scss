@@ -106,7 +106,7 @@ button[type=submit] {padding:11px 26px; border-radius:6px; box-shadow:none; font
     bottom:initial;
   }
 
-  span {
+  span.filename {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

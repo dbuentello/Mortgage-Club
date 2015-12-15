@@ -15,6 +15,8 @@
   <body>
     <%= render "/shared/header" %>
     <%= yield %>
+    <%= render "/shared/footer" %>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
 
     <% if Rails.env.production? %>
