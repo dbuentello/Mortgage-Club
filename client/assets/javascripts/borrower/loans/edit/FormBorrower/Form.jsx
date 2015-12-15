@@ -7,7 +7,7 @@ var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
 var SelectField = require('components/form/NewSelectField');
 var TextField = require('components/form/TextField');
-var BooleanRadio = require('components/form/BooleanRadio');
+var BooleanRadio = require('components/form/NewBooleanRadio');
 var Borrower = require('./Borrower');
 var borrowerCountOptions = [
   {name: 'As an individual', value: 1},
@@ -31,10 +31,10 @@ var borrower_fields = {
   currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null},
   currentlyOwn: {label: 'Own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null},
   selfEmployed: {label: 'Are you self-employed?', name: 'first_borrower_self_employed', fieldName: 'self_employed', helpText: null},
-  yearsInCurrentAddress: {label: 'Number of years you have lived in this address', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null},
+  yearsInCurrentAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null},
   previousAddress: {label: 'Your previous address', name: 'first_borrower_previous_address', fieldName: 'previous_address', helpText: null},
   previouslyOwn: {label: 'Do you own or rent?', name: 'first_borrower_previously_own', fieldName: 'previously_own', helpText: null},
-  yearsInPreviousAddress: {label: 'Number of years you have lived in this address', name: 'first_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null},
+  yearsInPreviousAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null},
   currentMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null},
   previousMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null}
 };
@@ -55,10 +55,10 @@ var secondary_borrower_fields = {
   currentAddress: {label: 'Your co-borrower current address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null},
   currentlyOwn: {label: 'Own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null},
   selfEmployed: {label: 'Is your co-borrower self-employed?', name: 'secondary_borrower_self_employed', fieldName: 'self_employed', helpText: null},
-  yearsInCurrentAddress: {label: 'Number of years your co-borrower has lived in this address', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null},
+  yearsInCurrentAddress: {label: 'Number of years your co-borrower has lived here', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null},
   previousAddress: {label: 'Your previous address', name: 'secondary_borrower_previous_address', fieldName: 'previous_address', helpText: null},
   previouslyOwn: {label: 'Do you own or rent?', name: 'secondary_borrower_previously_own', fieldName: 'previously_own', helpText: null},
-  yearsInPreviousAddress: {label: 'Number of years your co-borrower has lived in this address', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null},
+  yearsInPreviousAddress: {label: 'Number of years your co-borrower has lived here', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null},
   currentMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null},
   previousMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null}
 };
@@ -92,7 +92,7 @@ var Form = React.createClass({
 
   render: function() {
     return (
-      <div className="col-xs-8 account-content">
+      <div className="col-xs-9 account-content">
         <form className="form-horizontal">
           <div className="form-group">
             <div className="col-md-6">
@@ -128,26 +128,15 @@ var Form = React.createClass({
             previousAddress={this.state[borrower_fields.previousAddress.name]}
             currentlyOwn={this.state[borrower_fields.currentlyOwn.name]}
             previouslyOwn={this.state[borrower_fields.previouslyOwn.name]}
+            selfEmployed={this.state[borrower_fields.selfEmployed.name]}
             onChange={this.onChange}
             onFocus={this.onFocus}/>
 
-              <div className="form-group">
-                <div className="col-md-12">
-                  <BooleanRadio
-                    label={borrower_fields.selfEmployed.label}
-                    checked={this.state[borrower_fields.selfEmployed.name]}
-                    keyName={borrower_fields.selfEmployed.name}
-                    yesLabel={"Yes"}
-                    noLabel={"No"}
-                    editable={this.state.borrower_editable}
-                    onFocus={this.onFocus.bind(this, borrower_fields.selfEmployed)}
-                    onChange={this.onChange}/>
-                </div>
-              </div>
-            <hr/>
             { this.state.hasSecondaryBorrower ?
               <div className="box mtn">
-                <h5>Please provide information about your co-borrower</h5>
+                <hr/>
+                <br/>
+                <h3>Please provide information about your co-borrower</h3>
                 <Borrower
                   loan={this.props.loan}
                   fields={secondary_borrower_fields}
@@ -171,22 +160,9 @@ var Form = React.createClass({
                   previousAddress={this.state[secondary_borrower_fields.previousAddress.name]}
                   currentlyOwn={this.state[secondary_borrower_fields.currentlyOwn.name]}
                   previouslyOwn={this.state[secondary_borrower_fields.previouslyOwn.name]}
+                  selfEmployed={this.state[secondary_borrower_fields.selfEmployed.name]}
                   onChange={this.onChange}
                   onFocus={this.onFocus}/>
-
-                <div className="form-group">
-                  <div className="col-md-12">
-                    <BooleanRadio
-                      label={secondary_borrower_fields.selfEmployed.label}
-                      checked={this.state[secondary_borrower_fields.selfEmployed.name]}
-                      keyName={secondary_borrower_fields.selfEmployed.name}
-                      yesLabel={"Yes"}
-                      noLabel={"No"}
-                      editable={this.state.borrower_editable}
-                      onFocus={this.onFocus.bind(this, secondary_borrower_fields.selfEmployed)}
-                      onChange={this.onChange}/>
-                  </div>
-                </div>
               </div>
             : null }
             <div className="form-group">

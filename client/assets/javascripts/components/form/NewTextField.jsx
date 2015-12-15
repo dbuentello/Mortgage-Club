@@ -91,6 +91,15 @@ var TextField = React.createClass({
     return (
       <div>
         <h6>{this.props.label}</h6>
+        {
+          this.props.helpText
+          ?
+            <p className="helpful-text">
+              <img src="/icons/info.png" />{this.props.helpText}
+            </p>
+          :
+            null
+        }
         <input className={"form-control " + this.props.customClass } type="text" value={this.props.value}
             onChange={this.handleChange} onBlur={this.props.onBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.name} id={this.props.keyName}/>
       </div>

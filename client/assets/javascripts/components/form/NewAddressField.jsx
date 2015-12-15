@@ -207,9 +207,19 @@ var AddressField = React.createClass({
     return (
       <div>
         <h6>{this.props.label}</h6>
-        <input className="form-control input-sm" type="text"
+        {
+          this.props.helpText
+          ?
+            <p className="helpful-text">
+              <img src="/icons/info.png" />{this.props.helpText}
+            </p>
+          :
+            null
+        }
+        <input className="form-control" type="text"
           value={val} placeholder={this.props.placeholder}
           onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange} id={this.props.keyName}/>
+        <img src="/icons/address.png" alt="title"/>
       </div>
     );
   },

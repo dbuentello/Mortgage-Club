@@ -89,9 +89,12 @@ var NewSelectField = React.createClass({
     return (
       <div>
         <h6>{this.props.label}</h6>
-        { this.props.helpfulText
+        {
+          this.props.helpText
           ?
-            <p className="helpful-text"><img src="/icons/info.png"/>I am a hepful text.</p>
+            <p className="helpful-text">
+              <img src="/icons/info.png" />{this.props.helpText}
+            </p>
           :
             null
         }

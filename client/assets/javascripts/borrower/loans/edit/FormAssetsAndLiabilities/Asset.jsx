@@ -1,6 +1,6 @@
 var React = require('react/addons');
-var TextField = require('components/form/TextField');
-var SelectField = require('components/form/SelectField');
+var TextField = require('components/form/NewTextField');
+var SelectField = require('components/form/NewSelectField');
 
 var TextFormatMixin = require('mixins/TextFormatMixin');
 
@@ -35,9 +35,9 @@ var Asset = React.createClass({
 
   render: function () {
     return (
-      <div className='box mtn mbm pam bas roundedCorners'>
-        <div className='row'>
-          <div className='col-xs-6'>
+      <div>
+        <div className='form-group'>
+          <div className='col-md-6'>
             <TextField
               label='Institution Name'
               keyName={'institution_name'}
@@ -46,8 +46,8 @@ var Asset = React.createClass({
               value={this.state.institution_name}/>
           </div>
         </div>
-        <div className='row'>
-          <div className='col-xs-6'>
+        <div className='form-group'>
+          <div className='col-md-6'>
             <SelectField
               label='Asset Type'
               keyName={'asset_type'}
@@ -58,8 +58,8 @@ var Asset = React.createClass({
               value={this.state.asset_type}/>
           </div>
         </div>
-        <div className='row'>
-          <div className='col-xs-6'>
+        <div className='form-group'>
+          <div className='col-md-6'>
             <TextField
               label='Current Balance'
               keyName={'current_balance'}
@@ -70,10 +70,12 @@ var Asset = React.createClass({
               value={this.state.current_balance}/>
           </div>
         </div>
-        <div className='box text-right col-xs-6'>
-          <a className="remove clickable" onClick={this.handleRemove}>
-            Remove
-          </a>
+        <div className='form-group'>
+          <div className='col-md-1'>
+            <a className="remove clickable" onClick={this.handleRemove}>
+              Remove
+            </a>
+          </div>
         </div>
       </div>
     );

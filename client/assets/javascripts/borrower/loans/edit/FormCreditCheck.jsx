@@ -31,20 +31,17 @@ var FormCreditCheck = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <div className='formContent'>
-          <div className='pal'>
-            <div className='box mvn box-description'>
-             We’re now ready to get a real-time credit check to verify your credit score and review your credit history. You’ll be asked to pay a onetime charge of $25 for this service, which will be credited back to you upon closing.
-            </div>
-
+      <div className='col-sm-9 col-xs-12 account-content'>
+        <form className='form-horizontal'>
+          <div className='form-group'>
+            <p>We’re now ready to get a real-time credit check to verify your credit score and review your credit history. You’ll be asked to pay a onetime charge of $25 for this service, which will be credited back to you upon closing.</p>
             <div className='box row'>
               <div className='col-xs-12'>
                 <StripeCheckbox agree={this.state.credit_check_agree} save={this.save} />
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     );
   },
