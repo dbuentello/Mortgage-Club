@@ -167,7 +167,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.0'
 end
 
-group :production do
+group :production, :staging do
   # Makes running your Rails app easier. Based on the ideas behind 12factor.net
   gem 'rails_12factor'
 
