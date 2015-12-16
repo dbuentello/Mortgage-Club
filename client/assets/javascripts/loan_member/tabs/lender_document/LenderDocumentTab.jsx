@@ -1,8 +1,11 @@
 var _ = require("lodash");
 var React = require("react/addons");
+
 var Dropzone = require("components/form/Dropzone");
 var FlashHandler = require("mixins/FlashHandler");
+var TextField = require('components/form/TextField');
 var OtherDocument = require("./OtherDocument");
+var TextEditor = require('components/TextEditor');
 
 var LenderDocumentTab = React.createClass({
   mixins: [FlashHandler],
@@ -140,6 +143,27 @@ var LenderDocumentTab = React.createClass({
                 }, this)
               }
             </div>
+            <div className="row">
+              <p> You can edit the contents of the email sent to the lender below. </p>
+            </div>
+            <div className="row">
+              <div className="col-sm-6">
+                <TextField
+                  label="Subject"
+                  keyName="name"
+                  name="checklist[name]"
+                  value={this.state.name}
+                  onChange={this.onChange}
+                  editable={true}/>
+              </div>
+            </div>
+            <div className="row">
+              <p>Body</p>
+            </div>
+            <div className="row">
+              <TextEditor/>
+            </div>
+            <br/>
             {
               this.state.can_submit
               ?
