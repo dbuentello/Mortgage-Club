@@ -1,13 +1,14 @@
 class SubmitApplicationToLenderService
-  attr_reader :loan, :staff
+  attr_accessor :loan, :staff, :error_message
 
   def initialize(loan, staff)
     @loan = loan
     @staff = staff
+    @error_message = ""
   end
 
   def call
-    return false unless loan && loan.can_submit_to_lender && staff && @loan.lender
+    return false unless valid?
 
     documents_info = get_documents_info
     templates_name = get_templates_name
@@ -16,8 +17,8 @@ class SubmitApplicationToLenderService
     LoanMemberMailer.submit_application({
       documents_info: get_documents_info,
       templates_name: get_templates_name,
-      lender_name: @loan.lender.name,
-      lender_email: @loan.lender.lock_rate_email,
+      lender_name: loan.lender.name,
+      lender_email: loan.lender.lock_rate_email,
       loan_member_name: staff.to_s,
       loan_member_email: "#{staff.to_s} <#{staff.email}>",
       client_name: get_client_name,
@@ -26,7 +27,23 @@ class SubmitApplicationToLenderService
     true
   end
 
+  def documents_are_incomlete?
+    loan.required_lender_documents.count != loan.lender.lender_templates.where(is_other: false).count
+  end
+
   private
+
+  def valid?
+    validate
+    error_message.blank?
+  end
+
+  def validate
+    return @error_message = "Loan is missing" unless loan
+    return @error_message = "Loan does not belong to any lenders" unless loan.lender
+    return @error_message = "Loan is not provided adequate documents" if documents_are_incomlete?
+    return @error_message = "Don't know who is in charge of this loan" unless staff
+  end
 
   def get_documents_info
     loan.lender_documents.map do |document|
@@ -44,8 +61,8 @@ class SubmitApplicationToLenderService
   end
 
   def get_templates_name
-    templates_name = loan.lender.lender_templates.order("is_other").map do |lender_template|
-      lender_template.is_other? ? lender_template.lender_documents.map {|document| document.description } : lender_template.description
+    templates_name = loan.lender.lender_templates.order(:is_other).map do |lender_template|
+      lender_template.is_other? ? lender_template.lender_documents.map { |document| document.description } : lender_template.description
     end
     templates_name.flatten!
   end

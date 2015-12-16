@@ -123,12 +123,6 @@ class Loan < ActiveRecord::Base
     association.loan_member if association
   end
 
-  def can_submit_to_lender
-    true # will update it when we have rules
-    # return if self.sent? || self.read? || self.finish?
-    # true
-  end
-
   def fixed_rate_amortization?
     return false unless amortization_type
 
@@ -143,5 +137,9 @@ class Loan < ActiveRecord::Base
 
   def other_lender_documents
     lender_documents.joins(:lender_template).where("is_other = ?", true)
+  end
+
+  def required_lender_documents
+    lender_documents.joins(:lender_template).where("is_other = ?", false)
   end
 end
