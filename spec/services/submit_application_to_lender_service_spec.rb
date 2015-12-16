@@ -32,7 +32,7 @@ describe SubmitApplicationToLenderService do
 
     context "with other template" do
       let(:second_lender_document) { FactoryGirl.create(:lender_document, loan: loan) }
-      let!(:requirement) { FactoryGirl.create(:lender_template_requirement, lender:  loan.lender, lender_template: second_lender_document.lender_template) }
+      let!(:requirement) { FactoryGirl.create(:lender_template_requirement, lender: loan.lender, lender_template: second_lender_document.lender_template) }
 
       it "returns proper templates name" do
         second_lender_document.lender_template.update(is_other: true)
