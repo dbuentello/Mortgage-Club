@@ -11,7 +11,7 @@ var LenderDocumentTab = React.createClass({
     var state = {};
 
     state.saving = false;
-    state.can_submit = this.props.loan.can_submit_to_lender;
+    state.can_submit = true;
 
     _.each(this.props.lenderTemplates, function(template) {
       var lender_document = _.find(this.props.loan.lender_documents, {"lender_template_id": template.id});
