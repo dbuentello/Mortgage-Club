@@ -13,10 +13,10 @@
 
 class LenderTemplate < ActiveRecord::Base
   validates :name, presence: true
-
   has_many :lender_template_requirements, dependent: :destroy
   has_many :lenders, through: :lender_template_requirements
   has_many :lender_templates, dependent: :destroy
+  has_many :lender_documents, dependent: :destroy
 
   belongs_to :template
 
