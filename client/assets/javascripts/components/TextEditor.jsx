@@ -18,7 +18,12 @@ var TextEditor = React.createClass({
   onScriptLoaded: function() {
     CKEDITOR.replace('text-editor', {
       width: "50%",
-      height: 400
+      height: 500,
+      on: {
+        change: function(event) {
+          this.props.onChange(event.editor.getData());
+        }.bind(this)
+      }
     });
   },
 
@@ -32,9 +37,8 @@ var TextEditor = React.createClass({
         {
           this.state.success
           ?
-          <textarea name="editor1" id="text-editor" rows="40" cols="50">
-            This is my textarea to be replaced with CKEditor.
-          </textarea>
+          <div id="text-editor" dangerouslySetInnerHTML={{__html: this.props.content}}>
+          </div>
           :
           <p>Cannot load text editor</p>
         }
