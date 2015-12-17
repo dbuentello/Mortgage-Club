@@ -29,4 +29,10 @@ class LoanMember < ActiveRecord::Base
   def handle_this_loan?(loan)
     loans_members_associations.where(loan_id: loan.id, loan_member_id: id).present?
   end
+
+  def title(loan)
+    return unless handle_this_loan?(loan)
+
+    loans_members_associations.where(loan_id: loan.id, loan_member_id: id).last.pretty_title
+  end
 end

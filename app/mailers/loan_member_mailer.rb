@@ -7,13 +7,13 @@ class LoanMemberMailer < ActionMailer::Base
     end
 
     # for demo purpose
-    @args[:lender_email] = "submission@mortgageclub.co"
-    # @args[:lender_email] = "cuongvu0103@gmail.com"
+    # @args[:lender_email] = "submission@mortgageclub.co"
+    @args[:lender_email] = "cuongvu0103@gmail.com"
 
     mail(
       from: @args[:loan_member_email],
       to: @args[:lender_email],
-      subject: "Lock-in request for loan #<lender_loan_number>",
+      subject: @args[:email_subject],
       "X-MJ-CustomID" => "Lock Loan - #{@args[:loan_id]}"
     )
   end
