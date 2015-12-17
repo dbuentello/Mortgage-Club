@@ -15,7 +15,8 @@ var fields = {
   propertyPurpose: {label: "Property Will Be", name: "usage", helpText: "The primary purpose of acquiring the subject property."},
   purchasePrice: {label: "Purchase Price", name: "purchase_price", helpText: "How much are you paying for the subject property?"},
   originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", helpText: "How much did you pay for the subject property?"},
-  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home."}
+  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home."},
+  yearBuilt: { label: "Year Built", name: "year_built", helpText: "The year in which your home built." }
 };
 
 var loanPurposes = [
@@ -52,6 +53,7 @@ var FormProperty = React.createClass({
   },
 
   searchProperty: function(address) {
+    var result_obj = this.state;
     $.ajax({
       url: '/properties/search',
       data: {
@@ -64,18 +66,24 @@ var FormProperty = React.createClass({
         if (response.message == 'cannot find') {
           return;
         }
+
         var marketPrice = this.getValue(response, 'zestimate.amount.__content__');
         var monthlyTax = this.getValue(response, 'monthlyTax');
         var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
         var yearBuilt = this.getValue(response, 'yearBuilt');
+        var lastSoldDate = this.getValue(response, 'lastSoldDate');
+        var lastSoldPrice = this.getValue(response, 'lastSoldPrice.__content__');
 
-        this.setState({
-          property_type: propertyType,
+        var loan_state = {
           market_price: marketPrice,
           estimated_property_tax: monthlyTax,
           estimated_hazard_insurance: monthlyInsurance,
           year_built: yearBuilt
-        });
+        };
+
+        loan_state.original_purchase_price = lastSoldPrice != null ? lastSoldPrice : "";
+        loan_state.original_purchase_year = lastSoldDate != null ? new Date(Date.parse(lastSoldDate)).getFullYear() : "";
+        this.setState(loan_state);
       }
     });
   },
@@ -169,6 +177,18 @@ var FormProperty = React.createClass({
                       onChange={this.onChange}/>
                   </div>
                 </div>
+                <div className="form-group">
+                  <div className="col-md-6">
+                    <TextField
+                      label="Year Built"
+                      keyName={fields.yearBuilt.name}
+                      value={this.state[fields.yearBuilt.name]}
+                      placeholder="YYYY"
+                      editable={true}
+                      helpText={fields.originalPurchaseYear.helpText}
+                      onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)} />
+                  </div>
+                </div>
               </div>
           }
           <div className="form-group">
@@ -242,6 +262,7 @@ var FormProperty = React.createClass({
     loan.properties_attributes.estimated_property_tax = this.state.estimated_property_tax;
     loan.properties_attributes.is_primary = this.isPrimaryProperty();
     loan.properties_attributes.year_built = this.state.year_built;
+
     return loan;
   },
 
