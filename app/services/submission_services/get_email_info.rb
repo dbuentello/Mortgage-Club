@@ -1,14 +1,15 @@
 module SubmissionServices
   class GetEmailInfo
-    attr_accessor :loan, :staff, :error_message
+    attr_accessor :loan, :loan_member, :staff
 
-    def initialize(loan, staff)
+    def initialize(loan, loan_member, staff)
       @loan = loan
+      @loan_member = loan_member
       @staff = staff
     end
 
     def call
-      return false unless loan && loan.lender && staff
+      return unless loan && loan.lender && staff && loan_member
 
       templates_name = get_templates_name
       client_name = get_client_name
@@ -18,14 +19,13 @@ module SubmissionServices
         lender_name: loan.lender.name,
         lender_email: loan.lender.lock_rate_email,
         loan_member_name: staff.to_s,
-        loan_member_email: "#{staff.to_s} <#{staff.email}>",
         client_name: get_client_name,
+        loan_member_title: loan_member.title(loan),
+        loan_member_email: "#{staff.to_s} <#{staff.email}>",
+        loan_member_short_email: staff.email,
+        loan_member_phone_number: loan_member.phone_number,
         loan_id: loan.id
       }
-    end
-
-    def documents_are_incomlete?
-      loan.required_lender_documents.count != loan.lender.lender_templates.where(is_other: false).count
     end
 
     private
@@ -37,7 +37,7 @@ module SubmissionServices
     end
 
     def get_templates_name
-      templates_name = loan.lender.lender_templates.order(:is_other).map do |lender_template|
+      templates_name = loan.lender.lender_templates.includes(:lender_documents).order(:is_other).map do |lender_template|
         lender_template.is_other? ? lender_template.lender_documents.map { |document| document.description } : lender_template.description
       end
       templates_name.flatten!
