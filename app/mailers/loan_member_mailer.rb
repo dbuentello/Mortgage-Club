@@ -7,8 +7,7 @@ class LoanMemberMailer < ActionMailer::Base
     end
 
     # for demo purpose
-    # @args[:lender_email] = "submission@mortgageclub.co"
-    @args[:lender_email] = "cuongvu0103@gmail.com"
+    @args[:lender_email] = "submission@mortgageclub.co"
 
     mail(
       from: @args[:loan_member_email],
