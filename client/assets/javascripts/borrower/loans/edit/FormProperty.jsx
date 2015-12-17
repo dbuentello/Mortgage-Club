@@ -72,17 +72,16 @@ var FormProperty = React.createClass({
         var yearBuilt = this.getValue(response, 'yearBuilt');
         var lastSoldDate = this.getValue(response, 'lastSoldDate');
         var lastSoldPrice = this.getValue(response, 'lastSoldPrice.__content__');
+        var purchaseYear = lastSoldDate != null ? new Date(Date.parse(lastSoldDate)).getFullYear() : "";
 
-        var loan_state = {
+        this.setState({
           market_price: marketPrice,
           estimated_property_tax: monthlyTax,
           estimated_hazard_insurance: monthlyInsurance,
-          year_built: yearBuilt
-        };
-
-        loan_state.original_purchase_price = lastSoldPrice != null ? lastSoldPrice : "";
-        loan_state.original_purchase_year = lastSoldDate != null ? new Date(Date.parse(lastSoldDate)).getFullYear() : "";
-        this.setState(loan_state);
+          year_built: yearBuilt,
+          original_purchase_price: lastSoldPrice,
+          original_purchase_year: purchaseYear
+        });
       }
     });
   },
