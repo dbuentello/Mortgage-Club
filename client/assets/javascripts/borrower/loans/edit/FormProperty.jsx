@@ -15,8 +15,7 @@ var fields = {
   propertyPurpose: {label: "Property Will Be", name: "usage", helpText: "The primary purpose of acquiring the subject property."},
   purchasePrice: {label: "Purchase Price", name: "purchase_price", helpText: "How much are you paying for the subject property?"},
   originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", helpText: "How much did you pay for the subject property?"},
-  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home."},
-  yearBuilt: { label: "Year Built", name: "year_built", helpText: "The year in which your home built." }
+  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home."}
 };
 
 var loanPurposes = [
@@ -177,18 +176,6 @@ var FormProperty = React.createClass({
                       onChange={this.onChange}/>
                   </div>
                 </div>
-                <div className="form-group">
-                  <div className="col-md-6">
-                    <TextField
-                      label="Year Built"
-                      keyName={fields.yearBuilt.name}
-                      value={this.state[fields.yearBuilt.name]}
-                      placeholder="YYYY"
-                      editable={true}
-                      helpText={fields.originalPurchaseYear.helpText}
-                      onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)} />
-                  </div>
-                </div>
               </div>
           }
           <div className="form-group">
@@ -231,7 +218,6 @@ var FormProperty = React.createClass({
     state["estimated_hazard_insurance"] = property.estimated_hazard_insurance;
     state["estimated_property_tax"] = property.estimated_property_tax;
     state["year_built"] = property.year_built;
-
     return state;
   },
 
