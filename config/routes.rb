@@ -125,8 +125,14 @@ Rails.application.routes.draw do
       end
 
       collection do
-        post "submit_to_lender"
         get "get_other_documents"
+      end
+    end
+
+    resources :submissions do
+      collection do
+        post "submit_to_lender"
+        get "get_email_info"
       end
     end
   end
