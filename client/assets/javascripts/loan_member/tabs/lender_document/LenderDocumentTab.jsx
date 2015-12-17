@@ -3,9 +3,9 @@ var React = require("react/addons");
 
 var Dropzone = require("components/form/Dropzone");
 var FlashHandler = require("mixins/FlashHandler");
-var TextField = require('components/form/TextField');
+var TextField = require("components/form/TextField");
 var OtherDocument = require("./OtherDocument");
-var TextEditor = require('components/TextEditor');
+var TextEditor = require("components/TextEditor");
 
 var LenderDocumentTab = React.createClass({
   mixins: [FlashHandler],
