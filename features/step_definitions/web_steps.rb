@@ -48,12 +48,8 @@ When /^I attach the file "([^\"]*)" to the hidden "([^\"]*)"$/ do |path, field|
   end
 end
 
-When /^I click on the (first|second|third)? "([^\"]+)"$/ do |index_in_words, text|
-  index = {nil => 0, 'first' => 0, 'second' => 1, 'third' => 2}[index_in_words]
-  contains_text = %{contains(., \"#{text}\")}
-  # find the innermost selector that matches
-  element = page.find(:xpath, "(.//*[#{contains_text} and not (./*[#{contains_text}])])[#{index}]")
-  element.click
+When /^I click on a first "([^\"]+)"$/ do |text|
+  first(:link, "#{text}").click
 end
 
 When /^I am at loan management page$/ do
