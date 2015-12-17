@@ -16,7 +16,7 @@ var TextEditor = React.createClass({
   },
 
   onScriptLoaded: function() {
-    CKEDITOR.replace('text-editor', {
+    CKEDITOR.replace("text-editor", {
       width: "50%",
       height: 500,
       on: {
