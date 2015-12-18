@@ -1,4 +1,5 @@
 .accountPart {
+  padding-top: 0px;
   overflow:hidden;
   background: rgba(246,246,246,1);
   background: -moz-linear-gradient(left, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 39%, rgba(255,255,255,1) 42%, rgba(255,255,255,1) 100%);
@@ -158,6 +159,13 @@
   }
 
   .fileBtn .fileBtnSmall.file {font-style:italic;}
+
+  .select-box {
+    img {
+      cursor: pointer;
+      pointer-events: none;
+    }
+  }
 }
 
 #continueBtn {
