@@ -22,7 +22,9 @@ var OtherDocument = React.createClass({
           maxSize={10000000}
           customParams={customParams}
           supportOtherDescription={this.props.supportOtherDescription}
-          uploadSuccessCallback={this.props.uploadSuccessCallback}/>
+          uploadSuccessCallback={this.props.uploadSuccessCallback}
+          removeSuccessCallback={this.props.removeSuccessCallback}
+          useCustomDescription={true}/>
       </div>
     )
   }

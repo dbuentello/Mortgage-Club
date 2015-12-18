@@ -1,5 +1,5 @@
 class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
-  before_action :set_loan, only: [:create, :submit_to_lender, :get_other_documents]
+  before_action :set_loan, only: [:create, :get_other_documents]
   before_action :set_document, only: [:download, :destroy]
 
   def create
@@ -36,17 +36,6 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
       return render json: {message: "Removed it sucessfully"}, status: 200
     else
       return render json: {message: "Remove file failed"}, status: 500
-    end
-  end
-
-  def submit_to_lender
-    service = SubmitApplicationToLenderService.new(@loan, current_user)
-
-    if service.call
-      @loan.sent!
-      return render json: {message: "Sent to lender sucessfully"}, status: 200
-    else
-      return render json: {message: service.error_message}, status: 500
     end
   end
 

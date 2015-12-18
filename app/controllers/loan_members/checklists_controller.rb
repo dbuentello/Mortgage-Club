@@ -62,10 +62,4 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
   def set_checklist
     @checklist = Checklist.find(params[:id])
   end
-
-  def authenticate_loan!
-    if @loan && !current_user.loan_member.handle_this_loan?(@loan)
-      redirect_to unauthenticated_root_path, alert: "The page does not exist or you don't have permmission to access!"
-    end
-  end
 end

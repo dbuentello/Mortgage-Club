@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmitApplicationToLenderService do
+describe SubmissionServices::SubmitApplicationToLender do
   let(:loan) { FactoryGirl.create(:loan) }
   let(:staff) { FactoryGirl.create(:user) }
   let!(:lender_document) { FactoryGirl.create(:lender_document, loan: loan) }
@@ -10,7 +10,7 @@ describe SubmitApplicationToLenderService do
       before(:each) { allow(Amazon::GetUrlService).to receive(:call).and_return("http://example.com") }
 
       it "returns true" do
-        expect(described_class.new(loan, staff).call).to be_truthy
+        expect(described_class.new(loan, staff, "Email Subject", "Email Content").call).to be_truthy
       end
 
       it "calls LoanMemberMailer with proper params" do
@@ -18,17 +18,14 @@ describe SubmitApplicationToLenderService do
 
         expect(LoanMemberMailer).to receive(:submit_application).with({
           documents_info: [{url: "http://example.com", file_name: lender_document.lender_template.name << File.extname(lender_document.attachment_file_name)}],
-          templates_name: loan.lender.lender_templates.where(is_other: false).pluck(:description),
-          lender_name: loan.lender.name,
-          lender_email: loan.lender.lock_rate_email,
-          loan_member_name: staff.to_s,
           loan_member_email: "#{staff.to_s} <#{staff.email}>",
-          client_name: loan.borrower.user.to_s,
+          email_content: "Email Content",
+          email_subject: "Email Subject",
           loan_id: loan.id
         }).and_return(message_delivery)
         expect(message_delivery).to receive(:deliver_later)
 
-        described_class.new(loan, staff).call
+        described_class.new(loan, staff, "Email Subject", "Email Content").call
       end
 
       context "with other template" do
@@ -44,23 +41,20 @@ describe SubmitApplicationToLenderService do
               {url: "http://example.com", file_name: lender_document.lender_template.name + File.extname(lender_document.attachment_file_name)},
               {url: "http://example.com", file_name: second_lender_document.description + File.extname(second_lender_document.attachment_file_name)}
             ],
-            templates_name: loan.lender.lender_templates.where(is_other: false).pluck(:description) << second_lender_document.description,
-            lender_name: loan.lender.name,
-            lender_email: loan.lender.lock_rate_email,
-            loan_member_name: staff.to_s,
             loan_member_email: "#{staff.to_s} <#{staff.email}>",
-            client_name: loan.borrower.user.to_s,
+            email_content: "Email Content",
+            email_subject: "Email Subject",
             loan_id: loan.id
           }).and_return(message_delivery)
           expect(message_delivery).to receive(:deliver_later)
 
-          described_class.new(loan, staff).call
+          described_class.new(loan, staff, "Email Subject", "Email Content").call
         end
       end
     end
 
     context "when loan is missing" do
-      before(:each) { @service = described_class.new(nil, staff) }
+      before(:each) { @service = described_class.new(nil, staff, "Email Subject", "Email Content") }
 
       it "returns false" do
         expect(@service.call).to be_falsey
@@ -73,7 +67,7 @@ describe SubmitApplicationToLenderService do
     end
 
     context "when staff is missing" do
-      before(:each) { @service = described_class.new(loan, nil) }
+      before(:each) { @service = described_class.new(loan, nil, "Email Subject", "Email Content") }
 
       it "returns false" do
         expect(@service.call).to be_falsey
@@ -86,7 +80,7 @@ describe SubmitApplicationToLenderService do
     end
 
     context "when lender is missing" do
-      before(:each) { @service = described_class.new(loan, staff) }
+      before(:each) { @service = described_class.new(loan, staff, "Email Subject", "Email Content") }
 
       it "returns false" do
         loan.lender = nil
@@ -101,12 +95,30 @@ describe SubmitApplicationToLenderService do
     end
 
     context "when documents are incomplete" do
-      before(:each) { @service = described_class.new(loan, staff) }
+      before(:each) { @service = described_class.new(loan, staff, "Email Subject", "Email Content") }
 
       it "returns an error message" do
         loan.lender_documents.destroy_all
         @service.call
         expect(@service.error_message).to eq("Loan is not provided adequate documents")
+      end
+    end
+
+    context "when email's subject is missing" do
+      before(:each) { @service = described_class.new(loan, staff, nil, "Email Content") }
+
+      it "returns an error message" do
+        @service.call
+        expect(@service.error_message).to eq("Email's subject cannot be blank")
+      end
+    end
+
+    context "when email's content is missing" do
+      before(:each) { @service = described_class.new(loan, staff, "Email Subject", nil) }
+
+      it "returns an error message" do
+        @service.call
+        expect(@service.error_message).to eq("Email's content cannot be blank")
       end
     end
   end
@@ -115,13 +127,13 @@ describe SubmitApplicationToLenderService do
     context "when lender documents are missing" do
       it "returns false" do
         loan.lender_documents.destroy_all
-        expect(described_class.new(loan, staff).documents_are_incomlete?).to be_truthy
+        expect(described_class.new(loan, staff, "Email Subject", "Email Content").documents_are_incomlete?).to be_truthy
       end
     end
 
     context "when lender documents are complete" do
       it "returns true" do
-        expect(described_class.new(loan, staff).documents_are_incomlete?).to be_falsey
+        expect(described_class.new(loan, staff, "Email Subject", "Email Content").documents_are_incomlete?).to be_falsey
       end
 
       context "when other lender document is missing" do
@@ -130,7 +142,7 @@ describe SubmitApplicationToLenderService do
 
         it "does not care other lender document and returns false" do
           other_lender_document.lender_template.update(is_other: true)
-          expect(described_class.new(loan, staff).documents_are_incomlete?).to be_falsey
+          expect(described_class.new(loan, staff, "Email Subject", "Email Content").documents_are_incomlete?).to be_falsey
         end
       end
     end

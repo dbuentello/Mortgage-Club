@@ -134,8 +134,8 @@ var Dropzone = React.createClass({
         });
 
         // Set other description
-        if (this.state.otherDescription != '') {
-          formData.append('description', this.state.otherDescription);
+        if (this.props.supportOtherDescription || this.props.useCustomDescription) {
+          formData.append('description', this.state.otherDescription || this.props.field.label);
         }
 
         // Set original filename
@@ -166,8 +166,13 @@ var Dropzone = React.createClass({
 
             var flash = { "alert-success": "Uploaded successfully!" };
             this.showFlashes(flash);
+
             if (this.props.uploadSuccessCallback) {
               this.props.uploadSuccessCallback();
+            }
+
+            if (this.props.removeSuccessCallback) {
+              this.props.removeSuccessCallback();
             }
           }.bind(this),
           cache: false,
