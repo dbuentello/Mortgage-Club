@@ -6,11 +6,10 @@ class Users::BorrowersController < Users::BaseController
     current_address = (borrower.current_address.present? ? borrower.current_address.address : form_params[:current_borrower_address])
     borrower_form = BorrowerForm.new(
       form_params: form_params, borrower: borrower,
-      current_borrower_address: (borrower.current_address||form_params[:current_borrower]),
+      current_borrower_address: (borrower.current_address||form_params[:current_borrower_address]),
       current_address: current_address,
       loan: @loan
     )
-
     if borrower_form.save
       if applying_with_secondary_borrower?
         secondary_borrower_form = BorrowerForm.new(
