@@ -2,10 +2,12 @@ class Users::BorrowersController < Users::BaseController
   before_action :set_loan, only: [:update]
 
   def update
+    form_params = get_form_params(params[:borrower])
+    current_address = (borrower.current_address.present? ? borrower.current_address.address : form_params[:current_borrower_address])
     borrower_form = BorrowerForm.new(
-      form_params: get_form_params(params[:borrower]), borrower: borrower,
-      current_borrower_address: borrower.current_address,
-      current_address: borrower.current_address.address,
+      form_params: form_params, borrower: borrower,
+      current_borrower_address: (borrower.current_address||form_params[:current_borrower]),
+      current_address: current_address,
       loan: @loan
     )
 
