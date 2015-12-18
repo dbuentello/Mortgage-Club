@@ -1,4 +1,4 @@
-if Rails.env.development? || Rails.env.production?
+unless Rails.env.test?
   ActionMailer::Base.smtp_settings = {
     address: 'in-v3.mailjet.com',
     port: 587,
