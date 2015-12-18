@@ -34,7 +34,9 @@ var Dropzone = React.createClass({
     return {
       isDragActive: false,
       otherDescription: '',
-      fileIsExisting: false
+      fileIsExisting: false,
+      downloadUrl: 'javascript:void(0)',
+      removeUrl: 'javascript:void(0)'
     }
   },
 
@@ -64,10 +66,7 @@ var Dropzone = React.createClass({
       this.setState({ downloadUrl: this.props.downloadUrl });
       this.setState({ removeUrl: this.props.removeUrl });
       this.setState({ fileIsExisting: true});
-    } else {
-      this.setState({ downloadUrl: null });
-      this.setState({ removeUrl: null });
-    };
+    }
   },
 
   onDragLeave: function(e) {
@@ -227,12 +226,6 @@ var Dropzone = React.createClass({
     }
   },
 
-  download: function(url) {
-    if (url) {
-      window.open(url, '_blank');
-    }
-  },
-
   fileIsExisting: function() {
     return this.props.removeUrl ? true : false;
   },
@@ -275,7 +268,9 @@ var Dropzone = React.createClass({
               </h5>
             }
             <div>
-              <img className='fileBtnSmall' src='/icons/download.png' onClick={_.bind(this.download, null, this.state.downloadUrl)}/>
+              <a href={this.state.downloadUrl}>
+                <img className='fileBtnSmall' src='/icons/download.png'/>
+              </a>
               <img className='fileBtnSmall' src='/icons/trash.png' onClick={this.remove}/>
             </div>
           </div>
