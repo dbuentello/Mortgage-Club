@@ -37,14 +37,14 @@ class BorrowerForm
   end
 
   def assign_value_to_attributes
-    current_address.assign_attributes(form_params[:current_address])
-    current_borrower_address.assign_attributes(form_params[:current_borrower_address])
+    @current_address ||= Address.new(form_params[:current_address])
+    @current_borrower_address ||= BorrowerAddress.new(form_params[:current_borrower_address])
     borrower.assign_attributes(form_params[:borrower])
   end
 
   def setup_associations
-    current_borrower_address.address = current_address
-    borrower.borrower_addresses << current_borrower_address
+    @current_borrower_address.address = current_address
+    borrower.borrower_addresses << @current_borrower_address
   end
 
   def create_primary_property
