@@ -128,15 +128,19 @@ var LenderDocumentTab = React.createClass({
           "<p>I’d like to request a rate lock-in for loan #loan_number.</p>" +
           "<p>Please find attached the supporting documents stacked in the following order.</p>" +
           "<ol>" + templates_name + "</ol>" +
-          "<p>Please do not hesitate to contact me if you have any questions, day or night." +
-          "We are a Silicon Valley startup and we aim to deliver a WOW mortgage experience for our mutual client, " + response.info.client_name + "</p>" +
+          "<p>Please do not hesitate to contact me if you have any questions, day or night. " +
+          "We are a Silicon Valley startup and we aim to deliver a WOW mortgage experience for our mutual client, " + response.info.client_name + ".</p>" +
           "<br/>" +
           "Yours sincerely," +
-          "<p>" + response.info.loan_member_name + "</p>" +
-          "<p>" + response.info.loan_member_title + "</p>" +
-          "<p>" + response.info.loan_member_phone_number + "  |  " + response.info.loan_member_short_email + "</p>" +
-          "<p>The easiest way to get a mortgage</p>" +
-          "<p><a href='http://www.mortgageclub.co'>APPLY NOW</a></p>";
+          "<p>" +
+            response.info.loan_member_name +
+            "<br/>" +
+            response.info.loan_member_title +
+            "<br/>" +
+            response.info.loan_member_phone_number + " &nbsp;&nbsp;|&nbsp;&nbsp; " + response.info.loan_member_short_email +
+            "<br/>" +
+            "The easiest way to get a mortgage &nbsp;&nbsp;|&nbsp;&nbsp;  <a href='http://www.mortgageclub.co'>APPLY NOW</a> "
+          "</p>";
 
           this.setState({emailContent: emailContent});
         }
