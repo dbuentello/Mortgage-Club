@@ -8,7 +8,7 @@ RSpec.describe Users::BorrowersController do
     let(:address) { FactoryGirl.create(:address, borrower_address: borrower_address) }
     before do
       @borrower_params = {"current_address"=>{"street_address"=>"12740 El Camino Real", "street_address2"=>"",
-        "zip"=>"93422", "state"=>"CA", "property_id"=>"",  "employment_id"=>"", "city"=>"Atascadero",
+        "zip"=>"93422", "state"=>"CA", "property_id"=>"", "employment_id"=>"", "city"=>"Atascadero",
         "full_text"=>"12740 El Camino Real, Atascadero, CA, United States"},
         "previous_address"=>{"no_data"=>"true"}, "current_borrower_address"=>{"is_rental"=>"true",
         "years_at_address"=>"18", "monthly_rent"=>"12", "is_current"=>"true"},
