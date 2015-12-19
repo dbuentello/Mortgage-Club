@@ -122,8 +122,8 @@ button[type=submit] {padding:11px 26px; border-radius:6px; box-shadow:none; font
   top:7px;
 }
 
-.fileBtn>div>img {clear:both; float:left; padding:5px 8px 5px 10px; width:90%;}
-.fileBtn>div>img:first-child {margin-top:5px;}
+.fileBtn>div>img, .fileBtn>div>a>img {clear:both; float:left; padding:5px 8px 5px 10px; width:90%;}
+.fileBtn>div>a>img:first-child {margin-top:5px;}
 
 .fileBtn h5 {margin-top:30px; margin-right:25px;}
 
