@@ -45,6 +45,10 @@ var DateFieldView = React.createClass({
     }
   },
 
+  showDatePicker: function() {
+    this.$input.datepicker("show");
+  },
+
   render: function() {
     var dateVal = this.isoToUsDate(this.props.value) || this.props.emptyStaticText;
 
@@ -53,24 +57,24 @@ var DateFieldView = React.createClass({
         <h6>{this.props.label}</h6>
         <input className={"form-control " + this.props.customClass} defaultValue={dateVal} type="text" placeholder={this.props.placeholder}
           onBlur={this.onBlur} onFocus={this.handleFocus} id={this.props.keyName} name={this.props.label}/>
-        <img src="/icons/date.png" alt="title"/>
+        <img src="/icons/date.png" alt="title" onClick={this.showDatePicker}/>
       </div>
     );
   },
 
   componentDidMount: function() {
-    this.$input = $(this.getDOMNode()).find('input');
+    this.$input = $(this.getDOMNode()).find("input");
     this.$input.datepicker({
-      format: 'mm/dd/yyyy',
+      format: "mm/dd/yyyy",
       forceParse: true,
       autoclose: true,
       todayHighlight: true
     });
-    this.$input.datepicker().on('changeDate', this.handleChange);
+    this.$input.datepicker().on("changeDate", this.handleChange);
   },
 
   componentWillUnmount: function() {
-    this.$input.datepicker('remove');
+    this.$input.datepicker("remove");
   }
 });
 

@@ -87,7 +87,7 @@ var NewSelectField = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="select-box">
         <h6>{this.props.label}</h6>
         {
           this.props.helpText
