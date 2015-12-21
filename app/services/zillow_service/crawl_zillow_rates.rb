@@ -67,21 +67,13 @@ module ZillowService
       end
 
 
-      count = 0
-      results = []
-
-      @number_of_results ||= quotes.length
       quote_id_str = 'quoteId'.freeze
-
-      quotes.each do |quote_id, _|
-        count += 1
+      quotes.map! do |quote_id, _|
         response = connection.get do |request|
           request.params[quote_id_str] = quote_id
         end
-        results << standardlize_data(response.body, down_payment)
-        break if count > @number_of_results
+        standardlize_data(response.body, down_payment)
       end
-      results
     end
 
     def get_quotes(request_code)
@@ -108,7 +100,9 @@ module ZillowService
         count += 1
       end
 
-      quotes = data["quotes"].sort_by { |k, v| v["apr"] }.to_h
+      @number_of_results ||= data["quotes"].length
+      quotes = data["quotes"].sort_by { |_, value| value["apr".freeze] }
+      quotes.take(@number_of_results)
     end
 
     def standardlize_data(lender_data, down_payment)
@@ -124,10 +118,10 @@ module ZillowService
       lender_credit = quote["lenderCredit".freeze]
 
       if quote["arm".freeze]
-        product = "#{quote["arm".freeze]["fixedRateMonths"] / 12}/1 ARM".freeze
+        product = "#{quote["arm".freeze]["fixedRateMonths"] / 12}/1 ARM"
         period = quote["arm"]["fixedRateMonths".freeze]
       else
-        product = "#{quote["termMonths"] / 12} year fixed".freeze
+        product = "#{quote["termMonths"] / 12} year fixed"
         period = quote["termMonths".freeze]
       end
 
@@ -137,7 +131,7 @@ module ZillowService
       return {} unless quote["fees".freeze]
 
       quote["fees"].each do |fee|
-        fees[fee["name".freeze]] = fee["amount".freeze]
+        fees[fee["name"].freeze] = fee["amount".freeze]
         total_fee += fee["amount"]
       end
 

@@ -22,21 +22,21 @@
             </tr>
             <tr>
               <td>30 Year Fixed<hr/></td>
-              <td><%= sprintf('%.3f', @mortgage_aprs['zillow']['apr_30_year']) %>%<hr/></td>
-              <td><%= sprintf('%.3f', @mortgage_aprs['wellsfargo']['apr_30_year']) %>%<hr/></td>
-              <td><%= sprintf('%.3f', @mortgage_aprs['quicken_loans']['apr_30_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['zillow']['apr_30_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['wellsfargo']['apr_30_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['quicken_loans']['apr_30_year']) %>%<hr/></td>
             </tr>
             <tr>
               <td>15 Year Fixed<hr/></td>
-              <td><%= sprintf('%.3f', @mortgage_aprs['zillow']['apr_15_year']) %>%<hr/></td>
-              <td><%= sprintf('%.3f', @mortgage_aprs['wellsfargo']['apr_15_year']) %>%<hr/></td>
-              <td><%= sprintf('%.3f', @mortgage_aprs['quicken_loans']['apr_15_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['zillow']['apr_15_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['wellsfargo']['apr_15_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['quicken_loans']['apr_15_year']) %>%<hr/></td>
             </tr>
             <tr>
               <td>5/1 Libor ARM<hr/></td>
-              <td><%= sprintf('%.3f', @mortgage_aprs['zillow']['apr_5_libor']) %>%<hr/></td>
-              <td><%= sprintf('%.3f', @mortgage_aprs['wellsfargo']['apr_5_libor']) %>%<hr/></td>
-              <td><%= sprintf('%.3f', @mortgage_aprs['quicken_loans']['apr_5_libor']) %>%<hr/></td>
+              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['zillow']['apr_5_libor']) %>%<hr/></td>
+              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['wellsfargo']['apr_5_libor']) %>%<hr/></td>
+              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['quicken_loans']['apr_5_libor']) %>%<hr/></td>
             </tr>
           </table>
           <div>
@@ -101,13 +101,13 @@
       </div>
       <div class="row homePicRow">
         <div class="col-md-4 hidden-sm hidden-xs noPadding">
-          <%= image_tag("home-top-pic-left.jpg", width: "100%") %>
+          <%= image_tag("home-top-pic-left.jpg") %>
         </div>
         <div class="col-md-4 noPadding">
-          <%= image_tag("home-top-pic-centre.jpg", width: "100%") %>
+          <%= image_tag("home-top-pic-centre.jpg") %>
         </div>
         <div class="col-md-4 hidden-sm hidden-xs noPadding">
-          <%= image_tag("home-top-pic-right.jpg", width: "100%") %>
+          <%= image_tag("home-top-pic-right.jpg") %>
         </div>
       </div>
     </div>

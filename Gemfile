@@ -117,6 +117,8 @@ group :development do
 
   # A very fast & simple Ruby web server
   gem 'thin'
+
+  gem 'derailed'
 end
 
 group :development, :test do
