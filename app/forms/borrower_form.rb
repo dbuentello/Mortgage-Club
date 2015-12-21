@@ -34,8 +34,8 @@ class BorrowerForm
   end
 
   def setup_associations
-    @current_borrower_address.address = @current_address
-    borrower.borrower_addresses << @current_borrower_address
+    current_borrower_address.address = @current_address
+    borrower.borrower_addresses << current_borrower_address
   end
 
   def update_primary_property
@@ -94,8 +94,6 @@ class BorrowerForm
        borrower.current_address.present? ? borrower.current_address.address : Address.new
     end
   end
-
-
 
   def previous_address
     @previous_address ||= Address.new(form_params[:previous_address])
