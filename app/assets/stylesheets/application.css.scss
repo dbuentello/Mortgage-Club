@@ -288,10 +288,10 @@ hr {
     margin-top:-4px;
     filter:brightness(10000%); -webkit-filter:brightness(10000%)
   }
+}
 
-  .logo img{
-    width:200px;
-  }
+.logo img, #footerLogo {
+  width:200px;
 }
 
 .modal-md {
