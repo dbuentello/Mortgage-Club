@@ -75,11 +75,11 @@ var FormProperty = React.createClass({
         var purchaseYear = lastSoldDate != null ? new Date(Date.parse(lastSoldDate)).getFullYear() : "";
 
         this.setState({
-          market_price: marketPrice,
+          market_price: this.formatCurrency(marketPrice),
           estimated_property_tax: monthlyTax,
           estimated_hazard_insurance: monthlyInsurance,
           year_built: yearBuilt,
-          original_purchase_price: lastSoldPrice,
+          original_purchase_price: this.formatCurrency(lastSoldPrice),
           original_purchase_year: purchaseYear
         });
       }
@@ -242,7 +242,7 @@ var FormProperty = React.createClass({
     loan.properties_attributes.zpid = this.state.property ? this.state.property.zpid : null;
     loan.properties_attributes.is_subject = true
     loan.properties_attributes.property_type = this.state.property_type;
-    loan.properties_attributes.market_price = this.state.market_price;
+    loan.properties_attributes.market_price = this.currencyToNumber(this.state.market_price);
     loan.properties_attributes.estimated_hazard_insurance = this.state.estimated_hazard_insurance;
     loan.properties_attributes.estimated_property_tax = this.state.estimated_property_tax;
     loan.properties_attributes.is_primary = this.isPrimaryProperty();
