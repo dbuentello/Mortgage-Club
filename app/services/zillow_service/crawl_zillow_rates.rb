@@ -34,7 +34,6 @@ module ZillowService
       crawler
     end
 
-
     def get_request_code(zipcode, purchase_price, down_payment, annual_income)
       user_session_id = "userSessionId=2de70907-6e58-45f6-a7e8-dc2efb69e261" # hardcode session ID
       url =           "https://mortgageapi.zillow.com/submitRequest?"\
@@ -65,7 +64,6 @@ module ZillowService
         builder.params['includeLenderContactPhone'] = true
         builder.params['includeNote'] = true
       end
-
 
       quote_id_str = 'quoteId'.freeze
       quotes.map! do |quote_id, _|
