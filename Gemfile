@@ -176,5 +176,5 @@ group :production, :staging do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', platforms: :ruby
 
-  gem 'skylight'
+  gem 'newrelic_rpm'
 end
