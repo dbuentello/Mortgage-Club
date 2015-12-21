@@ -2,30 +2,19 @@ class Users::BorrowersController < Users::BaseController
   before_action :set_loan, only: [:update]
 
   def update
-    form_params = get_form_params(params[:borrower])
-    current_address = (borrower.current_address.present? ? borrower.current_address.address : nil)
     borrower_form = BorrowerForm.new(
-      form_params: form_params, borrower: borrower,
-      current_borrower_address: (borrower.current_address || nil),
-      current_address: current_address,
-      loan: @loan
+      form_params: get_form_params(params[:borrower]), borrower: borrower,
+      loan: @loan, is_primary_borrower: true
     )
+
     if borrower_form.save
       if applying_with_secondary_borrower?
-        secondary_borrower_form = BorrowerForm.new(
-          form_params: get_form_params(params[:secondary_borrower]), borrower: secondary_borrower,
-          current_borrower_address: secondary_current_borrower_address, current_address: secondary_current_address,
-          loan: @loan, is_secondary_borrower: true
-        )
-        if secondary_borrower_form.save
-          BorrowerServices::AssignSecondaryBorrowerToLoan.new(@loan, params[:secondary_borrower], secondary_borrower_form.borrower).call
-        end
+        assign_secondary_borrower_to_loan(secondary_borrower) if update_secondary_borrower
       else
-        BorrowerServices::RemoveSecondaryBorrower.call(current_user, @loan, @borrower_type)
+        remove_secondary_borrower
       end
 
       @loan.reload
-
       render json: {loan: LoanPresenter.new(@loan).edit}
     else
       render json: {error: borrower_form.errors.full_messages}, status: 500
@@ -33,6 +22,22 @@ class Users::BorrowersController < Users::BaseController
   end
 
   private
+
+  def update_secondary_borrower
+    secondary_borrower_form = BorrowerForm.new(
+      form_params: get_form_params(params[:secondary_borrower]),
+      borrower: secondary_borrower, loan: @loan
+    )
+    secondary_borrower_form.save
+  end
+
+  def assign_secondary_borrower_to_loan(secondary_borrower)
+    BorrowerServices::AssignSecondaryBorrowerToLoan.new(@loan, params[:secondary_borrower], secondary_borrower).call
+  end
+
+  def remove_secondary_borrower
+    BorrowerServices::RemoveSecondaryBorrower.call(current_user, @loan, @borrower_type)
+  end
 
   def applying_with_secondary_borrower?
     params[:has_secondary_borrower] && params[:has_secondary_borrower] == "true"
@@ -55,15 +60,5 @@ class Users::BorrowersController < Users::BaseController
       borrower: borrower_params.require(:borrower).permit(Borrower::PERMITTED_ATTRS),
       loan_id: params[:loan_id]
     }
-  end
-
-  def secondary_current_borrower_address
-    return BorrowerAddress.new unless secondary_borrower.current_address
-    @loan.secondary_borrower.current_address
-  end
-
-  def secondary_current_address
-    return Address.new unless secondary_borrower.current_address && secondary_borrower.current_address.address
-    @loan.secondary_borrower.current_address.address
   end
 end
