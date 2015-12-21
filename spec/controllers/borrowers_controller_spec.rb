@@ -4,8 +4,7 @@ RSpec.describe Users::BorrowersController do
   describe "GET #update" do
     let!(:loan) { FactoryGirl.create(:loan) }
     let!(:borrower) { FactoryGirl.create(:borrower) }
-    let(:borrower_address) { FactoryGirl.create(:borrower_address, borrower: borrower) }
-    let(:address) { FactoryGirl.create(:address, borrower_address: borrower_address) }
+
     before do
       @borrower_params = {current_address: {street_address: "12740 El Camino Real", street_address2: "",
         zip: "93422", state: "CA", property_id: "", employment_id: "", city: "Atascadero",
