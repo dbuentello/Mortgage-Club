@@ -34,7 +34,7 @@ class BorrowerForm
   end
 
   def setup_associations
-    current_borrower_address.address = @current_address
+    current_borrower_address.address = current_address
     borrower.borrower_addresses << current_borrower_address
   end
 
