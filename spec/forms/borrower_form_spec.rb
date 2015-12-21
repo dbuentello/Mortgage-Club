@@ -4,62 +4,29 @@ describe BorrowerForm do
   let(:loan) { FactoryGirl.create(:loan) }
   let(:borrower) { FactoryGirl.create(:borrower) }
   let(:borrower_address) { FactoryGirl.create(:borrower_address, borrower: borrower) }
-  let(:address) { FactoryGirl.create(:address, borrower_address: borrower_address) }
 
   before(:each) do
-    @params = {
-      current_address: {},
-      previous_address: {},
-      previous_borrower_address: {},
-      current_borrower_address: {
-        years_at_address: 10,
-        is_rental: true
-      },
-      borrower: {
-        phone: "090009099",
-        dependent_ages: [12],
-        dependent_count: 10
-      },
-      loan_id: loan.id,
-    }
+    @params = {current_address: {street_address: "12740 El Camino Real", street_address2: "",
+        zip: "93422", state: "CA", employment_id: "", city: "Atascadero",
+        full_text: "12740 El Camino Real, Atascadero, CA, United States"},
+        previous_address: {no_data: "true"},
+        current_borrower_address:
+          {is_rental: "true",
+          years_at_address: "10", monthly_rent: "12", is_current: "true"},
+        previous_borrower_address:
+          {is_rental: "true", is_current: "false"},
+        borrower:
+          {first_name: "John", middle_name: "", last_name: "Doe", suffix: "",
+            dob: "1969-12-31T17:00:00.000Z", ssn: "233-43-4444", phone: "090009099",
+            years_in_school: "12", marital_status: "", dependent_ages: [12], dependent_count: 10, self_employed: "false"},
+        loan_id: loan.id
+      }
+
     @form = BorrowerForm.new(
       form_params: @params,
       borrower: borrower,
-      current_address: address,
-      current_borrower_address: borrower_address,
       loan: loan
     )
-  end
-
-  describe "#assign_value_to_attributes" do
-    before(:each) { @form.assign_value_to_attributes }
-
-    it "assigns value to address's attributes" do
-      expect(@form.current_address.street_address).to eq(address.street_address)
-      expect(@form.current_address.city).to eq(address.city)
-      expect(@form.current_address.zip).to eq(address.zip)
-    end
-
-    it "assigns value to borrower_address's attributes" do
-      expect(@form.current_borrower_address.years_at_address).to eq(10)
-      expect(@form.current_borrower_address.is_rental).to eq(true)
-      expect(@form.current_borrower_address.is_current).to eq(true)
-    end
-
-    it "assigns value to borrower's attributes" do
-      expect(@form.borrower.phone).to eq("090009099")
-      expect(@form.borrower.dependent_ages).to eq([12])
-      expect(@form.borrower.dependent_count).to eq(10)
-    end
-  end
-
-  describe "#setup_associations" do
-    it "assigns associations" do
-      @form.setup_associations
-
-      expect(@form.current_borrower_address.address).to eq(@form.current_address)
-      expect(@form.borrower.borrower_addresses).to include(@form.current_borrower_address)
-    end
   end
 
   describe "#save" do
@@ -80,26 +47,6 @@ describe BorrowerForm do
         expect(@form.save).to be_truthy
       end
 
-      it "creates a new address successfully" do
-        expect(@form.current_address.persisted?).to be_truthy
-        expect(@form.current_address.street_address).to eq(address.street_address)
-        expect(@form.current_address.city).to eq(address.city)
-        expect(@form.current_address.zip).to eq(address.zip)
-      end
-
-      it "creates a new borrower address successfully" do
-        expect(@form.current_borrower_address.persisted?).to be_truthy
-        expect(@form.current_borrower_address.years_at_address).to eq(10)
-        expect(@form.current_borrower_address.is_rental).to eq(true)
-        expect(@form.current_borrower_address.is_current).to eq(true)
-      end
-
-      it "updates a borrower successfully" do
-        expect(@form.borrower.persisted?).to be_truthy
-        expect(@form.borrower.phone).to eq("090009099")
-        expect(@form.borrower.dependent_ages).to eq([12])
-        expect(@form.borrower.dependent_count).to eq(10)
-      end
     end
 
     context "invalid params" do

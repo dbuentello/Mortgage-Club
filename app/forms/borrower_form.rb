@@ -1,9 +1,7 @@
-require "benchmark"
 class BorrowerForm
   include ActiveModel::Model
 
-  attr_accessor :borrower, :loan, :form_params, :is_secondary_borrower,
-                :current_address, :current_borrower_address
+  attr_accessor :borrower, :loan, :form_params, :is_primary_borrower
 
   validate :validate_attributes
 
@@ -12,29 +10,22 @@ class BorrowerForm
     setup_associations
     return false unless valid?
 
-
     ActiveRecord::Base.transaction do
       borrower.save!
       current_address.save!
       current_borrower_address.save!
-
-      unless is_secondary_borrower
-        if borrower_rents_house?
-          unset_primary_property
-        else
-          create_primary_property
-        end
-      end
+      update_primary_property if primary_borrower?
 
       if borrower.must_have_previous_address?
-        previous_borrower_address.save!
-        previous_address.save!
-      elsif borrower.previous_address
-        borrower.previous_address.destroy
+        update_old_address
+      else
+        borrower.previous_address.destroy if borrower.previous_address
       end
     end
     true
   end
+
+  private
 
   def assign_value_to_attributes
     current_address.assign_attributes(form_params[:current_address])
@@ -45,6 +36,14 @@ class BorrowerForm
   def setup_associations
     current_borrower_address.address = current_address
     borrower.borrower_addresses << current_borrower_address
+  end
+
+  def update_primary_property
+    if borrower_rents_house?
+      unset_primary_property
+    else
+      create_primary_property
+    end
   end
 
   def create_primary_property
@@ -61,20 +60,14 @@ class BorrowerForm
     loan.primary_property.update(is_primary: false) if loan.primary_property
   end
 
-  def previous_address
-    @previous_address ||= Address.new(form_params[:previous_address])
+  def update_old_address
+    previous_borrower_address.save!
+    previous_address.save!
   end
 
-  def previous_borrower_address
-    @previous_borrower_address ||= begin
-      borrower_address = BorrowerAddress.find_or_initialize_by(borrower: borrower, is_current: false)
-      borrower_address.assign_attributes(form_params[:previous_borrower_address])
-      borrower_address.address = previous_address
-      borrower_address
-    end
+  def primary_borrower?
+    is_primary_borrower
   end
-
-  private
 
   def borrower_rents_house?
     current_borrower_address.is_rental
@@ -89,6 +82,29 @@ class BorrowerForm
   def add_errors(child_errors)
     child_errors.each do |attribute, message|
       errors.add(attribute, message)
+    end
+  end
+
+  def current_borrower_address
+    @current_borrower_address ||= borrower.current_address || BorrowerAddress.new
+  end
+
+  def current_address
+    @current_address ||= begin
+       borrower.current_address.present? ? borrower.current_address.address : Address.new
+    end
+  end
+
+  def previous_address
+    @previous_address ||= Address.new(form_params[:previous_address])
+  end
+
+  def previous_borrower_address
+    @previous_borrower_address ||= begin
+      borrower_address = BorrowerAddress.find_or_initialize_by(borrower: borrower, is_current: false)
+      borrower_address.assign_attributes(form_params[:previous_borrower_address])
+      borrower_address.address = previous_address
+      borrower_address
     end
   end
 end
