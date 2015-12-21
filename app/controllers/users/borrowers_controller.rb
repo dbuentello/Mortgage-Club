@@ -3,10 +3,10 @@ class Users::BorrowersController < Users::BaseController
 
   def update
     form_params = get_form_params(params[:borrower])
-    current_address = (borrower.current_address.present? ? borrower.current_address.address : form_params[:current_borrower_address])
+    current_address = (borrower.current_address.present? ? borrower.current_address.address : nil)
     borrower_form = BorrowerForm.new(
       form_params: form_params, borrower: borrower,
-      current_borrower_address: (borrower.current_address||form_params[:current_borrower_address]),
+      current_borrower_address: (borrower.current_address || nil),
       current_address: current_address,
       loan: @loan
     )
