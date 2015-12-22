@@ -7,4 +7,10 @@ namespace :scheduler do
 
     puts "done."
   end
+
+  task test: :environment do
+    puts "#{Time.now}"
+    rates = ComparisonRatesServices::GetRatesFromZillow.call(94103, 500000, 200000)
+    puts "#{Time.now}"
+  end
 end

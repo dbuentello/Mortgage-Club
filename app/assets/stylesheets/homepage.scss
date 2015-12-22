@@ -355,8 +355,13 @@
     margin-top:60px;
     position:relative;
     margin-bottom:70px;
-  }
 
+    .homePicRow {
+      img {
+        width: 100%;
+      }
+    }
+  }
 
   #top-info {
     text-align:center;
