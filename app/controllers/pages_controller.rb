@@ -11,6 +11,9 @@ class PagesController < ApplicationController
     end
   end
 
+  def developer_infographics
+  end
+
   def backend_test
     respond_to do |format|
       format.html { render template: 'public_app' }
