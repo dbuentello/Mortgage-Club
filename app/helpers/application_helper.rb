@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def dev_infographics_page?
+    request[:controller] == "pages" && request[:action] == "developer_infographics"
+  end
+
   def bootstrap_class_for(flash_type)
     case flash_type
     when "success"
