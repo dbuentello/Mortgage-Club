@@ -23,7 +23,7 @@ describe BorrowerForm do
       loan_id: loan.id
     }
 
-    @form = BorrowerForm.new(
+    @form = described_class.new(
       form_params: @params,
       borrower: borrower,
       loan: loan
@@ -41,16 +41,31 @@ describe BorrowerForm do
       @form.save
     end
 
-    context "valid params" do
+    context "with valid params" do
       before(:each) { @form.save }
 
       it "returns true" do
         expect(@form.save).to be_truthy
       end
-
     end
 
-    context "invalid params" do
+    context "with primary borrower" do
+      it "calls #update_primary_property" do
+        @form.is_primary_borrower = true
+        expect(@form).to receive(:update_primary_property)
+        @form.save
+      end
+    end
+
+    context "when borrower must have previous address" do
+      it "calls #update_old_address" do
+        allow_any_instance_of(Borrower).to receive(:must_have_previous_address?).and_return(true)
+        expect(@form).to receive(:update_old_address)
+        @form.save
+      end
+    end
+
+    context "with invalid params" do
       # implement later, we haven't set up validations for these models
     end
   end
