@@ -2,7 +2,7 @@ require 'capybara'
 require 'capybara/poltergeist'
 
 module Crawler
-  class CrawlGoogleRates
+  class GoogleRates
     include Capybara::DSL
 
     attr_accessor :purpose, :zipcode, :property_value,
