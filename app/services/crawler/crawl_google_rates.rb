@@ -49,14 +49,12 @@ module Crawler
     private
 
     def go_to_google_mortgage
-      p "go_to_google_mortgage"
       crawler.visit("http://www.google.com/compare/mortgages")
       crawler.find("h1", text: "Need help finding the right mortgage?")
       crawler.find("._emf button._ioi", text: "GUIDED SEARCH").click
     end
 
     def select_purpose_of_mortgage
-      p "select_purpose_of_mortgage"
       crawler.find("span", text: "Please select").click
       if is_refinance
         crawler.find(".cFXbRFABN7X__item-content", text: "Refinance").click
@@ -68,7 +66,6 @@ module Crawler
     end
 
     def fill_in_details_with_purchase
-      p "fill_in_details_with_purchase"
       crawler.find("h1", text: "Now tell us a few more details...")
       crawler.find("._qni ._N4g input[type=tel]").set(purchase_price)
       crawler.find("._mni ._N4g input[type=tel]").set(down_payment)
@@ -77,7 +74,6 @@ module Crawler
     end
 
     def fill_in_details_with_refinance
-      p "fill_in_details_with_refinance"
       crawler.find("h1", text: "Now tell us a few more details...")
       crawler.find("._qni ._N4g input[type=tel]").set(market_price)
       crawler.find("._mni ._N4g input[type=tel]").set(balance)
@@ -86,7 +82,6 @@ module Crawler
     end
 
     def select_years
-      p "select_years"
       crawler.find("h1", text: "How long do you plan on owning the property?")
       if years > 16
         crawler.all("._X9h span")[2].click
@@ -99,7 +94,6 @@ module Crawler
     end
 
     def select_monthly_payment
-      p "select_monthly_payment"
       selected_span = 0
       crawler.find("h1", text: "How much can you pay each month?")
       data = Nokogiri::HTML.parse(crawler.html)
@@ -134,14 +128,12 @@ module Crawler
     end
 
     def get_recommend_rates
-      p "get_recommend_rates"
       crawler.find("span", text: "RECOMMENDED")
       data = Nokogiri::HTML.parse(crawler.html)
       get_lowest_rates(data)
     end
 
     def get_rates_with_more_criteria
-      p "get_rates_with_more_criteria"
       crawler.find("._gki span", text: "MORE CRITERIA").click
       crawler.find("._Y2h", text: "How many years will you own the home?")
       crawler.find("._oni input[type=tel]").set(5)
