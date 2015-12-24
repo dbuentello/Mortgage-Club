@@ -31,7 +31,7 @@ module ComparisonRatesServices
     end
 
     def self.get_lowest_rates(rates)
-      return 0 if rates.empty?
+      return nil if rates.empty?
 
       min_rate = rates.first
       rates.each { |rate| min_rate = rate if rate[:apr] < min_rate[:apr] }
