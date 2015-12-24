@@ -33,6 +33,9 @@ class PagesController < ApplicationController
       @rates = []
     end
 
+    headers["Access-Control-Allow-Origin"] = "*"
+    headers["Access-Control-Allow-Methods"] = "GET"
+
     render json: {rates: @rates}, status: 200
   end
 end

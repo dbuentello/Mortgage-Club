@@ -9,7 +9,7 @@ RSpec.describe Users::BorrowersController do
       @borrower_params = {current_address: {street_address: "12740 El Camino Real", street_address2: "",
         zip: "93422", state: "CA", property_id: "", employment_id: "", city: "Atascadero",
         full_text: "12740 El Camino Real, Atascadero, CA, United States"},
-        previous_address: {no_data: "true"},
+        previous_address: FactoryGirl.attributes_for(:address),
         current_borrower_address:
           {is_rental: "true",
           years_at_address: "18", monthly_rent: "12", is_current: "true"},
@@ -24,7 +24,7 @@ RSpec.describe Users::BorrowersController do
       @secondary_borrower ={current_address: {street_address: "23 Park Avenue", street_address2: "",
         city: "New York", state: "NY", zip: "10016",
         full_text: "23 Park Avenue, New York, NY, United States"},
-        previous_address: {no_data: "true"},
+        previous_address: FactoryGirl.attributes_for(:address),
         current_borrower_address: {is_rental: "true", years_at_address: "4", monthly_rent: "345", is_current: "true"},
         previous_borrower_address: {is_rental: "true", is_current: "false"}, borrower: {email: "hfdi@example.com", first_name: "almg", middle_name: "",
         last_name: "nguo", suffix: "", dob: "1990-12-23T17:00:00.000Z", ssn: "334-44-5555",

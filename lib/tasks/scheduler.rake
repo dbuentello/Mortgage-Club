@@ -10,7 +10,12 @@ namespace :scheduler do
 
   task test: :environment do
     puts "#{Time.now}"
-    rates = ComparisonRatesServices::GetRatesFromZillow.call(94103, 500000, 200000)
+    rates = Crawler::CrawlGoogleRates.new({
+      years: 10, monthly_payment: 2100,
+      down_payment: 80000, purchase_price: 400000,
+      zipcode: 95127, credit_score: 670, market_price: 390000, balance: 350000, is_refinance: false
+    }).call
+    ap rates
     puts "#{Time.now}"
   end
 end

@@ -22,6 +22,7 @@ module ZillowService
 
       request_code = get_request_code(zipcode, purchase_price, down_payment, annual_income)
       quotes = get_quotes(request_code)
+      close_crawler
       get_rates(quotes)
     end
 
@@ -101,6 +102,10 @@ module ZillowService
       @number_of_results ||= data["quotes"].length
       quotes = data["quotes"].sort_by { |_, value| value["apr".freeze] }
       quotes.take(@number_of_results)
+    end
+
+    def close_crawler
+      crawler.driver.quit
     end
 
     def standardlize_data(lender_data, down_payment)

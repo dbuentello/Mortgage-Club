@@ -106,6 +106,8 @@ gem 'rollbar', '~> 2.2.1'
 
 gem 'fuzzy-string-match'
 
+gem 'puma'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
@@ -114,9 +116,6 @@ group :development do
   gem 'bullet'
   # Profiler for your development and production Ruby rack apps.
   gem 'rack-mini-profiler', require: false
-
-  # A very fast & simple Ruby web server
-  gem 'thin'
 
   gem 'derailed'
 end
