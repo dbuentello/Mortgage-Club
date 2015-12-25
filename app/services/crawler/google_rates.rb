@@ -7,8 +7,7 @@ module Crawler
 
     attr_accessor :zipcode, :property_value,
                   :down_payment, :years, :monthly_payment,
-                  :credit_score, :market_price, :balance,
-                  :results
+                  :credit_score, :market_price, :balance
 
     def initialize(args)
       @purpose = args[:purpose]

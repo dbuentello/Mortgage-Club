@@ -10,10 +10,13 @@ namespace :scheduler do
 
   task test: :environment do
     puts "#{Time.now}"
-    rates = Crawler::GoogleRates.new({
-      years: 10, monthly_payment: 2100,
-      down_payment: 80000, purchase_price: 400000,
-      zipcode: 95127, credit_score: 670, market_price: 390000, balance: 350000, is_refinance: false
+    rates = Crawler::LendingTreeRates.new({
+      purpose: "Refinance", property_type: "sfh",
+      usage: "primary_residence", property_address: "California, PA", state: "California",
+      current_address: "1722 Silver Meadow Court", purchase_price: 400000, down_payment: 50000,
+      credit_score: 690, current_zip_code: 95121, property_zip_code: 95121,
+      has_second_mortgage: true, first_mortgage_payment: 5000,
+      second_mortgage_payment: 3000
     }).call
     ap rates
     puts "#{Time.now}"
