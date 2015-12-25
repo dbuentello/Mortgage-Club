@@ -2,14 +2,13 @@ require 'capybara'
 require 'capybara/poltergeist'
 
 module Crawler
-  class GoogleRates
+  class GoogleRates < Base
     include Capybara::DSL
 
-    attr_accessor :purpose, :zipcode, :property_value,
-                  :down_payment, :credit_score, :years,
-                  :monthly_payment, :down_payment, :purchase_price,
-                  :credit_score, :market_price, :balance, :is_refinance,
-                  :results, :crawler
+    attr_accessor :zipcode, :property_value,
+                  :down_payment, :years, :monthly_payment,
+                  :credit_score, :market_price, :balance,
+                  :results
 
     def initialize(args)
       @purpose = args[:purpose]
@@ -24,7 +23,6 @@ module Crawler
       @credit_score = args[:credit_score]
       @market_price = args[:market_price].to_i
       @balance = args[:balance].to_i
-      @is_refinance = args[:is_refinance]
       @crawler = set_up_crawler
       @results = []
     end
@@ -32,10 +30,10 @@ module Crawler
     def call
       go_to_google_mortgage
       select_purpose_of_mortgage
-      if is_refinance
-        fill_in_details_with_refinance
-      else
+      if purchase?
         fill_in_details_with_purchase
+      else
+        fill_in_details_with_refinance
       end
 
       select_years
@@ -56,10 +54,10 @@ module Crawler
 
     def select_purpose_of_mortgage
       crawler.find("span", text: "Please select").click
-      if is_refinance
-        crawler.find(".cFXbRFABN7X__item-content", text: "Refinance").click
-      else
+      if purchase?
         crawler.find(".cFXbRFABN7X__item-content", text: "Purchase").click
+      else
+        crawler.find(".cFXbRFABN7X__item-content", text: "Refinance").click
       end
       crawler.find("._Qlf input[type=tel]").set(zipcode)
       crawler.find("._sZh", text: "NEXT").click
@@ -153,22 +151,6 @@ module Crawler
           down_payment: down_payment
         }
       end
-    end
-
-    def close_crawler
-      crawler.driver.quit
-    end
-
-    def set_up_crawler
-      # crawler.driver.network_traffic
-      Capybara.register_driver :poltergeist do |app|
-        Capybara::Poltergeist::Driver.new(app, {
-          js_errors: true, timeout: 60, inspector: true, phantomjs_options: ['--ignore-ssl-errors=yes', '--local-to-remote-url-access=yes']
-        })
-      end
-
-      Capybara.default_max_wait_time = 60
-      Capybara::Session.new(:poltergeist)
     end
   end
 end
