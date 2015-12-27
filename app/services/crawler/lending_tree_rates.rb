@@ -1,3 +1,4 @@
+# rubocop:disable ClassLength
 require 'capybara'
 require 'capybara/poltergeist'
 
@@ -90,7 +91,6 @@ module Crawler
       if purchase?
         crawler.find("label", text: "In what city will the property be located?")
         crawler.find("#property-geo-search").set(property_address)
-        # crawler.find("a", text: property_address).click
       else
         crawler.find("label", text: "ZIP code of the property")
         crawler.find("#property-zip-code-input").set(property_zip_code)
@@ -138,11 +138,12 @@ module Crawler
 
     def say_yes_if_you_have_second_mortgage
       crawler.find("label", text: "Do you have a second mortgage?")
-      unless has_second_mortgage
+
+      if has_second_mortgage
+        crawler.find(".label-text", text: "Yes").click
+      else
         crawler.find(".label-text", text: "No").click
         return false
-      else
-        crawler.find(".label-text", text: "Yes").click
       end
       true
     end
