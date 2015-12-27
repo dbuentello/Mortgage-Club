@@ -11,7 +11,7 @@ namespace :scheduler do
   task test: :environment do
     puts "#{Time.now}"
     rates = Crawler::LendingTreeRates.new({
-      purpose: "Refinance", property_type: "sfh",
+      purpose: "Purchase", property_type: "sfh",
       usage: "primary_residence", property_address: "California, PA", state: "California",
       current_address: "1722 Silver Meadow Court", purchase_price: 400000, down_payment: 50000,
       credit_score: 690, current_zip_code: 95121, property_zip_code: 95121,

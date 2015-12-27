@@ -30,42 +30,27 @@ module Crawler
 
     def call
       go_to_lending_tree
-      first_common_steps.call
-      while random_steps[question]
-        return Rails.logger.error("Cannot get question's content") unless question
-        ap random_steps[question]
-        send(random_steps[question])
-      end
-      second_common_steps.call
+      select_type_of_property
+      select_property_usage
+      fill_in_property_address
+      say_yes_when_asked_about_finding_new_home
+      say_yes_when_asked_about_agent
+      select_estimated_purchase_price
+      select_down_payment_percentage
+      say_no_when_asked_about_trusted_pro
+      select_credit_score
+      select_dob
+      select_military_service
+      say_no_when_asked_about_bankruptcy
+      fill_in_current_address
+      fill_in_full_name
+      create_log_in
+      fill_in_phone_number
+      fill_in_social_security
+      confirm_personal_information
+      select_where_we_hear_about_lending_tree
+      get_rates
       results
-    end
-
-    def question
-      count = 0
-      content = nil
-      while crawler.all("fieldset .form-group label")[0].nil? && count < 5
-        sleep(2)
-        count += 1
-      end
-      crawler.all("fieldset .form-group label")[0].nil? ? nil : crawler.all("fieldset .form-group label")[0].text
-    end
-
-    def random_steps
-      {
-        "What is the remaining 1st mortgage balance?" => "select_first_mortgage_payment",
-        "Do you have a second mortgage?" => "say_yes_if_you_have_second_mortgage",
-        "What is the remaining balance on the 2nd mortgage?" => "select_second_mortgage_payment",
-        "Would you like to borrow additional cash?" => "do_not_borrow_additional_cash",
-        "Do you need a trusted pro for a major home improvement?" => "say_no_when_asked_about_trusted_pro",
-        "Do you need a trusted pro to help with your upcoming move?" => "say_no_when_asked_about_trusted_pro",
-        "Estimate your credit score" => "select_credit_score",
-        "When were you born?" => "select_dob",
-        "Have you or your spouse served in the military?" => "select_military_service",
-        "Do you currently have a VA loan?" => "say_no_when_asked_about_va",
-        "Have you had a bankruptcy or foreclosure in the last 7 years?" => "say_no_when_asked_about_bankruptcy",
-        "What is your current street address?" => "fill_in_current_address",
-        "What is your name?" => "fill_in_full_name"
-      }
     end
 
     private
@@ -104,8 +89,8 @@ module Crawler
     def fill_in_property_address
       if purchase?
         crawler.find("label", text: "In what city will the property be located?")
-        crawler.find("#property-geo-search").set(state)
-        crawler.find("a", text: property_address).click
+        crawler.find("#property-geo-search").set(property_address)
+        # crawler.find("a", text: property_address).click
       else
         crawler.find("label", text: "ZIP code of the property")
         crawler.find("#property-zip-code-input").set(property_zip_code)
@@ -126,32 +111,33 @@ module Crawler
     end
 
     def select_estimated_purchase_price
-      crawler.find("label", text: "Please estimate the value of the property")
+      crawler.find("label", text: "What is the estimated purchase price?")
       crawler.execute_script("$('.ui-slider').slider('value', '#{purchase_price}')")
       crawler.find("#next").click
     end
 
     def select_down_payment_percentage
       # Lending Tree use 1-10 to prepresent percentage
+      crawler.find("label", text: "How much are you putting down as a down payment?")
       percentage = (down_payment.to_f / purchase_price.to_f * 10)
       crawler.execute_script("$('.ui-slider').slider('value', '#{percentage}')")
       crawler.find("#next").click
     end
 
     def select_first_mortgage_payment
-      # crawler.find("label", text: "What is the remaining 1st mortgage balance?")
+      crawler.find("label", text: "What is the remaining 1st mortgage balance?")
       crawler.execute_script("$('.ui-slider').slider('value', '#{first_mortgage_payment}')")
       crawler.find("#next").click
     end
 
     def select_second_mortgage_payment
-      # crawler.find("label", text: "What is the remaining balance on the 2nd mortgage?")
+      crawler.find("label", text: "What is the remaining balance on the 2nd mortgage?")
       crawler.execute_script("$('.ui-slider').slider('value', '#{second_mortgage_payment}')")
       crawler.find("#next").click
     end
 
     def say_yes_if_you_have_second_mortgage
-      # crawler.find("label", text: "Do you have a second mortgage?")
+      crawler.find("label", text: "Do you have a second mortgage?")
       unless has_second_mortgage
         crawler.find(".label-text", text: "No").click
         return false
@@ -168,7 +154,7 @@ module Crawler
     end
 
     def select_credit_score
-      # crawler.find("label", text: "Estimate your credit score")
+      crawler.find("label", text: "Estimate your credit score")
       return crawler.find("span", text: "≥720").click if credit_score >= 720
       return crawler.find("span", text: "680-719").click if credit_score > 679
       return crawler.find("span", text: "640-679").click if credit_score > 639
@@ -176,33 +162,34 @@ module Crawler
     end
 
     def select_dob
-      # crawler.find("label", text: "When were you born?")
+      crawler.find("label", text: "When were you born?")
       crawler.select("March", from: "birth-month")
       crawler.select("03", from: "birth-day")
       crawler.select("1991", from: "birth-year")
     end
 
     def select_military_service
-      # crawler.find("label", text: "Have you or your spouse served in the military?")
+      crawler.find("label", text: "Have you or your spouse served in the military?")
       crawler.find(".label-text", text: "No").click
     end
 
     def say_no_when_asked_about_bankruptcy
-      # crawler.find("label", text: "Have you had a bankruptcy or foreclosure in the last 7 years?")
+      crawler.find("label", text: "Have you had a bankruptcy or foreclosure in the last 7 years?")
       crawler.find(".label-text", text: "No").click
     end
 
     def fill_in_current_address
-      # crawler.find("label", text: "What is your current street address?")
+      crawler.find("label", text: "What is your current street address?")
       crawler.find("#street1").set(current_address)
-      crawler.find("#ig-zip-code").click
+      sleep(3)
+      # crawler.find("#ig-zip-code").click
       crawler.find("#zip-code-input").set(current_zip_code)
       sleep(3)
       crawler.find("#next").click
     end
 
     def fill_in_full_name
-      # crawler.find("label", text: "What is your name?")
+      crawler.find("label", text: "What is your name?")
       crawler.find("#first-name").set("John")
       crawler.find("#last-name").set("Doe")
       crawler.find("#next").click
@@ -218,36 +205,34 @@ module Crawler
 
     def fill_in_phone_number
       crawler.find("label", text: "Mobile or home phone number")
-      crawler.find("#home-phone").set("888-246-4181")
+      crawler.find("#home-phone").set("8882464181")
+      sleep(3)
       crawler.find("#next").click
     end
 
     def fill_in_social_security
       sleep(3)
-      if question == "Social Security #"
-        crawler.find("#social-security").set("123456789")
-        crawler.find("label", text: "Do You Currently Have Accounts With Any Of The Following Banks?")
-        crawler.find("a", text: "Skip this step").click
-        crawler.find("#next")
-      else
-        crawler.find("#social-security-four").set("6789")
-        crawler.find("#next")
-        crawler.find("h4", text: "Searching Lender Network")
-        sleep(30)
-      end
+      crawler.find("#social-security").set("123456789")
+      sleep(3)
+      crawler.find("#next").click
+      crawler.find("label", text: "Do You Currently Have Accounts With Any Of The Following Banks?")
+      crawler.find("a", text: "Skip this step").click
+      crawler.find("#next")
     end
 
     def confirm_personal_information
       crawler.find("h1", text: "Oops!")
       crawler.find("#next").click
       crawler.find("label", text: "Social Security #")
-      # crawler.find("label", text: "Please enter the last 4 digitsof your SSN")
       crawler.find("#next").click
     end
 
     def select_where_we_hear_about_lending_tree
       crawler.find("label", text: "Where did you hear about us?")
       crawler.all(".submitted-modal-page-hearaboutus .radio label .label-text")[1].click
+      sleep(1)
+      crawler.all(".submitted-modal-page-hearaboutus .radio label .label-text")[0].click if crawler.all("a", text: "Done")[0]
+      sleep(3)
     end
 
     def get_rates
@@ -255,7 +240,9 @@ module Crawler
       crawler.find(".message", text: "Our apologies but this is taking an unusually long time. Thank you for your patience.")
       sleep(30)
       crawler.find("h2", text: "30 Year Fixed")
+      sleep(10)
       data = Nokogiri::HTML.parse(crawler.html)
+
       data.css(".offer-group").each do |list|
         lowest_rate = list.css(".offer").first
         results << {
@@ -269,37 +256,17 @@ module Crawler
     end
 
     def say_no_when_asked_about_may_2009
-      # crawler.find("label", text: "Did you close on your mortgage on or before May 31, 2009?")
+      crawler.find("label", text: "Did you close on your mortgage on or before May 31, 2009?")
       crawler.find(".label-text", text: "No").click
     end
 
     def do_not_borrow_additional_cash
-      # crawler.find("label", text: "Would you like to borrow additional cash?")
+      crawler.find("label", text: "Would you like to borrow additional cash?")
       crawler.find("#next").click
     end
 
     def say_no_when_asked_about_va
       crawler.find(".label-text", text: "No").click
-    end
-
-    def first_common_steps
-      Proc.new do
-        select_type_of_property
-        select_property_usage
-        fill_in_property_address
-        select_estimated_purchase_price
-      end
-    end
-
-    def second_common_steps
-      Proc.new do
-        create_log_in
-        fill_in_phone_number
-        fill_in_social_security
-        confirm_personal_information
-        select_where_we_hear_about_lending_tree
-        get_rates
-      end
     end
   end
 end
