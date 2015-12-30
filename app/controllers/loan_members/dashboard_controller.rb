@@ -31,7 +31,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
   def get_all_rates
     [
       {
-        down_rate_value: 0.2,
+        down_payment_percentage: 0.2,
         lender_name: "google",
         rates: [
             {name: "30_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
