@@ -34,13 +34,13 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
         down_rate_value: 0.2,
         lender_name: "google",
         rates: [
-            {name: "30_year_fixed", rate: Random.rand(40)*0.01},
-            {name: "20_year_fixed", rate: Random.rand(40)*0.01},
-            {name: "15_year_fixed", rate: Random.rand(40)*0.01},
-            {name: "10_year_fixed", rate: Random.rand(40)*0.01},
-            {name: "7_1_arm", rate: Random.rand(40)*0.01},
-            {name: "5_1_arm", rate: Random.rand(40)*0.01},
-            {name: "3_1_arm", rate: Random.rand(40)*0.01}
+            {name: "30_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
+            {name: "20_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
+            {name: "15_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
+            {name: "10_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
+            {name: "7_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
+            {name: "5_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
+            {name: "3_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)}
           ]
         }
     ]
