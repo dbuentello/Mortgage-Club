@@ -1,7 +1,8 @@
 module Crawler
   class Base
     attr_accessor :purpose, :crawler, :purchase_price, :credit_score,
-                  :down_payment, :results
+                  :usage, :down_payment, :property_type, :market_price,
+                  :results
 
     def purchase?
       purpose == "Purchase"
