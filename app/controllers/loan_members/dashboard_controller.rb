@@ -17,7 +17,8 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       closing: ClosingPresenter.new(@loan.closing).show,
       templates: TemplatesPresenter.index(Template.all),
       lender_templates: get_lender_templates,
-      other_lender_template: get_other_template
+      other_lender_template: get_other_template,
+      competitor_rates: get_all_rates.as_json
     )
 
     respond_to do |format|
@@ -26,6 +27,25 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
   end
 
   private
+
+  def get_all_rates
+    [
+      {
+        down_rate_value: 0.2,
+        lender_name: "google",
+        rates: [
+            {"30_year_fixed": Random.rand(40)*0.01},
+            {"20_year_fixed": Random.rand(40)*0.01},
+            {"15_year_fixed": Random.rand(40)*0.01},
+            {"10_year_fixed": Random.rand(40)*0.01},
+            {"7_1_arm": Random.rand(40)*0.01},
+            {"5_1_arm": Random.rand(40)*0.01},
+            {"3_1_arm": Random.rand(40)*0.01}
+          ]
+        }
+    ]
+
+  end
 
   def get_lender_templates
     return [] unless @loan.lender
