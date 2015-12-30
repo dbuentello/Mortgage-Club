@@ -7,12 +7,12 @@ module.exports = React.createClass({
   mixins: [TextFormatMixin],
 
   renderTable: function(){
-    var this_obj = this;
+    var thisObject = this;
     return _.map(this.props.competitorRates, function(competitor_rate){
       return (
         <div className="competitor-name">
           <h2>
-            { competitor_rate.down_rate_value*100 }%
+            Down payment { competitor_rate.down_payment_percentage*100 }%
           </h2>
           <div className="row">
             <div className="col-md-2">
@@ -24,16 +24,16 @@ module.exports = React.createClass({
                   <div className="col-md-1">
                     <div className="row">
                       <div className="col-md-12">{rate.apr}</div>
-                      <div className="col-md-12">{this_obj.formatCurrency(rate.total_fee, "$")}</div>
+                      <div className="col-md-12">{this.formatCurrency(rate.total_fee, "$")}</div>
                     </div>
                   </div>
                   )
-              })
+              }.bind(this))
             }
           </div>
         </div>
         );
-    });
+    }.bind(this));
   },
   render: function(){
     console.log(this.props.competitor_rates);
