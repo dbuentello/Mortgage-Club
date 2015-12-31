@@ -4,5 +4,5 @@ class RateComparison < ActiveRecord::Base
   belongs_to :loan
 
   validates :loan_id, presence: :true
-  validates :lender_name, presence: :true
+  validates :competitor_name, presence: :true
 end
