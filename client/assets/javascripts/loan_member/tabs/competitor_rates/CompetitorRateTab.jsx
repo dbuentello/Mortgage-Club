@@ -6,6 +6,9 @@ var CompetitorRateTable = require("./CompetitorRateTable");
 
 module.exports = React.createClass({
   mixins: [TextFormatMixin],
+  componentWillMount: function() {
+    $("[data-toggle='tooltip']").tooltip();
+  },
 
   render: function(){
     console.log(this.props.competitor_rates);

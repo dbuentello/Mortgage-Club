@@ -9,8 +9,10 @@ module.exports = React.createClass({
         <div>
           <h4>{this.props.title}</h4>
           <div className="row">
-            <table className="table competitor-rates">
-              <tbody><tr>
+            <table className="table table-bordered table-primary competitor-rates">
+              <tbody>
+                <tr>
+                <th></th>
                 <th>30 Year Fixed</th>
                 <th>20 Year Fixed</th>
                 <th>15 Year Fixed</th>
@@ -31,17 +33,14 @@ module.exports = React.createClass({
                         _.map(competitor_rate.rates, function(rate){
                           return (
                               <div>
-                                <td>
-                                  {rate.lender_name}
-                                  <br/>
+                                <td data-toggle="tooltip"
+                                  title={rate.lender_name + "\n" + this.formatCurrency(rate.total_fee, "$")}
+                                  data-trigger="focus"
+                                  data-container="body"
+                                  >
                                   {rate.apr}
-                                  <br/>
-                                  {this.formatCurrency(rate.total_fee, "$")}
                                 </td>
-                                <td>
-
-                                </td>
-                                </div>
+                              </div>
                             );
                         }.bind(this))
                       }
