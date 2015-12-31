@@ -27,5 +27,11 @@ FactoryGirl.define do
     trait :with_user do
       user { build(:borrower_user) }
     end
+
+    factory :borrower_with_credit_report, parent: :borrower do |f|
+      after(:build) do |borrower, credit_report|
+        create(:credit_report, borrower: borrower)
+      end
+    end
   end
 end

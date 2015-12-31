@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe RatesComparisonServices::GetRatesFromZillow do
+describe RatesComparisonServices::GetRatesFromLendingTree do
   let(:loan) { FactoryGirl.create(:loan) }
   let(:property) { FactoryGirl.create(:property_with_address) }
   let(:borrower) { FactoryGirl.create(:borrower) }
@@ -13,11 +13,11 @@ describe RatesComparisonServices::GetRatesFromZillow do
       {product: "7/1 ARM", apr: 2.5, lender_name: "ConsumerDirect Mortgage", total_fee: 534},
       {product: "3/1 ARM", apr: 4.5, lender_name: "American Interbanc Mortgage", total_fee: 1034}
     ]
-    allow_any_instance_of(ZillowService::CrawlZillowRates).to receive(:call).and_return(@rates)
+    allow_any_instance_of(Crawler::LendingTreeRates).to receive(:call).and_return(@rates)
   end
 
-  it "calls ZillowService::CrawlZillowRates service" do
-    expect_any_instance_of(ZillowService::CrawlZillowRates).to receive(:call).exactly(4).times
+  it "calls Crawler::LendingTreeRates service" do
+    expect_any_instance_of(Crawler::LendingTreeRates).to receive(:call).exactly(4).times
     described_class.new(loan, property, borrower).call
   end
 

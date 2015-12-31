@@ -121,6 +121,8 @@ class Borrower < ActiveRecord::Base
   end
 
   def credit_score
+    return 0 unless credit_report
+
     credit_report.score
   end
 
