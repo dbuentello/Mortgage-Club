@@ -1,0 +1,323 @@
+{
+  "title": "Rates Comparison",
+  "type": "object",
+  "required": ["0.25", "0.2", "0.1", "0.035"],
+  "properties": {
+    "0.25": {
+      "type": "object",
+      "required": [
+        "30_year_fixed", "20_year_fixed", "15_year_fixed",
+        "10_year_fixed", "7_1_arm", "5_1_arm", "3_1_arm"
+      ],
+      "properties": {
+        "30_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "20_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "15_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "10_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "7_1_arm": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "5_1_arm": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "3_1_arm": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        }
+      }
+    },
+    "0.2": {
+      "type": "object",
+      "required": [
+        "30_year_fixed", "20_year_fixed", "15_year_fixed",
+        "10_year_fixed", "7_1_arm", "5_1_arm", "3_1_arm"
+      ],
+      "properties": {
+        "30_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "20_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "15_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "10_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "7_1_arm": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "5_1_arm": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "3_1_arm": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        }
+      }
+    },
+    "0.1": {
+      "type": "object",
+      "required": [
+        "30_year_fixed", "20_year_fixed", "15_year_fixed",
+        "10_year_fixed", "7_1_arm", "5_1_arm", "3_1_arm"
+      ],
+      "properties": {
+        "30_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "20_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "15_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "10_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "7_1_arm": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "5_1_arm": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "3_1_arm": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        }
+      }
+    },
+    "0.035": {
+      "type": "object",
+      "required": [
+        "30_year_fixed", "20_year_fixed", "15_year_fixed",
+        "10_year_fixed", "7_1_arm", "5_1_arm", "3_1_arm"
+      ],
+      "properties": {
+        "30_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "20_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "15_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "10_year_fixed": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "7_1_arm": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "5_1_arm": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        },
+        "3_1_arm": {
+          "type": "object",
+          "required": ["product", "apr", "lender_name", "total_fee"],
+          "properties": {
+            "product": { "type": "string" },
+            "apr": { "type": "number" },
+            "lender_name": { "type": "string" },
+            "total_fee": { "type": "number" }
+          }
+        }
+      }
+    }
+  }
+}
