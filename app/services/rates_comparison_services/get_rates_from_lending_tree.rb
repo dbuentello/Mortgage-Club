@@ -7,8 +7,8 @@ module RatesComparisonServices
     end
 
     def call
-      [0.25, 0.20, 0.1, 0.035].inject({}) do |data, percent|
-        down_payment = (property.purchase_price * percent)
+      [0.25, 0.20, 0.1, 0.035].each_with_object({}) do |percent, data|
+        down_payment = property.purchase_price * percent
         rates = Crawler::LendingTreeRates.call({
           purpose: loan.purpose,
           property_type: property.property_type,
@@ -33,7 +33,6 @@ module RatesComparisonServices
           "5_1_arm" => get_rates(rates, "5/1 ARM"),
           "3_1_arm" => get_rates(rates, "3/1 ARM")
         }
-        data
       end
     end
 

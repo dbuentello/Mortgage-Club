@@ -7,7 +7,7 @@ module RatesComparisonServices
     end
 
     def call
-      [0.25, 0.20, 0.1, 0.035].inject({}) do |data, percent|
+      [0.25, 0.20, 0.1, 0.035].each_with_object({}) do |percent, data|
         down_payment = (property.purchase_price * percent).to_i
         rates = ZillowService::CrawlZillowRates.new({
           zipcode: property.address.zip,
@@ -25,7 +25,6 @@ module RatesComparisonServices
           "5_1_arm" => get_lowest_rates(get_rates(rates, "5/1 ARM")),
           "3_1_arm" => get_lowest_rates(get_rates(rates, "3/1 ARM"))
         }
-        data
       end
     end
 
