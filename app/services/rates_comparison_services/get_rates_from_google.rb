@@ -7,7 +7,7 @@ module RatesComparisonServices
     end
 
     def call
-      [0.25, 0.20, 0.1, 0.035].map! do |percent|
+      [0.25, 0.20, 0.1, 0.035].inject({}) do |data, percent|
         down_payment = (property_value * percent)
         rates = Crawler::CrawlGoogleRates.call({
           purpose: loan.purpose,
@@ -21,17 +21,16 @@ module RatesComparisonServices
           balance: property.mortgage_payment_liability.balance.to_f
         })
 
-        {
-          "#{percent}" => {
-            "apr_30_year" => get_lowest_rates(get_rates(rates, "30 year fixed")),
-            "apr_20_year" => get_lowest_rates(get_rates(rates, "20 year fixed")),
-            "apr_15_year" => get_lowest_rates(get_rates(rates, "15 year fixed")),
-            "apr_10_year" => get_lowest_rates(get_rates(rates, "10 year fixed")),
-            "apr_7_libor" => get_lowest_rates(get_rates(rates, "7/1 ARM")),
-            "apr_5_libor" => get_lowest_rates(get_rates(rates, "5/1 ARM")),
-            "apr_3_libor" => get_lowest_rates(get_rates(rates, "3/1 ARM"))
-          }
+        data["#{percent}"] = {
+          "30_year_fixed" => get_rates(rates, "30 year fixed"),
+          "20_year_fixed" => get_rates(rates, "20 year fixed"),
+          "15_year_fixed" => get_rates(rates, "15 year fixed"),
+          "10_year_fixed" => get_rates(rates, "10 year fixed"),
+          "7_1_arm" => get_rates(rates, "7/1 ARM"),
+          "5_1_arm" => get_rates(rates, "5/1 ARM"),
+          "3_1_arm" => get_rates(rates, "3/1 ARM")
         }
+        data
       end
     end
 
