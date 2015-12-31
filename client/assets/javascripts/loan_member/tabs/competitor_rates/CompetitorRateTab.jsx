@@ -6,6 +6,7 @@ var CompetitorRateTable = require("./CompetitorRateTable");
 
 module.exports = React.createClass({
   mixins: [TextFormatMixin],
+
   render: function(){
     console.log(this.props.competitor_rates);
     return (

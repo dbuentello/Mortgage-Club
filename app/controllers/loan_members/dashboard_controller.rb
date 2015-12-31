@@ -18,7 +18,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       templates: TemplatesPresenter.index(Template.all),
       lender_templates: get_lender_templates,
       other_lender_template: get_other_template,
-      competitor_rates: {down_payment_25: get_all_rates_down_payment_25, down_payment_20: get_all_rates_down_payment_20}.as_json
+      competitor_rates: {down_payment_25: get_all_rates_down_payment("0.25"), down_payment_20: get_all_rates_down_payment("0.2")}.as_json
     )
 
     respond_to do |format|
@@ -28,28 +28,47 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
 
   private
 
-  def get_all_rates_down_payment_25
-    @loan.rate_comparisons.where(down_payment_percentage: "0.25")
+  def get_all_rates_down_payment(percent)
+    @loan.rate_comparisons.where(down_payment_percentage: percent)
   end
 
-  def get_all_rates_down_payment_20
-    @loan.rate_comparisons.where(down_payment_percentage: "0.2")
+  # def get_all_rates_down_payment_20
+  #   @loan.rate_comparisons.where(down_payment_percentage: "0.2")
+  #   # [
+  #   #   {
+  #   #     down_payment_percentage: 0.2,
+  #   #     competitor_name: "google",
+  #   #     rates: [
+  #   #       {name: "30_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "citibank"},
+  #   #       {name: "20_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "american bank"},
+  #   #       {name: "15_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "eMortgage"},
+  #   #       {name: "10_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "Sibotech"},
+  #   #       {name: "7_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "Techcombank"},
+  #   #       {name: "5_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "hsbc"},
+  #   #       {name: "3_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "wooribank"}
+  #   #     ]
+  #   #   }
+  #   # ]
+
+  # end
+
+  def get_all_rates
+    @loan.rate_comparisons
     # [
     #   {
     #     down_payment_percentage: 0.2,
-    #     competitor_name: "google",
+    #     lender_name: "google",
     #     rates: [
-    #       {name: "30_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "citibank"},
-    #       {name: "20_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "american bank"},
-    #       {name: "15_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "eMortgage"},
-    #       {name: "10_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "Sibotech"},
-    #       {name: "7_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "Techcombank"},
-    #       {name: "5_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "hsbc"},
-    #       {name: "3_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000), lender_name: "wooribank"}
+    #       {name: "30_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
+    #       {name: "20_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
+    #       {name: "15_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
+    #       {name: "10_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
+    #       {name: "7_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
+    #       {name: "5_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
+    #       {name: "3_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)}
     #     ]
     #   }
     # ]
-
   end
 
   def get_lender_templates

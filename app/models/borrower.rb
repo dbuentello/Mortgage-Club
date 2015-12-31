@@ -117,7 +117,7 @@ class Borrower < ActiveRecord::Base
   end
 
   def income_completed?
-      current_employment.try(:completed?)
+    current_employment.try(:completed?)
   end
 
   def credit_score
@@ -130,5 +130,10 @@ class Borrower < ActiveRecord::Base
 
   def total_income
     current_salary + gross_overtime.to_f + gross_bonus.to_f + gross_commission.to_f + gross_interest.to_f
+  end
+
+  def annual_income
+    return 0 unless current_employment.present? && current_employment.current_salary.present?
+    (employment.current_salary * 12).round
   end
 end
