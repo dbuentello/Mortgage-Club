@@ -22,11 +22,11 @@ module Crawler
       @current_zip_code = args[:current_zip_code]
       @property_zip_code = args[:property_zip_code]
       @has_second_mortgage = args[:has_second_mortgage]
-      @crawler = set_up_crawler
       @results = []
     end
 
     def call
+      @crawler = set_up_crawler
       go_to_lending_tree
       select_type_of_property
       select_property_usage

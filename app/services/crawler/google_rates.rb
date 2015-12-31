@@ -20,11 +20,11 @@ module Crawler
       @purchase_price = args[:purchase_price].to_i
       @market_price = args[:market_price].to_i
       @balance = args[:balance].to_i
-      @crawler = set_up_crawler
       @results = []
     end
 
     def call
+      @crawler = set_up_crawler
       go_to_google_mortgage
       select_purpose_of_mortgage
       if purchase?
@@ -32,7 +32,6 @@ module Crawler
       else
         fill_in_details_with_refinance
       end
-
       select_years
       select_monthly_payment
       get_recommend_rates

@@ -136,6 +136,6 @@ class Borrower < ActiveRecord::Base
 
   def annual_income
     return 0 unless current_employment.present? && current_employment.current_salary.present?
-    (employment.current_salary * 12).round
+    (current_employment.current_salary * 12).round
   end
 end

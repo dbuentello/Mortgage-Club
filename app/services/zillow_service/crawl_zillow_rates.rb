@@ -14,12 +14,12 @@ module ZillowService
       @down_payment = args[:down_payment]
       @annual_income = args[:annual_income]
       @number_of_results = args[:number_of_results]
-      @crawler = set_up_crawler
     end
 
     def call
       raise "zipcode is missing!" unless zipcode.present?
 
+      @crawler = set_up_crawler
       request_code = get_request_code(zipcode, purchase_price, down_payment, annual_income)
       quotes = get_quotes(request_code)
       close_crawler

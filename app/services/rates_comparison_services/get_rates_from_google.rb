@@ -7,7 +7,7 @@ module RatesComparisonServices
     end
 
     def call
-      [0.25, 0.20, 0.1, 0.035].each_with_object({}) do |percent, data|
+      [0.25, 0.2, 0.1, 0.035].each_with_object({}) do |percent, data|
         crawler.down_payment = property_value * percent
         rates = crawler.call
 
