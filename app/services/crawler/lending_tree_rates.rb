@@ -27,27 +27,33 @@ module Crawler
 
     def call
       @crawler = set_up_crawler
-      go_to_lending_tree
-      select_type_of_property
-      select_property_usage
-      fill_in_property_address
-      say_yes_when_asked_about_finding_new_home
-      say_yes_when_asked_about_agent
-      select_estimated_purchase_price
-      select_down_payment_percentage
-      say_no_when_asked_about_trusted_pro
-      select_credit_score
-      select_dob
-      select_military_service
-      say_no_when_asked_about_bankruptcy
-      fill_in_current_address
-      fill_in_full_name
-      create_log_in
-      fill_in_phone_number
-      fill_in_social_security
-      confirm_personal_information
-      select_where_we_hear_about_lending_tree
-      get_rates
+      begin
+        go_to_lending_tree
+        select_type_of_property
+        select_property_usage
+        fill_in_property_address
+        say_yes_when_asked_about_finding_new_home
+        say_yes_when_asked_about_agent
+        select_estimated_purchase_price
+        select_down_payment_percentage
+        say_no_when_asked_about_trusted_pro
+        select_credit_score
+        select_dob
+        select_military_service
+        say_no_when_asked_about_bankruptcy
+        fill_in_current_address
+        fill_in_full_name
+        create_log_in
+        fill_in_phone_number
+        fill_in_social_security
+        confirm_personal_information
+        select_where_we_hear_about_lending_tree
+        get_rates
+      rescue Exception => error
+        ap error
+        crawler.save_and_open_page
+        byebug
+      end
       results
     end
 

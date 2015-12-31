@@ -28,8 +28,9 @@ module RatesComparisonServices
     def crawler
       @crawler ||= ZillowService::CrawlZillowRates.new({
         zipcode: property.address.zip,
-        purchase_price: property.purchase_price,
-        annual_income: borrower.annual_income
+        purchase_price: property.purchase_price.to_i,
+        annual_income: borrower.annual_income,
+        number_of_results: 20
       })
     end
   end
