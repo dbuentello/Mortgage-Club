@@ -14,8 +14,14 @@ module.exports = React.createClass({
         <div className="table-responsive competitor-rates">
             <CompetitorRateTable title="Down payment 20%" competitorRates={this.props.competitorRates.down_payment_20}></CompetitorRateTable>
         </div>
-        <div className="table-responsive">
+        <div className="table-responsive competitor-rates">
             <CompetitorRateTable title="Down payment 25%" competitorRates={this.props.competitorRates.down_payment_25}></CompetitorRateTable>
+        </div>
+        <div className="table-responsive competitor-rates">
+            <CompetitorRateTable title="Down payment 10%" competitorRates={this.props.competitorRates.down_payment_10}></CompetitorRateTable>
+        </div>
+        <div className="table-responsive competitor-rates">
+            <CompetitorRateTable title="Down payment 3.5%" competitorRates={this.props.competitorRates.down_payment_3_5}></CompetitorRateTable>
         </div>
       </div>
     );

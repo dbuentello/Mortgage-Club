@@ -18,7 +18,11 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       templates: TemplatesPresenter.index(Template.all),
       lender_templates: get_lender_templates,
       other_lender_template: get_other_template,
-      competitor_rates: {down_payment_25: get_all_rates_down_payment("0.25"), down_payment_20: get_all_rates_down_payment("0.2")}.as_json
+      competitor_rates: {down_payment_25: get_all_rates_down_payment("0.25"),
+        down_payment_20: get_all_rates_down_payment("0.2"),
+        down_payment_10: get_all_rates_down_payment("0.1"),
+        down_payment_3_5: get_all_rates_down_payment("0.035")
+        }.as_json
     )
 
     respond_to do |format|
