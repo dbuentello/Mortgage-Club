@@ -1,4 +1,4 @@
-module ComparisonRatesServices
+module RatesComparisonServices
   class GetRatesFromGoogle < Base
     def initialize(loan, property, borrower)
       @loan = loan
