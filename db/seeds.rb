@@ -15,7 +15,6 @@ if User.where(email: 'borrower@gmail.com').blank?
   user.skip_confirmation!
   user.save
 
-  user.create_borrower
   user.add_role :borrower
 
   loan = Loan.initiate(user)
@@ -31,93 +30,176 @@ loan = Loan.find_by(borrower:User.where(email: "borrower@gmail.com"))
 
 if RateComparison.where(loan: loan).blank?
   RateComparison.create(down_payment_percentage: 0.2, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
-   {name: "20_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "15_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "10_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "7_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "5_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "3_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"}], loan: loan, competitor_name: "zillow")
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Zillow")
   RateComparison.create(down_payment_percentage: 0.2, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
-   {name: "20_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "15_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "10_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "7_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "5_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "3_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"}], loan: loan, competitor_name: "google")
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Google")
   RateComparison.create(down_payment_percentage: 0.2, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
-   {name: "20_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "15_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "10_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "7_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "5_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "3_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"}], loan: loan, competitor_name: "lendingtree")
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "LendingTree")
+  RateComparison.create(down_payment_percentage: 0.2, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Sindeo")
+  RateComparison.create(down_payment_percentage: 0.2, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Lenda")
+  RateComparison.create(down_payment_percentage: 0.2, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Expedite Financial")
 
   RateComparison.create(down_payment_percentage: 0.25, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
-   {name: "20_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "15_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "10_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "7_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "5_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "3_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"}], loan: loan, competitor_name: "zillow")
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Zillow")
   RateComparison.create(down_payment_percentage: 0.25, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
-   {name: "20_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "15_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "10_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "7_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "5_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "3_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"}], loan: loan, competitor_name: "google")
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Google")
   RateComparison.create(down_payment_percentage: 0.25, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
-   {name: "20_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "15_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "10_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "7_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "5_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "3_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"}], loan: loan, competitor_name: "lendingtree")
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "LendingTree")
+  RateComparison.create(down_payment_percentage: 0.25, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Sindeo")
+  RateComparison.create(down_payment_percentage: 0.25, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Lenda")
+  RateComparison.create(down_payment_percentage: 0.25, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Expedite Financial")
 
+ RateComparison.create(down_payment_percentage: 0.1, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Zillow")
   RateComparison.create(down_payment_percentage: 0.1, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
-   {name: "20_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "15_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "10_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "7_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "5_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "3_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"}], loan: loan, competitor_name: "zillow")
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Google")
   RateComparison.create(down_payment_percentage: 0.1, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
-   {name: "20_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "15_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "10_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "7_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "5_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "3_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"}], loan: loan, competitor_name: "google")
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "LendingTree")
   RateComparison.create(down_payment_percentage: 0.1, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
-   {name: "20_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "15_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "10_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "7_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "5_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "3_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"}], loan: loan, competitor_name: "lendingtree")
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Sindeo")
+  RateComparison.create(down_payment_percentage: 0.1, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Lenda")
+  RateComparison.create(down_payment_percentage: 0.1, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Expedite Financial")
 
   RateComparison.create(down_payment_percentage: 0.035, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
-   {name: "20_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "15_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "10_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "7_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "5_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "3_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"}], loan: loan, competitor_name: "zillow")
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Zillow")
   RateComparison.create(down_payment_percentage: 0.035, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
-   {name: "20_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "15_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "10_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "7_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "5_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "3_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"}], loan: loan, competitor_name: "google")
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Google")
   RateComparison.create(down_payment_percentage: 0.035, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
-   {name: "20_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "15_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "10_year_fixed", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "7_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "5_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"},
-   {name: "3_1_arm", total_fee:145, apr: 0.316, lender_name: "Wooribank"}], loan: loan, competitor_name: "lendingtree")
-
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "LendingTree")
+  RateComparison.create(down_payment_percentage: 0.035, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Sindeo")
+  RateComparison.create(down_payment_percentage: 0.035, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Lenda")
+  RateComparison.create(down_payment_percentage: 0.035, rates:[{name: "30_year_fixed", total_fee:145, apr: 0.306, lender_name: "Wooribank"},
+   {name: "20_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "15_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "10_year_fixed", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "7_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "5_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"},
+   {name: "3_1_arm", total_fee:145, apr: 0.0396, lender_name: "Wooribank"}], loan: loan, competitor_name: "Expedite Financial")
 end
 
 # create staff user
@@ -222,7 +304,7 @@ end
 
 # if Loan.where(lender_name: 'Ficus Bank').blank?
 #   user = User.where(email: 'borrower@gmail.com').first
-#   loan = user.loans.build(amount: Random.rand(100000..200000), interest_rate: Random.rand(0.2..1))
+#   loan = user.loans.build(amount: Random.rand(100000..200000), interest_rate: Random.rand(0.25..1))
 #   loan.save
 
 #   #build cobororwer
