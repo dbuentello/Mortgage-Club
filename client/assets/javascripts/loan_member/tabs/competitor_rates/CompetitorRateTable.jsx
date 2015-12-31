@@ -8,32 +8,53 @@ module.exports = React.createClass({
       return (
         <div>
           <h4>{this.props.title}</h4>
-          {
-            _.map(this.props.competitorRates, function(competitor_rate){
-              return (
-                <div className="competitor-name">
+          <div className="row">
+            <table className="table competitor-rates">
+              <tbody><tr>
+                <th>30 Year Fixed</th>
+                <th>20 Year Fixed</th>
+                <th>15 Year Fixed</th>
+                <th>10 Year Fixed</th>
+                <th>7/1 ARM</th>
+                <th>5/1 ARM</th>
+                <th>3/1 ARM</th>
+              </tr>
+              {
+                _.map(this.props.competitorRates, function(competitor_rate){
+                  console.log(competitor_rate);
+                  return (
+                    <tr>
+                      <td>
+                        {competitor_rate.competitor_name}
+                      </td>
+                      {
+                        _.map(competitor_rate.rates, function(rate){
+                          return (
+                              <div>
+                                <td>
+                                  {rate.lender_name}
+                                  <br/>
+                                  {rate.apr}
+                                  <br/>
+                                  {this.formatCurrency(rate.total_fee, "$")}
+                                </td>
+                                <td>
 
-                  <div className="row">
-                    <div className="col-md-2">
-                      { competitor_rate.lender_name }
-                    </div>
-                    {
-                      _.map(competitor_rate.rates, function(rate){
-                        return (
-                          <div className="col-md-1">
-                            <div className="row">
-                              <div className="col-md-12">{rate.apr}</div>
-                              <div className="col-md-12">{this.formatCurrency(rate.total_fee, "$")}</div>
-                            </div>
-                          </div>
-                          )
-                      }.bind(this))
-                    }
-                  </div>
-                </div>
-                );
-            }.bind(this))
-          }
+                                </td>
+                                </div>
+                            );
+                        }.bind(this))
+                      }
+                    </tr>
+
+                    );
+                }.bind(this))
+              }
+
+              </tbody>
+            </table>
+          </div>
+
         </div>
       );
     }
