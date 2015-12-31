@@ -13,6 +13,7 @@ class Loan < ActiveRecord::Base
   has_many :loan_members, through: :loans_members_associations
   has_many :checklists
   has_many :lender_documents
+  has_many :rate_comparisons
   belongs_to :lender
 
   accepts_nested_attributes_for :properties, allow_destroy: true
