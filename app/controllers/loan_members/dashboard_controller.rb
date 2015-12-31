@@ -27,6 +27,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
   end
 
   private
+
   def get_all_rates_down_payment(percent)
     @loan.rate_comparisons.where(down_payment_percentage: "0.25")
   end
