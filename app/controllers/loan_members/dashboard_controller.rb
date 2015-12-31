@@ -30,7 +30,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
 
   def get_all_rates_down_payment(percent)
     @loan.rate_comparisons.where(down_payment_percentage: percent)
-     # [
+    # [
     #   {
     #     down_payment_percentage: 0.2,
     #     lender_name: "google",

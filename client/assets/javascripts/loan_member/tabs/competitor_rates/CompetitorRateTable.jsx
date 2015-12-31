@@ -9,7 +9,7 @@ module.exports = React.createClass({
         <div>
           <h4>{this.props.title}</h4>
           <div className="row">
-            <table className="table">
+            <table className="table competitor-rates">
               <tbody><tr>
                 <th>30 Year Fixed</th>
                 <th>20 Year Fixed</th>
@@ -25,7 +25,7 @@ module.exports = React.createClass({
                   return (
                     <tr>
                       <td>
-                        {competitor_rate.lender_name}
+                        {competitor_rate.competitor_name}
                       </td>
                       {
                         _.map(competitor_rate.rates, function(rate){

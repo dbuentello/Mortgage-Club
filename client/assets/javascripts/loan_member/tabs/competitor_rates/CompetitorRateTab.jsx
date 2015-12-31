@@ -11,7 +11,7 @@ module.exports = React.createClass({
     console.log(this.props.competitor_rates);
     return (
       <div>
-        <div className="table-responsive">
+        <div className="table-responsive competitor-rates">
             <CompetitorRateTable title="Down payment 20%" competitorRates={this.props.competitorRates.down_payment_20}></CompetitorRateTable>
         </div>
         <div className="table-responsive">
