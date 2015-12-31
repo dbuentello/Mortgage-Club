@@ -18,7 +18,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       templates: TemplatesPresenter.index(Template.all),
       lender_templates: get_lender_templates,
       other_lender_template: get_other_template,
-      competitor_rates: get_all_rates.as_json
+      competitor_rates: {down_payment_25: get_all_rates_down_payment_25, down_payment_20: get_all_rates_down_payment_20}.as_json
     )
 
     respond_to do |format|
@@ -27,9 +27,12 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
   end
 
   private
+  def get_all_rates_down_payment_25
+    @loan.rate_comparisons.where(down_payment_percentage: "0.25")
+  end
 
-  def get_all_rates
-    @loan.rate_comparisons
+  def get_all_rates_down_payment_20
+    @loan.rate_comparisons.where(down_payment_percentage: "0.2")
     # [
     #   {
     #     down_payment_percentage: 0.2,
