@@ -6,9 +6,8 @@ module Crawler
   class LendingTreeRates < Base
     include Capybara::DSL
     attr_reader :property_type, :usage, :property_address, :state,
-                :is_bankrupt, :is_foreclosed, :current_address,
-                :current_zip_code, :property_zip_code, :has_second_mortgage,
-                :first_mortgage_payment, :second_mortgage_payment
+                :current_address, :current_zip_code, :property_zip_code,
+                :has_second_mortgage, :first_mortgage_payment, :second_mortgage_payment
 
     def initialize(args)
       @purpose = args[:purpose]
@@ -19,8 +18,6 @@ module Crawler
       @purchase_price = args[:purchase_price]
       @down_payment = args[:down_payment]
       @credit_score = args[:credit_score]
-      @is_bankrupt = args[:is_bankrupt]
-      @is_foreclosed = args[:is_foreclosed]
       @current_address = args[:current_address]
       @current_zip_code = args[:current_zip_code]
       @property_zip_code = args[:property_zip_code]

@@ -6,7 +6,7 @@ module Crawler
     include Capybara::DSL
 
     attr_accessor :zipcode, :property_value,
-                  :down_payment, :years, :monthly_payment,
+                  :down_payment, :monthly_payment,
                   :credit_score, :market_price, :balance
 
     def initialize(args)
@@ -15,11 +15,9 @@ module Crawler
       @property_value = args[:property_value]
       @down_payment = args[:down_payment]
       @credit_score = args[:credit_score]
-      @years = args[:years]
       @monthly_payment = args[:monthly_payment].to_i
       @down_payment = args[:down_payment].to_i
       @purchase_price = args[:purchase_price].to_i
-      @credit_score = args[:credit_score]
       @market_price = args[:market_price].to_i
       @balance = args[:balance].to_i
       @crawler = set_up_crawler
@@ -80,13 +78,7 @@ module Crawler
 
     def select_years
       crawler.find("h1", text: "How long do you plan on owning the property?")
-      if years > 16
-        crawler.all("._X9h span")[2].click
-      elsif years > 6
-        crawler.all("._X9h span")[1].click
-      else
-        crawler.all("._X9h span")[0].click
-      end
+      crawler.all("._X9h span")[2].click
       crawler.find("._sZh", text: "NEXT").click
     end
 

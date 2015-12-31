@@ -4,7 +4,7 @@ module Crawler
                   :down_payment, :results
 
     def purchase?
-      purpose == "Purchase"
+      purpose == "purchase"
     end
 
     def set_up_crawler
