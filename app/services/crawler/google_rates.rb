@@ -138,6 +138,7 @@ module Crawler
           lender_name: mortgage.css("._uyi ._zVf").text,
           product: mortgage.css("._Hyi ._BWf").text.strip,
           interest_rate: mortgage.css("._Hyi ._BVg span")[0].text.gsub(/[^0-9\.]/, "").to_f / 100,
+          total_fee: mortgage.css("._Hyi ._BVg span")[2].text.gsub(/[^0-9\.]/, "").to_f,
           apr: mortgage.css("._Hyi ._ZVg span")[0].text.gsub(/[^0-9\.]/, "").to_f / 100,
           down_payment: down_payment
         }
