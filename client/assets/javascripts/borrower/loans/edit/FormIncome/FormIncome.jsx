@@ -7,7 +7,7 @@ var AddressField = require('components/form/NewAddressField');
 var DateField = require('components/form/NewDateField');
 var TextField = require('components/form/NewTextField');
 var SelectField = require('components/form/NewSelectField');
-var OtherIncome = require('./OtherIncome');
+var Income = require('./Income');
 
 var fields = {
   employerName: {label: 'Name of current employer', name: 'employer_name', helpText: 'I am a helpful text.'},
@@ -22,14 +22,9 @@ var fields = {
   grossBonus: {label: 'Annual Gross Bonus', name: 'gross_bonus', helpText: null},
   grossCommission: {label: 'Annual Gross Commission', name: 'gross_commission', helpText: null},
   grossInterest: {label: 'Annual Gross Interest', name: 'gross_interest', helpText: null},
-  incomeFrequency: {label: 'Income frequency', name: 'pay_frequency', helpText: null}
+  incomeFrequency: {label: 'Income frequency', name: 'pay_frequency', helpText: null},
+  otherIncomes: {name: 'borrower_other_incomes'}
 };
-
-var incomeFrequencies = [
-  {value: 'semimonthly', name: 'Semi-monthly'},
-  {value: 'biweekly', name: 'Bi-weekly'},
-  {value: 'weekly', name: 'Weekly'}
-];
 
 var FormIncome = React.createClass({
   mixins: [TextFormatMixin],
@@ -51,139 +46,24 @@ var FormIncome = React.createClass({
     this.setState({focusedField: field});
   },
 
-  changeIncomeType: function(value, i) {
-    var arr = this.state.otherIncomes;
-    arr[i].type = value;
-    this.setState({otherIncomes: arr});
-  },
-
-  changeIncomeAmount: function(value, i) {
-    var arr = this.state.otherIncomes;
-    arr[i].amount = value;
-    this.setState({otherIncomes: arr});
-  },
-
-  eachOtherIncome: function(income, index) {
-    return (
-      <OtherIncome
-        key={index}
-        index={index}
-        type={income.type}
-        amount={income.amount}
-        onChangeType={this.changeIncomeType}
-        onChangeAmount={this.changeIncomeAmount}
-        onRemove={this.removeOtherIncome}/>
-    );
-  },
-
   render: function() {
     return (
       <div className='col-xs-9 account-content'>
-        <form className='form-horizontal'>
-          <div className='form-group'>
-            <div className='col-md-6'>
-              <TextField
-                label={fields.employerName.label}
-                keyName={fields.employerName.name}
-                value={this.state[fields.employerName.name]}
-                editable={true}
-                onFocus={this.onFocus.bind(this, fields.employerName)}
-                onChange={this.onChange}/>
-            </div>
-            <div className='col-md-6'>
-              <TextField
-                label={fields.employerAddress.label}
-                keyName={fields.employerFullTextAddress.name}
-                value={this.state[fields.employerFullTextAddress.name]}
-                editable={true}
-                onFocus={this.onFocus.bind(this, fields.employerFullTextAddress)}
-                onChange={this.onChange}/>
-            </div>
-          </div>
-          <div className='form-group'>
-            <div className='col-md-6'>
-              <TextField
-                label={fields.jobTitle.label}
-                keyName={fields.jobTitle.name}
-                value={this.state[fields.jobTitle.name]}
-                editable={true}
-                onFocus={this.onFocus.bind(this, fields.jobTitle)}
-                onChange={this.onChange}/>
-            </div>
-            <div className='col-md-6'>
-              <TextField
-                label={fields.monthsAtEmployer.label}
-                keyName={fields.monthsAtEmployer.name}
-                value={this.state[fields.monthsAtEmployer.name]}
-                editable={true}
-                onFocus={this.onFocus.bind(this, fields.monthsAtEmployer)}
-                onChange={this.onChange}/>
-            </div>
-          </div>
-          <h3 className="text-uppercase">best contact to confirm employment</h3>
-          <div className='form-group'>
-            <div className='col-md-6'>
-              <TextField
-                label={fields.employerContactName.label}
-                keyName={fields.employerContactName.name}
-                value={this.state[fields.employerContactName.name]}
-                editable={true}
-                onFocus={this.onFocus.bind(this, fields.employerContactName)}
-                onChange={this.onChange}/>
-            </div>
-            <div className='col-md-6'>
-              <TextField
-                label={fields.employerContactNumber.label}
-                keyName={fields.employerContactNumber.name}
-                value={this.state[fields.employerContactNumber.name]}
-                editable={true}
-                onFocus={this.onFocus.bind(this, fields.employerContactNumber)}
-                onChange={this.onChange}/>
-            </div>
-          </div>
-          <h3 className="text-uppercase">income details</h3>
-          <div className='form-group'>
-            <div className='col-md-6'>
-              <TextField
-                label={fields.baseIncome.label}
-                keyName={fields.baseIncome.name}
-                value={this.state[fields.baseIncome.name]}
-                liveFormat={true}
-                format={this.formatCurrency}
-                editable={true}
-                onFocus={this.onFocus.bind(this, fields.baseIncome)}
-                onChange={this.onChange}
-                placeholder='e.g. 99,000'/>
-            </div>
-            <div className='col-md-6'>
-              <SelectField
-                label={fields.incomeFrequency.label}
-                keyName={fields.incomeFrequency.name}
-                value={this.state[fields.incomeFrequency.name]}
-                options={incomeFrequencies}
-                editable={true}
-                onChange={this.onChange}
-                onFocus={this.onFocus.bind(this, fields.incomeFrequency)}
-                allowBlank={true}/>
-            </div>
-          </div>
-
-          {this.state.otherIncomes.map(this.eachOtherIncome)}
-
-          <div className='form-group'>
-            <div className='col-md-12 clickable' onClick={this.addOtherIncome}>
-              <h5>
-                <span className="glyphicon glyphicon-plus-sign"></span>
-                  Add other income
-              </h5>
-            </div>
-          </div>
-          <div className='form-group'>
-            <div className='col-md-12'>
-              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
-            </div>
-          </div>
-        </form>
+        <Income
+          fields={fields}
+          employerName={this.state[fields.employerName.name]}
+          employerFullTextAddress={this.state[fields.employerFullTextAddress.name]}
+          jobTitle={this.state[fields.jobTitle.name]}
+          monthsAtEmployer={this.state[fields.monthsAtEmployer.name]}
+          employerContactName={this.state[fields.employerContactName.name]}
+          employerContactNumber={this.state[fields.employerContactNumber.name]}
+          baseIncome={this.state[fields.baseIncome.name]}
+          incomeFrequency={this.state[fields.incomeFrequency.name]}
+          otherIncomes={this.state[fields.otherIncomes.name]}
+          save={this.save}
+          onFocus={this.onFocus}
+          onChange={this.onChange}
+          updateOtheIncomes={this.updateOtheIncomes}/>
       </div>
     );
   },
@@ -192,10 +72,6 @@ var FormIncome = React.createClass({
     this.setState(_.extend(this.buildStateFromLoan(nextProps.loan), {
       saving: false
     }));
-  },
-
-  display_document: function(file_name) {
-    return;
   },
 
   buildStateFromLoan: function(loan) {
@@ -210,29 +86,28 @@ var FormIncome = React.createClass({
     state[fields.employerContactNumber.name] = currentEmployment[fields.employerContactNumber.name];
     state[fields.baseIncome.name] = this.formatCurrency(currentEmployment[fields.baseIncome.name]);
     state[fields.incomeFrequency.name] = currentEmployment[fields.incomeFrequency.name];
-
-    state.otherIncomes = []
+    state[fields.otherIncomes.name] = []
 
     if (borrower.gross_overtime){
-      state.otherIncomes.push({
+      state[fields.otherIncomes.name].push({
         type: 'overtime',
         amount: borrower.gross_overtime
       });
     }
     if (borrower.gross_bonus){
-      state.otherIncomes.push({
+      state[fields.otherIncomes.name].push({
         type: 'bonus',
         amount: borrower.gross_bonus
       });
     }
     if (borrower.gross_commission){
-      state.otherIncomes.push({
+      state[fields.otherIncomes.name].push({
         type: 'commission',
         amount: borrower.gross_commission
       });
     }
     if (borrower.gross_interest){
-      state.otherIncomes.push({
+      state[fields.otherIncomes.name].push({
         type: 'interest',
         amount: borrower.gross_interest
       });
@@ -273,33 +148,23 @@ var FormIncome = React.createClass({
 
   getOtherIncome: function(type) {
     var amount = null;
-    _.each(this.state.otherIncomes, function(income) {
+    _.each(this.state[fields.otherIncomes.name], function(income) {
       if (income.type == type)
         return amount = income.amount;
     });
     return amount;
   },
 
-  getDefaultOtherIncomes: function() {
-    return [{
-      type: null,
-      amount: null
-    }];
-  },
-
-  addOtherIncome: function() {
-    this.setState({otherIncomes: this.state.otherIncomes.concat(this.getDefaultOtherIncomes())});
-  },
-
-  removeOtherIncome: function(index) {
-    var arr = this.state.otherIncomes;
-    arr.splice(index, 1);
-    this.setState({otherIncomes: arr});
+  updateOtheIncomes: function(fields, newOtherIncomes) {
+    var state = {};
+    state[fields.otherIncomes.name] = newOtherIncomes;
+    this.setState(state);
   },
 
   save: function(event) {
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 3);
+
     event.preventDefault();
   }
 });
