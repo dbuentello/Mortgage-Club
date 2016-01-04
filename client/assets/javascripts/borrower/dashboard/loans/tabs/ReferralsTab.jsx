@@ -51,7 +51,7 @@ var ReferralsTab = React.createClass({
         if (response.success == false) {
           flash = { "alert-danger": response.message };
         } else {
-          $('input.col-sm-3').each(function(index, e) {
+          $('input.account-text-input').each(function(index, e) {
               $(e).val('')
           });
           this.setState({
@@ -145,14 +145,17 @@ var ReferralsTab = React.createClass({
                   </div>
                   <div className="col-md-4">
                     <h5 className="text-capitalize">Phone (Optional)</h5>
-                    <input id="invite-phone-3" type="text" className="form-control account-text-input col-sm-3"  name="invite[phone][]"/>
+                    <input id="invite-phone-3" type="text" className="form-control account-text-input"  name="invite[phone][]"/>
                   </div>
                 </div>
-                <a className="btn send-btn text-capitalize" onClick={this.sendInvites}>SEND INVITES</a>
+
               </form>
               <div className="call-info col-md-12">
-                For specificate information regarding commissions,
-                please call us a call at: +1 123-456-7890
+                <p className="helpful-text">
+                  <img src="/icons/info.png" />
+                  For specific information regarding referral bonus, please email us at hello@mortgageclub.co
+                </p>
+                <a className="btn send-btn text-capitalize" onClick={this.sendInvites}>SEND INVITES</a>
               </div>
             </div>
         </div>
