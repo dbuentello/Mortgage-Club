@@ -95,15 +95,14 @@
   }
 
   .theBtn{
-    background:rgb(51, 122, 183);
-    border-color:rgb(51, 122, 183) !important;
+    background:#15c0f1;
+    border-color:#15c0f1;
     color:white;
   }
 
-  .theBtn:hover {
-    background:white;
-    color:rgb(51, 122, 183);
-    border-color:none;
+  .theBtn:hover { background:white;
+    color:#15c0f1;
+    border-color:#15c0f1;
   }
 
   .nav>li>a:hover {
@@ -178,15 +177,16 @@
   }
 
   #applyBtn {
-    width:165px;
+    width:auto;
     padding:15px;
-    background-color:#f7c04f;
+    background-color:#15c0f1;
+    margin-top:40px;
   }
 
   #applyBtn:hover {
     background-color:white;
-    border-color:#f7c04f !important;
-    color:#f7c04f;
+    border-color:#15c0f1;
+    color:#15c0f1;
   }
 
   #home-right {
@@ -225,18 +225,18 @@
   }
 
   .homeTable {
-    background:white;
-    color:black;
-    border-radius:6px !important;
-    margin-top:20px;
+    background: white;
+    color: black;
+    border-radius: 6px !important;
+    margin-top: 20px;
     padding: 0 20px;
   }
 
   .table-header {
-    background-color:#39ba8d;
-    color:white;
-    font-family:'aileronsemibold';
-    font-size:1.25em;
+    background-color: #15c0f1;
+    color: white;
+    font-family: 'aileronsemibold';
+    font-size: 1.25em;
   }
 
   .homeTable .table-header td {
@@ -339,7 +339,7 @@
 
   .logo-text {
     font-family: 'aileronsemibold';
-    color:#31aceb;
+    color:#15c0f1;
   }
 
   .logo-text span {
