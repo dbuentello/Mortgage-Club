@@ -39,7 +39,8 @@
             </tr>
           </table>
           <div>
-            <a id="applyBtn" class="btn btn-lg theBtn text-uppercase" href="/signup" role="button">find my rate</a>
+            <%= link_to "sign up for beta", new_user_registration_path, class: "btn btn-lg theBtn text-uppercase", role: "button", id: "applyBtn" %>
+            <!-- <a id="applyBtn" class="btn btn-lg theBtn text-uppercase" href="#" role="button">sign up for beta</a> -->
           </div>
         </div>
       </div>
@@ -190,7 +191,7 @@
         </div>
 
         <div class="col-md-6 clearfix howItem">
-          <%= image_tag("how1.jpg") %>
+          <%= image_tag("HowItWorks_Step_1.png", style: "width: 75%") %>
         </div>
       </div>
 
@@ -203,7 +204,7 @@
           </div>
         </div>
         <div class="col-md-6 clearfix col-md-pull-6 howItem">
-          <%= image_tag("how2.jpg") %>
+          <%= image_tag("HowItWorks_Step_2.png", style: "width: 75%") %>
         </div>
       </div>
 
@@ -217,7 +218,7 @@
         </div>
 
         <div class="col-md-6 clearfix howItem">
-          <%= image_tag("how3.jpg") %>
+          <%= image_tag("HowItWorks_Step_3.png", style: "width: 75%") %>
         </div>
       </div>
 
