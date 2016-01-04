@@ -35,25 +35,28 @@ module.exports = React.createClass({
                         _.map(competitor_rate.rates, function(rate){
                           return (
                               <div>
-
                                 <td data-toggle="tooltip"
                                   title={rate.lender_name + "\n" + this.formatCurrency(rate.total_fee, "$")}
                                   data-trigger="focus"
                                   data-container="body"
                                   >
                                   <div className="panel panel-info">
-                                    <div className="panel-body text-center">
-                                        <p className="lead">
-                                            <strong>{this.commafy(rate.apr * 100, 3)+"% APR"}</strong>
-                                        </p>
-                                        <ul className="list-group list-group-flush text-center">
-                                        <li className="list-group-item">{rate.lender_name}</li>
-                                        <li className="list-group-item">{this.formatCurrency(rate.total_fee, "$")} Fees</li>
-
-                                    </ul>
-                                    </div>
-
-                                </div>
+                                    {
+                                      rate.apr != 0
+                                      ?
+                                        <div className="panel-body text-center">
+                                          <p className="lead">
+                                              <strong>{this.commafy(rate.apr, 3)+"% APR"}</strong>
+                                          </p>
+                                          <ul className="list-group list-group-flush text-center">
+                                            <li className="list-group-item">{rate.lender_name}</li>
+                                            <li className="list-group-item">{this.formatCurrency(rate.total_fee, "$")} Fees</li>
+                                          </ul>
+                                        </div>
+                                      :
+                                        <div className="panel-body text-center"></div>
+                                    }
+                                  </div>
                                 </td>
                               </div>
                             );

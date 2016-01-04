@@ -21,4 +21,10 @@ namespace :scheduler do
     ap rates
     puts "#{Time.now}"
   end
+
+  task debug: :environment do
+    loan = Loan.find("cd70d96b-3902-44dd-a840-9ef762aa96a2")
+    borrower = User.where(email:"borrower@gmail.com").last.borrower
+    RatesComparisonServices::Base.new(loan, loan.subject_property, borrower).call
+  end
 end

@@ -22,32 +22,37 @@ module Crawler
       @current_zip_code = args[:current_zip_code]
       @property_zip_code = args[:property_zip_code]
       @has_second_mortgage = args[:has_second_mortgage]
-      @crawler = set_up_crawler
       @results = []
     end
 
     def call
-      go_to_lending_tree
-      select_type_of_property
-      select_property_usage
-      fill_in_property_address
-      say_yes_when_asked_about_finding_new_home
-      say_yes_when_asked_about_agent
-      select_estimated_purchase_price
-      select_down_payment_percentage
-      say_no_when_asked_about_trusted_pro
-      select_credit_score
-      select_dob
-      select_military_service
-      say_no_when_asked_about_bankruptcy
-      fill_in_current_address
-      fill_in_full_name
-      create_log_in
-      fill_in_phone_number
-      fill_in_social_security
-      confirm_personal_information
-      select_where_we_hear_about_lending_tree
-      get_rates
+      @crawler = set_up_crawler
+      begin
+        go_to_lending_tree
+        select_type_of_property
+        select_property_usage
+        fill_in_property_address
+        say_yes_when_asked_about_finding_new_home
+        say_yes_when_asked_about_agent
+        select_estimated_purchase_price
+        select_down_payment_percentage
+        say_no_when_asked_about_trusted_pro
+        select_credit_score
+        select_dob
+        select_military_service
+        say_no_when_asked_about_bankruptcy
+        fill_in_current_address
+        fill_in_full_name
+        create_log_in
+        fill_in_phone_number
+        fill_in_social_security
+        confirm_personal_information
+        select_where_we_hear_about_lending_tree
+        get_rates
+      rescue Timeout::Error, Capybara::ElementNotFound => error
+        Rails.logger.error("Cannot get rates from LendingTree: #{error.message}")
+      end
+      close_crawler
       results
     end
 
