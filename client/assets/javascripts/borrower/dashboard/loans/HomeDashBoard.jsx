@@ -35,20 +35,13 @@ var HomeDashBoard = React.createClass({
     }
 
     return (
-      <div className='dashboard content'>
-        <div className='dashboard-tabs phxl bts backgroundLowlight'>
-          <ul className="nav nav-tabs" role="tablist">
-            <li role="presentation" className="active">
-              <a href="#loans" aria-controls="loans" role="tab" data-toggle="tab">Loans</a>
-            </li>
-            <li role="presentation">
-              <a href="#referrals" aria-controls="referrals" role="tab" data-toggle="tab">Referrals</a>
-            </li>
-            <li role="presentation">
-              <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a>
-            </li>
+      <div class="loanPart signupPart content">
+        <div class="container">
+          <ul class="nav nav-tabs mortgageTabs" role="tablist">
+            <li role="presentation" class="active"><a href="#loans" aria-controls="loans" role="tab" data-toggle="tab" class="text-capitalize">loan</a></li>
+            <li role="presentation"><a href="#referrals" aria-controls="referrals" role="tab" data-toggle="tab" class="text-capitalize">referrals</a></li>
+            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab" class="text-capitalize">settings</a></li>
           </ul>
-
           <div className='tabs'>
             <div className="tab-content">
               <div role="tabpanel" className="tab-pane fade in active" id="loans">
@@ -62,6 +55,7 @@ var HomeDashBoard = React.createClass({
               </div>
             </div>
           </div>
+
         </div>
       </div>
     )
