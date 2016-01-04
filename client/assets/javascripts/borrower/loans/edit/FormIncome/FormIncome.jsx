@@ -10,11 +10,15 @@ var SelectField = require('components/form/NewSelectField');
 var Income = require('./Income');
 
 var fields = {
-  employerName: {label: 'Name of current employer', name: 'employer_name', helpText: 'I am a helpful text.'},
-  employerAddress: {label: 'Address of current employer', name: 'address', helpText: null},
-  employerFullTextAddress: {name: 'full_text', helpText: null},
-  jobTitle: {label: 'Job Title', name: 'job_title', helpText: null},
-  monthsAtEmployer: {label: 'Years at this employer', name: 'duration', helpText: null},
+  currentEmployerName: {label: 'Name of current employer', name: 'current_employer_name', helpText: 'I am a helpful text.'},
+  currentEmployerAddress: {label: 'Address of current employer', name: 'current_address', helpText: null},
+  currentEmployerFullTextAddress: {name: 'current_full_text_address', helpText: null},
+  currentJobTitle: {label: 'Job Title', name: 'current_job_title', helpText: null},
+  currentYearsAtEmployer: {label: 'Years at this employer', name: 'current_duration', helpText: null},
+  previousEmployerName: {label: 'Name of previous employer', name: 'previous_employer_name', helpText: 'I am a helpful text.'},
+  previousJobTitle: {label: 'Job Title', name: 'previous_job_title', helpText: null},
+  previousYearsAtEmployer: {label: 'Years at this employer', name: 'previous_duration', helpText: null},
+  previousMonthlyIncome: {label: 'Monthly Income', name: 'previous_monthly_income', helpText: null},
   employerContactName: {label: 'Contact Name', name: 'employer_contact_name', helpText: null},
   employerContactNumber: {label: 'Contact Phone Number', name: 'employer_contact_number', helpText: null},
   baseIncome: {label: 'Base Income', name: 'current_salary', helpText: null},
@@ -37,7 +41,7 @@ var FormIncome = React.createClass({
     var key = Object.keys(change)[0];
     var value = change[key];
     if (key == 'address' && value == null) {
-      change['address'] = '';
+      change['a ddress'] = '';
     }
     this.setState(change);
   },
@@ -51,16 +55,21 @@ var FormIncome = React.createClass({
       <div className='col-xs-9 account-content'>
         <Income
           fields={fields}
-          employerName={this.state[fields.employerName.name]}
-          employerFullTextAddress={this.state[fields.employerFullTextAddress.name]}
-          jobTitle={this.state[fields.jobTitle.name]}
-          monthsAtEmployer={this.state[fields.monthsAtEmployer.name]}
+          currentEmployerName={this.state[fields.currentEmployerName.name]}
+          currentEmployerFullTextAddress={this.state[fields.currentEmployerFullTextAddress.name]}
+          currentJobTitle={this.state[fields.currentJobTitle.name]}
+          currentYearsAtEmployer={this.state[fields.currentYearsAtEmployer.name]}
+          previousEmployerName={this.state[fields.previousEmployerName.name]}
+          previousJobTitle={this.state[fields.previousJobTitle.name]}
+          previousYearsAtEmployer={this.state[fields.previousYearsAtEmployer.name]}
+          previousMonthlyIncome={this.state[fields.previousMonthlyIncome.name]}
           employerContactName={this.state[fields.employerContactName.name]}
           employerContactNumber={this.state[fields.employerContactNumber.name]}
           baseIncome={this.state[fields.baseIncome.name]}
           incomeFrequency={this.state[fields.incomeFrequency.name]}
           otherIncomes={this.state[fields.otherIncomes.name]}
           save={this.save}
+          saving={this.state.saving}
           onFocus={this.onFocus}
           onChange={this.onChange}
           updateOtheIncomes={this.updateOtheIncomes}/>
@@ -78,10 +87,24 @@ var FormIncome = React.createClass({
     var borrower = loan.borrower;
     var state = {};
     var currentEmployment = borrower.current_employment || {};
-    state[fields.employerName.name] = currentEmployment[fields.employerName.name];
-    state[fields.employerAddress.name] = currentEmployment[fields.employerAddress.name];
-    state[fields.jobTitle.name] = currentEmployment[fields.jobTitle.name];
-    state[fields.monthsAtEmployer.name] = currentEmployment[fields.monthsAtEmployer.name];
+    var previousEmployment = borrower.previous_employment;
+
+    state[fields.currentEmployerName.name] = currentEmployment.employer_name;
+    state[fields.currentEmployerAddress.name] = currentEmployment.address;
+    state[fields.currentJobTitle.name] = currentEmployment.job_title;
+    state[fields.currentYearsAtEmployer.name] = currentEmployment.duration;
+    if (!state[fields.currentEmployerAddress.name]) {
+      state[fields.currentEmployerAddress.name] = {full_text: ''};
+    }
+    state[fields.currentEmployerFullTextAddress.name] = state[fields.currentEmployerAddress.name].full_text;
+
+    if (previousEmployment) {
+      state[fields.previousEmployerName.name] = previousEmployment.employer_name;
+      state[fields.previousJobTitle.name] = previousEmployment.job_title;
+      state[fields.previousYearsAtEmployer.name] = previousEmployment.duration;
+      state[fields.previousMonthlyIncome.name] = previousEmployment.monthly_income;
+    }
+
     state[fields.employerContactName.name] = currentEmployment[fields.employerContactName.name];
     state[fields.employerContactNumber.name] = currentEmployment[fields.employerContactNumber.name];
     state[fields.baseIncome.name] = this.formatCurrency(currentEmployment[fields.baseIncome.name]);
@@ -113,16 +136,13 @@ var FormIncome = React.createClass({
       });
     }
 
-    if (!state[fields.employerAddress.name]) {
-      state[fields.employerAddress.name] = {full_text: ''};
-    }
-    state[fields.employerFullTextAddress.name] = state[fields.employerAddress.name].full_text;
     return state;
   },
 
   buildLoanFromState: function() {
     var loan = {};
     var currentEmployment = this.props.loan.borrower.current_employment;
+    var previousEmployment = this.props.loan.borrower.previous_employment;
 
     loan.borrower_attributes = {id: this.props.loan.borrower.id};
     loan.borrower_attributes[fields.grossOvertime.name] = this.getOtherIncome('overtime');
@@ -132,16 +152,27 @@ var FormIncome = React.createClass({
 
     loan.borrower_attributes.employments_attributes = [{
       id: currentEmployment ? currentEmployment.id : null,
-      employer_name: this.state[fields.employerName.name],
-      address_attributes: { 'full_text': this.state[fields.employerFullTextAddress.name]},
-      job_title: this.state[fields.jobTitle.name],
-      duration: this.state[fields.monthsAtEmployer.name],
+      employer_name: this.state[fields.currentEmployerName.name],
+      address_attributes: { 'full_text': this.state[fields.currentEmployerFullTextAddress.name]},
+      job_title: this.state[fields.currentJobTitle.name],
+      duration: this.state[fields.currentYearsAtEmployer.name],
       employer_contact_name: this.state[fields.employerContactName.name],
       employer_contact_number: this.state[fields.employerContactNumber.name],
       pay_frequency: this.state[fields.incomeFrequency.name],
       current_salary: this.currencyToNumber(this.state[fields.baseIncome.name]),
       is_current: true
     }];
+
+    if (this.state[fields.currentYearsAtEmployer.name] < 2) {
+      loan.borrower_attributes.employments_attributes.push({
+        id: previousEmployment ? previousEmployment.id : null,
+        employer_name: this.state[fields.previousEmployerName.name],
+        job_title: this.state[fields.previousJobTitle.name],
+        duration: this.state[fields.previousYearsAtEmployer.name],
+        monthly_income: this.state[fields.previousMonthlyIncome.name],
+        is_current: false
+      })
+    }
 
     return loan;
   },

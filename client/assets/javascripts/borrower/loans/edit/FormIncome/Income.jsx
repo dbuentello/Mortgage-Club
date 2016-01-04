@@ -1,16 +1,17 @@
-var _ = require('lodash');
-var React = require('react/addons');
-var TextFormatMixin = require('mixins/TextFormatMixin');
-var AddressField = require('components/form/NewAddressField');
-var DateField = require('components/form/NewDateField');
-var TextField = require('components/form/NewTextField');
-var SelectField = require('components/form/NewSelectField');
-var OtherIncome = require('./OtherIncome');
+var _ = require("lodash");
+var React = require("react/addons");
+var TextFormatMixin = require("mixins/TextFormatMixin");
+var AddressField = require("components/form/NewAddressField");
+var DateField = require("components/form/NewDateField");
+var TextField = require("components/form/NewTextField");
+var SelectField = require("components/form/NewSelectField");
+var OtherIncome = require("./OtherIncome");
 
 var incomeFrequencies = [
-  {value: 'semimonthly', name: 'Semi-monthly'},
-  {value: 'biweekly', name: 'Bi-weekly'},
-  {value: 'weekly', name: 'Weekly'}
+  {value: "monthly", name: "Monthly"},
+  {value: "semimonthly", name: "Semi-monthly"},
+  {value: "biweekly", name: "Bi-weekly"},
+  {value: "weekly", name: "Weekly"}
 ];
 
 var Income = React.createClass({
@@ -74,46 +75,95 @@ var Income = React.createClass({
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
-              label={this.props.fields.employerName.label}
-              keyName={this.props.fields.employerName.name}
-              value={this.props.employerName}
+              label={this.props.fields.currentEmployerName.label}
+              keyName={this.props.fields.currentEmployerName.name}
+              value={this.props.currentEmployerName}
               editable={true}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.employerName)}
+              onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentEmployerName)}
               onChange={this.props.onChange}/>
           </div>
           <div className='col-md-6'>
             <TextField
-              label={this.props.fields.employerAddress.label}
-              keyName={this.props.fields.employerFullTextAddress.name}
-              value={this.props.employerFullTextAddress}
+              label={this.props.fields.currentEmployerAddress.label}
+              keyName={this.props.fields.currentEmployerFullTextAddress.name}
+              value={this.props.currentEmployerFullTextAddress}
               editable={true}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.employerFullTextAddress)}
+              onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentEmployerFullTextAddress)}
               onChange={this.props.onChange}/>
           </div>
         </div>
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
-              label={this.props.fields.jobTitle.label}
-              keyName={this.props.fields.jobTitle.name}
-              value={this.props.jobTitle}
+              label={this.props.fields.currentJobTitle.label}
+              keyName={this.props.fields.currentJobTitle.name}
+              value={this.props.currentJobTitle}
               editable={true}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.jobTitle)}
+              onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentJobTitle)}
               onChange={this.props.onChange}/>
           </div>
           <div className='col-md-6'>
             <TextField
-              label={this.props.fields.monthsAtEmployer.label}
-              keyName={this.props.fields.monthsAtEmployer.name}
-              value={this.props.monthsAtEmployer}
+              label={this.props.fields.currentYearsAtEmployer.label}
+              keyName={this.props.fields.currentYearsAtEmployer.name}
+              value={this.props.currentYearsAtEmployer}
               editable={true}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.monthsAtEmployer)}
+              onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentYearsAtEmployer)}
               onChange={this.props.onChange}/>
           </div>
         </div>
+
+        {
+          parseInt(this.props.currentYearsAtEmployer, 10) < 2
+          ?
+            <div className="previous-employment">
+              <div className="form-group">
+                <div className="col-md-6">
+                  <TextField
+                    label={this.props.fields.previousEmployerName.label}
+                    keyName={this.props.fields.previousEmployerName.name}
+                    value={this.props.previousEmployerName}
+                    editable={true}
+                    onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousEmployerName)}
+                    onChange={this.props.onChange}/>
+                </div>
+                <div className="col-md-6">
+                  <TextField
+                    label={this.props.fields.previousMonthlyIncome.label}
+                    keyName={this.props.fields.previousMonthlyIncome.name}
+                    value={this.props.previousMonthlyIncome}
+                    editable={true}
+                    onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyIncome)}
+                    onChange={this.props.onChange}/>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="col-md-6">
+                  <TextField
+                    label={this.props.fields.previousJobTitle.label}
+                    keyName={this.props.fields.previousJobTitle.name}
+                    value={this.props.previousJobTitle}
+                    editable={true}
+                    onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousJobTitle)}
+                    onChange={this.props.onChange}/>
+                </div>
+                <div className="col-md-6">
+                  <TextField
+                    label={this.props.fields.previousYearsAtEmployer.label}
+                    keyName={this.props.fields.previousYearsAtEmployer.name}
+                    value={this.props.previousYearsAtEmployer}
+                    editable={true}
+                    onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousYearsAtEmployer)}
+                    onChange={this.props.onChange}/>
+                </div>
+              </div>
+            </div>
+          : null
+        }
+
         <h3 className="text-uppercase">best contact to confirm employment</h3>
-        <div className='form-group'>
-          <div className='col-md-6'>
+        <div className="form-group">
+          <div className="col-md-6">
             <TextField
               label={this.props.fields.employerContactName.label}
               keyName={this.props.fields.employerContactName.name}
@@ -122,7 +172,7 @@ var Income = React.createClass({
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.employerContactName)}
               onChange={this.props.onChange}/>
           </div>
-          <div className='col-md-6'>
+          <div className="col-md-6">
             <TextField
               label={this.props.fields.employerContactNumber.label}
               keyName={this.props.fields.employerContactNumber.name}
@@ -133,8 +183,8 @@ var Income = React.createClass({
           </div>
         </div>
         <h3 className="text-uppercase">income details</h3>
-        <div className='form-group'>
-          <div className='col-md-6'>
+        <div className="form-group">
+          <div className="col-md-6">
             <TextField
               label={this.props.fields.baseIncome.label}
               keyName={this.props.fields.baseIncome.name}
@@ -144,9 +194,9 @@ var Income = React.createClass({
               editable={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.baseIncome)}
               onChange={this.props.onChange}
-              placeholder='e.g. 99,000'/>
+              placeholder="e.g. 99,000"/>
           </div>
-          <div className='col-md-6'>
+          <div className="col-md-6">
             <SelectField
               label={this.props.fields.incomeFrequency.label}
               keyName={this.props.fields.incomeFrequency.name}
@@ -161,17 +211,17 @@ var Income = React.createClass({
 
         {this.state.otherIncomes.map(this.eachOtherIncome)}
 
-        <div className='form-group'>
-          <div className='col-md-12 clickable' onClick={this.addOtherIncome}>
+        <div className="form-group">
+          <div className="col-md-12 clickable" onClick={this.addOtherIncome}>
             <h5>
               <span className="glyphicon glyphicon-plus-sign"></span>
                 Add other income
             </h5>
           </div>
         </div>
-        <div className='form-group'>
-          <div className='col-md-12'>
-            <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.props.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+        <div className="form-group">
+          <div className="col-md-12">
+            <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.props.save}>{ this.props.saving ? "Saving" : "Save and Continue" }<img src="/icons/arrowRight.png" alt="arrow"/></button>
           </div>
         </div>
       </form>
