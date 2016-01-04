@@ -71,7 +71,7 @@ var Income = React.createClass({
 
   render: function() {
     return (
-      <form className='form-horizontal'>
+      <div>
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
@@ -112,7 +112,6 @@ var Income = React.createClass({
               onChange={this.props.onChange}/>
           </div>
         </div>
-
         {
           parseInt(this.props.currentYearsAtEmployer, 10) < 2
           ?
@@ -219,12 +218,7 @@ var Income = React.createClass({
             </h5>
           </div>
         </div>
-        <div className="form-group">
-          <div className="col-md-12">
-            <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.props.save}>{ this.props.saving ? "Saving" : "Save and Continue" }<img src="/icons/arrowRight.png" alt="arrow"/></button>
-          </div>
-        </div>
-      </form>
+      </div>
     )
   }
 })
