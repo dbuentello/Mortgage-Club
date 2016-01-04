@@ -83,6 +83,24 @@
     color: #555;
     margin-right: 20px;
 }
+
 h5.text-capitalize {
   color: #12a7d1;
 }
+.update-btn {
+    border-radius: 5px;
+    border: #15c0f1 1px solid;
+    color: white;
+    background: #15c0f1;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+.send-btn:hover, .update-btn:hover {color:#15c0f1; background:#fff;}
+.avatar {
+    width: 100%;
+    background: url(asset-path('no-avatar.jpg'));
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+}
+.avatar:after {content:""; padding-bottom:100%; display:block;}
