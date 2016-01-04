@@ -21,9 +21,9 @@ describe RatesComparisonServices::GetRatesFromZillow do
     described_class.new(loan, property, borrower).call
   end
 
-  it "returns a proper hash" do
-    expect(
+  it "saves 4 records into database" do
+    expect {
       described_class.new(loan, property, borrower).call
-    ).to match_response_schema("rates_comparison")
+    }.to change{RateComparison.count}.by(4)
   end
 end
