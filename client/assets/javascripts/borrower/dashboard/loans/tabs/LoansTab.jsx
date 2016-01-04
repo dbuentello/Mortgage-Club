@@ -14,9 +14,9 @@ var LoansTab = React.createClass({
             <p>Loan amount: {loan.amount}</p>
             <p>Rate: {loan.interest_rate}%</p>
             <p>
-              <a href={'/my/dashboard/' + loan.id} className="btn btn-primary" role="button">
-                <i className='iconCog mrxs'/>
-                Dashboard
+              <a href={'/my/dashboard/' + loan.id} className="btn dashboard-btn" role="button">
+                <img className="gear-icon" src="/icons/gear.png"/>
+                <span>Dashboard</span>
               </a>
             </p>
           </div>
