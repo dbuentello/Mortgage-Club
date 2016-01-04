@@ -91,7 +91,7 @@ var ReferralsTab = React.createClass({
               <div className="col-md-12">
                 Earn commission when you refer Business Purpose Borrowers (BPBs) to Mortgage Club. Below is your unique referral code. Send this link to potential BPBs or enter their emails into the form and we will invite them on your behalf. Referrals may be automated by Mortgage Club.
               </div>
-              <div className="form-group ref-form col-md-9">
+              <div className="form-group ref-form col-md-12">
                 <label>Your Referral Link:</label>
                 <div className="input-group">
                   <div id="refLink" className="referral-link" onClick={this.copyToClipboard} defaultValue={this.props.refLink}>{this.props.refLink}</div>
