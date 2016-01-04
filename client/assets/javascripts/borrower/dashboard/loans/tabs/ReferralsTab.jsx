@@ -94,12 +94,10 @@ var ReferralsTab = React.createClass({
               <div className="form-group ref-form col-md-9">
                 <label>Your Referral Link:</label>
                 <div className="input-group">
-                  <input id="refLink" className="form-control" onClick={this.copyToClipboard} defaultValue={this.props.refLink} readOnly/>
-                  <span className="input-group-btn">
-                    <a className="btn btnPrimary btn-copy" onClick={this.copyToClipboard}>
+                  <div id="refLink" className="referral-link" onClick={this.copyToClipboard} defaultValue={this.props.refLink}>{this.props.refLink}</div>
+                  <a className="btn copy-btn" onClick={this.copyToClipboard}>
                       COPY TO CLIPBOARD
-                    </a>
-                  </span>
+                  </a>
                 </div>
               </div>
 
@@ -107,41 +105,50 @@ var ReferralsTab = React.createClass({
                 <label>Invite by Email:</label>
 
                 <div className="row invite-form">
-                  <div className="col-md-3">
-                    <input id="invite-email-1" type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Name</h5>
+                    <input id="invite-email-1" type="email" className="form-control account-text-input" name="invite[email][]"/>
                   </div>
-                  <div className="col-md-3">
-                    <input id="invite-name-1" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Name</h5>
+                    <input id="invite-name-1" type="text" className="form-control account-text-input" name="invite[name][]"/>
                   </div>
-                  <div className="col-md-3">
-                    <input id="invite-phone-1" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
-                  </div>
-                </div>
-
-                <div className="row invite-form">
-                  <div className="col-md-3">
-                    <input id="invite-email-2" type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
-                  </div>
-                  <div className="col-md-3">
-                    <input id="invite-name-2" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
-                  </div>
-                  <div className="col-md-3">
-                    <input id="invite-phone-2" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Phone (Optional)</h5>
+                    <input id="invite-phone-1" type="text" className="form-control account-text-input col-sm-3"  name="invite[phone][]"/>
                   </div>
                 </div>
 
                 <div className="row invite-form">
-                  <div className="col-md-3">
-                    <input id="invite-email-3" type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Name</h5>
+                    <input id="invite-email-2" type="email" className="form-control account-text-input" name="invite[email][]"/>
                   </div>
-                  <div className="col-md-3">
-                    <input id="invite-name-3" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Name</h5>
+                    <input id="invite-name-2" type="text" className="form-control account-text-input" name="invite[name][]"/>
                   </div>
-                  <div className="col-md-3">
-                    <input id="invite-phone-3" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Phone (Optional)</h5>
+                    <input id="invite-phone-2" type="text" className="form-control account-text-input col-sm-3"  name="invite[phone][]"/>
                   </div>
                 </div>
-                <a className="btn btnPrimary btn-invites" onClick={this.sendInvites}>SEND INVITES</a>
+
+                <div className="row invite-form">
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Name</h5>
+                    <input id="invite-email-3" type="email" className="form-control account-text-input" name="invite[email][]"/>
+                  </div>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Name</h5>
+                    <input id="invite-name-3" type="text" className="form-control account-text-input" name="invite[name][]"/>
+                  </div>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Phone (Optional)</h5>
+                    <input id="invite-phone-3" type="text" className="form-control account-text-input col-sm-3"  name="invite[phone][]"/>
+                  </div>
+                </div>
+                <a className="btn send-btn text-capitalize" onClick={this.sendInvites}>SEND INVITES</a>
               </form>
               <div className="call-info col-md-12">
                 For specificate information regarding commissions,
