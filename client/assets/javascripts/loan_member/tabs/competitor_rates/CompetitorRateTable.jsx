@@ -7,10 +7,14 @@ module.exports = React.createClass({
     {
       return (
         <div>
+          <br/>
           <h4>{this.props.title}</h4>
+          <br/>
           <div className="row">
-            <table className="table competitor-rates">
-              <tbody><tr>
+            <table className="table table-bordered table-primary competitor-rates">
+              <tbody>
+                <tr>
+                <th></th>
                 <th>30 Year Fixed</th>
                 <th>20 Year Fixed</th>
                 <th>15 Year Fixed</th>
@@ -31,17 +35,27 @@ module.exports = React.createClass({
                         _.map(competitor_rate.rates, function(rate){
                           return (
                               <div>
-                                <td>
-                                  {rate.lender_name}
-                                  <br/>
-                                  {rate.apr}
-                                  <br/>
-                                  {this.formatCurrency(rate.total_fee, "$")}
-                                </td>
-                                <td>
 
-                                </td>
+                                <td data-toggle="tooltip"
+                                  title={rate.lender_name + "\n" + this.formatCurrency(rate.total_fee, "$")}
+                                  data-trigger="focus"
+                                  data-container="body"
+                                  >
+                                  <div className="panel panel-info">
+                                    <div className="panel-body text-center">
+                                        <p className="lead">
+                                            <strong>{this.commafy(rate.apr * 100, 3)+"% APR"}</strong>
+                                        </p>
+                                        <ul className="list-group list-group-flush text-center">
+                                        <li className="list-group-item">{rate.lender_name}</li>
+                                        <li className="list-group-item">{this.formatCurrency(rate.total_fee, "$")} Fees</li>
+
+                                    </ul>
+                                    </div>
+
                                 </div>
+                                </td>
+                              </div>
                             );
                         }.bind(this))
                       }
