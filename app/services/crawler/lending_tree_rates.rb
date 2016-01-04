@@ -49,11 +49,10 @@ module Crawler
         confirm_personal_information
         select_where_we_hear_about_lending_tree
         get_rates
-      rescue Exception => error
-        ap error
-        crawler.save_and_open_page
-        byebug
+      rescue Timeout::Error, Capybara::ElementNotFound => error
+        Rails.logger.error("Cannot get rates from LendingTree: #{error.message}")
       end
+      close_crawler
       results
     end
 

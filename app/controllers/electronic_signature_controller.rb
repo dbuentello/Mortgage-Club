@@ -49,6 +49,7 @@ class ElectronicSignatureController < ApplicationController
 
     if params[:event] == "signing_complete"
       Docusign::MapEnvelopeToLenderDocument.new(params[:envelope_id], params[:user_id], params[:loan_id]).delay.call
+      RatesComparisonServices::Base.new(params[:loan_id], params[:user_id]).call
       render text: utility.breakout_path("/my/dashboard/#{params[:loan_id]}"), content_type: 'text/html'
     elsif params[:event] == "ttl_expired"
       # the session has been expired
