@@ -77,6 +77,10 @@
   h6 {
     color: inherit;
   }
+
+  h1 {
+    color: black;
+  }
   .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -107,10 +111,10 @@
     color: rgb(51, 122, 183)
   }
 
-  .header {
-    padding-top:14px;
+  /*.header {
     border-bottom:none;
-  }
+    height: 68px;
+  }*/
 
   .content {
     position:relative;
@@ -324,12 +328,12 @@
   }
 
   .content h1 {
-    color:rgb(51, 122, 183);
-    font-size:4.2em;
-    margin-top:30px;
-    margin-left:auto;
-    margin-right:auto;
-    text-align:center;
+    color: #15c0f1;
+    font-size: 4.2em;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
     font-family: 'aileronlight';
   }
 
@@ -367,12 +371,12 @@
   }
 
   #top-info {
-    text-align:center;
+    text-align: center;
     font-family: 'aileronsemibold';
-    font-size:1.25em;
-    color:rgb(51, 122, 183);
-    font-weight:500;
-    padding-top:12px;
+    font-size: 1.25em;
+    color: #15c0f1;
+    font-weight: 500;
+    padding-top: 15px;
   }
 
   #left-info h6, #right-info h6 {
@@ -392,11 +396,11 @@
   }
 
   #left-info {
-    color:rgb(51, 122, 183);
+    color: #9adaf0;
   }
 
   #right-info {
-    color:#a9a9aa;
+    color: #a9a9aa;
     padding-left: 26px;
   }
 
@@ -413,9 +417,9 @@
   }
 
   .whyPart {
-    background-color:rgb(51, 122, 183);
-    padding-bottom:80px;
-    width:100%;
+    background-color: #15c0f1;
+    padding-bottom: 80px;
+    width: 100%;
   }
 
   .whyPart .container .row:not(.whyPart .container .row:first-of-type) {
@@ -446,17 +450,17 @@
   }
 
   .whyText {
-    display:block;
-    margin-left:14px;
-    width:65%;
-    float:left;
-    margin-top:-4px;
+    display: block;
+    margin-left: 14px;
+    width: 65%;
+    float: left;
+    margin-top: -4px;
   }
 
   .whyText h6 {
     font-family: 'aileronsemibold';
     font-size: 2em;
-    letter-spacing:.03em;
+    letter-spacing: .03em;
   }
 
   .whyText p {
@@ -475,7 +479,7 @@
   }
 
   .howPart .bigNum {
-    color:rgb(51, 122, 183);
+    color: #15c0f1;
   }
 
   .howPart img {
@@ -499,11 +503,11 @@
   }
 
   #howFooter {
-    margin-top:-100px;
-    background-color:rgb(51, 122, 183);
-    height:150px;
-    margin-top:-110px;
-    width:100%;
+    margin-top: -100px;
+    background-color: #15c0f1;
+    height: 150px;
+    margin-top: -110px;
+    width: 100%;
   }
 
   .clientPart {
@@ -554,9 +558,9 @@
 
   .client h4 {
     font-family: 'aileronsemibold';
-    font-size:2em;
-    color:rgb(51, 122, 183);
-    margin-top:20px;
+    font-size: 2em;
+    color: #15c0f1;
+    margin-top: 20px;
   }
 
   .client h6 {
@@ -1194,12 +1198,12 @@
   bottom:0; z-index:1000;
 
   #backtopBtn {
-    position:absolute;
-    width:30px;
-    height:auto;
-    left:50%;
-    bottom:60px;
-    margin-left:-15px;
+    position: absolute;
+    width: 30px;
+    height: auto;
+    left: 50%;
+    bottom: 40px;
+    margin-left: -15px;
   }
 
   #backtopBtn:hover {
