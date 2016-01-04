@@ -18,3 +18,10 @@
 .dashboard-btn img {margin-right:10px; transition:transform 2s ease;}
 .dashboard-btn:hover {color:white;}
 .dashboard-btn:hover img {transform:rotate(360deg) scale(1.2);}
+.borrower-dashboard {
+  background-color: #fff;
+}
+.content.accountPart {
+  background: linear-gradient(to right, white 100%, #f6f6f6 39%, white 42%, white 100%);
+  background: linear-gradient(to left, white 100%, #f6f6f6 39%, white 42%, white 100%);
+}
