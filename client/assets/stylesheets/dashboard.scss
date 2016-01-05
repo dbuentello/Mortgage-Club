@@ -72,10 +72,41 @@ a.remove {
   padding-top: 7px;
   padding-bottom: 7px;
 }
-.accountPart {
-  background: transparent !important;
+.content {
+  padding-top: 0px !important;
 }
 .dashboard {
+  .dashboard-top {
+    padding-top: 31px;
+    padding-bottom: 25px;
+
+    img {
+      float: left;
+      margin-right: 28px;
+    }
+
+    h3 {
+      margin-top: 0;
+      color: #12a7d1;
+      font-size: 1.5em;
+      margin-bottom: 4px;
+      letter-spacing: .03em;
+    }
+
+    p {
+      font-size: 1.2em;
+    }
+
+    .img-dashboard-show {
+      background-image: url(asset_path('home.jpg'));
+      background-repeat:no-repeat;
+      float: left;
+      margin-right: 28px;
+      width: 146px;
+      height: 101px;
+    }
+  }
+
   .edit-btn {
     float: left;
     display: flex;
