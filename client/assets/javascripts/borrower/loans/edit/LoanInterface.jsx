@@ -29,31 +29,33 @@ var LoanInterface = React.createClass({
     var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu}/>;
 
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-xs-3 subnav">
-            <div id="sidebar">
-              <ul>
-                {_.map(this.state.menu, function (item, i) {
+      <div className="content accountPart">
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-3 subnav">
+              <div id="sidebar">
+                <ul>
+                  {_.map(this.state.menu, function (item, i) {
 
-                  return (
-                    <li key={i} id={"tab"+item.name} className={this.getKlassNameLiSidebar(item, activeItem)}>
-                      <a href="javascript:void(0)" onClick={_.bind(this.goToItem, this, item)}>
-                        <img src={item.iconSrc} alt={item.name}>{item.name}</img>
-                        <span className="done-sign glyphicon glyphicon-ok"></span>
-                      </a>
-                    </li>
-                  );
-                }, this)}
-              </ul>
+                    return (
+                      <li key={i} id={"tab"+item.name} className={this.getKlassNameLiSidebar(item, activeItem)}>
+                        <a href="javascript:void(0)" onClick={_.bind(this.goToItem, this, item)}>
+                          <img src={item.iconSrc} alt={item.name}>{item.name}</img>
+                          <span className="done-sign glyphicon glyphicon-ok"></span>
+                        </a>
+                      </li>
+                    );
+                  }, this)}
+                </ul>
+              </div>
+              <div className="swipe-area">
+                <a href="#" data-toggle=".subnav" id="sidebar-toggle">
+                  <span className="glyphicon glyphicon-arrow-right"></span>
+                </a>
+              </div>
             </div>
-            <div className="swipe-area">
-              <a href="#" data-toggle=".subnav" id="sidebar-toggle">
-                <span className="glyphicon glyphicon-arrow-right"></span>
-              </a>
-            </div>
+            {content}
           </div>
-          {content}
         </div>
       </div>
     );

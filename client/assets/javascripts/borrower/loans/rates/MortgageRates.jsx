@@ -62,81 +62,83 @@ var MortgageRates = React.createClass({
     var guaranteeMessage = "We're showing the best 3 loan options for you";
 
     return (
-      <div className='content container mortgage-rates'>
-        <ul>
-          {
-            _.map(Object.keys(this.props.bootstrapData.debug_info), function(key){
-              if(key != "properties") {
+      <div className="content">
+        <div className='content container mortgage-rates'>
+          <ul>
+            {
+              _.map(Object.keys(this.props.bootstrapData.debug_info), function(key){
+                if(key != "properties") {
+                  return (
+                    <li key={key}>{key}: {this.props.bootstrapData.debug_info[key]}</li>
+                  )
+                }
+              }, this)
+            }
+          </ul>
+          <h4>Properties:</h4>
+          <ol>
+            {
+              _.map(this.props.bootstrapData.debug_info.properties, function(property) {
                 return (
-                  <li key={key}>{key}: {this.props.bootstrapData.debug_info[key]}</li>
+                  <li>
+                    <ul>
+                      <li>is_subject: {property.is_subject}</li>
+                      <li>liability_payments: {property.liability_payments}</li>
+                      <li>mortgage_payment: {property.mortgage_payment}</li>
+                      <li>other_financing: {property.other_financing}</li>
+                      <li>actual_rental_income: {property.actual_rental_income}</li>
+                      <li>estimated_property_tax: {property.estimated_property_tax}</li>
+                      <li>estimated_hazard_insurance: {property.estimated_hazard_insurance}</li>
+                      <li>estimated_mortgage_insurance: {property.estimated_mortgage_insurance}</li>
+                      <li>hoa_due: {property.hoa_due}</li>
+                    </ul>
+                  </li>
                 )
-              }
-            }, this)
-          }
-        </ul>
-        <h4>Properties:</h4>
-        <ol>
-          {
-            _.map(this.props.bootstrapData.debug_info.properties, function(property) {
-              return (
-                <li>
-                  <ul>
-                    <li>is_subject: {property.is_subject}</li>
-                    <li>liability_payments: {property.liability_payments}</li>
-                    <li>mortgage_payment: {property.mortgage_payment}</li>
-                    <li>other_financing: {property.other_financing}</li>
-                    <li>actual_rental_income: {property.actual_rental_income}</li>
-                    <li>estimated_property_tax: {property.estimated_property_tax}</li>
-                    <li>estimated_hazard_insurance: {property.estimated_hazard_insurance}</li>
-                    <li>estimated_mortgage_insurance: {property.estimated_mortgage_insurance}</li>
-                    <li>hoa_due: {property.hoa_due}</li>
-                  </ul>
-                </li>
-              )
-            }, this)
-          }
-        </ol>
-        { this.state.helpMeChoose
-          ?
-            <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
-          :
-          null
-        }
-        <div className='row mtl'>
+              }, this)
+            }
+          </ol>
           { this.state.helpMeChoose
             ?
-              null
+              <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
             :
-              <div className='col-sm-6'>
-                <span className='typeLowlight'>Sort by:</span>
-                <a className='clickable mlm' onClick={_.bind(this.sortBy, null, 'apr')}>APR</a>
-                <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'pmt')}>Monthly Payment</a>
-                <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'rate')}>Rate</a>
-              </div>
+            null
           }
-          { this.state.possibleRates
-            ?
-              <div className='col-sm-6'>
-                <b>{guaranteeMessage}</b>
-              </div>
-            :
-              null
-          }
-          <div className='col-sm-6 text-right'>
+          <div className='row mtl'>
             { this.state.helpMeChoose
               ?
                 null
               :
-                <a className='btn btnSml btnAction' onClick={this.helpMeChoose}>Help me choose</a>
+                <div className='col-sm-6'>
+                  <span className='typeLowlight'>Sort by:</span>
+                  <a className='clickable mlm' onClick={_.bind(this.sortBy, null, 'apr')}>APR</a>
+                  <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'pmt')}>Monthly Payment</a>
+                  <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'rate')}>Rate</a>
+                </div>
             }
+            { this.state.possibleRates
+              ?
+                <div className='col-sm-6'>
+                  <b>{guaranteeMessage}</b>
+                </div>
+              :
+                null
+            }
+            <div className='col-sm-6 text-right'>
+              { this.state.helpMeChoose
+                ?
+                  null
+                :
+                  <a className='btn btnSml btnAction' onClick={this.helpMeChoose}>Help me choose</a>
+              }
+            </div>
           </div>
+          { this.state.helpMeChoose
+            ?
+              <List rates={this.state.possibleRates} selectRate={this.selectRate} displayTotalCost={true}/>
+            :
+              <List rates={this.state.rates} selectRate={this.selectRate} displayTotalCost={false}/>
+          }
         </div>
-        { this.state.helpMeChoose
-          ?
-            <List rates={this.state.possibleRates} selectRate={this.selectRate} displayTotalCost={true}/>
-          :
-            <List rates={this.state.rates} selectRate={this.selectRate} displayTotalCost={false}/>
-        }
       </div>
     );
   },
