@@ -6,8 +6,8 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
     loan_members = LoanMember.all
 
     bootstrap(
-      loans: LoansPresenter.new(loans).show,
-      loan_members: LoanMembersPresenter.index(loan_members),
+      loans: Admins::LoansPresenter.new(loans).show,
+      loan_members: Admins::LoanMembersPresenter.new(loan_members).show,
     )
 
     respond_to do |format|
@@ -17,7 +17,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
 
   def edit
     bootstrap(
-      loan_member: LoanMembersPresenter.show(@loan_member)
+      loan_member: Admins::LoanMemberPresenter.new(@loan_member).show
     )
 
     respond_to do |format|
@@ -27,7 +27,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
 
   def update
     if @loan_member.update(loan_member_params) && @loan_member.user.update(user_params)
-      render json: {loan_member: LoanMembersPresenter.show(@loan_member), message: 'Updated sucessfully'}, status: 200
+      render json: {loan_member: Admins::LoanMemberPresenter.new(@loan_member).show, message: 'Updated sucessfully'}, status: 200
     else
       render json: {message: "Updated failed"}, status: 500
     end
@@ -43,8 +43,8 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
       @user.add_role :loan_member
 
       render json: {
-        loan_member: LoanMembersPresenter.show(@loan_member),
-        loan_members: LoanMembersPresenter.index(LoanMember.all),
+        loan_member: Admins::LoanMemberPresenter.new(@loan_member).show,
+        loan_members: Admins::LoanMembersPresenter.new(LoanMember.all).show,
         message: 'Created sucessfully'
       }, status: 200
     else
@@ -56,7 +56,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
     if @loan_member.user.destroy
       render json: {
         message: "Removed the #{@loan_member.user.to_s} successfully",
-        loan_members: LoanMembersPresenter.index(LoanMember.all)
+        loan_members: Admins::LoanMembersPresenter.new(LoanMember.all).show
       }, status: 200
     else
       render json: {message: "Cannot remove the checklist"}, status: 500

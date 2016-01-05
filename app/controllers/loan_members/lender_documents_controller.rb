@@ -15,8 +15,8 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
 
     if service.call
       render json: {
-        lender_document: LenderDocumentsPresenter.show(service.lender_document),
-        lender_documents: LenderDocumentsPresenter.index(@loan.lender_documents),
+        lender_document: LoanMembers::LenderDocumentsPresenter.new(service.lender_document).show,
+        lender_documents: LoanMembers::LenderDocumentsPresenter.new(@loan.lender_documents).show,
         download_url: get_download_url(service.lender_document),
         remove_url: get_remove_url(service.lender_document),
         message: "Created successfully"
@@ -41,7 +41,7 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
 
   def get_other_documents
     render json: {
-      lender_documents: LenderDocumentsPresenter.index(@loan.other_lender_documents),
+      lender_documents: LoanMembers::LenderDocumentsPresenter.new(@loan.other_lender_documents).show,
     }, status: 200
   end
 

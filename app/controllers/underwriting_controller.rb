@@ -3,7 +3,7 @@ class UnderwritingController < ApplicationController
     @loan = Loan.find(params[:loan_id])
 
     bootstrap({
-      currentLoan: LoanPresenter.new(@loan).edit,
+      currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
     })
     render template: 'borrower_app'
   end

@@ -1,15 +1,15 @@
-class DocumentsPresenter
+class LoanDashboardPage::DocumentsPresenter
   def initialize(documents)
     @documents = documents
   end
 
   def show
-    @documents.as_json(document_json_options)
+    @documents.includes(:user).as_json(json_options)
   end
 
   private
 
-  def document_json_options
+  def json_options
     {
       include: {
         user: {

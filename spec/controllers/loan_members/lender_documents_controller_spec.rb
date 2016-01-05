@@ -37,8 +37,8 @@ describe LoanMembers::LenderDocumentsController do
                       format: :json
 
         expectation = {
-          lender_document: LenderDocumentsPresenter.show(loan.lender_documents.last),
-          lender_documents: LenderDocumentsPresenter.index(loan.lender_documents),
+          lender_document: LoanMembers::LenderDocumentPresenter.new(loan.lender_documents.last).show,
+          lender_documents: LoanMembers::LenderDocumentsPresenter.new(loan.lender_documents).show,
           download_url: download_loan_members_lender_document_path(loan.lender_documents.last),
           remove_url: loan_members_lender_document_path(loan.lender_documents.last),
           message: "Created successfully"
