@@ -3,7 +3,7 @@ var React = require("react/addons");
 
 var Property = require("./FormProperty");
 var Borrower = require("./FormBorrower/Form");
-var Income = require("./FormIncome/FormIncome");
+var Income = require("./FormIncome/Form");
 var AssetsAndLiabilities = require("./FormAssetsAndLiabilities/FormAssetsAndLiabilities");
 var Declarations = require("./FormDeclarations");
 var CreditCheck = require("./FormCreditCheck");

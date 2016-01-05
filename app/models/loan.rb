@@ -27,7 +27,8 @@ class Loan < ActiveRecord::Base
     :credit_check_agree,
     :purpose,
     properties_attributes: [:id] + Property::PERMITTED_ATTRS,
-    borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
+    borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS,
+    secondary_borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS
   ]
 
   enum purpose: {

@@ -99,8 +99,14 @@ class Borrower < ActiveRecord::Base
     @current_employment ||= employments.find_by(is_current: true)
   end
 
-  def previous_employments
-    employments.where(is_current: false)
+  def previous_employment
+    return unless must_have_previous_employment?
+
+    employments.find_by(is_current: false)
+  end
+
+  def must_have_previous_employment?
+    current_employment && current_employment.duration.to_f < 2
   end
 
   def completed?
