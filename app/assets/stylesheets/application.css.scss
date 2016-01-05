@@ -203,22 +203,22 @@ hr {
   }
 
   #newLoanBtn {
-    border-radius:0;
-    height:90px;
-    margin-top:-29px;
-    display:table;
+    background:white;
+    color:#15c0f1;
+    border:none;
 
     p {
       display:table-cell;
       vertical-align:middle;
     }
-    span {
+    /*span {
       margin-right:7px;
-    }
+    }*/
   }
 
   #newLoanBtn:hover {
-    border:none;
+    background:#15c0f1;
+    color:white;
   }
 
   .nav-pills>li+li {
