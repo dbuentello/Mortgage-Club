@@ -64,6 +64,7 @@ var Dashboard = React.createClass({
         <div className="container">
           <div className='row dashboard-top'>
             <div className='col-md-9'>
+              <img src="/default.jpg"/>
               <h3 className='typeBold'>{address}</h3>
               {
                 loan.amount
@@ -86,9 +87,8 @@ var Dashboard = React.createClass({
               />
             </div>
           </div>
-
-          <div className='dashboard-tabs phxl backgroundLowlight'>
-            <ul className="nav nav-tabs" role="tablist">
+          <div className="collapse navbar-collapse" id="links-dashboard">
+            <ul className="nav nav-tabs mortgageTabs" role="tablist">
               <li role="presentation" className="active">
                 <a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a>
               </li>
@@ -99,16 +99,17 @@ var Dashboard = React.createClass({
                 <a href="#borrower" aria-controls="borrower" role="tab" data-toggle="tab">Borrower</a>
               </li>
               <li role="presentation">
-                <a href="#loan" aria-controls="loan" role="tab" data-toggle="tab">Loan</a>
-              </li>
+                <a href="#loan" aria-controls="loan" role="tab" data-toggle="tab">Loan</a></li>
               <li role="presentation">
                 <a href="#closing" aria-controls="closing" role="tab" data-toggle="tab">Closing</a>
               </li>
               <li role="presentation">
-                <a href="#contacts" aria-controls="contacts" role="tab" data-toggle="tab">Contacts</a>
+                <a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</a>
               </li>
             </ul>
+          </div>
 
+          <div className='dashboard-tabs phxl backgroundLowlight'>
             <div className='tabs row'>
               <div className='left-side col-xs-8'>
                 <div className="tab-content">

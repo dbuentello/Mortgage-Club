@@ -83,18 +83,19 @@ a.remove {
     img {
       float: left;
       margin-right: 28px;
+      width: 141px;
     }
 
     h3 {
       margin-top: 0;
       color: #12a7d1;
-      font-size: 1.5em;
+      font-size: 1.3em;
       margin-bottom: 4px;
       letter-spacing: .03em;
     }
 
     p {
-      font-size: 1.2em;
+      font-size: 1.0em;
     }
 
     .img-dashboard-show {
@@ -130,5 +131,30 @@ a.remove {
     color: white;
     background: #959595;
     border: #959595 1px solid;
+  }
+
+  .mortgageTabs {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    li a {
+      padding: 14px auto;
+      width: 120px;
+      text-align: center;
+      color: #b7b7b7;
+    }
+
+    li a:hover {
+      color: #555;
+      background: transparent;
+      border: none;
+      border-bottom: #15c0f1 5px solid;
+    }
+
+    li.active a {
+      color: #555;
+      border: none;
+      border-bottom: #15c0f1 5px solid;
+    }
   }
 }
