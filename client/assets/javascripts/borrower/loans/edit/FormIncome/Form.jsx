@@ -51,7 +51,7 @@ var secondaryBorrowerFields = {
   otherIncomes: {name: 'secondary_borrower_other_incomes'}
 };
 
-var FormIncome = React.createClass({
+var Form = React.createClass({
   mixins: [TextFormatMixin],
 
   getInitialState: function() {
@@ -99,7 +99,7 @@ var FormIncome = React.createClass({
             <div className='box mtn'>
               <hr/>
               <br/>
-              <h3>Please provide information about your co-borrower</h3>
+              <h3>Please provide income information of your co-borrower</h3>
               <Income
                 fields={secondaryBorrowerFields}
                 currentEmployerName={this.state[secondaryBorrowerFields.currentEmployerName.name]}
@@ -163,7 +163,7 @@ var FormIncome = React.createClass({
       state[fields.previousEmployerName.name] = previousEmployment.employer_name;
       state[fields.previousJobTitle.name] = previousEmployment.job_title;
       state[fields.previousYearsAtEmployer.name] = previousEmployment.duration;
-      state[fields.previousMonthlyIncome.name] = previousEmployment.monthly_income;
+      state[fields.previousMonthlyIncome.name] = this.formatCurrency(previousEmployment.monthly_income);
     }
 
     state[fields.employerContactName.name] = currentEmployment.employer_contact_name;
@@ -269,7 +269,7 @@ var FormIncome = React.createClass({
         employer_name: this.state[fields.previousEmployerName.name],
         job_title: this.state[fields.previousJobTitle.name],
         duration: this.state[fields.previousYearsAtEmployer.name],
-        monthly_income: this.state[fields.previousMonthlyIncome.name],
+        monthly_income: this.currencyToNumber(this.state[fields.previousMonthlyIncome.name]),
         is_current: false
       })
     }
@@ -298,4 +298,4 @@ var FormIncome = React.createClass({
   }
 });
 
-module.exports = FormIncome;
+module.exports = Form;

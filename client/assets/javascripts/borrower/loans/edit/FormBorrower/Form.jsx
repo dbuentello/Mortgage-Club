@@ -310,7 +310,7 @@ var Form = React.createClass({
 
   save: function(event) {
     if (this.valid() == false) {
-      return;
+      return false;
     }
 
     this.setState({saving: true});
