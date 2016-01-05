@@ -72,3 +72,32 @@ a.remove {
   padding-top: 7px;
   padding-bottom: 7px;
 }
+.accountPart {
+  background: transparent !important;
+}
+.dashboard {
+  .edit-btn {
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    width: 110px;
+
+    color: white;
+    background: #15c0f1;
+    border: #15c0f1 1px solid;
+  }
+
+  .delete-btn {
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    width: 110px;
+    color: white;
+    background: #959595;
+    border: #959595 1px solid;
+  }
+}

@@ -74,12 +74,12 @@ var Dashboard = React.createClass({
             }
           </div>
           <div className='col-xs-4 ptl'>
-            <a className='btn btnSml btnSecondary mlm mbm' href={'/loans/' + loan.id + '/edit'}><i className="iconPencil mrs"/>Edit Loan</a>
+            <a className='btn edit-btn' href={'/loans/' + loan.id + '/edit'}><i className="iconPencil mrs"/>Edit</a>
             <ModalLink
               id="deleteLoan"
               icon="iconTrash mrs"
-              name="Delete Loan"
-              class="btn btnSml btnDanger mlm mbm"
+              name="Delete"
+              class="btn delete-btn"
               title="Confirmation"
               body="Are you sure to destroy this loan?"
               yesCallback={this.destroyLoan}
