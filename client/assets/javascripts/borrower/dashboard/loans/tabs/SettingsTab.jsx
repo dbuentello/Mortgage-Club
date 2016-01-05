@@ -42,7 +42,7 @@ var SettingsTab = React.createClass({
                   <a href="#" className="btn upload-btn">Upload photo</a>
                 </div>
                 <div className="col-xs-12">
-                  <button type="submit" className="btn update-btn" onClick={this.handleUpdate}>Update</button>
+                  <button className="btn update-btn" onClick={this.handleUpdate}>Update</button>
                 </div>
               </div>
 
