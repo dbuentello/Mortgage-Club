@@ -145,4 +145,22 @@
   }
 
   .signupPart h2 {margin-top:72px; color:#12a7d1; font-size:2.5em;font-family:'aileronlight';}
+
+  #btnLoginDevise{
+    border-bottom: solid 2px rgba(0, 0, 0, 0.3);
+    border-color: #15c0f1;
+  }
+
+  #btnLoginDevise:hover{
+    background:white; color:#15c0f1;  border-color:#15c0f1;
+  }
+
+  #btnSignupDevise{
+    border-bottom: solid 2px rgba(0, 0, 0, 0.3);
+    border-color: #15c0f1;
+  }
+
+  #btnSignupDevise:hover{
+    background:white; color:#15c0f1;  border-color:#15c0f1;
+  }
 }
