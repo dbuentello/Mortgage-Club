@@ -30,6 +30,8 @@ var HomeDashBoard = React.createClass({
     var refLink = this.props.bootstrapData.refLink;
     var invites = this.props.bootstrapData.invites;
     var refCode = this.props.bootstrapData.refCode;
+    var userEmail = this.props.bootstrapData.user_email;
+    console.log(userEmail);
     if (refCode != null) {
       document.cookie = "_refcode=" + refCode;
     }
@@ -50,7 +52,7 @@ var HomeDashBoard = React.createClass({
                 <ReferralsTab refLink={refLink} invites={invites}/>
               </div>
               <div role="tabpanel" className="tab-pane fade" id="settings">
-                <SettingsTab />
+                <SettingsTab user={current_user} userEmail={userEmail}/>
               </div>
             </div>
           </div>
