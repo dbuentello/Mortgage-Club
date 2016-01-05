@@ -96,6 +96,21 @@ When /^I am at my loans page$/ do
   }
 end
 
+When /^I am at loan management page which has co-borrower$/ do
+  many_steps %{
+    Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a closing with the name "Fake Name"
+      And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the closing above
+      And there is a user with the email "co-borrower@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a secondary borrower with the loan above and with the user above
+      And there is a property with the purchase price "1000000" and with the usage "0" and with the is primary "1" and with the is subject "1" and with the loan above
+      And there is a address with the street address "81458 Borer Falls" and the street address2 "Apt. 305" and the city "West Emiltown" and the state "Virginia" and the zip "9999" with the property above
+      When I login as "testing@man.net" with password "secretpass"
+        And I follow "Dashboard"
+      Then I follow "Edit Loan"
+  }
+end
+
 When /^I am at loan member dashboard$/ do
   many_steps %{
     Given there is a borrower_user_with_borrower with the email "john_doe@gmail.com" and with the first name "John" and the last name "Doe"

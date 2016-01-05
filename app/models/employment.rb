@@ -28,6 +28,7 @@ class Employment < ActiveRecord::Base
     :pay_frequency,
     :current_salary,
     :ytd_salary,
+    :monthly_income,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 

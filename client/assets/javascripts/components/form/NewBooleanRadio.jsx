@@ -58,7 +58,7 @@ var BooleanRadioView = React.createClass({
             <input type="radio" value="true" name={this.props.name} onChange={this.handleChange}
               checked={display === this.props.yesLabel} id={"true_" + this.props.keyName}/>
 
-            <label for="own" className="customRadio">
+            <label htmlFor="own" className="customRadio">
               <span className="first-circle"><span className="second-circle"></span></span>
               {this.props.yesLabel}
             </label>
@@ -66,7 +66,7 @@ var BooleanRadioView = React.createClass({
           <div className={customColumn}>
             <input type="radio" value="false" name={this.props.name} onChange={this.handleChange}
               checked={display === this.props.noLabel} id={'false_' + this.props.keyName}/>
-            <label for="own" className="customRadio">
+            <label htmlFor="own" className="customRadio">
               <span className="first-circle"><span className="second-circle"></span></span>{this.props.noLabel}
             </label>
           </div>
