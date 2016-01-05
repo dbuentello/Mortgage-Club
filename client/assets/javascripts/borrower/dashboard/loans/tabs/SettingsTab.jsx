@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var FlashHandler = require('mixins/FlashHandler');
+var UploadPhoto = require('components/form/UploadPhoto');
 
 var SettingsTab = React.createClass({
   mixins: [FlashHandler],
@@ -39,7 +40,16 @@ var SettingsTab = React.createClass({
               <div className="col-xs-6"><div className="avatar"></div></div>
               <div className="row col-xs-6">
                 <div className="col-xs-12">
-                  <input type="file" className="btn upload-btn" name="user[avatar]" />
+                  <a className="btn upload-btn fileUpload">
+
+
+                    <UploadPhoto
+                      label="Upload Photo"
+                      keyName="avatar"
+                      name="user[avatar]"
+                    />
+                  </a>
+
                 </div>
                 <div className="col-xs-12">
                   <button className="btn update-btn" onClick={this.handleUpdate}>Update</button>
