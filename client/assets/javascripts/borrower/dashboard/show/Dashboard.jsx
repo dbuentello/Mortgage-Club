@@ -109,34 +109,32 @@ var Dashboard = React.createClass({
             </ul>
           </div>
 
-          <div className='dashboard-tabs phxl backgroundLowlight'>
-            <div className='tabs row'>
-              <div className='left-side col-xs-8'>
-                <div className="tab-content">
-                  <div role="tabpanel" className="tab-pane fade in active" id="overview">
-                    <OverviewTab loan={loan} borrower={loan.borrower} checklists={checklists} />
-                  </div>
-                  <div role="tabpanel" className="tab-pane fade" id="property">
-                    <PropertyTab propertyDocuments={propertyDocuments}></PropertyTab>
-                  </div>
-                  <div role="tabpanel" className="tab-pane fade" id="borrower">
-                    <BorrowerTab borrowerDocuments={borrowerDocuments}></BorrowerTab>
-                  </div>
-                  <div role="tabpanel" className="tab-pane fade" id="loan">
-                    <LoanTab loanDocuments={loanDocuments}></LoanTab>
-                  </div>
-                  <div role="tabpanel" className="tab-pane fade" id="closing">
-                    <ClosingTab closingDocuments={closingDocuments}></ClosingTab>
-                  </div>
-                  <div role="tabpanel" className="tab-pane fade" id="contacts">
-                    <ContactTab contactList={contactList}></ContactTab>
-                  </div>
+          <div className='tabs row'>
+            <div className='left-side col-xs-8'>
+              <div className="tab-content">
+                <div role="tabpanel" className="tab-pane fade in active" id="overview">
+                  <OverviewTab loan={loan} borrower={loan.borrower} checklists={checklists} />
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="property">
+                  <PropertyTab propertyDocuments={propertyDocuments}></PropertyTab>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="borrower">
+                  <BorrowerTab borrowerDocuments={borrowerDocuments}></BorrowerTab>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="loan">
+                  <LoanTab loanDocuments={loanDocuments}></LoanTab>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="closing">
+                  <ClosingTab closingDocuments={closingDocuments}></ClosingTab>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="contacts">
+                  <ContactTab contactList={contactList}></ContactTab>
                 </div>
               </div>
+            </div>
 
-              <div className='right-side col-xs-4'>
-                <RelationshipManager Manager={manager} LoanActivities={this.props.bootstrapData.loan_activities} ActiveTab={this.state.activeTab}></RelationshipManager>
-              </div>
+            <div className='right-side col-xs-4'>
+              <RelationshipManager Manager={manager} LoanActivities={this.props.bootstrapData.loan_activities} ActiveTab={this.state.activeTab}></RelationshipManager>
             </div>
           </div>
         </div>

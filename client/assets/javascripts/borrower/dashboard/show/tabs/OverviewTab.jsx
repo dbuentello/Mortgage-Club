@@ -44,15 +44,16 @@ var OverviewTab = React.createClass({
     var completeCounter = checklistCounter - pendingCounter;
 
     return (
-      <div>
-        <div className="box boxBasic backgroundBasic text-center">
-          <div className='boxHead bbs'>
-            <h4 className='typeBold'><i className="iconAttention"></i>&nbsp;
-              We are still waiting on some of your checklist items
-            </h4>
-          </div>
-          <div className="boxBody boxGuide">
-            Go ahead and click 'Get Started' on the items below to start working through your open items
+      <div className="overviewTab">
+        <div className="board sign-board">
+          <div className="row">
+            <div className="col-md-11">
+              <h4>We are still waiting on some of your checklist items</h4>
+              <p>Go ahead and click 'Get Started' on the items below to start working through your open items</p>
+            </div>
+            <div className="col-md-1 dashboard-sign">
+              <img className="board-side" src="/warning-sign.png"/>
+            </div>
           </div>
         </div>
         <div className="box boxBasic backgroundBasic">

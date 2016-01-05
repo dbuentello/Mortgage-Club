@@ -92,6 +92,7 @@ a.remove {
       font-size: 1.3em;
       margin-bottom: 4px;
       letter-spacing: .03em;
+      font-weight: bold;
     }
 
     p {
@@ -155,6 +156,40 @@ a.remove {
       color: #555;
       border: none;
       border-bottom: #15c0f1 5px solid;
+    }
+  }
+
+  .overviewTab {
+    .board {
+      border-radius: 5px;
+      border: #959595 1px solid;
+      padding: 20px;
+      padding-bottom: 0;
+    }
+
+    .sign-board {
+      padding-bottom: 20px;
+
+      h4 {
+        margin-top: 0;
+        color: black;
+      }
+
+      p {
+        margin-bottom: 0;
+        color: black;
+      }
+
+      .dashboard-sign {
+        text-align: center;
+        border-left: #555 1px solid;
+        height: 50px;
+
+        img {
+          width: 90%;
+          margin-top: 10px;
+        }
+      }
     }
   }
 }
