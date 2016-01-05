@@ -88,6 +88,8 @@ var TextField = React.createClass({
       displayText = this.props.format(this.props.value);
     }
 
+    var customClass = this.props.customClass || "";
+
     return (
       <div>
         <h6>{this.props.label}</h6>
@@ -100,7 +102,7 @@ var TextField = React.createClass({
           :
             null
         }
-        <input className={"form-control " + this.props.customClass } type="text" value={this.props.value}
+        <input className={"form-control " + customClass } type="text" value={this.props.value}
             onChange={this.handleChange} onBlur={this.props.onBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.label} id={this.props.keyName}/>
       </div>
     );
