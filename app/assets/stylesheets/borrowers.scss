@@ -87,13 +87,24 @@
 h5.text-capitalize {
   color: #12a7d1;
 }
-.update-btn {
+.upload-btn, .update-btn {
     border-radius: 5px;
-    border: #15c0f1 1px solid;
     color: white;
-    background: #15c0f1;
-    padding-left: 24px;
-    padding-right: 24px;
+    width: 100%;
+    margin: 10px;
+}
+.upload-btn {
+    border: #c2c2c2 1px solid;
+    color: #c2c2c2;
+}
+.update-btn {
+  background-color: #15c0f1;
+  border: #15c0f1 1px solid;
+  color: white;
+}
+.upload-btn:hover {
+  color: #fff;
+  background-color: #c2c2c2;
 }
 .send-btn:hover, .update-btn:hover {color:#15c0f1; background:#fff;}
 .avatar {
