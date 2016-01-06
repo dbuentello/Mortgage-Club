@@ -302,5 +302,20 @@ a.remove {
       border: 0;
       border-top: none;
     }
+
+    .panel {
+      box-shadow: none;
+      border-bottom: #dfdfdf 1px solid;
+      color: black;
+    }
+
+    .panel-group .panel-heading {
+      padding: 8px 0;
+    }
+
+    .panel-title a:hover {
+      text-decoration: underline;
+      color: black;
+    }
   }
 }

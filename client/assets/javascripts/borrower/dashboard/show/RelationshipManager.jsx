@@ -43,12 +43,35 @@ var RelationshipManager = React.createClass({
             <div>
               <h3 className="dashboard-header-text padding-top-10">Helpful Q&A</h3>
             </div>
-            <div className='mbl'>
-              <p><a href='javascript:void(0)'>What are these files?</a></p>
-              <p><a href='javascript:void(0)'>Who has access to these?</a></p>
-              <p><a href='javascript:void(0)'>What are the different tabs?</a></p>
-              <p><a href='javascript:void(0)'>Do I have to classify files?</a></p>
-              <p><a href='javascript:void(0)'>Are my files safe?</a></p>
+            <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              <div className="panel">
+                <div className="panel-heading" role="tab" id="headingOne">
+                  <h4 className="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" className="collapsed">
+                      What are these files?
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseOne" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+                  <div className="panel-body">
+                    <p>Sed quis varius dolor, vitae lacinia purus. Etiam ultrices non sapien vel elementum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="panel">
+                <div className="panel-heading" role="tab" id="headingTwo">
+                  <h4 className="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" className="collapsed">
+                      What are the difference tabs?
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false">
+                  <div className="panel-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin suscipit non elit nec placerat. Praesent sed felis at risus lobortis volutpat. Sed quis varius dolor, vitae lacinia purus. Etiam ultrices non sapien vel elementum. Curabitur tincidunt elementum lacus, quis pellentesque tortor maximu.</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         }
