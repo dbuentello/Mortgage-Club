@@ -61,7 +61,7 @@ When /^I am at loan management page$/ do
       And there is a address with the street address "81458 Borer Falls" and the street address2 "Apt. 305" and the city "West Emiltown" and the state "Virginia" and the zip "9999" with the property above
       When I login as "testing@man.net" with password "secretpass"
         And I follow "Dashboard"
-      Then I follow "Edit Loan"
+      Then I follow "Edit"
   }
 end
 
@@ -107,7 +107,7 @@ When /^I am at loan management page which has co-borrower$/ do
       And there is a address with the street address "81458 Borer Falls" and the street address2 "Apt. 305" and the city "West Emiltown" and the state "Virginia" and the zip "9999" with the property above
       When I login as "testing@man.net" with password "secretpass"
         And I follow "Dashboard"
-      Then I follow "Edit Loan"
+      Then I follow "Edit"
   }
 end
 

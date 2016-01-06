@@ -113,7 +113,7 @@ var Dashboard = React.createClass({
                 <a href="#closing" aria-controls="closing" role="tab" data-toggle="tab">Closing</a>
               </li>
               <li role="presentation">
-                <a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</a>
+                <a href="#contacts" aria-controls="contacts" role="tab" data-toggle="tab">Contacts</a>
               </li>
             </ul>
           </div>
@@ -136,7 +136,7 @@ var Dashboard = React.createClass({
                 <div role="tabpanel" className="tab-pane fade" id="closing">
                   <ClosingTab closingDocuments={closingDocuments}></ClosingTab>
                 </div>
-                <div role="tabpanel" className="tab-pane fade" id="contact">
+                <div role="tabpanel" className="tab-pane fade" id="contacts">
                   <ContactTab contactList={contactList}></ContactTab>
                 </div>
               </div>
