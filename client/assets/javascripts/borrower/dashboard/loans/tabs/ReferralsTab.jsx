@@ -159,26 +159,6 @@ var ReferralsTab = React.createClass({
               </div>
             </div>
         </div>
-        <div className="box boxBasic backgroundBasic">
-            <div className='boxHead bbs'>
-              <h4 className='typeBold'>Your Referrals</h4>
-            </div>
-            <div className="boxBody ptm">
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>Joined</th>
-                    <th>#Loans Closed</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.invites.map(this.eachInvite)}
-                </tbody>
-              </table>
-            </div>
-        </div>
       </div>
     );
   }
