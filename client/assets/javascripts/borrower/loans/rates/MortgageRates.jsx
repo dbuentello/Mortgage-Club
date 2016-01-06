@@ -131,7 +131,7 @@ var MortgageRates = React.createClass({
 
                 <div className="col-xs-9">
                   <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
-                    <option value="apr" selected="">APR</option>
+                    <option value="apr">APR</option>
                     <option value="pmt">Monthly Payment</option>
                     <option value="rate">Rate</option>
                   </select>
@@ -140,7 +140,7 @@ var MortgageRates = React.createClass({
               </div>
             </div>
             <div className="col-md-6 text-right">
-              <a className="btn choose-btn text-uppercase" href="#">help me choose</a>
+              <a className="btn choose-btn text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
             </div>
           </div>
           <div>
@@ -150,7 +150,6 @@ var MortgageRates = React.createClass({
               :
                 <List rates={this.state.rates} selectRate={this.selectRate} displayTotalCost={false}/>
             }
-
 
           </div>
         </div>
