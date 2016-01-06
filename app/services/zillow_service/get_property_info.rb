@@ -1,15 +1,25 @@
 module ZillowService
   class GetPropertyInfo
     include HTTParty
-    include ZillowService::ZillowApi
+
+    USE_CODE = {
+      'Unknown'         => nil,
+      'SingleFamily'    => :sfh,
+      'Duplex'          => :duplex,
+      'Triplex'         => :triplex,
+      'Quadruplex'      => :quadruplex,
+      'Condominium'     => :sfh
+    }
+
+    # ZILLOW_KEY = "X1-ZWz1aylbpp3aiz_98wrk"
+    ZILLOW_KEY = "X1-ZWz1a4mphgfggb_7zykg"
 
     def self.call(address, citystatezip)
       property_data = get_property_data(address, citystatezip)
       monthly_payments = get_monthly_payments_advanced(property_data)
-      parse_payments(monthly_payments, property_data)
+      zillow_image_url = get_zillow_image_url(property_data)
+      merge_data(monthly_payments, property_data, zillow_image_url)
     end
-
-    private
 
     def self.get_property_data(address, citystatezip)
       params = {
@@ -21,7 +31,7 @@ module ZillowService
     end
 
     def self.get_monthly_payments_advanced(property_data)
-      return unless property_data['searchresults'] && property_data['searchresults']['response']
+      return unless property?(property_data)
 
       property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
       property.merge!({
@@ -35,18 +45,56 @@ module ZillowService
       }
 
       get('http://www.zillow.com/webservice/mortgage/CalculateMonthlyPaymentsAdvanced.htm', query: params)
-      #parse_payments(get('http://www.zillow.com/webservice/mortgage/CalculateMonthlyPaymentsAdvanced.htm', :query => params), property)
     end
 
-    def self.parse_payments(monthly_payments, property_data)
-      return if monthly_payments.nil?
-      return if monthly_payments['paymentsdetails']['response'].nil?
+    def self.merge_data(monthly_payments, property_data, zillow_image_url)
+      return unless monthly_payment?(monthly_payments)
 
       property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
       property.merge({
-        :monthlyTax => monthly_payments['paymentsdetails']['response']['monthlypropertytaxes'],
-        :monthlyInsurance => monthly_payments['paymentsdetails']['response']['monthlyhazardinsurance']
+        monthlyTax: monthly_payments['paymentsdetails']['response']['monthlypropertytaxes'],
+        monthlyInsurance: monthly_payments['paymentsdetails']['response']['monthlyhazardinsurance'],
+        zillowImageUrl: zillow_image_url
       })
+    end
+
+    def self.get_zillow_image_url(property_data)
+      return unless zpid = zpid(property_data)
+
+      params = {
+        'zpid' => zpid,
+        'zws-id' => ZILLOW_KEY
+      }
+      data = get('http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm', query: params)
+      if images?(data)
+        url = data["updatedPropertyDetails"]["response"]["images"]["image"]["url"].first
+      else
+        url = ""
+      end
+      url
+    end
+
+    def self.zpid(property_data)
+      return unless zpid?(property_data)
+
+      property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
+      property['zpid']
+    end
+
+    def self.images?(data)
+      data["updatedPropertyDetails"]["response"] && data["updatedPropertyDetails"]["response"]["images"]
+    end
+
+    def self.zpid?(data)
+      data['searchresults'] && data['searchresults']['response']
+    end
+
+    def self.monthly_payment?(data)
+      data.present? && data['paymentsdetails']['response']
+    end
+
+    def self.property?(data)
+      data['searchresults'] && data['searchresults']['response']
     end
   end
 end

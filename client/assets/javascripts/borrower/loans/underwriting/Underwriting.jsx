@@ -116,74 +116,76 @@ var Underwriting = React.createClass({
 
   render: function() {
     return (
-      <div className='content container'>
-        <div id='underwriting' className='row mtl underwriting-text'>
-          <div className='col-sm-5'>
-            <div id="percent">0%</div>
-          </div>
+      <div className="content">
+        <div className='content container'>
+          <div id='underwriting' className='row mtl underwriting-text'>
+            <div className='col-sm-5'>
+              <div id="percent">0%</div>
+            </div>
 
-          <div className='col-sm-7'>
-            <div className="row1">
-              <div id="status">Checking property eligibility</div>
+            <div className='col-sm-7'>
+              <div className="row1">
+                <div id="status">Checking property eligibility</div>
+              </div>
             </div>
           </div>
-        </div>
-        <div id='errors' className='row mtl hidden'>
-          <div className='box mtn'>
-            <div className='col-sm-3'></div>
-            <div className='col-sm-6'>
-              <div id='error'></div>
+          <div id='errors' className='row mtl hidden'>
+            <div className='box mtn'>
+              <div className='col-sm-3'></div>
+              <div className='col-sm-6'>
+                <div id='error'></div>
+              </div>
+              <div className='col-sm-3'></div>
             </div>
-            <div className='col-sm-3'></div>
-          </div>
 
-          <div className='box backToLoan'>
-            <a className='btn btnSml btnPrimary' onClick={this.backToLoan}>
-              <i className='icon iconLeft mrl'/>
-              Back to Loan
-            </a>
+            <div className='box backToLoan'>
+              <a className='btn btnSml btnPrimary' onClick={this.backToLoan}>
+                <i className='icon iconLeft mrl'/>
+                Back to Loan
+              </a>
+            </div>
           </div>
-        </div>
-        <div className='row hidden' id='debug_info'>
-          { this.state.debugInfo
-            ?
-            <div>
-              <ul>
-                {
-                  _.map(Object.keys(this.state.debugInfo), function(key){
-                    if(key != "properties") {
+          <div className='row hidden' id='debug_info'>
+            { this.state.debugInfo
+              ?
+              <div>
+                <ul>
+                  {
+                    _.map(Object.keys(this.state.debugInfo), function(key){
+                      if(key != "properties") {
+                        return (
+                          <li key={key}>{key}: {this.state.debugInfo[key]}</li>
+                        )
+                      }
+                    }, this)
+                  }
+                </ul>
+                <h4>Properties:</h4>
+                <ol>
+                  {
+                    _.map(this.state.debugInfo.properties, function(property) {
                       return (
-                        <li key={key}>{key}: {this.state.debugInfo[key]}</li>
+                        <li>
+                          <ul>
+                            <li>is_subject: {property.is_subject}</li>
+                            <li>liability_payments: {property.liability_payments}</li>
+                            <li>mortgage_payment: {property.mortgage_payment}</li>
+                            <li>other_financing: {property.other_financing}</li>
+                            <li>actual_rental_income: {property.actual_rental_income}</li>
+                            <li>estimated_property_tax: {property.estimated_property_tax}</li>
+                            <li>estimated_hazard_insurance: {property.estimated_hazard_insurance}</li>
+                            <li>estimated_mortgage_insurance: {property.estimated_mortgage_insurance}</li>
+                            <li>hoa_due: {property.hoa_due}</li>
+                          </ul>
+                        </li>
                       )
-                    }
-                  }, this)
-                }
-              </ul>
-              <h4>Properties:</h4>
-              <ol>
-                {
-                  _.map(this.state.debugInfo.properties, function(property) {
-                    return (
-                      <li>
-                        <ul>
-                          <li>is_subject: {property.is_subject}</li>
-                          <li>liability_payments: {property.liability_payments}</li>
-                          <li>mortgage_payment: {property.mortgage_payment}</li>
-                          <li>other_financing: {property.other_financing}</li>
-                          <li>actual_rental_income: {property.actual_rental_income}</li>
-                          <li>estimated_property_tax: {property.estimated_property_tax}</li>
-                          <li>estimated_hazard_insurance: {property.estimated_hazard_insurance}</li>
-                          <li>estimated_mortgage_insurance: {property.estimated_mortgage_insurance}</li>
-                          <li>hoa_due: {property.hoa_due}</li>
-                        </ul>
-                      </li>
-                    )
-                  }, this)
-                }
-              </ol>
-            </div>
-            : null
-            }
+                    }, this)
+                  }
+                </ol>
+              </div>
+              : null
+              }
+          </div>
         </div>
       </div>
     )

@@ -15,6 +15,7 @@ if User.where(email: 'borrower@gmail.com').blank?
   user.skip_confirmation!
   user.save
 
+  user.create_borrower
   user.add_role :borrower
 
   loan = Loan.initiate(user)

@@ -6,10 +6,6 @@ div.img-home {
   background-size: 100% 100%
 }
 
-.boxGuide {
-  line-height: 50px;
-}
-
 span.iconCheck {
   color: #8AC007;
 }
@@ -71,4 +67,276 @@ a.remove {
   margin-top: 15px;
   padding-top: 7px;
   padding-bottom: 7px;
+}
+.content {
+  padding-top: 0px !important;
+}
+
+.padding-top-10{
+  padding-top: 10px;
+}
+.loan-dashboard {
+  .dashboard-top {
+    padding-top: 31px;
+    padding-bottom: 25px;
+
+    img {
+      float: left;
+      margin-right: 28px;
+      width: 141px;
+    }
+
+    h3 {
+      margin-top: 0;
+      color: #12a7d1;
+      font-size: 1.3em;
+      margin-bottom: 4px;
+      letter-spacing: .03em;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 1.0em;
+    }
+
+    .img-dashboard-show {
+      background-image: url(asset_path('home.jpg'));
+      background-repeat:no-repeat;
+      float: left;
+      margin-right: 28px;
+      width: 146px;
+      height: 101px;
+    }
+  }
+
+  .edit-btn {
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    width: 110px;
+
+    color: white;
+    background: #15c0f1;
+    border: #15c0f1 1px solid;
+  }
+
+  .delete-btn {
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    width: 110px;
+    color: white;
+    background: #959595;
+    border: #959595 1px solid;
+  }
+
+  .mortgageTabs {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    li a {
+      padding: 14px auto;
+      width: 120px;
+      text-align: center;
+      color: #b7b7b7;
+    }
+
+    li a:hover {
+      color: #555;
+      background: transparent;
+      border: none;
+      border-bottom: #15c0f1 5px solid;
+    }
+
+    li.active a {
+      color: #555;
+      border: none;
+      border-bottom: #15c0f1 5px solid;
+    }
+  }
+  .board {
+    border-radius: 5px;
+    border: #959595 1px solid;
+    padding: 20px;
+    padding-bottom: 0;
+  }
+
+  .board:not(:first-of-type) {
+    margin-top: 35px;
+  }
+
+  .board:last-of-type {
+    margin-bottom: 110px;
+  }
+
+  .table {
+    margin-bottom: 0;
+
+    td, th {
+      vertical-align: middle;
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+  }
+  .overviewTab {
+
+    .sign-board {
+      padding-bottom: 20px;
+
+      h4 {
+        margin-top: 0;
+        color: black;
+      }
+
+      p {
+        margin-bottom: 0;
+        color: black;
+      }
+
+      .dashboard-sign {
+        text-align: center;
+        border-left: #555 1px solid;
+        height: 50px;
+
+        img {
+          width: 90%;
+          margin-top: 10px;
+        }
+      }
+    }
+
+    .board-header {
+      margin-left: -20px;
+      margin-right: -20px;
+      padding-left: 20px;
+      border-bottom: #959595 1px solid;
+      padding-bottom: 20px;
+
+      .board-title {
+        margin-top: 0;
+        margin-bottom: 0;
+        color: #12a7d1;
+        font-size: 1.4em;
+      }
+    }
+
+    .table {
+
+      .dash-table-btn{
+        text-align: center;
+        width: 90%;
+        color: #555;
+        background: #e1e1e1;
+        border-radius: 5px;
+      }
+
+      .btn {
+        border-bottom: none;
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+
+      .glyphicon-ok {
+        /*color: #08bf9f;*/
+        color: green;
+      }
+
+      .glyphicon-remove {
+        color: #de1700;
+      }
+
+      .glyphicon-info-sign{
+        color: blue;
+      }
+    }
+  }
+
+  .sidebar{
+    .dashboard-header-text:first-child {
+      margin-top: 0;
+    }
+
+    .dashboard-header-text {
+      color: #12a7d1;
+      font-size: 1.25em;
+    }
+
+    .row div {
+      padding-left: 15px;
+      padding-right: 10px;
+    }
+
+    .avatar {
+      width: 100%;
+      border-radius: 5px;
+    }
+
+    .h4 {
+      margin-bottom: 7px;
+    }
+
+    .account-name-text {
+      color: black;
+      margin-top: 0;
+      font-weight: 600;
+    }
+
+    .glyphicon-earphone, .glyphicon-envelope{
+      padding-right: 10px;
+    }
+
+    .side-item {
+      margin-top: 8px;
+      line-height: 2em;
+    }
+
+    .activity-status{
+      color: #c2c2c2;
+    }
+
+    hr {
+      margin-top: 0;
+      margin-bottom: 0;
+      border: 0;
+      border-top: none;
+    }
+
+    .panel {
+      box-shadow: none;
+      border-bottom: #dfdfdf 1px solid;
+      color: black;
+    }
+
+    .panel-group .panel-heading {
+      padding: 8px 0;
+    }
+
+    .panel-title a:hover {
+      text-decoration: underline;
+      color: black;
+    }
+  }
+
+  .contact-board {
+    padding-bottom: 20px;
+
+    .avatar {
+      width: 100%;
+      border-radius: 5px;
+    }
+
+    p {
+      font-size: 1.125em;
+      margin-bottom: 5px;
+    }
+
+    hr {
+      border: 0;
+      border-top: none;
+    }
+  }
 }
