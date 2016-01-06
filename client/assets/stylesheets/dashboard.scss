@@ -71,6 +71,10 @@ a.remove {
 .content {
   padding-top: 0px !important;
 }
+
+.padding-top-10{
+  padding-top: 10px;
+}
 .dashboard {
   .dashboard-top {
     padding-top: 31px;
@@ -246,6 +250,41 @@ a.remove {
       .glyphicon-info-sign{
         color: blue;
       }
+    }
+  }
+
+  .relationship-sidebar{
+    .dashboard-header-text:first-child {
+      margin-top: 0;
+    }
+
+    .dashboard-header-text {
+      color: #12a7d1;
+      font-size: 1.25em;
+    }
+
+    .row div {
+      padding-left: 15px;
+      padding-right: 10px;
+    }
+
+    .avatar {
+      width: 100%;
+      border-radius: 5px;
+    }
+
+    .h4 {
+      margin-bottom: 7px;
+    }
+
+    .account-name-text {
+      color: black;
+      margin-top: 0;
+      font-weight: 600;
+    }
+
+    .glyphicon-earphone, .glyphicon-envelope{
+      padding-right: 10px;
     }
   }
 }

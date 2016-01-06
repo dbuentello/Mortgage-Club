@@ -110,7 +110,7 @@ var Dashboard = React.createClass({
           </div>
 
           <div className='tabs row'>
-            <div className='left-side col-xs-8'>
+            <div className='col-md-8'>
               <div className="tab-content">
                 <div role="tabpanel" className="tab-pane fade in active" id="overview">
                   <OverviewTab loan={loan} borrower={loan.borrower} checklists={checklists} />
@@ -133,7 +133,7 @@ var Dashboard = React.createClass({
               </div>
             </div>
 
-            <div className='right-side col-xs-4'>
+            <div className='col-md-4'>
               <RelationshipManager Manager={manager} LoanActivities={this.props.bootstrapData.loan_activities} ActiveTab={this.state.activeTab}></RelationshipManager>
             </div>
           </div>

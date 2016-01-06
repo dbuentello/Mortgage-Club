@@ -1,22 +1,32 @@
 var React = require('react/addons');
 
 var RecentLoanActivities = require('./RecentLoanActivities');
+var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var RelationshipManager = React.createClass({
+  mixins: [TextFormatMixin],
+
   render: function() {
     return (
-      <div>
-        <h5 className='ptl bbs pbm'>Your Relationship Manager</h5>
+      <div className="relationship-sidebar">
+        <h3 className='dashboard-header-text text-capitalize'>Your Relationship Manager</h3>
         { this.props.Manager ?
-          <div className='ptm typeEmphasize clearfix'>
-            <div className='manager-image pull-left mrm'>
-              <img src={this.props.Manager.user.avatar_url} width="80px" height="80px"/>
+          <div className='row'>
+            <div className='col-xs-4'>
+              <img src={this.props.Manager.user.avatar_url} className="avatar"/>
             </div>
-            <div className='manager-info pull-left'>
-              <p>{this.props.Manager.user.to_s}</p>
-              <p>{this.props.Manager.phone_number}</p>
-              <p><a href='javascript:void(0)'>Skype Call</a></p>
-              <p><a href={'mailto:' + this.props.Manager.user.email}>{this.props.Manager.user.email}</a></p>
+            <div className='col-xs-8'>
+              <h4 className="account-name-text">{this.props.Manager.user.to_s}</h4>
+              <p>
+                <span className="glyphicon glyphicon-earphone"></span>
+                {this.formatPhoneNumber(this.props.Manager.phone_number)}
+              </p>
+              <p>
+                <span className="glyphicon glyphicon-envelope"></span>
+                <a href={'mailto:' + this.props.Manager.user.email}>
+                  {this.props.Manager.user.email}
+                </a>
+              </p>
             </div>
           </div>
           :
@@ -25,7 +35,7 @@ var RelationshipManager = React.createClass({
 
         { (this.props.ActiveTab == 'overview') ?
           <div>
-            <h5 className='ptl bbs pbm'>Recent Loan Activity</h5>
+            <h5 className='dashboard-header-text padding-top-10'>Recent Loan Activity</h5>
             <RecentLoanActivities LoanActivityList={this.props.LoanActivities}/>
           </div>
           :
