@@ -35,7 +35,7 @@ var ReferralsTab = React.createClass({
       this.showFlashes(flash);
       }
     }
-    document.getElementById("refLink").select();
+    $("#refLink").select();
   },
 
   sendInvites: function(e) {
