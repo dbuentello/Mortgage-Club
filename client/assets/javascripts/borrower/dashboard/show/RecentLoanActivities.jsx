@@ -9,19 +9,31 @@ var RecentLoanActivities = React.createClass({
 
     return (
       <div>
-        <ul className="list-group">
           {
-            _.map(activities, function(activity) {
+            _.map(activities, function(activity, index) {
+              if(index + 1 == activities.length){
+                return (
+                  <div>
+                    <p className="side-item" key={activity.id}>
+                      {activity.name}
+                      <br/>
+                      <span className="activity-status">{activity.pretty_activity_status} by {activity.pretty_loan_member_name} {moment(activity.updated_at).fromNow()}</span>
+                    </p>
+                  </div>
+                )
+              }
               return (
-                <li className="list-group-item" key={activity.id}>
-                  {activity.name}
-                  <br/>
-                  <i><b>{activity.pretty_activity_status}</b> by <b>{activity.pretty_loan_member_name}</b> {moment(activity.updated_at).fromNow()}</i>
-                </li>
+                <div>
+                  <p className="side-item" key={activity.id}>
+                    {activity.name}
+                    <br/>
+                    <span className="activity-status">{activity.pretty_activity_status} by {activity.pretty_loan_member_name} {moment(activity.updated_at).fromNow()}</span>
+                  </p>
+                  <hr/>
+                </div>
               )
             })
           }
-        </ul>
       </div>
     )
   }

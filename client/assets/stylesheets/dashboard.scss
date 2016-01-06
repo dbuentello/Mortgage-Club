@@ -253,7 +253,7 @@ a.remove {
     }
   }
 
-  .relationship-sidebar{
+  .sidebar{
     .dashboard-header-text:first-child {
       margin-top: 0;
     }
@@ -285,6 +285,22 @@ a.remove {
 
     .glyphicon-earphone, .glyphicon-envelope{
       padding-right: 10px;
+    }
+
+    .side-item {
+      margin-top: 8px;
+      line-height: 2em;
+    }
+
+    .activity-status{
+      color: #c2c2c2;
+    }
+
+    hr {
+      margin-top: 0;
+      margin-bottom: 0;
+      border: 0;
+      border-top: none;
     }
   }
 }

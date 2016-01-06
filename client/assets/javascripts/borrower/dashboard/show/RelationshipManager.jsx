@@ -8,7 +8,7 @@ var RelationshipManager = React.createClass({
 
   render: function() {
     return (
-      <div className="relationship-sidebar">
+      <div className="sidebar">
         <h3 className='dashboard-header-text text-capitalize'>Your Relationship Manager</h3>
         { this.props.Manager ?
           <div className='row'>
@@ -35,13 +35,13 @@ var RelationshipManager = React.createClass({
 
         { (this.props.ActiveTab == 'overview') ?
           <div>
-            <h5 className='dashboard-header-text padding-top-10'>Recent Loan Activity</h5>
+            <h3 className='dashboard-header-text padding-top-10'>Recent Loan Activity</h3>
             <RecentLoanActivities LoanActivityList={this.props.LoanActivities}/>
           </div>
           :
           <div>
-            <div className='pvm bbs'>
-              <h5>Helpful Q&A</h5>
+            <div>
+              <h3 className="dashboard-header-text padding-top-10">Helpful Q&A</h3>
             </div>
             <div className='mbl'>
               <p><a href='javascript:void(0)'>What are these files?</a></p>
