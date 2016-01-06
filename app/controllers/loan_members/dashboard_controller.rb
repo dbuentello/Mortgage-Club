@@ -9,13 +9,13 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
     @loan.closing ||= Closing.create(name: 'Closing', loan_id: @loan.id)
 
     bootstrap(
-      loan: LoanPresenter.new(@loan).show_at_loan_member_dashboard,
+      loan: LoanMembers::LoanPresenter.new(@loan).show,
       first_activity: first_activity(@loan),
       loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : [],
-      borrower: BorrowerPresenter.new(@loan.borrower).show,
-      property: PropertyPresenter.new(@loan.subject_property).show,
-      closing: ClosingPresenter.new(@loan.closing).show,
-      templates: TemplatesPresenter.index(Template.all),
+      borrower: LoanMembers::BorrowerPresenter.new(@loan.borrower).show,
+      property: LoanMembers::PropertyPresenter.new(@loan.subject_property).show,
+      closing: LoanMembers::ClosingPresenter.new(@loan.closing).show,
+      templates: LoanMembers::TemplatesPresenter.new(Template.all).show,
       lender_templates: get_lender_templates,
       other_lender_template: get_other_template,
       competitor_rates: {down_payment_25: get_all_rates_down_payment("0.25"),
@@ -34,31 +34,16 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
 
   def get_all_rates_down_payment(percent)
     @loan.rate_comparisons.where(down_payment_percentage: percent)
-    # [
-    #   {
-    #     down_payment_percentage: 0.2,
-    #     lender_name: "google",
-    #     rates: [
-    #       {name: "30_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
-    #       {name: "20_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
-    #       {name: "15_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
-    #       {name: "10_year_fixed", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
-    #       {name: "7_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
-    #       {name: "5_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)},
-    #       {name: "3_1_arm", apr: Random.rand(40)*0.01, total_fee: Random.rand(1000)}
-    #     ]
-    #   }
-    # ]
   end
 
   def get_lender_templates
     return [] unless @loan.lender
-    LenderTemplatesPresenter.index(@loan.lender.lender_templates.where(is_other: false))
+    LoanMembers::LenderTemplatesPresenter.new(@loan.lender.lender_templates.where(is_other: false)).show
   end
 
   def get_other_template
     return [] unless @loan.lender
-    LenderTemplatesPresenter.show(@loan.lender.lender_templates.where(is_other: true).last)
+    LoanMembers::LenderTemplatePresenter.new(@loan.lender.lender_templates.where(is_other: true).last).show
   end
 
   def first_activity(loan)

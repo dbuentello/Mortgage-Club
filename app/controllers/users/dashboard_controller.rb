@@ -7,16 +7,16 @@ class Users::DashboardController < Users::BaseController
     loan_activities = @loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10)
 
     bootstrap(
-      loan: LoanPresenter.new(@loan).show,
+      loan: LoanDashboardPage::LoanPresenter.new(@loan).show,
       address: property.address.try(:address),
-      manager: LoanMembersPresenter.show(@loan.relationship_manager),
+      manager: LoanDashboardPage::LoanMemberPresenter.new(@loan.relationship_manager).show,
       loan_activities: loan_activities,
-      contact_list: LoanMemberAssociationsPresenter.new(@loan.loans_members_associations).show,
-      checklists: ChecklistsPresenter.index(@loan.checklists),
-      borrower_documents: DocumentsPresenter.new(@loan.borrower.documents).show,
-      closing_documents: DocumentsPresenter.new(closing.documents).show,
-      property_documents: DocumentsPresenter.new(property.documents).show,
-      loan_documents: DocumentsPresenter.new(@loan.documents).show
+      contact_list: LoanDashboardPage::LoanMemberAssociationsPresenter.new(@loan.loans_members_associations).show,
+      checklists: LoanDashboardPage::ChecklistsPresenter.new(@loan.checklists).show,
+      borrower_documents: LoanDashboardPage::DocumentsPresenter.new(@loan.borrower.documents).show,
+      closing_documents: LoanDashboardPage::DocumentsPresenter.new(closing.documents).show,
+      property_documents: LoanDashboardPage::DocumentsPresenter.new(property.documents).show,
+      loan_documents: LoanDashboardPage::DocumentsPresenter.new(@loan.documents).show
     )
 
     respond_to do |format|

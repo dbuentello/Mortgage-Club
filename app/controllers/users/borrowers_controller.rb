@@ -15,7 +15,7 @@ class Users::BorrowersController < Users::BaseController
       end
 
       @loan.reload
-      render json: {loan: LoanPresenter.new(@loan).edit}
+      render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show}
     else
       render json: {error: borrower_form.errors.full_messages}, status: 500
     end

@@ -134,7 +134,7 @@ var Dashboard = React.createClass({
             </div>
 
             <div className='right-side col-xs-4'>
-              <RelationshipManager Manager={manager} LoanActivities={this.props.bootstrapData.loan_activities} ActiveTab={this.state.activeTab}></RelationshipManager>
+              <RelationshipManager manager={manager} LoanActivities={this.props.bootstrapData.loan_activities} ActiveTab={this.state.activeTab}></RelationshipManager>
             </div>
           </div>
         </div>

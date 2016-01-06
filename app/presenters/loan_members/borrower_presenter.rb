@@ -1,4 +1,4 @@
-class BorrowerPresenter
+class LoanMembers::BorrowerPresenter
   def initialize(borrower)
     @borrower = borrower
   end
