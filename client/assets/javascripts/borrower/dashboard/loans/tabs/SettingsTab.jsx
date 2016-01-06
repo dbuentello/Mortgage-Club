@@ -23,7 +23,6 @@ var SettingsTab = React.createClass({
       dataType: "json",
       context: this,
       success: function(response) {
-        console.dir(response)
         var flash = { "alert-success": response.message };
         this.showFlashes(flash);
         this.setState({

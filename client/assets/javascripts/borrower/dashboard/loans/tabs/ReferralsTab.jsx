@@ -106,7 +106,7 @@ var ReferralsTab = React.createClass({
 
                 <div className="row invite-form">
                   <div className="col-md-4">
-                    <h5 className="text-capitalize">Name</h5>
+                    <h5 className="text-capitalize">Email</h5>
                     <input id="invite-email-1" type="email" className="form-control account-text-input" name="invite[email][]"/>
                   </div>
                   <div className="col-md-4">
@@ -121,7 +121,7 @@ var ReferralsTab = React.createClass({
 
                 <div className="row invite-form">
                   <div className="col-md-4">
-                    <h5 className="text-capitalize">Name</h5>
+                    <h5 className="text-capitalize">Email</h5>
                     <input id="invite-email-2" type="email" className="form-control account-text-input" name="invite[email][]"/>
                   </div>
                   <div className="col-md-4">
@@ -136,7 +136,7 @@ var ReferralsTab = React.createClass({
 
                 <div className="row invite-form">
                   <div className="col-md-4">
-                    <h5 className="text-capitalize">Name</h5>
+                    <h5 className="text-capitalize">Email</h5>
                     <input id="invite-email-3" type="email" className="form-control account-text-input" name="invite[email][]"/>
                   </div>
                   <div className="col-md-4">
