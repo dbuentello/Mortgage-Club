@@ -35,7 +35,7 @@ var ReferralsTab = React.createClass({
       this.showFlashes(flash);
       }
     }
-    $("#refLink").select();
+    $("refLink").select();
   },
 
   sendInvites: function(e) {
@@ -84,11 +84,12 @@ var ReferralsTab = React.createClass({
     return (
       <div>
         <div className="box boxBasic backgroundBasic">
-            <div className='boxHead bbs'>
-              <h4 className='typeBold'>Referrals Program</h4>
-            </div>
             <div className="boxBody ptm">
+              <div className='boxHead bbs'>
+                <h4 className='typeBold'>Referrals Program</h4>
+              </div>
               <div className="col-md-12">
+                <br/>
                 Earn commission when you refer Business Purpose Borrowers (BPBs) to Mortgage Club. Below is your unique referral code. Send this link to potential BPBs or enter their emails into the form and we will invite them on your behalf. Referrals may be automated by Mortgage Club.
               </div>
               <div className="form-group ref-form col-md-12">
@@ -157,6 +158,26 @@ var ReferralsTab = React.createClass({
                 </p>
                 <a className="btn send-btn text-capitalize" onClick={this.sendInvites}>SEND INVITES</a>
               </div>
+            </div>
+        </div>
+        <div className="box boxBasic backgroundBasic">
+            <div className='boxHead bbs'>
+              <h4 className='typeBold'>Your Referrals</h4>
+            </div>
+            <div className="boxBody ptm">
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th><h5 className="text-capitalize">Email </h5></th>
+                    <th><h5 className="text-capitalize">Name </h5></th>
+                    <th><h5 className="text-capitalize">Joined </h5></th>
+                    <th><h5 className="text-capitalize">#Loans Closed </h5></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.invites.map(this.eachInvite)}
+                </tbody>
+              </table>
             </div>
         </div>
       </div>
