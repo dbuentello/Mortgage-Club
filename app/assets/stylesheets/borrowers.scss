@@ -1,8 +1,10 @@
-.content.accountPart {
+.content.loans-part {
   background: linear-gradient(to right, white 100%, #f6f6f6 39%, white 42%, white 100%);
   background: linear-gradient(to left, white 100%, #f6f6f6 39%, white 42%, white 100%);
-}
-.borrower-dashboard {
+
+  .container {
+    background-color: #fff;
+  }
   .nav {
     padding-left: 0;
     margin-bottom: 0;
@@ -24,9 +26,6 @@
   .dashboard-btn img {margin-right:10px; transition:transform 2s ease;}
   .dashboard-btn:hover {color:white;}
   .dashboard-btn:hover img {transform:rotate(360deg) scale(1.2);}
-  .borrower-dashboard {
-    background-color: #fff;
-  }
   .btn {
     display: inline-block;
     padding: 6px 10px;
@@ -125,5 +124,5 @@
     border-left: none !important;
   }
   .avatar:after {content:""; padding-bottom:100%; display:block;}
-
 }
+

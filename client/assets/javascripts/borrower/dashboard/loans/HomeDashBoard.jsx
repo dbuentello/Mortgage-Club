@@ -36,7 +36,7 @@ var HomeDashBoard = React.createClass({
     }
 
     return (
-      <div className="content">
+      <div className="content loans-part">
         <div className="container borrower-dashboard">
           <ul className="nav nav-tabs mortgageTabs" role="tablist">
             <li role="presentation" className="active"><a href="#loans" aria-controls="loans" role="tab" data-toggle="tab" className="text-capitalize">Loans</a></li>
