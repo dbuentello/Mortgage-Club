@@ -81,19 +81,19 @@ module ZillowService
       property['zpid']
     end
 
-    def self.has_images?(data)
+    def self.images?(data)
       data["updatedPropertyDetails"]["response"] && data["updatedPropertyDetails"]["response"]["images"]
     end
 
-    def self.has_zpid?(data)
+    def self.zpid?(data)
       data['searchresults'] && data['searchresults']['response']
     end
 
-    def self.has_monthly_payment?(data)
+    def self.monthly_payment?(data)
       data.present? && data['paymentsdetails']['response']
     end
 
-    def self.has_property?(data)
+    def self.property?(data)
       data['searchresults'] && data['searchresults']['response']
     end
   end
