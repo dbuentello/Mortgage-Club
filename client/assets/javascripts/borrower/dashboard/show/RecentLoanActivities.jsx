@@ -11,17 +11,6 @@ var RecentLoanActivities = React.createClass({
       <div>
           {
             _.map(activities, function(activity, index) {
-              if(index + 1 == activities.length){
-                return (
-                  <div>
-                    <p className="side-item" key={activity.id}>
-                      {activity.name}
-                      <br/>
-                      <span className="activity-status">{activity.pretty_activity_status} by {activity.pretty_loan_member_name} {moment(activity.updated_at).fromNow()}</span>
-                    </p>
-                  </div>
-                )
-              }
               return (
                 <div>
                   <p className="side-item" key={activity.id}>
@@ -29,7 +18,13 @@ var RecentLoanActivities = React.createClass({
                     <br/>
                     <span className="activity-status">{activity.pretty_activity_status} by {activity.pretty_loan_member_name} {moment(activity.updated_at).fromNow()}</span>
                   </p>
-                  <hr/>
+                  {
+                    (index + 1 == activities.length)
+                    ?
+                      null
+                    :
+                      <hr/>
+                  }
                 </div>
               )
             })

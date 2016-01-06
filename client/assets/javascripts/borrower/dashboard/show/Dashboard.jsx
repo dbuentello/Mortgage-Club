@@ -64,7 +64,16 @@ var Dashboard = React.createClass({
         <div className="container">
           <div className='row dashboard-top'>
             <div className='col-md-9'>
-              <img src="/default.jpg"/>
+              {
+                property.zillow_image_url
+                ?
+                  <img src={property.zillow_image_url}/>
+                :
+                  <img src="/default.jpg"/>
+              }
+              <p>{}</p>
+
+
               <h3 className='typeBold'>{address}</h3>
               {
                 loan.amount
