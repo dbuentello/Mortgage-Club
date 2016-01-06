@@ -129,7 +129,7 @@ var MortgageRates = React.createClass({
                   <label>Sort by</label>
                 </div>
 
-                <div className="col-xs-9">
+                <div className="col-xs-9 select-box">
                   <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
                     <option value="apr">APR</option>
                     <option value="pmt">Monthly Payment</option>
@@ -168,41 +168,6 @@ var MortgageRates = React.createClass({
               <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
             :
             null
-          }
-          <div className='row mtl'>
-            { this.state.helpMeChoose
-              ?
-                null
-              :
-                <div className='col-sm-6'>
-                  <span className='typeLowlight'>Sort by:</span>
-                  <a className='clickable mlm' onClick={_.bind(this.sortBy, null, 'apr')}>APR</a>
-                  <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'pmt')}>Monthly Payment</a>
-                  <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'rate')}>Rate</a>
-                </div>
-            }
-            { this.state.possibleRates
-              ?
-                <div className='col-sm-6'>
-                  <b>{guaranteeMessage}</b>
-                </div>
-              :
-                null
-            }
-            <div className='col-sm-6 text-right'>
-              { this.state.helpMeChoose
-                ?
-                  null
-                :
-                  <a className='btn btnSml btnAction' onClick={this.helpMeChoose}>Help me choose</a>
-              }
-            </div>
-          </div>
-          { this.state.helpMeChoose
-            ?
-              <List rates={this.state.possibleRates} selectRate={this.selectRate} displayTotalCost={true}/>
-            :
-              <List rates={this.state.rates} selectRate={this.selectRate} displayTotalCost={false}/>
           }
         </div>
       </div>
