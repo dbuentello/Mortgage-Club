@@ -13,7 +13,7 @@ class Users::LoansController < Users::BaseController
     @ref_code = params[:refcode]
 
     bootstrap(
-      loans: LoanEditPage::LoansPresenter.new(current_user.loans).show,
+      loans: LoanListPage::LoansPresenter.new(current_user.loans).show,
       invites: LoanListPage::InvitesPresenter.new(invites).show,
       refCode: @ref_code,
       refLink: ref_url,
