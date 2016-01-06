@@ -1,3 +1,7 @@
+.content.accountPart {
+  background: linear-gradient(to right, white 100%, #f6f6f6 39%, white 42%, white 100%);
+  background: linear-gradient(to left, white 100%, #f6f6f6 39%, white 42%, white 100%);
+}
 .borrower-dashboard {
   .nav {
     padding-left: 0;
@@ -48,10 +52,7 @@
     display: inline !important;
     margin-right: 12px !important;
   }
-  .content.accountPart {
-    background: linear-gradient(to right, white 100%, #f6f6f6 39%, white 42%, white 100%);
-    background: linear-gradient(to left, white 100%, #f6f6f6 39%, white 42%, white 100%);
-  }
+
   .copy-btn {
       border-radius: 5px;
       border: #15c0f1 1px solid;
