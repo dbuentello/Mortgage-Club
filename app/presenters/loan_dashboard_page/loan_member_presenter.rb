@@ -11,6 +11,7 @@ class LoanDashboardPage::LoanMemberPresenter
 
   def json_options
     {
+      only: [:phone_number],
       include: {
         user: {
           only: [:email, :first_name, :last_name],

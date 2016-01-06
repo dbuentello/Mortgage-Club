@@ -1,4 +1,4 @@
-class LoanEditPage::LoansPresenter
+class LoanListPage::LoansPresenter
   def initialize(loans)
     @loans = loans
   end
@@ -11,6 +11,7 @@ class LoanEditPage::LoansPresenter
 
   def show_loans_json_options
     {
+      only: [:id, :created_at, :amount, :interest_rate],
       include: {
         user: {
           only: [ :email ],

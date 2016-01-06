@@ -11,6 +11,8 @@ class LoanDashboardPage::ChecklistsPresenter
 
   def json_options
     {
+      only: [:id, :status, :subject_name, :checklist_type, :name, :info,
+             :due_date, :document_type, :document_description],
       include: {
         loan: {
           only: [:id]

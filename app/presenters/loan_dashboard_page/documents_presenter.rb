@@ -11,8 +11,10 @@ class LoanDashboardPage::DocumentsPresenter
 
   def json_options
     {
+      only: [:id, :original_filename, :attachment_file_name, :description, :attachment_updated_at]
       include: {
         user: {
+          only: [:first_name],
           methods: [:to_s]
         }
       },

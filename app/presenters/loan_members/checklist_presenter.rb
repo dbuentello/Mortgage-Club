@@ -1,6 +1,6 @@
 class LoanMembers::ChecklistPresenter
-  def initialize(checklists)
-    @checklists = checklists
+  def initialize(checklist)
+    @checklist = checklist
   end
 
   def show
