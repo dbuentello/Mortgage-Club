@@ -6,10 +6,6 @@ div.img-home {
   background-size: 100% 100%
 }
 
-.boxGuide {
-  line-height: 50px;
-}
-
 span.iconCheck {
   color: #8AC007;
 }
@@ -167,6 +163,14 @@ a.remove {
       padding-bottom: 0;
     }
 
+    .board:not(:first-of-type) {
+      margin-top: 35px;
+    }
+
+    .board:last-of-type {
+      margin-bottom: 110px;
+    }
+
     .sign-board {
       padding-bottom: 20px;
 
@@ -189,6 +193,58 @@ a.remove {
           width: 90%;
           margin-top: 10px;
         }
+      }
+    }
+
+    .board-header {
+      margin-left: -20px;
+      margin-right: -20px;
+      padding-left: 20px;
+      border-bottom: #959595 1px solid;
+      padding-bottom: 20px;
+
+      .board-title {
+        margin-top: 0;
+        margin-bottom: 0;
+        color: #12a7d1;
+        font-size: 1.4em;
+      }
+    }
+
+    .table {
+      margin-bottom: 0;
+
+      td, th {
+        vertical-align: middle;
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+
+      .dash-table-btn{
+        text-align: center;
+        width: 90%;
+        color: #555;
+        background: #e1e1e1;
+        border-radius: 5px;
+      }
+
+      .btn {
+        border-bottom: none;
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+
+      .glyphicon-ok {
+        /*color: #08bf9f;*/
+        color: green;
+      }
+
+      .glyphicon-remove {
+        color: #de1700;
+      }
+
+      .glyphicon-info-sign{
+        color: blue;
       }
     }
   }

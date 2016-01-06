@@ -17,6 +17,7 @@ var OverviewTab = React.createClass({
         updateChecklistStatus={this.updateChecklistStatus}/>
     );
   },
+
   updateChecklistStatus: function(checklist) {
     $.ajax({
       url: '/my/checklists/' + checklist.id,
@@ -56,22 +57,19 @@ var OverviewTab = React.createClass({
             </div>
           </div>
         </div>
-        <div className="box boxBasic backgroundBasic">
-          <div className='boxHead bbs'>
-            <h4 className='typeBold'>Your Loan Checklist &nbsp;
-              <span className="label label-default">{completeCounter + "/" + checklistCounter}</span>
-            </h4>
-
+        <div className="board">
+          <div className="board-header">
+            <h2 className="board-title text-capitalize">your loan checklist</h2>
           </div>
-          <div className="boxBody ptm">
-            <table className="table table-striped">
+          <div className="table-responsive">
+            <table className="table table-condensed">
               <thead>
                 <tr>
-                  <th>Status</th>
-                  <th>Task</th>
-                  <th>Info</th>
-                  <th>Due</th>
-                  <th>Action</th>
+                  <th className="text-capitalize" width="10%">status</th>
+                  <th className="text-capitalize" width="50%">task</th>
+                  <th className="text-capitalize" width="8%">info</th>
+                  <th className="text-capitalize" width="14%">due</th>
+                  <th className="text-capitalize" width="18%">action</th>
                 </tr>
               </thead>
               <tbody>
@@ -87,13 +85,28 @@ var OverviewTab = React.createClass({
 
 module.exports = OverviewTab;
 
+// <tr>
+//   <td><span className="glyphicon glyphicon-ok"></span></td>
+//   <td>Provide April bank statement</td>
+//   <td><span className="glyphicon glyphicon-info-sign"></span></td>
+//   <td>11/12/2015</td>
+//   <td><a className="btn dash-table-btn" href="#">Get started</a></td>
+// </tr>
+
+// <tr>
+//   <td><span className="glyphicon glyphicon-remove"></span></td>
+//   <td>Provide escrow/title agent information</td>
+//   <td><span className="glyphicon glyphicon-info-sign"></span></td>
+//   <td>11/12/2015</td>
+//   <td><a className="btn dash-table-btn" href="#">Get started</a></td>
+// </tr>
 
 var CheckList = React.createClass({
     mixins: [TextFormatMixin],
 
     getInitialState: function() {
       return {
-        status: this.props.checklist.status == "pending" ? "iconCancel" : "iconCheck",
+        status: this.props.checklist.status == "pending" ? "glyphicon glyphicon-remove" : "glyphicon glyphicon-ok",
         logs: []
       }
     },
@@ -144,14 +157,14 @@ var CheckList = React.createClass({
               data-trigger="focus"
               title="Enter the required entity information"
               data-content={checklist.info}>
-              <span className="iconInfo"></span>
+              <span className="glyphicon glyphicon-info-sign"></span>
             </button>
           </td>
           <td>{this.isoToUsDate(checklist.due_date)}</td>
           <td>
             { checklist.checklist_type == "explain" ?
                 <div>
-                  <button className="btn btnSml btnDefault" onClick={this.handleShowModal} >
+                  <button className="btn dash-table-btn" onClick={this.handleShowModal} >
                     {checklist.status == "done" ? "Review" : "Explain"}
                   </button>
                   <ChecklistExplanation
@@ -164,7 +177,7 @@ var CheckList = React.createClass({
                 </div>
                 :
                 <div>
-                  <button className="btn btnSml btnDefault" data-toggle="modal" data-target={"#" + button_id}>
+                  <button className="btn dash-table-btn" data-toggle="modal" data-target={"#" + button_id}>
                     {checklist.status == "done" ? "Review" : "Upload"}
                   </button>
                   <ChecklistUpload
