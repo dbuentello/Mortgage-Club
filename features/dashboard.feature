@@ -2,7 +2,7 @@ Feature: Dashboard
   @javascript
   Scenario: destroy a loan
     When I am at dashboard page
-      And I click on "Delete Loan"
+      And I click on "Delete"
       And I press "Yes" in the modal "deleteLoan"
 
   @javascript
@@ -13,7 +13,7 @@ Feature: Dashboard
   @javascript
   Scenario: edit a loan
     When I am at dashboard page
-      And I click on "Edit Loan"
+      And I click on "Edit"
 
   @javascript
   Scenario: click on tabs

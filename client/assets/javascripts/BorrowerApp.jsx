@@ -43,7 +43,7 @@ window.BorrowerApp = React.createClass({
 
   render: function() {
     return (
-      <div className="content accountPart">
+      <div>
         <RouteHandler bootstrapData={this.props}/>
         <ModalLink
             id="newLoan"

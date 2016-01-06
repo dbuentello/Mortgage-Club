@@ -37,7 +37,7 @@ var ESigning = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="content">
         <div className='iframeContentFull'>
           <div className='pal'>
             <div className='row'>

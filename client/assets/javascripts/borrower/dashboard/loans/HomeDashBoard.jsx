@@ -35,30 +35,32 @@ var HomeDashBoard = React.createClass({
     }
 
     return (
-      <div className='dashboard content'>
-        <div className='dashboard-tabs phxl bts backgroundLowlight'>
-          <ul className="nav nav-tabs" role="tablist">
-            <li role="presentation" className="active">
-              <a href="#loans" aria-controls="loans" role="tab" data-toggle="tab">Loans</a>
-            </li>
-            <li role="presentation">
-              <a href="#referrals" aria-controls="referrals" role="tab" data-toggle="tab">Referrals</a>
-            </li>
-            <li role="presentation">
-              <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a>
-            </li>
-          </ul>
+      <div className="content">
+        <div className='dashboard content'>
+          <div className='dashboard-tabs phxl bts backgroundLowlight'>
+            <ul className="nav nav-tabs" role="tablist">
+              <li role="presentation" className="active">
+                <a href="#loans" aria-controls="loans" role="tab" data-toggle="tab">Loans</a>
+              </li>
+              <li role="presentation">
+                <a href="#referrals" aria-controls="referrals" role="tab" data-toggle="tab">Referrals</a>
+              </li>
+              <li role="presentation">
+                <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a>
+              </li>
+            </ul>
 
-          <div className='tabs'>
-            <div className="tab-content">
-              <div role="tabpanel" className="tab-pane fade in active" id="loans">
-                <LoansTab loans={loans} />
-              </div>
-              <div role="tabpanel" className="tab-pane fade" id="referrals">
-                <ReferralsTab refLink={refLink} invites={invites}/>
-              </div>
-              <div role="tabpanel" className="tab-pane fade" id="settings">
-                <SettingsTab />
+            <div className='tabs'>
+              <div className="tab-content">
+                <div role="tabpanel" className="tab-pane fade in active" id="loans">
+                  <LoansTab loans={loans} />
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="referrals">
+                  <ReferralsTab refLink={refLink} invites={invites}/>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="settings">
+                  <SettingsTab />
+                </div>
               </div>
             </div>
           </div>
