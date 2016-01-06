@@ -1,7 +1,8 @@
 module ZillowService
   class GetZpid
     include HTTParty
-    include ZillowService::ZillowApi
+
+    ZILLOW_KEY = "X1-ZWz1a4mphgfggb_7zykg"
 
     def self.call(address, citystatezip)
       params = {

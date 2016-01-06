@@ -24,6 +24,7 @@ class Property < ActiveRecord::Base
     :is_primary,
     :is_subject,
     :year_built,
+    :zillow_image_url,
     address_attributes: [:id] + Address::PERMITTED_ATTRS
   ]
 
