@@ -56,47 +56,114 @@ var MortgageRates = React.createClass({
   helpMeChoose: function() {
     this.setState({helpMeChoose: !this.state.helpMeChoose});
   },
+  handleSortChange: function(event) {
+    this.sortBy($("#sortRateOptions").val());
+  },
 
   render: function() {
     // don't want to make ugly code
     var guaranteeMessage = "We're showing the best 3 loan options for you";
 
     return (
-      <div className="content">
-        <div className='content container mortgage-rates'>
-          <ul>
-            {
-              _.map(Object.keys(this.props.bootstrapData.debug_info), function(key){
-                if(key != "properties") {
-                  return (
-                    <li key={key}>{key}: {this.props.bootstrapData.debug_info[key]}</li>
-                  )
-                }
-              }, this)
+      <div className='container mortgage-rates'>
+        <div className="col-xs-4 subnav">
+          <div id="sidebar">
+            <h5>Programs</h5>
+            <input type="checkbox" name="30years" id="30years" />
+            <label className="customCheckbox blueCheckBox2" for="30years">30 years fixed</label>
+            <p>asdfasdg</p>
+            <input type="checkbox" name="15years" id="15years" />
+            <label className="customCheckbox blueCheckBox2" for="15years">15 years fixed</label>
+            <input type="checkbox" name="71arm" id="71arm" />
+            <label className="customCheckbox blueCheckBox2" for="71arm">7/1 ARM</label>
+            <input type="checkbox" name="51arm" id="51arm" />
+            <label className="customCheckbox blueCheckBox2" for="51arm">5/1 ARM</label>
+            <input type="checkbox" name="fha" id="fha" />
+            <label className="customCheckbox blueCheckBox2" for="fha">FHA</label>
+
+            <h5>Lenders</h5>
+            <input type="checkbox" name="citibank" id="citibank"/>
+            <label className="customCheckbox blueCheckBox2" for="citibank">Citibank</label>
+            <input type="checkbox" name="eRates" id="eRates"/>
+            <label className="customCheckbox blueCheckBox2" for="eRates">eRates Mortgage</label>
+            <input type="checkbox" name="firstInternetBank" id="firstInternetBank"/>
+            <label className="customCheckbox blueCheckBox2" for="firstInternetBank">First Internet Bank</label>
+            <input type="checkbox" name="WellsFargo" id="WellsFargo"/>
+            <label className="customCheckbox blueCheckBox2" for="WellsFargo">Wells Fargo</label>
+
+            <h5>
+              <a role="button" data-toggle="collapse" href="#helpme-sidebar-collapse" aria-expanded="false" aria-controls="helpme-sidebar-collapse">
+                Show all providers<span className="glyphicon glyphicon-menu-down"></span>
+              </a>
+            </h5>
+            <div className="collapse" id="helpme-sidebar-collapse">
+              <input type="checkbox" name="citibank2" id="citibank2"/>
+              <label className="customCheckbox blueCheckBox2" for="citibank2">Citibank</label>
+              <input type="checkbox" name="eRates2" id="eRates2"/>
+              <label className="customCheckbox blueCheckBox2" for="eRates2">eRates Mortgage</label>
+              <input type="checkbox" name="firstInternetBank2" id="firstInternetBank2"/>
+              <label className="customCheckbox blueCheckBox2" for="firstInternetBank2">First Internet Bank</label>
+              <input type="checkbox" name="WellsFargo2" id="WellsFargo2"/>
+              <label className="customCheckbox blueCheckBox2" for="WellsFargo2">Wells Fargo</label>
+            </div>
+          </div>
+          <div className="swipe-area">
+            <a href="#" data-toggle=".subnav" id="sidebar-toggle">
+              <span className="glyphicon glyphicon-arrow-right"></span>
+            </a>
+          </div>
+
+        </div>
+
+        <div className="col-xs-8 account-content">
+          <p>
+            We’ve found 829 mortgage options for you. You can sort, filter, and choose one on your own or click
+            <span className="italic-light">Help me choose</span>
+            and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
+            <span className="italic-light">Help me choose</span>.
+          </p>
+          <div className="row form-group">
+            <div className="col-md-6">
+              <div className="row">
+                <div className="col-xs-3">
+                  <label>Sort by</label>
+                </div>
+
+                <div className="col-xs-9">
+                  <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
+                    <option value="apr" selected="">APR</option>
+                    <option value="pmt">Monthly Payment</option>
+                    <option value="rate">Rate</option>
+                  </select>
+                  <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 text-right">
+              <a className="btn choose-btn text-uppercase" href="#">help me choose</a>
+            </div>
+          </div>
+          <div>
+            { this.state.helpMeChoose
+              ?
+                <List rates={this.state.possibleRates} selectRate={this.selectRate} displayTotalCost={true}/>
+              :
+                <List rates={this.state.rates} selectRate={this.selectRate} displayTotalCost={false}/>
             }
-          </ul>
-          <h4>Properties:</h4>
-          <ol>
-            {
-              _.map(this.props.bootstrapData.debug_info.properties, function(property) {
-                return (
-                  <li>
-                    <ul>
-                      <li>is_subject: {property.is_subject}</li>
-                      <li>liability_payments: {property.liability_payments}</li>
-                      <li>mortgage_payment: {property.mortgage_payment}</li>
-                      <li>other_financing: {property.other_financing}</li>
-                      <li>actual_rental_income: {property.actual_rental_income}</li>
-                      <li>estimated_property_tax: {property.estimated_property_tax}</li>
-                      <li>estimated_hazard_insurance: {property.estimated_hazard_insurance}</li>
-                      <li>estimated_mortgage_insurance: {property.estimated_mortgage_insurance}</li>
-                      <li>hoa_due: {property.hoa_due}</li>
-                    </ul>
-                  </li>
-                )
-              }, this)
-            }
-          </ol>
+
+
+          </div>
+        </div>
+
+
+
+        { this.state.helpMeChoose
+          ?
+            <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
+          :
+          null
+        }
+        <div className='row mtl'>
           { this.state.helpMeChoose
             ?
               <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>

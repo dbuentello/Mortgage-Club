@@ -15,7 +15,7 @@ var List = React.createClass({
         {
           _.map(this.props.rates, function (rate, index) {
             return (
-              <div key={index} className={'row mhn roundedCorners bas mvm pvm' + (index % 2 === 0 ? ' backgroundLowlight' : '')}>
+              <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className='col-sm-3'>
                   <div className='typeBold'>{rate.lender_name}</div>
                   Logo
