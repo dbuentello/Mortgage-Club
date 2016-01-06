@@ -16,11 +16,35 @@ var List = React.createClass({
           _.map(this.props.rates, function (rate, index) {
             return (
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
+                <div className="board-header">
+                  <div className="row">
+                    <div className="col-md-3 col-sm-6 col-sm-6">
+                      <img src="choose1.jpg" className="img-responsive"/>
+                      <h4>NMLS: #3821</h4>
+                    </div>
+
+                    <div className="col-md-3 col-sm-6 col-sm-6">
+                      <h3 className="text-capitalize">{rate.product}</h3>
+                      <p>30-year fixed</p>
+                      <h1 className="apr-text">{this.commafy(rate.apr, 3)}% APR</h1>
+                    </div>
+
+                    <div className="col-md-3 col-sm-6 col-sm-6">
+                      <p><span className="text-capitalize">rate:</span> {this.commafy(rate.interest_rate * 100, 3)}%</p>
+                      <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(rate.monthly_payment, '$')}</p>
+                      <p><span className="text-capitalize">total closing cost:</span> {this.formatCurrency(rate.total_closing_cost, '$')}</p>
+                    </div>
+
+                    <div className="col-md-3 col-sm-6 col-sm-6">
+                      <a className="btn select-btn" href="#">Select</a>
+                    </div>
+                  </div>
+                </div>
                 <div className='col-sm-3'>
                   <div className='typeBold'>{rate.lender_name}</div>
                   Logo
                   <div>
-                    <span className='typeLowlight'>NMLS: </span>{rate.nmls}
+                    <h4>NMLS: {rate.nmls} </h4>
                   </div>
                 </div>
                 <div className='col-sm-6'>
