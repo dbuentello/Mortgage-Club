@@ -31,7 +31,7 @@ module ZillowService
     end
 
     def self.get_monthly_payments_advanced(property_data)
-      return unless has_property?(property_data)
+      return unless property?(property_data)
 
       property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
       property.merge!({
@@ -48,7 +48,7 @@ module ZillowService
     end
 
     def self.merge_data(monthly_payments, property_data, zillow_image_url)
-      return unless has_monthly_payment?(monthly_payments)
+      return unless monthly_payment?(monthly_payments)
 
       property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
       property.merge({
@@ -66,7 +66,7 @@ module ZillowService
         'zws-id' => ZILLOW_KEY
       }
       data = get('http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm', query: params)
-      if has_images?(data)
+      if images?(data)
         url = data["updatedPropertyDetails"]["response"]["images"]["image"]["url"].first
       else
         url = ""
@@ -75,7 +75,7 @@ module ZillowService
     end
 
     def self.zpid(property_data)
-      return unless has_zpid?(property_data)
+      return unless zpid?(property_data)
 
       property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
       property['zpid']
