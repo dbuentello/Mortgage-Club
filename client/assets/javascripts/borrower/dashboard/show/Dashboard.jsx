@@ -127,7 +127,7 @@ var Dashboard = React.createClass({
                 <div role="tabpanel" className="tab-pane fade" id="closing">
                   <ClosingTab closingDocuments={closingDocuments}></ClosingTab>
                 </div>
-                <div role="tabpanel" className="tab-pane fade" id="contacts">
+                <div role="tabpanel" className="tab-pane fade" id="contact">
                   <ContactTab contactList={contactList}></ContactTab>
                 </div>
               </div>

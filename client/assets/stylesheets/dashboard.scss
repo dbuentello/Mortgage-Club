@@ -158,22 +158,22 @@ a.remove {
       border-bottom: #15c0f1 5px solid;
     }
   }
+  .board {
+    border-radius: 5px;
+    border: #959595 1px solid;
+    padding: 20px;
+    padding-bottom: 0;
+  }
+
+  .board:not(:first-of-type) {
+    margin-top: 35px;
+  }
+
+  .board:last-of-type {
+    margin-bottom: 110px;
+  }
 
   .overviewTab {
-    .board {
-      border-radius: 5px;
-      border: #959595 1px solid;
-      padding: 20px;
-      padding-bottom: 0;
-    }
-
-    .board:not(:first-of-type) {
-      margin-top: 35px;
-    }
-
-    .board:last-of-type {
-      margin-bottom: 110px;
-    }
 
     .sign-board {
       padding-bottom: 20px;
@@ -316,6 +316,25 @@ a.remove {
     .panel-title a:hover {
       text-decoration: underline;
       color: black;
+    }
+  }
+
+  .contact-board {
+    padding-bottom: 20px;
+
+    .avatar {
+      width: 100%;
+      border-radius: 5px;
+    }
+
+    p {
+      font-size: 1.125em;
+      margin-bottom: 5px;
+    }
+
+    hr {
+      border: 0;
+      border-top: none;
     }
   }
 }

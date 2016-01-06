@@ -7,33 +7,49 @@ var ContactTab = React.createClass({
       listStyleType: 'none'
     };
     return (
-      <div className="box boxBasic backgroundBasic">
-        <div className="boxBody ptm">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Avatar</th>
-                <th>Name</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-            {
-              _.map(this.props.contactList, function(contact) {
+      <div className="board contact-board">
+          {
+            _.map(this.props.contactList, function(contact, index) {
+              if(index + 1 == this.props.contactList.length){
                 return (
-                  <tr key={contact.id}>
-                    <td>
-                      <img src={contact.loan_member.user.avatar_url} className="img-circle" width="40px" height="30px"/>
-                    </td>
-                    <td>{contact.loan_member.user.to_s} ({contact.title})</td>
-                    <td>{contact.loan_member.user.email}</td>
-                  </tr>
+                  <div>
+                    <div className="row" key={contact.id}>
+                      <div className="col-sm-2">
+                        <img src={contact.loan_member.user.avatar_url} className="avatar"/>
+                      </div>
+                      <div className="col-sm-10">
+                        <p>{contact.loan_member.user.to_s} ({contact.title})</p>
+                        <p className="contact-email">
+                          <a href="mailto:{contact.loan_member.user.email}">
+                            {contact.loan_member.user.email}
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 )
-              }, this)
-            }
-            </tbody>
-          </table>
-        </div>
+              }
+
+              return (
+                <div>
+                  <div className="row" key={contact.id}>
+                    <div className="col-sm-2">
+                      <img src={contact.loan_member.user.avatar_url} className="avatar"/>
+                    </div>
+                    <div className="col-sm-10">
+                      <p>{contact.loan_member.user.to_s} ({contact.title})</p>
+                      <p className="contact-email">
+                        <a href="mailto:{contact.loan_member.user.email}">
+                          {contact.loan_member.user.email}
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                  <hr/>
+                </div>
+              )
+            }, this)
+          }
       </div>
     )
   }
