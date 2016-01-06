@@ -14,8 +14,8 @@ var fields = {
   loanPurpose: {label: "Purpose of Loan", name: "purpose", helpText: "The purpose for taking out the loan in terms of how funds will be used."},
   propertyPurpose: {label: "Property Will Be", name: "usage", helpText: "The primary purpose of acquiring the subject property."},
   purchasePrice: {label: "Purchase Price", name: "purchase_price", helpText: "How much are you paying for the subject property?"},
-  originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", helpText: "How much did you pay for the subject property?"},
-  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home."}
+  originalPurchasePrice: {label: "Original Purchase Price", name: "originalPurchasePrice", helpText: "How much did you pay for the subject property?"},
+  originalPurchaseYear: {label: "Purchase Year", name: "originalPurchaseYear", helpText: "The year in which you bought your home."}
 };
 
 var loanPurposes = [
@@ -62,6 +62,7 @@ var FormProperty = React.createClass({
       dataType: 'json',
       context: this,
       success: function(response) {
+        console.dir(response)
         if (response.message == 'cannot find') {
           return;
         }
@@ -73,14 +74,16 @@ var FormProperty = React.createClass({
         var lastSoldDate = this.getValue(response, 'lastSoldDate');
         var lastSoldPrice = this.getValue(response, 'lastSoldPrice.__content__');
         var purchaseYear = lastSoldDate != null ? new Date(Date.parse(lastSoldDate)).getFullYear() : "";
-
+        var zillowImageUrl = this.getValue(response, 'zillowImageUrl');
+        console.dir(zillowImageUrl)
         this.setState({
-          market_price: this.formatCurrency(marketPrice),
-          estimated_property_tax: monthlyTax,
-          estimated_hazard_insurance: monthlyInsurance,
-          year_built: yearBuilt,
-          original_purchase_price: this.formatCurrency(lastSoldPrice),
-          original_purchase_year: purchaseYear
+          marketPrice: this.formatCurrency(marketPrice),
+          estimatedPropertyTax: monthlyTax,
+          estimatedHazardInsurance: monthlyInsurance,
+          yearBuilt: yearBuilt,
+          originalPurchasePrice: this.formatCurrency(lastSoldPrice),
+          originalPurchaseYear: purchaseYear,
+          zillowImageUrl: zillowImageUrl
         });
       }
     });
@@ -242,11 +245,12 @@ var FormProperty = React.createClass({
     loan.properties_attributes.zpid = this.state.property ? this.state.property.zpid : null;
     loan.properties_attributes.is_subject = true
     loan.properties_attributes.property_type = this.state.property_type;
-    loan.properties_attributes.market_price = this.currencyToNumber(this.state.market_price);
-    loan.properties_attributes.estimated_hazard_insurance = this.state.estimated_hazard_insurance;
-    loan.properties_attributes.estimated_property_tax = this.state.estimated_property_tax;
+    loan.properties_attributes.market_price = this.currencyToNumber(this.state.marketPrice);
+    loan.properties_attributes.estimated_hazard_insurance = this.state.estimatedHazardInsurance;
+    loan.properties_attributes.estimated_property_tax = this.state.estimatedPropertyTax;
     loan.properties_attributes.is_primary = this.isPrimaryProperty();
-    loan.properties_attributes.year_built = this.state.year_built;
+    loan.properties_attributes.year_built = this.state.yearBuilt;
+    loan.properties_attributes.zillow_image_url = this.state.zillowImageUrl;
 
     return loan;
   },
@@ -265,7 +269,6 @@ var FormProperty = React.createClass({
     if (!this.state[fields.propertyPurpose.name]) {
       messages.push("Property Will Be can't be blank.");
     }
-    console.log(this.state[fields.loanPurpose.name]);
     if (this.state[fields.loanPurpose.name] == null) {
       messages.push("Purpose of Loan can't be blank.");
     } else {
