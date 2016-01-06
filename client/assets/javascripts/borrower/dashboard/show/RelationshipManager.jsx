@@ -10,21 +10,21 @@ var RelationshipManager = React.createClass({
     return (
       <div className="sidebar">
         <h3 className='dashboard-header-text text-capitalize'>Your Relationship Manager</h3>
-        { this.props.Manager ?
+        { this.props.manager ?
           <div className='row'>
             <div className='col-xs-4'>
-              <img src={this.props.Manager.user.avatar_url} className="avatar"/>
+              <img src={this.props.manager.user.avatar_url} className="avatar"/>
             </div>
             <div className='col-xs-8'>
-              <h4 className="account-name-text">{this.props.Manager.user.to_s}</h4>
+              <h4 className="account-name-text">{this.props.manager.user.to_s}</h4>
               <p>
                 <span className="glyphicon glyphicon-earphone"></span>
-                {this.formatPhoneNumber(this.props.Manager.phone_number)}
+                {this.formatPhoneNumber(this.props.manager.phone_number)}
               </p>
               <p>
                 <span className="glyphicon glyphicon-envelope"></span>
-                <a href={'mailto:' + this.props.Manager.user.email}>
-                  {this.props.Manager.user.email}
+                <a href={'mailto:' + this.props.manager.user.email}>
+                  {this.props.manager.user.email}
                 </a>
               </p>
             </div>

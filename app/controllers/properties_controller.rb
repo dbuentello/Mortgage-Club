@@ -13,7 +13,7 @@ class PropertiesController < ApplicationController
     })
 
     if @properties.save
-      render json: {loan: LoanPresenter.new(loan).edit, liabilities: load_liabilities(loan)}
+      render json: {loan: LoanEditPage::LoanPresenter.new(loan).show, liabilities: load_liabilities(loan)}
     else
       render json: {message: "cannot save liabilities"}, status: 500
     end

@@ -1,8 +1,8 @@
 class Property < ActiveRecord::Base
-  belongs_to :loan, foreign_key: 'loan_id'
+  belongs_to :loan, foreign_key: "loan_id"
 
   has_one :address, autosave: true, inverse_of: :property
-  has_many :liabilities, dependent: :destroy, foreign_key: 'property_id'
+  has_many :liabilities, dependent: :destroy, foreign_key: "property_id"
   has_many :documents, as: :subjectable, dependent: :destroy
 
   accepts_nested_attributes_for :address
@@ -51,7 +51,7 @@ class Property < ActiveRecord::Base
   validates_associated :address
 
   def mortgage_payment_liability
-    liabilities.where(account_type: "Mortgage").last
+    @mortgage_payment_liability ||= liabilities.where(account_type: "Mortgage").last
   end
 
   def other_financing_liability
@@ -60,7 +60,7 @@ class Property < ActiveRecord::Base
 
   def usage_name
     return unless usage
-    usage.split('_').map(&:capitalize).join(' ')
+    usage.split("_").map(&:capitalize).join(" ")
   end
 
   def completed?
@@ -80,12 +80,11 @@ class Property < ActiveRecord::Base
   end
 
   def mortgage_payment
-    liability = liabilities.where(account_type: 'Mortgage').last
-    liability.present? ? liability.payment.to_f : 0
+    mortgage_payment_liability.present? ? mortgage_payment_liability.payment.to_f : 0
   end
 
   def other_financing
-    liability = liabilities.where(account_type: 'OtherFinancing').last
+    liability = liabilities.where(account_type: "OtherFinancing").last
     liability.present? ? liability.payment.to_f : 0
   end
 
