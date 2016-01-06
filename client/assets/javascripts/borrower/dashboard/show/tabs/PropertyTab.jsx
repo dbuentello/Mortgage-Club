@@ -9,15 +9,16 @@ var PropertyTab = React.createClass({
   },
   render: function() {
     return (
-      <div className="box boxBasic backgroundBasic">
-        <div className="boxBody ptm">
-          <table className="table table-striped">
+      <div className="board">
+        <div className="table-responsive">
+          <table className="table table-condensed">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Owner</th>
-                <th>Description</th>
-                <th>Date modified</th>
+                <th width="7%">Name</th>
+                <th width="22%"></th>
+                <th width="15%">Owner</th>
+                <th width="36%">Description</th>
+                <th width="15%">Date modified</th>
                 <th></th>
               </tr>
             </thead>
@@ -26,15 +27,14 @@ var PropertyTab = React.createClass({
               _.map(this.props.propertyDocuments, function(document) {
                 return (
                   <tr key={document.id}>
-                    <td>
-                      <span><img src={document.file_icon_url} width="40px" height="30px"/></span>
-                      &nbsp;&nbsp;&nbsp;
+                    <td width="7%"><img className="img-responsive" src={document.file_icon_url} /></td>
+                    <td width="22%">
                       <span>{document.original_filename == null ? document.attachment_file_name : document.original_filename}</span>
                     </td>
-                    <td>{document.user.to_s}</td>
-                    <td>{document.description}</td>
-                    <td>{this.isoToUsDate(document.updated_at)}</td>
-                    <td>
+                    <td width="15%">{document.user.to_s}</td>
+                    <td width="36%">{document.description}</td>
+                    <td width="15%">{this.isoToUsDate(document.updated_at)}</td>
+                    <td width="5%">
                       <a href={this.getDownloadUrl(document.id)} download><i className="iconDownload"></i></a>
                     </td>
                   </tr>

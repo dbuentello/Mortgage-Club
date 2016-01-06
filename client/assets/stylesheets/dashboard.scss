@@ -75,7 +75,7 @@ a.remove {
 .padding-top-10{
   padding-top: 10px;
 }
-.dashboard {
+.loan-dashboard {
   .dashboard-top {
     padding-top: 31px;
     padding-bottom: 25px;
@@ -173,6 +173,15 @@ a.remove {
     margin-bottom: 110px;
   }
 
+  .table {
+    margin-bottom: 0;
+
+    td, th {
+      vertical-align: middle;
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+  }
   .overviewTab {
 
     .sign-board {
@@ -216,13 +225,6 @@ a.remove {
     }
 
     .table {
-      margin-bottom: 0;
-
-      td, th {
-        vertical-align: middle;
-        padding-top: 14px;
-        padding-bottom: 14px;
-      }
 
       .dash-table-btn{
         text-align: center;

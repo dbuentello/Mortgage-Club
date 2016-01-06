@@ -60,7 +60,7 @@ var Dashboard = React.createClass({
     var checklists = this.props.bootstrapData.checklists;
 
     return (
-      <div className="content dashboard">
+      <div className="content loan-dashboard">
         <div className="container">
           <div className='row dashboard-top'>
             <div className='col-md-9'>
