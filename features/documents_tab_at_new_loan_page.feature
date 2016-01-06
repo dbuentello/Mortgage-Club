@@ -38,8 +38,7 @@ Feature: DocumentsTabAtNewLoanPage
         And I choose "true_secondary_borrower_currently_own"
         And I fill in "secondary_borrower_years_in_current_address" with "5"
         And I choose "false_secondary_borrower_self_employed"
-        Then I press on "Save and Continue"
-        And I wait for 42 seconds
+        Then I click on "Save and Continue"
       When I click "Documents" in the "#tabDocuments"
         And I should see "Do you and your co-borrower file taxes jointly?"
         When I choose "false_is_file_taxes_jointly"
