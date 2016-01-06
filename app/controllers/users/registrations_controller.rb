@@ -48,11 +48,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
         message = update_needs_confirmation?(resource, prev_unconfirmed_email) ? "Update need confirmation" : "Update successfully"
       end
       sign_in resource_name, resource, bypass: true
+
       if request.format == "application/json"
         if resource.errors.empty?
-          return (render json: {message: message, success: true})
+          return render json: {message: message, user: LoanListPage::UserPresenter.new(resource).show}, status: 200
         else
-          render json: {message: resource.errors.full_messages, success: false}
+          render json: {message: resource.errors.full_messages}, status: 500
         end
       else
         respond_with resource, location: after_update_path_for(resource)
