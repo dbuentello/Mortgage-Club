@@ -1,4 +1,4 @@
-class LoanMemberAssociationsPresenter
+class LoanDashboardPage::LoanMemberAssociationsPresenter
   def initialize(loan_members_associations)
     @loan_members_associations = loan_members_associations
   end
@@ -20,8 +20,7 @@ class LoanMemberAssociationsPresenter
             }
           }
         }
-      },
-      methods: [ :pretty_title ]
+      }
     }
   end
 end

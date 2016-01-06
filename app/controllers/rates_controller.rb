@@ -8,7 +8,7 @@ class RatesController < ApplicationController
     end
 
     bootstrap({
-      currentLoan: LoanPresenter.new(@loan).edit,
+      currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       rates: rates,
       debug_info: get_debug_info
     })

@@ -7,16 +7,16 @@ var RelationshipManager = React.createClass({
     return (
       <div>
         <h5 className='ptl bbs pbm'>Your Relationship Manager</h5>
-        { this.props.Manager ?
+        { this.props.manager ?
           <div className='ptm typeEmphasize clearfix'>
             <div className='manager-image pull-left mrm'>
-              <img src={this.props.Manager.user.avatar_url} width="80px" height="80px"/>
+              <img src={this.props.manager.user.avatar_url} width="80px" height="80px"/>
             </div>
             <div className='manager-info pull-left'>
-              <p>{this.props.Manager.user.to_s}</p>
-              <p>{this.props.Manager.phone_number}</p>
+              <p>{this.props.manager.user.to_s}</p>
+              <p>{this.props.manager.phone_number}</p>
               <p><a href='javascript:void(0)'>Skype Call</a></p>
-              <p><a href={'mailto:' + this.props.Manager.user.email}>{this.props.Manager.user.email}</a></p>
+              <p><a href={'mailto:' + this.props.manager.user.email}>{this.props.manager.user.email}</a></p>
             </div>
           </div>
           :

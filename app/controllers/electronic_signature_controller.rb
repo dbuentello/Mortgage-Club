@@ -3,7 +3,7 @@ class ElectronicSignatureController < ApplicationController
 
   def new
     bootstrap({
-      loan: LoanPresenter.new(@loan).show,
+      loan: LoanDashboardPage::LoanPresenter.new(@loan).show,
       rate: params[:rate],
     })
 

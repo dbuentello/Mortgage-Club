@@ -14,8 +14,8 @@ class Users::LoansController < Users::BaseController
     email = current_user.email
 
     bootstrap(
-      loans: LoansPresenter.new(current_user.loans).show,
-      invites: InvitesPresenter.index(invites),
+      loans: LoanListPage::LoansPresenter.new(current_user.loans).show,
+      invites: LoanListPage::InvitesPresenter.new(invites).show,
       refCode: @ref_code,
       refLink: ref_url,
       user_email: email
@@ -39,7 +39,7 @@ class Users::LoansController < Users::BaseController
 
   def edit
     bootstrap({
-      currentLoan: LoanPresenter.new(@loan).edit,
+      currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       liabilities: @liabilities,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower"
     })
@@ -64,7 +64,7 @@ class Users::LoansController < Users::BaseController
         # CreditReportService.delay.get_liabilities(current_user.borrower)
       end
 
-      render json: {loan: LoanPresenter.new(loan).edit}
+      render json: {loan: LoanEditPage::LoanPresenter.new(loan).show}
     else
       render json: {error: @loan.errors.full_messages}, status: 500
     end
