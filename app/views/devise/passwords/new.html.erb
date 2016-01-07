@@ -20,6 +20,8 @@
               <button class="btn text-uppercase theBtn deviseBtn" id="btnResetPasswordDevise" type="submit" value="reset password">reset password</button>
               <h5>
                 <%= link_to "Log in", new_user_session_path %>
+                |
+                <%= link_to "Sign up", new_user_registration_path(resource) %>
               </h5>
             </div>
           <% end %>
@@ -28,3 +30,15 @@
     </div>
   </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    var elevator = new Elevator({
+    element: document.querySelector('#backtopBtn'),
+    duration:2000,
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
+  })
+</script>
