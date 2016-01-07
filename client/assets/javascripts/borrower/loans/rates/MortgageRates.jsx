@@ -63,7 +63,7 @@ var MortgageRates = React.createClass({
   },
 
   onFilterProgram: function(filteredPrograms) {
-    this.setState({rates: filteredPrograms})
+    this.setState({programs: filteredPrograms})
   },
 
   render: function() {
@@ -74,7 +74,7 @@ var MortgageRates = React.createClass({
     return (
       <div className="content">
         <div className='content container mortgage-rates'>
-          <Filter programs={this.props.bootstrapData.rates} onFilterProgram={this.onFilterProgram}></Filter>
+          <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
           <div className="col-xs-8 account-content">
             <p>
               We’ve found 829 mortgage options for you. You can sort, filter, and choose one on your own or click
@@ -113,13 +113,6 @@ var MortgageRates = React.createClass({
 
             </div>
           </div>
-
-          { this.state.helpMeChoose
-            ?
-              <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
-            :
-            null
-          }
           <div className='row mtl'>
             { this.state.helpMeChoose
               ?
