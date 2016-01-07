@@ -72,62 +72,64 @@ var MortgageRates = React.createClass({
     var subjectProperty = this.props.bootstrapData.currentLoan.subject_property;
 
     return (
-      <div className='container mortgage-rates'>
-        <Filter programs={this.props.bootstrapData.rates} onFilterProgram={this.onFilterProgram}></Filter>
-        <div className="col-xs-8 account-content">
-          <p>
-            We’ve found 829 mortgage options for you. You can sort, filter, and choose one on your own or click
-            <span className="italic-light">Help me choose</span>
-            and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
-            <span className="italic-light">Help me choose</span>.
-          </p>
-          <div className="row form-group">
-            <div className="col-md-6">
-              <div className="row">
-                <div className="col-xs-3">
-                  <label>Sort by</label>
-                </div>
+      <div className="content">
+        <div className='content container mortgage-rates'>
+          <Filter programs={this.props.bootstrapData.rates} onFilterProgram={this.onFilterProgram}></Filter>
+          <div className="col-xs-8 account-content">
+            <p>
+              We’ve found 829 mortgage options for you. You can sort, filter, and choose one on your own or click
+              <span className="italic-light">Help me choose</span>
+              and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
+              <span className="italic-light">Help me choose</span>.
+            </p>
+            <div className="row form-group" id="mortgageActions">
+              <div className="col-md-6">
+                <div className="row">
+                  <div className="col-xs-3">
+                    <label>Sort by</label>
+                  </div>
 
-                <div className="col-xs-9 select-box">
-                  <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
-                    <option value="apr">APR</option>
-                    <option value="pmt">Monthly Payment</option>
-                    <option value="rate">Rate</option>
-                  </select>
-                  <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+                  <div className="col-xs-9 select-box">
+                    <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
+                      <option value="apr">APR</option>
+                      <option value="pmt">Monthly Payment</option>
+                      <option value="rate">Rate</option>
+                    </select>
+                    <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+                  </div>
                 </div>
               </div>
+              <div className="col-md-6 text-right">
+                <a className="btn choose-btn text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
+              </div>
             </div>
-            <div className="col-md-6 text-right">
-              <a className="btn choose-btn text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
+            <div id="mortgagePrograms">
+              { this.state.helpMeChoose
+                ?
+                  <List rates={this.state.possibleRates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={true}/>
+                :
+                  <List programs={this.state.rates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={false}/>
+              }
+
             </div>
           </div>
-          <div>
-            { this.state.helpMeChoose
-              ?
-                <List rates={this.state.possibleRates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={true}/>
-              :
-                <List programs={this.state.rates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={false}/>
-            }
-
-          </div>
-        </div>
 
 
 
-        { this.state.helpMeChoose
-          ?
-            <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
-          :
-          null
-        }
-        <div className='row mtl'>
           { this.state.helpMeChoose
             ?
               <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
             :
             null
           }
+          <div className='row mtl'>
+            { this.state.helpMeChoose
+              ?
+                <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
+              :
+              null
+            }
+          </div>
         </div>
       </div>
     );
