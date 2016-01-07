@@ -75,11 +75,6 @@ var List = React.createClass({
                         }
                       </ul>
                     </div>
-
-                </div>
-                <div className="board-content-toggle" onClick={this.toggleHandler}>
-                  <span className="glyphicon glyphicon-menu-down"></span>
-                </div>
                 <div className='col-sm-3'>
                   <div className='typeBold'>{rate.lender_name}</div>
                   Logo
@@ -103,6 +98,12 @@ var List = React.createClass({
                       null
                   }
                 </div>
+
+                </div>
+                <div className="board-content-toggle" onClick={this.toggleHandler}>
+                  <span className="glyphicon glyphicon-menu-down"></span>
+                </div>
+
               </div>
             );
           }, this)
