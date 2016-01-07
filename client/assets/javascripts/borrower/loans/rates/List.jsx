@@ -165,7 +165,7 @@ var List = React.createClass({
                 </div>
 
                 <Chart id={index} principle={rate.monthly_payment} mortgageInsurance={this.state.estimatedMortgageInsurance} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}
-                  total={this.totalCost(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance)} />
+                  hoadue={this.state.hoadue} total={this.totalCost(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance)} />
 
                 <div className="board-content-toggle" onClick={this.toggleHandler}>
                   <span className="glyphicon glyphicon-menu-down"></span>
