@@ -9,14 +9,14 @@ var LoansTab = React.createClass({
           <div className="img-home"></div>
           <div className="caption">
             <h3></h3>
-            <p>Status: Finishing</p>
-            <p>Created at: {moment(loan.created_at).format('MMM DD, YYYY')}</p>
-            <p>Loan amount: {loan.amount}</p>
-            <p>Rate: {loan.interest_rate}%</p>
+            <p><strong>Status:</strong> Finishing</p>
+            <p><strong>Created at:</strong> {moment(loan.created_at).format('MMM DD, YYYY')}</p>
+            <p><strong>Loan amount:</strong> {loan.amount}</p>
+            <p><strong>Rate:</strong> {loan.interest_rate}%</p>
             <p>
-              <a href={'/my/dashboard/' + loan.id} className="btn btn-primary" role="button">
-                <i className='iconCog mrxs'/>
-                Dashboard
+              <a href={'/my/dashboard/' + loan.id} className="btn dashboard-btn" role="button">
+                <img className="gear-icon" src="/icons/gear.png"/>
+                <span>Dashboard</span>
               </a>
             </p>
           </div>

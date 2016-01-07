@@ -35,7 +35,7 @@ var ReferralsTab = React.createClass({
       this.showFlashes(flash);
       }
     }
-    document.getElementById("refLink").select();
+    $("refLink").select();
   },
 
   sendInvites: function(e) {
@@ -51,7 +51,7 @@ var ReferralsTab = React.createClass({
         if (response.success == false) {
           flash = { "alert-danger": response.message };
         } else {
-          $('input.col-sm-3').each(function(index, e) {
+          $('input.account-text-input').each(function(index, e) {
               $(e).val('')
           });
           this.setState({
@@ -84,22 +84,21 @@ var ReferralsTab = React.createClass({
     return (
       <div>
         <div className="box boxBasic backgroundBasic">
-            <div className='boxHead bbs'>
-              <h4 className='typeBold'>Referrals Program</h4>
-            </div>
             <div className="boxBody ptm">
+              <div className='boxHead bbs'>
+                <h4 className='typeBold'>Referrals Program</h4>
+              </div>
               <div className="col-md-12">
+                <br/>
                 Earn commission when you refer Business Purpose Borrowers (BPBs) to Mortgage Club. Below is your unique referral code. Send this link to potential BPBs or enter their emails into the form and we will invite them on your behalf. Referrals may be automated by Mortgage Club.
               </div>
-              <div className="form-group ref-form col-md-9">
+              <div className="form-group ref-form col-md-12">
                 <label>Your Referral Link:</label>
                 <div className="input-group">
-                  <input id="refLink" className="form-control" onClick={this.copyToClipboard} defaultValue={this.props.refLink} readOnly/>
-                  <span className="input-group-btn">
-                    <a className="btn btnPrimary btn-copy" onClick={this.copyToClipboard}>
+                  <div id="refLink" className="referral-link" onClick={this.copyToClipboard} defaultValue={this.props.refLink}>{this.props.refLink}</div>
+                  <a className="btn copy-btn" onClick={this.copyToClipboard}>
                       COPY TO CLIPBOARD
-                    </a>
-                  </span>
+                  </a>
                 </div>
               </div>
 
@@ -107,45 +106,57 @@ var ReferralsTab = React.createClass({
                 <label>Invite by Email:</label>
 
                 <div className="row invite-form">
-                  <div className="col-md-3">
-                    <input id="invite-email-1" type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Email</h5>
+                    <input id="invite-email-1" type="email" className="form-control account-text-input" name="invite[email][]"/>
                   </div>
-                  <div className="col-md-3">
-                    <input id="invite-name-1" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Name</h5>
+                    <input id="invite-name-1" type="text" className="form-control account-text-input" name="invite[name][]"/>
                   </div>
-                  <div className="col-md-3">
-                    <input id="invite-phone-1" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
-                  </div>
-                </div>
-
-                <div className="row invite-form">
-                  <div className="col-md-3">
-                    <input id="invite-email-2" type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
-                  </div>
-                  <div className="col-md-3">
-                    <input id="invite-name-2" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
-                  </div>
-                  <div className="col-md-3">
-                    <input id="invite-phone-2" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Phone (Optional)</h5>
+                    <input id="invite-phone-1" type="text" className="form-control account-text-input col-sm-3"  name="invite[phone][]"/>
                   </div>
                 </div>
 
                 <div className="row invite-form">
-                  <div className="col-md-3">
-                    <input id="invite-email-3" type="email" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Email" name="invite[email][]"/>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Email</h5>
+                    <input id="invite-email-2" type="email" className="form-control account-text-input" name="invite[email][]"/>
                   </div>
-                  <div className="col-md-3">
-                    <input id="invite-name-3" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Name" name="invite[name][]"/>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Name</h5>
+                    <input id="invite-name-2" type="text" className="form-control account-text-input" name="invite[name][]"/>
                   </div>
-                  <div className="col-md-3">
-                    <input id="invite-phone-3" type="text" className="form-control typeWeightNormal placeholder col-sm-3" placeholder="Phone (ptional)" name="invite[phone][]"/>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Phone (Optional)</h5>
+                    <input id="invite-phone-2" type="text" className="form-control account-text-input col-sm-3"  name="invite[phone][]"/>
                   </div>
                 </div>
-                <a className="btn btnPrimary btn-invites" onClick={this.sendInvites}>SEND INVITES</a>
+
+                <div className="row invite-form">
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Email</h5>
+                    <input id="invite-email-3" type="email" className="form-control account-text-input" name="invite[email][]"/>
+                  </div>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Name</h5>
+                    <input id="invite-name-3" type="text" className="form-control account-text-input" name="invite[name][]"/>
+                  </div>
+                  <div className="col-md-4">
+                    <h5 className="text-capitalize">Phone (Optional)</h5>
+                    <input id="invite-phone-3" type="text" className="form-control account-text-input"  name="invite[phone][]"/>
+                  </div>
+                </div>
+
               </form>
               <div className="call-info col-md-12">
-                For specificate information regarding commissions,
-                please call us a call at: +1 123-456-7890
+                <p className="helpful-text">
+                  <img src="/icons/info.png" />
+                  For specific information regarding referral bonus, please email us at hello@mortgageclub.co
+                </p>
+                <a className="btn send-btn text-capitalize" onClick={this.sendInvites}>SEND INVITES</a>
               </div>
             </div>
         </div>
@@ -157,10 +168,10 @@ var ReferralsTab = React.createClass({
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>Joined</th>
-                    <th>#Loans Closed</th>
+                    <th><h5 className="text-capitalize">Email </h5></th>
+                    <th><h5 className="text-capitalize">Name </h5></th>
+                    <th><h5 className="text-capitalize">Joined </h5></th>
+                    <th><h5 className="text-capitalize">#Loans Closed </h5></th>
                   </tr>
                 </thead>
                 <tbody>

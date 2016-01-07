@@ -25,42 +25,34 @@ var HomeDashBoard = React.createClass({
     }.bind(this));
   },
   render: function() {
-    var current_user = this.props.bootstrapData.currentUser;
+    var user = this.props.bootstrapData.user;
     var loans = this.props.bootstrapData.loans;
     var refLink = this.props.bootstrapData.refLink;
     var invites = this.props.bootstrapData.invites;
     var refCode = this.props.bootstrapData.refCode;
+    var userEmail = this.props.bootstrapData.user_email;
     if (refCode != null) {
       document.cookie = "_refcode=" + refCode;
     }
 
     return (
-      <div className="content">
-        <div className='dashboard content'>
-          <div className='dashboard-tabs phxl bts backgroundLowlight'>
-            <ul className="nav nav-tabs" role="tablist">
-              <li role="presentation" className="active">
-                <a href="#loans" aria-controls="loans" role="tab" data-toggle="tab">Loans</a>
-              </li>
-              <li role="presentation">
-                <a href="#referrals" aria-controls="referrals" role="tab" data-toggle="tab">Referrals</a>
-              </li>
-              <li role="presentation">
-                <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a>
-              </li>
-            </ul>
-
-            <div className='tabs'>
-              <div className="tab-content">
-                <div role="tabpanel" className="tab-pane fade in active" id="loans">
-                  <LoansTab loans={loans} />
-                </div>
-                <div role="tabpanel" className="tab-pane fade" id="referrals">
-                  <ReferralsTab refLink={refLink} invites={invites}/>
-                </div>
-                <div role="tabpanel" className="tab-pane fade" id="settings">
-                  <SettingsTab />
-                </div>
+      <div className="content loans-part">
+        <div className="container borrower-dashboard">
+          <ul className="nav nav-tabs mortgageTabs" role="tablist">
+            <li role="presentation" className="active"><a href="#loans" aria-controls="loans" role="tab" data-toggle="tab" className="text-capitalize">Loans</a></li>
+            <li role="presentation"><a href="#referrals" aria-controls="referrals" role="tab" data-toggle="tab" className="text-capitalize">Referrals</a></li>
+            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab" class="text-capitalize">Settings</a></li>
+          </ul>
+          <div className='tabs'>
+            <div className="tab-content">
+              <div role="tabpanel" className="tab-pane fade in active" id="loans">
+                <LoansTab loans={loans} />
+              </div>
+              <div role="tabpanel" className="tab-pane fade" id="referrals">
+                <ReferralsTab refLink={refLink} invites={invites}/>
+              </div>
+              <div role="tabpanel" className="tab-pane fade" id="settings">
+                <SettingsTab user={user} userEmail={userEmail}/>
               </div>
             </div>
           </div>

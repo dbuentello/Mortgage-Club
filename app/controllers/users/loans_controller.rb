@@ -10,13 +10,14 @@ class Users::LoansController < Users::BaseController
 
     ref_url = "#{url_for(:only_path => false)}?refcode=#{current_user.id}"
     invites = Invite.where(sender_id: current_user.id)
-    @ref_code = params[:refcode]
 
     bootstrap(
       loans: LoanListPage::LoansPresenter.new(current_user.loans).show,
       invites: LoanListPage::InvitesPresenter.new(invites).show,
-      refCode: @ref_code,
+      user: LoanListPage::UserPresenter.new(current_user).show,
+      refCode: params[:refcode],
       refLink: ref_url,
+      user_email: current_user.email
     )
 
     respond_to do |format|
