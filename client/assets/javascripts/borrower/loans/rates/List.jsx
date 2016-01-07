@@ -20,7 +20,20 @@ var List = React.createClass({
     $(event.target).find('span').toggleClass('up-state');
   },
   totalCost: function(monthly_payment, mtg_insurrance, tax, hazard_insurrance){
-    parseFloat(monthly_payment)+parseFloat(mtg_insurrance) + parseFloat(tax) + parseFloat(hazard_insurrance)
+    var total = 0.0;
+    if(monthly_payment){
+      total += parseFloat(monthly_payment);
+    }
+    if(mtg_insurrance){
+      total += parseFloat(mtg_insurrance)
+    }
+    if(tax){
+      total += parseFloat(tax);
+    }
+    if(hazard_insurrance){
+      total += parseFloat(hazard_insurrance);
+    }
+    return total;
   },
 
   render: function() {
@@ -125,7 +138,7 @@ var List = React.createClass({
                           }
                         </p>
                         <p>
-                          total
+                          {this.totalCost(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance)}
                         </p>
                       </div>
                     </div>
