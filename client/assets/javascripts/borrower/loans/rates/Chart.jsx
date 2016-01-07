@@ -14,11 +14,6 @@ var Chart = React.createClass({
         <div className="col-md-8">
           <div id={"linechart" + this.props.id}></div>
         </div>
-        <p>{this.props.principle}</p>
-        <p>{this.props.mortgageInsurance}</p>
-        <p>{this.props.propertyTax}</p>
-        <p>{this.props.hazardInsurance}</p>
-        <p>{this.props.total}</p>
       </div>
     )
   },
@@ -32,9 +27,17 @@ var Chart = React.createClass({
 
     var dataset = [
       { label: 'P&I', count: this.props.principle },
-      { label: 'Insurance', count: this.props.mortgageInsurance },
+      { label: 'Insurance', count: this.props.hazardInsurance },
       { label: 'Taxes', count: this.props.propertyTax }
     ];
+
+    if (this.props.mortgageInsurance !== undefined && this.props.mortgageInsurance !== null && this.props.mortgageInsurance !== 0){
+      dataset.push({label: "H&I", count: this.props.mortgageInsurance})
+    }
+
+    if (this.props.hoadue !== undefined && this.props.hoadue !== null && this.props.hoadue !== 0){
+      dataset.push({label: "HOA Due", count: this.props.hoadue})
+    }
 
     var data = [dataset];
 
@@ -68,7 +71,6 @@ var Chart = React.createClass({
       //.attr('d', arc);
 
     path.append('path').attr('d', arc).attr("fill", function(d, i){
-      console.log(i);
       return color(i);
     });
 
@@ -89,6 +91,10 @@ var Chart = React.createClass({
         h = Math.sqrt(x*x + y*y);
       return "translate(" + (x/h * 85/60 * radius) +  ',' + (y/h * 85/60 * radius - textHeight/2) +  ")";
     }).attr("text-anchor", "middle");
+  },
+
+  drawLineChart: function(){
+
   }
 });
 
