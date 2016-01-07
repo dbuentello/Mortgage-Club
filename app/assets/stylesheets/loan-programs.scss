@@ -1,10 +1,4 @@
-.mortgage-rates {
-  .board {
-    border-radius: 5px;
-    border: #959595 1px solid;
-    padding: 20px;
-    padding-bottom: 0;
-  }
+#mortgageActions {
   .choose-btn {
       color: white;
       background: #00bd9c;
@@ -16,6 +10,14 @@
   .choose-btn:hover {
       color: #00bd9c;
       background: #fff;
+  }
+}
+#mortgagePrograms {
+  .board {
+    border-radius: 5px;
+    border: #959595 1px solid;
+    padding: 20px;
+    padding-bottom: 0;
   }
   .select-btn {
     color: white;
@@ -36,4 +38,8 @@
   .board-content-toggle span {transition:transform .5s ease;}
 
   .board-content.up-state {display:none;}
+  p.cost {
+    height: 30px;
+  }
+  .note:before {content:'\e013'; color:#00bd9c; font-family:'Glyphicons Halflings'; margin-left:-1.4em; margin-right:.4em;}
 }
