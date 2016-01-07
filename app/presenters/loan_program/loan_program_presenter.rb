@@ -21,7 +21,7 @@ class LoanProgram::LoanProgramPresenter
           methods: [:mortgage_payment_liability, :other_financing_liability]
         },
         subject_property: {
-          only: [:address, :estimated_property_tax, :estimated_hazard_insurance, :estimated_mortgage_insurance],
+          only: [:address, :estimated_property_tax, :estimated_hazard_insurance, :estimated_mortgage_insurance, :hoa_due],
           methods: [:mortgage_payment_liability, :other_financing_liability]
         },
         borrower: {
