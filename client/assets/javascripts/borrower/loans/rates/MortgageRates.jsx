@@ -156,8 +156,6 @@ var MortgageRates = React.createClass({
             </div>
           </div>
 
-
-
           { this.state.helpMeChoose
             ?
               <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
