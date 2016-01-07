@@ -36,4 +36,7 @@
   .board-content-toggle span {transition:transform .5s ease;}
 
   .board-content.up-state {display:none;}
+  p.cost {
+    height: 30px;
+  }
 }
