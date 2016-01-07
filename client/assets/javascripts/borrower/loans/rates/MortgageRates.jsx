@@ -123,7 +123,7 @@ var MortgageRates = React.createClass({
             and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
             <span className="italic-light">Help me choose</span>.
           </p>
-          <div className="row form-group">
+          <div className="row form-group" id="mortgageActions">
             <div className="col-md-6">
               <div className="row">
                 <div className="col-xs-3">
@@ -144,7 +144,7 @@ var MortgageRates = React.createClass({
               <a className="btn choose-btn text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
             </div>
           </div>
-          <div>
+          <div id="mortgagePrograms">
             { this.state.helpMeChoose
               ?
                 <List rates={this.state.possibleRates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={true}/>
