@@ -4,12 +4,12 @@ class RatesController < ApplicationController
     rates = []
 
     if @loan.subject_property.address && zipcode = @loan.subject_property.address.zip
-      rates = ZillowService::GetMortgageRates.new(@loan.id, zipcode).call
+      rate_programs = ZillowService::GetMortgageRates.new(@loan.id, zipcode).call
     end
 
     bootstrap({
-      currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
-      rates: rates,
+      currentLoan: LoanProgram::LoanProgramPresenter.new(@loan).show,
+      programs: rate_programs,
       debug_info: get_debug_info
     })
 
