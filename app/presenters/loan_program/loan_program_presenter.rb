@@ -4,7 +4,6 @@ class LoanProgram::LoanProgramPresenter
   end
 
   def show
-    byebug
     @loan.as_json(json_options)
   end
 
