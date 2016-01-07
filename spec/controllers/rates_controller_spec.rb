@@ -17,7 +17,7 @@ describe RatesController do
 
       get :index, :loan_id => loan.id
       expect(response.status).to eq(200)
-      expect(assigns(:bootstrap_data)[:rates][0][:lender_name]).to eq('Sebonic Financial')
+      expect(assigns(:bootstrap_data)[:programs][0][:lender_name]).to eq('Sebonic Financial')
     end
 
     it "not found rate" do
@@ -25,7 +25,7 @@ describe RatesController do
       allow(controller).to receive(:get_debug_info).and_return(nil)
       get :index, :loan_id => loan.id
       expect(response.status).to eq(200)
-      expect(assigns(:bootstrap_data)[:rates]).to eq([])
+      expect(assigns(:bootstrap_data)[:programs]).to eq([])
     end
   end
 

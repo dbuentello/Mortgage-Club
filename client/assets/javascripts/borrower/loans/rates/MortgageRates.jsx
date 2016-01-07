@@ -15,7 +15,7 @@ var MortgageRates = React.createClass({
 
   getInitialState: function() {
     return {
-      rates: this.props.bootstrapData.rates,
+      rates: this.props.bootstrapData.programs,
       possibleRates: null,
       bestRate: null,
       helpMeChoose: false,
@@ -69,6 +69,7 @@ var MortgageRates = React.createClass({
   render: function() {
     // don't want to make ugly code
     var guaranteeMessage = "We're showing the best 3 loan options for you";
+    var subjectProperty = this.props.bootstrapData.currentLoan.subject_property;
 
     return (
       <div className='container mortgage-rates'>
@@ -104,9 +105,9 @@ var MortgageRates = React.createClass({
           <div>
             { this.state.helpMeChoose
               ?
-                <List rates={this.state.possibleRates} selectRate={this.selectRate} displayTotalCost={true}/>
+                <List rates={this.state.possibleRates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={true}/>
               :
-                <List rates={this.state.rates} selectRate={this.selectRate} displayTotalCost={false}/>
+                <List programs={this.state.rates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={false}/>
             }
 
           </div>
