@@ -18,6 +18,14 @@
     border: #959595 1px solid;
     padding: 20px;
     padding-bottom: 0;
+    .lender-fee-item {
+      list-style: none;
+      height: 30px;
+    }
+  }
+  ul.fee-items {
+    padding-left: 16px;
+    padding-top: 17px;
   }
   .select-btn {
     color: white;
