@@ -29,7 +29,7 @@ var List = React.createClass({
 
                     <div className="col-md-3 col-sm-6 col-sm-6">
                       <h3 className="text-capitalize">{rate.lender_name}</h3>
-                      <p>30-year fixed</p>
+                      <p>{rate.product}</p>
                       <h1 className="apr-text">{this.commafy(rate.apr, 3)}% APR</h1>
                     </div>
 
@@ -40,69 +40,69 @@ var List = React.createClass({
                     </div>
 
                     <div className="col-md-3 col-sm-6 col-sm-6">
-                      <a className="btn select-btn" href="#">Select</a>
+                      <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Select</a>
                     </div>
                   </div>
                 </div>
                 <div className="row">
-                <div className="col-md-6">
-                  <h4>Product details</h4>
-                  <div className="row">
-                    <div className="col-xs-6">
-                      <p>Product type</p>
-                      <p>Rate</p>
-                      <p>APR</p>
-                      <p>Loan amount</p>
-                      <p>Down payment</p>
-                    </div>
-                    <div className="col-xs-6">
-                      <p>30-year fixed</p>
-                      <p>3.875%</p>
-                      <p>3.879%</p>
-                      <p>$350,000</p>
-                      <p>$90,000 (20%)</p>
-                    </div>
-                  </div>
-
-                    <h4>Lender fees</h4>
+                  <div className="col-md-6">
+                    <h4>Product details</h4>
                     <div className="row">
                       <div className="col-xs-6">
-                        <p>Loan original fee</p>
-                        <p>Lender credit</p>
-                        <p>Appraisal fee</p>
-                        <p>Total estimated lender fees</p>
+                        <p>Product type</p>
+                        <p>Rate</p>
+                        <p>APR</p>
+                        <p>Loan amount</p>
+                        <p>Down payment</p>
                       </div>
                       <div className="col-xs-6">
-                        <p>$1,900</p>
-                        <p>($2,191)</p>
-                        <p>$450</p>
-                        <p>$159</p>
+                        <p>30-year fixed</p>
+                        <p>3.875%</p>
+                        <p>3.879%</p>
+                        <p>$350,000</p>
+                        <p>$90,000 (20%)</p>
                       </div>
                     </div>
+
+                      <h4>Lender fees</h4>
+                      <div className="row">
+                        <div className="col-xs-6">
+                          <p>Loan original fee</p>
+                          <p>Lender credit</p>
+                          <p>Appraisal fee</p>
+                          <p>Total estimated lender fees</p>
+                        </div>
+                        <div className="col-xs-6">
+                          <p>$1,900</p>
+                          <p>($2,191)</p>
+                          <p>$450</p>
+                          <p>$159</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  <div className="col-md-6">
+                    <h4>Monthly payment details</h4>
+                    <div className="row">
+                      <div className="col-xs-9">
+                        <p>Principle and interest</p>
+                        <p>Estimated mortgage insurance</p>
+                        <p>Estimated property tax</p>
+                        <p>Estimated homeowners payment</p>
+                        <p>Total estimated monthly payment</p>
+                      </div>
+                      <div className="col-xs-3">
+                        <p>$1,646</p>
+                        <p>0</p>
+                        <p>333</p>
+                        <p>$80</p>
+                        <p>$2,059</p>
+                      </div>
+                    </div>
+                    <p className="note">Of all 30-year fixed mortgages on Mortgage Club that you’ve qualified for, this one has the lowest rate and APR.</p>
                   </div>
 
-                <div className="col-md-6">
-                  <h4>Monthly payment details</h4>
-                  <div className="row">
-                    <div className="col-xs-9">
-                      <p>Principle and interest</p>
-                      <p>Estimated mortgage insurance</p>
-                      <p>Estimated property tax</p>
-                      <p>Estimated homeowners payment</p>
-                      <p>Total estimated monthly payment</p>
-                    </div>
-                    <div className="col-xs-3">
-                      <p>$1,646</p>
-                      <p>0</p>
-                      <p>333</p>
-                      <p>$80</p>
-                      <p>$2,059</p>
-                    </div>
-                  </div>
-                  <p className="note">Of all 30-year fixed mortgages on Mortgage Club that you’ve qualified for, this one has the lowest rate and APR.</p>
                 </div>
-
-              </div>
                 <div className="board-content-toggle" onClick={this.toggleHandler}>
                   <span className="glyphicon glyphicon-menu-down"></span>
                 </div>
@@ -137,9 +137,6 @@ var List = React.createClass({
                     :
                       null
                   }
-                </div>
-                <div className='col-sm-3 pull-right text-right'>
-                  <a className='btn btm Sml btnPrimary' onClick={_.bind(this.props.selectRate, null, rate)}>Select</a>
                 </div>
               </div>
             );
