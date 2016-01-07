@@ -50,57 +50,31 @@ var List = React.createClass({
                     <div className="row">
                       <div className="col-xs-6">
                         <p>Product type</p>
-                        <p>Rate</p>
+                        <p>Interest Rate</p>
                         <p>APR</p>
                         <p>Loan amount</p>
                         <p>Down payment</p>
                       </div>
                       <div className="col-xs-6">
-                        <p>30-year fixed</p>
-                        <p>3.875%</p>
-                        <p>3.879%</p>
-                        <p>$350,000</p>
-                        <p>$90,000 (20%)</p>
+                        <p>{rate.product}</p>
+                        <p>{this.commafy(rate.interest_rate * 100, 3)}%</p>
+                        <p>{this.commafy(rate.apr, 3)}%</p>
+                        <p>{this.formatCurrency(rate.loan_amount, "$")}</p>
+                        <p>{this.formatCurrency(rate.down_payment, "$")}</p>
                       </div>
                     </div>
 
                       <h4>Lender fees</h4>
-                      <div className="row">
-                        <div className="col-xs-6">
-                          <p>Loan original fee</p>
-                          <p>Lender credit</p>
-                          <p>Appraisal fee</p>
-                          <p>Total estimated lender fees</p>
-                        </div>
-                        <div className="col-xs-6">
-                          <p>$1,900</p>
-                          <p>($2,191)</p>
-                          <p>$450</p>
-                          <p>$159</p>
-                        </div>
-                      </div>
+                      <ul>
+                        {
+                          _.map(Object.keys(rate.fees), function(key){
+                            return (
+                              <li key={key}>{key}: {this.formatCurrency(rate.fees[key], '$')}</li>
+                            )
+                          }, this)
+                        }
+                      </ul>
                     </div>
-
-                  <div className="col-md-6">
-                    <h4>Monthly payment details</h4>
-                    <div className="row">
-                      <div className="col-xs-9">
-                        <p>Principle and interest</p>
-                        <p>Estimated mortgage insurance</p>
-                        <p>Estimated property tax</p>
-                        <p>Estimated homeowners payment</p>
-                        <p>Total estimated monthly payment</p>
-                      </div>
-                      <div className="col-xs-3">
-                        <p>$1,646</p>
-                        <p>0</p>
-                        <p>333</p>
-                        <p>$80</p>
-                        <p>$2,059</p>
-                      </div>
-                    </div>
-                    <p className="note">Of all 30-year fixed mortgages on Mortgage Club that you’ve qualified for, this one has the lowest rate and APR.</p>
-                  </div>
 
                 </div>
                 <div className="board-content-toggle" onClick={this.toggleHandler}>
@@ -118,15 +92,6 @@ var List = React.createClass({
                   {rate.lender_credit ? this.formatCurrency(rate.lender_credit, '$') : "$0"}
                   <br/>
                   <span className='typeLowlight mlm'>Fees: </span>
-                  <ul>
-                    {
-                      _.map(Object.keys(rate.fees), function(key){
-                        return (
-                          <li key={key}>{key}: {this.formatCurrency(rate.fees[key], '$')}</li>
-                        )
-                      }, this)
-                    }
-                  </ul>
                   {
                     this.props.displayTotalCost
                     ?
