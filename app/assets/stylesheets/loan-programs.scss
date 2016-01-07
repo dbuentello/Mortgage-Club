@@ -43,3 +43,38 @@
   }
   .note:before {content:'\e013'; color:#00bd9c; font-family:'Glyphicons Halflings'; margin-left:-1.4em; margin-right:.4em;}
 }
+.mortgage-rates #sidebar {
+  input[type=checkbox]:checked + label:before {
+    content: "\2713";
+    font-size: 1em;
+    color: #15c0f1;
+    text-align: center;
+    line-height: 16px;
+  }
+  input[type=checkbox] {
+    display: none;
+    line-height: 16px;
+  }
+  input[type=checkbox]:checked + label.blueCheckBox2:before {
+    font-size: 1em;
+    color: #fff;
+  }
+
+  label.customCheckbox:before {
+    border-radius: 0;
+    border: #c3c3c3 1px solid;
+    content: " ";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    line-height: 16px;
+  }
+  label.customCheckbox.blueCheckBox2:before {
+    background: #15c0f1;
+    border: none;
+    border-radius: 3px;
+    content: "\00a0";
+    margin-right: 7px;
+  }
+}
