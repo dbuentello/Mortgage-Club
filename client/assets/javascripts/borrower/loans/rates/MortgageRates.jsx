@@ -110,7 +110,6 @@ var MortgageRates = React.createClass({
                 :
                   <List programs={this.state.rates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={false}/>
               }
-
             </div>
           </div>
           <div className='row mtl'>
