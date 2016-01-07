@@ -1,6 +1,6 @@
 .authentication-part {
 
-  .login-form, .signup-form, .user-update-form {
+  .login-form, .signup-form, .user-update-form, .forgot-password-form {
     font-family:'aileronregular';
     overflow-x:hidden;
     position:relative;
@@ -146,6 +146,8 @@
 
   .signupPart h2 {margin-top:72px; color:#12a7d1; font-size:2.5em;font-family:'aileronlight';}
 
+  .forgot-password-part h2 {margin-top:72px; color:#12a7d1; font-size:2.5em;font-family:'aileronlight';}
+
   #btnLoginDevise{
     border-bottom: solid 2px rgba(0, 0, 0, 0.3);
     border-color: #15c0f1;
@@ -162,5 +164,11 @@
 
   #btnSignupDevise:hover{
     background:white; color:#15c0f1;  border-color:#15c0f1;
+  }
+
+  #btnResetPasswordDevise { width: 200px;}
+
+  .padding-top-30 {
+    padding-top: 30px;
   }
 }
