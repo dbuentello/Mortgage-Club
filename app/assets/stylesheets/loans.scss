@@ -1,18 +1,20 @@
-.board {
+.mortgage-rates {
+  .board {
     border-radius: 5px;
     border: #959595 1px solid;
     padding: 20px;
     padding-bottom: 0;
-}
-.choose-btn {
-    color: white;
-    background: #00bd9c;
-    border: #00bd9c 1px solid;
-    margin-top: 15px;
-    padding: 10px 15px;
-    font-size: 1.2em;
-}
-.choose-btn:hover {
-    color: #00bd9c;
-    background: #fff;
+  }
+  .choose-btn {
+      color: white;
+      background: #00bd9c;
+      border: #00bd9c 1px solid;
+      margin-top: 15px;
+      padding: 10px 15px;
+      font-size: 1.2em;
+  }
+  .choose-btn:hover {
+      color: #00bd9c;
+      background: #fff;
+  }
 }
