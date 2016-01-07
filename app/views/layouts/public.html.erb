@@ -39,5 +39,17 @@
     <% end %>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
     <%= javascript_include_tag 'public', 'data-turbolinks-track' => false %>
+
+    <script type="text/javascript">
+      $(function() {
+        var elevator = new Elevator({
+        element: document.querySelector('#backtopBtn'),
+        duration:2000,
+        });
+
+        $('[data-toggle="tooltip"]').tooltip();
+      })
+    </script>
   </body>
 </html>
+
