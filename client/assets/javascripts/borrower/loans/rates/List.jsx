@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var Chart = require('./Chart');
 
 var List = React.createClass({
   mixins: [TextFormatMixin],
@@ -41,7 +42,7 @@ var List = React.createClass({
       <div className='rates-list'>
         {
           _.map(this.props.programs, function (rate, index) {
-            console.log(rate);
+
             return (
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
@@ -168,6 +169,7 @@ var List = React.createClass({
                     }
                   </div>
                 </div>
+                <Chart state={this.state} rate={rate} total={this.totalCost(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance)} />
                 <div className="board-content-toggle" onClick={this.toggleHandler}>
                   <span className="glyphicon glyphicon-menu-down"></span>
                 </div>
