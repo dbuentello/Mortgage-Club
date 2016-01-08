@@ -18,14 +18,41 @@
     border: #959595 1px solid;
     padding: 20px;
     padding-bottom: 0;
+
     .lender-fee-item {
       list-style: none;
       height: 30px;
     }
+
+    .choose-board h3 {
+      margin-top: 0;
+      color: #15c0f1;
+      font-weight: 600;
+      font-size: 1.15em;
+    }
+    .board-header {
+      h1.apr-text {
+        margin-top: 10px;
+        text-align: initial;
+        color: #555;
+        font-family: "aileronbold";
+        font-weight: 900;
+        line-height: 25px;
+        font-size: 23px;
+        padding: 0;
+        font-family: "aileronbold";
+      }
+      h3 {
+        margin-top: 0;
+        color: #15c0f1;
+        font-weight: 600;
+        font-size: 1.15em;
+      }
+    }
+
   }
   ul.fee-items {
     padding-left: 16px;
-    padding-top: 17px;
   }
   .select-btn {
     color: white;
@@ -46,8 +73,20 @@
   .board-content-toggle span {transition:transform .5s ease;}
 
   .board-content.up-state {display:none;}
+
+  .board-content {
+    border-top: #ddd 1px solid;
+
+    h4 {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
   p.cost {
     height: 30px;
+  }
+  p.note {
+    font-style: italic;
   }
   .note:before {content:'\e013'; color:#00bd9c; font-family:'Glyphicons Halflings'; margin-left:-1.4em; margin-right:.4em;}
 
@@ -77,6 +116,7 @@
     }
   }
 }
+
 .mortgage-rates #sidebar {
   input[type=checkbox]:checked + label:before {
     content: "\2713";

@@ -15,7 +15,7 @@ var MortgageRates = React.createClass({
 
   getInitialState: function() {
     return {
-      rates: this.props.bootstrapData.programs,
+      programs: this.props.bootstrapData.programs,
       possibleRates: null,
       bestRate: null,
       helpMeChoose: false,
@@ -27,7 +27,7 @@ var MortgageRates = React.createClass({
   choosePossibleRates: function(periods, avgRate, taxRate) {
     var totalCost = 0;
     var result;
-    var possibleRates = _.sortBy(this.state.rates, function (rate) {
+    var possibleRates = _.sortBy(this.state.programs, function (rate) {
       result = this.totalCost(rate, taxRate, avgRate, periods);
       rate['total_cost'] = result['totalCost'];
       rate['result'] = result;
@@ -74,10 +74,18 @@ var MortgageRates = React.createClass({
     return (
       <div className="content">
         <div className='content container mortgage-rates'>
+          <div className='row mtl'>
+            { this.state.helpMeChoose
+              ?
+                <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
+              :
+              null
+            }
+          </div>
           <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
           <div className="col-xs-8 account-content">
             <p>
-              We’ve found 829 mortgage options for you. You can sort, filter, and choose one on your own or click
+              We’ve found {this.props.bootstrapData.programs.length} mortgage options for you. You can sort, filter, and choose one on your own or click
               <span className="italic-light">Help me choose</span>
               and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
               <span className="italic-light">Help me choose</span>.
@@ -106,20 +114,13 @@ var MortgageRates = React.createClass({
             <div id="mortgagePrograms">
               { this.state.helpMeChoose
                 ?
-                  <List rates={this.state.possibleRates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={true}/>
+                  <List programs={this.state.possibleRates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={true}/>
                 :
-                  <List programs={this.state.rates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={false}/>
+                  <List programs={this.state.programs} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={false}/>
               }
             </div>
           </div>
-          <div className='row mtl'>
-            { this.state.helpMeChoose
-              ?
-                <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
-              :
-              null
-            }
-          </div>
+
         </div>
       </div>
     );
@@ -127,21 +128,21 @@ var MortgageRates = React.createClass({
 
   sortBy: function(field) {
     if (field == 'apr') {
-      var sortedRates = _.sortBy(this.state.rates, function (rate) {
+      var sortedRates = _.sortBy(this.state.programs, function (rate) {
         return parseFloat(rate.apr);
       });
     } else if (field == 'pmt') {
-      var sortedRates = _.sortBy(this.state.rates, function (rate) {
+      var sortedRates = _.sortBy(this.state.programs, function (rate) {
         return parseFloat(rate.monthly_payment);
       });
     } else if (field == 'rate') {
-      var sortedRates = _.sortBy(this.state.rates, function (rate) {
+      var sortedRates = _.sortBy(this.state.programs, function (rate) {
         return parseFloat(rate.interest_rate);
       });
     }
 
     // console.dir(this.state.helpMeChoose);
-    this.setState({rates: sortedRates});
+    this.setState({programs: sortedRates});
   }
 });
 
