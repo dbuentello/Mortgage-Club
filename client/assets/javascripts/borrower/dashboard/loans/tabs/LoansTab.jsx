@@ -6,10 +6,12 @@ var LoansTab = React.createClass({
     return (
       <div className="col-sm-6 col-md-4" key={loan.id} index={i}>
         <div className="thumbnail">
-          <div className="img-home"></div>
+          <div className="img-home">
+            <img src={loan.subject_property.zillow_image_url ? loan.subject_property.zillow_image_url : "home.jpg"}/>
+          </div>
           <div className="caption">
             <h3></h3>
-            <p><strong>Status:</strong> Finishing</p>
+            <p><strong>Status:</strong> {loan.status}</p>
             <p><strong>Created at:</strong> {moment(loan.created_at).format('MMM DD, YYYY')}</p>
             <p><strong>Loan amount:</strong> {loan.amount}</p>
             <p><strong>Rate:</strong> {loan.interest_rate}%</p>
