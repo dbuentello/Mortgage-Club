@@ -5,7 +5,7 @@ class MailjetTrackingController < ApplicationController
   def track
     if valid?
       loan = Loan.find_by_id(@loan_id)
-      loan.read! if loan
+      # loan.read! if loan
     end
     render nothing: true, status: 200, content_type: 'text/html'
   end
