@@ -90,7 +90,7 @@ var ReferralsTab = React.createClass({
               </div>
               <div className="col-md-12">
                 <br/>
-                Earn commission when you refer Business Purpose Borrowers (BPBs) to Mortgage Club. Below is your unique referral code. Send this link to potential BPBs or enter their emails into the form and we will invite them on your behalf. Referrals may be automated by Mortgage Club.
+                Earn $200 cash bonus for every borrower you refer to Mortgage Club. Below is your unique referal code. Send this link to potential borrowers or enter their emails into the form and we will invite them on your behalf. Referrals may be automated by Mortgage Club.
               </div>
               <div className="form-group ref-form col-md-12">
                 <label>Your Referral Link:</label>
