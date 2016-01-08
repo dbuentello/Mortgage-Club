@@ -9,7 +9,9 @@ var Chart = React.createClass({
     return (
       <div className="row chart-part">
         <div className="col-md-4">
-          <div id={"piechart" + this.props.id} className="pie-chart"></div>
+          <div id={"piechart" + this.props.id} className="pie-chart">
+            <p className="piechart-center">Your payment<br/>${this.props.total}</p>
+          </div>
         </div>
         <div className="col-md-8">
           <div id={"linechart" + this.props.id}></div>
@@ -70,15 +72,32 @@ var Chart = React.createClass({
       .attr('class','slice');
       //.attr('d', arc);
 
-    path.append('path').attr('d', arc).attr("fill", function(d, i){
-      return color(i);
-    });
+    path.append('path')
+      .attr('d', arc)
+      .style("stroke", "#fff")
+      .style("stroke-width", "2")
+      .style("fill-rule", "evenodd")
+      .style("fill", function(d, i) { return color(data[0][i].label); })
+
 
       // Add a legendLabel to each arc slice...
     var pieText = path.append("svg:text");
 
-    pieText.append('tspan').attr('x',0).attr('dy','1.2em').text(function(d, j) { return data[0][j].label; });
-    pieText.append('tspan').attr('x',0).attr('dy','1.2em').text(function(d, j) { return (data[0][j].count<1000) ? "$" + data[0][j].count : ("$" + Math.floor(data[0][j].count/1000) + ',' + data[0][j].count%1000); });
+    pieText.append('tspan')
+      .attr('x',0)
+      .attr('dy','1.2em')
+      .style("font-size", "0.8em")
+      .text(function(d, j) {
+        return data[0][j].label;
+      });
+
+    pieText.append('tspan')
+      .attr('x',0)
+      .attr('dy','1.2em')
+      .style("font-size", "1.1em")
+      .text(function(d, j) {
+        return (data[0][j].count<1000) ? "$" + data[0][j].count : ("$" + Math.floor(data[0][j].count/1000) + ',' + data[0][j].count%1000);
+      });
 
     pieText.attr("transform", function(d) { //set the label's origin to the center of the arc
      //we have to make sure to set these before calling arc.centroid
@@ -91,6 +110,8 @@ var Chart = React.createClass({
         h = Math.sqrt(x*x + y*y);
       return "translate(" + (x/h * 85/60 * radius) +  ',' + (y/h * 85/60 * radius - textHeight/2) +  ")";
     }).attr("text-anchor", "middle");
+
+    pieText.style("fill", "#14c0f0").style("transform-origin", "50% 50%");
   },
 
   drawLineChart: function(){
