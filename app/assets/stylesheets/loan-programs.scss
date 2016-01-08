@@ -53,7 +53,6 @@
   }
   ul.fee-items {
     padding-left: 16px;
-    padding-top: 17px;
   }
   .select-btn {
     color: white;
@@ -77,9 +76,17 @@
 
   .board-content {
     border-top: #ddd 1px solid;
+
+    h4 {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
   }
   p.cost {
     height: 30px;
+  }
+  p.note {
+    font-style: italic;
   }
   .note:before {content:'\e013'; color:#00bd9c; font-family:'Glyphicons Halflings'; margin-left:-1.4em; margin-right:.4em;}
 }
