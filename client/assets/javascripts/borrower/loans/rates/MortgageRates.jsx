@@ -106,9 +106,9 @@ var MortgageRates = React.createClass({
             <div id="mortgagePrograms">
               { this.state.helpMeChoose
                 ?
-                  <List rates={this.state.possibleRates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={true}/>
+                  <List programs={this.state.possibleRates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={true}/>
                 :
-                  <List programs={this.state.rates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={false}/>
+                  <List programs={this.state.programs} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={false}/>
               }
             </div>
           </div>
