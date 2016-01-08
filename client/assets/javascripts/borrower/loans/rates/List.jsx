@@ -6,11 +6,15 @@ var Chart = require('./Chart');
 var List = React.createClass({
   mixins: [TextFormatMixin],
   getInitialState: function(){
+    var toggleContentStates = new Array(this.props.programs.length);
+    toggleContentStates.fill(false, 0, this.props.programs.length);
+    toggleContentStates[0] = true;
     return ({
       estimatedPropertyTax: this.props.subjectProperty.estimated_property_tax,
       estimatedHazardInsurance: this.props.subjectProperty.estimated_hazard_insurance,
       estimatedMortgageInsurance: this.props.subjectProperty.estimated_mortgage_insurance,
-      hoaDue: this.props.subjectProperty.hoa_due
+      hoaDue: this.props.subjectProperty.hoa_due,
+      toggleContentStates: toggleContentStates
     });
   },
 
@@ -22,7 +26,10 @@ var List = React.createClass({
     return parseFloat(down_payment/loan_amount)*100;
   },
 
-  toggleHandler: function(event){
+  toggleHandler: function(event, index){
+    var currentState = this.state.toggleContentStates;
+    currentState[index] = !currentState[index];
+    this.setState(currentState)
     $(event.target).prev().slideToggle(500);
     $(event.target).find('span').toggleClass('up-state');
   },
@@ -78,7 +85,7 @@ var List = React.createClass({
                     </div>
                   </div>
                 </div>
-                <div className="board-content">
+                <div className={this.state.toggleContentStates[index]===true ? "board-content" :"board-content up-state"}>
                   <div className="row">
                     <div className="col-md-6">
                       <h4>Product details</h4>
@@ -182,7 +189,7 @@ var List = React.createClass({
 
                 </div>
                 <div className="board-content-toggle" onClick={this.toggleHandler}>
-                  <span className="glyphicon glyphicon-menu-down"></span>
+                  <span className={this.state.toggleContentStates[index]===true ? "glyphicon glyphicon-menu-up" : "glyphicon glyphicon-menu-down"}></span>
                 </div>
               </div>
             );
