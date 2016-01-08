@@ -129,6 +129,12 @@
   }
 }
 
+.mortgage-rates {
+  .programs-filter {
+    margin-bottom: -9999px;
+    padding-bottom: 9999px;
+  }
+}
 .mortgage-rates #sidebar {
   input[type=checkbox]:checked + label:before {
     content: "\2713";
