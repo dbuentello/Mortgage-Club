@@ -64,7 +64,7 @@ var List = React.createClass({
                 <div className="board-header">
                   <div className="row">
                     <div className="col-md-3 col-sm-6 col-sm-6">
-                      <img src="choose1.jpg" className="img-responsive"/>
+                      <img className="img-responsive"/>
                       <h4>NMLS: #{rate.nmls}</h4>
                     </div>
 
