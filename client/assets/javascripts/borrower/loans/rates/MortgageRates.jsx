@@ -91,14 +91,14 @@ var MortgageRates = React.createClass({
           }
 
           <div className={this.state.helpMeChoose ? "col-xs-12 account-content" : "col-xs-8 account-content"}>
-            <div className={this.state.helpMeChoose ? "hidden" : "row"}>
+            <div className={this.state.helpMeChoose ? "hidden" : "row actions"}>
               <p>
                 We’ve found {this.props.bootstrapData.programs.length} mortgage options for you. You can sort, filter, and choose one on your own or click
                 <span className="italic-light">Help me choose</span>
                 and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
                 <span className="italic-light">Help me choose</span>.
               </p>
-              <div className="row form-group" id="mortgageActions">
+              <div className="row form-group actions-group" id="mortgageActions">
                 <div className="col-md-6">
                   <div className="row">
                     <div className="col-xs-3">

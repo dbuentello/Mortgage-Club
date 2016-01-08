@@ -134,6 +134,12 @@
     margin-bottom: -9999px;
     padding-bottom: 9999px;
   }
+  .actions {
+    padding-left: 15px;
+  }
+  .account-content .form-group:last-child {
+    margin-bottom: 25px;
+  }
 }
 .mortgage-rates #sidebar {
   input[type=checkbox]:checked + label:before {
@@ -151,7 +157,6 @@
     font-size: 1em;
     color: #fff;
   }
-
   label.customCheckbox:before {
     border-radius: 0;
     border: #c3c3c3 1px solid;
