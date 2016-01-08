@@ -15,7 +15,7 @@ var MortgageRates = React.createClass({
 
   getInitialState: function() {
     return {
-      rates: this.props.bootstrapData.programs,
+      programs: this.props.bootstrapData.programs,
       possibleRates: null,
       bestRate: null,
       helpMeChoose: false,
@@ -27,7 +27,7 @@ var MortgageRates = React.createClass({
   choosePossibleRates: function(periods, avgRate, taxRate) {
     var totalCost = 0;
     var result;
-    var possibleRates = _.sortBy(this.state.rates, function (rate) {
+    var possibleRates = _.sortBy(this.state.programs, function (rate) {
       result = this.totalCost(rate, taxRate, avgRate, periods);
       rate['total_cost'] = result['totalCost'];
       rate['result'] = result;
@@ -127,21 +127,21 @@ var MortgageRates = React.createClass({
 
   sortBy: function(field) {
     if (field == 'apr') {
-      var sortedRates = _.sortBy(this.state.rates, function (rate) {
+      var sortedRates = _.sortBy(this.state.programs, function (rate) {
         return parseFloat(rate.apr);
       });
     } else if (field == 'pmt') {
-      var sortedRates = _.sortBy(this.state.rates, function (rate) {
+      var sortedRates = _.sortBy(this.state.programs, function (rate) {
         return parseFloat(rate.monthly_payment);
       });
     } else if (field == 'rate') {
-      var sortedRates = _.sortBy(this.state.rates, function (rate) {
+      var sortedRates = _.sortBy(this.state.programs, function (rate) {
         return parseFloat(rate.interest_rate);
       });
     }
 
     // console.dir(this.state.helpMeChoose);
-    this.setState({rates: sortedRates});
+    this.setState({programs: sortedRates});
   }
 });
 

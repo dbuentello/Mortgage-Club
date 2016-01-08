@@ -52,6 +52,10 @@
   .board-content-toggle span {transition:transform .5s ease;}
 
   .board-content.up-state {display:none;}
+
+  .board-content {
+    border-top: #ddd 1px solid;
+  }
   p.cost {
     height: 30px;
   }
