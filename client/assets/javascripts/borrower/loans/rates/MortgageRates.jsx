@@ -74,10 +74,18 @@ var MortgageRates = React.createClass({
     return (
       <div className="content">
         <div className='content container mortgage-rates'>
+          <div className='row mtl'>
+            { this.state.helpMeChoose
+              ?
+                <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
+              :
+              null
+            }
+          </div>
           <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
           <div className="col-xs-8 account-content">
             <p>
-              We’ve found 829 mortgage options for you. You can sort, filter, and choose one on your own or click
+              We’ve found {this.props.bootstrapData.programs.length} mortgage options for you. You can sort, filter, and choose one on your own or click
               <span className="italic-light">Help me choose</span>
               and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
               <span className="italic-light">Help me choose</span>.
@@ -112,14 +120,7 @@ var MortgageRates = React.createClass({
               }
             </div>
           </div>
-          <div className='row mtl'>
-            { this.state.helpMeChoose
-              ?
-                <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
-              :
-              null
-            }
-          </div>
+
         </div>
       </div>
     );
