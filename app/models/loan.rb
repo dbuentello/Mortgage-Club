@@ -37,17 +37,24 @@ class Loan < ActiveRecord::Base
   }
 
   enum status: {
-    pending: 0,
-    has_lender: 1,
-    sent: 2,
-    read: 3,
-    finish: 4
+    new_loan: 0,
+    submitted: 1,
+    pending: 2,
+    conditionally_approved: 3,
+    approved: 4,
+    closed: 5
   }
 
-  validates :loan_type, inclusion: {in: %w( Conventional VA FHA USDA 9 ), message: "%{value} is not a valid loan_type"}, allow_nil: true
+  validates :loan_type, inclusion: {in: %w(Conventional VA FHA USDA 9), message: "%{value} is not a valid loan_type"}, allow_nil: true
+  validates :status, inclusion: {in: %w(new_loan submitted pending conditionally_approved approved closed), message: "%{value} is not a valid status"}, allow_nil: true
 
   def self.initiate(user)
-    loan = Loan.create(user: user, properties: [Property.create(address: Address.create, is_subject: true)], closing: Closing.create(name: 'Closing'))
+    loan = Loan.create(
+      user: user,
+      properties: [Property.create(address: Address.create, is_subject: true)],
+      closing: Closing.create(name: 'Closing'),
+      status: "new_loan"
+    )
   end
 
   def property_completed
@@ -143,5 +150,11 @@ class Loan < ActiveRecord::Base
 
   def required_lender_documents
     lender_documents.joins(:lender_template).where("is_other = ?", false)
+  end
+
+  def pretty_status
+    return if status.nil?
+    return "New" if new_loan?
+    status.titleize
   end
 end

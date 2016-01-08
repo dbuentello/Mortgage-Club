@@ -27,7 +27,7 @@ class Admins::LoanAssignmentsController < Admins::BaseController
       )
 
       assignment.title = params[:title]
-      assignment.save
+      @loan.pending! if assignment.save
     end
 
     render json: {associations: reload_loans_members_associations_json}, status: 200
