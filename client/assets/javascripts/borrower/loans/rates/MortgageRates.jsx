@@ -74,14 +74,14 @@ var MortgageRates = React.createClass({
     return (
       <div className="content">
         <div className='content container mortgage-rates'>
-          <div className='row mtl'>
-            { this.state.helpMeChoose
-              ?
-                <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
-              :
-              null
-            }
-          </div>
+
+          { this.state.helpMeChoose
+            ?
+              <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
+            :
+            null
+          }
+
           {
             this.state.helpMeChoose
             ?
