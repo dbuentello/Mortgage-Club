@@ -7,7 +7,7 @@ var LoansTab = React.createClass({
       <div className="col-sm-6 col-md-4" key={loan.id} index={i}>
         <div className="thumbnail">
           <div className="img-home">
-            <img src={loan.subject_property.zillow_image_url ? loan.subject_property.zillow_image_url : "home.jpg"}/>
+            <img src={loan.subject_property.zillow_image_url ? loan.subject_property.zillow_image_url : "/home.jpg"}/>
           </div>
           <div className="caption">
             <h3></h3>
