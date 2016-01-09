@@ -44,7 +44,6 @@ var SettingsTab = React.createClass({
     event.preventDefault();
   },
   showPreviewImage: function(event){
-    var ext = event.target.value.match(/\.(.+)$/)[1];
     if (event.target.files && event.target.files[0]){
       this.setState({avatarUrl: URL.createObjectURL(event.target.files[0])});
     }
