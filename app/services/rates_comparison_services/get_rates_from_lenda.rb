@@ -47,7 +47,7 @@ module RatesComparisonServices
     end
 
     def monthly_debt
-      return if borrower.credit_report
+      return unless borrower.credit_report
 
       borrower.credit_report.sum_liability_payment - property_debt
     end

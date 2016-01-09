@@ -82,6 +82,8 @@ module Crawler
     end
 
     def fill_in_monthly_debt
+      return unless monthly_debt
+
       crawler.execute_script("$('#quote_monthly_debt').val(#{monthly_debt})")
     end
 
