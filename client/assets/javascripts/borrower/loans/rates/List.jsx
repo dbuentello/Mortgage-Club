@@ -2,9 +2,10 @@ var _ = require('lodash');
 var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var Chart = require('./Chart');
+var ChartMixin = require('mixins/ChartMixin');
 
 var List = React.createClass({
-  mixins: [TextFormatMixin],
+  mixins: [TextFormatMixin, ChartMixin],
   getInitialState: function(){
     var toggleContentStates = new Array(this.props.programs.length);
     toggleContentStates.fill(false, 0, this.props.programs.length);
@@ -29,9 +30,29 @@ var List = React.createClass({
   toggleHandler: function(event, index){
     var currentState = this.state.toggleContentStates;
     currentState[index] = !currentState[index];
-    this.setState(currentState)
-    $(event.target).prev().slideToggle(500);
-    $(event.target).find('span').toggleClass('up-state');
+    this.setState(currentState);
+
+    if($(event.target).prev().css("display") == "none"){
+      $(event.target).prev().slideToggle(500);
+      $(event.target).find('span').toggleClass('up-state');
+
+      var keyIndex = parseInt(index.substring(index.lastIndexOf("$") + 1, index.lastIndexOf(".")));
+
+      if ($("#piechart" + keyIndex + " svg").length == 0){
+        var rate = this.props.programs[keyIndex];
+        var total = this.totalMonthlyPayment(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance);
+        this.drawPieChart(keyIndex, rate.monthly_payment, this.state.estimatedHazardInsurance, this.state.estimatedPropertyTax , this.state.estimatedMortgageInsurance, this.state.hoaDue, total);
+      }
+
+      if ($("#linechart" + keyIndex + " svg").length == 0){
+        var rate = this.props.programs[keyIndex];
+        this.drawLineChart(keyIndex, rate.period, parseInt(rate.loan_amount), rate.interest_rate, rate.monthly_payment);
+      }
+    }
+    else{
+      $(event.target).prev().slideToggle(500);
+      $(event.target).find('span').toggleClass('up-state');
+    }
   },
 
   totalMonthlyPayment: function(monthly_payment, mtg_insurrance, tax, hazard_insurrance, hoa_due){
@@ -185,7 +206,8 @@ var List = React.createClass({
                   </div>
 
                   <Chart id={index} principle={rate.monthly_payment} mortgageInsurance={this.state.estimatedMortgageInsurance} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}
-                    hoadue={this.state.hoaDue} total={this.totalMonthlyPayment(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance)} />
+                    hoadue={this.state.hoaDue} numOfMonths={rate.period} loanAmount={rate.loan_amount} interestRate={rate.interest_rate}
+                    total={this.totalMonthlyPayment(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance)} />
 
                 </div>
                 <div className="board-content-toggle" onClick={this.toggleHandler}>

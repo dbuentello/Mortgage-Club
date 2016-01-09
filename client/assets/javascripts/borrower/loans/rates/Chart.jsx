@@ -33,7 +33,7 @@ var Chart = React.createClass({
   },
 
   drawLine: function(){
-    this.drawLineChart(this.props.id, this.props.numOfMonths, parseInt(this.props.loanAmount), this.props.interestRate, this.props.monthlyPayment, this.props.total);
+    this.drawLineChart(this.props.id, this.props.numOfMonths, parseInt(this.props.loanAmount), this.props.interestRate, this.props.principle);
   }
 });
 

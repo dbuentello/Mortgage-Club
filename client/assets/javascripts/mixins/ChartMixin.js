@@ -22,6 +22,7 @@ var ChartMixin = {
 
     var pieContainer = $("#piechart" + id);
     var pieWidth = pieContainer.width();
+
     var pieHeight = pieWidth;
     var radius = pieWidth*.274;//60
     var donutWidth = radius*.4;//24
@@ -137,11 +138,8 @@ var ChartMixin = {
 
        var data = [dataset1];
 
-    //var data = [interests];
-    // console.log(data);
+    // var data1 = this.mortgageCalculation(numOfMonths, loanAmount, interestRate, monthlyPayment);
     // console.log(data1);
-    //var data1 = this.mortgageCalculation(numOfMonths, loanAmount, interestRate, monthlyPayment);
-
     var allData = [data];
 
     var chartContainer = $('#linechart' + id);
