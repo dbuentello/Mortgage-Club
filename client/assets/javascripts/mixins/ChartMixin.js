@@ -1,10 +1,10 @@
 var ChartMixin = {
 
-  drawPieChart: function(id, principle, hazardInsurance, propertyTax, mortgageInsurance, hoadue, totalMontlyPayment) {
+  drawPieChart: function(id, principal, hazardInsurance, propertyTax, mortgageInsurance, hoadue, totalMontlyPayment) {
     $("#piechart" + id).append("<p class='piechart-center'>Your payment<br/>$" + totalMontlyPayment + "</p>");
 
     var dataset = [
-      { label: 'P&I', count: principle },
+      { label: 'P&I', count: principal },
       { label: 'Insurance', count: hazardInsurance },
       { label: 'Taxes', count: propertyTax }
     ];
@@ -90,6 +90,8 @@ var ChartMixin = {
     }).attr("text-anchor", "middle");
 
     pieText.style("fill", "#14c0f0").style("transform-origin", "50% 50%");
+
+    $("#piechart" + id).append('<p></p>');
   },
 
   totalInterestPaid1: function(amount, rate, expectedMortgageDuration, monthlyPayment) {
@@ -108,19 +110,19 @@ var ChartMixin = {
 
   mortgageCalculation: function(numOfMonths, loanAmount, interestRate, monthlyPayment){
     var interests = [];
-    var principles = [];
+    var principals = [];
     var remainings = [];
 
     for(var i = 0; i <= numOfMonths; i++){
       var interest = this.totalInterestPaid1(loanAmount, interestRate, i/12, monthlyPayment);
-      var principle = monthlyPayment * i - interest;
-      var remaining = loanAmount - principle;
+      var principal = monthlyPayment * i - interest;
+      var remaining = loanAmount - principal;
 
       interests.push({month: i, amount: Math.floor(interest)});
-      principles.push({month: i, amount: Math.floor(principle)});
+      principals.push({month: i, amount: Math.floor(principal)});
       remainings.push({month: i, amount: Math.floor(remaining)});
     }
-    return [interests, principles, remainings];
+    return [interests, principals, remainings];
   },
 
   drawLineChart: function(id, numOfMonths, loanAmount, interestRate, monthlyPayment) {
@@ -214,6 +216,8 @@ var ChartMixin = {
       .style("stroke-width", "1px")
       .style("opacity", "1");
 
+    var sizeChart = [chartWidth - marginRight, chartHeight - marginBottom];
+
     var svgRect = svg.append('svg:rect') // append a rect to catch mouse movements on canvas
       .attr('width', chartWidth - marginRight) // can't catch mouse events on a g element
       .attr('height', chartHeight - marginBottom)
@@ -229,7 +233,7 @@ var ChartMixin = {
     //   .style("fill","none")
     //   .style("stroke-width", "1px");
 
-    // var bisect = d3.bisector(function(d) { return d.month; }).right;
+    var bisect = d3.bisector(function(d) { console.log(d); return d.month; });
 
     svgRect.on('mouseout', function(){
       d3.select(".mouse-circle")
@@ -247,7 +251,7 @@ var ChartMixin = {
         .style("stroke-width", "1px");
     });
 
-    // var x = d3.time.scale().range([0, chartWidth]);
+    var x = d3.time.scale().range([0, chartWidth]);
 
     var y = d3.scale.linear().range([chartHeight, 0]);
 
@@ -256,27 +260,14 @@ var ChartMixin = {
       .attr("d", function(){
         var yRange = y.range(); // range of y axis
         var xCoor = d3.mouse(this)[0]; // mouse position in x
-        // var xDate = x.invert(xCoor); // date corresponding to mouse x
-        // d3.selectAll('.mouse-circle') // for each circle group
-        //   .each(function(d, i){
+        var xOfMonth = sizeChart[0] / numOfMonths;
+        var index = Math.floor(xCoor / xOfMonth);
 
-        //     // var rightIdx = bisect(data[1].values, xDate);
-        //     // console.log(rightIdx); // find date in data that right off mouse
-        //     // var interSect = this.getLineIntersection(xCoor,  // get the intersection of our vertical line and the data line
-        //     //   yRange[0],
-        //     //   xCoor,
-        //     //   yRange[1],
-        //     //   x(data[i].values[rightIdx-1].month),
-        //     //   y(data[i].values[rightIdx-1].amount),
-        //     //   x(data[i].values[rightIdx].month),
-        //     //   y(data[i].values[rightIdx].amount));
+        $("#chart-interest" + id).html("$" + allData[0][0][index].amount);
+        $("#chart-principal" + id).html("$" + allData[0][1][index].amount);
+        $("#chart-remaining" + id).html("$" + allData[0][2][index].amount);
+        $("#chart-duration" + id).html(numOfMonths - index + "mo");
 
-        //     // d3.select(this)
-        //     //   .attr('transform', 'translate(' + xCoor + ',' + yRange[1] + i * 100 + ')');
-
-        //     // d3.select(this.children[1]) // write coordinates out
-        //     //   .text(xDate.toLocaleDateString() + "," + y.invert(interSect.y).toFixed(0));
-        //   });
         return "M"+ xCoor +"," + yRange[0] + "L" + xCoor + "," + yRange[1]; // position vertical line
       });
     });
