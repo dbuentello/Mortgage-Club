@@ -18,6 +18,10 @@ var List = React.createClass({
     rates: React.PropTypes.array
   },
   toggleHandler: function(event){
+    if($(event.target).prev().css("display") == "none"){
+      console.log($(event.target).parent;
+    }
+
     $(event.target).prev().slideToggle(500);
     $(event.target).find('span').toggleClass('up-state');
   },
@@ -180,7 +184,8 @@ var List = React.createClass({
                   </div>
 
                   <Chart id={index} principle={rate.monthly_payment} mortgageInsurance={this.state.estimatedMortgageInsurance} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}
-                    hoadue={this.state.hoaDue} total={this.totalCost(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance)} />
+                    hoadue={this.state.hoaDue} loanAmount={this.props.loanAmount} numOfMonths={rate.period} interestRate={rate.interest_rate}
+                    monthlyPayment={rate.monthly_payment} total={this.totalCost(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance)} />
 
                 </div>
                 <div className="board-content-toggle" onClick={this.toggleHandler}>

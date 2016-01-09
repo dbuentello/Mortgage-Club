@@ -114,6 +114,17 @@
         margin-left: -30.5px;
       }
     }
+
+    .line-chart {
+      .axis text {
+        font-size: .8em;
+        fill: #999;
+      }
+      line {
+        stroke: #ccc;
+        stroke-width: 1px;
+      }
+    }
   }
 }
 
