@@ -74,41 +74,50 @@ var MortgageRates = React.createClass({
     return (
       <div className="content">
         <div className='content container mortgage-rates'>
-          <div className='row mtl'>
-            { this.state.helpMeChoose
-              ?
-                <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
-              :
-              null
-            }
-          </div>
-          <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
-          <div className="col-xs-8 account-content">
-            <p>
-              We’ve found {this.props.bootstrapData.programs.length} mortgage options for you. You can sort, filter, and choose one on your own or click
-              <span className="italic-light">Help me choose</span>
-              and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
-              <span className="italic-light">Help me choose</span>.
-            </p>
-            <div className="row form-group" id="mortgageActions">
-              <div className="col-md-6">
-                <div className="row">
-                  <div className="col-xs-3">
-                    <label>Sort by</label>
-                  </div>
 
-                  <div className="col-xs-9 select-box">
-                    <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
-                      <option value="apr">APR</option>
-                      <option value="pmt">Monthly Payment</option>
-                      <option value="rate">Rate</option>
-                    </select>
-                    <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+          { this.state.helpMeChoose
+            ?
+              <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
+            :
+            null
+          }
+
+          {
+            this.state.helpMeChoose
+            ?
+            null
+            :
+            <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
+          }
+
+          <div className={this.state.helpMeChoose ? "col-xs-12 account-content" : "col-xs-8 account-content"}>
+            <div className={this.state.helpMeChoose ? "hidden" : "row actions"}>
+              <p>
+                We’ve found {this.props.bootstrapData.programs.length} mortgage options for you. You can sort, filter, and choose one on your own or click
+                <span className="italic-light">Help me choose</span>
+                and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
+                <span className="italic-light">Help me choose</span>.
+              </p>
+              <div className="row form-group actions-group" id="mortgageActions">
+                <div className="col-md-6">
+                  <div className="row">
+                    <div className="col-xs-3">
+                      <label>Sort by</label>
+                    </div>
+
+                    <div className="col-xs-9 select-box">
+                      <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
+                        <option value="apr">APR</option>
+                        <option value="pmt">Monthly Payment</option>
+                        <option value="rate">Rate</option>
+                      </select>
+                      <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-md-6 text-right">
-                <a className="btn choose-btn text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
+                <div className="col-md-6 text-right">
+                  <a className="btn choose-btn text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
+                </div>
               </div>
             </div>
             <div id="mortgagePrograms">
