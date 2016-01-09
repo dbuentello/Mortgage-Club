@@ -92,14 +92,28 @@ var ChartMixin = {
     pieText.style("fill", "#14c0f0").style("transform-origin", "50% 50%");
   },
 
+  totalInterestPaid1: function(amount, rate, expectedMortgageDuration, monthlyPayment) {
+    var monthlyInterestRate = rate / 12;
+    var totalInterest = 0;
+    expectedMortgageDuration = expectedMortgageDuration * 12;
+
+    for(var i = 1; i <= expectedMortgageDuration; i++) {
+      interestPayment = Math.round(amount * monthlyInterestRate * 100) / 100;
+      principalPayment = monthlyPayment - interestPayment;
+      amount -= principalPayment;
+      totalInterest += interestPayment;
+    }
+    return Math.round(totalInterest * 100) / 100;
+  },
+
   mortgageCalculation: function(numOfMonths, loanAmount, interestRate, monthlyPayment){
     var interests = [];
     var principles = [];
     var remainings = [];
 
-    for(var i = 1; i <= numOfMonths; i++){
-      var interest = this.totalInterestPaid(loanAmount, interestRate, i/12, 2248);
-      var principle = 2248 * i - interest;
+    for(var i = 0; i <= numOfMonths; i++){
+      var interest = this.totalInterestPaid1(loanAmount, interestRate, i/12, monthlyPayment);
+      var principle = monthlyPayment * i - interest;
       var remaining = loanAmount - principle;
 
       interests.push({month: i, amount: Math.floor(interest)});
@@ -110,51 +124,50 @@ var ChartMixin = {
   },
 
   drawLineChart: function(id, numOfMonths, loanAmount, interestRate, monthlyPayment) {
-    var colors = ["#00bc9c", "#ff7575", "#14c0f0"];
+    var colors = ["#ff7575", "#00bc9c", "#14c0f0"];
 
-    var dataset1 = [
-         { month: 0, amount: 0 },
-         { month: 100, amount: 40 },
-         { month: 200, amount: 98 },
-         { month: 300, amount: 170 },
-         { month: 400, amount: 250 }
-       ];
+    var data = this.mortgageCalculation(numOfMonths, loanAmount, interestRate, monthlyPayment);
 
-       var dataset2 = [
-         { month: 0, amount: 0 },
-         { month: 100, amount: 67 },
-         { month: 200, amount: 120 },
-         { month: 300, amount: 150 },
-         { month: 400, amount: 168 }
-       ];
-
-       var dataset3 = [
-         { month: 0, amount: 240 },
-         { month: 100, amount: 180 },
-         { month: 200, amount: 125 },
-         { month: 300, amount: 60 },
-         { month: 400, amount: 0 }
-       ];
-
-       var data = [dataset1];
-
-    // var data1 = this.mortgageCalculation(numOfMonths, loanAmount, interestRate, monthlyPayment);
-    // console.log(data1);
     var allData = [data];
 
     var chartContainer = $('#linechart' + id);
 
     var chartWidth = chartContainer.width();
     var chartHeight = 320;
-    var marginLeft = 2,
-    marginRight = 45;
+    var marginLeft = 2;
+    var marginRight = 45;
 
-    var xScale = d3.scale.linear().range([marginLeft, chartWidth - marginRight]).domain([0,400]),
-      yScale = d3.scale.linear().range([0, chartHeight - 30]).domain([250,0]);
+    var xScale = d3.scale.linear()
+      .range([marginLeft, chartWidth - marginRight]).domain([0, numOfMonths]);
 
-    var xAxis = d3.svg.axis().scale(xScale).ticks(3).tickValues([0, 100, 200, 300]).orient('bottom').tickPadding(10).innerTickSize(-chartHeight).outerTickSize(0).tickFormat(function(d) { return d+"mo"; }),
-      yAxis = d3.svg.axis().scale(yScale).orient('left').ticks(4).tickPadding(20).outerTickSize(0).innerTickSize(marginRight-chartWidth),
-      yAxis2 = d3.svg.axis().scale(yScale).tickValues([50, 100, 150, 200]).orient('right').tickPadding(3).outerTickSize(0).innerTickSize(0).tickFormat(function(d) { return "$" + d+"K"; });
+    var yScale = d3.scale.linear()
+      .range([0, chartHeight - 30]).domain([loanAmount, 0]);
+
+    var xAxis = d3.svg.axis().scale(xScale)
+      .tickValues([0, numOfMonths / 3, numOfMonths / 3 * 2, numOfMonths])
+      .orient('bottom')
+      .tickPadding(10)
+      .innerTickSize(0)
+      .outerTickSize(0)
+      .tickFormat(function(d, i) {
+        if (i == 0 || i == 3)
+          return "";
+        return d + "mo";
+      });
+
+    var yAxis = d3.svg.axis().scale(yScale).ticks(4)
+      .orient('left')
+      .tickPadding(20)
+      .outerTickSize(0)
+      .innerTickSize(marginRight-chartWidth);
+
+    var yAxis2 = d3.svg.axis().scale(yScale).ticks(4)
+      .tickValues([loanAmount / 4, loanAmount / 2, loanAmount / 4 * 3])
+      .orient('right')
+      .tickPadding(3)
+      .outerTickSize(0)
+      .innerTickSize(0)
+      .tickFormat(function(d) { return "$" + d / 1000 + "K"; });
 
     var line = d3.svg.line()
       .x(function(d) {
@@ -215,14 +228,14 @@ var ChartMixin = {
     //   .style("fill","none")
     //   .style("stroke-width", "1px");
 
-    // var bisect = d3.bisector(function(d) { return d.month; }).right; // reusable bisect to find points before/after line
+    // var bisect = d3.bisector(function(d) { return d.month; }).right;
 
-    // svgRect.on('mouseout', function(){ // on mouse out hide line, circles and text
+    // svgRect.on('mouseout', function(){
     //   d3.select(".mouse-circle")
     //     .style("stroke-width", "0px");
     // });
 
-    // svgRect.on('mouseover', function(){ // on mouse in show line, circles and text
+    // svgRect.on('mouseover', function(){
     //   d3.select(".mouse-circle")
     //     .style("stroke-width", "1px");
     // });
