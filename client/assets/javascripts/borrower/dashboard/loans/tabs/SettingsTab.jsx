@@ -45,17 +45,8 @@ var SettingsTab = React.createClass({
   },
   showPreviewImage: function(event){
     var ext = event.target.value.match(/\.(.+)$/)[1];
-    switch (ext) {
-      case 'jpg':
-      case 'jpeg':
-      case 'png':
-      case 'gif':
-        this.setState({avatarUrl: URL.createObjectURL(event.target.files[0])});
-        break;
-      default:
-        var flash = { "alert-danger": "This is not an allowed file type." };
-        this.showFlashes(flash);
-        this.setState({avatarUrl: "no-avatar.jpg"});
+    if (event.target.files && event.target.files[0]){
+      this.setState({avatarUrl: URL.createObjectURL(event.target.files[0])});
     }
   },
 
@@ -73,7 +64,7 @@ var SettingsTab = React.createClass({
                 <div className="row">
                   <div className="col-xs-12">
                     <label className="btn upload-btn fileUpload">
-                      <input name="user[avatar]" type='file' onChange={this.showPreviewImage}/>
+                      <input name="user[avatar]" type='file' accept="image/*" onChange={this.showPreviewImage}/>
                       Upload Photo
                     </label>
                   </div>
