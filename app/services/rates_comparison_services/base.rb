@@ -13,6 +13,7 @@ module RatesComparisonServices
       RatesComparisonServices::GetRatesFromZillow.new(loan, property, borrower).delay.call
       RatesComparisonServices::GetRatesFromLendingTree.new(loan, property, borrower).delay.call
       RatesComparisonServices::GetRatesFromGoogle.new(loan, property, borrower).delay.call
+      RatesComparisonServices::GetRatesFromLenda.new(loan, property, borrower).delay.call
     end
 
     def get_rates(property_value, crawler)
@@ -50,15 +51,15 @@ module RatesComparisonServices
       end
     end
 
-    private
+    def select_rates_by_product(rates, type)
+      rates.select { |rate| rate[:product] == type }
+    end
 
     def default_rates
       {product: "", apr: 0, lender_name: "", total_fee: 0}
     end
 
-    def select_rates_by_product(rates, type)
-      rates.select { |rate| rate[:product] == type }
-    end
+    private
 
     def get_lowest_rates(rates)
       return default_rates if rates.empty?

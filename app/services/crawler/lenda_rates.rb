@@ -5,42 +5,41 @@ module Crawler
   class LendaRates < Base
     include Capybara::DSL
 
-    attr_accessor :zipcode, :property_value,
-                  :down_payment, :monthly_payment,
+    attr_accessor :zipcode, :usage, :annual_income,
+                  :down_payment, :monthly_debt, :property_type,
                   :credit_score, :market_price, :balance
 
     def initialize(args)
-      @purpose = args[:purpose]
       @zipcode = args[:zipcode]
-      @property_value = args[:property_value]
-      @down_payment = args[:down_payment]
-      @credit_score = args[:credit_score]
-      @monthly_payment = args[:monthly_payment].to_i
-      @down_payment = args[:down_payment].to_i
-      @purchase_price = args[:purchase_price].to_i
       @market_price = args[:market_price].to_i
       @balance = args[:balance].to_i
+      @credit_score = args[:credit_score]
+      @property_type = args[:property_type]
+      @usage = args[:usage]
+      @annual_income = args[:annual_income]
+      @monthly_debt = args[:monthly_debt]
       @results = []
     end
 
     def call
+      @crawler = set_up_crawler
       begin
-        @crawler = set_up_crawler
         go_to_lenda
         fill_in_basic_options
-        select_property_type
-        select_property_usage
-        fill_in_annual_income
-        fill_in_monthly_debt
-        crawler.execute_script("$('#quote_form').trigger('submit')")
-        sleep(10)
-        # crawler.find("span", text: "Hide advanced options").click
-        get_rates
-      rescue Exception => error
-        byebug
+        submit_form
+        if programs?
+          select_property_type
+          select_property_usage
+          fill_in_annual_income
+          fill_in_monthly_debt
+          submit_form
+          sort_rates
+          get_rates
+        end
+      rescue Timeout::Error, Capybara::ElementNotFound => error
+        Rails.logger.error("Cannot get rates from Lenda: #{error.message}")
       end
-      # close_crawler
-      byebug
+      close_crawler
       results
     end
 
@@ -52,64 +51,59 @@ module Crawler
 
     def fill_in_basic_options
       crawler.find("label", text: "Refinance Purpose")
-      first_mortgage_amount = 223423
-      crawler.execute_script("$('#quote_first_mortgage_amount').val('#{first_mortgage_amount}')")
-      # crawler.find("#quote_first_mortgage_amount").set(223423)
-      value_of_home = 539922
-      crawler.execute_script("$('#quote_value_of_home').val('#{value_of_home}')")
-      # crawler.find("#quote_value_of_home").set(539922)
-      zip_code = 95127
-      crawler.execute_script("$('#quote_zip_code').val('#{zip_code}')")
-      # crawler.find("#quote_zip_code").set(95127)
-      credit_score = '720-739'
-      crawler.execute_script("$('#quote_credit_rating_range').val('#{credit_score}')")
-      crawler.execute_script("$('.simple_form').trigger('submit')")
+      crawler.execute_script("$('#quote_first_mortgage_amount').val('#{balance}')")
+      crawler.execute_script("$('#quote_value_of_home').val('#{market_price}')")
+      crawler.execute_script("$('#quote_zip_code').val('#{zipcode}')")
+      crawler.execute_script("$('#quote_credit_rating_range').val('#{get_credit_score}')")
     end
 
     def select_property_type
-      property_type = 'Townhome'
-      crawler.execute_script("$('#quote_type_of_home').val('#{property_type}')")
-      # "Single-family"
-      # "Condo"
-      # "Townhome"
-      # "2 Unit Home (Duplex)"
-      # "3 Unit Home (Triplex)"
-      # "4 Unit Home (Fourplex)"
-      # "Mobile / Manufactured"
-      # "Mixed Use"
+      types = {
+        "sfh" => "Single-family",
+        "duplex" => "2 Unit Home (Duplex)",
+        "triplex" => "3 Unit Home (Triplex)",
+        "fourplex" => "4 Unit Home (Fourplex)",
+        "condo" => "Condo"
+      }
+      crawler.execute_script("$('#quote_type_of_home').val('#{types[property_type]}')")
     end
 
     def select_property_usage
-      property_usage = "Second home"
-      crawler.execute_script("$('#quote_occupancy_of_home').val('#{property_usage}')")
-      # "Primary residence"
-      # "Second home"
-      # "Investment property"
+      usages = {
+        "primary_residence" => "Primary residence",
+        "vacation_home" => "Second home",
+        "rental_property" => "Investment property"
+      }
+      crawler.execute_script("$('#quote_occupancy_of_home').val('#{usages[usage]}')")
     end
 
     def fill_in_annual_income
-      annual_income = 1333500
       crawler.execute_script("$('#quote_annual_income').val(#{annual_income})")
-      # byebug
     end
 
     def fill_in_monthly_debt
-      monthly_debt = 30929
       crawler.execute_script("$('#quote_monthly_debt').val(#{monthly_debt})")
-      # byebug
+    end
+
+    def submit_form
+      crawler.execute_script("$('#quote_form').trigger('submit')")
+      sleep(10)
+    end
+
+    def sort_rates
+      crawler.find(".mixpanel-sort-preference-select").click
+      crawler.find("li", text: "APR").click
+      sleep(6)
     end
 
     def get_rates
-      crawler.find(".mixpanel-sort-preference-select").click
-      crawler.find("li", text: "APR").click
-
       products = {
         "30-year fixed" => "30 year fixed",
         "20-year fixed" => "20 year fixed",
         "15-year fixed" => "15 year fixed",
         "10-year fixed" => "10 year fixed"
       }
-      sleep(5)
+
       products.each do |key, value|
         next unless programs?
         crawler.find(".js-type-of-loan-select").click
@@ -133,10 +127,16 @@ module Crawler
       total_closing_costs - prepaid_items
     end
 
-    def get_rates_by_product(product)
+    def get_credit_score
+      return "740+" if credit_score >= 740
 
-      # get interest rate & apr
-
+      score = 739
+      selected_score = "740+"
+      while score > 620
+        break if credit_score > score
+        score -= 20
+      end
+      "#{score - 19}-#{score}"
     end
 
     def programs?
