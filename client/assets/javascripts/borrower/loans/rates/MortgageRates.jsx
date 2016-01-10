@@ -8,13 +8,14 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var MortgageCalculatorMixin = require('mixins/MortgageCalculatorMixin');
 var List = require('./List');
 var HelpMeChoose = require('./HelpMeChoose');
+var Filter = require('./Filter');
 
 var MortgageRates = React.createClass({
   mixins: [LoaderMixin, ObjectHelperMixin, TextFormatMixin, Navigation, MortgageCalculatorMixin],
 
   getInitialState: function() {
     return {
-      rates: this.props.bootstrapData.rates,
+      programs: this.props.bootstrapData.programs,
       possibleRates: null,
       bestRate: null,
       helpMeChoose: false,
@@ -26,7 +27,7 @@ var MortgageRates = React.createClass({
   choosePossibleRates: function(periods, avgRate, taxRate) {
     var totalCost = 0;
     var result;
-    var possibleRates = _.sortBy(this.state.rates, function (rate) {
+    var possibleRates = _.sortBy(this.state.programs, function (rate) {
       result = this.totalCost(rate, taxRate, avgRate, periods);
       rate['total_cost'] = result['totalCost'];
       rate['result'] = result;
@@ -57,87 +58,78 @@ var MortgageRates = React.createClass({
     this.setState({helpMeChoose: !this.state.helpMeChoose});
   },
 
+  handleSortChange: function(event) {
+    this.sortBy($("#sortRateOptions").val());
+  },
+
+  onFilterProgram: function(filteredPrograms) {
+    this.setState({programs: filteredPrograms})
+  },
+
   render: function() {
     // don't want to make ugly code
     var guaranteeMessage = "We're showing the best 3 loan options for you";
+    var subjectProperty = this.props.bootstrapData.currentLoan.subject_property;
 
     return (
       <div className="content">
         <div className='content container mortgage-rates'>
-          <ul>
-            {
-              _.map(Object.keys(this.props.bootstrapData.debug_info), function(key){
-                if(key != "properties") {
-                  return (
-                    <li key={key}>{key}: {this.props.bootstrapData.debug_info[key]}</li>
-                  )
-                }
-              }, this)
-            }
-          </ul>
-          <h4>Properties:</h4>
-          <ol>
-            {
-              _.map(this.props.bootstrapData.debug_info.properties, function(property) {
-                return (
-                  <li>
-                    <ul>
-                      <li>is_subject: {property.is_subject}</li>
-                      <li>liability_payments: {property.liability_payments}</li>
-                      <li>mortgage_payment: {property.mortgage_payment}</li>
-                      <li>other_financing: {property.other_financing}</li>
-                      <li>actual_rental_income: {property.actual_rental_income}</li>
-                      <li>estimated_property_tax: {property.estimated_property_tax}</li>
-                      <li>estimated_hazard_insurance: {property.estimated_hazard_insurance}</li>
-                      <li>estimated_mortgage_insurance: {property.estimated_mortgage_insurance}</li>
-                      <li>hoa_due: {property.hoa_due}</li>
-                    </ul>
-                  </li>
-                )
-              }, this)
-            }
-          </ol>
+
           { this.state.helpMeChoose
             ?
               <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
             :
             null
           }
-          <div className='row mtl'>
-            { this.state.helpMeChoose
-              ?
-                null
-              :
-                <div className='col-sm-6'>
-                  <span className='typeLowlight'>Sort by:</span>
-                  <a className='clickable mlm' onClick={_.bind(this.sortBy, null, 'apr')}>APR</a>
-                  <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'pmt')}>Monthly Payment</a>
-                  <a className='clickable mll' onClick={_.bind(this.sortBy, null, 'rate')}>Rate</a>
+
+          {
+            this.state.helpMeChoose
+            ?
+            null
+            :
+            <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
+          }
+
+          <div className={this.state.helpMeChoose ? "col-xs-12 account-content" : "col-xs-8 account-content"}>
+            <div className={this.state.helpMeChoose ? "hidden" : "row actions"}>
+              <p>
+                We’ve found {this.props.bootstrapData.programs.length} mortgage options for you. You can sort, filter, and choose one on your own or click
+                <span className="italic-light">Help me choose</span>
+                and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
+                <span className="italic-light">Help me choose</span>.
+              </p>
+              <div className="row form-group actions-group" id="mortgageActions">
+                <div className="col-md-6">
+                  <div className="row">
+                    <div className="col-xs-3">
+                      <label>Sort by</label>
+                    </div>
+
+                    <div className="col-xs-9 select-box">
+                      <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
+                        <option value="apr">APR</option>
+                        <option value="pmt">Monthly Payment</option>
+                        <option value="rate">Rate</option>
+                      </select>
+                      <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+                    </div>
+                  </div>
                 </div>
-            }
-            { this.state.possibleRates
-              ?
-                <div className='col-sm-6'>
-                  <b>{guaranteeMessage}</b>
+                <div className="col-md-6 text-right">
+                  <a className="btn choose-btn text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
                 </div>
-              :
-                null
-            }
-            <div className='col-sm-6 text-right'>
+              </div>
+            </div>
+            <div id="mortgagePrograms">
               { this.state.helpMeChoose
                 ?
-                  null
+                  <List loanAmount={this.props.bootstrapData.currentLoan.amount} programs={this.state.possibleRates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={true}/>
                 :
-                  <a className='btn btnSml btnAction' onClick={this.helpMeChoose}>Help me choose</a>
+                  <List loanAmount={this.props.bootstrapData.currentLoan.amount} programs={this.state.programs} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={false}/>
               }
             </div>
           </div>
-          { this.state.helpMeChoose
-            ?
-              <List rates={this.state.possibleRates} selectRate={this.selectRate} displayTotalCost={true}/>
-            :
-              <List rates={this.state.rates} selectRate={this.selectRate} displayTotalCost={false}/>
-          }
+
         </div>
       </div>
     );
@@ -145,21 +137,21 @@ var MortgageRates = React.createClass({
 
   sortBy: function(field) {
     if (field == 'apr') {
-      var sortedRates = _.sortBy(this.state.rates, function (rate) {
+      var sortedRates = _.sortBy(this.state.programs, function (rate) {
         return parseFloat(rate.apr);
       });
     } else if (field == 'pmt') {
-      var sortedRates = _.sortBy(this.state.rates, function (rate) {
+      var sortedRates = _.sortBy(this.state.programs, function (rate) {
         return parseFloat(rate.monthly_payment);
       });
     } else if (field == 'rate') {
-      var sortedRates = _.sortBy(this.state.rates, function (rate) {
+      var sortedRates = _.sortBy(this.state.programs, function (rate) {
         return parseFloat(rate.interest_rate);
       });
     }
 
     // console.dir(this.state.helpMeChoose);
-    this.setState({rates: sortedRates});
+    this.setState({programs: sortedRates});
   }
 });
 
