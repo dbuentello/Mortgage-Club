@@ -1,6 +1,5 @@
 var React = require("react/addons");
 var FlashHandler = require("mixins/FlashHandler");
-var UploadPhoto = require("components/form/UploadPhoto");
 
 var SettingsTab = React.createClass({
   mixins: [FlashHandler],
