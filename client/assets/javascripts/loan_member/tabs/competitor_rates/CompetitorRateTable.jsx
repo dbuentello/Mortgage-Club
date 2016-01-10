@@ -25,7 +25,6 @@ module.exports = React.createClass({
               </tr>
               {
                 _.map(this.props.competitorRates, function(competitor_rate){
-                  console.log(competitor_rate);
                   return (
                     <tr>
                       <td>

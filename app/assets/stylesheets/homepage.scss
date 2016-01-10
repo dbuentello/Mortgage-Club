@@ -88,6 +88,10 @@
     margin-left: auto;
   }
 
+  .hello-mortgage {
+    padding-top: 65px;
+  }
+
   .mortgageNav {
     border:none;
     margin-top:7px;
@@ -144,7 +148,7 @@
 
   #home-left {
     text-align:center;
-    /*padding-top:10px;*/
+    padding-top:10px;
   }
 
   #home-left h1 {
@@ -201,7 +205,7 @@
 
   #home-right-header h1{
     color: white;
-    /*padding-top: 10px;*/
+    padding-top: 10px;
     padding-bottom: 10px;
     margin: 0;
     letter-spacing: .05em;
@@ -310,6 +314,7 @@
     color:white;
     margin-top:80px;
     font-size:4em;
+    color: #15c0f1;
   }
 
   .content .how-header, .content .client-header {
@@ -411,7 +416,7 @@
   }
 
   .whyPart {
-    background-color: #15c0f1;
+    background-color: #f6f6f6;
     padding-bottom: 80px;
     width: 100%;
   }
@@ -422,12 +427,12 @@
 
   .whyItem {
     margin-top:60px;
-    color:white;
+    color:black;
     height:170px;
   }
 
   .whyItem h6 {
-    color:white !important;
+    color:black !important;
   }
 
   .whyItem img{
@@ -437,6 +442,7 @@
   }
 
   .bigNum {
+    color: #15c0f1;
     float:left;
     font-family: 'aileronlight';
     font-size:4.5em;

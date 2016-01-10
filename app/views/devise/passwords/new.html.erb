@@ -1,16 +1,33 @@
-<h2>Forgot your password?</h2>
+<div class="forgot-password-form">
+  <div class="forgot-password-part content">
+    <div class="container">
+      <div class="row text-center">
+        <h2 class="text-uppercase">forgot your password?</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+        <div class="col-md-4 col-md-offset-4 padding-top-30">
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "form-horizontal text-center"}) do |f| %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, class: "form-control" %>
+            <%= devise_error_messages! %>
+
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
+                <img src="/icons/mail.png" alt="title"/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <button class="btn text-uppercase theBtn deviseBtn" id="btnResetPasswordDevise" type="submit" value="reset password">reset password</button>
+              <h5>
+                <%= link_to "Log in", new_user_session_path %>
+                |
+                <%= link_to "Sign up", new_user_registration_path(resource) %>
+              </h5>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions", class: "btn btn-lg btn-primary btn-block" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>

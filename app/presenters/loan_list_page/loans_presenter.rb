@@ -18,7 +18,7 @@ class LoanListPage::LoansPresenter
           methods: [ :to_s ]
         }
       },
-      methods: [:subject_property]
+      methods: [:subject_property, :pretty_status]
     }
   end
 end

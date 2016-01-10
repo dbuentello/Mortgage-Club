@@ -1,5 +1,5 @@
 class ElectronicSignatureController < ApplicationController
-  before_action :set_loan, only: [:new, :create]
+  before_action :set_loan, only: [:new, :create, :embedded_response]
 
   def new
     bootstrap({
@@ -48,6 +48,7 @@ class ElectronicSignatureController < ApplicationController
     utility = DocusignRest::Utility.new
 
     if params[:event] == "signing_complete"
+      @loan.submitted!
       Docusign::MapEnvelopeToLenderDocument.new(params[:envelope_id], params[:user_id], params[:loan_id]).delay.call
       RatesComparisonServices::Base.new(params[:loan_id], params[:user_id]).call
       render text: utility.breakout_path("/my/dashboard/#{params[:loan_id]}"), content_type: 'text/html'

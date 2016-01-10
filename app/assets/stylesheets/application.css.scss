@@ -18,6 +18,7 @@ $rails: true;
 @import "pages";
 @import "loan-members";
 @import "borrowers";
+@import "loan-programs";
 
 @font-face {
   font-family: 'aileronregular';
@@ -60,6 +61,8 @@ body {
   .helpmechoose {
     left: 5%;
     right: 5%;
+    margin-left: 10px;
+    margin-right: 10px;
     h3 {
       font-size: 19px;
     }
@@ -129,7 +132,7 @@ body {
       }
       .monthly-payment {
         text-align: center;
-        background: #bad80a;
+        background: #00bd9c;
         padding: 15px 0 10px 0;
         line-height: 1.437em;
         margin-bottom: 20px;

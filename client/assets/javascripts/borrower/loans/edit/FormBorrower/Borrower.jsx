@@ -102,6 +102,7 @@ var Borrower = React.createClass({
               value={this.props.phone}
               customClass={"account-text-input"}
               liveFormat={true}
+              maxLength={14}
               format={this.formatPhoneNumber}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.phone)}
               onChange={this.props.onChange}/>

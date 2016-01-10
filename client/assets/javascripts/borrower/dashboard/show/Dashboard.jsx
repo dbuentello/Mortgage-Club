@@ -82,6 +82,7 @@ var Dashboard = React.createClass({
                 :
                   null
               }
+              <p>{loan.pretty_status}</p>
             </div>
             <div className='col-md-3'>
               <a className='btn edit-btn' href={'/loans/' + loan.id + '/edit'}><i className="iconPencil mrs"/>Edit</a>

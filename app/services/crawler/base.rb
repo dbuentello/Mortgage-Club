@@ -15,7 +15,7 @@ module Crawler
         })
       end
 
-      Capybara.default_max_wait_time = 60
+      Capybara.default_max_wait_time = 30
       Capybara::Session.new(:poltergeist)
     end
 

@@ -26,6 +26,7 @@ FactoryGirl.define do
     f.monthly_payment { Faker::Number.decimal(6, 2) }
     f.prepayment_penalty_amount { Faker::Number.decimal(6, 2) }
     f.pmi { Faker::Number.decimal(6, 2) }
+    f.status { "new_loan" }
   end
 
   factory :loan_with_properties, parent: :loan do |f|

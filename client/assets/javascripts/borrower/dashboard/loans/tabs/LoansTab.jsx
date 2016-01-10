@@ -11,7 +11,7 @@ var LoansTab = React.createClass({
           <img className="img-responsive" src={loan.subject_property.zillow_image_url ? loan.subject_property.zillow_image_url : "/home.jpg"}/>
           <div className="caption">
             <h3></h3>
-            <p><strong>Status:</strong> {loan.status}</p>
+            <p><strong>Status:</strong> {loan.pretty_status}</p>
             <p><strong>Create at:</strong> {moment(loan.created_at).format('MMM DD, YYYY')}</p>
             <p><strong>Loan amount:</strong> {this.formatCurrency(loan.amount, "$")}</p>
             <p><strong>Rate:</strong> {this.commafy(loan.interest_rate*100)}%</p>
