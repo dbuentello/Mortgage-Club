@@ -19,7 +19,7 @@ var Dashboard = React.createClass({
           <div className="col-xs-offset-2 col-xs-6 ptl">
             <h2>Loan member dashboard</h2>
             <h5>Loan of {this.props.bootstrapData.loan.user.to_s}</h5>
-            <h5>Status: {this.props.bootstrapData.loan.status}</h5>
+            <h5>Status: {this.props.bootstrapData.loan.pretty_status}</h5>
           </div>
         </div>
         <div className="dashboard-tabs phxl backgroundLowlight">
