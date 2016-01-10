@@ -11,14 +11,14 @@ class LoanListPage::LoansPresenter
 
   def show_loans_json_options
     {
-      only: [:id, :created_at, :amount, :interest_rate],
+      only: [:id, :created_at, :amount, :interest_rate, :status],
       include: {
         user: {
           only: [ :email ],
           methods: [ :to_s ]
         }
       },
-      methods: [:pretty_status]
+      methods: [:subject_property, :pretty_status]
     }
   end
 end

@@ -1,6 +1,5 @@
 var React = require("react/addons");
 var FlashHandler = require("mixins/FlashHandler");
-var UploadPhoto = require("components/form/UploadPhoto");
 
 var SettingsTab = React.createClass({
   mixins: [FlashHandler],
@@ -43,6 +42,11 @@ var SettingsTab = React.createClass({
     });
     event.preventDefault();
   },
+  showPreviewImage: function(event){
+    if (event.target.files && event.target.files[0]){
+      this.setState({avatarUrl: URL.createObjectURL(event.target.files[0])});
+    }
+  },
 
   render: function() {
     return (
@@ -52,17 +56,15 @@ var SettingsTab = React.createClass({
             <h3 className="text-capitalize text-left">account settings</h3>
             <div className="form-group">
               <div className="col-xs-6">
-                <img className="avatar" src={this.state.avatarUrl}/>
+                <img className="avatar" src={this.state.avatarUrl} id="currentAvatar"/>
               </div>
               <div className="col-xs-6">
                 <div className="row">
                   <div className="col-xs-12">
-                    <a className="btn upload-btn fileUpload">
-                      <UploadPhoto
-                        label="Upload Photo"
-                        keyName="avatar"
-                        name="user[avatar]"/>
-                    </a>
+                    <label className="btn upload-btn fileUpload">
+                      <input name="user[avatar]" type='file' accept="image/*" onChange={this.showPreviewImage}/>
+                      Upload Photo
+                    </label>
                   </div>
                 </div>
                 <div className="row">

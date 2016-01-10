@@ -98,6 +98,11 @@
       border: #c2c2c2 1px solid;
       color: #c2c2c2;
   }
+  .upload-btn input {
+    position: absolute;
+    top: -1000px;
+    left: 0;
+  }
   .update-btn {
     background-color: #15c0f1;
     border: #15c0f1 1px solid;

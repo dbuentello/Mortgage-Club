@@ -1,9 +1,21 @@
 div.img-home {
   height: 200px;
   width: 100%;
-  background-image: url(asset_path('home.jpg'));
   background-repeat:no-repeat;
-  background-size: 100% 100%
+  background-size: 100% 100%;
+  .loan-thumnail {
+    height: 205px;
+    width: 333px;
+  }
+}
+.loan-item {
+  padding: 10px;
+  .loan-item-holder {
+    padding: 20px;
+    border: #bebebe 1px solid;
+    border-radius: 4px;
+
+  }
 }
 
 span.iconCheck {
