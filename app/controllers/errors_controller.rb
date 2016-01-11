@@ -12,6 +12,6 @@ class ErrorsController < ApplicationController
     return unauthenticated_root_path unless current_user
     return admin_root_path if current_user.has_role?(:admin)
     return loan_member_root_path if current_user.has_role?(:lender_member)
-    return borrower_root_path
+    borrower_root_path
   end
 end
