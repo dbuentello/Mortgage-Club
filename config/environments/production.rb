@@ -55,8 +55,6 @@ Rails.application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = "http://assets.example.com"
-  config.action_controller.asset_host = 'intense-oasis-8157.herokuapp.com'
-  config.action_mailer.asset_host = 'http://intense-oasis-8157.herokuapp.com'
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
