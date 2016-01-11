@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-Faq do
+describe Faq do
 
 end
