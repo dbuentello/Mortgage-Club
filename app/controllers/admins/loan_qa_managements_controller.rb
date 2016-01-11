@@ -1,4 +1,4 @@
-class Admins::LoanQaManagementsController < Admins::BaseController
+class Admins::LoanFaqManagementsController < Admins::BaseController
 
   def index
 
