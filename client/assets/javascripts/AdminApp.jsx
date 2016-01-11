@@ -49,7 +49,7 @@ window.AdminApp = React.createClass({
                         <li><a href="/lenders" className="dropdownLink">Lenders</a></li>
                         <li><a href="/loan_member_managements" className="dropdownLink">Loan Members</a></li>
                         <li><a href="/loan_assignments" className="dropdownLink">Loan Assignment</a></li>
-                        <li><a href="/loan_faq_managements" className="dropdownLink">Loan FAQ</a></li>
+                        <li><a href="/loan_faq_managements" className="dropdownLink">Loan FAQs</a></li>
                         <li><a href="/auth/register/edit" className="dropdownLink">Profile</a></li>
                         <li><a href="/auth/logout" className="dropdownLink" data-method='delete'>Log out</a></li>
                       </ul>

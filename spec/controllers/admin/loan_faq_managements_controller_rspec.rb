@@ -59,12 +59,12 @@ describe Admins::LoanFaqManagementsController do
 
   describe "PATCH #update" do
     it "updates faq in the database" do
-      patch :update, id:faq.id, faq: attributes_for(:faq, question: "question", answer: "answer")
+      patch :update, id: faq.id, faq: attributes_for(:faq, question: "question", answer: "answer")
       expect(JSON.parse(response.body)["message"]).to include("Updated sucessfully")
     end
 
     it "renders error message with empty answer" do
-      patch :update, id:faq.id, faq: attributes_for(:faq, question: "question", answer: nil)
+      patch :update, id: faq.id, faq: attributes_for(:faq, question: "question", answer: nil)
       expect(JSON.parse(response.body)["message"]).to include("Updated failed")
     end
   end
