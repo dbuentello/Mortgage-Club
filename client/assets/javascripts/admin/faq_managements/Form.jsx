@@ -48,7 +48,7 @@ var Form = React.createClass({
     this.setState({saving: true});
     event.preventDefault();
     var formData = new FormData($('.form-loan-faq')[0]);
-    formData.append("faq[answer]", this.state.answer);
+
     $.ajax({
       url: this.props.Url,
       method: this.props.Method,
@@ -114,6 +114,13 @@ var Form = React.createClass({
                 value={this.state.question}
                 editable={true}
                 onChange={this.onChange}/>
+
+              <TextField
+                label="Answer"
+                keyName="answer"
+                name="faq[answer]"
+                value={this.state.answer}
+                hidden={true}/>
             </div>
           </div>
           <div className="form-group">

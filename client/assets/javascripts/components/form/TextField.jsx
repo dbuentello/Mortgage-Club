@@ -64,7 +64,10 @@ var TextField = React.createClass({
     noTruncation: React.PropTypes.bool,
 
     // set this to false if you want the field to have a red outline
-    valid: React.PropTypes.bool
+    valid: React.PropTypes.bool,
+
+    // set this to true if you want the hidden field
+    hidden: React.PropTypes.bool,
   },
 
   getDefaultProps: function() {
@@ -74,7 +77,8 @@ var TextField = React.createClass({
       suffix: '',
       noTruncation: false,
       tooltip: {},
-      valid: true
+      valid: true,
+      hidden: false
     };
   },
 
@@ -85,6 +89,7 @@ var TextField = React.createClass({
         displayText = this.props.value,
         rightAlign = (this.props.format == 'number' && !suffix),
         tooltip = this.props.tooltip,
+        type = this.props.hidden == true ? "hidden" : "text",
         hasTooltip = tooltip.hasOwnProperty('text') && tooltip.hasOwnProperty('position');
 
     if (this.props.format == 'number') {
@@ -103,15 +108,26 @@ var TextField = React.createClass({
 
     return (
       <div>
-        <label className="col-xs-12 pan">
-          <span className='h7 typeBold'>{this.props.label}</span>
-          {hasTooltip ?
-            <HelpTooltip position={tooltip.position} text={tooltip.text} />
-          : null}
-          <input className={classes.editableFieldClasses + (rightAlign ? ' text-right' : '')} type="text" value={this.props.value}
-            onChange={this.handleChange} onBlur={this.props.onBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.name} id={this.props.keyName}/>
-        </label>
-        <p className={classes.staticFieldClasses}>{displayText}</p>
+          <label className="col-xs-12 pan">
+            {
+              this.props.hidden ?
+                null
+              : <span className='h7 typeBold'>{this.props.label}</span>
+            }
+            {
+              hasTooltip ?
+                <HelpTooltip position={tooltip.position} text={tooltip.text} />
+              : null
+            }
+            <input className={classes.editableFieldClasses + (rightAlign ? ' text-right' : '')} type={type} value={this.props.value}
+              onChange={this.handleChange} onBlur={this.props.onBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder}
+              name={this.props.name} id={this.props.keyName}/>
+          </label>
+          {
+            this.props.hidden ?
+              null
+            : <p className={classes.staticFieldClasses}>{displayText}</p>
+          }
       </div>
     );
   }
