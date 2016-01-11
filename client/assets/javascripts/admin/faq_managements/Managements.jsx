@@ -31,7 +31,6 @@ var Managements = React.createClass({
               <thead>
                 <tr>
                   <th>Question</th>
-                  <th>Answer</th>
                   <th></th>
                 </tr>
               </thead>
@@ -41,7 +40,6 @@ var Managements = React.createClass({
                     return (
                       <tr key={faq.id}>
                         <td>{faq.question}</td>
-                        <td>{faq.answer}</td>
                         <td>
                           <span>
                             <a className='linkTypeReversed btn btn-primary' href={'loan_faq_managements/' + faq.id + '/edit'} data-method='get'>Edit</a>

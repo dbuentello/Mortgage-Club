@@ -4,11 +4,11 @@ var React = require('react/addons');
 var FaqsList = React.createClass({
   render: function() {
     var faqs = this.props.FaqsList;
-    console.log(faqs);
+
     return (
       <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           {
-            _.map(faqs, function(faq) {
+            _.map(faqs, function(faq, index) {
               return (
                 <div className="panel">
                   <div className="panel-heading" role="tab" id={"heading" + faq.id}>
@@ -19,8 +19,8 @@ var FaqsList = React.createClass({
                     </h4>
                   </div>
                   <div id={"collapse" + faq.id} className="panel-collapse collapse" role="tabpanel" aria-labelledby={"heading" + faq.id} aria-expanded="false">
-                    <div className="panel-body">
-                      <p>{faq.answer}</p>
+                    <div className="panel-body" dangerouslySetInnerHTML={{__html: faq.answer}}>
+
                     </div>
                   </div>
                 </div>

@@ -3,6 +3,7 @@ var React = require('react/addons');
 var FlashHandler = require('mixins/FlashHandler');
 var TextField = require('components/form/TextField');
 var ModalLink = require('components/ModalLink');
+var TextEditor = require('components/TextEditor');
 
 var Form = React.createClass({
   mixins: [FlashHandler],
@@ -29,7 +30,8 @@ var Form = React.createClass({
       };
     }else {
       return {
-
+        answer: "",
+        question: ""
       };
     }
   },
@@ -38,11 +40,15 @@ var Form = React.createClass({
     this.setState(event)
   },
 
+  onContentChange: function(content){
+    this.setState({answer: content});
+  },
+
   onClick: function(event) {
     this.setState({saving: true});
     event.preventDefault();
     var formData = new FormData($('.form-loan-faq')[0]);
-
+    formData.append("faq[answer]", this.state.answer);
     $.ajax({
       url: this.props.Url,
       method: this.props.Method,
@@ -111,14 +117,11 @@ var Form = React.createClass({
             </div>
           </div>
           <div className="form-group">
-            <div className="col-sm-4">
-              <TextField
+            <div className="col-sm-12">
+              <TextEditor
                 label="Answer"
-                keyName="answer"
-                name="faq[answer]"
-                value={this.state.answer}
-                editable={true}
-                onChange={this.onChange}/>
+                onChange={this.onContentChange}
+                content={this.state.answer}/>
             </div>
           </div>
           <div className="form-group">

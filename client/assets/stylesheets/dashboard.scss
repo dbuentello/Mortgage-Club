@@ -323,6 +323,10 @@ a.remove {
       color: black;
     }
 
+    .panel:last-of-type {
+      border: none;
+    }
+
     .panel-group .panel-heading {
       padding: 8px 0;
     }
