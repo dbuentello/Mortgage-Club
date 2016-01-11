@@ -29,16 +29,9 @@ module Docusign
         @params['purpose'] = "#{loan.purpose}".titleize
         @params['product'] = "#{loan.amortization_type}".titleize
         @params['loan_term'] = loan.num_of_years.to_s + " years"
-        @params['applicant_address'] = {
-          width: 225,
-          height: 30,
-          value: borrower.current_address.try(:address).try(:address)
-        }
-        @params['property'] = {
-          width: 225,
-          height: 30,
-          value: property.address.try(:address)
-        }
+        @params['applicant_street_address'] = borrower.current_address.try(:address).try(:street_address)
+        @params['applicant_city_and_state'] = "#{get_applicant_city_and_state}"
+        @params['property'] = property.address.try(:address)
 
         add_loan_type
         add_rate_lock
@@ -337,6 +330,12 @@ module Docusign
         map_string_to_params(['late_days'])
       end
 
+      def get_applicant_city_and_state
+        return unless address = borrower.current_address.try(:address)
+
+        "#{address.city}, #{address.state} #{address.zip}"
+      end
+
       def map_string_to_params(list, object = loan)
         list.each do |key|
           @params[key] = object.method(key).call
@@ -360,12 +359,3 @@ module Docusign
     end
   end
 end
-
-# default values for testing
-# values.merge! ({
-#   'date_issued' => Time.zone.today.in_time_zone.strftime("%D"),
-#   'include_property_taxes_yes_no' => 'x',
-#   'include_homeowners_insurance_yes_no' => 'x',
-#   'include_other_yes_no' => 'x',
-#   'include_other_text' => 'hardcode test'
-# })
