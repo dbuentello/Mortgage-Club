@@ -323,8 +323,24 @@ a.remove {
       color: black;
     }
 
+    .panel-title > a.collapsed:after {
+      content: "\e260";
+    }
+
+    .panel-title  a:after {
+      content: "\e259";
+      float: right;
+      display: block;
+      color: #555;
+      font-family: 'Glyphicons Halflings';
+    }
+
     .panel:last-of-type {
       border: none;
+    }
+
+    .panel-body {
+      border-top: none !important;
     }
 
     .panel-group .panel-heading {
