@@ -1,6 +1,6 @@
 class CreateFaqs < ActiveRecord::Migration
   def change
-    create_table :faqs do |t|
+    create_table :faqs, id: :uuid do |t|
       t.text :question
       t.text :answer
 
