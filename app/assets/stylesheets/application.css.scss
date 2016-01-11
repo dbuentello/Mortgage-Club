@@ -65,6 +65,11 @@ body {
   background: #15c0f1;
   border-color: #15c0f1;
 }
+.main-btn:hover {
+  background: #fff;
+  color: #15c0f1;
+  border:1px #15c0f1 solid;
+}
 
 .error-header {
   font-size: 39px;
