@@ -20,7 +20,6 @@ var FaqsList = React.createClass({
                   </div>
                   <div id={"collapse" + faq.id} className="panel-collapse collapse" role="tabpanel" aria-labelledby={"heading" + faq.id} aria-expanded="false">
                     <div className="panel-body" dangerouslySetInnerHTML={{__html: faq.answer}}>
-
                     </div>
                   </div>
                 </div>
