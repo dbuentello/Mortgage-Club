@@ -11,7 +11,7 @@ class LoanProgram::LoanProgramPresenter
 
   def json_options
     {
-      only: [:amount],
+      only: [:id, :amount],
       include: {
         rental_properties: {
           include: :address,
