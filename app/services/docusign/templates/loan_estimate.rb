@@ -309,7 +309,7 @@ module Docusign
           [
             'closing_costs_financed', 'down_payment', 'deposit', 'funds_for_borrower', 'seller_credits', 'adjustments_and_other_credits'
           ],
-          &align(@params['total_closing_costs'].length
+          &align(@params['total_closing_costs'].length)
         )
       end
 
