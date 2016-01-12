@@ -24,25 +24,30 @@ var Form = React.createClass({
   getInitialState: function() {
     if(this.props.ActivityType) {
       return {
-        type: this.props.ActivityType.type,
+        label: this.props.ActivityType.label,
         type_name_mapping: this.props.ActivityType.type_name_mapping,
+        type_name: ""
       };
     }else{
       return {
-        type: "",
-        type_name_mapping: [""]
+        label: "",
+        type_name_mapping: [],
+        type_name: ""
       }
     }
   },
 
   onChange: function(event) {
-    this.setState(event)
+    this.setState(event);
   },
 
   onClick: function(event) {
     this.setState({saving: true});
     event.preventDefault();
     var formData = new FormData($('.form-loan-acitivity-type')[0]);
+    _.each(this.state.type_name_mapping, function(type_name){
+      formData.append("activity_type[type_name_mapping][]", type_name);
+    });
 
     $.ajax({
       url: this.props.Url,
@@ -51,7 +56,7 @@ var Form = React.createClass({
       data: formData,
       success: function(response) {
         this.setState({
-          type: response.activity_type.type,
+          label: response.activity_type.label,
           type_name_mapping: response.activity_type.type_name_mapping,
           saving: false
         });
@@ -94,6 +99,24 @@ var Form = React.createClass({
     }
   },
 
+  addTypeNameMapping: function(event){
+    var typeNameMapping = this.state.type_name_mapping.slice();
+    typeNameMapping.push(this.state.type_name);
+
+    this.setState({
+      type_name_mapping: typeNameMapping
+    });
+  },
+
+  removeTypeNameMapping: function(index){
+    var typeNameMapping = this.state.type_name_mapping;
+    typeNameMapping.splice(index, 1);
+
+    this.setState({
+      type_name_mapping: typeNameMapping
+    });
+  },
+
   render: function() {
     return (
       <div>
@@ -101,13 +124,44 @@ var Form = React.createClass({
           <div className="form-group">
             <div className="col-sm-4">
               <TextField
-                label="Type"
-                keyName="type"
-                name="activity_type[type]"
-                value={this.state.type}
+                label="Label"
+                keyName="label"
+                name="activity_type[label]"
+                value={this.state.label}
                 editable={true}
                 onChange={this.onChange}/>
             </div>
+          </div>
+
+          <div className="form-group">
+            <div className="col-sm-4">
+              <TextField
+                label="Type Name Mapping"
+                keyName="type_name"
+                value={this.state.type_name}
+                editable={true}
+                onChange={this.onChange}/>
+            </div>
+            <div className="col-sm-2">
+              <a className="btn btn-default" id="addTypeNameMapping" onClick={this.addTypeNameMapping} role="button">+</a>
+            </div>
+          </div>
+
+          <div className="col-sm-4">
+            {
+              _.map(this.state.type_name_mapping, function(type_name, index) {
+                return (
+                  <div className="row input-sm">
+                    <div className="col-sm-8 pan">
+                      {type_name}
+                    </div>
+                    <div className="col-sm-4">
+                      <a className="btn btn-danger" id="removeTypeNameMapping" onClick={this.removeTypeNameMapping.bind(this, index)} role="button">x</a>
+                    </div>
+                  </div>
+                )
+              }, this)
+            }
           </div>
 
           <div className="form-group">

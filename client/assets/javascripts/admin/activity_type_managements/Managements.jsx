@@ -28,7 +28,7 @@ var Managements = React.createClass({
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th>Type</th>
+                  <th>Label</th>
                   <th></th>
                 </tr>
               </thead>
@@ -37,7 +37,7 @@ var Managements = React.createClass({
                   _.map(this.state.activity_types, function(activity_type) {
                     return (
                       <tr key={activity_type.id}>
-                        <td>{activity_type.type}</td>
+                        <td>{activity_type.label}</td>
                         <td>
                           <span>
                             <a className='linkTypeReversed btn btn-primary' href={'loan_activity_type_managements/' + activity_type.id + '/edit'} data-method='get'>Edit</a>

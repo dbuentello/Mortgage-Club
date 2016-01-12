@@ -11,7 +11,6 @@ class Admins::LoanActivityTypesPresenter
 
   def json_options
     {
-      only: [ :id, :label, :type_name_mapping ]
     }
   end
 end
