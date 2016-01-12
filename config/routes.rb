@@ -195,7 +195,7 @@ Rails.application.routes.draw do
   post "receive", to: "ocr_notifications#receive"
 
   get "developer_infographics", to: "pages#developer_infographics"
-  %w( 404 422 500 503 ).each do |code|
-    get code, :to => "errors#show", :code => code
-  end
+
+  get "404", to: "errors#show", code: 404
+
 end
