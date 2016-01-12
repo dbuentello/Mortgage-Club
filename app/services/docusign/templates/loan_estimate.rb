@@ -30,9 +30,9 @@ module Docusign
         @params['product'] = "#{loan.amortization_type}".titleize
         @params['loan_term'] = loan.num_of_years.to_s + " years"
         @params['applicant_street_address'] = borrower.current_address.try(:address).try(:street_address)
-        @params['applicant_city_and_state'] = "#{get_applicant_city_and_state}"
-        @params['property'] = property.address.try(:address)
-
+        @params['applicant_city_and_state'] = get_city_and_state(borrower.current_address.try(:address))
+        @params['property_city_and_state'] = get_city_and_state(property.address)
+        @params['property_street_address'] = property.address.try(:street_address)
         add_loan_type
         add_rate_lock
       end
@@ -330,8 +330,8 @@ module Docusign
         map_string_to_params(['late_days'])
       end
 
-      def get_applicant_city_and_state
-        return unless address = borrower.current_address.try(:address)
+      def get_city_and_state(address)
+        return unless address
 
         "#{address.city}, #{address.state} #{address.zip}"
       end
