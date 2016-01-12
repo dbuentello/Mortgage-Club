@@ -8,29 +8,27 @@ var FlashHandler = require('mixins/FlashHandler');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 
-var ActivityTypes = [
-  { "value": 0, "label": "Prior to Loan Submission" },
-  { "value": 1, "label": "Prior to Loan Docs" },
-  { "value": 2, "label": "Prior to Closing" },
-  { "value": 3, "label": "Post Closing" }
-];
+var ActivityTypes = [];
 
-var TypeNameMapping = {
-  0: ["Verify borrower's income", "Verify borrower's down payment", "Verify borrower's rental properties", "Other"],
-  1: ["Verify borrower's employment", "Ask borrower to submit additional documents"],
-  2: ["Order preliminary title report", "Schedule notary appointment"],
-  3: ["Review loan criteria per lender request"]
-};
+var TypeNameMapping = {};
 
 var ActivityTab = React.createClass({
   mixins: [FlashHandler, ObjectHelperMixin, TextFormatMixin],
 
   getInitialState: function() {
+    _.each(this.props.activity_types, function(activity_type){
+      ActivityTypes.push({
+        "value": activity_type.id,
+        "label": activity_type.label
+      });
+      TypeNameMapping[activity_type.id] = activity_type.type_name_mapping;
+    });
+
     return {
       current_type: '0',
       current_name: "Verify borrower's income",
       current_status: 0,
-      acctivity_name_list: TypeNameMapping[0],
+      acctivity_name_list: _.values(TypeNameMapping)[0],
       shown_to_user: true,
       loan_submission_list: this.getValue(this.props.loan_activities, 'loan_submission'),
       loan_doc_list: this.getValue(this.props.loan_activities, 'loan_doc'),
