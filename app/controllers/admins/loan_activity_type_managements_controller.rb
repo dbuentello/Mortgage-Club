@@ -1,4 +1,4 @@
-class LoanActivityTypeManagementsController < Admins::BaseController
+class Admins::LoanActivityTypeManagementsController < Admins::BaseController
   before_action :set_activity_type, except: [:index, :create]
 
   def index
