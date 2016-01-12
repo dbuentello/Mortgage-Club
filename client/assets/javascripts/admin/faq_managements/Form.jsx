@@ -55,13 +55,11 @@ var Form = React.createClass({
       enctype: 'multipart/form-data',
       data: formData,
       success: function(response) {
-        this.setState(
-          {
-            question: response.faq.question,
-            answer: response.faq.answer,
-            saving: false
-          }
-        );
+        this.setState({
+          question: response.faq.question,
+          answer: response.faq.answer,
+          saving: false
+        });
         var flash = { "alert-success": response.message };
         this.showFlashes(flash);
         if(response.faqs){

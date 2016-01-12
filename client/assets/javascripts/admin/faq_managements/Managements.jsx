@@ -14,9 +14,7 @@ var Managements = React.createClass({
   },
 
   onReloadTable: function(faqs) {
-    this.setState(
-      {faqs: faqs}
-    )
+    this.setState({faqs: faqs});
   },
 
   render: function() {
