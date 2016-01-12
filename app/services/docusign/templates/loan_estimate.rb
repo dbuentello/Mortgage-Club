@@ -25,7 +25,7 @@ module Docusign
       def build_header
         @params['date_issued'] = Time.zone.today.in_time_zone.strftime("%D")
         @params['applicant_name'] = applicant_name
-        @params['sale_price'] = Money.new(property.purchase_price * 100).format
+        @params['sale_price'] = Money.new(property.purchase_price * 100).format(no_cents_if_whole: true)
         @params['purpose'] = "#{loan.purpose}".titleize
         @params['product'] = "#{loan.amortization_type}".titleize
         @params['loan_term'] = loan.num_of_years.to_s + " years"
@@ -38,10 +38,10 @@ module Docusign
       end
 
       def build_loan_terms
-        @params['loan_amount'] = Money.new(loan.amount * 100).format
+        @params['loan_amount'] = Money.new(loan.amount * 100).format(no_cents_if_whole: true)
         @params['interest_rate'] = "#{(loan.interest_rate.to_f * 100).round(3)}%"
-        @params['monthly_principal_interest'] = Money.new(loan.monthly_payment.to_f.round(2) * 100).format
-        @params['prepayment_penalty_amount'] = Money.new(loan.prepayment_penalty_amount.to_f.round(2) * 100).format
+        @params['monthly_principal_interest'] = Money.new(loan.monthly_payment.to_f.round(2) * 100).format(no_cents_if_whole: true)
+        @params['prepayment_penalty_amount'] = Money.new(loan.prepayment_penalty_amount.to_f.round(2) * 100).format(no_cents_if_whole: true)
         @params['prepayment_penalty_text'] = loan.prepayment_penalty_text
         @params['balloon_payment_text'] = loan.balloon_payment_text
         @params['prepayment_penalty_amount_tooltip'] = 'As high as'
@@ -54,11 +54,11 @@ module Docusign
 
       def build_projected_payments
         @params['payment_calculation_text_1'] = 'Years 1-5'
-        @params['projected_principal_interest_1'] = Money.new(loan.monthly_payment.to_f.round(2) * 100).format
-        @params['projected_mortgage_insurance_1'] = Money.new(loan.pmi.to_f.round(2) * 100).format
-        @params['estimated_escrow_1'] = Money.new(estimated_escrow * 100).format
-        @params['estimated_total_monthly_payment_1'] = Money.new(estimated_total_monthly_payment_1 * 100).format
-        @params['estimated_taxes_insurance_assessments'] = Money.new(estimated_escrow * 100).format
+        @params['projected_principal_interest_1'] = Money.new(loan.monthly_payment.to_f.round(2) * 100).format(no_cents_if_whole: true)
+        @params['projected_mortgage_insurance_1'] = Money.new(loan.pmi.to_f.round(2) * 100).format(no_cents_if_whole: true)
+        @params['estimated_escrow_1'] = Money.new(estimated_escrow * 100).format(no_cents_if_whole: true)
+        @params['estimated_total_monthly_payment_1'] = Money.new(estimated_total_monthly_payment_1 * 100).format(no_cents_if_whole: true)
+        @params['estimated_taxes_insurance_assessments'] = Money.new(estimated_escrow * 100).format(no_cents_if_whole: true)
         @params['estimated_escrow_1_tooltip'] = '+'
         @params['estimated_taxes_insurance_assessments_text'] = 'a month'
         @params['projected_mortgage_insurance_1_tooltip'] = '+'
@@ -74,9 +74,10 @@ module Docusign
       end
 
       def build_cost_closing
+        @params['estimated_cash_to_close'] = rand(100000)
         map_number_to_params(
           [
-            'estimated_closing_costs', 'loan_costs', 'other_costs', 'lender_credits', 'estimated_cash_to_close'
+            'estimated_closing_costs', 'loan_costs', 'other_costs', 'lender_credits'
           ]
         )
       end
@@ -92,8 +93,8 @@ module Docusign
         sum_closing_costs
         calculating_cash_to_close
 
-        @params['loan_costs_total'] = Money.new(loan_costs_total * 100).format
-        @params['total_other_costs'] = Money.new(total_other_costs * 100).format
+        @params['loan_costs_total'] = Money.new(loan_costs_total * 100).format(no_cents_if_whole: true)
+        @params['total_other_costs'] = Money.new(total_other_costs * 100).format(no_cents_if_whole: true)
       end
 
       def build_additional_information
@@ -109,19 +110,23 @@ module Docusign
       private
 
       def origination_charges
+        @params['origination_charges_total'] = Money.new(origination_charges_total * 100).format(no_cents_if_whole: true)
+        @params['points_text'] = "#{(loan.points.to_f * 100).round(3)}%"
+        @params['points'] = Money.new((loan.points.to_f * loan.amount.to_f).round(3) * 100).format(no_cents_if_whole: true)
+        align(@params['origination_charges_total'].length).call('points')
+
         map_number_to_params(
           {
             'application_fee' => 'Application fee',
             'underwriting_fee' => 'Underwriting fee',
-          }
+          },
+          &align(@params['origination_charges_total'].length)
         )
-
-        @params['origination_charges_total'] = Money.new(origination_charges_total * 100).format
-        @params['points_text'] = "#{(loan.points.to_f * 100).round(3)}%"
-        @params['points'] = Money.new((loan.points.to_f * loan.amount.to_f).round(3) * 100).format
       end
 
       def services_you_cannot_shop_for
+        @params['services_cannot_shop_total'] = Money.new(services_cannot_shop_total * 100).format(no_cents_if_whole: true)
+
         map_number_to_params(
           {
             'appraisal_fee' => 'Appraisal fee',
@@ -130,13 +135,13 @@ module Docusign
             'flood_monitoring_fee' => 'Flood Monitoring Fee',
             'tax_monitoring_fee' => 'Tax Monitoring Fee',
             'tax_status_research_fee' => 'Tax Status Research Fee'
-          }
+          },
+          &align(@params['services_cannot_shop_total'].length)
         )
-
-        @params['services_cannot_shop_total'] = Money.new(services_cannot_shop_total * 100).format
       end
 
       def services_you_can_shop_for
+        @params['services_can_shop_total'] = Money.new(services_can_shop_total * 100).format(no_cents_if_whole: true)
         map_number_to_params(
           {
             'pest_inspection_fee' => 'Pest Inspection Fee',
@@ -145,25 +150,27 @@ module Docusign
             'lenders_title_policy' => "Title - Lender's Title Policy",
             'settlement_agent_fee' => 'Title - Settlement Agent Fee',
             'title_search' => 'Title - Title Search'
-          }
+          },
+          &align(@params['services_can_shop_total'].length)
         )
-
-        @params['services_can_shop_total'] = Money.new(services_can_shop_total * 100).format
       end
 
       def taxes_and_other_government_fees
+        @params['taxes_and_other_government_fees_total'] = Money.new(taxes_and_other_government_fees_total * 100).format(no_cents_if_whole: true)
         map_number_to_params(
-          ['recording_fees_and_other_taxes', 'transfer_taxes']
+          ['recording_fees_and_other_taxes', 'transfer_taxes'],
+          &align(@params['taxes_and_other_government_fees_total'].length)
         )
-        @params['taxes_and_other_government_fees_total'] = Money.new(taxes_and_other_government_fees_total * 100).format
       end
 
       def prepaids
+        @params['prepaids_total'] = Money.new(prepaids_total * 100).format(no_cents_if_whole: true)
         map_number_to_params(
           [
             'homeowners_insurance_premium', 'mortgage_insurance_premium',
             'prepaid_interest_per_day', 'prepaid_property_taxes'
-          ]
+          ],
+          &align(@params['prepaids_total'].length)
         )
 
         map_string_to_params(
@@ -173,17 +180,18 @@ module Docusign
           ]
         )
 
-        @params['prepaid_interest'] = Money.new(prepaid_interest * 100).format
-        @params['prepaids_total'] = Money.new(prepaids_total * 100).format
+        @params['prepaid_interest'] = Money.new(prepaid_interest * 100).format(no_cents_if_whole: true)
         @params['prepaid_interest_rate'] = "#{loan.prepaid_interest_rate.to_f * 100}%"
       end
 
 
       def initial_escrow_payment_at_closing
+        @params['intial_escrow_payment_total'] = Money.new(intial_escrow_payment_total * 100).format(no_cents_if_whole: true)
         map_number_to_params(
           [
             'initial_mortgage_insurance', 'initial_property_taxes_per_month', 'initial_property_taxes'
-          ]
+          ],
+          &align(@params['intial_escrow_payment_total'].length)
         )
 
         map_string_to_params(
@@ -194,8 +202,8 @@ module Docusign
 
         @params['initial_homeowner_insurance_per_month'] = property.estimated_hazard_insurance.to_f.round(2)
         @params['intial_mortgage_insurance_per_month'] = loan.pmi_monthly_premium_amount.to_f.round(2)
-        @params['initial_homeowner_insurance'] = Money.new(initial_homeowner_insurance * 100).format
-        @params['intial_escrow_payment_total'] = Money.new(intial_escrow_payment_total * 100).format
+        @params['initial_homeowner_insurance'] = Money.new(initial_homeowner_insurance * 100).format(no_cents_if_whole: true)
+        align(@params['intial_escrow_payment_total'].length).call('initial_homeowner_insurance')
       end
 
       def add_loan_type
@@ -278,14 +286,14 @@ module Docusign
       end
 
       def other_closing_cost
-        @params['owner_title_policy'] = @params['other_total'] = Money.new(loan.owner_title_policy.to_f.round(2) * 100).format
+        @params['owner_title_policy'] = @params['other_total'] = Money.new(loan.owner_title_policy.to_f.round(2) * 100).format(no_cents_if_whole: true)
         @params['owner_title_policy_text'] = 'Title - Owner Title Policy'
       end
 
       def sum_closing_costs
-        @params['lender_credits'] ||= Money.new(loan.lender_credits.to_f.round(2) * 100).format
-        @params['total_loan_costs_and_other_costs'] = Money.new(total_loan_costs_and_other_costs * 100).format
-        @params['total_closing_costs'] = Money.new(total_closing_costs * 100).format
+        @params['lender_credits'] ||= Money.new(loan.lender_credits.to_f.round(2) * 100).format(no_cents_if_whole: true)
+        @params['total_loan_costs_and_other_costs'] = Money.new(total_loan_costs_and_other_costs * 100).format(no_cents_if_whole: true)
+        @params['total_closing_costs'] = Money.new(total_closing_costs * 100).format(no_cents_if_whole: true)
       end
 
       def total_loan_costs_and_other_costs
@@ -300,7 +308,8 @@ module Docusign
         map_number_to_params(
           [
             'closing_costs_financed', 'down_payment', 'deposit', 'funds_for_borrower', 'seller_credits', 'adjustments_and_other_credits'
-          ]
+          ],
+          &align(@params['total_closing_costs'].length
         )
       end
 
@@ -336,25 +345,31 @@ module Docusign
         "#{address.city}, #{address.state} #{address.zip}"
       end
 
-      def map_string_to_params(list, object = loan)
+      def map_string_to_params(list)
         list.each do |key|
           @params[key] = object.method(key).call
         end
       end
 
-      def map_number_to_params(list, object = loan)
+      def map_number_to_params(list, &block)
         if list.class == Array
           list.each do |key|
             number = @loan.method(key).call
-            @params[key] = Money.new(number.to_f.round(2) * 100).format
+            @params[key] = Money.new(number.to_f.round(2) * 100).format(no_cents_if_whole: true)
+            block.call(key) if block_given?
           end
         else
           list.each do |key, value|
             number = @loan.method(key).call
-            @params[key] = Money.new(number.to_f.round(2) * 100).format
+            @params[key] = Money.new(number.to_f.round(2) * 100).format(no_cents_if_whole: true)
+            block.call(key) if block_given?
             @params["#{key}_text"] = value
           end
         end
+      end
+
+      def align(max_length)
+        Proc.new { |key| @params[key] = @params[key].rjust(max_length + 1) if @params[key].length < max_length }
       end
     end
   end
