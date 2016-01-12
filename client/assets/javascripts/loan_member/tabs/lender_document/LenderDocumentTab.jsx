@@ -229,7 +229,7 @@ var LenderDocumentTab = React.createClass({
               </div>
             </div>
             <div className="row">
-              <TextEditor onChange={this.updateEmailContent} updateContent={this.state.updateTextEditorContent} content={this.state.emailContent}/>
+              <TextEditor onChange={this.updateEmailContent} content={this.state.emailContent}/>
             </div>
             <br/>
             {

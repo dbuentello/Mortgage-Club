@@ -80,7 +80,7 @@ a.remove {
   padding-top: 7px;
   padding-bottom: 7px;
 }
-.content {
+.loan-dashboard {
   padding-top: 0px !important;
 }
 
@@ -321,6 +321,26 @@ a.remove {
       box-shadow: none;
       border-bottom: #dfdfdf 1px solid;
       color: black;
+    }
+
+    .panel-title > a.collapsed:after {
+      content: "\e260";
+    }
+
+    .panel-title  a:after {
+      content: "\e259";
+      float: right;
+      display: block;
+      color: #555;
+      font-family: 'Glyphicons Halflings';
+    }
+
+    .panel:last-of-type {
+      border: none;
+    }
+
+    .panel-body {
+      border-top: none !important;
     }
 
     .panel-group .panel-heading {
