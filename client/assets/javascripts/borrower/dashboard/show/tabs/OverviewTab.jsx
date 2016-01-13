@@ -18,7 +18,26 @@ var OverviewTab = React.createClass({
     );
   },
 
+  getInitialState: function(){
+    var checklistCounter = this.props.checklists.length;
+    var pendingCounter = 0;
+    for (var i = 0; i < this.props.checklists.length; i++) {
+      if (this.props.checklists[i].status == "pending") {
+        pendingCounter += 1;
+      }
+    }
+    var completeCounter = checklistCounter - pendingCounter;
+    return {
+      pendingCounter: pendingCounter
+    }
+  },
+
   updateChecklistStatus: function(checklist) {
+    var newPendingCounter = this.state.pendingCounter - 1;
+    this.setState({
+      pendingCounter: newPendingCounter
+    });
+
     $.ajax({
       url: '/my/checklists/' + checklist.id,
       data: {
@@ -30,26 +49,16 @@ var OverviewTab = React.createClass({
       method: 'PATCH',
       context: this,
       success: function(response) {
-        // do something
       }
     });
   },
   render: function() {
-    var checklistCounter = this.props.checklists.length;
-    var pendingCounter = 0;
-    for (var i = 0; i < this.props.checklists.length; i++) {
-      if (this.props.checklists[i].status == "pending") {
-        pendingCounter += 1;
-      }
-    }
-    var completeCounter = checklistCounter - pendingCounter;
-
     return (
       <div className="overviewTab">
         <div className="board sign-board">
           <div className="row">
             {
-              (pendingCounter == 0)
+              (this.state.pendingCounter == 0)
               ?
                 <div>
                   <div className="col-md-11">
@@ -106,8 +115,9 @@ var CheckList = React.createClass({
 
     getInitialState: function() {
       return {
-        status: this.props.checklist.status == "pending" ? "glyphicon glyphicon-remove" : "glyphicon glyphicon-ok",
-        logs: []
+        className: this.props.checklist.status == "pending" ? "glyphicon glyphicon-remove" : "glyphicon glyphicon-ok",
+        logs: [],
+        status: this.props.checklist.status,
       }
     },
 
@@ -125,7 +135,8 @@ var CheckList = React.createClass({
 
     uploadSuccessCallback: function() {
       this.setState({
-        status: 'iconCheck'
+        className: 'glyphicon glyphicon-ok',
+        status: 'done'
       });
       this.props.updateChecklistStatus(this.props.checklist);
     },
@@ -148,7 +159,7 @@ var CheckList = React.createClass({
 
       return (
         <tr>
-          <td><span className={this.state.status}></span></td>
+          <td><span className={this.state.className}></span></td>
           <td>{checklist.name}</td>
           <td>
             <button
@@ -165,7 +176,7 @@ var CheckList = React.createClass({
             { checklist.checklist_type == "explain" ?
                 <div>
                   <button className="btn dash-table-btn" onClick={this.handleShowModal} >
-                    {checklist.status == "done" ? "Review" : "Explain"}
+                    {this.state.status == "done" ? "Review" : "Explain"}
                   </button>
                   <ChecklistExplanation
                     ref="modal"
@@ -178,7 +189,7 @@ var CheckList = React.createClass({
                 :
                 <div>
                   <button className="btn dash-table-btn" data-toggle="modal" data-target={"#" + button_id}>
-                    {checklist.status == "done" ? "Review" : "Upload"}
+                    {this.state.status == "done" ? "Review" : "Upload"}
                   </button>
                   <ChecklistUpload
                     id={button_id}
