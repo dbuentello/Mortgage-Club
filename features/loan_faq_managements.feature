@@ -48,6 +48,6 @@ Feature: LoanFaqManagements
       And I should see "FAQ Managements"
       And I should see "Edit"
       And I click on "Edit" in the ".linkTypeReversed"
-    Then I click on "Remove"
+    Then I click on "Remove" in the ".btn-danger"
       And I press "Yes" in the modal "removeFaq"
     Then I should be on the loan faq managements page
