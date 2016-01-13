@@ -46,7 +46,7 @@ describe Admins::LoanFaqManagementsController do
   end
 
   describe "GET #edit" do
-    it "assigns the requested faqs to bootstrap faq" do
+    it "assigns the requested faq to bootstrap faq" do
       get :edit, id: faq.id
       expect(assigns(:bootstrap_data)[:faq]["question"]).to eq("What is the question?")
     end
