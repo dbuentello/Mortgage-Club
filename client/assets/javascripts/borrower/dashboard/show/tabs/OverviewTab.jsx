@@ -48,13 +48,29 @@ var OverviewTab = React.createClass({
       <div className="overviewTab">
         <div className="board sign-board">
           <div className="row">
-            <div className="col-md-11">
-              <h4>We are still waiting on some of your checklist items</h4>
-              <p>Go ahead and click 'Get Started' on the items below to start working through your open items</p>
-            </div>
-            <div className="col-md-1 dashboard-sign">
-              <img className="board-side" src="/warning-sign.png"/>
-            </div>
+            {
+              (pendingCounter == 0)
+              ?
+                <div>
+                  <div className="col-md-11">
+                    <h4>Everything looks good!</h4>
+                    <p>{"We'll let you know when we need your help to move forward."}</p>
+                  </div>
+                  <div className="col-md-1 dashboard-sign">
+                    <span className="glyphicon glyphicon-ok"></span>
+                  </div>
+                </div>
+              :
+                <div>
+                  <div className="col-md-11">
+                    <h4>We are still waiting on some of your checklist items</h4>
+                    <p>Go ahead and click 'Get Started' on the items below to start working through your open items</p>
+                  </div>
+                  <div className="col-md-1 dashboard-sign">
+                    <img className="board-side" src="/warning-sign.png"/>
+                  </div>
+                </div>
+            }
           </div>
         </div>
         <div className="board">
@@ -84,22 +100,6 @@ var OverviewTab = React.createClass({
 });
 
 module.exports = OverviewTab;
-
-// <tr>
-//   <td><span className="glyphicon glyphicon-ok"></span></td>
-//   <td>Provide April bank statement</td>
-//   <td><span className="glyphicon glyphicon-info-sign"></span></td>
-//   <td>11/12/2015</td>
-//   <td><a className="btn dash-table-btn" href="#">Get started</a></td>
-// </tr>
-
-// <tr>
-//   <td><span className="glyphicon glyphicon-remove"></span></td>
-//   <td>Provide escrow/title agent information</td>
-//   <td><span className="glyphicon glyphicon-info-sign"></span></td>
-//   <td>11/12/2015</td>
-//   <td><a className="btn dash-table-btn" href="#">Get started</a></td>
-// </tr>
 
 var CheckList = React.createClass({
     mixins: [TextFormatMixin],
