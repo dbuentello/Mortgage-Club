@@ -143,6 +143,7 @@ var Form = React.createClass({
                 <br/>
                 <h3>Please provide information about your co-borrower</h3>
                 <Borrower
+                  activateError={this.state.activateError}
                   loan={this.props.loan}
                   fields={secondary_borrower_fields}
                   firstName={this.state[secondary_borrower_fields.firstName.name]}
@@ -283,15 +284,14 @@ var Form = React.createClass({
           (this.state[borrower_fields.lastName.name] == null ||
           (this.state[borrower_fields.dob.name] == null) ||
           (this.state[borrower_fields.ssn.name] == null) ||
-          (this.state[borrower_fields.phone.name] == null) ||
           (this.state[borrower_fields.yearsInSchool.name] == null) ||
           (this.state[borrower_fields.currentAddress.name] == null) ||
           (this.state[borrower_fields.currentlyOwn.name] == null) ||
           (this.state[borrower_fields.yearsInCurrentAddress.name] == null) ||
           (this.state[borrower_fields.selfEmployed.name] == null))
         ) {
-      var flash = { "alert-danger": 'You have to type at least First Name, Last Name, Date of Birth, Social Security Number, Phone Number, Email, Years in School, Your Current Address and Number of years you have lived in this address of you.' };
-      this.showFlashes(flash);
+      // var flash = { "alert-danger": 'You have to type at least First Name, Last Name, Date of Birth, Social Security Number, Phone Number, Email, Years in School, Your Current Address and Number of years you have lived in this address of you.' };
+      // this.showFlashes(flash);
       return false;
     }
     if (this.state[borrower_fields.applyingAs.name] == 2 && (
@@ -300,15 +300,14 @@ var Form = React.createClass({
           (this.state[secondary_borrower_fields.lastName.name] == null ||
           (this.state[secondary_borrower_fields.dob.name] == null) ||
           (this.state[secondary_borrower_fields.ssn.name] == null) ||
-          (this.state[secondary_borrower_fields.phone.name] == null) ||
           (this.state[secondary_borrower_fields.yearsInSchool.name] == null) ||
           (this.state[secondary_borrower_fields.currentAddress.name] == null) ||
           (this.state[secondary_borrower_fields.currentlyOwn.name] == null) ||
           (this.state[secondary_borrower_fields.yearsInCurrentAddress.name] == null) ||
           (this.state[secondary_borrower_fields.selfEmployed.name] == null))
         )) {
-      var flash = { "alert-danger": 'You have to type at least First Name, Last Name, Date of Birth, Social Security Number, Phone Number, Email, Years in School, Your Current Address and Number of years you have lived in this address of the co-borrower.' };
-      this.showFlashes(flash);
+      // var flash = { "alert-danger": 'You have to type at least First Name, Last Name, Date of Birth, Social Security Number, Phone Number, Email, Years in School, Your Current Address and Number of years you have lived in this address of the co-borrower.' };
+      // this.showFlashes(flash);
       return false;
     }
     return true
