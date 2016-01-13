@@ -44,7 +44,7 @@ class LoanActivity < ActiveRecord::Base
   end
 
   def self.get_latest_by_loan(loan)
-    return nil if loan.nil?
+    return [] if loan.nil?
 
     loan.loan_activities.find_by_sql("SELECT DISTINCT ON (name)
       l.*, d.duration
@@ -58,7 +58,7 @@ class LoanActivity < ActiveRecord::Base
   end
 
   def self.get_latest_by_loan_and_conditions(params)
-    return nil if params.blank?
+    return [] if params.blank?
 
     self.find_by_sql("SELECT DISTINCT ON (name)
       l.*, d.duration

@@ -9,7 +9,7 @@ class Admins::LoanActivityTypeManagementsController < Admins::BaseController
     )
 
     respond_to do |format|
-      format.html { render template: 'admin_app' }
+      format.html { render template: "admin_app" }
     end
   end
 
@@ -19,13 +19,13 @@ class Admins::LoanActivityTypeManagementsController < Admins::BaseController
     )
 
     respond_to do |format|
-      format.html { render template: 'admin_app' }
+      format.html { render template: "admin_app" }
     end
   end
 
   def update
     if @activity_type.update(activity_type_params)
-      render json: {activity_type: Admins::LoanActivityTypePresenter.new(@activity_type).show, message: 'Updated sucessfully'}, status: 200
+      render json: {activity_type: Admins::LoanActivityTypePresenter.new(@activity_type).show, message: "Updated sucessfully"}, status: 200
     else
       render json: {message: "Updated failed"}, status: 500
     end
@@ -38,7 +38,7 @@ class Admins::LoanActivityTypeManagementsController < Admins::BaseController
       render json: {
         activity_type: Admins::LoanActivityTypePresenter.new(@activity_type).show,
         activity_types: Admins::LoanActivityTypesPresenter.new(ActivityType.all).show,
-        message: 'Created sucessfully'
+        message: "Created sucessfully"
       }, status: 200
     else
       render json: {message: @activity_type.errors.full_messages.first}, status: 500
