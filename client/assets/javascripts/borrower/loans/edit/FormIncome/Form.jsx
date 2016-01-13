@@ -55,14 +55,16 @@ var Form = React.createClass({
   mixins: [TextFormatMixin],
 
   getInitialState: function() {
-    return this.buildStateFromLoan(this.props.loan);
+    var state = this.buildStateFromLoan(this.props.loan);
+    state.activateError = false;
+    return state;
   },
 
   onChange: function(change) {
     var key = Object.keys(change)[0];
     var value = change[key];
     if (key == 'address' && value == null) {
-      change['a ddress'] = '';
+      change['address'] = '';
     }
     this.setState(change);
   },
@@ -76,6 +78,7 @@ var Form = React.createClass({
       <div className='col-xs-9 account-content'>
         <form className="form-horizontal">
           <Income
+            activateError={this.state.activateError}
             fields={borrowerFields}
             currentEmployerName={this.state[borrowerFields.currentEmployerName.name]}
             currentEmployerFullTextAddress={this.state[borrowerFields.currentEmployerFullTextAddress.name]}
@@ -101,6 +104,7 @@ var Form = React.createClass({
               <br/>
               <h3>Please provide income information of your co-borrower</h3>
               <Income
+                activateError={this.state.activateError}
                 fields={secondaryBorrowerFields}
                 currentEmployerName={this.state[secondaryBorrowerFields.currentEmployerName.name]}
                 currentEmployerFullTextAddress={this.state[secondaryBorrowerFields.currentEmployerFullTextAddress.name]}
@@ -290,8 +294,33 @@ var Form = React.createClass({
     state[fields.otherIncomes.name] = newOtherIncomes;
     this.setState(state);
   },
+  valid: function(){
+
+    var failedCondition = ((this.state[borrowerFields.currentEmployerName.name] == null) ||
+      (this.state[borrowerFields.currentEmployerFullTextAddress.name]==null) ||
+      (this.state[borrowerFields.currentJobTitle.name]==null) ||
+      (this.state[borrowerFields.currentYearsAtEmployer.name]==null)||
+      // (this.state[borrowerFields.previousEmployerName.name]==null) ||
+      // (this.state[borrowerFields.previousJobTitle.name]==null) ||
+      // (this.state[borrowerFields.previousYearsAtEmployer.name]==null) ||
+      // (this.state[borrowerFields.previousMonthlyIncome.name]==null) ||
+      (this.state[borrowerFields.employerContactName.name]==null) ||
+      (this.state[borrowerFields.employerContactNumber.name]==null) ||
+      (this.state[borrowerFields.baseIncome.name]==null) ||
+      (this.state[borrowerFields.incomeFrequency.name].trim()=="")
+    );
+
+    if (failedCondition) {
+      return false;
+    }
+    return true;
+  },
 
   save: function(event) {
+    if(this.valid()==false) {
+      this.setState({activateError: true, saving: false});
+      return false;
+    }
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 3);
     event.preventDefault();

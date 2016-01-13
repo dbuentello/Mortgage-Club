@@ -75,6 +75,7 @@ var Income = React.createClass({
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.currentEmployerName.label}
               keyName={this.props.fields.currentEmployerName.name}
               value={this.props.currentEmployerName}
@@ -84,6 +85,7 @@ var Income = React.createClass({
           </div>
           <div className='col-md-6'>
             <TextField
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.currentEmployerAddress.label}
               keyName={this.props.fields.currentEmployerFullTextAddress.name}
               value={this.props.currentEmployerFullTextAddress}
@@ -95,6 +97,7 @@ var Income = React.createClass({
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.currentJobTitle.label}
               keyName={this.props.fields.currentJobTitle.name}
               value={this.props.currentJobTitle}
@@ -104,6 +107,7 @@ var Income = React.createClass({
           </div>
           <div className='col-md-6'>
             <TextField
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.currentYearsAtEmployer.label}
               keyName={this.props.fields.currentYearsAtEmployer.name}
               value={this.props.currentYearsAtEmployer}
@@ -128,6 +132,7 @@ var Income = React.createClass({
                 </div>
                 <div className="col-md-6">
                   <TextField
+                    activateRequiredField={this.props.activateError}
                     label={this.props.fields.previousMonthlyIncome.label}
                     keyName={this.props.fields.previousMonthlyIncome.name}
                     value={this.props.previousMonthlyIncome}
@@ -141,6 +146,7 @@ var Income = React.createClass({
               <div className="form-group">
                 <div className="col-md-6">
                   <TextField
+                    activateRequiredField={this.props.activateError}
                     label={this.props.fields.previousJobTitle.label}
                     keyName={this.props.fields.previousJobTitle.name}
                     value={this.props.previousJobTitle}
@@ -150,6 +156,7 @@ var Income = React.createClass({
                 </div>
                 <div className="col-md-6">
                   <TextField
+                    activateRequiredField={this.props.activateError}
                     label={this.props.fields.previousYearsAtEmployer.label}
                     keyName={this.props.fields.previousYearsAtEmployer.name}
                     value={this.props.previousYearsAtEmployer}
@@ -166,6 +173,7 @@ var Income = React.createClass({
         <div className="form-group">
           <div className="col-md-6">
             <TextField
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.employerContactName.label}
               keyName={this.props.fields.employerContactName.name}
               value={this.props.employerContactName}
@@ -175,6 +183,7 @@ var Income = React.createClass({
           </div>
           <div className="col-md-6">
             <TextField
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.employerContactNumber.label}
               keyName={this.props.fields.employerContactNumber.name}
               value={this.props.employerContactNumber}
@@ -190,6 +199,7 @@ var Income = React.createClass({
         <div className="form-group">
           <div className="col-md-6">
             <TextField
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.baseIncome.label}
               keyName={this.props.fields.baseIncome.name}
               value={this.props.baseIncome}
@@ -202,6 +212,7 @@ var Income = React.createClass({
           </div>
           <div className="col-md-6">
             <SelectField
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.incomeFrequency.label}
               keyName={this.props.fields.incomeFrequency.name}
               value={this.props.incomeFrequency}
