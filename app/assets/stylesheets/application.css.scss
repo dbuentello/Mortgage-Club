@@ -89,11 +89,13 @@ body {
   top: -25px;
   color: #fff;
   z-index: 999;
-  background: #ff0000;
+  background: #F9E98E;
   border: 1px solid #f5f0f0;
-  padding-left: 3px;
+  padding: 7px;
   border-radius: 5px;
+  height: 34px;
 }
+
 .arrow_box:after, .arrow_box:before {
   right: 100%;
   top: 50%;
@@ -107,7 +109,7 @@ body {
 
 .arrow_box:after {
   border-color: rgba(25, 23, 24, 0);
-  border-right-color: #ff0000;
+  border-right-color: #F9E98E;
   border-width: 5px;
   margin-top: -5px;
 }
