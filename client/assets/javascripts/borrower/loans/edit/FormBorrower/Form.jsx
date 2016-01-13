@@ -3,6 +3,8 @@ var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var FlashHandler = require('mixins/FlashHandler');
 
+var ValidationObject = require("mixins/ValidationMixins");
+
 var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
 var SelectField = require('components/form/NewSelectField');
@@ -64,7 +66,7 @@ var secondary_borrower_fields = {
 };
 
 var Form = React.createClass({
-  mixins: [TextFormatMixin, FlashHandler],
+  mixins: [TextFormatMixin, FlashHandler, ValidationObject],
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
@@ -91,6 +93,7 @@ var Form = React.createClass({
   },
 
   render: function() {
+    console.log(this.state.activateError);
     return (
       <div className="col-xs-9 account-content">
         <form className="form-horizontal">
@@ -107,6 +110,7 @@ var Form = React.createClass({
             </div>
           </div>
           <Borrower
+            activateError={this.state.activateError}
             loan={this.props.loan}
             fields={borrower_fields}
             firstName={this.state[borrower_fields.firstName.name]}
@@ -271,6 +275,7 @@ var Form = React.createClass({
   },
 
   valid: function() {
+
     // don't allow submit when missing co-borrower info
     if ((this.state[borrower_fields.email.name] == null) ||
           (this.state[borrower_fields.firstName.name] == null) ||
@@ -310,6 +315,7 @@ var Form = React.createClass({
 
   save: function(event) {
     if (this.valid() == false) {
+      this.setState({activateError: true})
       return false;
     }
 

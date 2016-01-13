@@ -8,6 +8,7 @@ var DateField = require("components/form/NewDateField");
 var SelectField = require("components/form/NewSelectField");
 var TextField = require("components/form/NewTextField");
 var BooleanRadio = require("components/form/NewBooleanRadio");
+
 var maritalStatuses = [
   {name: "Married", value: "married"},
   {name: "Unmarried", value: "unmarried"},
@@ -16,6 +17,17 @@ var maritalStatuses = [
 
 var Borrower = React.createClass({
   mixins: [TextFormatMixin, ObjectHelperMixin],
+  getInitialState: function(){
+    return {
+    };
+  },
+
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return nextProps.activateError != this.props.activateError;
+  },
+  componentWillReceiveProps: function(nextProps){
+    this.setState({activateError: nextProps.activateError});
+  },
 
   render: function() {
     return (
@@ -23,6 +35,9 @@ var Borrower = React.createClass({
         <div className="form-group">
           <div className="col-md-3">
             <TextField
+              isRequired="true"
+              requiredMessage="This field is required"
+              activateRequiredField={this.state.activateError}
               label={this.props.fields.firstName.label}
               keyName={this.props.fields.firstName.name}
               value={this.props.firstName}
