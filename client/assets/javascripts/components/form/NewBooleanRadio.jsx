@@ -42,14 +42,16 @@ var BooleanRadioView = React.createClass({
 
   render: function() {
     var display = this.props.unknownLabel,
-        customColumn = this.props.customColumn || "col-xs-6";
+        customColumn = this.props.customColumn || "col-xs-6",
+        requiredMessage = this.props.requiredMessage  || "This field is required";
+
 
     if (this.props.checked) {
       display = this.props.yesLabel;
     } else if (this.props.checked === false) {
       display = this.props.noLabel;
     }
-
+    console.log(this.props.checked);
     return (
       <div>
         <h6>{this.props.label}</h6>
@@ -69,6 +71,9 @@ var BooleanRadioView = React.createClass({
             <label htmlFor="own" className="customRadio">
               <span className="first-circle"><span className="second-circle"></span></span>{this.props.noLabel}
             </label>
+          </div>
+          <div className={this.props.activateRequiredField&&(this.props.checked==null) ? "required-box" : "hidden"}>
+            <div className="arrow_box active-component"> {requiredMessage} </div>
           </div>
         </div>
       </div>

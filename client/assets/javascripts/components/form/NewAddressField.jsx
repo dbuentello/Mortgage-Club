@@ -202,7 +202,9 @@ var AddressField = React.createClass({
 
   render: function() {
     var address = this.props.address || {},
-        val = getFormattedAddress(address) || '';
+        val = getFormattedAddress(address) || '',
+        requiredMessage = this.props.requiredMessage || "This field is required";
+
 
     return (
       <div>
@@ -220,6 +222,10 @@ var AddressField = React.createClass({
           value={val} placeholder={this.props.placeholder}
           onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange} id={this.props.keyName} name={this.props.label}/>
         <img src="/icons/address.png" alt="title"/>
+        <div className={this.props.activateRequiredField&&(val==""||val==null) ? "required-box" : "hidden"}>
+          <div className="arrow_box active-component"> {requiredMessage} </div>
+        </div>
+
       </div>
     );
   },

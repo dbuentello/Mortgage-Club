@@ -89,7 +89,8 @@ var TextField = React.createClass({
       displayText = this.props.format(this.props.value);
     }
 
-    var customClass = this.props.customClass || "";
+    var customClass = this.props.customClass || "",
+      requiredMessage = this.props.requiredMessage || "This field is required";
 
     return (
       <div>
@@ -108,7 +109,7 @@ var TextField = React.createClass({
               onChange={this.handleChange} onBlur={this.props.onBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.label} id={this.props.keyName}  />
 
           <div className={this.props.activateRequiredField&&(this.props.value==""||this.props.value==null) ? "required-box" : "hidden"}>
-            <div className="arrow_box active-component"> {this.props.requiredMessage} </div>
+            <div className="arrow_box active-component"> {requiredMessage} </div>
           </div>
         </div>
       </div>

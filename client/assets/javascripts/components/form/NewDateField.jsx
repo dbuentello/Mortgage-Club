@@ -50,7 +50,8 @@ var DateFieldView = React.createClass({
   },
 
   render: function() {
-    var dateVal = this.isoToUsDate(this.props.value) || this.props.emptyStaticText;
+    var dateVal = this.isoToUsDate(this.props.value) || this.props.emptyStaticText,
+    requiredMessage = this.props.requiredMessage || "This field is required";
 
     return (
       <div>
@@ -58,6 +59,9 @@ var DateFieldView = React.createClass({
         <input className={"form-control " + this.props.customClass} defaultValue={dateVal} type="text" placeholder={this.props.placeholder}
           onBlur={this.onBlur} onFocus={this.handleFocus} id={this.props.keyName} name={this.props.label}/>
         <img src="/icons/date.png" alt="title" onClick={this.showDatePicker}/>
+        <div className={this.props.activateRequiredField&&(this.props.value==""||this.props.value==null) ? "required-box" : "hidden"}>
+          <div className="arrow_box active-component"> {requiredMessage} </div>
+        </div>
       </div>
     );
   },

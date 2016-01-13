@@ -86,34 +86,39 @@ var NewSelectField = React.createClass({
   },
 
   render: function() {
+    var requiredMessage = this.props.requiredMessage || "This field is required";
     return (
-      <div className="col-md-12">
-        <div className="select-box">
-          <h6>{this.props.label}</h6>
-          {
-            this.props.helpText
-            ?
-              <p className="helpful-text">
-                <img src="/icons/info.png" />{this.props.helpText}
-              </p>
-            :
-              null
-          }
-          <div>
-            <select className="form-control" id={this.props.keyName} name={this.props.label} onChange={this.handleChange} onFocus={this.handleFocus} value={this.props.value || ''}>
-              {(this.props.placeholder) ? <option value="" disabled={true}>{this.props.placeholder}</option> : null}
-              {this.state.options.map(function (option, i) {
-                return (
-                  <option key={'select_' + (option.value || option.name) + i} value={option.value || ''}>{option.name}</option>
-                );
-              }, this)}
-            </select>
-            <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
-          </div>
+      <div>
+        <div className="col-md-6">
+          <div className="select-box">
+            <h6>{this.props.label}</h6>
+            {
+              this.props.helpText
+              ?
+                <p className="helpful-text">
+                  <img src="/icons/info.png" />{this.props.helpText}
+                </p>
+              :
+                null
+            }
+            <div>
+              <select className="form-control" id={this.props.keyName} name={this.props.label} onChange={this.handleChange} onFocus={this.handleFocus} value={this.props.value || ''}>
+                {(this.props.placeholder) ? <option value="" disabled={true}>{this.props.placeholder}</option> : null}
+                {this.state.options.map(function (option, i) {
+                  return (
+                    <option key={'select_' + (option.value || option.name) + i} value={option.value || ''}>{option.name}</option>
+                  );
+                }, this)}
+              </select>
+              <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+            </div>
 
+          </div>
         </div>
-        <div className={this.props.activateRequiredField&&(this.state.name==""||this.state.name==null) ? "required-box" : "hidden"}>
-          <div className="arrow_box active-component"> {this.props.requiredMessage} </div>
+        <div className="col-md-6">
+          <div className={this.props.activateRequiredField&&(this.state.name==""||this.state.name==null) ? "required-box" : "hidden"}>
+            <div className="arrow_box active-component"> {requiredMessage} </div>
+          </div>
         </div>
       </div>
     );
