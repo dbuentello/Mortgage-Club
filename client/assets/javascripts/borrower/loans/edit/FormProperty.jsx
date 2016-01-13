@@ -33,7 +33,9 @@ var FormProperty = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
 
   getInitialState: function() {
-    return this.buildStateFromLoan(this.props.loan);
+    var state = this.buildStateFromLoan(this.props.loan);
+    state.activateError = false;
+    return state;
   },
 
   onChange: function(change) {
@@ -108,6 +110,8 @@ var FormProperty = React.createClass({
           <div className="form-group">
             <div className="col-md-6">
               <SelectField
+                requiredMessage="This field is required"
+                activateRequiredField={this.state.activateError}
                 label={fields.propertyPurpose.label}
                 keyName={fields.propertyPurpose.name}
                 value={this.state[fields.propertyPurpose.name]}
@@ -138,6 +142,8 @@ var FormProperty = React.createClass({
               <div className="form-group">
                 <div className="col-md-6">
                   <TextField
+                    requiredMessage="This field is required"
+                    activateRequiredField={this.state.activateError}
                     label={fields.purchasePrice.label}
                     keyName={fields.purchasePrice.name}
                     value={this.state[fields.purchasePrice.name]}
@@ -154,6 +160,8 @@ var FormProperty = React.createClass({
                 <div className="form-group">
                   <div className="col-md-6">
                     <TextField
+                      requiredMessage="This field is required"
+                      activateRequiredField={this.state.activateError}
                       label={fields.originalPurchasePrice.label}
                       keyName={fields.originalPurchasePrice.name}
                       value={this.state[fields.originalPurchasePrice.name]}
@@ -168,6 +176,8 @@ var FormProperty = React.createClass({
                 <div className="form-group">
                   <div className="col-md-6">
                     <TextField
+                      requiredMessage="This field is required"
+                      activateRequiredField={this.state.activateError}
                       label={fields.originalPurchaseYear.label}
                       keyName={fields.originalPurchaseYear.name}
                       value={this.state[fields.originalPurchaseYear.name]}
@@ -287,7 +297,7 @@ var FormProperty = React.createClass({
     }
     var full_message = messages.join("\n");
     if (full_message) {
-      this.setState({saving: false});
+      this.setState({saving: false, activateError: true});
       var flash = { "alert-danger": full_message };
       this.showFlashes(flash);
     } else {
