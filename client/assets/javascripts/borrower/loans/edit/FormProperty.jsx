@@ -98,6 +98,7 @@ var FormProperty = React.createClass({
           <div className="form-group">
             <div className="col-md-12">
               <AddressField label={fields.address.label}
+                activateRequiredField={this.state.activateError}
                 address={this.state[fields.address.name]}
                 keyName={fields.address.name}
                 editable={true}
@@ -126,6 +127,7 @@ var FormProperty = React.createClass({
           <div className="form-group">
             <div className="col-md-6">
               <BooleanRadio
+                activateRequiredField={this.state.activateError}
                 label={fields.loanPurpose.label}
                 checked={this.state[fields.loanPurpose.name]}
                 keyName={fields.loanPurpose.name}
@@ -209,9 +211,10 @@ var FormProperty = React.createClass({
   buildStateFromLoan: function(loan) {
     var property = loan.subject_property;
     var state = {};
-
+    console.log(loan[fields.loanPurpose.name]);
     if (loan[fields.loanPurpose.name] == "purchase") {
       state[fields.loanPurpose.name] = true;
+
     } else if (loan[fields.loanPurpose.name] == "refinance") {
       state[fields.loanPurpose.name] = false;
     } else {
@@ -235,7 +238,7 @@ var FormProperty = React.createClass({
 
   buildLoanFromState: function() {
     var loan = {};
-    var purpose = this.state[fields.loanPurpose.name];
+
     if (purpose != null) {
       if (purpose == true) {
         loan[fields.loanPurpose.name] = "purchase";
