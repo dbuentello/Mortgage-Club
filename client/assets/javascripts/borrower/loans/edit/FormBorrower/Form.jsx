@@ -70,6 +70,7 @@ var Form = React.createClass({
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
+    state.activateError = false;
 
     return state;
   },

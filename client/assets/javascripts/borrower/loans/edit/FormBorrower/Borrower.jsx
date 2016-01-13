@@ -17,17 +17,6 @@ var maritalStatuses = [
 
 var Borrower = React.createClass({
   mixins: [TextFormatMixin, ObjectHelperMixin],
-  getInitialState: function(){
-    return {
-    };
-  },
-
-  shouldComponentUpdate: function(nextProps, nextState) {
-    return nextProps.activateError != this.props.activateError;
-  },
-  componentWillReceiveProps: function(nextProps){
-    this.setState({activateError: nextProps.activateError});
-  },
 
   render: function() {
     return (
@@ -37,7 +26,7 @@ var Borrower = React.createClass({
             <TextField
               isRequired="true"
               requiredMessage="This field is required"
-              activateRequiredField={this.state.activateError}
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.firstName.label}
               keyName={this.props.fields.firstName.name}
               value={this.props.firstName}
