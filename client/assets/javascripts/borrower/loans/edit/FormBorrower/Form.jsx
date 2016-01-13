@@ -336,8 +336,8 @@ var Form = React.createClass({
           previous_borrower_address: this.getPreviousBorrowerAddress(secondary_borrower_fields),
           borrower: this.getBorrower(secondary_borrower_fields),
         },
-        remove_secondary_borrower: this.state[borrower_fields.applyingAs.name] == 1,
-        has_secondary_borrower: this.state[borrower_fields.applyingAs.name] == 2,
+        remove_secondary_borrower: !this.state.hasSecondaryBorrower,
+        has_secondary_borrower: this.state.hasSecondaryBorrower,
         loan_id: this.props.loan.id,
       },
       success: function(response) {
