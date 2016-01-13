@@ -24,7 +24,6 @@ var Borrower = React.createClass({
         <div className="form-group">
           <div className="col-md-3">
             <TextField
-              isRequired="true"
               requiredMessage="This field is required"
               activateRequiredField={this.props.activateError}
               label={this.props.fields.firstName.label}
@@ -45,6 +44,8 @@ var Borrower = React.createClass({
           </div>
           <div className="col-md-3">
             <TextField
+              requiredMessage="This field is required"
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.lastName.label}
               keyName={this.props.fields.lastName.name}
               value={this.props.lastName}
@@ -67,6 +68,8 @@ var Borrower = React.createClass({
               ?
               <div className="col-md-6">
                 <TextField
+                  requiredMessage="This field is required"
+                  activateRequiredField={this.props.activateError}
                   label={this.props.fields.email.label}
                   keyName={this.props.fields.email.name}
                   value={this.props.email}
@@ -90,6 +93,8 @@ var Borrower = React.createClass({
         <div className="form-group">
           <div className="col-md-6">
             <TextField
+              requiredMessage="This field is required"
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.ssn.label}
               keyName={this.props.fields.ssn.name}
               value={this.props.ssn}
@@ -115,6 +120,8 @@ var Borrower = React.createClass({
         <div className="form-group">
           <div className="col-md-6">
             <TextField
+              requiredMessage="This field is required"
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.yearsInSchool.label}
               keyName={this.props.fields.yearsInSchool.name}
               value={this.props.yearsInSchool}
@@ -136,6 +143,8 @@ var Borrower = React.createClass({
         <div className="form-group">
           <div className="col-md-6">
             <TextField
+              requiredMessage="This field is required"
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.numberOfDependents.label}
               keyName={this.props.fields.numberOfDependents.name}
               value={this.props.numberOfDependents}
@@ -146,6 +155,8 @@ var Borrower = React.createClass({
           <div className="col-md-6">
             { parseInt(this.props.numberOfDependents, 10) > 0 ?
               <TextField
+                requiredMessage="This field is required"
+                activateRequiredField={this.props.activateError}
                 label={this.props.fields.dependentAges.label}
                 keyName={this.props.fields.dependentAges.name}
                 value={this.props.dependentAges}
@@ -184,6 +195,8 @@ var Borrower = React.createClass({
             { this.props.currentlyOwn ? null
               :
                 <TextField
+                  requiredMessage="This field is required"
+                  activateRequiredField={this.props.activateError}
                   label={this.props.fields.currentMonthlyRent.label}
                   value={this.props.currentMonthlyRent}
                   keyName={this.props.fields.currentMonthlyRent.name}
@@ -196,6 +209,8 @@ var Borrower = React.createClass({
           </div>
           <div className="col-md-4">
             <TextField
+              requiredMessage="This field is required"
+              activateRequiredField={this.props.activateError}
               label={this.props.fields.yearsInCurrentAddress.label}
               value={this.props.yearsInCurrentAddress}
               keyName={this.props.fields.yearsInCurrentAddress.name}
@@ -247,6 +262,8 @@ var Borrower = React.createClass({
               { this.props.previouslyOwn ? null
                 :
                   <TextField
+                    requiredMessage="This field is required"
+                    activateRequiredField={this.props.activateError}
                     label={this.props.fields.previousMonthlyRent.label}
                     value={this.props.previousMonthlyRent}
                     keyName={this.props.fields.previousMonthlyRent.name}
@@ -261,6 +278,8 @@ var Borrower = React.createClass({
           <div className="form-group">
             <div className="col-xs-6">
               <TextField
+                requiredMessage="This field is required"
+                activateRequiredField={this.props.activateError}
                 label={this.props.fields.yearsInPreviousAddress.label}
                 value={this.props.yearsInPreviousAddress}
                 keyName={this.props.fields.yearsInPreviousAddress.name}
