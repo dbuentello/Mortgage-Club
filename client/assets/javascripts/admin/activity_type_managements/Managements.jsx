@@ -24,7 +24,7 @@ var Managements = React.createClass({
       <div className='content container'>
         <div className='pal'>
           <div className='row'>
-            <h2 className='mbl'>Activity Types Managements</h2>
+            <h2 className='mbl'>Activity Type Managements</h2>
             <table className="table table-striped">
               <thead>
                 <tr>
