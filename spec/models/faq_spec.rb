@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe Faq do
   it "has a valid faq" do
