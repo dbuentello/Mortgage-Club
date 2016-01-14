@@ -9,7 +9,15 @@ module.exports = {
   return true;
   },
   elementIsEmpty: function(obj){
-    return (obj==null||obj.trim()=="");
+    if(obj==null){
+      return true
+    }
+    if(typeof(obj) == "string") {
+      if(obj.trim()==""){
+        return true;
+      }
+    }
+    return false;
   },
   arrayContainsEmptyElement: function(requiredArray){
     for(var obj in requiredArray){
