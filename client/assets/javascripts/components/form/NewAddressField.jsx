@@ -3,7 +3,7 @@ var _ = require('lodash');
 
 var TextFocusMixin = require('mixins/TextFocusMixin');
 var TextField = require('./TextField');
-
+var ValidationField = require('./ValidationField');
 function getFormattedAddress(addressable) {
   if (!addressable) {
     return 'Unknown';
@@ -222,10 +222,7 @@ var AddressField = React.createClass({
           value={val} placeholder={this.props.placeholder}
           onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange} id={this.props.keyName} name={this.props.label}/>
         <img src="/icons/address.png" alt="title"/>
-        <div className={this.props.activateRequiredField&&(val==""||val==null) ? "required-box" : "hidden"}>
-          <div className="arrow_box active-component"> {requiredMessage} </div>
-        </div>
-
+        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage}/>
       </div>
     );
   },

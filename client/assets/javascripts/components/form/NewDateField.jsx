@@ -3,7 +3,7 @@ var StaticFieldMixin = require('mixins/StaticFieldMixin');
 var UpdateChangeMixin = require('mixins/UpdateChangeMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var TextFocusMixin = require('mixins/TextFocusMixin');
-
+var ValidationField = require('./ValidationField');
 /**
  * DateField handles the conversion between ISO date (for value) and US date (for display)
  * automatically, and also has bootstrap date picker built-in.
@@ -59,9 +59,7 @@ var DateFieldView = React.createClass({
         <input className={"form-control " + this.props.customClass} defaultValue={dateVal} type="text" placeholder={this.props.placeholder}
           onBlur={this.onBlur} onFocus={this.handleFocus} id={this.props.keyName} name={this.props.label}/>
         <img src="/icons/date.png" alt="title" onClick={this.showDatePicker}/>
-        <div className={this.props.activateRequiredField&&(this.props.value==""||this.props.value==null) ? "required-box" : "hidden"}>
-          <div className="arrow_box active-component"> {requiredMessage} </div>
-        </div>
+        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage}/>
       </div>
     );
   },

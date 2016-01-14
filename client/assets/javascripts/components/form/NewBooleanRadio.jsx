@@ -3,7 +3,7 @@ var StaticFieldMixin = require('mixins/StaticFieldMixin');
 var UpdateChangeMixin = require('mixins/UpdateChangeMixin');
 
 var HelpTooltip = require('./HelpTooltip');
-
+var ValidationField = require('./ValidationField');
 var BooleanRadioView = React.createClass({
   mixins: [UpdateChangeMixin, StaticFieldMixin],
   fieldType: 'boolean',
@@ -72,9 +72,7 @@ var BooleanRadioView = React.createClass({
               <span className="first-circle"><span className="second-circle"></span></span>{this.props.noLabel}
             </label>
           </div>
-          <div className={this.props.activateRequiredField&&(this.props.checked==null) ? "required-box" : "hidden"}>
-            <div className="arrow_box active-component"> {requiredMessage} </div>
-          </div>
+          <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage}/>
         </div>
       </div>
     );

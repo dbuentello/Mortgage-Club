@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 var StaticFieldMixin = require('mixins/StaticFieldMixin');
 var UpdateChangeMixin = require('mixins/UpdateChangeMixin');
-
+var ValidationField = require('./ValidationField');
 var NewSelectField = React.createClass({
   mixins: [StaticFieldMixin, UpdateChangeMixin],
 
@@ -113,13 +113,8 @@ var NewSelectField = React.createClass({
               </select>
               <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
             </div>
-
           </div>
-        </div>
-        <div className="col-md-6">
-          <div className={unSelected ? "required-box" : "hidden"}>
-            <div className="arrow_box active-component"> {requiredMessage} </div>
-          </div>
+          <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage}/>
         </div>
       </div>
     );
