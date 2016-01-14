@@ -16,10 +16,18 @@ var ChecklistUpload = React.createClass({
   buildState: function() {
     var state = {};
     var doc_type = this.props.checklist.document_type;
+    var borrower_document = _.find(this.props.borrower.documents, { 'document_type': doc_type });
 
-    state[doc_type] = 'drag file here or browse';
-    state[doc_type + '_downloadUrl'] = 'javascript:void(0)';
-    state[doc_type + '_removedUrl'] = 'javascript:void(0)';
+    if (borrower_document){
+      state[doc_type] = borrower_document.original_filename;
+      state[doc_type + '_downloadUrl'] = '/document_uploaders/base_document/' + borrower_document.id + '/download';
+      state[doc_type + '_removedUrl'] = '/document_uploaders/base_document/' + borrower_document.id;
+    }
+    else {
+      state[doc_type] = 'drag file here or browse';
+      state[doc_type + '_downloadUrl'] = 'javascript:void(0)';
+      state[doc_type + '_removedUrl'] = 'javascript:void(0)';
+    }
     return state;
   },
 
@@ -44,6 +52,8 @@ var ChecklistUpload = React.createClass({
       {subject_type: checklist.subject_name},
       {description: checklist.document_description}
     ];
+    console.dir('324234423423')
+    console.dir(checklist)
     return (
       <span>
         {
