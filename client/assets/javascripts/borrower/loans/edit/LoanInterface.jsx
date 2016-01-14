@@ -29,7 +29,7 @@ var LoanInterface = React.createClass({
     var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu}/>;
 
     return (
-      <div className="content accountPart">
+      <div className="content accountPart editLoan">
         <div className="container">
           <div className="row">
             <div className="col-xs-3 subnav">
