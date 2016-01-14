@@ -48,19 +48,6 @@ class Template < ActiveRecord::Base
     end
   end
 
-  def template_alignment
-    case name
-    when "Loan Estimate"
-      Docusign::Alignment::LoanEstimateService
-    when "Servicing Disclosure"
-      Docusign::Alignment::ServicingDisclosureService
-    when "Generic Explanation"
-      Docusign::Alignment::GenericExplanationService
-    when "Uniform Residential Loan Application"
-      Docusign::Alignment::UniformResidentialService
-    end
-  end
-
   # TODO: it will be an attribute when we have an interface to CRUD templates.
   def may_need_coapplicant_signature?
     ["Loan Estimate", "Servicing Disclosure"].include? name
