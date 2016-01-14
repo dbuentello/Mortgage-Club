@@ -352,3 +352,15 @@ a.remove {
     }
   }
 }
+.editLoan {
+  .tooltip > .tooltip-inner {
+    background-color: #FBF7AA;
+    border-color: #F9E98E;
+    color: #A27D35;
+    font-size: 14px;
+  }
+
+  .tooltip > .tooltip-arrow {
+    border-bottom-color:#FBF7AA;
+  }
+}
