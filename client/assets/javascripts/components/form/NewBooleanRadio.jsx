@@ -71,7 +71,7 @@ var BooleanRadioView = React.createClass({
               <span className="first-circle"><span className="second-circle"></span></span>{this.props.noLabel}
             </label>
           </div>
-          <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage}/>
+          <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.checked} title={requiredMessage}/>
         </div>
       </div>
     );
