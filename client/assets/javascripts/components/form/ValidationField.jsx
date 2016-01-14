@@ -6,7 +6,7 @@ var ValidationField = React.createClass({
     render: function() {
       if(this.props.activateRequiredField === true)
       {
-        if(this.props.value === null || this.props.value === "" || this.props.value === undefined){
+        if(this.props.value === null || this.props.value === "" || this.props.value === undefined || this.props.value === "javascript:void(0)"){
           if($("#" + this.props.id).attr("aria-describedby") === undefined){
             $("#" + this.props.id).tooltip({
               title: this.props.title,
@@ -20,7 +20,6 @@ var ValidationField = React.createClass({
         }
       }
       else{
-        console.dir('destroy')
         $("#" + this.props.id).tooltip('destroy');
       }
       return (

@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var FlashHandler = require('mixins/FlashHandler');
-
+var ValidationField = require('./ValidationField');
 var Dropzone = React.createClass({
   mixins: [FlashHandler],
 
@@ -62,7 +62,7 @@ var Dropzone = React.createClass({
     });
 
     if (this.fileIsExisting()) {
-      $(this.refs.box.getDOMNode()).tooltip({ title: this.props.tip });
+      //$(this.refs.box.getDOMNode()).tooltip({ title: this.props.tip });
       this.setState({ downloadUrl: this.props.downloadUrl });
       this.setState({ removeUrl: this.props.removeUrl });
       this.setState({ fileIsExisting: true});
@@ -153,10 +153,7 @@ var Dropzone = React.createClass({
             this.setState({ downloadUrl: response.download_url });
             this.setState({ removeUrl: response.remove_url });
             this.setState({ fileIsExisting: true });
-            // tooltip chosen dropzone
-            $(this.refs.box.getDOMNode()).tooltip({ title: files[0].name });
-            var flash = { "alert-success": "Uploaded successfully!" };
-            this.showFlashes(flash);
+
             if (this.props.uploadSuccessCallback) {
               this.props.uploadSuccessCallback();
             }
@@ -166,8 +163,6 @@ var Dropzone = React.createClass({
           processData: false,
           async: true,
           error: function(response, status, error) {
-            var flash = { "alert-danger": response.responseJSON.message };
-            this.showFlashes(flash);
           }.bind(this)
         });
       }
@@ -206,21 +201,10 @@ var Dropzone = React.createClass({
         success: function(response) {
           // update tip
           this.setState({ tip: 'Upload' });
-
-          // disable the download button immediately
           this.setState({ downloadUrl: null });
-
           this.setState({ fileIsExisting: false });
-
-          // tooltip chosen dropzone
-          $(this.refs.box.getDOMNode()).tooltip('destroy');
-
-          var flash = { "alert-success": "Removed successfully!" };
-          this.showFlashes(flash);
         }.bind(this),
         error: function(response, status, error) {
-          var flash = { "alert-danger": response.responseJSON.error };
-          this.showFlashes(flash);
         }
       });
     }
@@ -235,6 +219,7 @@ var Dropzone = React.createClass({
       borderStyle: this.state.isDragActive ? 'solid' : 'dotted'
     };
 
+
     if (this.props.supportOtherDescription) {
       var customDescription = <span><input className='mhl' placeholder='Description' onChange={this.onChangeDiscription}/></span>
     }
@@ -245,7 +230,7 @@ var Dropzone = React.createClass({
           <h5>{this.props.field.label}</h5>
           {customDescription}
         </div>
-        <div className='col-md-6'>
+        <div className='col-md-6' id={this.props.field.name + "_id"}>
           <div ref='box' className='fileBtn'>
             {
               this.state.fileIsExisting
@@ -274,6 +259,7 @@ var Dropzone = React.createClass({
               <img className='fileBtnSmall' src='/icons/trash.png' onClick={this.remove}/>
             </div>
           </div>
+          <ValidationField id={this.props.field.name + "_id"} activateRequiredField={true} value={this.state.downloadUrl} title={"This field is required"}/>
         </div>
       </div>
     );
