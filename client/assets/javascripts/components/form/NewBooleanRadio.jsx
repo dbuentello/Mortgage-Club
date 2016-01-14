@@ -51,7 +51,7 @@ var BooleanRadioView = React.createClass({
     } else if (this.props.checked === false) {
       display = this.props.noLabel;
     }
-    console.log(this.props.checked);
+
     return (
       <div>
         <h6>{this.props.label}</h6>

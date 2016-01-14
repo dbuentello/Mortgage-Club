@@ -10,12 +10,12 @@ var TextField = require("components/form/NewTextField");
 var BooleanRadio = require("components/form/NewBooleanRadio");
 
 var fields = {
-  address: {label: 'Property Address', name: 'address', helpText: "The full address of the subject property for which you are applying for a loan."},
-  loanPurpose: {label: "Purpose of Loan", name: "purpose", helpText: "The purpose for taking out the loan in terms of how funds will be used."},
-  propertyPurpose: {label: "Property Will Be", name: "usage", helpText: "The primary purpose of acquiring the subject property."},
-  purchasePrice: {label: "Purchase Price", name: "purchase_price", helpText: "How much are you paying for the subject property?"},
-  originalPurchasePrice: {label: "Original Purchase Price", name: "originalPurchasePrice", helpText: "How much did you pay for the subject property?"},
-  originalPurchaseYear: {label: "Purchase Year", name: "originalPurchaseYear", helpText: "The year in which you bought your home."}
+  address: {label: 'Property Address', name: 'address', helpText: "The full address of the subject property for which you are applying for a loan.", error: "addressError"},
+  loanPurpose: {label: "Purpose of Loan", name: "purpose", helpText: "The purpose for taking out the loan in terms of how funds will be used.", error: "loanError"},
+  propertyPurpose: {label: "Property Will Be", name: "usage", helpText: "The primary purpose of acquiring the subject property.", error: "propertyError"},
+  purchasePrice: {label: "Purchase Price", name: "purchase_price", helpText: "How much are you paying for the subject property?", error: "purchaseError"},
+  originalPurchasePrice: {label: "Original Purchase Price", name: "originalPurchasePrice", helpText: "How much did you pay for the subject property?", error: "originalPurchaseYearError"},
+  originalPurchaseYear: {label: "Purchase Year", name: "originalPurchaseYear", helpText: "The year in which you bought your home.", error: "originalPurchasePriceError"}
 };
 
 var loanPurposes = [
@@ -64,7 +64,6 @@ var FormProperty = React.createClass({
       dataType: 'json',
       context: this,
       success: function(response) {
-        console.dir(response)
         if (response.message == 'cannot find') {
           return;
         }
@@ -77,7 +76,6 @@ var FormProperty = React.createClass({
         var lastSoldPrice = this.getValue(response, 'lastSoldPrice.__content__');
         var purchaseYear = lastSoldDate != null ? new Date(Date.parse(lastSoldDate)).getFullYear() : "";
         var zillowImageUrl = this.getValue(response, 'zillowImageUrl');
-        console.dir(zillowImageUrl)
         this.setState({
           marketPrice: this.formatCurrency(marketPrice),
           estimatedPropertyTax: monthlyTax,
@@ -98,7 +96,7 @@ var FormProperty = React.createClass({
           <div className="form-group">
             <div className="col-md-12">
               <AddressField label={fields.address.label}
-                activateRequiredField={this.state.activateError}
+                activateRequiredField={this.state[fields.address.error]}
                 address={this.state[fields.address.name]}
                 keyName={fields.address.name}
                 editable={true}
@@ -112,7 +110,7 @@ var FormProperty = React.createClass({
             <div className="col-md-6">
               <SelectField
                 requiredMessage="This field is required"
-                activateRequiredField={this.state.activateError}
+                activateRequiredField={this.state[fields.propertyPurpose.error]}
                 label={fields.propertyPurpose.label}
                 keyName={fields.propertyPurpose.name}
                 value={this.state[fields.propertyPurpose.name]}
@@ -127,7 +125,7 @@ var FormProperty = React.createClass({
           <div className="form-group">
             <div className="col-md-6">
               <BooleanRadio
-                activateRequiredField={this.state.activateError}
+                activateRequiredField={this.state[fields.loanPurpose.error]}
                 label={fields.loanPurpose.label}
                 checked={this.state[fields.loanPurpose.name]}
                 keyName={fields.loanPurpose.name}
@@ -145,7 +143,7 @@ var FormProperty = React.createClass({
                 <div className="col-md-6">
                   <TextField
                     requiredMessage="This field is required"
-                    activateRequiredField={this.state.activateError}
+                    activateRequiredField={this.state[fields.purchasePrice.error]}
                     label={fields.purchasePrice.label}
                     keyName={fields.purchasePrice.name}
                     value={this.state[fields.purchasePrice.name]}
@@ -163,7 +161,7 @@ var FormProperty = React.createClass({
                   <div className="col-md-6">
                     <TextField
                       requiredMessage="This field is required"
-                      activateRequiredField={this.state.activateError}
+                      activateRequiredField={this.state[fields.originalPurchasePrice.error]}
                       label={fields.originalPurchasePrice.label}
                       keyName={fields.originalPurchasePrice.name}
                       value={this.state[fields.originalPurchasePrice.name]}
@@ -179,7 +177,7 @@ var FormProperty = React.createClass({
                   <div className="col-md-6">
                     <TextField
                       requiredMessage="This field is required"
-                      activateRequiredField={this.state.activateError}
+                      activateRequiredField={this.state[fields.originalPurchaseYear.error]}
                       label={fields.originalPurchaseYear.label}
                       keyName={fields.originalPurchaseYear.name}
                       value={this.state[fields.originalPurchaseYear.name]}
@@ -211,7 +209,7 @@ var FormProperty = React.createClass({
   buildStateFromLoan: function(loan) {
     var property = loan.subject_property;
     var state = {};
-    console.log(loan[fields.loanPurpose.name]);
+
     if (loan[fields.loanPurpose.name] == "purchase") {
       state[fields.loanPurpose.name] = true;
 
@@ -275,37 +273,46 @@ var FormProperty = React.createClass({
   save: function(event) {
     this.setState({saving: true});
     var messages = [];
-
-    if (!this.state[fields.address.name].full_text) {
+    var state = {};
+    if (this.state[fields.address.name].full_text === null) {
       messages.push("Address can't be blank.");
+      state[fields.address.error] = true;
     }
     if (!this.state[fields.propertyPurpose.name]) {
       messages.push("Property Will Be can't be blank.");
+      state[fields.propertyPurpose.error] = true;
     }
     if (this.state[fields.loanPurpose.name] == null) {
       messages.push("Purpose of Loan can't be blank.");
+      state[fields.loanPurpose.error] = true;
     } else {
       if (this.state[fields.loanPurpose.name] == true) {
         if (!this.state[fields.purchasePrice.name]) {
           messages.push("Purchase Price can't be blank.");
+          state[fields.purchasePrice.error] = true;
         }
       } else {
         if (!this.state[fields.originalPurchasePrice.name]) {
           messages.push("Original Purchase Price can't be blank.");
+          state[fields.originalPurchasePrice.error] = true;
         }
         if (!this.state[fields.originalPurchaseYear.name]) {
           messages.push("Purchase Year can't be blank.");
+          state[fields.originalPurchaseYear.error] = true;
         }
       }
     }
+
     var full_message = messages.join("\n");
     if (full_message) {
       this.setState({saving: false, activateError: true});
+      this.setState(state);
       var flash = { "alert-danger": full_message };
       this.showFlashes(flash);
     } else {
       this.props.saveLoan(this.buildLoanFromState(), 0);
     }
+
     event.preventDefault();
   }
 });

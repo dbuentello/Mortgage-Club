@@ -94,7 +94,6 @@ var Form = React.createClass({
   },
 
   render: function() {
-    console.log(this.state.activateError);
     return (
       <div className="col-xs-9 account-content">
         <form className="form-horizontal">

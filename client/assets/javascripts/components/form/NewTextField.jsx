@@ -6,7 +6,7 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var StaticFieldMixin = require('mixins/StaticFieldMixin');
 var UpdateChangeMixin = require('mixins/UpdateChangeMixin');
 var TextFocusMixin = require('mixins/TextFocusMixin');
-
+var ValidationField = require('./ValidationField');
 /**
  * TextField renders a form field that can be converted between editable and read-only mode.
  * It also provides some predefined formatting helper for the read-only texts.
@@ -106,11 +106,10 @@ var TextField = React.createClass({
         }
         <div>
           <input className={"form-control " + customClass } type="text" value={this.props.value} maxLength={this.props.maxLength}
-              onChange={this.handleChange} onBlur={this.props.onBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.label} id={this.props.keyName}  />
+              onChange={this.handleChange} onBlur={this.props.onBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.label} id={this.props.keyName}
+              data-toggle="tooltip" data-placement="bottom" title={requiredMessage}/>
 
-          <div className={this.props.activateRequiredField&&(this.props.value==""||this.props.value==null) ? "required-box" : "hidden"}>
-            <div className="arrow_box active-component"> {requiredMessage} </div>
-          </div>
+          <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value}/>
         </div>
       </div>
     );
