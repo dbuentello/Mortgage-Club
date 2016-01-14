@@ -1,16 +1,22 @@
 module.exports = {
   validateRequiredFields: function(requiredFormFields){
-    console.log(requiredFormFields);
-    var validationResultArray = {};
     for(var key in requiredFormFields){
       if (requiredFormFields[key]==null || requiredFormFields[key]=="")
       {
-        validationResultArray[key] = false
-      }else{
-        validationResultArray[key] = true;
-    }
+        return false;
+      }
   }
-  return validationResultArray;
-
+  return true;
+  },
+  elementIsEmpty: function(obj){
+    return (obj==null||obj.trim()=="");
+  },
+  arrayContainsEmptyElement: function(requiredArray){
+    for(var obj in requiredArray){
+      if(this.elementIsEmpty(requiredArray[obj])){
+        return true;
+      }
+    }
+    return false;
   }
 }
