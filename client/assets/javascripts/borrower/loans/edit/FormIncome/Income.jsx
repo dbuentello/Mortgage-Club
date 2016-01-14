@@ -75,7 +75,7 @@ var Income = React.createClass({
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
-              activateRequiredField={this.props.activateError}
+              activateRequiredField={this.props.currentEmployerName.error}
               label={this.props.fields.currentEmployerName.label}
               keyName={this.props.fields.currentEmployerName.name}
               value={this.props.currentEmployerName}

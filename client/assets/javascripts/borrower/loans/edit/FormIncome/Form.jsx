@@ -11,23 +11,23 @@ var SelectField = require('components/form/NewSelectField');
 var Income = require('./Income');
 
 var borrowerFields = {
-  currentEmployerName: {label: 'Name of current employer', name: 'current_employer_name', helpText: 'I am a helpful text.'},
-  currentEmployerAddress: {label: 'Address of current employer', name: 'current_address', helpText: null},
+  currentEmployerName: {label: 'Name of current employer', name: 'current_employer_name', helpText: 'I am a helpful text.', error: "currentEmployerError"},
+  currentEmployerAddress: {label: 'Address of current employer', name: 'current_address', helpText: null, error: "currentAddressError"},
   currentEmployerFullTextAddress: {name: 'current_full_text_address', helpText: null},
-  currentJobTitle: {label: 'Job Title', name: 'current_job_title', helpText: null},
-  currentYearsAtEmployer: {label: 'Years at this employer', name: 'current_duration', helpText: null},
-  previousEmployerName: {label: 'Name of previous employer', name: 'previous_employer_name', helpText: 'I am a helpful text.'},
-  previousJobTitle: {label: 'Job Title', name: 'previous_job_title', helpText: null},
-  previousYearsAtEmployer: {label: 'Years at this employer', name: 'previous_duration', helpText: null},
-  previousMonthlyIncome: {label: 'Monthly Income', name: 'previous_monthly_income', helpText: null},
-  employerContactName: {label: 'Contact Name', name: 'employer_contact_name', helpText: null},
-  employerContactNumber: {label: 'Contact Phone Number', name: 'employer_contact_number', helpText: null},
-  baseIncome: {label: 'Base Income', name: 'current_salary', helpText: null},
-  grossOvertime: {label: 'Annual Gross Overtime', name: 'gross_overtime', helpText: null},
-  grossBonus: {label: 'Annual Gross Bonus', name: 'gross_bonus', helpText: null},
-  grossCommission: {label: 'Annual Gross Commission', name: 'gross_commission', helpText: null},
-  grossInterest: {label: 'Annual Gross Interest', name: 'gross_interest', helpText: null},
-  incomeFrequency: {label: 'Income frequency', name: 'pay_frequency', helpText: null},
+  currentJobTitle: {label: 'Job Title', name: 'current_job_title', helpText: null, error: "currentJobTitleError"},
+  currentYearsAtEmployer: {label: 'Years at this employer', name: 'current_duration', helpText: null, error: "currentDurrationError"},
+  previousEmployerName: {label: 'Name of previous employer', name: 'previous_employer_name', helpText: 'I am a helpful text.', error: "previousEmploymentNameError"},
+  previousJobTitle: {label: 'Job Title', name: 'previous_job_title', helpText: null, error: ""},
+  previousYearsAtEmployer: {label: 'Years at this employer', name: 'previous_duration', helpText: null, error: "error"},
+  previousMonthlyIncome: {label: 'Monthly Income', name: 'previous_monthly_income', helpText: null, error: "error"},
+  employerContactName: {label: 'Contact Name', name: 'employer_contact_name', helpText: null, error: "error"},
+  employerContactNumber: {label: 'Contact Phone Number', name: 'employer_contact_number', helpText: null, error: "error"},
+  baseIncome: {label: 'Base Income', name: 'current_salary', helpText: null, error: "error"},
+  grossOvertime: {label: 'Annual Gross Overtime', name: 'gross_overtime', helpText: null, error: "error"},
+  grossBonus: {label: 'Annual Gross Bonus', name: 'gross_bonus', helpText: null, error: "error"},
+  grossCommission: {label: 'Annual Gross Commission', name: 'gross_commission', helpText: null, error: "error"},
+  grossInterest: {label: 'Annual Gross Interest', name: 'gross_interest', helpText: null, error: "error"},
+  incomeFrequency: {label: 'Income frequency', name: 'pay_frequency', helpText: null, error: "error"},
   otherIncomes: {name: 'borrower_other_incomes'}
 };
 
@@ -296,6 +296,7 @@ var Form = React.createClass({
     this.setState(state);
   },
   valid: function(){
+    var state = {};
     var borrowerStateArray = [this.state[borrowerFields.currentEmployerName.name],
       this.state[borrowerFields.currentEmployerFullTextAddress.name],
       this.state[borrowerFields.currentJobTitle.name],
@@ -304,7 +305,10 @@ var Form = React.createClass({
       this.state[borrowerFields.employerContactNumber.name],
       this.state[borrowerFields.baseIncome.name],
       this.state[borrowerFields.incomeFrequency.name]];
+
     if(ValidationObject.arrayContainsEmptyElement(borrowerStateArray)){
+      state[borrowerFields.currentEmployerName.error] = true;
+      this.setState(state);
       return false;
     }
 
@@ -321,7 +325,7 @@ var Form = React.createClass({
   },
 
   save: function(event) {
-    if(this.valid()==false) {
+    if(this.valid() == false) {
       this.setState({activateError: true, saving: false});
       return false;
     }

@@ -271,71 +271,40 @@ var FormProperty = React.createClass({
   isPrimaryProperty: function() {
     this.state[fields.propertyPurpose.name] == "primary_residence"
   },
-  valid: function(){
-    var propertyStateArray = [this.state[fields.address.name],
-      this.state[fields.propertyPurpose.name],
-      this.state[fields.loanPurpose.name]
-      ];
-
-    if(ValidationObject.arrayContainsEmptyElement(propertyStateArray)){
-      return false;
-    }
-    if(this.state[fields.loanPurpose.name] == true && ValidationObject.elementIsEmpty(this.state[fields.purchasePrice.name])){
-      return false;
-    }
-    if(this.state[fields.loanPurpose.name] == false &&
-      (ValidationObject.elementIsEmpty(this.state[fields.originalPurchasePrice.name])||ValidationObject.elementIsEmpty(this.state[fields.originalPurchaseYear.name]))){
-      return false;
-    }
-
-    return true;
-
-  },
 
   save: function(event) {
-    event.preventDefault();
-    console.log(this.valid());
     this.setState({saving: true});
-    var messages = [];
+
     var state = {};
     if (this.state[fields.address.name] === null) {
       state[fields.address.error] = true;
     }
     if (!this.state[fields.propertyPurpose.name]) {
-      messages.push("Property Will Be can't be blank.");
       state[fields.propertyPurpose.error] = true;
     }
     if (this.state[fields.loanPurpose.name] == null) {
-      messages.push("Purpose of Loan can't be blank.");
       state[fields.loanPurpose.error] = true;
     } else {
       if (this.state[fields.loanPurpose.name] == true) {
         if (!this.state[fields.purchasePrice.name]) {
-          messages.push("Purchase Price can't be blank.");
           state[fields.purchasePrice.error] = true;
         }
       } else {
         if (!this.state[fields.originalPurchasePrice.name]) {
-          messages.push("Original Purchase Price can't be blank.");
           state[fields.originalPurchasePrice.error] = true;
         }
         if (!this.state[fields.originalPurchaseYear.name]) {
-          messages.push("Purchase Year can't be blank.");
           state[fields.originalPurchaseYear.error] = true;
         }
       }
     }
 
-    var full_message = messages.join("\n");
-    if (this.valid()==false) {
+    if(Object.keys(state).length != 0){
       this.setState({saving: false, activateError: true});
       this.setState(state);
-      var flash = { "alert-danger": "Invalid field value, please check"};
-      this.showFlashes(flash);
     } else {
       this.props.saveLoan(this.buildLoanFromState(), 0);
     }
-
     event.preventDefault();
   }
 });
