@@ -3,6 +3,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var ValidationObject = require("mixins/ValidationMixins");
 var BooleanRadio = require('components/form/NewBooleanRadio');
 var FlashHandler = require('mixins/FlashHandler');
 var Property = require('./Property');
@@ -220,17 +221,32 @@ var FormAssetsAndLiabilities = React.createClass({
       current_balance: null
     }
   },
-
-  save: function(event) {
+  valid: function(){
     var valid = true;
     this.setState({saving: true});
-
     var primary_property = this.state.primary_property;
     if (primary_property){
       primary_property.address_attributes = primary_property.address;
     }
 
     var subject_property = this.state.subject_property;
+    if(ValidationObject.elementIsEmpty(this.state.subject_property.property_type)){
+      return false;
+    }
+    if(ValidationObject.elementIsEmpty(this.state.subject_property.estimated_hazard_insurance)){
+      return false;
+    }
+    if(ValidationObject.elementIsEmpty(this.state.subject_property.estimated_property_tax)){
+      return false;
+    }
+
+    if(ValidationObject.elementIsEmpty(this.state.subject_property.market_price)){
+      return false;
+    }
+    if(ValidationObject.elementIsEmpty(this.state.subject_property.mortgage_includes_escrows)){
+      return false;
+    }
+
     if (subject_property){
       subject_property.address_attributes = subject_property.address;
     }
@@ -256,10 +272,18 @@ var FormAssetsAndLiabilities = React.createClass({
       }
       asset.current_balance = this.currencyToNumber(asset.current_balance);
       _assets.push(asset);
+      this.setState({asset: _assets, primary_property: primary_property,
+            subject_property: subject_property,
+            rental_properties: rental_properties
+      })
     }, this);
+    return valid;
+  },
 
-    if (valid == false){
-      return;
+  save: function(event) {
+    event.preventDefault();
+    if (this.valid() == false){
+      return false;
     }
 
     $.ajax({
@@ -268,7 +292,7 @@ var FormAssetsAndLiabilities = React.createClass({
       context: this,
       dataType: 'json',
       contentType: 'application/json',
-      data: JSON.stringify({assets: _assets}),
+      data: JSON.stringify({assets: this.state.assets}),
       success: function(resp){
         $.ajax({
           url: '/properties/',
@@ -277,9 +301,9 @@ var FormAssetsAndLiabilities = React.createClass({
           dataType: 'json',
           data: {
             loan_id: this.props.loan.id,
-            primary_property: primary_property,
-            subject_property: subject_property,
-            rental_properties: rental_properties,
+            primary_property: this.state.primary_property,
+            subject_property: this.state.subject_property,
+            rental_properties: this.state.rental_properties,
             own_investment_property: this.state.own_investment_property
           },
           success: function(response) {
@@ -300,8 +324,6 @@ var FormAssetsAndLiabilities = React.createClass({
         this.showFlashes(flash);
       }.bind(this)
     });
-
-    event.preventDefault();
   }
 });
 

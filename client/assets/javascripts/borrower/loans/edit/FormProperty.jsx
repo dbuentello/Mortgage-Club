@@ -3,6 +3,7 @@ var React = require("react/addons");
 var TextFormatMixin = require("mixins/TextFormatMixin");
 var ObjectHelperMixin = require("mixins/ObjectHelperMixin");
 var FlashHandler = require("mixins/FlashHandler");
+var ValidationObject = require("mixins/ValidationMixins");
 
 var AddressField = require("components/form/NewAddressField");
 var SelectField = require("components/form/NewSelectField");
@@ -236,6 +237,7 @@ var FormProperty = React.createClass({
 
   buildLoanFromState: function() {
     var loan = {};
+    var purpose = this.state[fields.loanPurpose.name];
 
     if (purpose != null) {
       if (purpose == true) {
@@ -269,13 +271,34 @@ var FormProperty = React.createClass({
   isPrimaryProperty: function() {
     this.state[fields.propertyPurpose.name] == "primary_residence"
   },
+  valid: function(){
+    var propertyStateArray = [this.state[fields.address.name],
+      this.state[fields.propertyPurpose.name],
+      this.state[fields.loanPurpose.name]
+      ];
+
+    if(ValidationObject.arrayContainsEmptyElement(propertyStateArray)){
+      return false;
+    }
+    if(this.state[fields.loanPurpose.name] == true && ValidationObject.elementIsEmpty(this.state[fields.purchasePrice.name])){
+      return false;
+    }
+    if(this.state[fields.loanPurpose.name] == false &&
+      (ValidationObject.elementIsEmpty(this.state[fields.originalPurchasePrice.name])||ValidationObject.elementIsEmpty(this.state[fields.originalPurchaseYear.name]))){
+      return false;
+    }
+
+    return true;
+
+  },
 
   save: function(event) {
+    event.preventDefault();
+    console.log(this.valid());
     this.setState({saving: true});
     var messages = [];
     var state = {};
-    if (this.state[fields.address.name].full_text === null) {
-      messages.push("Address can't be blank.");
+    if (this.state[fields.address.name] === null) {
       state[fields.address.error] = true;
     }
     if (!this.state[fields.propertyPurpose.name]) {
@@ -304,10 +327,10 @@ var FormProperty = React.createClass({
     }
 
     var full_message = messages.join("\n");
-    if (full_message) {
+    if (this.valid()==false) {
       this.setState({saving: false, activateError: true});
       this.setState(state);
-      var flash = { "alert-danger": full_message };
+      var flash = { "alert-danger": "Invalid field value, please check"};
       this.showFlashes(flash);
     } else {
       this.props.saveLoan(this.buildLoanFromState(), 0);
