@@ -87,6 +87,7 @@ var NewSelectField = React.createClass({
 
   render: function() {
     var requiredMessage = this.props.requiredMessage || "This field is required";
+    var unSelected = this.props.activateRequiredField&&(this.props.value==null || this.props.value==""|| this.props.value.trim()=="" || this.state.name==null || this.state.name.trim()=="")
     return (
       <div>
         <div className="col-md-6">
@@ -116,7 +117,7 @@ var NewSelectField = React.createClass({
           </div>
         </div>
         <div className="col-md-6">
-          <div className={this.props.activateRequiredField&&(this.props.value==""||this.props.value==null) ? "required-box" : "hidden"}>
+          <div className={unSelected ? "required-box" : "hidden"}>
             <div className="arrow_box active-component"> {requiredMessage} </div>
           </div>
         </div>

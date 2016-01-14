@@ -2,6 +2,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var ValidationObject = require("mixins/ValidationMixins");
 
 var AddressField = require('components/form/NewAddressField');
 var DateField = require('components/form/NewDateField');
@@ -295,24 +296,27 @@ var Form = React.createClass({
     this.setState(state);
   },
   valid: function(){
-
-    var failedCondition = ((this.state[borrowerFields.currentEmployerName.name] == null) ||
-      (this.state[borrowerFields.currentEmployerFullTextAddress.name]==null) ||
-      (this.state[borrowerFields.currentJobTitle.name]==null) ||
-      (this.state[borrowerFields.currentYearsAtEmployer.name]==null)||
-      // (this.state[borrowerFields.previousEmployerName.name]==null) ||
-      // (this.state[borrowerFields.previousJobTitle.name]==null) ||
-      // (this.state[borrowerFields.previousYearsAtEmployer.name]==null) ||
-      // (this.state[borrowerFields.previousMonthlyIncome.name]==null) ||
-      (this.state[borrowerFields.employerContactName.name]==null) ||
-      (this.state[borrowerFields.employerContactNumber.name]==null) ||
-      (this.state[borrowerFields.baseIncome.name]==null) ||
-      (this.state[borrowerFields.incomeFrequency.name].trim()=="")
-    );
-
-    if (failedCondition) {
+    var borrowerStateArray = [this.state[borrowerFields.currentEmployerName.name],
+      this.state[borrowerFields.currentEmployerFullTextAddress.name],
+      this.state[borrowerFields.currentJobTitle.name],
+      this.state[borrowerFields.currentYearsAtEmployer.name],
+      this.state[borrowerFields.employerContactName.name],
+      this.state[borrowerFields.employerContactNumber.name],
+      this.state[borrowerFields.baseIncome.name],
+      this.state[borrowerFields.incomeFrequency.name]];
+    if(ValidationObject.arrayContainsEmptyElement(borrowerStateArray)){
       return false;
     }
+
+    if (this.state[borrowerFields.currentYearsAtEmployer.name] < 2 &&(ValidationObject.arrayContainsEmptyElement([this.state[borrowerFields.previousEmployerName.name],
+      this.state[borrowerFields.previousJobTitle.name],
+      this.state[borrowerFields.previousYearsAtEmployer.name],
+      this.state[borrowerFields.previousMonthlyIncome.name]]
+      )))
+    {
+      return false;
+    }
+
     return true;
   },
 
