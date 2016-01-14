@@ -11,6 +11,7 @@ var Documents = require("./FormDocuments");
 var CheckCompletedLoanMixin = require('mixins/CheckCompletedLoanMixin');
 
 var LoanInterface = React.createClass({
+  mixins: [CheckCompletedLoanMixin],
   getInitialState: function() {
     var loan = this.props.bootstrapData.currentLoan;
     var borrower_type = this.props.bootstrapData.borrower_type;
