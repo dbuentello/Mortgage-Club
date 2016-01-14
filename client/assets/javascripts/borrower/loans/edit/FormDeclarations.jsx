@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var React = require('react/addons');
-
+var ValidationObject = require("mixins/ValidationMixins");
 var AddressField = require('components/form/NewAddressField');
 var SelectField = require('components/form/NewSelectField');
 var TextField = require('components/form/NewTextField');
@@ -185,8 +185,9 @@ var FormDeclarations = React.createClass({
                     onChange={this.onChange}/>
                 </div>
               )
-            },this)
+            }, this)
           }
+
           <div className='form-group' style={{display: this.state.display_sub_question}}>
             <div className="col-md-6">
               <SelectField
@@ -220,11 +221,42 @@ var FormDeclarations = React.createClass({
       </div>
     );
   },
+  omitKeys: function(obj, keys) {
+      var dup = {};
+      for (var key in obj) {
+          if (keys.indexOf(key) == -1) {
+              dup[key] = obj[key];
+          }
+      }
+      return dup;
+  },
+
+  valid: function(){
+    var isValid = true;
+    var checkObject = this.omitKeys(checkboxFields, ["permanentResidentAlien"]);
+
+     _.each(Object.keys(checkObject), function(key) {
+        if (ValidationObject.elementIsEmpty(this.state[checkObject[key].name])){
+          this.setState({saving: false});
+          isValid = false;
+          return false;
+        }
+      }, this);
+     if(this.state['permanent_resident_alien_display']==true && ValidationObject.elementIsEmpty(this.state[checkboxFields["permanentResidentAlien"].name])){
+      isValid = false;
+     }
+     return isValid;
+
+  },
 
   save: function(event) {
+    event.preventDefault();
+    if(this.valid()==false){
+      return false;
+    }
+
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 6, true, true);
-    event.preventDefault();
   }
 
 });
