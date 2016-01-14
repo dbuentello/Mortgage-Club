@@ -52,8 +52,7 @@ var ChecklistUpload = React.createClass({
       {subject_type: checklist.subject_name},
       {description: checklist.document_description}
     ];
-    console.dir('324234423423')
-    console.dir(checklist)
+
     return (
       <span>
         {
