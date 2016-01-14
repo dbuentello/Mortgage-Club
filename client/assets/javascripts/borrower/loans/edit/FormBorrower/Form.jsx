@@ -10,6 +10,7 @@ var DateField = require('components/form/DateField');
 var SelectField = require('components/form/NewSelectField');
 var TextField = require('components/form/TextField');
 var BooleanRadio = require('components/form/NewBooleanRadio');
+var CheckCompletedLoanMixin = require('mixins/CheckCompletedLoanMixin');
 var Borrower = require('./Borrower');
 var borrowerCountOptions = [
   {name: 'As an individual', value: 1},
@@ -345,7 +346,12 @@ var Form = React.createClass({
         loan_id: this.props.loan.id,
       },
       success: function(response) {
-        this.props.setupMenu(response, 1);
+        if (this.loanIsCompleted(response.loan)) {
+          this.props.goToAllDonePage();
+        }
+        else {
+          this.props.setupMenu(response, 1);
+        }
       },
       error: function(response, status, error) {
         alert(error);

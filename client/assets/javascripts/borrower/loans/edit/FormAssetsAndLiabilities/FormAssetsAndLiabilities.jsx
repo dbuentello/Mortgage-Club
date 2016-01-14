@@ -6,6 +6,7 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var ValidationObject = require("mixins/ValidationMixins");
 var BooleanRadio = require('components/form/NewBooleanRadio');
 var FlashHandler = require('mixins/FlashHandler');
+var CheckCompletedLoanMixin = require('mixins/CheckCompletedLoanMixin');
 var Property = require('./Property');
 var Asset = require('./Asset');
 
@@ -16,7 +17,7 @@ var fields = {
 };
 
 var FormAssetsAndLiabilities = React.createClass({
-  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
+  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler, CheckCompletedLoanMixin],
 
   getInitialState: function() {
     var currentUser = this.props.bootstrapData.currentUser;
@@ -307,9 +308,14 @@ var FormAssetsAndLiabilities = React.createClass({
             own_investment_property: this.state.own_investment_property
           },
           success: function(response) {
-            this.props.setupMenu(response, 5);
-            this.props.bootstrapData.liabilities = response.liabilities;
-            // this.setState({saving: false});
+            if (this.loanIsCompleted(response.loan)) {
+              this.props.goToAllDonePage();
+            }
+            else {
+              this.props.setupMenu(response, 5);
+              this.props.bootstrapData.liabilities = response.liabilities;
+              // this.setState({saving: false});
+            }
           },
           error: function(response, status, error) {
             this.setState({saving: false});

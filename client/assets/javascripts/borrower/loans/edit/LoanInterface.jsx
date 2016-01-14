@@ -8,6 +8,7 @@ var AssetsAndLiabilities = require("./FormAssetsAndLiabilities/FormAssetsAndLiab
 var Declarations = require("./FormDeclarations");
 var CreditCheck = require("./FormCreditCheck");
 var Documents = require("./FormDocuments");
+var CheckCompletedLoanMixin = require('mixins/CheckCompletedLoanMixin');
 
 var LoanInterface = React.createClass({
   getInitialState: function() {
@@ -111,21 +112,23 @@ var LoanInterface = React.createClass({
         current_step: step
       },
       success: function(response) {
-        if (last_step == false) {
-          this.setupMenu(response, step, skip_change_page);
-        } else {
-          var menu = this.buildMenu(response.loan);
-          var uncompleted_step = _.findWhere(menu, {complete: false});
+        if (this.loanIsCompleted(response.loan)) {
+          this.goToAllDonePage();
+        }
+        else {
+          if (last_step == false) {
+            this.setupMenu(response, step, skip_change_page);
+          } else {
+            var menu = this.buildMenu(response.loan);
+            var uncompleted_step = _.findWhere(menu, {complete: false});
 
-          if (uncompleted_step) {
-            this.setState({
-              loan: response.loan,
-              menu: menu,
-              active: uncompleted_step
-            });
-          }
-          else {
-            location.href = "/underwriting?loan_id=" + this.state.loan.id;
+            if (uncompleted_step) {
+              this.setState({
+                loan: response.loan,
+                menu: menu,
+                active: uncompleted_step
+              });
+            }
           }
         }
       },
