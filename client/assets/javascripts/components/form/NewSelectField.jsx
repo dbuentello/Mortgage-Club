@@ -90,32 +90,30 @@ var NewSelectField = React.createClass({
     var unSelected = this.props.activateRequiredField&&(this.props.value==null || this.props.value==""|| this.props.value.trim()=="" || this.state.name==null || this.state.name.trim()=="")
     return (
       <div>
-        <div className="col-md-6">
-          <div className="select-box">
-            <h6>{this.props.label}</h6>
-            {
-              this.props.helpText
-              ?
-                <p className="helpful-text">
-                  <img src="/icons/info.png" />{this.props.helpText}
-                </p>
-              :
-                null
-            }
-            <div>
-              <select className="form-control" id={this.props.keyName} name={this.props.label} onChange={this.handleChange} onFocus={this.handleFocus} value={this.props.value || ''}>
-                {(this.props.placeholder) ? <option value="" disabled={true}>{this.props.placeholder}</option> : null}
-                {this.state.options.map(function (option, i) {
-                  return (
-                    <option key={'select_' + (option.value || option.name) + i} value={option.value || ''}>{option.name}</option>
-                  );
-                }, this)}
-              </select>
-              <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
-            </div>
+        <div className="select-box">
+          <h6>{this.props.label}</h6>
+          {
+            this.props.helpText
+            ?
+              <p className="helpful-text">
+                <img src="/icons/info.png" />{this.props.helpText}
+              </p>
+            :
+              null
+          }
+          <div>
+            <select className="form-control" id={this.props.keyName} name={this.props.label} onChange={this.handleChange} onFocus={this.handleFocus} value={this.props.value || ''}>
+              {(this.props.placeholder) ? <option value="" disabled={true}>{this.props.placeholder}</option> : null}
+              {this.state.options.map(function (option, i) {
+                return (
+                  <option key={'select_' + (option.value || option.name) + i} value={option.value || ''}>{option.name}</option>
+                );
+              }, this)}
+            </select>
+            <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
           </div>
-          <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage}/>
         </div>
+        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage}/>
       </div>
     );
   },
