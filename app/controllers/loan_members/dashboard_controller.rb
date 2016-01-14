@@ -11,7 +11,8 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
     bootstrap(
       loan: LoanMembers::LoanPresenter.new(@loan).show,
       first_activity: first_activity(@loan),
-      loan_activities: loan_activities ? loan_activities.group_by(&:activity_type) : [],
+      activity_types: LoanMembers::ActivityTypesPresenter.new(ActivityType.all).show,
+      loan_activities: loan_activities,
       borrower: LoanMembers::BorrowerPresenter.new(@loan.borrower).show,
       property: LoanMembers::PropertyPresenter.new(@loan.subject_property).show,
       closing: LoanMembers::ClosingPresenter.new(@loan.closing).show,

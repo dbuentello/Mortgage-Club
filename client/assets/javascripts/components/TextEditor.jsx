@@ -5,6 +5,10 @@ var ReactScriptLoaderMixin = ReactScriptLoader.ReactScriptLoaderMixin;
 var TextEditor = React.createClass({
   mixins: [ReactScriptLoaderMixin],
 
+  propTypes: {
+    label: React.PropTypes.string
+  },
+
   getInitialState: function() {
     return {
       success: true
@@ -33,16 +37,19 @@ var TextEditor = React.createClass({
 
   render: function() {
     return(
-      <div className="editor">
-        {
-          this.state.success
-          ?
-          <div id="text-editor" dangerouslySetInnerHTML={{__html: this.props.content}}>
-          </div>
-          :
-          <p>Cannot load text editor</p>
-        }
-      </div>
+      <label className="col-xs-12 pan">
+        <span className='h7 typeBold'>{this.props.label}</span>
+        <div className="editor pan">
+          {
+            this.state.success
+            ?
+            <div id="text-editor" dangerouslySetInnerHTML={{__html: this.props.content}}>
+            </div>
+            :
+            <p>Cannot load text editor</p>
+          }
+        </div>
+      </label>
     )
   }
 })

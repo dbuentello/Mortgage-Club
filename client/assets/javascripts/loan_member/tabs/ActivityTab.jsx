@@ -8,34 +8,29 @@ var FlashHandler = require('mixins/FlashHandler');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 
-var ActivityTypes = [
-  { "value": 0, "label": "Prior to Loan Submission" },
-  { "value": 1, "label": "Prior to Loan Docs" },
-  { "value": 2, "label": "Prior to Closing" },
-  { "value": 3, "label": "Post Closing" }
-];
+var ActivityTypes = [];
 
-var TypeNameMapping = {
-  0: ["Verify borrower's income", "Verify borrower's down payment", "Verify borrower's rental properties", "Other"],
-  1: ["Verify borrower's employment", "Ask borrower to submit additional documents"],
-  2: ["Order preliminary title report", "Schedule notary appointment"],
-  3: ["Review loan criteria per lender request"]
-};
+var TypeNameMapping = {};
 
 var ActivityTab = React.createClass({
   mixins: [FlashHandler, ObjectHelperMixin, TextFormatMixin],
 
   getInitialState: function() {
+    _.each(this.props.activity_types, function(activity_type){
+      ActivityTypes.push({
+        "value": activity_type.id,
+        "label": activity_type.label
+      });
+      TypeNameMapping[activity_type.id] = activity_type.type_name_mapping;
+    });
+
     return {
-      current_type: '0',
+      current_type_id: _.keys(TypeNameMapping)[0],
       current_name: "Verify borrower's income",
       current_status: 0,
-      acctivity_name_list: TypeNameMapping[0],
+      acctivity_name_list: _.values(TypeNameMapping)[0],
       shown_to_user: true,
-      loan_submission_list: this.getValue(this.props.loan_activities, 'loan_submission'),
-      loan_doc_list: this.getValue(this.props.loan_activities, 'loan_doc'),
-      closing_list: this.getValue(this.props.loan_activities, 'closing'),
-      post_closing_list: this.getValue(this.props.loan_activities, 'post_closing')
+      loan_activities: this.props.loan_activities
     };
   },
 
@@ -44,20 +39,20 @@ var ActivityTab = React.createClass({
   },
 
   onTypeChange: function(event) {
-    this.state.current_type = event.target.value;
-    var firstNameOfCurrentType = TypeNameMapping[this.state.current_type][0];
+    this.state.current_type_id = event.target.value;
+    var firstNameOfCurrentType = TypeNameMapping[this.state.current_type_id][0];
 
     this.setState({
       current_name: firstNameOfCurrentType,
-      acctivity_name_list: TypeNameMapping[this.state.current_type]
+      acctivity_name_list: TypeNameMapping[this.state.current_type_id]
     });
 
-    this.setNewActivityStatus(this.state.current_type, firstNameOfCurrentType);
+    this.setNewActivityStatus(this.state.current_type_id, firstNameOfCurrentType);
   },
 
   onNameChange: function(event) {
     this.state.current_name = event.target.value;
-    this.setNewActivityStatus(this.state.current_type, this.state.current_name);
+    this.setNewActivityStatus(this.state.current_type_id, this.state.current_name);
   },
 
   onShownClick: function(event) {
@@ -80,7 +75,7 @@ var ActivityTab = React.createClass({
       dataType: 'json',
       data: {
         loan_activity: {
-          activity_type: this.state.current_type,
+          activity_type_id: this.state.current_type_id,
           activity_status: this.state.current_status,
           name: this.state.current_name,
           user_visible: this.state.shown_to_user,
@@ -91,7 +86,9 @@ var ActivityTab = React.createClass({
         var flash = { "alert-success": "Updated successfully!" };
         this.showFlashes(flash);
 
-        this.reloadActivityList(this.state.current_type);
+        this.setState({
+          loan_activities: response.activities
+        });
       }.bind(this),
       error: function(response, status, error) {
         var flash = { "alert-danger": response.responseJSON.error };
@@ -170,58 +167,7 @@ var ActivityTab = React.createClass({
             </thead>
             <tbody>
               {
-                _.map(this.state.loan_submission_list, function(loan_activity) {
-                  return (
-                    <tr key={loan_activity.id}>
-                      <td>{loan_activity.pretty_activity_type}</td>
-                      <td>{loan_activity.name}</td>
-                      <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{this.isoToUsDate(loan_activity.start_date)}</td>
-                      <td>{this.isoToUsDate(loan_activity.end_date)}</td>
-                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
-                      <td>{loan_activity.pretty_user_visible}</td>
-                      <td>{loan_activity.pretty_loan_member_name}</td>
-                    </tr>
-                  )
-                },this)
-              }
-
-              {
-                _.map(this.state.loan_doc_list, function(loan_activity) {
-                  return (
-                    <tr key={loan_activity.id}>
-                      <td>{loan_activity.pretty_activity_type}</td>
-                      <td>{loan_activity.name}</td>
-                      <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{this.isoToUsDate(loan_activity.start_date)}</td>
-                      <td>{this.isoToUsDate(loan_activity.end_date)}</td>
-                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
-                      <td>{loan_activity.pretty_user_visible}</td>
-                      <td>{loan_activity.pretty_loan_member_name}</td>
-                    </tr>
-                  )
-                },this)
-              }
-
-              {
-                _.map(this.state.closing_list, function(loan_activity) {
-                  return (
-                    <tr key={loan_activity.id}>
-                      <td>{loan_activity.pretty_activity_type}</td>
-                      <td>{loan_activity.name}</td>
-                      <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
-                      <td>{this.isoToUsDate(loan_activity.start_date)}</td>
-                      <td>{this.isoToUsDate(loan_activity.end_date)}</td>
-                      <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
-                      <td>{loan_activity.pretty_user_visible}</td>
-                      <td>{loan_activity.pretty_loan_member_name}</td>
-                    </tr>
-                  )
-                },this)
-              }
-
-              {
-                _.map(this.state.post_closing_list, function(loan_activity) {
+                _.map(this.state.loan_activities, function(loan_activity) {
                   return (
                     <tr key={loan_activity.id}>
                       <td>{loan_activity.pretty_activity_type}</td>
@@ -243,7 +189,7 @@ var ActivityTab = React.createClass({
     )
   },
 
-  setNewActivityStatus: function(activity_type, activity_name) {
+  setNewActivityStatus: function(activity_type_id, activity_name) {
     $.ajax({
       url: '/loan_members/loan_activities/get_activities_by_conditions',
       method: 'GET',
@@ -251,7 +197,7 @@ var ActivityTab = React.createClass({
       dataType: 'json',
       data: {
         loan_activity: {
-          activity_type: activity_type,
+          activity_type_id: activity_type_id,
           name: activity_name,
           loan_id: this.props.loan.id
         }
@@ -298,41 +244,6 @@ var ActivityTab = React.createClass({
         this.setState({disabledPauseButton: true});
     }
   },
-
-  reloadActivityList: function(activity_type) {
-    $.ajax({
-      url: '/loan_members/loan_activities/get_activities_by_conditions',
-      method: 'GET',
-      context: this,
-      dataType: 'json',
-      data: {
-        loan_activity: {
-          activity_type: activity_type,
-          loan_id: this.props.loan.id
-        }
-      },
-      success: function(response) {
-        switch(activity_type) {
-          case '0':
-            this.setState({ loan_submission_list: response.activities });
-            break;
-          case '1':
-            this.setState({ loan_doc_list: response.activities });
-            break;
-          case '2':
-            this.setState({ closing_list: response.activities });
-            break;
-          case '3':
-            this.setState({ post_closing_list: response.activities });
-            break;
-        }
-      }.bind(this),
-      error: function(response, status, error) {
-        var flash = { "alert-danger": response.responseJSON.error };
-        this.showFlashes(flash);
-      }
-    });
-  }
 });
 
 module.exports = ActivityTab;

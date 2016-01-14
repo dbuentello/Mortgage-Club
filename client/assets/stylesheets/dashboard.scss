@@ -18,6 +18,18 @@ div.img-home {
   }
 }
 
+#addTypeNameMapping {
+  padding: 5px 10px;
+  border-bottom-width: 1px !important;
+  border-bottom-color: rgb(204, 204, 204) !important;
+  margin-top: 30px;
+}
+
+#removeTypeNameMapping {
+  padding: 1px 4px;
+  border-bottom-width: 1px !important;
+}
+
 span.iconCheck {
   color: #8AC007;
 }
@@ -80,7 +92,7 @@ a.remove {
   padding-top: 7px;
   padding-bottom: 7px;
 }
-.content {
+.loan-dashboard {
   padding-top: 0px !important;
 }
 
@@ -218,6 +230,14 @@ a.remove {
           width: 90%;
           margin-top: 10px;
         }
+
+        .glyphicon-ok {
+          color: white;
+          background-color: green;
+          padding: 5px;
+          margin-top: 10px;
+          border-radius: 2px;
+        }
       }
     }
 
@@ -321,6 +341,26 @@ a.remove {
       box-shadow: none;
       border-bottom: #dfdfdf 1px solid;
       color: black;
+    }
+
+    .panel-title > a.collapsed:after {
+      content: "\e260";
+    }
+
+    .panel-title  a:after {
+      content: "\e259";
+      float: right;
+      display: block;
+      color: #555;
+      font-family: 'Glyphicons Halflings';
+    }
+
+    .panel:last-of-type {
+      border: none;
+    }
+
+    .panel-body {
+      border-top: none !important;
     }
 
     .panel-group .panel-heading {

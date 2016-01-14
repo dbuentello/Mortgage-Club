@@ -18,7 +18,26 @@ var OverviewTab = React.createClass({
     );
   },
 
+  getInitialState: function(){
+    var checklistCounter = this.props.checklists.length;
+    var pendingCounter = 0;
+    for (var i = 0; i < this.props.checklists.length; i++) {
+      if (this.props.checklists[i].status == "pending") {
+        pendingCounter += 1;
+      }
+    }
+    var completeCounter = checklistCounter - pendingCounter;
+    return {
+      pendingCounter: pendingCounter
+    }
+  },
+
   updateChecklistStatus: function(checklist) {
+    var newPendingCounter = this.state.pendingCounter - 1;
+    this.setState({
+      pendingCounter: newPendingCounter
+    });
+
     $.ajax({
       url: '/my/checklists/' + checklist.id,
       data: {
@@ -30,31 +49,37 @@ var OverviewTab = React.createClass({
       method: 'PATCH',
       context: this,
       success: function(response) {
-        // do something
       }
     });
   },
   render: function() {
-    var checklistCounter = this.props.checklists.length;
-    var pendingCounter = 0;
-    for (var i = 0; i < this.props.checklists.length; i++) {
-      if (this.props.checklists[i].status == "pending") {
-        pendingCounter += 1;
-      }
-    }
-    var completeCounter = checklistCounter - pendingCounter;
-
     return (
       <div className="overviewTab">
         <div className="board sign-board">
           <div className="row">
-            <div className="col-md-11">
-              <h4>We are still waiting on some of your checklist items</h4>
-              <p>Go ahead and click 'Get Started' on the items below to start working through your open items</p>
-            </div>
-            <div className="col-md-1 dashboard-sign">
-              <img className="board-side" src="/warning-sign.png"/>
-            </div>
+            {
+              (this.state.pendingCounter == 0)
+              ?
+                <div>
+                  <div className="col-md-11">
+                    <h4>Everything looks good!</h4>
+                    <p>{"We'll let you know when we need your help to move forward."}</p>
+                  </div>
+                  <div className="col-md-1 dashboard-sign">
+                    <span className="glyphicon glyphicon-ok"></span>
+                  </div>
+                </div>
+              :
+                <div>
+                  <div className="col-md-11">
+                    <h4>We are still waiting on some of your checklist items</h4>
+                    <p>Go ahead and click 'Get Started' on the items below to start working through your open items</p>
+                  </div>
+                  <div className="col-md-1 dashboard-sign">
+                    <img className="board-side" src="/warning-sign.png"/>
+                  </div>
+                </div>
+            }
           </div>
         </div>
         <div className="board">
@@ -85,29 +110,14 @@ var OverviewTab = React.createClass({
 
 module.exports = OverviewTab;
 
-// <tr>
-//   <td><span className="glyphicon glyphicon-ok"></span></td>
-//   <td>Provide April bank statement</td>
-//   <td><span className="glyphicon glyphicon-info-sign"></span></td>
-//   <td>11/12/2015</td>
-//   <td><a className="btn dash-table-btn" href="#">Get started</a></td>
-// </tr>
-
-// <tr>
-//   <td><span className="glyphicon glyphicon-remove"></span></td>
-//   <td>Provide escrow/title agent information</td>
-//   <td><span className="glyphicon glyphicon-info-sign"></span></td>
-//   <td>11/12/2015</td>
-//   <td><a className="btn dash-table-btn" href="#">Get started</a></td>
-// </tr>
-
 var CheckList = React.createClass({
     mixins: [TextFormatMixin],
 
     getInitialState: function() {
       return {
-        status: this.props.checklist.status == "pending" ? "glyphicon glyphicon-remove" : "glyphicon glyphicon-ok",
-        logs: []
+        className: this.props.checklist.status == "pending" ? "glyphicon glyphicon-remove" : "glyphicon glyphicon-ok",
+        logs: [],
+        status: this.props.checklist.status,
       }
     },
 
@@ -125,7 +135,8 @@ var CheckList = React.createClass({
 
     uploadSuccessCallback: function() {
       this.setState({
-        status: 'iconCheck'
+        className: 'glyphicon glyphicon-ok',
+        status: 'done'
       });
       this.props.updateChecklistStatus(this.props.checklist);
     },
@@ -148,7 +159,7 @@ var CheckList = React.createClass({
 
       return (
         <tr>
-          <td><span className={this.state.status}></span></td>
+          <td><span className={this.state.className}></span></td>
           <td>{checklist.name}</td>
           <td>
             <button
@@ -165,7 +176,7 @@ var CheckList = React.createClass({
             { checklist.checklist_type == "explain" ?
                 <div>
                   <button className="btn dash-table-btn" onClick={this.handleShowModal} >
-                    {checklist.status == "done" ? "Review" : "Explain"}
+                    {this.state.status == "done" ? "Review" : "Explain"}
                   </button>
                   <ChecklistExplanation
                     ref="modal"
@@ -178,7 +189,7 @@ var CheckList = React.createClass({
                 :
                 <div>
                   <button className="btn dash-table-btn" data-toggle="modal" data-target={"#" + button_id}>
-                    {checklist.status == "done" ? "Review" : "Upload"}
+                    {this.state.status == "done" ? "Review" : "Upload"}
                   </button>
                   <ChecklistUpload
                     id={button_id}

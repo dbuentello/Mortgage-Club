@@ -4,13 +4,14 @@ describe LoanActivityServices::CreateActivity do
   before(:each) do
     @loan_member = FactoryGirl.create(:loan_member)
     @loan = FactoryGirl.create(:loan)
+    @activity_type = FactoryGirl.create(:activity_type)
   end
 
   context "valid params" do
     before(:each) do
       @loan_activity_params = {
         name: "Verify borrower's income",
-        activity_type: 0,
+        activity_type_id: @activity_type.id,
         activity_status: 0,
         user_visible: true,
         loan_id: @loan.id,

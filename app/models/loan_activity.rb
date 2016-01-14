@@ -26,13 +26,7 @@ class LoanActivity < ActiveRecord::Base
 
   belongs_to :loan
   belongs_to :loan_member
-
-  enum activity_type: {
-    loan_submission: 0,
-    loan_doc: 1,
-    closing: 2,
-    post_closing: 3
-  }
+  belongs_to :activity_type
 
   enum activity_status: {
     start: 0,
@@ -40,7 +34,7 @@ class LoanActivity < ActiveRecord::Base
     pause: 2
   }
 
-  validates :loan, :loan_member, presence: true
+  validates :loan, :loan_member, :activity_type, presence: true
   validates :user_visible, inclusion: [true, false]
 
   def self.get_latest_by_loan_and_name(loan_id, name)
@@ -50,7 +44,7 @@ class LoanActivity < ActiveRecord::Base
   end
 
   def self.get_latest_by_loan(loan)
-    return nil if loan.nil?
+    return [] if loan.nil?
 
     loan.loan_activities.find_by_sql("SELECT DISTINCT ON (name)
       l.*, d.duration
@@ -64,7 +58,7 @@ class LoanActivity < ActiveRecord::Base
   end
 
   def self.get_latest_by_loan_and_conditions(params)
-    return nil if params.blank?
+    return [] if params.blank?
 
     self.find_by_sql("SELECT DISTINCT ON (name)
       l.*, d.duration
@@ -77,23 +71,14 @@ class LoanActivity < ActiveRecord::Base
       WHERE
         l.loan_id = '#{params[:loan_id]}'
         AND
-        l.activity_type = #{params[:activity_type]}
+        l.activity_type_id = '#{params[:activity_type_id]}'
       ORDER BY name, created_at DESC, id")
   end
 
   # WILL_DO: consider using draper gem to move those pretty methods into
   #  decorator folder
   def pretty_activity_type
-    case activity_type
-    when 'loan_submission'
-      LIST.keys[0]
-    when 'loan_doc'
-      LIST.keys[1]
-    when 'closing'
-      LIST.keys[2]
-    when 'post_closing'
-      LIST.keys[3]
-    end
+    activity_type.label
   end
 
   def pretty_activity_status

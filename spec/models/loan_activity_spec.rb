@@ -21,6 +21,7 @@ require "rails_helper"
 describe LoanActivity do
   let(:loan) { FactoryGirl.create(:loan) }
   let(:loan_member) { FactoryGirl.create(:loan_member) }
+  let(:activity_type) { FactoryGirl.create(:activity_type) }
 
   context "with valid params" do
     let(:loan_activity) { FactoryGirl.create(:loan_activity) }
@@ -37,15 +38,21 @@ describe LoanActivity do
 
   context "with invalid params" do
     it "is invalid without a loan" do
-      loan_activity = LoanActivity.new(loan_member: loan_member)
+      loan_activity = LoanActivity.new(loan_member: loan_member, activity_type: activity_type)
       loan_activity.valid?
       expect(loan_activity.errors[:loan]).to include("can't be blank")
     end
 
     it "is invalid without a loan member" do
-      loan_activity = LoanActivity.new(loan: loan)
+      loan_activity = LoanActivity.new(loan: loan, activity_type: activity_type)
       loan_activity.valid?
       expect(loan_activity.errors[:loan_member]).to include("can't be blank")
+    end
+
+    it "is invalid without a activity type" do
+      loan_activity = LoanActivity.new(loan: loan, loan_member: loan_member)
+      loan_activity.valid?
+      expect(loan_activity.errors[:activity_type]).to include("can't be blank")
     end
 
     it "raises an error with an invalid user_visible" do
@@ -55,16 +62,6 @@ describe LoanActivity do
         user_visible: 'false'
       )
       expect { raise loan_activity.valid? }.to raise_error(TypeError)
-    end
-
-    it "raises an error with an invalid activity_type" do
-      expect {
-        raise LoanActivity.new(
-          loan: loan,
-          loan_member: loan_member,
-          activity_type: 10
-        ).valid?
-      }.to raise_error(ArgumentError)
     end
 
     it "raises an error with an invalid activity_status" do

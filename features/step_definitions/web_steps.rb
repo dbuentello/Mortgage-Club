@@ -48,6 +48,10 @@ When /^I attach the file "([^\"]*)" to the hidden "([^\"]*)"$/ do |path, field|
   end
 end
 
+When /^I set the value "([^\"]*)" to the hidden "([^\"]*)"$/ do |value, field|
+  page.execute_script("document.getElementsByName('#{field}')[0].value = '#{value}';")
+end
+
 When /^I click on a first "([^\"]+)"$/ do |text|
   first(:link, "#{text}").click
 end

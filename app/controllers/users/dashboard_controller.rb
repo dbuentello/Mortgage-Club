@@ -16,7 +16,8 @@ class Users::DashboardController < Users::BaseController
       borrower_documents: LoanDashboardPage::DocumentsPresenter.new(@loan.borrower.documents).show,
       closing_documents: LoanDashboardPage::DocumentsPresenter.new(closing.documents).show,
       property_documents: LoanDashboardPage::DocumentsPresenter.new(property.documents).show,
-      loan_documents: LoanDashboardPage::DocumentsPresenter.new(@loan.documents).show
+      loan_documents: LoanDashboardPage::DocumentsPresenter.new(@loan.documents).show,
+      faqs_list: LoanDashboardPage::FaqsPresenter.new(Faq.all).show
     )
 
     respond_to do |format|

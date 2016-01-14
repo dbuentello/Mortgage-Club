@@ -2,10 +2,11 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
   before_action :set_loan, only: [:show, :update, :destroy]
 
   def create
-    result = LoanActivityServices::CreateActivity.new.call(loan_member, loan_activity_params)
+    loan = Loan.find_by_id(loan_activity_params[:loan_id])
 
+    result = LoanActivityServices::CreateActivity.new.call(loan_member, loan_activity_params)
     if result.success?
-      render json: {success: "Success"}, status: 200
+      render json: {activities: LoanActivity.get_latest_by_loan(loan), success: "Success"}, status: 200
     else
       render json: {error: result.error_message}, status: 500
     end
@@ -15,7 +16,7 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
     if loan_activity_params[:name].present?
       loan_activities = [LoanActivity.where(
         loan_id: loan_activity_params[:loan_id],
-        activity_type: loan_activity_params[:activity_type],
+        activity_type_id: loan_activity_params[:activity_type_id],
         name: loan_activity_params[:name]
       ).includes(loan_member: :user).
       order(created_at: :desc).limit(1).first]
@@ -31,10 +32,9 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
 
   def loan_activity_params
     loan_activity_params = params.require(:loan_activity).permit(
-      :name, :activity_type, :activity_status, :user_visible, :loan_id
+      :name, :activity_type_id, :activity_status, :user_visible, :loan_id
     )
 
-    loan_activity_params[:activity_type] = loan_activity_params[:activity_type].to_i
     loan_activity_params[:activity_status] = loan_activity_params[:activity_status].to_i
     loan_activity_params[:start_date] = Time.zone.now
     loan_activity_params
