@@ -242,8 +242,6 @@ var FormDeclarations = React.createClass({
           return false;
         }
       }, this);
-     console.log(ValidationObject.elementIsEmpty(this.state[checkboxFields["permanentResidentAlien"]]));
-     console.log(this.state['permanent_resident_alien_display']==true);
      if(this.state['permanent_resident_alien_display']==true && ValidationObject.elementIsEmpty(this.state[checkboxFields["permanentResidentAlien"].name])){
       isValid = false;
      }
@@ -259,7 +257,6 @@ var FormDeclarations = React.createClass({
 
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 6, true, true);
-
   }
 
 });
