@@ -63,10 +63,8 @@ module Docusign
         @params['estimated_taxes_insurance_assessments_text'] = 'a month'
         @params['projected_mortgage_insurance_1_tooltip'] = '+'
         @params['include_other_text'] = loan.include_other_text
-
-        ['include_property_taxes', 'include_homeowners_insurance', 'include_other'].each do |key|
-          @params[key] = 'x' if loan.method(key).call
-        end
+        @params['include_property_taxes'] = 'x' if property.estimated_property_tax.to_f > 0
+        @params['include_homeowners_insurance'] = 'x' if property.estimated_hazard_insurance.to_f > 0
 
         ['in_escrow_property_taxes', 'in_escrow_homeowners_insurance', 'in_escrow_other'].each do |key|
           @params[key] = loan.method(key).call ? 'YES' : 'NO'
@@ -74,10 +72,9 @@ module Docusign
       end
 
       def build_cost_closing
-        @params['estimated_cash_to_close'] = rand(100000)
         map_number_to_params(
           [
-            'estimated_closing_costs', 'loan_costs', 'other_costs', 'lender_credits'
+            'estimated_closing_costs', 'loan_costs', 'other_costs', 'lender_credits', 'estimated_cash_to_close'
           ]
         )
       end
@@ -111,7 +108,7 @@ module Docusign
 
       def origination_charges
         @params['origination_charges_total'] = Money.new(origination_charges_total * 100).format(no_cents_if_whole: true)
-        @params['points_text'] = "#{(loan.points.to_f * 100).round(3)}%"
+        @params['points_text'] = "#{(loan.points.to_f * 100).round(3)}"
         @params['points'] = Money.new((loan.points.to_f * loan.amount.to_f).round(3) * 100).format(no_cents_if_whole: true)
         align(@params['origination_charges_total'].length).call('points')
 
@@ -181,7 +178,7 @@ module Docusign
         )
 
         @params['prepaid_interest'] = Money.new(prepaid_interest * 100).format(no_cents_if_whole: true)
-        @params['prepaid_interest_rate'] = "#{loan.prepaid_interest_rate.to_f * 100}%"
+        @params['prepaid_interest_rate'] = "#{(loan.prepaid_interest_rate.to_f * 100).round(2)}%"
       end
 
 
@@ -294,6 +291,8 @@ module Docusign
         @params['lender_credits'] ||= Money.new(loan.lender_credits.to_f.round(2) * 100).format(no_cents_if_whole: true)
         @params['total_loan_costs_and_other_costs'] = Money.new(total_loan_costs_and_other_costs * 100).format(no_cents_if_whole: true)
         @params['total_closing_costs'] = Money.new(total_closing_costs * 100).format(no_cents_if_whole: true)
+        align(@params['total_closing_costs'].length).call('lender_credits')
+        align(@params['total_closing_costs'].length).call('total_loan_costs_and_other_costs')
       end
 
       def total_loan_costs_and_other_costs
@@ -347,7 +346,7 @@ module Docusign
 
       def map_string_to_params(list)
         list.each do |key|
-          @params[key] = object.method(key).call
+          @params[key] = loan.method(key).call
         end
       end
 
@@ -369,7 +368,7 @@ module Docusign
       end
 
       def align(max_length)
-        Proc.new { |key| @params[key] = @params[key].rjust(max_length + 1) if @params[key].length < max_length }
+        proc { |key| @params[key] = @params[key].rjust(max_length + 1) if @params[key].length < max_length }
       end
     end
   end
