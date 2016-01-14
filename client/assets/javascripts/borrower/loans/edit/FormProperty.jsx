@@ -272,7 +272,7 @@ var FormProperty = React.createClass({
     this.state[fields.propertyPurpose.name] == "primary_residence"
   },
   valid: function(){
-    var propertyStateArray = [this.state[fields.address.name].full_text,
+    var propertyStateArray = [this.state[fields.address.name],
       this.state[fields.propertyPurpose.name],
       this.state[fields.loanPurpose.name]
       ];
@@ -298,7 +298,7 @@ var FormProperty = React.createClass({
     this.setState({saving: true});
     var messages = [];
     var state = {};
-    if (this.state[fields.address.name].full_text === null) {
+    if (this.state[fields.address.name] === null) {
       messages.push("Address can't be blank.");
       state[fields.address.error] = true;
     }
@@ -328,11 +328,10 @@ var FormProperty = React.createClass({
     }
 
     var full_message = messages.join("\n");
-    if (full_message) {
+    if (this.valid()==false) {
       this.setState({saving: false, activateError: true});
       this.setState(state);
-      console.log(full_message);
-      var flash = { "alert-danger": full_message };
+      var flash = { "alert-danger": "Invalid field value, please check"};
       this.showFlashes(flash);
     } else {
       this.props.saveLoan(this.buildLoanFromState(), 0);
