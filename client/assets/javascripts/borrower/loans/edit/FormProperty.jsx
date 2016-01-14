@@ -276,7 +276,7 @@ var FormProperty = React.createClass({
       this.state[fields.propertyPurpose.name],
       this.state[fields.loanPurpose.name]
       ];
-      console.log(ValidationObject.arrayContainsEmptyElement(propertyStateArray));
+
     if(ValidationObject.arrayContainsEmptyElement(propertyStateArray)){
       return false;
     }
@@ -299,7 +299,6 @@ var FormProperty = React.createClass({
     var messages = [];
     var state = {};
     if (this.state[fields.address.name] === null) {
-      messages.push("Address can't be blank.");
       state[fields.address.error] = true;
     }
     if (!this.state[fields.propertyPurpose.name]) {
