@@ -16,7 +16,7 @@ var RecentLoanActivities = React.createClass({
                   <p className="side-item" key={activity.id}>
                     {activity.name}
                     <br/>
-                    <span className="activity-status">{activity.pretty_activity_status} by {activity.pretty_loan_member_name} {moment(activity.updated_at).fromNow()}</span>
+                    <span className="activity-status">{activity.pretty_activity_status} by {activity.pretty_loan_member_name} {moment(activity.created_at).fromNow()}</span>
                   </p>
                   {
                     (index + 1 == activities.length)
