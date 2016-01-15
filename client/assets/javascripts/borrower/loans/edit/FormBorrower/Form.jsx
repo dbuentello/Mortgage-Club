@@ -56,14 +56,14 @@ var secondary_borrower_fields = {
   numberOfDependents: {label: 'Number of dependents', name: 'secondary_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "coNumberOfdependencesError"},
   dependentAges: {label: 'Ages of Dependents', name: 'secondary_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: null},
   currentAddress: {label: 'Your co-borrower current address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null, error: "coCurrentAddressError"},
-  currentlyOwn: {label: 'Own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "coCurrentlyOwn"},
-  selfEmployed: {label: 'Is your co-borrower self-employed?', name: 'secondary_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "coSelfEmploy"},
+  currentlyOwn: {label: 'Own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "coCurrentlyOwnError"},
+  selfEmployed: {label: 'Is your co-borrower self-employed?', name: 'secondary_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "coSelfEmployError"},
   yearsInCurrentAddress: {label: 'Number of years your co-borrower has lived here', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "coYearsInCurrentAddressError"},
-  previousAddress: {label: 'Your previous address', name: 'secondary_borrower_previous_address', fieldName: 'previous_address', helpText: null},
-  previouslyOwn: {label: 'Do you own or rent?', name: 'secondary_borrower_previously_own', fieldName: 'previously_own', helpText: null},
-  yearsInPreviousAddress: {label: 'Number of years your co-borrower has lived here', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null},
-  currentMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null},
-  previousMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null}
+  previousAddress: {label: 'Your previous address', name: 'secondary_borrower_previous_address', fieldName: 'previous_address', helpText: null, error: "coPreviousAddressError"},
+  previouslyOwn: {label: 'Do you own or rent?', name: 'secondary_borrower_previously_own', fieldName: 'previously_own', helpText: null, error: "coPreviousOwnError"},
+  yearsInPreviousAddress: {label: 'Number of years your co-borrower has lived here', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "coYearsInPreviousAddressError"},
+  currentMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null, error: "coCurrentlyMonthlyRentError"},
+  previousMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null, error: "coPreviousMonthlyRentError"}
 };
 
 var Form = React.createClass({
@@ -134,16 +134,21 @@ var Form = React.createClass({
             dependentAges={this.state[borrower_fields.dependentAges.name]}
             dependentAgesError={this.state[borrower_fields.dependentAges.error]}
             currentMonthlyRent={this.state[borrower_fields.currentMonthlyRent.name]}
+            currentMonthlyRentError={this.state[borrower_fields.currentMonthlyRent.error]}
             yearsInCurrentAddress={this.state[borrower_fields.yearsInCurrentAddress.name]}
             yearsInCurrentAddressError={this.state[borrower_fields.yearsInCurrentAddress.error]}
             previousMonthlyRent={this.state[borrower_fields.previousMonthlyRent.name]}
+            previousMonthlyRentError={this.state[borrower_fields.previousMonthlyRent.error]}
             yearsInPreviousAddress={this.state[borrower_fields.yearsInPreviousAddress.name]}
+            yearsInPreviousAddressError={this.state[borrower_fields.yearsInPreviousAddress.error]}
             currentAddress={this.state[borrower_fields.currentAddress.name]}
             currentAddressError={this.state[borrower_fields.currentAddress.error]}
             previousAddress={this.state[borrower_fields.previousAddress.name]}
+            previousAddressError={this.state[borrower_fields.previousAddress.error]}
             currentlyOwn={this.state[borrower_fields.currentlyOwn.name]}
             currentlyOwnError={this.state[borrower_fields.currentlyOwn.error]}
             previouslyOwn={this.state[borrower_fields.previouslyOwn.name]}
+            previouslyOwnError={this.state[borrower_fields.previouslyOwn.error]}
             selfEmployed={this.state[borrower_fields.selfEmployed.name]}
             selfEmployedErorr={this.state[borrower_fields.selfEmployed.error]}
             onChange={this.onChange}
@@ -184,13 +189,17 @@ var Form = React.createClass({
                   yearsInCurrentAddress={this.state[secondary_borrower_fields.yearsInCurrentAddress.name]}
                   yearsInCurrentAddressError={this.state[secondary_borrower_fields.yearsInCurrentAddress.error]}
                   previousMonthlyRent={this.state[secondary_borrower_fields.previousMonthlyRent.name]}
+                  previousMonthlyRentError={this.state[secondary_borrower_fields.previousMonthlyRent.error]}
                   yearsInPreviousAddress={this.state[secondary_borrower_fields.yearsInPreviousAddress.name]}
+                  yearsInPreviousAddressError={this.state[secondary_borrower_fields.yearsInPreviousAddress.error]}
                   currentAddress={this.state[secondary_borrower_fields.currentAddress.name]}
                   currentAddressError={this.state[secondary_borrower_fields.currentAddress.error]}
                   previousAddress={this.state[secondary_borrower_fields.previousAddress.name]}
+                  previousAddressError={this.state[secondary_borrower_fields.previousAddress.error]}
                   currentlyOwn={this.state[secondary_borrower_fields.currentlyOwn.name]}
                   currentlyOwnError={this.state[secondary_borrower_fields.currentlyOwn.error]}
                   previouslyOwn={this.state[secondary_borrower_fields.previouslyOwn.name]}
+                  previouslyOwnError={this.state[secondary_borrower_fields.previouslyOwn.error]}
                   selfEmployed={this.state[secondary_borrower_fields.selfEmployed.name]}
                   selfEmployedError={this.state[secondary_borrower_fields.selfEmployed.error]}
                   isSecondary={true}
@@ -303,6 +312,8 @@ var Form = React.createClass({
   },
 
   valid: function() {
+    var isValid = true;
+    var state = {};
     var borrowerOutputFields = [
       borrower_fields.email.error,
       borrower_fields.firstName.error,
@@ -334,44 +345,57 @@ var Form = React.createClass({
     var validationResult = this.requiredFieldsHasEmptyElement(stateArray, borrowerOutputFields);
     if (validationResult.hasEmptyElement == true){
       this.setState(validationResult.state);
-      return false;
+      isValid = false;
     }
     if(this.state[borrower_fields.applyingAs.name] == 2){
-      var coBorrowerOutputFields = [
-      secondary_borrower_fields.email.error,
-      secondary_borrower_fields.firstName.error,
-      secondary_borrower_fields.lastName.error,
-      secondary_borrower_fields.dob.error,
-      secondary_borrower_fields.ssn.error,
-      secondary_borrower_fields.yearsInSchool.error,
-      secondary_borrower_fields.currentlyOwn.error,
-      secondary_borrower_fields.currentAddress.error,
-      secondary_borrower_fields.yearsInCurrentAddress.error,
-      secondary_borrower_fields.selfEmployed.error,
-      secondary_borrower_fields.maritalStatus.error,
-      secondary_borrower_fields.numberOfDependents.error
-    ];
-    var coStateArray = [
-      this.state[secondary_borrower_fields.email.name],
-      this.state[secondary_borrower_fields.firstName.name],
-      this.state[secondary_borrower_fields.lastName.name],
-      this.state[secondary_borrower_fields.dob.name],
-      this.state[secondary_borrower_fields.ssn.name],
-      this.state[secondary_borrower_fields.yearsInSchool.name],
-      this.state[secondary_borrower_fields.currentlyOwn.name],
-      this.state[secondary_borrower_fields.currentAddress.name],
-      this.state[secondary_borrower_fields.yearsInCurrentAddress.name],
-      this.state[secondary_borrower_fields.selfEmployed.name],
-      this.state[secondary_borrower_fields.maritalStatus.name],
-      this.state[secondary_borrower_fields.numberOfDependents.name]
-    ];
+        var coBorrowerOutputFields = [
+        secondary_borrower_fields.email.error,
+        secondary_borrower_fields.firstName.error,
+        secondary_borrower_fields.lastName.error,
+        secondary_borrower_fields.dob.error,
+        secondary_borrower_fields.ssn.error,
+        secondary_borrower_fields.yearsInSchool.error,
+        secondary_borrower_fields.currentlyOwn.error,
+        secondary_borrower_fields.currentAddress.error,
+        secondary_borrower_fields.yearsInCurrentAddress.error,
+        secondary_borrower_fields.selfEmployed.error,
+        secondary_borrower_fields.maritalStatus.error,
+        secondary_borrower_fields.numberOfDependents.error
+      ];
+      var coStateArray = [
+        this.state[secondary_borrower_fields.email.name],
+        this.state[secondary_borrower_fields.firstName.name],
+        this.state[secondary_borrower_fields.lastName.name],
+        this.state[secondary_borrower_fields.dob.name],
+        this.state[secondary_borrower_fields.ssn.name],
+        this.state[secondary_borrower_fields.yearsInSchool.name],
+        this.state[secondary_borrower_fields.currentlyOwn.name],
+        this.state[secondary_borrower_fields.currentAddress.name],
+        this.state[secondary_borrower_fields.yearsInCurrentAddress.name],
+        this.state[secondary_borrower_fields.selfEmployed.name],
+        this.state[secondary_borrower_fields.maritalStatus.name],
+        this.state[secondary_borrower_fields.numberOfDependents.name]
+      ];
       validationResult = this.requiredFieldsHasEmptyElement(coStateArray, coBorrowerOutputFields);
       if (validationResult.hasEmptyElement == true){
         this.setState(validationResult.state);
-        return false;
+        isValid = false;
       }
     }
-    return true;
+    if(this.state[borrower_fields.yearsInCurrentAddress.name] < 2){
+      if(this.elementIsEmpty(this.state[borrower_fields.previousAddress.name])){
+        state[borrower_fields.previousAddress.error] = true;
+        this.setState(state);
+        isValid = false;
+      }
+      if(this.elementIsEmpty(this.state[borrower_fields.yearsInPreviousAddress.name])){
+        state[borrower_fields.yearsInPreviousAddress.error] = true;
+        this.setState(state);
+        isValid = false;
+      }
+    }
+
+    return isValid;
   },
 
   save: function(event) {
