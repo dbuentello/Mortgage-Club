@@ -67,8 +67,7 @@ class Property < ActiveRecord::Base
   def completed?
     property_type.present? && usage.present? &&
     address.present? && address.completed &&
-    market_price.present? && estimated_mortgage_insurance.present? &&
-    mortgage_includes_escrows.present? && estimated_property_tax.present? &&
+    market_price.present? && mortgage_includes_escrows.present? && estimated_property_tax.present? &&
     estimated_hazard_insurance.present?
   end
 
