@@ -391,7 +391,6 @@ var Form = React.createClass({
       }
       if(this.state[secondary_borrower_fields.currentlyOwn.name]==false){
           if(this.elementIsEmpty(this.state[secondary_borrower_fields.currentMonthlyRent.name])){
-            console.log(this.state[secondary_borrower_fields.currentlyOwn.name]);
             state[secondary_borrower_fields.currentMonthlyRent.error] = true;
             isValid = false;
           }
