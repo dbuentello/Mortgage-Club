@@ -8,6 +8,7 @@ var AssetsAndLiabilities = require("./FormAssetsAndLiabilities/FormAssetsAndLiab
 var Declarations = require("./FormDeclarations");
 var CreditCheck = require("./FormCreditCheck");
 var Documents = require("./FormDocuments");
+var AllDonePage = require("./AllDonePage");
 var CheckCompletedLoanMixin = require('mixins/CheckCompletedLoanMixin');
 
 var LoanInterface = React.createClass({
@@ -22,14 +23,15 @@ var LoanInterface = React.createClass({
       menu: menu,
       active: _.findWhere(menu, {complete: false}) || menu[0],
       loan: loan,
-      borrower_type: borrower_type
+      borrower_type: borrower_type,
+      completedLoan: this.loanIsCompleted(loan)
     };
   },
 
   render: function() {
     var activeItem = this.state.active;
 
-    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu}/>;
+    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu} goToAllDonePage={this.goToAllDonePage}/>;
 
     return (
       <div className="content accountPart editLoan">
@@ -57,7 +59,13 @@ var LoanInterface = React.createClass({
                 </a>
               </div>
             </div>
-            {content}
+            {
+              this.state.completedLoan
+              ?
+                <AllDonePage loan={this.state.loan}/>
+              :
+                {content}
+            }
           </div>
         </div>
       </div>
@@ -103,6 +111,10 @@ var LoanInterface = React.createClass({
 
   },
 
+  goToAllDonePage: function() {
+    this.setState({completedLoan: true});
+  },
+
   save: function(loan, step, skip_change_page, last_step = false) {
     $.ajax({
       url: "/loans/" + this.state.loan.id,
@@ -128,7 +140,8 @@ var LoanInterface = React.createClass({
               this.setState({
                 loan: response.loan,
                 menu: menu,
-                active: uncompleted_step
+                active: uncompleted_step,
+                completedLoan: false
               });
             }
           }

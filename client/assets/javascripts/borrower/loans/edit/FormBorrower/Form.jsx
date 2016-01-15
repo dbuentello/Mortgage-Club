@@ -513,12 +513,12 @@ var Form = React.createClass({
         loan_id: this.props.loan.id,
       },
       success: function(response) {
-        // if (this.loanIsCompleted(response.loan)) {
-        //   this.props.goToAllDonePage();
-        // }
-        // else {
-        //   this.props.setupMenu(response, 1);
-        // }
+        if (this.loanIsCompleted(response.loan)) {
+          this.props.goToAllDonePage();
+        }
+        else {
+          this.props.setupMenu(response, 1);
+        }
       },
       error: function(response, status, error) {
         alert(error);

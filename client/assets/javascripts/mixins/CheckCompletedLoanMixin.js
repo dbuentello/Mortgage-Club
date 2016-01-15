@@ -9,5 +9,4 @@ var CheckCompletedLoanMixin = {
     }
   }
 }
-
 module.exports = CheckCompletedLoanMixin;

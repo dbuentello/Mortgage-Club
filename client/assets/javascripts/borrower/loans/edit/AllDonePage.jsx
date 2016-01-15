@@ -10,7 +10,7 @@ var FormCreditCheck = React.createClass({
           <br/>
           <h2>{"Let's see what options you qualify for..."}</h2>
           <br/>
-          <a className="btn primary yellow" rel="nofollow" data-method="put" href="#">See my rate
+          <a className="btn primary yellow" rel="nofollow" data-method="put" href={"/underwriting?loan_id=" + this.props.loan.id}>See my rate
           </a>
         </div>
       </div>
