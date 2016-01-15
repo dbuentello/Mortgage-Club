@@ -67,7 +67,7 @@ var secondary_borrower_fields = {
 };
 
 var Form = React.createClass({
-  mixins: [TextFormatMixin, FlashHandler, ValidationObject],
+  mixins: [TextFormatMixin, FlashHandler, ValidationObject, CheckCompletedLoanMixin],
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
@@ -510,7 +510,7 @@ var Form = React.createClass({
         else {
           this.props.setupMenu(response, 1);
         }
-      },
+      }.bind(this),
       error: function(response, status, error) {
         alert(error);
         this.setState({saving: false});

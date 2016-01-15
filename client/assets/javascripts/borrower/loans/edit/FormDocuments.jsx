@@ -155,8 +155,10 @@ var FormDocuments = React.createClass({
                   _.map(Object.keys(co_borrower_upload_fields), function(key) {
                     if (co_upload_fields.indexOf(key) > -1) {
                       var customParams = [
-                        {type: co_borrower_upload_fields[key].type},
-                        {borrower_id: secondary_borrower.id}
+                        {document_type: key},
+                        {subject_id: secondary_borrower.id},
+                        {subject_type: "Borrower"},
+                        {description: co_borrower_upload_fields[key].label}
                       ];
                       return(
                         <div className="drop_zone" key={key}>
