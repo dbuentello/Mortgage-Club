@@ -57,7 +57,6 @@ var Form = React.createClass({
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
-    state.activateError = false;
     return state;
   },
 
@@ -469,20 +468,27 @@ var Form = React.createClass({
     });
     state[secondaryBorrowerFields.otherIncomes.name] = this.state[secondaryBorrowerFields.otherIncomes.name];
 
-    // console.log(this.state[secondaryBorrowerFields.otherIncomes.name]);
     if(!isValid)
       this.setState(state);
+
     return isValid;
   },
 
   save: function(event) {
     if(this.valid() == false) {
-      this.setState({activateError: true, saving: false});
+      this.setState({saving: false});
+      this.scrollTopError();
       return false;
     }
     this.setState({saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 3);
     event.preventDefault();
+  },
+
+  scrollTopError: function(){
+    $(function() {
+      $('html, body').animate({scrollTop: '0px'}, 1000);
+    })
   }
 });
 
