@@ -73,8 +73,8 @@ var checkboxFields = {
 };
 
 var selectBoxFields = {
-  typeOfProperty: {label: '(1) What type of property did you own?', name: 'type_of_property'},
-  titleOfProperty: {label: '(2) How did you hold title to this property?', name: 'title_of_property'}
+  typeOfProperty: {label: '(1) What type of property did you own?', name: 'type_of_property', error: "typeOfPropertyError"},
+  titleOfProperty: {label: '(2) How did you hold title to this property?', name: 'title_of_property', error: "titleOfPropertyError"}
 }
 
 var propertyOptions = [
@@ -90,6 +90,7 @@ var titlePropertyOptions = [
 ]
 
 var FormDeclarations = React.createClass({
+  mixins: [ValidationObject],
   getInitialState: function() {
     var currentUser = this.props.bootstrapData.currentUser;
     var state = this.buildStateFromLoan(this.props.loan);
@@ -204,23 +205,27 @@ var FormDeclarations = React.createClass({
           <div className='form-group' style={{display: this.state.display_sub_question}}>
             <div className="col-md-6">
               <SelectField
+                activateRequiredField={this.state[selectBoxFields.typeOfProperty.error]}
                 label={selectBoxFields.typeOfProperty.label}
                 keyName={selectBoxFields.typeOfProperty.name}
                 value={this.state[selectBoxFields.typeOfProperty.name]}
                 options={propertyOptions}
                 editable={true}
                 name={'type_of_property'}
+                placeholder="Select your type of property"
                 onChange={this.onChange}/>
             </div>
           </div>
           <div className='form-group' style={{display: this.state.display_sub_question}}>
             <div className="col-md-6">
               <SelectField
+                activateRequiredField={this.state[selectBoxFields.titleOfProperty.error]}
                 label={selectBoxFields.titleOfProperty.label}
                 keyName={selectBoxFields.titleOfProperty.name}
                 value={this.state[selectBoxFields.titleOfProperty.name]}
                 options={titlePropertyOptions}
                 editable={true}
+                placeholder="Select your title of property"
                 name={'title_of_property'}
                 onChange={this.onChange}/>
             </div>
@@ -260,6 +265,16 @@ var FormDeclarations = React.createClass({
       state[checkboxFields["permanentResidentAlien"].error] = true;
       isValid = false;
      }
+    if(this.state['display_sub_question']==true){
+      if(this.elementIsEmpty(this.state[selectBoxFields.typeOfProperty.name])){
+        state[selectBoxFields.typeOfProperty.error] = true;
+        isValid = false;
+      }
+      if(this.elementIsEmpty(this.state[selectBoxFields.titleOfProperty.name])){
+        state[selectBoxFields.titleOfProperty.error] = true;
+        isValid = false;
+      }
+    }
      this.setState(state);
      return isValid;
 
