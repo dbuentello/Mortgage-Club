@@ -1,13 +1,4 @@
 module.exports = {
-  validateRequiredFields: function(requiredFormFields){
-    for(var key in requiredFormFields){
-      if (requiredFormFields[key]==null || requiredFormFields[key]=="")
-      {
-        return false;
-      }
-  }
-  return true;
-  },
   elementIsEmpty: function(obj){
     if(obj==null){
       return true
@@ -26,5 +17,18 @@ module.exports = {
       }
     }
     return false;
+  },
+  requiredFieldsHasEmptyElement: function(stateArray, outputFields){
+    var empty = false;
+    var stateObj = {};
+    for(var i=0; i <stateArray.length; i++){
+      if (this.elementIsEmpty(stateArray[i]))
+      {
+        empty = true;
+        stateObj[outputFields[i]] = true;
+      }
+    }
+    return {state: stateObj, hasEmptyElement: empty};
   }
+
 }
