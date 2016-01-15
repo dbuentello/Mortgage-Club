@@ -110,10 +110,27 @@ class Borrower < ActiveRecord::Base
   end
 
   def completed?
-    first_name.present? && last_name.present? &&
-    ssn.present? && dob.present? && phone.present? &&
-      years_in_school.present? && marital_status.present? && current_address.present? &&
-      (dependent_count == 0 || (dependent_count > 0 && dependent_ages.count > 0))
+    return false if self_employed.nil?
+    return false unless first_name.present?
+    return false unless last_name.present?
+    return false unless ssn.present?
+    return false unless dob.present?
+    return false unless years_in_school.present?
+    return false unless marital_status.present?
+    return false unless dependent_count
+    return false if (dependent_count > 0 && dependent_ages.blank?)
+    return false unless current_address
+    return false if current_address.is_rental.nil?
+    return false unless current_address.years_at_address
+    return false if current_address.years_at_address < 0
+    if current_address.is_rental
+      return false unless current_address.monthly_rent
+    end
+    if previous_address.present?
+      return false if previous_address.is_rental.nil?
+      return false unless previous_address.monthly_rent
+    end
+    true
   end
 
   def documents_completed?
