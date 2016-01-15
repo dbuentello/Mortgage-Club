@@ -326,7 +326,8 @@ var Form = React.createClass({
       borrower_fields.yearsInCurrentAddress.error,
       borrower_fields.selfEmployed.error,
       borrower_fields.maritalStatus.error,
-      borrower_fields.numberOfDependents.error
+      borrower_fields.numberOfDependents.error,
+      borrower_fields.selfEmployed.error
     ];
     var stateArray = [
       this.state[borrower_fields.email.name],
@@ -340,7 +341,8 @@ var Form = React.createClass({
       this.state[borrower_fields.yearsInCurrentAddress.name],
       this.state[borrower_fields.selfEmployed.name],
       this.state[borrower_fields.maritalStatus.name],
-      this.state[borrower_fields.numberOfDependents.name]
+      this.state[borrower_fields.numberOfDependents.name],
+      this.state[borrower_fields.selfEmployed.name]
     ];
     var validationResult = this.requiredFieldsHasEmptyElement(stateArray, borrowerOutputFields);
     if (validationResult.hasEmptyElement == true){
@@ -393,6 +395,27 @@ var Form = React.createClass({
         this.setState(state);
         isValid = false;
       }
+      if(this.elementIsEmpty(this.state[borrower_fields.previouslyOwn.name])){
+        state[borrower_fields.previouslyOwn.error] = true;
+        this.setState(state);
+        isValid = false;
+      }else {
+        if(this.elementIsEmpty(this.state[borrower_fields.yearsInPreviousAddress.name])){
+          state[borrower_fields.yearsInPreviousAddress.error] = true;
+          isValid = false;
+          this.setState(state);
+        }
+      }
+      if(this.state[borrower_fields.previouslyOwn.name]==false){
+        if(this.elementIsEmpty(this.state[borrower_fields.previousMonthlyRent.name])){
+          state[borrower_fields.previousMonthlyRent.error] = true;
+          this.setState(state);
+          isValid = false;
+        }
+      }
+    }
+    if(isValid==false){
+      this.setState({saving: false});
     }
 
     return isValid;
