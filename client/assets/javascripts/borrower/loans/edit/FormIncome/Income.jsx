@@ -30,6 +30,9 @@ var Income = React.createClass({
         index={index}
         type={income.type}
         amount={income.amount}
+        typeError={income.typeError}
+        name={this.props.fields.otherIncomes.name}
+        amountError={income.amountError}
         onChangeType={this.changeIncomeType}
         onChangeAmount={this.changeIncomeAmount}
         onRemove={this.removeOtherIncome}/>
@@ -59,7 +62,9 @@ var Income = React.createClass({
   getDefaultOtherIncomes: function() {
     return [{
       type: null,
-      amount: null
+      amount: null,
+      typeError: false,
+      amountError: false
     }];
   },
 

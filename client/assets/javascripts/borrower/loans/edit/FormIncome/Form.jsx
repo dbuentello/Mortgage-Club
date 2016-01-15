@@ -449,6 +449,28 @@ var Form = React.createClass({
         isValid = false;
       }
     }
+
+    _.each(this.state[borrowerFields.otherIncomes.name], function(otherIncome){
+      if(otherIncome.type === null){
+        otherIncome.typeError = true;
+      }
+      if(otherIncome.amount === null){
+        otherIncome.amountError = true;
+      }
+    });
+    state[borrowerFields.otherIncomes.name] = this.state[borrowerFields.otherIncomes.name];
+
+    _.each(this.state[secondaryBorrowerFields.otherIncomes.name], function(otherIncome){
+      if(otherIncome.type === null){
+        otherIncome.typeError = true;
+      }
+      if(otherIncome.amount === null){
+        otherIncome.amountError = true;
+      }
+    });
+    state[secondaryBorrowerFields.otherIncomes.name] = this.state[secondaryBorrowerFields.otherIncomes.name];
+
+    // console.log(this.state[secondaryBorrowerFields.otherIncomes.name]);
     if(!isValid)
       this.setState(state);
     return isValid;
