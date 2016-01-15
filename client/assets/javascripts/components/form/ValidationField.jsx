@@ -7,7 +7,8 @@ var ValidationField = React.createClass({
       if(this.props.activateRequiredField === true)
       {
         if(this.props.value === null || this.props.value === "" || this.props.value === undefined || this.props.value === "javascript:void(0)"){
-          if($("#" + this.props.id).attr("aria-describedby") === undefined){
+
+          if(!this.hasTooltip()) {
             $("#" + this.props.id).tooltip({
               title: this.props.title,
               placement: "bottom",
@@ -23,8 +24,15 @@ var ValidationField = React.createClass({
         $("#" + this.props.id).tooltip('destroy');
       }
       return (
-          <div></div>
+          <div className="validation-field"></div>
       );
+    },
+
+    hasTooltip: function() {
+      if($("#" + this.props.id).attr("aria-describedby") !== undefined) {
+        return true;
+      }
+      return false;
     }
 });
 
