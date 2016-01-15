@@ -201,4 +201,7 @@ Rails.application.routes.draw do
   post "receive", to: "ocr_notifications#receive"
 
   get "developer_infographics", to: "pages#developer_infographics"
+
+  get "404", to: "errors#show", code: 404
+
 end

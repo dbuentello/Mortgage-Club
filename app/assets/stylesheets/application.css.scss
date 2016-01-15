@@ -57,6 +57,26 @@ body {
   width: 100%;
 }
 
+.errors-page {
+  padding: 10px;
+}
+
+.main-btn, .main-btn:visited, .main-btn:active {
+  background: #15c0f1;
+  border-color: #15c0f1;
+}
+
+.main-btn:hover {
+  background: #fff;
+  color: #15c0f1;
+  border:1px #15c0f1 solid;
+}
+
+.error-header {
+  font-size: 39px;
+  color: #333333;
+}
+
 .mortgage-rates {
   .helpmechoose {
     left: 5%;

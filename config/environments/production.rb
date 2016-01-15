@@ -83,4 +83,5 @@ Rails.application.configure do
     },
     s3_host_name: ENV['AWS_HOST_NAME']
   }
+  config.exceptions_app = self.routes
 end

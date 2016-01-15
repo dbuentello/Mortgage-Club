@@ -27,30 +27,41 @@ var List = React.createClass({
     return parseFloat(down_payment/loan_amount)*100;
   },
 
-  toggleHandler: function(event, index){
+  toggleHandler: function(index, event){
     var currentState = this.state.toggleContentStates;
+    var selectedBoardContent = $("#board-content-" + index);
     currentState[index] = !currentState[index];
     this.setState(currentState);
 
-    if($(event.target).prev().css("display") == "none"){
-      $(event.target).prev().slideToggle(500);
+    if(selectedBoardContent.css("display") == "none"){
+      selectedBoardContent.slideToggle(500);
       $(event.target).find('span').toggleClass('up-state');
-
-      var keyIndex = parseInt(index.substring(index.lastIndexOf("$") + 1, index.lastIndexOf(".")));
-
-      if ($("#piechart" + keyIndex + " svg").length == 0){
-        var rate = this.props.programs[keyIndex];
-        var total = this.totalMonthlyPayment(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance);
-        this.drawPieChart(keyIndex, rate.monthly_payment, this.state.estimatedHazardInsurance, this.state.estimatedPropertyTax , this.state.estimatedMortgageInsurance, this.state.hoaDue, total);
+      if ($("#piechart" + index + " svg").length == 0){
+        var rate = this.props.programs[index];
+        var total = this.totalMonthlyPayment(
+          rate.monthly_payment,
+          this.state.estimatedMortgageInsurance,
+          this.state.estimatedPropertyTax,
+          this.state.estimatedHazardInsurance
+        );
+        this.drawPieChart(
+          index,
+          rate.monthly_payment,
+          this.state.estimatedHazardInsurance,
+          this.state.estimatedPropertyTax ,
+          this.state.estimatedMortgageInsurance,
+          this.state.hoaDue,
+          total
+        );
       }
 
-      if ($("#linechart" + keyIndex + " svg").length == 0){
-        var rate = this.props.programs[keyIndex];
-        this.drawLineChart(keyIndex, rate.period, parseInt(rate.loan_amount), rate.interest_rate, rate.monthly_payment);
+      if ($("#linechart" + index + " svg").length == 0){
+        var rate = this.props.programs[index];
+        this.drawLineChart(index, rate.period, parseInt(rate.loan_amount), rate.interest_rate, rate.monthly_payment);
       }
     }
-    else{
-      $(event.target).prev().slideToggle(500);
+    else {
+      selectedBoardContent.slideToggle(500);
       $(event.target).find('span').toggleClass('up-state');
     }
   },
@@ -106,7 +117,7 @@ var List = React.createClass({
                     </div>
                   </div>
                 </div>
-                <div className={this.state.toggleContentStates[index]===true ? "board-content" :"board-content up-state"}>
+                <div id={"board-content-" + index} className={this.state.toggleContentStates[index]===true ? "board-content" :"board-content up-state"}>
                   <div className="row">
                     <div className="col-md-6">
                       <h4>Product details</h4>
@@ -210,7 +221,7 @@ var List = React.createClass({
                     total={this.totalMonthlyPayment(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance)} />
 
                 </div>
-                <div className="board-content-toggle" onClick={this.toggleHandler}>
+                <div className="board-content-toggle" onClick={_.bind(this.toggleHandler, null, index)}>
                   <span className={this.state.toggleContentStates[index]===true ? "glyphicon glyphicon-menu-up" : "glyphicon glyphicon-menu-down"}></span>
                 </div>
               </div>
