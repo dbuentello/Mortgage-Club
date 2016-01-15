@@ -374,9 +374,16 @@ var Form = React.createClass({
     return true;
   },
 
+  scrollTopError: function(){
+    $(function() {
+      $('html, body').animate({scrollTop: '0px'}, 1000);
+    })
+  },
+
   save: function(event) {
     if (this.valid() == false) {
       this.setState({activateError: true})
+      this.scrollTopError();
       return false;
     }
 

@@ -302,10 +302,17 @@ var FormProperty = React.createClass({
     if(Object.keys(state).length != 0){
       this.setState({saving: false, activateError: true});
       this.setState(state);
+      this.scrollTopError();
     } else {
       this.props.saveLoan(this.buildLoanFromState(), 0);
     }
     event.preventDefault();
+  },
+
+  scrollTopError: function(){
+    $(function() {
+      $('html, body').animate({scrollTop: '0px'}, 1000);
+    })
   }
 });
 

@@ -280,10 +280,17 @@ var FormDeclarations = React.createClass({
 
   },
 
+  scrollTopError: function(){
+    $(function() {
+      $('html, body').animate({scrollTop: '0px'}, 1000);
+    })
+  },
+
   save: function(event) {
     event.preventDefault();
     if(this.valid()==false){
       this.setState({activateError: true})
+      this.scrollTopError();
       return false;
     }
 

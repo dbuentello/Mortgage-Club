@@ -356,12 +356,19 @@ var FormAssetsAndLiabilities = React.createClass({
     return valid;
   },
 
+  scrollTopError: function(){
+    $(function() {
+      $('html, body').animate({scrollTop: '0px'}, 1000);
+    })
+  },
+
   save: function(event) {
     event.preventDefault();
     this.setState({saving: true});
 
     if (this.valid() == false){
       this.setState({saving: false});
+      this.scrollTopError();
       return false;
     }
 
