@@ -57,6 +57,7 @@ var Form = React.createClass({
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
+    state.isValid = true;
     return state;
   },
 
@@ -71,6 +72,11 @@ var Form = React.createClass({
 
   onFocus: function(field) {
     this.setState({focusedField: field});
+  },
+
+  componentDidUpdate: function(){
+    if(!this.state.isValid)
+      this.scrollTopError();
   },
 
   render: function() {
@@ -319,6 +325,7 @@ var Form = React.createClass({
     state[fields.otherIncomes.name] = newOtherIncomes;
     this.setState(state);
   },
+
   valid: function(){
     var state = {};
     var isValid = true;
@@ -479,19 +486,19 @@ var Form = React.createClass({
 
   save: function(event) {
     if(this.valid() == false) {
-      this.setState({saving: false});
-      this.scrollTopError();
+      this.setState({isValid: false, saving: false});
       return false;
     }
-    this.setState({saving: true});
+    this.setState({isValid: true, saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 3);
     event.preventDefault();
   },
 
   scrollTopError: function(){
-    $(function() {
-      $('html, body').animate({scrollTop: '0px'}, 1000);
-    })
+    var offset = $(".tooltip").first().parents(".form-group").offset();
+    var top = offset === undefined ? 0 : offset.top;
+    $('html, body').animate({scrollTop: top}, 1000);
+    this.setState({isValid: true});
   }
 });
 

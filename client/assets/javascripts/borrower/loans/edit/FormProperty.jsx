@@ -35,8 +35,13 @@ var FormProperty = React.createClass({
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
-    state.activateError = false;
+    state.isValid = true;
     return state;
+  },
+
+  componentDidUpdate: function(){
+    if(!this.state.isValid)
+      this.scrollTopError();
   },
 
   onChange: function(change) {
@@ -300,19 +305,20 @@ var FormProperty = React.createClass({
     }
 
     if(Object.keys(state).length != 0){
-      this.setState({saving: false, activateError: true});
+      this.setState({saving: false, isValid: false});
       this.setState(state);
-      this.scrollTopError();
     } else {
+      this.setState({isValid: true});
       this.props.saveLoan(this.buildLoanFromState(), 0);
     }
     event.preventDefault();
   },
 
   scrollTopError: function(){
-    $(function() {
-      $('html, body').animate({scrollTop: '0px'}, 1000);
-    })
+    var offset = $(".tooltip").first().parents(".form-group").offset();
+    var top = offset === undefined ? 0 : offset.top;
+    $('html, body').animate({scrollTop: top}, 1000);
+    this.setState({isValid: true});
   }
 });
 
