@@ -23,6 +23,10 @@ class Asset < ActiveRecord::Base
     :current_balance
   ]
 
+  def completed?
+    institution_name.present? && asset_type && current_balance.present?
+  end
+
   def self.bulk_update(borrower, asset_params)
     asset_params ||= []
 

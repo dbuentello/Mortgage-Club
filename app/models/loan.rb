@@ -78,17 +78,25 @@ class Loan < ActiveRecord::Base
   end
 
   def credit_completed
-    credit_check_agree
+    # credit_check_agree
+    true
   end
 
   def assets_completed
-    subject_property && subject_property.completed? &&
-    subject_property.market_price.present? &&
-    subject_property.estimated_mortgage_insurance.present? &&
-    subject_property.mortgage_includes_escrows.present? &&
-    subject_property.estimated_property_tax.present? &&
-    subject_property.estimated_hazard_insurance.present? &&
-    subject_property.hoa_due.present?
+    return false unless subject_property
+    borrower.assets.each do |asset|
+      return false unless asset.completed?
+    end
+
+    rental_properties.each do |property|
+      return false unless property.completed?
+    end
+
+    if primary_property && primary_property != subject_property
+      return borrower.asset.completed? && subject_property.completed? && primary_property.completed?
+    end
+
+    borrower.asset.completed? && subject_property.completed?
   end
 
   def declarations_completed
