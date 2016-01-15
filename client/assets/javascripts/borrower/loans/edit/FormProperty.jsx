@@ -15,8 +15,8 @@ var fields = {
   loanPurpose: {label: "Purpose of Loan", name: "purpose", helpText: "The purpose for taking out the loan in terms of how funds will be used.", error: "loanError"},
   propertyPurpose: {label: "Property Will Be", name: "usage", helpText: "The primary purpose of acquiring the subject property.", error: "propertyError"},
   purchasePrice: {label: "Purchase Price", name: "purchase_price", helpText: "How much are you paying for the subject property?", error: "purchaseError"},
-  originalPurchasePrice: {label: "Original Purchase Price", name: "originalPurchasePrice", helpText: "How much did you pay for the subject property?", error: "originalPurchaseYearError"},
-  originalPurchaseYear: {label: "Purchase Year", name: "originalPurchaseYear", helpText: "The year in which you bought your home.", error: "originalPurchasePriceError"}
+  originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", helpText: "How much did you pay for the subject property?", error: "originalPurchaseYearError"},
+  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home.", error: "originalPurchasePriceError"}
 };
 
 var loanPurposes = [
@@ -231,12 +231,14 @@ var FormProperty = React.createClass({
     state[fields.purchasePrice.name] = this.formatCurrency(property[fields.purchasePrice.name]);
     state[fields.originalPurchasePrice.name] = this.formatCurrency(property[fields.originalPurchasePrice.name]);
     state[fields.originalPurchaseYear.name] = property[fields.originalPurchaseYear.name];
-
+    console.dir(property[fields.originalPurchasePrice.name])
+    console.dir(property)
     state["property_type"] = property.property_type;
     state["market_price"] = property.market_price;
     state["estimated_hazard_insurance"] = property.estimated_hazard_insurance;
     state["estimated_property_tax"] = property.estimated_property_tax;
     state["year_built"] = property.year_built;
+    console.dir(state)
     return state;
   },
 

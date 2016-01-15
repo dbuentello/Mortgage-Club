@@ -29,7 +29,6 @@ module Docusign
         document_id += 1
         signer.merge!(tabs)
         remove_co_signature(signer) unless envelope_requires_cosignature?(template)
-        align_tabs(signer, template)
         signer
       end
     end
@@ -43,10 +42,6 @@ module Docusign
 
     def envelope_requires_cosignature?(template)
       template.may_need_coapplicant_signature? && loan.secondary_borrower.present?
-    end
-
-    def align_tabs(signer, template)
-      template.template_alignment.new(signer).call
     end
   end
 end

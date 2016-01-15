@@ -86,8 +86,8 @@ var Form = React.createClass({
           <Income
             fields={borrowerFields}
             currentEmployerName={this.state[borrowerFields.currentEmployerName.name]}
-            currentEmployerFullTextAddress={this.state[borrowerFields.currentEmployerFullTextAddress.name]}
             currentJobTitle={this.state[borrowerFields.currentJobTitle.name]}
+            currentEmployerAddress={this.state[borrowerFields.currentEmployerAddress.name]}
             currentYearsAtEmployer={this.state[borrowerFields.currentYearsAtEmployer.name]}
             previousEmployerName={this.state[borrowerFields.previousEmployerName.name]}
             previousJobTitle={this.state[borrowerFields.previousJobTitle.name]}
@@ -125,8 +125,8 @@ var Form = React.createClass({
               <Income
                 fields={secondaryBorrowerFields}
                 currentEmployerName={this.state[secondaryBorrowerFields.currentEmployerName.name]}
-                currentEmployerFullTextAddress={this.state[secondaryBorrowerFields.currentEmployerFullTextAddress.name]}
                 currentJobTitle={this.state[secondaryBorrowerFields.currentJobTitle.name]}
+                currentEmployerAddress={this.state[secondaryBorrowerFields.currentEmployerAddress.name]}
                 currentYearsAtEmployer={this.state[secondaryBorrowerFields.currentYearsAtEmployer.name]}
                 previousEmployerName={this.state[secondaryBorrowerFields.previousEmployerName.name]}
                 previousJobTitle={this.state[secondaryBorrowerFields.previousJobTitle.name]}
@@ -189,10 +189,6 @@ var Form = React.createClass({
     state[fields.currentEmployerAddress.name] = currentEmployment.address;
     state[fields.currentJobTitle.name] = currentEmployment.job_title;
     state[fields.currentYearsAtEmployer.name] = currentEmployment.duration;
-    if (!state[fields.currentEmployerAddress.name]) {
-      state[fields.currentEmployerAddress.name] = {full_text: ''};
-    }
-    state[fields.currentEmployerFullTextAddress.name] = state[fields.currentEmployerAddress.name].full_text;
 
     if (previousEmployment) {
       state[fields.previousEmployerName.name] = previousEmployment.employer_name;
@@ -288,7 +284,7 @@ var Form = React.createClass({
     var employment = [{
       id: currentEmployment ? currentEmployment.id : null,
       employer_name: this.state[fields.currentEmployerName.name],
-      address_attributes: { 'full_text': this.state[fields.currentEmployerFullTextAddress.name]},
+      address_attributes: this.state[fields.currentEmployerAddress.name],
       job_title: this.state[fields.currentJobTitle.name],
       duration: this.state[fields.currentYearsAtEmployer.name],
       employer_contact_name: this.state[fields.employerContactName.name],
@@ -335,7 +331,7 @@ var Form = React.createClass({
       isValid = false;
     }
 
-    if(this.elementIsEmpty(this.state[borrowerFields.currentEmployerFullTextAddress.name])){
+    if(this.elementIsEmpty(this.state[borrowerFields.currentEmployerAddress.name])){
       state[borrowerFields.currentEmployerFullTextAddress.error] = true;
       isValid = false;
     }
@@ -399,7 +395,7 @@ var Form = React.createClass({
         isValid = false;
       }
 
-      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.currentEmployerFullTextAddress.name])){
+      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.currentEmployerAddress.name])){
         state[secondaryBorrowerFields.currentEmployerFullTextAddress.error] = true;
         isValid = false;
       }
