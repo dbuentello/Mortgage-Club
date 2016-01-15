@@ -133,7 +133,7 @@ var Borrower = React.createClass({
               value={this.props.maritalStatus}
               options={maritalStatuses}
               editable={true}
-              placeholder="Select your marial status"
+              placeholder="Select marial status"
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.maritalStatus)}
               onChange={this.props.onChange}/>
           </div>
