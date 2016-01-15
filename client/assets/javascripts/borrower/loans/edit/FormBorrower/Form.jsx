@@ -72,8 +72,13 @@ var Form = React.createClass({
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
     state.activateError = false;
-
+    state.isValid = true;
     return state;
+  },
+
+  componentDidUpdate: function(){
+    if(!this.state.isValid)
+      this.scrollTopError();
   },
 
   onChange: function(change) {
@@ -458,13 +463,20 @@ var Form = React.createClass({
     return isValid;
   },
 
+  scrollTopError: function(){
+    var offset = $(".tooltip").first().parents(".form-group").offset();
+    var top = offset === undefined ? 0 : offset.top;
+    $('html, body').animate({scrollTop: top}, 1000);
+    this.setState({isValid: true});
+  },
+
   save: function(event) {
     if (this.valid() == false) {
-      this.setState({activateError: true})
+      this.setState({activateError: true, saving: false, isValid: false})
       return false;
     }
 
-    this.setState({saving: true});
+    this.setState({saving: true, isValid: true});
     $.ajax({
       url: '/borrowers/' + this.props.loan.borrower.id,
       method: 'PATCH',

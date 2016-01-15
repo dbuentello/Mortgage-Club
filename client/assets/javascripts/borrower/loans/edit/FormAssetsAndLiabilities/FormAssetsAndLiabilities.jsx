@@ -35,6 +35,7 @@ var FormAssetsAndLiabilities = React.createClass({
     state.primary_property = this.props.loan.primary_property;
     state.subject_property = this.props.loan.subject_property;
     state.saving = false;
+    state.isValid = true;
     state.assets = this.props.loan.borrower.assets;
     if (state.assets.length == 0) {
       var defaultAsset = this.getDefaultAsset();
@@ -42,6 +43,11 @@ var FormAssetsAndLiabilities = React.createClass({
       state.assets.push(defaultAsset)
     }
     return state;
+  },
+
+  componentDidUpdate: function(){
+    if(!this.state.isValid)
+      this.scrollTopError();
   },
 
   onChange: function(change) {
@@ -356,14 +362,22 @@ var FormAssetsAndLiabilities = React.createClass({
     return valid;
   },
 
+  scrollTopError: function(){
+    var offset = $(".tooltip").first().parents(".form-group").offset();
+    var top = offset === undefined ? 0 : offset.top;
+    $('html, body').animate({scrollTop: top}, 1000);
+    this.setState({isValid: true});
+  },
+
   save: function(event) {
     event.preventDefault();
-    this.setState({saving: true});
 
     if (this.valid() == false){
-      this.setState({saving: false});
+      this.setState({saving: false, isValid: false});
       return false;
     }
+
+    this.setState({saving: true, isValid: true});
 
     var primary_property = this.state.primary_property;
     if (primary_property){
