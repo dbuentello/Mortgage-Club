@@ -349,6 +349,12 @@ var Form = React.createClass({
       this.setState(validationResult.state);
       isValid = false;
     }
+    if(this.state[borrower_fields.currentlyOwn.name]==false){
+        if(this.elementIsEmpty(this.state[borrower_fields.currentMonthlyRent.name])){
+          state[borrower_fields.currentMonthlyRent.error] = true;
+          isValid = false;
+        }
+    }
     if(this.state[borrower_fields.applyingAs.name] == 2){
         var coBorrowerOutputFields = [
         secondary_borrower_fields.email.error,
@@ -383,6 +389,39 @@ var Form = React.createClass({
         this.setState(validationResult.state);
         isValid = false;
       }
+      if(this.state[secondary_borrower_fields.currentlyOwn.name]==false){
+          if(this.elementIsEmpty(this.state[secondary_borrower_fields.currentMonthlyRent.name])){
+            console.log(this.state[secondary_borrower_fields.currentlyOwn.name]);
+            state[secondary_borrower_fields.currentMonthlyRent.error] = true;
+            isValid = false;
+          }
+      }
+      if(this.state[secondary_borrower_fields.yearsInCurrentAddress.name] < 2){
+        if(this.elementIsEmpty(this.state[secondary_borrower_fields.previousAddress.name])){
+          state[secondary_borrower_fields.previousAddress.error] = true;
+          isValid = false;
+        }
+        if(this.elementIsEmpty(this.state[secondary_borrower_fields.yearsInPreviousAddress.name])){
+          state[secondary_borrower_fields.yearsInPreviousAddress.error] = true;
+          isValid = false;
+        }
+        if(this.elementIsEmpty(this.state[secondary_borrower_fields.previouslyOwn.name])){
+          state[secondary_borrower_fields.previouslyOwn.error] = true;
+          isValid = false;
+        }else {
+          if(this.elementIsEmpty(this.state[secondary_borrower_fields.yearsInPreviousAddress.name])){
+            state[secondary_borrower_fields.yearsInPreviousAddress.error] = true;
+            isValid = false;
+          }
+        }
+        if(this.state[secondary_borrower_fields.previouslyOwn.name] ==false){
+          if(this.elementIsEmpty(this.state[secondary_borrower_fields.previousMonthlyRent.name])){
+            state[secondary_borrower_fields.previousMonthlyRent.error] = true;
+            isValid = false;
+          }
+        }
+      }
+
     }
     if(this.state[borrower_fields.yearsInCurrentAddress.name] < 2){
       if(this.elementIsEmpty(this.state[borrower_fields.previousAddress.name])){
@@ -408,32 +447,9 @@ var Form = React.createClass({
           isValid = false;
         }
       }
+
     }
-    if(this.state[secondary_borrower_fields.yearsInCurrentAddress.name] < 2){
-      if(this.elementIsEmpty(this.state[secondary_borrower_fields.previousAddress.name])){
-        state[secondary_borrower_fields.previousAddress.error] = true;
-        isValid = false;
-      }
-      if(this.elementIsEmpty(this.state[secondary_borrower_fields.yearsInPreviousAddress.name])){
-        state[secondary_borrower_fields.yearsInPreviousAddress.error] = true;
-        isValid = false;
-      }
-      if(this.elementIsEmpty(this.state[secondary_borrower_fields.previouslyOwn.name])){
-        state[secondary_borrower_fields.previouslyOwn.error] = true;
-        isValid = false;
-      }else {
-        if(this.elementIsEmpty(this.state[secondary_borrower_fields.yearsInPreviousAddress.name])){
-          state[secondary_borrower_fields.yearsInPreviousAddress.error] = true;
-          isValid = false;
-        }
-      }
-      if(this.state[secondary_borrower_fields.previouslyOwn.name]==false){
-        if(this.elementIsEmpty(this.state[secondary_borrower_fields.previousMonthlyRent.name])){
-          state[secondary_borrower_fields.previousMonthlyRent.error] = true;
-          isValid = false;
-        }
-      }
-    }
+
 
     if(isValid==false){
       state.saving =false;
