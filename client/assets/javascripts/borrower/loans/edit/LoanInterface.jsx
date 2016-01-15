@@ -8,6 +8,7 @@ var AssetsAndLiabilities = require("./FormAssetsAndLiabilities/FormAssetsAndLiab
 var Declarations = require("./FormDeclarations");
 var CreditCheck = require("./FormCreditCheck");
 var Documents = require("./FormDocuments");
+var AllDonePage = require("./AllDonePage");
 var CheckCompletedLoanMixin = require('mixins/CheckCompletedLoanMixin');
 
 var LoanInterface = React.createClass({
