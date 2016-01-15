@@ -29,7 +29,7 @@ var borrower_fields = {
   phone: {label: 'Phone Number', name: 'first_borrower_phone', fieldName: 'phone', helpText: null},
   yearsInSchool: {label: 'Years in School', name: 'first_borrower_years_in_school', fieldName: 'years_in_school', helpText: null, error: "yearsInSchoolError"},
   maritalStatus: {label: 'Marital Status', name: 'first_borrower_marital_status', fieldName: 'marital_status', helpText: 'Married (includes registered domestic partners), Unmarried (includes single, divorced, widowed)', error: "maritalStatusError"},
-  numberOfDependents: {label: 'Number of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "dependentCountError"},
+  numberOfDependents: {label: 'Number of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "numberOfDependencesError"},
   dependentAges: {label: 'Ages of Dependents', name: 'first_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: "dependentAgesError"},
   currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null, error: "currentAddressError"},
   currentlyOwn: {label: 'Own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "currentlyOwnError"},
@@ -53,7 +53,7 @@ var secondary_borrower_fields = {
   phone: {label: 'Phone Number', name: 'secondary_borrower_phone', fieldName: 'phone', helpText: null, error: null},
   yearsInSchool: {label: 'Years in School', name: 'secondary_borrower_years_in_school', fieldName: 'years_in_school', helpText: null, error: "coYearsInSchoolError" },
   maritalStatus: {label: 'Marital Status', name: 'secondary_borrower_marital_status', fieldName: 'marital_status', helpText: null, error: "coMarialStatusError"},
-  numberOfDependents: {label: 'Number of dependents', name: 'secondary_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "coDependentCountError"},
+  numberOfDependents: {label: 'Number of dependents', name: 'secondary_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "coNumberOfdependencesError"},
   dependentAges: {label: 'Ages of Dependents', name: 'secondary_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: null},
   currentAddress: {label: 'Your co-borrower current address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null, error: "coCurrentAddressError"},
   currentlyOwn: {label: 'Own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "coCurrentlyOwn"},
@@ -115,25 +115,37 @@ var Form = React.createClass({
             loan={this.props.loan}
             fields={borrower_fields}
             firstName={this.state[borrower_fields.firstName.name]}
+            firstNameError={this.state[borrower_fields.firstName.error]}
             middleName={this.state[borrower_fields.middleName.name]}
             lastName={this.state[borrower_fields.lastName.name]}
+            lastNameError={this.state[borrower_fields.lastName.error]}
             suffix={this.state[borrower_fields.suffix.name]}
             dob={this.state[borrower_fields.dob.name]}
+            dobError={this.state[borrower_fields.dob.error]}
             ssn={this.state[borrower_fields.ssn.name]}
+            ssnError={this.state[borrower_fields.ssn.error]}
             phone={this.state[borrower_fields.phone.name]}
             yearsInSchool={this.state[borrower_fields.yearsInSchool.name]}
+            yearsInSchoolError={this.state[borrower_fields.yearsInSchool.error]}
             maritalStatus={this.state[borrower_fields.maritalStatus.name]}
+            maritalStatusEror={this.state[borrower_fields.maritalStatus.error]}
             numberOfDependents={this.state[borrower_fields.numberOfDependents.name]}
+            numberOfDependencesError={this.state[borrower_fields.numberOfDependents.error]}
             dependentAges={this.state[borrower_fields.dependentAges.name]}
+            dependentAgesError={this.state[borrower_fields.dependentAges.error]}
             currentMonthlyRent={this.state[borrower_fields.currentMonthlyRent.name]}
             yearsInCurrentAddress={this.state[borrower_fields.yearsInCurrentAddress.name]}
+            yearsInCurrentAddressError={this.state[borrower_fields.yearsInCurrentAddress.error]}
             previousMonthlyRent={this.state[borrower_fields.previousMonthlyRent.name]}
             yearsInPreviousAddress={this.state[borrower_fields.yearsInPreviousAddress.name]}
             currentAddress={this.state[borrower_fields.currentAddress.name]}
+            currentAddressError={this.state[borrower_fields.currentAddress.error]}
             previousAddress={this.state[borrower_fields.previousAddress.name]}
             currentlyOwn={this.state[borrower_fields.currentlyOwn.name]}
+            currentlyOwnError={this.state[borrower_fields.currentlyOwn.error]}
             previouslyOwn={this.state[borrower_fields.previouslyOwn.name]}
             selfEmployed={this.state[borrower_fields.selfEmployed.name]}
+            selfEmployedErorr={this.state[borrower_fields.selfEmployed.error]}
             onChange={this.onChange}
             onFocus={this.onFocus}/>
 
