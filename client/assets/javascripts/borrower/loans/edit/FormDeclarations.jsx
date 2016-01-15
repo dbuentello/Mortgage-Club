@@ -94,7 +94,7 @@ var FormDeclarations = React.createClass({
   getInitialState: function() {
     var currentUser = this.props.bootstrapData.currentUser;
     var state = this.buildStateFromLoan(this.props.loan);
-
+    state.isValid = true;
     _.each(checkboxFields, function (field) {
       state[field.name] = state[field.name] === null ? null : state[field.name];
       state[field.name + '_display'] = true;
@@ -111,6 +111,11 @@ var FormDeclarations = React.createClass({
     }
 
     return state;
+  },
+
+  componentDidUpdate: function(){
+    if(!this.state.isValid)
+      this.scrollTopError();
   },
 
   onChange: function(change) {
@@ -281,20 +286,20 @@ var FormDeclarations = React.createClass({
   },
 
   scrollTopError: function(){
-    $(function() {
-      $('html, body').animate({scrollTop: '0px'}, 1000);
-    })
+    var offset = $(".tooltip").first().parents(".form-group").offset();
+    var top = offset === undefined ? 0 : offset.top;
+    $('html, body').animate({scrollTop: top}, 1000);
+    this.setState({isValid: true});
   },
 
   save: function(event) {
     event.preventDefault();
     if(this.valid()==false){
-      this.setState({activateError: true})
-      this.scrollTopError();
+      this.setState({saving: true, isValid: false});
       return false;
     }
 
-    this.setState({saving: true});
+    this.setState({saving: true, isValid: true});
     this.props.saveLoan(this.buildLoanFromState(), 6, true, true);
   }
 
