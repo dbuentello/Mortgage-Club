@@ -429,7 +429,6 @@ var FormAssetsAndLiabilities = React.createClass({
             else {
               this.props.setupMenu(response, 5);
               this.props.bootstrapData.liabilities = response.liabilities;
-              // this.setState({saving: false});
             }
           }.bind(this),
           error: function(response, status, error) {
