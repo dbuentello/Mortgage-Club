@@ -96,7 +96,7 @@ class Loan < ActiveRecord::Base
       return borrower.asset.completed? && subject_property.completed? && primary_property.completed?
     end
 
-    borrower.asset.completed? && subject_property.completed?
+    subject_property.completed?
   end
 
   def declarations_completed

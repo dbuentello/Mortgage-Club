@@ -67,11 +67,9 @@ class Property < ActiveRecord::Base
   def completed?
     property_type.present? && usage.present? &&
     address.present? && address.completed &&
-    subject_property.market_price.present? &&
-    subject_property.estimated_mortgage_insurance.present? &&
-    subject_property.mortgage_includes_escrows.present? &&
-    subject_property.estimated_property_tax.present? &&
-    subject_property.estimated_hazard_insurance.present?
+    market_price.present? && estimated_mortgage_insurance.present? &&
+    mortgage_includes_escrows.present? && estimated_property_tax.present? &&
+    estimated_hazard_insurance.present?
   end
 
   def refinance_completed?
