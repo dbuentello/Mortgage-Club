@@ -3,6 +3,7 @@ var TextField = require('components/form/NewTextField');
 var SelectField = require('components/form/NewSelectField');
 
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 
 var assetTypes = [
   {value: 'checkings', name: 'Checkings'},
@@ -13,7 +14,7 @@ var assetTypes = [
 ];
 
 var Asset = React.createClass({
-  mixins: [TextFormatMixin],
+  mixins: [TextFormatMixin, ObjectHelperMixin],
 
   getInitialState: function () {
     return {
@@ -24,7 +25,9 @@ var Asset = React.createClass({
   },
 
   onChange: function (change) {
-    this.setState(change, function(){
+    var key = _.keys(change)[0].replace(this.props.index, '');
+    var value = _.values(change)[0];
+    this.setState(this.setValue(this.state, key, value), function(){
       this.props.onUpdate(this.props.index, this.state);
     });
   },
@@ -39,8 +42,9 @@ var Asset = React.createClass({
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
+              activateRequiredField={this.props.institutionNameError}
               label='Institution Name'
-              keyName={'institution_name'}
+              keyName={'institution_name' + this.props.index}
               editable={true}
               onChange={this.onChange}
               value={this.state.institution_name}/>
@@ -49,8 +53,9 @@ var Asset = React.createClass({
         <div className='form-group'>
           <div className='col-md-6'>
             <SelectField
+              activateRequiredField={this.props.assetTypeError}
               label='Asset Type'
-              keyName={'asset_type'}
+              keyName={'asset_type' + this.props.index}
               options={assetTypes}
               editable={true}
               onChange={this.onChange}
@@ -61,8 +66,9 @@ var Asset = React.createClass({
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
+              activateRequiredField={this.props.currentBalanceError}
               label='Current Balance'
-              keyName={'current_balance'}
+              keyName={'current_balance' + this.props.index}
               format={this.formatCurrency}
               liveFormat={true}
               editable={true}

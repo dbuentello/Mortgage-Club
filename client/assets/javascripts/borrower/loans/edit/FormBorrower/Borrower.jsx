@@ -133,9 +133,9 @@ var Borrower = React.createClass({
               value={this.props.maritalStatus}
               options={maritalStatuses}
               editable={true}
+              placeholder="Select your marial status"
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.maritalStatus)}
-              onChange={this.props.onChange}
-              allowBlank={true}/>
+              onChange={this.props.onChange}/>
           </div>
         </div>
         <div className="form-group">

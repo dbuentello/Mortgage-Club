@@ -42,10 +42,13 @@ var Property = React.createClass({
   },
 
   onChange: function(change) {
-    var key = _.keys(change)[0];
+    var index = this.props.index;
+
+    var key = _.keys(change)[0].replace(this.props.index, '');
+    key = key.replace("_", ".");
     var value = _.values(change)[0];
 
-    if (key == 'property.mortgagePayment') {
+    if (key == 'property_mortgagePayment') {
       if (value == 'Mortgage') {
         this.setState({setOtherMortgagePayment: true});
       }
@@ -59,7 +62,7 @@ var Property = React.createClass({
       }
     }
 
-    if (key == 'property.otherFinancing') {
+    if (key == 'property_otherFinancing') {
       if (value == 'OtherFinancing') {
         this.setState({setOtherFinancing: true});
       }
@@ -74,8 +77,8 @@ var Property = React.createClass({
     }
 
     if ( value != null ) {
-      if (key.indexOf('.address') > -1 && value.city) {
-        var propertyKey = key.replace('.address', '');
+      if (key.indexOf('_address') > -1 && value.city) {
+        var propertyKey = key.replace('_address', '');
         var property = this.getValue(this.state, propertyKey);
         property.market_price = null;
         property.property_type = null;
@@ -183,9 +186,10 @@ var Property = React.createClass({
         <div className='form-group'>
           <div className='col-md-12'>
             <AddressField
+              activateRequiredField={this.props.addressError}
               label='Address'
               address={this.state.property.address}
-              keyName={'property.address'}
+              keyName={'property_address' + this.props.index}
               editable={true}
               onChange={this.onChange}
               placeholder='Please select from one of the drop-down options'/>
@@ -194,8 +198,9 @@ var Property = React.createClass({
         <div className='form-group'>
           <div className='col-md-6'>
             <SelectField
+              activateRequiredField={this.props.propertyTypeError}
               label='Property Type'
-              keyName={'property.property_type'}
+              keyName={'property_property_type' + this.props.index}
               value={this.state.property.property_type}
               options={propertyTypes}
               editable={true}
@@ -204,8 +209,9 @@ var Property = React.createClass({
           </div>
           <div className='col-md-6'>
             <TextField
+              activateRequiredField={this.props.marketPriceError}
               label='Estimated Market Value'
-              keyName={'property.market_price'}
+              keyName={'property_market_price' + this.props.index}
               value={this.state.property.market_price}
               editable={true}
               onChange={this.onChange}/>
@@ -215,7 +221,7 @@ var Property = React.createClass({
           <div className='col-md-6'>
             <SelectField
               label='Mortgage Payment'
-              keyName={'property.mortgagePayment'}
+              keyName={'property_mortgagePayment' + this.props.index}
               options={this.state.mortgageLiabilities}
               value={this.state.property.mortgagePayment}
               editable={true}
@@ -226,7 +232,7 @@ var Property = React.createClass({
             ? <div className='col-md-6'>
                 <TextField
                   label='Other Amount'
-                  keyName={'property.other_mortgage_payment_amount'}
+                  keyName={'property_other_mortgage_payment_amount'}
                   editable={true}
                   onChange={this.onChange}/>
               </div>
@@ -237,7 +243,7 @@ var Property = React.createClass({
           <div className='col-md-6'>
             <SelectField
               label='Other Financing (if applicable)'
-              keyName={'property.otherFinancing'}
+              keyName={'property_otherFinancing' + this.props.index}
               value={this.state.property.otherFinancing}
               options={this.state.otherFinancingLiabilities}
               editable={true}
@@ -248,7 +254,7 @@ var Property = React.createClass({
             ? <div className='col-md-6'>
                 <TextField
                   label='Other Amount'
-                  keyName={'property.other_financing_amount'}
+                  keyName={'property_other_financing_amount' + this.props.index}
                   editable={true}
                   onChange={this.onChange}/>
               </div>
@@ -259,15 +265,16 @@ var Property = React.createClass({
           <div className='col-md-6'>
             <TextField
               label='Mortgage Insurance (if applicable)'
-              keyName={'property.estimated_mortgage_insurance'}
+              keyName={'property_estimated_mortgage_insurance' + this.props.index}
               value={this.state.property.estimated_mortgage_insurance}
               editable={true}
               onChange={this.onChange}/>
           </div>
           <div className='col-md-6'>
             <SelectField
+              activateRequiredField={this.props.mortgageIncludesEscrowsError}
               label='Does your mortgage payment include escrows?'
-              keyName={'property.mortgage_includes_escrows'}
+              keyName={'property_mortgage_includes_escrows' + this.props.index}
               value={this.state.property.mortgage_includes_escrows}
               options={mortgageInclueEscrows}
               editable={true}
@@ -278,16 +285,18 @@ var Property = React.createClass({
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
+              activateRequiredField={this.props.estimatedHazardInsuranceError}
               label='Homeowner’s Insurance'
-              keyName={'property.estimated_hazard_insurance'}
+              keyName={'property_estimated_hazard_insurance' + this.props.index}
               value={this.state.property.estimated_hazard_insurance}
               editable={true}
               onChange={this.onChange}/>
           </div>
           <div className='col-md-3'>
             <TextField
+              activateRequiredField={this.props.estimatedPropertyTaxError}
               label='Property Tax'
-              keyName={'property.estimated_property_tax'}
+              keyName={'property_estimated_property_tax' + this.props.index}
               value={this.state.property.estimated_property_tax}
               editable={true}
               onChange={this.onChange}/>
@@ -295,7 +304,7 @@ var Property = React.createClass({
           <div className='col-md-3 pln'>
             <TextField
               label='HOA Due (if applicable)'
-              keyName={'property.hoa_due'}
+              keyName={'property_hoa_due' + this.props.index}
               value={this.state.property.hoa_due}
               editable={true}
               onChange={this.onChange}/>
@@ -304,8 +313,9 @@ var Property = React.createClass({
         <div className='form-group' style={{display: (this.state.property.is_subject && this.state.property.usage == 'rental_property') ? null : 'none'}}>
           <div className='col-md-6'>
             <TextField
+              activateRequiredField={this.props.grossRentalIncomeError}
               label='Estimated Rental Income'
-              keyName={'property.gross_rental_income'}
+              keyName={'property_gross_rental_income' + this.props.index}
               value={this.state.property.gross_rental_income}
               editable={true}
               onChange={this.onChange}/>
