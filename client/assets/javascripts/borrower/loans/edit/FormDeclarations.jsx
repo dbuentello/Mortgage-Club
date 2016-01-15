@@ -12,57 +12,69 @@ var { Route, RouteHandler, Link } = Router;
 var checkboxFields = {
   outstandingJudgment: {
     label: 'Are there any outstanding judgments against you?',
-    name: 'outstanding_judgment'
+    name: 'outstanding_judgment',
+    error: "outstandingJudgmentError"
   },
   bankrupt: {
     label: 'Have you been declared bankrupt in the past 7 years?',
-    name: 'bankrupt'
+    name: 'bankrupt',
+    error: "bankruptError"
   },
   propertyForeclosed: {
     label: 'Have you had property foreclosed upon or given title or deed in lieu thereof in the last 7 years?',
-    name: 'property_foreclosed'
+    name: 'property_foreclosed',
+    error: "propertyForeclosedError"
   },
   partyToLawsuit: {
     label: 'Are you a party to a lawsuit?',
-    name: 'party_to_lawsuit'
+    name: 'party_to_lawsuit',
+    error: "partyToLawsuitError"
   },
   loanForeclosure: {
     label: 'Have you been obligated on any loan resulted in foreclosure, transfer of title in lieu of foreclosure, or judgment?',
-    name: 'loan_foreclosure'
+    name: 'loan_foreclosure',
+    error: "loanForeclosureError"
   },
   presentDeliquentLoan: {
     label: 'Are you presently delinquent or in default on any Federal debt or any other loan, mortgage, financial, obligation, bond or loan guarantee?',
-    name: 'present_delinquent_loan'
+    name: 'present_delinquent_loan',
+    error: "presentDeliquentLoanError"
   },
   childSupport: {
     label: 'Are you obligated to pay alimony, child support, or separate maintenance?',
-    name: 'child_support'
+    name: 'child_support',
+    error: "childSupportError"
   },
   downPaymentBorrowed: {
     label: 'Is any part of the down payment borrowed?',
-    name: 'down_payment_borrowed'
+    name: 'down_payment_borrowed',
+    error: "downPaymentBorrowedError"
   },
   coMakerOrEndorser: {
     label: 'Are you a co-maker or endorser on a note?',
-    name: 'co_maker_or_endorser'
+    name: 'co_maker_or_endorser',
+    error: "coMakerOrEndorserError"
   },
   usCitizen: {
     label: 'Are you a U.S citizen?',
-    name: 'us_citizen'
+    name: 'us_citizen',
+    error: "usCitizenError"
   },
   permanentResidentAlien: {
     label: 'Are you a permanent resident alien?',
-    name: 'permanent_resident_alien'
+    name: 'permanent_resident_alien',
+    error: "permanentResidentAlienError"
   },
   ownershipInterest: {
     label: 'Have you had an ownership interest in a property in the last three years?',
-    name: 'ownership_interest'
+    name: 'ownership_interest',
+    error: "ownershipInterestError"
   }
 };
 
 var selectBoxFields = {
-  typeOfProperty: {label: '(1) What type of property did you own?', name: 'type_of_property'},
-  titleOfProperty: {label: '(2) How did you hold title to this property?', name: 'title_of_property'}
+  typeOfProperty: {label: '(1) What type of property did you own?', name: 'type_of_property', error: "typeOfPropertyError"},
+  titleOfProperty: {label: '(2) How did you hold title to this property?', name: 'title_of_property', error: "titleOfPropertyError"}
 }
 
 var propertyOptions = [
@@ -78,6 +90,7 @@ var titlePropertyOptions = [
 ]
 
 var FormDeclarations = React.createClass({
+  mixins: [ValidationObject],
   getInitialState: function() {
     var currentUser = this.props.bootstrapData.currentUser;
     var state = this.buildStateFromLoan(this.props.loan);
@@ -177,6 +190,7 @@ var FormDeclarations = React.createClass({
               return (
                 <div className='form-group' key={key} style={{display: this.state[checkboxFields[key].name + '_display']}}>
                   <BooleanRadio
+                    activateRequiredField={this.state[checkboxFields[key].error]}
                     label={checkboxFields[key].label}
                     keyName={checkboxFields[key].name}
                     customColumn={"col-xs-2"}
@@ -191,23 +205,27 @@ var FormDeclarations = React.createClass({
           <div className='form-group' style={{display: this.state.display_sub_question}}>
             <div className="col-md-6">
               <SelectField
+                activateRequiredField={this.state[selectBoxFields.typeOfProperty.error]}
                 label={selectBoxFields.typeOfProperty.label}
                 keyName={selectBoxFields.typeOfProperty.name}
                 value={this.state[selectBoxFields.typeOfProperty.name]}
                 options={propertyOptions}
                 editable={true}
                 name={'type_of_property'}
+                placeholder="Select your type of property"
                 onChange={this.onChange}/>
             </div>
           </div>
           <div className='form-group' style={{display: this.state.display_sub_question}}>
             <div className="col-md-6">
               <SelectField
+                activateRequiredField={this.state[selectBoxFields.titleOfProperty.error]}
                 label={selectBoxFields.titleOfProperty.label}
                 keyName={selectBoxFields.titleOfProperty.name}
                 value={this.state[selectBoxFields.titleOfProperty.name]}
                 options={titlePropertyOptions}
                 editable={true}
+                placeholder="Select your title of property"
                 name={'title_of_property'}
                 onChange={this.onChange}/>
             </div>
@@ -233,18 +251,31 @@ var FormDeclarations = React.createClass({
 
   valid: function(){
     var isValid = true;
+    var state = {}
     var checkObject = this.omitKeys(checkboxFields, ["permanentResidentAlien"]);
 
      _.each(Object.keys(checkObject), function(key) {
         if (ValidationObject.elementIsEmpty(this.state[checkObject[key].name])){
-          this.setState({saving: false});
+          state[checkObject[key].error] = true;
+          state.saving = false;
           isValid = false;
-          return false;
         }
       }, this);
      if(this.state['permanent_resident_alien_display']==true && ValidationObject.elementIsEmpty(this.state[checkboxFields["permanentResidentAlien"].name])){
+      state[checkboxFields["permanentResidentAlien"].error] = true;
       isValid = false;
      }
+    if(this.state['display_sub_question']==true){
+      if(this.elementIsEmpty(this.state[selectBoxFields.typeOfProperty.name])){
+        state[selectBoxFields.typeOfProperty.error] = true;
+        isValid = false;
+      }
+      if(this.elementIsEmpty(this.state[selectBoxFields.titleOfProperty.name])){
+        state[selectBoxFields.titleOfProperty.error] = true;
+        isValid = false;
+      }
+    }
+     this.setState(state);
      return isValid;
 
   },
@@ -252,6 +283,7 @@ var FormDeclarations = React.createClass({
   save: function(event) {
     event.preventDefault();
     if(this.valid()==false){
+      this.setState({activateError: true})
       return false;
     }
 
