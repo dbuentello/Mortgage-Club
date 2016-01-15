@@ -75,6 +75,8 @@ class Loan < ActiveRecord::Base
 
   def income_completed
     borrower.income_completed?
+
+    true
   end
 
   def credit_completed
