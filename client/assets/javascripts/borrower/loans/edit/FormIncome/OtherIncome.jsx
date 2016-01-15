@@ -33,13 +33,14 @@ var OtherIncome = React.createClass({
 
   render: function() {
     var index = this.props.index;
+    console.log(index);
     return (
       <div className={this.props.type + ' form-group'}>
         <div className='col-md-6'>
           <SelectField
             label='Income Type'
             ref="incomeType"
-            keyName={'income.type'}
+            keyName={'income.type' + index}
             value={this.props.type}
             options={otherIncomes}
             editable={true}
@@ -50,7 +51,7 @@ var OtherIncome = React.createClass({
           <TextField
             label='Annual Gross Amount'
             ref="incomeAmount"
-            keyName={'income.amount'}
+            keyName={'income.amount' + index}
             value={this.props.amount}
             editable={true}
             onChange={this.onChange}/>
