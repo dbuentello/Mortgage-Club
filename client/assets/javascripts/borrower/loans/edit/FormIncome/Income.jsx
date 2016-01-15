@@ -89,14 +89,15 @@ var Income = React.createClass({
               onChange={this.props.onChange}/>
           </div>
           <div className='col-md-6'>
-            <TextField
+            <AddressField
               activateRequiredField={this.props.currentEmployerFullTextAddressError}
               label={this.props.fields.currentEmployerAddress.label}
-              keyName={this.props.fields.currentEmployerFullTextAddress.name}
-              value={this.props.currentEmployerFullTextAddress}
+              address={this.props.currentEmployerAddress}
+              keyName={this.props.fields.currentEmployerAddress.name}
               editable={true}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentEmployerFullTextAddress)}
-              onChange={this.props.onChange}/>
+              onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentEmployerAddress)}
+              onChange={this.props.onChange}
+              placeholder=""/>
           </div>
         </div>
         <div className='form-group'>

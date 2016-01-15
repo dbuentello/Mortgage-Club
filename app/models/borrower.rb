@@ -140,7 +140,11 @@ class Borrower < ActiveRecord::Base
   end
 
   def income_completed?
-    current_employment.try(:completed?)
+    return false unless current_employment.try(:completed?)
+    return false unless current_employment.duration >= 2 || (current_employment.duration < 2 && previous_employment.previous_completed?)
+    return false unless gross_income
+
+    true
   end
 
   def credit_score

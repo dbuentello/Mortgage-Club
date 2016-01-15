@@ -289,6 +289,7 @@ var FormAssetsAndLiabilities = React.createClass({
         valid = false;
       }
     }
+
     if (this.state.subject_property) {
       var subject_property = this.state.subject_property;
 
@@ -317,34 +318,36 @@ var FormAssetsAndLiabilities = React.createClass({
         valid = false;
       }
     }
-    _.each(this.state.rental_properties, function(property, index){
-      if(this.elementIsEmpty(property.address)){
-        property.addressError = true
-        valid = false;
-      }
-      if(this.elementIsEmpty(property.property_type)){
-        property.propertyTypeError = true;
-        valid = false;
-      }
-      if(this.elementIsEmpty(property.estimated_hazard_insurance)){
-        property.estimatedHazardInsuranceError = true;
-        valid = false;
-      }
-      if(this.elementIsEmpty(property.estimated_property_tax)){
-        property.estimatedPropertyTaxError = true;
-        valid = false;
-      }
-      if(this.elementIsEmpty(property.market_price)){
-        property.marketPriceError = true;
-        valid = false;
-      }
-      if(this.elementIsEmpty(property.mortgage_includes_escrows)){
-        property.mortgageIncludesEscrowsError = true;
-        valid = false;
-      }
-    }, this)
 
-    var _assets = [];
+    if(this.state.own_investment_property) {
+      _.each(this.state.rental_properties, function(property, index){
+        if(this.elementIsEmpty(property.address)){
+          property.addressError = true
+          valid = false;
+        }
+        if(this.elementIsEmpty(property.property_type)){
+          property.propertyTypeError = true;
+          valid = false;
+        }
+        if(this.elementIsEmpty(property.estimated_hazard_insurance)){
+          property.estimatedHazardInsuranceError = true;
+          valid = false;
+        }
+        if(this.elementIsEmpty(property.estimated_property_tax)){
+          property.estimatedPropertyTaxError = true;
+          valid = false;
+        }
+        if(this.elementIsEmpty(property.market_price)){
+          property.marketPriceError = true;
+          valid = false;
+        }
+        if(this.elementIsEmpty(property.mortgage_includes_escrows)){
+          property.mortgageIncludesEscrowsError = true;
+          valid = false;
+        }
+      }, this)
+    }
+
     _.each(this.state.assets, function(asset, index){
       if(this.elementIsEmpty(asset.institution_name)){
         asset.institutionNameError = true;

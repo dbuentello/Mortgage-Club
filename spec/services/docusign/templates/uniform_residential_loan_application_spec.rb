@@ -1,4 +1,5 @@
 require "rails_helper"
+include ActionView::Helpers::NumberHelper
 
 describe Docusign::Templates::UniformResidentialLoanApplication do
   let!(:loan) { FactoryGirl.create(:loan_with_properties) }
@@ -15,9 +16,10 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
 
     it "maps right values" do
       @service.build_section_1
+
       expect(@service.params).to include({
-        "loan_amount" => Money.new(loan.amount * 100).format,
-        "interest_rate" => "#{(loan.interest_rate.to_f * 100).round(3)}%",
+        "loan_amount" => number_with_delimiter(loan.amount),
+        "interest_rate" => "#{(loan.interest_rate.to_f * 100).round(3)}",
         "no_of_month" => loan.num_of_months
       })
     end
@@ -183,20 +185,21 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
 
   describe "#build_section_7" do
     it "maps right values" do
-      total_cost_transactions = loan.subject_property.purchase_price + loan.estimated_prepaid_items.to_f +
-                                  loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f
+      total_cost_transactions = (loan.subject_property.purchase_price + loan.estimated_prepaid_items.to_f +
+                                  loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f).round(2)
+      borrower_cash = (total_cost_transactions - loan.other_credits.to_f - loan.amount).round(2)
       @service.build_section_7
       expect(@service.params).to include({
-        "purchase_price" => Money.new(loan.subject_property.purchase_price.to_f * 100).format,
-        "estimated_prepaid_items" => Money.new(loan.estimated_prepaid_items * 100).format,
-        "estimated_closing_costs" => Money.new(loan.estimated_closing_costs * 100).format,
-        "pmi_funding_fee" => Money.new(loan.pmi_mip_funding_fee * 100).format,
-        "other_credit" => Money.new(loan.other_credits * 100).format,
-        "loan_amount_exclude_pmi_mip" => Money.new((loan.amount - loan.pmi_mip_funding_fee.to_f) * 100).format,
-        "pmi_mip_funding_fee_financed" => Money.new(loan.pmi_mip_funding_fee_financed * 100).format,
-        "total_loan_amount" => Money.new(loan.amount * 100).format,
-        "total_cost_transactions" => Money.new(total_cost_transactions * 100).format,
-        "borrower_cash" => Money.new((total_cost_transactions - loan.other_credits.to_f - loan.amount) * 100).format
+        "purchase_price" => number_with_delimiter(loan.subject_property.purchase_price.to_f).rjust(9),
+        "estimated_prepaid_items" => number_with_delimiter(loan.estimated_prepaid_items).rjust(9),
+        "estimated_closing_costs" => number_with_delimiter(loan.estimated_closing_costs).rjust(9),
+        "pmi_funding_fee" => number_with_delimiter(loan.pmi_mip_funding_fee).rjust(9),
+        "other_credit" => number_with_delimiter(loan.other_credits).rjust(9),
+        "loan_amount_exclude_pmi_mip" => number_with_delimiter(loan.amount - loan.pmi_mip_funding_fee.to_f).rjust(9),
+        "pmi_mip_funding_fee_financed" => number_with_delimiter(loan.pmi_mip_funding_fee_financed).rjust(9),
+        "total_loan_amount" => number_with_delimiter(loan.amount).rjust(9),
+        "total_cost_transactions" => number_with_delimiter(total_cost_transactions).rjust(9),
+        "borrower_cash" => number_with_delimiter(borrower_cash).rjust(9)
       })
     end
 
@@ -205,7 +208,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         @service.loan.purpose = "refinance"
         @service.build_section_7
         expect(@service.params).to include({
-          "refinance" => Money.new(@service.loan.amount * 100).format
+          "refinance" => number_with_delimiter(@service.loan.amount)
         })
       end
     end
@@ -236,17 +239,18 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     context "subject property" do
       it "maps right values" do
         property = @service.subject_property
+        proposed_total_expense = number_with_delimiter((property.mortgage_payment + property.other_financing +
+                                              property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
+                                              property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f))
         @service.build_housing_expense("proposed", property)
         expect(@service.params).to include({
-          "proposed_first_mortgage" => Money.new(property.mortgage_payment * 100).format,
-          "proposed_other_financing" => Money.new(property.other_financing * 100).format,
-          "proposed_hazard_insurance" => Money.new(property.estimated_hazard_insurance * 100).format,
-          "proposed_estate_taxes" => Money.new(property.estimated_property_tax * 100).format,
-          "proposed_mortgage_insurance" => Money.new(property.estimated_mortgage_insurance * 100).format,
-          "proposed_homeowner" => Money.new(property.hoa_due * 100).format,
-          "proposed_total_expense" => Money.new((property.mortgage_payment + property.other_financing +
-                                              property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
-                                              property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f) * 100).format
+          "proposed_first_mortgage" => number_with_delimiter(property.mortgage_payment).rjust(proposed_total_expense.length + 1),
+          "proposed_other_financing" => number_with_delimiter(property.other_financing).rjust(proposed_total_expense.length + 1),
+          "proposed_hazard_insurance" => number_with_delimiter(property.estimated_hazard_insurance).rjust(proposed_total_expense.length + 1),
+          "proposed_estate_taxes" => number_with_delimiter(property.estimated_property_tax).rjust(proposed_total_expense.length + 1),
+          "proposed_mortgage_insurance" => number_with_delimiter(property.estimated_mortgage_insurance).rjust(proposed_total_expense.length + 1),
+          "proposed_homeowner" => number_with_delimiter(property.hoa_due).rjust(proposed_total_expense.length + 1),
+          "proposed_total_expense" => proposed_total_expense
         })
       end
     end
@@ -254,17 +258,18 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     context "primary property" do
       it "maps right values" do
         property = @service.primary_property
+        present_total_expense = number_with_delimiter(property.mortgage_payment + property.other_financing +
+                                              property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
+                                              property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f)
         @service.build_housing_expense("present", property)
         expect(@service.params).to include({
-          "present_first_mortgage" => Money.new(property.mortgage_payment * 100).format,
-          "present_other_financing" => Money.new(property.other_financing * 100).format,
-          "present_hazard_insurance" => Money.new(property.estimated_hazard_insurance * 100).format,
-          "present_estate_taxes" => Money.new(property.estimated_property_tax * 100).format,
-          "present_mortgage_insurance" => Money.new(property.estimated_mortgage_insurance * 100).format,
-          "present_homeowner" => Money.new(property.hoa_due * 100).format,
-          "present_total_expense" => Money.new((property.mortgage_payment + property.other_financing +
-                                              property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
-                                              property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f) * 100).format
+          "present_first_mortgage" => number_with_delimiter(property.mortgage_payment).rjust(present_total_expense.length + 1),
+          "present_other_financing" => number_with_delimiter(property.other_financing).rjust(present_total_expense.length + 1),
+          "present_hazard_insurance" => number_with_delimiter(property.estimated_hazard_insurance).rjust(present_total_expense.length + 1),
+          "present_estate_taxes" => number_with_delimiter(property.estimated_property_tax).rjust(present_total_expense.length + 1),
+          "present_mortgage_insurance" => number_with_delimiter(property.estimated_mortgage_insurance).rjust(present_total_expense.length + 1),
+          "present_homeowner" => number_with_delimiter(property.hoa_due).rjust(present_total_expense.length + 1),
+          "present_total_expense" => present_total_expense
         })
       end
     end
@@ -308,17 +313,14 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     it "maps right values" do
       borrower = @service.borrower
       @service.build_gross_monthly_income("borrower", borrower)
+      borrower_total_income = number_with_delimiter(borrower.total_income.to_f)
 
       expect(@service.params).to include({
-        "borrower_base_income" => Money.new(borrower.current_salary * 100).format,
-        "borrower_overtime" => Money.new(borrower.gross_overtime.to_f * 100).format,
-        "borrower_bonuses" => Money.new(borrower.gross_bonus.to_f * 100).format,
-        "borrower_commissions" => Money.new(borrower.gross_commission.to_f * 100).format,
-        "borrower_total_income" => Money.new(borrower.total_income.to_f * 100).format,
-        "total_base_income" => borrower.current_salary,
-        "total_overtime" => borrower.gross_overtime.to_f,
-        "total_bonuses" => borrower.gross_bonus.to_f,
-        "total_commissions" => borrower.gross_commission.to_f
+        "borrower_base_income" => number_with_delimiter(borrower.current_salary).rjust(borrower_total_income.length + 1),
+        "borrower_overtime" => number_with_delimiter(borrower.gross_overtime.to_f).rjust(borrower_total_income.length + 1),
+        "borrower_bonuses" => number_with_delimiter(borrower.gross_bonus.to_f).rjust(borrower_total_income.length + 1),
+        "borrower_commissions" => number_with_delimiter(borrower.gross_commission.to_f).rjust(borrower_total_income.length + 1),
+        "borrower_total_income" => borrower_total_income
       })
     end
   end
@@ -332,7 +334,8 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         "borrower_yrs_job" => current_employment.duration,
         "borrower_yrs_employed" => current_employment.duration,
         "borrower_name_employer_1" => current_employment.employer_name,
-        "borrower_address_employer_1" => current_employment.full_address,
+        "borrower_street_employer_1" => current_employment.address.street_address,
+        "borrower_city_and_state_employer_1" => "#{current_employment.address.city}, #{current_employment.address.state} #{current_employment.address.zip}",
         "borrower_position_1" => current_employment.job_title,
         "borrower_business_phone_1" => current_employment.employer_contact_number
       })
@@ -348,7 +351,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         "borrower_name" => @service.borrower.full_name,
         "borrower_social_security_number" => @service.borrower.ssn,
         "borrower_home_phone" => @service.borrower.phone,
-        "borrower_dob" => @service.borrower.dob,
+        "borrower_dob" => @service.borrower.dob.strftime('%D'),
         "borrower_yrs_school" => @service.borrower.years_in_school,
         "borrower_married" => "x",
         "borrower_dependents_no" => @service.borrower.dependent_count,
@@ -421,8 +424,8 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       expect(@service.params).to include({
         "loan_purpose_refinance" => "x",
         "refinance_year_acquired" => property.original_purchase_year,
-        "refinance_original_cost" => Money.new(property.original_purchase_price.to_f * 100).format,
-        "refinance_amount_existing_liens" => Money.new(property.refinance_amount * 100).format,
+        "refinance_original_cost" => number_with_delimiter(property.original_purchase_price.to_f),
+        "refinance_amount_existing_liens" => number_with_delimiter(property.refinance_amount),
         "purpose_of_refinance" => purpose_of_refinance,
         "year_built" => property.year_built
       })
