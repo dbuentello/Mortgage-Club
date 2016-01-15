@@ -132,7 +132,6 @@ var Form = React.createClass({
                 baseIncome={this.state[secondaryBorrowerFields.baseIncome.name]}
                 incomeFrequency={this.state[secondaryBorrowerFields.incomeFrequency.name]}
                 otherIncomes={this.state[secondaryBorrowerFields.otherIncomes.name]}
-
                 currentEmployerNameError={this.state[secondaryBorrowerFields.currentEmployerName.error]}
                 currentEmployerFullTextAddressError={this.state[secondaryBorrowerFields.currentEmployerFullTextAddress.error]}
                 currentJobTitleError={this.state[secondaryBorrowerFields.currentJobTitle.error]}

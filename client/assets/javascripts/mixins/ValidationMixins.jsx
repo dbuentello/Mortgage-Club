@@ -10,6 +10,7 @@ module.exports = {
     }
     return false;
   },
+
   arrayContainsEmptyElement: function(requiredArray){
     for(var obj in requiredArray){
       if(this.elementIsEmpty(requiredArray[obj])){
@@ -21,7 +22,7 @@ module.exports = {
   requiredFieldsHasEmptyElement: function(stateArray, outputFields){
     var empty = false;
     var stateObj = {};
-    for(var i=0; i <stateArray.length; i++){
+    for(var i = 0; i < stateArray.length; i++){
       if (this.elementIsEmpty(stateArray[i]))
       {
         empty = true;
