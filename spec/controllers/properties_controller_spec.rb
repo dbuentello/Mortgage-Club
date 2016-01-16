@@ -33,7 +33,7 @@ describe PropertiesController do
 
   describe "#search" do
     it "seach with valid address" do
-      search_params = {address: 'Schenectady', citystatezip: 'Schenectady NY 12302'}
+      search_params = {address: '4400 Forest Parkway', citystatezip: 'Sacramento, CA 95823'}
       get :search, search_params
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['zestimate']).not_to be_nil

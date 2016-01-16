@@ -190,16 +190,16 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       borrower_cash = (total_cost_transactions - loan.other_credits.to_f - loan.amount).round(2)
       @service.build_section_7
       expect(@service.params).to include({
-        "purchase_price" => number_with_delimiter(loan.subject_property.purchase_price.to_f).rjust(9),
-        "estimated_prepaid_items" => number_with_delimiter(loan.estimated_prepaid_items).rjust(9),
-        "estimated_closing_costs" => number_with_delimiter(loan.estimated_closing_costs).rjust(9),
-        "pmi_funding_fee" => number_with_delimiter(loan.pmi_mip_funding_fee).rjust(9),
-        "other_credit" => number_with_delimiter(loan.other_credits).rjust(9),
-        "loan_amount_exclude_pmi_mip" => number_with_delimiter(loan.amount - loan.pmi_mip_funding_fee.to_f).rjust(9),
-        "pmi_mip_funding_fee_financed" => number_with_delimiter(loan.pmi_mip_funding_fee_financed).rjust(9),
-        "total_loan_amount" => number_with_delimiter(loan.amount).rjust(9),
-        "total_cost_transactions" => number_with_delimiter(total_cost_transactions).rjust(9),
-        "borrower_cash" => number_with_delimiter(borrower_cash).rjust(9)
+        "purchase_price" => align(number_with_delimiter(loan.subject_property.purchase_price.to_f), 9),
+        "estimated_prepaid_items" => align(number_with_delimiter(loan.estimated_prepaid_items), 9),
+        "estimated_closing_costs" => align(number_with_delimiter(loan.estimated_closing_costs), 9),
+        "pmi_funding_fee" => align(number_with_delimiter(loan.pmi_mip_funding_fee), 9),
+        "other_credit" => align(number_with_delimiter(loan.other_credits), 9),
+        "loan_amount_exclude_pmi_mip" => align(number_with_delimiter(loan.amount - loan.pmi_mip_funding_fee.to_f), 9),
+        "pmi_mip_funding_fee_financed" => align(number_with_delimiter(loan.pmi_mip_funding_fee_financed), 9),
+        "total_loan_amount" => align(number_with_delimiter(loan.amount), 9),
+        "borrower_cash" => align(number_with_delimiter(borrower_cash), 9),
+        "total_cost_transactions" => number_with_delimiter(total_cost_transactions)
       })
     end
 
@@ -244,12 +244,12 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
                                               property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f))
         @service.build_housing_expense("proposed", property)
         expect(@service.params).to include({
-          "proposed_first_mortgage" => number_with_delimiter(property.mortgage_payment).rjust(proposed_total_expense.length + 1),
-          "proposed_other_financing" => number_with_delimiter(property.other_financing).rjust(proposed_total_expense.length + 1),
-          "proposed_hazard_insurance" => number_with_delimiter(property.estimated_hazard_insurance).rjust(proposed_total_expense.length + 1),
-          "proposed_estate_taxes" => number_with_delimiter(property.estimated_property_tax).rjust(proposed_total_expense.length + 1),
-          "proposed_mortgage_insurance" => number_with_delimiter(property.estimated_mortgage_insurance).rjust(proposed_total_expense.length + 1),
-          "proposed_homeowner" => number_with_delimiter(property.hoa_due).rjust(proposed_total_expense.length + 1),
+          "proposed_first_mortgage" => align(number_with_delimiter(property.mortgage_payment), proposed_total_expense.length),
+          "proposed_other_financing" => align(number_with_delimiter(property.other_financing), proposed_total_expense.length),
+          "proposed_hazard_insurance" => align(number_with_delimiter(property.estimated_hazard_insurance), proposed_total_expense.length),
+          "proposed_estate_taxes" => align(number_with_delimiter(property.estimated_property_tax), proposed_total_expense.length),
+          "proposed_mortgage_insurance" => align(number_with_delimiter(property.estimated_mortgage_insurance), proposed_total_expense.length),
+          "proposed_homeowner" => align(number_with_delimiter(property.hoa_due), proposed_total_expense.length),
           "proposed_total_expense" => proposed_total_expense
         })
       end
@@ -263,12 +263,12 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
                                               property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f)
         @service.build_housing_expense("present", property)
         expect(@service.params).to include({
-          "present_first_mortgage" => number_with_delimiter(property.mortgage_payment).rjust(present_total_expense.length + 1),
-          "present_other_financing" => number_with_delimiter(property.other_financing).rjust(present_total_expense.length + 1),
-          "present_hazard_insurance" => number_with_delimiter(property.estimated_hazard_insurance).rjust(present_total_expense.length + 1),
-          "present_estate_taxes" => number_with_delimiter(property.estimated_property_tax).rjust(present_total_expense.length + 1),
-          "present_mortgage_insurance" => number_with_delimiter(property.estimated_mortgage_insurance).rjust(present_total_expense.length + 1),
-          "present_homeowner" => number_with_delimiter(property.hoa_due).rjust(present_total_expense.length + 1),
+          "present_first_mortgage" => align(number_with_delimiter(property.mortgage_payment), present_total_expense.length),
+          "present_other_financing" => align(number_with_delimiter(property.other_financing), present_total_expense.length),
+          "present_hazard_insurance" => align(number_with_delimiter(property.estimated_hazard_insurance), present_total_expense.length),
+          "present_estate_taxes" => align(number_with_delimiter(property.estimated_property_tax), present_total_expense.length),
+          "present_mortgage_insurance" => align(number_with_delimiter(property.estimated_mortgage_insurance), present_total_expense.length),
+          "present_homeowner" => align(number_with_delimiter(property.hoa_due), present_total_expense.length),
           "present_total_expense" => present_total_expense
         })
       end
@@ -316,10 +316,10 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       borrower_total_income = number_with_delimiter(borrower.total_income.to_f)
 
       expect(@service.params).to include({
-        "borrower_base_income" => number_with_delimiter(borrower.current_salary).rjust(borrower_total_income.length + 1),
-        "borrower_overtime" => number_with_delimiter(borrower.gross_overtime.to_f).rjust(borrower_total_income.length + 1),
-        "borrower_bonuses" => number_with_delimiter(borrower.gross_bonus.to_f).rjust(borrower_total_income.length + 1),
-        "borrower_commissions" => number_with_delimiter(borrower.gross_commission.to_f).rjust(borrower_total_income.length + 1),
+        "borrower_base_income" => align(number_with_delimiter(borrower.current_salary), borrower_total_income.length),
+        "borrower_overtime" => align(number_with_delimiter(borrower.gross_overtime.to_f), borrower_total_income.length),
+        "borrower_bonuses" => align(number_with_delimiter(borrower.gross_bonus.to_f), borrower_total_income.length),
+        "borrower_commissions" => align(number_with_delimiter(borrower.gross_commission.to_f), borrower_total_income.length),
         "borrower_total_income" => borrower_total_income
       })
     end
@@ -431,4 +431,10 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       })
     end
   end
+end
+
+def align(value, max_length)
+  return unless value
+
+  (value.length < max_length) ? value.rjust(max_length + 1) : value
 end
