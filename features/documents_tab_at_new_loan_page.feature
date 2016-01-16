@@ -42,7 +42,7 @@ Feature: DocumentsTabAtNewLoanPage
         And I fill in "secondary_borrower_dependent_count" with "1"
         And I fill in "secondary_borrower_dependent_ages" with "1"
         Then I click on "Save and Continue"
-        And I wait for 20 seconds
+        And I wait for 2 seconds
       When I click "Documents" in the "#tabDocuments"
         And I should see "Do you and your co-borrower file taxes jointly?"
         When I choose "false_is_file_taxes_jointly"
