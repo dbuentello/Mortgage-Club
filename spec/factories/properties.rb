@@ -6,7 +6,7 @@ FactoryGirl.define do
     f.original_purchase_year { Date.new(1900 + Random.rand(114)) }
     f.original_purchase_price { Faker::Number.number(6) }
     f.market_price { Faker::Number.number(6) }
-    f.estimated_property_tax { Faker::Number.number(4) }
+    f.estimated_property_tax { Faker::Number.number(3) }
     f.estimated_hazard_insurance { Faker::Number.number(4) }
     f.estimated_mortgage_insurance { Faker::Number.number(4) }
     f.hoa_due { Faker::Number.number(4) }
