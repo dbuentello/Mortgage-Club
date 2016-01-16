@@ -395,6 +395,7 @@ var FormAssetsAndLiabilities = React.createClass({
     var rental_properties = [];
     for (var i = 0; i < this.state.rental_properties.length; i++) {
       var rental_property = this.state.rental_properties[i];
+      rental_property.usage = 'rental_property';
       rental_property.address_attributes = rental_property.address;
       rental_properties.push(rental_property);
     }
@@ -427,7 +428,7 @@ var FormAssetsAndLiabilities = React.createClass({
           },
           success: function(response) {
             if (this.loanIsCompleted(response.loan)) {
-              this.props.goToAllDonePage();
+              this.props.goToAllDonePage(response.loan);
             }
             else {
               this.props.setupMenu(response, 5);
