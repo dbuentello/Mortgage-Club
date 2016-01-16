@@ -77,5 +77,5 @@ Feature: DocumentsTabAtNewLoanPage
           And I should see "Business tax return - Previous year"
           And I should see "Bank statement - Most recent month"
           And I should see "Bank statement - Previous month"
-        Then I click on "Save and Continue"
+        Then I click on "Next"
           And I should see "Name of current employer"
