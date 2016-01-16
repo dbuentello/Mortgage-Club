@@ -123,13 +123,21 @@ class Borrower < ActiveRecord::Base
     return false if current_address.is_rental.nil?
     return false unless current_address.years_at_address
     return false if current_address.years_at_address < 0
+
     if current_address.is_rental
       return false unless current_address.monthly_rent
     end
+    return false unless previous_address_completed?
+
+    true
+  end
+
+  def previous_address_completed?
     if previous_address.present?
       return false if previous_address.is_rental.nil?
       return false unless previous_address.monthly_rent
     end
+
     true
   end
 
