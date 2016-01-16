@@ -111,8 +111,8 @@ var LoanInterface = React.createClass({
 
   },
 
-  goToAllDonePage: function() {
-    this.setState({completedLoan: true});
+  goToAllDonePage: function(loan) {
+    this.setState({menu: this.buildMenu(loan), completedLoan: true});
   },
 
   save: function(loan, step, skip_change_page, last_step = false) {
@@ -127,7 +127,7 @@ var LoanInterface = React.createClass({
       },
       success: function(response) {
         if (this.loanIsCompleted(response.loan)) {
-          this.goToAllDonePage();
+          this.goToAllDonePage(response.loan);
         }
         else {
           if (last_step == false) {

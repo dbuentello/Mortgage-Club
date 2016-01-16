@@ -70,9 +70,11 @@ var FormDocuments = React.createClass({
     var owner_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub', 'first_federal_tax_return', 'second_federal_tax_return',  'first_bank_statement', 'second_bank_statement'];
     var self_employed_fields = ['first_personal_tax_return', 'second_personal_tax_return', 'first_business_tax_return', 'second_business_tax_return', 'first_bank_statement', 'second_bank_statement'];
 
+    // coborrower - unself employed
     var co_borrower_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub',  'first_bank_statement', 'second_bank_statement'];
     var co_borrower_no_file_taxes_jointly_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub', 'first_federal_tax_return', 'second_federal_tax_return',  'first_bank_statement', 'second_bank_statement'];
 
+    // coborrower - self employed
     var co_no_file_taxes_jointly_fields = ['first_personal_tax_return', 'second_personal_tax_return', 'first_business_tax_return', 'second_business_tax_return', 'first_bank_statement', 'second_bank_statement'];
     var co_file_taxes_jointly_fields = ['first_business_tax_return', 'second_business_tax_return', 'first_bank_statement', 'second_bank_statement'];
 
@@ -180,7 +182,7 @@ var FormDocuments = React.createClass({
             }
           <div className='form-group'>
             <div className='col-md-12'>
-              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
             </div>
           </div>
         </form>

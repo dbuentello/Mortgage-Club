@@ -514,7 +514,7 @@ var Form = React.createClass({
       },
       success: function(response) {
         if (this.loanIsCompleted(response.loan)) {
-          this.props.goToAllDonePage();
+          this.props.goToAllDonePage(response.loan);
         }
         else {
           this.props.setupMenu(response, 1);

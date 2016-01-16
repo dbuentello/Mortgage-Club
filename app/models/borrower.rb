@@ -142,9 +142,35 @@ class Borrower < ActiveRecord::Base
   end
 
   def documents_completed?
-    first_w2.present? && second_w2.present? &&
-      first_paystub.present? && second_paystub.present? &&
-      first_bank_statement.present? && second_bank_statement.present?
+    if self_employed
+      required_documents = %w(first_personal_tax_return second_personal_tax_return
+                              first_business_tax_return second_business_tax_return
+                              first_bank_statement second_bank_statement)
+    else
+      required_documents = %w(first_w2 second_w2 first_paystub second_paystub
+                              first_federal_tax_return second_federal_tax_return
+                              first_bank_statement second_bank_statement)
+    end
+
+    (required_documents - documents.pluck(:document_type)).empty?
+  end
+
+  def secondary_borrower_documents_completed?
+    if self_employed
+      if is_file_taxes_jointly
+        required_documents = %w(first_business_tax_return second_business_tax_return first_bank_statement second_bank_statement)
+      else
+        required_documents = %w(first_personal_tax_return second_personal_tax_return first_business_tax_return second_business_tax_return first_bank_statement second_bank_statement)
+      end
+      return (required_documents - documents.pluck(:document_type)).empty?
+    else
+      if is_file_taxes_jointly
+        required_documents = %w(first_w2 second_w2 first_paystub second_paystub  first_bank_statement second_bank_statement)
+      else
+        required_documents = %w(first_w2 second_w2 first_paystub second_paystub first_federal_tax_return second_federal_tax_return  first_bank_statement second_bank_statement)
+      end
+      return (required_documents - documents.pluck(:document_type)).empty?
+    end
   end
 
   def income_completed?

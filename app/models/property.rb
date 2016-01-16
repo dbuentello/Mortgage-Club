@@ -71,6 +71,12 @@ class Property < ActiveRecord::Base
     estimated_hazard_insurance.present?
   end
 
+  def rental_propery_completed?
+    property_type.present? && address.present? && address.completed &&
+    market_price.present? && mortgage_includes_escrows.present? &&
+    estimated_property_tax.present? && estimated_hazard_insurance.present?
+  end
+
   def refinance_completed?
     original_purchase_price.present? && original_purchase_year.present?
   end
