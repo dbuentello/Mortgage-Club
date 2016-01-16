@@ -50,7 +50,7 @@ class BorrowerForm
     if property = current_address.property
       property.is_primary = true
     else
-      property = Property.new(loan: loan, is_primary: true)
+      property = Property.new(loan: loan, is_primary: true, usage: "primary_residence")
       property.address = current_address
     end
     property.save!

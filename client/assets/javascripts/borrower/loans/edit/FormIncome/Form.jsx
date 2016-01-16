@@ -2,6 +2,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var ValidationObject = require("mixins/ValidationMixins");
 
 var AddressField = require('components/form/NewAddressField');
 var DateField = require('components/form/NewDateField');
@@ -10,58 +11,72 @@ var SelectField = require('components/form/NewSelectField');
 var Income = require('./Income');
 
 var borrowerFields = {
-  currentEmployerName: {label: 'Name of current employer', name: 'current_employer_name', helpText: 'I am a helpful text.'},
-  currentEmployerAddress: {label: 'Address of current employer', name: 'current_address', helpText: null},
-  currentJobTitle: {label: 'Job Title', name: 'current_job_title', helpText: null},
-  currentYearsAtEmployer: {label: 'Years at this employer', name: 'current_duration', helpText: null},
-  previousEmployerName: {label: 'Name of previous employer', name: 'previous_employer_name', helpText: 'I am a helpful text.'},
-  previousJobTitle: {label: 'Job Title', name: 'previous_job_title', helpText: null},
-  previousYearsAtEmployer: {label: 'Years at this employer', name: 'previous_duration', helpText: null},
-  previousMonthlyIncome: {label: 'Monthly Income', name: 'previous_monthly_income', helpText: null},
-  employerContactName: {label: 'Contact Name', name: 'employer_contact_name', helpText: null},
-  employerContactNumber: {label: 'Contact Phone Number', name: 'employer_contact_number', helpText: null},
-  baseIncome: {label: 'Base Income', name: 'current_salary', helpText: null},
-  grossOvertime: {label: 'Annual Gross Overtime', name: 'gross_overtime', helpText: null},
-  grossBonus: {label: 'Annual Gross Bonus', name: 'gross_bonus', helpText: null},
-  grossCommission: {label: 'Annual Gross Commission', name: 'gross_commission', helpText: null},
-  grossInterest: {label: 'Annual Gross Interest', name: 'gross_interest', helpText: null},
-  incomeFrequency: {label: 'Income frequency', name: 'pay_frequency', helpText: null},
+  currentEmployerName: {label: 'Name of current employer', name: 'current_employer_name', helpText: 'I am a helpful text.', error: "current_employer_name_error"},
+  currentEmployerAddress: {label: 'Address of current employer', name: 'current_address', helpText: null, error: "current_address_error"},
+  currentEmployerFullTextAddress: {name: 'current_full_text_address', helpText: null, error: "current_full_text_address_error"},
+  currentJobTitle: {label: 'Job Title', name: 'current_job_title', helpText: null, error: "current_job_title_error"},
+  currentYearsAtEmployer: {label: 'Years at this employer', name: 'current_duration', helpText: null, error: "current_duration_error"},
+  previousEmployerName: {label: 'Name of previous employer', name: 'previous_employer_name', helpText: 'I am a helpful text.', error: "previous_employer_name_error"},
+  previousJobTitle: {label: 'Job Title', name: 'previous_job_title', helpText: null, error: "previous_job_title_error"},
+  previousYearsAtEmployer: {label: 'Years at this employer', name: 'previous_duration', helpText: null, error: "previous_duration_error"},
+  previousMonthlyIncome: {label: 'Monthly Income', name: 'previous_monthly_income', helpText: null, error: "previous_monthly_income_error"},
+  employerContactName: {label: 'Contact Name', name: 'employer_contact_name', helpText: null, error: "employer_contact_name_error"},
+  employerContactNumber: {label: 'Contact Phone Number', name: 'employer_contact_number', helpText: null, error: "employer_contact_number_error"},
+  baseIncome: {label: 'Base Income', name: 'current_salary', helpText: null, error: "current_salary_error"},
+  grossOvertime: {label: 'Annual Gross Overtime', name: 'gross_overtime', helpText: null, error: "gross_overtime_error"},
+  grossBonus: {label: 'Annual Gross Bonus', name: 'gross_bonus', helpText: null, error: "gross_bonus_error"},
+  grossCommission: {label: 'Annual Gross Commission', name: 'gross_commission', helpText: null, error: "gross_commission_error"},
+  grossInterest: {label: 'Annual Gross Interest', name: 'gross_interest', helpText: null, error: "gross_interest_error"},
+  incomeFrequency: {label: 'Income frequency', name: 'pay_frequency', helpText: null, error: "pay_frequency_error"},
   otherIncomes: {name: 'borrower_other_incomes'}
 };
 
 var secondaryBorrowerFields = {
-  currentEmployerName: {label: 'Name of current employer', name: 'secondary_current_employer_name', helpText: 'I am a helpful text.'},
-  currentEmployerAddress: {label: 'Address of current employer', name: 'secondary_current_address', helpText: null},
-  currentJobTitle: {label: 'Job Title', name: 'secondary_current_job_title', helpText: null},
-  currentYearsAtEmployer: {label: 'Years at this employer', name: 'secondary_current_duration', helpText: null},
-  previousEmployerName: {label: 'Name of previous employer', name: 'secondary_previous_employer_name', helpText: 'I am a helpful text.'},
-  previousJobTitle: {label: 'Job Title', name: 'secondary_previous_job_title', helpText: null},
-  previousYearsAtEmployer: {label: 'Years at this employer', name: 'secondary_previous_duration', helpText: null},
-  previousMonthlyIncome: {label: 'Monthly Income', name: 'secondary_previous_monthly_income', helpText: null},
-  employerContactName: {label: 'Contact Name', name: 'secondary_employer_contact_name', helpText: null},
-  employerContactNumber: {label: 'Contact Phone Number', name: 'secondary_employer_contact_number', helpText: null},
-  baseIncome: {label: 'Base Income', name: 'secondary_current_salary', helpText: null},
-  grossOvertime: {label: 'Annual Gross Overtime', name: 'secondary_gross_overtime', helpText: null},
-  grossBonus: {label: 'Annual Gross Bonus', name: 'secondary_gross_bonus', helpText: null},
-  grossCommission: {label: 'Annual Gross Commission', name: 'secondary_gross_commission', helpText: null},
-  grossInterest: {label: 'Annual Gross Interest', name: 'secondary_gross_interest', helpText: null},
-  incomeFrequency: {label: 'Income frequency', name: 'secondary_pay_frequency', helpText: null},
+  currentEmployerName: {label: 'Name of current employer', name: 'secondary_current_employer_name', helpText: 'I am a helpful text.', error: "secondary_current_employer_name_error"},
+  currentEmployerAddress: {label: 'Address of current employer', name: 'secondary_current_address', helpText: null, error: "secondary_current_address_error"},
+  currentEmployerFullTextAddress: {name: 'secondary_current_full_text_address', helpText: null, error: "secondary_current_full_text_address_error"},
+  currentJobTitle: {label: 'Job Title', name: 'secondary_current_job_title', helpText: null, error: "secondary_current_job_title_error"},
+  currentYearsAtEmployer: {label: 'Years at this employer', name: 'secondary_current_duration', helpText: null, error: "secondary_current_duration_error"},
+  previousEmployerName: {label: 'Name of previous employer', name: 'secondary_previous_employer_name', helpText: 'I am a helpful text.', error: "secondary_previous_employer_name_error"},
+  previousJobTitle: {label: 'Job Title', name: 'secondary_previous_job_title', helpText: null, error: "secondary_previous_job_title_error"},
+  previousYearsAtEmployer: {label: 'Years at this employer', name: 'secondary_previous_duration', helpText: null, error: "secondary_previous_duration_error"},
+  previousMonthlyIncome: {label: 'Monthly Income', name: 'secondary_previous_monthly_income', helpText: null, error: "secondary_previous_monthly_income_error"},
+  employerContactName: {label: 'Contact Name', name: 'secondary_employer_contact_name', helpText: null, error: "secondary_employer_contact_name_error"},
+  employerContactNumber: {label: 'Contact Phone Number', name: 'secondary_employer_contact_number', helpText: null, error: "secondary_employer_contact_number_error"},
+  baseIncome: {label: 'Base Income', name: 'secondary_current_salary', helpText: null, error: "secondary_current_salary_error"},
+  grossOvertime: {label: 'Annual Gross Overtime', name: 'secondary_gross_overtime', helpText: null, error: "secondary_gross_overtime_error"},
+  grossBonus: {label: 'Annual Gross Bonus', name: 'secondary_gross_bonus', helpText: null, error: "secondary_gross_bonus_error"},
+  grossCommission: {label: 'Annual Gross Commission', name: 'secondary_gross_commission', helpText: null, error: "secondary_gross_commission_error"},
+  grossInterest: {label: 'Annual Gross Interest', name: 'secondary_gross_interest', helpText: null, error: "secondary_gross_interest_error"},
+  incomeFrequency: {label: 'Income frequency', name: 'secondary_pay_frequency', helpText: null, error: "secondary_pay_frequency_error"},
   otherIncomes: {name: 'secondary_borrower_other_incomes'}
 };
 
 var Form = React.createClass({
-  mixins: [TextFormatMixin],
+  mixins: [TextFormatMixin, ValidationObject],
 
   getInitialState: function() {
-    return this.buildStateFromLoan(this.props.loan);
+    var state = this.buildStateFromLoan(this.props.loan);
+    state.isValid = true;
+    return state;
   },
 
   onChange: function(change) {
+    var key = Object.keys(change)[0];
+    var value = change[key];
+    if (key == 'address' && value == null) {
+      change['address'] = '';
+    }
     this.setState(change);
   },
 
   onFocus: function(field) {
     this.setState({focusedField: field});
+  },
+
+  componentDidUpdate: function(){
+    if(!this.state.isValid)
+      this.scrollTopError();
   },
 
   render: function() {
@@ -83,6 +98,20 @@ var Form = React.createClass({
             baseIncome={this.state[borrowerFields.baseIncome.name]}
             incomeFrequency={this.state[borrowerFields.incomeFrequency.name]}
             otherIncomes={this.state[borrowerFields.otherIncomes.name]}
+
+            currentEmployerNameError={this.state[borrowerFields.currentEmployerName.error]}
+            currentEmployerFullTextAddressError={this.state[borrowerFields.currentEmployerFullTextAddress.error]}
+            currentJobTitleError={this.state[borrowerFields.currentJobTitle.error]}
+            currentYearsAtEmployerError={this.state[borrowerFields.currentYearsAtEmployer.error]}
+            previousEmployerNameError={this.state[borrowerFields.previousEmployerName.error]}
+            previousJobTitleError={this.state[borrowerFields.previousJobTitle.error]}
+            previousYearsAtEmployerError={this.state[borrowerFields.previousYearsAtEmployer.error]}
+            previousMonthlyIncomeError={this.state[borrowerFields.previousMonthlyIncome.error]}
+            employerContactNameError={this.state[borrowerFields.employerContactName.error]}
+            employerContactNumberError={this.state[borrowerFields.employerContactNumber.error]}
+            baseIncomeError={this.state[borrowerFields.baseIncome.error]}
+            incomeFrequencyError={this.state[borrowerFields.incomeFrequency.error]}
+
             onFocus={this.onFocus}
             onChange={this.onChange}
             updateOtheIncomes={this.updateOtheIncomes}/>
@@ -108,6 +137,19 @@ var Form = React.createClass({
                 baseIncome={this.state[secondaryBorrowerFields.baseIncome.name]}
                 incomeFrequency={this.state[secondaryBorrowerFields.incomeFrequency.name]}
                 otherIncomes={this.state[secondaryBorrowerFields.otherIncomes.name]}
+                currentEmployerNameError={this.state[secondaryBorrowerFields.currentEmployerName.error]}
+                currentEmployerFullTextAddressError={this.state[secondaryBorrowerFields.currentEmployerFullTextAddress.error]}
+                currentJobTitleError={this.state[secondaryBorrowerFields.currentJobTitle.error]}
+                currentYearsAtEmployerError={this.state[secondaryBorrowerFields.currentYearsAtEmployer.error]}
+                previousEmployerNameError={this.state[secondaryBorrowerFields.previousEmployerName.error]}
+                previousJobTitleError={this.state[secondaryBorrowerFields.previousJobTitle.error]}
+                previousYearsAtEmployerError={this.state[secondaryBorrowerFields.previousYearsAtEmployer.error]}
+                previousMonthlyIncomeError={this.state[secondaryBorrowerFields.previousMonthlyIncome.error]}
+                employerContactNameError={this.state[secondaryBorrowerFields.employerContactName.error]}
+                employerContactNumberError={this.state[secondaryBorrowerFields.employerContactNumber.error]}
+                baseIncomeError={this.state[secondaryBorrowerFields.baseIncome.error]}
+                incomeFrequencyError={this.state[secondaryBorrowerFields.incomeFrequency.error]}
+
                 onFocus={this.onFocus}
                 onChange={this.onChange}
                 updateOtheIncomes={this.updateOtheIncomes}/>
@@ -280,10 +322,179 @@ var Form = React.createClass({
     this.setState(state);
   },
 
+  valid: function(){
+    var state = {};
+    var isValid = true;
+
+    if(this.elementIsEmpty(this.state[borrowerFields.currentEmployerName.name])){
+      state[borrowerFields.currentEmployerName.error] = true;
+      isValid = false;
+    }
+
+    if(this.elementIsEmpty(this.state[borrowerFields.currentEmployerAddress.name])){
+      state[borrowerFields.currentEmployerFullTextAddress.error] = true;
+      isValid = false;
+    }
+
+    if(this.elementIsEmpty(this.state[borrowerFields.currentJobTitle.name])){
+      state[borrowerFields.currentJobTitle.error] = true;
+      isValid = false;
+    }
+
+    if(this.elementIsEmpty(this.state[borrowerFields.currentYearsAtEmployer.name])){
+      state[borrowerFields.currentYearsAtEmployer.error] = true;
+      isValid = false;
+    }
+
+    if(this.elementIsEmpty(this.state[borrowerFields.employerContactName.name])){
+      state[borrowerFields.employerContactName.error] = true;
+      isValid = false;
+    }
+
+    if(this.elementIsEmpty(this.state[borrowerFields.employerContactNumber.name])){
+      state[borrowerFields.employerContactNumber.error] = true;
+      isValid = false;
+    }
+
+    if(this.elementIsEmpty(this.state[borrowerFields.baseIncome.name])){
+      state[borrowerFields.baseIncome.error] = true;
+      isValid = false;
+    }
+
+    if(this.elementIsEmpty(this.state[borrowerFields.incomeFrequency.name])){
+      state[borrowerFields.incomeFrequency.error] = true;
+      isValid = false;
+    }
+
+    if(!this.elementIsEmpty(this.state[borrowerFields.currentYearsAtEmployer.name]) && this.state[borrowerFields.currentYearsAtEmployer.name] < 2){
+      if(this.elementIsEmpty(this.state[borrowerFields.previousEmployerName.name])){
+        state[borrowerFields.previousEmployerName.error] = true;
+        isValid = false;
+      }
+
+      if(this.elementIsEmpty(this.state[borrowerFields.previousJobTitle.name])){
+        state[borrowerFields.previousJobTitle.error] = true;
+        isValid = false;
+      }
+
+      if(this.elementIsEmpty(this.state[borrowerFields.previousYearsAtEmployer.name])){
+        state[borrowerFields.previousYearsAtEmployer.error] = true;
+        isValid = false;
+      }
+
+      if(this.elementIsEmpty(this.state[borrowerFields.previousMonthlyIncome.name])){
+        state[borrowerFields.previousMonthlyIncome.error] = true;
+        isValid = false;
+      }
+    }
+
+    //secondary borrower
+    if(this.props.loan.secondary_borrower){
+      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.currentEmployerName.name])){
+        state[secondaryBorrowerFields.currentEmployerName.error] = true;
+        isValid = false;
+      }
+
+      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.currentEmployerAddress.name])){
+        state[secondaryBorrowerFields.currentEmployerFullTextAddress.error] = true;
+        isValid = false;
+      }
+
+      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.currentJobTitle.name])){
+        state[secondaryBorrowerFields.currentJobTitle.error] = true;
+        isValid = false;
+      }
+
+      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.currentYearsAtEmployer.name])){
+        state[secondaryBorrowerFields.currentYearsAtEmployer.error] = true;
+        isValid = false;
+      }
+
+      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.employerContactName.name])){
+        state[secondaryBorrowerFields.employerContactName.error] = true;
+        isValid = false;
+      }
+
+      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.employerContactNumber.name])){
+        state[secondaryBorrowerFields.employerContactNumber.error] = true;
+        isValid = false;
+      }
+
+      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.baseIncome.name])){
+        state[secondaryBorrowerFields.baseIncome.error] = true;
+        isValid = false;
+      }
+
+      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.incomeFrequency.name])){
+        state[secondaryBorrowerFields.incomeFrequency.error] = true;
+        isValid = false;
+      }
+
+      if(!this.elementIsEmpty(this.state[secondaryBorrowerFields.currentYearsAtEmployer.name]) && this.state[secondaryBorrowerFields.currentYearsAtEmployer.name] < 2){
+        if(this.elementIsEmpty(this.state[secondaryBorrowerFields.previousEmployerName.name])){
+          state[secondaryBorrowerFields.previousEmployerName.error] = true;
+          isValid = false;
+        }
+
+        if(this.elementIsEmpty(this.state[secondaryBorrowerFields.previousJobTitle.name])){
+          state[secondaryBorrowerFields.previousJobTitle.error] = true;
+          isValid = false;
+        }
+
+        if(this.elementIsEmpty(this.state[secondaryBorrowerFields.previousYearsAtEmployer.name])){
+          state[secondaryBorrowerFields.previousYearsAtEmployer.error] = true;
+          isValid = false;
+        }
+
+        if(this.elementIsEmpty(this.state[secondaryBorrowerFields.previousMonthlyIncome.name])){
+          state[secondaryBorrowerFields.previousMonthlyIncome.error] = true;
+          isValid = false;
+        }
+      }
+    }
+
+
+    _.each(this.state[borrowerFields.otherIncomes.name], function(otherIncome){
+      if(otherIncome.type === null){
+        otherIncome.typeError = true;
+      }
+      if(otherIncome.amount === null){
+        otherIncome.amountError = true;
+      }
+    });
+    state[borrowerFields.otherIncomes.name] = this.state[borrowerFields.otherIncomes.name];
+
+    _.each(this.state[secondaryBorrowerFields.otherIncomes.name], function(otherIncome){
+      if(otherIncome.type === null){
+        otherIncome.typeError = true;
+      }
+      if(otherIncome.amount === null){
+        otherIncome.amountError = true;
+      }
+    });
+    state[secondaryBorrowerFields.otherIncomes.name] = this.state[secondaryBorrowerFields.otherIncomes.name];
+
+    if(!isValid)
+      this.setState(state);
+
+    return isValid;
+  },
+
   save: function(event) {
-    this.setState({saving: true});
+    if(this.valid() == false) {
+      this.setState({isValid: false, saving: false});
+      return false;
+    }
+    this.setState({isValid: true, saving: true});
     this.props.saveLoan(this.buildLoanFromState(), 3);
     event.preventDefault();
+  },
+
+  scrollTopError: function(){
+    var offset = $(".tooltip").first().parents(".form-group").offset();
+    var top = offset === undefined ? 0 : offset.top;
+    $('html, body').animate({scrollTop: top}, 1000);
+    this.setState({isValid: true});
   }
 });
 

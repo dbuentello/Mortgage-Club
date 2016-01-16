@@ -110,20 +110,75 @@ class Borrower < ActiveRecord::Base
   end
 
   def completed?
-    first_name.present? && last_name.present? &&
-    ssn.present? && dob.present? && phone.present? &&
-      years_in_school.present? && marital_status.present? && current_address.present? &&
-      (dependent_count == 0 || (dependent_count > 0 && dependent_ages.count > 0))
+    return false if self_employed.nil?
+    return false unless first_name.present?
+    return false unless last_name.present?
+    return false unless ssn.present?
+    return false unless dob.present?
+    return false unless years_in_school.present?
+    return false unless marital_status.present?
+    return false unless dependent_count
+    return false if (dependent_count > 0 && dependent_ages.blank?)
+    return false unless current_address
+    return false if current_address.is_rental.nil?
+    return false unless current_address.years_at_address
+    return false if current_address.years_at_address < 0
+
+    if current_address.is_rental
+      return false unless current_address.monthly_rent
+    end
+    return false unless previous_address_completed?
+
+    true
+  end
+
+  def previous_address_completed?
+    if previous_address.present?
+      return false if previous_address.is_rental.nil?
+      return false unless previous_address.monthly_rent
+    end
+
+    true
   end
 
   def documents_completed?
-    first_w2.present? && second_w2.present? &&
-      first_paystub.present? && second_paystub.present? &&
-      first_bank_statement.present? && second_bank_statement.present?
+    if self_employed
+      required_documents = %w(first_personal_tax_return second_personal_tax_return
+                              first_business_tax_return second_business_tax_return
+                              first_bank_statement second_bank_statement)
+    else
+      required_documents = %w(first_w2 second_w2 first_paystub second_paystub
+                              first_federal_tax_return second_federal_tax_return
+                              first_bank_statement second_bank_statement)
+    end
+
+    (required_documents - documents.pluck(:document_type)).empty?
+  end
+
+  def secondary_borrower_documents_completed?
+    if self_employed
+      if is_file_taxes_jointly
+        required_documents = %w(first_business_tax_return second_business_tax_return first_bank_statement second_bank_statement)
+      else
+        required_documents = %w(first_personal_tax_return second_personal_tax_return first_business_tax_return second_business_tax_return first_bank_statement second_bank_statement)
+      end
+      return (required_documents - documents.pluck(:document_type)).empty?
+    else
+      if is_file_taxes_jointly
+        required_documents = %w(first_w2 second_w2 first_paystub second_paystub  first_bank_statement second_bank_statement)
+      else
+        required_documents = %w(first_w2 second_w2 first_paystub second_paystub first_federal_tax_return second_federal_tax_return  first_bank_statement second_bank_statement)
+      end
+      return (required_documents - documents.pluck(:document_type)).empty?
+    end
   end
 
   def income_completed?
-    current_employment.try(:completed?)
+    return false unless current_employment.try(:completed?)
+    return false unless current_employment.duration >= 2 || (current_employment.duration < 2 && previous_employment.previous_completed?)
+    return false unless gross_income
+
+    true
   end
 
   def credit_score

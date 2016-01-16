@@ -3,8 +3,10 @@ var _ = require('lodash');
 var React = require('react/addons');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var ValidationObject = require("mixins/ValidationMixins");
 var BooleanRadio = require('components/form/NewBooleanRadio');
 var FlashHandler = require('mixins/FlashHandler');
+var CheckCompletedLoanMixin = require('mixins/CheckCompletedLoanMixin');
 var Property = require('./Property');
 var Asset = require('./Asset');
 
@@ -15,7 +17,7 @@ var fields = {
 };
 
 var FormAssetsAndLiabilities = React.createClass({
-  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
+  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler, CheckCompletedLoanMixin, ValidationObject],
 
   getInitialState: function() {
     var currentUser = this.props.bootstrapData.currentUser;
@@ -33,6 +35,7 @@ var FormAssetsAndLiabilities = React.createClass({
     state.primary_property = this.props.loan.primary_property;
     state.subject_property = this.props.loan.subject_property;
     state.saving = false;
+    state.isValid = true;
     state.assets = this.props.loan.borrower.assets;
     if (state.assets.length == 0) {
       var defaultAsset = this.getDefaultAsset();
@@ -42,9 +45,17 @@ var FormAssetsAndLiabilities = React.createClass({
     return state;
   },
 
+  componentDidUpdate: function(){
+    if(!this.state.isValid)
+      this.scrollTopError();
+  },
+
   onChange: function(change) {
     var key = _.keys(change)[0];
     var value = _.values(change)[0];
+    console.dir(key)
+    console.dir(value)
+    console.dir(change)
     this.setState(this.setValue(this.state, key, value));
     if (change.own_investment_property == true && this.state.rental_properties.length == 0) {
       this.addProperty();
@@ -63,17 +74,27 @@ var FormAssetsAndLiabilities = React.createClass({
         property={property}
         liabilities = {this.state.liabilities}
         isShowRemove={this.state.rental_properties.length > 1}
-        onRemove={this.removeProperty}/>
+        onRemove={this.removeProperty}
+        addressError={property.addressError}
+        propertyTypeError={property.propertyTypeError}
+        marketPriceError={property.marketPriceError}
+        mortgageIncludesEscrowsError={property.mortgageIncludesEscrowsError}
+        estimatedHazardInsuranceError={property.estimatedHazardInsuranceError}
+        estimatedPropertyTaxError={property.estimatedPropertyTaxError}
+        grossRentalIncomeError={property.grossRentalIncomeError}/>
     );
   },
 
   eachAsset: function(asset, index) {
     return (
       <Asset asset={asset}
-             index={index}
-             key={index}
-             onUpdate={this.updateAsset}
-             onRemove={this.removeAsset}/>
+        index={index}
+        key={index}
+        onUpdate={this.updateAsset}
+        onRemove={this.removeAsset}
+        institutionNameError={asset.institutionNameError}
+        assetTypeError={asset.assetTypeError}
+        currentBalanceError={asset.currentBalanceError}/>
     );
   },
   // keepTrackOfSelectedLiabilities: function(unselectedLiability, selectedLiability) {
@@ -115,8 +136,16 @@ var FormAssetsAndLiabilities = React.createClass({
               <div className='form-group'>
                 <h3 className='text-uppercase'>{"The property you're buying"}</h3>
                 <Property
+                  index={'subject_property'}
                   property={this.state.subject_property}
-                  liabilities={this.state.liabilities}/>
+                  liabilities={this.state.liabilities}
+                  addressError={this.state.subject_property.addressError}
+                  propertyTypeError={this.state.subject_property.propertyTypeError}
+                  marketPriceError={this.state.subject_property.marketPriceError}
+                  mortgageIncludesEscrowsError={this.state.subject_property.mortgageIncludesEscrowsError}
+                  estimatedHazardInsuranceError={this.state.subject_property.estimatedHazardInsuranceError}
+                  estimatedPropertyTaxError={this.state.subject_property.estimatedPropertyTaxError}
+                  grossRentalIncomeError={this.state.subject_property.grossRentalIncomeError}/>
               </div>
             :
               null
@@ -127,8 +156,16 @@ var FormAssetsAndLiabilities = React.createClass({
               <div className='form-group'>
                 <h3 className='text-uppercase'>Your primary residence</h3>
                 <Property
+                  index={"primary_property"}
                   property={this.state.primary_property}
-                  liabilities={this.state.liabilities}/>
+                  liabilities={this.state.liabilities}
+                  addressError={this.state.primary_property.addressError}
+                  propertyTypeError={this.state.primary_property.propertyTypeError}
+                  marketPriceError={this.state.primary_property.marketPriceError}
+                  mortgageIncludesEscrowsError={this.state.primary_property.mortgageIncludesEscrowsError}
+                  estimatedHazardInsuranceError={this.state.primary_property.estimatedHazardInsuranceError}
+                  estimatedPropertyTaxError={this.state.primary_property.estimatedPropertyTaxError}
+                  grossRentalIncomeError={this.state.primary_property.grossRentalIncomeError}/>
               </div>
             :
               null
@@ -204,7 +241,7 @@ var FormAssetsAndLiabilities = React.createClass({
   },
 
   updateAsset: function(index, asset){
-    _.assign(this.state.assets[index], asset);
+    var tests = _.assign(this.state.assets[index], asset);
   },
 
   removeAsset: function(index) {
@@ -221,9 +258,129 @@ var FormAssetsAndLiabilities = React.createClass({
     }
   },
 
-  save: function(event) {
+  valid: function(){
     var valid = true;
-    this.setState({saving: true});
+
+    if (this.state.primary_property && this.state.primary_property != this.state.subject_property){
+      var primary_property = this.state.primary_property;
+
+      if(this.elementIsEmpty(primary_property.address)){
+        this.state.primary_property.addressError = true
+        valid = false;
+      }
+      if(this.elementIsEmpty(primary_property.property_type)){
+        this.state.primary_property.propertyTypeError = true
+        valid = false;
+      }
+      if(this.elementIsEmpty(primary_property.estimated_hazard_insurance)){
+        this.state.primary_property.estimatedHazardInsuranceError = true
+        valid = false;
+      }
+      if(this.elementIsEmpty(primary_property.estimated_property_tax)){
+        this.state.primary_property.estimatedPropertyTaxError = true
+        valid = false;
+      }
+      if(this.elementIsEmpty(primary_property.market_price)){
+        this.state.primary_property.marketPriceError = true
+        valid = false;
+      }
+      if(this.elementIsEmpty(primary_property.mortgage_includes_escrows)){
+        this.state.primary_property.mortgageIncludesEscrowsError = true
+        valid = false;
+      }
+    }
+
+    if (this.state.subject_property) {
+      var subject_property = this.state.subject_property;
+
+      if(this.elementIsEmpty(subject_property.address)){
+        this.state.subject_property.addressError = true
+        valid = false;
+      }
+      if(this.elementIsEmpty(subject_property.property_type)){
+        this.state.subject_property.propertyTypeError = true
+        valid = false;
+      }
+      if(this.elementIsEmpty(subject_property.estimated_hazard_insurance)){
+        this.state.subject_property.estimatedHazardInsuranceError = true
+        valid = false;
+      }
+      if(this.elementIsEmpty(subject_property.estimated_property_tax)){
+        this.state.subject_property.estimatedPropertyTaxError = true
+        valid = false;
+      }
+      if(this.elementIsEmpty(subject_property.market_price)){
+        this.state.subject_property.marketPriceError = true
+        valid = false;
+      }
+      if(this.elementIsEmpty(subject_property.mortgage_includes_escrows)){
+        this.state.subject_property.mortgageIncludesEscrowsError = true
+        valid = false;
+      }
+    }
+
+    if(this.state.own_investment_property) {
+      _.each(this.state.rental_properties, function(property, index){
+        if(this.elementIsEmpty(property.address)){
+          property.addressError = true
+          valid = false;
+        }
+        if(this.elementIsEmpty(property.property_type)){
+          property.propertyTypeError = true;
+          valid = false;
+        }
+        if(this.elementIsEmpty(property.estimated_hazard_insurance)){
+          property.estimatedHazardInsuranceError = true;
+          valid = false;
+        }
+        if(this.elementIsEmpty(property.estimated_property_tax)){
+          property.estimatedPropertyTaxError = true;
+          valid = false;
+        }
+        if(this.elementIsEmpty(property.market_price)){
+          property.marketPriceError = true;
+          valid = false;
+        }
+        if(this.elementIsEmpty(property.mortgage_includes_escrows)){
+          property.mortgageIncludesEscrowsError = true;
+          valid = false;
+        }
+      }, this)
+    }
+
+    _.each(this.state.assets, function(asset, index){
+      if(this.elementIsEmpty(asset.institution_name)){
+        asset.institutionNameError = true;
+        valid = false;
+      }
+      if(this.elementIsEmpty(asset.asset_type)){
+        asset.assetTypeError = true;
+        valid = false;
+      }
+      if(this.elementIsEmpty(asset.current_balance)){
+        asset.currentBalanceError = true;
+        valid = false;
+      }
+    }, this);
+    return valid;
+  },
+
+  scrollTopError: function(){
+    var offset = $(".tooltip").first().parents(".form-group").offset();
+    var top = offset === undefined ? 0 : offset.top;
+    $('html, body').animate({scrollTop: top}, 1000);
+    this.setState({isValid: true});
+  },
+
+  save: function(event) {
+    event.preventDefault();
+
+    if (this.valid() == false){
+      this.setState({saving: false, isValid: false});
+      return false;
+    }
+
+    this.setState({saving: true, isValid: true});
 
     var primary_property = this.state.primary_property;
     if (primary_property){
@@ -238,29 +395,16 @@ var FormAssetsAndLiabilities = React.createClass({
     var rental_properties = [];
     for (var i = 0; i < this.state.rental_properties.length; i++) {
       var rental_property = this.state.rental_properties[i];
+      rental_property.usage = 'rental_property';
       rental_property.address_attributes = rental_property.address;
       rental_properties.push(rental_property);
     }
 
     var _assets = [];
     _.each(this.state.assets, function(asset){
-      // if (asset.institution_name){
-      //   asset.current_balance = this.currencyToNumber(asset.current_balance);
-      //   _assets.push(asset);
-      // }
-      if (asset.institution_name == null || asset.current_balance == null || asset.asset_type == null){
-        var flash = { "alert-danger": 'You must provide info about Institution Name, Asset Type and Current Balance.' };
-        this.showFlashes(flash);
-        valid = false;
-        this.setState({saving: false});
-      }
       asset.current_balance = this.currencyToNumber(asset.current_balance);
       _assets.push(asset);
     }, this);
-
-    if (valid == false){
-      return;
-    }
 
     $.ajax({
       url: '/borrower_assets',
@@ -277,31 +421,30 @@ var FormAssetsAndLiabilities = React.createClass({
           dataType: 'json',
           data: {
             loan_id: this.props.loan.id,
-            primary_property: primary_property,
-            subject_property: subject_property,
-            rental_properties: rental_properties,
+            primary_property: this.state.primary_property,
+            subject_property: this.state.subject_property,
+            rental_properties: this.state.rental_properties,
             own_investment_property: this.state.own_investment_property
           },
           success: function(response) {
-            this.props.setupMenu(response, 5);
-            this.props.bootstrapData.liabilities = response.liabilities;
-            // this.setState({saving: false});
-          },
+            if (this.loanIsCompleted(response.loan)) {
+              this.props.goToAllDonePage(response.loan);
+            }
+            else {
+              this.props.setupMenu(response, 5);
+              this.props.bootstrapData.liabilities = response.liabilities;
+            }
+          }.bind(this),
           error: function(response, status, error) {
             this.setState({saving: false});
-            alert(response.responseJSON.message);
             // this.setState({saving: false});
           }
         });
       },
       error: function(response, status, error) {
         this.setState({saving: false});
-        var flash = { "alert-danger": response.responseJSON.message };
-        this.showFlashes(flash);
       }.bind(this)
     });
-
-    event.preventDefault();
   }
 });
 

@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 var StaticFieldMixin = require('mixins/StaticFieldMixin');
 var UpdateChangeMixin = require('mixins/UpdateChangeMixin');
-
+var ValidationField = require('./ValidationField');
 var NewSelectField = React.createClass({
   mixins: [StaticFieldMixin, UpdateChangeMixin],
 
@@ -86,27 +86,34 @@ var NewSelectField = React.createClass({
   },
 
   render: function() {
+    var requiredMessage = this.props.requiredMessage || "This field is required";
+    var unSelected = this.props.activateRequiredField&&(this.props.value==null || this.props.value==""|| this.props.value.trim()=="" || this.state.name==null || this.state.name.trim()=="")
     return (
-      <div className="select-box">
-        <h6>{this.props.label}</h6>
-        {
-          this.props.helpText
-          ?
-            <p className="helpful-text">
-              <img src="/icons/info.png" />{this.props.helpText}
-            </p>
-          :
-            null
-        }
-        <select className="form-control" id={this.props.keyName} name={this.props.label} onChange={this.handleChange} onFocus={this.handleFocus} value={this.props.value || ''}>
-          {(this.props.placeholder) ? <option value="" disabled={true}>{this.props.placeholder}</option> : null}
-          {this.state.options.map(function (option, i) {
-            return (
-              <option key={'select_' + (option.value || option.name) + i} value={option.value || ''}>{option.name}</option>
-            );
-          }, this)}
-        </select>
-        <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+      <div>
+        <div className="select-box">
+          <h6>{this.props.label}</h6>
+          {
+            this.props.helpText
+            ?
+              <p className="helpful-text">
+                <img src="/icons/info.png" />{this.props.helpText}
+              </p>
+            :
+              null
+          }
+          <div>
+            <select className="form-control" id={this.props.keyName} name={this.props.label} onChange={this.handleChange} onFocus={this.handleFocus} value={this.props.value || ''}>
+              {(this.props.placeholder) ? <option value="" disabled={true}>{this.props.placeholder}</option> : null}
+              {this.state.options.map(function (option, i) {
+                return (
+                  <option key={'select_' + (option.value || option.name) + i} value={option.value || ''}>{option.name}</option>
+                );
+              }, this)}
+            </select>
+            <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+          </div>
+        </div>
+        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage}/>
       </div>
     );
   },

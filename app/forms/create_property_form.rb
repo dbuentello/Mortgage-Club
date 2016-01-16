@@ -36,7 +36,7 @@ class CreatePropertyForm
         property = Property.find(params[:id])
         property.update(property_params(params))
       end
-      property.update_mortgage_payment_amount
+      # property.update_mortgage_payment_amount
       update_liabilities(property, params)
     end
   end
@@ -45,7 +45,7 @@ class CreatePropertyForm
     return unless subject_property
 
     subject_property.update(property_params(subject_property_params))
-    subject_property.update_mortgage_payment_amount
+    # subject_property.update_mortgage_payment_amount
     update_liabilities(subject_property, subject_property_params)
   end
 
@@ -53,7 +53,7 @@ class CreatePropertyForm
     return unless primary_property
 
     primary_property.update(property_params(primary_property_params))
-    primary_property.update_mortgage_payment_amount
+    # primary_property.update_mortgage_payment_amount
     update_liabilities(primary_property, primary_property_params)
   end
 

@@ -38,7 +38,11 @@ Feature: DocumentsTabAtNewLoanPage
         And I choose "true_secondary_borrower_currently_own"
         And I fill in "secondary_borrower_years_in_current_address" with "5"
         And I choose "false_secondary_borrower_self_employed"
+        And I select "Married" from "secondary_borrower_marital_status"
+        And I fill in "secondary_borrower_dependent_count" with "1"
+        And I fill in "secondary_borrower_dependent_ages" with "1"
         Then I click on "Save and Continue"
+        And I wait for 2 seconds
       When I click "Documents" in the "#tabDocuments"
         And I should see "Do you and your co-borrower file taxes jointly?"
         When I choose "false_is_file_taxes_jointly"
@@ -73,5 +77,5 @@ Feature: DocumentsTabAtNewLoanPage
           And I should see "Business tax return - Previous year"
           And I should see "Bank statement - Most recent month"
           And I should see "Bank statement - Previous month"
-        Then I click on "Save and Continue"
+        Then I click on "Next"
           And I should see "Name of current employer"

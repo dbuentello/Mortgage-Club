@@ -33,7 +33,24 @@ class Employment < ActiveRecord::Base
   ]
 
   def completed?
-    employer_name.present? && address.present? && employer_contact_name.present? && employer_contact_number.present? && current_salary.present?
+    return false unless employer_name.present?
+    return false unless address.present?
+    return false unless employer_contact_name.present?
+    return false unless employer_contact_number.present?
+    return false unless current_salary.present?
+    return false unless job_title.present?
+    return false unless pay_frequency.present?
+    return false unless duration.present?
+
+    true
+  end
+
+  def previous_completed?
+    return false unless employer_name.present?
+    return false unless job_title.present?
+    return false unless duration.present?
+    return false unless monthly_income.present?
+
     true
   end
 

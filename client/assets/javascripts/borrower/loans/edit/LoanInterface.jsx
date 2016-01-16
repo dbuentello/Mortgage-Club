@@ -8,8 +8,12 @@ var AssetsAndLiabilities = require("./FormAssetsAndLiabilities/FormAssetsAndLiab
 var Declarations = require("./FormDeclarations");
 var CreditCheck = require("./FormCreditCheck");
 var Documents = require("./FormDocuments");
+var AllDonePage = require("./AllDonePage");
+var CheckCompletedLoanMixin = require('mixins/CheckCompletedLoanMixin');
 
 var LoanInterface = React.createClass({
+  mixins: [CheckCompletedLoanMixin],
+
   getInitialState: function() {
     var loan = this.props.bootstrapData.currentLoan;
     var borrower_type = this.props.bootstrapData.borrower_type;
@@ -19,17 +23,18 @@ var LoanInterface = React.createClass({
       menu: menu,
       active: _.findWhere(menu, {complete: false}) || menu[0],
       loan: loan,
-      borrower_type: borrower_type
+      borrower_type: borrower_type,
+      completedLoan: this.loanIsCompleted(loan)
     };
   },
 
   render: function() {
     var activeItem = this.state.active;
 
-    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu}/>;
+    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu} goToAllDonePage={this.goToAllDonePage}/>;
 
     return (
-      <div className="content accountPart">
+      <div className="content accountPart editLoan">
         <div className="container">
           <div className="row">
             <div className="col-xs-3 subnav">
@@ -54,7 +59,13 @@ var LoanInterface = React.createClass({
                 </a>
               </div>
             </div>
-            {content}
+            {
+              this.state.completedLoan
+              ?
+                <AllDonePage loan={this.state.loan}/>
+              :
+                {content}
+            }
           </div>
         </div>
       </div>
@@ -100,6 +111,10 @@ var LoanInterface = React.createClass({
 
   },
 
+  goToAllDonePage: function(loan) {
+    this.setState({menu: this.buildMenu(loan), completedLoan: true});
+  },
+
   save: function(loan, step, skip_change_page, last_step = false) {
     $.ajax({
       url: "/loans/" + this.state.loan.id,
@@ -111,13 +126,27 @@ var LoanInterface = React.createClass({
         current_step: step
       },
       success: function(response) {
-        if (last_step == false) {
-          this.setupMenu(response, step, skip_change_page);
-        } else {
-          location.href = "/underwriting?loan_id=" + this.state.loan.id;
-          // location.href = "/rates?loan_id=" + this.state.loan.id;
+        if (this.loanIsCompleted(response.loan)) {
+          this.goToAllDonePage(response.loan);
         }
-      },
+        else {
+          if (last_step == false) {
+            this.setupMenu(response, step, skip_change_page);
+          } else {
+            var menu = this.buildMenu(response.loan);
+            var uncompleted_step = _.findWhere(menu, {complete: false});
+
+            if (uncompleted_step) {
+              this.setState({
+                loan: response.loan,
+                menu: menu,
+                active: uncompleted_step,
+                completedLoan: false
+              });
+            }
+          }
+        }
+      }.bind(this),
       error: function(response, status, error) {
         alert(error);
       }

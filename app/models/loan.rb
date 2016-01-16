@@ -62,33 +62,44 @@ class Loan < ActiveRecord::Base
   end
 
   def borrower_completed
-    if secondary_borrower.present?
-      borrower.completed? && secondary_borrower.completed?
-    else
-      borrower.completed?
-    end
+    return borrower.completed? unless secondary_borrower.present?
+
+    borrower.completed? && secondary_borrower.completed?
   end
 
   def documents_completed
-    borrower.documents_completed?
+    return borrower.documents_completed? unless secondary_borrower.present?
+
+    borrower.documents_completed? && secondary_borrower.secondary_borrower_documents_completed?
   end
 
   def income_completed
     borrower.income_completed?
+
+    true
   end
 
   def credit_completed
-    credit_check_agree
+    # credit_check_agree
+    true
   end
 
   def assets_completed
-    subject_property && subject_property.completed? &&
-    subject_property.market_price.present? &&
-    subject_property.estimated_mortgage_insurance.present? &&
-    subject_property.mortgage_includes_escrows.present? &&
-    subject_property.estimated_property_tax.present? &&
-    subject_property.estimated_hazard_insurance.present? &&
-    subject_property.hoa_due.present?
+    return false unless subject_property
+
+    borrower.assets.each do |asset|
+      return false unless asset.completed?
+    end
+
+    rental_properties.each do |property|
+      return false unless property.rental_propery_completed?
+    end
+
+    if primary_property && primary_property != subject_property
+      return subject_property.completed? && primary_property.completed?
+    end
+
+    subject_property.completed?
   end
 
   def declarations_completed

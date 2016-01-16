@@ -19,10 +19,11 @@ var OtherIncome = React.createClass({
   onChange: function(change) {
     var key = Object.keys(change)[0];
     var value = change[key];
-    if (key == 'income.type') {
+
+    if (key.indexOf('incomes_type') > -1){
       this.props.onChangeType(value, this.props.index);
     }
-    if (key == 'income.amount') {
+    if (key.indexOf('incomes_amount') > -1) {
       this.props.onChangeAmount(value, this.props.index);
     }
   },
@@ -37,9 +38,10 @@ var OtherIncome = React.createClass({
       <div className={this.props.type + ' form-group'}>
         <div className='col-md-6'>
           <SelectField
+            activateRequiredField={this.props.typeError}
             label='Income Type'
             ref="incomeType"
-            keyName={'income.type'}
+            keyName={this.props.name + '_type_' + index}
             value={this.props.type}
             options={otherIncomes}
             editable={true}
@@ -48,9 +50,10 @@ var OtherIncome = React.createClass({
         </div>
         <div className='col-md-5'>
           <TextField
+            activateRequiredField={this.props.amountError}
             label='Annual Gross Amount'
             ref="incomeAmount"
-            keyName={'income.amount'}
+            keyName={this.props.name + '_amount_' + index}
             value={this.props.amount}
             editable={true}
             onChange={this.onChange}/>

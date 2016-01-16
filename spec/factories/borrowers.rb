@@ -11,12 +11,14 @@ FactoryGirl.define do
     f.marital_status { Random.rand(3) }
 
     # random number of dependents (max 4), each up to age 25
-    f.dependent_ages { (0...Random.rand(0..4)).to_a.map {Random.rand(1..25)} }
+    f.dependent_ages { (1..Random.rand(2..4)).to_a }
     f.gross_income { Faker::Number.number(7) }
     f.gross_overtime { Faker::Number.number(6) }
     f.gross_bonus { Faker::Number.number(6) }
     f.gross_commission { Faker::Number.number(6) }
-
+    # f.gross_interest { Faker::Number.number(6) } // to make income_tab_at_new_loan_page.feature:25 works well.
+    f.self_employed { false }
+    f.is_file_taxes_jointly { [true, false].sample }
     f.dependent_count { Faker::Number.number(6) }
 
     after(:build) do |borrower, evaluator|
