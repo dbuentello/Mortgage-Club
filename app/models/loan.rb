@@ -79,21 +79,7 @@ class Loan < ActiveRecord::Base
   end
 
   def assets_completed
-    return false unless subject_property
-
-    borrower.assets.each do |asset|
-      return false unless asset.completed?
-    end
-
-    rental_properties.each do |property|
-      return false unless property.rental_propery_completed?
-    end
-
-    if primary_property && primary_property != subject_property
-      return subject_property.completed? && primary_property.completed?
-    end
-
-    subject_property.completed?
+    CompletedLoanServices::TabAssets.call(self);
   end
 
   def declarations_completed
