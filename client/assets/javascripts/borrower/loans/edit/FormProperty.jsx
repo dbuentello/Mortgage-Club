@@ -89,7 +89,7 @@ var FormProperty = React.createClass({
         state.estimatedPropertyTax = monthlyTax;
         state.estimatedHazardInsurance = monthlyInsurance;
         state.yearBuilt = yearBuilt;
-        state.zillowImageUrl = zillowImageUrl
+        state.zillowImageUrl = zillowImageUrl;
         state[fields.originalPurchasePrice.name] = this.formatCurrency(lastSoldPrice);
         state[fields.originalPurchaseYear.name] = purchaseYear;
         this.setState(state);
