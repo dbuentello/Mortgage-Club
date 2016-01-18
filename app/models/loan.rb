@@ -58,7 +58,7 @@ class Loan < ActiveRecord::Base
   end
 
   def property_completed
-    properties.size > 0 && subject_property && subject_property.completed? && purpose_completed?
+    CompletedLoanServices::TabProperty.call(self);
   end
 
   def borrower_completed
@@ -104,11 +104,6 @@ class Loan < ActiveRecord::Base
 
   def declarations_completed
     borrower.declaration && borrower.declaration.completed?
-  end
-
-  def purpose_completed?
-    purpose.present? && subject_property && (purchase? && subject_property.purchase_price.present? ||
-      refinance? && subject_property.refinance_completed?)
   end
 
   def primary_property
