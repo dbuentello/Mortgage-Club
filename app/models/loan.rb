@@ -70,9 +70,7 @@ class Loan < ActiveRecord::Base
   end
 
   def income_completed
-    borrower.income_completed?
-
-    true
+    CompletedLoanServices::TabIncome.call(self);
   end
 
   def credit_completed
