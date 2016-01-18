@@ -58,10 +58,7 @@ class Loan < ActiveRecord::Base
   end
 
   def property_completed
-    CompletedLoanServices::TabProperty.new({
-      loan: self,
-      subject_property: subject_property
-    }).call
+    CompletedLoanServices::TabProperty.new(self, subject_property).call
   end
 
   def borrower_completed
@@ -102,9 +99,7 @@ class Loan < ActiveRecord::Base
   end
 
   def declarations_completed
-    CompletedLoanServices::TabDeclarations.new({
-      declaration: borrower.declaration,
-    }).call
+    CompletedLoanServices::TabDeclarations.new(borrower.declaration).call
   end
 
   def primary_property

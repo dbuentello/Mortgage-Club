@@ -21,15 +21,12 @@ module CompletedLoanServices
       return false unless borrower.years_in_school.present?
       return false unless borrower.marital_status.present?
       return false unless borrower.dependent_count
-      return false if (borrower.dependent_count > 0 && borrower.dependent_ages.blank?)
+      return false if borrower.dependent_count > 0 && borrower.dependent_ages.blank?
       return false unless borrower.current_address
       return false if borrower.current_address.is_rental.nil?
       return false unless borrower.current_address.years_at_address
       return false if borrower.current_address.years_at_address < 0
-
-      if borrower.current_address.is_rental
-        return false unless borrower.current_address.monthly_rent
-      end
+      return false if borrower.current_address.is_rental && !borrower.current_address.monthly_rent
       return false unless previous_address_completed?(borrower)
 
       true

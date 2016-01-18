@@ -14,22 +14,33 @@ module CompletedLoanServices
 
     def call
       return false unless subject_property
+      return false unless assets_completed?
+      return false unless rental_properties_completed?
+      return available_primary_property? && property_completed?(subject_property) && property_completed?(primary_property)
 
+      property_completed?(subject_property)
+    end
+
+    def assets_completed?
       assets.each do |asset|
         return false unless asset_completed?(asset)
       end
 
+      true
+    end
+
+    def rental_properties_completed?
       if own_investment_property
         rental_properties.each do |property|
           return false unless property_completed?(property)
         end
       end
 
-      if primary_property && primary_property != subject_property
-        return property_completed?(subject_property) && property_completed?(primary_property)
-      end
+      true
+    end
 
-      property_completed?(subject_property)
+    def available_primary_property?
+      primary_property && primary_property != subject_property
     end
 
     def asset_completed?(asset)
@@ -41,8 +52,22 @@ module CompletedLoanServices
     end
 
     def property_completed?(property)
-      false
-      # CompletedLoanServices::TabProperty.subject_property_completed?(property)
+      return false unless property.property_type.present?
+      return false unless property.address.present?
+      return false unless address_completed?(property.address)
+      return false unless property.usage.present?
+      return false unless property.market_price.present?
+      return false unless property.mortgage_includes_escrows.present?
+      return false unless property.estimated_property_tax.present?
+      return false unless property.estimated_hazard_insurance.present?
+
+      true
+    end
+
+    def address_completed?(address)
+      return false if address.street_address.blank? && address.city.blank? && address.state.blank? && address.street_address2.blank?
+
+      address.full_text.present?
     end
   end
 end

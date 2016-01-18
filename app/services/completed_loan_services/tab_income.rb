@@ -11,7 +11,7 @@ module CompletedLoanServices
 
     def call
       return false unless employment_completed?
-      return false unless current_employment.duration >= 2 || (current_employment.duration < 2 && previous_employment_completed?)
+      return false unless current_employment_duration_valid?
       return false unless borrower.gross_income
 
       true
@@ -28,6 +28,10 @@ module CompletedLoanServices
       return false unless current_employment.duration.present?
 
       true
+    end
+
+    def current_employment_duration_valid?
+      current_employment.duration >= 2 || (current_employment.duration < 2 && previous_employment_completed?)
     end
 
     def previous_employment_completed?
