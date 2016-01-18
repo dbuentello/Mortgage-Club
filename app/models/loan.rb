@@ -58,19 +58,32 @@ class Loan < ActiveRecord::Base
   end
 
   def property_completed
-    CompletedLoanServices::TabProperty.call(self)
+    CompletedLoanServices::TabProperty.new({
+      loan: self,
+      subject_property: subject_property
+    }).call
   end
 
   def borrower_completed
-    CompletedLoanServices::TabBorrower.call(self)
+    CompletedLoanServices::TabBorrower.new({
+      borrower: borrower,
+      secondary_borrower: secondary_borrower
+    }).call
   end
 
   def documents_completed
-    CompletedLoanServices::TabDocuments.call(self)
+    CompletedLoanServices::TabDocuments.new({
+      borrower: borrower,
+      secondary_borrower: secondary_borrower
+    }).call
   end
 
   def income_completed
-    CompletedLoanServices::TabIncome.call(self)
+    CompletedLoanServices::TabIncome.new({
+      borrower: borrower,
+      current_employment: borrower.current_employment,
+      previous_employment: borrower.previous_employment
+    }).call
   end
 
   def credit_completed
@@ -79,11 +92,19 @@ class Loan < ActiveRecord::Base
   end
 
   def assets_completed
-    CompletedLoanServices::TabAssets.call(self)
+    CompletedLoanServices::TabAssets.new({
+      assets: borrower.assets,
+      subject_property: subject_property,
+      rental_properties: rental_properties,
+      primary_property: primary_property,
+      own_investment_property: own_investment_property
+    }).call
   end
 
   def declarations_completed
-    CompletedLoanServices::TabDeclarations.call(self)
+    CompletedLoanServices::TabDeclarations.new({
+      declaration: borrower.declaration,
+    }).call
   end
 
   def primary_property

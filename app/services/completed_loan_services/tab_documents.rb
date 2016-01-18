@@ -1,13 +1,18 @@
 module CompletedLoanServices
-  class TabDocuments < Base
-    def self.call(loan)
-      @loan = loan
+  class TabDocuments
+    attr_accessor :borrower, :secondary_borrower
 
-      return borrower_documents_completed?(@loan.borrower) unless @loan.secondary_borrower.present?
-      borrower_documents_completed?(@loan.borrower) && co_borrower_documents_completed?(secondary_borrower)
+    def initialize(args)
+      @borrower = args[:borrower]
+      @secondary_borrower = args[:secondary_borrower]
     end
 
-    def self.borrower_documents_completed?(borrower)
+    def call
+      return borrower_documents_completed?(borrower) unless secondary_borrower.present?
+      borrower_documents_completed?(borrower) && co_borrower_documents_completed?(secondary_borrower)
+    end
+
+    def borrower_documents_completed?(borrower)
       if borrower.self_employed
         required_documents = %w(first_personal_tax_return second_personal_tax_return
                                 first_business_tax_return second_business_tax_return
@@ -21,7 +26,7 @@ module CompletedLoanServices
       (required_documents - borrower.documents.pluck(:document_type)).empty?
     end
 
-    def self.co_borrower_documents_completed?(borrower)
+    def co_borrower_documents_completed?(borrower)
       if borrower.self_employed
         if borrower.is_file_taxes_jointly
           required_documents = %w(first_business_tax_return second_business_tax_return first_bank_statement second_bank_statement)

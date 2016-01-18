@@ -1,12 +1,16 @@
 module CompletedLoanServices
-  class TabDeclarations < Base
-    def self.call(loan)
-      @loan = loan
+  class TabDeclarations
+    attr_accessor :declaration
 
-      @loan.borrower.declaration && declaration_completed?(@loan.borrower.declaration)
+    def initialize(args)
+      @declaration = args[:declaration]
     end
 
-    def self.declaration_completed?(declaration)
+    def call
+      declaration && declaration_completed?
+    end
+
+    def declaration_completed?
       !(declaration.outstanding_judgment.nil? && declaration.bankrupt.nil? &&
         declaration.property_foreclosed.nil? && declaration.party_to_lawsuit.nil? &&
         declaration.loan_foreclosure.nil? && declaration.child_support.nil? &&

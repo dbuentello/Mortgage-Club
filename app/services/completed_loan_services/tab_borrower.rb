@@ -1,13 +1,18 @@
 module CompletedLoanServices
-  class TabBorrower < Base
-    def self.call(loan)
-      @loan = loan
+  class TabBorrower
+    attr_accessor :borrower, :secondary_borrower
 
-      return borrower_completed?(@loan.borrower) unless @loan.secondary_borrower.present?
-      borrower_completed?(@loan.borrower) && borrower_completed?(@loan.secondary_borrower)
+    def initialize(args)
+      @borrower = args[:borrower]
+      @secondary_borrower = args[:secondary_borrower]
     end
 
-    def self.borrower_completed?(borrower)
+    def call
+      return borrower_completed?(borrower) unless secondary_borrower.present?
+      borrower_completed?(borrower) && borrower_completed?(secondary_borrower)
+    end
+
+    def borrower_completed?(borrower)
       return false if borrower.self_employed.nil?
       return false unless borrower.first_name.present?
       return false unless borrower.last_name.present?
@@ -30,7 +35,7 @@ module CompletedLoanServices
       true
     end
 
-    def self.previous_address_completed?(borrower)
+    def previous_address_completed?(borrower)
       if borrower.previous_address.present?
         return false if borrower.previous_address.is_rental.nil?
         return false unless borrower.previous_address.monthly_rent
