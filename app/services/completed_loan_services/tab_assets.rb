@@ -16,7 +16,7 @@ module CompletedLoanServices
       return false unless subject_property
       return false unless assets_completed?
       return false unless rental_properties_completed?
-      return available_primary_property? && property_completed?(subject_property) && property_completed?(primary_property)
+      return property_completed?(subject_property) && property_completed?(primary_property) if available_primary_property?
 
       property_completed?(subject_property)
     end

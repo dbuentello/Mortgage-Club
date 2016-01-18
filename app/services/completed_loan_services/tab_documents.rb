@@ -39,13 +39,13 @@ module CompletedLoanServices
     def docoments_self_employed_completed?
       required_documents = borrower.is_file_taxes_jointly ? DOCUMENTS_BORROWER_SELF_EMPLOYED_TAXES_JOINLY : DOCUMENTS_BORROWER_SELF_EMPLOYED
 
-      return (required_documents - borrower.documents.pluck(:document_type)).empty?
+      (required_documents - borrower.documents.pluck(:document_type)).empty?
     end
 
     def docoments_not_self_employed_completed?
       required_documents = borrower.is_file_taxes_jointly ? DOCUMENTS_BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY : DOCUMENTS_BORROWER_NOT_SELF_EMPLOYED
 
-      return (required_documents - borrower.documents.pluck(:document_type)).empty?
+      (required_documents - borrower.documents.pluck(:document_type)).empty?
     end
   end
 end

@@ -19,7 +19,7 @@ module CompletedLoanServices
     def subject_property_completed?
       return false unless subject_property.property_type.present?
       return false unless subject_property.address.present?
-      return false unless address_completed?(subject_property.address)
+      return false unless address_completed?
       return false unless subject_property.usage.present?
       return false unless subject_property.market_price.present?
       return false unless subject_property.mortgage_includes_escrows.present?
@@ -44,7 +44,8 @@ module CompletedLoanServices
       true
     end
 
-    def address_completed?(address)
+    def address_completed?
+      address = subject_property.address
       return false if address.street_address.blank? && address.city.blank? && address.state.blank? && address.street_address2.blank?
 
       address.full_text.present?
