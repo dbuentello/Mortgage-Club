@@ -9,8 +9,10 @@ module CompletedLoanServices
         return false unless asset_completed?(asset)
       end
 
-      @loan.rental_properties.each do |property|
-        return false unless property_completed?(property)
+      if @loan.own_investment_property
+        @loan.rental_properties.each do |property|
+          return false unless property_completed?(property)
+        end
       end
 
       if @loan.primary_property && @loan.primary_property != @loan.subject_property

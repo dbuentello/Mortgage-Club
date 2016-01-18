@@ -11,18 +11,18 @@ module CompletedLoanServices
     def self.property_completed?
       return false unless @loan.properties.size > 0
       return false unless @loan.subject_property
-      return false unless subject_property_completed?
+      return false unless subject_property_completed?(@loan.subject_property)
 
       true
     end
 
-    def self.subject_property_completed?
-      property = @loan.subject_property
-
+    def self.subject_property_completed?(property)
       return false unless property.property_type.present?
       return false unless property.address.present?
       return false unless address_completed?(property.address)
       return false unless property.usage.present?
+
+
       return false unless property.market_price.present?
       return false unless property.mortgage_includes_escrows.present?
       return false unless property.estimated_property_tax.present?

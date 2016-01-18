@@ -58,19 +58,19 @@ class Loan < ActiveRecord::Base
   end
 
   def property_completed
-    CompletedLoanServices::TabProperty.call(self);
+    CompletedLoanServices::TabProperty.call(self)
   end
 
   def borrower_completed
-    CompletedLoanServices::TabBorrower.call(self);
+    CompletedLoanServices::TabBorrower.call(self)
   end
 
   def documents_completed
-    CompletedLoanServices::TabDocuments.call(self);
+    CompletedLoanServices::TabDocuments.call(self)
   end
 
   def income_completed
-    CompletedLoanServices::TabIncome.call(self);
+    CompletedLoanServices::TabIncome.call(self)
   end
 
   def credit_completed
@@ -79,11 +79,11 @@ class Loan < ActiveRecord::Base
   end
 
   def assets_completed
-    CompletedLoanServices::TabAssets.call(self);
+    CompletedLoanServices::TabAssets.call(self)
   end
 
   def declarations_completed
-    CompletedLoanServices::TabDeclarations.call(self);
+    CompletedLoanServices::TabDeclarations.call(self)
   end
 
   def primary_property
