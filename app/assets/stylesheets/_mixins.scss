@@ -1,0 +1,11 @@
+@mixin padding($padding) {
+  padding: $padding;
+}
+
+@mixin paddingTop($paddingTop) {
+  padding-top: $paddingTop;
+}
+
+@mixin backgroundColor($color) {
+  background-color: $color;
+}
