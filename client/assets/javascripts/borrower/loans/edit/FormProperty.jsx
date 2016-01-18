@@ -3,7 +3,7 @@ var React = require("react/addons");
 var TextFormatMixin = require("mixins/TextFormatMixin");
 var ObjectHelperMixin = require("mixins/ObjectHelperMixin");
 var FlashHandler = require("mixins/FlashHandler");
-var ValidationObject = require("mixins/ValidationMixins");
+var ValidationObject = require("mixins/FormValidationMixin");
 
 var AddressField = require("components/form/NewAddressField");
 var SelectField = require("components/form/NewSelectField");
@@ -31,7 +31,7 @@ var propertyPurposes = [
 ];
 
 var FormProperty = React.createClass({
-  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
+  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler, ValidationObject],
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
@@ -225,20 +225,17 @@ var FormProperty = React.createClass({
       state[fields.loanPurpose.name] = loan[fields.loanPurpose.name];
     }
 
-    state["property_id"] = property.id;
+    state.property_id = property.id;
     state[fields.address.name] = property.address;
     state[fields.propertyPurpose.name] = property[fields.propertyPurpose.name];
     state[fields.purchasePrice.name] = this.formatCurrency(property[fields.purchasePrice.name]);
     state[fields.originalPurchasePrice.name] = this.formatCurrency(property[fields.originalPurchasePrice.name]);
     state[fields.originalPurchaseYear.name] = property[fields.originalPurchaseYear.name];
-    console.dir(property[fields.originalPurchasePrice.name])
-    console.dir(property)
-    state["property_type"] = property.property_type;
-    state["market_price"] = property.market_price;
-    state["estimated_hazard_insurance"] = property.estimated_hazard_insurance;
-    state["estimated_property_tax"] = property.estimated_property_tax;
-    state["year_built"] = property.year_built;
-    console.dir(state)
+    state.property_type = property.property_type;
+    state.market_price = property.market_price;
+    state.estimated_hazard_insurance = property.estimated_hazard_insurance;
+    state.estimated_property_tax = property.estimated_property_tax;
+    state.year_built = property.year_built;
     return state;
   },
 
@@ -279,40 +276,64 @@ var FormProperty = React.createClass({
     this.state[fields.propertyPurpose.name] == "primary_residence"
   },
 
+  isRefinance: function() {
+    if(this.state[fields.loanPurpose.name] == false) {
+      return true;
+    }
+
+    return false;
+  },
+
+  isPurchase: function() {
+    if(this.state[fields.loanPurpose.name] == true) {
+      return true;
+    }
+
+    return false;
+  },
+
+  mapValueToRequiredFields: function() {
+    var requiredFields = {};
+
+    requiredFields[fields.address.error] = this.state[fields.address.name];
+    requiredFields[fields.propertyPurpose.error] = this.state[fields.propertyPurpose.name];
+    requiredFields[fields.loanPurpose.error] = this.state[fields.loanPurpose.name];
+
+    if(this.isPurchase()) {
+      requiredFields[fields.purchasePrice.error] = this.state[fields.purchasePrice.name];
+    }
+
+    if(this.isRefinance()) {
+      requiredFields[fields.originalPurchasePrice.error] = this.state[fields.originalPurchasePrice.name];
+      requiredFields[fields.originalPurchaseYear.error] = this.state[fields.originalPurchaseYear.name];
+    }
+
+    return requiredFields;
+  },
+
+  valid: function() {
+    var isValid = true;
+    var requiredFields = this.mapValueToRequiredFields();
+
+    if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
+      this.setState(this.getStateOfInvalidFields(requiredFields));
+      isValid = false;
+    }
+
+    return isValid;
+  },
+
   save: function(event) {
     this.setState({saving: true});
 
-    var state = {};
-    if (this.state[fields.address.name] === null) {
-      state[fields.address.error] = true;
-    }
-    if (!this.state[fields.propertyPurpose.name]) {
-      state[fields.propertyPurpose.error] = true;
-    }
-    if (this.state[fields.loanPurpose.name] == null) {
-      state[fields.loanPurpose.error] = true;
-    } else {
-      if (this.state[fields.loanPurpose.name] == true) {
-        if (!this.state[fields.purchasePrice.name]) {
-          state[fields.purchasePrice.error] = true;
-        }
-      } else {
-        if (!this.state[fields.originalPurchasePrice.name]) {
-          state[fields.originalPurchasePrice.error] = true;
-        }
-        if (!this.state[fields.originalPurchaseYear.name]) {
-          state[fields.originalPurchaseYear.error] = true;
-        }
-      }
-    }
-
-    if(Object.keys(state).length != 0){
-      this.setState({saving: false, isValid: false});
-      this.setState(state);
-    } else {
+    if(this.valid()){
       this.setState({isValid: true});
       this.props.saveLoan(this.buildLoanFromState(), 0);
     }
+    else {
+      this.setState({saving: false, isValid: false});
+    }
+
     event.preventDefault();
   },
 
