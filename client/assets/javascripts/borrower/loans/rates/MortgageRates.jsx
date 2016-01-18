@@ -73,8 +73,7 @@ var MortgageRates = React.createClass({
 
     return (
       <div className="content">
-        <div className='content container mortgage-rates'>
-
+        <div className={this.state.helpMeChoose ? "content container mortgage-rates padding-top-0 white-background" : "content container mortgage-rates padding-top-0"}>
           { this.state.helpMeChoose
             ?
               <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
@@ -90,7 +89,7 @@ var MortgageRates = React.createClass({
             <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
           }
 
-          <div className={this.state.helpMeChoose ? "col-xs-12 account-content" : "col-xs-8 account-content"}>
+          <div className={this.state.helpMeChoose ? "col-xs-12 account-content padding-left-55 custom-left-mortgage-rates" : "col-xs-9 account-content padding-left-50"}>
             <div className={this.state.helpMeChoose ? "hidden" : "row actions"}>
               <p>
                 We’ve found {this.props.bootstrapData.programs.length} mortgage options for you. You can sort, filter, and choose one on your own or click

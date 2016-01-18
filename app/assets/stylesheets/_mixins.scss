@@ -1,0 +1,20 @@
+@mixin padding($padding) {
+  padding: $padding;
+}
+
+@mixin paddingTop($paddingTop) {
+  padding-top: $paddingTop;
+}
+@mixin paddingLeft($paddingTop) {
+  padding-left: $paddingTop;
+}
+
+@mixin backgroundColor($color) {
+  background-color: $color;
+}
+@mixin fixedHeight($height) {
+  height: $height;
+}
+@mixin minHeight($minHeight) {
+  min-height: $minHeight;
+}

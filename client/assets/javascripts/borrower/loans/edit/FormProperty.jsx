@@ -15,8 +15,9 @@ var fields = {
   loanPurpose: {label: "Purpose of Loan", name: "purpose", helpText: "The purpose for taking out the loan in terms of how funds will be used.", error: "loanError"},
   propertyPurpose: {label: "Property Will Be", name: "usage", helpText: "The primary purpose of acquiring the subject property.", error: "propertyError"},
   purchasePrice: {label: "Purchase Price", name: "purchase_price", helpText: "How much are you paying for the subject property?", error: "purchaseError"},
-  originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", helpText: "How much did you pay for the subject property?", error: "originalPurchaseYearError"},
-  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home.", error: "originalPurchasePriceError"}
+  originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", helpText: "How much did you pay for the subject property?", error: "originalPurchasePriceError"},
+  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home.", error: "originalPurchaseYearError"},
+  yearBuilt: {label: "Year Built", name: "year_built", error: "yearBuiltError"}
 };
 
 var loanPurposes = [
@@ -80,17 +81,18 @@ var FormProperty = React.createClass({
         var yearBuilt = this.getValue(response, 'yearBuilt');
         var lastSoldDate = this.getValue(response, 'lastSoldDate');
         var lastSoldPrice = this.getValue(response, 'lastSoldPrice.__content__');
-        var purchaseYear = lastSoldDate != null ? new Date(Date.parse(lastSoldDate)).getFullYear() : "";
+        var purchaseYear = (lastSoldDate ? new Date(Date.parse(lastSoldDate)).getFullYear() : null);
         var zillowImageUrl = this.getValue(response, 'zillowImageUrl');
-        this.setState({
-          marketPrice: this.formatCurrency(marketPrice),
-          estimatedPropertyTax: monthlyTax,
-          estimatedHazardInsurance: monthlyInsurance,
-          yearBuilt: yearBuilt,
-          originalPurchasePrice: this.formatCurrency(lastSoldPrice),
-          originalPurchaseYear: purchaseYear,
-          zillowImageUrl: zillowImageUrl
-        });
+
+        var state = {} ;
+        state.marketPrice = this.formatCurrency(marketPrice);
+        state.estimatedPropertyTax = monthlyTax;
+        state.estimatedHazardInsurance = monthlyInsurance;
+        state.yearBuilt = yearBuilt;
+        state.zillowImageUrl = zillowImageUrl;
+        state[fields.originalPurchasePrice.name] = this.formatCurrency(lastSoldPrice);
+        state[fields.originalPurchaseYear.name] = purchaseYear;
+        this.setState(state);
       }
     });
   },
@@ -236,6 +238,7 @@ var FormProperty = React.createClass({
     state.estimated_hazard_insurance = property.estimated_hazard_insurance;
     state.estimated_property_tax = property.estimated_property_tax;
     state.year_built = property.year_built;
+
     return state;
   },
 
