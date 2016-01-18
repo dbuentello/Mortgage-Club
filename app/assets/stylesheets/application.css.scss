@@ -34,6 +34,15 @@ $rails: true;
 .grey-background {
   @include backgroundColor(#f6f6f6);
 }
+.white-background {
+  @include backgroundColor(#fff);
+}
+.padding-left-50 {
+  @include paddingLeft(50px);
+}
+.padding-left-55 {
+  @include paddingLeft(55px);
+}
 
 @keyframes loginAnim {
   0% {transform:translateX(0);}

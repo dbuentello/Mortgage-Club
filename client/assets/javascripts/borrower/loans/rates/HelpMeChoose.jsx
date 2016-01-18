@@ -153,7 +153,7 @@ var HelpMeChoose = React.createClass({
 
   render: function() {
     return (
-      <div className="row mtl">
+      <div className="row white-background">
         <div className='row helpmechoose'>
           <div className='col-lg-7'>
             <div className='col-lg-11 calculator'>

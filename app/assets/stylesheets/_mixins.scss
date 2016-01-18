@@ -5,6 +5,9 @@
 @mixin paddingTop($paddingTop) {
   padding-top: $paddingTop;
 }
+@mixin paddingLeft($paddingTop) {
+  padding-left: $paddingTop;
+}
 
 @mixin backgroundColor($color) {
   background-color: $color;

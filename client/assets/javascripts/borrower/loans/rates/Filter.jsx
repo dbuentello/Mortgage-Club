@@ -27,7 +27,7 @@ var Filter = React.createClass({
 
   render: function() {
     return (
-      <div className="col-xs-4 subnav programs-filter">
+      <div className="col-xs-3 subnav programs-filter">
         <div id="sidebar">
           <h5>Programs</h5>
           <input type="checkbox" name="30years" id="30years" onChange={_.bind(this.onChangeCriteria, null, "30 year fixed", "product")}/>
