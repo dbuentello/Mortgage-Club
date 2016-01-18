@@ -62,9 +62,7 @@ class Loan < ActiveRecord::Base
   end
 
   def borrower_completed
-    return borrower.completed? unless secondary_borrower.present?
-
-    borrower.completed? && secondary_borrower.completed?
+    CompletedLoanServices::TabBorrower.call(self);
   end
 
   def documents_completed
