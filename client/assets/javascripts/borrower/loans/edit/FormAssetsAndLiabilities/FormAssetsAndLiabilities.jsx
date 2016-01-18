@@ -310,7 +310,6 @@ var FormAssetsAndLiabilities = React.createClass({
 
     if(this.state.subject_property) {
       if(this.setStateForInvalidFieldsOfProperty(this.state.subject_property) == false) {
-        console.dir("099999")
         isValid = false;
       }
     }

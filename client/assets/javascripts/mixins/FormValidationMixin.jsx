@@ -14,18 +14,6 @@ var FormValidationMixin = {
     return state;
   },
 
-  // fields = { borrower_fields.yearsInSchool.error: 2, borrower_fields.currentAddress.error: "Any where" }
-  getStateOfErrorsForObject: function(fields, object) {
-    _.each(fields, function(fieldName, errorName) {
-      if(this.elementIsEmpty(object[fieldName])) {
-        console.dir(errorName)
-        object.errorName = true;
-      }
-    }, this);
-    console.dir(object)
-    return object;
-  },
-
   elementIsEmpty: function(obj) {
     if(obj == null) {
       return true;
