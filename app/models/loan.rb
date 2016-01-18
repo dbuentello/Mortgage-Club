@@ -97,7 +97,7 @@ class Loan < ActiveRecord::Base
   end
 
   def declarations_completed
-    borrower.declaration && borrower.declaration.completed?
+    CompletedLoanServices::TabDeclarations.call(self);
   end
 
   def primary_property
