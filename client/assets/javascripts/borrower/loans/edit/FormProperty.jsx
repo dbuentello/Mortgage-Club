@@ -233,14 +233,11 @@ var FormProperty = React.createClass({
     state[fields.purchasePrice.name] = this.formatCurrency(property[fields.purchasePrice.name]);
     state[fields.originalPurchasePrice.name] = this.formatCurrency(property[fields.originalPurchasePrice.name]);
     state[fields.originalPurchaseYear.name] = property[fields.originalPurchaseYear.name];
-    console.dir(property[fields.originalPurchasePrice.name])
-    console.dir(property)
     state["property_type"] = property.property_type;
     state["market_price"] = property.market_price;
     state["estimated_hazard_insurance"] = property.estimated_hazard_insurance;
     state["estimated_property_tax"] = property.estimated_property_tax;
     state["year_built"] = property.year_built;
-    console.dir(state)
     return state;
   },
 
