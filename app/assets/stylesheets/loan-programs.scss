@@ -192,9 +192,14 @@
 }
 
 .mortgage-rates {
+  .custom-left-mortgage-rates {
+    margin-left: -19px;
+  }
+  background: linear-gradient(to right, #f6f6f6 , white);
   .programs-filter {
-    margin-bottom: -9999px;
-    padding-bottom: 9999px;
+    margin-top: -44px;
+    height: 100%;
+    margin-left: -16px;
   }
   .actions {
     padding-left: 15px;

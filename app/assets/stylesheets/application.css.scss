@@ -10,6 +10,7 @@ $rails: true;
 @import "bootstrap_datepicker";
 @import "d3.slider";
 @import "dropzone-custom";
+@import "mixins";
 @import "homepage";
 @import "lenders";
 @import "form";
@@ -25,6 +26,28 @@ $rails: true;
   src: url(asset_path("aileron-regular-webfont.eot"));
   src: url(asset_path("aileron-regular-webfont.woff")) format('woff'),
        url(asset_path("aileron-regular-webfont.ttf")) format('truetype');
+}
+.padding-top-0 {
+  @include paddingTop(0px);
+}
+
+.grey-background {
+  @include backgroundColor(#f6f6f6);
+}
+.white-background {
+  @include backgroundColor(#fff);
+}
+.padding-left-50 {
+  @include paddingLeft(50px);
+}
+.padding-left-55 {
+  @include paddingLeft(55px);
+}
+.fixed-height-246 {
+  @include fixedHeight(246px);
+}
+.min-height-394 {
+  @include minHeight(394px);
 }
 
 @keyframes loginAnim {
