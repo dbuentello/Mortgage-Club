@@ -19,6 +19,7 @@ module CompletedLoanServices
       return false if declaration.child_support.nil?
       return false if declaration.down_payment_borrowed.nil?
       return false if declaration.co_maker_or_endorser.nil?
+      return false if declaration.present_delinquent_loan.nil?
       return false if declaration.us_citizen.nil?
       return false if declaration.permanent_resident_alien.nil?
       return false if declaration.ownership_interest.nil?

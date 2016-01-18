@@ -16,4 +16,19 @@ FactoryGirl.define do
     f.permanent_resident_alien { [true, false].sample }
     f.ownership_interest { [true, false].sample }
   end
+
+  factory :declaration_true, parent: declaration do |f|
+    f.outstanding_judgment { true }
+    f.bankrupt { true }
+    f.property_foreclosed { true }
+    f.party_to_lawsuit { true }
+    f.loan_foreclosure { true }
+    f.present_delinquent_loan { true }
+    f.child_support { true }
+    f.down_payment_borrowed { true }
+    f.co_maker_or_endorser { true }
+    f.us_citizen { true }
+    f.permanent_resident_alien { true }
+    f.ownership_interest { true }
+  end
 end
