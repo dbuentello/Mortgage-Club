@@ -15,3 +15,6 @@
 @mixin fixedHeight($height) {
   height: $height;
 }
+@mixin minHeight($minHeight) {
+  min-height: $minHeight;
+}
