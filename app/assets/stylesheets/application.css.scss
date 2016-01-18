@@ -43,6 +43,9 @@ $rails: true;
 .padding-left-55 {
   @include paddingLeft(55px);
 }
+.fixed-height-246 {
+  @include fixedHeight(246px);
+}
 
 @keyframes loginAnim {
   0% {transform:translateX(0);}

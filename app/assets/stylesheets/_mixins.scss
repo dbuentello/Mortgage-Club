@@ -12,3 +12,6 @@
 @mixin backgroundColor($color) {
   background-color: $color;
 }
+@mixin fixedHeight($height) {
+  height: $height;
+}
