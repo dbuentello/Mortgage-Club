@@ -13,12 +13,16 @@ module BorrowerServices
     def call
       return unless owner && secondary_params[:borrower][:email].present?
 
-      owner.borrower = secondary_borrower
-      loan.secondary_borrower = secondary_borrower
-      owner.save
-      loan.save
-
-      send_email_to_secondary_borrower if @new_secondary_borrower
+      ActiveRecord::Base.transaction do
+        owner.borrower = secondary_borrower
+        loan.secondary_borrower = secondary_borrower
+        if owner.save
+          loan.save
+          send_email_to_secondary_borrower if @new_secondary_borrower
+        else
+          secondary_borrower.destroy
+        end
+      end
     end
 
     private
@@ -29,7 +33,7 @@ module BorrowerServices
 
     def create_owner
       user_form = UserForm.new(params: user_params, skip_confirmation: true)
-      return user_form.user if user_form.save
+      return user_form.user
     end
 
     def default_password
