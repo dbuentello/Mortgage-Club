@@ -11,6 +11,11 @@ describe CompletedLoanServices::TabIncome do
     })
   end
 
+  it "returns false with gross income nil" do
+    @service.borrower.gross_income = nil
+    expect(@service.call).to be_falsey
+  end
+
   it "returns true with duration greater than or equals 2" do
     @service.current_employment.duration = 3
     expect(@service.call).to be_truthy
