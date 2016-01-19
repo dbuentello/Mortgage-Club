@@ -36,6 +36,7 @@ module.exports = {
 
     return false;
   },
+
   elementIsPhoneNumber: function(obj) {
     if(!obj){
       return false;
