@@ -36,6 +36,15 @@ module.exports = {
 
     return false;
   },
+  elementIsPhoneNumber: function(obj) {
+    if(!obj){
+      return false;
+    }
+    if(obj.length<10){
+      return false;
+    }
+    return (obj.match(/^\((\d{3})\)\s(\d{3})\-(\d{4})$/)!=null);
+  },
 
   requiredFieldsHasEmptyElement: function(stateArray, outputFields) {
     var empty = false;
