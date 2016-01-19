@@ -13,25 +13,23 @@ module CompletedLoanServices
     end
 
     def borrower_documents_completed?
-      required_documents = borrower.self_employed ? Document::BORROWER_SELF_EMPLOYED : Document::BORROWER_NOT_SELF_EMPLOYED
-
-      (required_documents - borrower.documents.pluck(:document_type)).empty?
+      not_jointly_document_completed?(borrower)
     end
 
     def co_borrower_documents_completed?
-      borrower.self_employed ? docoments_self_employed_completed? : docoments_not_self_employed_completed?
+      secondary_borrower.is_file_taxes_jointly ? secondary_jointly_document_completed? : not_jointly_document_completed?(secondary_borrower)
     end
 
-    def docoments_self_employed_completed?
-      required_documents = borrower.is_file_taxes_jointly ? Document::BORROWER_SELF_EMPLOYED_TAXES_JOINLY : Document::BORROWER_SELF_EMPLOYED
+    def secondary_jointly_document_completed?
+      required_documents = secondary_borrower.self_employed ? Document::BORROWER_SELF_EMPLOYED_TAXES_JOINLY : Document::BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY
 
-      (required_documents - borrower.documents.pluck(:document_type)).empty?
+      (required_documents - secondary_borrower.documents.pluck(:document_type)).empty?
     end
 
-    def docoments_not_self_employed_completed?
-      required_documents = borrower.is_file_taxes_jointly ? Document::BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY : Document::BORROWER_NOT_SELF_EMPLOYED
+    def not_jointly_document_completed?(not_jointly_borrower)
+      required_documents = not_jointly_borrower.self_employed ? Document::BORROWER_SELF_EMPLOYED : Document::BORROWER_NOT_SELF_EMPLOYED
 
-      (required_documents - borrower.documents.pluck(:document_type)).empty?
+      (required_documents - not_jointly_borrower.documents.pluck(:document_type)).empty?
     end
   end
 end
