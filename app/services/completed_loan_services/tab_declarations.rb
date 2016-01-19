@@ -7,7 +7,9 @@ module CompletedLoanServices
     end
 
     def call
-      declaration && declaration_completed?
+      return false unless declaration
+
+      declaration_completed?
     end
 
     def declaration_completed?

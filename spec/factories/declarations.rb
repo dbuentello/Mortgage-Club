@@ -17,7 +17,7 @@ FactoryGirl.define do
     f.ownership_interest { [true, false].sample }
   end
 
-  factory :declaration_true, parent: declaration do |f|
+   factory :declaration_true, parent: :declaration do |f|
     f.outstanding_judgment { true }
     f.bankrupt { true }
     f.property_foreclosed { true }

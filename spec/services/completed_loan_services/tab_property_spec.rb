@@ -34,7 +34,7 @@ describe CompletedLoanServices::TabProperty do
     expect(@service.call).to eq(true)
   end
 
-  describe "checks subject property completed" do
+  describe "#subject_property_completed" do
     it "returns false with property type nil" do
       @service.subject_property.property_type = nil
       expect(@service.subject_property_completed?).to eq(false)
@@ -75,7 +75,7 @@ describe CompletedLoanServices::TabProperty do
     end
   end
 
-  describe "checks address completed" do
+  describe "#address_completed?" do
     it "returns false with all empty fields" do
       @service.subject_property.address.street_address = nil
       @service.subject_property.address.street_address2 = nil
@@ -96,7 +96,7 @@ describe CompletedLoanServices::TabProperty do
     end
   end
 
-  describe "checks purpose completed" do
+  describe "#purpose_completed?" do
     it "returns false with purpose nil" do
       @service.loan.purpose = nil
 
