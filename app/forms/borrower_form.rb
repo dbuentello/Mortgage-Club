@@ -49,6 +49,7 @@ class BorrowerForm
   def create_primary_property
     if property = current_address.property
       property.is_primary = true
+      property.usage = "primary_residence"
     else
       property = Property.new(loan: loan, is_primary: true, usage: "primary_residence")
       property.address = current_address
