@@ -13,9 +13,14 @@ module.exports = {
     return state;
   },
 
-  elementIsEmail: function(obj){
+  elementIsEmail: function(obj) {
     var emailReg = /^[a-zA-Z]+[a-zA-Z0-9_\-\.]*[a-zA-Z0-9_\-]+@([a-zA-Z]+[a-zA-Z0-9_\-]*\.){1,2}[a-zA-Z]{2,}$/;
-    return obj.match(emailReg)!=null
+    return emailReg.test(obj);
+  },
+
+  elementIsInteger: function(obj) {
+    var digitReg = /^\d+$/;
+    return digitReg.test(obj);
   },
 
   elementIsEmpty: function(obj) {
