@@ -98,6 +98,11 @@ var TextFormatMixin = {
     }).join(' ');
   },
 
+  formatNumber: function(val) {
+    if (!val) { return; }
+    return (''+val).replace(/[^0-9\.]/g, '');
+  },
+
   formatSSN: function(val) {
     if (!val) { return; }
     val = val.replace(/\D/g, '');
