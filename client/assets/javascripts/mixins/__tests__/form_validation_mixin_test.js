@@ -21,6 +21,7 @@ describe('text format helper', function() {
       expect(subject.elementIsEmail.apply(subject, test.params)).toBe(test.expected);
     });
   });
+
   it("validate integer correctly", function() {
     var tests = [
       {params: ["123334444"], expected: true},
@@ -30,6 +31,21 @@ describe('text format helper', function() {
     ];
     tests.forEach(function (test) {
       expect(subject.elementIsInteger.apply(subject, test.params)).toBe(test.expected);
+    });
+  });
+
+  it("validate America phone number correctly", function() {
+    var tests = [
+      {params: ["(344) 434-4455"], expected: true},
+      {params: ["(144) 434-4455"], expected: true},
+      {params: ["(144) 43444455"], expected: false},
+      {params: ["334444@"], expected: false},
+      {params: ["000 000 4"], expected: false},
+      {params: ["addffg12"], expected: false},
+      {params: ["(234) 234-566666"], expected: false}
+    ];
+    tests.forEach(function (test) {
+      expect(subject.elementIsPhoneNumber.apply(subject, test.params)).toBe(test.expected);
     });
   });
 });
