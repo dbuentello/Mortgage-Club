@@ -37,6 +37,15 @@ module.exports = {
     return false;
   },
 
+  elementLengthExceedsMaxlength: function(obj, maxLength) {
+    var result = false;
+    if (!obj) { return false }
+    if (obj.length>maxLength) {
+      result = true
+    }
+    return result;
+  },
+
   elementIsPhoneNumber: function(obj) {
     if(!obj){
       return false;
