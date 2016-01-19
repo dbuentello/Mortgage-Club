@@ -90,7 +90,7 @@ var Income = React.createClass({
           </div>
           <div className='col-md-6'>
             <AddressField
-              activateRequiredField={this.props.currentEmployerFullTextAddressError}
+              activateRequiredField={this.props.currentEmployerAddressError}
               label={this.props.fields.currentEmployerAddress.label}
               address={this.props.currentEmployerAddress}
               keyName={this.props.fields.currentEmployerAddress.name}

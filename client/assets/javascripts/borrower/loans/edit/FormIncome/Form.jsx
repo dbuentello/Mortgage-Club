@@ -2,7 +2,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 
 var TextFormatMixin = require('mixins/TextFormatMixin');
-var ValidationObject = require("mixins/ValidationMixins");
+var ValidationObject = require("mixins/FormValidationMixin");
 
 var AddressField = require('components/form/NewAddressField');
 var DateField = require('components/form/NewDateField');
@@ -98,9 +98,8 @@ var Form = React.createClass({
             baseIncome={this.state[borrowerFields.baseIncome.name]}
             incomeFrequency={this.state[borrowerFields.incomeFrequency.name]}
             otherIncomes={this.state[borrowerFields.otherIncomes.name]}
-
             currentEmployerNameError={this.state[borrowerFields.currentEmployerName.error]}
-            currentEmployerFullTextAddressError={this.state[borrowerFields.currentEmployerFullTextAddress.error]}
+            currentEmployerAddressError={this.state[borrowerFields.currentEmployerAddress.error]}
             currentJobTitleError={this.state[borrowerFields.currentJobTitle.error]}
             currentYearsAtEmployerError={this.state[borrowerFields.currentYearsAtEmployer.error]}
             previousEmployerNameError={this.state[borrowerFields.previousEmployerName.error]}
@@ -138,7 +137,7 @@ var Form = React.createClass({
                 incomeFrequency={this.state[secondaryBorrowerFields.incomeFrequency.name]}
                 otherIncomes={this.state[secondaryBorrowerFields.otherIncomes.name]}
                 currentEmployerNameError={this.state[secondaryBorrowerFields.currentEmployerName.error]}
-                currentEmployerFullTextAddressError={this.state[secondaryBorrowerFields.currentEmployerFullTextAddress.error]}
+                currentEmployerAddressError={this.state[secondaryBorrowerFields.currentEmployerAddress.error]}
                 currentJobTitleError={this.state[secondaryBorrowerFields.currentJobTitle.error]}
                 currentYearsAtEmployerError={this.state[secondaryBorrowerFields.currentYearsAtEmployer.error]}
                 previousEmployerNameError={this.state[secondaryBorrowerFields.previousEmployerName.error]}
@@ -322,160 +321,98 @@ var Form = React.createClass({
     this.setState(state);
   },
 
+  mustHavePreviousAddress: function(fields) {
+    if(!this.elementIsEmpty(this.state[fields.currentYearsAtEmployer.name]) && this.state[fields.currentYearsAtEmployer.name] < 2) {
+      return true;
+    }
+    return false;
+  },
+
+  mapValueToRequiredFields: function(fields) {
+    var requiredFields = {};
+    var commonCheckingFields = [
+      fields.currentEmployerName,
+      fields.currentEmployerAddress,
+      fields.currentJobTitle,
+      fields.currentYearsAtEmployer,
+      fields.employerContactName,
+      fields.employerContactNumber,
+      fields.baseIncome,
+      fields.incomeFrequency
+    ];
+
+    _.each(commonCheckingFields, function(field) {
+      requiredFields[field.error] = this.state[field.name];
+    }, this);
+
+    if(this.mustHavePreviousAddress(fields)) {
+      requiredFields[fields.previousEmployerName.error] = this.state[fields.previousEmployerName.name];
+      requiredFields[fields.previousJobTitle.error] = this.state[fields.previousJobTitle.name];
+      requiredFields[fields.previousYearsAtEmployer.error] = this.state[fields.previousYearsAtEmployer.name];
+      requiredFields[fields.previousMonthlyIncome.error] = this.state[fields.previousMonthlyIncome.name];
+    }
+
+    return requiredFields;
+  },
+
+  setStateForInvalidOtherIncome: function(otherIncome) {
+    var allFieldsAreOK = true;
+    var checkingFields = {};
+    checkingFields["typeError"] = otherIncome.type;
+    checkingFields["amountError"] = otherIncome.amount;
+
+    var states = this.getStateOfInvalidFields(checkingFields);
+
+    if(!_.isEmpty(states)) {
+      _.each(states, function(value, key) {
+        otherIncome[key] = true;
+      });
+      allFieldsAreOK = false;
+    }
+
+    return allFieldsAreOK;
+  },
+
+  checkRequiredOtherIncome: function(fields) {
+    var isValid = true;
+    _.each(this.state[fields.otherIncomes.name], function(otherIncome){
+      if(this.setStateForInvalidOtherIncome(otherIncome) == false) {
+        isValid = false;
+      }
+    }, this);
+
+    return isValid;
+  },
+
   valid: function(){
     var state = {};
     var isValid = true;
+    var requiredFields = this.mapValueToRequiredFields(borrowerFields);
 
-    if(this.elementIsEmpty(this.state[borrowerFields.currentEmployerName.name])){
-      state[borrowerFields.currentEmployerName.error] = true;
+    if(this.props.loan.secondary_borrower) {
+      requiredFields = _.extend(requiredFields, this.mapValueToRequiredFields(secondaryBorrowerFields));
+    }
+
+    if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
+      this.setState(this.getStateOfInvalidFields(requiredFields));
       isValid = false;
     }
 
-    if(this.elementIsEmpty(this.state[borrowerFields.currentEmployerAddress.name])){
-      state[borrowerFields.currentEmployerFullTextAddress.error] = true;
+    if(this.checkRequiredOtherIncome(borrowerFields) == false) {
       isValid = false;
+      state[borrowerFields.otherIncomes.name] = this.state[borrowerFields.otherIncomes.name];
     }
 
-    if(this.elementIsEmpty(this.state[borrowerFields.currentJobTitle.name])){
-      state[borrowerFields.currentJobTitle.error] = true;
-      isValid = false;
-    }
-
-    if(this.elementIsEmpty(this.state[borrowerFields.currentYearsAtEmployer.name])){
-      state[borrowerFields.currentYearsAtEmployer.error] = true;
-      isValid = false;
-    }
-
-    if(this.elementIsEmpty(this.state[borrowerFields.employerContactName.name])){
-      state[borrowerFields.employerContactName.error] = true;
-      isValid = false;
-    }
-
-    if(this.elementIsEmpty(this.state[borrowerFields.employerContactNumber.name])){
-      state[borrowerFields.employerContactNumber.error] = true;
-      isValid = false;
-    }
-
-    if(this.elementIsEmpty(this.state[borrowerFields.baseIncome.name])){
-      state[borrowerFields.baseIncome.error] = true;
-      isValid = false;
-    }
-
-    if(this.elementIsEmpty(this.state[borrowerFields.incomeFrequency.name])){
-      state[borrowerFields.incomeFrequency.error] = true;
-      isValid = false;
-    }
-
-    if(!this.elementIsEmpty(this.state[borrowerFields.currentYearsAtEmployer.name]) && this.state[borrowerFields.currentYearsAtEmployer.name] < 2){
-      if(this.elementIsEmpty(this.state[borrowerFields.previousEmployerName.name])){
-        state[borrowerFields.previousEmployerName.error] = true;
+    if(this.props.loan.secondary_borrower) {
+      if(this.checkRequiredOtherIncome(secondaryBorrowerFields) == false) {
         isValid = false;
-      }
-
-      if(this.elementIsEmpty(this.state[borrowerFields.previousJobTitle.name])){
-        state[borrowerFields.previousJobTitle.error] = true;
-        isValid = false;
-      }
-
-      if(this.elementIsEmpty(this.state[borrowerFields.previousYearsAtEmployer.name])){
-        state[borrowerFields.previousYearsAtEmployer.error] = true;
-        isValid = false;
-      }
-
-      if(this.elementIsEmpty(this.state[borrowerFields.previousMonthlyIncome.name])){
-        state[borrowerFields.previousMonthlyIncome.error] = true;
-        isValid = false;
+        state[secondaryBorrowerFields.otherIncomes.name] = this.state[secondaryBorrowerFields.otherIncomes.name];
       }
     }
 
-    //secondary borrower
-    if(this.props.loan.secondary_borrower){
-      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.currentEmployerName.name])){
-        state[secondaryBorrowerFields.currentEmployerName.error] = true;
-        isValid = false;
-      }
-
-      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.currentEmployerAddress.name])){
-        state[secondaryBorrowerFields.currentEmployerFullTextAddress.error] = true;
-        isValid = false;
-      }
-
-      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.currentJobTitle.name])){
-        state[secondaryBorrowerFields.currentJobTitle.error] = true;
-        isValid = false;
-      }
-
-      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.currentYearsAtEmployer.name])){
-        state[secondaryBorrowerFields.currentYearsAtEmployer.error] = true;
-        isValid = false;
-      }
-
-      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.employerContactName.name])){
-        state[secondaryBorrowerFields.employerContactName.error] = true;
-        isValid = false;
-      }
-
-      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.employerContactNumber.name])){
-        state[secondaryBorrowerFields.employerContactNumber.error] = true;
-        isValid = false;
-      }
-
-      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.baseIncome.name])){
-        state[secondaryBorrowerFields.baseIncome.error] = true;
-        isValid = false;
-      }
-
-      if(this.elementIsEmpty(this.state[secondaryBorrowerFields.incomeFrequency.name])){
-        state[secondaryBorrowerFields.incomeFrequency.error] = true;
-        isValid = false;
-      }
-
-      if(!this.elementIsEmpty(this.state[secondaryBorrowerFields.currentYearsAtEmployer.name]) && this.state[secondaryBorrowerFields.currentYearsAtEmployer.name] < 2){
-        if(this.elementIsEmpty(this.state[secondaryBorrowerFields.previousEmployerName.name])){
-          state[secondaryBorrowerFields.previousEmployerName.error] = true;
-          isValid = false;
-        }
-
-        if(this.elementIsEmpty(this.state[secondaryBorrowerFields.previousJobTitle.name])){
-          state[secondaryBorrowerFields.previousJobTitle.error] = true;
-          isValid = false;
-        }
-
-        if(this.elementIsEmpty(this.state[secondaryBorrowerFields.previousYearsAtEmployer.name])){
-          state[secondaryBorrowerFields.previousYearsAtEmployer.error] = true;
-          isValid = false;
-        }
-
-        if(this.elementIsEmpty(this.state[secondaryBorrowerFields.previousMonthlyIncome.name])){
-          state[secondaryBorrowerFields.previousMonthlyIncome.error] = true;
-          isValid = false;
-        }
-      }
-    }
-
-
-    _.each(this.state[borrowerFields.otherIncomes.name], function(otherIncome){
-      if(otherIncome.type === null){
-        otherIncome.typeError = true;
-      }
-      if(otherIncome.amount === null){
-        otherIncome.amountError = true;
-      }
-    });
-    state[borrowerFields.otherIncomes.name] = this.state[borrowerFields.otherIncomes.name];
-
-    _.each(this.state[secondaryBorrowerFields.otherIncomes.name], function(otherIncome){
-      if(otherIncome.type === null){
-        otherIncome.typeError = true;
-      }
-      if(otherIncome.amount === null){
-        otherIncome.amountError = true;
-      }
-    });
-    state[secondaryBorrowerFields.otherIncomes.name] = this.state[secondaryBorrowerFields.otherIncomes.name];
-
-    if(!isValid)
+    if(!isValid) {
       this.setState(state);
+    }
 
     return isValid;
   },

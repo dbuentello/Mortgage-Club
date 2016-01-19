@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var React = require('react/addons');
-var ValidationObject = require("mixins/ValidationMixins");
+var ValidationObject = require("mixins/FormValidationMixin");
 var AddressField = require('components/form/NewAddressField');
 var SelectField = require('components/form/NewSelectField');
 var TextField = require('components/form/NewTextField');
@@ -91,6 +91,7 @@ var titlePropertyOptions = [
 
 var FormDeclarations = React.createClass({
   mixins: [ValidationObject],
+
   getInitialState: function() {
     var currentUser = this.props.bootstrapData.currentUser;
     var state = this.buildStateFromLoan(this.props.loan);
@@ -244,45 +245,47 @@ var FormDeclarations = React.createClass({
       </div>
     );
   },
+
   omitKeys: function(obj, keys) {
-      var dup = {};
-      for (var key in obj) {
-          if (keys.indexOf(key) == -1) {
-              dup[key] = obj[key];
-          }
+    var dup = {};
+    for (var key in obj) {
+      if (keys.indexOf(key) == -1) {
+        dup[key] = obj[key];
       }
-      return dup;
+    }
+    return dup;
+  },
+
+  mapValueToRequiredFields: function() {
+    var requiredFields = {};
+    var commonCheckingFields = this.omitKeys(checkboxFields, ["permanentResidentAlien"]);
+
+    _.each(commonCheckingFields, function(field) {
+      requiredFields[field.error] = this.state[field.name];
+    }, this);
+
+    if(this.state.permanent_resident_alien_display == true) {
+      requiredFields[checkboxFields.permanentResidentAlien.error] = this.state[checkboxFields.permanentResidentAlien.error]
+    }
+
+    if(this.state.display_sub_question == true) {
+      requiredFields[selectBoxFields.typeOfProperty.error] = this.state[selectBoxFields.typeOfProperty.name];
+      requiredFields[selectBoxFields.titleOfProperty.error] = this.state[selectBoxFields.titleOfProperty.name];
+    }
+
+    return requiredFields;
   },
 
   valid: function(){
     var isValid = true;
-    var state = {}
-    var checkObject = this.omitKeys(checkboxFields, ["permanentResidentAlien"]);
+    var requiredFields = this.mapValueToRequiredFields();
 
-     _.each(Object.keys(checkObject), function(key) {
-        if (ValidationObject.elementIsEmpty(this.state[checkObject[key].name])){
-          state[checkObject[key].error] = true;
-          state.saving = false;
-          isValid = false;
-        }
-      }, this);
-     if(this.state['permanent_resident_alien_display']==true && ValidationObject.elementIsEmpty(this.state[checkboxFields["permanentResidentAlien"].name])){
-      state[checkboxFields["permanentResidentAlien"].error] = true;
+    if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
+      this.setState(this.getStateOfInvalidFields(requiredFields));
       isValid = false;
-     }
-    if(this.state['display_sub_question']==true){
-      if(this.elementIsEmpty(this.state[selectBoxFields.typeOfProperty.name])){
-        state[selectBoxFields.typeOfProperty.error] = true;
-        isValid = false;
-      }
-      if(this.elementIsEmpty(this.state[selectBoxFields.titleOfProperty.name])){
-        state[selectBoxFields.titleOfProperty.error] = true;
-        isValid = false;
-      }
     }
-     this.setState(state);
-     return isValid;
 
+    return isValid;
   },
 
   scrollTopError: function(){
@@ -294,8 +297,8 @@ var FormDeclarations = React.createClass({
 
   save: function(event) {
     event.preventDefault();
-    if(this.valid()==false){
-      this.setState({saving: true, isValid: false});
+    if(this.valid() == false){
+      this.setState({saving: false, isValid: false});
       return false;
     }
 

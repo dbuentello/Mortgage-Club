@@ -3,7 +3,7 @@ var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var FlashHandler = require('mixins/FlashHandler');
 
-var ValidationObject = require("mixins/ValidationMixins");
+var ValidationObject = require("mixins/FormValidationMixin");
 
 var AddressField = require('components/form/AddressField');
 var DateField = require('components/form/DateField');
@@ -71,7 +71,6 @@ var Form = React.createClass({
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
-    state.activateError = false;
     state.isValid = true;
     return state;
   },
@@ -116,7 +115,6 @@ var Form = React.createClass({
             </div>
           </div>
           <Borrower
-            activateError={this.state.activateError}
             loan={this.props.loan}
             fields={borrower_fields}
             firstName={this.state[borrower_fields.firstName.name]}
@@ -165,7 +163,6 @@ var Form = React.createClass({
                 <br/>
                 <h3>Please provide information about your co-borrower</h3>
                 <Borrower
-                  activateError={this.state.activateError}
                   loan={this.props.loan}
                   fields={secondary_borrower_fields}
                   firstName={this.state[secondary_borrower_fields.firstName.name]}
@@ -248,6 +245,9 @@ var Form = React.createClass({
         state['hasSecondaryBorrower'] = true;
         // state['secondary_borrower_editable'] = false;
         // build state for secondary borrower
+
+        console.dir(secondary_borrower)
+        console.dir(secondary_borrower_fields)
         state = this.buildStateFromBorrower(state, secondary_borrower, secondary_borrower.user, secondary_borrower_fields);
       } else {
         state[borrower_fields.applyingAs.name] = 1;
@@ -318,161 +318,64 @@ var Form = React.createClass({
 
   valid: function() {
     var isValid = true;
-    var state = {};
-    var borrowerOutputFields = [
-      borrower_fields.email.error,
-      borrower_fields.firstName.error,
-      borrower_fields.lastName.error,
-      borrower_fields.dob.error,
-      borrower_fields.ssn.error,
-      borrower_fields.yearsInSchool.error,
-      borrower_fields.currentlyOwn.error,
-      borrower_fields.currentAddress.error,
-      borrower_fields.yearsInCurrentAddress.error,
-      borrower_fields.selfEmployed.error,
-      borrower_fields.maritalStatus.error,
-      borrower_fields.numberOfDependents.error,
-      borrower_fields.selfEmployed.error
-    ];
-    var stateArray = [
-      this.state[borrower_fields.email.name],
-      this.state[borrower_fields.firstName.name],
-      this.state[borrower_fields.lastName.name],
-      this.state[borrower_fields.dob.name],
-      this.state[borrower_fields.ssn.name],
-      this.state[borrower_fields.yearsInSchool.name],
-      this.state[borrower_fields.currentlyOwn.name],
-      this.state[borrower_fields.currentAddress.name],
-      this.state[borrower_fields.yearsInCurrentAddress.name],
-      this.state[borrower_fields.selfEmployed.name],
-      this.state[borrower_fields.maritalStatus.name],
-      this.state[borrower_fields.numberOfDependents.name],
-      this.state[borrower_fields.selfEmployed.name]
-    ];
-    var validationResult = this.requiredFieldsHasEmptyElement(stateArray, borrowerOutputFields);
-    if (validationResult.hasEmptyElement == true){
-      this.setState(validationResult.state);
-      isValid = false;
-    }
-    if(this.state[borrower_fields.currentlyOwn.name]==false){
-        if(this.elementIsEmpty(this.state[borrower_fields.currentMonthlyRent.name])){
-          state[borrower_fields.currentMonthlyRent.error] = true;
-          isValid = false;
-        }
-    }
-    if(this.state[borrower_fields.numberOfDependents.name]>0 ){
-      if(this.elementIsEmpty(this.state[borrower_fields.dependentAges.name])){
-        state[borrower_fields.dependentAges.error] = true;
-        isValid = false;
-      }
-    }
-    if(this.state[borrower_fields.yearsInCurrentAddress.name] < 2){
-      if(this.elementIsEmpty(this.state[borrower_fields.previousAddress.name])){
-        state[borrower_fields.previousAddress.error] = true;
-        isValid = false;
-      }
-      if(this.elementIsEmpty(this.state[borrower_fields.yearsInPreviousAddress.name])){
-        state[borrower_fields.yearsInPreviousAddress.error] = true;
-        isValid = false;
-      }
-      if(this.elementIsEmpty(this.state[borrower_fields.previouslyOwn.name])){
-        state[borrower_fields.previouslyOwn.error] = true;
-        isValid = false;
-      }else {
-        if(this.elementIsEmpty(this.state[borrower_fields.yearsInPreviousAddress.name])){
-          state[borrower_fields.yearsInPreviousAddress.error] = true;
-          isValid = false;
-        }
-      }
-      if(this.state[borrower_fields.previouslyOwn.name]==false){
-        if(this.elementIsEmpty(this.state[borrower_fields.previousMonthlyRent.name])){
-          state[borrower_fields.previousMonthlyRent.error] = true;
-          isValid = false;
-        }
-      }
-    }
+    var requiredFields = this.mapValueToRequiredFields(borrower_fields);
+
     if(this.state[borrower_fields.applyingAs.name] == 2){
-        var coBorrowerOutputFields = [
-        secondary_borrower_fields.email.error,
-        secondary_borrower_fields.firstName.error,
-        secondary_borrower_fields.lastName.error,
-        secondary_borrower_fields.dob.error,
-        secondary_borrower_fields.ssn.error,
-        secondary_borrower_fields.yearsInSchool.error,
-        secondary_borrower_fields.currentlyOwn.error,
-        secondary_borrower_fields.currentAddress.error,
-        secondary_borrower_fields.yearsInCurrentAddress.error,
-        secondary_borrower_fields.selfEmployed.error,
-        secondary_borrower_fields.maritalStatus.error,
-        secondary_borrower_fields.numberOfDependents.error
-      ];
-      var coStateArray = [
-        this.state[secondary_borrower_fields.email.name],
-        this.state[secondary_borrower_fields.firstName.name],
-        this.state[secondary_borrower_fields.lastName.name],
-        this.state[secondary_borrower_fields.dob.name],
-        this.state[secondary_borrower_fields.ssn.name],
-        this.state[secondary_borrower_fields.yearsInSchool.name],
-        this.state[secondary_borrower_fields.currentlyOwn.name],
-        this.state[secondary_borrower_fields.currentAddress.name],
-        this.state[secondary_borrower_fields.yearsInCurrentAddress.name],
-        this.state[secondary_borrower_fields.selfEmployed.name],
-        this.state[secondary_borrower_fields.maritalStatus.name],
-        this.state[secondary_borrower_fields.numberOfDependents.name]
-      ];
-      validationResult = this.requiredFieldsHasEmptyElement(coStateArray, coBorrowerOutputFields);
-      if (validationResult.hasEmptyElement == true){
-        this.setState(validationResult.state);
-        isValid = false;
-      }
-      if(this.state[secondary_borrower_fields.numberOfDependents.name]>0 ){
-        if(this.elementIsEmpty(this.state[secondary_borrower_fields.dependentAges.name])){
-          state[secondary_borrower_fields.dependentAges.error] = true;
-          isValid = false;
-        }
-      }
-      if(this.state[secondary_borrower_fields.currentlyOwn.name]==false){
-          if(this.elementIsEmpty(this.state[secondary_borrower_fields.currentMonthlyRent.name])){
-            state[secondary_borrower_fields.currentMonthlyRent.error] = true;
-            isValid = false;
-          }
-      }
-      if(this.state[secondary_borrower_fields.yearsInCurrentAddress.name] < 2){
-        if(this.elementIsEmpty(this.state[secondary_borrower_fields.previousAddress.name])){
-          state[secondary_borrower_fields.previousAddress.error] = true;
-          isValid = false;
-        }
-        if(this.elementIsEmpty(this.state[secondary_borrower_fields.yearsInPreviousAddress.name])){
-          state[secondary_borrower_fields.yearsInPreviousAddress.error] = true;
-          isValid = false;
-        }
-        if(this.elementIsEmpty(this.state[secondary_borrower_fields.previouslyOwn.name])){
-          state[secondary_borrower_fields.previouslyOwn.error] = true;
-          isValid = false;
-        }else {
-          if(this.elementIsEmpty(this.state[secondary_borrower_fields.yearsInPreviousAddress.name])){
-            state[secondary_borrower_fields.yearsInPreviousAddress.error] = true;
-            isValid = false;
-          }
-        }
-        if(this.state[secondary_borrower_fields.previouslyOwn.name] ==false){
-          if(this.elementIsEmpty(this.state[secondary_borrower_fields.previousMonthlyRent.name])){
-            state[secondary_borrower_fields.previousMonthlyRent.error] = true;
-            isValid = false;
-          }
-        }
-      }
+      requiredFields = _.extend(requiredFields, this.mapValueToRequiredFields(secondary_borrower_fields));
     }
 
-    if(isValid==false){
-      state.saving =false;
+    if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
+      this.setState(this.getStateOfInvalidFields(requiredFields));
+      isValid = false;
     }
-    this.setState(state);
 
     return isValid;
   },
 
-  scrollTopError: function(){
+  mapValueToRequiredFields: function(fields) {
+    var requiredFields = {};
+    var commonCheckingFields = [
+      fields.email,
+      fields.firstName,
+      fields.lastName,
+      fields.dob,
+      fields.ssn,
+      fields.yearsInSchool,
+      fields.currentlyOwn,
+      fields.currentAddress,
+      fields.yearsInCurrentAddress,
+      fields.selfEmployed,
+      fields.maritalStatus,
+      fields.numberOfDependents
+    ];
+
+    _.each(commonCheckingFields, function(field) {
+      requiredFields[field.error] = this.state[field.name];
+    }, this);
+
+    if(this.state[fields.currentlyOwn.name] == false) {
+      requiredFields[fields.currentMonthlyRent.error] = this.state[fields.currentMonthlyRent.name];
+    }
+
+    if(this.state[fields.numberOfDependents.name] > 0) {
+      requiredFields[fields.dependentAges.error] = this.state[fields.dependentAges.name];
+    }
+
+    if(this.state[fields.yearsInCurrentAddress.name] < 2) {
+      requiredFields[fields.previousAddress.error] = this.state[fields.previousAddress.name];
+      requiredFields[fields.yearsInPreviousAddress.error] = this.state[fields.yearsInPreviousAddress.name];
+      requiredFields[fields.previouslyOwn.error] = this.state[fields.previouslyOwn.name];
+      requiredFields[fields.yearsInPreviousAddress.error] = this.state[fields.yearsInPreviousAddress.name];
+
+      if(this.state[fields.previouslyOwn.name] == false) {
+        requiredFields[fields.previousMonthlyRent.error] = this.state[fields.previousMonthlyRent.name];
+      }
+    }
+
+    return requiredFields;
+  },
+
+  scrollTopError: function() {
     var offset = $(".tooltip").first().parents(".form-group").offset();
     var top = offset === undefined ? 0 : offset.top;
     $('html, body').animate({scrollTop: top}, 1000);
@@ -481,7 +384,7 @@ var Form = React.createClass({
 
   save: function(event) {
     if (this.valid() == false) {
-      this.setState({activateError: true, saving: false, isValid: false})
+      this.setState({saving: false, isValid: false});
       return false;
     }
 

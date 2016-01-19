@@ -14,9 +14,7 @@ class UserForm
     assign_value_to_attributes
     return false unless valid?
 
-    User.transaction do
-      user.save!
-    end
+    user.save
   end
 
   def user
