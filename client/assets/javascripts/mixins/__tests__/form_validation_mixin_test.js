@@ -22,7 +22,7 @@ describe('text format helper', function() {
     });
   });
 
-  it("validate integer correctly", function() {
+  it("validates integer correctly", function() {
     var tests = [
       {params: ["123334444"], expected: true},
       {params: ["334444@"], expected: false},
@@ -34,7 +34,7 @@ describe('text format helper', function() {
     });
   });
 
-  it("validate America phone number correctly", function() {
+  it("validates America phone number correctly", function() {
     var tests = [
       {params: ["(344) 434-4455"], expected: true},
       {params: ["(144) 434-4455"], expected: true},
@@ -42,7 +42,9 @@ describe('text format helper', function() {
       {params: ["334444@"], expected: false},
       {params: ["000 000 4"], expected: false},
       {params: ["addffg12"], expected: false},
-      {params: ["(234) 234-566666"], expected: false}
+      {params: ["(234) 234-566666"], expected: false},
+      {params: [""], expected: false},
+      {params: [null], expected: false}
     ];
     tests.forEach(function (test) {
       expect(subject.elementIsPhoneNumber.apply(subject, test.params)).toBe(test.expected);
