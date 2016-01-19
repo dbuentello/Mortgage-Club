@@ -1,7 +1,6 @@
 var _ = require('lodash');
-var valid = true;
 
-var FormValidationMixin = {
+module.exports = {
   // fields = { borrower_fields.yearsInSchool.error: 2, borrower_fields.currentAddress.error: "Any where" }
   getStateOfInvalidFields: function(fields) {
     var state = {};
@@ -12,6 +11,11 @@ var FormValidationMixin = {
     }, this);
 
     return state;
+  },
+
+  elementIsEmail: function(obj){
+    var emailReg = /^[a-zA-Z]+[a-zA-Z0-9_\-\.]*[a-zA-Z0-9_\-]+@([a-zA-Z]+[a-zA-Z0-9_\-]*\.){1,2}[a-zA-Z]{2,}$/;
+    return obj.match(emailReg)!=null
   },
 
   elementIsEmpty: function(obj) {
@@ -41,5 +45,3 @@ var FormValidationMixin = {
     return {state: stateObj, hasEmptyElement: empty};
   }
 }
-
-module.exports = FormValidationMixin;
