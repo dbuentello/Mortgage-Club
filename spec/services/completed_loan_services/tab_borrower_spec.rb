@@ -10,7 +10,12 @@ describe CompletedLoanServices::TabBorrower do
     })
   end
 
-  it "returns true with valid values" do
+  it "returns true with borrower valid, secondary_borrower nil" do
+    @service.secondary_borrower = nil
+    expect(@service.call).to eq(true)
+  end
+
+  it "returns true with borrower, secondary borrower valid" do
     expect(@service.call).to eq(true)
   end
 
