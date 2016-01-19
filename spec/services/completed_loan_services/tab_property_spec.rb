@@ -35,10 +35,10 @@ describe CompletedLoanServices::TabProperty do
   end
 
   describe "#subject_property_completed" do
-    it "returns false with property type nil" do
-      @service.subject_property.property_type = nil
-      expect(@service.subject_property_completed?).to be_falsey
-    end
+    # it "returns false with property type nil" do
+    #   @service.subject_property.property_type = nil
+    #   expect(@service.subject_property_completed?).to be_falsey
+    # end
 
     it "returns false with address nil" do
       @service.subject_property.address = nil
@@ -50,25 +50,25 @@ describe CompletedLoanServices::TabProperty do
       expect(@service.subject_property_completed?).to be_falsey
     end
 
-    it "returns false with market price nil" do
-      @service.subject_property.market_price = nil
-      expect(@service.subject_property_completed?).to be_falsey
-    end
+    # it "returns false with market price nil" do
+    #   @service.subject_property.market_price = nil
+    #   expect(@service.subject_property_completed?).to be_falsey
+    # end
 
-    it "returns false with escrows nil" do
-      @service.subject_property.mortgage_includes_escrows = nil
-      expect(@service.subject_property_completed?).to be_falsey
-    end
+    # it "returns false with escrows nil" do
+    #   @service.subject_property.mortgage_includes_escrows = nil
+    #   expect(@service.subject_property_completed?).to be_falsey
+    # end
 
-    it "returns false with estimated property tax nil" do
-      @service.subject_property.estimated_property_tax = nil
-      expect(@service.subject_property_completed?).to be_falsey
-    end
+    # it "returns false with estimated property tax nil" do
+    #   @service.subject_property.estimated_property_tax = nil
+    #   expect(@service.subject_property_completed?).to be_falsey
+    # end
 
-    it "returns false with estimated hazard insurance nil" do
-      @service.subject_property.estimated_hazard_insurance = nil
-      expect(@service.subject_property_completed?).to be_falsey
-    end
+    # it "returns false with estimated hazard insurance nil" do
+    #   @service.subject_property.estimated_hazard_insurance = nil
+    #   expect(@service.subject_property_completed?).to be_falsey
+    # end
 
     it "returns true with valid values" do
       expect(@service.subject_property_completed?).to be_truthy
