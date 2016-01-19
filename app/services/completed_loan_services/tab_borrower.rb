@@ -26,23 +26,23 @@ module CompletedLoanServices
       return false if borrower.current_address.is_rental.nil?
       return false unless borrower.current_address.years_at_address
       return false if borrower.current_address.years_at_address < 0
-      return false if rent_house_and_monthly_rent_valid?(borrower)
+      return false if rent_house_and_monthly_rent_valid?(borrower.current_address)
       return false unless previous_address_completed?(borrower)
 
       true
     end
 
     def previous_address_completed?(borrower)
-      if borrower.previous_address.present?
-        return false if borrower.previous_address.is_rental.nil?
-        return false unless borrower.previous_address.monthly_rent
-      end
+      return true if borrower.current_address.years_at_address > 1
+      return false unless borrower.previous_address.present?
+      return false if borrower.previous_address.is_rental.nil?
+      return false if rent_house_and_monthly_rent_valid?(borrower.previous_address)
 
       true
     end
 
-    def rent_house_and_monthly_rent_valid?(borrower)
-      borrower.current_address.is_rental && !borrower.current_address.monthly_rent
+    def rent_house_and_monthly_rent_valid?(address)
+      address.is_rental && !address.monthly_rent
     end
   end
 end

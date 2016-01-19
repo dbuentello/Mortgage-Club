@@ -19,7 +19,7 @@ describe CompletedLoanServices::TabDocuments do
       let!(:borrower) { FactoryGirl.create(:borrower_with_documents_self_employed, loan: loan) }
 
       before do
-        @service.borrower =  borrower
+        @service.borrower = borrower
       end
 
       it "returns false with first personal tax return nil" do
@@ -67,7 +67,7 @@ describe CompletedLoanServices::TabDocuments do
       let!(:borrower) { FactoryGirl.create(:borrower_with_documents_not_self_employed, loan: loan) }
 
       before do
-        @service.borrower =  borrower
+        @service.borrower = borrower
       end
 
       it "returns false with first w2 nil" do
@@ -130,7 +130,7 @@ describe CompletedLoanServices::TabDocuments do
         let!(:borrower) { FactoryGirl.create(:borrower_with_documents_self_employed, loan: loan) }
 
         it "returns true with valid values" do
-          @service.borrower =  borrower
+          @service.borrower = borrower
           expect(@service.not_jointly_document_completed?(@service.borrower)).to be_truthy
         end
       end
@@ -139,7 +139,7 @@ describe CompletedLoanServices::TabDocuments do
         let!(:borrower) { FactoryGirl.create(:borrower_with_documents_not_self_employed, loan: loan) }
 
         it "returns true with valid values" do
-          @service.borrower =  borrower
+          @service.borrower = borrower
           expect(@service.not_jointly_document_completed?(@service.borrower)).to be_truthy
         end
       end
