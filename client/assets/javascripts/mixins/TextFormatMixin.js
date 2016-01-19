@@ -98,9 +98,9 @@ var TextFormatMixin = {
     }).join(' ');
   },
 
-  formatNumber: function(val) {
+  formatInteger: function(val) {
     if (!val) { return; }
-    return (''+val).replace(/[^0-9\.]/g, '');
+    return ('' + val).replace(/\D/g, '');
   },
 
   formatSSN: function(val) {
@@ -110,7 +110,7 @@ var TextFormatMixin = {
   },
 
   formatPhoneNumber: function(s) {
-    var s2 = (''+s).replace(/\D/g, '');
+    var s2 = ('' + s).replace(/\D/g, '');
     var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
     return (!m) ? s : '(' + m[1] + ') ' + m[2] + '-' + m[3];
   }
