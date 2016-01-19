@@ -37,7 +37,7 @@ FactoryGirl.define do
   end
 
   factory :loan_with_secondary_borrower, parent: :loan do |f|
-    association :secondary_borrower, factory: :borrower
+    association :secondary_borrower, factory: [:borrower, :with_user]
   end
 
   factory :loan_with_all_associations, parent: :loan do |f|
