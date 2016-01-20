@@ -113,6 +113,10 @@ var FormDeclarations = React.createClass({
       state[field.name + '_display'] = true;
     });
 
+    if(state[checkboxFields.usCitizen.name] == true) {
+      state[checkboxFields.permanentResidentAlien.name + "_display"] = "none";
+    }
+
     _.each(selectBoxFields, function (field) {
       state[field.name] = state[field.name] === null ? null : state[field.name];
     });
@@ -157,7 +161,14 @@ var FormDeclarations = React.createClass({
     var state = {};
     if (declaration) {
       _.each(Object.keys(checkboxFields), function(key) {
-        state[checkboxFields[key].name] = declaration[checkboxFields[key].name];
+        if(key == "permanentResidentAlien"){
+          if(state[checkboxFields.usCitizen.name] == false)
+          {
+            state[checkboxFields[key].name] = declaration[checkboxFields[key].name];
+          }
+        }else{
+          state[checkboxFields[key].name] = declaration[checkboxFields[key].name];
+        }
       });
       _.each(Object.keys(selectBoxFields), function(key) {
         state[selectBoxFields[key].name] = declaration[selectBoxFields[key].name];
@@ -273,16 +284,16 @@ var FormDeclarations = React.createClass({
     var commonCheckingFields = this.omitKeys(checkboxFields, ["permanentResidentAlien"]);
 
     _.each(commonCheckingFields, function(field) {
-      requiredFields[field.error] = this.state[field.name];
+      requiredFields[field.error] = {value: this.state[field.name], validationTypes: field.validationTypes};
     }, this);
 
     if(this.state.permanent_resident_alien_display == true) {
-      requiredFields[checkboxFields.permanentResidentAlien.error] = this.state[checkboxFields.permanentResidentAlien.error]
+      requiredFields[checkboxFields.permanentResidentAlien.error] = {value: this.state[checkboxFields.permanentResidentAlien.error], validationTypes: checkboxFields.permanentResidentAlien.validationTypes};
     }
 
     if(this.state.display_sub_question == true) {
-      requiredFields[selectBoxFields.typeOfProperty.error] = this.state[selectBoxFields.typeOfProperty.name];
-      requiredFields[selectBoxFields.titleOfProperty.error] = this.state[selectBoxFields.titleOfProperty.name];
+      requiredFields[selectBoxFields.typeOfProperty.error] = {value: this.state[selectBoxFields.typeOfProperty.name], validationTypes: selectBoxFields.typeOfProperty.validationTypes};
+      requiredFields[selectBoxFields.titleOfProperty.error] = {value: this.state[selectBoxFields.titleOfProperty.name], validationTypes:selectBoxFields.titleOfProperty.validationTypes};
     }
 
     return requiredFields;
@@ -291,7 +302,8 @@ var FormDeclarations = React.createClass({
   valid: function(){
     var isValid = true;
     var requiredFields = this.mapValueToRequiredFields();
-
+    console.dir(requiredFields)
+    console.dir(this.getStateOfInvalidFields(requiredFields))
     if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
       this.setState(this.getStateOfInvalidFields(requiredFields));
       isValid = false;
