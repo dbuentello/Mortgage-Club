@@ -66,8 +66,11 @@ var FormDocuments = React.createClass({
     this.props.saveLoan(this.buildLoanFromState(), 2, true);
   },
 
-  componentDidUpdate: function(){
-    if(!this.valid()){
+  componentDidUpdate: function(prevProps, prevState){
+    if(prevState.is_file_taxes_jointly != this.state.is_file_taxes_jointly){
+      this.setState({activateRequiredField: false});
+    }
+    else if(!this.valid() && this.state.activateRequiredField === true){
       this.scrollTopError();
     }
   },
@@ -255,9 +258,8 @@ var FormDocuments = React.createClass({
 
   scrollTopError: function(){
     var offset = $(".tooltip").first().parents(".form-group").offset();
-    var top = offset === undefined ? 0 : offset.top;
-    if(top > 0)
-      $('html, body').animate({scrollTop: top}, 1000);
+    if(offset !== undefined)
+      $('html, body').animate({scrollTop: offset.top}, 1000);
   },
 
   valid: function(){
