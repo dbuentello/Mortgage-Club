@@ -22,6 +22,11 @@ module.exports = {
     return result;
   },
 
+  elementIsValidSSN: function(obj) {
+    var ssnPattern = /^(\d{3})\-(\d{2})\-(\d{4})$/;
+    return ssnPattern.test(obj);
+  },
+
   elementMatchsPattern: function(obj, pattern) {
     if (!obj) { return false; }
     return pattern.test(obj);
