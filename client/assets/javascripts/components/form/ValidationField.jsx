@@ -1,39 +1,104 @@
 var React = require('react/addons');
 var _ = require('lodash');
-
+var FormValidationMixin = require("mixins/FormValidationMixin");
 
 var ValidationField = React.createClass({
-    render: function() {
-      if(this.props.activateRequiredField === true)
-      {
-        if(this.props.value === null || this.props.value === "" || this.props.value === undefined || this.props.value === "javascript:void(0)"){
+  mixins: [FormValidationMixin],
 
-          if(!this.hasTooltip()) {
-            $("#" + this.props.id).tooltip({
-              title: this.props.title,
-              placement: "bottom",
-              trigger: "manual"
-            }).tooltip('show');
-          }
+  render: function() {
+    if(this.props.activateRequiredField === true)
+    {
+      if(this.isEmptyValue()){
+        if(!this.hasTooltip()) {
+          $("#" + this.props.id).tooltip({
+            title: this.props.title,
+            placement: "bottom",
+            trigger: "manual"
+          }).tooltip('show');
         }
-        else{
-          $("#" + this.props.id).tooltip('destroy');
+      }
+      else if(this.isInvalidValue()) {
+        if(!this.hasTooltip()) {
+          $("#" + this.props.id).tooltip({
+            title: "This field is invalid",
+            placement: "bottom",
+            trigger: "manual"
+          }).tooltip('show');
         }
       }
       else{
-        $("#" + this.props.id).tooltip('destroy');
+        $("#" + this.props.id).tooltip("destroy");
       }
-      return (
-          <div className="validation-field"></div>
-      );
-    },
+    }
+    else{
+      $("#" + this.props.id).tooltip("destroy");
+    }
+    return (
+      <div className="validation-field"></div>
+    );
+  },
 
-    hasTooltip: function() {
-      if($("#" + this.props.id).attr("aria-describedby") !== undefined) {
+  hasTooltip: function() {
+    if($("#" + this.props.id).attr("aria-describedby") !== undefined) {
+      return true;
+    }
+    return false;
+  },
+
+  isEmptyValue: function() {
+    if(this.props.value === null || this.props.value === "" || this.props.value === undefined || this.props.value === "javascript:void(0)") {
+      return true;
+    }
+    // for address
+    if(typeof(this.props.value) == "object") {
+      if(this.props.value.street_address == null || this.props.value.street_address == "") {
         return true;
       }
-      return false;
     }
+    return false;
+  },
+
+  isInvalidValue: function() {
+    var isInvalid = false;
+
+    _.each(this.props.validationTypes, function(type) {
+      switch(type) {
+        case "currency":
+          if(!this.elementIsValidCurrency(this.props.value)) {
+            console.dir("ya")
+            isInvalid = true;
+          }
+          break;
+        case "agesOfDependents":
+          if(!this.elementIsValidAgeofDependents(this.props.value)) {
+            isInvalid = true;
+          }
+          break;
+        case "ssn":
+          if(!this.elementIsValidSSN(this.props.value)) {
+            isInvalid = true;
+          }
+          break;
+        case "email":
+          if(!this.elementIsEmail(this.props.value)) {
+            isInvalid = true;
+          }
+          break;
+        case "integer":
+          if(!this.elementIsInteger(this.props.value)) {
+            isInvalid = true;
+          }
+          break;
+        case "phoneNumber":
+          if(!this.elementIsPhoneNumber(this.props.value)) {
+            isInvalid = true;
+          }
+          break;
+      }
+    }, this);
+
+    return isInvalid;
+  }
 });
 
 module.exports = ValidationField;

@@ -113,7 +113,7 @@ var NewSelectField = React.createClass({
             <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
           </div>
         </div>
-        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage}/>
+        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage} validationTypes={this.props.validationTypes}/>
       </div>
     );
   },

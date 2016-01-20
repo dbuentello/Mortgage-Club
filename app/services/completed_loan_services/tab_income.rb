@@ -35,6 +35,7 @@ module CompletedLoanServices
     end
 
     def previous_employment_completed?
+      return false unless previous_employment
       return false unless previous_employment.employer_name.present?
       return false unless previous_employment.job_title.present?
       return false unless previous_employment.duration.present?

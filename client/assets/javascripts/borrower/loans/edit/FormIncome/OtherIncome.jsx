@@ -7,11 +7,11 @@ var SelectField = require('components/form/NewSelectField');
 var TextField = require('components/form/NewTextField');
 
 var otherIncomes = [
-      {value: 'overtime', name: 'Overtime'},
-      {value: 'bonus', name: 'Bonus'},
-      {value: 'commission', name: 'Commission'},
-      {value: 'interest', name: 'Interest'}
-    ];
+  {value: 'overtime', name: 'Overtime'},
+  {value: 'bonus', name: 'Bonus'},
+  {value: 'commission', name: 'Commission'},
+  {value: 'interest', name: 'Interest'}
+];
 
 var OtherIncome = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
@@ -56,6 +56,7 @@ var OtherIncome = React.createClass({
             keyName={this.props.name + '_amount_' + index}
             value={this.props.amount}
             editable={true}
+            validationTypes={["currency"]}
             onChange={this.onChange}/>
         </div>
         <div className='col-sm-1'>

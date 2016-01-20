@@ -29,7 +29,6 @@ class Users::LoansController < Users::BaseController
     @loan = Loan.initiate(current_user)
 
     if @loan.save
-      flash[:success] = "Sucessfully create a new loan"
       render json: {loan_id: @loan.id}, status: 200
     else
       render json: {message: "Cannot create new loan"}, status: 500
@@ -71,7 +70,7 @@ class Users::LoansController < Users::BaseController
 
   def destroy
     if @loan.destroy
-      flash[:success] = "Sucessfully destroy loan"
+      # flash[:success] = "Sucessfully destroy loan"
 
       render json: {redirect_path: my_loans_path}, status: 200
     else

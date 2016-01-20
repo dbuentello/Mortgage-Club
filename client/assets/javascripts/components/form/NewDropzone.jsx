@@ -155,7 +155,7 @@ var Dropzone = React.createClass({
             this.setState({ fileIsExisting: true });
 
             if (this.props.uploadSuccessCallback) {
-              this.props.uploadSuccessCallback();
+              this.props.uploadSuccessCallback(this.props.field.name);
             }
           }.bind(this),
           cache: false,
@@ -203,6 +203,10 @@ var Dropzone = React.createClass({
           this.setState({ tip: 'Upload' });
           this.setState({ downloadUrl: null });
           this.setState({ fileIsExisting: false });
+
+          if (this.props.removeSuccessCallback) {
+            this.props.removeSuccessCallback(this.props.field.name);
+          }
         }.bind(this),
         error: function(response, status, error) {
         }
@@ -259,7 +263,7 @@ var Dropzone = React.createClass({
               <img className='fileBtnSmall' src='/icons/trash.png' onClick={this.remove}/>
             </div>
           </div>
-          <ValidationField id={this.props.field.name + "_id"} activateRequiredField={true} value={this.state.downloadUrl} title={"This field is required"}/>
+          <ValidationField id={this.props.field.name + "_id"} activateRequiredField={this.props.activateRequiredField} value={this.state.downloadUrl} title={"This field is required"}/>
         </div>
       </div>
     );

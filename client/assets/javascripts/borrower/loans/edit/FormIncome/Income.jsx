@@ -29,7 +29,7 @@ var Income = React.createClass({
         key={index}
         index={index}
         type={income.type}
-        amount={income.amount}
+        amount={this.formatCurrency(income.amount)}
         typeError={income.typeError}
         name={this.props.fields.otherIncomes.name}
         amountError={income.amountError}
@@ -118,6 +118,7 @@ var Income = React.createClass({
               keyName={this.props.fields.currentYearsAtEmployer.name}
               value={this.props.currentYearsAtEmployer}
               editable={true}
+              validationTypes={["integer"]}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentYearsAtEmployer)}
               onChange={this.props.onChange}/>
           </div>
@@ -146,6 +147,7 @@ var Income = React.createClass({
                     format={this.formatCurrency}
                     liveFormat={true}
                     editable={true}
+                    validationTypes={["currency"]}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyIncome)}
                     onChange={this.props.onChange}/>
                 </div>
@@ -168,6 +170,7 @@ var Income = React.createClass({
                     keyName={this.props.fields.previousYearsAtEmployer.name}
                     value={this.props.previousYearsAtEmployer}
                     editable={true}
+                    validationTypes={["integer"]}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousYearsAtEmployer)}
                     onChange={this.props.onChange}/>
                 </div>
@@ -198,6 +201,7 @@ var Income = React.createClass({
               liveFormat={true}
               maxLength={14}
               editable={true}
+              validationTypes={["phoneNumber"]}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.employerContactNumber)}
               onChange={this.props.onChange}/>
           </div>

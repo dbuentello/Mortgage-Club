@@ -11,44 +11,44 @@ var SelectField = require('components/form/NewSelectField');
 var Income = require('./Income');
 
 var borrowerFields = {
-  currentEmployerName: {label: 'Name of current employer', name: 'current_employer_name', helpText: 'I am a helpful text.', error: "current_employer_name_error"},
-  currentEmployerAddress: {label: 'Address of current employer', name: 'current_address', helpText: null, error: "current_address_error"},
+  currentEmployerName: {label: 'Name of current employer', name: 'current_employer_name', helpText: 'I am a helpful text.', error: "current_employer_name_error", validationTypes: ["empty"]},
+  currentEmployerAddress: {label: 'Address of current employer', name: 'current_address', helpText: null, error: "current_address_error", validationTypes: ["empty"]},
   currentEmployerFullTextAddress: {name: 'current_full_text_address', helpText: null, error: "current_full_text_address_error"},
-  currentJobTitle: {label: 'Job Title', name: 'current_job_title', helpText: null, error: "current_job_title_error"},
-  currentYearsAtEmployer: {label: 'Years at this employer', name: 'current_duration', helpText: null, error: "current_duration_error"},
-  previousEmployerName: {label: 'Name of previous employer', name: 'previous_employer_name', helpText: 'I am a helpful text.', error: "previous_employer_name_error"},
-  previousJobTitle: {label: 'Job Title', name: 'previous_job_title', helpText: null, error: "previous_job_title_error"},
-  previousYearsAtEmployer: {label: 'Years at this employer', name: 'previous_duration', helpText: null, error: "previous_duration_error"},
-  previousMonthlyIncome: {label: 'Monthly Income', name: 'previous_monthly_income', helpText: null, error: "previous_monthly_income_error"},
-  employerContactName: {label: 'Contact Name', name: 'employer_contact_name', helpText: null, error: "employer_contact_name_error"},
-  employerContactNumber: {label: 'Contact Phone Number', name: 'employer_contact_number', helpText: null, error: "employer_contact_number_error"},
-  baseIncome: {label: 'Base Income', name: 'current_salary', helpText: null, error: "current_salary_error"},
+  currentJobTitle: {label: 'Job Title', name: 'current_job_title', helpText: null, error: "current_job_title_error", validationTypes: ["empty"]},
+  currentYearsAtEmployer: {label: 'Years at this employer', name: 'current_duration', helpText: null, error: "current_duration_error", validationTypes: ["integer"]},
+  previousEmployerName: {label: 'Name of previous employer', name: 'previous_employer_name', helpText: 'I am a helpful text.', error: "previous_employer_name_error", validationTypes: ["empty"]},
+  previousJobTitle: {label: 'Job Title', name: 'previous_job_title', helpText: null, error: "previous_job_title_error", validationTypes: ["empty"]},
+  previousYearsAtEmployer: {label: 'Years at this employer', name: 'previous_duration', helpText: null, error: "previous_duration_error", validationTypes: ["integer"]},
+  previousMonthlyIncome: {label: 'Monthly Income', name: 'previous_monthly_income', helpText: null, error: "previous_monthly_income_error", validationTypes: ["currency"]},
+  employerContactName: {label: 'Contact Name', name: 'employer_contact_name', helpText: null, error: "employer_contact_name_error", validationTypes: ["empty"]},
+  employerContactNumber: {label: 'Contact Phone Number', name: 'employer_contact_number', helpText: null, error: "employer_contact_number_error", validationTypes: ["phoneNumber"]},
+  baseIncome: {label: 'Base Income', name: 'current_salary', helpText: null, error: "current_salary_error", validationTypes: ["currency"]},
   grossOvertime: {label: 'Annual Gross Overtime', name: 'gross_overtime', helpText: null, error: "gross_overtime_error"},
   grossBonus: {label: 'Annual Gross Bonus', name: 'gross_bonus', helpText: null, error: "gross_bonus_error"},
   grossCommission: {label: 'Annual Gross Commission', name: 'gross_commission', helpText: null, error: "gross_commission_error"},
   grossInterest: {label: 'Annual Gross Interest', name: 'gross_interest', helpText: null, error: "gross_interest_error"},
-  incomeFrequency: {label: 'Income frequency', name: 'pay_frequency', helpText: null, error: "pay_frequency_error"},
+  incomeFrequency: {label: 'Income frequency', name: 'pay_frequency', helpText: null, error: "pay_frequency_error", validationTypes: ["empty"]},
   otherIncomes: {name: 'borrower_other_incomes'}
 };
 
 var secondaryBorrowerFields = {
-  currentEmployerName: {label: 'Name of current employer', name: 'secondary_current_employer_name', helpText: 'I am a helpful text.', error: "secondary_current_employer_name_error"},
-  currentEmployerAddress: {label: 'Address of current employer', name: 'secondary_current_address', helpText: null, error: "secondary_current_address_error"},
+  currentEmployerName: {label: 'Name of current employer', name: 'secondary_current_employer_name', helpText: 'I am a helpful text.', error: "secondary_current_employer_name_error", validationTypes: ["empty"]},
+  currentEmployerAddress: {label: 'Address of current employer', name: 'secondary_current_address', helpText: null, error: "secondary_current_address_error", validationTypes: ["empty"]},
   currentEmployerFullTextAddress: {name: 'secondary_current_full_text_address', helpText: null, error: "secondary_current_full_text_address_error"},
-  currentJobTitle: {label: 'Job Title', name: 'secondary_current_job_title', helpText: null, error: "secondary_current_job_title_error"},
-  currentYearsAtEmployer: {label: 'Years at this employer', name: 'secondary_current_duration', helpText: null, error: "secondary_current_duration_error"},
-  previousEmployerName: {label: 'Name of previous employer', name: 'secondary_previous_employer_name', helpText: 'I am a helpful text.', error: "secondary_previous_employer_name_error"},
-  previousJobTitle: {label: 'Job Title', name: 'secondary_previous_job_title', helpText: null, error: "secondary_previous_job_title_error"},
-  previousYearsAtEmployer: {label: 'Years at this employer', name: 'secondary_previous_duration', helpText: null, error: "secondary_previous_duration_error"},
-  previousMonthlyIncome: {label: 'Monthly Income', name: 'secondary_previous_monthly_income', helpText: null, error: "secondary_previous_monthly_income_error"},
-  employerContactName: {label: 'Contact Name', name: 'secondary_employer_contact_name', helpText: null, error: "secondary_employer_contact_name_error"},
-  employerContactNumber: {label: 'Contact Phone Number', name: 'secondary_employer_contact_number', helpText: null, error: "secondary_employer_contact_number_error"},
-  baseIncome: {label: 'Base Income', name: 'secondary_current_salary', helpText: null, error: "secondary_current_salary_error"},
+  currentJobTitle: {label: 'Job Title', name: 'secondary_current_job_title', helpText: null, error: "secondary_current_job_title_error", validationTypes: ["empty"]},
+  currentYearsAtEmployer: {label: 'Years at this employer', name: 'secondary_current_duration', helpText: null, error: "secondary_current_duration_error", validationTypes: ["integer"]},
+  previousEmployerName: {label: 'Name of previous employer', name: 'secondary_previous_employer_name', helpText: 'I am a helpful text.', error: "secondary_previous_employer_name_error", validationTypes: ["empty"]},
+  previousJobTitle: {label: 'Job Title', name: 'secondary_previous_job_title', helpText: null, error: "secondary_previous_job_title_error", validationTypes: ["empty"]},
+  previousYearsAtEmployer: {label: 'Years at this employer', name: 'secondary_previous_duration', helpText: null, error: "secondary_previous_duration_error", validationTypes: ["integer"]},
+  previousMonthlyIncome: {label: 'Monthly Income', name: 'secondary_previous_monthly_income', helpText: null, error: "secondary_previous_monthly_income_error", validationTypes: ["currency"]},
+  employerContactName: {label: 'Contact Name', name: 'secondary_employer_contact_name', helpText: null, error: "secondary_employer_contact_name_error", validationTypes: ["empty"]},
+  employerContactNumber: {label: 'Contact Phone Number', name: 'secondary_employer_contact_number', helpText: null, error: "secondary_employer_contact_number_error", validationTypes: ["phoneNumber"]},
+  baseIncome: {label: 'Base Income', name: 'secondary_current_salary', helpText: null, error: "secondary_current_salary_error", validationTypes: ["currency"]},
   grossOvertime: {label: 'Annual Gross Overtime', name: 'secondary_gross_overtime', helpText: null, error: "secondary_gross_overtime_error"},
   grossBonus: {label: 'Annual Gross Bonus', name: 'secondary_gross_bonus', helpText: null, error: "secondary_gross_bonus_error"},
   grossCommission: {label: 'Annual Gross Commission', name: 'secondary_gross_commission', helpText: null, error: "secondary_gross_commission_error"},
   grossInterest: {label: 'Annual Gross Interest', name: 'secondary_gross_interest', helpText: null, error: "secondary_gross_interest_error"},
-  incomeFrequency: {label: 'Income frequency', name: 'secondary_pay_frequency', helpText: null, error: "secondary_pay_frequency_error"},
+  incomeFrequency: {label: 'Income frequency', name: 'secondary_pay_frequency', helpText: null, error: "secondary_pay_frequency_error", validationTypes: ["empty"]},
   otherIncomes: {name: 'secondary_borrower_other_incomes'}
 };
 
@@ -110,7 +110,6 @@ var Form = React.createClass({
             employerContactNumberError={this.state[borrowerFields.employerContactNumber.error]}
             baseIncomeError={this.state[borrowerFields.baseIncome.error]}
             incomeFrequencyError={this.state[borrowerFields.incomeFrequency.error]}
-
             onFocus={this.onFocus}
             onChange={this.onChange}
             updateOtheIncomes={this.updateOtheIncomes}/>
@@ -148,7 +147,6 @@ var Form = React.createClass({
                 employerContactNumberError={this.state[secondaryBorrowerFields.employerContactNumber.error]}
                 baseIncomeError={this.state[secondaryBorrowerFields.baseIncome.error]}
                 incomeFrequencyError={this.state[secondaryBorrowerFields.incomeFrequency.error]}
-
                 onFocus={this.onFocus}
                 onChange={this.onChange}
                 updateOtheIncomes={this.updateOtheIncomes}/>
@@ -342,24 +340,23 @@ var Form = React.createClass({
     ];
 
     _.each(commonCheckingFields, function(field) {
-      requiredFields[field.error] = this.state[field.name];
+      requiredFields[field.error] = {value: this.state[field.name], validationTypes: field.validationTypes};
     }, this);
 
     if(this.mustHavePreviousAddress(fields)) {
-      requiredFields[fields.previousEmployerName.error] = this.state[fields.previousEmployerName.name];
-      requiredFields[fields.previousJobTitle.error] = this.state[fields.previousJobTitle.name];
-      requiredFields[fields.previousYearsAtEmployer.error] = this.state[fields.previousYearsAtEmployer.name];
-      requiredFields[fields.previousMonthlyIncome.error] = this.state[fields.previousMonthlyIncome.name];
+      requiredFields[fields.previousEmployerName.error] = {value: this.state[fields.previousEmployerName.name], validationTypes: fields.previousEmployerName.validationTypes};
+      requiredFields[fields.previousJobTitle.error] = {value: this.state[fields.previousJobTitle.name], validationTypes: fields.previousJobTitle.validationTypes};
+      requiredFields[fields.previousYearsAtEmployer.error] = {value: this.state[fields.previousYearsAtEmployer.name], validationTypes: fields.previousYearsAtEmployer.validationTypes};
+      requiredFields[fields.previousMonthlyIncome.error] = {value: this.state[fields.previousMonthlyIncome.name], validationTypes: fields.previousMonthlyIncome.validationTypes};
     }
-
     return requiredFields;
   },
 
   setStateForInvalidOtherIncome: function(otherIncome) {
     var allFieldsAreOK = true;
     var checkingFields = {};
-    checkingFields["typeError"] = otherIncome.type;
-    checkingFields["amountError"] = otherIncome.amount;
+    checkingFields["typeError"] = {value: otherIncome.type, validationTypes: ["empty"]};
+    checkingFields["amountError"] = {value: this.formatCurrency(otherIncome.amount), validationTypes: ["currency"]};
 
     var states = this.getStateOfInvalidFields(checkingFields);
 

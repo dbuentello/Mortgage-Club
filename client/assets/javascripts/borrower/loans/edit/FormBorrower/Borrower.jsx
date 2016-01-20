@@ -72,6 +72,7 @@ var Borrower = React.createClass({
                   value={this.props.email}
                   customClass={"account-text-input"}
                   onFocus={_.bind(this.props.onFocus, this, this.props.fields.email)}
+                  validationTypes={["email"]}
                   onChange={this.props.onChange}/>
               </div>
               :
@@ -99,10 +100,13 @@ var Borrower = React.createClass({
               format={this.formatSSN}
               liveFormat={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.ssn)}
+              validationTypes={["ssn"]}
               onChange={this.props.onChange}/>
           </div>
           <div className="col-md-6">
             <TextField
+              activateRequiredField={this.props.phoneNumberError}
+              requiredMessage={"This field is invalid"}
               label={this.props.fields.phone.label}
               keyName={this.props.fields.phone.name}
               value={this.props.phone}
@@ -111,6 +115,7 @@ var Borrower = React.createClass({
               maxLength={14}
               format={this.formatPhoneNumber}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.phone)}
+              validationTypes={["phoneNumber"]}
               onChange={this.props.onChange}/>
           </div>
         </div>
@@ -123,6 +128,7 @@ var Borrower = React.createClass({
               value={this.props.yearsInSchool}
               customClass={"account-text-input"}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.yearsInSchool)}
+              validationTypes={["integer"]}
               onChange={this.props.onChange}/>
           </div>
           <div className="col-md-6">
@@ -147,6 +153,7 @@ var Borrower = React.createClass({
               value={this.props.numberOfDependents}
               customClass={"account-text-input"}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.numberOfDependents)}
+              validationTypes={["integer"]}
               onChange={this.props.onChange}/>
           </div>
           <div className="col-md-6">
@@ -159,6 +166,7 @@ var Borrower = React.createClass({
                 customClass={"account-text-input"}
                 placeholder="e.g. 12, 7, 3"
                 onFocus={_.bind(this.props.onFocus, this, this.props.fields.dependentAges)}
+                validationTypes={["agesOfDependents"]}
                 onChange={this.props.onChange}/>
             : null }
           </div>
@@ -201,6 +209,7 @@ var Borrower = React.createClass({
                   liveFormat={true}
                   format={this.formatCurrency}
                   onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentMonthlyRent)}
+                  validationTypes={["currency"]}
                   onChange={this.props.onChange}/>
             }
           </div>
@@ -212,6 +221,7 @@ var Borrower = React.createClass({
               keyName={this.props.fields.yearsInCurrentAddress.name}
               customClass={"account-text-input"}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.yearsInCurrentAddress)}
+              validationTypes={["integer"]}
               onChange={this.props.onChange}/>
           </div>
         </div>
@@ -269,6 +279,7 @@ var Borrower = React.createClass({
                     liveFormat={true}
                     format={this.formatCurrency}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyRent)}
+                    validationTypes={["currency"]}
                     onChange={this.props.onChange}/>
               }
             </div>
@@ -282,6 +293,7 @@ var Borrower = React.createClass({
                 keyName={this.props.fields.yearsInPreviousAddress.name}
                 customClass={"account-text-input"}
                 onFocus={_.bind(this.props.onFocus, this, this.props.fields.yearsInPreviousAddress)}
+                validationTypes={["integer"]}
                 onChange={this.props.onChange}/>
             </div>
           </div>
