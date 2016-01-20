@@ -10,6 +10,7 @@ module CompletedLoanServices
     end
 
     def call
+      return false unless current_employment
       return false unless employment_completed?
       return false unless current_employment_duration_valid?
       return false unless borrower.gross_income

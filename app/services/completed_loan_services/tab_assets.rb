@@ -44,6 +44,7 @@ module CompletedLoanServices
     end
 
     def asset_completed?(asset)
+      return false unless asset
       return false unless asset.institution_name.present?
       return false unless asset.asset_type
       return false unless asset.current_balance.present?
@@ -52,6 +53,7 @@ module CompletedLoanServices
     end
 
     def property_completed?(property)
+      return false unless property
       return false unless property.property_type.present?
       return false unless property.address.present?
       return false unless address_completed?(property.address)

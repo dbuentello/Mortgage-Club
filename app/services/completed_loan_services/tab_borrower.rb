@@ -13,6 +13,7 @@ module CompletedLoanServices
     end
 
     def borrower_completed?(borrower)
+      return false unless borrower
       return false if borrower.self_employed.nil?
       return false unless borrower.first_name.present?
       return false unless borrower.last_name.present?
@@ -33,6 +34,7 @@ module CompletedLoanServices
     end
 
     def previous_address_completed?(borrower)
+      return false unless borrower
       return true if borrower.current_address.years_at_address > 1
       return false unless borrower.previous_address.present?
       return false if borrower.previous_address.is_rental.nil?

@@ -45,6 +45,8 @@ module CompletedLoanServices
     end
 
     def address_completed?
+      return false unless subject_property.address
+
       address = subject_property.address
       return false if address.street_address.blank? && address.city.blank? && address.state.blank? && address.street_address2.blank?
 
