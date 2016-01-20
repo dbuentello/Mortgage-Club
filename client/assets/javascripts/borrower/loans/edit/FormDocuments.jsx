@@ -256,7 +256,8 @@ var FormDocuments = React.createClass({
   scrollTopError: function(){
     var offset = $(".tooltip").first().parents(".form-group").offset();
     var top = offset === undefined ? 0 : offset.top;
-    $('html, body').animate({scrollTop: top}, 1000);
+    if(top > 0)
+      $('html, body').animate({scrollTop: top}, 1000);
   },
 
   valid: function(){
