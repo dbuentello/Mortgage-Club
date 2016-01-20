@@ -78,6 +78,8 @@ class LoanActivity < ActiveRecord::Base
   # WILL_DO: consider using draper gem to move those pretty methods into
   #  decorator folder
   def pretty_activity_type
+    return "" unless activity_type
+
     activity_type.label
   end
 
