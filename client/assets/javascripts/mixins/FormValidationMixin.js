@@ -13,13 +13,34 @@ module.exports = {
     return state;
   },
 
+  validCurrency: function(obj){
+    var currencyPattern = /^((\$\d+)|(\$\d+(,\d{3})*(\.\d?)?))$/;
+
+    return currencyPattern.test(obj);
+  },
+
   elementNotReachMinLength: function(obj, minLength) {
     var result = false;
     if (!obj) { return true; }
-    if (obj.length<minLength) {
+    if (obj.length < minLength) {
       result = true;
     }
     return result;
+  },
+
+  elementIsValidAgeArray: function(obj, dependentCount) {
+    var isValid = true;
+    var ageArray = obj.split(",");
+    if(ageArray.length !== dependentCount) {
+      isValid = false;
+    }
+    for( var i = 0; i < ageArray.length; i++) {
+      if(!this.elementIsInteger(ageArray[i])) {
+        isValid = false;
+        break;
+      }
+    }
+    return isValid;
   },
 
   elementIsValidSSN: function(obj) {
@@ -38,6 +59,7 @@ module.exports = {
   },
 
   elementIsInteger: function(obj) {
+    obj = obj.trim();
     var digitReg = /^\d+$/;
     return digitReg.test(obj);
   },
@@ -59,7 +81,8 @@ module.exports = {
   elementLengthExceedsMaxlength: function(obj, maxLength) {
     var result = false;
     if (!obj) { return false }
-    if (obj.length>maxLength) {
+
+    if (obj.length > maxLength) {
       result = true;
     }
     return result;
@@ -69,7 +92,8 @@ module.exports = {
     if(!obj){
       return false;
     }
-    if(obj.length<10){
+
+    if(obj.length < 10){
       return false;
     }
     return (obj.match(/^\((\d{3})\)\s(\d{3})\-(\d{4})$/)!=null);

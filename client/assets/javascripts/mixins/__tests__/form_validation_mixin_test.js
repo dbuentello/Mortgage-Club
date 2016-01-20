@@ -6,16 +6,16 @@ describe('text format helper', function() {
   it('validate email correctly', function() {
 
     var tests = [
-    {params: ["hoa@example.com"], expected: true},
-    {params: ["dj-examp@example.com"], expected: true},
-    {params: ["dj-examp@example.example.com"], expected: true},
-    {params: ["dj-exam.p@example.com"], expected: true},
-    {params: ["hula.comi1@example.com"], expected: true},
-    {params: ["11dj*examp@example.com"], expected: false},
-    {params: ["11dj..examp@example.com"], expected: false},
-    {params: ["11dj*examp@@example.com"], expected: false},
-    {params: ["dj*exampexample.com"], expected: false},
-    {params: ["dj*exampexamplecom"], expected: false}
+      {params: ["hoa@example.com"], expected: true},
+      {params: ["dj-examp@example.com"], expected: true},
+      {params: ["dj-examp@example.example.com"], expected: true},
+      {params: ["dj-exam.p@example.com"], expected: true},
+      {params: ["hula.comi1@example.com"], expected: true},
+      {params: ["11dj*examp@example.com"], expected: false},
+      {params: ["11dj..examp@example.com"], expected: false},
+      {params: ["11dj*examp@@example.com"], expected: false},
+      {params: ["dj*exampexample.com"], expected: false},
+      {params: ["dj*exampexamplecom"], expected: false}
     ];
     tests.forEach(function (test) {
       expect(subject.elementIsEmail.apply(subject, test.params)).toBe(test.expected);
@@ -100,6 +100,40 @@ describe('text format helper', function() {
 
     tests.forEach(function (test) {
       expect(subject.elementIsValidSSN.apply(subject, test.params)).toBe(test.expected);
+    });
+  });
+
+  it("validates age array correctly", function() {
+
+    var tests = [
+      {params: ["2, 5, 7", 3], expected: true},
+      {params: ["12, 1, 7, 9", 4], expected: true},
+      {params: ["1, 2", 3], expected: false},
+      {params: ["1, 2", 0], expected: false},
+      {params: ["a, 2", 2], expected: false},
+      {params: ["1, a", 2], expected: false}
+    ];
+
+    tests.forEach(function (test) {
+      expect(subject.elementIsValidAgeArray.apply(subject, test.params)).toBe(test.expected);
+    });
+  });
+
+  it("validates money amount correctly", function() {
+
+    var tests = [
+      {params: ["$27"], expected: true},
+      {params: ["$9"], expected: true},
+      {params: ["$1,342,334"], expected: true},
+      {params: ["$1,342,334.2"], expected: true},
+      {params: ["$1,342,334."], expected: true},
+      {params: ["$1,342,334.233.3"], expected: false},
+      {params: ["$1,342,a"], expected: false},
+      {params: ["12"], expected: false}
+    ];
+
+    tests.forEach(function (test) {
+      expect(subject.validCurrency.apply(subject, test.params)).toBe(test.expected);
     });
   });
 });

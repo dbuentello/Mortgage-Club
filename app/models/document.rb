@@ -13,6 +13,20 @@ class Document < ActiveRecord::Base
                     inspection_report lease_agreement mortgage_statement purchase_agreement
                     risk_report termite_report title_report other_property_report)
 
+  BORROWER_SELF_EMPLOYED = %w(first_personal_tax_return second_personal_tax_return
+                                      first_business_tax_return second_business_tax_return
+                                      first_bank_statement second_bank_statement)
+
+  BORROWER_SELF_EMPLOYED_TAXES_JOINLY = %w(first_business_tax_return second_business_tax_return
+                                                        first_bank_statement second_bank_statement)
+
+  BORROWER_NOT_SELF_EMPLOYED = %w(first_w2 second_w2 first_paystub second_paystub
+                                          first_federal_tax_return second_federal_tax_return
+                                          first_bank_statement second_bank_statement)
+
+  BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY = %w(first_w2 second_w2 first_paystub second_paystub
+                                                        first_bank_statement second_bank_statement)
+
   EXPIRE_VIEW_SECONDS = 5
 
   has_attached_file :attachment,

@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :address do |f|
+    property
 
     f.street_address { Faker::Address.street_address }
     f.street_address2 { Faker::Address.secondary_address }

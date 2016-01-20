@@ -18,52 +18,52 @@ var borrowerCountOptions = [
 ];
 
 var borrower_fields = {
-  email: {label: 'Email', name: 'first_borrower_email', fieldName: 'email', helpText: null, error: "emailError"},
-  applyingAs: {label: 'I am applying', name: 'first_borrower_apply_as', fieldName: 'apply_as', helpText: 'I am a helpful text.', error: "applyingAsError"},
-  firstName: {label: 'First Name', name: 'first_borrower_first_name', fieldName: 'first_name', helpText: null, error: "firstNameError"},
+  email: {label: 'Email', name: 'first_borrower_email', fieldName: 'email', helpText: null, error: "emailError", validationTypes: ["empty", "email"]},
+  applyingAs: {label: 'I am applying', name: 'first_borrower_apply_as', fieldName: 'apply_as', helpText: 'I am a helpful text.', error: "applyingAsError", validationTypes: ["empty"]},
+  firstName: {label: 'First Name', name: 'first_borrower_first_name', fieldName: 'first_name', helpText: null, error: "firstNameError", validationTypes: ["empty"]},
   middleName: {label: 'Middle Name', name: 'first_borrower_middle_name', fieldName: 'middle_name', helpText: null},
-  lastName: {label: 'Last Name', name: 'first_borrower_last_name', fieldName: 'last_name', helpText: null, error: "lastNameError"},
+  lastName: {label: 'Last Name', name: 'first_borrower_last_name', fieldName: 'last_name', helpText: null, error: "lastNameError", validationTypes: ["empty"]},
   suffix: {label: 'Suffix', name: 'first_borrower_suffix', fieldName: 'suffix', helpText: null},
-  dob: {label: 'Date of Birth', name: 'first_borrower_dob', fieldName: 'dob', helpText: null, error: "dobError"},
-  ssn: {label: 'Social Security Number', name: 'first_borrower_ssn', fieldName: 'ssn', helpText: null, error: "ssnError"},
-  phone: {label: 'Phone Number', name: 'first_borrower_phone', fieldName: 'phone', helpText: null},
-  yearsInSchool: {label: 'Years in School', name: 'first_borrower_years_in_school', fieldName: 'years_in_school', helpText: null, error: "yearsInSchoolError"},
-  maritalStatus: {label: 'Marital Status', name: 'first_borrower_marital_status', fieldName: 'marital_status', helpText: 'Married (includes registered domestic partners), Unmarried (includes single, divorced, widowed)', error: "maritalStatusError"},
-  numberOfDependents: {label: 'Number of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "numberOfDependencesError"},
-  dependentAges: {label: 'Ages of Dependents', name: 'first_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: "dependentAgesError"},
-  currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null, error: "currentAddressError"},
-  currentlyOwn: {label: 'Own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "currentlyOwnError"},
-  selfEmployed: {label: 'Are you self-employed?', name: 'first_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "selfEmployedError"},
-  yearsInCurrentAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "yearsInCurrentAddressError"},
-  previousAddress: {label: 'Your previous address', name: 'first_borrower_previous_address', fieldName: 'previous_address', helpText: null, error: "previousAddressError"},
-  previouslyOwn: {label: 'Do you own or rent?', name: 'first_borrower_previously_own', fieldName: 'previously_own', helpText: null, error: "previouslyOwnError"},
-  yearsInPreviousAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "yearsInPreviousAddressError"},
-  currentMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null, error: "currentMonthlyRentError"},
-  previousMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null, error: "previousMonthlyRentError"}
+  dob: {label: 'Date of Birth', name: 'first_borrower_dob', fieldName: 'dob', helpText: null, error: "dobError", validationTypes: ["empty"]},
+  ssn: {label: 'Social Security Number', name: 'first_borrower_ssn', fieldName: 'ssn', helpText: null, error: "ssnError", validationTypes: ["empty", "ssn"]},
+  phone: {label: 'Phone Number', name: 'first_borrower_phone', fieldName: 'phone', helpText: null, validationTypes: ["phoneNumber"]},
+  yearsInSchool: {label: 'Years in School', name: 'first_borrower_years_in_school', fieldName: 'years_in_school', helpText: null, error: "yearsInSchoolError", validationTypes: ["empty", "integer"]},
+  maritalStatus: {label: 'Marital Status', name: 'first_borrower_marital_status', fieldName: 'marital_status', helpText: 'Married (includes registered domestic partners), Unmarried (includes single, divorced, widowed)', error: "maritalStatusError", validationTypes: ["empty"]},
+  numberOfDependents: {label: 'Number of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "numberOfDependencesError", validationTypes: ["empty", "integer"]},
+  dependentAges: {label: 'Ages of Dependents', name: 'first_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: "dependentAgesError", validationTypes: ["empty", "agesOfDependents"]},
+  currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null, error: "currentAddressError", validationTypes: ["empty"]},
+  currentlyOwn: {label: 'Own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "currentlyOwnError", validationTypes: ["empty"]},
+  selfEmployed: {label: 'Are you self-employed?', name: 'first_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "selfEmployedError", validationTypes: ["empty"]},
+  yearsInCurrentAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "yearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
+  previousAddress: {label: 'Your previous address', name: 'first_borrower_previous_address', fieldName: 'previous_address', helpText: null, error: "previousAddressError", validationTypes: ["empty"]},
+  previouslyOwn: {label: 'Do you own or rent?', name: 'first_borrower_previously_own', fieldName: 'previously_own', helpText: null, error: "previouslyOwnError", validationTypes: ["empty"]},
+  yearsInPreviousAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "yearsInPreviousAddressError", validationTypes: ["empty", "integer"]},
+  currentMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null, error: "currentMonthlyRentError", validationTypes: ["empty", "currency"]},
+  previousMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null, error: "previousMonthlyRentError",, validationTypes: ["empty", "currency"]}
 };
 
 var secondary_borrower_fields = {
-  email: {label: 'Email', name: 'secondary_borrower_email', fieldName: 'email', helpText: null, error: "coEmailError"},
-  firstName: {label: 'First Name', name: 'secondary_borrower_first_name', fieldName: 'first_name', helpText: null, error: "coFirstNameError" },
+  email: {label: 'Email', name: 'secondary_borrower_email', fieldName: 'email', helpText: null, error: "coEmailError", validationTypes: ["empty", "email"]},
+  firstName: {label: 'First Name', name: 'secondary_borrower_first_name', fieldName: 'first_name', helpText: null, error: "coFirstNameError", validationTypes: ["empty"]},
   middleName: {label: 'Middle Name', name: 'secondary_borrower_middle_name', fieldName: 'middle_name', helpText: null, error: null },
-  lastName: {label: 'Last Name', name: 'secondary_borrower_last_name', fieldName: 'last_name', helpText: null, error: "coLastNameError" },
+  lastName: {label: 'Last Name', name: 'secondary_borrower_last_name', fieldName: 'last_name', helpText: null, error: "coLastNameError", validationTypes: ["empty"]},
   suffix: {label: 'Suffix', name: 'secondary_borrower_suffix', fieldName: 'suffix', helpText: null, error: null },
-  dob: {label: 'Date of Birth', name: 'secondary_borrower_dob', fieldName: 'dob', helpText: null, error: "coDobError"},
-  ssn: {label: 'Social Security Number', name: 'secondary_borrower_ssn', fieldName: 'ssn', helpText: null, error: "coSsnError"},
-  phone: {label: 'Phone Number', name: 'secondary_borrower_phone', fieldName: 'phone', helpText: null, error: null},
-  yearsInSchool: {label: 'Years in School', name: 'secondary_borrower_years_in_school', fieldName: 'years_in_school', helpText: null, error: "coYearsInSchoolError" },
-  maritalStatus: {label: 'Marital Status', name: 'secondary_borrower_marital_status', fieldName: 'marital_status', helpText: null, error: "coMarialStatusError"},
-  numberOfDependents: {label: 'Number of dependents', name: 'secondary_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "coNumberOfdependencesError"},
-  dependentAges: {label: 'Ages of Dependents', name: 'secondary_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: null},
-  currentAddress: {label: 'Your co-borrower current address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null, error: "coCurrentAddressError"},
-  currentlyOwn: {label: 'Own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "coCurrentlyOwnError"},
-  selfEmployed: {label: 'Is your co-borrower self-employed?', name: 'secondary_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "coSelfEmployError"},
-  yearsInCurrentAddress: {label: 'Number of years your co-borrower has lived here', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "coYearsInCurrentAddressError"},
-  previousAddress: {label: 'Your previous address', name: 'secondary_borrower_previous_address', fieldName: 'previous_address', helpText: null, error: "coPreviousAddressError"},
-  previouslyOwn: {label: 'Do you own or rent?', name: 'secondary_borrower_previously_own', fieldName: 'previously_own', helpText: null, error: "coPreviousOwnError"},
-  yearsInPreviousAddress: {label: 'Number of years your co-borrower has lived here', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "coYearsInPreviousAddressError"},
-  currentMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null, error: "coCurrentlyMonthlyRentError"},
-  previousMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null, error: "coPreviousMonthlyRentError"}
+  dob: {label: 'Date of Birth', name: 'secondary_borrower_dob', fieldName: 'dob', helpText: null, error: "coDobError", validationTypes: ["empty"]},
+  ssn: {label: 'Social Security Number', name: 'secondary_borrower_ssn', fieldName: 'ssn', helpText: null, error: "coSsnError", validationTypes: ["empty", "ssn"]},
+  phone: {label: 'Phone Number', name: 'secondary_borrower_phone', fieldName: 'phone', helpText: null, error: null, validationTypes: ["phoneNumber"]},
+  yearsInSchool: {label: 'Years in School', name: 'secondary_borrower_years_in_school', fieldName: 'years_in_school', helpText: null, error: "coYearsInSchoolError", validationTypes: ["empty", "integer"]},
+  maritalStatus: {label: 'Marital Status', name: 'secondary_borrower_marital_status', fieldName: 'marital_status', helpText: null, error: "coMarialStatusError", validationTypes: ["empty"]},
+  numberOfDependents: {label: 'Number of dependents', name: 'secondary_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "coNumberOfdependencesError", validationTypes: ["empty", "integer"]},
+  dependentAges: {label: 'Ages of Dependents', name: 'secondary_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: null, validationTypes: ["empty", "agesOfDependents"]},
+  currentAddress: {label: 'Your co-borrower current address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null, error: "coCurrentAddressError", validationTypes: ["empty"]},
+  currentlyOwn: {label: 'Own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "coCurrentlyOwnError", validationTypes: ["empty"]},
+  selfEmployed: {label: 'Is your co-borrower self-employed?', name: 'secondary_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "coSelfEmployError", validationTypes: ["empty"]},
+  yearsInCurrentAddress: {label: 'Number of years your co-borrower has lived here', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "coYearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
+  previousAddress: {label: 'Your previous address', name: 'secondary_borrower_previous_address', fieldName: 'previous_address', helpText: null, error: "coPreviousAddressError", validationTypes: ["empty"]},
+  previouslyOwn: {label: 'Do you own or rent?', name: 'secondary_borrower_previously_own', fieldName: 'previously_own', helpText: null, error: "coPreviousOwnError", validationTypes: ["empty"]},
+  yearsInPreviousAddress: {label: 'Number of years your co-borrower has lived here', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "coYearsInPreviousAddressError", validationTypes: ["empty", "integer"]},
+  currentMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null, error: "coCurrentlyMonthlyRentError", validationTypes: ["empty", "currency"]},
+  previousMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null, error: "coPreviousMonthlyRentError", validationTypes: ["empty", "currency"]}
 };
 
 var Form = React.createClass({
@@ -350,25 +350,25 @@ var Form = React.createClass({
     ];
 
     _.each(commonCheckingFields, function(field) {
-      requiredFields[field.error] = this.state[field.name];
+      requiredFields[field.error] = {value: this.state[field.name], validationTypes: field.validationTypes};
     }, this);
 
     if(this.state[fields.currentlyOwn.name] == false) {
-      requiredFields[fields.currentMonthlyRent.error] = this.state[fields.currentMonthlyRent.name];
+      requiredFields[fields.currentMonthlyRent.error] = {value: this.state[fields.currentMonthlyRent.name], validationTypes: fields.currentMonthlyRent.validationTypes};
     }
 
     if(this.state[fields.numberOfDependents.name] > 0) {
-      requiredFields[fields.dependentAges.error] = this.state[fields.dependentAges.name];
+      requiredFields[fields.dependentAges.error] = {value: this.state[fields.dependentAges.name], validationTypes: fields.dependentAges.validationTypes};
     }
 
     if(this.state[fields.yearsInCurrentAddress.name] < 2) {
-      requiredFields[fields.previousAddress.error] = this.state[fields.previousAddress.name];
-      requiredFields[fields.yearsInPreviousAddress.error] = this.state[fields.yearsInPreviousAddress.name];
-      requiredFields[fields.previouslyOwn.error] = this.state[fields.previouslyOwn.name];
-      requiredFields[fields.yearsInPreviousAddress.error] = this.state[fields.yearsInPreviousAddress.name];
+      requiredFields[fields.previousAddress.error] = {value: this.state[fields.previousAddress.name], validationTypes: fields.previousAddress.validationTypes};
+      requiredFields[fields.yearsInPreviousAddress.error] = {value: this.state[fields.yearsInPreviousAddress.name], validationTypes: fields.yearsInPreviousAddress.validationTypes};
+      requiredFields[fields.previouslyOwn.error] = {value: this.state[fields.previouslyOwn.name], validationTypes: fields.previouslyOwn.validationTypes};
+      requiredFields[fields.yearsInPreviousAddress.error] = {value: this.state[fields.yearsInPreviousAddress.name], validationTypes: fields.yearsInPreviousAddress.validationTypes};
 
       if(this.state[fields.previouslyOwn.name] == false) {
-        requiredFields[fields.previousMonthlyRent.error] = this.state[fields.previousMonthlyRent.name];
+        requiredFields[fields.previousMonthlyRent.error] = {value: this.state[fields.previousMonthlyRent.name], validationTypes: fields.previousMonthlyRent.validationTypes};
       }
     }
 

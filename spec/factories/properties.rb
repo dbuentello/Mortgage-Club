@@ -9,6 +9,7 @@ FactoryGirl.define do
     f.estimated_property_tax { Faker::Number.number(3) }
     f.estimated_hazard_insurance { Faker::Number.number(4) }
     f.estimated_mortgage_insurance { Faker::Number.number(4) }
+    f.mortgage_includes_escrows { "taxes_only" }
     f.hoa_due { Faker::Number.number(4) }
     f.is_impound_account { [true, false].sample }
     f.is_primary { true }

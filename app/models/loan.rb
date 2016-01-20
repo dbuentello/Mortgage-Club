@@ -58,25 +58,29 @@ class Loan < ActiveRecord::Base
   end
 
   def property_completed
-    properties.size > 0 && subject_property && subject_property.completed? && purpose_completed?
+    CompletedLoanServices::TabProperty.new(self, subject_property).call
   end
 
   def borrower_completed
-    return borrower.completed? unless secondary_borrower.present?
-
-    borrower.completed? && secondary_borrower.completed?
+    CompletedLoanServices::TabBorrower.new({
+      borrower: borrower,
+      secondary_borrower: secondary_borrower
+    }).call
   end
 
   def documents_completed
-    return borrower.documents_completed? unless secondary_borrower.present?
-
-    borrower.documents_completed? && secondary_borrower.secondary_borrower_documents_completed?
+    CompletedLoanServices::TabDocuments.new({
+      borrower: borrower,
+      secondary_borrower: secondary_borrower
+    }).call
   end
 
   def income_completed
-    borrower.income_completed?
-
-    true
+    CompletedLoanServices::TabIncome.new({
+      borrower: borrower,
+      current_employment: borrower.current_employment,
+      previous_employment: borrower.previous_employment
+    }).call
   end
 
   def credit_completed
@@ -85,30 +89,17 @@ class Loan < ActiveRecord::Base
   end
 
   def assets_completed
-    return false unless subject_property
-
-    borrower.assets.each do |asset|
-      return false unless asset.completed?
-    end
-
-    rental_properties.each do |property|
-      return false unless property.rental_propery_completed?
-    end
-
-    if primary_property && primary_property != subject_property
-      return subject_property.completed? && primary_property.completed?
-    end
-
-    subject_property.completed?
+    CompletedLoanServices::TabAssets.new({
+      assets: borrower.assets,
+      subject_property: subject_property,
+      rental_properties: rental_properties,
+      primary_property: primary_property,
+      own_investment_property: own_investment_property
+    }).call
   end
 
   def declarations_completed
-    borrower.declaration && borrower.declaration.completed?
-  end
-
-  def purpose_completed?
-    purpose.present? && subject_property && (purchase? && subject_property.purchase_price.present? ||
-      refinance? && subject_property.refinance_completed?)
+    CompletedLoanServices::TabDeclarations.new(borrower.declaration).call
   end
 
   def primary_property

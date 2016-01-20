@@ -31,13 +31,14 @@ FactoryGirl.define do
 
   factory :loan_with_properties, parent: :loan do |f|
     after(:build) do |loan, property|
-      create_list(:property, Random.rand(1..3), loan: loan)
-      loan.properties.first.update(is_subject: true)
+      create(:property_with_address, loan: loan, is_subject: true)
+      create(:property_with_address, loan: loan, is_primary: true)
+      create(:property_with_address, loan: loan, is_primary: false, is_subject: false)
     end
   end
 
   factory :loan_with_secondary_borrower, parent: :loan do |f|
-    association :secondary_borrower, factory: :borrower
+    association :secondary_borrower, factory: [:borrower, :with_user]
   end
 
   factory :loan_with_all_associations, parent: :loan do |f|
