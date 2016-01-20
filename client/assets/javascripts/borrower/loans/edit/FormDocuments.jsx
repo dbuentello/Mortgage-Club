@@ -70,8 +70,12 @@ var FormDocuments = React.createClass({
     if(prevState.is_file_taxes_jointly != this.state.is_file_taxes_jointly){
       this.setState({activateCoRequiredField: false});
     }
-    else if(!this.valid() && this.state.activateCoRequiredField === true && this.state.activateRequiredField === true){
-      this.scrollTopError();
+    else if(!this.valid()){
+      console.log(this.props.loan.secondary_borrower);
+      if(this.props.loan.secondary_borrower !== undefined && this.state.activateCoRequiredField === true && this.state.activateRequiredField === true)
+        this.scrollTopError();
+      else if (this.props.loan.secondary_borrower === undefined && this.state.activateRequiredField === true)
+        this.scrollTopError();
     }
   },
 
@@ -160,11 +164,16 @@ var FormDocuments = React.createClass({
             this.state.is_file_taxes_jointly == null
             ? null
             : <div>
-                <div className='row'>
-                  <p className="box-description col-sm-12">
-                    Please upload the following documents for your co-borrower.
-                  </p>
-                </div>
+                {
+                  secondary_borrower
+                  ?
+                  <div className='row'>
+                    <p className="box-description col-sm-12">
+                      Please upload the following documents for your co-borrower.
+                    </p>
+                  </div>
+                  : null
+                }
                 {
                   _.map(Object.keys(co_borrower_upload_fields), function(key) {
                     if (co_upload_fields.indexOf(key) > -1) {
