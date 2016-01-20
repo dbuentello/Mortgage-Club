@@ -68,9 +68,9 @@ var FormDocuments = React.createClass({
 
   componentDidUpdate: function(prevProps, prevState){
     if(prevState.is_file_taxes_jointly != this.state.is_file_taxes_jointly){
-      this.setState({activateRequiredField: false});
+      this.setState({activateCoRequiredField: false});
     }
-    else if(!this.valid() && this.state.activateRequiredField === true){
+    else if(!this.valid() && this.state.activateCoRequiredField === true && this.state.activateRequiredField === true){
       this.scrollTopError();
     }
   },
@@ -178,7 +178,7 @@ var FormDocuments = React.createClass({
                         <div className="drop_zone" key={key}>
                           <Dropzone field={co_borrower_upload_fields[key]}
                             uploadUrl={uploadUrl}
-                            activateRequiredField={this.state.activateRequiredField}
+                            activateRequiredField={this.state.activateCoRequiredField}
                             downloadUrl={this.state[co_borrower_upload_fields[key].name + '_downloadUrl']}
                             removeUrl={this.state[co_borrower_upload_fields[key].name + '_removedUrl']}
                             tip={this.state[co_borrower_upload_fields[key].name]}
@@ -227,6 +227,7 @@ var FormDocuments = React.createClass({
     var state = {};
     state['is_file_taxes_jointly'] = loan.borrower.is_file_taxes_jointly;
     state.activateRequiredField = false;
+    state.activateCoRequiredField = false;
     this.setStateForUploadFields(borrower, state, owner_upload_fields);
     if (secondary_borrower) {
       this.setStateForUploadFields(secondary_borrower, state, co_borrower_upload_fields);
@@ -284,7 +285,7 @@ var FormDocuments = React.createClass({
   },
 
   save: function(event) {
-    this.setState({saving: true, activateRequiredField: true});
+    this.setState({saving: true, activateRequiredField: true, activateCoRequiredField: true});
 
     if(this.valid()){
       this.props.saveLoan(this.buildLoanFromState(), 2);
