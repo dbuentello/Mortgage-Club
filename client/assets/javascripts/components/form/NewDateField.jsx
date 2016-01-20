@@ -59,7 +59,7 @@ var DateFieldView = React.createClass({
         <input className={"form-control " + this.props.customClass} defaultValue={dateVal} type="text" placeholder={this.props.placeholder}
           onBlur={this.onBlur} onFocus={this.handleFocus} id={this.props.keyName} name={this.props.label}/>
         <img src="/icons/date.png" alt="title" onClick={this.showDatePicker}/>
-        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={dateVal} title={requiredMessage}/>
+        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={dateVal} title={requiredMessage} validationTypes={this.props.validationTypes}/>
       </div>
     );
   },

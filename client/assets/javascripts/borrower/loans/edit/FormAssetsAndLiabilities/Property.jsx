@@ -213,6 +213,7 @@ var Property = React.createClass({
               label='Estimated Market Value'
               keyName={'property_market_price' + this.props.index}
               value={this.formatCurrency(this.state.property.market_price)}
+              validationTypes={["currency"]}
               editable={true}
               onChange={this.onChange}/>
           </div>
@@ -237,6 +238,7 @@ var Property = React.createClass({
                   format={this.formatCurrency}
                   liveFormat={true}
                   editable={true}
+                  validationTypes={["currency"]}
                   onChange={this.onChange}/>
               </div>
             : null
@@ -262,6 +264,7 @@ var Property = React.createClass({
                   format={this.formatCurrency}
                   liveFormat={true}
                   editable={true}
+                  validationTypes={["currency"]}
                   onChange={this.onChange}/>
               </div>
             : null
@@ -274,6 +277,7 @@ var Property = React.createClass({
               keyName={'property_estimated_mortgage_insurance' + this.props.index}
               value={this.formatCurrency(this.state.property.estimated_mortgage_insurance)}
               editable={true}
+              validationTypes={["currency"]}
               onChange={this.onChange}/>
           </div>
           <div className='col-md-6'>
@@ -296,6 +300,7 @@ var Property = React.createClass({
               keyName={'property_estimated_hazard_insurance' + this.props.index}
               value={this.formatCurrency(this.state.property.estimated_hazard_insurance)}
               editable={true}
+              validationTypes={["currency"]}
               onChange={this.onChange}/>
           </div>
           <div className='col-md-3'>
@@ -305,6 +310,7 @@ var Property = React.createClass({
               keyName={'property_estimated_property_tax' + this.props.index}
               value={this.formatCurrency(this.state.property.estimated_property_tax)}
               editable={true}
+              validationTypes={["currency"]}
               onChange={this.onChange}/>
           </div>
           <div className='col-md-3 pln'>
@@ -313,6 +319,7 @@ var Property = React.createClass({
               keyName={'property_hoa_due' + this.props.index}
               value={this.formatCurrency(this.state.property.hoa_due)}
               editable={true}
+              validationTypes={["currency"]}
               onChange={this.onChange}/>
           </div>
         </div>
@@ -324,6 +331,7 @@ var Property = React.createClass({
               keyName={'property_gross_rental_income' + this.props.index}
               value={this.formatCurrency(this.state.property.gross_rental_income)}
               editable={true}
+              validationTypes={["currency"]}
               onChange={this.onChange}/>
           </div>
         </div>

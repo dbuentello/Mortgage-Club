@@ -56,6 +56,7 @@ var OtherIncome = React.createClass({
             keyName={this.props.name + '_amount_' + index}
             value={this.props.amount}
             editable={true}
+            validationTypes={["currency"]}
             onChange={this.onChange}/>
         </div>
         <div className='col-sm-1'>

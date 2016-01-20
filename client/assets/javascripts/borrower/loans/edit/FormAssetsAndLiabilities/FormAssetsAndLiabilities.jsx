@@ -285,12 +285,12 @@ var FormAssetsAndLiabilities = React.createClass({
     var allFieldsAreOK = true;
 
     var fields = {
-      addressError: {value: property.address, types: []},
-      propertyTypeError: property.property_type,
-      estimatedHazardInsuranceError: property.estimated_hazard_insurance,
-      estimatedPropertyTaxError: property.estimated_property_tax,
-      marketPriceError: property.market_price,
-      mortgageIncludesEscrowsError: property.mortgage_includes_escrows
+      addressError: {value: property.address, validationTypes: ["empty"]},
+      propertyTypeError: {value: property.property_type, validationTypes: ["empty"]},
+      estimatedHazardInsuranceError: {value: property.estimated_hazard_insurance, validationTypes: ["currency"]},
+      estimatedPropertyTaxError: {value: property.estimated_property_tax, validationTypes: ["currency"]},
+      marketPriceError: {value: property.market_price, validationTypes: ["currency"]},
+      mortgageIncludesEscrowsError: {value: property.mortgage_includes_escrows, validationTypes: ["currency"]}
     };
 
     if(property.other_mortgage_payment_amount)

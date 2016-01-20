@@ -222,7 +222,7 @@ var AddressField = React.createClass({
           value={val} placeholder={this.props.placeholder}
           onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange} id={this.props.keyName} name={this.props.label}/>
         <img src="/icons/address.png" alt="title"/>
-        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={val} title={requiredMessage}/>
+        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={val} title={requiredMessage} validationTypes={this.props.validationTypes}/>
       </div>
     );
   },
