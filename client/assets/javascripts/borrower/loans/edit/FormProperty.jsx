@@ -307,7 +307,7 @@ var FormProperty = React.createClass({
     }
 
     if(this.isRefinance()) {
-      requiredFields[fields.originalPurchasePrice.error] = {value: this.state[fields.originalPurchasePrice.name], fields.originalPurchasePrice.validationTypes};
+      requiredFields[fields.originalPurchasePrice.error] = {value: this.state[fields.originalPurchasePrice.name], validationTypes: fields.originalPurchasePrice.validationTypes};
       requiredFields[fields.originalPurchaseYear.error] = {value: this.state[fields.originalPurchaseYear.name], validationTypes: fields.originalPurchaseYear.validationTypes};
     }
 

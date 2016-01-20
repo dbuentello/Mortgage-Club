@@ -26,7 +26,7 @@ var borrower_fields = {
   suffix: {label: 'Suffix', name: 'first_borrower_suffix', fieldName: 'suffix', helpText: null},
   dob: {label: 'Date of Birth', name: 'first_borrower_dob', fieldName: 'dob', helpText: null, error: "dobError", validationTypes: ["empty"]},
   ssn: {label: 'Social Security Number', name: 'first_borrower_ssn', fieldName: 'ssn', helpText: null, error: "ssnError", validationTypes: ["empty", "ssn"]},
-  phone: {label: 'Phone Number', name: 'first_borrower_phone', fieldName: 'phone', helpText: null, validationTypes: ["phoneNumber"]},
+  phone: {label: 'Phone Number', name: 'first_borrower_phone', fieldName: 'phone', helpText: null, error: "phoneNumberError", validationTypes: ["phoneNumber"]},
   yearsInSchool: {label: 'Years in School', name: 'first_borrower_years_in_school', fieldName: 'years_in_school', helpText: null, error: "yearsInSchoolError", validationTypes: ["empty", "integer"]},
   maritalStatus: {label: 'Marital Status', name: 'first_borrower_marital_status', fieldName: 'marital_status', helpText: 'Married (includes registered domestic partners), Unmarried (includes single, divorced, widowed)', error: "maritalStatusError", validationTypes: ["empty"]},
   numberOfDependents: {label: 'Number of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "numberOfDependencesError", validationTypes: ["empty", "integer"]},
@@ -39,7 +39,7 @@ var borrower_fields = {
   previouslyOwn: {label: 'Do you own or rent?', name: 'first_borrower_previously_own', fieldName: 'previously_own', helpText: null, error: "previouslyOwnError", validationTypes: ["empty"]},
   yearsInPreviousAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "yearsInPreviousAddressError", validationTypes: ["empty", "integer"]},
   currentMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null, error: "currentMonthlyRentError", validationTypes: ["empty", "currency"]},
-  previousMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null, error: "previousMonthlyRentError",, validationTypes: ["empty", "currency"]}
+  previousMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null, error: "previousMonthlyRentError", validationTypes: ["empty", "currency"]}
 };
 
 var secondary_borrower_fields = {
@@ -128,6 +128,7 @@ var Form = React.createClass({
             ssn={this.state[borrower_fields.ssn.name]}
             ssnError={this.state[borrower_fields.ssn.error]}
             phone={this.state[borrower_fields.phone.name]}
+            phoneNumberError={this.state[borrower_fields.phone.error]}
             yearsInSchool={this.state[borrower_fields.yearsInSchool.name]}
             yearsInSchoolError={this.state[borrower_fields.yearsInSchool.error]}
             maritalStatus={this.state[borrower_fields.maritalStatus.name]}
@@ -324,6 +325,7 @@ var Form = React.createClass({
       requiredFields = _.extend(requiredFields, this.mapValueToRequiredFields(secondary_borrower_fields));
     }
 
+    console.dir(this.getStateOfInvalidFields(requiredFields))
     if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
       this.setState(this.getStateOfInvalidFields(requiredFields));
       isValid = false;
@@ -352,6 +354,10 @@ var Form = React.createClass({
     _.each(commonCheckingFields, function(field) {
       requiredFields[field.error] = {value: this.state[field.name], validationTypes: field.validationTypes};
     }, this);
+
+    if(this.state[fields.phone.name]) {
+      requiredFields[fields.phone.error] = {value: this.state[fields.phone.name], validationTypes: fields.phone.validationTypes};
+    }
 
     if(this.state[fields.currentlyOwn.name] == false) {
       requiredFields[fields.currentMonthlyRent.error] = {value: this.state[fields.currentMonthlyRent.name], validationTypes: fields.currentMonthlyRent.validationTypes};

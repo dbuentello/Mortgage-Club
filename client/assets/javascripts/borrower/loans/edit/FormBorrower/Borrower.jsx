@@ -103,6 +103,8 @@ var Borrower = React.createClass({
           </div>
           <div className="col-md-6">
             <TextField
+              activateRequiredField={this.props.phoneNumberError}
+              requiredMessage={"This field is invalid"}
               label={this.props.fields.phone.label}
               keyName={this.props.fields.phone.name}
               value={this.props.phone}

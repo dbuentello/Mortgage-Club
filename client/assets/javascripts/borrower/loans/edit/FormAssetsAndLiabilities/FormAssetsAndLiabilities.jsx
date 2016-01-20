@@ -316,10 +316,10 @@ var FormAssetsAndLiabilities = React.createClass({
   setStateForInvalidFieldsOfAsset: function(asset) {
     var allFieldsAreOK = true;
 
-    var fields ={
-      "institutionNameError": asset.institution_name,
-      "assetTypeError": asset.asset_type,
-      "currentBalanceError": asset.current_balance
+    var fields = {
+      institutionNameError: {value: asset.institution_name, validationTypes: ["empty"]},
+      assetTypeError: {value: asset.asset_type, validationTypes: ["empty"]},
+      currentBalanceError: {value: asset.current_balance, validationTypes: ["currency"]}
     }
 
     var states = this.getStateOfInvalidFields(fields);
