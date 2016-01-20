@@ -13,68 +13,80 @@ var checkboxFields = {
   outstandingJudgment: {
     label: 'Are there any outstanding judgments against you?',
     name: 'outstanding_judgment',
-    error: "outstandingJudgmentError"
+    error: "outstandingJudgmentError",
+    validationTypes: ["empty"]
   },
   bankrupt: {
     label: 'Have you been declared bankrupt in the past 7 years?',
     name: 'bankrupt',
-    error: "bankruptError"
+    error: "bankruptError",
+    validationTypes: ["empty"]
   },
   propertyForeclosed: {
     label: 'Have you had property foreclosed upon or given title or deed in lieu thereof in the last 7 years?',
     name: 'property_foreclosed',
-    error: "propertyForeclosedError"
+    error: "propertyForeclosedError",
+    validationTypes: ["empty"]
   },
   partyToLawsuit: {
     label: 'Are you a party to a lawsuit?',
     name: 'party_to_lawsuit',
-    error: "partyToLawsuitError"
+    error: "partyToLawsuitError",
+    validationTypes: ["empty"]
   },
   loanForeclosure: {
     label: 'Have you been obligated on any loan resulted in foreclosure, transfer of title in lieu of foreclosure, or judgment?',
     name: 'loan_foreclosure',
-    error: "loanForeclosureError"
+    error: "loanForeclosureError",
+    validationTypes: ["empty"]
   },
   presentDeliquentLoan: {
     label: 'Are you presently delinquent or in default on any Federal debt or any other loan, mortgage, financial, obligation, bond or loan guarantee?',
     name: 'present_delinquent_loan',
-    error: "presentDeliquentLoanError"
+    error: "presentDeliquentLoanError",
+    validationTypes: ["empty"]
   },
   childSupport: {
     label: 'Are you obligated to pay alimony, child support, or separate maintenance?',
     name: 'child_support',
-    error: "childSupportError"
+    error: "childSupportError",
+    validationTypes: ["empty"]
   },
   downPaymentBorrowed: {
     label: 'Is any part of the down payment borrowed?',
     name: 'down_payment_borrowed',
-    error: "downPaymentBorrowedError"
+    error: "downPaymentBorrowedError",
+    validationTypes: ["empty"]
   },
   coMakerOrEndorser: {
     label: 'Are you a co-maker or endorser on a note?',
     name: 'co_maker_or_endorser',
-    error: "coMakerOrEndorserError"
+    error: "coMakerOrEndorserError",
+    validationTypes: ["empty"]
   },
   usCitizen: {
     label: 'Are you a U.S citizen?',
     name: 'us_citizen',
-    error: "usCitizenError"
+    error: "usCitizenError",
+    validationTypes: ["empty"]
   },
   permanentResidentAlien: {
     label: 'Are you a permanent resident alien?',
     name: 'permanent_resident_alien',
-    error: "permanentResidentAlienError"
+    error: "permanentResidentAlienError",
+    validationTypes: ["empty"]
   },
   ownershipInterest: {
     label: 'Have you had an ownership interest in a property in the last three years?',
     name: 'ownership_interest',
-    error: "ownershipInterestError"
+    error: "ownershipInterestError",
+    validationTypes: ["empty"]
   }
 };
 
 var selectBoxFields = {
-  typeOfProperty: {label: '(1) What type of property did you own?', name: 'type_of_property', error: "typeOfPropertyError"},
-  titleOfProperty: {label: '(2) How did you hold title to this property?', name: 'title_of_property', error: "titleOfPropertyError"}
+  typeOfProperty: {label: '(1) What type of property did you own?', name: 'type_of_property', error: "typeOfPropertyError", validationTypes: ["empty"]},
+  titleOfProperty: {label: '(2) How did you hold title to this property?', name: 'title_of_property', error: "titleOfPropertyError", validationTypes: ["empty"]}
 }
 
 var propertyOptions = [
