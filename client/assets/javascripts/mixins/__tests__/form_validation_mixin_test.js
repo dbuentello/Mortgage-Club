@@ -52,15 +52,33 @@ describe('text format helper', function() {
   });
 
   it("validates max length correctly", function() {
+
     var tests = [
-      {params: ["123444", 2], expected: true},
+      {params: ["12345", 2], expected: true},
       {params: ["1", 2], expected: false},
-      {params: ["123444", 4], expected: true},
-      {params: ["123444", 6], expected: false},
-      {params: ["123444", 6], expected: false}
+      {params: ["123456", 4], expected: true},
+      {params: ["123456", 6], expected: false},
+      {params: ["123456", 6], expected: false}
     ];
+
     tests.forEach(function (test) {
       expect(subject.elementLengthExceedsMaxlength.apply(subject, test.params)).toBe(test.expected);
+    });
+  });
+
+  it("validates min length correctly", function() {
+
+    var tests = [
+      {params: ["123456", 8], expected: true},
+      {params: ["1", 2], expected: true},
+      {params: ["123456", 4], expected: false},
+      {params: ["123456", 6], expected: false},
+      {params: ["1234567", 6], expected: false},
+      {params: [null, 6], expected: true}
+    ];
+
+    tests.forEach(function (test) {
+      expect(subject.elementNotReachMinLength.apply(subject, test.params)).toBe(test.expected);
     });
   });
 });
