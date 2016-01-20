@@ -102,4 +102,19 @@ describe('text format helper', function() {
       expect(subject.elementIsValidSSN.apply(subject, test.params)).toBe(test.expected);
     });
   });
+  it("validates min age array correctly", function() {
+
+    var tests = [
+      {params: ["2, 5, 7", 3], expected: true},
+      {params: ["12, 1, 7, 9", 4], expected: true},
+      {params: ["1, 2", 3], expected: false},
+      {params: ["1, 2", 0], expected: false},
+      {params: ["a, 2", 2], expected: false},
+      {params: ["1, a", 2], expected: false}
+    ];
+
+    tests.forEach(function (test) {
+      expect(subject.elementIsValidAgeArray.apply(subject, test.params)).toBe(test.expected);
+    });
+  });
 });
