@@ -356,7 +356,7 @@ var Form = React.createClass({
     var allFieldsAreOK = true;
     var checkingFields = {};
     checkingFields["typeError"] = {value: otherIncome.type, validationTypes: ["empty"]};
-    checkingFields["amountError"] = {value: otherIncome.amount, validationTypes: ["currency"]};
+    checkingFields["amountError"] = {value: this.formatCurrency(otherIncome.amount), validationTypes: ["currency"]};
 
     var states = this.getStateOfInvalidFields(checkingFields);
 

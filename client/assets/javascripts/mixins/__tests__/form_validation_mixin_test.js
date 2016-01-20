@@ -134,7 +134,8 @@ describe('text format helper', function() {
       {params: ["$1,342,334.233.3"], expected: false},
       {params: ["$1,342,a"], expected: false},
       {params: ["12"], expected: false},
-      {params: [null], expected: false}
+      {params: [null], expected: false},
+      {params: ["$8,888"], expected: true}
     ];
 
     tests.forEach(function (test) {
