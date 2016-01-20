@@ -125,6 +125,10 @@ describe('text format helper', function() {
       {params: ["$27"], expected: true},
       {params: ["$9"], expected: true},
       {params: ["$1,342,334"], expected: true},
+      {params: ["$1,342,334.2"], expected: true},
+      {params: ["$1,342,334."], expected: true},
+      {params: ["$1,342,334.233.3"], expected: false},
+      {params: ["$1,342,a"], expected: false},
       {params: ["12"], expected: false}
     ];
 

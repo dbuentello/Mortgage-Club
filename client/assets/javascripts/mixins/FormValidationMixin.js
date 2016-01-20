@@ -14,7 +14,7 @@ module.exports = {
   },
 
   validCurrency: function(obj){
-    var currencyPattern = /^((\$\d+)|(\$\d+(,\d{3})*))$/
+    var currencyPattern = /^((\$\d+)|(\$\d+(,\d{3})*(\.\d?)?))$/
     return currencyPattern.test(obj);
   },
 
