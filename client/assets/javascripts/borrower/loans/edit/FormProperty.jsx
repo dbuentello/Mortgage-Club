@@ -16,7 +16,7 @@ var fields = {
   propertyPurpose: {label: "Property Will Be", name: "usage", helpText: "The primary purpose of acquiring the subject property.", error: "propertyError", validationTypes: ["empty"]},
   purchasePrice: {label: "Purchase Price", name: "purchase_price", helpText: "How much are you paying for the subject property?", error: "purchaseError", validationTypes: ["empty", "currency"]},
   originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", helpText: "How much did you pay for the subject property?", error: "originalPurchasePriceError", validationTypes: ["empty", "currency"]},
-  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home.", error: "originalPurchaseYearError", validationTypes: ["empty", "currency"]},
+  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home.", error: "originalPurchaseYearError", validationTypes: ["empty", "integer"]},
   yearBuilt: {label: "Year Built", name: "year_built", error: "yearBuiltError", validationTypes: ["empty"]}
 };
 
@@ -320,7 +320,6 @@ var FormProperty = React.createClass({
   valid: function() {
     var isValid = true;
     var requiredFields = this.mapValueToRequiredFields();
-
     if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
       this.setState(this.getStateOfInvalidFields(requiredFields));
       isValid = false;
