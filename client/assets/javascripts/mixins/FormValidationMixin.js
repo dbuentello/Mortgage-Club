@@ -55,14 +55,11 @@ module.exports = {
   },
 
   elementIsValidAgeofDependents: function(obj) {
-    if(!obj) { return false;}
+    if(!obj) { return false; }
     var isValid = true;
     var ageArray = obj.split(",");
-    // if(ageArray.length !== dependentCount) {
-    //   isValid = false;
-    // }
     for( var i = 0; i < ageArray.length; i++) {
-      if(!this.elementIsInteger(ageArray[i])) {
+      if(!this.elementIsInteger(ageArray[i].trim())) {
         isValid = false;
         break;
       }

@@ -85,7 +85,7 @@ describe('text format helper', function() {
     });
   });
 
-  it("validates min length correctly", function() {
+  it("validates SSN correctly", function() {
 
     var tests = [
       {params: ["123-45-1226"], expected: true},
@@ -96,6 +96,7 @@ describe('text format helper', function() {
       {params: ["123456a"], expected: false},
       {params: ["1233-45-633"], expected: false},
       {params: ["1234567-343"], expected: false},
+      {params: [""], expected: false},
       {params: [null], expected: false}
     ];
 
@@ -110,12 +111,14 @@ describe('text format helper', function() {
       {params: ["2, 5, 7"], expected: true},
       {params: ["12, 1, 7, 9"], expected: true},
       {params: ["1, 2"], expected: true},
-      {params: [null], expected: false},
       {params: ["a, 2"], expected: false},
+      {params: [null], expected: false},
+      {params: [""], expected: false},
       {params: ["1, a"], expected: false}
     ];
 
     tests.forEach(function (test) {
+      console.log(subject.elementIsValidAgeofDependents.apply(subject, test.params));
       expect(subject.elementIsValidAgeofDependents.apply(subject, test.params)).toBe(test.expected);
     });
   });
@@ -130,7 +133,8 @@ describe('text format helper', function() {
       {params: ["$1,342,334."], expected: true},
       {params: ["$1,342,334.233.3"], expected: false},
       {params: ["$1,342,a"], expected: false},
-      {params: ["12"], expected: false}
+      {params: ["12"], expected: false},
+      {params: [null], expected: false}
     ];
 
     tests.forEach(function (test) {
