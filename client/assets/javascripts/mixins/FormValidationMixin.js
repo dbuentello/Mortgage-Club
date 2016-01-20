@@ -13,6 +13,20 @@ module.exports = {
     return state;
   },
 
+  elementNotReachMinLength: function(obj, minLength) {
+    var result = false;
+    if (!obj) { return true; }
+    if (obj.length<minLength) {
+      result = true;
+    }
+    return result;
+  },
+
+  elementMatchsPattern: function(obj, pattern) {
+    if (!obj) { return false; }
+    return pattern.test(obj);
+  },
+
   elementIsEmail: function(obj) {
     var emailReg = /^[a-zA-Z]+[a-zA-Z0-9_\-\.]*[a-zA-Z0-9_\-]+@([a-zA-Z]+[a-zA-Z0-9_\-]*\.){1,2}[a-zA-Z]{2,}$/;
     return emailReg.test(obj);
@@ -41,7 +55,7 @@ module.exports = {
     var result = false;
     if (!obj) { return false }
     if (obj.length>maxLength) {
-      result = true
+      result = true;
     }
     return result;
   },
