@@ -98,6 +98,16 @@ var TextFormatMixin = {
     }).join(' ');
   },
 
+  formatInteger: function(val) {
+    if (!val) { return; }
+    return ('' + val).replace(/\D/g, '');
+  },
+
+  formatNumber: function(val) {
+    if (!val) { return; }
+    return ('' + val).replace(/[^0-9\.]/g, '');
+  },
+
   formatSSN: function(val) {
     if (!val) { return; }
     val = val.replace(/\D/g, '');
@@ -105,7 +115,7 @@ var TextFormatMixin = {
   },
 
   formatPhoneNumber: function(s) {
-    var s2 = (''+s).replace(/\D/g, '');
+    var s2 = ('' + s).replace(/\D/g, '');
     var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
     return (!m) ? s : '(' + m[1] + ') ' + m[2] + '-' + m[3];
   }

@@ -20,7 +20,7 @@ var Asset = React.createClass({
     return {
       institution_name: this.props.asset.institution_name,
       asset_type: this.props.asset.asset_type,
-      current_balance: this.props.asset.current_balance
+      current_balance: this.formatCurrency(this.props.asset.current_balance)
     };
   },
 
@@ -72,6 +72,7 @@ var Asset = React.createClass({
               format={this.formatCurrency}
               liveFormat={true}
               editable={true}
+              validationTypes={["currency"]}
               onChange={this.onChange}
               value={this.state.current_balance}/>
           </div>

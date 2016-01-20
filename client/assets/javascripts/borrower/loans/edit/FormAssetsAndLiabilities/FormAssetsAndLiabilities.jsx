@@ -77,7 +77,11 @@ var FormAssetsAndLiabilities = React.createClass({
         mortgageIncludesEscrowsError={property.mortgageIncludesEscrowsError}
         estimatedHazardInsuranceError={property.estimatedHazardInsuranceError}
         estimatedPropertyTaxError={property.estimatedPropertyTaxError}
-        grossRentalIncomeError={property.grossRentalIncomeError}/>
+        grossRentalIncomeError={property.grossRentalIncomeError}
+        otherMortgagePaymentAmountError={property.otherMortgagePaymentAmountError}
+        otherFinancingAmountError={property.otherFinancingAmountError}
+        estimatedMortgageInsuranceError={property.estimatedMortgageInsuranceError}
+        hoaDueError={property.hoaDueError}/>
     );
   },
 
@@ -141,7 +145,12 @@ var FormAssetsAndLiabilities = React.createClass({
                   mortgageIncludesEscrowsError={this.state.subject_property.mortgageIncludesEscrowsError}
                   estimatedHazardInsuranceError={this.state.subject_property.estimatedHazardInsuranceError}
                   estimatedPropertyTaxError={this.state.subject_property.estimatedPropertyTaxError}
-                  grossRentalIncomeError={this.state.subject_property.grossRentalIncomeError}/>
+                  grossRentalIncomeError={this.state.subject_property.grossRentalIncomeError}
+
+                  otherMortgagePaymentAmountError={this.state.subject_property.otherMortgagePaymentAmountError}
+                  otherFinancingAmountError={this.state.subject_property.otherFinancingAmountError}
+                  estimatedMortgageInsuranceError={this.state.subject_property.estimatedMortgageInsuranceError}
+                  hoaDueError={this.state.subject_property.hoaDueError}/>
               </div>
             :
               null
@@ -161,7 +170,11 @@ var FormAssetsAndLiabilities = React.createClass({
                   mortgageIncludesEscrowsError={this.state.primary_property.mortgageIncludesEscrowsError}
                   estimatedHazardInsuranceError={this.state.primary_property.estimatedHazardInsuranceError}
                   estimatedPropertyTaxError={this.state.primary_property.estimatedPropertyTaxError}
-                  grossRentalIncomeError={this.state.primary_property.grossRentalIncomeError}/>
+                  grossRentalIncomeError={this.state.primary_property.grossRentalIncomeError}
+                  otherMortgagePaymentAmountError={this.state.primary_property.otherMortgagePaymentAmountError}
+                  otherFinancingAmountError={this.state.primary_property.otherFinancingAmountError}
+                  estimatedMortgageInsuranceError={this.state.primary_property.estimatedMortgageInsuranceError}
+                  hoaDueError={this.state.primary_property.hoaDueError}/>
               </div>
             :
               null
@@ -254,20 +267,42 @@ var FormAssetsAndLiabilities = React.createClass({
     }
   },
 
+  formatProperty: function(property) {
+    property.address_attributes = property.address;
+    property.market_price = this.currencyToNumber(property.market_price);
+    property.other_mortgage_payment_amount = this.currencyToNumber(property.other_mortgage_payment_amount);
+    property.other_financing_amount = this.currencyToNumber(property.other_financing_amount);
+    property.estimated_mortgage_insurance = this.currencyToNumber(property.estimated_mortgage_insurance);
+    property.estimated_hazard_insurance = this.currencyToNumber(property.estimated_hazard_insurance);
+    property.estimated_property_tax = this.currencyToNumber(property.estimated_property_tax);
+    property.hoa_due = this.currencyToNumber(property.hoa_due);
+    property.gross_rental_income = this.currencyToNumber(property.gross_rental_income);
+
+    return property;
+  },
+
   setStateForInvalidFieldsOfProperty: function(property) {
     var allFieldsAreOK = true;
 
     var fields = {
-      "addressError": property.address,
-      "propertyTypeError": property.property_type,
-      "estimatedHazardInsuranceError": property.estimated_hazard_insurance,
-      "estimatedPropertyTaxError": property.estimated_property_tax,
-      "marketPriceError": property.market_price,
-      "mortgageIncludesEscrowsError": property.mortgage_includes_escrows
+      addressError: {value: property.address, validationTypes: ["empty"]},
+      propertyTypeError: {value: property.property_type, validationTypes: ["empty"]},
+      estimatedHazardInsuranceError: {value: property.estimated_hazard_insurance, validationTypes: ["currency"]},
+      estimatedPropertyTaxError: {value: property.estimated_property_tax, validationTypes: ["currency"]},
+      marketPriceError: {value: property.market_price, validationTypes: ["currency"]},
+      mortgageIncludesEscrowsError: {value: property.mortgage_includes_escrows, validationTypes: ["currency"]}
     };
 
-    var states = this.getStateOfInvalidFields(fields);
+    if(property.other_mortgage_payment_amount)
+      fields.otherMortgagePaymentAmountError = {value: property.other_mortgage_payment_amount, validationTypes: ["currency"]};
+    if(property.other_financing_amount)
+      fields.otherFinancingAmountError = {value: property.other_financing_amount, validationTypes: ["currency"]};
+    if(property.estimated_mortgage_insurance)
+      fields.estimatedMortgageInsuranceError = {value: property.estimated_mortgage_insurance, validationTypes: ["currency"]};
+    if(property.hoa_due)
+      fields.hoaDueError = {value: property.hoa_due, validationTypes: ["currency"]};
 
+    var states = this.getStateOfInvalidFields(fields);
     if(!_.isEmpty(states)) {
       _.each(states, function(value, key) {
         property[key] = true;
@@ -281,10 +316,10 @@ var FormAssetsAndLiabilities = React.createClass({
   setStateForInvalidFieldsOfAsset: function(asset) {
     var allFieldsAreOK = true;
 
-    var fields ={
-      "institutionNameError": asset.institution_name,
-      "assetTypeError": asset.asset_type,
-      "currentBalanceError": asset.current_balance
+    var fields = {
+      institutionNameError: {value: asset.institution_name, validationTypes: ["empty"]},
+      assetTypeError: {value: asset.asset_type, validationTypes: ["empty"]},
+      currentBalanceError: {value: asset.current_balance, validationTypes: ["currency"]}
     }
 
     var states = this.getStateOfInvalidFields(fields);
@@ -350,19 +385,19 @@ var FormAssetsAndLiabilities = React.createClass({
 
     var primary_property = this.state.primary_property;
     if (primary_property){
-      primary_property.address_attributes = primary_property.address;
+      primary_property = this.formatProperty(primary_property);
     }
 
     var subject_property = this.state.subject_property;
     if (subject_property){
-      subject_property.address_attributes = subject_property.address;
+      subject_property = this.formatProperty(subject_property);
     }
 
     var rental_properties = [];
     for (var i = 0; i < this.state.rental_properties.length; i++) {
       var rental_property = this.state.rental_properties[i];
       rental_property.usage = 'rental_property';
-      rental_property.address_attributes = rental_property.address;
+      rental_property = this.formatProperty(rental_property);
       rental_properties.push(rental_property);
     }
 

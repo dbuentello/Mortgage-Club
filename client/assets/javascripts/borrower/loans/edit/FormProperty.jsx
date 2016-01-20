@@ -11,13 +11,13 @@ var TextField = require("components/form/NewTextField");
 var BooleanRadio = require("components/form/NewBooleanRadio");
 
 var fields = {
-  address: {label: 'Property Address', name: 'address', helpText: "The full address of the subject property for which you are applying for a loan.", error: "addressError"},
-  loanPurpose: {label: "Purpose of Loan", name: "purpose", helpText: "The purpose for taking out the loan in terms of how funds will be used.", error: "loanError"},
-  propertyPurpose: {label: "Property Will Be", name: "usage", helpText: "The primary purpose of acquiring the subject property.", error: "propertyError"},
-  purchasePrice: {label: "Purchase Price", name: "purchase_price", helpText: "How much are you paying for the subject property?", error: "purchaseError"},
-  originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", helpText: "How much did you pay for the subject property?", error: "originalPurchasePriceError"},
-  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home.", error: "originalPurchaseYearError"},
-  yearBuilt: {label: "Year Built", name: "year_built", error: "yearBuiltError"}
+  address: {label: 'Property Address', name: 'address', helpText: "The full address of the subject property for which you are applying for a loan.", error: "addressError", validationTypes: ["empty"]},
+  loanPurpose: {label: "Purpose of Loan", name: "purpose", helpText: "The purpose for taking out the loan in terms of how funds will be used.", error: "loanError", validationTypes: ["empty"]},
+  propertyPurpose: {label: "Property Will Be", name: "usage", helpText: "The primary purpose of acquiring the subject property.", error: "propertyError", validationTypes: ["empty"]},
+  purchasePrice: {label: "Purchase Price", name: "purchase_price", helpText: "How much are you paying for the subject property?", error: "purchaseError", validationTypes: ["empty", "currency"]},
+  originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", helpText: "How much did you pay for the subject property?", error: "originalPurchasePriceError", validationTypes: ["empty", "currency"]},
+  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home.", error: "originalPurchaseYearError", validationTypes: ["empty", "currency"]},
+  yearBuilt: {label: "Year Built", name: "year_built", error: "yearBuiltError", validationTypes: ["empty"]}
 };
 
 var loanPurposes = [
@@ -160,6 +160,7 @@ var FormProperty = React.createClass({
                     format={this.formatCurrency}
                     helpText={fields.purchasePrice.helpText}
                     onFocus={this.onFocus.bind(this, fields.purchasePrice)}
+                    validationTypes={["currency"]}
                     onChange={this.onChange}/>
                 </div>
               </div>
@@ -178,6 +179,7 @@ var FormProperty = React.createClass({
                       format={this.formatCurrency}
                       helpText={fields.originalPurchasePrice.helpText}
                       onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
+                      validationTypes={["currency"]}
                       onChange={this.onChange}/>
                   </div>
                 </div>
@@ -193,6 +195,7 @@ var FormProperty = React.createClass({
                       editable={true}
                       helpText={fields.originalPurchaseYear.helpText}
                       onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)}
+                      validationTypes={["integer"]}
                       onChange={this.onChange}/>
                   </div>
                 </div>
@@ -298,17 +301,17 @@ var FormProperty = React.createClass({
   mapValueToRequiredFields: function() {
     var requiredFields = {};
 
-    requiredFields[fields.address.error] = this.state[fields.address.name];
-    requiredFields[fields.propertyPurpose.error] = this.state[fields.propertyPurpose.name];
-    requiredFields[fields.loanPurpose.error] = this.state[fields.loanPurpose.name];
+    requiredFields[fields.address.error] = {value: this.state[fields.address.name], validationTypes: fields.address.validationTypes};
+    requiredFields[fields.propertyPurpose.error] = {value: this.state[fields.propertyPurpose.name], validationTypes: fields.propertyPurpose.validationTypes};
+    requiredFields[fields.loanPurpose.error] = {value: this.state[fields.loanPurpose.name], validationTypes: fields.loanPurpose.validationTypes};
 
     if(this.isPurchase()) {
-      requiredFields[fields.purchasePrice.error] = this.state[fields.purchasePrice.name];
+      requiredFields[fields.purchasePrice.error] = {value: this.state[fields.purchasePrice.name], validationTypes: fields.purchasePrice.validationTypes};
     }
 
     if(this.isRefinance()) {
-      requiredFields[fields.originalPurchasePrice.error] = this.state[fields.originalPurchasePrice.name];
-      requiredFields[fields.originalPurchaseYear.error] = this.state[fields.originalPurchaseYear.name];
+      requiredFields[fields.originalPurchasePrice.error] = {value: this.state[fields.originalPurchasePrice.name], validationTypes: fields.originalPurchasePrice.validationTypes};
+      requiredFields[fields.originalPurchaseYear.error] = {value: this.state[fields.originalPurchaseYear.name], validationTypes: fields.originalPurchaseYear.validationTypes};
     }
 
     return requiredFields;
