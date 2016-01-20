@@ -160,6 +160,7 @@ var FormProperty = React.createClass({
                     format={this.formatCurrency}
                     helpText={fields.purchasePrice.helpText}
                     onFocus={this.onFocus.bind(this, fields.purchasePrice)}
+                    validationTypes={["currency"]}
                     onChange={this.onChange}/>
                 </div>
               </div>
@@ -178,6 +179,7 @@ var FormProperty = React.createClass({
                       format={this.formatCurrency}
                       helpText={fields.originalPurchasePrice.helpText}
                       onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
+                      validationTypes={["currency"]}
                       onChange={this.onChange}/>
                   </div>
                 </div>
@@ -193,6 +195,7 @@ var FormProperty = React.createClass({
                       editable={true}
                       helpText={fields.originalPurchaseYear.helpText}
                       onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)}
+                      validationTypes={["integer"]}
                       onChange={this.onChange}/>
                   </div>
                 </div>
