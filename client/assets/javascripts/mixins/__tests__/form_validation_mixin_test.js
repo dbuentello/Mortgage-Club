@@ -23,6 +23,7 @@ describe('text format helper', function() {
   });
 
   it("validates integer correctly", function() {
+
     var tests = [
       {params: ["123334444"], expected: true},
       {params: ["334444@"], expected: false},
@@ -35,6 +36,7 @@ describe('text format helper', function() {
   });
 
   it("validates America phone number correctly", function() {
+
     var tests = [
       {params: ["(344) 434-4455"], expected: true},
       {params: ["(144) 434-4455"], expected: true},
@@ -79,6 +81,25 @@ describe('text format helper', function() {
 
     tests.forEach(function (test) {
       expect(subject.elementNotReachMinLength.apply(subject, test.params)).toBe(test.expected);
+    });
+  });
+
+  it("validates min length correctly", function() {
+
+    var tests = [
+      {params: ["123-45-1226"], expected: true},
+      {params: ["123-45-1226"], expected: true},
+      {params: ["023-15-1326"], expected: true},
+      {params: ["123-45-9821"], expected: true},
+      {params: ["1-3434-34"], expected: false},
+      {params: ["123456a"], expected: false},
+      {params: ["1233-45-633"], expected: false},
+      {params: ["1234567-343"], expected: false},
+      {params: [null], expected: false}
+    ];
+
+    tests.forEach(function (test) {
+      expect(subject.elementIsValidSSN.apply(subject, test.params)).toBe(test.expected);
     });
   });
 });
