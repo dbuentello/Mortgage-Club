@@ -6,6 +6,7 @@ describe('text format helper', function() {
   it('validate email correctly', function() {
 
     var tests = [
+      {params: [null], expected: false},
       {params: ["hoa@example.com"], expected: true},
       {params: ["dj-examp@example.com"], expected: true},
       {params: ["dj-examp@example.example.com"], expected: true},
@@ -106,16 +107,16 @@ describe('text format helper', function() {
   it("validates age array correctly", function() {
 
     var tests = [
-      {params: ["2, 5, 7", 3], expected: true},
-      {params: ["12, 1, 7, 9", 4], expected: true},
-      {params: ["1, 2", 3], expected: false},
-      {params: ["1, 2", 0], expected: false},
-      {params: ["a, 2", 2], expected: false},
-      {params: ["1, a", 2], expected: false}
+      {params: ["2, 5, 7"], expected: true},
+      {params: ["12, 1, 7, 9"], expected: true},
+      {params: ["1, 2"], expected: true},
+      {params: [null], expected: false},
+      {params: ["a, 2"], expected: false},
+      {params: ["1, a"], expected: false}
     ];
 
     tests.forEach(function (test) {
-      expect(subject.elementIsValidAgeArray.apply(subject, test.params)).toBe(test.expected);
+      expect(subject.elementIsValidAgeofDependents.apply(subject, test.params)).toBe(test.expected);
     });
   });
 
@@ -133,7 +134,7 @@ describe('text format helper', function() {
     ];
 
     tests.forEach(function (test) {
-      expect(subject.validCurrency.apply(subject, test.params)).toBe(test.expected);
+      expect(subject.elementIsValidCurrency.apply(subject, test.params)).toBe(test.expected);
     });
   });
 });
