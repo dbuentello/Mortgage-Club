@@ -13,10 +13,15 @@ module.exports = {
     return state;
   },
 
+  validCurrency: function(obj){
+    var currencyPattern = /^((\$\d+)|(\$\d+(,\d{3})*))$/
+    return currencyPattern.test(obj);
+  },
+
   elementNotReachMinLength: function(obj, minLength) {
     var result = false;
     if (!obj) { return true; }
-    if (obj.length<minLength) {
+    if (obj.length < minLength) {
       result = true;
     }
     return result;

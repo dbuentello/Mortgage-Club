@@ -102,7 +102,8 @@ describe('text format helper', function() {
       expect(subject.elementIsValidSSN.apply(subject, test.params)).toBe(test.expected);
     });
   });
-  it("validates min age array correctly", function() {
+
+  it("validates age array correctly", function() {
 
     var tests = [
       {params: ["2, 5, 7", 3], expected: true},
@@ -115,6 +116,20 @@ describe('text format helper', function() {
 
     tests.forEach(function (test) {
       expect(subject.elementIsValidAgeArray.apply(subject, test.params)).toBe(test.expected);
+    });
+  });
+
+  it("validates money amount correctly", function() {
+
+    var tests = [
+      {params: ["$27"], expected: true},
+      {params: ["$9"], expected: true},
+      {params: ["$1,342,334"], expected: true},
+      {params: ["12"], expected: false}
+    ];
+
+    tests.forEach(function (test) {
+      expect(subject.validCurrency.apply(subject, test.params)).toBe(test.expected);
     });
   });
 });
