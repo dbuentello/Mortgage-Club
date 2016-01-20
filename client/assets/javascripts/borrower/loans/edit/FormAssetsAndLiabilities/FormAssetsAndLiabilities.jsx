@@ -283,24 +283,23 @@ var FormAssetsAndLiabilities = React.createClass({
 
   setStateForInvalidFieldsOfProperty: function(property) {
     var allFieldsAreOK = true;
-
     var fields = {
       addressError: {value: property.address, validationTypes: ["empty"]},
       propertyTypeError: {value: property.property_type, validationTypes: ["empty"]},
-      estimatedHazardInsuranceError: {value: property.estimated_hazard_insurance, validationTypes: ["currency"]},
-      estimatedPropertyTaxError: {value: property.estimated_property_tax, validationTypes: ["currency"]},
-      marketPriceError: {value: property.market_price, validationTypes: ["currency"]},
-      mortgageIncludesEscrowsError: {value: property.mortgage_includes_escrows, validationTypes: ["currency"]}
+      estimatedHazardInsuranceError: {value: this.formatCurrency(property.estimated_hazard_insurance), validationTypes: ["currency"]},
+      estimatedPropertyTaxError: {value: this.formatCurrency(property.estimated_property_tax), validationTypes: ["currency"]},
+      marketPriceError: {value: this.formatCurrency(property.market_price), validationTypes: ["currency"]},
+      mortgageIncludesEscrowsError: {value: this.formatCurrency(property.mortgage_includes_escrows), validationTypes: ["currency"]}
     };
 
     if(property.other_mortgage_payment_amount)
-      fields.otherMortgagePaymentAmountError = {value: property.other_mortgage_payment_amount, validationTypes: ["currency"]};
+      fields.otherMortgagePaymentAmountError = {value: this.formatCurrency(property.other_mortgage_payment_amount), validationTypes: ["currency"]};
     if(property.other_financing_amount)
-      fields.otherFinancingAmountError = {value: property.other_financing_amount, validationTypes: ["currency"]};
+      fields.otherFinancingAmountError = {value: this.formatCurrency(property.other_financing_amount), validationTypes: ["currency"]};
     if(property.estimated_mortgage_insurance)
-      fields.estimatedMortgageInsuranceError = {value: property.estimated_mortgage_insurance, validationTypes: ["currency"]};
+      fields.estimatedMortgageInsuranceError = {value: this.formatCurrency(property.estimated_mortgage_insurance), validationTypes: ["currency"]};
     if(property.hoa_due)
-      fields.hoaDueError = {value: property.hoa_due, validationTypes: ["currency"]};
+      fields.hoaDueError = {value: this.formatCurrency(property.hoa_due), validationTypes: ["currency"]};
 
     var states = this.getStateOfInvalidFields(fields);
     if(!_.isEmpty(states)) {
@@ -319,7 +318,7 @@ var FormAssetsAndLiabilities = React.createClass({
     var fields = {
       institutionNameError: {value: asset.institution_name, validationTypes: ["empty"]},
       assetTypeError: {value: asset.asset_type, validationTypes: ["empty"]},
-      currentBalanceError: {value: asset.current_balance, validationTypes: ["currency"]}
+      currentBalanceError: {value: this.formatCurrency(asset.current_balance), validationTypes: ["currency"]}
     }
 
     var states = this.getStateOfInvalidFields(fields);

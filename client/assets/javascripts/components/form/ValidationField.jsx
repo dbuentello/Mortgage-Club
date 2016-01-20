@@ -8,10 +8,19 @@ var ValidationField = React.createClass({
   render: function() {
     if(this.props.activateRequiredField === true)
     {
-      if(this.isEmptyValue() || this.isInvalidValue()){
+      if(this.isEmptyValue()){
         if(!this.hasTooltip()) {
           $("#" + this.props.id).tooltip({
             title: this.props.title,
+            placement: "bottom",
+            trigger: "manual"
+          }).tooltip('show');
+        }
+      }
+      else if(this.isInvalidValue()) {
+        if(!this.hasTooltip()) {
+          $("#" + this.props.id).tooltip({
+            title: "This field is invalid",
             placement: "bottom",
             trigger: "manual"
           }).tooltip('show');
@@ -40,17 +49,23 @@ var ValidationField = React.createClass({
     if(this.props.value === null || this.props.value === "" || this.props.value === undefined || this.props.value === "javascript:void(0)") {
       return true;
     }
+    // for address
+    if(typeof(this.props.value) == "object") {
+      if(this.props.value.street_address == null || this.props.value.street_address == "") {
+        return true;
+      }
+    }
     return false;
   },
 
   isInvalidValue: function() {
     var isInvalid = false;
+
     _.each(this.props.validationTypes, function(type) {
       switch(type) {
         case "currency":
-          console.dir("aaa")
           if(!this.elementIsValidCurrency(this.props.value)) {
-            console.dir("bbb")
+            console.dir("ya")
             isInvalid = true;
           }
           break;

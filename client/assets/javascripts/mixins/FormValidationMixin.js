@@ -89,7 +89,7 @@ module.exports = {
     }
     if(typeof(obj) == "object") {
       if(obj.street_address != undefined && (obj.street_address == null || obj.street_address == "")) {
-        return false;
+        return true;
       }
     }
     if(typeof(obj) == "string") {
