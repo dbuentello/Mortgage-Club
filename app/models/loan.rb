@@ -8,11 +8,11 @@ class Loan < ActiveRecord::Base
   has_many :envelopes, inverse_of: :loan, dependent: :destroy
   has_one :closing, inverse_of: :loan, dependent: :destroy
   has_many :documents, as: :subjectable, dependent: :destroy
-  has_many :loan_activities
+  has_many :loan_activities, dependent: :destroy
   has_many :loans_members_associations
   has_many :loan_members, through: :loans_members_associations
   has_many :checklists, dependent: :destroy
-  has_many :lender_documents
+  has_many :lender_documents, dependent: :destroy
   has_many :rate_comparisons, dependent: :destroy
   belongs_to :lender
 
