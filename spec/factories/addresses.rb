@@ -7,7 +7,7 @@ FactoryGirl.define do
     f.zip { Faker::Address.zip_code }
     f.state { Faker::Address.state }
     f.city { Faker::Address.city }
-    f.full_text { Faker::Address.street_address }
+    f.full_text { Faker::Address.street_address + ", " + Faker::Address.city + ", " + Faker::Address.state }
 
   end
 end
