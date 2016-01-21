@@ -7,7 +7,7 @@ FactoryGirl.define do
     f.docs_email { Faker::Internet.email }
     f.contact_email { Faker::Internet.email }
     f.contact_name { Faker::Name.name }
-    f.contact_phone { Faker::PhoneNumber.phone_number }
+    f.contact_phone { '(' + Faker::Number.number(3) + ') ' + Faker::Number.number(3) + '-' + Faker::Number.number(4) }
 
     after :create do |l|
       l.lender_templates << FactoryGirl.create(:lender_template)

@@ -12,7 +12,7 @@ Feature: IncomeTabAtNewLoanPage
       Then I clear value in "Contact Name"
         And I fill in "Contact Name" with "Cuong Vu"
       Then I clear value in "Contact Phone Number"
-        And I fill in "Contact Phone Number" with "0912345678"
+        And I fill in "Contact Phone Number" with "9091234785"
       Then I clear value in "Base Income"
         And I fill in "Base Income" with "123454"
       Then I click link with div ".overtime .iconTrash"
@@ -30,7 +30,7 @@ Feature: IncomeTabAtNewLoanPage
       And I click "Income" in the "#tabIncome"
         Then I should see content as "Software Engineer"
           And I should see content as "Cuong Vu"
-          And I should see content as "0912345678"
+          And I should see content as "(909) 123-4785"
           And I should see content as "$123,454"
       And I should see "Documents"
 
