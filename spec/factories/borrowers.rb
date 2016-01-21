@@ -3,7 +3,7 @@ FactoryGirl.define do
     borrower_government_monitoring_info
 
     f.dob { Time.zone.today - Random.rand(21..100).to_i.years }
-    f.phone { Faker::PhoneNumber.phone_number }
+    f.phone { '(' + Faker::Number.number(3) + ') ' + Faker::Number.number(3) + '-' + Faker::Number.number(4) }
 
     # all SS numbers starting with 000 are invalid
     f.ssn { '000-' + Faker::Number.number(2) + '-' + Faker::Number.number(4) }

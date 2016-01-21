@@ -5,7 +5,7 @@ FactoryGirl.define do
 
     employer_name { Faker::Name.name }
     employer_contact_name { Faker::Name.name }
-    employer_contact_number { Faker::PhoneNumber.cell_phone }
+    employer_contact_number { '(' + Faker::Number.number(3) + ') ' + Faker::Number.number(3) + '-' + Faker::Number.number(4) }
     job_title { Faker::Lorem.word }
     duration { Random.rand(1..100) }
     pay_frequency { Random.rand(1..100) }
