@@ -7,7 +7,7 @@ FactoryGirl.define do
     f.zip { Faker::Address.zip_code }
     f.state { Faker::Address.state }
     f.city { Faker::Address.city }
-    f.full_text { Faker::Address.street_address + ", " + Faker::Address.city + ", " + Faker::Address.state }
+    f.full_text { "10669 South Las Vegas Boulevard, Las Vegas, NV, United States" }
 
   end
 end
