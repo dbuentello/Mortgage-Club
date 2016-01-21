@@ -53,7 +53,8 @@ var Dropzone = React.createClass({
     removeUrl: React.PropTypes.string,
     maxSize: React.PropTypes.number,
     supportOtherDescription: React.PropTypes.bool,
-    uploadSuccessCallback: React.PropTypes.func
+    uploadSuccessCallback: React.PropTypes.func,
+    removeSuccessCallback: React.PropTypes.func
   },
 
   componentDidMount: function() {
@@ -204,6 +205,8 @@ var Dropzone = React.createClass({
           this.setState({ downloadUrl: null });
           this.setState({ fileIsExisting: false });
 
+          $("#" + this.props.field.name).val(null);
+
           if (this.props.removeSuccessCallback) {
             this.props.removeSuccessCallback(this.props.field.name);
           }
@@ -222,7 +225,6 @@ var Dropzone = React.createClass({
     var style = this.props.style || {
       borderStyle: this.state.isDragActive ? 'solid' : 'dotted'
     };
-
 
     if (this.props.supportOtherDescription) {
       var customDescription = <span><input className='mhl' placeholder='Description' onChange={this.onChangeDiscription}/></span>
