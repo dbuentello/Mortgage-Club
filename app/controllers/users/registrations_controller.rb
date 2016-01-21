@@ -25,6 +25,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     resource.create_borrower
+    resource.add_role :borrower
   end
 
   # GET /resource/edit
