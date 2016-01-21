@@ -71,7 +71,6 @@ var FormDocuments = React.createClass({
       this.setState({activateCoRequiredField: false});
     }
     else if(!this.valid()){
-      console.log(this.props.loan.secondary_borrower);
       if(this.props.loan.secondary_borrower !== undefined && this.state.activateCoRequiredField === true && this.state.activateRequiredField === true)
         this.scrollTopError();
       else if (this.props.loan.secondary_borrower === undefined && this.state.activateRequiredField === true)
