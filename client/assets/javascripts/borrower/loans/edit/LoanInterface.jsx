@@ -74,7 +74,7 @@ var LoanInterface = React.createClass({
 
   goToItem: function(item) {
     // this.autosave(this.props.bootstrapData.currentLoan, this.state.active.step);
-    this.setState({active: item});
+    this.setState({active: item, completedLoan: false});
   },
 
   buildMenu: function(loan) {
@@ -109,6 +109,9 @@ var LoanInterface = React.createClass({
       });
     }
 
+  },
+  componentDidMount: function(){
+    this.setState({completedLoan: false});
   },
 
   goToAllDonePage: function(loan) {

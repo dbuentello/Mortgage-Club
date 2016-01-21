@@ -141,7 +141,7 @@ var Underwriting = React.createClass({
             <div className='box backToLoan'>
               <a className='btn btnSml btnPrimary' onClick={this.backToLoan}>
                 <i className='icon iconLeft mrl'/>
-                Back to Loan
+                Edit Loan Application
               </a>
             </div>
           </div>
