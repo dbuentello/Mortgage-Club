@@ -128,12 +128,8 @@
   .form-horizontal {padding-left:20px;}
   .form-group:first-child {margin-top:15px;}
   .form-group:last-child {margin-bottom:20px;}
-  .form-group img {top:initial; -webkit-filter:saturate(0%); filter:saturate(0%);}
+  .form-group img {top:initial; -webkit-filter:saturate(0%); filter:saturate(0%); bottom:6px;}
   input:focus + img {border-left:#15c0f1 1px solid; filter:saturate(100%); -webkit-filter:saturate(100%);}
-
-  .iconUpload {
-    bottom: 3px !important;
-  }
 
   .icon-trash {
     cursor: pointer;
@@ -141,6 +137,14 @@
 
   .icon-download {
 
+  }
+
+  .form-group .fileBtn img {
+    bottom: 0px !important;
+  }
+
+  .form-group .fileBtn .iconUpload {
+    bottom: 3px !important;
   }
 
   h6 {font-size:1.1em; color:#15c0f1;}

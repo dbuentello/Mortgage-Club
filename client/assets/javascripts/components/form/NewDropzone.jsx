@@ -263,7 +263,7 @@ var Dropzone = React.createClass({
                         <h5 className='fileBtnSmall' onClick={this.onClick} onDragLeave={this.onDragLeave}
                           onDragOver={this.onDragOver} onDrop={this.onDrop}>
                           <img src='/icons/upload.png' className="iconUpload"/>
-                          <span className="filename">{this.state.tip}</span>
+                          {this.state.tip}
                           <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
                             onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
                           </input>
