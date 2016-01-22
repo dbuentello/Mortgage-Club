@@ -48,22 +48,24 @@ var OtherIncome = React.createClass({
             onChange={this.onChange}
             allowBlank={true} />
         </div>
-        <div className='col-md-5'>
-          <TextField
-            activateRequiredField={this.props.amountError}
-            label='Annual Gross Amount'
-            ref="incomeAmount"
-            keyName={this.props.name + '_amount_' + index}
-            value={this.props.amount}
-            editable={true}
-            maxLength={15}
-            validationTypes={["currency"]}
-            onChange={this.onChange}/>
-        </div>
-        <div className='col-sm-1'>
-          <a className="clickable annual-gross-amount-trash-icon" onClick={this.remove.bind(this, index)}>
-            <img src="/icons/trash.png"/>
-          </a>
+        <div className="col-md-6">
+          <div className='col-md-11'>
+            <TextField
+              activateRequiredField={this.props.amountError}
+              label='Annual Gross Amount'
+              ref="incomeAmount"
+              keyName={this.props.name + '_amount_' + index}
+              value={this.props.amount}
+              editable={true}
+              maxLength={15}
+              validationTypes={["currency"]}
+              onChange={this.onChange}/>
+          </div>
+          <div className='col-sm-1 trash-anchor'>
+            <a className="clickable annual-gross-amount-trash-icon" onClick={this.remove.bind(this, index)}>
+              <img src="/icons/trash.png"/>
+            </a>
+          </div>
         </div>
       </div>
     );
