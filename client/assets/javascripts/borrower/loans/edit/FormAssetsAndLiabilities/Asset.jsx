@@ -47,6 +47,7 @@ var Asset = React.createClass({
               keyName={'institution_name' + this.props.index}
               editable={true}
               onChange={this.onChange}
+              maxLength={200}
               value={this.state.institution_name}/>
           </div>
         </div>
