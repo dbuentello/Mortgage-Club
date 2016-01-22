@@ -61,7 +61,9 @@ var OtherIncome = React.createClass({
             onChange={this.onChange}/>
         </div>
         <div className='col-sm-1'>
-          <a className="iconTrash clickable" onClick={this.remove.bind(this, index)} />
+          <a className="clickable annual-gross-amount-trash-icon" onClick={this.remove.bind(this, index)}>
+            <img src="/icons/trash.png"/>
+          </a>
         </div>
       </div>
     );

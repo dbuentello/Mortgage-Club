@@ -49,6 +49,18 @@ $rails: true;
 .min-height-394 {
   @include minHeight(500px);
 }
+.annual-gross-amount-trash-icon {
+  color: #c3c3c3;
+  img {
+    border: none;
+    top: 0px !important;
+    left: 0px;
+    padding: 12px;
+    &:hover {
+     color: #00a9dc;
+    }
+  }
+}
 
 @keyframes loginAnim {
   0% {transform:translateX(0);}
