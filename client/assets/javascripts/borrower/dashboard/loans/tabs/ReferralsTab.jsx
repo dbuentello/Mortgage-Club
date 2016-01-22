@@ -103,7 +103,7 @@ var ReferralsTab = React.createClass({
               </div>
 
               <form ref='formInvite' id="invite-form" className="form-group ref-form col-md-12" action="/invites" method="post">
-                <label>Invite by Email:</label>
+                <h4>Invite by Email:</h4>
 
                 <div className="row invite-form">
                   <div className="col-md-4">
