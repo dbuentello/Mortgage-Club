@@ -13,21 +13,21 @@ describe Property do
   context 'exceeded amount money raise error' do
     describe "too big value of purchase price raise StatementInvalid Error" do
       let(:property) { FactoryGirl.attributes_for(:property, purchase_price: 100999999999)}
-      it "raises error with exceeds money value" do
+      it "raises error when purchase_price exceeds maximum allowed value" do
         expect { raise Property.create(property) }.to raise_error(ActiveRecord::StatementInvalid)
       end
     end
 
     describe "too big value of estimated property tax price raise StatementInvalid Error" do
       let(:property) { FactoryGirl.attributes_for(:property, estimated_property_tax: 110999999999)}
-      it "raises error with exceeds money value" do
+      it "raises error when estimated_property_tax exceeds maximum allowed value" do
         expect { raise Property.create(property) }.to raise_error(ActiveRecord::StatementInvalid)
       end
     end
 
     describe "too big value of estimated original purchase price raise StatementInvalid Error" do
       let(:property) { FactoryGirl.attributes_for(:property, original_purchase_price: 160999999999)}
-      it "raises error with exceeds money value" do
+      it "raises error when the original_purchase_price exceeds maximum allowed value" do
         expect { raise Property.create(property) }.to raise_error(ActiveRecord::StatementInvalid)
       end
     end
