@@ -78,6 +78,20 @@ module.exports = {
     return emailReg.test(obj);
   },
 
+  elementIsValidNotFutureYear: function(obj) {
+    var digitReg = /^\d+$/;
+    if(!digitReg.test(obj)) {
+      return false;
+    }
+    var currentYear = (new Date(Date.now()).getFullYear())*1;
+
+    if(parseInt(obj) > currentYear || parseInt(obj) < 1800) {
+      return false;
+    }
+
+    return true;
+  },
+
   elementIsInteger: function(obj) {
     var digitReg = /^\d+$/;
     return digitReg.test(obj);

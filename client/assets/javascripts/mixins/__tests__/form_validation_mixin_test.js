@@ -36,6 +36,21 @@ describe('text format helper', function() {
     });
   });
 
+  it("validates years correctly", function() {
+
+    var tests = [
+      {params: ["1990"], expected: true},
+      {params: ["2000"], expected: true},
+      {params: ["3000"], expected: false},
+      {params: ["2301"], expected: false},
+      {params: ["2017"], expected: false},
+      {params: ["20"], expected: false}
+    ];
+    tests.forEach(function (test) {
+      expect(subject.elementIsValidNotFutureYear.apply(subject, test.params)).toBe(test.expected);
+    });
+  });
+
   it("validates America phone number correctly", function() {
 
     var tests = [
