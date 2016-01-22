@@ -23,8 +23,31 @@ describe BorrowerForm do
       loan_id: loan.id
     }
 
+    @params_with_too_big_monthly_rent = {
+      current_address: {street_address: "12740 El Camino Real", street_address2: "",
+      zip: "93422", state: "CA", employment_id: "", city: "Atascadero",
+      full_text: "12740 El Camino Real, Atascadero, CA, United States"},
+      previous_address: {},
+      current_borrower_address:
+        {is_rental: "true",
+        years_at_address: "10", monthly_rent: "100123000123", is_current: "true"},
+      previous_borrower_address:
+        {is_rental: "true", is_current: "false"},
+      borrower:
+        {first_name: "John", middle_name: "", last_name: "Doe", suffix: "",
+          dob: "1969-12-31T17:00:00.000Z", ssn: "233-43-4444", phone: "090009099",
+          years_in_school: "12", marital_status: "", dependent_ages: [12], dependent_count: 10, self_employed: "false"},
+      loan_id: loan.id
+    }
+
     @form = described_class.new(
       form_params: @params,
+      borrower: borrower,
+      loan: loan
+    )
+
+    @form_with_too_big_montly_rent = described_class.new(
+      form_params: @params_with_too_big_monthly_rent,
       borrower: borrower,
       loan: loan
     )
@@ -66,6 +89,9 @@ describe BorrowerForm do
     end
 
     context "with invalid params" do
+      it "raises error when monthly_rent exceeds maximum allowed value" do
+        expect { raise @form_with_too_big_montly_rent.save }.to raise_error(ActiveRecord::StatementInvalid)
+      end
       # implement later, we haven't set up validations for these models
     end
   end

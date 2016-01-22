@@ -73,6 +73,7 @@ var Asset = React.createClass({
               liveFormat={true}
               editable={true}
               validationTypes={["currency"]}
+              maxLength={15}
               onChange={this.onChange}
               value={this.state.current_balance}/>
           </div>
