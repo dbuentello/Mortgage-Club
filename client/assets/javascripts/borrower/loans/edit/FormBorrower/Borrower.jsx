@@ -198,8 +198,8 @@ var Borrower = React.createClass({
               onChange={this.props.onChange}/>
           </div>
           <div className="col-md-4">
-            { this.props.currentlyOwn ? null
-              :
+            { this.props.currentlyOwn == false
+              ?
                 <TextField
                   activateRequiredField={this.props.currentMonthlyRentError}
                   label={this.props.fields.currentMonthlyRent.label}
@@ -211,6 +211,7 @@ var Borrower = React.createClass({
                   onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentMonthlyRent)}
                   validationTypes={["currency"]}
                   onChange={this.props.onChange}/>
+              : null
             }
           </div>
           <div className="col-md-4">
@@ -268,8 +269,8 @@ var Borrower = React.createClass({
                 onChange={this.props.onChange}/>
             </div>
             <div className="col-md-4">
-              { this.props.previouslyOwn ? null
-                :
+              { this.props.previouslyOwn == false
+                ?
                   <TextField
                     activateRequiredField={this.props.previousMonthlyRentError}
                     label={this.props.fields.previousMonthlyRent.label}
@@ -281,6 +282,7 @@ var Borrower = React.createClass({
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyRent)}
                     validationTypes={["currency"]}
                     onChange={this.props.onChange}/>
+                : null
               }
             </div>
             <div className="col-xs-4">
