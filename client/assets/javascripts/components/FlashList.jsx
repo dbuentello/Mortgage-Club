@@ -30,7 +30,7 @@ var FlashList = React.createClass({
     //{flashitems}
     return (
       <div>
-
+        {flashitems}
       </div>
     );
   }
