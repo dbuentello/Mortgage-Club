@@ -8,7 +8,9 @@ var LoansTab = React.createClass({
     return (
       <div className="col-md-4 loan-item" key={loan.id} index={i}>
         <div className="loan-item-holder">
-          <img className="img-responsive fixed-height-246" src={loan.subject_property.zillow_image_url ? loan.subject_property.zillow_image_url : "/home.jpg"}/>
+          <a href={'/my/dashboard/' + loan.id}>
+            <img className="img-responsive fixed-height-246" src={loan.subject_property.zillow_image_url ? loan.subject_property.zillow_image_url : "/home.jpg"}/>
+          </a>
           <div className="caption">
             <h3></h3>
             <p><strong>Status:</strong> {loan.pretty_status}</p>
