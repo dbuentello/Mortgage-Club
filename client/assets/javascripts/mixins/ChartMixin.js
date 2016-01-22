@@ -1,3 +1,4 @@
+var TextFormat = require("mixins/TextFormatMixin")
 var ChartMixin = {
 
   drawPieChart: function(id, principal, hazardInsurance, propertyTax, mortgageInsurance, hoadue, totalMontlyPayment) {
@@ -263,9 +264,9 @@ var ChartMixin = {
         var xOfMonth = sizeChart[0] / numOfMonths;
         var index = Math.floor(xCoor / xOfMonth);
 
-        $("#chart-interest" + id).html("$" + allData[0][0][index].amount);
-        $("#chart-principal" + id).html("$" + allData[0][1][index].amount);
-        $("#chart-remaining" + id).html("$" + allData[0][2][index].amount);
+        $("#chart-interest" + id).html(TextFormat.formatCurrency(allData[0][0][index].amount));
+        $("#chart-principal" + id).html(TextFormat.formatCurrency(allData[0][1][index].amount));
+        $("#chart-remaining" + id).html(TextFormat.formatCurrency(allData[0][2][index].amount));
         $("#chart-duration" + id).html(numOfMonths - index + "mo");
 
         return "M"+ xCoor +"," + yRange[0] + "L" + xCoor + "," + yRange[1]; // position vertical line
