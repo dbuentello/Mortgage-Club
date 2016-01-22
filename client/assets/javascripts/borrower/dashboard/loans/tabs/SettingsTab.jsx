@@ -79,28 +79,28 @@ var SettingsTab = React.createClass({
                 <h5 className="text-capitalize text-left">email address</h5>
                 <input type="hidden" name="user[id]" id="user_id" value={this.props.user.id}/>
                 <input type="email" className="form-control" name="user[email]" id="email" value={this.state.email}/>
-                <img src="/icons/pen.png" alt="title"/>
+                <img src="/icons/mail.png" alt="title"/>
               </div>
             </div>
             <div className="form-group">
               <div className="col-sm-12">
                 <h5 className="text-capitalize text-left">password</h5>
                 <input type="password" className="form-control" name="user[password]" id="password"/>
-                <img src="/icons/pen.png" alt="title"/>
+                <img src="/icons/password.png" alt="title"/>
               </div>
             </div>
             <div className="form-group">
               <div className="col-sm-12">
                 <h5 className="text-capitalize text-left">password confirmation</h5>
                 <input type="password" className="form-control" name="user[password_confirmation]" id="password_confirmation"/>
-                <img src="/icons/pen.png" alt="title"/>
+                <img src="/icons/passwordconfirm.png" alt="title"/>
               </div>
             </div>
             <div className="form-group">
               <div className="col-sm-12">
                 <h5 className="text-capitalize text-left">current password</h5>
                 <input type="password" className="form-control" name="user[current_password]" id="current_password"/>
-                <img src="/icons/pen.png" alt="title"/>
+                <img src="/icons/password.png" alt="title"/>
               </div>
             </div>
           </form>
