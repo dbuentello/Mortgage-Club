@@ -238,14 +238,22 @@ var Dropzone = React.createClass({
         <div className='col-md-6' id={this.props.field.name + "_id"}>
           <div ref='box' className='row fileBtn'>
             <table width="100%">
-              <tr valign="middle">
-                <td width="85%">
+              <tr className="height-50">
+                <td width="8%">
+                  {
+                      this.state.fileIsExisting
+                      ?
+                        <img src='/icons/file.png'/>
+                      :
+                        null
+                  }
+                </td>
+                <td width="77%%">
                    {
                       this.state.fileIsExisting
                       ?
                         <h5 className='fileBtnSmall file' onClick={this.onClick} onDragLeave={this.onDragLeave}
                           onDragOver={this.onDragOver} onDrop={this.onDrop}>
-                          <img src='/icons/file.png'/>
                           <span className="filename">{this.state.tip}</span>
                           <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
                             onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
@@ -254,7 +262,8 @@ var Dropzone = React.createClass({
                       :
                         <h5 className='fileBtnSmall' onClick={this.onClick} onDragLeave={this.onDragLeave}
                           onDragOver={this.onDragOver} onDrop={this.onDrop}>
-                          <img src='/icons/upload.png' className="iconUpload"/>{this.state.tip}
+                          <img src='/icons/upload.png' className="iconUpload"/>
+                          <span className="filename">{this.state.tip}</span>
                           <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
                             onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
                           </input>
