@@ -251,9 +251,6 @@ var Form = React.createClass({
         state['hasSecondaryBorrower'] = true;
         // state['secondary_borrower_editable'] = false;
         // build state for secondary borrower
-
-        console.dir(secondary_borrower)
-        console.dir(secondary_borrower_fields)
         state = this.buildStateFromBorrower(state, secondary_borrower, secondary_borrower.user, secondary_borrower_fields);
       } else {
         state[borrower_fields.applyingAs.name] = 1;
