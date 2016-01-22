@@ -237,32 +237,32 @@ var Dropzone = React.createClass({
           {customDescription}
         </div>
         <div className='col-md-6' id={this.props.field.name + "_id"}>
-          <div ref='box' className='fileBtn'>
+          <div ref='box' className='row fileBtn'>
             {
               this.state.fileIsExisting
               ?
-              <h5 className='fileBtnSmall file' onClick={this.onClick} onDragLeave={this.onDragLeave}
-                onDragOver={this.onDragOver} onDrop={this.onDrop}>
-                <img src='/icons/file.png'/>
-                <span className="filename">{this.state.tip}</span>
-                <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
-                  onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
-                </input>
-              </h5>
+                <h5 className='fileBtnSmall file' onClick={this.onClick} onDragLeave={this.onDragLeave}
+                  onDragOver={this.onDragOver} onDrop={this.onDrop}>
+                  <img src='/icons/file.png'/>
+                  <span className="filename">{this.state.tip}</span>
+                  <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
+                    onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
+                  </input>
+                </h5>
               :
-              <h5 className='fileBtnSmall' onClick={this.onClick} onDragLeave={this.onDragLeave}
-                onDragOver={this.onDragOver} onDrop={this.onDrop}>
-                <img src='/icons/upload.png'/>{this.state.tip}
-                <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
-                  onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
-                </input>
-              </h5>
+                <h5 className='fileBtnSmall' onClick={this.onClick} onDragLeave={this.onDragLeave}
+                  onDragOver={this.onDragOver} onDrop={this.onDrop}>
+                  <img src='/icons/upload.png' className="iconUpload"/>{this.state.tip}
+                  <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
+                    onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
+                  </input>
+                </h5>
             }
             <div>
               <a href={this.state.downloadUrl}>
-                <img className='fileBtnSmall' src='/icons/download.png'/>
+                <img  src='/icons/download.png'/>
               </a>
-              <img className='fileBtnSmall' src='/icons/trash.png' onClick={this.remove}/>
+              <img  src='/icons/trash.png' onClick={this.remove}/>
             </div>
           </div>
           <ValidationField id={this.props.field.name + "_id"} activateRequiredField={this.props.activateRequiredField} value={this.state.downloadUrl} title={"This field is required"}/>
