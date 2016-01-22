@@ -255,7 +255,7 @@ var Borrower = React.createClass({
             </div>
           </div>
           <div className="form-group">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <BooleanRadio
                 activateRequiredField={this.props.previouslyOwnError}
                 label={this.props.fields.previouslyOwn.label}
@@ -283,9 +283,7 @@ var Borrower = React.createClass({
                     onChange={this.props.onChange}/>
               }
             </div>
-          </div>
-          <div className="form-group">
-            <div className="col-xs-6">
+            <div className="col-xs-4">
               <TextField
                 activateRequiredField={this.props.yearsInPreviousAddressError}
                 label={this.props.fields.yearsInPreviousAddress.label}
