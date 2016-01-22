@@ -91,7 +91,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
     devise_parameter_sanitizer.for(:account_update) { |u|
-      u.permit(:email, :password, :password_confirmation, :current_password, :avatar)
+      u.permit(:email, :first_name, :last_name, :password, :password_confirmation, :current_password, :avatar)
     }
   end
 
