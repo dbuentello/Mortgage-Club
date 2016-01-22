@@ -130,9 +130,19 @@
   .form-group:last-child {margin-bottom:20px;}
   .form-group img {top:initial; bottom:6px; -webkit-filter:saturate(0%); filter:saturate(0%);}
   input:focus + img {border-left:#15c0f1 1px solid; filter:saturate(100%); -webkit-filter:saturate(100%);}
+
   .iconUpload {
     bottom: 3px !important;
   }
+
+  .icon-trash {
+    cursor: pointer;
+  }
+
+  .icon-download {
+
+  }
+
   h6 {font-size:1.1em; color:#15c0f1;}
   .helpful-text {font-style:italic; color:#959595; font-size:.9em; padding-top:5px;}
   .form-group .helpful-text img {display:inline-block; position:relative; bottom:0; top:0; left:0; border:none; margin-right:7px; margin-top:-5px;}
@@ -163,7 +173,7 @@
   .fileBtn h5 {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
-    margin-right: 25px;
+    margin-right: 0px !important;
     padding-top: 10px !important;
     padding-bottom: 10px !important;
   }

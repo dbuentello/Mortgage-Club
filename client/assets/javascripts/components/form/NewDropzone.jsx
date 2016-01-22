@@ -229,41 +229,48 @@ var Dropzone = React.createClass({
     if (this.props.supportOtherDescription) {
       var customDescription = <span><input className='mhl' placeholder='Description' onChange={this.onChangeDiscription}/></span>
     }
-
     return (
-      <div className='form-group'>
+      <div className='form-group row'>
         <div className='col-md-6'>
           <h5>{this.props.field.label}</h5>
           {customDescription}
         </div>
         <div className='col-md-6' id={this.props.field.name + "_id"}>
           <div ref='box' className='row fileBtn'>
-            {
-              this.state.fileIsExisting
-              ?
-                <h5 className='fileBtnSmall file' onClick={this.onClick} onDragLeave={this.onDragLeave}
-                  onDragOver={this.onDragOver} onDrop={this.onDrop}>
-                  <img src='/icons/file.png'/>
-                  <span className="filename">{this.state.tip}</span>
-                  <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
-                    onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
-                  </input>
-                </h5>
-              :
-                <h5 className='fileBtnSmall' onClick={this.onClick} onDragLeave={this.onDragLeave}
-                  onDragOver={this.onDragOver} onDrop={this.onDrop}>
-                  <img src='/icons/upload.png' className="iconUpload"/>{this.state.tip}
-                  <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
-                    onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
-                  </input>
-                </h5>
-            }
-            <div>
-              <a href={this.state.downloadUrl}>
-                <img  src='/icons/download.png'/>
-              </a>
-              <img  src='/icons/trash.png' onClick={this.remove}/>
-            </div>
+            <table width="100%">
+              <tr valign="middle">
+                <td width="85%">
+                   {
+                      this.state.fileIsExisting
+                      ?
+                        <h5 className='fileBtnSmall file' onClick={this.onClick} onDragLeave={this.onDragLeave}
+                          onDragOver={this.onDragOver} onDrop={this.onDrop}>
+                          <img src='/icons/file.png'/>
+                          <span className="filename">{this.state.tip}</span>
+                          <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
+                            onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
+                          </input>
+                        </h5>
+                      :
+                        <h5 className='fileBtnSmall' onClick={this.onClick} onDragLeave={this.onDragLeave}
+                          onDragOver={this.onDragOver} onDrop={this.onDrop}>
+                          <img src='/icons/upload.png' className="iconUpload"/>{this.state.tip}
+                          <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
+                            onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
+                          </input>
+                        </h5>
+                    }
+                </td>
+                <td width="15%">
+                  <a href={this.state.downloadUrl} className="icon-download">
+                    <img src='/icons/download.png'/>
+                  </a>
+                  <a className="icon-trash">
+                    <img src='/icons/trash.png' onClick={this.remove}/>
+                  </a>
+                </td>
+              </tr>
+            </table>
           </div>
           <ValidationField id={this.props.field.name + "_id"} activateRequiredField={this.props.activateRequiredField} value={this.state.downloadUrl} title={"This field is required"}/>
         </div>
