@@ -73,6 +73,18 @@ body {
   min-height: 100vh;
   padding-bottom: 150px;
 }
+
+.tooltip > .tooltip-inner {
+  background-color: #FBF7AA;
+  border-color: #F9E98E;
+  color: #A27D35;
+  font-size: 14px;
+}
+
+.tooltip > .tooltip-arrow {
+  border-left-color:#FBF7AA !important;
+}
+
 .error-tooltip {
   position:absolute; bottom:100%;
   background-color: black;
@@ -293,7 +305,7 @@ hr {
 
     .dropdown {
       .dropdownArrow {
-        position:absolute; right:0; top:3px; border-left:#15c0f1 1px solid;
+        right:0; top:3px; border-left:#15c0f1 1px solid;
       }
 
       .dropdown-toggle:hover .dropdownArrow {
@@ -359,14 +371,15 @@ hr {
 
   #accountBtn {
     height:38px;
-    width:140px;
+    width:auto;
     background:white;
     color:#15c0f1;
     border-radius:6px;
     border-top-right-radius:0;
     border-bottom-right-radius:0;
     text-align:left;
-    padding: 6px 12px;
+    padding: 6px 2px 6px 12px;
+    border-bottom: solid 3px rgb(21, 192, 241);
 
     img {margin-left:10px;}
 

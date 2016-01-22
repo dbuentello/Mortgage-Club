@@ -16,16 +16,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super
 
-    @token = params[:invite_token]
-    @invite_code = params[:ref_code]
-
     if resource.persisted?
       # Update invite join_at
+      @token = params[:invite_token]
+      @invite_code = params[:ref_code]
       InviteService.delay.call(@token, @invite_code, resource)
+      resource.create_borrower
+      resource.add_role :borrower
     end
-
-    resource.create_borrower
-    resource.add_role :borrower
   end
 
   # GET /resource/edit
