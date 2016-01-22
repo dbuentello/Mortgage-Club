@@ -118,7 +118,6 @@ describe('text format helper', function() {
     ];
 
     tests.forEach(function (test) {
-      console.log(subject.elementIsValidAgeofDependents.apply(subject, test.params));
       expect(subject.elementIsValidAgeofDependents.apply(subject, test.params)).toBe(test.expected);
     });
   });
