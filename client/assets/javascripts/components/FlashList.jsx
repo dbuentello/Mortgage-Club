@@ -27,10 +27,10 @@ var FlashList = React.createClass({
       flashitems.push(<FlashItem msg_type={key} message={message} key={num}/>);
       num += 1;
     };
-
+    //{flashitems}
     return (
       <div>
-        {flashitems}
+
       </div>
     );
   }
