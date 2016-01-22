@@ -24,6 +24,13 @@ describe Property do
         expect { raise Property.create(property) }.to raise_error(ActiveRecord::StatementInvalid)
       end
     end
+
+    describe "too big value of estimated original purchase price raise StatementInvalid Error" do
+      let(:property) { FactoryGirl.attributes_for(:property, original_purchase_price: 160999999999)}
+      it "raises error with exceeds money value" do
+        expect { raise Property.create(property) }.to raise_error(ActiveRecord::StatementInvalid)
+      end
+    end
   end
 
   describe '.usage_name' do
