@@ -80,6 +80,10 @@ var Form = React.createClass({
       this.scrollTopError();
   },
 
+  componentDidMount: function(){
+    $("body").scrollTop(0);
+  },
+
   onChange: function(change) {
     this.setState(change);
   },

@@ -45,6 +45,10 @@ var FormProperty = React.createClass({
       this.scrollTopError();
   },
 
+  componentDidMount: function(){
+    $("body").scrollTop(0);
+  },
+
   onChange: function(change) {
     var address = change.address;
     if (address) {

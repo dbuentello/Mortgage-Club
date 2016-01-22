@@ -29,6 +29,10 @@ var FormCreditCheck = React.createClass({
     this.props.saveLoan(loan, 4, true);
   },
 
+  componentDidMount: function(){
+    $("body").scrollTop(0);
+  },
+
   render: function() {
     return (
       <div className='col-sm-9 col-xs-12 account-content min-height-394'>

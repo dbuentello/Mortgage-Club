@@ -78,6 +78,10 @@ var FormDocuments = React.createClass({
     }
   },
 
+  componentDidMount: function(){
+    $("body").scrollTop(0);
+  },
+
   render: function() {
     var uploadUrl = '/document_uploaders/base_document/upload';
     var borrower = this.props.loan.borrower;

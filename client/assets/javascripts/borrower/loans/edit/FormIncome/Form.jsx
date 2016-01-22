@@ -79,6 +79,10 @@ var Form = React.createClass({
       this.scrollTopError();
   },
 
+  componentDidMount: function(){
+    $("body").scrollTop(0);
+  },
+
   render: function() {
     return (
       <div className='col-xs-9 account-content'>

@@ -49,6 +49,10 @@ var FormAssetsAndLiabilities = React.createClass({
       this.scrollTopError();
   },
 
+  componentDidMount: function(){
+    $("body").scrollTop(0);
+  },
+
   onChange: function(change) {
     var key = _.keys(change)[0];
     var value = _.values(change)[0];
