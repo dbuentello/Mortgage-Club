@@ -50,7 +50,7 @@ Feature: IncomeTabAtNewLoanPage
         And I should see "Job Title"
           Then I fill in "previous_job_title" with "CEO"
         And I should see "Years at this employer"
-          Then I fill in "previous_duration" with "123"
+          Then I fill in "previous_duration" with "12"
       Then I clear value in "Base Income"
         And I fill in "Base Income" with "123454"
         And I select "Monthly" from "Income frequency"
@@ -62,7 +62,7 @@ Feature: IncomeTabAtNewLoanPage
           And I should see content as "Eximbank"
           And I should see content as "$3,333"
           And I should see content as "CEO"
-          And I should see content as "123"
+          And I should see content as "12"
       And I should see "Documents"
 
   @javascript
