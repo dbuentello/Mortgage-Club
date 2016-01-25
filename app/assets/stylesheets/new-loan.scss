@@ -12,6 +12,24 @@
 
   h4 {font-family:'aileronregular'; font-style:italic; font-size:1em; color:#555555;}
   p {font-family:'aileronregular'; font-size:1.05em; color:#555555;}
+
+  .trash-anchor {
+    margin-top: 40px;
+    margin-bottom: 23px;
+  }
+  .iconRemove {
+    color: #c3c3c3;
+    img {
+      border: none;
+      top: 0px !important;
+      left: 0px;
+      padding-left: 12px;
+      &:hover {
+       color: #00a9dc;
+       -webkit-filter: saturate(100%);
+      }
+    }
+  }
 }
 
 .accountPart>.container>.row {min-height:75.5vh;}
