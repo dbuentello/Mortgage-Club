@@ -125,7 +125,11 @@ var TextFormatMixin = {
     var currentYear = (new Date(Date.now()).getFullYear())*1;
     s = ("" + s).replace(/\D/g, '');
 
-    if(currentYear < parseInt(s)){
+    if(currentYear < parseInt(s)) {
+      return currentYear.toString();
+    }
+
+    if(s.length === 4 && parseInt(s) < 1900) {
       return currentYear.toString();
     }
     return s;
