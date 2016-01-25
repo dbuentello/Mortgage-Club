@@ -31,7 +31,7 @@ Feature: LoanMemberManagements
       Then I open the email
         And I should see "Thanks for signing up" in the email body
         And I follow "Confirm Your Account" in the email
-    Then I should see "Your email address has been successfully confirmed."
+    Then I should be on the unauthenticated root page
 
   @javascript
   Scenario: add new member and without confirmation email
