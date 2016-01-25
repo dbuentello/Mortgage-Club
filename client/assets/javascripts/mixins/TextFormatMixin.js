@@ -123,7 +123,7 @@ var TextFormatMixin = {
   formatYear: function(s) {
     if(!s) { return; }
     var currentYear = (new Date(Date.now()).getFullYear())*1;
-    s = s.replace(/\D/g, '');
+    s = ("" + s).replace(/\D/g, '');
 
     if(currentYear < parseInt(s)){
       return currentYear.toString();
