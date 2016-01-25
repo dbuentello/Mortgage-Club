@@ -312,8 +312,8 @@ var Form = React.createClass({
     var amount = null;
     _.each(this.state[fields.otherIncomes.name], function(income) {
       if (income.type == type)
-        return amount = income.amount;
-    });
+        return amount = this.currencyToNumber(income.amount);
+    }, this);
     return amount;
   },
 
