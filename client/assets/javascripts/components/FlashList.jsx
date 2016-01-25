@@ -17,17 +17,17 @@ var FlashList = React.createClass({
   },
 
   render: function() {
-    var flashitems = [];
+    var flashItems = [];
     var flashes = this.props.flashes;
     var num = 1;
 
     for (var key in flashes) {
       var message = flashes[key];
 
-      flashitems.push(<FlashItem msg_type={key} message={message} key={num}/>);
+      flashItems.push(<FlashItem msg_type={key} message={message} key={num}/>);
       num += 1;
     };
-    //{flashitems}
+    //{flashItems}
     return (
       <div>
       </div>

@@ -155,9 +155,6 @@ When /^I drag the file "([^\"]*)" to "([^\"]*)"$/ do |file, field|
   patiently do
     attach_file(field, File.expand_path(file))
   end
-  # draggable = page.find("body")
-  # droppable = page.find("##{field}")
-  # draggable.drag_to(droppable)
 end
 
 When /^I select "([^\"]*)" from "([^\"]*)" at "([^\"]*)"$/ do |value, field, element|
