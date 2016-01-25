@@ -61,21 +61,21 @@ var OverviewTab = React.createClass({
               (this.state.pendingCounter == 0)
               ?
                 <div>
-                  <div className="col-md-11">
+                  <div className="col-md-11 col-sm-11 col-xs-10">
                     <h4>Everything looks good!</h4>
                     <p>{"We'll let you know when we need your help to move forward."}</p>
                   </div>
-                  <div className="col-md-1 dashboard-sign">
+                  <div className="col-md-1 col-sm-1 col-xs-2 dashboard-sign">
                     <span className="glyphicon glyphicon-ok"></span>
                   </div>
                 </div>
               :
                 <div>
-                  <div className="col-md-11">
+                  <div className="col-md-11 col-sm-11 col-xs-10">
                     <h4>We are still waiting on some of your checklist items</h4>
                     <p>Go ahead and click 'Get Started' on the items below to start working through your open items</p>
                   </div>
-                  <div className="col-md-1 dashboard-sign">
+                  <div className="col-md-1 col-sm-1 col-xs-2 dashboard-sign">
                     <img className="board-side" src="/warning-sign.png"/>
                   </div>
                 </div>

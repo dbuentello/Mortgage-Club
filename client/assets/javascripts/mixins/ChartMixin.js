@@ -1,7 +1,11 @@
+var TextFormat = require("mixins/TextFormatMixin")
 var ChartMixin = {
 
   drawPieChart: function(id, principal, hazardInsurance, propertyTax, mortgageInsurance, hoadue, totalMontlyPayment) {
     $("#piechart" + id).append("<p class='piechart-center'>Your payment<br/>$" + totalMontlyPayment + "</p>");
+    principal = parseFloat(principal);
+    hazardInsurance = parseFloat(hazardInsurance);
+    propertyTax = parseFloat(propertyTax);
 
     var dataset = [
       { label: 'P&I', count: principal },
@@ -10,10 +14,12 @@ var ChartMixin = {
     ];
 
     if (mortgageInsurance !== undefined && mortgageInsurance !== null && mortgageInsurance !== 0){
+      mortgageInsurance = parseFloat(mortgageInsurance);
       dataset.push({label: "H&I", count: mortgageInsurance})
     }
 
     if (hoadue !== undefined && hoadue !== null && hoadue !== 0){
+      hoadue = parseFloat(hoadue);
       dataset.push({label: "HOA Due", count: hoadue})
     }
 
@@ -74,7 +80,7 @@ var ChartMixin = {
       .attr('dy','1.2em')
       .style("font-size", "1.1em")
       .text(function(d, j) {
-        return (data[0][j].count<1000) ? "$" + data[0][j].count : ("$" + Math.floor(data[0][j].count/1000) + ',' + data[0][j].count%1000);
+        return TextFormat.formatCurrency(data[0][j].count);
       });
 
     pieText.attr("transform", function(d) { //set the label's origin to the center of the arc
@@ -263,9 +269,9 @@ var ChartMixin = {
         var xOfMonth = sizeChart[0] / numOfMonths;
         var index = Math.floor(xCoor / xOfMonth);
 
-        $("#chart-interest" + id).html("$" + allData[0][0][index].amount);
-        $("#chart-principal" + id).html("$" + allData[0][1][index].amount);
-        $("#chart-remaining" + id).html("$" + allData[0][2][index].amount);
+        $("#chart-interest" + id).html(TextFormat.formatCurrency(allData[0][0][index].amount));
+        $("#chart-principal" + id).html(TextFormat.formatCurrency(allData[0][1][index].amount));
+        $("#chart-remaining" + id).html(TextFormat.formatCurrency(allData[0][2][index].amount));
         $("#chart-duration" + id).html(numOfMonths - index + "mo");
 
         return "M"+ xCoor +"," + yRange[0] + "L" + xCoor + "," + yRange[1]; // position vertical line

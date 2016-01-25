@@ -135,6 +135,10 @@ var FormDeclarations = React.createClass({
       this.scrollTopError();
   },
 
+  componentDidMount: function(){
+    $("body").scrollTop(0);
+  },
+
   onChange: function(change) {
     var key = Object.keys(change)[0];
     var value = change[key];
@@ -220,6 +224,7 @@ var FormDeclarations = React.createClass({
                   <BooleanRadio
                     activateRequiredField={this.state[checkboxFields[key].error]}
                     label={checkboxFields[key].label}
+                    isDeclaration={true}
                     keyName={checkboxFields[key].name}
                     customColumn={"col-xs-2"}
                     editable={true}

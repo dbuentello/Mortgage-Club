@@ -45,6 +45,10 @@ var FormProperty = React.createClass({
       this.scrollTopError();
   },
 
+  componentDidMount: function(){
+    $("body").scrollTop(0);
+  },
+
   onChange: function(change) {
     var address = change.address;
     if (address) {
@@ -166,40 +170,43 @@ var FormProperty = React.createClass({
                 </div>
               </div>
             :
-              <div>
-                <div className="form-group">
-                  <div className="col-md-6">
-                    <TextField
-                      requiredMessage="This field is required"
-                      activateRequiredField={this.state[fields.originalPurchasePrice.error]}
-                      label={fields.originalPurchasePrice.label}
-                      keyName={fields.originalPurchasePrice.name}
-                      value={this.state[fields.originalPurchasePrice.name]}
-                      editable={true}
-                      liveFormat={true}
-                      maxLength={15}
-                      format={this.formatCurrency}
-                      helpText={fields.originalPurchasePrice.helpText}
-                      onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
-                      validationTypes={["currency"]}
-                      onChange={this.onChange}/>
-                  </div>
+              <div className="form-group">
+                <div className="col-md-6">
+                  <TextField
+                    requiredMessage="This field is required"
+                    activateRequiredField={this.state[fields.originalPurchasePrice.error]}
+                    label={fields.originalPurchasePrice.label}
+                    keyName={fields.originalPurchasePrice.name}
+                    value={this.state[fields.originalPurchasePrice.name]}
+                    editable={true}
+                    liveFormat={true}
+                    maxLength={15}
+                    format={this.formatCurrency}
+                    helpText={fields.originalPurchasePrice.helpText}
+                    onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
+                    validationTypes={["currency"]}
+                    onChange={this.onChange}/>
                 </div>
-                <div className="form-group">
-                  <div className="col-md-6">
-                    <TextField
-                      requiredMessage="This field is required"
-                      activateRequiredField={this.state[fields.originalPurchaseYear.error]}
-                      label={fields.originalPurchaseYear.label}
-                      keyName={fields.originalPurchaseYear.name}
-                      value={this.state[fields.originalPurchaseYear.name]}
-                      placeholder="YYYY"
-                      editable={true}
-                      helpText={fields.originalPurchaseYear.helpText}
-                      onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)}
-                      validationTypes={["integer"]}
-                      onChange={this.onChange}/>
-                  </div>
+              </div>
+          }
+          {this.state[fields.loanPurpose.name] === null ? null :
+            this.state[fields.loanPurpose.name] == true
+            ? null
+            :
+              <div className="form-group">
+                <div className="col-md-6">
+                  <TextField
+                    requiredMessage="This field is required"
+                    activateRequiredField={this.state[fields.originalPurchaseYear.error]}
+                    label={fields.originalPurchaseYear.label}
+                    keyName={fields.originalPurchaseYear.name}
+                    value={this.state[fields.originalPurchaseYear.name]}
+                    placeholder="YYYY"
+                    editable={true}
+                    helpText={fields.originalPurchaseYear.helpText}
+                    onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)}
+                    validationTypes={["integer"]}
+                    onChange={this.onChange}/>
                 </div>
               </div>
           }

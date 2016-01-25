@@ -8,9 +8,18 @@ var LoansTab = React.createClass({
     return (
       <div className="col-md-4 loan-item" key={loan.id} index={i}>
         <div className="loan-item-holder">
-          <img className="img-responsive fixed-height-246" src={loan.subject_property.zillow_image_url ? loan.subject_property.zillow_image_url : "/home.jpg"}/>
+          <a href={'/my/dashboard/' + loan.id}>
+            <img className="img-responsive fixed-height-246" src={loan.subject_property.zillow_image_url ? loan.subject_property.zillow_image_url : "/home.jpg"}/>
+          </a>
           <div className="caption">
-            <h3></h3>
+            <a href={'/my/dashboard/' + loan.id}>
+              {
+                this.props.addresses[loan.subject_property.id] ?
+                  <h6><strong>{this.props.addresses[loan.subject_property.id]}</strong></h6>
+                :
+                  <h6><strong>Unknown Address</strong></h6>
+              }
+            </a>
             <p><strong>Status:</strong> {loan.pretty_status}</p>
             <p><strong>Create at:</strong> {moment(loan.created_at).format('MMM DD, YYYY')}</p>
             <p><strong>Loan amount:</strong> {this.formatCurrency(loan.amount, "$")}</p>
@@ -27,6 +36,7 @@ var LoansTab = React.createClass({
     );
   },
   render: function() {
+    console.log()
     return (
       <div className="loanList mtl">
         <div className="row">

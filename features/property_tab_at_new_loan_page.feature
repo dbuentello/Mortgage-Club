@@ -4,6 +4,7 @@ Feature: PropertyTabAtNewLoanPage
     When I am at loan management page
       And I should see "Property"
       Then I click "Property" in the "#tabProperty"
+        And I clear value in "Property Address"
         And I fill in "Property Address" with "1921 South Las Vegas Boulevard, Las Vegas, NV 89104"
         And I select "Vacation Home" from "Property Will Be"
         And I choose "true_purpose"

@@ -9,7 +9,8 @@ class Users::LoansController < Users::BaseController
     end
 
     ref_url = "#{url_for(:only_path => false)}?refcode=#{current_user.id}"
-    invites = Invite.where(sender_id: current_user.id)
+    invites = Invite.where(sender_id: current_user.id).order(created_at: :desc)
+    addresses = get_list_property_addresses
 
     bootstrap(
       loans: LoanListPage::LoansPresenter.new(current_user.loans).show,
@@ -17,12 +18,20 @@ class Users::LoansController < Users::BaseController
       user: LoanListPage::UserPresenter.new(current_user).show,
       refCode: params[:refcode],
       refLink: ref_url,
-      user_email: current_user.email
+      user_email: current_user.email,
+      addresses: addresses
     )
 
     respond_to do |format|
       format.html { render template: 'borrower_app' }
     end
+  end
+
+  def get_list_property_addresses
+    loan_ids = current_user.loans.pluck(:id)
+    subject_property_ids = Property.where(loan_id: loan_ids, is_subject: true).pluck(:id)
+    array_addresses = Address.where(property_id: subject_property_ids).pluck(:property_id, :street_address, :city, :state, :zip)
+    Hash[array_addresses.map { |id, street_address, city, state, zip| [id, street_address.nil? ? "" : "#{street_address}, #{city}, #{state}, #{zip}"] }]
   end
 
   def create

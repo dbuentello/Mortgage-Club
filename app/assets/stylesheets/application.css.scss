@@ -47,7 +47,7 @@ $rails: true;
   @include fixedHeight(246px);
 }
 .min-height-394 {
-  @include minHeight(394px);
+  @include minHeight(500px);
 }
 
 @keyframes loginAnim {

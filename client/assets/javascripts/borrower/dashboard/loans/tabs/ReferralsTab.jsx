@@ -84,10 +84,10 @@ var ReferralsTab = React.createClass({
     return (
       <div>
         <div className="box boxBasic backgroundBasic">
+            <div className='boxHead bbs'>
+              <h4 className='typeBold'>Referrals Program</h4>
+            </div>
             <div className="boxBody ptm">
-              <div className='boxHead bbs'>
-                <h4 className='typeBold'>Referrals Program</h4>
-              </div>
               <div className="col-md-12">
                 <br/>
                 Earn $200 cash bonus for every borrower you refer to Mortgage Club. Below is your unique referal code. Send this link to potential borrowers or enter their emails into the form and we will invite them on your behalf. Referrals may be automated by Mortgage Club.
@@ -103,7 +103,7 @@ var ReferralsTab = React.createClass({
               </div>
 
               <form ref='formInvite' id="invite-form" className="form-group ref-form col-md-12" action="/invites" method="post">
-                <label>Invite by Email:</label>
+                <h4>Invite by Email:</h4>
 
                 <div className="row invite-form">
                   <div className="col-md-4">
@@ -165,19 +165,21 @@ var ReferralsTab = React.createClass({
               <h4 className='typeBold'>Your Referrals</h4>
             </div>
             <div className="boxBody ptm">
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th><h5 className="text-capitalize">Email </h5></th>
-                    <th><h5 className="text-capitalize">Name </h5></th>
-                    <th><h5 className="text-capitalize">Joined </h5></th>
-                    <th><h5 className="text-capitalize">#Loans Closed </h5></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.invites.map(this.eachInvite)}
-                </tbody>
-              </table>
+              <div className="col-md-12">
+                <table className="table table-striped">
+                  <thead>
+                    <tr>
+                      <th><h5 className="text-capitalize">Email </h5></th>
+                      <th><h5 className="text-capitalize">Name </h5></th>
+                      <th><h5 className="text-capitalize">Joined </h5></th>
+                      <th><h5 className="text-capitalize">#Loans Closed </h5></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.invites.map(this.eachInvite)}
+                  </tbody>
+                </table>
+              </div>
             </div>
         </div>
       </div>

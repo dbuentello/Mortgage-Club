@@ -31,4 +31,5 @@ Feature: Dashboard
       And I select "W2 - Most recent tax year" from "checklist[document_type]"
         Then I should see "W2 - Most recent tax year"
       And I click on "Submit"
-      Then I should see "Updated successfully"
+      Then I should see "This is a name of checklist"
+        And I should see "This is a information of checklist"

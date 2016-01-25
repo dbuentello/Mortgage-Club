@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var React = require("react/addons");
 var FlashHandler = require("mixins/FlashHandler");
 
@@ -7,7 +8,27 @@ var SettingsTab = React.createClass({
   getInitialState: function() {
     return {
       avatarUrl: this.props.user.avatar_url || "no-avatar.jpg",
-      email: this.props.user.email
+      email: this.props.user.email,
+      first_name: this.props.user.first_name,
+      last_name: this.props.user.last_name
+    }
+  },
+
+  onChange: function(type, event){
+    var value = event.target.value;
+
+    switch(type){
+      case "email":
+        this.setState({email: value});
+        break;
+      case "first_name":
+        this.setState({first_name: value});
+        break;
+      case "last_name":
+        this.setState({last_name: value});
+        break;
+      default:
+        break;
     }
   },
 
@@ -27,6 +48,8 @@ var SettingsTab = React.createClass({
         this.setState({
           avatarUrl: response.user.avatar_url,
           email: response.user.email,
+          first_name: response.user.first_name,
+          last_name: response.user.last_name,
           saving: false
         })
       }.bind(this),
@@ -76,9 +99,23 @@ var SettingsTab = React.createClass({
             </div>
             <div className="form-group">
               <div className="col-sm-12">
+                <h5 className="text-capitalize text-left">first name</h5>
+                <input type="text" className="form-control" name="user[first_name]" id="first_name" value={this.state.first_name} onChange={_.bind(this.onChange, null, "first_name")}/>
+                <img src="/icons/name.png" alt="title"/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-12">
+                <h5 className="text-capitalize text-left">last name</h5>
+                <input type="text" className="form-control" name="user[last_name]" id="last_name" value={this.state.last_name} onChange={_.bind(this.onChange, null, "last_name")}/>
+                <img src="/icons/name.png" alt="title"/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-12">
                 <h5 className="text-capitalize text-left">email address</h5>
                 <input type="hidden" name="user[id]" id="user_id" value={this.props.user.id}/>
-                <input type="email" className="form-control" name="user[email]" id="email" value={this.state.email}/>
+                <input type="email" className="form-control" name="user[email]" id="email" value={this.state.email} onChange={_.bind(this.onChange, null, "email")}/>
                 <img src="/icons/mail.png" alt="title"/>
               </div>
             </div>

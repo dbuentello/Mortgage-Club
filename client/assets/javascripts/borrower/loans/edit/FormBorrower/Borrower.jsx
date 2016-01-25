@@ -198,8 +198,8 @@ var Borrower = React.createClass({
               onChange={this.props.onChange}/>
           </div>
           <div className="col-md-4">
-            { this.props.currentlyOwn ? null
-              :
+            { this.props.currentlyOwn == false
+              ?
                 <TextField
                   activateRequiredField={this.props.currentMonthlyRentError}
                   label={this.props.fields.currentMonthlyRent.label}
@@ -212,6 +212,7 @@ var Borrower = React.createClass({
                   onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentMonthlyRent)}
                   validationTypes={["currency"]}
                   onChange={this.props.onChange}/>
+              : null
             }
           </div>
           <div className="col-md-4">
@@ -256,7 +257,7 @@ var Borrower = React.createClass({
             </div>
           </div>
           <div className="form-group">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <BooleanRadio
                 activateRequiredField={this.props.previouslyOwnError}
                 label={this.props.fields.previouslyOwn.label}
@@ -269,8 +270,8 @@ var Borrower = React.createClass({
                 onChange={this.props.onChange}/>
             </div>
             <div className="col-md-4">
-              { this.props.previouslyOwn ? null
-                :
+              { this.props.previouslyOwn == false
+                ?
                   <TextField
                     activateRequiredField={this.props.previousMonthlyRentError}
                     label={this.props.fields.previousMonthlyRent.label}
@@ -283,11 +284,10 @@ var Borrower = React.createClass({
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyRent)}
                     validationTypes={["currency"]}
                     onChange={this.props.onChange}/>
+                : null
               }
             </div>
-          </div>
-          <div className="form-group">
-            <div className="col-xs-6">
+            <div className="col-xs-4">
               <TextField
                 activateRequiredField={this.props.yearsInPreviousAddressError}
                 label={this.props.fields.yearsInPreviousAddress.label}

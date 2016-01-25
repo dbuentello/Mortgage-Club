@@ -129,15 +129,31 @@
 
   .form-horizontal {padding-left:20px;}
   .form-group:first-child {margin-top:15px;}
-  .form-group:last-child {margin-bottom:65px;}
-  .form-group img {top:initial; bottom:6px; -webkit-filter:saturate(0%); filter:saturate(0%);}
+  .form-group:last-child {margin-bottom:20px;}
+  .form-group img {top:initial; -webkit-filter:saturate(0%); filter:saturate(0%); bottom:6px;}
   input:focus + img {border-left:#15c0f1 1px solid; filter:saturate(100%); -webkit-filter:saturate(100%);}
+
+  .icon-trash {
+    cursor: pointer;
+  }
+
+  .icon-download {
+
+  }
+
+  .form-group .fileBtn img {
+    bottom: 0px !important;
+  }
+
+  .form-group .fileBtn .iconUpload {
+    bottom: 3px !important;
+  }
 
   h6 {font-size:1.1em; color:#15c0f1;}
   .helpful-text {font-style:italic; color:#959595; font-size:.9em; padding-top:5px;}
   .form-group .helpful-text img {display:inline-block; position:relative; bottom:0; top:0; left:0; border:none; margin-right:7px; margin-top:-5px;}
 
-  select {-webkit-appearance:none; height:38px; width:100%; margin-top:15px;}
+  select {-webkit-appearance:none; height:38px; width:100%; }
   select:hover {border-color:#15c0f1; outline:none; box-shadow:none; cursor:pointer;}
   select:focus {border-color:#15c0f1; outline:none; box-shadow:none;}
   select:focus + img {border-left:#15c0f1 1px solid; filter:saturate(100%); -webkit-filter:saturate(100%);}
@@ -160,7 +176,24 @@
     filter:saturate(100%); -webkit-filter:saturate(100%); cursor:pointer; color:#15c0f1;
   }
 
+  .fileBtn h5 {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    margin-right: 0px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    line-height: 100% !important;
+  }
+
+  .height-50 {
+    height: 50px;
+  }
+
   .fileBtn .fileBtnSmall.file {font-style:italic;}
+
+  .fileBtn span.filename{
+    margin-top: 5px !important;
+  }
 
   .select-box {
     img {
@@ -259,4 +292,9 @@
     animation:loginAnim 2s infinite;
     -webkit-animation:loginAnim 2s infinite;
   }
+}
+
+.boolean-div {
+  width:5px;
+  height:5px;
 }
