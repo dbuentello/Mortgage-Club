@@ -49,7 +49,8 @@ var BooleanRadioView = React.createClass({
   render: function() {
     var display = this.props.unknownLabel,
         customColumn = this.props.customColumn || "col-xs-6",
-        requiredMessage = this.props.requiredMessage  || "This field is required";
+        requiredMessage = this.props.requiredMessage  || "This field is required",
+        isDeclaration = this.props.isDeclaration === undefined ? false : true;
 
     if (this.props.checked) {
       display = this.props.yesLabel;
@@ -59,26 +60,55 @@ var BooleanRadioView = React.createClass({
 
     return (
       <div>
-        <h6>{this.props.label}</h6>
-        <div className="row" id={this.props.keyName}>
-          <div className={customColumn} onClick={this.checkedRadio}>
-            <input type="radio" className="pointer" value="true" name={this.props.name} onChange={this.handleChange}
-              checked={display === this.props.yesLabel} id={"true_" + this.props.keyName}/>
-            <label htmlFor="own" className="customRadio">
-              <span className="first-circle"><span className="second-circle"></span></span>
-              <span className="pointer">{this.props.yesLabel}</span>
-            </label>
+      {
+        isDeclaration ?
+          <div>
+            <h6>{this.props.label}</h6>
+            <div className="row" id={this.props.keyName}>
+              <div className={customColumn} onClick={this.checkedRadio}>
+                <input type="radio" className="pointer" value="true" name={this.props.name} onChange={this.handleChange}
+                  checked={display === this.props.yesLabel} id={"true_" + this.props.keyName}/>
+                <label htmlFor="own" className="customRadio">
+                  <span className="first-circle"><span className="second-circle"></span></span>
+                  <span className="pointer">{this.props.yesLabel}</span>
+                </label>
+              </div>
+              <div className={customColumn} onClick={this.checkedRadio}>
+                <input type="radio" className="pointer" value="false" name={this.props.name} onChange={this.handleChange}
+                  checked={display === this.props.noLabel} id={'false_' + this.props.keyName}/>
+                <label htmlFor="own" className="customRadio">
+                  <span className="first-circle"><span className="second-circle"></span></span>
+                  <span className="pointer">{this.props.noLabel}</span>
+                </label>
+              </div>
+              <div className="col-xs-2 boolean-div"></div>
+              <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.checked} title={requiredMessage} validationTypes={this.props.validationTypes}/>
+            </div>
           </div>
-          <div className={customColumn} onClick={this.checkedRadio}>
-            <input type="radio" className="pointer" value="false" name={this.props.name} onChange={this.handleChange}
-              checked={display === this.props.noLabel} id={'false_' + this.props.keyName}/>
-            <label htmlFor="own" className="customRadio">
-              <span className="first-circle"><span className="second-circle"></span></span>
-              <span className="pointer">{this.props.noLabel}</span>
-            </label>
+        :
+          <div>
+            <h6>{this.props.label}</h6>
+            <div className="row" id={this.props.keyName}>
+              <div className={customColumn} onClick={this.checkedRadio}>
+                <input type="radio" className="pointer" value="true" name={this.props.name} onChange={this.handleChange}
+                  checked={display === this.props.yesLabel} id={"true_" + this.props.keyName}/>
+                <label htmlFor="own" className="customRadio">
+                  <span className="first-circle"><span className="second-circle"></span></span>
+                  <span className="pointer">{this.props.yesLabel}</span>
+                </label>
+              </div>
+              <div className={customColumn} onClick={this.checkedRadio}>
+                <input type="radio" className="pointer" value="false" name={this.props.name} onChange={this.handleChange}
+                  checked={display === this.props.noLabel} id={'false_' + this.props.keyName}/>
+                <label htmlFor="own" className="customRadio">
+                  <span className="first-circle"><span className="second-circle"></span></span>
+                  <span className="pointer">{this.props.noLabel}</span>
+                </label>
+              </div>
+              <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.checked} title={requiredMessage} validationTypes={this.props.validationTypes}/>
+            </div>
           </div>
-          <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.checked} title={requiredMessage} validationTypes={this.props.validationTypes}/>
-        </div>
+      }
       </div>
     );
   }
