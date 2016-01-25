@@ -31,7 +31,7 @@ class Users::LoansController < Users::BaseController
     loan_ids = current_user.loans.pluck(:id)
     subject_property_ids = Property.where(loan_id: loan_ids, is_subject: true).pluck(:id)
     array_addresses = Address.where(property_id: subject_property_ids).pluck(:property_id, :street_address, :city, :state, :zip)
-    Hash[array_addresses.map { |id, street_address, city, state, zip| [id, street_address == nil ? "" : (street_address + ", " + city + ", " + state + " " + zip)] }]
+    Hash[array_addresses.map { |id, street_address, city, state, zip| [id, street_address.nil? ? "" : (street_address + ", " + city + ", " + state + " " + zip)] }]
   end
 
   def create
