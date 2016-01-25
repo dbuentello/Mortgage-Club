@@ -148,6 +148,7 @@ var Income = React.createClass({
                     liveFormat={true}
                     editable={true}
                     validationTypes={["currency"]}
+                    maxLength={15}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyIncome)}
                     onChange={this.props.onChange}/>
                 </div>
@@ -217,6 +218,8 @@ var Income = React.createClass({
               liveFormat={true}
               format={this.formatCurrency}
               editable={true}
+              validationTypes={["currency"]}
+              maxLength={15}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.baseIncome)}
               onChange={this.props.onChange}
               placeholder="e.g. 99,000"/>

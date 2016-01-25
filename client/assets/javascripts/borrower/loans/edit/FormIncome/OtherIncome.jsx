@@ -56,6 +56,7 @@ var OtherIncome = React.createClass({
             keyName={this.props.name + '_amount_' + index}
             value={this.props.amount}
             editable={true}
+            maxLength={15}
             validationTypes={["currency"]}
             onChange={this.onChange}/>
         </div>

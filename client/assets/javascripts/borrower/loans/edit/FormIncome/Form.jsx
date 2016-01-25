@@ -262,6 +262,10 @@ var Form = React.createClass({
         grossIncome = salary * 52;
         break;
     }
+    var limitedValue = 99999999999;
+    if(grossIncome > limitedValue) {
+      grossIncome = limitedValue
+    }
     return grossIncome;
   },
 

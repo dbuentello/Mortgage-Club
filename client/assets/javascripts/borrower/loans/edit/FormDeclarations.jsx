@@ -178,7 +178,6 @@ var FormDeclarations = React.createClass({
         state[selectBoxFields[key].name] = declaration[selectBoxFields[key].name];
       });
     }
-
     return state;
   },
 
@@ -293,7 +292,7 @@ var FormDeclarations = React.createClass({
     }, this);
 
     if(this.state.permanent_resident_alien_display == true) {
-      requiredFields[checkboxFields.permanentResidentAlien.error] = {value: this.state[checkboxFields.permanentResidentAlien.error], validationTypes: checkboxFields.permanentResidentAlien.validationTypes};
+      requiredFields[checkboxFields.permanentResidentAlien.error] = {value: this.state[checkboxFields.permanentResidentAlien.name], validationTypes: checkboxFields.permanentResidentAlien.validationTypes};
     }
 
     if(this.state.display_sub_question == true) {
@@ -307,8 +306,6 @@ var FormDeclarations = React.createClass({
   valid: function(){
     var isValid = true;
     var requiredFields = this.mapValueToRequiredFields();
-    console.dir(requiredFields)
-    console.dir(this.getStateOfInvalidFields(requiredFields))
     if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
       this.setState(this.getStateOfInvalidFields(requiredFields));
       isValid = false;

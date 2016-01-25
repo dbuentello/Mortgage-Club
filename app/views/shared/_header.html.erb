@@ -24,8 +24,13 @@
             <li>
               <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle theBtn" id="accountBtn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <img id="accountBtnImg" src="/icons/userBtn.png" atl="account"><%= current_user.first_name %></img>
-                <img class="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+                <span>
+                  <img id="accountBtnImg" src="/icons/userBtn.png" atl="account"></img>
+                </span>
+                <span><%= current_user.first_name %></span>
+                <span>
+                  <img class="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+                </span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="accountBtn">
                   <li><%= link_to "My Profile", edit_user_registration_path(current_user) %></li>
