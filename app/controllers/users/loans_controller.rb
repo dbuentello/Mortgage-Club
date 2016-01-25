@@ -9,7 +9,7 @@ class Users::LoansController < Users::BaseController
     end
 
     ref_url = "#{url_for(:only_path => false)}?refcode=#{current_user.id}"
-    invites = Invite.where(sender_id: current_user.id)
+    invites = Invite.where(sender_id: current_user.id).order(created_at: :desc)
     addresses = get_list_property_addresses
 
     bootstrap(
