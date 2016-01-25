@@ -7,7 +7,7 @@ var ContactTab = React.createClass({
       listStyleType: 'none'
     };
     return (
-      <div className="board contact-board">
+      <div className="board contact-board overview">
           {
             _.map(this.props.contactList, function(contact, index) {
               return (
