@@ -15,7 +15,9 @@
 }
 
 .accountPart>.container>.row {min-height:75.5vh;}
-
+.margin-top-0 {
+  margin-top: 0 !important;
+}
 .subnav {
   background: #f6f6f6;
   // margin-bottom:-9999px;
@@ -268,7 +270,7 @@
   height:50px;
   border-color:#00bd9c;
   width:230px;
-  float:right;
+  float:left;
   font-size: 14px;
 
   img {

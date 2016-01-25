@@ -120,10 +120,10 @@ var FormAssetsAndLiabilities = React.createClass({
 
   render: function() {
     return (
-      <div className='col-sm-8 col-xs-12 account-content'>
+      <div className='col-sm-9 col-xs-12 account-content'>
         <form className='form-horizontal'>
           <div className='form-group'>
-            <h3 className='text-uppercase'>Your financial assets</h3>
+            <h3 className='text-uppercase margin-top-0'>Your financial assets</h3>
             {this.state.assets.map(this.eachAsset)}
           </div>
           <div className='form-group'>

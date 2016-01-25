@@ -212,10 +212,10 @@ var HelpMeChoose = React.createClass({
             this.props.bestRate ?
             <div className='col-lg-5 best-rate'>
               <div className='row'>
-                <h2>Your Best Option</h2>
+                <h1>Your Best Option</h1>
               </div>
               <div className='row bankname'>
-                <h1>{this.props.bestRate.lender_name}</h1>
+                <h2>{this.props.bestRate.lender_name}</h2>
               </div>
               <div className='row monthly-payment'>
                 <b className='value'>{this.formatCurrency(this.props.bestRate.monthly_payment, '$')}</b>
@@ -270,7 +270,7 @@ var HelpMeChoose = React.createClass({
                 </div>
               </div>
               <div className='row'>
-                <a className='btn btnLrg mtm btn-primary col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.props.bestRate)}>Select</a>
+                <a className='btn btnLrg mtm select-btn col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.props.bestRate)}>Select</a>
               </div>
             </div>
           : null
