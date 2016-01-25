@@ -90,9 +90,10 @@ var Dashboard = React.createClass({
                 id="deleteLoan"
                 icon="iconTrash mrs"
                 name="Delete"
+                title={null}
                 class="btn delete-btn"
-                title="Confirmation"
-                body="Are you sure to destroy this loan?"
+                bodyClass="mc-blue-primary-text"
+                body="Are you sure you want to destroy this loan?"
                 yesCallback={this.destroyLoan}
               />
             </div>
