@@ -1,6 +1,9 @@
 class RatesController < ApplicationController
   def index
     @loan = Loan.find(params[:loan_id])
+
+    return redirect_to edit_loan_url(@loan) unless @loan.completed?
+
     rates = []
 
     if @loan.subject_property.address && zipcode = @loan.subject_property.address.zip
