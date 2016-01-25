@@ -12,7 +12,7 @@ Feature: PropertyTabAtNewLoanPage
         Then I click on "Save and Continue"
         And I wait for 2 seconds
         And I should see "I am applying"
-      When I click "Property"
+      When I click link with div "#tabProperty"
         And I wait for 2 seconds
         And I should see "Vacation Home"
         And I should see "Purchase"
