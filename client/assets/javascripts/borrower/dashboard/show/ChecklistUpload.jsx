@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var Dropzone = require('components/form/Dropzone');
+var Dropzone = require('components/form/NewDropzone');
 
 var ChecklistUpload = React.createClass({
   propTypes: {
