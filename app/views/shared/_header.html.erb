@@ -13,7 +13,14 @@
       <div class="collapse navbar-collapse mortgageNav" id="links-home">
         <ul class="nav nav-pills navbar-right">
           <% if current_user %>
-            <li><a id="newLoanBtn" class="btn btn-ms btn-success theBtn text-uppercase" data-toggle="modal" data-target="#newLoan"><p><span class="glyphicon glyphicon-plus-sign"></span>  new loan</p></a></li>
+            <li>
+              <a id="newLoanBtn" class="btn btn-ms btn-success theBtn text-uppercase">
+                <p>
+                  <span class="glyphicon glyphicon-plus-sign"></span>
+                   new loan
+                </p>
+              </a>
+            </li>
             <% is_active_loans_menu = 'active-loans' if controller.controller_name == 'loans' %>
             <li>
               <%= link_to my_loans_path, class: "btn btn-ms theBtn text-uppercase #{is_active_loans_menu}", id: "loanBtn" do %>
