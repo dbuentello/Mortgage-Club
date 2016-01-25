@@ -20,9 +20,9 @@ Feature: Referrals
         Then I click on "SEND INVITES"
           Then I should see a table with the following rows:
             | Email                     | Name     | Joined | #Loans Closed |
-            | test1@mortgageclub.io         | Test 1   | *      | *             |
-            | test2@mortgageclub.io         | Test 2   | *      | *             |
             | test3@mortgageclub.io         | Test 3   | *      | *             |
+            | test2@mortgageclub.io         | Test 2   | *      | *             |
+            | test1@mortgageclub.io         | Test 1   | *      | *             |
           And the "invite-email-1" field should contain ""
           And the "invite-email-2" field should contain ""
           And the "invite-email-3" field should contain ""
