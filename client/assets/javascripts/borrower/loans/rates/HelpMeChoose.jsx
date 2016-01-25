@@ -160,7 +160,7 @@ var HelpMeChoose = React.createClass({
               <div className='years_chart mtxl'>
                 <div className='row'>
                   <div className='col-lg-12'>
-                    <h3>How Long Do You Plan To Stay?</h3>
+                    <h3>How long do you plan to stay?</h3>
                     <p>30-year fixed mortgage tends to be better the longer you stay because interest rates are likely to rise gradually over the next several years.</p>
                   </div>
                 </div>

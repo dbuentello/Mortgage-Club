@@ -61,6 +61,11 @@ a.remove {
 
 .modal-upload {
   width: 60%;
+  height: 65%;
+
+  .modal-content {
+    height: 60%;
+  }
 }
 
 .upload-zone {
