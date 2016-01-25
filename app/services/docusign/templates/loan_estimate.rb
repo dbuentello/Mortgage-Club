@@ -25,7 +25,7 @@ module Docusign
       def build_header
         @params['date_issued'] = Time.zone.today.in_time_zone.strftime("%D")
         @params['applicant_name'] = applicant_name
-        @params['sale_price'] = Money.new(property.purchase_price * 100).format(no_cents_if_whole: true)
+        @params['sale_price'] = Money.new(property.purchase_price.to_f * 100).format(no_cents_if_whole: true)
         @params['purpose'] = "#{loan.purpose}".titleize
         @params['product'] = "#{loan.amortization_type}".titleize
         @params['loan_term'] = loan.num_of_years.to_s + " years"
