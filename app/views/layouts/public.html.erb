@@ -47,7 +47,10 @@
         duration:2000,
         });
 
-        $('[data-toggle="tooltip"]').tooltip();
+        $("[data-toggle='tooltip']").tooltip({
+          placement: "left",
+          trigger: "manual"
+        }).tooltip("show");
       })
     </script>
   </body>
