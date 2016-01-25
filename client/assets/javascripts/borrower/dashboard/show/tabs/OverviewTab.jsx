@@ -55,7 +55,7 @@ var OverviewTab = React.createClass({
   render: function() {
     return (
       <div className="overviewTab">
-        <div className="board sign-board">
+        <div className="board sign-board overview">
           <div className="row">
             {
               (this.state.pendingCounter == 0)
