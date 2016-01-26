@@ -72,8 +72,7 @@ end
 
 After do |scenario|
   if scenario.failed?
-    time_now = Time.now
-    timestamp = "#{time_now.strftime('%Y-%m-%d-%H-%M-%S.')}#{'%03d' % (time_now.usec/1000).to_i}"
+    timestamp = "#{Time.now.strftime('%Y-%m-%d-%H:%M:%S')}"
 
     screenshot_name = "screenshot-failed-cucumber-#{timestamp}.png"
     screenshot_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}/#{screenshot_name}"
