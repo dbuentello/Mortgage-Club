@@ -74,6 +74,7 @@ describe CompletedLoanServices::TabDeclarations do
 
     it "returns false with permanent resident alien nil" do
       @service.declaration.permanent_resident_alien = nil
+      @service.declaration.us_citizen = false
       expect(@service.declaration_completed?).to be_falsey
     end
 
