@@ -38,8 +38,9 @@ var FormCreditCheck = React.createClass({
       <div className='col-sm-9 col-xs-12 account-content min-height-394'>
         <form className='form-horizontal'>
           <div className='form-group'>
-            <p>We’re now ready to get a real-time credit check to verify your credit score and review your credit history. You’ll be asked to pay a onetime charge of $25 for this service, which will be credited back to you upon closing.</p>
-
+            <p className="box-description col-sm-12">
+              We’re now ready to get a real-time credit check to verify your credit score and review your credit history. You’ll be asked to pay a onetime charge of $25 for this service, which will be credited back to you upon closing.
+            </p>
           </div>
         </form>
       </div>

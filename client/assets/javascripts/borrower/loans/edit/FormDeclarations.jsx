@@ -221,15 +221,17 @@ var FormDeclarations = React.createClass({
             _.map(Object.keys(checkboxFields), function(key) {
               return (
                 <div className='form-group' key={key} style={{display: this.state[checkboxFields[key].name + '_display']}}>
-                  <BooleanRadio
-                    activateRequiredField={this.state[checkboxFields[key].error]}
-                    label={checkboxFields[key].label}
-                    isDeclaration={true}
-                    keyName={checkboxFields[key].name}
-                    customColumn={"col-xs-2"}
-                    editable={true}
-                    checked={this.state[checkboxFields[key].name]}
-                    onChange={this.onChange}/>
+                  <div className="col-md-12">
+                    <BooleanRadio
+                      activateRequiredField={this.state[checkboxFields[key].error]}
+                      label={checkboxFields[key].label}
+                      isDeclaration={true}
+                      keyName={checkboxFields[key].name}
+                      customColumn={"col-xs-2"}
+                      editable={true}
+                      checked={this.state[checkboxFields[key].name]}
+                      onChange={this.onChange}/>
+                    </div>
                 </div>
               )
             }, this)
