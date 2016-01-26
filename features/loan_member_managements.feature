@@ -10,6 +10,7 @@ Feature: LoanMemberManagements
     Then I click "Loan Members"
       And I should see "Loan Members"
       And I should see "Add new member"
+    And I turn off delayed jobs
     Then I fill in "Email" with "cuongvu0103@gmail.com"
       And I fill in "First Name" with "Cuong"
       And I fill in "Last Name" with "Vu"
@@ -32,6 +33,7 @@ Feature: LoanMemberManagements
         And I should see "Thanks for signing up" in the email body
         And I follow "Confirm Your Account" in the email
     Then I should be on the unauthenticated root page
+    Then I turn on delayed jobs
 
   @javascript
   Scenario: add new member and without confirmation email

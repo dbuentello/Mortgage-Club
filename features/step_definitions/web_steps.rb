@@ -30,6 +30,7 @@ end
 
 When /^I turn off delayed jobs$/ do
   Delayed::Worker.delay_jobs = false
+  Devise::Async.enabled = false
 end
 
 When /^I should see content as "(.*)"$/ do |content|
