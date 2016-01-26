@@ -115,7 +115,7 @@ var LoanInterface = React.createClass({
   },
 
   goToAllDonePage: function(loan) {
-    this.setState({menu: this.buildMenu(loan), completedLoan: true});
+    this.setState({menu: this.buildMenu(loan), completedLoan: true, loan: loan});
   },
 
   save: function(loan, step, skip_change_page, last_step = false) {
