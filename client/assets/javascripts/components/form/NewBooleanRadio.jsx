@@ -64,7 +64,7 @@ var BooleanRadioView = React.createClass({
         isDeclaration ?
           <div>
             <h6>{this.props.label}</h6>
-            <div className="row" id={this.props.keyName}>
+            <div className="row">
               <div className={customColumn} onClick={this.checkedRadio}>
                 <input type="radio" className="pointer" value="true" name={this.props.name} onChange={this.handleChange}
                   checked={display === this.props.yesLabel} id={"true_" + this.props.keyName}/>
@@ -81,7 +81,7 @@ var BooleanRadioView = React.createClass({
                   <span className="pointer">{this.props.noLabel}</span>
                 </label>
               </div>
-              <div className="col-xs-2 boolean-div"></div>
+              <div className="col-xs-2 boolean-div"  id={this.props.keyName}></div>
               <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.checked} title={requiredMessage} validationTypes={this.props.validationTypes}/>
             </div>
           </div>
