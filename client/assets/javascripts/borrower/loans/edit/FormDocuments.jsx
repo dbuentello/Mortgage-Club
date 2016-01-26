@@ -300,6 +300,11 @@ var FormDocuments = React.createClass({
       return uploaded_files.indexOf(i) < 0;
     });
 
+    if(this.state.hasSecondaryBorrower == true && !this.state.is_file_taxes_jointly)
+    {
+      return false;
+    }
+
     if(result.length == 0)
       return true;
 
@@ -307,14 +312,7 @@ var FormDocuments = React.createClass({
   },
 
   save: function(event) {
-    this.setState({saving: true, activateRequiredField: true, activateCoRequiredField: true});
-    if(this.state.hasSecondaryBorrower==true && !this.state.is_file_taxes_jointly)
-    {
-      console.log("Invalid");
-      this.setState({activateFileTaxesJointlyError: true})
-      console.log(this.state);
-
-    }
+    this.setState({saving: true, activateRequiredField: true, activateCoRequiredField: true, activateFileTaxesJointlyError: true});
 
     if(this.valid()){
       this.props.saveLoan(this.buildLoanFromState(), 2);
