@@ -90,6 +90,10 @@ button[type=submit] {padding:11px 26px; border-radius:6px; box-shadow:none; font
 
 .theBtn:hover { background:white; color:#15c0f1;  border-color:#15c0f1;}
 
+.theBtn:focus {
+  color: white;
+}
+
 .fileBtn {
   border-radius:6px;
   border:#c3c3c3 1px solid;
