@@ -10,7 +10,7 @@ var SettingsTab = React.createClass({
       avatarUrl: this.props.user.avatar_url || "no-avatar.jpg",
       email: this.props.user.email,
       first_name: this.props.user.first_name,
-      last_name: this.props.user.last_name
+      last_name: this.props.user.last_name,
     }
   },
 
@@ -43,8 +43,6 @@ var SettingsTab = React.createClass({
       dataType: "json",
       context: this,
       success: function(response) {
-        var flash = { "alert-success": response.message };
-        this.showFlashes(flash);
         this.setState({
           avatarUrl: response.user.avatar_url,
           email: response.user.email,
@@ -58,17 +56,40 @@ var SettingsTab = React.createClass({
       processData: false,
       async: true,
       error: function(response, status, error) {
-        var flash = { "alert-danger": response.responseJSON.message };
-        this.showFlashes(flash);
-        this.setState({saving: false});
+        this.setState({
+          // firstNameError: response.responseJSON.first_name,
+          // lastNameError: response.responseJSON.last_name,
+          // emailError: response.responseJSON.email,
+          // passwordError: response.responseJSON.password,
+          passwordConfirmationError: response.responseJSON.password_confirmation,
+          // currentPasswordError: response.responseJSON.current_password,
+          saving: false
+        })
       }
     });
     event.preventDefault();
   },
+
   showPreviewImage: function(event){
     if (event.target.files && event.target.files[0]){
       this.setState({avatarUrl: URL.createObjectURL(event.target.files[0])});
     }
+  },
+
+  componentDidUpdate: function() {
+    $("[data-toggle='tooltip']").tooltip({
+      placement: "left",
+      trigger: "manual"
+    }).tooltip("show");
+  },
+
+  removeAllTooltip: function() {
+    $("#first_name").tooltip("destroy");
+    $("#last_name").tooltip("destroy");
+    $("#email").tooltip("destroy");
+    $("#password").tooltip("destroy");
+    $("#password_confirmation").tooltip("destroy");
+    $("#current_password").tooltip("destroy");
   },
 
   render: function() {
@@ -100,14 +121,19 @@ var SettingsTab = React.createClass({
             <div className="form-group">
               <div className="col-sm-12">
                 <h5 className="text-capitalize text-left">first name</h5>
-                <input type="text" className="form-control" name="user[first_name]" id="first_name" value={this.state.first_name} onChange={_.bind(this.onChange, null, "first_name")}/>
+                <input type="text" className="form-control" name="user[first_name]"
+                  id="first_name" value={this.state.first_name}
+                  onChange={_.bind(this.onChange, null, "first_name")}
+                  data-toggle="tooltip" data-original-title={this.state.firstNameError}/>
                 <img src="/icons/name.png" alt="title"/>
               </div>
             </div>
             <div className="form-group">
               <div className="col-sm-12">
                 <h5 className="text-capitalize text-left">last name</h5>
-                <input type="text" className="form-control" name="user[last_name]" id="last_name" value={this.state.last_name} onChange={_.bind(this.onChange, null, "last_name")}/>
+                <input type="text" className="form-control" name="user[last_name]"
+                  id="last_name" value={this.state.last_name} onChange={_.bind(this.onChange, null, "last_name")}
+                  data-toggle="tooltip" data-original-title={this.state.lastNameError}/>
                 <img src="/icons/name.png" alt="title"/>
               </div>
             </div>
@@ -115,28 +141,33 @@ var SettingsTab = React.createClass({
               <div className="col-sm-12">
                 <h5 className="text-capitalize text-left">email address</h5>
                 <input type="hidden" name="user[id]" id="user_id" value={this.props.user.id}/>
-                <input type="email" className="form-control" name="user[email]" id="email" value={this.state.email} onChange={_.bind(this.onChange, null, "email")}/>
+                <input type="email" className="form-control" name="user[email]"
+                  id="email" value={this.state.email} onChange={_.bind(this.onChange, null, "email")}
+                  data-toggle="tooltip" data-original-title={this.state.emailError}/>
                 <img src="/icons/mail.png" alt="title"/>
               </div>
             </div>
             <div className="form-group">
               <div className="col-sm-12">
                 <h5 className="text-capitalize text-left">password</h5>
-                <input type="password" className="form-control" name="user[password]" id="password"/>
+                <input type="password" className="form-control" name="user[password]"
+                  id="password" data-toggle="tooltip" data-original-title={this.state.passwordError}/>
                 <img src="/icons/password.png" alt="title"/>
               </div>
             </div>
             <div className="form-group">
               <div className="col-sm-12">
                 <h5 className="text-capitalize text-left">password confirmation</h5>
-                <input type="password" className="form-control" name="user[password_confirmation]" id="password_confirmation"/>
+                <input type="password" className="form-control" name="user[password_confirmation]"
+                  id="password_confirmation" data-toggle="tooltip" data-original-title={this.state.passwordConfirmationError}/>
                 <img src="/icons/passwordconfirm.png" alt="title"/>
               </div>
             </div>
             <div className="form-group">
               <div className="col-sm-12">
                 <h5 className="text-capitalize text-left">current password</h5>
-                <input type="password" className="form-control" name="user[current_password]" id="current_password"/>
+                <input type="password" className="form-control" name="user[current_password]"
+                  id="current_password" data-toggle="tooltip" data-original-title={this.state.currentPasswordError}/>
                 <img src="/icons/password.png" alt="title"/>
               </div>
             </div>
