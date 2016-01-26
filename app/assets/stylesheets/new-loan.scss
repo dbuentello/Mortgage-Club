@@ -155,8 +155,14 @@
     cursor: pointer;
   }
 
-  .icon-download {
+  .icon-trash img:hover {
+    -webkit-filter: saturate(100%);
+    color: #15c0f1;
+  }
 
+  .icon-download img:hover {
+    -webkit-filter: saturate(100%);
+    color: #15c0f1;
   }
 
   .form-group .fileBtn img {
