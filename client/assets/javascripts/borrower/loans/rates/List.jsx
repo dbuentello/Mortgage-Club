@@ -9,7 +9,6 @@ var List = React.createClass({
   getInitialState: function(){
     var toggleContentStates = new Array(this.props.programs.length);
     toggleContentStates.fill(false, 0, this.props.programs.length);
-    toggleContentStates[0] = true;
     return ({
       estimatedPropertyTax: this.props.subjectProperty.estimated_property_tax,
       estimatedHazardInsurance: this.props.subjectProperty.estimated_hazard_insurance,

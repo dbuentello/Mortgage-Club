@@ -50,7 +50,7 @@ var secondary_borrower_fields = {
   suffix: {label: 'Suffix', name: 'secondary_borrower_suffix', fieldName: 'suffix', helpText: null, error: null },
   dob: {label: 'Date of Birth', name: 'secondary_borrower_dob', fieldName: 'dob', helpText: null, error: "coDobError", validationTypes: ["empty"]},
   ssn: {label: 'Social Security Number', name: 'secondary_borrower_ssn', fieldName: 'ssn', helpText: null, error: "coSsnError", validationTypes: ["empty", "ssn"]},
-  phone: {label: 'Phone Number', name: 'secondary_borrower_phone', fieldName: 'phone', helpText: null, error: null, validationTypes: ["phoneNumber"]},
+  phone: {label: 'Phone Number', name: 'secondary_borrower_phone', fieldName: 'phone', helpText: null, error: "coPhoneNumberError", validationTypes: ["phoneNumber"]},
   yearsInSchool: {label: 'Years in School', name: 'secondary_borrower_years_in_school', fieldName: 'years_in_school', helpText: null, error: "coYearsInSchoolError", validationTypes: ["empty", "integer"]},
   maritalStatus: {label: 'Marital Status', name: 'secondary_borrower_marital_status', fieldName: 'marital_status', helpText: null, error: "coMarialStatusError", validationTypes: ["empty"]},
   numberOfDependents: {label: 'Number of dependents', name: 'secondary_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "coNumberOfdependencesError", validationTypes: ["empty", "integer"]},
@@ -181,6 +181,7 @@ var Form = React.createClass({
                   ssn={this.state[secondary_borrower_fields.ssn.name]}
                   ssnError={this.state[secondary_borrower_fields.ssn.error]}
                   phone={this.state[secondary_borrower_fields.phone.name]}
+                  phoneNumberError={this.state[secondary_borrower_fields.phone.error]}
                   email={this.state[secondary_borrower_fields.email.name]}
                   emailError={this.state[secondary_borrower_fields.email.error]}
                   yearsInSchool={this.state[secondary_borrower_fields.yearsInSchool.name]}
@@ -250,9 +251,6 @@ var Form = React.createClass({
         state['hasSecondaryBorrower'] = true;
         // state['secondary_borrower_editable'] = false;
         // build state for secondary borrower
-
-        console.dir(secondary_borrower)
-        console.dir(secondary_borrower_fields)
         state = this.buildStateFromBorrower(state, secondary_borrower, secondary_borrower.user, secondary_borrower_fields);
       } else {
         state[borrower_fields.applyingAs.name] = 1;
