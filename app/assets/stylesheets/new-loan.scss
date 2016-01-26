@@ -290,6 +290,7 @@
 
 #continueBtn {
   background:#00bd9c;
+  color: #ffffff;
   height:50px;
   border-color:#00bd9c;
   width:230px;
@@ -307,7 +308,8 @@
 }
 
 #continueBtn:hover {
-  background:white; color:#00bd9c;
+  background: #ffffff;
+  color:#00bd9c;
 
   img {
     filter:brightness(100%) invert(0);
