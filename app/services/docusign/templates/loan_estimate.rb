@@ -197,8 +197,8 @@ module Docusign
           ]
         )
 
-        @params['initial_homeowner_insurance_per_month'] = property.estimated_hazard_insurance.to_f.round(2)
-        @params['intial_mortgage_insurance_per_month'] = loan.pmi_monthly_premium_amount.to_f.round(2)
+        @params['initial_homeowner_insurance_per_month'] = Money.new(property.estimated_hazard_insurance.to_f.round(2) * 100).format(no_cents_if_whole: true)
+        @params['intial_mortgage_insurance_per_month'] = Money.new(loan.pmi_monthly_premium_amount.to_f.round(2) * 100).format(no_cents_if_whole: true)
         @params['initial_homeowner_insurance'] = Money.new(initial_homeowner_insurance * 100).format(no_cents_if_whole: true)
         align(@params['intial_escrow_payment_total'].length).call('initial_homeowner_insurance')
       end

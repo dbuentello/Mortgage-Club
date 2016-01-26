@@ -74,7 +74,7 @@ module.exports = {
 
   elementIsEmail: function(obj) {
     if(!obj) { return false; }
-    var emailReg = /^[a-zA-Z]+[a-zA-Z0-9_\-\.]*[a-zA-Z0-9_\-]+@([a-zA-Z]+[a-zA-Z0-9_\-]*\.){1,2}[a-zA-Z]{2,}$/;
+    var emailReg =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return emailReg.test(obj);
   },
 

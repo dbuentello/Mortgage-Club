@@ -58,6 +58,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
         respond_with resource, location: after_update_path_for(resource)
       end
     else
+      return render_error if request.format == "application/json"
+
       clean_up_passwords resource
       respond_with resource
     end
@@ -78,6 +80,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   protected
+
+  def render_error
+    render json: {
+      first_name: resource.errors.messages[:first_name].try(:first),
+      last_name: resource.errors.messages[:last_name].try(:first),
+      email: resource.errors.messages[:email].try(:first),
+      password: resource.errors.messages[:password].try(:first),
+      current_password: resource.errors.messages[:current_password].try(:first),
+      password_confirmation: resource.errors.messages[:password_confirmation].try(:first),
+    }, status: 500
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
