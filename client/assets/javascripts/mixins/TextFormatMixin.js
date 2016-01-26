@@ -133,11 +133,6 @@ var TextFormatMixin = {
     if (!val) { return; }
     val = val.replace(/\D/g, '');
     return ('(' + splice(splice(val, 3, ') '), 8, '-').slice(0, 13));
-  },
-
-  formatYear: function(val) {
-    if (!val) { return; }
-    return (''+val).replace(/\D/g, '');
   }
 };
 
