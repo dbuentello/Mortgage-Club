@@ -74,7 +74,5 @@ After do |scenario|
     screenshot_name = "screenshot-failed-cucumber-#{timestamp}.png"
     screenshot_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}/#{screenshot_name}"
     Capybara.page.save_screenshot(screenshot_path)
-
-    puts "\n  Screenshot: #{screenshot_path}"
   end
 end
