@@ -66,6 +66,10 @@ if ENV['CIRCLE_ARTIFACTS']
 end
 SimpleCov.start
 
+Before '@javascript' do
+  page.driver.browser.manage.window.maximize
+end
+
 After do |scenario|
   if scenario.failed?
     time_now = Time.now
