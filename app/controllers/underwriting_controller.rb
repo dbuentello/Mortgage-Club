@@ -2,6 +2,8 @@ class UnderwritingController < ApplicationController
   def index
     @loan = Loan.find(params[:loan_id])
 
+    return redirect_to edit_loan_url(@loan) unless @loan.completed?
+
     bootstrap({
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
     })

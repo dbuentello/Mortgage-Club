@@ -10,8 +10,9 @@ describe RatesController do
     address.save
   }
 
-  describe "GET index" do
-    it "show list rate" do
+  describe "GET #index" do
+    it "shows list rate when the loan completed" do
+      allow_any_instance_of(Loan).to receive("completed?").and_return(true)
       allow_any_instance_of(ZillowService::GetMortgageRates).to receive(:call).and_return([{"lender_name": "Sebonic Financial", "nmls": "66247", "website": "https://www.securecontactpage.com/sebonic-financial/1", "apr": 3.38, "monthly_payment": 2294, "loan_amount": 400000, "interest_rate": 3.375, "product": "20 year fixed", "total_fee": 1395, "fees": {"Loan origination fee": 895, "Appraisal fee": 500}, "down_payment": 100000}])
       allow(controller).to receive(:get_debug_info).and_return(nil)
 
@@ -20,7 +21,17 @@ describe RatesController do
       expect(assigns(:bootstrap_data)[:programs][0][:lender_name]).to eq('Sebonic Financial')
     end
 
+    it "shows redirect to the loan edit page when the loan uncompleted" do
+      allow_any_instance_of(Loan).to receive("completed?").and_return(false)
+      allow_any_instance_of(ZillowService::GetMortgageRates).to receive(:call).and_return([{"lender_name": "Sebonic Financial", "nmls": "66247", "website": "https://www.securecontactpage.com/sebonic-financial/1", "apr": 3.38, "monthly_payment": 2294, "loan_amount": 400000, "interest_rate": 3.375, "product": "20 year fixed", "total_fee": 1395, "fees": {"Loan origination fee": 895, "Appraisal fee": 500}, "down_payment": 100000}])
+      allow(controller).to receive(:get_debug_info).and_return(nil)
+
+      get :index, :loan_id => loan.id
+      expect(response.status).to eq(302)
+    end
+
     it "not found rate" do
+      allow_any_instance_of(Loan).to receive("completed?").and_return(true)
       allow_any_instance_of(ZillowService::GetMortgageRates).to receive(:call).and_return([])
       allow(controller).to receive(:get_debug_info).and_return(nil)
       get :index, :loan_id => loan.id

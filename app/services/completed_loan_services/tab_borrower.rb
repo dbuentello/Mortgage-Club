@@ -22,7 +22,7 @@ module CompletedLoanServices
       return false unless borrower.years_in_school.present?
       return false unless borrower.marital_status.present?
       return false unless borrower.dependent_count
-      return false if borrower.dependent_ages.blank?
+      return false if borrower.dependent_ages.blank? && borrower.dependent_count >= 1
       return false unless borrower.current_address
       return false if borrower.current_address.is_rental.nil?
       return false unless borrower.current_address.years_at_address

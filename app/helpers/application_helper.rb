@@ -29,4 +29,8 @@ module ApplicationHelper
     end
     nil
   end
+
+  def flash_messages_content(opts={})
+    flash[:alert]
+  end
 end

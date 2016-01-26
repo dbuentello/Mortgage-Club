@@ -1,7 +1,8 @@
 class RatesController < ApplicationController
   def index
     @loan = Loan.find(params[:loan_id])
-    rates = []
+
+    return redirect_to edit_loan_url(@loan) unless @loan.completed?
 
     if @loan.subject_property.address && zipcode = @loan.subject_property.address.zip
       rate_programs = ZillowService::GetMortgageRates.new(@loan.id, zipcode).call

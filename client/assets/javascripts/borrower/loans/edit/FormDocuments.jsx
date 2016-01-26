@@ -114,7 +114,7 @@ var FormDocuments = React.createClass({
     return (
       <div className="col-sm-9 col-xs-12 account-content">
         <form className="form-horizontal">
-          <div className='row'>
+          <div className='form-group'>
             <p className="box-description col-sm-12">
             At the minimum, we’d need these documents before we can lock-in your mortgage rate. Please upload them now so our proprietary technology can try to extract the data and save you some time inputting it.
             </p>

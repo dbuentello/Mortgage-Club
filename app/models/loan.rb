@@ -102,6 +102,11 @@ class Loan < ActiveRecord::Base
     CompletedLoanServices::TabDeclarations.new(borrower.declaration).call
   end
 
+  def completed?
+    property_completed && borrower_completed && documents_completed &&
+      income_completed && credit_completed && assets_completed && declarations_completed
+  end
+
   def primary_property
     properties.includes(:address).find { |p| p.is_primary == true }
   end

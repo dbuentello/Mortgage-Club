@@ -65,3 +65,17 @@ if ENV['CIRCLE_ARTIFACTS']
   SimpleCov.coverage_dir(dir)
 end
 SimpleCov.start
+
+Before '@javascript' do
+  page.driver.browser.manage.window.maximize
+end
+
+After do |scenario|
+  if scenario.failed?
+    timestamp = "#{Time.zone.now.strftime('%Y-%m-%d-%H:%M:%S')}"
+
+    screenshot_name = "screenshot-failed-cucumber-#{timestamp}.png"
+    screenshot_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}/#{screenshot_name}"
+    Capybara.page.save_screenshot(screenshot_path)
+  end
+end
