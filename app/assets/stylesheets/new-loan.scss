@@ -182,7 +182,7 @@
   select:focus {border-color:#15c0f1; outline:none; box-shadow:none;}
   select:focus + img {border-left:#15c0f1 1px solid; filter:saturate(100%); -webkit-filter:saturate(100%);}
 
-  .form-group>div>h5 {font-size:1.25em; color:#12a7d1; margin-top:0; letter-spacing:.04em; line-height:1.5em;}
+  .form-group>div>h5 {font-size:1.25em; color:#15c0f1; margin-top:0; letter-spacing:.04em; line-height:1.5em;}
 
   .form-group>div>h6 {color:#12a7d1;}
 
@@ -295,7 +295,7 @@
   width:230px;
   float:left;
   font-size: 14px;
-
+  margin-top: 20px;
   img {
     position:relative;
     margin-top:6px;

@@ -156,16 +156,14 @@ var FormDocuments = React.createClass({
           {
             secondary_borrower
             ?
-              <div className='row'>
-                <div className='col-xs-12'>
+              <div className='form-group'>
+                <div className='col-md-6'>
                   <BooleanRadio
                     activateRequiredField={this.state.activateFileTaxesJointlyError}
                     label="Do you and your co-borrower file taxes jointly?"
                     checked={this.state.is_file_taxes_jointly}
                     keyName="is_file_taxes_jointly"
                     editable={true}
-                    yesLabel="Yes"
-                    noLabel="No"
                     onChange={this.onChange}/>
                 </div>
               </div>
@@ -178,7 +176,7 @@ var FormDocuments = React.createClass({
                 {
                   secondary_borrower
                   ?
-                  <div className='row'>
+                  <div className='form-group'>
                     <p className="box-description col-sm-12">
                       Please upload the following documents for your co-borrower.
                     </p>
