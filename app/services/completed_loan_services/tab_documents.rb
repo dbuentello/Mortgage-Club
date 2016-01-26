@@ -17,7 +17,7 @@ module CompletedLoanServices
     end
 
     def co_borrower_documents_completed?
-      secondary_borrower.is_file_taxes_jointly ? secondary_jointly_document_completed? : not_jointly_document_completed?(secondary_borrower)
+      borrower.is_file_taxes_jointly ? secondary_jointly_document_completed? : not_jointly_document_completed?(secondary_borrower)
     end
 
     def secondary_jointly_document_completed?
