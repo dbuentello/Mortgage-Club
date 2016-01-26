@@ -189,7 +189,8 @@ var FormProperty = React.createClass({
                 </div>
               </div>
           }
-          {this.state[fields.loanPurpose.name] === null ? null :
+          {
+            this.state[fields.loanPurpose.name] === null ? null :
             this.state[fields.loanPurpose.name] == true
             ? null
             :
@@ -203,6 +204,9 @@ var FormProperty = React.createClass({
                     value={this.state[fields.originalPurchaseYear.name]}
                     placeholder="YYYY"
                     editable={true}
+                    format={this.formatYear}
+                    liveFormat={true}
+                    maxLength={4}
                     helpText={fields.originalPurchaseYear.helpText}
                     onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)}
                     validationTypes={["integer"]}

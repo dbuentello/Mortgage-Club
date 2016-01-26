@@ -9,7 +9,7 @@ var LoansTab = React.createClass({
       <div className="col-md-4 loan-item" key={loan.id} index={i}>
         <div className="loan-item-holder">
           <a href={'/my/dashboard/' + loan.id}>
-            <img className="img-responsive fixed-height-246" src={loan.subject_property.zillow_image_url ? loan.subject_property.zillow_image_url : "/home.jpg"}/>
+            <img className="img-responsive fixed-height-246" src={loan.subject_property.zillow_image_url ? loan.subject_property.zillow_image_url : "/default.jpg"}/>
           </a>
           <div className="caption">
             <a href={'/my/dashboard/' + loan.id}>
@@ -23,7 +23,7 @@ var LoansTab = React.createClass({
             <p><strong>Status:</strong> {loan.pretty_status}</p>
             <p><strong>Create at:</strong> {moment(loan.created_at).format('MMM DD, YYYY')}</p>
             <p><strong>Loan amount:</strong> {this.formatCurrency(loan.amount, "$")}</p>
-            <p><strong>Rate:</strong> {this.commafy(loan.interest_rate*100)}%</p>
+            <p><strong>Rate:</strong> {this.commafy(loan.interest_rate*100, 3)}%</p>
             <p>
               <a href={'/my/dashboard/' + loan.id} className="btn dashboard-btn" role="button">
                 <img className="gear-icon" src="/icons/gear.png"/>

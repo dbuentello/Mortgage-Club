@@ -163,6 +163,11 @@ a.remove {
     border: #959595 1px solid;
   }
 
+  .mc-blue-primary-text {
+    color: #15c0f1 !important;
+    font-size: 16px !important;
+  }
+
   .mortgageTabs {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -255,6 +260,7 @@ a.remove {
       margin-left: -20px;
       margin-right: -20px;
       padding-left: 20px;
+      margin-top: 20px;
       border-bottom: #959595 1px solid;
       padding-bottom: 20px;
 

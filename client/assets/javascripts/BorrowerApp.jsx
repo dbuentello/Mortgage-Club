@@ -45,11 +45,6 @@ window.BorrowerApp = React.createClass({
     return (
       <div>
         <RouteHandler bootstrapData={this.props}/>
-        <ModalLink
-            id="newLoan"
-            title="Confirmation"
-            body="Are you sure to create a new loan?"
-            yesCallback={this.createLoan}/>
         <div className='page-alert'/>
       </div>
     );
@@ -59,6 +54,7 @@ window.BorrowerApp = React.createClass({
     // show flash message from Rails controller on this Client
     var flashes = this.props.flashes;
     this.showFlashes(flashes);
+    $("#newLoanBtn").on("click", this.createLoan);
   }
 });
 
