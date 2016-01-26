@@ -300,7 +300,7 @@ var FormDocuments = React.createClass({
       return uploaded_files.indexOf(i) < 0;
     });
 
-    if(this.state.hasSecondaryBorrower == true && (this.state.is_file_taxes_jointly===null||this.state.is_file_taxes_jointly===undefined))
+    if(this.state.hasSecondaryBorrower == true && (this.state.is_file_taxes_jointly === null || this.state.is_file_taxes_jointly === undefined))
     {
       return false;
     }
