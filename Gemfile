@@ -108,6 +108,8 @@ gem 'fuzzy-string-match'
 
 gem 'puma'
 
+gem "devise-async"
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
