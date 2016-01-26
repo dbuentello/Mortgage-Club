@@ -22,7 +22,7 @@ if User.where(email: 'borrower@gmail.com').blank?
   loan.assign_attributes({amount: Random.rand(100000..200000), interest_rate: Random.rand(0.2..1)})
   loan.save
 
-  property = Property.new(purchase_price: Random.rand(100000..200000), is_primary: true, loan_id: loan.id)
+  property = Property.new(purchase_price: Random.rand(100000..200000), is_primary: true, loan_id: loan.id, usage: "primary_residence")
   property.create_address(street_address: "208 Silver Eagle Road")
   property.save
 end

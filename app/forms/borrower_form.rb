@@ -47,7 +47,8 @@ class BorrowerForm
   end
 
   def create_primary_property
-    if property = current_address.property
+    if current_address.property.present? && current_address.property.loan_id == loan.id
+      property = current_address.property
       property.is_primary = true
       property.usage = "primary_residence"
     else
