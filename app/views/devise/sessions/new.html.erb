@@ -7,13 +7,13 @@
             <h2 class="text-uppercase">log in</h2>
             <div class="form-group">
               <div class="col-sm-12">
-                <%= f.email_field :email, class: "form-control", placeholder: "Email", "data-toggle" => "tooltip", title: resource.errors.messages[:email].try(:first) %>
+                <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
                 <img src="/icons/username.png"/>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <%= f.password_field :password, class: "form-control", placeholder: "Password", "data-toggle" => "tooltip", title: resource.errors.messages[:password].try(:first) %>
+                <%= f.password_field :password, class: "form-control", placeholder: "Password", "data-toggle" => "tooltip", title: flash_messages_content  %>
                 <img src="/icons/password.png" />
               </div>
             </div>

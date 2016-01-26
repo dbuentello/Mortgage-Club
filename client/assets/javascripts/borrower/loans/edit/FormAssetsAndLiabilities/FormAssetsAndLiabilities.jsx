@@ -123,8 +123,10 @@ var FormAssetsAndLiabilities = React.createClass({
       <div className='col-sm-9 col-xs-12 account-content'>
         <form className='form-horizontal'>
           <div className='form-group'>
-            <h3 className='text-uppercase margin-top-0'>Your financial assets</h3>
-            {this.state.assets.map(this.eachAsset)}
+            <div className='col-md-12'>
+              <h3 className='text-uppercase margin-top-0'>Your financial assets</h3>
+              {this.state.assets.map(this.eachAsset)}
+            </div>
           </div>
           <div className='form-group'>
             <div className='col-md-12 clickable' onClick={this.addAsset}>
@@ -138,23 +140,25 @@ var FormAssetsAndLiabilities = React.createClass({
             this.state.subject_property
             ?
               <div className='form-group'>
+                <div className= 'col-md-12'>
                 <h3 className='text-uppercase'>{"The property you're buying"}</h3>
-                <Property
-                  index={'subject_property'}
-                  property={this.state.subject_property}
-                  liabilities={this.state.liabilities}
-                  addressError={this.state.subject_property.addressError}
-                  propertyTypeError={this.state.subject_property.propertyTypeError}
-                  marketPriceError={this.state.subject_property.marketPriceError}
-                  mortgageIncludesEscrowsError={this.state.subject_property.mortgageIncludesEscrowsError}
-                  estimatedHazardInsuranceError={this.state.subject_property.estimatedHazardInsuranceError}
-                  estimatedPropertyTaxError={this.state.subject_property.estimatedPropertyTaxError}
-                  grossRentalIncomeError={this.state.subject_property.grossRentalIncomeError}
+                  <Property
+                    index={'subject_property'}
+                    property={this.state.subject_property}
+                    liabilities={this.state.liabilities}
+                    addressError={this.state.subject_property.addressError}
+                    propertyTypeError={this.state.subject_property.propertyTypeError}
+                    marketPriceError={this.state.subject_property.marketPriceError}
+                    mortgageIncludesEscrowsError={this.state.subject_property.mortgageIncludesEscrowsError}
+                    estimatedHazardInsuranceError={this.state.subject_property.estimatedHazardInsuranceError}
+                    estimatedPropertyTaxError={this.state.subject_property.estimatedPropertyTaxError}
+                    grossRentalIncomeError={this.state.subject_property.grossRentalIncomeError}
 
-                  otherMortgagePaymentAmountError={this.state.subject_property.otherMortgagePaymentAmountError}
-                  otherFinancingAmountError={this.state.subject_property.otherFinancingAmountError}
-                  estimatedMortgageInsuranceError={this.state.subject_property.estimatedMortgageInsuranceError}
-                  hoaDueError={this.state.subject_property.hoaDueError}/>
+                    otherMortgagePaymentAmountError={this.state.subject_property.otherMortgagePaymentAmountError}
+                    otherFinancingAmountError={this.state.subject_property.otherFinancingAmountError}
+                    estimatedMortgageInsuranceError={this.state.subject_property.estimatedMortgageInsuranceError}
+                    hoaDueError={this.state.subject_property.hoaDueError}/>
+                </div>
               </div>
             :
               null
@@ -163,22 +167,24 @@ var FormAssetsAndLiabilities = React.createClass({
             (this.state.primary_property && this.state.primary_property != this.state.subject_property)
             ?
               <div className='form-group'>
+                <div className='col-md-12'>
                 <h3 className='text-uppercase'>Your primary residence</h3>
-                <Property
-                  index={"primary_property"}
-                  property={this.state.primary_property}
-                  liabilities={this.state.liabilities}
-                  addressError={this.state.primary_property.addressError}
-                  propertyTypeError={this.state.primary_property.propertyTypeError}
-                  marketPriceError={this.state.primary_property.marketPriceError}
-                  mortgageIncludesEscrowsError={this.state.primary_property.mortgageIncludesEscrowsError}
-                  estimatedHazardInsuranceError={this.state.primary_property.estimatedHazardInsuranceError}
-                  estimatedPropertyTaxError={this.state.primary_property.estimatedPropertyTaxError}
-                  grossRentalIncomeError={this.state.primary_property.grossRentalIncomeError}
-                  otherMortgagePaymentAmountError={this.state.primary_property.otherMortgagePaymentAmountError}
-                  otherFinancingAmountError={this.state.primary_property.otherFinancingAmountError}
-                  estimatedMortgageInsuranceError={this.state.primary_property.estimatedMortgageInsuranceError}
-                  hoaDueError={this.state.primary_property.hoaDueError}/>
+                  <Property
+                    index={"primary_property"}
+                    property={this.state.primary_property}
+                    liabilities={this.state.liabilities}
+                    addressError={this.state.primary_property.addressError}
+                    propertyTypeError={this.state.primary_property.propertyTypeError}
+                    marketPriceError={this.state.primary_property.marketPriceError}
+                    mortgageIncludesEscrowsError={this.state.primary_property.mortgageIncludesEscrowsError}
+                    estimatedHazardInsuranceError={this.state.primary_property.estimatedHazardInsuranceError}
+                    estimatedPropertyTaxError={this.state.primary_property.estimatedPropertyTaxError}
+                    grossRentalIncomeError={this.state.primary_property.grossRentalIncomeError}
+                    otherMortgagePaymentAmountError={this.state.primary_property.otherMortgagePaymentAmountError}
+                    otherFinancingAmountError={this.state.primary_property.otherFinancingAmountError}
+                    estimatedMortgageInsuranceError={this.state.primary_property.estimatedMortgageInsuranceError}
+                    hoaDueError={this.state.primary_property.hoaDueError}/>
+                </div>
               </div>
             :
               null
@@ -199,7 +205,9 @@ var FormAssetsAndLiabilities = React.createClass({
             ?
             <div>
               <div className='form-group'>
-                <h5>Please provide the following information for all of your rental properties:</h5>
+                <div className='col-md-12'>
+                  <h5>Please provide the following information for all of your rental properties:</h5>
+                </div>
               </div>
               {this.state.rental_properties.map(this.eachProperty)}
               <div className='form-group'>
