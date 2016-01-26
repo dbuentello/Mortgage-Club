@@ -131,6 +131,9 @@ var LoanInterface = React.createClass({
       success: function(response) {
         if (this.loanIsCompleted(response.loan)) {
           this.goToAllDonePage(response.loan);
+          this.setState({
+            loan: response.loan
+          });
         }
         else {
           if (last_step == false) {
