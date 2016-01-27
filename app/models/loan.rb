@@ -79,7 +79,8 @@ class Loan < ActiveRecord::Base
     CompletedLoanServices::TabIncome.new({
       borrower: borrower,
       current_employment: borrower.current_employment,
-      previous_employment: borrower.previous_employment
+      previous_employment: borrower.previous_employment,
+      secondary_borrower: secondary_borrower
     }).call
   end
 
