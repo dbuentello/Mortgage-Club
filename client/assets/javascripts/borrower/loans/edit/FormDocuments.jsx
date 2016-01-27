@@ -3,8 +3,7 @@ var React = require('react/addons');
 
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var Dropzone = require('components/form/NewDropzone');
-var SelectField = require('components/form/SelectField');
-var BooleanRadio = require('components/form/BooleanRadio');
+var BooleanRadio = require('components/form/NewBooleanRadio');
 
 var owner_upload_fields = {
   first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'first_personal_tax_return'},
@@ -105,9 +104,17 @@ var FormDocuments = React.createClass({
     }
     if (secondary_borrower) {
       if (secondary_borrower.self_employed == true) {
-        co_upload_fields = this.state['is_file_taxes_jointly'] == true ? co_file_taxes_jointly_fields : co_no_file_taxes_jointly_fields
+        if (this.state['is_file_taxes_jointly'] == true) {
+          co_upload_fields = co_file_taxes_jointly_fields;
+        } else if(this.state['is_file_taxes_jointly'] == false) {
+          co_upload_fields = co_no_file_taxes_jointly_fields;
+        }
       } else {
-        co_upload_fields = this.state['is_file_taxes_jointly'] == true ? co_borrower_fields : co_borrower_no_file_taxes_jointly_fields
+        if (this.state['is_file_taxes_jointly'] == true) {
+          co_upload_fields = co_borrower_fields;
+        } else if(this.state['is_file_taxes_jointly'] == false) {
+          co_upload_fields = co_borrower_no_file_taxes_jointly_fields;
+        }
       }
     }
 
@@ -149,15 +156,14 @@ var FormDocuments = React.createClass({
           {
             secondary_borrower
             ?
-              <div className='row'>
-                <div className='col-xs-12'>
+              <div className='form-group'>
+                <div className='col-md-6'>
                   <BooleanRadio
+                    activateRequiredField={this.state.activateFileTaxesJointlyError}
                     label="Do you and your co-borrower file taxes jointly?"
                     checked={this.state.is_file_taxes_jointly}
                     keyName="is_file_taxes_jointly"
                     editable={true}
-                    yesLabel="Yes"
-                    noLabel="No"
                     onChange={this.onChange}/>
                 </div>
               </div>
@@ -170,7 +176,7 @@ var FormDocuments = React.createClass({
                 {
                   secondary_borrower
                   ?
-                  <div className='row'>
+                  <div className='form-group'>
                     <p className="box-description col-sm-12">
                       Please upload the following documents for your co-borrower.
                     </p>
@@ -243,6 +249,7 @@ var FormDocuments = React.createClass({
     this.setStateForUploadFields(borrower, state, owner_upload_fields);
     if (secondary_borrower) {
       this.setStateForUploadFields(secondary_borrower, state, co_borrower_upload_fields);
+      state.hasSecondaryBorrower = true;
     }
     return state;
   },
@@ -291,13 +298,19 @@ var FormDocuments = React.createClass({
       return uploaded_files.indexOf(i) < 0;
     });
 
+    if(this.state.hasSecondaryBorrower == true && (this.state.is_file_taxes_jointly === null || this.state.is_file_taxes_jointly === undefined))
+    {
+      return false;
+    }
+
     if(result.length == 0)
       return true;
+
     return false;
   },
 
   save: function(event) {
-    this.setState({saving: true, activateRequiredField: true, activateCoRequiredField: true});
+    this.setState({saving: true, activateRequiredField: true, activateCoRequiredField: true, activateFileTaxesJointlyError: true});
 
     if(this.valid()){
       this.props.saveLoan(this.buildLoanFromState(), 2);

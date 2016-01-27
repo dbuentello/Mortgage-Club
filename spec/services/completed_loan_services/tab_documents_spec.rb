@@ -124,7 +124,7 @@ describe CompletedLoanServices::TabDocuments do
     end
   end
 
-  context "with secondary borrower without nil" do
+  context "with secondary borrower not nil" do
     describe "checks borrower completed" do
       context "with borrower self employed" do
         let!(:borrower) { FactoryGirl.create(:borrower_with_documents_self_employed, loan: loan) }
@@ -191,6 +191,7 @@ describe CompletedLoanServices::TabDocuments do
 
           before do
             @service.borrower = borrower
+            @service.borrower.is_file_taxes_jointly = true
             @service.secondary_borrower = secondary_borrower
           end
 
