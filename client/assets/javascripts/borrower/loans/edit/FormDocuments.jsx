@@ -4,6 +4,7 @@ var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var Dropzone = require('components/form/NewDropzone');
 var BooleanRadio = require('components/form/NewBooleanRadio');
+var TabDocumentsCompleted = require('mixins/CompletedLoanMixins/TabDocuments');
 
 var owner_upload_fields = {
   first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'first_personal_tax_return'},
@@ -40,7 +41,7 @@ var upload_fields = [];
 var co_upload_fields = [];
 
 var FormDocuments = React.createClass({
-  mixins: [TextFormatMixin],
+  mixins: [TextFormatMixin, TabDocumentsCompleted],
 
   getInitialState: function() {
     return this.buildStateFromLoan(this.props.loan);
