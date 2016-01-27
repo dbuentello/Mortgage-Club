@@ -21,8 +21,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @token = params[:invite_token]
       @invite_code = params[:ref_code]
       InviteService.delay.call(@token, @invite_code, resource)
+
       resource.create_borrower
       resource.add_role :borrower
+      resource.confirmed_at = Time.zone.now
+      resource.skip_confirmation_notification!
+      resource.save
+
+      sign_in resource_name, resource, bypass: true
     end
   end
 
@@ -127,5 +133,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for(resource)
     edit_user_registration_path
+  end
+
+  def after_sign_up_path_for(resource)
+    borrower_root_path
   end
 end

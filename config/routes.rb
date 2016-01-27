@@ -204,4 +204,6 @@ Rails.application.routes.draw do
 
   get "404", to: "errors#show", code: 404
 
+  get "*path", to: "errors#show", code: 404
+
 end
