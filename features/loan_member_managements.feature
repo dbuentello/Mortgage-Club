@@ -31,8 +31,6 @@ Feature: LoanMemberManagements
       And "cuongvu0103@gmail.com" should receive an email
       Then I open the email
         And I should see "Thanks for signing up" in the email body
-        And I follow "Confirm Your Account" in the email
-    Then I should be on the unauthenticated root page
     Then I turn on delayed jobs
 
   @javascript
