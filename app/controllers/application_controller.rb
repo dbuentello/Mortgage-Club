@@ -7,8 +7,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
+
+  def user_not_authorized(exception)
+    @back_to_home_path = find_root_path
+    render "errors/403.html", status: 403
+  end
 
   def set_loan
     @loan ||= Loan.find(params[:loan_id] || params[:id])
