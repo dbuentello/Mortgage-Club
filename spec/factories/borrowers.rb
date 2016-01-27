@@ -50,7 +50,6 @@ FactoryGirl.define do
 
     factory :borrower_with_documents_self_employed_taxes_joinly, parent: :borrower do |f|
       f.self_employed { true }
-      f.is_file_taxes_jointly { true }
       after(:build) do |borrower|
         create(:document, subjectable: borrower, document_type: "first_business_tax_return")
         create(:document, subjectable: borrower, document_type: "second_business_tax_return")
@@ -75,7 +74,6 @@ FactoryGirl.define do
 
     factory :borrower_with_documents_not_self_employed_taxes_joinly, parent: :borrower do |f|
       f.self_employed { false }
-      f.is_file_taxes_jointly { true }
       after(:build) do |borrower|
         create(:document, subjectable: borrower, document_type: "first_w2")
         create(:document, subjectable: borrower, document_type: "second_w2")
