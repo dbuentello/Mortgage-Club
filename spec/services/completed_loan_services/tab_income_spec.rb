@@ -7,7 +7,8 @@ describe CompletedLoanServices::TabIncome do
     @service = CompletedLoanServices::TabIncome.new({
       borrower: loan.borrower,
       current_employment: loan.borrower.current_employment,
-      previous_employment: loan.borrower.previous_employment
+      previous_employment: loan.borrower.previous_employment,
+      secondary_borrower: nil
     })
   end
 
@@ -31,46 +32,46 @@ describe CompletedLoanServices::TabIncome do
   describe "#employment_completed?" do
     it "returns false with employer name nil" do
       @service.current_employment.employer_name = nil
-      expect(@service.employment_completed?).to be_falsey
+      expect(@service.employment_completed?(@service.current_employment)).to be_falsey
     end
 
     it "returns false with address nil" do
       @service.current_employment.address = nil
-      expect(@service.employment_completed?).to be_falsey
+      expect(@service.employment_completed?(@service.current_employment)).to be_falsey
     end
 
     it "returns false with employer contact name nil" do
       @service.current_employment.employer_contact_name = nil
-      expect(@service.employment_completed?).to be_falsey
+      expect(@service.employment_completed?(@service.current_employment)).to be_falsey
     end
 
     it "returns false with employer contact number nil" do
       @service.current_employment.employer_contact_number = nil
-      expect(@service.employment_completed?).to be_falsey
+      expect(@service.employment_completed?(@service.current_employment)).to be_falsey
     end
 
     it "returns false with current salary nil" do
       @service.current_employment.current_salary = nil
-      expect(@service.employment_completed?).to be_falsey
+      expect(@service.employment_completed?(@service.current_employment)).to be_falsey
     end
 
     it "returns false with job title nil" do
       @service.current_employment.job_title = nil
-      expect(@service.employment_completed?).to be_falsey
+      expect(@service.employment_completed?(@service.current_employment)).to be_falsey
     end
 
     it "returns false with pay frequency nil" do
       @service.current_employment.pay_frequency = nil
-      expect(@service.employment_completed?).to be_falsey
+      expect(@service.employment_completed?(@service.current_employment)).to be_falsey
     end
 
     it "returns false with duration nil" do
       @service.current_employment.duration = nil
-      expect(@service.employment_completed?).to be_falsey
+      expect(@service.employment_completed?(@service.current_employment)).to be_falsey
     end
 
     it "returns true with valid values" do
-      expect(@service.employment_completed?).to be_truthy
+      expect(@service.employment_completed?(@service.current_employment)).to be_truthy
     end
   end
 
