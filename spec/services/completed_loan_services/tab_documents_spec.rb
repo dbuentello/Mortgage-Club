@@ -124,7 +124,7 @@ describe CompletedLoanServices::TabDocuments do
     end
   end
 
-  context "with secondary borrower without nil" do
+  context "with secondary borrower not nil" do
     describe "checks borrower completed" do
       context "with borrower self employed" do
         let!(:borrower) { FactoryGirl.create(:borrower_with_documents_self_employed, loan: loan) }
@@ -230,6 +230,7 @@ describe CompletedLoanServices::TabDocuments do
             expect(@service.call).to be_falsey
           end
           it "return trues with valid values" do
+            @service.borrower.is_file_taxes_jointly = true
             expect(@service.call).to be_truthy
           end
         end
