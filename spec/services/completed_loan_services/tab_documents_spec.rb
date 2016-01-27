@@ -191,6 +191,7 @@ describe CompletedLoanServices::TabDocuments do
 
           before do
             @service.borrower = borrower
+            @service.borrower.is_file_taxes_jointly = true
             @service.secondary_borrower = secondary_borrower
           end
 
@@ -230,7 +231,6 @@ describe CompletedLoanServices::TabDocuments do
             expect(@service.call).to be_falsey
           end
           it "return trues with valid values" do
-            @service.borrower.is_file_taxes_jointly = true
             expect(@service.call).to be_truthy
           end
         end
