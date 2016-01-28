@@ -57,7 +57,6 @@ var TabAsset = {
     ){
       return false;
     }
-
     if(!this.addressCompleted(property.address)) {
       return false;
     }

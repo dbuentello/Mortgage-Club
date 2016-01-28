@@ -143,10 +143,10 @@ describe("check if tab asset is completed or not", function() {
     own_investment_property: false,
     rental_properties: [
       {
-        property_type: null,
+        property_type: Math.floor(Math.random() * propertyTypes.length),
         usage: Math.floor(Math.random() * usageTypes.length),
-        market_price: null,
-        mortgage_includes_escrows: null,
+        market_price: 1231,
+        mortgage_includes_escrows: 123123,
         estimated_property_tax: 323223,
         estimated_hazard_insurance: 223233,
         address: {
