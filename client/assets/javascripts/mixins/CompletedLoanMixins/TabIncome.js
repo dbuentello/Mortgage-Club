@@ -1,5 +1,5 @@
 var TabIncome = {
-  completed: function(loan){
+  incomeCompleted: function(loan){
     var borrower = loan.borrower;
     var secondaryBorrower = loan.secondary_borrower;
     var currentEmployment = borrower.current_employment;
@@ -64,7 +64,7 @@ var TabIncome = {
   },
 
   currentEmploymentDurationValid: function(currentEmployment, previousEmployment){
-    return (currentEmployment.duration >= 2 || (currentEmployment.duration < 2 && previousEmploymentCompleted(previousEmployment)));
+    return (currentEmployment.duration >= 2 || (currentEmployment.duration < 2 && this.previousEmploymentCompleted(previousEmployment)));
   },
 
   previousEmploymentCompleted: function(prevEmployment){

@@ -7,7 +7,7 @@ var BORROWER_NOT_SELF_EMPLOYED = ["first_w2", "second_w2", "first_paystub", "sec
 var BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_bank_statement", "second_bank_statement"];
 
 var TabDocuments = {
-  completed: function(loan){
+  documentsCompleted: function(loan){
     var borrower = loan.borrower;
     var secondaryBorrower = loan.secondary_borrower;
     if(secondaryBorrower === undefined || secondaryBorrower === null)
@@ -26,7 +26,6 @@ var TabDocuments = {
 
   secondaryJointlyDocumentCompleted: function(secondaryBorrower){
     var requiredDocuments = secondaryBorrower.self_employed ? BORROWER_SELF_EMPLOYED_TAXES_JOINLY : BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY
-
     var currentDocuments = secondaryBorrower.documents.map(function(document){
       return document.document_type;
     });

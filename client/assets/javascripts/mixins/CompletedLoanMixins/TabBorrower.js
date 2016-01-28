@@ -7,7 +7,7 @@ var TabBorrower = {
       return this.borrowerCompleted(borrower);
     return (this.borrowerCompleted(borrower) && this.borrowerCompleted(secondaryBorrower));
   },
-
+  //TODO REVIEW AND REFACTOR
   borrowerCompleted: function(borrower){
     if (borrower === undefined)
       return false;
@@ -36,7 +36,7 @@ var TabBorrower = {
     if (this.valueFieldNotValid(borrower.dependent_count))
       return false;
 
-    if (borrower.dependent_ages.length == 0 && borrower.dependent_count >= 1)
+    if (borrower.dependent_ages !== undefined && borrower.dependent_ages.length == 0 && borrower.dependent_count >= 1)
       return false;
 
     if (this.objectFieldNotValid(borrower.current_address))
@@ -90,7 +90,7 @@ var TabBorrower = {
   },
 
   rentHouseAndMonthlyRentNotValid: function(address){
-    return ((address.is_rental === true) && (!this.valueFieldNotValid(address.monthly_rent)))
+    return ((address.is_rental === true) && (this.valueFieldNotValid(address.monthly_rent)));
   }
 }
 
