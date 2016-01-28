@@ -12,10 +12,26 @@ describe Users::LoansController do
   end
 
   describe 'GET #edit' do
-    it 'shows passed id loan' do
-      get :edit, id: loan.id
+    context 'when user has permission to edit' do
+      it 'shows passed id loan' do
+        get :edit, id: loan.id
 
-      expect(assigns(:loan)).to eq(loan)
+        expect(assigns(:loan)).to eq(loan)
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'when user does not have permission to edit loan' do
+      let!(:not_permission_loan) { FactoryGirl.create(:loan) }
+
+      before do
+        not_permission_loan.user = other_user
+      end
+
+      it 'responses 403' do
+        get :edit, id: not_permission_loan.id
+        expect(response.status).to eq 403
+      end
     end
   end
 
