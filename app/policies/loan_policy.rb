@@ -19,7 +19,14 @@ class LoanPolicy < ApplicationPolicy
   end
 
   def update?
-    @loan.user == @user
+    if user.has_role? :admin
+      return true
+    elsif user.has_role? :loan_member
+      return user.loan_member.handle_this_loan?(loan)
+    else
+      return loan.user == user
+    end
+    false
   end
 
   def destroy?
