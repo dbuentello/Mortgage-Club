@@ -11,6 +11,13 @@ var Documents = require("./FormDocuments");
 var AllDonePage = require("./AllDonePage");
 var CheckCompletedLoanMixin = require('mixins/CheckCompletedLoanMixin');
 
+var TabProperty = require('mixins/CompletedLoanMixins/TabProperty');
+var TabBorrower = require('mixins/CompletedLoanMixins/TabBorrower');
+var TabDeclaration = require('mixins/CompletedLoanMixins/TabDeclaration');
+var TabDocuments = require('mixins/CompletedLoanMixins/TabDocuments');
+var TabIncome = require('mixins/CompletedLoanMixins/TabIncome');
+var TabAsset = require('mixins/CompletedLoanMixins/TabAsset');
+
 var LoanInterface = React.createClass({
   mixins: [CheckCompletedLoanMixin],
 
@@ -24,7 +31,7 @@ var LoanInterface = React.createClass({
       active: _.findWhere(menu, {complete: false}) || menu[0],
       loan: loan,
       borrower_type: borrower_type,
-      completedLoan: this.loanIsCompleted(loan)
+      completedLoan: this.loanIsCompleted(loan),
     };
   },
 
@@ -41,7 +48,6 @@ var LoanInterface = React.createClass({
               <div id="sidebar">
                 <ul>
                   {_.map(this.state.menu, function (item, i) {
-
                     return (
                       <li key={i} id={"tab"+item.name} className={this.getKlassNameLiSidebar(item, activeItem)}>
                         <a href="javascript:void(0)" onClick={_.bind(this.goToItem, this, item)}>
@@ -79,13 +85,13 @@ var LoanInterface = React.createClass({
 
   buildMenu: function(loan) {
     var menu = [
-      {name: "Property", complete: loan.property_completed, iconSrc: "/icons/property.png", step: 0, Content: Property},
-      {name: "Borrower", complete: loan.borrower_completed, iconSrc: "/icons/borrower.png", step: 1, Content: Borrower},
-      {name: "Documents", complete: loan.documents_completed, iconSrc: "/icons/description.png", step: 2, Content: Documents},
-      {name: "Income", complete: loan.income_completed, iconSrc: "/icons/income.png", step: 3, Content: Income},
-      {name: "Credit Check", complete: loan.credit_completed, iconSrc: "/icons/creditcheck.png", step: 4, Content: CreditCheck},
-      {name: "Assets and Liabilities", complete: loan.assets_completed, iconSrc: "/icons/assets.png", step: 5, Content: AssetsAndLiabilities},
-      {name: "Declarations", complete: loan.declarations_completed, iconSrc: "/icons/declarations.png", step: 6, Content: Declarations},
+      {name: "Property", complete: TabProperty.propertyCompleted(loan), iconSrc: "/icons/property.png", step: 0, Content: Property},
+      {name: "Borrower", complete: TabBorrower.completed(loan), iconSrc: "/icons/borrower.png", step: 1, Content: Borrower},
+      {name: "Documents", complete: TabDocuments.documentsCompleted(loan), iconSrc: "/icons/description.png", step: 2, Content: Documents},
+      {name: "Income", complete: TabIncome.incomeCompleted(loan), iconSrc: "/icons/income.png", step: 3, Content: Income},
+      {name: "Credit Check", complete: true, iconSrc: "/icons/creditcheck.png", step: 4, Content: CreditCheck},
+      {name: "Assets and Liabilities", complete: TabAsset.assetCompleted(loan), iconSrc: "/icons/assets.png", step: 5, Content: AssetsAndLiabilities},
+      {name: "Declarations", complete: TabDeclaration.declarationCompleted(loan), iconSrc: "/icons/declarations.png", step: 6, Content: Declarations},
     ];
     return menu;
   },

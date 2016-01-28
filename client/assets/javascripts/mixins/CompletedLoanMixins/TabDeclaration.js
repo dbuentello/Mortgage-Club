@@ -3,6 +3,9 @@ var TabDeclaration = {
     var borrower = loan.borrower;
     var declaration = borrower.declaration;
 
+    if(declaration === undefined || declaration === null)
+      return false;
+
     if(declaration.outstanding_judgment == null ||
       declaration.bankrupt == null ||
       declaration.property_foreclosed == null ||

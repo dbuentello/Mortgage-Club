@@ -8,7 +8,7 @@ var TabAsset = {
       return false;
     }
 
-    if(loan.own_investment_property && !this.rentalPropertiesCompleted(loan)) {
+    if(loan.own_investment_property !== undefined && !this.rentalPropertiesCompleted(loan)) {
       return false;
     }
 
@@ -36,15 +36,15 @@ var TabAsset = {
 
   rentalPropertiesCompleted: function(loan) {
     var rental_properties = loan.rental_properties;
-    var completed = true;
-    _.each(rental_properties, function(property) {
-      if(!this.propertyCompleted(property)) {
-        completed = false;
+
+    for (var i = 0; i < rental_properties.length; i++) {
+      var completed = this.propertyCompleted(rental_properties[i]);
+      if(!completed) {
         return false;
       }
-    });
+    };
 
-    return completed;
+    return true;
   },
 
   propertyCompleted: function(property) {
@@ -74,10 +74,9 @@ var TabAsset = {
   },
 
   requiredPrimaryProperty: function(loan) {
-    if(loan.primary_property !== undefined && loan.primary_property != loan.subject_property) {
+    if(loan.primary_property !== undefined && loan.primary_property !== null && loan.primary_property != loan.subject_property) {
       return true;
     }
-
     return false;
   }
 }
