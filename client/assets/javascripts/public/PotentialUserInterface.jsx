@@ -7,11 +7,15 @@ var PotentialUserForm = React.createClass({
   mixins: [TextFormatMixin],
   getInitialState: function() {
     return {
-      phoneNumber: null
+      phoneNumber: null,
+      labelUpload: "Upload your mortgage statement"
     }
   },
 
   handleFileChange: function(event){
+    var name = $("#uploadFile")[0].files[0].name;
+
+    this.setState({labelUpload: (name.length > 30 ? name.substr(0, 30) + "..." : name)});
   },
 
   handleSubmit: function(event){
@@ -58,9 +62,13 @@ var PotentialUserForm = React.createClass({
                     <div className="row file-upload-button">
                       <div className="col-md-12 text-center">
                           <label>
-                            <img src="/icons/upload.png" className="iconUpload"/>
-                            <input name="potential_user[mortgage_statement]" type="file" onChange={this.handleFileChange}/>
-                            <span>Upload your mortgage statement</span>
+                            {
+                              this.state.labelUpload == "Upload your mortgage statement"
+                              ? <img src="/icons/upload.png" className="iconUpload"/>
+                              : null
+                            }
+                            <input name="potential_user[mortgage_statement]" id="uploadFile" type="file" onChange={this.handleFileChange}/>
+                            <span className="fileName">{this.state.labelUpload}</span>
                           </label>
                       </div>
                     </div>
