@@ -25,6 +25,10 @@ class LoanPolicy < ApplicationPolicy
     update?
   end
 
+  def create?
+    update?
+  end
+
   def destroy?
     update?
   end

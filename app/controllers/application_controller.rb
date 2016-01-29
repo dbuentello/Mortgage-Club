@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
         @loan = Loan.initiate(current_user) # or create branch new one
       end
     end
-    authorize @loan
+    authorize @loan, :update?
   end
 
   def bootstrap(data={})
