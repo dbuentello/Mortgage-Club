@@ -12,13 +12,13 @@
 class PotentialUser < ActiveRecord::Base
 
   PERMITTED_ATTRS = [
-    :name,
+
     :email,
     :phone_number,
     :mortgage_statement
   ]
 
-  has_attached_file :mortgage_statement, path: PAPERCLIP[:default_path]
+  has_attached_file :mortgage_statement, path: PAPERCLIP[:potential_user_document_path]
 
   validates :email, presence: true
   validates_attachment :mortgage_statement,

@@ -1,0 +1,14 @@
+.potential-users {
+  .file-upload-button {
+    border-radius: 6px;
+    border: #c3c3c3 1px solid;
+    text-align: center;
+    position: relative;
+    height: 60px;
+    input {
+      position: absolute;
+      top: -1000px;
+      left: 0;
+    }
+  }
+}
