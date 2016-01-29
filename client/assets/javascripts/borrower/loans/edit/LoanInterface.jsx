@@ -131,8 +131,9 @@ var LoanInterface = React.createClass({
   },
 
   goToItem: function(item) {
+    var menu = this.buildMenu(this.state.loan);
     // this.autosave(this.props.bootstrapData.currentLoan, this.state.active.step);
-    this.setState({active: item, completedLoan: false});
+    this.setState({active: item, completedLoan: false, menu: menu});
   },
 
   buildMenu: function(loan) {
