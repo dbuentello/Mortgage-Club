@@ -1,10 +1,17 @@
 var React = require("react/addons");
 var Dropzone = require("components/form/NewDropzone");
 var TextField = require("components/form/NewTextField");
+var TextFormatMixin = require("mixins/TextFormatMixin");
 
-module.exports = React.createClass({
+var PotentialUserForm = React.createClass({
+  mixins: [TextFormatMixin],
+  getInitialState: function() {
+    return {
+      phoneNumber: null
+    }
+  },
+
   handleFileChange: function(event){
-
   },
 
   handleSubmit: function(event){
@@ -30,7 +37,11 @@ module.exports = React.createClass({
 
       }
     });
+  },
 
+  changePhoneNumber: function(event) {
+    var phoneNumber = this.formatPhoneNumber(event.target.value);
+    this.setState({phoneNumber: phoneNumber});
   },
 
   render: function() {
@@ -73,8 +84,7 @@ module.exports = React.createClass({
                 <div className="form-group">
                   <div className="col-sm-12 last-name">
                     <h5 className="text-left">Phone Number (if applicable)</h5>
-                    <input type="text" className="form-control" name="potential_user[phone_number]"
-                      id="last_name"/>
+                    <input type="text" className="form-control" name="potential_user[phone_number]" id="last_name" value={this.state.phoneNumber} onChange={this.changePhoneNumber}/>
                     <img src="/icons/phone.png" alt="title"/>
                   </div>
                 </div>
@@ -91,3 +101,5 @@ module.exports = React.createClass({
     );
   }
 });
+
+module.exports = PotentialUserForm;
