@@ -155,6 +155,9 @@ Rails.application.routes.draw do
     resources :loan_activity_type_managements do
     end
 
+    resources :potential_user_managements, only: [:index, :edit, :update, :destroy] do
+    end
+
     resources :lenders do
       resources :lender_templates
     end
