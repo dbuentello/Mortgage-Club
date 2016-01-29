@@ -11,12 +11,8 @@ class Admins::PotentialUsersPresenter
 
   def json_options
     {
-      only: [ :id, :email, :phone_number],
-      include: {
-        mortgage_statement: {
-          only: [ :id ]
-        }
-      }
+      only: [:id, :email, :phone_number, :mortgage_statement_file_name],
+      methods: [:url]
     }
   end
 end

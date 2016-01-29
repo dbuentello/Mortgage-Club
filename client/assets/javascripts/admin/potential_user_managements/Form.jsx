@@ -23,15 +23,10 @@ var Form = React.createClass({
   },
 
   getInitialState: function() {
-    if(this.props.Faq) {
+    if(this.props.PotentialUser) {
       return {
-        question: this.props.Faq.question,
-        answer: this.props.Faq.answer,
-      };
-    }else {
-      return {
-        answer: "",
-        question: ""
+        email: this.props.PotentialUser.email,
+        phone_number: this.props.PotentialUser.phone_number,
       };
     }
   },
@@ -47,7 +42,7 @@ var Form = React.createClass({
   onClick: function(event) {
     this.setState({saving: true});
     event.preventDefault();
-    var formData = new FormData($('.form-loan-faq')[0]);
+    var formData = new FormData($('.form-loan-potential-user')[0]);
 
     $.ajax({
       url: this.props.Url,
@@ -56,14 +51,14 @@ var Form = React.createClass({
       data: formData,
       success: function(response) {
         this.setState({
-          question: response.faq.question,
-          answer: response.faq.answer,
+          email: response.potential_user.email,
+          phone_number: response.potential_user.phone_number,
           saving: false
         });
         var flash = { "alert-success": response.message };
         this.showFlashes(flash);
-        if(response.faqs){
-          this.props.onReloadTable(response.faqs);
+        if(response.potential_users){
+          this.props.onReloadTable(response.potential_users);
         }
         this.setState({saving: false});
       }.bind(this),
@@ -102,7 +97,7 @@ var Form = React.createClass({
   render: function() {
     return (
       <div>
-        <form className="form-horizontal form-loan-faq">
+        <form className="form-horizontal form-loan-potential-user">
           <div className="form-group">
             <div className="col-sm-4">
               <TextField
@@ -112,13 +107,17 @@ var Form = React.createClass({
                 value={this.state.email}
                 editable={true}
                 onChange={this.onChange}/>
-
-              <TextField
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-4">
+               <TextField
                 label="Phone Number"
-                keyName="phonenumber"
-                name="potential_user[answer]"
+                keyName="phone_number"
+                name="potential_user[phone_number]"
                 value={this.state.phone_number}
-                hidden={true}/>
+                editable={true}
+                onChange={this.onChange}/>
             </div>
           </div>
           <div className="form-group">

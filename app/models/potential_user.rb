@@ -12,7 +12,6 @@
 class PotentialUser < ActiveRecord::Base
 
   PERMITTED_ATTRS = [
-
     :email,
     :phone_number,
     :mortgage_statement
@@ -31,4 +30,8 @@ class PotentialUser < ActiveRecord::Base
       less_than_or_equal_to: 10.megabytes,
       message: ' must be less than or equal to 10MB'
     }
+
+  def url
+    Amazon::GetUrlService.call(mortgage_statement, 900)
+  end
 end

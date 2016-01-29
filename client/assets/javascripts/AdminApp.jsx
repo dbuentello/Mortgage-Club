@@ -26,6 +26,7 @@ var LenderTemplates = require('admin/lenders/LenderTemplates');
 var EditTemplate = require('admin/lenders/EditTemplate');
 
 var PotentialUserManagements = require('admin/potential_user_managements/Managements');
+var EditPotentialUserPage = require('admin/potential_user_managements/EditPage');
 
 window.AdminApp = React.createClass({
   mixins: [FlashHandler],
@@ -104,6 +105,7 @@ var routes = (
     <Route path="/lenders/:id/lender_templates" handler={LenderTemplates}/>
     <Route path="/lenders/:id/lender_templates/:id/edit" handler={EditTemplate}/>
     <Route name='/potential_user_managements' path='/potential_user_managements' handler={PotentialUserManagements}/>
+    <Route path="/potential_user_managements/:id/edit" handler={EditPotentialUserPage}/>
     <DefaultRoute handler={Loans}/>
   </Route>
 );

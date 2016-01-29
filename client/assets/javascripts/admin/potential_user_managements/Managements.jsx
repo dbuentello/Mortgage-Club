@@ -35,9 +35,14 @@ var Managements = React.createClass({
                         <td>{potential_user.email}</td>
                         <td>{potential_user.phone_number}</td>
                         <td>
-                          ada
+                          <a href={potential_user.url}>
+                            {potential_user.mortgage_statement_file_name}
+                          </a>
                         </td>
                         <td>
+                          <span>
+                            <a className='linkTypeReversed btn btn-primary' href={'potential_user_managements/' + potential_user.id + '/edit'} data-method='get'>Edit</a>
+                          </span>
                         </td>
                       </tr>
                     )
