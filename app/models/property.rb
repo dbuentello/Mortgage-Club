@@ -147,7 +147,7 @@ class Property < ActiveRecord::Base
   end
 
   def update_loan_amount
-    return unless is_subject
+    return unless is_subject && loan
 
     if loan.purchase?
       loan.update(amount: purchase_price.to_f * 0.8)
