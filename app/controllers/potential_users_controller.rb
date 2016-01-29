@@ -12,7 +12,7 @@ class PotentialUsersController < ApplicationController
   def create
     @potential_user = PotentialUser.new(potential_params)
     if(@potential_user.save)
-      render json: {message: "Success"}
+      render json: {message: "success"}
     else
       render json: {message: "error"}
     end
