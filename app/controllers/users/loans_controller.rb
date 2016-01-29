@@ -1,6 +1,5 @@
 class Users::LoansController < Users::BaseController
   before_action :set_loan, only: [:edit, :update, :destroy]
-  before_action :authorize_loan, only: [:edit, :update, :destroy]
   before_action :load_liabilities, only: [:edit]
 
   def index
@@ -109,10 +108,6 @@ class Users::LoansController < Users::BaseController
   # end
 
   private
-
-  def authorize_loan
-    authorize @loan
-  end
 
   def load_liabilities
     credit_report = @loan.borrower.credit_report

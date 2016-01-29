@@ -1,6 +1,5 @@
 class LoanMembers::DashboardController < LoanMembers::BaseController
   before_action :set_loan, only: [:show]
-  before_action :authenticate_loan!
 
   def show
     loan_activities = LoanActivity.get_latest_by_loan(@loan)

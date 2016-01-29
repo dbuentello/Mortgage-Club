@@ -9,9 +9,16 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  def find_root_path
+    return unauthenticated_root_path unless current_user
+    return admin_root_path if current_user.has_role?(:admin)
+    return loan_member_root_path if current_user.has_role?(:lender_member)
+    borrower_root_path
+  end
+
   private
 
-  def user_not_authorized(exception)
+  def user_not_authorized
     @back_to_home_path = find_root_path
     render "errors/403.html", status: 403
   end
@@ -29,6 +36,7 @@ class ApplicationController < ActionController::Base
         @loan = Loan.initiate(current_user) # or create branch new one
       end
     end
+    authorize @loan
   end
 
   def bootstrap(data={})

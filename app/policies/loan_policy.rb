@@ -1,13 +1,5 @@
 class LoanPolicy < ApplicationPolicy
   attr_reader :user, :loan
-  # def new?
-  #   # user.admin? or not record.published?
-
-  # end
-
-  # def show?
-
-  # end
 
   def initialize(user, loan)
     @user = user
@@ -29,11 +21,11 @@ class LoanPolicy < ApplicationPolicy
     false
   end
 
-  def destroy?
+  def show?
     update?
   end
 
-  # def get_co_borrower_info?
-
-  # end
+  def destroy?
+    update?
+  end
 end

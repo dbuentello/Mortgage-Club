@@ -3,13 +3,6 @@ module ApplicationHelper
     request[:controller] == "pages" && request[:action] == "developer_infographics"
   end
 
-  def find_root_path
-    return unauthenticated_root_path unless current_user
-    return admin_root_path if current_user.has_role?(:admin)
-    return loan_member_root_path if current_user.has_role?(:lender_member)
-    borrower_root_path
-  end
-
   def bootstrap_class_for(flash_type)
     case flash_type
     when "success"
