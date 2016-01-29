@@ -224,28 +224,18 @@ var FormDocuments = React.createClass({
   },
 
   afterUploadingDocumentBorrower: function(typeDocument, name, id) {
-    uploaded_files.push(typeDocument);
     this.props.updateDocuments("borrower", typeDocument, "upload", name, id);
   },
 
   afterRemovingDocumentBorrower: function(typeDocument) {
-    var index = uploaded_files.indexOf(typeDocument);
-    if (index > -1) {
-      uploaded_files.splice(index, 1);
-    }
     this.props.updateDocuments("borrower", typeDocument, "remove");
   },
 
   afterUploadingDocumentCoBorrower: function(typeDocument, name, id) {
-    uploaded_files.push(typeDocument);
     this.props.updateDocuments("coborrower", typeDocument, "upload", name, id);
   },
 
   afterRemovingDocumentCoBorrower: function(typeDocument) {
-    var index = uploaded_files.indexOf(typeDocument);
-    if (index > -1) {
-      uploaded_files.splice(index, 1);
-    }
     this.props.updateDocuments("coborrower", typeDocument, "remove");
   },
 
@@ -262,6 +252,9 @@ var FormDocuments = React.createClass({
     state['is_file_taxes_jointly'] = loan.borrower.is_file_taxes_jointly;
     state.activateRequiredField = false;
     state.activateCoRequiredField = false;
+
+    uploaded_files = [];
+
     this.setStateForUploadFields(borrower, state, owner_upload_fields);
     if (secondary_borrower) {
       this.setStateForUploadFields(secondary_borrower, state, co_borrower_upload_fields);
@@ -327,8 +320,9 @@ var FormDocuments = React.createClass({
 
   save: function(event) {
     this.setState({saving: true, activateRequiredField: true, activateCoRequiredField: true, activateFileTaxesJointlyError: true});
+    var isValid = this.valid();
 
-    if(this.valid()){
+    if(isValid){
       this.props.saveLoan(this.buildLoanFromState(), 2);
     }
     else{
