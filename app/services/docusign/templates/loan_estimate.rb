@@ -25,7 +25,7 @@ module Docusign
       def build_header
         @params['date_issued'] = Time.zone.today.in_time_zone.strftime("%D")
         @params['applicant_name'] = applicant_name
-        @params['sale_price'] = Money.new(property.purchase_price.to_f * 100).format(no_cents_if_whole: true)
+        @params['sale_price'] = Money.new(sale_price * 100).format(no_cents_if_whole: true)
         @params['purpose'] = "#{loan.purpose}".titleize
         @params['product'] = "#{loan.amortization_type}".titleize
         @params['loan_term'] = loan.num_of_years.to_s + " years"
@@ -111,45 +111,35 @@ module Docusign
         @params['points_text'] = "#{(loan.points.to_f * 100).round(3)}"
         @params['points'] = Money.new((loan.points.to_f * loan.amount.to_f).round(3) * 100).format(no_cents_if_whole: true)
         align(@params['origination_charges_total'].length).call('points')
+        origination_charges_fees = eval(loan.origination_charges_fees)
 
-        map_number_to_params(
-          {
-            'application_fee' => 'Application fee',
-            'underwriting_fee' => 'Underwriting fee',
-          },
-          &align(@params['origination_charges_total'].length)
-        )
+        origination_charges_fees[:fees].each_with_index do |fee, index|
+          @params["oc_fee_#{index}_text"] = fee[:name]
+          @params["oc_fee_#{index}"] = Money.new(fee[:amount].to_f.round(2) * 100).format(no_cents_if_whole: true)
+          align(@params['origination_charges_total'].length).call("oc_fee_#{index}")
+        end
       end
 
       def services_you_cannot_shop_for
         @params['services_cannot_shop_total'] = Money.new(services_cannot_shop_total * 100).format(no_cents_if_whole: true)
+        service_cannot_shop_fees = eval(loan.service_cannot_shop_fees)
 
-        map_number_to_params(
-          {
-            'appraisal_fee' => 'Appraisal fee',
-            'credit_report_fee' => 'Credit Report Fee',
-            'flood_determination_fee' => 'Flood Determination Fee',
-            'flood_monitoring_fee' => 'Flood Monitoring Fee',
-            'tax_monitoring_fee' => 'Tax Monitoring Fee',
-            'tax_status_research_fee' => 'Tax Status Research Fee'
-          },
-          &align(@params['services_cannot_shop_total'].length)
-        )
+        service_cannot_shop_fees[:fees].each_with_index do |fee, index|
+          @params["scn_fee_#{index}_text"] = fee[:name]
+          @params["scn_fee_#{index}"] = Money.new(fee[:amount].to_f.round(2) * 100).format(no_cents_if_whole: true)
+          align(@params['services_cannot_shop_total'].length).call("scn_fee_#{index}")
+        end
       end
 
       def services_you_can_shop_for
         @params['services_can_shop_total'] = Money.new(services_can_shop_total * 100).format(no_cents_if_whole: true)
-        map_number_to_params(
-          {
-            'pest_inspection_fee' => 'Pest Inspection Fee',
-            'survey_fee' => 'Survey Fee',
-            'insurance_binder' => 'Title - Insurance Binder',
-            'lenders_title_policy' => "Title - Lender's Title Policy",
-            'settlement_agent_fee' => 'Title - Settlement Agent Fee',
-            'title_search' => 'Title - Title Search'
-          },
-          &align(@params['services_can_shop_total'].length)
-        )
+        service_can_shop_fees = eval(loan.service_can_shop_fees)
+
+        service_can_shop_fees[:fees].each_with_index do |fee, index|
+          @params["sc_fee_#{index}_text"] = fee[:name]
+          @params["sc_fee_#{index}"] = Money.new(fee[:amount].to_f.round(2) * 100).format(no_cents_if_whole: true)
+          align(@params['services_can_shop_total'].length).call("sc_fee_#{index}")
+        end
       end
 
       def taxes_and_other_government_fees
@@ -230,7 +220,8 @@ module Docusign
       end
 
       def origination_charges_total
-        @origination_charges_total ||= (loan.points.to_f * loan.amount.to_f + loan.application_fee.to_f + loan.underwriting_fee.to_f).round(2)
+        origination_charges_fees = eval(loan.origination_charges_fees)
+        @origination_charges_total ||= (loan.points.to_f * loan.amount.to_f + origination_charges_fees[:total]).round(2)
       end
 
       def estimated_total_monthly_payment_1
@@ -242,14 +233,13 @@ module Docusign
       end
 
       def services_cannot_shop_total
-        @services_cannot_shop_total ||= (loan.appraisal_fee.to_f + loan.credit_report_fee.to_f +
-                                        loan.flood_determination_fee.to_f + loan.flood_monitoring_fee.to_f +
-                                        loan.tax_monitoring_fee.to_f + loan.tax_status_research_fee.to_f).round(2)
+        service_cannot_shop_fees = eval(loan.service_cannot_shop_fees)
+        @services_cannot_shop_total ||= service_cannot_shop_fees[:total].round(2)
       end
 
       def services_can_shop_total
-        @services_can_shop_total ||= (loan.pest_inspection_fee.to_f + loan.survey_fee.to_f + loan.insurance_binder.to_f +
-                                     loan.lenders_title_policy.to_f + loan.settlement_agent_fee.to_f + loan.title_search.to_f).round(2)
+        service_can_shop_fees = eval(loan.service_can_shop_fees)
+        @services_can_shop_total ||= service_can_shop_fees[:total].round(2)
       end
 
       def loan_costs_total
@@ -342,6 +332,10 @@ module Docusign
         return unless address
 
         "#{address.city}, #{address.state} #{address.zip}"
+      end
+
+      def sale_price
+        loan.purchase? ? property.purchase_price.to_f : property.market_price.to_f
       end
 
       def map_string_to_params(list)

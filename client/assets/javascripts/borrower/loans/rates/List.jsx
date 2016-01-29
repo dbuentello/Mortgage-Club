@@ -139,9 +139,9 @@ var List = React.createClass({
                       <h4>Lender fees</h4>
                       <ul className="fee-items">
                         {
-                          _.map(Object.keys(rate.fees), function(key){
+                          _.map(rate.fees, function(fee){
                             return (
-                              <li className="lender-fee-item" key={key}>{key}: {this.formatCurrency(rate.fees[key], '$')}</li>
+                              <li className="lender-fee-item" key={fee["HudLine"]}>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], '$')}</li>
                             )
                           }, this)
                         }

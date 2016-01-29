@@ -49,13 +49,6 @@ var Chart = React.createClass({
     )
   },
 
-  componentDidMount: function() {
-    if(this.props.id == 0){
-      this.drawPie();
-      this.drawLine();
-    }
-  },
-
   drawPie: function(){
     this.drawPieChart(this.props.id, this.props.principle, this.props.hazardInsurance, this.props.propertyTax, this.props.mortgageInsurance, this.props.hoadue, this.props.total);
   },

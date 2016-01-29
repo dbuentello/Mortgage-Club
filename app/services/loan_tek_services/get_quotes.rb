@@ -1,53 +1,72 @@
 module LoanTekServices
   class GetQuotes
-    attr_reader :loan, :property, :borrower
+    attr_reader :loan, :property, :borrower, :response
 
     def initialize(loan)
       @loan = loan
       @property = loan.subject_property
       @borrower = loan.borrower
+      @response = []
     end
 
+    # https://api.loantek.com/Clients/Views/Quoting/LoanRequest-LoanPricer-v2.cshtml
     def call
-      url ="https://api.loantek.com/Clients/WebServices/Client/#{client_id}/Pricing/V2/Quotes/LoanPricer/#{user_id}"
-      connection = Faraday.new(url: url)
-      response = connection.post do |conn|
-        conn.params["BestExecutionMethodType"] = execution_method
-        conn.params["QuotingChannel"] = quoting_channel
-        conn.params["ClientDefinedIdentifier"] = client_defined_identifier
-        conn.params["ZipCode"] = zipcode
-        conn.params["CreditScore"] = credit_score
-        conn.params["LoanPurpose"] = loan_purpose
-        conn.params["LoanAmount"] = loan_amount
-        conn.params["LoanToValue"] = loan_to_value
-        conn.params["PropertyUsage"] = property_usage
-        conn.params["PropertyType"] = property_type
+      cache_key = "loantek-quotes-#{loan.id}-#{loan.updated_at}-#{property.updated_at}-#{credit_score}"
+
+      if quotes = REDIS.get(cache_key)
+        quotes = JSON.parse(quotes)
+      else
+        quotes = get_quotes
+        REDIS.set(cache_key, quotes.to_json)
+        REDIS.expire(cache_key, 30.minutes.to_i)
       end
 
-      result = JSON.parse(response.body)
-      return result["Quotes"] if result["QuotesCount"] > 0
+      quotes
     end
 
     private
 
+    def get_quotes
+      url ="https://api.loantek.com/Clients/WebServices/Client/#{client_id}/Pricing/V2/Quotes/LoanPricer/#{user_id}"
+      connection = Faraday.new(url: url)
+      @response = connection.post do |conn|
+        conn.headers["Content-Type"] = "application/json"
+        conn.body = {
+          BestExecutionMethodType: execution_method,
+          QuotingChannel: quoting_channel,
+          ClientDefinedIdentifier: client_defined_identifier,
+          ZipCode: zipcode,
+          CreditScore: credit_score,
+          LoanPurpose: loan_purpose,
+          LoanAmount: loan_amount,
+          LoanToValue: loan_to_value,
+          PropertyUsage: property_usage,
+          PropertyType: property_type,
+          QuoteTypesToReturn: quote_types_to_return
+        }.to_json
+      end
+
+      success? ? LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"]) : []
+    end
+
     def client_id
-      "lorem"
+      ENV["LOANTEK_CLIENT_ID"]
     end
 
     def user_id
-      "ipsum"
+      ENV["LOANTEK_USER_ID"]
+    end
+
+    def client_defined_identifier
+      ENV["LOANTEK_IDENTIFIER"]
     end
 
     def execution_method
-      0
+      1
     end
 
     def quoting_channel
       0
-    end
-
-    def client_defined_identifier
-      "MC2016!"
     end
 
     def zipcode
@@ -55,6 +74,7 @@ module LoanTekServices
     end
 
     def credit_score
+      return 750
       borrower.credit_score.to_i
     end
 
@@ -74,20 +94,21 @@ module LoanTekServices
     end
 
     def loan_to_value
-      property_value = loan.purchase? ? property.purchase_price : property.original_purchase_price
-      loan_amount * 100 / property_value
+      property_value = loan.purchase? ? property.purchase_price : property.market_price
+      (loan_amount * 100 / property_value).round(3)
     end
 
     def property_usage
-      case property_usage
+      case property.usage
       when "primary_residence"
         usage = 1
       when "vacation_home"
         usage = 2
       when "rental_property"
         usage = 3
+      else
+        usage = 0
       end
-
       usage
     end
 
@@ -110,7 +131,16 @@ module LoanTekServices
     end
 
     def loan_programs
+      # get all programs
       [0]
+    end
+
+    def quote_types_to_return
+      [-1, 0, 1, 2, 3, 4]
+    end
+
+    def success?
+      response.status == 200
     end
   end
 end
