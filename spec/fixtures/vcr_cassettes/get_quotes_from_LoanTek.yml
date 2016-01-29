@@ -1,0 +1,195 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.loantek.com/Clients/WebServices/Client/697/Pricing/V2/Quotes/LoanPricer/1746
+    body:
+      encoding: UTF-8
+      string: '{"BestExecutionMethodType":1,"QuotingChannel":0,"ClientDefinedIdentifier":"53ZnFveCNg4A","ZipCode":95127,"CreditScore":750,"LoanPurpose":2,"LoanAmount":360000,"LoanToValue":"79.933","PropertyUsage":1,"PropertyType":3,"QuoteTypesToReturn":[-1,0,1,2,3,4]}'
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Fri, 29 Jan 2016 09:04:22 GMT
+      Content-Length:
+      - '32116'
+    body:
+      encoding: UTF-8
+      string: '{"ClientDefinedIdentifier":"53ZnFveCNg4A","RequestDataContextId":-1,"BestExecutionMethodType":"ByPointGroup","QuotesCount":18,"Quotes":[{"DateTime":"2016-01-29T01:04:23.6536993-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"ZbKTr0V-kkWCnMuJ9XXoPQ","LenderName":"REMN","ProductName":"5yearARM","ProductId":"FAS051","DiscountPts":-0.500,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":-805.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5779,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"TBill","Margin":2.00,"FixRate":60,"AdjustRate":12,"InitialCap":1.00,"PeriodicCap":1.00,"LifetimeCap":5.00},"AdvertiserNote":"tbd","Rate":3.125,"APR":3.840,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.80,"AnnualPremium":2880.00,"MonthlyRate":0.07,"MonthlyPremium":240.00,"UpfrontRate":1.75,"UpfrontPremium":6300.00},"UFMIPPercent":0.0175,"MIP":240.00,"ProductFamily":"FHA","ProductClass":"STANDARD","ProductType":"ARM","ProductTerm":"5/1","PrincipalAndInterestPayment":1542.15,"Points":-1,"QuoteFees":-285.00},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"-UMUVYJuHk2CxSLjrEYOGA","LenderName":"InterFirst","ProductName":"15yearFixed","ProductId":"CFS15","DiscountPts":-0.500,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":-519.0,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5778,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":2.875,"APR":2.875,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":2464.51,"Points":0,"QuoteFees":1.0},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"coWxJsZLVUmN2F8X59T50g","LenderName":"REMN","ProductName":"30yearFixed","ProductId":"UFS30","DiscountPts":-0.625,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":-519.0,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5779,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":2.750,"APR":2.750,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"USDA","ProductClass":"STANDARD","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":1469.67,"Points":0,"QuoteFees":1.0},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"foUizkIXlESkUGG1yi-VeA","LenderName":"InterFirst","ProductName":"30yearFixed","ProductId":"CFS30","DiscountPts":1.500,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":6395.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5778,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.500,"APR":3.645,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":1616.56,"Points":2,"QuoteFees":6915.00},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"d-3e2ehmgEy8hh2t45Oazg","LenderName":"REMN","ProductName":"30yearFixed","ProductId":"UFS30","DiscountPts":-0.625,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":-1255.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5779,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":2.750,"APR":2.750,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"USDA","ProductClass":"STANDARD","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":1469.67,"Points":-1,"QuoteFees":-735.00},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"WyngxlTfR06gX74W6l2x2w","LenderName":"REMN","ProductName":"5yearARM","ProductId":"FAS051","DiscountPts":3.125,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":12245.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5779,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"TBill","Margin":2.00,"FixRate":60,"AdjustRate":12,"InitialCap":1.00,"PeriodicCap":1.00,"LifetimeCap":5.00},"AdvertiserNote":"tbd","Rate":2.500,"APR":3.535,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.80,"AnnualPremium":2880.00,"MonthlyRate":0.07,"MonthlyPremium":240.00,"UpfrontRate":1.75,"UpfrontPremium":6300.00},"UFMIPPercent":0.0175,"MIP":240.00,"ProductFamily":"FHA","ProductClass":"STANDARD","ProductType":"ARM","ProductTerm":"5/1","PrincipalAndInterestPayment":1422.44,"Points":4,"QuoteFees":12765.00},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"4jQ4m493FEe7kJ5bDqbndw","LenderName":"InterFirst","ProductName":"15yearFixed","ProductId":"CFS15","DiscountPts":-0.500,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":-805.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5778,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":2.875,"APR":2.875,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":2464.51,"Points":-1,"QuoteFees":-285.00},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"pz-KcLy4sky_OFTLiHA_Rg","LenderName":"REMN","ProductName":"15yearFixed","ProductId":"CFS15","DiscountPts":0.125,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":1445.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5779,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":2.750,"APR":2.807,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":2443.04,"Points":1,"QuoteFees":1965.00},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"pTX8lTKHU0me6ZUHcm7-Tw","LenderName":"American
+        Financial Resources","ProductName":"15yearFixed","ProductId":"CFY15","DiscountPts":3.179,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":1295.0,"FeeType":1},"Fees":12739.40,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5777,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $1,295.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":1295.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":1295.0,"PercentFees":0.0,"TotalFees":1815.0},"LockDay":0,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":2.375,"APR":2.887,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":2379.32,"Points":4,"QuoteFees":13259.40},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"k6ujsDxqwkyRcfB9xcgm8Q","LenderName":"American
+        Financial Resources","ProductName":"15yearFixed","ProductId":"CFY15","DiscountPts":2.929,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":1295.0,"FeeType":1},"Fees":11839.40,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5777,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $1,295.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":1295.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":1295.0,"PercentFees":0.0,"TotalFees":1815.0},"LockDay":0,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":2.375,"APR":2.850,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":2379.32,"Points":3,"QuoteFees":12359.40},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"iGJvrjIxc0WVqCs_TNdRuQ","LenderName":"InterFirst","ProductName":"5yearARM","ProductId":"CAS051","DiscountPts":1.500,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":6395.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5778,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"LIBOR_1_YEAR","Margin":2.25,"FixRate":60,"AdjustRate":12,"InitialCap":5.00,"PeriodicCap":2.00,"LifetimeCap":5.00},"AdvertiserNote":"tbd","Rate":2.375,"APR":2.511,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"ARM","ProductTerm":"5/1","PrincipalAndInterestPayment":1399.15,"Points":2,"QuoteFees":6915.00},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"151M2FajO0mCkhvgAAEo2w","LenderName":"InterFirst","ProductName":"5yearARM","ProductId":"CAS051","DiscountPts":0.750,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":3695.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5778,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"LIBOR_1_YEAR","Margin":2.25,"FixRate":60,"AdjustRate":12,"InitialCap":5.00,"PeriodicCap":2.00,"LifetimeCap":5.00},"AdvertiserNote":"tbd","Rate":2.625,"APR":2.704,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"ARM","ProductTerm":"5/1","PrincipalAndInterestPayment":1445.94,"Points":1,"QuoteFees":4215.00},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"lcWZ1femqE-Cjt0oljq0XQ","LenderName":"American
+        Financial Resources","ProductName":"30yearFixed","ProductId":"CFS30","DiscountPts":6.572,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":1295.0,"FeeType":1},"Fees":24954.20,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5777,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $1,295.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":1295.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":1295.0,"PercentFees":0.0,"TotalFees":1815.0},"LockDay":0,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":2.990,"APR":3.560,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":1515.83,"Points":4,"QuoteFees":25474.20},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"OzHYqg_rDkWMSRf6uG0Urg","LenderName":"REMN","ProductName":"5yearARM","ProductId":"FAS051","DiscountPts":2.750,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":10895.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5779,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"TBill","Margin":2.00,"FixRate":60,"AdjustRate":12,"InitialCap":1.00,"PeriodicCap":1.00,"LifetimeCap":5.00},"AdvertiserNote":"tbd","Rate":2.500,"APR":3.503,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.80,"AnnualPremium":2880.00,"MonthlyRate":0.07,"MonthlyPremium":240.00,"UpfrontRate":1.75,"UpfrontPremium":6300.00},"UFMIPPercent":0.0175,"MIP":240.00,"ProductFamily":"FHA","ProductClass":"STANDARD","ProductType":"ARM","ProductTerm":"5/1","PrincipalAndInterestPayment":1422.44,"Points":3,"QuoteFees":11415.00},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"j2zWfhFe6keusWjpjrT0HQ","LenderName":"InterFirst","ProductName":"5yearARM","ProductId":"CAS051","DiscountPts":0.000,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":995.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5778,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"LIBOR_1_YEAR","Margin":2.25,"FixRate":60,"AdjustRate":12,"InitialCap":5.00,"PeriodicCap":2.00,"LifetimeCap":5.00},"AdvertiserNote":"tbd","Rate":2.875,"APR":2.896,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"ARM","ProductTerm":"5/1","PrincipalAndInterestPayment":1493.61,"Points":0,"QuoteFees":1515.00},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"eeBa6cXGYE6RVdh9eq4d1w","LenderName":"American
+        Financial Resources","ProductName":"30yearFixed","ProductId":"CFY30","DiscountPts":2.207,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":1295.0,"FeeType":1},"Fees":9240.20,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5777,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $1,295.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":1295.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":1295.0,"PercentFees":0.0,"TotalFees":1815.0},"LockDay":0,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.500,"APR":3.710,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":1616.56,"Points":3,"QuoteFees":9760.20},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"LUVzHUarV0eeHu6qpI2xmg","LenderName":"American
+        Financial Resources","ProductName":"15yearFixed","ProductId":"CFY15","DiscountPts":1.717,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":1295.0,"FeeType":1},"Fees":7476.20,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5777,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $1,295.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":1295.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":1295.0,"PercentFees":0.0,"TotalFees":1815.0},"LockDay":0,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":2.625,"APR":2.924,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":2421.68,"Points":2,"QuoteFees":7996.20},{"DateTime":"2016-01-29T01:04:23.6692996-08:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"ZaLyLFbijki6z0RFhCxQEg","LenderName":"REMN","ProductName":"30yearFixed","ProductId":"CFS30","DiscountPts":0.625,"OriginationPts":{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},"Fees":3245.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5779,"LoanAmount":360000.0,"ItemizedFees":"Description:
+        Loan origination fee, HUD Line: 801, Fee Type: $$, Amount: $995.00, Include
+        In APR: True<br />Description: Appraisal fee, HUD Line: 803, Fee Type: $$,
+        Amount: $495.00, Include In APR: False<br />Description: Credit report fee,
+        HUD Line: 804, Fee Type: $$, Amount: $25.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Loan
+        origination fee","IncludeInAPR":true,"FeeAmount":995.0,"FeeType":1},{"HudLine":803,"Description":"Appraisal
+        fee","IncludeInAPR":false,"FeeAmount":495.0,"FeeType":1},{"HudLine":804,"Description":"Credit
+        report fee","IncludeInAPR":false,"FeeAmount":25.0,"FeeType":1}],"NonAPRFees":520.0,"DollarFees":995.0,"PercentFees":0.0,"TotalFees":1515.0},"LockDay":0,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.625,"APR":3.699,"FICO":750,"LoanToValue":80,"PropertyType":"Con4","PropertyUse":"PRI","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL","ProductClass":"STANDARD","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":1641.78,"Points":1,"QuoteFees":3765.00}]}'
+    http_version: 
+  recorded_at: Fri, 29 Jan 2016 09:04:25 GMT
+recorded_with: VCR 2.9.3

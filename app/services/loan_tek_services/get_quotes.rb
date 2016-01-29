@@ -24,8 +24,6 @@ module LoanTekServices
       quotes
     end
 
-    private
-
     def get_quotes
       url ="https://api.loantek.com/Clients/WebServices/Client/#{client_id}/Pricing/V2/Quotes/LoanPricer/#{user_id}"
       connection = Faraday.new(url: url)
@@ -45,9 +43,10 @@ module LoanTekServices
           QuoteTypesToReturn: quote_types_to_return
         }.to_json
       end
-
       success? ? LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"]) : []
     end
+
+    private
 
     def client_id
       ENV["LOANTEK_CLIENT_ID"]
