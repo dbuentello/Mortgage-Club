@@ -10,9 +10,11 @@ class PotentialUsersController < ApplicationController
   end
 
   def create
-    @potential_user = PotentialUser.new(potential_params)
-    if(@potential_user.save)
+    potential_user = PotentialUser.new(potential_params)
+    if potential_user.save
+      PotentialUserMailer.inform_new_file_upload(potential_user).deliver_later
       render json: {message: "success"}
+
     else
       render json: {message: "error"}
     end
