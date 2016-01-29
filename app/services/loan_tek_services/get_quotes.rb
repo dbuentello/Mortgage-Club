@@ -74,7 +74,6 @@ module LoanTekServices
     end
 
     def credit_score
-      return 750
       borrower.credit_score.to_i
     end
 

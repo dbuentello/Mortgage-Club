@@ -41,7 +41,7 @@ module LoanTekServices
 
     def self.get_monthly_payment(quote)
       period = get_period(quote)
-      rate_per_period =  get_interest_rate(quote) / 12
+      rate_per_period = get_interest_rate(quote) / 12
       numerator = rate_per_period * ((1 + rate_per_period) ** period)
       denominator = ((1 + rate_per_period) ** period) - 1
       payment = quote["FeeSet"]["LoanAmount"].to_f * (numerator / denominator)
