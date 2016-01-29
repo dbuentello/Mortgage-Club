@@ -38,26 +38,19 @@ module.exports = React.createClass({
 
     return (
       <div className="login-form">
-        <div className="loginPart signupPart content">
+        <div className="loginPart signupPart">
           <div className="container">
             <div className="col-md-4 col-md-offset-4">
               <form className="potential-users form-horizontal text-center" action="/potential_users" type="json" enctype="multipart/form-data" method="post" name="fileinfo">
-                <h2 className="text-capitalize">upload your</h2>
-                <h2 className="text-capitalize">mortgage statement</h2>
                 <div className="form-group">
                   <div className="col-xs-12">
                     <div className="row file-upload-button">
-                      <div className="col-md-9">
+                      <div className="col-md-12 text-center">
                           <label>
                             <img src="/icons/upload.png" className="iconUpload"/>
                             <input name="potential_user[mortgage_statement]" type="file" onChange={this.handleFileChange}/>
-                            <span>Upload</span>
+                            <span>Upload your mortgage statement</span>
                           </label>
-                      </div>
-                      <div className="col-md-3">
-                        <a className="icon-trash">
-                          <img src="/icons/trash.png" />
-                        </a>
                       </div>
                     </div>
                   </div>
@@ -71,7 +64,7 @@ module.exports = React.createClass({
                   </div>
                 </div>
                 <div className="form-group">
-                  <div className="col-sm-12 last-name">
+                  <div className="col-sm-12 phone-number">
                     <h5 className="text-left">Phone Number (if applicable)</h5>
                     <input type="text" className="form-control" name="potential_user[phone_number]"
                       id="last_name"/>
