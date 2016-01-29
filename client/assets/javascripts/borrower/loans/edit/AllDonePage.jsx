@@ -2,6 +2,10 @@ var _ = require('lodash');
 var React = require('react/addons');
 
 var FormCreditCheck = React.createClass({
+  componentDidMount: function(){
+    $("body").scrollTop(0);
+  },
+
   render: function() {
     return (
       <div className="col-xs-9 account-content min-height-394">
