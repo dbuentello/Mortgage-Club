@@ -10,7 +10,6 @@ class PotentialUsersController < ApplicationController
   end
 
   def create
-    byebug
     @potential_user = PotentialUser.new(potential_params)
     if(@potential_user.save)
       render json: {message: "Success"}
