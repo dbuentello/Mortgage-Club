@@ -128,7 +128,7 @@ var SettingsTab = React.createClass({
       <div>
         <div className="col-md-4 col-md-offset-4">
           <form className="form-settings form-horizontal text-center" action="/auth/register" method="PUT">
-            <h3 className="text-capitalize text-left">account settings</h3>
+            <h4 className="text-capitalize text-left typeBold">account settings</h4>
             <div className="form-group">
               <div className="col-xs-6">
                 <img className="avatar" src={this.state.avatarUrl} id="currentAvatar"/>
