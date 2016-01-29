@@ -9,11 +9,6 @@ describe CompletedLoanServices::TabProperty do
     @service = CompletedLoanServices::TabProperty.new(loan, property)
   end
 
-  it "returns false with properties empty" do
-    @service.loan.properties = []
-    expect(@service.call).to be_falsey
-  end
-
   it "returns false with subject property nil" do
     @service.subject_property = nil
     expect(@service.call).to be_falsey
