@@ -50,7 +50,7 @@ class LoanEditPage::LoanPresenter
         }
       },
       methods: [
-        :property_completed, :borrower_completed, :income_completed, :credit_completed, :assets_completed, :declarations_completed, :primary_property, :subject_property, :rental_properties, :documents_completed
+        :primary_property, :subject_property, :rental_properties
       ]
     }
   end
