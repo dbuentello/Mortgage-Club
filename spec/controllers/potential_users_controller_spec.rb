@@ -8,7 +8,7 @@ describe PotentialUsersController do
       filename: File.basename(file),
     )
     @uploaded_file.content_type = "application/pdf"
-    @potential_user_params = { email: "user@example.com", mortgage_statement: @uploaded_file }
+    @potential_user_params = {email: "user@example.com", mortgage_statement: @uploaded_file}
   end
 
   describe "#create" do
