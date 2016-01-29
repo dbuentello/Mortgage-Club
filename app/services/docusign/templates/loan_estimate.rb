@@ -111,9 +111,8 @@ module Docusign
         @params['points_text'] = "#{(loan.points.to_f * 100).round(3)}"
         @params['points'] = Money.new((loan.points.to_f * loan.amount.to_f).round(3) * 100).format(no_cents_if_whole: true)
         align(@params['origination_charges_total'].length).call('points')
-        origination_charges_fees = eval(loan.origination_charges_fees)
 
-        origination_charges_fees[:fees].each_with_index do |fee, index|
+        loan.origination_charges_fees[:fees].each_with_index do |fee, index|
           @params["oc_fee_#{index}_text"] = fee[:name]
           @params["oc_fee_#{index}"] = Money.new(fee[:amount].to_f.round(2) * 100).format(no_cents_if_whole: true)
           align(@params['origination_charges_total'].length).call("oc_fee_#{index}")
@@ -122,9 +121,8 @@ module Docusign
 
       def services_you_cannot_shop_for
         @params['services_cannot_shop_total'] = Money.new(services_cannot_shop_total * 100).format(no_cents_if_whole: true)
-        service_cannot_shop_fees = eval(loan.service_cannot_shop_fees)
 
-        service_cannot_shop_fees[:fees].each_with_index do |fee, index|
+        loan.service_cannot_shop_fees[:fees].each_with_index do |fee, index|
           @params["scn_fee_#{index}_text"] = fee[:name]
           @params["scn_fee_#{index}"] = Money.new(fee[:amount].to_f.round(2) * 100).format(no_cents_if_whole: true)
           align(@params['services_cannot_shop_total'].length).call("scn_fee_#{index}")
@@ -133,9 +131,8 @@ module Docusign
 
       def services_you_can_shop_for
         @params['services_can_shop_total'] = Money.new(services_can_shop_total * 100).format(no_cents_if_whole: true)
-        service_can_shop_fees = eval(loan.service_can_shop_fees)
 
-        service_can_shop_fees[:fees].each_with_index do |fee, index|
+        loan.service_can_shop_fees[:fees].each_with_index do |fee, index|
           @params["sc_fee_#{index}_text"] = fee[:name]
           @params["sc_fee_#{index}"] = Money.new(fee[:amount].to_f.round(2) * 100).format(no_cents_if_whole: true)
           align(@params['services_can_shop_total'].length).call("sc_fee_#{index}")
@@ -220,8 +217,7 @@ module Docusign
       end
 
       def origination_charges_total
-        origination_charges_fees = eval(loan.origination_charges_fees)
-        @origination_charges_total ||= (loan.points.to_f * loan.amount.to_f + origination_charges_fees[:total]).round(2)
+        @origination_charges_total ||= (loan.points.to_f * loan.amount.to_f + loan.origination_charges_fees[:total]).round(2)
       end
 
       def estimated_total_monthly_payment_1
@@ -233,13 +229,11 @@ module Docusign
       end
 
       def services_cannot_shop_total
-        service_cannot_shop_fees = eval(loan.service_cannot_shop_fees)
-        @services_cannot_shop_total ||= service_cannot_shop_fees[:total].round(2)
+        @services_cannot_shop_total ||= loan.service_cannot_shop_fees[:total].round(2)
       end
 
       def services_can_shop_total
-        service_can_shop_fees = eval(loan.service_can_shop_fees)
-        @services_can_shop_total ||= service_can_shop_fees[:total].round(2)
+        @services_can_shop_total ||= loan.service_can_shop_fees[:total].round(2)
       end
 
       def loan_costs_total

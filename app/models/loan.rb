@@ -1,5 +1,8 @@
 class Loan < ActiveRecord::Base
   resourcify
+  serialize :service_cannot_shop_fees, Hash
+  serialize :origination_charges_fees, Hash
+  serialize :service_can_shop_fees, Hash
 
   belongs_to :user, inverse_of: :loans, foreign_key: 'user_id'
   has_one :borrower, through: :user
