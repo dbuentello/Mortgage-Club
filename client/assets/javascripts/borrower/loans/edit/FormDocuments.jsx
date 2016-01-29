@@ -147,8 +147,8 @@ var FormDocuments = React.createClass({
                       maxSize={10000000}
                       customParams={customParams}
                       supportOtherDescription={owner_upload_fields[key].customDescription}
-                      uploadSuccessCallback={this.afterUploadingDocument}
-                      removeSuccessCallback={this.afterRemovingDocument}/>
+                      uploadSuccessCallback={this.afterUploadingDocumentBorrower}
+                      removeSuccessCallback={this.afterRemovingDocumentBorrower}/>
                   </div>
                 )
               }
@@ -204,8 +204,8 @@ var FormDocuments = React.createClass({
                             maxSize={10000000}
                             customParams={customParams}
                             supportOtherDescription={co_borrower_upload_fields[key].customDescription}
-                            uploadSuccessCallback={this.afterUploadingDocument}
-                            removeSuccessCallback={this.afterRemovingDocument}/>
+                            uploadSuccessCallback={this.afterUploadingDocumentCoBorrower}
+                            removeSuccessCallback={this.afterRemovingDocumentCoBorrower}/>
                         </div>
                       )
                     }
@@ -223,15 +223,30 @@ var FormDocuments = React.createClass({
     );
   },
 
-  afterUploadingDocument: function(name) {
-    uploaded_files.push(name);
+  afterUploadingDocumentBorrower: function(typeDocument, name, id) {
+    uploaded_files.push(typeDocument);
+    this.props.updateDocuments("borrower", typeDocument, "upload", name, id);
   },
 
-  afterRemovingDocument: function(name) {
-    var index = uploaded_files.indexOf(name);
+  afterRemovingDocumentBorrower: function(typeDocument) {
+    var index = uploaded_files.indexOf(typeDocument);
     if (index > -1) {
       uploaded_files.splice(index, 1);
     }
+    this.props.updateDocuments("borrower", typeDocument, "remove");
+  },
+
+  afterUploadingDocumentCoBorrower: function(typeDocument, name, id) {
+    uploaded_files.push(typeDocument);
+    this.props.updateDocuments("coborrower", typeDocument, "upload", name, id);
+  },
+
+  afterRemovingDocumentCoBorrower: function(typeDocument) {
+    var index = uploaded_files.indexOf(typeDocument);
+    if (index > -1) {
+      uploaded_files.splice(index, 1);
+    }
+    this.props.updateDocuments("coborrower", typeDocument, "remove");
   },
 
   componentWillReceiveProps: function(nextProps) {

@@ -38,7 +38,7 @@ var LoanInterface = React.createClass({
   render: function() {
     var activeItem = this.state.active;
 
-    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu} goToAllDonePage={this.goToAllDonePage}/>;
+    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu} goToAllDonePage={this.goToAllDonePage} updateDocuments={this.updateDocuments}/>;
 
     return (
       <div className="content accountPart editLoan">
@@ -76,6 +76,58 @@ var LoanInterface = React.createClass({
         </div>
       </div>
     );
+  },
+
+  updateDocuments: function(typeBorrower, typeDocument, typeAction, name, id){
+    var loan = this.state.loan;
+    var borrower = typeBorrower === "borrower" ? loan.borrower : loan.secondary_borrower;
+
+    //remove 'co_' of type document co-borrower
+    if(typeBorrower === "coborrower")
+      typeDocument = typeDocument.substring(3);
+
+    if(borrower !== undefined){
+      //get index file
+      var index = $.map(borrower.documents, function(document, index) {
+        if(document.document_type === typeDocument) {
+            return index;
+        }
+      });
+
+      if(index.length > 0)
+      {
+        if(typeAction === "remove"){
+          borrower.documents.splice(index[0], 1);
+        }else{
+          borrower.documents[index[0]].original_filename = name;
+          borrower.documents[index[0]].id = id;
+        }
+
+        if(typeBorrower === "borrower")
+          loan.borrower = borrower;
+        else
+          loan.secondary_borrower = borrower;
+
+        this.setState({loan: loan});
+      }else{
+        if(typeAction === "upload"){
+          var document = {
+            document_type: typeDocument,
+            original_filename: name,
+            id: id
+          }
+
+          borrower.documents.push(document);
+
+          if(typeBorrower === "borrower")
+            loan.borrower = borrower;
+          else
+            loan.secondary_borrower = borrower;
+
+          this.setState({loan: loan});
+        }
+      }
+    }
   },
 
   goToItem: function(item) {

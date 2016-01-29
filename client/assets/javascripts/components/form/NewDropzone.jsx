@@ -156,7 +156,7 @@ var Dropzone = React.createClass({
             this.setState({ fileIsExisting: true });
 
             if (this.props.uploadSuccessCallback) {
-              this.props.uploadSuccessCallback(this.props.field.name);
+              this.props.uploadSuccessCallback(this.props.field.name, files[0].name, response.id);
             }
           }.bind(this),
           cache: false,
