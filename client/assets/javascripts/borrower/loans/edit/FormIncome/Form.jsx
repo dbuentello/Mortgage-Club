@@ -3,6 +3,7 @@ var React = require('react/addons');
 
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var ValidationObject = require("mixins/FormValidationMixin");
+var TabIncomeCompleted = require('mixins/CompletedLoanMixins/TabIncome');
 
 var AddressField = require('components/form/NewAddressField');
 var DateField = require('components/form/NewDateField');
@@ -53,7 +54,7 @@ var secondaryBorrowerFields = {
 };
 
 var Form = React.createClass({
-  mixins: [TextFormatMixin, ValidationObject],
+  mixins: [TextFormatMixin, ValidationObject, TabIncomeCompleted],
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);

@@ -8,7 +8,6 @@ module CompletedLoanServices
     end
 
     def call
-      return false unless loan.properties.size > 0
       return false unless subject_property
       return false unless subject_property_completed?
       return false unless purpose_completed?
@@ -17,14 +16,9 @@ module CompletedLoanServices
     end
 
     def subject_property_completed?
-      # return false unless subject_property.property_type.present?
       return false unless subject_property.address.present?
       return false unless address_completed?
       return false unless subject_property.usage.present?
-      # return false unless subject_property.market_price.present?
-      # return false unless subject_property.mortgage_includes_escrows.present?
-      # return false unless subject_property.estimated_property_tax.present?
-      # return false unless subject_property.estimated_hazard_insurance.present?
 
       true
     end

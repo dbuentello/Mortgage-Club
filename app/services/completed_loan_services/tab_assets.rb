@@ -22,6 +22,8 @@ module CompletedLoanServices
     end
 
     def assets_completed?
+      return false if assets.empty?
+
       assets.each do |asset|
         return false unless asset_completed?(asset)
       end

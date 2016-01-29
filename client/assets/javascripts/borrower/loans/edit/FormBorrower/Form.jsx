@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
+var TabBorrowerCompleted = require('mixins/CompletedLoanMixins/TabBorrower');
 var FlashHandler = require('mixins/FlashHandler');
 
 var ValidationObject = require("mixins/FormValidationMixin");
@@ -67,7 +68,7 @@ var secondary_borrower_fields = {
 };
 
 var Form = React.createClass({
-  mixins: [TextFormatMixin, FlashHandler, ValidationObject, CheckCompletedLoanMixin],
+  mixins: [TextFormatMixin, FlashHandler, ValidationObject, CheckCompletedLoanMixin, TabBorrowerCompleted],
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
@@ -327,7 +328,6 @@ var Form = React.createClass({
       requiredFields = _.extend(requiredFields, this.mapValueToRequiredFields(secondary_borrower_fields));
     }
 
-    console.dir(this.getStateOfInvalidFields(requiredFields))
     if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
       this.setState(this.getStateOfInvalidFields(requiredFields));
       isValid = false;
