@@ -208,7 +208,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         @service.loan.purpose = "refinance"
         @service.build_section_7
         expect(@service.params).to include({
-          "refinance" => number_with_delimiter(@service.loan.amount)
+          "refinance" => align(number_with_delimiter(@service.loan.amount), 9)
         })
       end
     end

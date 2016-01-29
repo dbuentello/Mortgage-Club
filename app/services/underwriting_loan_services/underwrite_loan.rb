@@ -79,9 +79,7 @@ module UnderwritingLoanServices
     end
 
     def find_eligible_loan_programs
-      if address.zip.present?
-        ZillowService::GetMortgageRates.new(loan.id, address.zip).delay.call
-      end
+      LoanTekServices::GetQuotes.new(@loan).delay.call
     end
 
     def valid_loan?

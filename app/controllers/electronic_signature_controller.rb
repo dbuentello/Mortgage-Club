@@ -22,7 +22,7 @@ class ElectronicSignatureController < ApplicationController
     end
 
     # TODO: only update loan's data after user signed contract
-    RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], fees_params, lender_params)
+    RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:fees], lender_params)
     @loan.reload
 
     envelope = Docusign::CreateEnvelopeService.new(current_user, @loan, templates).call
@@ -60,10 +60,6 @@ class ElectronicSignatureController < ApplicationController
   end
 
   private
-
-  def fees_params
-    params.require(:fees).permit(:appraisal_fee, :credit_report_fee, :origination_fee)
-  end
 
   def lender_params
     params.require(:lender).permit(:interest_rate, :name, :lender_nmls_id, :period, :amortization_type, :monthly_payment, :apr)

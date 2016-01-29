@@ -18,11 +18,7 @@ var DocusignIframe = React.createClass({
       method: 'POST',
       data: {
         id: this.props.bootstrapData.loan.id,
-        fees: {
-          appraisal_fee: this.props.bootstrapData.rate.fees["Appraisal fee"],
-          credit_report_fee: this.props.bootstrapData.rate.fees["Credit report fee"],
-          origination_fee: this.props.bootstrapData.rate.fees["Loan origination fee"],
-        },
+        fees: this.props.bootstrapData.rate.fees,
         lender: {
           name: this.props.bootstrapData.rate.lender_name,
           lender_nmls_id: this.props.bootstrapData.rate.nmls,
