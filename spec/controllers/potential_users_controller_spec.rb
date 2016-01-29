@@ -8,7 +8,7 @@ describe PotentialUsersController do
       filename: File.basename(file),
     )
     @uploaded_file.content_type = "application/pdf"
-    @potential_user_params = { email: "user@example.com", mortgage_statement: @uploaded_file }
+    @potential_user_params = {email: "user@example.com", mortgage_statement: @uploaded_file}
   end
 
   describe "#create" do
@@ -16,6 +16,11 @@ describe PotentialUsersController do
       it "changes potential_users db table by 1 record" do
         expect{ post :create, potential_user: @potential_user_params}.to change(PotentialUser, :count).by 1
       end
+
+      it "send email to potential user" do
+        expect{ post :create, potential_user: @potential_user_params }.to change(Delayed::Job, :count).by 1
+      end
+
       it "responses with success message" do
         post :create, potential_user: @potential_user_params
         expect(JSON.parse(response.body)["message"]).to eq "success"
