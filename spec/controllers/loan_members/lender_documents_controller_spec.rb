@@ -5,6 +5,7 @@ describe LoanMembers::LenderDocumentsController do
   let(:loan) { FactoryGirl.create(:loan) }
   let(:lender) { FactoryGirl.create(:lender) }
   let(:document) { FactoryGirl.create(:lender_document, loan: loan, lender_template: lender.lender_templates.last) }
+  let!(:loans_members_association) { FactoryGirl.create(:loans_members_association, loan_member: user.loan_member, loan: loan) }
 
   before(:each) do
     allow(Amazon::GetUrlService).to receive(:call).and_return("http://google.com")

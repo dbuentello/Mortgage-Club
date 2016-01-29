@@ -51,10 +51,4 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
     # activity_status: -1 => not existed yet
     LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: loan.id).order(created_at: :desc).limit(1).first || {activity_status: -1}
   end
-
-  def authenticate_loan!
-    if @loan && !current_user.loan_member.handle_this_loan?(@loan)
-      redirect_to unauthenticated_root_path, alert: "The page does not exist or you don't have permmission to access!"
-    end
-  end
 end
