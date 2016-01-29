@@ -1,6 +1,5 @@
 class LoanMembers::SubmissionsController < LoanMembers::BaseController
   before_action :set_loan, only: [:submit_to_lender, :get_email_info]
-  before_action :authenticate_loan!
 
   def submit_to_lender
     service = SubmissionServices::SubmitApplicationToLender.new(

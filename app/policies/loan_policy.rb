@@ -1,19 +1,35 @@
 class LoanPolicy < ApplicationPolicy
-  # def new?
-  #   # user.admin? or not record.published?
+  attr_reader :user, :loan
 
-  # end
+  def initialize(user, loan)
+    @user = user
+    @loan = loan
+  end
 
-  # def show?
+  def edit?
+    update?
+  end
 
-  # end
+  def update?
+    if user.has_role? :admin
+      return true
+    elsif user.has_role? :loan_member
+      return user.loan_member.handle_this_loan?(loan)
+    else
+      return loan.user == user
+    end
+    false
+  end
 
-  # def update?
+  def show?
+    update?
+  end
 
-  # end
+  def create?
+    update?
+  end
 
-  # def get_co_borrower_info?
-
-  # end
-
+  def destroy?
+    update?
+  end
 end
