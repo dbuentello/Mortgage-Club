@@ -224,19 +224,19 @@ var FormDocuments = React.createClass({
   },
 
   afterUploadingDocumentBorrower: function(typeDocument, name, id) {
-    this.props.updateDocuments("borrower", typeDocument, "upload", name, id);
+    this.props.updateDocuments("borrower", typeDocument, "upload", this.state['is_file_taxes_jointly'], name, id);
   },
 
   afterRemovingDocumentBorrower: function(typeDocument) {
-    this.props.updateDocuments("borrower", typeDocument, "remove");
+    this.props.updateDocuments("borrower", typeDocument, "remove", this.state['is_file_taxes_jointly']);
   },
 
   afterUploadingDocumentCoBorrower: function(typeDocument, name, id) {
-    this.props.updateDocuments("coborrower", typeDocument, "upload", name, id);
+    this.props.updateDocuments("coborrower", typeDocument, "upload", this.state['is_file_taxes_jointly'], name, id);
   },
 
   afterRemovingDocumentCoBorrower: function(typeDocument) {
-    this.props.updateDocuments("coborrower", typeDocument, "remove");
+    this.props.updateDocuments("coborrower", typeDocument, "remove", this.state['is_file_taxes_jointly']);
   },
 
   componentWillReceiveProps: function(nextProps) {

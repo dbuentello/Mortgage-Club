@@ -78,7 +78,7 @@ var LoanInterface = React.createClass({
     );
   },
 
-  updateDocuments: function(typeBorrower, typeDocument, typeAction, name, id){
+  updateDocuments: function(typeBorrower, typeDocument, typeAction, taxJointly, name, id){
     var loan = this.state.loan;
     var borrower = typeBorrower === "borrower" ? loan.borrower : loan.secondary_borrower;
 
@@ -108,6 +108,7 @@ var LoanInterface = React.createClass({
         else
           loan.secondary_borrower = borrower;
 
+        loan.borrower.is_file_taxes_jointly = taxJointly;
         this.setState({loan: loan});
       }else{
         if(typeAction === "upload"){
@@ -124,6 +125,7 @@ var LoanInterface = React.createClass({
           else
             loan.secondary_borrower = borrower;
 
+          loan.borrower.is_file_taxes_jointly = taxJointly;
           this.setState({loan: loan});
         }
       }
