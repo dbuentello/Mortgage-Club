@@ -207,9 +207,5 @@ Rails.application.routes.draw do
 
   get "developer_infographics", to: "pages#developer_infographics"
 
-  get "404", to: "errors#show", code: 404
-
-  # always put this line at the end of this file
   get "*path", to: "errors#show", code: 404
-
 end

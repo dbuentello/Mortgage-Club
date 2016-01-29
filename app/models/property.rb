@@ -5,6 +5,8 @@ class Property < ActiveRecord::Base
   has_many :liabilities, dependent: :destroy, foreign_key: "property_id"
   has_many :documents, as: :subjectable, dependent: :destroy
 
+  after_save :update_loan_amount
+
   accepts_nested_attributes_for :address
 
   PERMITTED_ATTRS = [
@@ -142,5 +144,15 @@ class Property < ActiveRecord::Base
     mortgage_balance = mortgage_payment_liability ? mortgage_payment_liability.balance.to_f : 0
     other_balance = other_financing_liability ? other_financing_liability.balance.to_f : 0
     mortgage_balance + other_balance
+  end
+
+  def update_loan_amount
+    return unless is_subject && loan
+
+    if loan.purchase?
+      loan.update(amount: purchase_price.to_f * 0.8)
+    else
+      loan.update(amount: market_price.to_f * 0.8)
+    end
   end
 end

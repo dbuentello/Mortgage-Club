@@ -33,7 +33,8 @@ class DocumentUploaders::BaseDocumentController < ApplicationController
       render json: {
         message: 'Uploaded sucessfully',
         download_url: get_download_url(document),
-        remove_url: get_remove_url(document)
+        remove_url: get_remove_url(document),
+        id: document.id
       }, status: 200
     else
       return render json: {message: 'Upload file failed'}, status: 500

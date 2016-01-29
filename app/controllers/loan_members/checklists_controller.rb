@@ -1,6 +1,5 @@
 class LoanMembers::ChecklistsController < LoanMembers::BaseController
   before_action :set_loan, except: [:edit, :destroy]
-  before_action :authenticate_loan!
   before_action :set_checklist, except: [:index, :create]
 
   def create

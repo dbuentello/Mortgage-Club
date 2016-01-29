@@ -9,7 +9,6 @@ var AddressField = require("components/form/NewAddressField");
 var SelectField = require("components/form/NewSelectField");
 var TextField = require("components/form/NewTextField");
 var BooleanRadio = require("components/form/NewBooleanRadio");
-
 var fields = {
   address: {label: 'Property Address', name: 'address', helpText: "The full address of the subject property for which you are applying for a loan.", error: "addressError", validationTypes: ["empty"]},
   loanPurpose: {label: "Purpose of Loan", name: "purpose", helpText: "The purpose for taking out the loan in terms of how funds will be used.", error: "loanError", validationTypes: ["empty"]},

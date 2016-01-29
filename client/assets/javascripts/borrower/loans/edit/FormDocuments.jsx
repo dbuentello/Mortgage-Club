@@ -4,6 +4,7 @@ var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var Dropzone = require('components/form/NewDropzone');
 var BooleanRadio = require('components/form/NewBooleanRadio');
+var TabDocumentsCompleted = require('mixins/CompletedLoanMixins/TabDocuments');
 
 var owner_upload_fields = {
   first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'first_personal_tax_return'},
@@ -40,7 +41,7 @@ var upload_fields = [];
 var co_upload_fields = [];
 
 var FormDocuments = React.createClass({
-  mixins: [TextFormatMixin],
+  mixins: [TextFormatMixin, TabDocumentsCompleted],
 
   getInitialState: function() {
     return this.buildStateFromLoan(this.props.loan);
@@ -146,8 +147,8 @@ var FormDocuments = React.createClass({
                       maxSize={10000000}
                       customParams={customParams}
                       supportOtherDescription={owner_upload_fields[key].customDescription}
-                      uploadSuccessCallback={this.afterUploadingDocument}
-                      removeSuccessCallback={this.afterRemovingDocument}/>
+                      uploadSuccessCallback={this.afterUploadingDocumentBorrower}
+                      removeSuccessCallback={this.afterRemovingDocumentBorrower}/>
                   </div>
                 )
               }
@@ -203,8 +204,8 @@ var FormDocuments = React.createClass({
                             maxSize={10000000}
                             customParams={customParams}
                             supportOtherDescription={co_borrower_upload_fields[key].customDescription}
-                            uploadSuccessCallback={this.afterUploadingDocument}
-                            removeSuccessCallback={this.afterRemovingDocument}/>
+                            uploadSuccessCallback={this.afterUploadingDocumentCoBorrower}
+                            removeSuccessCallback={this.afterRemovingDocumentCoBorrower}/>
                         </div>
                       )
                     }
@@ -222,15 +223,20 @@ var FormDocuments = React.createClass({
     );
   },
 
-  afterUploadingDocument: function(name) {
-    uploaded_files.push(name);
+  afterUploadingDocumentBorrower: function(typeDocument, name, id) {
+    this.props.updateDocuments("borrower", typeDocument, "upload", this.state['is_file_taxes_jointly'], name, id);
   },
 
-  afterRemovingDocument: function(name) {
-    var index = uploaded_files.indexOf(name);
-    if (index > -1) {
-      uploaded_files.splice(index, 1);
-    }
+  afterRemovingDocumentBorrower: function(typeDocument) {
+    this.props.updateDocuments("borrower", typeDocument, "remove", this.state['is_file_taxes_jointly']);
+  },
+
+  afterUploadingDocumentCoBorrower: function(typeDocument, name, id) {
+    this.props.updateDocuments("coborrower", typeDocument, "upload", this.state['is_file_taxes_jointly'], name, id);
+  },
+
+  afterRemovingDocumentCoBorrower: function(typeDocument) {
+    this.props.updateDocuments("coborrower", typeDocument, "remove", this.state['is_file_taxes_jointly']);
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -246,6 +252,9 @@ var FormDocuments = React.createClass({
     state['is_file_taxes_jointly'] = loan.borrower.is_file_taxes_jointly;
     state.activateRequiredField = false;
     state.activateCoRequiredField = false;
+
+    uploaded_files = [];
+
     this.setStateForUploadFields(borrower, state, owner_upload_fields);
     if (secondary_borrower) {
       this.setStateForUploadFields(secondary_borrower, state, co_borrower_upload_fields);
@@ -311,8 +320,9 @@ var FormDocuments = React.createClass({
 
   save: function(event) {
     this.setState({saving: true, activateRequiredField: true, activateCoRequiredField: true, activateFileTaxesJointlyError: true});
+    var isValid = this.valid();
 
-    if(this.valid()){
+    if(isValid){
       this.props.saveLoan(this.buildLoanFromState(), 2);
     }
     else{

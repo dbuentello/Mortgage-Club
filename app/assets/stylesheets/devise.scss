@@ -1,6 +1,6 @@
 .authentication-part {
 
-  .login-form, .signup-form, .user-update-form, .forgot-password-form, .confirmation-form {
+  .login-form, .signup-form, .user-update-form, .forgot-password-form, .confirmation-form, .user-change-password-form{
     font-family:'aileronregular';
     overflow-x:hidden;
     position:relative;
@@ -157,12 +157,12 @@
     background:white; color:#15c0f1;  border-color:#15c0f1;
   }
 
-  #btnSignupDevise{
+  #btnSignupDevise, #btnChangePassword {
     border-bottom: solid 2px rgba(0, 0, 0, 0.3);
     border-color: #15c0f1;
   }
 
-  #btnSignupDevise:hover{
+  #btnSignupDevise:hover, #btnChangePassword:hover {
     background:white; color:#15c0f1;  border-color:#15c0f1;
   }
 

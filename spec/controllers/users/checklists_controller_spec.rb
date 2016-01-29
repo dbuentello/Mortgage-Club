@@ -3,7 +3,7 @@ require "rails_helper"
 describe Users::ChecklistsController do
   include_context "signed in as borrower user of loan"
 
-  let(:checklist) { FactoryGirl.create(:checklist_explain) }
+  let(:checklist) { FactoryGirl.create(:checklist_explain, loan: loan) }
   let(:user) { FactoryGirl.create(:user) }
 
   describe ".update" do

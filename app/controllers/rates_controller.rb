@@ -4,8 +4,9 @@ class RatesController < ApplicationController
 
     return redirect_to edit_loan_url(@loan) unless @loan.completed?
 
+    rate_programs = []
     if @loan.subject_property.address && zipcode = @loan.subject_property.address.zip
-      rate_programs = ZillowService::GetMortgageRates.new(@loan.id, zipcode).call
+      rate_programs = LoanTekServices::GetQuotes.new(@loan).call
     end
 
     bootstrap({
