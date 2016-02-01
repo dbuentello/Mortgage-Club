@@ -8,7 +8,7 @@ var TabAsset = {
       return false;
     }
 
-    if(loan.own_investment_property == true && !this.rentalPropertiesCompleted(loan)) {
+    if(loan.own_investment_property !== undefined && !this.rentalPropertiesCompleted(loan)) {
       return false;
     }
 
