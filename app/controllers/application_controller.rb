@@ -63,9 +63,9 @@ class ApplicationController < ActionController::Base
     customized_flash
   end
 
-  def set_loan_edit_page(id, own_investment_property)
-    @loan = Loan.find(id)
-    @loan.own_investment_property = own_investment_property
+  def set_loan_edit_page
+    @loan = Loan.find(params[:loan_id])
+    @loan.own_investment_property = params[:own_investment_property]
     @loan.save
   end
 end

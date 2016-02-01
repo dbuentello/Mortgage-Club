@@ -1,6 +1,6 @@
 class PropertiesController < ApplicationController
   def create
-    set_loan_edit_page(params[:loan_id], params[:own_investment_property])
+    set_loan_edit_page
 
     credit_report_id = @loan.borrower.credit_report.try(:id)
     @properties = CreatePropertyForm.new({
