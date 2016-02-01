@@ -88,6 +88,7 @@ describe("check if tab asset is completed or not", function() {
 
   var assetHasInvalidPrimaryProperty = {
     subject_property: {
+      id: "lorem",
       property_type: Math.floor(Math.random() * propertyTypes.length),
       usage: Math.floor(Math.random() * usageTypes.length),
       market_price: 12233232,
@@ -102,6 +103,7 @@ describe("check if tab asset is completed or not", function() {
       }
     },
     primary_property: {
+      id: "ipsum",
       property_type: null,
       usage: null,
       market_price: null,
