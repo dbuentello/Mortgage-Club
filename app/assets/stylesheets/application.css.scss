@@ -323,11 +323,8 @@ hr {
       .dropdownArrow {
         right:0; top:3px; border-left:#15c0f1 1px solid;
       }
-
-      .dropdown-toggle:hover .dropdownArrow {
-        border-color:white;
-        filter:brightness(10000%);
-        -webkit-filter:brightness(10000%)
+      .dropdown-toggle {
+        border-color: #15c0f1;
       }
     }
 
@@ -338,12 +335,13 @@ hr {
       padding:0;
       border-radius:0;
       border-color:#15c0f1;
-      background:#15c0f1;
+      background-color: white;
+      color:#15c0f1;
     }
 
-    .dropdown-menu>li>a {padding:10px 20px; color:white;}
+    .dropdown-menu>li>a {padding:10px 20px; color:#15c0f1;}
 
-    .dropdown-menu>li>a:hover {background: white; color:#15c0f1;}
+    .dropdown-menu>li>a:hover {background: #15c0f1; color:white;}
 
     .dropdown-menu>li>a:hover #logoutImg{filter:brightness(100%); -webkit-filter:brightness(100%);}
   }
@@ -402,11 +400,7 @@ hr {
     .dropdownArrow {top:5px;}
   }
 
-  #accountBtn:hover {background:#15c0f1; color:white;}
-
   #accountBtn:active {box-shadow:none; border-color:#15c0f1}
-
-  #accountBtn:focus {border-color:#15c0f1}
 
   #accountBtnImg {
     margin-right: 7px;
@@ -417,9 +411,7 @@ hr {
 
   .theBtn:hover {background:white; color:#15c0f1;  border-color:#15c0f1;}
 
-  .active-loans { background:#15c0f1 !important; color:white !important;  border-color:#15c0f1 !important; }
-
-  .active-loans #loanBtnImg {
+  .active-loans #loanBtnImg:hover {
     filter:brightness(10000%); -webkit-filter: brightness(10000%);
   }
 
