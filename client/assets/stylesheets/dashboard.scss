@@ -272,11 +272,7 @@ a.remove {
       }
     }
 
-    .table-overview .table > thead > tr > th{
-      border-bottom: none;
-    }
-
-    .table {
+  .table {
 
       .dash-table-btn{
         text-align: center;
@@ -285,6 +281,7 @@ a.remove {
         background: #e1e1e1;
         border-radius: 5px;
       }
+
 
       .btn {
         border-bottom: none;
@@ -305,6 +302,9 @@ a.remove {
         color: blue;
       }
     }
+  }
+  .table > thead > tr > th{
+      border-bottom: none;
   }
 
   .sidebar{
