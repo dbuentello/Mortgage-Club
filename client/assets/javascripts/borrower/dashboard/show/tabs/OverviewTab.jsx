@@ -86,7 +86,7 @@ var OverviewTab = React.createClass({
           <div className="board-header">
             <h2 className="board-title text-capitalize">your loan checklist</h2>
           </div>
-          <div className="table-responsive">
+          <div className="table-responsive table-overview">
             <table className="table table-condensed">
               <thead>
                 <tr>
