@@ -272,6 +272,10 @@ a.remove {
       }
     }
 
+    .table-overview .table > thead > tr > th{
+      border-bottom: none;
+    }
+
     .table {
 
       .dash-table-btn{
