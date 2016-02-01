@@ -8,7 +8,7 @@ var TabAsset = {
       return false;
     }
 
-    if(loan.own_investment_property !== undefined && !this.rentalPropertiesCompleted(loan)) {
+    if(loan.own_investment_property == true && !this.rentalPropertiesCompleted(loan)) {
       return false;
     }
 
@@ -73,7 +73,7 @@ var TabAsset = {
   },
 
   requiredPrimaryProperty: function(loan) {
-    if(loan.primary_property !== undefined && loan.primary_property !== null && loan.primary_property != loan.subject_property) {
+    if(loan.primary_property !== undefined && loan.primary_property !== null && loan.primary_property.id !== loan.subject_property.id) {
       return true;
     }
     return false;
