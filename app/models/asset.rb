@@ -18,6 +18,7 @@ class Asset < ActiveRecord::Base
   enum asset_type: [:checkings, :savings, :investment, :retirement, :other]
 
   PERMITTED_ATTRS = [
+    :id,
     :institution_name,
     :asset_type,
     :current_balance

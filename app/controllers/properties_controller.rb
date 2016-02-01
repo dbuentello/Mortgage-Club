@@ -1,9 +1,8 @@
 class PropertiesController < ApplicationController
   def create
-    loan = Loan.find_by_id(params[:loan_id])
-    loan.own_investment_property = params[:own_investment_property]
-    loan.save
-    credit_report_id = loan.borrower.credit_report.try(:id)
+    set_loan_edit_page
+
+    credit_report_id = @loan.borrower.credit_report.try(:id)
     @properties = CreatePropertyForm.new({
       loan_id: params[:loan_id],
       credit_report_id: credit_report_id,
@@ -13,7 +12,7 @@ class PropertiesController < ApplicationController
     })
 
     if @properties.save
-      render json: {loan: LoanEditPage::LoanPresenter.new(loan).show, liabilities: load_liabilities(loan)}
+      render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show, liabilities: load_liabilities(@loan)}
     else
       render json: {message: "cannot save liabilities"}, status: 500
     end
