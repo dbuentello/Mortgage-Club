@@ -9,7 +9,7 @@ var RouteHandler = Router.RouteHandler;
 var AppStarter = require('tools/AppStarter');
 var FrontendTest = require('public/FrontendTest');
 var BackendTest = require('public/BackendTest');
-var PotentialUserInterface = require('public/PotentialUserInterface');
+var RateAlert = require('public/RateAlert');
 
 window.PublicApp = React.createClass({
   contextTypes: {
@@ -29,7 +29,7 @@ var routes = (
   <Route name='app' path='/' handler={PublicApp}>
     <Route name='frontend_test' handler={FrontendTest}/>
     <Route name='backend_test' handler={BackendTest}/>
-    <Route name='guest' handler={PotentialUserInterface}/>
+    <Route name='rate-alert' handler={RateAlert}/>
     <DefaultRoute handler={BackendTest}/>
   </Route>
 );

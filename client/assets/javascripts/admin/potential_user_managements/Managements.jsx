@@ -17,12 +17,13 @@ var Managements = React.createClass({
       <div className='content container'>
         <div className='pal'>
           <div className='row'>
-            <h2 className='mbl'>Potential User Managements</h2>
+            <h2 className='mbl'>Rate Alert</h2>
             <table className="table table-striped">
               <thead>
                 <tr>
                   <th>Email</th>
                   <th>Phone Number</th>
+                  <th>Send As</th>
                   <th>Mortgage Statement</th>
                   <th></th>
                 </tr>
@@ -34,6 +35,7 @@ var Managements = React.createClass({
                       <tr key={potential_user.id}>
                         <td>{potential_user.email}</td>
                         <td>{potential_user.phone_number}</td>
+                        <td>{potential_user.alert_method}</td>
                         <td>
                           <a href={potential_user.url}>
                             {potential_user.mortgage_statement_file_name}

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get "home_test_rates", to: "pages#home_test_rates"
   get "backend_test", to: "pages#backend_test"
   get "frontend_test", to: "pages#frontend_test"
-  get "guest", to: "potential_users#new"
+  get "rate-alert", to: "potential_users#new"
   post "/potential_users", to: "potential_users#create"
   post "mailjet_tracking", to: "mailjet_tracking#track"
   get "/esigning/:id", to: "electronic_signature#new"
