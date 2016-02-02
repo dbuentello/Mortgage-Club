@@ -2,7 +2,7 @@ module HomepageRateServices
   class GetMortgageAprs
     def self.call(refresh_cache = false)
       # return default_aprs unless Rails.env.production?
-      refresh_cache = true
+
       cache_key = "mortgage-apr"
 
       if !refresh_cache && mortgage_aprs = REDIS.get(cache_key)

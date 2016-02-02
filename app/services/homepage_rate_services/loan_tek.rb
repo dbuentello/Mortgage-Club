@@ -14,7 +14,7 @@ module HomepageRateServices
           QuotingChannel: 0,
           ClientDefinedIdentifier: ENV["LOANTEK_IDENTIFIER"],
           ZipCode: 94103,
-          CreditScore: 'R_760_',
+          CreditScore: 760,
           LoanPurpose: 1,
           LoanAmount: 400000,
           LoanToValue: 80,
