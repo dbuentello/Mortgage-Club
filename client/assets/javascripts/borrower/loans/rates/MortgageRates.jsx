@@ -76,7 +76,7 @@ var MortgageRates = React.createClass({
         <div className={this.state.helpMeChoose ? "content container mortgage-rates padding-top-0 white-background" : "content container mortgage-rates padding-top-0"}>
           { this.state.helpMeChoose
             ?
-              <HelpMeChoose choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
+              <HelpMeChoose programsPageUrl={"rates?loan_id=" + this.props.bootstrapData.currentLoan.id } choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
             :
             null
           }

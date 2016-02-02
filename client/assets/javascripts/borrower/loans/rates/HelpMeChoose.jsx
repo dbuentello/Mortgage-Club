@@ -150,10 +150,16 @@ var HelpMeChoose = React.createClass({
       d3.select("." + klassName).attr("class", klassName);
     }
   },
+  handleGoRatesPage: function() {
+    window.location.href = this.props.programsPageUrl;
+  },
 
   render: function() {
     return (
       <div className="row white-background">
+        <div className="row navigation-section">
+          <button className="btn select-btn back-btn" onClick={this.handleGoRatesPage}>Back </button>
+        </div>
         <div className='row helpmechoose'>
           <div className='col-lg-7'>
             <div className='col-lg-11 calculator'>
