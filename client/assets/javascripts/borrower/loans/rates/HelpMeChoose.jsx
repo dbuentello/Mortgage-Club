@@ -253,7 +253,7 @@ var HelpMeChoose = React.createClass({
                   APR
                 </div>
                 <div className='col-lg-6'>
-                  {this.commafy(this.props.bestRate.apr, 3)}%
+                  {this.commafy(this.props.bestRate.apr * 100, 3)}%
                 </div>
               </div>
               <div className='row secondary-cost'>

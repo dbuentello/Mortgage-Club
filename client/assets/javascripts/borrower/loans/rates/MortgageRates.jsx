@@ -34,7 +34,7 @@ var MortgageRates = React.createClass({
       return rate['total_cost'];
     }.bind(this));
 
-    possibleRates = possibleRates.slice(0, 3);
+    possibleRates = possibleRates.slice(0, 1);
 
     this.setState({
       possibleRates: possibleRates,

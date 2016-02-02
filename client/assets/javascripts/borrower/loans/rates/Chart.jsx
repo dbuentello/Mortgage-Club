@@ -12,7 +12,7 @@ var Chart = React.createClass({
           <div className="row">
             <div id={"piechart" + this.props.id} className="pie-chart"></div>
           </div>
-          <div className="row">
+          <div className="row" style={{marginTop:20}}>
             <div className="info-board">
               <table className="table">
                 <thead>
