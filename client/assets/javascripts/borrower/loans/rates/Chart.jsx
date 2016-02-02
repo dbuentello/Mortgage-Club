@@ -1,11 +1,9 @@
 var _ = require('lodash');
 var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
-var MortgageCalculatorMixin = require('mixins/MortgageCalculatorMixin');
-var ChartMixin = require('mixins/ChartMixin');
 
 var Chart = React.createClass({
-  mixins: [TextFormatMixin, MortgageCalculatorMixin, ChartMixin],
+  mixins: [TextFormatMixin],
 
   render: function() {
     return (
@@ -47,14 +45,6 @@ var Chart = React.createClass({
         </div>
       </div>
     )
-  },
-
-  drawPie: function(){
-    this.drawPieChart(this.props.id, this.props.principle, this.props.hazardInsurance, this.props.propertyTax, this.props.mortgageInsurance, this.props.hoadue, this.props.total);
-  },
-
-  drawLine: function(){
-    this.drawLineChart(this.props.id, this.props.numOfMonths, parseInt(this.props.loanAmount), this.props.interestRate, this.props.principle);
   }
 });
 

@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="/favicon.png">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
   </head>
@@ -31,6 +32,9 @@
       <!--End of Zopim Live Chat Script-->
     <% end %>
 
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+    </script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
   </body>
 </html>

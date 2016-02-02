@@ -2,102 +2,59 @@ var TextFormat = require("mixins/TextFormatMixin")
 var ChartMixin = {
 
   drawPieChart: function(id, principal, hazardInsurance, propertyTax, mortgageInsurance, hoadue, totalMontlyPayment) {
-    $("#piechart" + id).append("<p class='piechart-center'>Your payment<br/>$" + totalMontlyPayment + "</p>");
     principal = parseFloat(principal);
     hazardInsurance = parseFloat(hazardInsurance);
     propertyTax = parseFloat(propertyTax);
 
-    var dataset = [
-      { label: 'P&I', count: principal },
-      { label: 'Insurance', count: hazardInsurance },
-      { label: 'Taxes', count: propertyTax }
-    ];
+    google.charts.setOnLoadCallback(drawChart);
 
-    if (mortgageInsurance !== undefined && mortgageInsurance !== null && mortgageInsurance !== 0){
-      mortgageInsurance = parseFloat(mortgageInsurance);
-      dataset.push({label: "H&I", count: mortgageInsurance})
-    }
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Label', 'Amount'],
+        ['P&I (' + TextFormat.formatCurrency(principal) + ')',       principal],
+        ['Insurance (' + TextFormat.formatCurrency(hazardInsurance) + ')', hazardInsurance],
+        ['Taxes (' + TextFormat.formatCurrency(propertyTax) + ')',     propertyTax]
+      ]);
 
-    if (hoadue !== undefined && hoadue !== null && hoadue !== 0){
-      hoadue = parseFloat(hoadue);
-      dataset.push({label: "HOA Due", count: hoadue})
-    }
+      if (mortgageInsurance !== undefined && mortgageInsurance !== null && mortgageInsurance !== 0){
+        mortgageInsurance = parseFloat(mortgageInsurance);
+        data.addRow(['H&I (' + TextFormat.formatCurrency(mortgageInsurance) + ')', mortgageInsurance])
+      }
 
-    var color = d3.scale.category20c();
-    var data = [dataset];
+      if (hoadue !== undefined && hoadue !== null && hoadue !== 0){
+        hoadue = parseFloat(hoadue);
+        data.addRow(['HOA Due (' + TextFormat.formatCurrency(hoadue) + ')', hoadue])
+      }
 
-    var pieContainer = $("#piechart" + id);
-    var pieWidth = pieContainer.width();
+      var options = {
+        pieHole: 0.5,
+        chartArea: {
+          left:20,
+          top:0,
+          width:'100%',
+          height:'100%'
+        },
+        pieSliceText: 'value',
+        tooltip: {trigger: 'selection'},
+        colors: ['#3182BD', '#6BAED6', '#9ECAE1', '#C6DBEF', '#E9E4F2']
+      };
 
-    var pieHeight = pieWidth;
-    var radius = pieWidth*.274;//60
-    var donutWidth = radius*.4;//24
+      var chart = new google.visualization.PieChart(document.getElementById('piechart' + id));
 
-    var arc = d3.svg.arc()
-      .innerRadius(radius - donutWidth)
-      .outerRadius(radius);
-
-    var pie = d3.layout.pie()
-      .value(function(d) { return d.count; })
-      .sort(null);
-
-    var svg = d3.select("#piechart" + id)
-      .append('svg')
-      .attr('width', pieWidth)
-      .attr('height', pieHeight)
-      .append('g')
-      .attr('transform', 'translate(' + (pieWidth / 2) +
-        ',' + (pieHeight / 2) + ')');
-
-    var path = svg.selectAll('g.slice')
-      .data(pie(data[0]))
-      .enter()
-      .append('g')
-      .attr('class','slice');
-      //.attr('d', arc);
-
-    path.append('path')
-      .attr('d', arc)
-      .style("stroke", "#fff")
-      .style("stroke-width", "2")
-      .style("fill-rule", "evenodd")
-      .style("fill", function(d, i) { return color(data[0][i].label); });
-
-
-      // Add a legendLabel to each arc slice...
-    var pieText = path.append("svg:text");
-
-    pieText.append('tspan')
-      .attr('x',0)
-      .attr('dy','1.2em')
-      .style("font-size", "0.8em")
-      .text(function(d, j) {
-        return data[0][j].label;
+      google.visualization.events.addOneTimeListener(chart, 'ready', function(entry) {
+        chart.setSelection([{row: 0, column: null}]);
       });
 
-    pieText.append('tspan')
-      .attr('x',0)
-      .attr('dy','1.2em')
-      .style("font-size", "1.1em")
-      .text(function(d, j) {
-        return TextFormat.formatCurrency(data[0][j].count);
+      google.visualization.events.addListener(chart, 'onmouseover', function(entry) {
+        chart.setSelection([entry]);
       });
 
-    pieText.attr("transform", function(d) { //set the label's origin to the center of the arc
-     //we have to make sure to set these before calling arc.centroid
-      var textHeight = 33;
+      google.visualization.events.addListener(chart, 'onmouseout', function(entry) {
+        chart.setSelection([]);
+      });
 
-      var c = arc.centroid(d),
-        x = c[0],
-        y = c[1],
-        // pythagorean theorem for hypotenuse
-        h = Math.sqrt(x*x + y*y);
-      return "translate(" + (x/h * 85/60 * radius) +  ',' + (y/h * 85/60 * radius - textHeight/2) +  ")";
-    }).attr("text-anchor", "middle");
-
-    pieText.style("fill", "#14c0f0").style("transform-origin", "50% 50%");
-
-    $("#piechart" + id).append('<p></p>');
+      chart.draw(data, options);
+    }
   },
 
   totalInterestPaid1: function(amount, rate, expectedMortgageDuration, monthlyPayment) {
@@ -113,6 +70,18 @@ var ChartMixin = {
     }
     return Math.round(totalInterest * 100) / 100;
   },
+
+  // mortgageCalculation: function(numOfMonths, loanAmount, interestRate, monthlyPayment){
+  //   var data = [];
+  //   for(var i = 0; i <= numOfMonths; i++){
+  //     var interest = this.totalInterestPaid1(loanAmount, interestRate, i/12, monthlyPayment);
+  //     var principal = monthlyPayment * i - interest;
+  //     var remaining = loanAmount - principal;
+
+  //     data.push([i, principal, interest, remaining]);
+  //   }
+  //   return data;
+  // },
 
   mortgageCalculation: function(numOfMonths, loanAmount, interestRate, monthlyPayment){
     var interests = [];
@@ -132,6 +101,29 @@ var ChartMixin = {
   },
 
   drawLineChart: function(id, numOfMonths, loanAmount, interestRate, monthlyPayment) {
+    // var calculateData = this.mortgageCalculation(numOfMonths, loanAmount, interestRate, monthlyPayment);
+
+    // google.charts.setOnLoadCallback(drawChart);
+
+    // function drawChart() {
+    //   var data = new google.visualization.DataTable();
+
+    //   data.addColumn('number', 'Month');
+    //   data.addColumn('number', 'Principal');
+    //   data.addColumn('number', 'Interest');
+    //   data.addColumn('number', 'Remaining');
+
+    //   data.addRows(calculateData);
+
+    //   var options = {
+    //     curveType: 'function',
+    //     legend: { position: 'bottom' }
+    //   };
+
+    //   var chart = new google.visualization.LineChart(document.getElementById('linechart' + id));
+
+    //   chart.draw(data, options);
+    // }
     var colors = ["#ff7575", "#00bc9c", "#14c0f0"];
 
     var data = this.mortgageCalculation(numOfMonths, loanAmount, interestRate, monthlyPayment);
