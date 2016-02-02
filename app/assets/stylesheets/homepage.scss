@@ -291,8 +291,16 @@
   }
 
   .asseen {
-    width: 300px;
+    width: 326px;
     display:table;
+  }
+  .header-logo {
+    .partner-logo {
+      img {
+        padding-top: 20px;
+        width: 200px;
+      }
+    }
   }
 
   .asseen div {
