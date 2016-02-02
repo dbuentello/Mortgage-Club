@@ -313,10 +313,8 @@ module Docusign
       end
 
       def other_considerations
-        @params['assumption_will_allow'] = 'x' if loan.assumption_will_allow
-        @params['assumption_will_not_allow'] = 'x' if loan.assumption_will_not_allow
-        @params['servicing_service'] = 'x' if loan.servicing_service
-        @params['servicing_transfer'] = 'x' if loan.servicing_transfer
+        @params['assumption_will_not_allow'] = 'x'
+        @params['servicing_transfer'] = 'x'
         @params['late_fee_text_top'] = 'the monthly'
         @params['late_fee_text_bottom'] ='principal and interest payment'
         map_string_to_params(['late_days'])
