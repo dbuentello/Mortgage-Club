@@ -10,7 +10,7 @@ var ChartMixin = {
 
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
-        ['Effort', 'Amount given'],
+        ['Label', 'Amount'],
         ['P&I (' + TextFormat.formatCurrency(principal) + ')',       principal],
         ['Insurance (' + TextFormat.formatCurrency(hazardInsurance) + ')', hazardInsurance],
         ['Taxes (' + TextFormat.formatCurrency(propertyTax) + ')',     propertyTax]
@@ -71,6 +71,18 @@ var ChartMixin = {
     return Math.round(totalInterest * 100) / 100;
   },
 
+  // mortgageCalculation: function(numOfMonths, loanAmount, interestRate, monthlyPayment){
+  //   var data = [];
+  //   for(var i = 0; i <= numOfMonths; i++){
+  //     var interest = this.totalInterestPaid1(loanAmount, interestRate, i/12, monthlyPayment);
+  //     var principal = monthlyPayment * i - interest;
+  //     var remaining = loanAmount - principal;
+
+  //     data.push([i, principal, interest, remaining]);
+  //   }
+  //   return data;
+  // },
+
   mortgageCalculation: function(numOfMonths, loanAmount, interestRate, monthlyPayment){
     var interests = [];
     var principals = [];
@@ -89,6 +101,29 @@ var ChartMixin = {
   },
 
   drawLineChart: function(id, numOfMonths, loanAmount, interestRate, monthlyPayment) {
+    // var calculateData = this.mortgageCalculation(numOfMonths, loanAmount, interestRate, monthlyPayment);
+
+    // google.charts.setOnLoadCallback(drawChart);
+
+    // function drawChart() {
+    //   var data = new google.visualization.DataTable();
+
+    //   data.addColumn('number', 'Month');
+    //   data.addColumn('number', 'Principal');
+    //   data.addColumn('number', 'Interest');
+    //   data.addColumn('number', 'Remaining');
+
+    //   data.addRows(calculateData);
+
+    //   var options = {
+    //     curveType: 'function',
+    //     legend: { position: 'bottom' }
+    //   };
+
+    //   var chart = new google.visualization.LineChart(document.getElementById('linechart' + id));
+
+    //   chart.draw(data, options);
+    // }
     var colors = ["#ff7575", "#00bc9c", "#14c0f0"];
 
     var data = this.mortgageCalculation(numOfMonths, loanAmount, interestRate, monthlyPayment);
