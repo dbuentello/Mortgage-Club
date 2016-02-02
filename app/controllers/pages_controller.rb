@@ -4,7 +4,7 @@ class PagesController < ApplicationController
 
   def index
     @refcode = params[:refcode]
-    @mortgage_aprs = MortgageRateServices::GetMortgageAprs.call
+    @mortgage_aprs = HomepageRateServices::GetMortgageAprs.call
 
     if @mortgage_aprs['updated_at'].present?
       @last_updated = Time.zone.parse(@mortgage_aprs['updated_at'].to_s).in_time_zone("Pacific Time (US & Canada)").strftime('%b %d, %G %I:%M %p %Z')

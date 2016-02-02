@@ -1,9 +1,9 @@
-module MortgageRateServices
+module HomepageRateServices
   class Wellsfargo
     include HTTParty
 
     def self.call
-      html = get("https://www.wellsfargo.com/mortgage/rates")
+      html = get("https://www.wellsfargo.com/mortgage/rates", verify: false)
       doc = Nokogiri::HTML(html)
 
       apr_5_libor = 0

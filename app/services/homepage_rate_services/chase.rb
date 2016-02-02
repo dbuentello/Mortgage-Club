@@ -1,7 +1,7 @@
 require 'capybara'
 require 'capybara/poltergeist'
 
-module MortgageRateServices
+module HomepageRateServices
   class Chase
     include Capybara::DSL
 

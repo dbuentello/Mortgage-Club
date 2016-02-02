@@ -1,16 +1,16 @@
-module MortgageRateServices
+module HomepageRateServices
   class GetMortgageAprs
     def self.call(refresh_cache = false)
-      return default_aprs unless Rails.env.production?
+      # return default_aprs unless Rails.env.production?
 
       cache_key = "mortgage-apr"
 
       if !refresh_cache && mortgage_aprs = REDIS.get(cache_key)
         mortgage_aprs = JSON.parse(mortgage_aprs)
       else
-        zillow = MortgageRateServices::Zillow.call
-        quicken_loans = MortgageRateServices::Quickenloans.call
-        wellsfargo = MortgageRateServices::Wellsfargo.call
+        zillow = HomepageRateServices::LoanTek.call
+        quicken_loans = HomepageRateServices::Quickenloans.call
+        wellsfargo = HomepageRateServices::Wellsfargo.call
 
         edit_rates(zillow, quicken_loans, wellsfargo)
 
