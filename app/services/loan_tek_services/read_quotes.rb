@@ -14,6 +14,9 @@ module LoanTekServices
     }
 
     def self.call(quotes)
+      nmls_array = Lender.pluck(:name, :nmls)
+      nmls_hash = Hash[nmls_array.map { |name, nmls| [name, nmls] }]
+
       programs = quotes.map! do |quote|
         {
           lender_name: quote["LenderName"],
@@ -28,10 +31,9 @@ module LoanTekServices
           monthly_payment: get_monthly_payment(quote),
           lender_credit: get_lender_credit(quote),
           total_closing_cost: get_total_closing_cost(quote),
-          nmls: ""
+          nmls: nmls_hash[quote["LenderName"]]
         }
       end
-
       programs.sort_by { |program| program[:apr] }
     end
 

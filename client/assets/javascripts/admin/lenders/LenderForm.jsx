@@ -19,6 +19,7 @@ var LenderForm = React.createClass({
       contact_name: lender.contact_name,
       contact_email: lender.contact_email,
       contact_phone: lender.contact_phone,
+      nmls: lender.nmls,
       saving: false
     }
   },
@@ -157,6 +158,16 @@ var LenderForm = React.createClass({
                   label="Contact Phone"
                   keyName="contact_phone"
                   value={this.state.contact_phone}
+                  editable={true}
+                  onChange={this.onChange}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-2">
+                <TextField
+                  label="NMLS"
+                  keyName="nmls"
+                  value={this.state.nmls}
                   editable={true}
                   onChange={this.onChange}/>
               </div>

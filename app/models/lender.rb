@@ -11,11 +11,13 @@
 #  contact_email              :string
 #  contact_name               :string
 #  contact_phone              :string
+#  nmls                       :string
 
 class Lender < ActiveRecord::Base
   validates :name, presence: true
   validates :website, presence: true
   validates :rate_sheet, presence: true
+  validates :nmls, presence: true
 
   validates :lock_rate_email,
     presence: true,
@@ -56,7 +58,8 @@ class Lender < ActiveRecord::Base
     :docs_email,
     :contact_email,
     :contact_name,
-    :contact_phone
+    :contact_phone,
+    :nmls
   ]
 
   def self.dummy_lender
