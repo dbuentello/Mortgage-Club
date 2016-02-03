@@ -63,11 +63,17 @@ module LoanTekServices
     end
 
     def self.get_period(quote)
+      return 360 if self.arm?(quote)
+
       quote["ProductTerm"].to_i * 12
     end
 
     def self.get_interest_rate(quote)
       quote["Rate"].to_f / 100
+    end
+
+    def self.arm?(quote)
+      quote["ProductTerm"].include? "/1"
     end
   end
 end
