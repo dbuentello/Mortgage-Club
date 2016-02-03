@@ -64,6 +64,9 @@ class Lender < ActiveRecord::Base
     :nmls,
     :logo
   ]
+  def logo_url
+    logo.url if logo
+  end
 
   def self.dummy_lender
     if lender = Lender.where(name: "Dummy Lender").last
