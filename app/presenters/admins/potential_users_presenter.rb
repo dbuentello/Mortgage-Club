@@ -12,7 +12,7 @@ class Admins::PotentialUsersPresenter
   def json_options
     {
       only: [:id, :email, :phone_number, :mortgage_statement_file_name],
-      methods: [:url]
+      methods: [:url, :alert_method]
     }
   end
 end
