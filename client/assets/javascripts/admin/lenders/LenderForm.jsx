@@ -9,6 +9,7 @@ var LenderForm = React.createClass({
 
   getInitialState: function() {
     var lender = this.props.bootstrapData.lender;
+    var logo_url = this.props.bootstrapData.logo_url;
 
     return {
       id: lender.id,
@@ -22,6 +23,7 @@ var LenderForm = React.createClass({
       contact_phone: lender.contact_phone,
       nmls: lender.nmls,
       logo: lender.logo,
+      logo_url: logo_url,
       saving: false
     }
   },
@@ -199,15 +201,15 @@ var LenderForm = React.createClass({
                   onChange={this.onChange}/>
               </div>
             </div>
+            <img src={this.state.logo_url}/>
             <div className="row">
               <div className="form-group">
-                <div className="col-sm-6">
+                <div className="col-sm-4">
                   <div className="row file-upload-button">
                     <div className="col-md-12 text-center" data-toggle="tooltip">
                         <label>
                           <img src="/icons/upload.png" className="iconUpload"/>
                           <input name="logo" id="uploadFile" type="file" accept="image/*" onChange={this.handleFileChange}/>
-                          { this.state.logo }
                           <span className="fileName">Upload</span>
                         </label>
                     </div>

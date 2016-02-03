@@ -28,7 +28,7 @@ class Admins::LendersController < Admins::BaseController
   end
 
   def edit
-    bootstrap(lender: @lender)
+    bootstrap(lender: @lender, logo_url: @lender_logo_url)
 
     respond_to do |format|
       format.html { render template: 'admin_app' }
@@ -56,5 +56,6 @@ class Admins::LendersController < Admins::BaseController
 
   def load_lender
     @lender = Lender.find(params[:id])
+    @lender_logo_url = @lender.logo_url
   end
 end
