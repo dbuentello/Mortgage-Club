@@ -113,7 +113,7 @@ var MortgageRates = React.createClass({
                         <option value="apr">APR</option>
                         <option value="pmt">Monthly Payment</option>
                         <option value="rate">Rate</option>
-                        <option value="tcs">Total Closing Cost</option>
+                        <option value="tcc">Total Closing Cost</option>
                       </select>
                       <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
                     </div>
@@ -152,7 +152,7 @@ var MortgageRates = React.createClass({
       var sortedRates = _.sortBy(this.state.programs, function (rate) {
         return parseFloat(rate.interest_rate);
       });
-    } else if (field == 'tcs') {
+    } else if (field == 'tcc') {
       var sortedRates = _.sortBy(this.state.programs, function (rate) {
         return parseFloat(rate.total_closing_cost);
       });
