@@ -33,9 +33,20 @@ var LenderForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     this.setState({saving: true});
-    var form = document.forms.namedItem("lenderInfo");
-    var formData = new FormData(form);
 
+    var formData = new FormData();
+    formData.append("name", this.state.name);
+    formData.append("website", this.state.website);
+    formData.append("rate_sheet", this.state.rate_sheet);
+    formData.append("lock_rate_email", this.state.lock_rate_email);
+    formData.append("docs_email", this.state.docs_email);
+    formData.append("contact_name", this.state.contact_name);
+    formData.append("contact_email", this.state.contact_email);
+    formData.append("contact_phone", this.state.contact_phone);
+    formData.append("nmls", this.state.nmls);
+    if($("#uploadFile")[0].files.length >0) {
+      formData.append("logo", $("#uploadFile")[0].files[0]);
+    }
     if (this.state.id) {
       $.ajax({
         url: '/lenders/' + this.state.id,
@@ -63,13 +74,13 @@ var LenderForm = React.createClass({
         type: 'POST',
         encType: "multipart/form-data",
         dataType: 'json',
-        contentType: 'application/json',
-
-        data: JSON.stringify(this.state),
-
+        data: formData,
         success: function(resp) {
           location.href = '/lenders';
         },
+        contentType: false,
+        processData: false,
+        async: true,
         error: function(resp) {
           var flash = { "alert-danger": resp.responseJSON.message };
           this.showFlashes(flash);
@@ -103,7 +114,7 @@ var LenderForm = React.createClass({
         <div className='row'>
           {this.state.id ? <h2 className='mbl'>Edit Lender</h2> : <h2 className='mbl'>New Lender</h2>}
           <span className="text-warning"><i> All fields are required </i></span>
-          <form className="form-horizontal lender-form" type="json" enctype="multipart/form-data" name="lenderInfo" onSubmit={this.handleSubmit}>
+          <form className="form-horizontal lender-form" type="json" enctype="multipart/form-data" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <div className="col-sm-6">
                 <TextField
