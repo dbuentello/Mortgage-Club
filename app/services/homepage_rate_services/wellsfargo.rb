@@ -4,7 +4,7 @@ module HomepageRateServices
 
     def self.call
       apr_5_libor = WellsfargoServices::CrawlWellsfargoArmRate.new({
-        loan_purpose: "purchase",
+        loan_purpose: "Purchase",
         home_value: 400000,
         down_payment: 80000,
         property_state: "CA",

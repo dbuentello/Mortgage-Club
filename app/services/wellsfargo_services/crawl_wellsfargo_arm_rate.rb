@@ -22,30 +22,26 @@ module WellsfargoServices
       raise "property state is missing!" unless property_state.present?
       raise "property county is missing!" unless property_county.present?
 
-      begin
-        go_to_wellsfargo
-        fill_input_data
-        click_calculate
-        sleep(3)
-        get_arm_rate
-        close_crawler
-      rescue => error
-        crawler.save_and_open_page
-      end
+      go_to_wellsfargo
+      fill_input_data
+      click_calculate
+      sleep(3)
+      get_arm_rate
+      close_crawler
 
       arm_rate
     end
 
     def go_to_wellsfargo
-      crawler.visit("https://www.wellsfargo.com/mortgage/rates/calculator/")
+      crawler.visit("https://www.wellsfargo.com/mortgage/")
     end
 
     def fill_input_data
-      crawler.find("#loanPurpose").find("option[value='#{loan_purpose}']").click
-      crawler.find("#homeValue").set(home_value)
-      crawler.find("#downPayment").set(down_payment)
-      crawler.find("#propertyState").find("option[value='#{property_state}']").click
-      crawler.find("#propertyCounty").find("option[value='#{property_county}']").click
+      crawler.select(loan_purpose, from: 'Loan Purpose')
+      crawler.fill_in('Home Value', with: home_value)
+      crawler.fill_in('Down Payment', with: down_payment)
+      crawler.select(property_state, from: 'State')
+      crawler.select(property_county, from: 'County')
     end
 
     def click_calculate
@@ -64,12 +60,13 @@ module WellsfargoServices
 
     def set_up_crawler
       Capybara.register_driver :poltergeist do |app|
-        Capybara::Poltergeist::Driver.new(app, {js_errors: false, timeout: 60})
+        Capybara::Poltergeist::Driver.new(app, {
+          js_errors: true, timeout: 20, phantomjs_options: ['--load-images=no', '--ignore-ssl-errors=yes']
+        })
       end
-      crawler = Capybara::Session.new(:poltergeist)
-      crawler.driver.headers = {"User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X)"}
-      crawler
-      # Capybara::Session.new(:selenium)
+
+      Capybara.default_max_wait_time = 30
+      Capybara::Session.new(:poltergeist)
     end
 
     def close_crawler
