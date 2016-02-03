@@ -1,4 +1,4 @@
-module MortgageRateServices
+module HomepageRateServices
   class Quickenloans
     include HTTParty
 

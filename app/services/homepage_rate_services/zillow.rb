@@ -1,4 +1,4 @@
-module MortgageRateServices
+module HomepageRateServices
   class Zillow
     def self.call
       @rates = ZillowService::CrawlZillowRates.new({

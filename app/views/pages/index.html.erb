@@ -21,19 +21,19 @@
             </tr>
             <tr>
               <td>30 Year Fixed<hr/></td>
-              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['zillow']['apr_30_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['loan_tek']['apr_30_year']) %>%<hr/></td>
               <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['wellsfargo']['apr_30_year']) %>%<hr/></td>
               <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['quicken_loans']['apr_30_year']) %>%<hr/></td>
             </tr>
             <tr>
               <td>15 Year Fixed<hr/></td>
-              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['zillow']['apr_15_year']) %>%<hr/></td>
+              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['loan_tek']['apr_15_year']) %>%<hr/></td>
               <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['wellsfargo']['apr_15_year']) %>%<hr/></td>
               <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['quicken_loans']['apr_15_year']) %>%<hr/></td>
             </tr>
             <tr>
-              <td>5/1 Libor ARM<hr/></td>
-              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['zillow']['apr_5_libor']) %>%<hr/></td>
+              <td>5/1 ARM<hr/></td>
+              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['loan_tek']['apr_5_libor']) %>%<hr/></td>
               <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['wellsfargo']['apr_5_libor']) %>%<hr/></td>
               <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['quicken_loans']['apr_5_libor']) %>%<hr/></td>
             </tr>
@@ -238,7 +238,7 @@
         </div>
 
         <div class="client col-md-4 col-sm-4 col-xs-12 clearfix">
-          <p>“I chose MortgageClub because they had the lowest advertised rate and closing costs as I looked at mortgage re-fi's on the Zillow web site.”</p>
+          <p>“I chose MortgageClub because they had the lowest advertised rate and closing costs as I looked at mortgage re-fi's on the Loan Tek web site.”</p>
           <%= image_tag("client3.jpg") %>
           <h4>Paul</h4>
           <h6>San Mateo, CA</h6>

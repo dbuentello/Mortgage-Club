@@ -3,7 +3,7 @@ namespace :scheduler do
   task crawl_rates_for_homepage: :environment do
     puts "Crawling rates"
 
-    rates = MortgageRateServices::GetMortgageAprs.delay.call(true)
+    rates = HomepageRateServices::GetMortgageAprs.delay.call(true)
 
     puts "done."
   end
