@@ -37,11 +37,11 @@ module WellsfargoServices
     end
 
     def fill_input_data
-      crawler.select(loan_purpose, from: 'Loan Purpose')
-      crawler.fill_in('Home Value', with: home_value)
-      crawler.fill_in('Down Payment', with: down_payment)
-      crawler.select(property_state, from: 'State')
-      crawler.select(property_county, from: 'County')
+      crawler.select(loan_purpose, from: "Loan Purpose")
+      crawler.fill_in("Home Value", with: home_value)
+      crawler.fill_in("Down Payment", with: down_payment)
+      crawler.select(property_state, from: "State")
+      crawler.select(property_county, from: "County")
     end
 
     def click_calculate
@@ -61,7 +61,7 @@ module WellsfargoServices
     def set_up_crawler
       Capybara.register_driver :poltergeist do |app|
         Capybara::Poltergeist::Driver.new(app, {
-          js_errors: true, timeout: 20, phantomjs_options: ['--load-images=no', '--ignore-ssl-errors=yes']
+          js_errors: true, timeout: 20, phantomjs_options: ["--load-images=no", "--ignore-ssl-errors=yes"]
         })
       end
 
