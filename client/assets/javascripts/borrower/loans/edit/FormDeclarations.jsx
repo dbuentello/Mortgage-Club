@@ -105,7 +105,6 @@ var FormDeclarations = React.createClass({
   mixins: [ValidationObject],
 
   getInitialState: function() {
-    var currentUser = this.props.bootstrapData.currentUser;
     var state = this.buildStateFromLoan(this.props.loan);
     state.isValid = true;
     _.each(checkboxFields, function (field) {

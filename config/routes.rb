@@ -161,6 +161,12 @@ Rails.application.routes.draw do
     resources :lenders do
       resources :lender_templates
     end
+
+    resources :borrower_managements, only: [:index] do
+      member do
+        get "switch"
+      end
+    end
   end
 
   namespace :document_uploaders do

@@ -11,7 +11,6 @@ var StripeCheckbox = require('components/StripeCheckbox');
 
 var FormCreditCheck = React.createClass({
   getInitialState: function() {
-    var currentUser = this.props.bootstrapData.currentUser;
     var state = {};
     state.credit_check_agree = this.props.loan.credit_check_agree;
     return state;

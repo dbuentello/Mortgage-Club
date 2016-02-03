@@ -1,10 +1,6 @@
 var React = require('react/addons');
 
 var Lenders = React.createClass({
-  getInitialState: function() {
-    return {
-    };
-  },
   render: function() {
     return (
       <div className='content container'>
