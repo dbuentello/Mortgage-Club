@@ -187,11 +187,22 @@ body {
 }
 
 .mortgage-rates {
+  .navigation-section {
+    .back-btn {
+      color: white;
+      background: #15c0f1;
+      border: #15c0f1 1px solid;
+      border-radius: 5px;
+      font-size: 1.25em;
+      margin-left: 57px;
+    }
+  }
   .helpmechoose {
     left: 5%;
     right: 5%;
     margin-left: 10px;
     margin-right: 10px;
+
     h3 {
       font-size: 19px;
     }
