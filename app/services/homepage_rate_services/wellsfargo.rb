@@ -22,8 +22,6 @@ module HomepageRateServices
           apr_15_year = rate.parent.css("td").last.text.delete("%").to_f
         elsif rate.text == "30-Year Fixed Rate".freeze && rate.at_css("a").attr("href") == "/mortgage/rates/purchase-assumptions?prod=1".freeze
           apr_30_year = rate.parent.css("td").last.text.delete("%").to_f
-        else
-          next
         end
       end
 
