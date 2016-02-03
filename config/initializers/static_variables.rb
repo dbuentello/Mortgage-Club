@@ -64,7 +64,7 @@ if Rails.env.test?
   PAPERCLIP = {
     default_path: ":rails_root/public/uploads/:class/:token/:filename",
     potential_user_document_path: ":rails_root/public/uploads/:class/:id/:filename",
-    default_upload_path: ":rails_root/public/uploads/images/:class/:id/:filename",
+    default_upload_path: ":rails_root/public/uploads/:class/:id/:filename",
   }
 else
   PAPERCLIP = {
