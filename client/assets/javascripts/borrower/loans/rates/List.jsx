@@ -95,7 +95,7 @@ var List = React.createClass({
                 <div className="board-header">
                   <div className="row">
                     <div className="col-md-3 col-sm-6 col-sm-6">
-                      <img className="img-responsive"/>
+                      <img className="img-responsive" src={rate.logo_url}/>
                       <h4>NMLS: #{rate.nmls}</h4>
                     </div>
 
