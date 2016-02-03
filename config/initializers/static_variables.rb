@@ -63,11 +63,13 @@ ALLOWED_MIME_TYPES = IMAGE_MINE_TYPES + PDF_MINE_TYPES + MWORD_MINE_TYPES +
 if Rails.env.test?
   PAPERCLIP = {
     default_path: ":rails_root/public/uploads/:class/:token/:filename",
-    potential_user_document_path: ":rails_root/public/uploads/:class/:id/:filename"
+    potential_user_document_path: ":rails_root/public/uploads/:class/:id/:filename",
+    default_upload_path: ":rails_root/public/uploads/images/:class/:id/:filename",
   }
 else
   PAPERCLIP = {
     default_path: ':class/:token/:filename',
-    potential_user_document_path: ':class/:id/:filename'
+    potential_user_document_path: ':class/:id/:filename',
+    default_upload_path: ':class/:id/:filename'
   }
 end

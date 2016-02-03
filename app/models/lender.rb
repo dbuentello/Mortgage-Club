@@ -12,8 +12,14 @@
 #  contact_name               :string
 #  contact_phone              :string
 #  nmls                       :string
+#  logo                       :attachment
 
 class Lender < ActiveRecord::Base
+  has_many :lender_template_requirements, dependent: :destroy
+  has_many :lender_templates, through: :lender_template_requirements
+  has_many :loans
+  has_attached_file :logo, path: PAPERCLIP[:default_upload_path]
+
   validates :name, presence: true
   validates :website, presence: true
   validates :rate_sheet, presence: true
@@ -42,11 +48,7 @@ class Lender < ActiveRecord::Base
 
   validates :contact_name, presence: true
   validates :contact_phone, presence: true
-
-
-  has_many :lender_template_requirements, dependent: :destroy
-  has_many :lender_templates, through: :lender_template_requirements
-  has_many :loans
+  validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/
 
   after_save :create_other_lender_template
 
@@ -59,7 +61,8 @@ class Lender < ActiveRecord::Base
     :contact_email,
     :contact_name,
     :contact_phone,
-    :nmls
+    :nmls,
+    :logo
   ]
 
   def self.dummy_lender
