@@ -94,15 +94,11 @@ class User < ActiveRecord::Base
   end
 
   def borrower?
-    Rails.cache.fetch("borrower_role-#{id}-#{updated_at.to_i}", expires_in: 7.day) do
-      self.has_role? :borrower
-    end
+    self.has_role? :borrower
   end
 
   def loan_member?
-    Rails.cache.fetch("loan_member_role-#{id}-#{updated_at.to_i}", expires_in: 7.day) do
-      self.has_role? :loan_member
-    end
+    self.has_role? :loan_member
   end
 
   def admin?
