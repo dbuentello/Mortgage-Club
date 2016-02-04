@@ -4,8 +4,6 @@ require 'capybara/poltergeist'
 module ZillowService
   class CrawlZillowRates
     include HTTParty
-    include Capybara::DSL
-
     attr_accessor :zipcode, :purchase_price, :down_payment, :annual_income, :number_of_results, :crawler
 
     def initialize(args)

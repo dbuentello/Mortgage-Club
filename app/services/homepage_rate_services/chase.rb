@@ -3,8 +3,6 @@ require 'capybara/poltergeist'
 
 module HomepageRateServices
   class Chase
-    include Capybara::DSL
-
     def self.call
       self.set_up_crawler
       count = 0
