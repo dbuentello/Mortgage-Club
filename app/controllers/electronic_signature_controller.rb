@@ -62,6 +62,10 @@ class ElectronicSignatureController < ApplicationController
   private
 
   def lender_params
-    params.require(:lender).permit(:interest_rate, :name, :lender_nmls_id, :period, :amortization_type, :monthly_payment, :apr)
+    params.require(:lender).permit(
+      :interest_rate, :lender_name, :lender_nmls_id,
+      :period, :amortization_type, :monthly_payment,
+      :apr, :loan_type, :total_closing_cost
+    )
   end
 end

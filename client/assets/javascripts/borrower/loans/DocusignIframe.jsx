@@ -20,13 +20,15 @@ var DocusignIframe = React.createClass({
         id: this.props.bootstrapData.loan.id,
         fees: this.props.bootstrapData.rate.fees,
         lender: {
-          name: this.props.bootstrapData.rate.lender_name,
+          lender_name: this.props.bootstrapData.rate.lender_name,
           lender_nmls_id: this.props.bootstrapData.rate.nmls,
           interest_rate: this.props.bootstrapData.rate.interest_rate,
           period:  this.props.bootstrapData.rate.period,
           amortization_type: this.props.bootstrapData.rate.product,
           monthly_payment: this.props.bootstrapData.rate.monthly_payment,
-          apr: this.props.bootstrapData.rate.apr
+          apr: this.props.bootstrapData.rate.apr,
+          loan_type: this.props.bootstrapData.rate.loan_type,
+          total_closing_cost: this.props.bootstrapData.rate.total_closing_cost
         }
       },
       dataType: 'json',

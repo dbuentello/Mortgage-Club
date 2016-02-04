@@ -6,7 +6,7 @@ module RateServices
 
     def self.call(loan_id, fees, quote)
       loan = Loan.find(loan_id)
-      lender = get_lender(quote[:name])
+      lender = get_lender(quote[:lender_name])
 
       loan.tap do |l|
         l.lender_id = lender.id
@@ -16,10 +16,12 @@ module RateServices
         l.service_can_shop_fees = get_fees(fees, SERVICES_CAN_SHOP_TYPES)
         l.interest_rate = quote[:interest_rate].to_f
         l.lender_nmls_id = quote[:lender_nmls_id]
-        l.term_months = quote[:period].to_i
+        l.num_of_months = quote[:period].to_i
         l.amortization_type = quote[:amortization_type]
         l.monthly_payment = quote[:monthly_payment].to_f
         l.apr = quote[:apr].to_f
+        l.loan_type = quote[:loan_type].capitalize
+        l.estimated_closing_costs = quote[:total_closing_cost].to_f
         l.save
       end
     rescue ActiveRecord::RecordNotFound
