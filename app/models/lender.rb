@@ -48,7 +48,15 @@ class Lender < ActiveRecord::Base
 
   validates :contact_name, presence: true
   validates :contact_phone, presence: true
-  validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/
+  validates_attachment :logo,
+    presence: true,
+    content_type: {
+      content_type: /\Aimage\/.*\Z/,
+    },
+    size: {
+      less_than_or_equal_to: 2.megabytes,
+      message: ' must be less than or equal to 2MB'
+    }
 
   after_save :create_other_lender_template
 
