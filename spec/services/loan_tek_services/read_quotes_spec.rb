@@ -29,7 +29,8 @@ describe LoanTekServices::ReadQuotes do
       },
       "APR" => 3.75,
       "Rate" => 3.75,
-      "ProductTerm" => "15"
+      "ProductTerm" => "15",
+      "ProductFamily" => "CONVENTIONAL"
     ]
   end
 
@@ -64,7 +65,8 @@ describe LoanTekServices::ReadQuotes do
         lender_credit: -1520.0,
         total_closing_cost: 3035.0,
         nmls: nil,
-        logo_url: nil
+        logo_url: nil,
+        loan_type: "CONVENTIONAL"
       })
     end
   end
