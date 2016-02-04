@@ -285,16 +285,22 @@
 
   .header-logo  {
     text-align:center;
+    width: 150px;
     padding-top:20px;
     padding-bottom:20px;
   }
 
-  .header-logo div{
-    height:41px;
-  }
-
   .asseen {
+    width: 326px;
     display:table;
+  }
+  .header-logo {
+    .partner-logo {
+      img {
+        padding-top: 20px;
+        width: 200px;
+      }
+    }
   }
 
   .asseen div {
