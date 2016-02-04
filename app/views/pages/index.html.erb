@@ -21,21 +21,21 @@
             </tr>
             <tr>
               <td>30 Year Fixed<hr/></td>
-              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['loan_tek']['apr_30_year']) %>%<hr/></td>
-              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['wellsfargo']['apr_30_year']) %>%<hr/></td>
-              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['quicken_loans']['apr_30_year']) %>%<hr/></td>
+              <td><%= @mortgage_aprs['loan_tek']['apr_30_year'] %><hr/></td>
+              <td><%= @mortgage_aprs['wellsfargo']['apr_30_year'] %><hr/></td>
+              <td><%= @mortgage_aprs['quicken_loans']['apr_30_year'] %><hr/></td>
             </tr>
             <tr>
               <td>15 Year Fixed<hr/></td>
-              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['loan_tek']['apr_15_year']) %>%<hr/></td>
-              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['wellsfargo']['apr_15_year']) %>%<hr/></td>
-              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['quicken_loans']['apr_15_year']) %>%<hr/></td>
+              <td><%= @mortgage_aprs['loan_tek']['apr_15_year'] %><hr/></td>
+              <td><%= @mortgage_aprs['wellsfargo']['apr_15_year'] %><hr/></td>
+              <td><%= @mortgage_aprs['quicken_loans']['apr_15_year'] %><hr/></td>
             </tr>
             <tr>
               <td>5/1 ARM<hr/></td>
-              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['loan_tek']['apr_5_libor']) %>%<hr/></td>
-              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['wellsfargo']['apr_5_libor']) %>%<hr/></td>
-              <td><%= sprintf('%.3f'.freeze, @mortgage_aprs['quicken_loans']['apr_5_libor']) %>%<hr/></td>
+              <td><%= @mortgage_aprs['loan_tek']['apr_5_libor'] %><hr/></td>
+              <td><%= @mortgage_aprs['wellsfargo']['apr_5_libor'] %><hr/></td>
+              <td><%= @mortgage_aprs['quicken_loans']['apr_5_libor'] %><hr/></td>
             </tr>
           </table>
           <div>
