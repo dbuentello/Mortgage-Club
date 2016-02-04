@@ -149,6 +149,8 @@ Rails.application.routes.draw do
     resources :loan_member_managements do
     end
 
+    resources :homepage_rates
+
     resources :loan_faq_managements do
     end
 

@@ -7,5 +7,5 @@ class HomepageRate < ActiveRecord::Base
     :program,
     :rate_value
   ]
-  scope :today_rates, -> { where("created_at >= ?", Time.zone.now.beginning_of_day) }
+  scope :today_rates, -> {where("created_at >= ?", Time.zone.now.beginning_of_day)}
 end
