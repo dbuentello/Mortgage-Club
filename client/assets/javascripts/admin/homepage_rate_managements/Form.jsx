@@ -1,5 +1,5 @@
 var React = require("react/addons");
-var TextField = require('components/form/TextField');
+var TextField = require("components/form/TextField");
 
 var RateForm = React.createClass({
    getInitialState: function() {
@@ -20,27 +20,28 @@ var RateForm = React.createClass({
 
   handleSubmit: function(event) {
     $.ajax({
-        url: '/homepage_rates/' + this.state.id,
-        type: 'PUT',
-        dataType: 'json',
-        contentType: 'application/json',
+        url: "/homepage_rates/" + this.state.id,
+        type: "PUT",
+        dataType: "json",
+        contentType: "application/json",
         data: JSON.stringify(this.state),
         success: function(resp) {
-          location.href = '/homepage_rates';
+          location.href = "/homepage_rates";
         },
         error: function(resp) {
           var flash = { "alert-danger": resp.responseJSON.message };
           this.setState({saving: false});
         }.bind(this)
-      });
+    });
+    event.preventDefault();
   },
 
   render: function(){
     return (
-      <div className='content container'>
-      <div className='pal'>
-        <div className='row'>
-          <h2 className='mbl'>Edit Homepage Rate</h2>
+      <div className="content container">
+      <div className="pal">
+        <div className="row">
+          <h2 className="mbl">Edit Homepage Rate</h2>
 
           <form className="form-horizontal form-homepage-rates" onSubmit={this.handleSubmit}>
 
@@ -70,8 +71,7 @@ var RateForm = React.createClass({
                     onChange={this.onChange}/>
                 </div>
               </div>
-            <button className="btn btn-primary btn-sm" type="submit">Save</button> &nbsp;
-
+            <button className="btn btn-primary btn-sm">Save</button> &nbsp;
           </form>
       </div>
       </div>

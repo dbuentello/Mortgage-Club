@@ -15,7 +15,7 @@ class Admins::HomepageRatesController < Admins::BaseController
     bootstrap(today_rates: today_rates)
 
     respond_to do |format|
-      format.html { render template: 'admin_app' }
+      format.html { render template: "admin_app" }
     end
   end
 
@@ -23,7 +23,7 @@ class Admins::HomepageRatesController < Admins::BaseController
     bootstrap(homepage_rate: @homepage_rate)
 
     respond_to do |format|
-      format.html { render template: 'admin_app' }
+      format.html { render template: "admin_app" }
     end
   end
 
