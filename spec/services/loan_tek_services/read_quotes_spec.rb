@@ -63,7 +63,8 @@ describe LoanTekServices::ReadQuotes do
         monthly_payment: 2618,
         lender_credit: -1520.0,
         total_closing_cost: 3035.0,
-        nmls: ""
+        nmls: nil,
+        logo_url: nil
       })
     end
   end

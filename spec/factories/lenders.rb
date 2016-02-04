@@ -8,6 +8,8 @@ FactoryGirl.define do
     f.contact_email { Faker::Internet.email }
     f.contact_name { Faker::Name.name }
     f.contact_phone { '(' + Faker::Number.number(3) + ') ' + Faker::Number.number(3) + '-' + Faker::Number.number(4) }
+    f.nmls { Faker::Name.name }
+    f.logo { File.new(Rails.root.join 'spec', 'files', 'sample.png') }
 
     after :create do |l|
       l.lender_templates << FactoryGirl.create(:lender_template)

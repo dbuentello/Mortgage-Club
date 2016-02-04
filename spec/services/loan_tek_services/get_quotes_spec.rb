@@ -9,6 +9,7 @@ describe LoanTekServices::GetQuotes do
       allow_any_instance_of(described_class).to receive(:credit_score).and_return(750)
       allow_any_instance_of(described_class).to receive(:zipcode).and_return(95127)
       allow_any_instance_of(described_class).to receive(:loan_amount).and_return(360000)
+      allow_any_instance_of(Lender).to receive(:logo_url).and_return("logo.png")
     end
 
     it "gets quotes with status 200" do

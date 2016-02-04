@@ -11,11 +11,19 @@
 #  contact_email              :string
 #  contact_name               :string
 #  contact_phone              :string
+#  nmls                       :string
+#  logo                       :attachment
 
 class Lender < ActiveRecord::Base
+  has_many :lender_template_requirements, dependent: :destroy
+  has_many :lender_templates, through: :lender_template_requirements
+  has_many :loans
+  has_attached_file :logo, path: PAPERCLIP[:default_upload_path]
+
   validates :name, presence: true
   validates :website, presence: true
   validates :rate_sheet, presence: true
+  validates :nmls, presence: true
 
   validates :lock_rate_email,
     presence: true,
@@ -40,11 +48,15 @@ class Lender < ActiveRecord::Base
 
   validates :contact_name, presence: true
   validates :contact_phone, presence: true
-
-
-  has_many :lender_template_requirements, dependent: :destroy
-  has_many :lender_templates, through: :lender_template_requirements
-  has_many :loans
+  validates_attachment :logo,
+    presence: true,
+    content_type: {
+      content_type: /\Aimage\/.*\Z/,
+    },
+    size: {
+      less_than_or_equal_to: 2.megabytes,
+      message: ' must be less than or equal to 2MB'
+    }
 
   after_save :create_other_lender_template
 
@@ -56,8 +68,13 @@ class Lender < ActiveRecord::Base
     :docs_email,
     :contact_email,
     :contact_name,
-    :contact_phone
+    :contact_phone,
+    :nmls,
+    :logo
   ]
+  def logo_url
+    logo.url if logo
+  end
 
   def self.dummy_lender
     if lender = Lender.where(name: "Dummy Lender").last
