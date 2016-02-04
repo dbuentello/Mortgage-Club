@@ -14,7 +14,6 @@ var HomepageRates = React.createClass({
                   <th>Lender Name</th>
                   <th>Program</th>
                   <th>Rate Value</th>
-
                   <th></th>
                 </tr>
                 </thead>
@@ -25,9 +24,8 @@ var HomepageRates = React.createClass({
                         <tr key={rate.id}>
                           <td nowrap>{rate.lender_name}</td>
                           <td>{rate.program}</td>
-                          <td>{rate.rate_value}</td>
+                          <td>{rate.rate_value}%</td>
                           <th>
-
                             <a className="linkTypeReversed btn btn-primary btn-sm col-sm-10 text-center" href={"/homepage_rates/" + rate.id + "/edit"}>Edit</a>
                           </th>
                         </tr>

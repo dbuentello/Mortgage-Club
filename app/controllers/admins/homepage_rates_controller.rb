@@ -1,18 +1,10 @@
 class Admins::HomepageRatesController < Admins::BaseController
   before_action :set_homepage_rate, only: [:edit, :update, :destroy]
+
   def index
-    today_rates = HomepageRate.today_rates
-    if today_rates.blank?
-      lender_names = ["Mortgage Club", "Wells Fargo", "Quicken Loans"]
-      programs = ["15 Year Fixed", "5/1 Libor ARM", "30 Year Fixed"]
-      lender_names.each do |lender|
-        programs.each do |program|
-          HomepageRate.create(lender_name: lender, program: program)
-        end
-      end
-    end
-    today_rates = HomepageRate.today_rates
-    bootstrap(today_rates: today_rates)
+    HomepageRateServices::CreateTodayHomepageRates.call if HomepageRate.today_rates.empty?
+
+    bootstrap(today_rates: HomepageRate.today_rates.order(:lender_name, :program))
 
     respond_to do |format|
       format.html { render template: "admin_app" }

@@ -1,5 +1,5 @@
 module HomepageRateServices
-  class GetMortgageAprs
+  class CrawlMortgageAprs
     def self.call(refresh_cache = false)
       # return default_aprs unless Rails.env.production?
 

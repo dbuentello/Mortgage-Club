@@ -66,7 +66,7 @@ var RateForm = React.createClass({
                   <TextField
                     label="Rate Value"
                     keyName="rate_value"
-                    value={this.state.contact_phone}
+                    value={this.state.rate_value}
                     editable={true}
                     onChange={this.onChange}/>
                 </div>
