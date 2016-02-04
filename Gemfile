@@ -100,7 +100,7 @@ gem 'redis'
 gem 'asposecloud'
 
 # to crawl data from Zillow
-gem 'poltergeist'
+gem 'poltergeist', '~> 1.6.0'
 
 gem 'rollbar', '~> 2.2.1'
 

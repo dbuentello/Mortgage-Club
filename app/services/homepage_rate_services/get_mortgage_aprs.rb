@@ -1,7 +1,7 @@
 module HomepageRateServices
   class GetMortgageAprs
     def self.call(refresh_cache = false)
-      # return default_aprs unless Rails.env.production?
+      return default_aprs if Rails.env.development? || Rails.env.test?
 
       cache_key = "mortgage-apr"
 
