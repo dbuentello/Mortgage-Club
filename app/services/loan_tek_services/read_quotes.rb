@@ -3,14 +3,14 @@ module LoanTekServices
     PRODUCT = {
       "15yearFixed" => "15 year fixed",
       "30yearFixed" => "30 year fixed",
-      "5yearARM" => "5 year ARM",
       "40yearFixed" => "40 year fixed",
       "25yearFixed" => "25 year fixed",
       "20yearFixed" => "20 year fixed",
       "10yearFixed" => "10 year fixed",
       "7yearARM" => "7 year ARM",
+      "5yearARM" => "5 year ARM",
       "3yearARM" => "3 year ARM",
-      "1yearARM" => "1 year ARM"
+      "1yearARM" => "1 year ARM",
     }
 
     def self.call(quotes)
@@ -70,7 +70,7 @@ module LoanTekServices
     end
 
     def self.get_product_name(quote)
-      PRODUCT[quote["ProductName"]]
+      PRODUCT.fetch(quote["ProductName"], quote["ProductName"])
     end
 
     def self.get_period(quote)
