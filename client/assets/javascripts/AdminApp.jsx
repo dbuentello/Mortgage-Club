@@ -29,7 +29,9 @@ var PotentialUserManagements = require("admin/potential_user_managements/Managem
 var EditPotentialUserPage = require("admin/potential_user_managements/EditPage");
 
 var BorrowerManagements = require("admin/borrower_managements/Borrowers");
-var HomepageRateManagement = require("admin/homepage_rate_managements/EditPage");
+
+var HomepageRateManagement = require("admin/homepage_rate_managements/Managements");
+var HomepageRateForm = require("admin/homepage_rate_managements/Form");
 
 window.AdminApp = React.createClass({
   mixins: [FlashHandler],
@@ -106,6 +108,7 @@ var routes = (
     <Route path="/loan_activity_type_managements/:id/edit" handler={EditActivityTypePage}/>
     <Route path="/lenders" handler={Lenders}/>
     <Route path="/homepage_rates" handler={HomepageRateManagement}/>
+    <Route path="/homepage_rates/:id/edit" handler={HomepageRateForm}/>
     <Route path="/lenders/new" handler={LenderForm}/>
     <Route path="/lenders/:id/edit" handler={LenderForm}/>
     <Route path="/lenders/:id/lender_templates" handler={LenderTemplates}/>
