@@ -61,7 +61,7 @@ module WellsfargoServices
     def set_up_crawler
       Capybara.register_driver :poltergeist do |app|
         Capybara::Poltergeist::Driver.new(app, {
-          js_errors: true, timeout: 20, phantomjs_options: ["--load-images=no", "--ignore-ssl-errors=yes"]
+          js_errors: true, timeout: 40, phantomjs_options: ["--load-images=no", "--ignore-ssl-errors=yes"]
         })
       end
 
