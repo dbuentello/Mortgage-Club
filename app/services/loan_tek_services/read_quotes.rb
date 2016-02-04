@@ -14,11 +14,7 @@ module LoanTekServices
     }
 
     def self.call(quotes)
-      lender_names = quotes.map { |q| q["LenderName"] }
-      lender_info = {}
-      Lender.where(name: lender_names).each do |lender|
-        lender_info[lender.name] = {nmls: lender.nmls, logo_url: lender.logo_url}
-      end
+      lender_info = get_lender_info(quotes)
 
       programs = quotes.map! do |quote|
         {
@@ -39,6 +35,15 @@ module LoanTekServices
         }
       end
       programs.sort_by { |program| program[:apr] }
+    end
+
+    def self.get_lender_info(quotes)
+      lender_names = quotes.map { |q| q["LenderName"] }
+      lender_info = {}
+      Lender.where(name: lender_names).each do |lender|
+        lender_info[lender.name] = {nmls: lender.nmls, logo_url: lender.logo_url}
+      end
+      lender_info
     end
 
     def self.get_down_payment(quote)
