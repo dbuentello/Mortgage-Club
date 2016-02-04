@@ -168,49 +168,6 @@ var MortgageRates = React.createClass({
     }
 
     return sortedRates;
-  },
-
-  getProgramCharacteristics: function(programs) {
-    var lowestApr = this.sortBy("apr", programs)[0].apr;
-    var lowestRate = this.sortBy("rate", programs)[0].rate;
-    var lowestTotalClosingCost = this.sortBy("tcc", programs)[0].total_closing_cost;
-
-    return {apr: lowestApr, rate: lowestRate, totalClosingCost: lowestTotalClosingCost};
-  },
-
-  buildLoanPrograms: function() {
-    var programs = [];
-    var characteristics = {
-      "30 year fixed": this.getProgramCharacteristics(this.getProgramsByProduct("30 year fixed")),
-      "15 year fixed": this.getProgramCharacteristics(this.getProgramsByProduct("15 year fixed")),
-      "7 year ARM": this.getProgramCharacteristics(this.getProgramsByProduct("7/1 ARM")),
-      "5 year ARM": this.getProgramCharacteristics(this.getProgramsByProduct("5/1 ARM")),
-      "FHA": this.getProgramCharacteristics(this.getProgramsByProduct("FHA"))
-    }
-
-    _.each(this.props.bootstrapData.programs, function(program) {
-        if(characteristics[program.product].apr == program.apr) {
-          program.characteristic = "Of all " + program.product + " mortgages on MortgageClub that you've qualified for, this one has the lowest APR."
-        }
-        else if(characteristics[program.product].rate == program.rate) {
-          program.characteristic = "Of all " + program.product + " mortgages on MortgageClub that you've qualified for, this one has the lowest rate."
-        }
-        else if(characteristics[program.product].totalClosingCost == program.total_closing_cost) {
-          program.characteristic = "Of all " + program.product + " mortgages on MortgageClub that you've qualified for, this one has the lowest total closing cost."
-        }
-        programs.push(program)
-    });
-
-    return programs;
-  },
-
-  getProgramsByProduct: function(product) {
-    var selectedPrograms = [];
-    _.each(this.props.bootstrapData.programs, function(program) {
-      selectedPrograms.push(program);
-    });
-
-    return selectedPrograms;
   }
 });
 
