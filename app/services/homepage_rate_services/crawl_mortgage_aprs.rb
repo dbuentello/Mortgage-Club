@@ -1,8 +1,6 @@
 module HomepageRateServices
   class CrawlMortgageAprs
     def self.call
-      return default_aprs if Rails.env.test?
-
       loan_tek = HomepageRateServices::LoanTek.call
       quicken_loans = HomepageRateServices::Quickenloans.call
       wellsfargo = HomepageRateServices::Wellsfargo.call

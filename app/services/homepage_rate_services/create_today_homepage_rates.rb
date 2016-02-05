@@ -19,11 +19,9 @@ module HomepageRateServices
       lender_names.each do |lender|
         lender_rate = rates[MAPPING_LENDER[lender]]
         programs.each do |program|
-          HomepageRate.create(
-            lender_name: lender,
-            program: program,
-            rate_value: lender_rate[MAPPING_PROGRAM[program]]
-          )
+          homepage_rate = HomepageRate.find_or_initialize_by(lender_name: lender, program: program)
+          homepage_rate.rate_value = lender_rate[MAPPING_PROGRAM[program]]
+          homepage_rate.save
         end
       end
     end
