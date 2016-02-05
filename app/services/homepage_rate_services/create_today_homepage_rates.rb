@@ -21,6 +21,7 @@ module HomepageRateServices
         programs.each do |program|
           homepage_rate = HomepageRate.find_or_initialize_by(lender_name: lender, program: program)
           homepage_rate.rate_value = lender_rate[MAPPING_PROGRAM[program]]
+          homepage_rate.display_time = Time.zone.now
           homepage_rate.save
         end
       end
