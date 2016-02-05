@@ -23,9 +23,9 @@ class PotentialUsersController < ApplicationController
 
   def render_error(potential_user)
     render json: {
-      email: "This field is required",
-      mortgage_statement: "This field is required",
-      alert_method: "This field is required"
+      email: potential_user.errors[:email].present? ? "This field is required" : nil,
+      mortgage_statement: potential_user.errors[:mortgage_statement].present? ? "This field is required" : nil,
+      alert_method: potential_user.errors[:alert_method].present? ? "This field is required" : nil
     }, status: 500
   end
 

@@ -33,6 +33,9 @@ var RateAlert = React.createClass({
       dataType: "json",
       success: function(response) {
         this.setState({isSuccess:true});
+        setInterval(function() {
+          location.href = "/";
+        }, 5000);
       }.bind(this),
       cache: false,
       contentType: false,
