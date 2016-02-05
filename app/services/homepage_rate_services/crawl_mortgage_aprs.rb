@@ -1,26 +1,19 @@
 module HomepageRateServices
   class CrawlMortgageAprs
-    def self.call(refresh_cache = false)
-      # return default_aprs unless Rails.env.production?
+    def self.call
+      return default_aprs unless Rails.env.production?
 
-      cache_key = "mortgage-apr"
+      loan_tek = HomepageRateServices::LoanTek.call
+      quicken_loans = HomepageRateServices::Quickenloans.call
+      wellsfargo = HomepageRateServices::Wellsfargo.call
 
-      if !refresh_cache && mortgage_aprs = REDIS.get(cache_key)
-        mortgage_aprs = JSON.parse(mortgage_aprs)
-      else
-        loan_tek = HomepageRateServices::LoanTek.call
-        quicken_loans = HomepageRateServices::Quickenloans.call
-        wellsfargo = HomepageRateServices::Wellsfargo.call
+      mortgage_aprs = {
+        "loan_tek" => loan_tek,
+        "quicken_loans" => quicken_loans,
+        "wellsfargo" => wellsfargo,
+        "updated_at" => Time.zone.now
+      }
 
-        mortgage_aprs = {
-          "loan_tek" => loan_tek,
-          "quicken_loans" => quicken_loans,
-          "wellsfargo" => wellsfargo,
-          "updated_at" => Time.zone.now
-        }
-        REDIS.set(cache_key, mortgage_aprs.to_json)
-        REDIS.expire(cache_key, 24.hour.to_i)
-      end
       mortgage_aprs
     end
 
