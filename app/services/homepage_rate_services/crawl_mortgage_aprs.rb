@@ -1,7 +1,7 @@
 module HomepageRateServices
   class CrawlMortgageAprs
     def self.call
-      mortgage_aprs  = nil
+      mortgage_aprs = nil
 
       begin
         loan_tek = HomepageRateServices::LoanTek.call

@@ -10,6 +10,7 @@ var RateForm = React.createClass({
       lender_name: homepage_rate.lender_name,
       rate_value: homepage_rate.rate_value,
       program: homepage_rate.program,
+      display_time: homepage_rate.display_time,
       saving: false
     }
   },
@@ -67,6 +68,15 @@ var RateForm = React.createClass({
                     label="Rate Value"
                     keyName="rate_value"
                     value={this.state.rate_value}
+                    editable={true}
+                    onChange={this.onChange}/>
+                </div>
+                <div className="col-sm-2">
+                  <TextField
+                    label="Display Time"
+                    keyName="display_time"
+                    placeholder="mm/dd/yyyy HH:mm"
+                    value={this.state.display_time}
                     editable={true}
                     onChange={this.onChange}/>
                 </div>
