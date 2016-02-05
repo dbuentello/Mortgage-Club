@@ -102,19 +102,19 @@ describe OcrServices::StandardizePaystubData do
       end
     end
 
-    context "biweekly" do
-      it "returns biweekly" do
-        yesterday = Time.zone.now - 1.day
-        ocr_data.period_ending_1 = yesterday
-        ocr_data.period_beginning_1 = yesterday - 13.days
-        ocr_data.period_ending_2 = yesterday
-        ocr_data.period_beginning_2 = yesterday - 13.days
-        ocr_data.save
-        service = OcrServices::StandardizePaystubData.new(borrower.id)
+    # context "biweekly" do
+    #   it "returns biweekly" do
+    #     yesterday = Time.zone.now - 1.day
+    #     ocr_data.period_ending_1 = yesterday
+    #     ocr_data.period_beginning_1 = yesterday - 13.days
+    #     ocr_data.period_ending_2 = yesterday
+    #     ocr_data.period_beginning_2 = yesterday - 13.days
+    #     ocr_data.save
+    #     service = OcrServices::StandardizePaystubData.new(borrower.id)
 
-        expect(service.period).to eq("biweekly")
-      end
-    end
+    #     expect(service.period).to eq("biweekly")
+    #   end
+    # end
 
     context "weekly" do
       it "returns weekly" do
