@@ -1,16 +1,21 @@
 module HomepageRateServices
   class CrawlMortgageAprs
     def self.call
-      loan_tek = HomepageRateServices::LoanTek.call
-      quicken_loans = HomepageRateServices::Quickenloans.call
-      wellsfargo = HomepageRateServices::Wellsfargo.call
+      mortgage_aprs  = nil
 
-      mortgage_aprs = {
-        "loan_tek" => loan_tek,
-        "quicken_loans" => quicken_loans,
-        "wellsfargo" => wellsfargo,
-        "updated_at" => Time.zone.now
-      }
+      begin
+        loan_tek = HomepageRateServices::LoanTek.call
+        quicken_loans = HomepageRateServices::Quickenloans.call
+        wellsfargo = HomepageRateServices::Wellsfargo.call
+
+        mortgage_aprs = {
+          "loan_tek" => loan_tek,
+          "quicken_loans" => quicken_loans,
+          "wellsfargo" => wellsfargo
+        }
+      ensure
+        mortgage_aprs ||= default_aprs
+      end
 
       mortgage_aprs
     end

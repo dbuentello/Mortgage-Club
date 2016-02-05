@@ -33,7 +33,6 @@ module HomepageRateServices
           aprs[value]["apr_30_year"] = parse_rate_value(rate) if rate.program == "30 Year Fixed"
           aprs[value]["apr_15_year"] = parse_rate_value(rate) if rate.program == "15 Year Fixed"
           aprs[value]["apr_5_libor"] = parse_rate_value(rate) if rate.program == "5/1 Libor ARM"
-
         end
       end
 
