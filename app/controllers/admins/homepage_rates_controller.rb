@@ -12,7 +12,6 @@ class Admins::HomepageRatesController < Admins::BaseController
   end
 
   def edit
-    Time.zone = "Pacific Time (US & Canada)"
     display_time = Time.zone.parse(@homepage_rate.display_time.to_s).strftime('%m/%d/%Y %H:%M')
 
     bootstrap(homepage_rate: {
@@ -29,7 +28,7 @@ class Admins::HomepageRatesController < Admins::BaseController
   end
 
   def update
-    display_time = Time.zone.parse(homepage_rate_params[:display_time] + " -0800")
+    display_time = Time.zone.parse(homepage_rate_params[:display_time])
 
     if @homepage_rate.update(rate_value: homepage_rate_params[:rate_value], display_time: display_time)
       HomepageRate.today_rates.update_all(display_time: display_time)
