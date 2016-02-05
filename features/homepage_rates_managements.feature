@@ -17,6 +17,4 @@ Feature: HomepageRateManagements
       And I fill in "Program" with "15 Year Fixed"
       And I fill in "Rate Value" with "0.025"
     Then I click on "Save"
-      And I should see "Mortgage Club"
-      And I should see "15 Year Fixed"
       And I should see "0.025"
