@@ -91,7 +91,7 @@ var RateAlert = React.createClass({
                 </div>
               :
                 <div className="mtl">
-                  <div className="col-md-8 col-md-offset-2">
+                  <div className="col-md-9 col-md-offset-2">
                     <h1>RATE ALERT</h1>
                     <p>{"Please upload your latest mortgage statement so our software can start tracking your mortgage rates. We'll alert you as soon as you can save money by refinancing with Mortgage Club (after accounting for closing costs)!"}</p>
                   </div>
