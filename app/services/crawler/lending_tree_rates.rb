@@ -4,7 +4,6 @@ require 'capybara/poltergeist'
 
 module Crawler
   class LendingTreeRates < Base
-    include Capybara::DSL
     attr_reader :property_type, :usage, :property_address, :state,
                 :current_address, :current_zip_code, :property_zip_code,
                 :has_second_mortgage, :first_mortgage_payment, :second_mortgage_payment

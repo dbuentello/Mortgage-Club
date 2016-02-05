@@ -3,8 +3,6 @@ require 'capybara/poltergeist'
 
 module Crawler
   class GoogleRates < Base
-    include Capybara::DSL
-
     attr_accessor :zipcode, :property_value,
                   :down_payment, :monthly_payment,
                   :credit_score, :market_price, :balance

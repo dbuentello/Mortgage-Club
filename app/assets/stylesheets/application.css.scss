@@ -332,7 +332,9 @@ hr {
 
     .dropdown {
       .dropdownArrow {
-        right:0; top:3px; border-left:#15c0f1 1px solid;
+        right:0; top:3px;
+        border-left:#15c0f1 1px solid;
+        margin-top: -2px;
       }
       .dropdown-toggle {
         border-color: #15c0f1;

@@ -29,7 +29,7 @@ describe PotentialUsersController do
 
         post :create, potential_user: @potential_user_params
 
-        expect(JSON.parse(response.body)["email"]).to eq("can't be blank")
+        expect(JSON.parse(response.body)["email"]).to eq("This field is required")
       end
     end
   end

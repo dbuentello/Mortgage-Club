@@ -3,8 +3,6 @@ require 'capybara/poltergeist'
 
 module Crawler
   class LendaRates < Base
-    include Capybara::DSL
-
     attr_accessor :zipcode, :usage, :annual_income,
                   :down_payment, :monthly_debt, :property_type,
                   :credit_score, :market_price, :balance

@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var TextField = require('components/form/TextField');
+var UploadField = require('components/form/UploadField');
 var ModalLink = require('components/ModalLink');
 var FlashHandler = require('mixins/FlashHandler');
 
@@ -8,6 +9,7 @@ var LenderForm = React.createClass({
 
   getInitialState: function() {
     var lender = this.props.bootstrapData.lender;
+    var logo_url = this.props.bootstrapData.logo_url;
 
     return {
       id: lender.id,
@@ -19,6 +21,9 @@ var LenderForm = React.createClass({
       contact_name: lender.contact_name,
       contact_email: lender.contact_email,
       contact_phone: lender.contact_phone,
+      nmls: lender.nmls,
+      logo: lender.logo,
+      logo_url: logo_url,
       saving: false
     }
   },
@@ -31,16 +36,33 @@ var LenderForm = React.createClass({
     e.preventDefault();
     this.setState({saving: true});
 
+    var formData = new FormData();
+    formData.append("name", this.state.name);
+    formData.append("website", this.state.website);
+    formData.append("rate_sheet", this.state.rate_sheet);
+    formData.append("lock_rate_email", this.state.lock_rate_email);
+    formData.append("docs_email", this.state.docs_email);
+    formData.append("contact_name", this.state.contact_name);
+    formData.append("contact_email", this.state.contact_email);
+    formData.append("contact_phone", this.state.contact_phone);
+    formData.append("nmls", this.state.nmls);
+    if($("#uploadFile")[0].files.length >0) {
+      formData.append("logo", $("#uploadFile")[0].files[0]);
+    }
     if (this.state.id) {
       $.ajax({
         url: '/lenders/' + this.state.id,
         type: 'PUT',
+        method: 'PUT',
+        encType: "multipart/form-data",
         dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify(this.state),
+        data: formData,
         success: function(resp) {
           location.href = '/lenders';
         },
+        contentType: false,
+        processData: false,
+        async: true,
         error: function(resp) {
           var flash = { "alert-danger": resp.responseJSON.message };
           this.showFlashes(flash);
@@ -52,12 +74,15 @@ var LenderForm = React.createClass({
       $.ajax({
         url: '/lenders',
         type: 'POST',
+        encType: "multipart/form-data",
         dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify(this.state),
+        data: formData,
         success: function(resp) {
           location.href = '/lenders';
         },
+        contentType: false,
+        processData: false,
+        async: true,
         error: function(resp) {
           var flash = { "alert-danger": resp.responseJSON.message };
           this.showFlashes(flash);
@@ -65,6 +90,11 @@ var LenderForm = React.createClass({
         }.bind(this)
       });
     }
+  },
+
+  handleFileChange: function(event){
+    var name = $("#uploadFile")[0].files[0];
+    this.setState({logo: name});
   },
 
   handleRemove: function() {
@@ -86,7 +116,7 @@ var LenderForm = React.createClass({
         <div className='row'>
           {this.state.id ? <h2 className='mbl'>Edit Lender</h2> : <h2 className='mbl'>New Lender</h2>}
           <span className="text-warning"><i> All fields are required </i></span>
-          <form className="form-horizontal lender-form" onSubmit={this.handleSubmit}>
+          <form className="form-horizontal lender-form" type="json" enctype="multipart/form-data" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <div className="col-sm-6">
                 <TextField
@@ -159,6 +189,32 @@ var LenderForm = React.createClass({
                   value={this.state.contact_phone}
                   editable={true}
                   onChange={this.onChange}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-2">
+                <TextField
+                  label="NMLS"
+                  keyName="nmls"
+                  value={this.state.nmls}
+                  editable={true}
+                  onChange={this.onChange}/>
+              </div>
+            </div>
+            <img src={this.state.logo_url}/>
+            <div className="row">
+              <div className="form-group">
+                <div className="col-sm-4">
+                  <div className="row file-upload-button">
+                    <div className="col-md-12 text-center" data-toggle="tooltip">
+                        <label>
+                          <img src="/icons/upload.png" className="iconUpload"/>
+                          <input name="logo" id="uploadFile" type="file" accept="image/*" onChange={this.handleFileChange}/>
+                          <span className="fileName">Upload</span>
+                        </label>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <button className="btn btn-primary btn-sm" type="submit">Save</button> &nbsp;
