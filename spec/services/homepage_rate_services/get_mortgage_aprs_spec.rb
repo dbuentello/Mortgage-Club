@@ -22,17 +22,17 @@ describe HomepageRateServices::GetMortgageAprs do
       quicken_loans = result["quicken_loans"]
       wellsfargo = result["wellsfargo"]
 
-      expect(loan_tek["apr_30_year"]).to eq(0)
-      expect(loan_tek["apr_15_year"]).to eq(0)
-      expect(loan_tek["apr_5_libor"]).to eq(0)
+      expect(loan_tek["apr_30_year"]).to eq("-")
+      expect(loan_tek["apr_15_year"]).to eq("-")
+      expect(loan_tek["apr_5_libor"]).to eq("-")
 
-      expect(quicken_loans["apr_30_year"]).to eq(0)
-      expect(quicken_loans["apr_15_year"]).to eq(0)
-      expect(quicken_loans["apr_5_libor"]).to eq(0)
+      expect(quicken_loans["apr_30_year"]).to eq("-")
+      expect(quicken_loans["apr_15_year"]).to eq("-")
+      expect(quicken_loans["apr_5_libor"]).to eq("-")
 
-      expect(wellsfargo["apr_30_year"]).to eq(0)
-      expect(wellsfargo["apr_15_year"]).to eq(0)
-      expect(wellsfargo["apr_5_libor"]).to eq(0)
+      expect(wellsfargo["apr_30_year"]).to eq("-")
+      expect(wellsfargo["apr_15_year"]).to eq("-")
+      expect(wellsfargo["apr_5_libor"]).to eq("-")
     end
 
     it "returns aprs with mortgage rates from database" do

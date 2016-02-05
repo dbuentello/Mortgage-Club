@@ -18,19 +18,19 @@ module HomepageRateServices
     def self.default_aprs
       {
         "loan_tek" => {
-          "apr_30_year" => 0,
-          "apr_15_year" => 0,
-          "apr_5_libor" => 0
+          "apr_30_year" => "-",
+          "apr_15_year" => "-",
+          "apr_5_libor" => "-"
         },
         "quicken_loans" => {
-          "apr_30_year" => 0,
-          "apr_15_year" => 0,
-          "apr_5_libor" => 0
+          "apr_30_year" => "-",
+          "apr_15_year" => "-",
+          "apr_5_libor" => "-"
         },
         "wellsfargo" => {
-          "apr_30_year" => 0,
-          "apr_15_year" => 0,
-          "apr_5_libor" => 0
+          "apr_30_year" => "-",
+          "apr_15_year" => "-",
+          "apr_5_libor" => "-"
         },
         "updated_at" => Time.zone.now
       }
