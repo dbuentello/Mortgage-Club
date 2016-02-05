@@ -7,6 +7,8 @@ module HomepageRateServices
     }
 
     def self.call(refresh_cache = false)
+      return HomepageRateServices::CrawlMortgageAprs.default_aprs if Rails.env.test?
+
       cache_key = "mortgage-apr"
 
       if !refresh_cache && mortgage_aprs = REDIS.get(cache_key)
@@ -31,9 +33,11 @@ module HomepageRateServices
           aprs[value]["apr_30_year"] = parse_rate_value(rate) if rate.program == "30 Year Fixed"
           aprs[value]["apr_15_year"] = parse_rate_value(rate) if rate.program == "15 Year Fixed"
           aprs[value]["apr_5_libor"] = parse_rate_value(rate) if rate.program == "5/1 Libor ARM"
-          aprs["updated_at"] ||= rate.created_at
+
         end
       end
+
+      aprs["updated_at"] = HomepageRate.today_rates.pluck(:display_time).max
 
       aprs
     end
