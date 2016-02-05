@@ -10,5 +10,5 @@ class HomepageRate < ActiveRecord::Base
     :display_time
   ]
 
-  scope :today_rates, -> { where("created_at >= ?", Time.zone.now.beginning_of_day) }
+  scope :today_rates, -> { where("updated_at >= ?", Time.zone.now.beginning_of_day) }
 end
