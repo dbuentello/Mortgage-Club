@@ -211,7 +211,13 @@ var List = React.createClass({
                           </p>
                         </div>
                       </div>
-                      <p className="note">Of all 30-year fixed mortgages on Mortgage Club that you’ve qualified for, this one has the lowest rate and APR.</p>
+                      {
+                        rate.characteristic
+                        ?
+                          <p className="note">{rate.characteristic}</p>
+                        :
+                          null
+                      }
                     </div>
                   </div>
 

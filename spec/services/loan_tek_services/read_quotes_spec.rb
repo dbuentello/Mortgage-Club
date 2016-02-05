@@ -64,7 +64,8 @@ describe LoanTekServices::ReadQuotes do
         lender_credit: -1520.0,
         total_closing_cost: 3035.0,
         nmls: nil,
-        logo_url: nil
+        logo_url: nil,
+        characteristic: "Of all 15 year fixed mortgages on MortgageClub that you've qualified for, this one has the lowest APR."
       })
     end
   end
