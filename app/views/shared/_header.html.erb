@@ -46,11 +46,13 @@
               </div>
             </li>
           <% else %>
-            <li>
-              <%= link_to new_user_session_path, class: "btn btn-ms btn-success theBtn text-uppercase", id: "loginBtn" do %>
-                <%= image_tag image_path("loginICON.png"), id: "loginImg" %>Log in
-              <% end %>
-            </li>
+            <% if Rails.env.test? %>
+              <li>
+                <%= link_to new_user_session_path, class: "btn btn-ms btn-success theBtn text-uppercase", id: "loginBtn" do %>
+                  <%= image_tag image_path("loginICON.png"), id: "loginImg" %>Log in
+                <% end %>
+              </li>
+            <% end %>
             <li>
               <%= link_to "Find my rate", new_user_registration_path, class: "btn btn-ms theBtn text-uppercase", id: "signupBtn"%>
             </li>
