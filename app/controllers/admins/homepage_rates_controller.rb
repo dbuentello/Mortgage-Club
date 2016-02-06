@@ -12,7 +12,7 @@ class Admins::HomepageRatesController < Admins::BaseController
   end
 
   def edit
-    display_time = Time.zone.parse(@homepage_rate.display_time.to_s).strftime('%m/%d/%Y %H:%M')
+    display_time = Time.zone.parse(@homepage_rate.display_time.to_s).strftime('%Y-%m-%d %H:%M')
 
     bootstrap(homepage_rate: {
       id: @homepage_rate.id,
