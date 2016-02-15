@@ -134,4 +134,4 @@ Feature: DocumentsTabAtNewLoanPage
           And I should see "Bank statement - Most recent month"
           And I should see "Bank statement - Previous month"
         Then I click on "Next"
-          And I should see "Name of current employer"
+          And I should see "Name Of Current Employer"
