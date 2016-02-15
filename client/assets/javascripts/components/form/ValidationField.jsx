@@ -65,7 +65,6 @@ var ValidationField = React.createClass({
       switch(type) {
         case "currency":
           if(!this.elementIsValidCurrency(this.props.value)) {
-            console.dir("ya")
             isInvalid = true;
           }
           break;

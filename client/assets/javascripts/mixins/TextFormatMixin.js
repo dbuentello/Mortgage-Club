@@ -48,6 +48,7 @@ var TextFormatMixin = {
     if (typeof cashflow === 'string' || cashflow instanceof String) {
       cashflow = cashflow.replace(/[^\d.-]/g, '');
     }
+
     cashflow = Math.ceil(cashflow * 100) / 100;
     negative = (cashflow < 0 ? '-' : '');
     money = Math.abs(cashflow);
@@ -59,7 +60,7 @@ var TextFormatMixin = {
       prefix = negative + '$';
     }
 
-    return prefix + this.commafy(money);
+    return prefix + this.commafy(money, 2);
   },
 
   /**
