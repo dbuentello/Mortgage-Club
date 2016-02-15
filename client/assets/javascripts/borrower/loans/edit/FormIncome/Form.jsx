@@ -12,14 +12,14 @@ var SelectField = require('components/form/NewSelectField');
 var Income = require('./Income');
 
 var borrowerFields = {
-  currentEmployerName: {label: 'Name of current employer', name: 'current_employer_name', helpText: 'I am a helpful text.', error: "current_employer_name_error", validationTypes: ["empty"]},
-  currentEmployerAddress: {label: 'Address of current employer', name: 'current_address', helpText: null, error: "current_address_error", validationTypes: ["empty"]},
+  currentEmployerName: {label: 'Name Of Current Employer', name: 'current_employer_name', helpText: 'I am a helpful text.', error: "current_employer_name_error", validationTypes: ["empty"]},
+  currentEmployerAddress: {label: 'Address Of Current Employer', name: 'current_address', helpText: null, error: "current_address_error", validationTypes: ["empty"]},
   currentEmployerFullTextAddress: {name: 'current_full_text_address', helpText: null, error: "current_full_text_address_error"},
   currentJobTitle: {label: 'Job Title', name: 'current_job_title', helpText: null, error: "current_job_title_error", validationTypes: ["empty"]},
-  currentYearsAtEmployer: {label: 'Years at this employer', name: 'current_duration', helpText: null, error: "current_duration_error", validationTypes: ["integer"]},
-  previousEmployerName: {label: 'Name of previous employer', name: 'previous_employer_name', helpText: 'I am a helpful text.', error: "previous_employer_name_error", validationTypes: ["empty"]},
+  currentYearsAtEmployer: {label: 'Years At This Employer', name: 'current_duration', helpText: null, error: "current_duration_error", validationTypes: ["integer"]},
+  previousEmployerName: {label: 'Name Of Previous Employer', name: 'previous_employer_name', helpText: 'I am a helpful text.', error: "previous_employer_name_error", validationTypes: ["empty"]},
   previousJobTitle: {label: 'Job Title', name: 'previous_job_title', helpText: null, error: "previous_job_title_error", validationTypes: ["empty"]},
-  previousYearsAtEmployer: {label: 'Years at this employer', name: 'previous_duration', helpText: null, error: "previous_duration_error", validationTypes: ["integer"]},
+  previousYearsAtEmployer: {label: 'Years At This Employer', name: 'previous_duration', helpText: null, error: "previous_duration_error", validationTypes: ["integer"]},
   previousMonthlyIncome: {label: 'Monthly Income', name: 'previous_monthly_income', helpText: null, error: "previous_monthly_income_error", validationTypes: ["currency"]},
   employerContactName: {label: 'Contact Name', name: 'employer_contact_name', helpText: null, error: "employer_contact_name_error", validationTypes: ["empty"]},
   employerContactNumber: {label: 'Contact Phone Number', name: 'employer_contact_number', helpText: null, error: "employer_contact_number_error", validationTypes: ["phoneNumber"]},
@@ -28,19 +28,19 @@ var borrowerFields = {
   grossBonus: {label: 'Annual Gross Bonus', name: 'gross_bonus', helpText: null, error: "gross_bonus_error"},
   grossCommission: {label: 'Annual Gross Commission', name: 'gross_commission', helpText: null, error: "gross_commission_error"},
   grossInterest: {label: 'Annual Gross Interest', name: 'gross_interest', helpText: null, error: "gross_interest_error"},
-  incomeFrequency: {label: 'Income frequency', name: 'pay_frequency', helpText: null, error: "pay_frequency_error", validationTypes: ["empty"]},
+  incomeFrequency: {label: 'Income Frequency', name: 'pay_frequency', helpText: null, error: "pay_frequency_error", validationTypes: ["empty"]},
   otherIncomes: {name: 'borrower_other_incomes'}
 };
 
 var secondaryBorrowerFields = {
-  currentEmployerName: {label: 'Name of current employer', name: 'secondary_current_employer_name', helpText: 'I am a helpful text.', error: "secondary_current_employer_name_error", validationTypes: ["empty"]},
-  currentEmployerAddress: {label: 'Address of current employer', name: 'secondary_current_address', helpText: null, error: "secondary_current_address_error", validationTypes: ["empty"]},
+  currentEmployerName: {label: 'Name Of Current Employer', name: 'secondary_current_employer_name', helpText: 'I am a helpful text.', error: "secondary_current_employer_name_error", validationTypes: ["empty"]},
+  currentEmployerAddress: {label: 'Address Of Current Employer', name: 'secondary_current_address', helpText: null, error: "secondary_current_address_error", validationTypes: ["empty"]},
   currentEmployerFullTextAddress: {name: 'secondary_current_full_text_address', helpText: null, error: "secondary_current_full_text_address_error"},
   currentJobTitle: {label: 'Job Title', name: 'secondary_current_job_title', helpText: null, error: "secondary_current_job_title_error", validationTypes: ["empty"]},
-  currentYearsAtEmployer: {label: 'Years at this employer', name: 'secondary_current_duration', helpText: null, error: "secondary_current_duration_error", validationTypes: ["integer"]},
-  previousEmployerName: {label: 'Name of previous employer', name: 'secondary_previous_employer_name', helpText: 'I am a helpful text.', error: "secondary_previous_employer_name_error", validationTypes: ["empty"]},
+  currentYearsAtEmployer: {label: 'Years At This Employer', name: 'secondary_current_duration', helpText: null, error: "secondary_current_duration_error", validationTypes: ["integer"]},
+  previousEmployerName: {label: 'Name Of Previous Employer', name: 'secondary_previous_employer_name', helpText: 'I am a helpful text.', error: "secondary_previous_employer_name_error", validationTypes: ["empty"]},
   previousJobTitle: {label: 'Job Title', name: 'secondary_previous_job_title', helpText: null, error: "secondary_previous_job_title_error", validationTypes: ["empty"]},
-  previousYearsAtEmployer: {label: 'Years at this employer', name: 'secondary_previous_duration', helpText: null, error: "secondary_previous_duration_error", validationTypes: ["integer"]},
+  previousYearsAtEmployer: {label: 'Years At This Employer', name: 'secondary_previous_duration', helpText: null, error: "secondary_previous_duration_error", validationTypes: ["integer"]},
   previousMonthlyIncome: {label: 'Monthly Income', name: 'secondary_previous_monthly_income', helpText: null, error: "secondary_previous_monthly_income_error", validationTypes: ["currency"]},
   employerContactName: {label: 'Contact Name', name: 'secondary_employer_contact_name', helpText: null, error: "secondary_employer_contact_name_error", validationTypes: ["empty"]},
   employerContactNumber: {label: 'Contact Phone Number', name: 'secondary_employer_contact_number', helpText: null, error: "secondary_employer_contact_number_error", validationTypes: ["phoneNumber"]},
@@ -49,7 +49,7 @@ var secondaryBorrowerFields = {
   grossBonus: {label: 'Annual Gross Bonus', name: 'secondary_gross_bonus', helpText: null, error: "secondary_gross_bonus_error"},
   grossCommission: {label: 'Annual Gross Commission', name: 'secondary_gross_commission', helpText: null, error: "secondary_gross_commission_error"},
   grossInterest: {label: 'Annual Gross Interest', name: 'secondary_gross_interest', helpText: null, error: "secondary_gross_interest_error"},
-  incomeFrequency: {label: 'Income frequency', name: 'secondary_pay_frequency', helpText: null, error: "secondary_pay_frequency_error", validationTypes: ["empty"]},
+  incomeFrequency: {label: 'Income Frequency', name: 'secondary_pay_frequency', helpText: null, error: "secondary_pay_frequency_error", validationTypes: ["empty"]},
   otherIncomes: {name: 'secondary_borrower_other_incomes'}
 };
 
