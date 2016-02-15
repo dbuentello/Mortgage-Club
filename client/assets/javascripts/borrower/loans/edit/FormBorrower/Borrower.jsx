@@ -82,16 +82,7 @@ var Borrower = React.createClass({
               :
                 null
             }
-          <div className="col-md-6">
-            <DateField
-              activateRequiredField={this.props.dobError}
-              label={this.props.fields.dob.label}
-              keyName={this.props.fields.dob.name}
-              value={this.props.dob}
-              customClass={"account-text-input"}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.dob)}
-              onChange={this.props.onChange}/>
-          </div>
+          
         </div>
         <div className="form-group">
           <div className="col-md-6">
@@ -124,7 +115,17 @@ var Borrower = React.createClass({
           </div>
         </div>
         <div className="form-group">
-          <div className="col-md-6">
+          <div className="col-md-3">
+            <DateField
+              activateRequiredField={this.props.dobError}
+              label={this.props.fields.dob.label}
+              keyName={this.props.fields.dob.name}
+              value={this.props.dob}
+              customClass={"account-text-input"}
+              onFocus={_.bind(this.props.onFocus, this, this.props.fields.dob)}
+              onChange={this.props.onChange}/>
+          </div>
+          <div className="col-md-3">
             <TextField
               activateRequiredField={this.props.yearsInSchoolError}
               label={this.props.fields.yearsInSchool.label}
@@ -152,7 +153,19 @@ var Borrower = React.createClass({
           </div>
         </div>
         <div className="form-group">
-          <div className="col-md-6">
+        <div className="col-md-3">
+            <BooleanRadio
+              activateRequiredField={this.props.selfEmployedError}
+              label={this.props.fields.selfEmployed.label}
+              checked={this.props.selfEmployed}
+              keyName={this.props.fields.selfEmployed.name}
+              yesLabel={"Yes"}
+              noLabel={"No"}
+              editable={true}
+              onFocus={_.bind(this.props.onFocus, this, this.props.fields.selfEmployed)}
+              onChange={this.props.onChange}/>
+          </div>
+          <div className="col-md-3">
             <TextField
               activateRequiredField={this.props.numberOfDependencesError}
               label={this.props.fields.numberOfDependents.label}
