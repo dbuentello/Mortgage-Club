@@ -115,7 +115,7 @@ var Borrower = React.createClass({
           </div>
         </div>
         <div className="form-group">
-          <div className="col-md-3">
+          <div className="col-md-4">
             <DateField
               activateRequiredField={this.props.dobError}
               label={this.props.fields.dob.label}
@@ -125,7 +125,7 @@ var Borrower = React.createClass({
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.dob)}
               onChange={this.props.onChange}/>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-4">
             <TextField
               activateRequiredField={this.props.yearsInSchoolError}
               label={this.props.fields.yearsInSchool.label}
@@ -139,7 +139,7 @@ var Borrower = React.createClass({
               validationTypes={["integer"]}
               onChange={this.props.onChange}/>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
             <SelectField
               activateRequiredField={this.props.maritalStatusError}
               label={this.props.fields.maritalStatus.label}
@@ -153,7 +153,7 @@ var Borrower = React.createClass({
           </div>
         </div>
         <div className="form-group">
-        <div className="col-md-3">
+        <div className="col-md-4">
             <BooleanRadio
               activateRequiredField={this.props.selfEmployedError}
               label={this.props.fields.selfEmployed.label}
@@ -165,7 +165,7 @@ var Borrower = React.createClass({
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.selfEmployed)}
               onChange={this.props.onChange}/>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-4">
             <TextField
               activateRequiredField={this.props.numberOfDependencesError}
               label={this.props.fields.numberOfDependents.label}
@@ -179,7 +179,7 @@ var Borrower = React.createClass({
               validationTypes={["integer"]}
               onChange={this.props.onChange}/>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
             { parseInt(this.props.numberOfDependents, 10) > 0 ?
               <TextField
                 activateRequiredField={this.props.dependentAgesError}
