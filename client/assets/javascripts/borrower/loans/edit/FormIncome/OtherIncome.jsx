@@ -16,6 +16,11 @@ var otherIncomes = [
 var OtherIncome = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
 
+  componentWillMount: function(){
+    this.props.amount = this.formatCurrency(this.props.amount);
+    console.log(this.props.amount);
+  },
+
   onChange: function(change) {
     var key = Object.keys(change)[0];
     var value = change[key];
@@ -23,6 +28,15 @@ var OtherIncome = React.createClass({
     if (key.indexOf('incomes_type') > -1){
       this.props.onChangeType(value, this.props.index);
     }
+    if (key.indexOf('incomes_amount') > -1) {
+      this.props.onChangeAmount(value, this.props.index);
+    }
+  },
+
+  onBlur: function(change) {
+    var key = Object.keys(change)[0];
+    var value = change[key];
+
     if (key.indexOf('incomes_amount') > -1) {
       this.props.onChangeAmount(value, this.props.index);
     }
@@ -56,10 +70,12 @@ var OtherIncome = React.createClass({
               ref="incomeAmount"
               keyName={this.props.name + "_amount_" + index}
               value={this.props.amount}
+              format={this.formatCurrency}
               editable={true}
               maxLength={15}
               validationTypes={["currency"]}
-              onChange={this.onChange}/>
+              onChange={this.onChange}
+              onBlur={this.onBlur}/>
           </div>
           <div className="col-sm-1 trash-anchor">
             <a className="iconRemove clickable" onClick={this.remove.bind(this, index)}>

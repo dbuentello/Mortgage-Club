@@ -71,6 +71,10 @@ var Form = React.createClass({
     this.setState(change);
   },
 
+  onBlur: function(blur) {
+    this.setState(blur);
+  },
+
   onFocus: function(field) {
     this.setState({focusedField: field});
   },
@@ -117,6 +121,7 @@ var Form = React.createClass({
             incomeFrequencyError={this.state[borrowerFields.incomeFrequency.error]}
             onFocus={this.onFocus}
             onChange={this.onChange}
+            onBlur={this.onBlur}
             updateOtheIncomes={this.updateOtheIncomes}/>
           {
             this.props.loan.secondary_borrower
@@ -154,6 +159,7 @@ var Form = React.createClass({
                 incomeFrequencyError={this.state[secondaryBorrowerFields.incomeFrequency.error]}
                 onFocus={this.onFocus}
                 onChange={this.onChange}
+                onBlur={this.onBlur}
                 updateOtheIncomes={this.updateOtheIncomes}/>
             </div>
             : null

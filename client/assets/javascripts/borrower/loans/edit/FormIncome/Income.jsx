@@ -29,7 +29,7 @@ var Income = React.createClass({
         key={index}
         index={index}
         type={income.type}
-        amount={this.formatCurrency(income.amount)}
+        amount={income.amount}
         typeError={income.typeError}
         name={this.props.fields.otherIncomes.name}
         amountError={income.amountError}
@@ -226,14 +226,14 @@ var Income = React.createClass({
               label={this.props.fields.baseIncome.label}
               keyName={this.props.fields.baseIncome.name}
               value={this.props.baseIncome}
-              liveFormat={true}
               format={this.formatCurrency}
               editable={true}
               validationTypes={["currency"]}
               maxLength={15}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.baseIncome)}
               onChange={this.props.onChange}
-              placeholder="e.g. 99,000"/>
+              placeholder="e.g. 99,000"
+              onBlur={this.props.onBlur}/>
           </div>
           <div className="col-md-6">
             <SelectField
