@@ -26,7 +26,10 @@ var TextFormatMixin = {
       n = n.toFixed(decimals);
     }
 
-    n = (n+'').split('.').map(function(s,i){return i?s:s.replace(/(\d)(?=(?:\d{3})+$)/g,'$1,'); }).join('.');
+    n = (n+'').split('.').map(function(s,i){
+      return i ? s : s.replace(/(\d)(?=(?:\d{3})+$)/g,'$1,');
+    }).join('.');
+
     return n;
   },
 
@@ -46,7 +49,7 @@ var TextFormatMixin = {
     }
 
     if (typeof cashflow === 'string' || cashflow instanceof String) {
-      cashflow = cashflow.replace(/[^\d.-]/g, '');
+      cashflow = cashflow.replace(/[^(\d|.).-]/g, '');
     }
 
     cashflow = Math.ceil(cashflow * 100) / 100;

@@ -106,7 +106,7 @@ var TextField = React.createClass({
         }
         <div>
           <input className={"form-control " + customClass } type="text" value={this.props.value} maxLength={this.props.maxLength}
-              onChange={this.handleChange} onBlur={this.props.onBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.label} id={this.props.keyName}/>
+              onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.label} id={this.props.keyName}/>
 
           <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage} validationTypes={this.props.validationTypes}/>
         </div>
