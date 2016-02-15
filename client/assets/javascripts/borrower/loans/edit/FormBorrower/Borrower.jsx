@@ -253,20 +253,7 @@ var Borrower = React.createClass({
               onChange={this.props.onChange}/>
           </div>
         </div>
-        <div className="form-group">
-          <div className="col-md-4">
-            <BooleanRadio
-              activateRequiredField={this.props.selfEmployedError}
-              label={this.props.fields.selfEmployed.label}
-              checked={this.props.selfEmployed}
-              keyName={this.props.fields.selfEmployed.name}
-              yesLabel={"Yes"}
-              noLabel={"No"}
-              editable={true}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.selfEmployed)}
-              onChange={this.props.onChange}/>
-          </div>
-        </div>
+        
         { parseInt(this.props.yearsInCurrentAddress, 10) < 2 ?
           <div>
           <div className="form-group">
