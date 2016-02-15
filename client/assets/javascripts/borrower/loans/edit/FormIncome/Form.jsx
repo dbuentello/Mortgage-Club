@@ -12,11 +12,11 @@ var SelectField = require('components/form/NewSelectField');
 var Income = require('./Income');
 
 var borrowerFields = {
-  currentEmployerName: {label: 'Name of current employer', name: 'current_employer_name', helpText: 'I am a helpful text.', error: "current_employer_name_error", validationTypes: ["empty"]},
-  currentEmployerAddress: {label: 'Address of current employer', name: 'current_address', helpText: null, error: "current_address_error", validationTypes: ["empty"]},
+  currentEmployerName: {label: 'Name Of Current Employer', name: 'current_employer_name', helpText: 'I am a helpful text.', error: "current_employer_name_error", validationTypes: ["empty"]},
+  currentEmployerAddress: {label: 'Address Of Current Employer', name: 'current_address', helpText: null, error: "current_address_error", validationTypes: ["empty"]},
   currentEmployerFullTextAddress: {name: 'current_full_text_address', helpText: null, error: "current_full_text_address_error"},
   currentJobTitle: {label: 'Job Title', name: 'current_job_title', helpText: null, error: "current_job_title_error", validationTypes: ["empty"]},
-  currentYearsAtEmployer: {label: 'Years at this employer', name: 'current_duration', helpText: null, error: "current_duration_error", validationTypes: ["integer"]},
+  currentYearsAtEmployer: {label: 'Years At This Employer', name: 'current_duration', helpText: null, error: "current_duration_error", validationTypes: ["integer"]},
   previousEmployerName: {label: 'Name of previous employer', name: 'previous_employer_name', helpText: 'I am a helpful text.', error: "previous_employer_name_error", validationTypes: ["empty"]},
   previousJobTitle: {label: 'Job Title', name: 'previous_job_title', helpText: null, error: "previous_job_title_error", validationTypes: ["empty"]},
   previousYearsAtEmployer: {label: 'Years at this employer', name: 'previous_duration', helpText: null, error: "previous_duration_error", validationTypes: ["integer"]},
