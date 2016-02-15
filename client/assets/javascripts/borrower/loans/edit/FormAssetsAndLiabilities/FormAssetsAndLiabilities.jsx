@@ -141,7 +141,13 @@ var FormAssetsAndLiabilities = React.createClass({
             ?
               <div className='form-group'>
                 <div className= 'col-md-12'>
-                <h3 className='text-uppercase'>{"The property you're buying"}</h3>
+                  {
+                    this.props.loan.purpose == "purchase"
+                    ?
+                      <h3 className='text-uppercase'>{"The property you're buying"}</h3>
+                    :
+                      <h3 className='text-uppercase'>{"The property you're refinancing"}</h3>
+                  }
                   <Property
                     index={'subject_property'}
                     property={this.state.subject_property}
@@ -153,11 +159,11 @@ var FormAssetsAndLiabilities = React.createClass({
                     estimatedHazardInsuranceError={this.state.subject_property.estimatedHazardInsuranceError}
                     estimatedPropertyTaxError={this.state.subject_property.estimatedPropertyTaxError}
                     grossRentalIncomeError={this.state.subject_property.grossRentalIncomeError}
-
                     otherMortgagePaymentAmountError={this.state.subject_property.otherMortgagePaymentAmountError}
                     otherFinancingAmountError={this.state.subject_property.otherFinancingAmountError}
                     estimatedMortgageInsuranceError={this.state.subject_property.estimatedMortgageInsuranceError}
-                    hoaDueError={this.state.subject_property.hoaDueError}/>
+                    hoaDueError={this.state.subject_property.hoaDueError}
+                    isPurchase={this.props.loan.purpose == "purchase"}/>
                 </div>
               </div>
             :
@@ -190,8 +196,11 @@ var FormAssetsAndLiabilities = React.createClass({
               null
           }
           <div className='form-group'>
+            <div className='col-md-12'>
+               <h3 className='text-uppercase'>YOUR OTHER PROPERTIES</h3>
+            </div>
             <div className='col-md-6'>
-              <h5>Do you own investment property?</h5>
+              <h5>Do you own other properties?</h5>
               <BooleanRadio
                 label=''
                 checked={this.state.own_investment_property}
@@ -206,7 +215,7 @@ var FormAssetsAndLiabilities = React.createClass({
             <div>
               <div className='form-group'>
                 <div className='col-md-12'>
-                  <h5>Please provide the following information for all of your rental properties:</h5>
+                  <h5 className='title-asset-tab'>Please provide the following information for your other properties:</h5>
                 </div>
               </div>
               {this.state.rental_properties.map(this.eachProperty)}

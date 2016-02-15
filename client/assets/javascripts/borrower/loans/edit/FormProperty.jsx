@@ -235,7 +235,6 @@ var FormProperty = React.createClass({
 
     if (loan[fields.loanPurpose.name] == "purchase") {
       state[fields.loanPurpose.name] = true;
-
     } else if (loan[fields.loanPurpose.name] == "refinance") {
       state[fields.loanPurpose.name] = false;
     } else {

@@ -6,7 +6,7 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 
 var assetTypes = [
-  {value: 'checkings', name: 'Checkings'},
+  {value: 'checkings', name: 'Checking'},
   {value: 'savings', name: 'Savings'},
   {value: 'investment', name: 'Investment'},
   {value: 'retirement', name: 'Retirement'},

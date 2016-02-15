@@ -219,83 +219,93 @@ var Property = React.createClass({
               onChange={this.onChange}/>
           </div>
         </div>
-        <div className='form-group'>
-          <div className='col-md-6'>
-            <SelectField
-              label='Mortgage Payment'
-              keyName={'property_mortgagePayment' + this.props.index}
-              options={this.state.mortgageLiabilities}
-              value={this.state.property.mortgagePayment}
-              editable={true}
-              onChange={this.onChange}
-              allowBlank={true}/>
-          </div>
-          { this.state.setOtherMortgagePayment
-            ? <div className='col-md-6'>
-                <TextField
-                  label='Other Amount'
-                  keyName={'property_other_mortgage_payment_amount'}
-                  value={this.formatCurrency(this.state.property.other_mortgage_payment_amount)}
-                  format={this.formatCurrency}
-                  liveFormat={true}
-                  editable={true}
-                  maxLength={15}
-                  validationTypes={["currency"]}
-                  onChange={this.onChange}/>
+
+        {
+          this.props.isPurchase == true
+          ?
+            null
+          :
+            <div>
+              <div className='form-group'>
+                <div className='col-md-6'>
+                  <SelectField
+                    label='Mortgage Payment'
+                    keyName={'property_mortgagePayment' + this.props.index}
+                    options={this.state.mortgageLiabilities}
+                    value={this.state.property.mortgagePayment}
+                    editable={true}
+                    onChange={this.onChange}
+                    allowBlank={true}/>
+                </div>
+                { this.state.setOtherMortgagePayment
+                  ? <div className='col-md-6'>
+                      <TextField
+                        label='Other Amount'
+                        keyName={'property_other_mortgage_payment_amount'}
+                        value={this.formatCurrency(this.state.property.other_mortgage_payment_amount)}
+                        format={this.formatCurrency}
+                        liveFormat={true}
+                        editable={true}
+                        maxLength={15}
+                        validationTypes={["currency"]}
+                        onChange={this.onChange}/>
+                    </div>
+                  : null
+                }
               </div>
-            : null
-          }
-        </div>
-        <div className='form-group'>
-          <div className='col-md-6'>
-            <SelectField
-              label='Other Financing (if applicable)'
-              keyName={'property_otherFinancing' + this.props.index}
-              value={this.state.property.otherFinancing}
-              options={this.state.otherFinancingLiabilities}
-              editable={true}
-              onChange={this.onChange}
-              allowBlank={true}/>
-          </div>
-          { this.state.setOtherFinancing
-            ? <div className='col-md-6'>
-                <TextField
-                  label='Other Amount'
-                  keyName={'property_other_financing_amount' + this.props.index}
-                  value={this.formatCurrency(this.state.property.other_financing_amount)}
-                  format={this.formatCurrency}
-                  liveFormat={true}
-                  editable={true}
-                  maxLength={15}
-                  validationTypes={["currency"]}
-                  onChange={this.onChange}/>
+              <div className='form-group'>
+                <div className='col-md-6'>
+                  <SelectField
+                    label='Other Financing (if applicable)'
+                    keyName={'property_otherFinancing' + this.props.index}
+                    value={this.state.property.otherFinancing}
+                    options={this.state.otherFinancingLiabilities}
+                    editable={true}
+                    onChange={this.onChange}
+                    allowBlank={true}/>
+                </div>
+                { this.state.setOtherFinancing
+                  ? <div className='col-md-6'>
+                      <TextField
+                        label='Other Amount'
+                        keyName={'property_other_financing_amount' + this.props.index}
+                        value={this.formatCurrency(this.state.property.other_financing_amount)}
+                        format={this.formatCurrency}
+                        liveFormat={true}
+                        editable={true}
+                        maxLength={15}
+                        validationTypes={["currency"]}
+                        onChange={this.onChange}/>
+                    </div>
+                  : null
+                }
               </div>
-            : null
-          }
-        </div>
-        <div className='form-group'>
-          <div className='col-md-6'>
-            <TextField
-              label='Mortgage Insurance (if applicable)'
-              keyName={'property_estimated_mortgage_insurance' + this.props.index}
-              value={this.formatCurrency(this.state.property.estimated_mortgage_insurance)}
-              editable={true}
-              maxLength={15}
-              validationTypes={["currency"]}
-              onChange={this.onChange}/>
-          </div>
-          <div className='col-md-6'>
-            <SelectField
-              activateRequiredField={this.props.mortgageIncludesEscrowsError}
-              label='Does your mortgage payment include escrows?'
-              keyName={'property_mortgage_includes_escrows' + this.props.index}
-              value={this.state.property.mortgage_includes_escrows}
-              options={mortgageInclueEscrows}
-              editable={true}
-              onChange={this.onChange}
-              allowBlank={true}/>
-          </div>
-        </div>
+              <div className='form-group'>
+                <div className='col-md-6'>
+                  <TextField
+                    label='Mortgage Insurance (if applicable)'
+                    keyName={'property_estimated_mortgage_insurance' + this.props.index}
+                    value={this.formatCurrency(this.state.property.estimated_mortgage_insurance)}
+                    editable={true}
+                    maxLength={15}
+                    validationTypes={["currency"]}
+                    onChange={this.onChange}/>
+                </div>
+                <div className='col-md-6'>
+                  <SelectField
+                    activateRequiredField={this.props.mortgageIncludesEscrowsError}
+                    label='Does your mortgage payment include escrows?'
+                    keyName={'property_mortgage_includes_escrows' + this.props.index}
+                    value={this.state.property.mortgage_includes_escrows}
+                    options={mortgageInclueEscrows}
+                    editable={true}
+                    onChange={this.onChange}
+                    allowBlank={true}/>
+                </div>
+              </div>
+            </div>
+        }
+
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
