@@ -216,12 +216,12 @@ var Borrower = React.createClass({
                   value={this.props.currentMonthlyRent}
                   keyName={this.props.fields.currentMonthlyRent.name}
                   customClass={"account-text-input"}
-                  liveFormat={true}
                   format={this.formatCurrency}
                   maxLength={15}
                   onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentMonthlyRent)}
                   validationTypes={["currency"]}
-                  onChange={this.props.onChange}/>
+                  onChange={this.props.onChange}
+                  onBlur={this.props.onBlur}/>
               : null
             }
           </div>
@@ -291,12 +291,12 @@ var Borrower = React.createClass({
                     value={this.props.previousMonthlyRent}
                     keyName={this.props.fields.previousMonthlyRent.name}
                     customClass={"account-text-input"}
-                    liveFormat={true}
                     format={this.formatCurrency}
                     maxLength={15}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyRent)}
                     validationTypes={["currency"]}
-                    onChange={this.props.onChange}/>
+                    onChange={this.props.onChange}
+                    onBlur={this.props.onBlur}/>
                 : null
               }
             </div>
