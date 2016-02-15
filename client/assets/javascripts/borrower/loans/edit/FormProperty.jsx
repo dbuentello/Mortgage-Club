@@ -27,7 +27,7 @@ var loanPurposes = [
 var propertyPurposes = [
   {value: "primary_residence", name: "Primary Residence"},
   {value: "vacation_home", name: "Vacation Home"},
-  {value: "rental_property", name: "Rental Property"}
+  {value: "rental_property", name: "Investment Property"}
 ];
 
 var FormProperty = React.createClass({
@@ -111,7 +111,6 @@ var FormProperty = React.createClass({
                 address={this.state[fields.address.name]}
                 keyName={fields.address.name}
                 editable={true}
-                helpText={fields.address.helpText}
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.address)}
                 placeholder=""/>
@@ -127,7 +126,6 @@ var FormProperty = React.createClass({
                 value={this.state[fields.propertyPurpose.name]}
                 options={propertyPurposes}
                 editable={true}
-                helpText={fields.propertyPurpose.helpText}
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.propertyPurpose)}
                 allowBlank={true}/>
@@ -162,7 +160,6 @@ var FormProperty = React.createClass({
                     liveFormat={true}
                     maxLength={15}
                     format={this.formatCurrency}
-                    helpText={fields.purchasePrice.helpText}
                     onFocus={this.onFocus.bind(this, fields.purchasePrice)}
                     validationTypes={["currency"]}
                     onChange={this.onChange}/>
@@ -181,7 +178,6 @@ var FormProperty = React.createClass({
                     liveFormat={true}
                     maxLength={15}
                     format={this.formatCurrency}
-                    helpText={fields.originalPurchasePrice.helpText}
                     onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
                     validationTypes={["currency"]}
                     onChange={this.onChange}/>
@@ -206,7 +202,6 @@ var FormProperty = React.createClass({
                     maxLength={4}
                     liveFormat={true}
                     format={this.formatYear}
-                    helpText={fields.originalPurchaseYear.helpText}
                     onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)}
                     validationTypes={["integer"]}
                     onChange={this.onChange}/>
