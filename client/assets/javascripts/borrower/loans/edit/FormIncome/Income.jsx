@@ -254,7 +254,7 @@ var Income = React.createClass({
           <div className="col-md-12 clickable" onClick={this.addOtherIncome}>
             <h5>
               <span className="glyphicon glyphicon-plus-sign"></span>
-                Add other income
+                Add Other Income
             </h5>
           </div>
         </div>
