@@ -91,7 +91,7 @@ describe UserForm do
 
       it "stores error's messages" do
         @form.save
-        expect(@form.errors.full_messages).to eq(["Email is invalid", "Email is invalid", "First name can't be blank", "Last name can't be blank"])
+        expect(@form.errors.full_messages).to eq(["Email is invalid", "Email is invalid", "First name This is field required", "Last name This is field required"])
       end
     end
   end
