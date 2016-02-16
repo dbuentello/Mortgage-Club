@@ -283,6 +283,7 @@ var FormProperty = React.createClass({
     state[fields.address.name] = property.address;
     state[fields.propertyPurpose.name] = property[fields.propertyPurpose.name];
     state[fields.purchasePrice.name] = this.formatCurrency(property[fields.purchasePrice.name]);
+    state[fields.monthlyRent.name] = this.formatCurrency(property[fields.monthlyRent.name]);
     state[fields.originalPurchasePrice.name] = this.formatCurrency(property[fields.originalPurchasePrice.name]);
     state[fields.originalPurchaseYear.name] = property[fields.originalPurchaseYear.name];
     state.property_type = property.property_type;
@@ -312,6 +313,7 @@ var FormProperty = React.createClass({
     loan.properties_attributes[fields.propertyPurpose.name] = this.state[fields.propertyPurpose.name];
     loan.properties_attributes[fields.purchasePrice.name] = this.currencyToNumber(this.state[fields.purchasePrice.name]);
     loan.properties_attributes[fields.originalPurchasePrice.name] = this.currencyToNumber(this.state[fields.originalPurchasePrice.name]);
+    loan.properties_attributes[fields.monthlyRent.name] = this.currencyToNumber(this.state[fields.monthlyRent.name]);
     loan.properties_attributes[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
     loan.properties_attributes.address_attributes = this.state.address;
     loan.properties_attributes.zpid = this.state.property ? this.state.property.zpid : null;
@@ -361,6 +363,10 @@ var FormProperty = React.createClass({
     if(this.isRefinance()) {
       requiredFields[fields.originalPurchasePrice.error] = {value: this.state[fields.originalPurchasePrice.name], validationTypes: fields.originalPurchasePrice.validationTypes};
       requiredFields[fields.originalPurchaseYear.error] = {value: this.state[fields.originalPurchaseYear.name], validationTypes: fields.originalPurchaseYear.validationTypes};
+    }
+
+    if(this.state[fields.propertyPurpose.name] !== "primary_residence") {
+      requiredFields[fields.monthlyRent.error] = {value: this.state[fields.monthlyRent.name], validationTypes: fields.monthlyRent.validationTypes};
     }
 
     return requiredFields;
