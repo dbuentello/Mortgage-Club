@@ -10,12 +10,13 @@ var SelectField = require("components/form/NewSelectField");
 var TextField = require("components/form/NewTextField");
 var BooleanRadio = require("components/form/NewBooleanRadio");
 var fields = {
-  address: {label: 'Property Address', name: 'address', helpText: "The full address of the subject property for which you are applying for a loan.", error: "addressError", validationTypes: ["empty"]},
-  loanPurpose: {label: "Purpose of Loan", name: "purpose", helpText: "The purpose for taking out the loan in terms of how funds will be used.", error: "loanError", validationTypes: ["empty"]},
-  propertyPurpose: {label: "Property Will Be", name: "usage", helpText: "The primary purpose of acquiring the subject property.", error: "propertyError", validationTypes: ["empty"]},
-  purchasePrice: {label: "Purchase Price", name: "purchase_price", helpText: "How much are you paying for the subject property?", error: "purchaseError", validationTypes: ["empty", "currency"]},
-  originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", helpText: "How much did you pay for the subject property?", error: "originalPurchasePriceError", validationTypes: ["empty", "currency"]},
-  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home.", error: "originalPurchaseYearError", validationTypes: ["empty", "integer"]},
+  address: {label: 'Property Address', name: 'address', error: "addressError", validationTypes: ["empty"]},
+  loanPurpose: {label: "Purpose of Loan", name: "purpose", error: "loanError", validationTypes: ["empty"]},
+  monthlyRent: {label: "Monthly Rent", name: "monthly_rent", error: "monthlyRentError", validationTypes: ["empty", "currency"]},
+  propertyPurpose: {label: "Property Will Be", name: "usage", error: "propertyError", validationTypes: ["empty"]},
+  purchasePrice: {label: "Purchase Price", name: "purchase_price", error: "purchaseError", validationTypes: ["empty", "currency"]},
+  originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", error: "originalPurchasePriceError", validationTypes: ["empty", "currency"]},
+  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", error: "originalPurchaseYearError", validationTypes: ["empty", "integer"]},
   yearBuilt: {label: "Year Built", name: "year_built", error: "yearBuiltError", validationTypes: ["empty"]}
 };
 
@@ -131,6 +132,21 @@ var FormProperty = React.createClass({
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.propertyPurpose)}
                 allowBlank={true}/>
+            </div>
+            <div className="col-md-6">
+              <TextField
+                requiredMessage="This field is required"
+                activateRequiredField={this.state[fields.monthlyRent.error]}
+                label={fields.monthlyRent.label}
+                keyName={fields.monthlyRent.name}
+                value={this.state[fields.monthlyRent.name]}
+                editable={true}
+                liveFormat={true}
+                maxLength={15}
+                format={this.formatCurrency}
+                onFocus={this.onFocus.bind(this, fields.monthlyRent)}
+                validationTypes={["currency"]}
+                onChange={this.onChange}/>
             </div>
           </div>
           <div className="form-group">
