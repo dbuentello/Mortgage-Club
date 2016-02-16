@@ -37,6 +37,23 @@ var UpdateChangeMixin = {
     if (typeof this.updateState == 'function') {
       this.updateState(event);
     }
+  },
+  handleBlur: function(event){
+    var change = {},
+      value = event.target.value;
+
+    if (typeof this.props.onBlur == 'function') {
+      if (_.isFunction(this.props.format)) {
+        value = this.props.format(value);
+      }
+
+      change[this.props.keyName] = value;
+      this.props.onBlur(change);
+    }
+
+    if (typeof this.updateState == 'function') {
+      this.updateState(event);
+    }
   }
 };
 

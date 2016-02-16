@@ -11,7 +11,7 @@ var TextField = require("components/form/NewTextField");
 var BooleanRadio = require("components/form/NewBooleanRadio");
 var fields = {
   address: {label: 'Property Address', name: 'address', error: "addressError", validationTypes: ["empty"]},
-  loanPurpose: {label: "Purpose of Loan", name: "purpose", error: "loanError", validationTypes: ["empty"]},
+  loanPurpose: {label: "Purpose Of Loan", name: "purpose", error: "loanError", validationTypes: ["empty"]},
   monthlyRent: {label: "Monthly Rent", name: "monthly_rent", error: "monthlyRentError", validationTypes: ["empty", "currency"]},
   propertyPurpose: {label: "Property Will Be", name: "usage", error: "propertyError", validationTypes: ["empty"]},
   purchasePrice: {label: "Purchase Price", name: "purchase_price", error: "purchaseError", validationTypes: ["empty", "currency"]},
@@ -28,7 +28,15 @@ var loanPurposes = [
 var propertyPurposes = [
   {value: "primary_residence", name: "Primary Residence"},
   {value: "vacation_home", name: "Vacation Home"},
-  {value: "rental_property", name: "Rental Property"}
+  {value: "rental_property", name: "Investment Property"}
+];
+
+var propertyTypes = [
+  {value: "sfh", name: "Single Family Home"},
+  {value: "duplex", name: "Duplex"},
+  {value: "triplex", name: "Triplex"},
+  {value: "fourplex", name: "Fourplex"},
+  {value: "condo", name: "Condo"}
 ];
 
 var FormProperty = React.createClass({
@@ -60,6 +68,10 @@ var FormProperty = React.createClass({
     this.setState(change);
   },
 
+  onBlur: function(blur) {
+    this.setState(blur);
+  },
+
   onFocus: function(field) {
     this.setState({focusedField: field});
   },
@@ -87,6 +99,7 @@ var FormProperty = React.createClass({
         var lastSoldPrice = this.getValue(response, 'lastSoldPrice.__content__');
         var purchaseYear = (lastSoldDate ? new Date(Date.parse(lastSoldDate)).getFullYear() : null);
         var zillowImageUrl = this.getValue(response, 'zillowImageUrl');
+        var propertyType = this.getPropertyType(this.getValue(response, 'useCode'));
 
         var state = {} ;
         state.marketPrice = this.formatCurrency(marketPrice);
@@ -96,9 +109,17 @@ var FormProperty = React.createClass({
         state.zillowImageUrl = zillowImageUrl;
         state[fields.originalPurchasePrice.name] = this.formatCurrency(lastSoldPrice);
         state[fields.originalPurchaseYear.name] = purchaseYear;
+        state.property_type = propertyType;
         this.setState(state);
       }
     });
+  },
+
+  getPropertyType: function(type_name) {
+    for (var i=0, iLen=propertyTypes.length; i<iLen; i++) {
+      if (propertyTypes[i]['value'] == type_name) return propertyTypes[i]['value'];
+    }
+    return null;
   },
 
   render: function() {
@@ -112,7 +133,6 @@ var FormProperty = React.createClass({
                 address={this.state[fields.address.name]}
                 keyName={fields.address.name}
                 editable={true}
-                helpText={fields.address.helpText}
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.address)}
                 placeholder=""/>
@@ -128,7 +148,6 @@ var FormProperty = React.createClass({
                 value={this.state[fields.propertyPurpose.name]}
                 options={propertyPurposes}
                 editable={true}
-                helpText={fields.propertyPurpose.helpText}
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.propertyPurpose)}
                 allowBlank={true}/>
@@ -146,7 +165,8 @@ var FormProperty = React.createClass({
                 format={this.formatCurrency}
                 onFocus={this.onFocus.bind(this, fields.monthlyRent)}
                 validationTypes={["currency"]}
-                onChange={this.onChange}/>
+                onChange={this.onChange}
+                onBlur={this.onBlur}/>
             </div>
           </div>
           <div className="form-group">
@@ -175,12 +195,11 @@ var FormProperty = React.createClass({
                     keyName={fields.purchasePrice.name}
                     value={this.state[fields.purchasePrice.name]}
                     editable={true}
-                    liveFormat={true}
                     maxLength={15}
                     format={this.formatCurrency}
-                    helpText={fields.purchasePrice.helpText}
                     onFocus={this.onFocus.bind(this, fields.purchasePrice)}
                     validationTypes={["currency"]}
+                    onBlur={this.onBlur}
                     onChange={this.onChange}/>
                 </div>
               </div>
@@ -194,12 +213,11 @@ var FormProperty = React.createClass({
                     keyName={fields.originalPurchasePrice.name}
                     value={this.state[fields.originalPurchasePrice.name]}
                     editable={true}
-                    liveFormat={true}
                     maxLength={15}
                     format={this.formatCurrency}
-                    helpText={fields.originalPurchasePrice.helpText}
                     onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
                     validationTypes={["currency"]}
+                    onBlur={this.onBlur}
                     onChange={this.onChange}/>
                 </div>
               </div>
@@ -222,7 +240,6 @@ var FormProperty = React.createClass({
                     maxLength={4}
                     liveFormat={true}
                     format={this.formatYear}
-                    helpText={fields.originalPurchaseYear.helpText}
                     onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)}
                     validationTypes={["integer"]}
                     onChange={this.onChange}/>

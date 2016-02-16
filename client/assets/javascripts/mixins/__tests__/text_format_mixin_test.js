@@ -17,9 +17,9 @@ describe('text format helper', function() {
   it('converts number to currency format correctly', function() {
     var subject = require('../TextFormatMixin');
     var tests = [
-      {params: [-31321232.2323, '¥'], expected: '-¥31,321,232.23'},
-      {params: [2324.455, '$'], expected: '$2,324.46'},
-      {params: ['-00999.999', '£'], expected: '-£999.99'}
+      {params: [-31321232.2323, 2, '¥'], expected: '-¥31,321,232.23'},
+      {params: [2324.455, 2, '$'], expected: '$2,324.46'},
+      {params: ['-00999.999', 2, '£'], expected: '-£999.99'}
     ];
 
     tests.forEach(function (test) {
