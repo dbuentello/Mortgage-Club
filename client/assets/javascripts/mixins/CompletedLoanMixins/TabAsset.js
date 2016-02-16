@@ -47,7 +47,7 @@ var TabAsset = {
     return true;
   },
 
-  propertyCompleted: function(property, isRental = false) {
+  propertyCompleted: function(property, isRental) {
     if(property == null || property == undefined) { return false; }
     if(property.property_type == null || property.usage == null ||
       property.market_price == null ||
@@ -58,7 +58,7 @@ var TabAsset = {
       return false;
     }
 
-    if(isRental && property.monthly_rent == null)
+    if(isRental == true && property.monthly_rent == null)
     {
       return false;
     }
