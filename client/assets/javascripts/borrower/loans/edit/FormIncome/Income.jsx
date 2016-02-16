@@ -151,12 +151,12 @@ var Income = React.createClass({
                     keyName={this.props.fields.previousMonthlyIncome.name}
                     value={this.props.previousMonthlyIncome}
                     format={this.formatCurrency}
-                    liveFormat={true}
                     editable={true}
                     validationTypes={["currency"]}
                     maxLength={15}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyIncome)}
-                    onChange={this.props.onChange}/>
+                    onChange={this.props.onChange}
+                    onBlur={this.props.onBlur}/>
                 </div>
               </div>
               <div className="form-group">
