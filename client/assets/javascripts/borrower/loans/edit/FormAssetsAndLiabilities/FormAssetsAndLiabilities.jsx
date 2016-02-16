@@ -73,7 +73,7 @@ var FormAssetsAndLiabilities = React.createClass({
         index={index}
         property={property}
         liabilities = {this.state.liabilities}
-        isShowRemove={this.state.rental_properties.length > 1}
+        isShowRemove={this.state.rental_properties.length >= 1}
         onRemove={this.removeProperty}
         addressError={property.addressError}
         propertyTypeError={property.propertyTypeError}
