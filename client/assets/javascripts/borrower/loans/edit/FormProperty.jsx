@@ -30,6 +30,14 @@ var propertyPurposes = [
   {value: "rental_property", name: "Investment Property"}
 ];
 
+var propertyTypes = [
+  {value: 'sfh', name: 'Single Family Home'},
+  {value: 'duplex', name: 'Duplex'},
+  {value: 'triplex', name: 'Triplex'},
+  {value: 'fourplex', name: 'Fourplex'},
+  {value: 'condo', name: 'Condo'}
+];
+
 var FormProperty = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler, ValidationObject],
 
@@ -90,6 +98,7 @@ var FormProperty = React.createClass({
         var lastSoldPrice = this.getValue(response, 'lastSoldPrice.__content__');
         var purchaseYear = (lastSoldDate ? new Date(Date.parse(lastSoldDate)).getFullYear() : null);
         var zillowImageUrl = this.getValue(response, 'zillowImageUrl');
+        var propertyType = this.getPropertyType(this.getValue(response, 'useCode'));
 
         var state = {} ;
         state.marketPrice = this.formatCurrency(marketPrice);
@@ -99,9 +108,17 @@ var FormProperty = React.createClass({
         state.zillowImageUrl = zillowImageUrl;
         state[fields.originalPurchasePrice.name] = this.formatCurrency(lastSoldPrice);
         state[fields.originalPurchaseYear.name] = purchaseYear;
+        state.property_type = propertyType;
         this.setState(state);
       }
     });
+  },
+
+  getPropertyType: function(type_name) {
+    for (var i=0, iLen=propertyTypes.length; i<iLen; i++) {
+      if (propertyTypes[i]['value'] == type_name) return propertyTypes[i]['value'];
+    }
+    return null;
   },
 
   render: function() {
