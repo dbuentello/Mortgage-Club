@@ -38,7 +38,7 @@ var TabAsset = {
     var rental_properties = loan.rental_properties;
 
     for (var i = 0; i < rental_properties.length; i++) {
-      var completed = this.propertyCompleted(rental_properties[i]);
+      var completed = this.propertyCompleted(rental_properties[i], true);
       if(!completed) {
         return false;
       }
@@ -47,7 +47,7 @@ var TabAsset = {
     return true;
   },
 
-  propertyCompleted: function(property) {
+  propertyCompleted: function(property, isRental = false) {
     if(property == null || property == undefined) { return false; }
     if(property.property_type == null || property.usage == null ||
       property.market_price == null ||
@@ -57,6 +57,12 @@ var TabAsset = {
     ){
       return false;
     }
+
+    if(isRental && property.monthly_rent == null)
+    {
+      return false;
+    }
+
     if(!this.addressCompleted(property.address)) {
       return false;
     }
