@@ -18,6 +18,7 @@ var TabDocuments = require('mixins/CompletedLoanMixins/TabDocuments');
 var TabIncome = require('mixins/CompletedLoanMixins/TabIncome');
 var TabAsset = require('mixins/CompletedLoanMixins/TabAsset');
 
+var creditCardCompleted = false;
 var LoanInterface = React.createClass({
   mixins: [CheckCompletedLoanMixin],
 
@@ -25,13 +26,14 @@ var LoanInterface = React.createClass({
     var loan = this.props.bootstrapData.currentLoan;
     var borrower_type = this.props.bootstrapData.borrower_type;
     var menu = this.buildMenu(loan);
+    var active = _.findWhere(menu, {complete: false}) || menu[0];
 
     return {
       menu: menu,
-      active: _.findWhere(menu, {complete: false}) || menu[0],
+      active: active,
       loan: loan,
       borrower_type: borrower_type,
-      completedLoan: this.loanIsCompleted(loan),
+      completedLoan: this.loanIsCompleted(loan)
     };
   },
 
@@ -133,6 +135,9 @@ var LoanInterface = React.createClass({
   },
 
   goToItem: function(item) {
+    if(item.name == "Credit Check")
+      creditCardCompleted = true;
+
     var menu = this.buildMenu(this.state.loan);
     // this.autosave(this.props.bootstrapData.currentLoan, this.state.active.step);
     this.setState({active: item, completedLoan: false, menu: menu});
@@ -144,7 +149,7 @@ var LoanInterface = React.createClass({
       {name: "Borrower", complete: TabBorrower.completed(loan), iconSrc: "/icons/borrower.png", step: 1, Content: Borrower},
       {name: "Documents", complete: TabDocuments.documentsCompleted(loan), iconSrc: "/icons/description.png", step: 2, Content: Documents},
       {name: "Income", complete: TabIncome.incomeCompleted(loan), iconSrc: "/icons/income.png", step: 3, Content: Income},
-      {name: "Credit Check", complete: true, iconSrc: "/icons/creditcheck.png", step: 4, Content: CreditCheck},
+      {name: "Credit Check", complete: creditCardCompleted, iconSrc: "/icons/creditcheck.png", step: 4, Content: CreditCheck},
       {name: "Assets and Liabilities", complete: TabAsset.assetCompleted(loan), iconSrc: "/icons/assets.png", step: 5, Content: AssetsAndLiabilities},
       {name: "Declarations", complete: TabDeclaration.declarationCompleted(loan), iconSrc: "/icons/declarations.png", step: 6, Content: Declarations},
     ];

@@ -18,7 +18,6 @@ var OtherIncome = React.createClass({
 
   componentWillMount: function(){
     this.props.amount = this.formatCurrency(this.props.amount);
-    console.log(this.props.amount);
   },
 
   onChange: function(change) {
