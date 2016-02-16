@@ -163,7 +163,6 @@ var FormProperty = React.createClass({
                     keyName={fields.monthlyRent.name}
                     value={this.state[fields.monthlyRent.name]}
                     editable={true}
-                    liveFormat={true}
                     maxLength={15}
                     format={this.formatCurrency}
                     onFocus={this.onFocus.bind(this, fields.monthlyRent)}

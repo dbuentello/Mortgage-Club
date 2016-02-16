@@ -85,7 +85,8 @@ var FormAssetsAndLiabilities = React.createClass({
         otherMortgagePaymentAmountError={property.otherMortgagePaymentAmountError}
         otherFinancingAmountError={property.otherFinancingAmountError}
         estimatedMortgageInsuranceError={property.estimatedMortgageInsuranceError}
-        hoaDueError={property.hoaDueError}/>
+        hoaDueError={property.hoaDueError}
+        monthlyRentError={property.monthlyRentError}/>
     );
   },
 
@@ -262,7 +263,8 @@ var FormAssetsAndLiabilities = React.createClass({
       estimated_hazard_insurance: null,
       estimated_property_tax: null,
       hoa_due: null,
-      gross_rental_income: null
+      gross_rental_income: null,
+      monthly_rent: null
     };
   },
 
@@ -298,12 +300,14 @@ var FormAssetsAndLiabilities = React.createClass({
     property.estimated_property_tax = this.currencyToNumber(property.estimated_property_tax);
     property.hoa_due = this.currencyToNumber(property.hoa_due);
     property.gross_rental_income = this.currencyToNumber(property.gross_rental_income);
+    property.monthly_rent = this.currencyToNumber(property.monthly_rent);
 
     return property;
   },
 
   setStateForInvalidFieldsOfProperty: function(property) {
     var allFieldsAreOK = true;
+
     var fields = {
       addressError: {value: property.address, validationTypes: ["empty"]},
       propertyTypeError: {value: property.property_type, validationTypes: ["empty"]},
@@ -321,8 +325,11 @@ var FormAssetsAndLiabilities = React.createClass({
       fields.estimatedMortgageInsuranceError = {value: this.formatCurrency(property.estimated_mortgage_insurance), validationTypes: ["currency"]};
     if(property.hoa_due)
       fields.hoaDueError = {value: this.formatCurrency(property.hoa_due), validationTypes: ["currency"]};
+    if(property.usage != "primary_residence" && property.is_primary == false && property.is_subject == false)
+      fields.monthlyRentError = {value: this.formatCurrency(property.monthly_rent), validationTypes: ["currency"]}
 
     var states = this.getStateOfInvalidFields(fields);
+
     if(!_.isEmpty(states)) {
       _.each(states, function(value, key) {
         property[key] = true;

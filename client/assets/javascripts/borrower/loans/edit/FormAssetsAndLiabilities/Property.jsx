@@ -46,6 +46,7 @@ var Property = React.createClass({
     state.property.other_financing_amount = state.property.other_financing_amount ? this.formatCurrency(state.property.other_financing_amount) : null;
     state.property.hoa_due = state.property.hoa_due ? this.formatCurrency(state.property.hoa_due) : null;
     state.property.gross_rental_income = state.property.gross_rental_income ? this.formatCurrency(state.property.gross_rental_income) : null;
+    state.property.monthly_rent = state.property.monthly_rent ? this.formatCurrency(state.property.monthly_rent) : null;
 
     return state;
   },
@@ -408,8 +409,27 @@ var Property = React.createClass({
               onBlur={this.onBlur}/>
           </div>
         </div>
-        <div className='form-group' style={{display: (this.state.property.is_subject && this.state.property.usage == 'rental_property') ? null : 'none'}}>
-          <div className='col-md-6'>
+        <div className='form-group'>
+          {
+            this.props.index != "subject_property" && this.props.index != "primary_property"
+            ?
+              <div className='col-md-6'>
+                <TextField
+                  activateRequiredField={this.props.monthlyRentError}
+                  label='Monthly Rent'
+                  keyName={'property_monthly_rent' + this.props.index}
+                  value={this.state.property.monthly_rent}
+                  maxLength={15}
+                  editable={true}
+                  validationTypes={["currency"]}
+                  onChange={this.onChange}
+                  format={this.formatCurrency}
+                  onBlur={this.onBlur}/>
+              </div>
+            :
+              null
+          }
+          <div className='col-md-6' style={{display: (this.state.property.is_subject && this.state.property.usage == 'rental_property') ? null : 'none'}}>
             <TextField
               activateRequiredField={this.props.grossRentalIncomeError}
               label='Estimated Rental Income'
