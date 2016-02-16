@@ -44,7 +44,6 @@ var Property = React.createClass({
     state.property.estimated_hazard_insurance = state.property.estimated_hazard_insurance ? this.formatCurrency(state.property.estimated_hazard_insurance) : null;
     state.property.other_mortgage_payment_amount = state.property.other_mortgage_payment_amount ? this.formatCurrency(state.property.other_mortgage_payment_amount) : null;
     state.property.other_financing_amount = state.property.other_financing_amount ? this.formatCurrency(state.property.other_financing_amount) : null;
-    state.property.mortgage_includes_escrows = state.property.mortgage_includes_escrows ? this.formatCurrency(state.property.mortgage_includes_escrows) : null;
     state.property.hoa_due = state.property.hoa_due ? this.formatCurrency(state.property.hoa_due) : null;
     state.property.gross_rental_income = state.property.gross_rental_income ? this.formatCurrency(state.property.gross_rental_income) : null;
 
