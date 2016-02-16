@@ -71,10 +71,10 @@ Before '@javascript' do
 end
 
 After do |scenario|
+  # features/support/env.rb
   if scenario.failed?
     timestamp = "#{Time.zone.now.strftime('%Y-%m-%d-%H:%M:%S')}"
-
-    screenshot_name = "screenshot-failed-cucumber-#{timestamp}.png"
+    screenshot_name = "screenshot-#{scenario.title}-#{timestamp}.png"
     screenshot_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}/#{screenshot_name}"
     Capybara.page.save_screenshot(screenshot_path)
   end
