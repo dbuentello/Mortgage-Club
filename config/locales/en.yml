@@ -20,10 +20,24 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
-
-en:
   number:
     format:
       delimiter: ","
       separator: "."
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            first_name:
+              blank: "This is field required"
+            last_name:
+              blank: "This is field required"
+            password:
+              blank: "This is field required"
+              too_short: "Password is too short (minimum is %{count} characters)"
+            password_confirmation:
+              blank: "This is field required"
+              confirmation: "Doesn't match Password"
+            email:
+              taken: "This email has already been taken" 

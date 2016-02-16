@@ -14,30 +14,35 @@
             </h1>
             <p class="">(as of <%= @last_updated %>)</p>
           </div>
-
-          <table class="table homeTable">
-            <tr class="table-header">
-              <td>Programs</td><td>Mortgage Club</td><td>Wells Fargo</td><td>Quicken Loans</td>
-            </tr>
-            <tr>
-              <td>30 Year Fixed<hr/></td>
-              <td><%= @mortgage_aprs['loan_tek']['apr_30_year'] %><hr/></td>
-              <td><%= @mortgage_aprs['wellsfargo']['apr_30_year'] %><hr/></td>
-              <td><%= @mortgage_aprs['quicken_loans']['apr_30_year'] %><hr/></td>
-            </tr>
-            <tr>
-              <td>15 Year Fixed<hr/></td>
-              <td><%= @mortgage_aprs['loan_tek']['apr_15_year'] %><hr/></td>
-              <td><%= @mortgage_aprs['wellsfargo']['apr_15_year'] %><hr/></td>
-              <td><%= @mortgage_aprs['quicken_loans']['apr_15_year'] %><hr/></td>
-            </tr>
-            <tr>
-              <td>5/1 ARM<hr/></td>
-              <td><%= @mortgage_aprs['loan_tek']['apr_5_libor'] %><hr/></td>
-              <td><%= @mortgage_aprs['wellsfargo']['apr_5_libor'] %><hr/></td>
-              <td><%= @mortgage_aprs['quicken_loans']['apr_5_libor'] %><hr/></td>
-            </tr>
-          </table>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table-responsive homeTable">
+                <tr class="table-header">
+                  <td>Programs</td><td>Mortgage Club</td><td>Wells Fargo</td><td>Quicken Loans</td>
+                </tr>
+                <tr>
+                  <td>30 Year Fixed<hr/></td>
+                  <td><%= @mortgage_aprs['loan_tek']['apr_30_year'] %><hr/></td>
+                  <td><%= @mortgage_aprs['wellsfargo']['apr_30_year'] %><hr/></td>
+                  <td><%= @mortgage_aprs['quicken_loans']['apr_30_year'] %><hr/></td>
+                </tr>
+                <tr>
+                  <td>15 Year Fixed<hr/></td>
+                  <td><%= @mortgage_aprs['loan_tek']['apr_15_year'] %><hr/></td>
+                  <td><%= @mortgage_aprs['wellsfargo']['apr_15_year'] %><hr/></td>
+                  <td><%= @mortgage_aprs['quicken_loans']['apr_15_year'] %><hr/></td>
+                </tr>
+                <tr>
+                  <td>5/1 ARM<hr/></td>
+                  <td><%= @mortgage_aprs['loan_tek']['apr_5_libor'] %><hr/></td>
+                  <td><%= @mortgage_aprs['wellsfargo']['apr_5_libor'] %><hr/></td>
+                  <td><%= @mortgage_aprs['quicken_loans']['apr_5_libor'] %><hr/></td>
+                </tr>
+              </table>
+            </div>
+           
+          </div>
+         
           <div>
             <%= link_to "find my rate", new_user_registration_path, class: "btn btn-lg theBtn text-uppercase", role: "button", id: "applyBtn" %>
             <!-- <a id="applyBtn" class="btn btn-lg theBtn text-uppercase" href="#" role="button">sign up for beta</a> -->
@@ -145,9 +150,6 @@
             <p>By leveraging our technology, you can complete the loan application online in 10 mins and close your loan in 15 days.</p>
           </div>
         </div>
-      </div>
-
-      <div class="row">
         <div class="col-lg-6 clearfix whyItem">
           <%= image_tag("why3.png") %>
           <div class="bigNum">3</div>
@@ -165,10 +167,7 @@
             <p>Your Relationship Manager  is compensated by salary and bonus based on customer satisfaction to remove commission bias.</p>
           </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-6 clearfix whyItem">
+                <div class="col-lg-6 clearfix whyItem">
           <%= image_tag("why5.png") %>
           <div class="bigNum">5</div>
           <div class="whyText">
@@ -186,6 +185,8 @@
           </div>
         </div>
       </div>
+
+     
       </div>
   </div>
 
