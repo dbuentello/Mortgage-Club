@@ -15,4 +15,4 @@ Feature: PropertyTabAtNewLoanPage
       When I click link with div "#tabProperty a"
         And I should see "Vacation Home"
         And I should see "Purchase"
-        And the "Purchase Price" field should contain "$12,345"
+        And the "Purchase Price" field should contain "$12,345.00"

@@ -31,7 +31,7 @@ Feature: IncomeTabAtNewLoanPage
         Then I should see content as "Software Engineer"
           And I should see content as "Cuong Vu"
           And I should see content as "(909) 123-4785"
-          And I should see content as "$123,454"
+          And I should see content as "$123,454.00"
       And I should see "Documents"
 
   @javascript
@@ -60,7 +60,7 @@ Feature: IncomeTabAtNewLoanPage
         Then I should see content as "Software Engineer"
           And I should see "Name Of Previous Employer"
           And I should see content as "Eximbank"
-          And I should see content as "$3,333"
+          And I should see content as "$3,333.00"
           And I should see content as "CEO"
           And I should see content as "12"
       And I should see "Documents"
@@ -98,4 +98,4 @@ Feature: IncomeTabAtNewLoanPage
         And I should see content as "Business Analyst"
         And I should see content as "Mr. Constantine"
         And I should see content as "(909) 123-4785"
-        And I should see content as "$9,999"
+        And I should see content as "$9,999.00"

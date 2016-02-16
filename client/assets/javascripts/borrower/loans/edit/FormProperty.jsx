@@ -59,6 +59,10 @@ var FormProperty = React.createClass({
     this.setState(change);
   },
 
+  onBlur: function(blur) {
+    this.setState(blur);
+  },
+
   onFocus: function(field) {
     this.setState({focusedField: field});
   },
@@ -157,11 +161,11 @@ var FormProperty = React.createClass({
                     keyName={fields.purchasePrice.name}
                     value={this.state[fields.purchasePrice.name]}
                     editable={true}
-                    liveFormat={true}
                     maxLength={15}
                     format={this.formatCurrency}
                     onFocus={this.onFocus.bind(this, fields.purchasePrice)}
                     validationTypes={["currency"]}
+                    onBlur={this.onBlur}
                     onChange={this.onChange}/>
                 </div>
               </div>
@@ -175,11 +179,11 @@ var FormProperty = React.createClass({
                     keyName={fields.originalPurchasePrice.name}
                     value={this.state[fields.originalPurchasePrice.name]}
                     editable={true}
-                    liveFormat={true}
                     maxLength={15}
                     format={this.formatCurrency}
                     onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
                     validationTypes={["currency"]}
+                    onBlur={this.onBlur}
                     onChange={this.onChange}/>
                 </div>
               </div>

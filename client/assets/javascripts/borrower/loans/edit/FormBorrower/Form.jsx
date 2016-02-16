@@ -89,6 +89,10 @@ var Form = React.createClass({
     this.setState(change);
   },
 
+  onBlur: function(blur) {
+    this.setState(blur);
+  },
+
   onFocus: function(field) {
     this.setState({focusedField: field});
   },
@@ -161,7 +165,8 @@ var Form = React.createClass({
             selfEmployed={this.state[borrower_fields.selfEmployed.name]}
             selfEmployedErorr={this.state[borrower_fields.selfEmployed.error]}
             onChange={this.onChange}
-            onFocus={this.onFocus}/>
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}/>
 
             { this.state.hasSecondaryBorrower ?
               <div className="box mtn">
@@ -213,7 +218,8 @@ var Form = React.createClass({
                   selfEmployedError={this.state[secondary_borrower_fields.selfEmployed.error]}
                   isSecondary={true}
                   onChange={this.onChange}
-                  onFocus={this.onFocus}/>
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}/>
               </div>
             : null }
             <div className="form-group">
