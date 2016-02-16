@@ -152,22 +152,28 @@ var FormProperty = React.createClass({
                 onFocus={this.onFocus.bind(this, fields.propertyPurpose)}
                 allowBlank={true}/>
             </div>
-            <div className="col-md-6">
-              <TextField
-                requiredMessage="This field is required"
-                activateRequiredField={this.state[fields.monthlyRent.error]}
-                label={fields.monthlyRent.label}
-                keyName={fields.monthlyRent.name}
-                value={this.state[fields.monthlyRent.name]}
-                editable={true}
-                liveFormat={true}
-                maxLength={15}
-                format={this.formatCurrency}
-                onFocus={this.onFocus.bind(this, fields.monthlyRent)}
-                validationTypes={["currency"]}
-                onChange={this.onChange}
-                onBlur={this.onBlur}/>
-            </div>
+            {
+              this.state[fields.propertyPurpose.name] != "primary_residence"
+              ?
+                <div className="col-md-6">
+                  <TextField
+                    requiredMessage="This field is required"
+                    activateRequiredField={this.state[fields.monthlyRent.error]}
+                    label={fields.monthlyRent.label}
+                    keyName={fields.monthlyRent.name}
+                    value={this.state[fields.monthlyRent.name]}
+                    editable={true}
+                    liveFormat={true}
+                    maxLength={15}
+                    format={this.formatCurrency}
+                    onFocus={this.onFocus.bind(this, fields.monthlyRent)}
+                    validationTypes={["currency"]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}/>
+                </div>
+              :
+                null
+            }
           </div>
           <div className="form-group">
             <div className="col-md-6">
