@@ -41,8 +41,9 @@ var TextFormatMixin = {
     return val.replace('$', '').replace(/\,/g, '');
   },
 
-  formatCurrency: function(cashflow, unit) {
+  formatCurrency: function(cashflow, decimals, unit) {
     var negative, money, prefix;
+    var decimal = decimals | 2;
 
     if (!cashflow) {
       return cashflow;
@@ -63,7 +64,7 @@ var TextFormatMixin = {
       prefix = negative + '$';
     }
 
-    return prefix + this.commafy(money, 2);
+    return prefix + this.commafy(money, decimal);
   },
 
   /**
