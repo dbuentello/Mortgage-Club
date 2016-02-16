@@ -64,7 +64,7 @@ module CompletedLoanServices
       return false unless property.mortgage_includes_escrows.present?
       return false unless property.estimated_property_tax.present?
       return false unless property.estimated_hazard_insurance.present?
-      return false unless is_rental && property.monthly_rent.present?
+      return false if is_rental && property.monthly_rent.nil?
 
       true
     end
