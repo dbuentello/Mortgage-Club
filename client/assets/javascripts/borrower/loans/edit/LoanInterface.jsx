@@ -26,11 +26,11 @@ var LoanInterface = React.createClass({
     var loan = this.props.bootstrapData.currentLoan;
     var borrower_type = this.props.bootstrapData.borrower_type;
     var menu = this.buildMenu(loan);
-    var active = _.findWhere(menu, {complete: false}) || menu[0];
+    var activeItem = _.findWhere(menu, {complete: false}) || menu[0];
 
     return {
       menu: menu,
-      active: active,
+      active: activeItem,
       loan: loan,
       borrower_type: borrower_type,
       completedLoan: this.loanIsCompleted(loan)
