@@ -25,7 +25,8 @@ module ZillowService
       params = {
         'address' => address,
         'citystatezip' => citystatezip,
-        'zws-id' => ZILLOW_KEY
+        'zws-id' => ZILLOW_KEY,
+        'rentzestimate' => true
       }
       get('http://www.zillow.com/webservice/GetDeepSearchResults.htm', query: params)
     end

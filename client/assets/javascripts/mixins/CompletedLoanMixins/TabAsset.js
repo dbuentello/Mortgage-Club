@@ -58,7 +58,7 @@ var TabAsset = {
       return false;
     }
 
-    if(isRental == true && property.monthly_rent == null)
+    if(isRental == true && property.gross_rental_income == null)
     {
       return false;
     }
