@@ -7,6 +7,8 @@ Feature: PropertyTabAtNewLoanPage
         And I clear value in "Property Address"
         And I fill in "Property Address" with "1921 South Las Vegas Boulevard, Las Vegas, NV 89104"
         And I select "Vacation Home" from "Property Will Be"
+        And I clear value in "Estimated Rental Income"
+          Then I fill in "Estimated Rental Income" with "1111"
         And I choose "true_purpose"
         And I clear value in "Purchase Price"
           Then I fill in "Purchase Price" with "12345"
@@ -16,3 +18,4 @@ Feature: PropertyTabAtNewLoanPage
         And I should see "Vacation Home"
         And I should see "Purchase"
         And the "Purchase Price" field should contain "$12,345.00"
+        And the "Estimated Rental Income" field should contain "$1,111.00"

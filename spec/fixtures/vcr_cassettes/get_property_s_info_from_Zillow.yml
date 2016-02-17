@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://www.zillow.com/webservice/GetDeepSearchResults.htm?address=5045%20Cedar%20Springs%20Rd&citystatezip=75235&zws-id=X1-ZWz1a4mphgfggb_7zykg
+    uri: http://www.zillow.com/webservice/GetDeepSearchResults.htm?address=5045%20Cedar%20Springs%20Rd&citystatezip=75235&rentzestimate=true&zws-id=X1-ZWz1a4mphgfggb_7zykg
     body:
       encoding: US-ASCII
       string: ''
@@ -71,7 +71,7 @@ http_interactions:
         name="Oak Lawn" id="274835" type="neighborhood"><links><overview>http://www.zillow.com/local-info/TX-Dallas/Oak-Lawn/r_274835/</overview><forSaleByOwner>http://www.zillow.com/oak-lawn-dallas-tx/fsbo/</forSaleByOwner><forSale>http://www.zillow.com/oak-lawn-dallas-tx/</forSale></links></region></localRealEstate></result></results></response></SearchResults:searchresults><!--
         H:001  T:23ms  S:3862  R:Tue Jan 05 23:04:28 PST 2016  B:4.0.23328-release_20160105-tauntaun.ec58017~candidate.d9241dc
         -->
-    http_version: 
+    http_version:
   recorded_at: Wed, 06 Jan 2016 07:04:29 GMT
 - request:
     method: get
@@ -124,7 +124,7 @@ http_interactions:
         successfully processed</text><code>0</code></message><response><monthlyprincipalandinterest>399</monthlyprincipalandinterest><monthlypropertytaxes>219</monthlypropertytaxes><monthlyhazardinsurance>110</monthlyhazardinsurance><monthlypmi>0</monthlypmi><monthlyhoadues>0</monthlyhoadues><totalmonthlypayment>729</totalmonthlypayment><totalpayments>262309</totalpayments><totalinterest>57697</totalinterest><totalprincipal>86000</totalprincipal><totaltaxesfeesandinsurance>118613</totaltaxesfeesandinsurance></response></MonthlyPaymentsAdvanced:paymentsdetails><!--
         H:002  T:4ms  S:622  R:Tue Jan 05 23:04:28 PST 2016  B:4.0.23328-release_20160105-tauntaun.ec58017~candidate.d9241dc
         -->
-    http_version: 
+    http_version:
   recorded_at: Wed, 06 Jan 2016 07:04:29 GMT
 - request:
     method: get
@@ -174,6 +174,6 @@ http_interactions:
         <?xml version="1.0" encoding="utf-8"?><UpdatedPropertyDetails:updatedPropertyDetails xmlns:UpdatedPropertyDetails="http://www.zillow.com/static/xsd/UpdatedPropertyDetails.xsd" xsi:schemaLocation="http://www.zillow.com/static/xsd/UpdatedPropertyDetails.xsd http://www.zillowstatic.com/vstatic/ac95ed6/static/xsd/UpdatedPropertyDetails.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><request><zpid>26697093</zpid></request><message><text>Request successfully processed</text><code>0</code></message><response><zpid>26697093</zpid><pageViewCount><currentMonth>0</currentMonth><total>127</total></pageViewCount><address><street>5045 Cedar Springs Rd APT 116F</street><zipcode>75235</zipcode><city>Dallas</city><state>TX</state><latitude>32.823565</latitude><longitude>-96.82865</longitude></address><links><homeDetails>http://www.zillow.com/homedetails/5045-Cedar-Springs-Rd-APT-116F-Dallas-TX-75235/26697093_zpid/</homeDetails><photoGallery>http://www.zillow.com/homedetails/5045-Cedar-Springs-Rd-APT-116F-Dallas-TX-75235/26697093_zpid/#image=lightbox%3Dtrue</photoGallery><homeInfo>http://www.zillow.com/homedetails/5045-Cedar-Springs-Rd-APT-116F-Dallas-TX-75235/26697093_zpid/</homeInfo></links><editedFacts><useCode>Condominium</useCode><bedrooms>2</bedrooms><bathrooms>1.5</bathrooms><finishedSqFt>1030</finishedSqFt><lotSizeSqFt>120000</lotSizeSqFt><yearBuilt>1963</yearBuilt><numFloors>1</numFloors><roof>Shake / Shingle</roof><heatingSystem>Other</heatingSystem><coolingSystem>Central</coolingSystem><numUnits>1</numUnits></editedFacts><homeDescription>Well-established, beautifully maintained property conveniently located in Oaklawn area. Nestled in the shade of mature trees, this French-style complex features a quiet park like courtyard, covered parking, pool and gated entrance. This first floor unit offers 2 bedrooms 1.5 bath with wood floors. 943 square feet-information is from the FHA Appraisal and is deemed reliable but not guaranteed.
 
         Call 24/7 recorded msg. 800-824-9914 ext. 0811. Then call 214-682-4990 for free no hassle information on any property. pat Svetlik, Buyers Representative</homeDescription></response></UpdatedPropertyDetails:updatedPropertyDetails><!-- H:003  T:31ms  S:766  R:Tue Jan 05 23:04:29 PST 2016  B:4.0.23328-release_20160105-tauntaun.ec58017~candidate.d9241dc -->
-    http_version: 
+    http_version:
   recorded_at: Wed, 06 Jan 2016 07:04:30 GMT
 recorded_with: VCR 2.9.3

@@ -73,7 +73,7 @@ var FormAssetsAndLiabilities = React.createClass({
         index={index}
         property={property}
         liabilities = {this.state.liabilities}
-        isShowRemove={this.state.rental_properties.length > 1}
+        isShowRemove={this.state.rental_properties.length >= 1}
         onRemove={this.removeProperty}
         addressError={property.addressError}
         propertyTypeError={property.propertyTypeError}
@@ -141,7 +141,13 @@ var FormAssetsAndLiabilities = React.createClass({
             ?
               <div className='form-group'>
                 <div className= 'col-md-12'>
-                <h3 className='text-uppercase'>{"The property you're buying"}</h3>
+                  {
+                    this.props.loan.purpose == "purchase"
+                    ?
+                      <h3 className='text-uppercase'>{"The property you're buying"}</h3>
+                    :
+                      <h3 className='text-uppercase'>{"The property you're refinancing"}</h3>
+                  }
                   <Property
                     index={'subject_property'}
                     property={this.state.subject_property}
@@ -153,11 +159,11 @@ var FormAssetsAndLiabilities = React.createClass({
                     estimatedHazardInsuranceError={this.state.subject_property.estimatedHazardInsuranceError}
                     estimatedPropertyTaxError={this.state.subject_property.estimatedPropertyTaxError}
                     grossRentalIncomeError={this.state.subject_property.grossRentalIncomeError}
-
                     otherMortgagePaymentAmountError={this.state.subject_property.otherMortgagePaymentAmountError}
                     otherFinancingAmountError={this.state.subject_property.otherFinancingAmountError}
                     estimatedMortgageInsuranceError={this.state.subject_property.estimatedMortgageInsuranceError}
-                    hoaDueError={this.state.subject_property.hoaDueError}/>
+                    hoaDueError={this.state.subject_property.hoaDueError}
+                    isPurchase={this.props.loan.purpose == "purchase"}/>
                 </div>
               </div>
             :
@@ -190,8 +196,11 @@ var FormAssetsAndLiabilities = React.createClass({
               null
           }
           <div className='form-group'>
+            <div className='col-md-12'>
+               <h3 className='text-uppercase'>YOUR OTHER PROPERTIES</h3>
+            </div>
             <div className='col-md-6'>
-              <h5>Do you own investment property?</h5>
+              <h5>Do you own other properties?</h5>
               <BooleanRadio
                 label=''
                 checked={this.state.own_investment_property}
@@ -206,7 +215,7 @@ var FormAssetsAndLiabilities = React.createClass({
             <div>
               <div className='form-group'>
                 <div className='col-md-12'>
-                  <h5>Please provide the following information for all of your rental properties:</h5>
+                  <h5 className='title-asset-tab'>Please provide the following information for your other properties:</h5>
                 </div>
               </div>
               {this.state.rental_properties.map(this.eachProperty)}
@@ -295,6 +304,7 @@ var FormAssetsAndLiabilities = React.createClass({
 
   setStateForInvalidFieldsOfProperty: function(property) {
     var allFieldsAreOK = true;
+
     var fields = {
       addressError: {value: property.address, validationTypes: ["empty"]},
       propertyTypeError: {value: property.property_type, validationTypes: ["empty"]},
@@ -312,8 +322,11 @@ var FormAssetsAndLiabilities = React.createClass({
       fields.estimatedMortgageInsuranceError = {value: this.formatCurrency(property.estimated_mortgage_insurance), validationTypes: ["currency"]};
     if(property.hoa_due)
       fields.hoaDueError = {value: this.formatCurrency(property.hoa_due), validationTypes: ["currency"]};
+    if(property.usage != "primary_residence" && property.is_primary == false && property.is_subject == false)
+      fields.grossRentalIncomeError = {value: this.formatCurrency(property.gross_rental_income), validationTypes: ["currency"]}
 
     var states = this.getStateOfInvalidFields(fields);
+
     if(!_.isEmpty(states)) {
       _.each(states, function(value, key) {
         property[key] = true;

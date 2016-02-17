@@ -10,12 +10,13 @@ var SelectField = require("components/form/NewSelectField");
 var TextField = require("components/form/NewTextField");
 var BooleanRadio = require("components/form/NewBooleanRadio");
 var fields = {
-  address: {label: 'Property Address', name: 'address', helpText: "The full address of the subject property for which you are applying for a loan.", error: "addressError", validationTypes: ["empty"]},
-  loanPurpose: {label: "Purpose Of Loan", name: "purpose", helpText: "The purpose for taking out the loan in terms of how funds will be used.", error: "loanError", validationTypes: ["empty"]},
-  propertyPurpose: {label: "Property Will Be", name: "usage", helpText: "The primary purpose of acquiring the subject property.", error: "propertyError", validationTypes: ["empty"]},
-  purchasePrice: {label: "Purchase Price", name: "purchase_price", helpText: "How much are you paying for the subject property?", error: "purchaseError", validationTypes: ["empty", "currency"]},
-  originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", helpText: "How much did you pay for the subject property?", error: "originalPurchasePriceError", validationTypes: ["empty", "currency"]},
-  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", helpText: "The year in which you bought your home.", error: "originalPurchaseYearError", validationTypes: ["empty", "integer"]},
+  address: {label: 'Property Address', name: 'address', error: "addressError", validationTypes: ["empty"]},
+  loanPurpose: {label: "Purpose Of Loan", name: "purpose", error: "loanError", validationTypes: ["empty"]},
+  grossRentalIncome: {label: "Estimated Rental Income", name: "gross_rental_income", error: "grossRentalIncomeError", validationTypes: ["empty", "currency"]},
+  propertyPurpose: {label: "Property Will Be", name: "usage", error: "propertyError", validationTypes: ["empty"]},
+  purchasePrice: {label: "Purchase Price", name: "purchase_price", error: "purchaseError", validationTypes: ["empty", "currency"]},
+  originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", error: "originalPurchasePriceError", validationTypes: ["empty", "currency"]},
+  originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", error: "originalPurchaseYearError", validationTypes: ["empty", "integer"]},
   yearBuilt: {label: "Year Built", name: "year_built", error: "yearBuiltError", validationTypes: ["empty"]}
 };
 
@@ -99,6 +100,7 @@ var FormProperty = React.createClass({
         var purchaseYear = (lastSoldDate ? new Date(Date.parse(lastSoldDate)).getFullYear() : null);
         var zillowImageUrl = this.getValue(response, 'zillowImageUrl');
         var propertyType = this.getPropertyType(this.getValue(response, 'useCode'));
+        var rentalIncome = this.getValue(response, 'rentzestimate.amount.__content__');
 
         var state = {} ;
         state.marketPrice = this.formatCurrency(marketPrice);
@@ -107,6 +109,7 @@ var FormProperty = React.createClass({
         state.yearBuilt = yearBuilt;
         state.zillowImageUrl = zillowImageUrl;
         state[fields.originalPurchasePrice.name] = this.formatCurrency(lastSoldPrice);
+        state[fields.grossRentalIncome.name] = this.formatCurrency(rentalIncome);
         state[fields.originalPurchaseYear.name] = purchaseYear;
         state.property_type = propertyType;
         this.setState(state);
@@ -151,6 +154,27 @@ var FormProperty = React.createClass({
                 onFocus={this.onFocus.bind(this, fields.propertyPurpose)}
                 allowBlank={true}/>
             </div>
+            {
+              this.state[fields.propertyPurpose.name] != "primary_residence"
+              ?
+                <div className="col-md-6">
+                  <TextField
+                    requiredMessage="This field is required"
+                    activateRequiredField={this.state[fields.grossRentalIncome.error]}
+                    label={fields.grossRentalIncome.label}
+                    keyName={fields.grossRentalIncome.name}
+                    value={this.state[fields.grossRentalIncome.name]}
+                    editable={true}
+                    maxLength={15}
+                    format={this.formatCurrency}
+                    onFocus={this.onFocus.bind(this, fields.grossRentalIncome)}
+                    validationTypes={["currency"]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}/>
+                </div>
+              :
+                null
+            }
           </div>
           <div className="form-group">
             <div className="col-md-6">
@@ -251,7 +275,6 @@ var FormProperty = React.createClass({
 
     if (loan[fields.loanPurpose.name] == "purchase") {
       state[fields.loanPurpose.name] = true;
-
     } else if (loan[fields.loanPurpose.name] == "refinance") {
       state[fields.loanPurpose.name] = false;
     } else {
@@ -262,6 +285,7 @@ var FormProperty = React.createClass({
     state[fields.address.name] = property.address;
     state[fields.propertyPurpose.name] = property[fields.propertyPurpose.name];
     state[fields.purchasePrice.name] = this.formatCurrency(property[fields.purchasePrice.name]);
+    state[fields.grossRentalIncome.name] = this.formatCurrency(property[fields.grossRentalIncome.name]);
     state[fields.originalPurchasePrice.name] = this.formatCurrency(property[fields.originalPurchasePrice.name]);
     state[fields.originalPurchaseYear.name] = property[fields.originalPurchaseYear.name];
     state.property_type = property.property_type;
@@ -291,6 +315,7 @@ var FormProperty = React.createClass({
     loan.properties_attributes[fields.propertyPurpose.name] = this.state[fields.propertyPurpose.name];
     loan.properties_attributes[fields.purchasePrice.name] = this.currencyToNumber(this.state[fields.purchasePrice.name]);
     loan.properties_attributes[fields.originalPurchasePrice.name] = this.currencyToNumber(this.state[fields.originalPurchasePrice.name]);
+    loan.properties_attributes[fields.grossRentalIncome.name] = this.currencyToNumber(this.state[fields.grossRentalIncome.name]);
     loan.properties_attributes[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
     loan.properties_attributes.address_attributes = this.state.address;
     loan.properties_attributes.zpid = this.state.property ? this.state.property.zpid : null;
@@ -340,6 +365,10 @@ var FormProperty = React.createClass({
     if(this.isRefinance()) {
       requiredFields[fields.originalPurchasePrice.error] = {value: this.state[fields.originalPurchasePrice.name], validationTypes: fields.originalPurchasePrice.validationTypes};
       requiredFields[fields.originalPurchaseYear.error] = {value: this.state[fields.originalPurchaseYear.name], validationTypes: fields.originalPurchaseYear.validationTypes};
+    }
+
+    if(this.state[fields.propertyPurpose.name] !== "primary_residence") {
+      requiredFields[fields.grossRentalIncome.error] = {value: this.state[fields.grossRentalIncome.name], validationTypes: fields.grossRentalIncome.validationTypes};
     }
 
     return requiredFields;

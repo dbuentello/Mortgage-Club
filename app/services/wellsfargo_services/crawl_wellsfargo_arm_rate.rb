@@ -52,8 +52,9 @@ module WellsfargoServices
       rate_elements = crawler.all("#contentBody table tbody tr")
 
       rate_elements.each do |element|
-        if element.text.include? "5/1 ARM View Details >"
+        if element.text.include? "5/1 ARM"
           @arm_rate = element.find("td[headers='hdr3']").text.delete("%").to_f
+          break
         end
       end
     end
@@ -67,6 +68,7 @@ module WellsfargoServices
 
       Capybara.default_max_wait_time = 30
       Capybara::Session.new(:poltergeist)
+      # Capybara::Session.new(:selenium)
     end
 
     def close_crawler
