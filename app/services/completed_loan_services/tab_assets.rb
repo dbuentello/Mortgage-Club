@@ -34,7 +34,7 @@ module CompletedLoanServices
     def rental_properties_completed?
       if own_investment_property
         rental_properties.each do |property|
-          return false unless property_completed?(property)
+          return false unless property_completed?(property, true)
         end
       end
 
@@ -54,7 +54,7 @@ module CompletedLoanServices
       true
     end
 
-    def property_completed?(property)
+    def property_completed?(property, is_rental = false)
       return false unless property
       return false unless property.property_type.present?
       return false unless property.address.present?
@@ -64,6 +64,7 @@ module CompletedLoanServices
       return false unless property.mortgage_includes_escrows.present?
       return false unless property.estimated_property_tax.present?
       return false unless property.estimated_hazard_insurance.present?
+      return false if is_rental && property.monthly_rent.nil?
 
       true
     end

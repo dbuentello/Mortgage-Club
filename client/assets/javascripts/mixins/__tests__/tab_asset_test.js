@@ -9,7 +9,7 @@ describe("check if tab asset is completed or not", function() {
   var completedAsset = {
     subject_property: {
       property_type: Math.floor(Math.random() * propertyTypes.length),
-      usage: Math.floor(Math.random() * usageTypes.length),
+      usage: 0,
       market_price: 12233232,
       mortgage_includes_escrows: 32232,
       estimated_property_tax: 323223,
@@ -23,7 +23,7 @@ describe("check if tab asset is completed or not", function() {
     },
     primary_property: {
       property_type: Math.floor(Math.random() * propertyTypes.length),
-      usage: Math.floor(Math.random() * usageTypes.length),
+      usage: 0,
       market_price: 12233232,
       mortgage_includes_escrows: 32232,
       estimated_property_tax: 323223,
@@ -39,11 +39,12 @@ describe("check if tab asset is completed or not", function() {
     rental_properties: [
       {
         property_type: Math.floor(Math.random() * propertyTypes.length),
-        usage: Math.floor(Math.random() * usageTypes.length),
+        usage: 2,
         market_price: 12233232,
         mortgage_includes_escrows: 32232,
         estimated_property_tax: 323223,
         estimated_hazard_insurance: 223233,
+        monthly_rent: 213213,
         address: {
           street_address: "Lorem ipsum",
           city: "Lorem ipsum",
@@ -53,11 +54,12 @@ describe("check if tab asset is completed or not", function() {
       },
       {
         property_type: Math.floor(Math.random() * propertyTypes.length),
-        usage: Math.floor(Math.random() * usageTypes.length),
+        usage: 2,
         market_price: 12233232,
         mortgage_includes_escrows: 32232,
         estimated_property_tax: 323223,
         estimated_hazard_insurance: 223233,
+        monthly_rent: 213213,
         address: {
           street_address: "Lorem ipsum",
           city: "Lorem ipsum",
@@ -90,7 +92,7 @@ describe("check if tab asset is completed or not", function() {
     subject_property: {
       id: "lorem",
       property_type: Math.floor(Math.random() * propertyTypes.length),
-      usage: Math.floor(Math.random() * usageTypes.length),
+      usage: 0,
       market_price: 12233232,
       mortgage_includes_escrows: 32232,
       estimated_property_tax: 323223,
@@ -116,7 +118,7 @@ describe("check if tab asset is completed or not", function() {
   var assetDoesNotOwnRentalProperties = {
     subject_property: {
       property_type: Math.floor(Math.random() * propertyTypes.length),
-      usage: Math.floor(Math.random() * usageTypes.length),
+      usage: 0,
       market_price: 12233232,
       mortgage_includes_escrows: 32232,
       estimated_property_tax: 323223,
@@ -130,7 +132,7 @@ describe("check if tab asset is completed or not", function() {
     },
     primary_property: {
       property_type: Math.floor(Math.random() * propertyTypes.length),
-      usage: Math.floor(Math.random() * usageTypes.length),
+      usage: 0,
       market_price: 12233232,
       mortgage_includes_escrows: 32232,
       estimated_property_tax: 323223,
@@ -146,11 +148,12 @@ describe("check if tab asset is completed or not", function() {
     rental_properties: [
       {
         property_type: Math.floor(Math.random() * propertyTypes.length),
-        usage: Math.floor(Math.random() * usageTypes.length),
+        usage: 2,
         market_price: 1231,
         mortgage_includes_escrows: 123123,
         estimated_property_tax: 323223,
         estimated_hazard_insurance: 223233,
+        monthly_rent: 213213,
         address: {
           street_address: "Lorem ipsum",
           city: "Lorem ipsum",
@@ -171,7 +174,7 @@ describe("check if tab asset is completed or not", function() {
   var invalidAsset = {
     subject_property: {
       property_type: Math.floor(Math.random() * propertyTypes.length),
-      usage: Math.floor(Math.random() * usageTypes.length),
+      usage: 0,
       market_price: 12233232,
       mortgage_includes_escrows: 32232,
       estimated_property_tax: 323223,
@@ -185,7 +188,7 @@ describe("check if tab asset is completed or not", function() {
     },
     primary_property: {
       property_type: Math.floor(Math.random() * propertyTypes.length),
-      usage: Math.floor(Math.random() * usageTypes.length),
+      usage: 0,
       market_price: 12233232,
       mortgage_includes_escrows: 32232,
       estimated_property_tax: 323223,
@@ -201,11 +204,12 @@ describe("check if tab asset is completed or not", function() {
     rental_properties: [
       {
         property_type: Math.floor(Math.random() * propertyTypes.length),
-        usage: Math.floor(Math.random() * usageTypes.length),
+        usage: 2,
         market_price: 12233232,
         mortgage_includes_escrows: 32232,
         estimated_property_tax: 323223,
         estimated_hazard_insurance: 223233,
+        monthly_rent: 213213,
         address: {
           street_address: "Lorem ipsum",
           city: "Lorem ipsum",
@@ -215,11 +219,12 @@ describe("check if tab asset is completed or not", function() {
       },
       {
         property_type: Math.floor(Math.random() * propertyTypes.length),
-        usage: Math.floor(Math.random() * usageTypes.length),
+        usage: 2,
         market_price: 12233232,
         mortgage_includes_escrows: 32232,
         estimated_property_tax: 323223,
         estimated_hazard_insurance: 223233,
+        monthly_rent: 213213,
         address: {
           street_address: "Lorem ipsum",
           city: "Lorem ipsum",

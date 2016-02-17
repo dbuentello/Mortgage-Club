@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe CompletedLoanServices::TabProperty do
   let!(:loan) { FactoryGirl.create(:loan) }
-  let!(:property) { FactoryGirl.create(:subject_property, loan: loan) }
+  let!(:property) { FactoryGirl.create(:subject_property, loan: loan, usage: 0) }
   let!(:address) { FactoryGirl.create(:address, property: property) }
 
   before(:each) do

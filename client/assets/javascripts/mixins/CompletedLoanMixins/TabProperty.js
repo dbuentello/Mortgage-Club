@@ -9,6 +9,7 @@ var TabProperty = {
 
   subjectPropertyCompleted: function(property) {
     if(property.usage === null) { return false; }
+    if(property.usage !== "primary_residence" && property.monthly_rent === null) { return false; }
     if(!this.addressCompleted(property.address)) { return false; }
 
     return true;
