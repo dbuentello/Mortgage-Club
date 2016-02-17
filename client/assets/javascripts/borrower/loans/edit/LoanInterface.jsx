@@ -53,7 +53,7 @@ var LoanInterface = React.createClass({
                     return (
                       <li key={i} id={"tab"+item.name} className={this.getKlassNameLiSidebar(item, activeItem)}>
                         <a href="javascript:void(0)" onClick={_.bind(this.goToItem, this, item)}>
-                          <img src={item.iconSrc} alt={item.name}>{item.name}</img>
+                          <span><i className={item.iconClass}></i>{item.name}</span>
                           <span className="done-sign glyphicon glyphicon-ok"></span>
                         </a>
                       </li>
@@ -145,13 +145,13 @@ var LoanInterface = React.createClass({
 
   buildMenu: function(loan) {
     var menu = [
-      {name: "Property", complete: TabProperty.propertyCompleted(loan), iconSrc: "/icons/property.png", step: 0, Content: Property},
-      {name: "Borrower", complete: TabBorrower.completed(loan), iconSrc: "/icons/borrower.png", step: 1, Content: Borrower},
-      {name: "Documents", complete: TabDocuments.documentsCompleted(loan), iconSrc: "/icons/description.png", step: 2, Content: Documents},
-      {name: "Income", complete: TabIncome.incomeCompleted(loan), iconSrc: "/icons/income.png", step: 3, Content: Income},
-      {name: "Credit Check", complete: creditCardCompleted, iconSrc: "/icons/creditcheck.png", step: 4, Content: CreditCheck},
-      {name: "Assets and Liabilities", complete: TabAsset.assetCompleted(loan), iconSrc: "/icons/assets.png", step: 5, Content: AssetsAndLiabilities},
-      {name: "Declarations", complete: TabDeclaration.declarationCompleted(loan), iconSrc: "/icons/declarations.png", step: 6, Content: Declarations},
+      {name: "Property", complete: TabProperty.propertyCompleted(loan), iconClass: "fa fa-home", step: 0, Content: Property},
+      {name: "Borrower", complete: TabBorrower.completed(loan), iconClass: "fa fa-user", step: 1, Content: Borrower},
+      {name: "Documents", complete: TabDocuments.documentsCompleted(loan), iconClass: "fa fa-file-text", step: 2, Content: Documents},
+      {name: "Income", complete: TabIncome.incomeCompleted(loan), iconClass: "fa fa-database", step: 3, Content: Income},
+      {name: "Credit Check", complete: creditCardCompleted, iconClass: "fa fa-credit-card-alt", step: 4, Content: CreditCheck},
+      {name: "Assets and Liabilities", complete: TabAsset.assetCompleted(loan), iconClass: "fa fa-bar-chart", step: 5, Content: AssetsAndLiabilities},
+      {name: "Declarations", complete: TabDeclaration.declarationCompleted(loan), iconClass: "fa fa-list-alt", step: 6, Content: Declarations},
     ];
     return menu;
   },
