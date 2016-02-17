@@ -11,6 +11,8 @@
     <!-- <link rel="icon" href="images/favicon.ico"> -->
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
   </head>
   <body>
     <!-- <div class="container flashSection">
@@ -41,11 +43,27 @@
     <%= javascript_include_tag 'public', 'data-turbolinks-track' => false %>
 
     <script type="text/javascript">
+
+    $(document).ready(function(){
+    //Check to see if the window is top if not then display button
+    $(window).scroll(function(){
+        if ($(this).scrollTop() > 100) {
+            $('.cd-top').fadeIn();
+        } else {
+            $('.cd-top').fadeOut();
+        }
+    });
+    //Click event to scroll to top
+    $('.cd-top').click(function(){
+        $('html, body').animate({scrollTop : 0},800);
+        return false;
+    });
+});
       $(function() {
-        var elevator = new Elevator({
-        element: document.querySelector('#backtopBtn'),
-        duration:2000,
-        });
+         var elevator = new Elevator({
+         element: document.querySelector('#backtopBtn'),
+         duration:2000,
+         });
 
         $("[data-toggle='tooltip']").tooltip({
           placement: "left",
