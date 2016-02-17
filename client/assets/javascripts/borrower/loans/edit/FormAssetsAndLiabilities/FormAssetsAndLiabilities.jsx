@@ -85,8 +85,7 @@ var FormAssetsAndLiabilities = React.createClass({
         otherMortgagePaymentAmountError={property.otherMortgagePaymentAmountError}
         otherFinancingAmountError={property.otherFinancingAmountError}
         estimatedMortgageInsuranceError={property.estimatedMortgageInsuranceError}
-        hoaDueError={property.hoaDueError}
-        monthlyRentError={property.monthlyRentError}/>
+        hoaDueError={property.hoaDueError}/>
     );
   },
 
@@ -263,8 +262,7 @@ var FormAssetsAndLiabilities = React.createClass({
       estimated_hazard_insurance: null,
       estimated_property_tax: null,
       hoa_due: null,
-      gross_rental_income: null,
-      monthly_rent: null
+      gross_rental_income: null
     };
   },
 
@@ -300,7 +298,6 @@ var FormAssetsAndLiabilities = React.createClass({
     property.estimated_property_tax = this.currencyToNumber(property.estimated_property_tax);
     property.hoa_due = this.currencyToNumber(property.hoa_due);
     property.gross_rental_income = this.currencyToNumber(property.gross_rental_income);
-    property.monthly_rent = this.currencyToNumber(property.monthly_rent);
 
     return property;
   },
@@ -326,7 +323,7 @@ var FormAssetsAndLiabilities = React.createClass({
     if(property.hoa_due)
       fields.hoaDueError = {value: this.formatCurrency(property.hoa_due), validationTypes: ["currency"]};
     if(property.usage != "primary_residence" && property.is_primary == false && property.is_subject == false)
-      fields.monthlyRentError = {value: this.formatCurrency(property.monthly_rent), validationTypes: ["currency"]}
+      fields.grossRentalIncomeError = {value: this.formatCurrency(property.gross_rental_income), validationTypes: ["currency"]}
 
     var states = this.getStateOfInvalidFields(fields);
 

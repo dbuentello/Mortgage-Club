@@ -12,7 +12,7 @@ var BooleanRadio = require("components/form/NewBooleanRadio");
 var fields = {
   address: {label: 'Property Address', name: 'address', error: "addressError", validationTypes: ["empty"]},
   loanPurpose: {label: "Purpose Of Loan", name: "purpose", error: "loanError", validationTypes: ["empty"]},
-  monthlyRent: {label: "Monthly Rent", name: "monthly_rent", error: "monthlyRentError", validationTypes: ["empty", "currency"]},
+  grossRentalIncome: {label: "Estimated Rental Income", name: "gross_rental_income", error: "grossRentalIncomeError", validationTypes: ["empty", "currency"]},
   propertyPurpose: {label: "Property Will Be", name: "usage", error: "propertyError", validationTypes: ["empty"]},
   purchasePrice: {label: "Purchase Price", name: "purchase_price", error: "purchaseError", validationTypes: ["empty", "currency"]},
   originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", error: "originalPurchasePriceError", validationTypes: ["empty", "currency"]},
@@ -158,14 +158,14 @@ var FormProperty = React.createClass({
                 <div className="col-md-6">
                   <TextField
                     requiredMessage="This field is required"
-                    activateRequiredField={this.state[fields.monthlyRent.error]}
-                    label={fields.monthlyRent.label}
-                    keyName={fields.monthlyRent.name}
-                    value={this.state[fields.monthlyRent.name]}
+                    activateRequiredField={this.state[fields.grossRentalIncome.error]}
+                    label={fields.grossRentalIncome.label}
+                    keyName={fields.grossRentalIncome.name}
+                    value={this.state[fields.grossRentalIncome.name]}
                     editable={true}
                     maxLength={15}
                     format={this.formatCurrency}
-                    onFocus={this.onFocus.bind(this, fields.monthlyRent)}
+                    onFocus={this.onFocus.bind(this, fields.grossRentalIncome)}
                     validationTypes={["currency"]}
                     onChange={this.onChange}
                     onBlur={this.onBlur}/>
@@ -283,7 +283,7 @@ var FormProperty = React.createClass({
     state[fields.address.name] = property.address;
     state[fields.propertyPurpose.name] = property[fields.propertyPurpose.name];
     state[fields.purchasePrice.name] = this.formatCurrency(property[fields.purchasePrice.name]);
-    state[fields.monthlyRent.name] = this.formatCurrency(property[fields.monthlyRent.name]);
+    state[fields.grossRentalIncome.name] = this.formatCurrency(property[fields.grossRentalIncome.name]);
     state[fields.originalPurchasePrice.name] = this.formatCurrency(property[fields.originalPurchasePrice.name]);
     state[fields.originalPurchaseYear.name] = property[fields.originalPurchaseYear.name];
     state.property_type = property.property_type;
@@ -313,7 +313,7 @@ var FormProperty = React.createClass({
     loan.properties_attributes[fields.propertyPurpose.name] = this.state[fields.propertyPurpose.name];
     loan.properties_attributes[fields.purchasePrice.name] = this.currencyToNumber(this.state[fields.purchasePrice.name]);
     loan.properties_attributes[fields.originalPurchasePrice.name] = this.currencyToNumber(this.state[fields.originalPurchasePrice.name]);
-    loan.properties_attributes[fields.monthlyRent.name] = this.currencyToNumber(this.state[fields.monthlyRent.name]);
+    loan.properties_attributes[fields.grossRentalIncome.name] = this.currencyToNumber(this.state[fields.grossRentalIncome.name]);
     loan.properties_attributes[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
     loan.properties_attributes.address_attributes = this.state.address;
     loan.properties_attributes.zpid = this.state.property ? this.state.property.zpid : null;
@@ -366,7 +366,7 @@ var FormProperty = React.createClass({
     }
 
     if(this.state[fields.propertyPurpose.name] !== "primary_residence") {
-      requiredFields[fields.monthlyRent.error] = {value: this.state[fields.monthlyRent.name], validationTypes: fields.monthlyRent.validationTypes};
+      requiredFields[fields.grossRentalIncome.error] = {value: this.state[fields.grossRentalIncome.name], validationTypes: fields.grossRentalIncome.validationTypes};
     }
 
     return requiredFields;
