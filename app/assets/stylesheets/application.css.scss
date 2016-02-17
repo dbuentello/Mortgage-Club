@@ -162,7 +162,7 @@ body {
 
 .content {
   position: relative;
-  width: 100%;
+  //margin-top: 30px;
   width: 100%;
 }
 
@@ -326,7 +326,7 @@ hr {
 
   .mortgageNav {
     border:none;
-    margin-top:7px;
+    padding-top:7px;
     background-color:white;
     z-index:9999;
 
@@ -420,7 +420,12 @@ hr {
     margin-top: -9px;
   }
 
-  .theBtn {background:#15c0f1; border-color:#15c0f1; color:white;}
+  .theBtn {
+    background:#15c0f1; 
+    border-color:#15c0f1; 
+    color:white; 
+    //margin-top: 5px;
+  }
 
   .theBtn:hover {background:white; color:#15c0f1;  border-color:#15c0f1;}
 
