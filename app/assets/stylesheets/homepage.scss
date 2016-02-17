@@ -237,7 +237,10 @@
     font-family: 'aileronsemibold';
     font-size: 1.25em;
   }
-
+  .table-content {
+      background:#FFFFFF;
+    
+  }
   .homeTable .table-header td {
     border:none !important;
     padding:14px !important;
@@ -760,7 +763,9 @@
   }
 }
 @media (min-width:416px) and (max-width: 768px) {
-
+  .homeTable td{
+    font-size:0.9em;
+  }
   #top-info {
     font-size:2em;
     padding-top:3%;
@@ -853,12 +858,13 @@
     bottom: -10% !important;
   }
   .homeTable td{
-    font-size:1.4em;
+    font-size:0.7em;
   }
 
   .content h1{
     font-size:2.9em;
   }
+
 
   .whyItem {
     text-align:center;

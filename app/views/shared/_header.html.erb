@@ -15,8 +15,9 @@
           
         </div>
       <div class="collapse navbar-collapse mortgageNav" id="links-home">
-        <ul class="nav nav-pills navbar-right">
-          <% if current_user %>
+       <% if current_user %>
+        <ul class="nav navbar-nav navbar-right">
+         
             <li>
               <a id="newLoanBtn" class="btn btn-ms btn-success theBtn text-uppercase">
                 <p>
@@ -49,7 +50,9 @@
                 </ul>
               </div>
             </li>
+            </ul>
           <% else %>
+          <ul class="nav nav-pills navbar-right">
             <% if Rails.env.test? %>
               <li>
                 <%= link_to new_user_session_path, class: "btn btn-ms btn-success theBtn text-uppercase", id: "loginBtn" do %>
@@ -60,8 +63,9 @@
             <li>
               <%= link_to "Find my rate", new_user_registration_path, class: "btn btn-ms theBtn text-uppercase", id: "signupBtn"%>
             </li>
-          <% end %>
+          
         </ul>
+        <% end %>
       </div>
       </div>
     </nav>
