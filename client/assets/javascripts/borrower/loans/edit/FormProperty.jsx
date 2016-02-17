@@ -100,6 +100,7 @@ var FormProperty = React.createClass({
         var purchaseYear = (lastSoldDate ? new Date(Date.parse(lastSoldDate)).getFullYear() : null);
         var zillowImageUrl = this.getValue(response, 'zillowImageUrl');
         var propertyType = this.getPropertyType(this.getValue(response, 'useCode'));
+        var rentalIncome = this.getValue(response, 'rentzestimate.amount.__content__');
 
         var state = {} ;
         state.marketPrice = this.formatCurrency(marketPrice);
@@ -108,6 +109,7 @@ var FormProperty = React.createClass({
         state.yearBuilt = yearBuilt;
         state.zillowImageUrl = zillowImageUrl;
         state[fields.originalPurchasePrice.name] = this.formatCurrency(lastSoldPrice);
+        state[fields.grossRentalIncome.name] = this.formatCurrency(rentalIncome);
         state[fields.originalPurchaseYear.name] = purchaseYear;
         state.property_type = propertyType;
         this.setState(state);
