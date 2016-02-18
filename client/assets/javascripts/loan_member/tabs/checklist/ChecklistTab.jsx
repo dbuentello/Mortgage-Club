@@ -63,7 +63,7 @@ var ChecklistTab = React.createClass({
                   <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Due Date</th>
                   <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Status</th>
                   <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Owner</th>
-                  <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Actions</th>
+                  <th tabIndex="0" rowSpan="1" colSpan="1">Actions</th>
                 </tr>
               </thead>
               <tbody>

@@ -22,8 +22,7 @@ Feature: Dashboard
   Scenario: edit a new checklist
     When I am at loan member dashboard
       Then I click "Checklists"
-        And I should see "Edit"
-      Then I click on a first "Edit"
+      Then I click link with div ".icon-pencil7"
         And I should see "Edit Checklist"
       Then I fill in "Name" with "This is a name of checklist"
       And I fill in "Info" with "This is a information of checklist"
