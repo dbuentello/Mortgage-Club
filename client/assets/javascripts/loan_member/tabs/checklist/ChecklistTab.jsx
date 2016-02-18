@@ -45,22 +45,25 @@ var ChecklistTab = React.createClass({
     var url = '/loan_members/checklists/';
 
     return (
+
+
+
       <div id="checklists-page">
         <div className="panel panel-flat">
           <div className="panel-heading">
-            <h5 className="panel-title">Checklists</h5>
+            <h4 className="panel-title">Checklists</h4>
           </div>
 
-          <div className="table-responsive" id="checklists-table">
-            <table className="table">
+          <div className="datatable-scroll" id="checklists-table">
+            <table role="grid" className="table table-bordered table-hover datatable-highlight dataTable no-footer">
               <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Type</th>
-                  <th>Due Date</th>
-                  <th>Status</th>
-                  <th>Owner</th>
-                  <th></th>
+                <tr role="row">
+                  <th className="sorting_asc" tabIndex="0" rowSpan="1" colSpan="1" aria-sort="ascending">Name</th>
+                  <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Type</th>
+                  <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Due Date</th>
+                  <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Status</th>
+                  <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Owner</th>
+                  <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -75,11 +78,13 @@ var ChecklistTab = React.createClass({
                         <td>{checklist.user.to_s}</td>
                         <td>
                           <span>
-                            <a className='linkTypeReversed btn btn-primary' href={'/loan_members/checklists/' + checklist.id + '/edit'} data-method='get'>Edit</a>
+                            <a className='linkTypeReversed btn btn-primary' href={'/loan_members/checklists/' + checklist.id + '/edit'}
+                              data-method='get'><i className="icon-pencil7"></i></a>
                           </span>
                           &nbsp;
                           <span>
-                            <button className='linkTypeReversed btn btn-danger' value={checklist.id} onClick={this.onDelete}>Delete</button>
+                            <button className='linkTypeReversed btn btn-danger' value={checklist.id} onClick={this.onDelete}>
+                              <i className="icon-trash"></i></button>
                           </span>
                         </td>
                       </tr>

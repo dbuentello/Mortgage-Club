@@ -50,6 +50,7 @@ var DateFieldView = React.createClass({
         dateVal = this.isoToUsDate(this.props.value) || this.props.emptyStaticText;
 
     return (
+
       <div>
         <label className="col-xs-12 pan">
           <span className={this.props.label ? 'h7 typeBold mrs' : null}>{this.props.label}</span>
@@ -57,7 +58,7 @@ var DateFieldView = React.createClass({
             <input className={classes.editableFieldClasses} defaultValue={dateVal} type="text" placeholder={this.props.placeholder}
               onBlur={this.onBlur} onFocus={this.handleFocus} id={this.props.keyName} name={this.props.name}/>
             <span className="input-group-addon">
-              <i className="iconCalendar"/>
+              <i className="icon-calendar22"></i>
             </span>
           </div>
         </label>
