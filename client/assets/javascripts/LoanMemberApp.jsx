@@ -23,7 +23,7 @@ window.LoanMemberApp = React.createClass({
     var user = this.props.currentUser;
 
     return (
-      <div>
+      <div id="loan-member-app">
         <div className="navbar navbar-inverse">
           <div className="navbar-boxed">
             <div className="navbar-header">
@@ -54,7 +54,7 @@ window.LoanMemberApp = React.createClass({
           </div>
         </div>
 
-        <div className='page-alert'/>
+        <div className="page-alert"/>
 
         <RouteHandler bootstrapData={this.props}/>
       </div>
