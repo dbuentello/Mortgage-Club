@@ -10,3 +10,13 @@
 #activities-table th{
   font-weight: bold !important;
 }
+
+#checklists-table th{
+  font-weight: bold !important;
+}
+
+#checklists-page .panel-flat > .panel-heading{
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  border-bottom-color: #ddd;
+}

@@ -45,15 +45,13 @@ var ChecklistTab = React.createClass({
     var url = '/loan_members/checklists/';
 
     return (
-      <div>
+      <div id="checklists-page">
         <div className="panel panel-flat">
-          <div className="panel-body">
-            <div className='row'>
-              <h2>Checklists</h2>
-            </div>
+          <div className="panel-heading">
+            <h5 className="panel-title">Checklists</h5>
           </div>
 
-          <div className="table-responsive">
+          <div className="table-responsive" id="checklists-table">
             <table className="table">
               <thead>
                 <tr>
@@ -91,10 +89,14 @@ var ChecklistTab = React.createClass({
               </tbody>
             </table>
           </div>
+        </div>
+        <div className="panel panel-flat">
+          <div className="panel-heading">
+            <h5 className="panel-title">Add a new checklist</h5>
+          </div>
 
           <div className="panel-body">
-            <div className='row'>
-              <h2>Add a new checklist</h2>
+            <div className='row' style={{"margin-top": "10px"}}>
               <Form Url={url} Method='POST' onReloadTable={this.onReloadTable} loan={this.props.loan} templates={this.props.templates}></Form>
             </div>
           </div>
