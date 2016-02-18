@@ -126,7 +126,15 @@ body {
   -khtml-border-radius:6px;
   border-radius: 6px;
 }
-
+.cd-top{
+    width:40px;
+    height: 40px;
+   
+    position:fixed;
+    right:30px;
+    bottom:30px;
+    display:none;
+}
 .arrow_box {
   position: relative;
   right: -100%;

@@ -591,9 +591,9 @@
 
   .footerRight {
     color:white;
-    float:right;
-    margin-top:50px;
-    text-align:center;
+    //float:right;
+   // margin-top:50px;
+    //text-align:center;
   }
 
   .footerRight img {
@@ -636,8 +636,9 @@
   }
 
   #footerLogo {
-    float:left;
-    margin-top:64px
+  padding: 10px 10px 10px 10px;
+    //float:left;
+   // margin-top:64px
   }
 
   @keyframes backtopAnim {
@@ -701,15 +702,20 @@
   }
 
   .footerRight {
-    margin-top:55px;
+    //margin-top:55px;
   }
   #footerLogo {
-    float:left;
-    margin-top:65px
+  padding: 10px 10px 10px 10px;
+    //float:left;
+    //margin-top:65px
   }
 
-  #backtopBtn {
-    bottom:60px;
+  
+}
+@media (max-width: 992px) {
+  .footerRight {
+    float:left !important;
+   //margin-top:55px;
   }
 }
 @media (min-width: 768px) and (max-width: 992px) {
@@ -742,18 +748,14 @@
     padding-top:80px;
   }
 
-  .footerRight {
-    float:right;
-    margin-top:55px;
-  }
+  
   #footerLogo {
-    float:left;
-    margin-top:70px
+  padding: 10px 10px 10px 10px;
+   // float:left;
+    //margin-top:70px
   }
 
-  #backtopBtn {
-    bottom:65px;
-  }
+  
 
   #home-top-info .row {
     padding:20px;
@@ -831,15 +833,14 @@
   }
 
   .footerRight {
-    margin-top:50px;
+    //margin-top:50px;
   }
   #footerLogo {
-    margin-top:65px;
+  padding: 10px 10px 10px 10px;
+  //  margin-top:65px;
   }
 
-  #backtopBtn {
-    bottom:60px;
-  }
+  
 
   #home-top-info .row {
     padding:15px;
@@ -902,29 +903,23 @@
   }
 
   .footerRight {
-    margin-top:50px;
-    margin-left:auto;
-    margin-right:auto;
-    float:none;
-    width:72%;
-    margin-top:50px;
+    
+    //margin-top:50px;
   }
 
   #footerLogo {
-    margin-left:auto;
-    margin-right:auto;
+    padding: 10px 10px 10 10px;
+    
     float:none;
     width:70%;
     display:block;
-    margin-top:120px;
+    //margin-top:120px;
   }
 
-  #backtopBtn {
-    bottom:230px;
-  }
+  
 
   .footer {
-    height:300px;
+    //height:300px;
   }
 
   .logo {
@@ -966,7 +961,7 @@
   }
 
   .footerRight {
-    width:75%;
+    //width:75%;
   }
 }
 
@@ -1017,12 +1012,8 @@
   }
 
   .footerRight {
-    margin-top:50px;
-    margin-left:auto;
-    margin-right:auto;
-    float:none;
-    width:80%;
-    margin-top:50px;
+    
+    //margin-top:50px;
   }
 
   .footerRight div {
@@ -1030,17 +1021,14 @@
   }
 
   #footerLogo {
-    margin-left:auto;
-    margin-right:auto;
+   
     float:none;
     width:70%;
     display:block;
-    margin-top:120px;
+    //margin-top:120px;
   }
 
-  #backtopBtn {
-    bottom:230px;
-  }
+  
 
   .footer {
     height:300px;
@@ -1146,12 +1134,8 @@
   }
 
   .footerRight {
-    margin-top:50px;
-    margin-left:auto;
-    margin-right:auto;
-    float:none;
-    width:100%;
-    margin-top:50px;
+    
+    //margin-top:50px;
   }
   .whyText {
     
@@ -1160,24 +1144,21 @@
   }
 
   #footerLogo {
-    margin-left:auto;
-    margin-right:auto;
+   
     float:none;
     width:70%;
     display:block;
-    margin-top:120px;
+    //margin-top:120px;
   }
 
-  #backtopBtn {
-    bottom:230px;
-  }
+  
 
   #home-right-table2 {
     overflow-x:hidden;
   }
 
   .footer {
-    height:300px;
+    //height:300px;
   }
 
   .logo img{
@@ -1231,19 +1212,12 @@
 
 .footer {
   width: 100%;
-  height:150px;
+  //height:150px;
   background-color:#15c0f1;
   position:absolute !important;
   bottom:0; z-index:1000;
 
-  #backtopBtn {
-    position: absolute;
-    width: 30px;
-    height: auto;
-    left: 50%;
-    bottom: 40px;
-    margin-left: -15px;
-  }
+  
 
   #backtopBtn:hover {
     animation:backtopAnim 1s infinite;
@@ -1256,9 +1230,10 @@
 
 .footerRight {
   color:white;
+  padding: 10px 10px 10px 10px;
   float:right;
-  margin-top:50px;
-  text-align:center;
+  //margin-top:50px;
+  
 
   img {
     float:left;
@@ -1296,13 +1271,17 @@
   }
 }
 
-#footerLogo {float:left; margin-top:64px;}
+#footerLogo {
+padding: 10px 10px 10px 20px;
+//float:left; 
+//margin-top:64px;
+}
 .license {
-  position: absolute;
-  bottom: 1%;
+  //position: absolute;
+  padding: 0px 20px 0px 20px;
   color: white;
   font-family: 'aileronlight';
   font-size: 1.125em;
   letter-spacing: .03em;
-  width: 50%;
+  //width: 50%;
 }
