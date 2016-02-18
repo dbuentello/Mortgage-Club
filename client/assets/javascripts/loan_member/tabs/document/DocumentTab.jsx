@@ -86,8 +86,8 @@ var DocumentTab = React.createClass({
 
   render: function() {
     return (
-      <div className='content container backgroundBasic'>
-        <div className="row ptl">
+      <div className="panel-body">
+        <div className="row" style={{"margin-bottom":"10px"}}>
           <div className="col-xs-4">
             <select className="form-control" onChange={this.onChange}>
               <option value="property">Property Document</option>

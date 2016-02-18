@@ -2,6 +2,11 @@
   width: 235px;
 }
 
+#loan-member-app .row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 #activities-table th{
   font-weight: bold !important;
 }

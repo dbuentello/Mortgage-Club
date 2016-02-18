@@ -168,6 +168,7 @@ var ActivityTab = React.createClass({
             <tbody>
               {
                 _.map(this.state.loan_activities, function(loan_activity) {
+                  console.log(loan_activity);
                   return (
                     <tr key={loan_activity.id}>
                       <td>{loan_activity.pretty_activity_type}</td>
