@@ -76,7 +76,7 @@ Feature: IncomeTabAtNewLoanPage
       Then I click "Income" in the "#tabIncome"
         And I should see "Please provide income information of your co-borrower"
       Then I clear value in "current_salary"
-        And I fill in "current_salary" with "$1,321,233"
+        And I fill in "current_salary" with "1321233"
         And I select "Monthly" from "pay_frequency"
       Then I clear value in "secondary_current_employer_name"
         And I fill in "secondary_current_employer_name" with "VCB"

@@ -1,18 +1,26 @@
-<div class="header clearfix shadowBottom">
-  <div class="container">
-    <nav class="collapse navbar-collapse mortgageNav">
-      <div class="navbar-header">
-        <a class="navbar-brand logo" href="/"><%= image_tag asset_path("mortgageclubLOGO.png")%></a>
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#links-home" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
+<div class="header clearfix">
+  
+    
+ <% if current_user %>
+    <nav class="navbar navbar-default mortgageNav shadowBottom">
+    <% else %>
+     <nav class="navbar navbar-default mortgageNav navbar-fixed-top shadowBottom">
+    <% end %>
+     <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#links-home" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand logo" href="/"><%= image_tag asset_path("mortgageclubLOGO.png")%></a>
+          
+        </div>
       <div class="collapse navbar-collapse mortgageNav" id="links-home">
-        <ul class="nav nav-pills navbar-right">
-          <% if current_user %>
+       <% if current_user %>
+        <ul class="nav navbar-nav navbar-right">
+         
             <li>
               <a id="newLoanBtn" class="btn btn-ms btn-success theBtn text-uppercase">
                 <p>
@@ -45,7 +53,9 @@
                 </ul>
               </div>
             </li>
+            </ul>
           <% else %>
+          <ul class="nav nav-pills navbar-right">
             <% if Rails.env.test? %>
               <li>
                 <%= link_to new_user_session_path, class: "btn btn-ms btn-success theBtn text-uppercase", id: "loginBtn" do %>
@@ -56,9 +66,12 @@
             <li>
               <%= link_to "Find my rate", new_user_registration_path, class: "btn btn-ms theBtn text-uppercase", id: "signupBtn"%>
             </li>
-          <% end %>
+          
         </ul>
+        <% end %>
+      </div>
       </div>
     </nav>
-  </div>
+
+  
 </div>
