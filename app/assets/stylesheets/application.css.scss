@@ -33,7 +33,14 @@ $rails: true;
 .padding-top-0 {
   @include paddingTop(0px);
 }
+.table-responsive{
+    background:#FFFFFF;
 
+} 
+.borderless {
+  border: none !important;
+ // background: white;
+}
 .grey-background {
   @include backgroundColor(#f6f6f6);
 }
@@ -83,7 +90,13 @@ body {
   color: #A27D35;
   font-size: 14px;
 }
-
+.equal-housing { 
+    margin-left: -120px;
+    color: white;
+    font-family: 'aileronlight';
+    font-size: 1.125em;
+    letter-spacing: .03em;
+  }
 .tooltip > .tooltip-arrow {
   border-left-color:#FBF7AA !important;
 }
@@ -120,7 +133,14 @@ body {
   -khtml-border-radius:6px;
   border-radius: 6px;
 }
-
+.cd-top{
+    width:40px;
+    height: 40px;
+    position:fixed;
+    right:30px;
+    bottom:30px;
+    display:none;
+}
 .arrow_box {
   position: relative;
   right: -100%;
@@ -163,7 +183,7 @@ body {
 
 .content {
   position: relative;
-  width: 100%;
+  //margin-top: 30px;
   width: 100%;
 }
 
@@ -318,17 +338,18 @@ hr {
   -webkit-box-shadow: 0px 3px 24px -2px rgba(0,0,0,0.1);
   -moz-box-shadow: 0px 3px 24px -2px rgba(0,0,0,0.1);
   box-shadow: 0px 3px 24px -2px rgba(0,0,0,0.1);
-  position:relative;
+  margin-bottom: 0px !important;
 }
 
 .header {
   border-bottom:none;
-  height:68px;
+  //height:60px;
   z-index:1000;
 
   .mortgageNav {
     border:none;
-    margin-top:7px;
+    padding-top:5px;
+    padding-bottom:5px;
     background-color:white;
     z-index:9999;
 
@@ -365,7 +386,8 @@ hr {
     background:white;
     color:#15c0f1;
     border:none;
-
+    padding: 9px 12px !important;
+    margin: 0px 5px 5px 5px;
     p {
       display:table-cell;
       vertical-align:middle;
@@ -383,11 +405,14 @@ hr {
   .nav-pills>li+li {
     margin-left:32px;
   }
-
+  
+  
   #loanBtn {
     background:white;
     color:#15c0f1;
     border:none;
+    padding: 9px 12px !important;
+    margin: 0px 5px 5px 5px;
   }
 
   #loanBtn:hover {background:#15c0f1; color:white;}
@@ -407,8 +432,9 @@ hr {
     border-top-right-radius:0;
     border-bottom-right-radius:0;
     text-align:left;
-    padding: 6px 2px 6px 12px;
-    border-bottom: solid 3px rgb(21, 192, 241);
+    padding: 2px 2px 2px 12px;
+
+    border-bottom: solid 2px rgb(21, 192, 241);
 
     img {margin-left:10px;}
 
@@ -422,7 +448,13 @@ hr {
     margin-top: -9px;
   }
 
-  .theBtn {background:#15c0f1; border-color:#15c0f1; color:white;}
+  .theBtn {
+    background:#15c0f1; 
+    border-color:#15c0f1; 
+    color:white; 
+
+    //margin-top: 5px;
+  }
 
   .theBtn:hover {background:white; color:#15c0f1;  border-color:#15c0f1;}
 
