@@ -18,7 +18,7 @@ if User.where(email: 'borrower@gmail.com').blank?
   user.create_borrower
   user.add_role :borrower
 
-  loan = Loan.initiate(user)
+  loan = InitializeFirstLoanService.new(user).call
   loan.assign_attributes({amount: Random.rand(100000..200000), interest_rate: Random.rand(0.2..1)})
   loan.save
 

@@ -1,7 +1,7 @@
 class InitializeFirstLoanService
   attr_reader :user, :info
 
-  def initialize(user, quote_cookies)
+  def initialize(user, quote_cookies = nil)
     @user = user
     @info = parse_cookies(quote_cookies)
   end
