@@ -1,8 +1,11 @@
-<div class="header clearfix shadowBottom">
+<div class="header clearfix">
   
     
-
-    <nav class="navbar navbar-default mortgageNav navbar-fixed-top">
+ <% if current_user %>
+    <nav class="navbar navbar-default mortgageNav shadowBottom">
+    <% else %>
+     <nav class="navbar navbar-default mortgageNav navbar-fixed-top shadowBottom">
+    <% end %>
      <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#links-home" aria-expanded="false">

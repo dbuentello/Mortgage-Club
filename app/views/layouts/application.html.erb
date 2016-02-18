@@ -5,7 +5,7 @@
     <meta name="google-site-verification" content="K8Dz959pwoVbxPRhUZtZZPODqDsTnuS3xnr7RbsFLE8" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width; initial-scale=1.0;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="/favicon.png">
@@ -33,6 +33,9 @@
       <!--End of Zopim Live Chat Script-->
     <% end %>
 
+    
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+
     <script type="text/javascript">
       $(document).ready(function(){
     //Check to see if the window is top if not then display button
@@ -54,6 +57,5 @@
       
 
     </script>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
   </body>
 </html>

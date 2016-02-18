@@ -129,7 +129,6 @@ body {
 .cd-top{
     width:40px;
     height: 40px;
-   
     position:fixed;
     right:30px;
     bottom:30px;
@@ -331,12 +330,12 @@ hr {
   -webkit-box-shadow: 0px 3px 24px -2px rgba(0,0,0,0.1);
   -moz-box-shadow: 0px 3px 24px -2px rgba(0,0,0,0.1);
   box-shadow: 0px 3px 24px -2px rgba(0,0,0,0.1);
-  position:relative;
+  margin-bottom: 0px !important;
 }
-  
+
 .header {
   border-bottom:none;
-  height:68px;
+  //height:60px;
   z-index:1000;
 
   .mortgageNav {
@@ -379,7 +378,8 @@ hr {
     background:white;
     color:#15c0f1;
     border:none;
-
+    padding: 9px 12px !important;
+    margin: 0px 5px 5px 5px;
     p {
       display:table-cell;
       vertical-align:middle;
@@ -402,6 +402,8 @@ hr {
     background:white;
     color:#15c0f1;
     border:none;
+    padding: 9px 12px !important;
+    margin: 0px 5px 5px 5px;
   }
 
   #loanBtn:hover {background:#15c0f1; color:white;}
@@ -421,8 +423,9 @@ hr {
     border-top-right-radius:0;
     border-bottom-right-radius:0;
     text-align:left;
-    padding: 6px 2px 6px 12px;
-    border-bottom: solid 3px rgb(21, 192, 241);
+    padding: 2px 2px 2px 12px;
+
+    border-bottom: solid 2px rgb(21, 192, 241);
 
     img {margin-left:10px;}
 
@@ -440,6 +443,7 @@ hr {
     background:#15c0f1; 
     border-color:#15c0f1; 
     color:white; 
+
     //margin-top: 5px;
   }
 
