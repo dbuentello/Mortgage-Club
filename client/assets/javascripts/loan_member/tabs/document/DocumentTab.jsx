@@ -86,28 +86,30 @@ var DocumentTab = React.createClass({
 
   render: function() {
     return (
-      <div className="panel-body">
-        <div className="row" style={{"margin-bottom":"10px"}}>
-          <div className="col-xs-4">
-            <select className="form-control" onChange={this.onChange}>
-              <option value="property">Property Document</option>
-              <option value="borrower">Borrower Document</option>
-              <option value="loan">Loan Document</option>
-              <option value="closing">Closing Document</option>
-            </select>
+      <div className="panel panel-flat">
+        <div className="panel-body">
+          <div className="row" style={{"margin-bottom":"10px"}}>
+            <div className="col-xs-4">
+              <select className="form-control" onChange={this.onChange}>
+                <option value="property">Property Document</option>
+                <option value="borrower">Borrower Document</option>
+                <option value="loan">Loan Document</option>
+                <option value="closing">Closing Document</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div id="property_uploader" className="row" style={this.state.displayProperty}>
-          <Upload subjectType={"Property"} subject={this.props.property} fields={property_fields}></Upload>
-        </div>
-        <div id="borrower_document_uploader" className="row" style={this.state.displayBorrower}>
-          <Upload subjectType={"Borrower"} subject={this.props.borrower} fields={borrower_fields}></Upload>
-        </div>
-        <div id="loan_uploader" className="row" style={this.state.displayLoan}>
-          <Upload subjectType={"Loan"} subject={this.props.loan} fields={loan_fields}></Upload>
-        </div>
-        <div id="closing_uploader" className="row" style={this.state.displayClosing}>
-          <Upload subjectType={"Closing"} subject={this.props.closing} fields={closing_fields}></Upload>
+          <div id="property_uploader" className="row" style={this.state.displayProperty}>
+            <Upload subjectType={"Property"} subject={this.props.property} fields={property_fields}></Upload>
+          </div>
+          <div id="borrower_document_uploader" className="row" style={this.state.displayBorrower}>
+            <Upload subjectType={"Borrower"} subject={this.props.borrower} fields={borrower_fields}></Upload>
+          </div>
+          <div id="loan_uploader" className="row" style={this.state.displayLoan}>
+            <Upload subjectType={"Loan"} subject={this.props.loan} fields={loan_fields}></Upload>
+          </div>
+          <div id="closing_uploader" className="row" style={this.state.displayClosing}>
+            <Upload subjectType={"Closing"} subject={this.props.closing} fields={closing_fields}></Upload>
+          </div>
         </div>
       </div>
     );

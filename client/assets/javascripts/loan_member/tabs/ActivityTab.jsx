@@ -104,7 +104,7 @@ var ActivityTab = React.createClass({
     var loan = this.props.loan;
 
     return (
-      <div>
+      <div className="panel panel-flat">
         <div className="panel-body">
           <div className="row" style={{"margin-bottom": "10px"}}>
             <div className="col-xs-4">

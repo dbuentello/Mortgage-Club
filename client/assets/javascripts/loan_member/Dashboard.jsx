@@ -74,23 +74,21 @@ var Dashboard = React.createClass({
               </div>
             </div>
             <div className="content-wrapper">
-              <div className="panel panel-flat">
-                <div className="tab-content">
-                  <div role="tabpanel" className="tab-pane fade in active" id="activity">
-                    <ActivityTab loan={this.props.bootstrapData.loan} first_activity={this.props.bootstrapData.first_activity} loan_activities={this.props.bootstrapData.loan_activities} activity_types={this.props.bootstrapData.activity_types}></ActivityTab>
-                  </div>
-                  <div role="tabpanel" className="tab-pane fade" id="document">
-                    <DocumentTab loan={this.props.bootstrapData.loan} borrower={this.props.bootstrapData.borrower} property={this.props.bootstrapData.property} closing={this.props.bootstrapData.closing}></DocumentTab>
-                  </div>
-                  <div role="tabpanel" className="tab-pane fade" id="lender_document">
-                    <LenderDocumentTab loan={this.props.bootstrapData.loan} lenderTemplates={this.props.bootstrapData.lender_templates} otherLenderTemplate={this.props.bootstrapData.other_lender_template}></LenderDocumentTab>
-                  </div>
-                  <div role="tabpanel" className="tab-pane fade" id="checklist">
-                    <ChecklistTab loan={this.props.bootstrapData.loan} checklists={this.props.bootstrapData.loan.checklists} templates={this.props.bootstrapData.templates}></ChecklistTab>
-                  </div>
-                  <div role="tabpanel" className="tab-pane fade" id="competitor_rates">
-                    <CompetitorRateTab competitorRates={this.props.bootstrapData.competitor_rates} />
-                  </div>
+              <div className="tab-content">
+                <div role="tabpanel" className="tab-pane fade in active" id="activity">
+                  <ActivityTab loan={this.props.bootstrapData.loan} first_activity={this.props.bootstrapData.first_activity} loan_activities={this.props.bootstrapData.loan_activities} activity_types={this.props.bootstrapData.activity_types}></ActivityTab>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="document">
+                  <DocumentTab loan={this.props.bootstrapData.loan} borrower={this.props.bootstrapData.borrower} property={this.props.bootstrapData.property} closing={this.props.bootstrapData.closing}></DocumentTab>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="lender_document">
+                  <LenderDocumentTab loan={this.props.bootstrapData.loan} lenderTemplates={this.props.bootstrapData.lender_templates} otherLenderTemplate={this.props.bootstrapData.other_lender_template}></LenderDocumentTab>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="checklist">
+                  <ChecklistTab loan={this.props.bootstrapData.loan} checklists={this.props.bootstrapData.loan.checklists} templates={this.props.bootstrapData.templates}></ChecklistTab>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="competitor_rates">
+                  <CompetitorRateTab competitorRates={this.props.bootstrapData.competitor_rates} />
                 </div>
               </div>
             </div>
