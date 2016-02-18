@@ -40,26 +40,31 @@ var Dashboard = React.createClass({
                     <ul className="navigation navigation-main navigation-accordion" role="tablist">
                       <li role="presentation" className="active">
                         <a href="#activity" aria-controls="activity" role="tab" data-toggle="tab">
+                          <i className="icon-home4"></i>
                           Activities
                         </a>
                       </li>
                       <li role="presentation">
                         <a href="#document" aria-controls="document" role="tab" data-toggle="tab">
+                          <i className="icon-file-text2"></i>
                           Documents
                         </a>
                       </li>
                       <li role="presentation">
                         <a href="#lender_document" aria-controls="lender_document" role="tab" data-toggle="tab">
+                          <i className="icon-file-stats"></i>
                           Lender Documents
                         </a>
                       </li>
                       <li role="presentation">
                         <a href="#checklist" aria-controls="checklist" role="tab" data-toggle="tab">
+                          <i className="icon-clipboard2"></i>
                           Checklists
                         </a>
                       </li>
                       <li role="presentation">
                         <a href="#competitor_rates" aria-controls="competitor_rates" role="tab" data-toggle="tab">
+                          <i className="icon-list3"></i>
                           Competitor Rates
                         </a>
                       </li>
