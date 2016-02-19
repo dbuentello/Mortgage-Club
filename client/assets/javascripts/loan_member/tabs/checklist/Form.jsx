@@ -2,6 +2,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 var DateField = require('components/form/DateField');
 var SelectField = require('components/form/SelectField');
+var SelectPicker = require('components/admin/SelectPicker');
 var TextField = require('components/form/TextField');
 var FlashHandler = require('mixins/FlashHandler');
 var documentDescription = {
@@ -223,7 +224,7 @@ var Form = React.createClass({
         <input type='hidden' value={this.props.loan.id} name='loan_id'/>
         <div className='form-group'>
           <div className='col-sm-4'>
-            <SelectField
+            <SelectPicker
               label='Type'
               keyName='type'
               name='checklist[checklist_type]'
@@ -308,7 +309,7 @@ var Form = React.createClass({
               editable={true}/>
           </div>
           <div className='col-sm-4'>
-            <SelectField
+            <SelectPicker
               label='Docusign Template'
               keyName='documentTemplate'
               name='checklist[template_id]'

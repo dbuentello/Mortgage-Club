@@ -58,11 +58,11 @@ var ChecklistTab = React.createClass({
             <table role="grid" className="table table-bordered table-hover datatable-highlight dataTable no-footer">
               <thead>
                 <tr role="row">
-                  <th className="sorting_asc" tabIndex="0" rowSpan="1" colSpan="1" aria-sort="ascending">Name</th>
-                  <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Type</th>
-                  <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Due Date</th>
-                  <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Status</th>
-                  <th className="sorting" tabIndex="0" rowSpan="1" colSpan="1">Owner</th>
+                  <th tabIndex="0" rowSpan="1" colSpan="1" aria-sort="ascending">Name</th>
+                  <th  tabIndex="0" rowSpan="1" colSpan="1">Type</th>
+                  <th  tabIndex="0" rowSpan="1" colSpan="1">Due Date</th>
+                  <th  tabIndex="0" rowSpan="1" colSpan="1">Status</th>
+                  <th  tabIndex="0" rowSpan="1" colSpan="1">Owner</th>
                   <th tabIndex="0" rowSpan="1" colSpan="1">Actions</th>
                 </tr>
               </thead>
@@ -74,7 +74,16 @@ var ChecklistTab = React.createClass({
                         <td>{checklist.name}</td>
                         <td>{checklist.checklist_type}</td>
                         <td>{this.isoToUsDate(checklist.due_date)}</td>
-                        <td>{checklist.status}</td>
+                        <td>
+                          
+                          {checklist.status == "pending"
+                          ? <span className="label label-info">{checklist.status}</span>
+                        : <span className="label label-success">{checklist.status}</span>
+                        }
+
+
+
+                        </td>
                         <td>{checklist.user.to_s}</td>
                         <td>
                           <span>

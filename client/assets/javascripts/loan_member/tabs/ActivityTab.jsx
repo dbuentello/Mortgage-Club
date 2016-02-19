@@ -14,7 +14,7 @@ var TypeNameMapping = {};
 
 var ActivityTab = React.createClass({
   mixins: [FlashHandler, ObjectHelperMixin, TextFormatMixin],
-
+  
   getInitialState: function() {
     _.each(this.props.activity_types, function(activity_type){
       ActivityTypes.push({
@@ -36,6 +36,7 @@ var ActivityTab = React.createClass({
 
   componentDidMount: function() {
     this.disableButton(this.props.first_activity.activity_status);
+    	$('.bootstrap-select').selectpicker();
 
   },
 
@@ -103,14 +104,14 @@ var ActivityTab = React.createClass({
   render: function() {
     var current_user = this.props.currentUser;
     var loan = this.props.loan;
-    
+
     return (
       <div className="panel panel-flat">
         <div className="panel-body">
           <div className="row" style={{"margin-bottom": "10px"}}>
 
             <div className="col-xs-4">
-              <select className="form-control" onChange={this.onTypeChange}>
+              <select className="form-control bootstrap-select" onChange={this.onTypeChange}>
                 {
                   _.map(ActivityTypes, function(type) {
                     return (
@@ -123,7 +124,7 @@ var ActivityTab = React.createClass({
             <div className="col-xs-4">
 
 
-              <select className="form-control" onChange={this.onNameChange}>
+              <select className="form-control bootstrap-select" onChange={this.onNameChange}>
                 {
                   _.map(this.state.acctivity_name_list, function(name) {
                     return (
