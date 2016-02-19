@@ -188,7 +188,7 @@ When /^I click on selectpicker "([^"]+)" and select "([^"]+)"$/ do |selector, va
     find("button[data-id='#{selector}']").click
     find('.bootstrap-select .dropdown-menu ul li', text: value).click
   end
-
+end
 
 When /^At first klass "([^\"]*)" I click link "(.*?)"$/ do |element, text|
   first(element).find("a", text: text).click
