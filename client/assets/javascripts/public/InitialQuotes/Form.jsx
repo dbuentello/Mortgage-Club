@@ -133,6 +133,8 @@ var Form = React.createClass({
                       editable={true}
                       onChange={this.onChange}
                       maxLength={6}
+                      format={this.formatInteger}
+                      liveFormat={true}
                       value={this.state[fields.zipcode.keyName]}/>
                   </div>
                 </div>
@@ -158,7 +160,9 @@ var Form = React.createClass({
                       keyName={fields.creditScore.keyName}
                       editable={true}
                       onChange={this.onChange}
-                      maxLength={6}
+                      maxLength={3}
+                      format={this.formatInteger}
+                      liveFormat={true}
                       value={this.state[fields.creditScore.keyName]}/>
                   </div>
                 </div>
