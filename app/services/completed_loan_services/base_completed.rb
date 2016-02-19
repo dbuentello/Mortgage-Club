@@ -53,7 +53,6 @@ module CompletedLoanServices
     end
 
     def assets_completed?
-      byebug
       CompletedLoanServices::TabAssets.new({
         assets: borrower.assets,
         subject_property: subject_property,

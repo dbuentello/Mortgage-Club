@@ -85,7 +85,8 @@ var FormAssetsAndLiabilities = React.createClass({
         otherMortgagePaymentAmountError={property.otherMortgagePaymentAmountError}
         otherFinancingAmountError={property.otherFinancingAmountError}
         estimatedMortgageInsuranceError={property.estimatedMortgageInsuranceError}
-        hoaDueError={property.hoaDueError}/>
+        hoaDueError={property.hoaDueError}
+        isPurchase={this.props.loan.purpose == "purchase"}/>
     );
   },
 
@@ -189,7 +190,8 @@ var FormAssetsAndLiabilities = React.createClass({
                     otherMortgagePaymentAmountError={this.state.primary_property.otherMortgagePaymentAmountError}
                     otherFinancingAmountError={this.state.primary_property.otherFinancingAmountError}
                     estimatedMortgageInsuranceError={this.state.primary_property.estimatedMortgageInsuranceError}
-                    hoaDueError={this.state.primary_property.hoaDueError}/>
+                    hoaDueError={this.state.primary_property.hoaDueError}
+                    isPurchase={this.props.loan.purpose == "purchase"}/>
                 </div>
               </div>
             :

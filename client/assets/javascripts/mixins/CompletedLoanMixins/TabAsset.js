@@ -4,7 +4,7 @@ var TabAsset = {
   assetCompleted: function(loan) {
     if(!this.propertyCompleted(loan.subject_property, false, loan.purpose)) { return false; }
 
-    if(this.requiredPrimaryProperty(loan) && !this.propertyCompleted(loan.primary_property)) {
+    if(this.requiredPrimaryProperty(loan) && !this.propertyCompleted(loan.primary_property, loan.purpose)) {
       return false;
     }
 
@@ -38,7 +38,7 @@ var TabAsset = {
     var rental_properties = loan.rental_properties;
 
     for (var i = 0; i < rental_properties.length; i++) {
-      var completed = this.propertyCompleted(rental_properties[i], true);
+      var completed = this.propertyCompleted(rental_properties[i], true, loan.purpose);
       if(!completed) {
         return false;
       }
