@@ -182,9 +182,19 @@ end
 When /^I click link with div "(.*?)"$/ do |element|
   find(element).click
 end
+
 When /^I click on selectpicker "([^"]+)" and select "([^"]+)"$/ do |selector, value|
   patiently do
     find("button[data-id='#{selector}']").click
     find('.bootstrap-select .dropdown-menu ul li', text: value).click
   end
+
+
+When /^At first klass "([^\"]*)" I click link "(.*?)"$/ do |element, text|
+  first(element).find("a", text: text).click
+end
+
+When /^I scroll up to the top$/ do
+  page.execute_script("window.scrollTo(100000, 0)")
+  sleep(2)
 end

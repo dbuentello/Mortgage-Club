@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post "/potential_users", to: "potential_users#create"
   post "mailjet_tracking", to: "mailjet_tracking#track"
   get "/esigning/:id", to: "electronic_signature#new"
+  get "/quotes", to: "initial_quotes#index"
 
   authenticated :user, ->(u) { u.has_role?(:borrower) } do
     root to: "users/loans#index", as: :borrower_root
@@ -209,6 +210,12 @@ Rails.application.routes.draw do
 
   resources :ocr_notifications do
     post "receive", on: :collection
+  end
+
+  resources :initial_quotes, only: [:index, :create] do
+    collection do
+      post "save_info"
+    end
   end
 
   post "receive", to: "ocr_notifications#receive"

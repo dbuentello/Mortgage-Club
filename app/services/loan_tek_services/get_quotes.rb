@@ -25,7 +25,7 @@ module LoanTekServices
     end
 
     def get_quotes
-      url ="https://api.loantek.com/Clients/WebServices/Client/#{client_id}/Pricing/V2/Quotes/LoanPricer/#{user_id}"
+      url = "https://api.loantek.com/Clients/WebServices/Client/#{client_id}/Pricing/V2/Quotes/LoanPricer/#{user_id}"
       connection = Faraday.new(url: url)
       @response = connection.post do |conn|
         conn.headers["Content-Type"] = "application/json"

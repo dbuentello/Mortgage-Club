@@ -92,7 +92,9 @@ var MortgageRates = React.createClass({
             ?
             null
             :
-            <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
+            <div className="col-xs-3 subnav programs-filter">
+              <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
+            </div>
           }
 
           <div className={this.state.helpMeChoose ? "col-xs-12 account-content padding-left-55 custom-left-mortgage-rates" : "col-xs-9 account-content padding-left-50"}>
