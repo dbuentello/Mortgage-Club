@@ -44,7 +44,7 @@ module HomepageRateServices
     def self.parse_rate_value(rate)
       return "-" unless rate.rate_value
 
-      "#{rate.rate_value.round(3)}%"
+      sprintf("%0.03f", rate.rate_value) + "%"
     end
   end
 end
