@@ -36,6 +36,7 @@ var ActivityTab = React.createClass({
 
   componentDidMount: function() {
     this.disableButton(this.props.first_activity.activity_status);
+
   },
 
   onTypeChange: function(event) {
@@ -102,11 +103,12 @@ var ActivityTab = React.createClass({
   render: function() {
     var current_user = this.props.currentUser;
     var loan = this.props.loan;
-
+    
     return (
       <div className="panel panel-flat">
         <div className="panel-body">
           <div className="row" style={{"margin-bottom": "10px"}}>
+
             <div className="col-xs-4">
               <select className="form-control" onChange={this.onTypeChange}>
                 {
@@ -119,6 +121,8 @@ var ActivityTab = React.createClass({
               </select>
             </div>
             <div className="col-xs-4">
+
+
               <select className="form-control" onChange={this.onNameChange}>
                 {
                   _.map(this.state.acctivity_name_list, function(name) {
@@ -130,11 +134,22 @@ var ActivityTab = React.createClass({
               </select>
             </div>
             <div className="col-xs-2">
-              <div className="checkbox">
-                <label>
-                  <input type="checkbox" defaultChecked={this.state.shown_to_user} onClick={this.onShownClick}/> Shown to user?
-                </label>
-              </div>
+              <label className="checkbox-inline">
+                <div className="checker border-primary text-primary">
+
+                      <span className={ this.state.shown_to_user
+                        ? "checked" : "" }>
+
+
+
+                    {this.state.shown_to_user}{this.state.shown_to_user}
+                    <input type="checkbox" className="styled" defaultChecked={this.state.shown_to_user} onClick={this.onShownClick}/>
+
+                  </span>
+                </div>
+                      Shown to user?
+              </label>
+
             </div>
           </div>
 
