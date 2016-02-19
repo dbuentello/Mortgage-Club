@@ -10,7 +10,7 @@ class InitialQuotesController < ApplicationController
       zipcode: quote_cookies["zip_code"],
       credit_score: quote_cookies["credit_score"],
       property_value: quote_cookies["property_value"],
-      mortgage_purpose: quote_cookies["mortgage_purpose"] ||  "purchase",
+      mortgage_purpose: quote_cookies["mortgage_purpose"] || "purchase",
       property_usage: quote_cookies["property_usage"] || "primary_residence",
       property_type: quote_cookies["property_type"] || "sfh"
     )
