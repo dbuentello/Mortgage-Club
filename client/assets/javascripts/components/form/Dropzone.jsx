@@ -55,7 +55,7 @@ var Dropzone = React.createClass({
 
   componentDidMount: function() {
     this.setState({
-      tip: this.props.tip || 'click to upload',
+      tip: this.props.tip || 'Drop files to upload or CLICK',
       dropzoneBox: this.refs.box.getDOMNode()
     });
 

@@ -55,7 +55,7 @@ var AdminDropzone = React.createClass({
 
   componentDidMount: function() {
     this.setState({
-      tip: this.props.tip || 'click to upload',
+      tip: this.props.tip || 'Drop files to upload or CLICK',
       dropzoneBox: this.refs.box.getDOMNode()
     });
 
@@ -255,13 +255,13 @@ var AdminDropzone = React.createClass({
     };
 
     if (this.props.download) {
-      var downloadButton = <a href={this.state.downloadUrl} download><i className="iconDownload"></i></a>;
+      var downloadButton = <a href={this.state.downloadUrl} download><i className="fa fa-cloud-download fa-3x"></i></a>;
     } else {
-      var downloadButton = <a href={this.state.downloadUrl} target="_blank"><i className="iconDownload"></i></a>;
+      var downloadButton = <a href={this.state.downloadUrl} target="_blank"><i className="fa fa-cloud-download fa-3x"></i></a>;
     }
 
     if (this.props.supportOtherDescription) {
-      var customDescription = <span><input className='mhl' placeholder='Description' onChange={this.onChangeDiscription}/></span>
+      var customDescription = <span><input className='mhl form-control' placeholder='Description' onChange={this.onChangeDiscription}/></span>
     }
 
     return (
@@ -278,6 +278,7 @@ var AdminDropzone = React.createClass({
               onDragOver={this.onDragOver} onDrop={this.onDrop}>
               <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
                 onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
+
               </input>
               <div className='tip'>
                 {this.state.tip}
@@ -285,7 +286,7 @@ var AdminDropzone = React.createClass({
             </div>
             <div className='action-icons'>
               {downloadButton}
-              <a href='javascript:void(0)' onClick={this.remove} ><i className="iconTrash"></i></a>
+              <a href='javascript:void(0)' onClick={this.remove} ><i className="fa fa-trash fa-3x"></i></a>
             </div>
           </div>
         </div>

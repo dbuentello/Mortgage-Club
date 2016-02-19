@@ -24,6 +24,7 @@ var ChecklistTab = React.createClass({
   },
 
   onDelete: function(event) {
+
     var checklist_id = event.target.value;
 
     $.ajax({
@@ -55,7 +56,7 @@ var ChecklistTab = React.createClass({
           </div>
 
           <div className="datatable-scroll" id="checklists-table">
-            <table role="grid" className="table table-bordered table-hover datatable-highlight dataTable no-footer">
+            <table role="grid" className="table table-hover datatable-highlight dataTable no-footer">
               <thead>
                 <tr role="row">
                   <th tabIndex="0" rowSpan="1" colSpan="1" aria-sort="ascending">Name</th>
@@ -75,7 +76,7 @@ var ChecklistTab = React.createClass({
                         <td>{checklist.checklist_type}</td>
                         <td>{this.isoToUsDate(checklist.due_date)}</td>
                         <td>
-                          
+
                           {checklist.status == "pending"
                           ? <span className="label label-info">{checklist.status}</span>
                         : <span className="label label-success">{checklist.status}</span>
@@ -87,13 +88,13 @@ var ChecklistTab = React.createClass({
                         <td>{checklist.user.to_s}</td>
                         <td>
                           <span>
-                            <a className='linkTypeReversed btn btn-primary' href={'/loan_members/checklists/' + checklist.id + '/edit'}
+                            <a className='linkTypeReversed' href={'/loan_members/checklists/' + checklist.id + '/edit'}
                               data-method='get'><i className="icon-pencil7"></i></a>
                           </span>
                           &nbsp;
                           <span>
-                            <button className='linkTypeReversed btn btn-danger' value={checklist.id} onClick={this.onDelete}>
-                              <i className="icon-trash"></i></button>
+                            <button className='linkTypeReversed icon-trash borderless'  value={checklist.id} onClick={this.onDelete}>
+                              </button>
                           </span>
                         </td>
                       </tr>

@@ -14,7 +14,7 @@ var TypeNameMapping = {};
 
 var ActivityTab = React.createClass({
   mixins: [FlashHandler, ObjectHelperMixin, TextFormatMixin],
-  
+
   getInitialState: function() {
     _.each(this.props.activity_types, function(activity_type){
       ActivityTypes.push({
@@ -111,7 +111,7 @@ var ActivityTab = React.createClass({
           <div className="row" style={{"margin-bottom": "10px"}}>
 
             <div className="col-xs-4">
-              <select className="form-control bootstrap-select" onChange={this.onTypeChange}>
+              <select className="form-control bootstrap-select show-tick" onChange={this.onTypeChange}>
                 {
                   _.map(ActivityTypes, function(type) {
                     return (
@@ -124,7 +124,7 @@ var ActivityTab = React.createClass({
             <div className="col-xs-4">
 
 
-              <select className="form-control bootstrap-select" onChange={this.onNameChange}>
+              <select className="form-control bootstrap-select show-tick" onChange={this.onNameChange}>
                 {
                   _.map(this.state.acctivity_name_list, function(name) {
                     return (
@@ -167,8 +167,8 @@ var ActivityTab = React.createClass({
           </div>
         </div>
 
-        <div className="table-responsive" style={{borderTop: "1px solid #ddd"}} id="activities-table">
-          <table className="table">
+        <div className="table-responsive " style={{borderTop: "1px solid #ddd"}} id="activities-table">
+          <table className="table table-hover table-striped">
             <thead>
               <tr>
                 <th style={{'width': '15%'}}>Activity Type</th>

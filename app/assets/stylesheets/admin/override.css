@@ -6,7 +6,17 @@
   margin-left: 0px;
   margin-right: 0px;
 }
-
+.borderless {
+  border: none;
+  background: none;
+}
+.navbar-inverse {
+    background-color: #15C0F1 !important;
+        border-color: #15C0F1 !important;
+}
+.table  thead  tr  th {
+  background-color: #F5F5F5;
+}
 #activities-table th{
   font-weight: bold !important;
 }

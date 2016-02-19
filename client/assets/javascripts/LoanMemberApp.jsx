@@ -27,8 +27,8 @@ window.LoanMemberApp = React.createClass({
         <div className="navbar navbar-inverse">
           <div className="navbar-boxed">
             <div className="navbar-header">
-              <a className="navbar-brand" href="/loan_members/loans">
-                MortgageClub
+              <a className="navbar-brand logo" href="/loan_members/loans">
+                <img src="/white_logo.png"/>
               </a>
             </div>
             <div className="navbar-collapse collapse">
