@@ -37,7 +37,15 @@ var Form = React.createClass({
   mixins: [TextFormatMixin, ValidationObject],
 
   getInitialState: function() {
-    return {};
+    var state = {};
+    state[fields.zipcode.keyName] = this.props.bootstrapData[fields.zipcode.name];
+    state[fields.creditScore.keyName] = this.props.bootstrapData[fields.creditScore.name];
+    state[fields.propertyValue.keyName] = this.formatCurrency(this.props.bootstrapData[fields.propertyValue.name], "$");
+    state[fields.mortgagePurpose.keyName] = this.props.bootstrapData[fields.mortgagePurpose.name];
+    state[fields.propertyUsage.keyName] = this.props.bootstrapData[fields.propertyUsage.name];
+    state[fields.propertyType.keyName] = this.props.bootstrapData[fields.propertyType.name];
+
+    return state;
   },
 
   onChange: function(change) {
@@ -49,7 +57,6 @@ var Form = React.createClass({
   },
 
   getLoanAmount: function() {
-    return 400000;
     return 0.8 * this.currencyToNumber(this.state[fields.propertyValue.keyName]);
   },
 
@@ -195,8 +202,8 @@ var Form = React.createClass({
                   </div>
                 </div>
                 <div className="form-group">
-                  <div className="col-md-12">
-                    <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.onSubmit}>Get rates</button>
+                  <div className="col-md-6 col-md-offset-2">
+                    <button className="btn theBtn text-uppercase" onClick={this.onSubmit}>Get rates</button>
                   </div>
                 </div>
               </form>

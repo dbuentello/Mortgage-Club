@@ -181,3 +181,12 @@ end
 When /^I click link with div "(.*?)"$/ do |element|
   find(element).click
 end
+
+When /^At first klass "([^\"]*)" I click link "(.*?)"$/ do |element, text|
+  first(element).find("a", text: text).click
+end
+
+When /^I scroll up to the top$/ do
+  page.execute_script("window.scrollTo(100000, 0)")
+  sleep(2)
+end
