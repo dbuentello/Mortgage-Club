@@ -4,7 +4,8 @@ class Users::LoansController < Users::BaseController
 
   def index
     if current_user.loans.size < 1
-      loan = Loan.initiate(current_user)
+      loan = InitializeFirstLoanService.new(current_user, cookies[:initial_quotes]).call
+      cookies.delete(:initial_quotes) if cookies[:initial_quotes]
       return redirect_to edit_loan_path(loan)
     end
 
@@ -35,7 +36,7 @@ class Users::LoansController < Users::BaseController
   end
 
   def create
-    @loan = Loan.initiate(current_user)
+    @loan = InitializeFirstLoanService.new(current_user).call
 
     if @loan.save
       render json: {loan_id: @loan.id}, status: 200
