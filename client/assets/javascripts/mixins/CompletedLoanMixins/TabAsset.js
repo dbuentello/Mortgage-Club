@@ -4,7 +4,7 @@ var TabAsset = {
   assetCompleted: function(loan) {
     if(!this.propertyCompleted(loan.subject_property, false, loan.purpose)) { return false; }
 
-    if(this.requiredPrimaryProperty(loan) && !this.propertyCompleted(loan.primary_property, loan.purpose)) {
+    if(this.requiredPrimaryProperty(loan) && !this.propertyCompleted(loan.primary_property, false, loan.purpose)) {
       return false;
     }
 
