@@ -185,6 +185,7 @@ var Property = React.createClass({
           // actually 404 error
           return;
         }
+
         var market_price = this.getValue(response, 'zestimate.amount.__content__');
         var propertyType = this.getPropertyType(this.getValue(response, 'useCode'));
         var monthlyTax = this.getValue(response, 'monthlyTax');

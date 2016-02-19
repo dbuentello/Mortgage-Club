@@ -155,7 +155,7 @@ var FormProperty = React.createClass({
                 allowBlank={true}/>
             </div>
             {
-              this.state[fields.propertyPurpose.name] != "primary_residence"
+              this.state[fields.propertyPurpose.name] != "primary_residence" && this.state[fields.propertyPurpose.name] != ""  && this.state[fields.propertyPurpose.name] != null
               ?
                 <div className="col-md-6">
                   <TextField

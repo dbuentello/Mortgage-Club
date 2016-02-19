@@ -10,7 +10,8 @@ describe CompletedLoanServices::TabAssets do
       subject_property: loan.subject_property,
       rental_properties: loan.rental_properties,
       primary_property: loan.primary_property,
-      own_investment_property: loan.own_investment_property
+      own_investment_property: loan.own_investment_property,
+      loan_refinance: loan.refinance?
     }
 
     @service = CompletedLoanServices::TabAssets.new(@loan_params)
@@ -112,6 +113,7 @@ describe CompletedLoanServices::TabAssets do
     end
 
     it "returns false with escrows nil" do
+      @service.loan_refinance = true
       @property.mortgage_includes_escrows = nil
       expect(@service.property_completed?(@property)).to be_falsey
     end
@@ -158,6 +160,7 @@ describe CompletedLoanServices::TabAssets do
       end
 
       it "returns false with escrows nil" do
+        @service.loan_refinance = true
         @property.mortgage_includes_escrows = nil
         expect(@service.property_completed?(@property)).to be_falsey
       end
