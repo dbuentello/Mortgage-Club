@@ -231,7 +231,8 @@ var Form = React.createClass({
               value={this.state.type}
               options={this.props.checklistTypes}
               onChange={this.onChange}
-              editable={true}/>
+              editable={true}
+              id="checklistTypes"/>
           </div>
         </div>
         <div className='form-group'>

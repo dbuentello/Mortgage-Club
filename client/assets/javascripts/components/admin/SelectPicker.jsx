@@ -44,7 +44,7 @@ var SelectPicker = React.createClass({
         <label className="col-xs-12 pan">
           <span className='h7 typeBold'>{this.props.label}</span>
 
-        <select ref="selectPicker" className={classes.editableFieldClasses + " bootstrap-select show-tick"}  name={this.props.name} onChange={this.onChange} value={this.props.value || ''}>
+        <select ref="selectPicker" className={classes.editableFieldClasses + " bootstrap-select show-tick"} id={this.props.id} name={this.props.name} onChange={this.onChange} value={this.props.value || ''}>
           {(this.props.placeholder) ? <option value="" disabled={true}>{this.props.placeholder}</option> : null}
           {this.state.options.map(function (option, i) {
             return (
