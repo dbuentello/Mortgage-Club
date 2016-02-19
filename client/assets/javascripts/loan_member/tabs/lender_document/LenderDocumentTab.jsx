@@ -1,7 +1,7 @@
 var _ = require("lodash");
 var React = require("react/addons");
 
-var Dropzone = require("components/form/Dropzone");
+var Dropzone = require('components/form/AdminDropzone');
 var FlashHandler = require("mixins/FlashHandler");
 var TextField = require("components/form/TextField");
 var OtherDocument = require("./OtherDocument");
