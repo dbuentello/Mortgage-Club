@@ -12,6 +12,6 @@ What's your expectations?
 
 #### Test
 - [ ] Cucumber Test
-- [ ] Rspec
+- [ ] RSpec
 - [ ] Jest
 - [ ] Responsive (Chrome, Safari, Firefox)
