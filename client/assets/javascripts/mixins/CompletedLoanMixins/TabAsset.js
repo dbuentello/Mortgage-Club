@@ -2,7 +2,7 @@ var _ = require('lodash');
 
 var TabAsset = {
   assetCompleted: function(loan) {
-    if(!this.propertyCompleted(loan.subject_property)) { return false; }
+    if(!this.propertyCompleted(loan.subject_property, false, loan.purpose)) { return false; }
 
     if(this.requiredPrimaryProperty(loan) && !this.propertyCompleted(loan.primary_property)) {
       return false;
@@ -47,14 +47,20 @@ var TabAsset = {
     return true;
   },
 
-  propertyCompleted: function(property, isRental) {
+  propertyCompleted: function(property, isRental, loanPurpose) {
+    isRental = isRental || false;
+    isRefinance = loanPurpose == "refinance" ? true : false;
+
     if(property == null || property == undefined) { return false; }
     if(property.property_type == null || property.usage == null ||
       property.market_price == null ||
-      property.mortgage_includes_escrows == null ||
       property.estimated_property_tax == null ||
       property.estimated_hazard_insurance == null
     ){
+      return false;
+    }
+
+    if(isRefinance && property.mortgage_includes_escrows == null){
       return false;
     }
 

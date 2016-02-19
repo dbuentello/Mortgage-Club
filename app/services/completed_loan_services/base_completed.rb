@@ -53,12 +53,14 @@ module CompletedLoanServices
     end
 
     def assets_completed?
+      byebug
       CompletedLoanServices::TabAssets.new({
         assets: borrower.assets,
         subject_property: subject_property,
         rental_properties: rental_properties,
         primary_property: primary_property,
-        own_investment_property: own_investment_property
+        own_investment_property: own_investment_property,
+        loan_refinance: loan.refinance?
       }).call
     end
 

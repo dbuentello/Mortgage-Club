@@ -311,9 +311,10 @@ var FormAssetsAndLiabilities = React.createClass({
       estimatedHazardInsuranceError: {value: this.formatCurrency(property.estimated_hazard_insurance), validationTypes: ["currency"]},
       estimatedPropertyTaxError: {value: this.formatCurrency(property.estimated_property_tax), validationTypes: ["currency"]},
       marketPriceError: {value: this.formatCurrency(property.market_price), validationTypes: ["currency"]},
-      mortgageIncludesEscrowsError: {value: this.formatCurrency(property.mortgage_includes_escrows), validationTypes: ["currency"]}
     };
 
+    if(this.props.loan.purpose != "purchase")
+      fields.mortgageIncludesEscrowsError = {value: this.formatCurrency(property.mortgage_includes_escrows), validationTypes: ["currency"]};
     if(property.other_mortgage_payment_amount)
       fields.otherMortgagePaymentAmountError = {value: this.formatCurrency(property.other_mortgage_payment_amount), validationTypes: ["currency"]};
     if(property.other_financing_amount)
@@ -326,6 +327,8 @@ var FormAssetsAndLiabilities = React.createClass({
       fields.grossRentalIncomeError = {value: this.formatCurrency(property.gross_rental_income), validationTypes: ["currency"]}
 
     var states = this.getStateOfInvalidFields(fields);
+
+
 
     if(!_.isEmpty(states)) {
       _.each(states, function(value, key) {
