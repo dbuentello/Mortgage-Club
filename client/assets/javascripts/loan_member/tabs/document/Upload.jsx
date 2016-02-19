@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var React = require('react/addons');
-var Dropzone = require('components/form/Dropzone');
+var Dropzone = require('components/form/AdminDropzone');
 
 var Upload = React.createClass({
   getInitialState: function() {
