@@ -81,9 +81,6 @@ var ChecklistTab = React.createClass({
                           ? <span className="label label-info">{checklist.status}</span>
                         : <span className="label label-success">{checklist.status}</span>
                         }
-
-
-
                         </td>
                         <td>{checklist.user.to_s}</td>
                         <td>
@@ -107,7 +104,7 @@ var ChecklistTab = React.createClass({
         </div>
         <div className="panel panel-flat">
           <div className="panel-heading">
-            <h5 className="panel-title">Add a new checklist</h5>
+            <h4 className="panel-title">Add a new checklist</h4>
           </div>
 
           <div className="panel-body">

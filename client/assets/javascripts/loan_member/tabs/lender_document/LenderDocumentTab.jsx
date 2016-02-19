@@ -158,88 +158,97 @@ var LenderDocumentTab = React.createClass({
 
   render: function() {
     return (
-      <div className="panel panel-flat">
-        <div className="panel-body">
-          <div className="row">
-            {
-              _.map(this.props.lenderTemplates, function(template) {
-                var fields = {label: template.description, name: template.name.replace(/ /g,""), placeholder: 'drag file here or browse'};
-                var customParams = [
-                  {template_id: template.id},
-                  {description: template.description},
-                  {loan_id: this.props.loan.id}
-                ];
-                return(
-                  <div className="drop_zone" key={template.id}>
-                    <Dropzone field={fields}
-                      uploadUrl={"/loan_members/lender_documents/"}
-                      downloadUrl={this.state[template.id + "_downloadUrl"]}
-                      removeUrl={this.state[template.id + "_removedUrl"]}
-                      tip={this.state[template.id + "_name"]}
-                      maxSize={10000000}
-                      customParams={customParams}/>
-                  </div>
-                )
-              }, this)
-            }
-            {
-              _.map(this.state.other_lender_documents, function(lender_document, index) {
-                return(
-                  <div className="drop_zone" key={index}>
-                    <OtherDocument name={lender_document.attachment_file_name}
-                      label={lender_document.description}
-                      otherTemplate={this.props.otherLenderTemplate}
-                      loanId={this.props.loan.id}
-                      downloadUrl={lender_document.downloadUrl}
-                      removeUrl={lender_document.removeUrl}
-                      supportOtherDescription={lender_document.description ? false : true}
-                      uploadSuccessCallback={this.reloadOtherDocuments}
-                      removeSuccessCallback={this.reloadOtherDocuments}/>
-                  </div>
-                )
-              }, this)
-            }
+      <div>
+        <div className="panel panel-flat">
+          <div className="panel-heading">
+            <h4 className="panel-title">Lender Documents</h4>
           </div>
-          <br/>
-          <br/>
-          <br/>
-          <div className="row">
-            <div className="col-sm-5">
-              <p> You can edit the contents of the email sent to the lender below. </p>
+          <div className="panel-body" style={{"margin-top":"20px"}}>
+            <div className="row">
+              {
+                _.map(this.props.lenderTemplates, function(template) {
+                  var fields = {label: template.description, name: template.name.replace(/ /g,""), placeholder: 'drag file here or browse'};
+                  var customParams = [
+                    {template_id: template.id},
+                    {description: template.description},
+                    {loan_id: this.props.loan.id}
+                  ];
+                  return(
+                    <div className="drop_zone" key={template.id}>
+                      <Dropzone field={fields}
+                        uploadUrl={"/loan_members/lender_documents/"}
+                        downloadUrl={this.state[template.id + "_downloadUrl"]}
+                        removeUrl={this.state[template.id + "_removedUrl"]}
+                        tip={this.state[template.id + "_name"]}
+                        maxSize={10000000}
+                        customParams={customParams}/>
+                    </div>
+                  )
+                }, this)
+              }
+              {
+                _.map(this.state.other_lender_documents, function(lender_document, index) {
+                  return(
+                    <div className="drop_zone" key={index}>
+                      <OtherDocument name={lender_document.attachment_file_name}
+                        label={lender_document.description}
+                        otherTemplate={this.props.otherLenderTemplate}
+                        loanId={this.props.loan.id}
+                        downloadUrl={lender_document.downloadUrl}
+                        removeUrl={lender_document.removeUrl}
+                        supportOtherDescription={lender_document.description ? false : true}
+                        uploadSuccessCallback={this.reloadOtherDocuments}
+                        removeSuccessCallback={this.reloadOtherDocuments}/>
+                    </div>
+                  )
+                }, this)
+              }
             </div>
           </div>
-          <div className="row">
-            <div className="col-sm-1">
-              <p>Subject</p>
-            </div>
-            <div className="col-sm-5">
-              <TextField
-                label=""
-                keyName="emailSubject"
-                name="email_subject"
-                value={this.state.emailSubject}
-                onChange={this.onChange}
-                editable={true}/>
-            </div>
+        </div>
+        <div className="panel panel-flat">
+          <div className="panel-heading">
+            <h4 className="panel-title">Edit Email Template</h4>
           </div>
-          <div className="row">
-            <div className="col-sm-1">
-              <p>Body</p>
-            </div>
-          </div>
-          <div className="row">
-            <TextEditor onChange={this.updateEmailContent} content={this.state.emailContent}/>
-          </div>
-          <br/>
-          {
-            this.state.can_submit
-            ?
-              <div className="row">
-                <button style={{backgroundColor: "#15c0f1", color: "#FFFFFF"}} className="btn" onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? "SUBMITTING" : "SUBMIT TO LENDER" }</button>
+          <div className="panel-body" style={{"margin-top":"20px"}}>
+            <div className="row">
+              <div className="col-sm-5">
+                <p> You can edit the contents of the email sent to the lender below. </p>
               </div>
-            :
-              null
-          }
+            </div>
+            <div className="row">
+              <div className="col-sm-1">
+                <p>Subject</p>
+              </div>
+              <div className="col-sm-5">
+                <TextField
+                  label=""
+                  keyName="emailSubject"
+                  name="email_subject"
+                  value={this.state.emailSubject}
+                  onChange={this.onChange}
+                  editable={true}/>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-sm-1">
+                <p>Body</p>
+              </div>
+            </div>
+            <div className="row">
+              <TextEditor onChange={this.updateEmailContent} content={this.state.emailContent}/>
+            </div>
+            <br/>
+            {
+              this.state.can_submit
+              ?
+                <div className="row">
+                  <button style={{backgroundColor: "#15c0f1", color: "#FFFFFF"}} className="btn" onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? "SUBMITTING" : "SUBMIT TO LENDER" }</button>
+                </div>
+              :
+                null
+            }
+          </div>
         </div>
       </div>
     );

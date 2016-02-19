@@ -107,9 +107,11 @@ var ActivityTab = React.createClass({
 
     return (
       <div className="panel panel-flat">
-        <div className="panel-body">
+        <div className="panel-heading">
+          <h4 className="panel-title">Activities</h4>
+        </div>
+        <div className="panel-body" style={{"margin-top":"20px"}}>
           <div className="row" style={{"margin-bottom": "10px"}}>
-
             <div className="col-xs-4">
               <select className="form-control bootstrap-select show-tick" onChange={this.onTypeChange}>
                 {
@@ -122,8 +124,6 @@ var ActivityTab = React.createClass({
               </select>
             </div>
             <div className="col-xs-4">
-
-
               <select className="form-control bootstrap-select show-tick" onChange={this.onNameChange}>
                 {
                   _.map(this.state.acctivity_name_list, function(name) {
@@ -137,23 +137,16 @@ var ActivityTab = React.createClass({
             <div className="col-xs-2">
               <label className="checkbox-inline">
                 <div className="checker border-primary text-primary">
-
-                      <span className={ this.state.shown_to_user
+                    <span className={ this.state.shown_to_user
                         ? "checked" : "" }>
-
-
-
-                    {this.state.shown_to_user}{this.state.shown_to_user}
+                      {this.state.shown_to_user}{this.state.shown_to_user}
                     <input type="checkbox" className="styled" defaultChecked={this.state.shown_to_user} onClick={this.onShownClick}/>
-
                   </span>
                 </div>
-                      Shown to user?
+                Shown to user?
               </label>
-
             </div>
           </div>
-
           <div className="row" style={{"margin-bottom": "10px"}}>
             <div className="col-xs-1">
               <button className="btn btn-primary" value="0" onClick={this.onActionClick} disabled={this.state.disabledStartButton} style={{"width": "100%"}}>START</button>
@@ -191,17 +184,17 @@ var ActivityTab = React.createClass({
                       <td>{loan_activity.name}</td>
                       {
                         loan_activity.pretty_activity_status.toUpperCase() == "STARTED"
-                        ? <td><span className="label label-flat border-primary text-primary-600">STARTED</span></td>
+                        ? <td><span className="label label-primary">STARTED</span></td>
                         : null
                       }
                       {
                         loan_activity.pretty_activity_status.toUpperCase() == "DONE"
-                        ? <td><span className="label label-flat border-success text-success-600">DONE</span></td>
+                        ? <td><span className="label label-success">DONE</span></td>
                         : null
                       }
                       {
                         loan_activity.pretty_activity_status.toUpperCase() == "PAUSED"
-                        ? <td><span className="label label-flat border-danger text-danger-600">PAUSED</span></td>
+                        ? <td><span className="label label-danger">PAUSED</span></td>
                         : null
                       }
                       <td>{this.isoToUsDate(loan_activity.start_date)}</td>

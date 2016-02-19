@@ -6,26 +6,30 @@
   margin-left: 0px;
   margin-right: 0px;
 }
+
 .borderless {
   border: none;
   background: none;
 }
+
 .navbar-inverse {
-    background-color: #15C0F1 !important;
-        border-color: #15C0F1 !important;
+  background-color: #15C0F1 !important;
+  border-color: #15C0F1 !important;
 }
+
 .table  thead  tr  th {
   background-color: #F5F5F5;
 }
-#activities-table th{
+
+table th{
   font-weight: bold !important;
 }
 
-#checklists-table th{
+table th{
   font-weight: bold !important;
 }
 
-#checklists-page .panel-flat > .panel-heading{
+.panel-flat > .panel-heading{
   padding-top: 15px !important;
   padding-bottom: 15px !important;
   border-bottom-color: #ddd;
@@ -37,7 +41,7 @@
 
 .competitor-rates .panel {
   padding-top: 10px;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-right: 8px;
 }
 

@@ -91,7 +91,10 @@ var DocumentTab = React.createClass({
   render: function() {
     return (
       <div className="panel panel-flat">
-        <div className="panel-body">
+        <div className="panel-heading">
+          <h4 className="panel-title">Documents</h4>
+        </div>
+        <div className="panel-body" style={{"margin-top":"20px"}}>
           <div className="row" style={{"margin-bottom":"10px"}}>
             <div className="col-xs-4">
               <select className="form-control bootstrap-select show-tick" onChange={this.onChange}>

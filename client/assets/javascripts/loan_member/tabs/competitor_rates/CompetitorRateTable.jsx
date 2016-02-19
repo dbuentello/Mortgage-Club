@@ -11,7 +11,7 @@ module.exports = React.createClass({
             <h4 className="panel-title">{this.props.title}</h4>
           </div>
           <div className="table-responsive competitor-rates">
-            <table className="table competitor-rates" style={{width: "100%"}}>
+            <table className="table table-hover competitor-rates" style={{width: "100%"}}>
               <thead>
                 <th width="9%"></th>
                 <th width="13%">30 Year Fixed</th>
