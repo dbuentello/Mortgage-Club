@@ -7,11 +7,11 @@ module.exports = React.createClass({
     {
       return (
         <div>
-          <br/>
-          <h4>{this.props.title}</h4>
-          <br/>
-          <div className="row">
-            <table className="table table-bordered table-primary competitor-rates">
+          <div className="panel-heading">
+            <h4>{this.props.title}</h4>
+          </div>
+          <div className="table-responsive competitor-rates">
+            <table className="table competitor-rates">
               <tbody>
                 <tr>
                 <th></th>
@@ -62,15 +62,12 @@ module.exports = React.createClass({
                         }.bind(this))
                       }
                     </tr>
-
                     );
                 }.bind(this))
               }
-
               </tbody>
             </table>
           </div>
-
         </div>
       );
     }
