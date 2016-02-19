@@ -1,0 +1,68 @@
+#loan-member-app .sidebar{
+  width: 235px;
+}
+
+#loan-member-app .row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.borderless {
+  border: none;
+  background: none;
+}
+
+.navbar-inverse {
+  background-color: #15C0F1 !important;
+  border-color: #15C0F1 !important;
+}
+
+.table  thead  tr  th {
+  background-color: #F5F5F5;
+}
+
+table th{
+  font-weight: bold !important;
+}
+
+table th{
+  font-weight: bold !important;
+}
+
+.panel-flat > .panel-heading{
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  border-bottom-color: #ddd;
+}
+
+.competitor-rates .list-group {
+  border: 0px;
+}
+
+.competitor-rates .panel {
+  padding-top: 10px;
+  margin-top: 20px;
+  margin-right: 8px;
+}
+
+.competitor-rates .panel-body {
+  padding: 0;
+}
+
+.competitor-rates .table > tbody > tr > td{
+  padding: 0px;
+}
+
+.competitor-rates .table > tbody > tr > td:first-child{
+  padding-left: 10px;
+}
+
+.list-rates .panel-heading {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+    border-bottom-color: #ddd;
+}
+
+.dropzone {
+  min-height: 75px;
+}

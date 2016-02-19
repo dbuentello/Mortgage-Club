@@ -36,6 +36,8 @@ var ActivityTab = React.createClass({
 
   componentDidMount: function() {
     this.disableButton(this.props.first_activity.activity_status);
+    	$('.bootstrap-select').selectpicker();
+
   },
 
   onTypeChange: function(event) {
@@ -104,79 +106,105 @@ var ActivityTab = React.createClass({
     var loan = this.props.loan;
 
     return (
-      <div className='content container boxBasic backgroundBasic'>
-        <div className="row ptl">
-          <div className="col-xs-4">
-            <select className="form-control" onChange={this.onTypeChange}>
-              {
-                _.map(ActivityTypes, function(type) {
-                  return (
-                    <option value={type.value} key={type.value}>{type.label}</option>
-                  )
-                })
-              }
-            </select>
-          </div>
-          <div className="col-xs-4">
-            <select className="form-control" onChange={this.onNameChange}>
-              {
-                _.map(this.state.acctivity_name_list, function(name) {
-                  return (
-                    <option value={name} key={name}>{name}</option>
-                  )
-                })
-              }
-            </select>
-          </div>
-          <div className="col-xs-2">
-            <div className="checkbox">
-              <label>
-                <input type="checkbox" defaultChecked={this.state.shown_to_user} onClick={this.onShownClick}/> Shown to user?
+      <div className="panel panel-flat">
+        <div className="panel-heading">
+          <h4 className="panel-title">Activities</h4>
+        </div>
+        <div className="panel-body" style={{"margin-top":"20px"}}>
+          <div className="row" style={{"margin-bottom": "10px"}}>
+            <div className="col-xs-4">
+              <select className="form-control bootstrap-select show-tick" onChange={this.onTypeChange}>
+                {
+                  _.map(ActivityTypes, function(type) {
+                    return (
+                      <option value={type.value} key={type.value}>{type.label}</option>
+                    )
+                  })
+                }
+              </select>
+            </div>
+            <div className="col-xs-4">
+              <select className="form-control bootstrap-select show-tick" onChange={this.onNameChange}>
+                {
+                  _.map(this.state.acctivity_name_list, function(name) {
+                    return (
+                      <option value={name} key={name}>{name}</option>
+                    )
+                  })
+                }
+              </select>
+            </div>
+            <div className="col-xs-2">
+              <label className="checkbox-inline">
+                <div className="checker border-primary text-primary">
+                    <span className={ this.state.shown_to_user
+                        ? "checked" : "" }>
+                      {this.state.shown_to_user}{this.state.shown_to_user}
+                    <input type="checkbox" className="styled" defaultChecked={this.state.shown_to_user} onClick={this.onShownClick}/>
+                  </span>
+                </div>
+                Shown to user?
               </label>
+            </div>
+          </div>
+          <div className="row" style={{"margin-bottom": "10px"}}>
+            <div className="col-xs-1">
+              <button className="btn btn-primary" value="0" onClick={this.onActionClick} disabled={this.state.disabledStartButton} style={{"width": "100%"}}>START</button>
+            </div>
+            <div className="col-xs-1">
+              <button className="btn btn-success" value="1" onClick={this.onActionClick} disabled={this.state.disabledDoneButton} style={{"width": "100%"}}>DONE</button>
+            </div>
+            <div className="col-xs-1">
+              <button className="btn btn-danger" value="2" onClick={this.onActionClick} disabled={this.state.disabledPauseButton}>PAUSE</button>
             </div>
           </div>
         </div>
 
-        <div className="row ptl">
-          <div className="col-xs-12">
-            <span>
-              <button className="btn btn-primary mrs" value="0" onClick={this.onActionClick} disabled={this.state.disabledStartButton}>START</button>
-            </span>
-            <span>
-              <button className="btn btn-primary mrs" value="1" onClick={this.onActionClick} disabled={this.state.disabledDoneButton}>DONE</button>
-            </span>
-            <span>
-              <button className="btn btn-primary" value="2" onClick={this.onActionClick} disabled={this.state.disabledPauseButton}>PAUSE</button>
-            </span>
-          </div>
-        </div>
-
-        <div className="table-responsive">
-          <table className="mtxl table table-bordered table-striped table-hover">
+        <div className="table-responsive " style={{borderTop: "1px solid #ddd"}} id="activities-table">
+          <table className="table table-hover table-striped">
             <thead>
               <tr>
-                <th style={{'width': '20%'}}>Activity Type</th>
-                <th style={{'width': '30%'}}>Name</th>
-                <th style={{'width': '8%'}}>Status</th>
-                <th style={{'width': '10%'}}>Start Date</th>
-                <th style={{'width': '10%'}}>End Date</th>
-                <th style={{'width': '15%'}}>Duration</th>
-                <th style={{'width': '12%'}}>Shown to user?</th>
-                <th style={{'width': '15%'}}>By</th>
+                <th style={{'width': '15%'}}>Activity Type</th>
+                <th style={{'width': '21%'}}>Name</th>
+                <th style={{'width': '7%'}}>Status</th>
+                <th style={{'width': '8%'}}>Start Date</th>
+                <th style={{'width': '8%'}}>End Date</th>
+                <th style={{'width': '14%'}}>Duration</th>
+                <th style={{'width': '15%'}}>Shown to user?</th>
+                <th style={{'width': '12%'}}>By</th>
               </tr>
             </thead>
             <tbody>
               {
                 _.map(this.state.loan_activities, function(loan_activity) {
+                  console.log(loan_activity);
                   return (
                     <tr key={loan_activity.id}>
                       <td>{loan_activity.pretty_activity_type}</td>
                       <td>{loan_activity.name}</td>
-                      <td>{loan_activity.pretty_activity_status.toUpperCase()}</td>
+                      {
+                        loan_activity.pretty_activity_status.toUpperCase() == "STARTED"
+                        ? <td><span className="label label-primary">STARTED</span></td>
+                        : null
+                      }
+                      {
+                        loan_activity.pretty_activity_status.toUpperCase() == "DONE"
+                        ? <td><span className="label label-success">DONE</span></td>
+                        : null
+                      }
+                      {
+                        loan_activity.pretty_activity_status.toUpperCase() == "PAUSED"
+                        ? <td><span className="label label-danger">PAUSED</span></td>
+                        : null
+                      }
                       <td>{this.isoToUsDate(loan_activity.start_date)}</td>
                       <td>{this.isoToUsDate(loan_activity.end_date)}</td>
                       <td>{moment.duration(loan_activity.duration, "seconds").format("d [days ] h:mm:ss", { trim: false })}</td>
-                      <td>{loan_activity.pretty_user_visible}</td>
+                      {
+                        loan_activity.pretty_user_visible == "true"
+                        ? <td style={{"text-align": "center"}}><span className="text-success-600"><i className="icon-checkmark3"></i></span></td>
+                        : <td style={{"text-align": "center"}}><span className="text-danger-600"><i className="icon-cross2"></i></span></td>
+                      }
                       <td>{loan_activity.pretty_loan_member_name}</td>
                     </tr>
                   )

@@ -127,7 +127,8 @@ When /^I am at loan member dashboard$/ do
       And there is a loans members association with the loan above and with the loan member above and with the title "sale"
       And there is a checklist_upload with the loan above
       And I login as "loan_member@gmail.com" with password "secretpass"
-    Then I click on "Loan of John Doe (email: john_doe@gmail.com)"
+    Then I click link with div ".linkTypeReversed"
+
   }
 end
 
@@ -180,6 +181,13 @@ end
 
 When /^I click link with div "(.*?)"$/ do |element|
   find(element).click
+end
+
+When /^I click on selectpicker "([^"]+)" and select "([^"]+)"$/ do |selector, value|
+  patiently do
+    find("button[data-id='#{selector}']").click
+    find('.bootstrap-select .dropdown-menu ul li', text: value).click
+  end
 end
 
 When /^At first klass "([^\"]*)" I click link "(.*?)"$/ do |element, text|

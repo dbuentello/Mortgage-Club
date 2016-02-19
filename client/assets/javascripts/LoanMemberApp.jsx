@@ -23,35 +23,38 @@ window.LoanMemberApp = React.createClass({
     var user = this.props.currentUser;
 
     return (
-      <div>
-        <nav className='topMenu sticky backgroundInverse pvm zIndexNavigation overlayFullWidth'>
-          <div className='plm prl'>
-            <div className='row'>
-              <div className='col-xs-6 typeLowlight'>
-                <a className='mrl' href='/loan_members/loans'> MortgageClub </a>
-              </div>
-              <div className='col-xs-6 text-right'>
-                {user
-                ? <span>
-                    <a className='mrm' href='/loan_members/loans'>Loan List</a>
-                    <span className='typeLowlight mrm'>Hello <a className='linkTypeReversed' href='/auth/register/edit' data-method='get'>{user.firstName}</a>!</span>
-                    <a className='linkTypeReversed' href='/auth/logout' data-method='delete'>Log out</a>
-                  </span>
-                : <span>
-                    <a className='linkTypeReversed mrm' href='/auth/login'>
-                      Log in
-                    </a>
-                    <a className='linkTypeReversed mrm' href='/auth/register/signup'>
-                      Sign up
-                    </a>
-                  </span>
-                }
-              </div>
+      <div id="loan-member-app">
+        <div className="navbar navbar-inverse">
+          <div className="navbar-boxed">
+            <div className="navbar-header">
+              <a className="navbar-brand logo" href="/loan_members/loans">
+                <img src="/white_logo.png"/>
+              </a>
+            </div>
+            <div className="navbar-collapse collapse">
+              <ul className="nav navbar-nav navbar-right">
+                <li className="dropdown">
+                  <a class="dropdown-toggle" href="/loan_members/loans">
+                    Loan List
+                  </a>
+                </li>
+                <li className="dropdown dropdown-user">
+                  <a className="dropdown-toggle" data-toggle="dropdown">
+                    <span>{user.firstName}</span>
+                    <i className="caret"></i>
+                  </a>
+                  <ul className="dropdown-menu dropdown-menu-right">
+                    <li><a href="/auth/register/edit" data-method="get"><i className="icon-user-plus"></i> My profile</a></li>
+                    <li className="divider"></li>
+                    <li><a href="/auth/logout" data-method="delete"><i className="icon-switch2"></i> Logout</a></li>
+                  </ul>
+                </li>
+              </ul>
             </div>
           </div>
-        </nav>
+        </div>
 
-        <div className='page-alert'/>
+        <div className="page-alert"/>
 
         <RouteHandler bootstrapData={this.props}/>
       </div>
