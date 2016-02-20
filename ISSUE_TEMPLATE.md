@@ -8,7 +8,12 @@ What drove you to make this issue? Your specs may seem self-explanatory to you, 
 
 #### Specification
 
-What's your expectations?
+What's your expectations? They should be more detailed and clearer.
+
+#### Checklist
+- [ ] Do A
+- [ ] Do B
+- [ ] Do C
 
 #### Test
 - [ ] Cucumber Test
