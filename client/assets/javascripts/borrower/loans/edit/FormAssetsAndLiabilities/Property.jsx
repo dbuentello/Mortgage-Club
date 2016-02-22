@@ -171,6 +171,13 @@ var Property = React.createClass({
     return otherFinancingLiabilities;
   },
 
+  componentDidMount: function() {
+    if(this.props.index == "primary_property"){
+      if(this.state.property.property_type === null || this.state.property.property_type === "")
+        this.searchProperty(this.getValue(this.state, "property"), "property");
+    }
+  },
+
   searchProperty: function(property, propertyKey) {
     var address = property.address;
     $.ajax({
