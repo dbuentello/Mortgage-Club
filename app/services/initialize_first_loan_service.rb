@@ -46,7 +46,7 @@ class InitializeFirstLoanService
 
   def init_properties
     properties << create_subject_property
-    properties << create_primary_property if current_address_is_owner?
+    properties << create_primary_property if borrower_own_current_address?
   end
 
   def create_primary_property
@@ -64,7 +64,7 @@ class InitializeFirstLoanService
     )
   end
 
-  def current_address_is_owner?
+  def borrower_own_current_address?
     borrower_current_address && borrower_current_address.is_rental == false
   end
 
