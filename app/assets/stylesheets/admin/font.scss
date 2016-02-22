@@ -3,11 +3,11 @@
   font-weight: normal;
   font-style: normal;
 
-  src: url('icomoon.eot?3p0rtw');
-  src: url('icomoon.eot?#iefix3p0rtw') format('embedded-opentype'),
-    url('icomoon.woff?3p0rtw') format('woff'),
-    url('icomoon.ttf?3p0rtw') format('truetype'),
-    url('icomoon.svg?3p0rtw#icomoon') format('svg');
+  src: url(asset_path('admin/icomoon.eot'));
+  src: url(asset_path('admin/icomoon.eot?#iefix')) format('embedded-opentype'),
+    url(asset_path('admin/icomoon.woff')) format('woff'),
+    url(asset_path('admin/icomoon.ttf')) format('truetype'),
+    url(asset_path('admin/icomoon.svg#icomoon')) format('svg');
 }
 
 [class^="icon-"], [class*=" icon-"] {
