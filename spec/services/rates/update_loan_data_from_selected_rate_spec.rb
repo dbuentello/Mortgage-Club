@@ -37,7 +37,7 @@ describe RateServices::UpdateLoanDataFromSelectedRate do
     }
 
     @lender = {
-      name: "Sebonic Financial",
+      lender_name: "Sebonic Financial",
       lender_nmls_id: "66247",
       interest_rate: 0.036,
       period: 60,
@@ -60,7 +60,7 @@ describe RateServices::UpdateLoanDataFromSelectedRate do
       expect(loan.interest_rate).to eq(0.036)
       expect(loan.amortization_type).to eq("30 year fixed")
       expect(loan.monthly_payment).to eq(1824)
-      expect(loan.term_months).to eq(60)
+      expect(loan.num_of_months).to eq(60)
       expect(loan.apr).to eq(3.625)
     end
   end
