@@ -2,9 +2,10 @@ var _ = require('lodash');
 var React = require('react/addons');
 
 var FlashHandler = require('mixins/FlashHandler');
+var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var Loans = React.createClass({
-  mixins: [FlashHandler],
+  mixins: [FlashHandler, TextFormatMixin],
 
   render: function() {
     return (
@@ -47,8 +48,8 @@ var Loans = React.createClass({
 
 
                           </td>
-                          <td>{loan.created_at}</td>
-                          <td>{loan.updated_at}</td>
+                          <td>{this.formatTime(loan.created_at)}</td>
+                          <td>{this.formatTime(loan.updated_at)}</td>
                           <td><span>
                           <a className='linkTypeReversed' href={"/loan_members/dashboard/" + loan.id}
                             data-method='get'><i className="icon-pencil7"></i></a>
