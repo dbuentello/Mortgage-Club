@@ -1,10 +1,11 @@
 class InitializeFirstLoanService
-  attr_reader :user, :info, :properties
+  attr_reader :user, :info, :properties, :borrower
 
   def initialize(user, quote_cookies = nil)
     @user = user
     @info = parse_cookies(quote_cookies)
     @properties = []
+    @borrower = user.borrower
   end
 
   def call
@@ -65,7 +66,12 @@ class InitializeFirstLoanService
   end
 
   def borrower_own_current_address?
-    borrower_current_address && borrower_current_address.is_rental == false
+    byebug
+    return false if borrower.nil?
+    return false if borrower.current_address.nil?
+    return false if borrower.current_address.address.nil?
+
+    borrower_current_address.is_rental == false
   end
 
   def purchase_loan?
@@ -85,8 +91,6 @@ class InitializeFirstLoanService
   end
 
   def borrower_current_address
-    return nil if user.borrower.nil? || user.borrower.current_address.nil?
-
-    user.borrower.current_address
+    borrower.current_address
   end
 end
