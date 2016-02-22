@@ -34,16 +34,17 @@ module.exports = React.createClass({
                         {
                           _.map(competitor_rate.rates, function(rate){
                             return (
-                                <div>
-                                  <td data-toggle="tooltip"
-                                    title={rate.lender_name + "\n" + this.formatCurrency(rate.total_fee, "$")}
-                                    data-trigger="focus"
-                                    data-container="body"
-                                    >
-                                    <div className="panel panel-info">
-                                      {
-                                        rate.apr != 0
-                                        ?
+                              <div>
+                                {
+                                  rate.apr != 0
+                                  ?
+                                    <div>
+                                      <td data-toggle="tooltip"
+                                        title={rate.lender_name + "\n" + this.formatCurrency(rate.total_fee, "$")}
+                                        data-trigger="focus"
+                                        data-container="body"
+                                        >
+                                        <div className="panel panel-info">
                                           <div className="panel-body text-center">
                                             <p className="lead">
                                                 <strong>{this.commafy(rate.apr, 3)+"% APR"}</strong>
@@ -53,13 +54,14 @@ module.exports = React.createClass({
                                               <li className="list-group-item">{this.formatCurrency(rate.total_fee, "$")} Fees</li>
                                             </ul>
                                           </div>
-                                        :
-                                          <div className="panel-body text-center"></div>
-                                      }
+                                        </div>
+                                      </td>
                                     </div>
-                                  </td>
-                                </div>
-                              );
+                                  :
+                                    <div className="text-center"></div>
+                                }
+                              </div>
+                            );
                           }.bind(this))
                         }
                       </tr>
