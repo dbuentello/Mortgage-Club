@@ -2,7 +2,6 @@ FactoryGirl.define do
   factory :loan_member do |f|
 
     f.phone_number { '(' + Faker::Number.number(3) + ') ' + Faker::Number.number(3) + '-' + Faker::Number.number(4) }
-    f.skype_handle { Faker::Internet.email }
     f.email { Faker::Internet.email }
     f.employee_id { Faker::Number.number(2) }
     f.nmls_id { Faker::Number.number(6) }
