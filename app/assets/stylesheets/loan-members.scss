@@ -5,26 +5,4 @@
 @import "admin/font";
 @import "admin/override";
 
-
-.competitor-rates {
-  margin-left: 10px;
-  overflow: hidden;
-}
 .lead { font-size: 15px;margin-bottom:0px; }
-#competitor_rates {
-  .panel {
-    padding: 0px;
-    box-shadow: none;
-    border: none;
-    background-color: transparent;
-    .panel-info, .panel-body{
-      padding: 0px;
-      background-color: transparent;
-      border: none;
-    }
-  }
-  .list-group .list-group-item {
-    border: none;
-    background-color: transparent;
-  }
-}
