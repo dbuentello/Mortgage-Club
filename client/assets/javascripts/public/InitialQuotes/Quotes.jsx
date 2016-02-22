@@ -102,59 +102,74 @@ var Quotes = React.createClass({
     });
   },
 
+  backToQuotesForm: function() {
+    location.href = "/quotes";
+  },
+
   render: function() {
     return (
       <div className="quotes-list">
-        <div className={this.state.helpMeChoose ? "content container mortgage-quotes padding-top-10 white-background" : "content container mortgage-quotes padding-top-0"}>
-          {
-            this.state.helpMeChoose
-            ?
-              <HelpMeChoose backToRatePage={this.backToRateHandler} choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
-            :
-              <div className="col-xs-3 subnav quotes-filter">
-                <Filter programs={this.props.quotes} onFilterProgram={this.onFilterQuote}></Filter>
-              </div>
-          }
-          <div className="col-xs-9 white-background">
-            <div className={this.state.helpMeChoose ? "hidden" : "row actions"}>
-              <p>
-                We’ve found {this.props.quotes ? this.props.quotes.length : 0} mortgage options for you. You can sort, filter, and choose one on your own or click
-                <i> Help me choose </i>
-                and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
-                <i> Help me choose </i>.
-              </p>
-              <div className="row form-group actions-group" id="mortgageActions">
-                <div className="col-md-6">
-                  <div className="row">
-                    <div className="col-xs-2">
-                      <label>Sort by</label>
-                    </div>
+        {
+          this.props.quotes.length > 0
+          ?
+            <div className={this.state.helpMeChoose ? "content container mortgage-quotes padding-top-10 white-background" : "content container mortgage-quotes padding-top-0"}>
+              {
+                this.state.helpMeChoose
+                ?
+                  <HelpMeChoose backToRatePage={this.backToRateHandler} choosePossibleRates={this.choosePossibleRates} helpMeChoose={this.helpMeChoose} bestRate={this.state.bestRate} selectRate={this.selectRate}/>
+                :
+                  <div className="col-xs-3 subnav quotes-filter">
+                    <Filter programs={this.props.quotes} onFilterProgram={this.onFilterQuote}></Filter>
+                  </div>
+              }
+              <div className="col-xs-9 white-background">
+                <div className={this.state.helpMeChoose ? "hidden" : "row actions"}>
+                  <p>
+                    We’ve found {this.props.quotes ? this.props.quotes.length : 0} mortgage options for you. You can sort, filter, and choose one on your own or click
+                    <i> Help me choose </i>
+                    and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
+                    <i> Help me choose </i>.
+                  </p>
+                  <div className="row form-group actions-group" id="mortgageActions">
+                    <div className="col-md-6">
+                      <div className="row">
+                        <div className="col-xs-2">
+                          <label>Sort by</label>
+                        </div>
 
-                    <div className="col-xs-10 select-box">
-                      <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
-                        <option value="apr">APR</option>
-                        <option value="pmt">Monthly Payment</option>
-                        <option value="rate">Rate</option>
-                        <option value="tcc">Total Closing Cost</option>
-                      </select>
-                      <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+                        <div className="col-xs-10 select-box">
+                          <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
+                            <option value="apr">APR</option>
+                            <option value="pmt">Monthly Payment</option>
+                            <option value="rate">Rate</option>
+                            <option value="tcc">Total Closing Cost</option>
+                          </select>
+                          <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-6 text-right">
+                      <a className="btn choose-btn text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
                     </div>
                   </div>
                 </div>
-                <div className="col-md-6 text-right">
-                  <a className="btn choose-btn text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
-                </div>
+                {
+                  this.state.helpMeChoose
+                  ?
+                    <List quotes={this.state.possibleRates}  selectRate={this.selectRate} displayTotalCost={true}/>
+                  :
+                    <List quotes={this.state.quotes}  selectRate={this.selectRate} displayTotalCost={false}/>
+                }
               </div>
             </div>
-            {
-              this.state.helpMeChoose
-              ?
-                <List quotes={this.state.possibleRates}  selectRate={this.selectRate} displayTotalCost={true}/>
-              :
-                <List quotes={this.state.quotes}  selectRate={this.selectRate} displayTotalCost={false}/>
-            }
-          </div>
-        </div>
+          :
+            <div className="not-found">
+              <h2>{"We're sorry, there aren't any quotes matching your needs."}</h2>
+              <div className="row">
+                <button className="btn theBtn col-md-offset-5" onClick={this.backToQuotesForm}>Back</button>
+              </div>
+            </div>
+        }
       </div>
     );
   }

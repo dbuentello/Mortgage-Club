@@ -1,11 +1,11 @@
 module LoanTekServices
   class ReadQuotes
     PRODUCT = {
-      "15yearFixed" => "15 year fixed",
-      "30yearFixed" => "30 year fixed",
       "40yearFixed" => "40 year fixed",
+      "30yearFixed" => "30 year fixed",
       "25yearFixed" => "25 year fixed",
       "20yearFixed" => "20 year fixed",
+      "15yearFixed" => "15 year fixed",
       "10yearFixed" => "10 year fixed",
       "7yearARM" => "7 year ARM",
       "5yearARM" => "5 year ARM",
@@ -31,7 +31,8 @@ module LoanTekServices
           lender_credit: get_lender_credit(quote),
           total_closing_cost: get_total_closing_cost(quote),
           nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
-          logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil
+          logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
+          loan_type: quote["ProductFamily"]
         }
       end
 

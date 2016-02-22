@@ -27,7 +27,7 @@ module Docusign
         @params['applicant_name'] = applicant_name
         @params['sale_price'] = Money.new(sale_price * 100).format(no_cents_if_whole: true)
         @params['purpose'] = "#{loan.purpose}".titleize
-        @params['product'] = "#{loan.amortization_type}".titleize
+        @params['product'] = "#{loan.amortization_type}"
         @params['loan_term'] = loan.num_of_years.to_s + " years"
         @params['applicant_street_address'] = borrower.current_address.try(:address).try(:street_address)
         @params['applicant_city_and_state'] = get_city_and_state(borrower.current_address.try(:address))
@@ -38,10 +38,10 @@ module Docusign
       end
 
       def build_loan_terms
-        @params['loan_amount'] = Money.new(loan.amount * 100).format(no_cents_if_whole: true)
-        @params['interest_rate'] = "#{(loan.interest_rate.to_f * 100).round(3)}%"
-        @params['monthly_principal_interest'] = Money.new(loan.monthly_payment.to_f.round(2) * 100).format(no_cents_if_whole: true)
-        @params['prepayment_penalty_amount'] = Money.new(loan.prepayment_penalty_amount.to_f.round(2) * 100).format(no_cents_if_whole: true)
+        @params['loan_amount'] = Money.new(loan.amount * 100).format
+        @params['interest_rate'] = "#{loan.interest_rate.to_f * 100}%"
+        @params['monthly_principal_interest'] = Money.new(loan.monthly_payment.to_f.round(2) * 100).format
+        @params['prepayment_penalty_amount'] = Money.new(loan.prepayment_penalty_amount.to_f.round(2) * 100).format
         @params['prepayment_penalty_text'] = loan.prepayment_penalty_text
         @params['balloon_payment_text'] = loan.balloon_payment_text
         @params['prepayment_penalty_amount_tooltip'] = 'As high as'
@@ -53,21 +53,29 @@ module Docusign
       end
 
       def build_projected_payments
-        @params['payment_calculation_text_1'] = 'Years 1-5'
-        @params['projected_principal_interest_1'] = Money.new(loan.monthly_payment.to_f.round(2) * 100).format(no_cents_if_whole: true)
-        @params['projected_mortgage_insurance_1'] = Money.new(loan.pmi.to_f.round(2) * 100).format(no_cents_if_whole: true)
-        @params['estimated_escrow_1'] = Money.new(estimated_escrow * 100).format(no_cents_if_whole: true)
-        @params['estimated_total_monthly_payment_1'] = Money.new(estimated_total_monthly_payment_1 * 100).format(no_cents_if_whole: true)
-        @params['estimated_taxes_insurance_assessments'] = Money.new(estimated_escrow * 100).format(no_cents_if_whole: true)
+        @params['payment_calculation_text_1'] = payment_calculation
+        @params['projected_principal_interest_1'] = Money.new(loan.monthly_payment.to_f.round(2) * 100).format
+        @params['projected_mortgage_insurance_1'] = Money.new(loan.pmi.to_f.round(2) * 100).format
+        @params['estimated_escrow_1'] = Money.new(estimated_escrow * 100).format
+        @params['estimated_total_monthly_payment_1'] = Money.new(estimated_total_monthly_payment_1 * 100).format
+        @params['estimated_taxes_insurance_assessments'] = Money.new(estimated_escrow * 100).format
         @params['estimated_escrow_1_tooltip'] = '+'
         @params['estimated_taxes_insurance_assessments_text'] = 'a month'
         @params['projected_mortgage_insurance_1_tooltip'] = '+'
         @params['include_other_text'] = loan.include_other_text
         @params['include_property_taxes'] = 'x' if property.estimated_property_tax.to_f > 0
         @params['include_homeowners_insurance'] = 'x' if property.estimated_hazard_insurance.to_f > 0
+        @params['in_escrow_other'] = 'NO'
 
-        ['in_escrow_property_taxes', 'in_escrow_homeowners_insurance', 'in_escrow_other'].each do |key|
-          @params[key] = loan.method(key).call ? 'YES' : 'NO'
+        if estimated_escrow == (property.estimated_property_tax.to_f + property.estimated_hazard_insurance.to_f).round(2)
+          @params['in_escrow_property_taxes'] = 'YES'
+          @params['in_escrow_homeowners_insurance'] = 'YES'
+        elsif estimated_escrow == property.estimated_property_tax.to_f.round(2)
+          @params['in_escrow_property_taxes'] = 'YES'
+          @params['in_escrow_homeowners_insurance'] = 'NO'
+        elsif estimated_escrow == property.estimated_hazard_insurance.to_f.round(2)
+          @params['in_escrow_property_taxes'] = 'NO'
+          @params['in_escrow_homeowners_insurance'] = 'YES'
         end
       end
 
@@ -205,13 +213,14 @@ module Docusign
       end
 
       def add_rate_lock
-        loan.rate_lock ? (@params['rate_lock_yes'] = 'x') : (@params['rate_lock_no'] = 'x')
+        @params['rate_lock_yes'] = 'x'
+        @params['rate_lock_text'] = (Time.zone.now + 30.days).strftime('%m/%d/%Y')
       end
 
       def applicant_name
         name = "#{borrower.first_name} #{borrower.last_name}".titleize
         if loan.secondary_borrower
-          name += ' and ' "#{loan.secondary_borrower.first_name} #{loan.secondary_borrower.last_name}".titleize
+          name += " and " + "#{loan.secondary_borrower.first_name} #{loan.secondary_borrower.last_name}".titleize
         end
         name
       end
@@ -297,9 +306,12 @@ module Docusign
       end
 
       def lender_broker_info
+        @params['lender_name'] = loan.lender.name
+        @params['lender_nmls_id'] = loan.lender.nmls
+
         map_string_to_params(
           %w(
-            lender_name lender_nmls_id loan_officer_name_1 loan_officer_nmls_id_1 loan_officer_email_1
+            loan_officer_name_1 loan_officer_nmls_id_1 loan_officer_email_1
             loan_officer_phone_1 mortgage_broker_name mortgage_broker_nmls_id loan_officer_name_2 loan_officer_nmls_id_2
             loan_officer_email_2 loan_officer_phone_2
           )
@@ -313,10 +325,8 @@ module Docusign
       end
 
       def other_considerations
-        @params['assumption_will_allow'] = 'x' if loan.assumption_will_allow
-        @params['assumption_will_not_allow'] = 'x' if loan.assumption_will_not_allow
-        @params['servicing_service'] = 'x' if loan.servicing_service
-        @params['servicing_transfer'] = 'x' if loan.servicing_transfer
+        @params['assumption_will_not_allow'] = 'x'
+        @params['servicing_transfer'] = 'x'
         @params['late_fee_text_top'] = 'the monthly'
         @params['late_fee_text_bottom'] ='principal and interest payment'
         map_string_to_params(['late_days'])
@@ -330,6 +340,12 @@ module Docusign
 
       def sale_price
         loan.purchase? ? property.purchase_price.to_f : property.market_price.to_f
+      end
+
+      def payment_calculation
+        # 30 year fixed => 30
+        year = loan.amortization_type.gsub(/[^0-9\.]/, "")
+        "Years 1-#{year}"
       end
 
       def map_string_to_params(list)

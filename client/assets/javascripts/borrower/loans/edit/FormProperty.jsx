@@ -321,7 +321,13 @@ var FormProperty = React.createClass({
     loan.properties_attributes.zpid = this.state.property ? this.state.property.zpid : null;
     loan.properties_attributes.is_subject = true
     loan.properties_attributes.property_type = this.state.property_type;
-    loan.properties_attributes.market_price = this.currencyToNumber(this.state.marketPrice);
+
+    if(loan[fields.loanPurpose.name] == "purchase"){
+      loan.properties_attributes.market_price = this.currencyToNumber(this.state[fields.purchasePrice.name]);
+    }else{
+      loan.properties_attributes.market_price = this.currencyToNumber(this.state.marketPrice);
+    }
+
     loan.properties_attributes.estimated_hazard_insurance = this.state.estimatedHazardInsurance;
     loan.properties_attributes.estimated_property_tax = this.state.estimatedPropertyTax;
     loan.properties_attributes.is_primary = this.isPrimaryProperty();
