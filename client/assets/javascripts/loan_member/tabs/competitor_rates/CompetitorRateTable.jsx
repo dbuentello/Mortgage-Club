@@ -38,27 +38,27 @@ module.exports = React.createClass({
                                 {
                                   rate.apr != 0
                                   ?
-                                    <div>
-                                      <td data-toggle="tooltip"
-                                        title={rate.lender_name + "\n" + this.formatCurrency(rate.total_fee, "$")}
-                                        data-trigger="focus"
-                                        data-container="body"
-                                        >
-                                        <div className="panel panel-info">
-                                          <div className="panel-body text-center">
-                                            <p className="lead">
-                                                <strong>{this.commafy(rate.apr, 3)+"% APR"}</strong>
-                                            </p>
-                                            <ul className="list-group list-group-flush text-center">
-                                              <li className="list-group-item">{rate.lender_name}</li>
-                                              <li className="list-group-item">{this.formatCurrency(rate.total_fee, "$")} Fees</li>
-                                            </ul>
-                                          </div>
+                                    <td data-toggle="tooltip"
+                                      title={rate.lender_name + "\n" + this.formatCurrency(rate.total_fee, "$")}
+                                      data-trigger="focus"
+                                      data-container="body"
+                                      >
+                                      <div className="panel panel-info">
+                                        <div className="panel-body text-center">
+                                          <p className="lead">
+                                              <strong>{this.commafy(rate.apr, 3)+"% APR"}</strong>
+                                          </p>
+                                          <ul className="list-group list-group-flush text-center">
+                                            <li className="list-group-item">{rate.lender_name}</li>
+                                            <li className="list-group-item">{this.formatCurrency(rate.total_fee, "$")} Fees</li>
+                                          </ul>
                                         </div>
-                                      </td>
-                                    </div>
+                                      </div>
+                                    </td>
                                   :
-                                    <div className="text-center"></div>
+                                    <td>
+                                      <div className="text-center"></div>
+                                    </td>
                                 }
                               </div>
                             );
