@@ -11,13 +11,17 @@ class InitializeFirstLoanService
   def call
     init_properties
 
-    Loan.create(
+    loan = Loan.create(
       purpose: info["mortgage_purpose"],
       user: user,
       properties: properties,
       closing: Closing.create(name: "Closing"),
       status: "new_loan"
     )
+
+    assign_loan_to_billy(loan)
+
+    loan
   end
 
   private
@@ -92,5 +96,11 @@ class InitializeFirstLoanService
 
   def borrower_current_address
     borrower.current_address
+  end
+
+  def assign_loan_to_billy(loan)
+    return unless user = User.where(email: "billy@mortgageclub.co").last
+
+    user.loan_member.loans_members_associations.find_or_create_by(loan_id: loan.id, title: "manager")
   end
 end
