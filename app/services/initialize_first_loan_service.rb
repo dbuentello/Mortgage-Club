@@ -85,6 +85,8 @@ class InitializeFirstLoanService
   end
 
   def borrower_current_address
+    return nil if user.borrower.nil? || user.borrower.current_address.nil?
+
     user.borrower.current_address
   end
 end
