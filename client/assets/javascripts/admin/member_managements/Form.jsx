@@ -29,8 +29,7 @@ var Form = React.createClass({
         email: this.props.Member.user ? this.props.Member.user.email : '',
         firstName: this.props.Member.user.first_name,
         lastName: this.props.Member.user.last_name,
-        phoneNumber: this.props.Member.phone_number,
-        skypeHandle: this.props.Member.skype_handle
+        phoneNumber: this.props.Member.phone_number
       };
     }else {
       return {
@@ -60,7 +59,6 @@ var Form = React.createClass({
             first_name: response.loan_member.first_name,
             last_name: response.loan_member.last_name,
             phone_number: response.loan_member.phone_number,
-            skype_handle: response.loan_member.skype_handle,
             saving: false
           }
         );
@@ -156,17 +154,6 @@ var Form = React.createClass({
                 keyName="phoneNumber"
                 name="loan_member[phone_number]"
                 value={this.state.phoneNumber}
-                editable={true}
-                onChange={this.onChange}/>
-            </div>
-          </div>
-          <div className="form-group">
-            <div className="col-sm-4">
-              <TextField
-                label="Skype"
-                keyName="skypeHandle"
-                name="loan_member[skype_handle]"
-                value={this.state.skypeHandle}
                 editable={true}
                 onChange={this.onChange}/>
             </div>

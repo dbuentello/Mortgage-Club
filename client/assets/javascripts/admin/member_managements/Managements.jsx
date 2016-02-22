@@ -34,7 +34,6 @@ var Managements = React.createClass({
                   <th>Name</th>
                   <th>Email</th>
                   <th>Phone number</th>
-                  <th>Skype</th>
                   <th></th>
                 </tr>
               </thead>
@@ -49,7 +48,6 @@ var Managements = React.createClass({
                         <td>{member.user.to_s}</td>
                         <td>{member.user.email}</td>
                         <td>{member.phone_number}</td>
-                        <td>{member.skype_handle}</td>
                         <td>
                           <span>
                             <a className='linkTypeReversed btn btn-primary' href={'loan_member_managements/' + member.id + '/edit'} data-method='get'>Edit</a>
