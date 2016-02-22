@@ -59,7 +59,9 @@ var MortgageRates = React.createClass({
   },
 
   handleSortChange: function(event) {
-    this.sortBy($("#sortRateOptions").val());
+    var option = $("#sortRateOptions").val();
+    var sortedRates = this.sortBy(option, this.state.programs);
+    this.setState({programs: sortedRates});
   },
 
   onFilterProgram: function(filteredPrograms) {
@@ -90,7 +92,9 @@ var MortgageRates = React.createClass({
             ?
             null
             :
-            <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
+            <div className="col-xs-3 subnav programs-filter">
+              <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
+            </div>
           }
 
           <div className={this.state.helpMeChoose ? "col-xs-12 account-content padding-left-55 custom-left-mortgage-rates" : "col-xs-9 account-content padding-left-50"}>
@@ -139,27 +143,33 @@ var MortgageRates = React.createClass({
     );
   },
 
-  sortBy: function(field) {
-    if (field == 'apr') {
-      var sortedRates = _.sortBy(this.state.programs, function (rate) {
-        return parseFloat(rate.apr);
-      });
-    } else if (field == 'pmt') {
-      var sortedRates = _.sortBy(this.state.programs, function (rate) {
-        return parseFloat(rate.monthly_payment);
-      });
-    } else if (field == 'rate') {
-      var sortedRates = _.sortBy(this.state.programs, function (rate) {
-        return parseFloat(rate.interest_rate);
-      });
-    } else if (field == 'tcc') {
-      var sortedRates = _.sortBy(this.state.programs, function (rate) {
-        return parseFloat(rate.total_closing_cost);
-      });
+  sortBy: function(field, programs) {
+    var sortedRates = [];
+
+    switch(field) {
+      case "apr":
+        sortedRates = _.sortBy(programs, function (rate) {
+          return parseFloat(rate.apr);
+        });
+        break;
+      case "pmt":
+        sortedRates = _.sortBy(programs, function (rate) {
+          return parseFloat(rate.monthly_payment);
+        });
+        break;
+      case "rate":
+        sortedRates = _.sortBy(programs, function (rate) {
+          return parseFloat(rate.interest_rate);
+        });
+        break;
+      case "tcc":
+        sortedRates = _.sortBy(programs, function (rate) {
+          return parseFloat(rate.total_closing_cost);
+        });
+        break;
     }
 
-    // console.dir(this.state.helpMeChoose);
-    this.setState({programs: sortedRates});
+    return sortedRates;
   }
 });
 

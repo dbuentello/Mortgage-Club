@@ -7,7 +7,8 @@ class PagesController < ApplicationController
     @mortgage_aprs = HomepageRateServices::GetMortgageAprs.call
 
     if @mortgage_aprs['updated_at'].present?
-      @last_updated = Time.zone.parse(@mortgage_aprs['updated_at'].to_s).in_time_zone("Pacific Time (US & Canada)").strftime('%b %d, %G %I:%M %p %Z')
+      @last_updated = Time.zone.parse(@mortgage_aprs['updated_at'].to_s).strftime('%b %d, %G %I:%M %p %Z')
+      @last_updated = @last_updated.gsub("PDT", "PST")
     end
   end
 

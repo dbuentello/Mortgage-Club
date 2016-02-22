@@ -24,6 +24,7 @@ var ChecklistTab = React.createClass({
   },
 
   onDelete: function(event) {
+
     var checklist_id = event.target.value;
 
     $.ajax({
@@ -45,19 +46,25 @@ var ChecklistTab = React.createClass({
     var url = '/loan_members/checklists/';
 
     return (
-      <div className='content container backgroundBasic'>
-        <div className='pal'>
-          <div className='row'>
-            <h2 className='mbl'>Checklists</h2>
-            <table className="table table-striped">
+
+
+
+      <div id="checklists-page">
+        <div className="panel panel-flat">
+          <div className="panel-heading">
+            <h4 className="panel-title">Checklists</h4>
+          </div>
+
+          <div className="datatable-scroll" id="checklists-table">
+            <table role="grid" className="table table-hover datatable-highlight dataTable no-footer">
               <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Type</th>
-                  <th>Due Date</th>
-                  <th>Status</th>
-                  <th>Owner</th>
-                  <th></th>
+                <tr role="row">
+                  <th tabIndex="0" rowSpan="1" colSpan="1" aria-sort="ascending">Name</th>
+                  <th  tabIndex="0" rowSpan="1" colSpan="1">Type</th>
+                  <th  tabIndex="0" rowSpan="1" colSpan="1">Due Date</th>
+                  <th  tabIndex="0" rowSpan="1" colSpan="1">Status</th>
+                  <th  tabIndex="0" rowSpan="1" colSpan="1">Owner</th>
+                  <th tabIndex="0" rowSpan="1" colSpan="1">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -68,15 +75,23 @@ var ChecklistTab = React.createClass({
                         <td>{checklist.name}</td>
                         <td>{checklist.checklist_type}</td>
                         <td>{this.isoToUsDate(checklist.due_date)}</td>
-                        <td>{checklist.status}</td>
+                        <td>
+
+                          {checklist.status == "pending"
+                          ? <span className="label label-info">{checklist.status}</span>
+                        : <span className="label label-success">{checklist.status}</span>
+                        }
+                        </td>
                         <td>{checklist.user.to_s}</td>
                         <td>
                           <span>
-                            <a className='linkTypeReversed btn btn-primary' href={'/loan_members/checklists/' + checklist.id + '/edit'} data-method='get'>Edit</a>
+                            <a className='linkTypeReversed' href={'/loan_members/checklists/' + checklist.id + '/edit'}
+                              data-method='get'><i className="icon-pencil7"></i></a>
                           </span>
                           &nbsp;
                           <span>
-                            <button className='linkTypeReversed btn btn-danger' value={checklist.id} onClick={this.onDelete}>Delete</button>
+                            <button className='linkTypeReversed icon-trash borderless'  value={checklist.id} onClick={this.onDelete}>
+                              </button>
                           </span>
                         </td>
                       </tr>
@@ -86,10 +101,16 @@ var ChecklistTab = React.createClass({
               </tbody>
             </table>
           </div>
-          <br/>
-          <div className='row'>
-            <h2>Add a new checklist</h2>
-            <Form Url={url} Method='POST' onReloadTable={this.onReloadTable} loan={this.props.loan} templates={this.props.templates}></Form>
+        </div>
+        <div className="panel panel-flat">
+          <div className="panel-heading">
+            <h4 className="panel-title">Add a new checklist</h4>
+          </div>
+
+          <div className="panel-body">
+            <div className='row' style={{"margin-top": "10px"}}>
+              <Form Url={url} Method='POST' onReloadTable={this.onReloadTable} loan={this.props.loan} templates={this.props.templates}></Form>
+            </div>
           </div>
         </div>
       </div>

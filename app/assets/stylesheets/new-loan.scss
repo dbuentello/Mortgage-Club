@@ -115,8 +115,14 @@
   ul li:hover a { background: #dfe1e5; }
 
   ul li a img{
-    margin-top:-5px;
-    margin-right:20px;
+    margin-top: -5px;
+    margin-right: 20px;
+  }
+
+  ul li a span i{
+    margin-right: 20px;
+    width: 20px;
+    font-size:1.3em;
   }
 }
 
@@ -186,8 +192,17 @@
 
   .form-group>div>h6 {color:#12a7d1;}
 
+  .title-asset-tab {
+    color: #00436E !important;
+  }
+
   h3 {margin-top:40px; margin-bottom:0;}
 
+  .title-h6 {
+    margin-top:40px;
+    margin-bottom: -20px;
+    color: #00436E;
+  }
   .form-group>div>h5>span {margin-right:15px;}
 
   .form-group {margin-top:0; margin-bottom:0;}
@@ -280,7 +295,7 @@
 
     .glyphicon-ok{
       color: white;
-      background-color: green;
+      background-color: #00BD9C;
       padding: 8px;
       border-radius: 50%;
       font-size:16px;

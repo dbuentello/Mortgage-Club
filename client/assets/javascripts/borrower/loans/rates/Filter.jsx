@@ -27,7 +27,7 @@ var Filter = React.createClass({
 
   render: function() {
     return (
-      <div className="col-xs-3 subnav programs-filter">
+      <div>
         <div id="sidebar">
           <h5>Programs</h5>
           <input type="checkbox" name="30years" id="30years" onChange={_.bind(this.onChangeCriteria, null, "30 year fixed", "product")}/>
@@ -36,10 +36,10 @@ var Filter = React.createClass({
           <input type="checkbox" name="15years" id="15years" onChange={_.bind(this.onChangeCriteria, null, "15 year fixed", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="15years">15 years fixed</label>
           <br/>
-          <input type="checkbox" name="71arm" id="71arm" onChange={_.bind(this.onChangeCriteria, null, "7/1 ARM", "product")}/>
+          <input type="checkbox" name="71arm" id="71arm" onChange={_.bind(this.onChangeCriteria, null, "7 year ARM", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="71arm">7/1 ARM</label>
           <br/>
-          <input type="checkbox" name="51arm" id="51arm" onChange={_.bind(this.onChangeCriteria, null, "5/1 ARM", "product")}/>
+          <input type="checkbox" name="51arm" id="51arm" onChange={_.bind(this.onChangeCriteria, null, "5 year ARM", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="51arm">5/1 ARM</label>
           <br/>
           <input type="checkbox" name="fha" id="fha" onChange={_.bind(this.onChangeCriteria, null, "FHA", "product")}/>

@@ -26,7 +26,10 @@ var TextFormatMixin = {
       n = n.toFixed(decimals);
     }
 
-    n = (n+'').split('.').map(function(s,i){return i?s:s.replace(/(\d)(?=(?:\d{3})+$)/g,'$1,'); }).join('.');
+    n = (n+'').split('.').map(function(s,i){
+      return i ? s : s.replace(/(\d)(?=(?:\d{3})+$)/g,'$1,');
+    }).join('.');
+
     return n;
   },
 
@@ -38,16 +41,18 @@ var TextFormatMixin = {
     return val.replace('$', '').replace(/\,/g, '');
   },
 
-  formatCurrency: function(cashflow, unit) {
+  formatCurrency: function(cashflow, decimals, unit) {
     var negative, money, prefix;
+    var decimal = decimals | 2;
 
     if (!cashflow) {
       return cashflow;
     }
 
     if (typeof cashflow === 'string' || cashflow instanceof String) {
-      cashflow = cashflow.replace(/[^\d.-]/g, '');
+      cashflow = cashflow.replace(/[^(\d|.).-]/g, '');
     }
+
     cashflow = Math.ceil(cashflow * 100) / 100;
     negative = (cashflow < 0 ? '-' : '');
     money = Math.abs(cashflow);
@@ -59,7 +64,7 @@ var TextFormatMixin = {
       prefix = negative + '$';
     }
 
-    return prefix + this.commafy(money);
+    return prefix + this.commafy(money, decimal);
   },
 
   /**

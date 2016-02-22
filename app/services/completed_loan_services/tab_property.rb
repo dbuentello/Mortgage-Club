@@ -19,6 +19,7 @@ module CompletedLoanServices
       return false unless subject_property.address.present?
       return false unless address_completed?
       return false unless subject_property.usage.present?
+      return false if !subject_property.primary_residence? && subject_property.gross_rental_income.nil?
 
       true
     end

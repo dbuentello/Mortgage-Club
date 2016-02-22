@@ -59,10 +59,10 @@ var secondary_borrower_fields = {
   currentAddress: {label: 'Your co-borrower current address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null, error: "coCurrentAddressError", validationTypes: ["empty"]},
   currentlyOwn: {label: 'Own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "coCurrentlyOwnError", validationTypes: ["empty"]},
   selfEmployed: {label: 'Is your co-borrower self-employed?', name: 'secondary_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "coSelfEmployError", validationTypes: ["empty"]},
-  yearsInCurrentAddress: {label: 'Number of years your co-borrower has lived here', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "coYearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
+  yearsInCurrentAddress: {label: 'Number of years they have lived here', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "coYearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
   previousAddress: {label: 'Your previous address', name: 'secondary_borrower_previous_address', fieldName: 'previous_address', helpText: null, error: "coPreviousAddressError", validationTypes: ["empty"]},
   previouslyOwn: {label: 'Own or rent?', name: 'secondary_borrower_previously_own', fieldName: 'previously_own', helpText: null, error: "coPreviousOwnError", validationTypes: ["empty"]},
-  yearsInPreviousAddress: {label: 'Number of years your co-borrower has lived here', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "coYearsInPreviousAddressError", validationTypes: ["empty", "integer"]},
+  yearsInPreviousAddress: {label: 'Number of years they have lived here', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "coYearsInPreviousAddressError", validationTypes: ["empty", "integer"]},
   currentMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null, error: "coCurrentlyMonthlyRentError", validationTypes: ["empty", "currency"]},
   previousMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null, error: "coPreviousMonthlyRentError", validationTypes: ["empty", "currency"]}
 };
@@ -87,6 +87,10 @@ var Form = React.createClass({
 
   onChange: function(change) {
     this.setState(change);
+  },
+
+  onBlur: function(blur) {
+    this.setState(blur);
   },
 
   onFocus: function(field) {
@@ -161,7 +165,8 @@ var Form = React.createClass({
             selfEmployed={this.state[borrower_fields.selfEmployed.name]}
             selfEmployedErorr={this.state[borrower_fields.selfEmployed.error]}
             onChange={this.onChange}
-            onFocus={this.onFocus}/>
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}/>
 
             { this.state.hasSecondaryBorrower ?
               <div className="box mtn">
@@ -213,7 +218,8 @@ var Form = React.createClass({
                   selfEmployedError={this.state[secondary_borrower_fields.selfEmployed.error]}
                   isSecondary={true}
                   onChange={this.onChange}
-                  onFocus={this.onFocus}/>
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}/>
               </div>
             : null }
             <div className="form-group">

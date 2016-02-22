@@ -13,7 +13,7 @@ class Loan < ActiveRecord::Base
   has_many :documents, as: :subjectable, dependent: :destroy
   has_many :loan_activities, dependent: :destroy
   has_many :loans_members_associations
-  has_many :loan_members, through: :loans_members_associations
+  has_many :loan_members, through: :loans_members_associations, dependent: :destroy
   has_many :checklists, dependent: :destroy
   has_many :lender_documents, dependent: :destroy
   has_many :rate_comparisons, dependent: :destroy
@@ -49,15 +49,6 @@ class Loan < ActiveRecord::Base
 
   validates :loan_type, inclusion: {in: %w(Conventional VA FHA USDA 9), message: "%{value} is not a valid loan_type"}, allow_nil: true
   validates :status, inclusion: {in: %w(new_loan submitted pending conditionally_approved approved closed), message: "%{value} is not a valid status"}, allow_nil: true
-
-  def self.initiate(user)
-    loan = Loan.create(
-      user: user,
-      properties: [Property.create(address: Address.create, is_subject: true)],
-      closing: Closing.create(name: 'Closing'),
-      status: "new_loan"
-    )
-  end
 
   def completed?
     CompletedLoanServices::BaseCompleted.new({loan: self}).call

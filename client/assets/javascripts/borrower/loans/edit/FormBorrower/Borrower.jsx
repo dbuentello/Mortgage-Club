@@ -82,16 +82,7 @@ var Borrower = React.createClass({
               :
                 null
             }
-          <div className="col-md-6">
-            <DateField
-              activateRequiredField={this.props.dobError}
-              label={this.props.fields.dob.label}
-              keyName={this.props.fields.dob.name}
-              value={this.props.dob}
-              customClass={"account-text-input"}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.dob)}
-              onChange={this.props.onChange}/>
-          </div>
+          
         </div>
         <div className="form-group">
           <div className="col-md-6">
@@ -124,7 +115,17 @@ var Borrower = React.createClass({
           </div>
         </div>
         <div className="form-group">
-          <div className="col-md-6">
+          <div className="col-md-4">
+            <DateField
+              activateRequiredField={this.props.dobError}
+              label={this.props.fields.dob.label}
+              keyName={this.props.fields.dob.name}
+              value={this.props.dob}
+              customClass={"account-text-input"}
+              onFocus={_.bind(this.props.onFocus, this, this.props.fields.dob)}
+              onChange={this.props.onChange}/>
+          </div>
+          <div className="col-md-4">
             <TextField
               activateRequiredField={this.props.yearsInSchoolError}
               label={this.props.fields.yearsInSchool.label}
@@ -138,7 +139,7 @@ var Borrower = React.createClass({
               validationTypes={["integer"]}
               onChange={this.props.onChange}/>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
             <SelectField
               activateRequiredField={this.props.maritalStatusError}
               label={this.props.fields.maritalStatus.label}
@@ -152,7 +153,19 @@ var Borrower = React.createClass({
           </div>
         </div>
         <div className="form-group">
-          <div className="col-md-6">
+        <div className="col-md-4">
+            <BooleanRadio
+              activateRequiredField={this.props.selfEmployedError}
+              label={this.props.fields.selfEmployed.label}
+              checked={this.props.selfEmployed}
+              keyName={this.props.fields.selfEmployed.name}
+              yesLabel={"Yes"}
+              noLabel={"No"}
+              editable={true}
+              onFocus={_.bind(this.props.onFocus, this, this.props.fields.selfEmployed)}
+              onChange={this.props.onChange}/>
+          </div>
+          <div className="col-md-4">
             <TextField
               activateRequiredField={this.props.numberOfDependencesError}
               label={this.props.fields.numberOfDependents.label}
@@ -166,7 +179,7 @@ var Borrower = React.createClass({
               validationTypes={["integer"]}
               onChange={this.props.onChange}/>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
             { parseInt(this.props.numberOfDependents, 10) > 0 ?
               <TextField
                 activateRequiredField={this.props.dependentAgesError}
@@ -216,12 +229,12 @@ var Borrower = React.createClass({
                   value={this.props.currentMonthlyRent}
                   keyName={this.props.fields.currentMonthlyRent.name}
                   customClass={"account-text-input"}
-                  liveFormat={true}
                   format={this.formatCurrency}
                   maxLength={15}
                   onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentMonthlyRent)}
                   validationTypes={["currency"]}
-                  onChange={this.props.onChange}/>
+                  onChange={this.props.onChange}
+                  onBlur={this.props.onBlur}/>
               : null
             }
           </div>
@@ -240,20 +253,7 @@ var Borrower = React.createClass({
               onChange={this.props.onChange}/>
           </div>
         </div>
-        <div className="form-group">
-          <div className="col-md-4">
-            <BooleanRadio
-              activateRequiredField={this.props.selfEmployedError}
-              label={this.props.fields.selfEmployed.label}
-              checked={this.props.selfEmployed}
-              keyName={this.props.fields.selfEmployed.name}
-              yesLabel={"Yes"}
-              noLabel={"No"}
-              editable={true}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.selfEmployed)}
-              onChange={this.props.onChange}/>
-          </div>
-        </div>
+        
         { parseInt(this.props.yearsInCurrentAddress, 10) < 2 ?
           <div>
           <div className="form-group">
@@ -291,12 +291,12 @@ var Borrower = React.createClass({
                     value={this.props.previousMonthlyRent}
                     keyName={this.props.fields.previousMonthlyRent.name}
                     customClass={"account-text-input"}
-                    liveFormat={true}
                     format={this.formatCurrency}
                     maxLength={15}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyRent)}
                     validationTypes={["currency"]}
-                    onChange={this.props.onChange}/>
+                    onChange={this.props.onChange}
+                    onBlur={this.props.onBlur}/>
                 : null
               }
             </div>

@@ -38,10 +38,68 @@ var Property = React.createClass({
     // state.otherFinancingLiabilities = this.reloadOtherFinancingLiabilities(state.mortgagePayment);
     state.setOtherMortgagePayment = false;
     state.setOtherFinancing = false;
+
+    state.property.market_price = state.property.market_price ? this.formatCurrency(state.property.market_price) : null;
+    state.property.estimated_property_tax = state.property.estimated_property_tax ? this.formatCurrency(state.property.estimated_property_tax) : null;
+    state.property.estimated_hazard_insurance = state.property.estimated_hazard_insurance ? this.formatCurrency(state.property.estimated_hazard_insurance) : null;
+    state.property.other_mortgage_payment_amount = state.property.other_mortgage_payment_amount ? this.formatCurrency(state.property.other_mortgage_payment_amount) : null;
+    state.property.other_financing_amount = state.property.other_financing_amount ? this.formatCurrency(state.property.other_financing_amount) : null;
+    state.property.hoa_due = state.property.hoa_due ? this.formatCurrency(state.property.hoa_due) : null;
+    state.property.gross_rental_income = state.property.gross_rental_income ? this.formatCurrency(state.property.gross_rental_income) : null;
+
     return state;
   },
 
   onChange: function(change) {
+    var index = this.props.index;
+
+    var key = _.keys(change)[0].replace(this.props.index, '');
+    key = key.replace("_", ".");
+    var value = _.values(change)[0];
+
+    if (key == 'property.mortgagePayment') {
+      if (value == 'Mortgage') {
+        this.setState({setOtherMortgagePayment: true});
+      }
+      else {
+        // var unSelectedLiability = this.state.selectedMortgageLiability;
+        // this.setState({selectedMortgageLiability: value});
+        // this.props.keepTrackOfSelectedLiabilities(unSelectedLiability, value);
+        this.setState({
+          otherFinancingLiabilities: this.reloadOtherFinancingLiabilities(value)
+        });
+      }
+    }
+
+    if (key == 'property.otherFinancing') {
+      if (value == 'OtherFinancing') {
+        this.setState({setOtherFinancing: true});
+      }
+      else {
+        // var unSelectedLiability = this.state.selectedOtherFinancingLiability;
+        // this.setState({selectedOtherFinancingLiability: value});
+        // this.props.keepTrackOfSelectedLiabilities(unSelectedLiability, this.state.selectedOtherFinancingLiability);
+        this.setState({
+          mortgageLiabilities: this.reloadMortgageLiabilities(value)
+        });
+      }
+    }
+
+    if ( value != null ) {
+      if (key.indexOf('.address') > -1 && value.city) {
+        var propertyKey = key.replace('.address', '');
+        var property = this.getValue(this.state, propertyKey);
+        property.market_price = null;
+        property.property_type = null;
+        property.estimated_property_tax = null;
+        property.estimated_hazard_insurance = null;
+        this.searchProperty(this.getValue(this.state, propertyKey), propertyKey);
+      }
+    }
+    this.setState(this.setValue(this.state, key, value));
+  },
+
+  onBlur: function(change) {
     var index = this.props.index;
 
     var key = _.keys(change)[0].replace(this.props.index, '');
@@ -127,14 +185,18 @@ var Property = React.createClass({
           // actually 404 error
           return;
         }
+
         var market_price = this.getValue(response, 'zestimate.amount.__content__');
         var propertyType = this.getPropertyType(this.getValue(response, 'useCode'));
         var monthlyTax = this.getValue(response, 'monthlyTax');
         var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
-        property.market_price = market_price;
+        var rentalIncome = this.getValue(response, 'rentzestimate.amount.__content__');
+
+        property.market_price = this.formatCurrency(market_price);
         property.property_type = propertyType;
-        property.estimated_property_tax = monthlyTax;
-        property.estimated_hazard_insurance = monthlyInsurance;
+        property.estimated_property_tax = this.formatCurrency(monthlyTax);
+        property.estimated_hazard_insurance = this.formatCurrency(monthlyInsurance);
+        property.gross_rental_income = this.formatCurrency(rentalIncome);
         this.setState(this.setValue(this.state, propertyKey, property));
       }
     });
@@ -212,136 +274,164 @@ var Property = React.createClass({
               activateRequiredField={this.props.marketPriceError}
               label='Estimated Market Value'
               keyName={'property_market_price' + this.props.index}
-              value={this.formatCurrency(this.state.property.market_price)}
+              value={this.state.property.market_price}
               validationTypes={["currency"]}
               editable={true}
               maxLength={15}
-              onChange={this.onChange}/>
+              onChange={this.onChange}
+              format={this.formatCurrency}
+              onBlur={this.onBlur}/>
           </div>
         </div>
-        <div className='form-group'>
-          <div className='col-md-6'>
-            <SelectField
-              label='Mortgage Payment'
-              keyName={'property_mortgagePayment' + this.props.index}
-              options={this.state.mortgageLiabilities}
-              value={this.state.property.mortgagePayment}
-              editable={true}
-              onChange={this.onChange}
-              allowBlank={true}/>
-          </div>
-          { this.state.setOtherMortgagePayment
-            ? <div className='col-md-6'>
-                <TextField
-                  label='Other Amount'
-                  keyName={'property_other_mortgage_payment_amount'}
-                  value={this.formatCurrency(this.state.property.other_mortgage_payment_amount)}
-                  format={this.formatCurrency}
-                  liveFormat={true}
-                  editable={true}
-                  maxLength={15}
-                  validationTypes={["currency"]}
-                  onChange={this.onChange}/>
+        {
+          this.props.isPurchase == true
+          ?
+            null
+          :
+            <div>
+              <div className='form-group'>
+                <div className='col-md-6'>
+                  <SelectField
+                    label='Mortgage Payment'
+                    keyName={'property_mortgagePayment' + this.props.index}
+                    options={this.state.mortgageLiabilities}
+                    value={this.state.property.mortgagePayment}
+                    editable={true}
+                    onChange={this.onChange}
+                    allowBlank={true}/>
+                </div>
+                { this.state.setOtherMortgagePayment
+                  ? <div className='col-md-6'>
+                      <TextField
+                        label='Other Amount'
+                        keyName={'property_other_mortgage_payment_amount'}
+                        value={this.state.property.other_mortgage_payment_amount}
+                        format={this.formatCurrency}
+                        liveFormat={true}
+                        editable={true}
+                        maxLength={15}
+                        validationTypes={["currency"]}
+                        onChange={this.onChange}
+                        onBlur={this.onBlur}/>
+                    </div>
+                  : null
+                }
               </div>
-            : null
-          }
-        </div>
-        <div className='form-group'>
-          <div className='col-md-6'>
-            <SelectField
-              label='Other Financing (if applicable)'
-              keyName={'property_otherFinancing' + this.props.index}
-              value={this.state.property.otherFinancing}
-              options={this.state.otherFinancingLiabilities}
-              editable={true}
-              onChange={this.onChange}
-              allowBlank={true}/>
-          </div>
-          { this.state.setOtherFinancing
-            ? <div className='col-md-6'>
-                <TextField
-                  label='Other Amount'
-                  keyName={'property_other_financing_amount' + this.props.index}
-                  value={this.formatCurrency(this.state.property.other_financing_amount)}
-                  format={this.formatCurrency}
-                  liveFormat={true}
-                  editable={true}
-                  maxLength={15}
-                  validationTypes={["currency"]}
-                  onChange={this.onChange}/>
+              <div className='form-group'>
+                <div className='col-md-6'>
+                  <SelectField
+                    label='Other Financing (if applicable)'
+                    keyName={'property_otherFinancing' + this.props.index}
+                    value={this.state.property.otherFinancing}
+                    options={this.state.otherFinancingLiabilities}
+                    editable={true}
+                    onChange={this.onChange}
+                    allowBlank={true}/>
+                </div>
+                { this.state.setOtherFinancing
+                  ? <div className='col-md-6'>
+                      <TextField
+                        label='Other Amount'
+                        keyName={'property_other_financing_amount' + this.props.index}
+                        value={this.state.property.other_financing_amount}
+                        format={this.formatCurrency}
+                        liveFormat={true}
+                        editable={true}
+                        maxLength={15}
+                        validationTypes={["currency"]}
+                        onChange={this.onChange}
+                        onBlur={this.onBlur}/>
+                    </div>
+                  : null
+                }
               </div>
-            : null
-          }
-        </div>
-        <div className='form-group'>
-          <div className='col-md-6'>
-            <TextField
-              label='Mortgage Insurance (if applicable)'
-              keyName={'property_estimated_mortgage_insurance' + this.props.index}
-              value={this.formatCurrency(this.state.property.estimated_mortgage_insurance)}
-              editable={true}
-              maxLength={15}
-              validationTypes={["currency"]}
-              onChange={this.onChange}/>
-          </div>
-          <div className='col-md-6'>
-            <SelectField
-              activateRequiredField={this.props.mortgageIncludesEscrowsError}
-              label='Does your mortgage payment include escrows?'
-              keyName={'property_mortgage_includes_escrows' + this.props.index}
-              value={this.state.property.mortgage_includes_escrows}
-              options={mortgageInclueEscrows}
-              editable={true}
-              onChange={this.onChange}
-              allowBlank={true}/>
-          </div>
-        </div>
+              <div className='form-group'>
+                <div className='col-md-6'>
+                  <TextField
+                    label='Mortgage Insurance (if applicable)'
+                    keyName={'property_estimated_mortgage_insurance' + this.props.index}
+                    value={this.state.property.estimated_mortgage_insurance}
+                    editable={true}
+                    maxLength={15}
+                    validationTypes={["currency"]}
+                    onChange={this.onChange}
+                    format={this.formatCurrency}
+                    onBlur={this.onBlur}/>
+                </div>
+                <div className='col-md-6'>
+                  <SelectField
+                    activateRequiredField={this.props.mortgageIncludesEscrowsError}
+                    label='Does your mortgage payment include escrows?'
+                    keyName={'property_mortgage_includes_escrows' + this.props.index}
+                    value={this.state.property.mortgage_includes_escrows}
+                    options={mortgageInclueEscrows}
+                    editable={true}
+                    onChange={this.onChange}
+                    allowBlank={true}/>
+                </div>
+              </div>
+            </div>
+        }
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
               activateRequiredField={this.props.estimatedHazardInsuranceError}
               label='Homeowner’s Insurance'
               keyName={'property_estimated_hazard_insurance' + this.props.index}
-              value={this.formatCurrency(this.state.property.estimated_hazard_insurance)}
+              value={this.state.property.estimated_hazard_insurance}
               editable={true}
               maxLength={15}
               validationTypes={["currency"]}
-              onChange={this.onChange}/>
+              onChange={this.onChange}
+              format={this.formatCurrency}
+              onBlur={this.onBlur}/>
           </div>
           <div className='col-md-3'>
             <TextField
               activateRequiredField={this.props.estimatedPropertyTaxError}
               label='Property Tax'
               keyName={'property_estimated_property_tax' + this.props.index}
-              value={this.formatCurrency(this.state.property.estimated_property_tax)}
+              value={this.state.property.estimated_property_tax}
               editable={true}
               maxLength={15}
               validationTypes={["currency"]}
-              onChange={this.onChange}/>
+              onChange={this.onChange}
+              format={this.formatCurrency}
+              onBlur={this.onBlur}/>
           </div>
           <div className='col-md-3 pln'>
             <TextField
               label='HOA Due (if applicable)'
               keyName={'property_hoa_due' + this.props.index}
-              value={this.formatCurrency(this.state.property.hoa_due)}
+              value={this.state.property.hoa_due}
               editable={true}
               maxLength={15}
               validationTypes={["currency"]}
-              onChange={this.onChange}/>
+              onChange={this.onChange}
+              format={this.formatCurrency}
+              onBlur={this.onBlur}/>
           </div>
         </div>
-        <div className='form-group' style={{display: (this.state.property.is_subject && this.state.property.usage == 'rental_property') ? null : 'none'}}>
-          <div className='col-md-6'>
-            <TextField
-              activateRequiredField={this.props.grossRentalIncomeError}
-              label='Estimated Rental Income'
-              keyName={'property_gross_rental_income' + this.props.index}
-              value={this.formatCurrency(this.state.property.gross_rental_income)}
-              maxLength={15}
-              editable={true}
-              validationTypes={["currency"]}
-              onChange={this.onChange}/>
-          </div>
+        <div className='form-group'>
+          {
+            this.props.index != "subject_property" && this.props.index != "primary_property"
+            ?
+              <div className='col-md-6'>
+                <TextField
+                  activateRequiredField={this.props.grossRentalIncomeError}
+                  label='Estimated Rental Income'
+                  keyName={'property_gross_rental_income' + this.props.index}
+                  value={this.state.property.gross_rental_income}
+                  maxLength={15}
+                  editable={true}
+                  validationTypes={["currency"]}
+                  onChange={this.onChange}
+                  format={this.formatCurrency}
+                  onBlur={this.onBlur}/>
+              </div>
+            :
+              null
+          }
         </div>
         <div className='form-group'>
           { this.props.isShowRemove == true

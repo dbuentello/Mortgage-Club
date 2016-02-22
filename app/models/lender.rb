@@ -27,21 +27,18 @@ class Lender < ActiveRecord::Base
 
   validates :lock_rate_email,
     presence: true,
-    uniqueness: true,
     format: {
       with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
     }
 
   validates :docs_email,
     presence: true,
-    uniqueness: true,
     format: {
       with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
     }
 
   validates :contact_email,
     presence: true,
-    uniqueness: true,
     format: {
       with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
     }

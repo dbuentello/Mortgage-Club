@@ -18,6 +18,7 @@ var TabDocuments = require('mixins/CompletedLoanMixins/TabDocuments');
 var TabIncome = require('mixins/CompletedLoanMixins/TabIncome');
 var TabAsset = require('mixins/CompletedLoanMixins/TabAsset');
 
+var creditCardCompleted = false;
 var LoanInterface = React.createClass({
   mixins: [CheckCompletedLoanMixin],
 
@@ -25,13 +26,14 @@ var LoanInterface = React.createClass({
     var loan = this.props.bootstrapData.currentLoan;
     var borrower_type = this.props.bootstrapData.borrower_type;
     var menu = this.buildMenu(loan);
+    var activeItem = _.findWhere(menu, {complete: false}) || menu[0];
 
     return {
       menu: menu,
-      active: _.findWhere(menu, {complete: false}) || menu[0],
+      active: activeItem,
       loan: loan,
       borrower_type: borrower_type,
-      completedLoan: this.loanIsCompleted(loan),
+      completedLoan: this.loanIsCompleted(loan)
     };
   },
 
@@ -51,7 +53,7 @@ var LoanInterface = React.createClass({
                     return (
                       <li key={i} id={"tab"+item.name} className={this.getKlassNameLiSidebar(item, activeItem)}>
                         <a href="javascript:void(0)" onClick={_.bind(this.goToItem, this, item)}>
-                          <img src={item.iconSrc} alt={item.name}>{item.name}</img>
+                          <span><i className={item.iconClass}></i>{item.name}</span>
                           <span className="done-sign glyphicon glyphicon-ok"></span>
                         </a>
                       </li>
@@ -133,6 +135,9 @@ var LoanInterface = React.createClass({
   },
 
   goToItem: function(item) {
+    if(item.name == "Credit Check")
+      creditCardCompleted = true;
+
     var menu = this.buildMenu(this.state.loan);
     // this.autosave(this.props.bootstrapData.currentLoan, this.state.active.step);
     this.setState({active: item, completedLoan: false, menu: menu});
@@ -140,13 +145,13 @@ var LoanInterface = React.createClass({
 
   buildMenu: function(loan) {
     var menu = [
-      {name: "Property", complete: TabProperty.propertyCompleted(loan), iconSrc: "/icons/property.png", step: 0, Content: Property},
-      {name: "Borrower", complete: TabBorrower.completed(loan), iconSrc: "/icons/borrower.png", step: 1, Content: Borrower},
-      {name: "Documents", complete: TabDocuments.documentsCompleted(loan), iconSrc: "/icons/description.png", step: 2, Content: Documents},
-      {name: "Income", complete: TabIncome.incomeCompleted(loan), iconSrc: "/icons/income.png", step: 3, Content: Income},
-      {name: "Credit Check", complete: true, iconSrc: "/icons/creditcheck.png", step: 4, Content: CreditCheck},
-      {name: "Assets and Liabilities", complete: TabAsset.assetCompleted(loan), iconSrc: "/icons/assets.png", step: 5, Content: AssetsAndLiabilities},
-      {name: "Declarations", complete: TabDeclaration.declarationCompleted(loan), iconSrc: "/icons/declarations.png", step: 6, Content: Declarations},
+      {name: "Property", complete: TabProperty.propertyCompleted(loan), iconClass: "fa fa-home", step: 0, Content: Property},
+      {name: "Borrower", complete: TabBorrower.completed(loan), iconClass: "fa fa-user", step: 1, Content: Borrower},
+      {name: "Documents", complete: TabDocuments.documentsCompleted(loan), iconClass: "fa fa-file-text", step: 2, Content: Documents},
+      {name: "Income", complete: TabIncome.incomeCompleted(loan), iconClass: "fa fa-database", step: 3, Content: Income},
+      {name: "Credit Check", complete: creditCardCompleted, iconClass: "fa fa-credit-card-alt", step: 4, Content: CreditCheck},
+      {name: "Assets and Liabilities", complete: TabAsset.assetCompleted(loan), iconClass: "fa fa-bar-chart", step: 5, Content: AssetsAndLiabilities},
+      {name: "Declarations", complete: TabDeclaration.declarationCompleted(loan), iconClass: "fa fa-list-alt", step: 6, Content: Declarations},
     ];
     return menu;
   },

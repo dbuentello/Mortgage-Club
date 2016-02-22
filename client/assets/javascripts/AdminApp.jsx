@@ -30,6 +30,9 @@ var EditPotentialUserPage = require("admin/potential_user_managements/EditPage")
 
 var BorrowerManagements = require("admin/borrower_managements/Borrowers");
 
+var HomepageRateManagement = require("admin/homepage_rate_managements/Managements");
+var HomepageRateForm = require("admin/homepage_rate_managements/Form");
+
 window.AdminApp = React.createClass({
   mixins: [FlashHandler],
 
@@ -56,6 +59,7 @@ window.AdminApp = React.createClass({
                       <ul className="dropdownList">
                       <li><a href="/borrower_managements" className="dropdownLink">Borrowers</a></li>
                         <li><a href="/lenders" className="dropdownLink">Lenders</a></li>
+                        <li><a href="/homepage_rates" className="dropdownLink">Homepage Rates</a></li>
                         <li><a href="/loan_member_managements" className="dropdownLink">Loan Members</a></li>
                         <li><a href="/loan_assignments" className="dropdownLink">Loan Assignment</a></li>
                         <li><a href="/loan_faq_managements" className="dropdownLink">Loan FAQs</a></li>
@@ -103,6 +107,8 @@ var routes = (
     <Route name="loan_activity_type_managements" path="/loan_activity_type_managements" handler={LoanActivityTypeManagements}/>
     <Route path="/loan_activity_type_managements/:id/edit" handler={EditActivityTypePage}/>
     <Route path="/lenders" handler={Lenders}/>
+    <Route path="/homepage_rates" handler={HomepageRateManagement}/>
+    <Route path="/homepage_rates/:id/edit" handler={HomepageRateForm}/>
     <Route path="/lenders/new" handler={LenderForm}/>
     <Route path="/lenders/:id/edit" handler={LenderForm}/>
     <Route path="/lenders/:id/lender_templates" handler={LenderTemplates}/>

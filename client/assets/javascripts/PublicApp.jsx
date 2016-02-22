@@ -10,6 +10,7 @@ var AppStarter = require('tools/AppStarter');
 var FrontendTest = require('public/FrontendTest');
 var BackendTest = require('public/BackendTest');
 var RateAlert = require('public/RateAlert');
+var InitialQuotes = require('public/InitialQuotes/Form');
 
 window.PublicApp = React.createClass({
   contextTypes: {
@@ -30,6 +31,7 @@ var routes = (
     <Route name='frontend_test' handler={FrontendTest}/>
     <Route name='backend_test' handler={BackendTest}/>
     <Route name='rate-alert' handler={RateAlert}/>
+    <Route name='quotes' handler={InitialQuotes}/>
     <DefaultRoute handler={BackendTest}/>
   </Route>
 );

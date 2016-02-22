@@ -2,7 +2,7 @@ module CompletedLoanServices
   class TabAssets
     attr_accessor :assets, :rental_properties,
                   :primary_property, :subject_property,
-                  :own_investment_property
+                  :own_investment_property, :loan_refinance
 
     def initialize(args)
       @assets = args[:assets]
@@ -10,6 +10,7 @@ module CompletedLoanServices
       @rental_properties = args[:rental_properties]
       @primary_property = args[:primary_property]
       @own_investment_property = args[:own_investment_property]
+      @loan_refinance = args[:loan_refinance]
     end
 
     def call
@@ -34,7 +35,7 @@ module CompletedLoanServices
     def rental_properties_completed?
       if own_investment_property
         rental_properties.each do |property|
-          return false unless property_completed?(property)
+          return false unless property_completed?(property, true)
         end
       end
 
@@ -54,16 +55,17 @@ module CompletedLoanServices
       true
     end
 
-    def property_completed?(property)
+    def property_completed?(property, is_rental = false)
       return false unless property
       return false unless property.property_type.present?
       return false unless property.address.present?
       return false unless address_completed?(property.address)
       return false unless property.usage.present?
       return false unless property.market_price.present?
-      return false unless property.mortgage_includes_escrows.present?
+      return false if loan_refinance && property.mortgage_includes_escrows.nil?
       return false unless property.estimated_property_tax.present?
       return false unless property.estimated_hazard_insurance.present?
+      return false if is_rental && property.gross_rental_income.nil?
 
       true
     end

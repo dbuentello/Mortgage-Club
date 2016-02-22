@@ -1,48 +1,50 @@
 module HomepageRateServices
   class GetMortgageAprs
+    MAPPING_LENDER = {
+      "Mortgage Club" => "loan_tek",
+      "Wells Fargo" => "wellsfargo",
+      "Quicken Loans" => "quicken_loans"
+    }
+
     def self.call(refresh_cache = false)
-      return default_aprs if Rails.env.development? || Rails.env.test?
+      return HomepageRateServices::CrawlMortgageAprs.default_aprs if Rails.env.test?
 
       cache_key = "mortgage-apr"
 
       if !refresh_cache && mortgage_aprs = REDIS.get(cache_key)
-        mortgage_aprs = JSON.parse(mortgage_aprs)
+        aprs = JSON.parse(mortgage_aprs)
       else
-        loan_tek = HomepageRateServices::LoanTek.call
-        quicken_loans = HomepageRateServices::Quickenloans.call
-        wellsfargo = HomepageRateServices::Wellsfargo.call
+        aprs = get_aprs
 
-        mortgage_aprs = {
-          "loan_tek" => loan_tek,
-          "quicken_loans" => quicken_loans,
-          "wellsfargo" => wellsfargo,
-          "updated_at" => Time.zone.now
-        }
-        REDIS.set(cache_key, mortgage_aprs.to_json)
-        REDIS.expire(cache_key, 24.hour.to_i)
+        REDIS.set(cache_key, aprs.to_json)
+        REDIS.expire(cache_key, 168.hour.to_i)
       end
-      mortgage_aprs
+
+      aprs
     end
 
-    def self.default_aprs
-      {
-        "loan_tek" => {
-          "apr_30_year" => 0,
-          "apr_15_year" => 0,
-          "apr_5_libor" => 0
-        },
-        "quicken_loans" => {
-          "apr_30_year" => 0,
-          "apr_15_year" => 0,
-          "apr_5_libor" => 0
-        },
-        "wellsfargo" => {
-          "apr_30_year" => 0,
-          "apr_15_year" => 0,
-          "apr_5_libor" => 0
-        },
-        "updated_at" => Time.zone.now
-      }
+    def self.get_aprs
+      aprs = HomepageRateServices::CrawlMortgageAprs.default_aprs
+
+      MAPPING_LENDER.each do |key, value|
+        rates = HomepageRate.today_rates.where(lender_name: key)
+
+        rates.each do |rate|
+          aprs[value]["apr_30_year"] = parse_rate_value(rate) if rate.program == "30 Year Fixed"
+          aprs[value]["apr_15_year"] = parse_rate_value(rate) if rate.program == "15 Year Fixed"
+          aprs[value]["apr_5_libor"] = parse_rate_value(rate) if rate.program == "5/1 Libor ARM"
+        end
+      end
+
+      aprs["updated_at"] = HomepageRate.today_rates.pluck(:display_time).max
+
+      aprs
+    end
+
+    def self.parse_rate_value(rate)
+      return "-" unless rate.rate_value
+
+      sprintf("%0.03f", rate.rate_value) + "%"
     end
   end
 end

@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var React = require('react/addons');
-var Dropzone = require('components/form/Dropzone');
+var Dropzone = require('components/form/AdminDropzone');
 
 var Upload = React.createClass({
   getInitialState: function() {
@@ -25,33 +25,29 @@ var Upload = React.createClass({
     var uploadUrl = '/document_uploaders/base_document/upload';
 
     return (
-      <div className='pal'>
-        <div className='box mtn'>
-          <div className='row'>
-            {
-              _.map(Object.keys(this.props.fields), function(key) {
-                var customParams = [
-                  {document_type: key},
-                  {subject_id: this.props.subject.id},
-                  {subject_type: this.props.subjectType},
-                  {description: this.props.fields[key].label}
-                ];
-                return(
-                  <div className="drop_zone" key={key}>
-                    <Dropzone field={this.props.fields[key]}
-                      uploadUrl={uploadUrl}
-                      downloadUrl={this.state[this.props.fields[key].name + '_downloadUrl']}
-                      removeUrl={this.state[this.props.fields[key].name + '_removedUrl']}
-                      tip={this.state[this.props.fields[key].name]}
-                      maxSize={10000000}
-                      customParams={customParams}
-                      supportOtherDescription={this.props.fields[key].customDescription}/>
-                  </div>
-                )
-              }, this)
-            }
-          </div>
-        </div>
+      <div>
+        {
+          _.map(Object.keys(this.props.fields), function(key) {
+            var customParams = [
+              {document_type: key},
+              {subject_id: this.props.subject.id},
+              {subject_type: this.props.subjectType},
+              {description: this.props.fields[key].label}
+            ];
+            return(
+              <div className="drop_zone" style={{"margin-top": "10px"}} key={key}>
+                <Dropzone field={this.props.fields[key]}
+                  uploadUrl={uploadUrl}
+                  downloadUrl={this.state[this.props.fields[key].name + '_downloadUrl']}
+                  removeUrl={this.state[this.props.fields[key].name + '_removedUrl']}
+                  tip={this.state[this.props.fields[key].name]}
+                  maxSize={10000000}
+                  customParams={customParams}
+                  supportOtherDescription={this.props.fields[key].customDescription}/>
+              </div>
+            )
+          }, this)
+        }
       </div>
     );
   },

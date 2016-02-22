@@ -1,7 +1,7 @@
 var _ = require("lodash");
 var React = require("react/addons");
 
-var Dropzone = require("components/form/Dropzone");
+var Dropzone = require('components/form/AdminDropzone');
 var FlashHandler = require("mixins/FlashHandler");
 var TextField = require("components/form/TextField");
 var OtherDocument = require("./OtherDocument");
@@ -158,9 +158,12 @@ var LenderDocumentTab = React.createClass({
 
   render: function() {
     return (
-      <div className="content container backgroundBasic">
-        <div className="pal">
-          <div className="box mtn">
+      <div>
+        <div className="panel panel-flat">
+          <div className="panel-heading">
+            <h4 className="panel-title">Lender Documents</h4>
+          </div>
+          <div className="panel-body" style={{"margin-top":"20px"}}>
             <div className="row">
               {
                 _.map(this.props.lenderTemplates, function(template) {
@@ -201,9 +204,13 @@ var LenderDocumentTab = React.createClass({
                 }, this)
               }
             </div>
-            <br/>
-            <br/>
-            <br/>
+          </div>
+        </div>
+        <div className="panel panel-flat">
+          <div className="panel-heading">
+            <h4 className="panel-title">Edit Email Template</h4>
+          </div>
+          <div className="panel-body" style={{"margin-top":"20px"}}>
             <div className="row">
               <div className="col-sm-5">
                 <p> You can edit the contents of the email sent to the lender below. </p>

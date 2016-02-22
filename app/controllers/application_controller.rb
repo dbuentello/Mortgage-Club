@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       if @loan.present?
         @borrower_type = :secondary_borrower
       else
-        @loan = Loan.initiate(current_user) # or create branch new one
+        @loan = InitializeFirstLoanService.new(current_user).call
       end
     end
     authorize @loan, :update?

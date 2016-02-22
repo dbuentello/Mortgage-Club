@@ -6,7 +6,7 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 
 var assetTypes = [
-  {value: 'checkings', name: 'Checkings'},
+  {value: 'checkings', name: 'Checking'},
   {value: 'savings', name: 'Savings'},
   {value: 'investment', name: 'Investment'},
   {value: 'retirement', name: 'Retirement'},
@@ -25,6 +25,14 @@ var Asset = React.createClass({
   },
 
   onChange: function (change) {
+    var key = _.keys(change)[0].replace(this.props.index, '');
+    var value = _.values(change)[0];
+    this.setState(this.setValue(this.state, key, value), function(){
+      this.props.onUpdate(this.props.index, this.state);
+    });
+  },
+
+  onBlur: function(change) {
     var key = _.keys(change)[0].replace(this.props.index, '');
     var value = _.values(change)[0];
     this.setState(this.setValue(this.state, key, value), function(){
@@ -71,11 +79,11 @@ var Asset = React.createClass({
               label='Current Balance'
               keyName={'current_balance' + this.props.index}
               format={this.formatCurrency}
-              liveFormat={true}
               editable={true}
               validationTypes={["currency"]}
               maxLength={15}
               onChange={this.onChange}
+              onBlur={this.onBlur}
               value={this.state.current_balance}/>
           </div>
         </div>

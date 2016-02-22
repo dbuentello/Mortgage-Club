@@ -6,23 +6,23 @@ module.exports = React.createClass({
   render: function(){
     {
       return (
-        <div>
-          <br/>
-          <h4>{this.props.title}</h4>
-          <br/>
-          <div className="row">
-            <table className="table table-bordered table-primary competitor-rates">
+        <div className="list-rates">
+          <div className="panel-heading">
+            <h4 className="panel-title">{this.props.title}</h4>
+          </div>
+          <div className="table-responsive competitor-rates">
+            <table className="table table-hover competitor-rates" style={{width: "100%"}}>
+              <thead>
+                <th width="9%"></th>
+                <th width="13%">30 Year Fixed</th>
+                <th width="13%">20 Year Fixed</th>
+                <th width="13%">15 Year Fixed</th>
+                <th width="13%">10 Year Fixed</th>
+                <th width="13%">7/1 ARM</th>
+                <th width="13%">5/1 ARM</th>
+                <th width="13%">3/1 ARM</th>
+              </thead>
               <tbody>
-                <tr>
-                <th></th>
-                <th>30 Year Fixed</th>
-                <th>20 Year Fixed</th>
-                <th>15 Year Fixed</th>
-                <th>10 Year Fixed</th>
-                <th>7/1 ARM</th>
-                <th>5/1 ARM</th>
-                <th>3/1 ARM</th>
-              </tr>
               {
                 _.map(this.props.competitorRates, function(competitor_rate){
                   return (
@@ -62,15 +62,12 @@ module.exports = React.createClass({
                         }.bind(this))
                       }
                     </tr>
-
                     );
                 }.bind(this))
               }
-
               </tbody>
             </table>
           </div>
-
         </div>
       );
     }

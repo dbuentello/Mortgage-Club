@@ -29,7 +29,7 @@ var Income = React.createClass({
         key={index}
         index={index}
         type={income.type}
-        amount={this.formatCurrency(income.amount)}
+        amount={income.amount}
         typeError={income.typeError}
         name={this.props.fields.otherIncomes.name}
         amountError={income.amountError}
@@ -151,12 +151,12 @@ var Income = React.createClass({
                     keyName={this.props.fields.previousMonthlyIncome.name}
                     value={this.props.previousMonthlyIncome}
                     format={this.formatCurrency}
-                    liveFormat={true}
                     editable={true}
                     validationTypes={["currency"]}
                     maxLength={15}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyIncome)}
-                    onChange={this.props.onChange}/>
+                    onChange={this.props.onChange}
+                    onBlur={this.props.onBlur}/>
                 </div>
               </div>
               <div className="form-group">
@@ -189,8 +189,7 @@ var Income = React.createClass({
             </div>
           : null
         }
-
-        <h3 className="text-uppercase">best contact to confirm employment</h3>
+        <h6 className="text-capitalize title-h6">best contact to confirm employment</h6>
         <div className="form-group">
           <div className="col-md-6">
             <TextField
@@ -218,7 +217,7 @@ var Income = React.createClass({
               onChange={this.props.onChange}/>
           </div>
         </div>
-        <h3 className="text-uppercase">income details</h3>
+        <h6 className="text-capitalize title-h6">income details</h6>
         <div className="form-group">
           <div className="col-md-6">
             <TextField
@@ -226,14 +225,14 @@ var Income = React.createClass({
               label={this.props.fields.baseIncome.label}
               keyName={this.props.fields.baseIncome.name}
               value={this.props.baseIncome}
-              liveFormat={true}
               format={this.formatCurrency}
               editable={true}
               validationTypes={["currency"]}
               maxLength={15}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.baseIncome)}
               onChange={this.props.onChange}
-              placeholder="e.g. 99,000"/>
+              placeholder="e.g. 99,000"
+              onBlur={this.props.onBlur}/>
           </div>
           <div className="col-md-6">
             <SelectField
@@ -255,7 +254,7 @@ var Income = React.createClass({
           <div className="col-md-12 clickable" onClick={this.addOtherIncome}>
             <h5>
               <span className="glyphicon glyphicon-plus-sign"></span>
-                Add other income
+                Add Other Income
             </h5>
           </div>
         </div>
