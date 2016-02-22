@@ -9,7 +9,8 @@ class Admins::LoanAssignmentsController < Admins::BaseController
     bootstrap(
       loans: Admins::LoansPresenter.new(loans).show,
       loan_members: Admins::LoanMembersPresenter.new(loan_members).show,
-      associations: Admins::LoanMemberAssociationsPresenter.new(first_loan_associations).show
+      associations: Admins::LoanMemberAssociationsPresenter.new(first_loan_associations).show,
+      loan_members_titles: LoanMembersTitle.all
     )
 
     respond_to do |format|
@@ -26,7 +27,7 @@ class Admins::LoanAssignmentsController < Admins::BaseController
         loan_member_id: loan_member.id
       )
 
-      assignment.title = params[:title]
+      assignment.loan_members_title_id = params[:title]
       @loan.pending! if assignment.save
     end
 

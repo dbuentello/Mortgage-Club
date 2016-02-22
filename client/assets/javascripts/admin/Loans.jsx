@@ -109,7 +109,7 @@ var Loans = React.createClass({
               <div className="panel-heading">
                 <h5 className="panel-title">Loan Assignments</h5>
                 <div className="heading-elements">
-                  
+
                 </div>
               </div>
               <div className="panel-body">
@@ -146,10 +146,14 @@ var Loans = React.createClass({
                   <label className='pan'>
                     <span className='h7 typeBold'>Title</span>
                   </label>
-                  <select className='form-control title-list'>
-                    <option value='sale'>Sale</option>
-                    <option value='premier_agent'>Premier Agent</option>
-                    <option value='manager'>Manager</option>
+                  <select className='form-control title-list text-capitalize'>
+                    {
+                      _.map(this.props.bootstrapData.loan_members_titles, function(title) {
+                        return (
+                            <option value={title.id} key={title.id}>{title.title}</option>
+                          )
+                      })
+                    }
                   </select>
                 </div>
                 <div className='col-xs-3' style={{'margin-top': '25px'}}  >
