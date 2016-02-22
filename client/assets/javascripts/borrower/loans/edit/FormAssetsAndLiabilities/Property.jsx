@@ -89,7 +89,8 @@ var Property = React.createClass({
       if (key.indexOf('.address') > -1 && value.city) {
         var propertyKey = key.replace('.address', '');
         var property = this.getValue(this.state, propertyKey);
-        property.market_price = null;
+        if(property.is_subject == false)
+          property.market_price = null;
         property.property_type = null;
         property.estimated_property_tax = null;
         property.estimated_hazard_insurance = null;
@@ -170,6 +171,13 @@ var Property = React.createClass({
     return otherFinancingLiabilities;
   },
 
+  componentDidMount: function() {
+    if(this.props.index == "primary_property"){
+      if(this.state.property.property_type === null || this.state.property.property_type === "")
+        this.searchProperty(this.getValue(this.state, "property"), "property");
+    }
+  },
+
   searchProperty: function(property, propertyKey) {
     var address = property.address;
     $.ajax({
@@ -192,7 +200,9 @@ var Property = React.createClass({
         var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
         var rentalIncome = this.getValue(response, 'rentzestimate.amount.__content__');
 
-        property.market_price = this.formatCurrency(market_price);
+        if(property.is_subject == false)
+          property.market_price = this.formatCurrency(market_price);
+
         property.property_type = propertyType;
         property.estimated_property_tax = this.formatCurrency(monthlyTax);
         property.estimated_hazard_insurance = this.formatCurrency(monthlyInsurance);
@@ -253,8 +263,7 @@ var Property = React.createClass({
               address={this.state.property.address}
               keyName={'property_address' + this.props.index}
               editable={true}
-              onChange={this.onChange}
-              placeholder='Please select from one of the drop-down options'/>
+              onChange={this.onChange}/>
           </div>
         </div>
         <div className='form-group'>
