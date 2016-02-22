@@ -113,7 +113,7 @@ var ActivityTab = React.createClass({
         <div className="panel-body" style={{"margin-top":"20px"}}>
           <div className="row" style={{"margin-bottom": "10px"}}>
             <div className="col-xs-4">
-              <select className="form-control bootstrap-select show-tick" onChange={this.onTypeChange}>
+              <select className="form-control" onChange={this.onTypeChange}>
                 {
                   _.map(ActivityTypes, function(type) {
                     return (
@@ -124,7 +124,7 @@ var ActivityTab = React.createClass({
               </select>
             </div>
             <div className="col-xs-4">
-              <select className="form-control bootstrap-select show-tick" onChange={this.onNameChange}>
+              <select className="form-control" onChange={this.onNameChange}>
                 {
                   _.map(this.state.acctivity_name_list, function(name) {
                     return (
