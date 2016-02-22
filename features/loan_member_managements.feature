@@ -15,13 +15,12 @@ Feature: LoanMemberManagements
       And I fill in "First Name" with "Cuong"
       And I fill in "Last Name" with "Vu"
       And I fill in "Phone number" with "8889998"
-      And I fill in "Skype" with "keeping_fit"
       And I attach the file "spec/files/avatar.png" to the hidden "loan_member[avatar]"
     Then I click on "Submit"
     Then I should see a table with the following rows:
-      | Avatar    | Name     | Email                  | Phone number | Skype        |
-      | *         | *        | *                      | *            | *            |
-      | *         | Cuong Vu | cuongvu0103@gmail.com  | 8889998      | keeping_fit  |
+      | Avatar    | Name     | Email                  | Phone number |
+      | *         | *        | *                      | *            |
+      | *         | Cuong Vu | cuongvu0103@gmail.com  | 8889998      |
     Then an email should have been sent with:
       """
       From: hello@mortgageclub.co
@@ -48,14 +47,13 @@ Feature: LoanMemberManagements
       And I fill in "First Name" with "Cuong"
       And I fill in "Last Name" with "Vu"
       And I fill in "Phone number" with "8889998"
-      And I fill in "Skype" with "keeping_fit"
       And I attach the file "spec/files/avatar.png" to the hidden "loan_member[avatar]"
       And I choose "false_sendConfirmation"
     Then I click on "Submit"
     Then I should see a table with the following rows:
-      | Avatar    | Name     | Email                  | Phone number | Skype        |
-      | *         | *        | *                      | *            | *            |
-      | *         | Cuong Vu | cuongvu0103@gmail.com  | 8889998      | keeping_fit  |
+      | Avatar    | Name     | Email                  | Phone number |
+      | *         | *        | *                      | *            |
+      | *         | Cuong Vu | cuongvu0103@gmail.com  | 8889998      |
     Then no email should have been sent
       And "cuongvu0103@gmail.com" should receive no email
 
@@ -74,12 +72,10 @@ Feature: LoanMemberManagements
     Then I fill in "First Name" with "Cuong"
       And I fill in "Last Name" with "Vu"
       And I fill in "Phone number" with "8889998"
-      And I fill in "Skype" with "keeping_fit"
     Then I click on "Submit"
       And the "First Name" field should contain "Cuong"
       And the "Last Name" field should contain "Vu"
       And the "Phone number" field should contain "8889998"
-      And the "Skype" field should contain "keeping_fit"
 
   @javascript
   Scenario: remove a member
