@@ -66,7 +66,6 @@ class InitializeFirstLoanService
   end
 
   def borrower_own_current_address?
-    byebug
     return false if borrower.nil?
     return false if borrower.current_address.nil?
     return false if borrower.current_address.address.nil?
