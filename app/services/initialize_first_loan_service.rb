@@ -7,10 +7,18 @@ class InitializeFirstLoanService
   end
 
   def call
+    properties = [create_property]
+
+    current_address = user.borrower.current_address
+
+    if(current_address && current_address.is_rental == false)
+      properties << create_primary_property
+    end
+
     Loan.create(
       purpose: info["mortgage_purpose"],
       user: user,
-      properties: [create_property],
+      properties: properties,
       closing: Closing.create(name: "Closing"),
       status: "new_loan"
     )
@@ -38,6 +46,21 @@ class InitializeFirstLoanService
       property_type: info["property_type"],
       usage: info["property_usage"],
       address: Address.create
+    )
+  end
+
+  def create_primary_property
+    address = user.borrower.current_address.address
+
+    Property.create(
+      is_primary: true,
+      address: Address.create(
+        street_address: address.street_address,
+        zip: address.zip,
+        state: address.state,
+        city: address.city,
+        full_text: address.full_text
+      )
     )
   end
 
