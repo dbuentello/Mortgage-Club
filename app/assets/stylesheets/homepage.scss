@@ -638,7 +638,7 @@ padding-top: 60px;
   }
 
   #footerLogo {
-  padding: 20px 10px 10px 10px;
+
     //float:left;
    // margin-top:64px
   }
@@ -707,10 +707,7 @@ padding-top: 60px;
     //margin-top:55px;
   }
   #footerLogo {
-  padding: 20px 10px 10px 10px;
-    //float:left;
-    //margin-top:65px
-  }
+    }
 
 
 }
@@ -752,9 +749,7 @@ padding-top: 60px;
 
 
   #footerLogo {
-  padding: 20px 10px 10px 10px;
-   // float:left;
-    //margin-top:70px
+
   }
 
 
@@ -838,8 +833,7 @@ padding-top: 60px;
     //margin-top:50px;
   }
   #footerLogo {
-  padding: 20px 10px 10px 10px;
-  //  margin-top:65px;
+
   }
 
 
@@ -910,7 +904,6 @@ padding-top: 60px;
   }
 
   #footerLogo {
-    padding: 20px 10px 10 10px;
 
     float:none;
     width:70%;
@@ -1218,7 +1211,7 @@ padding-top: 60px;
   background-color:#15c0f1;
   position:absolute !important;
   bottom:0; z-index:1000;
-
+  padding: 20px 35px 5px 35px;
 
 
   #backtopBtn:hover {
@@ -1232,7 +1225,7 @@ padding-top: 60px;
 
 .footerRight {
   color:white;
-  padding: 10px 10px 10px 10px;
+
   float:right;
   //margin-top:50px;
 
@@ -1274,13 +1267,11 @@ padding-top: 60px;
 }
 
 #footerLogo {
-padding: 20px 10px 10px 20px;
-//float:left;
-//margin-top:64px;
+
 }
 .license {
   //position: absolute;
-  padding: 7px 20px 0px 20px;
+  padding: 17px 20px 0px 0px;
   color: white;
   font-family: 'aileronlight';
   font-size: 1.125em;

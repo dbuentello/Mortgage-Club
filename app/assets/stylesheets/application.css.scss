@@ -36,7 +36,7 @@ $rails: true;
 .table-responsive{
     background:#FFFFFF;
 
-} 
+}
 .borderless {
   border: none !important;
  // background: white;
@@ -90,7 +90,7 @@ body {
   color: #A27D35;
   font-size: 14px;
 }
-.equal-housing { 
+.equal-housing {
     margin-left: -120px;
     color: white;
     font-family: 'aileronlight';
@@ -405,8 +405,8 @@ hr {
   .nav-pills>li+li {
     margin-left:32px;
   }
-  
-  
+
+
   #loanBtn {
     background:white;
     color:#15c0f1;
@@ -449,9 +449,9 @@ hr {
   }
 
   .theBtn {
-    background:#15c0f1; 
-    border-color:#15c0f1; 
-    color:white; 
+    background:#15c0f1;
+    border-color:#15c0f1;
+    color:white;
 
     //margin-top: 5px;
   }
@@ -486,6 +486,7 @@ hr {
 
 .logo img, #footerLogo {
   width:200px;
+  padding-bottom: 5px;
 }
 
 .modal-md {
