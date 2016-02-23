@@ -14,47 +14,88 @@ var Managements = React.createClass({
 
   render: function() {
     return (
-      <div className='content container'>
-        <div className='pal'>
-          <div className='row'>
-            <h2 className='mbl'>Rate Alert</h2>
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Email</th>
-                  <th>Phone Number</th>
-                  <th>Send As</th>
-                  <th>Mortgage Statement</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  _.map(this.state.potential_users, function(potential_user) {
-                    return (
-                      <tr key={potential_user.id}>
-                        <td>{potential_user.email}</td>
-                        <td>{potential_user.phone_number}</td>
-                        <td>{potential_user.alert_method}</td>
-                        <td>
-                          <a href={potential_user.url}>
-                            {potential_user.mortgage_statement_file_name}
-                          </a>
-                        </td>
-                        <td>
-                          <span>
-                            <a className='linkTypeReversed btn btn-primary' href={'potential_user_managements/' + potential_user.id + '/edit'} data-method='get'>Edit</a>
-                          </span>
-                        </td>
-                      </tr>
-                    )
-                  }, this)
-                }
-              </tbody>
-            </table>
+      <div>
+          {/* Page header */ }
+      <div className="page-header">
+        <div className="page-header-content">
+          <div className="page-title">
+            <h4><i className="icon-arrow-left52 position-left"></i> <span className="text-semibold">Potential Users</span> - Management</h4>
           </div>
         </div>
       </div>
+      {/* /page header */ }
+
+      {/* Page container */ }
+      <div className="page-container">
+
+        {/* Page content */ }
+        <div className="page-content">
+
+          {/* Main content */ }
+          <div className="content-wrapper">
+
+            {/* Table */ }
+            <div className="panel panel-flat">
+              <div className="panel-heading">
+                <h5 className="panel-title">Potential Users</h5>
+                <div className="heading-elements">
+                  <ul className="icons-list">
+                      <li><a data-action="collapse"></a></li>
+                      <li><a data-action="close"></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="panel-body">
+
+              </div>
+              <div className="table-responsive">
+                <table className="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Email</th>
+                      <th>Phone Number</th>
+                      <th>Send As</th>
+                      <th>Mortgage Statement</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      _.map(this.state.potential_users, function(potential_user) {
+                        return (
+                          <tr key={potential_user.id}>
+                            <td>{potential_user.email}</td>
+                            <td>{potential_user.phone_number}</td>
+                            <td>{potential_user.alert_method}</td>
+                            <td>
+                              <a href={potential_user.url}>
+                                {potential_user.mortgage_statement_file_name}
+                              </a>
+                            </td>
+                            <td>
+                              <span>
+                                <a className='linkTypeReversed btn btn-primary' href={'potential_user_managements/' + potential_user.id + '/edit'} data-method='get'>Edit</a>
+                              </span>
+                            </td>
+                          </tr>
+                        )
+                      }, this)
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {/* /table */ }
+
+          </div>
+          {/* /main content */ }
+
+        </div>
+        {/* /page content */ }
+
+      </div>
+      {/* /page container */ }
+    </div>
     )
   }
 });

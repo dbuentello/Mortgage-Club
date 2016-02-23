@@ -34,21 +34,29 @@
                 <i class="icon-switch2"></i> Lenders
               <% end %>
             </li>
-            <li>
-              <%= link_to  homepage_rates_path do %>
-                <i class="icon-switch2"></i> Homepage Rates
-              <% end %>
-            </li>
+
             <li>
               <%= link_to  loan_member_managements_path do %>
                 <i class="icon-switch2"></i> Loan Members
               <% end %>
             </li>
-            <li>
+						<li>
+              <%= link_to  potential_user_managements_path do %>
+                <i class="icon-switch2"></i> Potential Users
+              <% end %>
+            </li>
+						  <li class="divider"></li>
+						<li>
               <%= link_to  loan_assignments_path do %>
                 <i class="icon-switch2"></i> Loan Assignment
               <% end %>
             </li>
+						<li>
+              <%= link_to  homepage_rates_path do %>
+                <i class="icon-switch2"></i> Homepage Rates
+              <% end %>
+            </li>
+
             <li>
               <%= link_to  loan_faq_managements_path do %>
                 <i class="icon-switch2"></i> Loan FAQs
@@ -59,11 +67,7 @@
                 <i class="icon-switch2"></i> Loan Activity Types
               <% end %>
             </li>
-            <li>
-              <%= link_to  potential_user_managements_path do %>
-                <i class="icon-switch2"></i> Rate Alert
-              <% end %>
-            </li>
+
                 <li class="divider"></li>
 						<li>
               <%= link_to  edit_user_registration_path(current_user) do  %>
@@ -85,7 +89,7 @@
         <%= link_to  new_user_registration_path do %>
           Sign up
         <% end %>
-          
+
         </span>
       <% end %>
     </div>
