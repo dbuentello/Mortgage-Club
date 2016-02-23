@@ -56,7 +56,17 @@ describe InitializeFirstLoanService do
     context "with correct primary property" do
       it "creates a new loan" do
         loan = described_class.new(user_has_borrower).call
+        primary_property_address = loan.primary_property.address
+        borrower_current_address = user_has_borrower.borrower.current_address.address
+
         expect(loan.primary_property).not_to be_nil
+
+        expect(primary_property_address.street_address).to eq(borrower_current_address.street_address)
+        expect(primary_property_address.street_address2).to eq(borrower_current_address.street_address2)
+        expect(primary_property_address.zip).to eq(borrower_current_address.zip)
+        expect(primary_property_address.state).to eq(borrower_current_address.state)
+        expect(primary_property_address.city).to eq(borrower_current_address.city)
+        expect(primary_property_address.full_text).to eq(borrower_current_address.full_text)
       end
     end
 

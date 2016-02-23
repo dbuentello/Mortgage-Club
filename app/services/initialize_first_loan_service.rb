@@ -57,6 +57,7 @@ class InitializeFirstLoanService
       is_primary: true,
       address: Address.create(
         street_address: address.street_address,
+        street_address2: address.street_address2,
         zip: address.zip,
         state: address.state,
         city: address.city,
