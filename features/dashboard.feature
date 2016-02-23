@@ -11,11 +11,6 @@ Feature: Dashboard
       And I should see "81458 Borer Falls, Apt. 305, West Emiltown, Virginia 9999"
 
   @javascript
-  Scenario: edit a loan
-    When I am at dashboard page
-      And I click on "Edit"
-
-  @javascript
   Scenario: click on tabs
     When I am at dashboard page
     Then I click "Property"

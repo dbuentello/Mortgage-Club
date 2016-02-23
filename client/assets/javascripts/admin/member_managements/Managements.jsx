@@ -62,8 +62,7 @@ var Managements = React.createClass({
                       <th>Name</th>
                       <th>Email</th>
                       <th>Phone number</th>
-                      <th>Skype</th>
-                      <th></th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -77,7 +76,6 @@ var Managements = React.createClass({
                             <td>{member.user.to_s}</td>
                             <td>{member.user.email}</td>
                             <td>{member.phone_number}</td>
-                            <td>{member.skype_handle}</td>
                             <td>
                               <span>
                                 <a className='linkTypeReversed btn btn-primary' href={'loan_member_managements/' + member.id + '/edit'} data-method='get'>Edit</a>
@@ -102,7 +100,7 @@ var Managements = React.createClass({
     							<div className="panel-heading">
     								<h5 className="panel-title">Add new member</h5>
     								<div className="heading-elements">
-    									
+
 	                	</div>
                 	</div>
 

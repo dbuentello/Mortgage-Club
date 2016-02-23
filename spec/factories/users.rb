@@ -30,6 +30,14 @@ FactoryGirl.define do
       end
     end
 
+    factory :user_has_borrower do
+      after(:build) do |user|
+        user.add_role(:borrower)
+        build(:borrower, user: user)
+        user
+      end
+    end
+
     factory :loan_member_user_with_loan_member do
       after(:build) do |user|
         user.add_role(:loan_member)

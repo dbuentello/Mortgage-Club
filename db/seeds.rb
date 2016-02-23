@@ -217,9 +217,9 @@ if User.where(email: 'loan_member@mortgageclub.co').blank?
 end
 
 
-if User.where(email: 'billy@mortgageclub.io').blank?
+if User.where(email: 'billy@mortgageclub.co').blank?
   user = User.new(
-    email: 'billy@mortgageclub.io', first_name: 'Billy', last_name: 'Tran',
+    email: 'billy@mortgageclub.co', first_name: 'Billy', last_name: 'Tran',
     password: '12345678', password_confirmation: '12345678'
   )
   user.skip_confirmation!
@@ -229,9 +229,9 @@ if User.where(email: 'billy@mortgageclub.io').blank?
   user.add_role :loan_member
 end
 
-if User.where(email: 'admin@mortgageclub.io').blank?
+if User.where(email: 'admin@mortgageclub.co').blank?
   user = User.new(
-    email: 'admin@mortgageclub.io', first_name: 'Admin', last_name: 'Day',
+    email: 'admin@mortgageclub.co', first_name: 'Admin', last_name: 'Day',
     password: '12345678', password_confirmation: '12345678'
   )
   user.skip_confirmation!

@@ -4,7 +4,6 @@
 #
 #  id           :uuid             not null, primary key
 #  phone_number :string
-#  skype_handle :string
 #  email        :string
 #  user_id      :uuid
 #  employee_id  :integer
