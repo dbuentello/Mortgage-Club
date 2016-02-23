@@ -24,19 +24,29 @@ var LoansTab = React.createClass({
             <p><strong>Create at:</strong> {moment(loan.created_at).format('MMM DD, YYYY')}</p>
             <p><strong>Loan amount:</strong> {this.formatCurrency(loan.amount, "$")}</p>
             <p><strong>Rate:</strong> {this.commafy(loan.interest_rate*100, 3)}%</p>
-            <p>
-              <a href={'/my/dashboard/' + loan.id} className="btn dashboard-btn" role="button">
-                <img className="gear-icon" src="/icons/gear.png"/>
-                <span>Dashboard</span>
-              </a>
-            </p>
+            {
+              loan.pretty_status == "New"
+              ?
+                <p>
+                  <a href={'/loans/' + loan.id + "/edit"} className="btn edit-app-btn" role="button">
+                    <i className="iconPencil mrs"></i>
+                    <span>Edit Application</span>
+                  </a>
+                </p>
+              :
+                <p>
+                  <a href={'/my/dashboard/' + loan.id} className="btn dashboard-btn" role="button">
+                    <img className="gear-icon" src="/icons/gear.png"/>
+                    <span>Dashboard</span>
+                  </a>
+                </p>
+            }
         </div>
         </div>
       </div>
     );
   },
   render: function() {
-    console.log()
     return (
       <div className="loanList mtl">
         <div className="row">
