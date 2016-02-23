@@ -70,9 +70,6 @@ var Dashboard = React.createClass({
                 :
                   <img src="/default.jpg"/>
               }
-              <p>{}</p>
-
-
               <h3 className='typeBold'>{address}</h3>
               {
                 loan.amount
@@ -81,10 +78,10 @@ var Dashboard = React.createClass({
                 :
                   null
               }
-              <p>{loan.pretty_status}</p>
+              <p>Status: {loan.pretty_status}</p>
             </div>
             <div className='col-md-3'>
-              <a className='btn edit-btn' href={'/loans/' + loan.id + '/edit'}><i className="iconPencil mrs"/>Edit</a>
+              <a className='btn edit-btn' href="#"><i className="iconInfo mrs"/>View</a>
               <ModalLink
                 id="deleteLoan"
                 icon="iconTrash mrs"
