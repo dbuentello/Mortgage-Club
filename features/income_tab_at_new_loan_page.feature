@@ -3,7 +3,7 @@ Feature: IncomeTabAtNewLoanPage
   Scenario: Borrower updates his income detail
     When I am at loan management page
       And I should see "Income"
-      And I click "Income" in the "#tabIncome"
+      And I click "Income"
       Then I fill in "Name Of Current Employer" with "Any Company"
       Then I clear value in "Job Title"
         And I fill in "Job Title" with "Software Engineer"
@@ -27,7 +27,7 @@ Feature: IncomeTabAtNewLoanPage
         And I fill in "Annual Gross Amount" with "9876"
       Then I click on "Save and Continue"
         And I should see "We’re now ready to get a real-time credit check to verify your credit score and review your credit history"
-      And I click "Income" in the "#tabIncome"
+      And I click "Income"
         Then I should see content as "Software Engineer"
           And I should see content as "Cuong Vu"
           And I should see content as "(909) 123-4785"
@@ -38,7 +38,7 @@ Feature: IncomeTabAtNewLoanPage
   Scenario: Borrower updates his income detail and has years of employer is less than 2
     When I am at loan management page
       And I should see "Income"
-      And I click "Income" in the "#tabIncome"
+      And I click "Income"
       Then I clear value in "Job Title"
         And I fill in "Job Title" with "Software Engineer"
       Then I clear value in "Years At This Employer"
@@ -56,7 +56,7 @@ Feature: IncomeTabAtNewLoanPage
         And I select "Monthly" from "Income Frequency"
       Then I click on "Save and Continue"
         And I should see "We’re now ready to get a real-time credit check to verify your credit score and review your credit history"
-      And I click "Income" in the "#tabIncome"
+      And I click "Income"
         Then I should see content as "Software Engineer"
           And I should see "Name Of Previous Employer"
           And I should see content as "Eximbank"
@@ -73,7 +73,7 @@ Feature: IncomeTabAtNewLoanPage
         And I should see "Please provide information about your co-borrower"
         And I click on "Save and Continue"
         And I should see "W2 - Most recent tax year"
-      Then I click "Income" in the "#tabIncome"
+      Then I click "Income"
         And I should see "Please provide income information of your co-borrower"
       Then I clear value in "current_salary"
         And I fill in "current_salary" with "1321233"
@@ -93,9 +93,18 @@ Feature: IncomeTabAtNewLoanPage
       Then I select "Weekly" from "secondary_pay_frequency"
         And I click on "Save and Continue"
         And I should see "We’re now ready to get a real-time credit check to verify your credit score and review your credit history"
-      Then I click "Income" in the "#tabIncome"
+      Then I click "Income"
         And I should see content as "VCB"
         And I should see content as "Business Analyst"
         And I should see content as "Mr. Constantine"
         And I should see content as "(909) 123-4785"
         And I should see content as "$9,999.00"
+
+  @javascript
+  Scenario: Borrower fills in employer name with autocomplete
+    When I am at loan management page
+      And I should see "Income"
+      And I click "Income"
+    Then I clear value in "Name Of Current Employer"
+      And I fill in "Name Of Current Employer" with "Micros"
+      And I should see "Microsoft"
