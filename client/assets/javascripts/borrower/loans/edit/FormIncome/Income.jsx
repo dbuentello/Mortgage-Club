@@ -74,12 +74,45 @@ var Income = React.createClass({
     this.setState({otherIncomes: arr});
   },
 
+  componentDidUpdate: function() {
+
+  },
+
+  componentDidMount: function() {
+    $("#" + this.props.fields.currentEmployerName.name).autoComplete({
+      minChars: 1,
+      source: function(term, response){
+        $.getJSON("https://autocomplete.clearbit.com/v1/companies/suggest", { query: term }, function(data){ response(data); });
+      },
+      renderItem: function (item, search) {
+        var default_logo = "/unknown-logo.gif";
+
+        if(item.logo == null) {
+          var logo = default_logo;
+        } else {
+          var logo = item.logo + "?size=25x25";
+        }
+
+        var container = "<div class='autocomplete-suggestion' data-name='" + item.name + "' data-val='" + search + "'>";
+        container += '<span class="icon"><img align="center" src="'+ logo + '" onerror="this.src=\'' + default_logo + '\'"></span> ';
+        container += item.name + "<span class='domain'>" + item.domain + "</span></div>";
+        return container;
+      },
+      onSelect: function(e, term, item){
+        var state = {};
+        state[this.props.fields.currentEmployerName.name] = item.data("name");
+        this.props.onChange(state);
+      }.bind(this)
+    });
+  },
+
   render: function() {
     return (
       <div>
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
+              customClass={"autocomplete-input"}
               activateRequiredField={this.props.currentEmployerNameError}
               label={this.props.fields.currentEmployerName.label}
               keyName={this.props.fields.currentEmployerName.name}
