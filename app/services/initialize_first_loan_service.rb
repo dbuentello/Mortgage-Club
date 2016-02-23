@@ -1,16 +1,20 @@
 class InitializeFirstLoanService
-  attr_reader :user, :info
+  attr_reader :user, :info, :properties, :borrower
 
   def initialize(user, quote_cookies = nil)
     @user = user
     @info = parse_cookies(quote_cookies)
+    @properties = []
+    @borrower = user.borrower
   end
 
   def call
+    init_properties
+
     Loan.create(
       purpose: info["mortgage_purpose"],
       user: user,
-      properties: [create_property],
+      properties: properties,
       closing: Closing.create(name: "Closing"),
       status: "new_loan"
     )
@@ -30,7 +34,7 @@ class InitializeFirstLoanService
     info
   end
 
-  def create_property
+  def create_subject_property
     Property.create(
       is_subject: true,
       purchase_price: get_purchase_price,
@@ -39,6 +43,35 @@ class InitializeFirstLoanService
       usage: info["property_usage"],
       address: Address.create
     )
+  end
+
+  def init_properties
+    properties << create_subject_property
+    properties << create_primary_property if borrower_own_current_address?
+  end
+
+  def create_primary_property
+    address = borrower_current_address.address
+
+    Property.create(
+      is_primary: true,
+      address: Address.create(
+        street_address: address.street_address,
+        street_address2: address.street_address2,
+        zip: address.zip,
+        state: address.state,
+        city: address.city,
+        full_text: address.full_text
+      )
+    )
+  end
+
+  def borrower_own_current_address?
+    return false if borrower.nil?
+    return false if borrower.current_address.nil?
+    return false if borrower.current_address.address.nil?
+
+    borrower_current_address.is_rental == false
   end
 
   def purchase_loan?
@@ -55,5 +88,9 @@ class InitializeFirstLoanService
 
   def get_original_purchase_price
     info["property_value"] if refinance_loan?
+  end
+
+  def borrower_current_address
+    borrower.current_address
   end
 end
