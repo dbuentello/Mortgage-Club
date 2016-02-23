@@ -5573,8 +5573,9 @@ button.list-group-item-danger.active:focus {
 .panel > .panel-body + .table,
 .panel > .panel-body + .table-responsive,
 .panel > .table + .panel-body,
-.panel > .table-responsive + .panel-body {
-  border-top: 1px solid #ddd;
+.panel > .table-responsive + .panel-body,
+.panel > .table-responsive  {
+  border-top: 1px solid #ddd !important;
 }
 .panel > .table > tbody:first-child > tr:first-child th,
 .panel > .table > tbody:first-child > tr:first-child td {
