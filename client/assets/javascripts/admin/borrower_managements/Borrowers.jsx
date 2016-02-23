@@ -6,13 +6,42 @@ var Borrowers = React.createClass({
 
   render: function() {
     return (
-      <div className="content container">
-        <div className="pal">
-          <div className="row">
-            <h2 className="mbl">Borrowers</h2>
-            <div className="col-md-12">
-              <table className="table table-striped borrowers">
-                <thead>
+  <div>
+      {/* Page header */ }
+	<div className="page-header">
+		<div className="page-header-content">
+			<div className="page-title">
+				<h4><i className="icon-arrow-left52 position-left"></i> <span className="text-semibold">Borrowers</span> - Management</h4>
+			</div>
+		</div>
+	</div>
+	{/* /page header */ }
+
+	{/* Page container */ }
+	<div className="page-container">
+
+		{/* Page content */ }
+		<div className="page-content">
+
+			{/* Main content */ }
+			<div className="content-wrapper">
+
+				{/* Table */ }
+				<div className="panel panel-flat">
+					<div className="panel-heading">
+						<h5 className="panel-title">Borrowers</h5>
+						<div className="heading-elements">
+							<ul className="icons-list">
+		              <li><a data-action="collapse"></a></li>
+		              <li><a data-action="close"></a></li>
+		          </ul>
+	          </div>
+          </div>
+                	<div className="panel-body">
+                	</div>
+					<div className="table-responsive">
+						<table className="table table-striped table-hover">
+							<thead>
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
@@ -21,8 +50,8 @@ var Borrowers = React.createClass({
                   <th>Phone</th>
                   <th></th>
                 </tr>
-                </thead>
-                <tbody>
+							</thead>
+							<tbody>
                 {
                   _.map(this.props.bootstrapData.borrowers, function(borrower){
                       return (
@@ -39,12 +68,22 @@ var Borrowers = React.createClass({
                       )
                     }, this)
                 }
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+				{/* /table */ }
+
+			</div>
+			{/* /main content */ }
+
+		</div>
+		{/* /page content */ }
+
+	</div>
+	{/* /page container */ }
+</div>
     );
   }
 });

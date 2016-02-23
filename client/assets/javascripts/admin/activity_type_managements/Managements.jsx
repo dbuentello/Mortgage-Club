@@ -22,6 +22,7 @@ var Managements = React.createClass({
 
     return (
       <div>
+        {/* header */}
   	<div className="page-header">
   		<div className="page-header-content">
   			<div className="page-title">
@@ -32,61 +33,50 @@ var Managements = React.createClass({
   			</div>
   		</div>
   	</div>
+{/* end header */}
 
 	<div className="page-container">
-
-
 		<div className="page-content">
-
-
 			<div className="content-wrapper">
-
 				<div className="panel panel-flat">
 					<div className="panel-heading">
 						<h5 className="panel-title">Activity Type</h5>
 						<div className="heading-elements">
 							<ul className="icons-list">
-		                		<li><a data-action="collapse"></a></li>
-		                		<li><a data-action="close"></a></li>
-		                	</ul>
-	                	</div>
-                	</div>
-
-                  <div class="panel-body"> 
-                                  		</div>
-
-					<div className="table-responsive">
-						<table className="table table-striped">
-							<thead>
-                <tr>
-                  <th>Label</th>
-                  <th></th>
-                </tr>
-							</thead>
-							<tbody>
-                <tbody>
-                {
-                  _.map(this.state.activity_types, function(activity_type) {
-                    return (
-                      <tr key={activity_type.id}>
-                        <td>{activity_type.label}</td>
-                        <td>
-                          <span>
-                            <a className='linkTypeReversed btn btn-primary' href={'loan_activity_type_managements/' + activity_type.id + '/edit'} data-method='get'>Edit</a>
-                          </span>
-                        </td>
-                      </tr>
-                    )
-                  }, this)
-                }
-              </tbody>
-							</tbody>
-						</table>
-					</div>
-				</div>
-
-
-
+		            <li><a data-action="collapse"></a></li>
+		            <li><a data-action="close"></a></li>
+		          </ul>
+	          </div>
+            </div>
+              <div class="panel-body">
+                </div>
+                  <div className="table-responsive">
+						        <table className="table table-striped">
+        							<thead>
+                        <tr>
+                          <th>Label</th>
+                          <th></th>
+                        </tr>
+        							</thead>
+        							<tbody>
+                        {
+                          _.map(this.state.activity_types, function(activity_type) {
+                            return (
+                              <tr key={activity_type.id}>
+                                <td>{activity_type.label}</td>
+                                <td>
+                                  <span>
+                                    <a className='linkTypeReversed btn btn-primary' href={'loan_activity_type_managements/' + activity_type.id + '/edit'} data-method='get'>Edit</a>
+                                  </span>
+                                </td>
+                              </tr>
+                            )
+                          }, this)
+                        }
+							        </tbody>
+						        </table>
+					        </div>
+				      </div>
         				<div className="row">
         					<div className="col-md-12">
 
@@ -103,7 +93,7 @@ var Managements = React.createClass({
         		                	</div>
 
         							<div className="panel-body">
-<Form Url={url} Method='POST' onReloadTable={this.onReloadTable}></Form>	</div>
+                      <Form Url={url} Method='POST' onReloadTable={this.onReloadTable}></Form>	</div>
         						</div>
 
 
