@@ -53,30 +53,38 @@ describe InitializeFirstLoanService do
       expect { described_class.new(user_has_borrower).call }.to change{Loan.count}.by(1)
     end
 
-    it "creates a new loan with correct primary property" do
-      loan = described_class.new(user_has_borrower).call
-      expect(loan.primary_property).not_to be_nil
+    context "with correct primary property" do
+      it "creates a new loan" do
+        loan = described_class.new(user_has_borrower).call
+        expect(loan.primary_property).not_to be_nil
+      end
     end
 
-    it "not create primary property with borrower nil" do
-      user_has_borrower.borrower = nil
-      loan = described_class.new(user_has_borrower).call
+    context "with borrower nil" do
+      it "does not create primary property" do
+        user_has_borrower.borrower = nil
+        loan = described_class.new(user_has_borrower).call
 
-      expect(loan.primary_property).to be_nil
+        expect(loan.primary_property).to be_nil
+      end
     end
 
-    it "not create primary property with borrower current address nil" do
-      user_has_borrower.borrower.borrower_addresses.last.update(is_current: false)
-      loan = described_class.new(user_has_borrower).call
+    context "with borrower current address nil" do
+      it "does not create primary property" do
+        user_has_borrower.borrower.borrower_addresses.last.update(is_current: false)
+        loan = described_class.new(user_has_borrower).call
 
-      expect(loan.primary_property).to be_nil
+        expect(loan.primary_property).to be_nil
+      end
     end
 
-    it "not create primary property with address of borrower current address nil" do
-      user_has_borrower.borrower.current_address.address = nil
-      loan = described_class.new(user_has_borrower).call
+    context "with address of borrower current address nil" do
+      it "does not create primary property" do
+        user_has_borrower.borrower.current_address.address = nil
+        loan = described_class.new(user_has_borrower).call
 
-      expect(loan.primary_property).to be_nil
+        expect(loan.primary_property).to be_nil
+      end
     end
   end
 end
