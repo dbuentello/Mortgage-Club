@@ -30,10 +30,14 @@
   .loan-item-holder {padding:20px; border:#bebebe 1px solid; border-radius:4px;}
   .loan-item-holder p {margin-bottom:8px; letter-spacing:.03em;}
   .loan-item-holder h6 {margin-top:15px;}
-  .dashboard-btn {background:#15c0f1; color:white; display:flex; align-items:center; width:130px}
+  .dashboard-btn {background:#15c0f1; color:white; display:flex; align-items:center; width:160px}
   .dashboard-btn img {margin-right:10px; transition:transform 2s ease;}
   .dashboard-btn:hover {color:white;}
   .dashboard-btn:hover img {transform:rotate(360deg) scale(1.2);}
+
+  .edit-app-btn {background:#15c0f1; color:white; display:flex; align-items:center; width:160px}
+  .edit-app-btn:hover {color:white;}
+
   .btn {
     display: inline-block;
     padding: 6px 10px;
