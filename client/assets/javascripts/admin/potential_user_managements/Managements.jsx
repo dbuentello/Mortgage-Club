@@ -39,10 +39,7 @@ var Managements = React.createClass({
               <div className="panel-heading">
                 <h5 className="panel-title">Potential Users</h5>
                 <div className="heading-elements">
-                  <ul className="icons-list">
-                      <li><a data-action="collapse"></a></li>
-                      <li><a data-action="close"></a></li>
-                  </ul>
+                  
                 </div>
               </div>
               <div className="panel-body">

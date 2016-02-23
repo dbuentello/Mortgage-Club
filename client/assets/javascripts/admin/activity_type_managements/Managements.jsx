@@ -42,10 +42,7 @@ var Managements = React.createClass({
 					<div className="panel-heading">
 						<h5 className="panel-title">Activity Type</h5>
 						<div className="heading-elements">
-							<ul className="icons-list">
-		            <li><a data-action="collapse"></a></li>
-		            <li><a data-action="close"></a></li>
-		          </ul>
+
 	          </div>
             </div>
               <div class="panel-body">
@@ -85,10 +82,7 @@ var Managements = React.createClass({
         							<div className="panel-heading">
         								<h5 className="panel-title">Add new Activity Type</h5>
         								<div className="heading-elements">
-        									<ul className="icons-list">
-        				                		<li><a data-action="collapse"></a></li>
-        				                		<li><a data-action="close"></a></li>
-        				                	</ul>
+        									
         			                	</div>
         		                	</div>
 
