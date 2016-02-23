@@ -33,6 +33,7 @@ var FormAssetsAndLiabilities = React.createClass({
     state.rental_properties = this.props.loan.rental_properties;
     state.primary_property = this.props.loan.primary_property;
     state.subject_property = this.props.loan.subject_property;
+    state.borrower_current_address = this.props.loan.borrower.current_address;
     state.saving = false;
     state.isValid = true;
     state.assets = this.props.loan.borrower.assets;
@@ -171,7 +172,7 @@ var FormAssetsAndLiabilities = React.createClass({
               null
           }
           {
-            (this.state.primary_property && this.state.primary_property != this.state.subject_property)
+            (this.state.primary_property && this.state.primary_property != this.state.subject_property && this.isRefinanceAndSameAddress() == false)
             ?
               <div className='form-group'>
                 <div className='col-md-12'>
@@ -288,6 +289,20 @@ var FormAssetsAndLiabilities = React.createClass({
       asset_type: null,
       current_balance: null
     }
+  },
+
+  isRefinanceAndSameAddress: function(){
+    var borrower_address = this.state.borrower_current_address.cached_address;
+    var property_address = this.state.subject_property.address;
+
+    if(borrower_address.city == property_address.city &&
+      borrower_address.state == property_address.state &&
+      borrower_address.street_address == property_address.street_address &&
+      borrower_address.street_address2 == property_address.street_address2 &&
+      borrower_address.zip == property_address.zip &&
+      this.props.loan.purpose == "refinance")
+      return true;
+    return false;
   },
 
   formatProperty: function(property) {
