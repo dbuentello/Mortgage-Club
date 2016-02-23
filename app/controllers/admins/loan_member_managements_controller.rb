@@ -66,7 +66,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
   private
 
   def loan_member_params
-    params.require(:loan_member).permit(:phone_number, :skype_handle)
+    params.require(:loan_member).permit(:phone_number)
   end
 
   def user_params
