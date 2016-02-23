@@ -96,6 +96,31 @@ var Managements = React.createClass({
             </div>
             {/* /table */ }
 
+            {/* Grid */ }
+				    <div className="row">
+					    <div className="col-md-12">
+
+    						{/* Horizontal form */ }
+    						<div className="panel panel-flat">
+    							<div className="panel-heading">
+    								<h5 className="panel-title">Add new member</h5>
+    								<div className="heading-elements">
+    									<ul className="icons-list">
+    				                		<li><a data-action="collapse"></a></li>
+    				                		<li><a data-action="close"></a></li>
+    				                	</ul>
+    			                	</div>
+    		                	</div>
+
+    							<div className="panel-body">
+                     <Form Url={url} Method='POST' onReloadTable={this.onReloadTable}></Form>
+                  </div>
+    						</div>
+    						{/* /horizotal form */ }
+					    </div>
+				    </div>
+				    {/* /grid */ }
+
           </div>
           {/* /main content */ }
 
