@@ -97,7 +97,7 @@ var Quotes = React.createClass({
       method: "POST",
       dataType: "json",
       success: function(response) {
-        if(this.props.currentUser) {
+        if(this.props.currentUser.id) {
           this.createLoan();
         }
         else {
