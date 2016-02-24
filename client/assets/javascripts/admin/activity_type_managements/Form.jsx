@@ -146,7 +146,7 @@ var Form = React.createClass({
               <a className="btn btn-default" id="addTypeNameMapping" onClick={this.addTypeNameMapping} role="button">+</a>
             </div>
           </div>
-
+          <div className="form-group">
           <div className="col-sm-4">
             {
               _.map(this.state.type_name_mapping, function(type_name, index) {
@@ -163,6 +163,7 @@ var Form = React.createClass({
               }, this)
             }
           </div>
+        </div>
 
           <div className="form-group">
             <div className="col-sm-10">
