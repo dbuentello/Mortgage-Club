@@ -190,6 +190,9 @@ var Property = React.createClass({
       dataType: 'json',
       context: this,
       success: function(response) {
+        if(this.props.addressChange !== undefined && this.props.index == "subject_property")
+          this.props.addressChange();
+
         if (response.message == 'cannot find') {
           // actually 404 error
           return;

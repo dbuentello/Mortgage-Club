@@ -165,7 +165,8 @@ var FormAssetsAndLiabilities = React.createClass({
                     otherFinancingAmountError={this.state.subject_property.otherFinancingAmountError}
                     estimatedMortgageInsuranceError={this.state.subject_property.estimatedMortgageInsuranceError}
                     hoaDueError={this.state.subject_property.hoaDueError}
-                    isPurchase={this.props.loan.purpose == "purchase"}/>
+                    isPurchase={this.props.loan.purpose == "purchase"}
+                    addressChange={this.addressChange}/>
                 </div>
               </div>
             :
@@ -442,6 +443,10 @@ var FormAssetsAndLiabilities = React.createClass({
     var top = offset === undefined ? 0 : offset.top;
     $('html, body').animate({scrollTop: top}, 1000);
     this.setState({isValid: true});
+  },
+
+  addressChange: function(){
+    this.forceUpdate();
   },
 
   save: function(event) {
