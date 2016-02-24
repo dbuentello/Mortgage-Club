@@ -292,6 +292,9 @@ var FormAssetsAndLiabilities = React.createClass({
   },
 
   isRefinanceAndSameAddress: function(){
+    if (this.state.borrower_current_address == null || this.state.subject_property == null)
+      return false;
+
     var borrower_address = this.state.borrower_current_address.cached_address;
     var property_address = this.state.subject_property.address;
 
@@ -317,6 +320,30 @@ var FormAssetsAndLiabilities = React.createClass({
     property.gross_rental_income = this.currencyToNumber(property.gross_rental_income);
 
     return property;
+  },
+
+  copyProperty: function(srcProp, desProp){
+    var address = desProp.address;
+    address.city = srcProp.city;
+    address.full_text = srcProp.full_text;
+    address.state = srcProp.state;
+    address.zip = srcProp.zip;
+    address.street_address = srcProp.street_address;
+    address.street_address2 = srcProp.street_address2;
+
+    desProp.address_attributes = address;
+    desProp.market_price = this.currencyToNumber(srcProp.market_price);
+    desProp.other_mortgage_payment_amount = this.currencyToNumber(srcProp.other_mortgage_payment_amount);
+    desProp.other_financing_amount = this.currencyToNumber(srcProp.other_financing_amount);
+    desProp.estimated_mortgage_insurance = this.currencyToNumber(srcProp.estimated_mortgage_insurance);
+    desProp.estimated_hazard_insurance = this.currencyToNumber(srcProp.estimated_hazard_insurance);
+    desProp.estimated_property_tax = this.currencyToNumber(srcProp.estimated_property_tax);
+    desProp.hoa_due = this.currencyToNumber(srcProp.hoa_due);
+    desProp.gross_rental_income = this.currencyToNumber(srcProp.gross_rental_income);
+    desProp.property_type = srcProp.property_type;
+    desProp.mortgage_includes_escrows = srcProp.mortgage_includes_escrows;
+
+    return desProp;
   },
 
   setStateForInvalidFieldsOfProperty: function(property) {
@@ -381,7 +408,7 @@ var FormAssetsAndLiabilities = React.createClass({
   valid: function(){
     var isValid = true;
 
-    if(this.state.primary_property && this.state.primary_property != this.state.subject_property){
+    if(this.state.primary_property && this.state.primary_property != this.state.subject_property && !this.isRefinanceAndSameAddress()){
       if(this.setStateForInvalidFieldsOfProperty(this.state.primary_property) == false) {
         isValid = false;
       }
@@ -427,14 +454,19 @@ var FormAssetsAndLiabilities = React.createClass({
 
     this.setState({saving: true, isValid: true});
 
-    var primary_property = this.state.primary_property;
-    if (primary_property){
-      primary_property = this.formatProperty(primary_property);
-    }
-
     var subject_property = this.state.subject_property;
     if (subject_property){
       subject_property = this.formatProperty(subject_property);
+    }
+
+    var primary_property = this.state.primary_property;
+    if (primary_property){
+      if(this.isRefinanceAndSameAddress()){
+        primary_property = this.copyProperty(subject_property, primary_property);
+      }
+      else{
+        primary_property = this.formatProperty(primary_property);
+      }
     }
 
     var rental_properties = [];
