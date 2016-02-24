@@ -37,74 +37,129 @@ var Managements = React.createClass({
     var url = '/loan_members_titles/';
 
     return (
-      <div className='content container'>
-        <div className='pal'>
-          <div className='row'>
-            <h2 className='mbl'>All Titles</h2>
-
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Action</th>
-
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  _.map(this.state.titles, function(title) {
-                    return (
-                      <tr key={title.id}>
-
-                        <td>{title.title}</td>
-
-                        <td>
-                          <span>
-                            <a className='linkTypeReversed btn btn-primary member-title-action' href={'loan_members_titles/' + title.id + '/edit'} data-method='get'>Edit</a>
-                          </span>
-                          <span></span>
-                          <span>
-                            <a className='linkTypeReversed btn btn-danger member-title-action' onClick={this.handleRemoveTitle} id={title.id}>Delete</a>
-                          </span>
-
-                        </td>
-
-
-
-                      </tr>
-                    )
-                  }, this)
-                }
-              </tbody>
-            </table>
-          </div>
-          <div className='row'>
-            <h2 className='mbl'>Add new title</h2>
-            <Form Url={url} Method='POST' onReloadTable={this.onReloadTable}></Form>
-          </div>
-          <div className="modal fade" id="removeTitleItem" tabIndex="-1" role="dialog" aria-labelledby="Confirmation">
-            <div className="modal-dialog modal-md" role="document">
-              <div className="modal-content">
-                <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
-                <div className="modal-body text-center">
-
-                  <h3 className={this.props.bodyClass}>Are you sure you want to delete this title ?</h3>
-
-                  <form className="form-horizontal">
-                    <div className="form-group">
-                      <div className="col-md-6">
-                        <button type="button" className="btn btn-default" data-dismiss="modal">No</button>
-                      </div>
-                      <div className="col-md-6">
-                        <button type="button" className="btn theBtn" onClick={this.handleRemove}>Yes</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
+      <div>
+          {/* Page header */ }
+        <div className="page-header">
+          <div className="page-header-content">
+            <div className="page-title">
+              <h4><i className="icon-arrow-left52 position-left"></i> <span className="text-semibold">Team member</span> - Management</h4>
             </div>
           </div>
         </div>
+        {/* /page header */ }
+
+        {/* Page container */ }
+        <div className="page-container">
+
+          {/* Page content */ }
+          <div className="page-content">
+
+            {/* Main content */ }
+            <div className="content-wrapper">
+
+              {/* Table */ }
+              <div className="panel panel-flat">
+                <div className="panel-heading">
+                  <h5 className="panel-title">Team Members</h5>
+                  <div className="heading-elements">
+
+                  </div>
+                </div>
+                <div className="panel-body">
+
+                </div>
+                <div className="table-responsive">
+                  <table className="table table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Actions</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        _.map(this.state.titles, function(title) {
+                          return (
+                            <tr key={title.id}>
+
+                              <td>{title.title}</td>
+
+                              <td>
+                                <span>
+                                  <a className='linkTypeReversed btn btn-primary member-title-action' href={'loan_members_titles/' + title.id + '/edit'} data-method='get'>Edit</a>
+                                </span>
+                                <span></span>
+                                <span>
+                                  <a className='linkTypeReversed btn btn-danger member-title-action' onClick={this.handleRemoveTitle} id={title.id}>Delete</a>
+                                </span>
+
+                              </td>
+
+
+
+                            </tr>
+                          )
+                        }, this)
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {/* /table */ }
+
+              {/* Grid */ }
+              <div className="row">
+                <div className="col-md-12">
+
+                  {/* Horizontal form */ }
+                  <div className="panel panel-flat">
+                    <div className="panel-heading">
+                      <h5 className="panel-title">Add new member</h5>
+                      <div className="heading-elements">
+
+                      </div>
+                    </div>
+
+                    <div className="panel-body">
+                       <Form Url={url} Method='POST' onReloadTable={this.onReloadTable}></Form>
+                    </div>
+                    <div className="modal fade" id="removeTitleItem" tabIndex="-1" role="dialog" aria-labelledby="Confirmation">
+                      <div className="modal-dialog modal-md" role="document">
+                        <div className="modal-content">
+                          <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
+                          <div className="modal-body text-center">
+
+                            <h3 className={this.props.bodyClass}>Are you sure you want to delete this title ?</h3>
+
+                            <form className="form-horizontal">
+                              <div className="form-group">
+                                <div className="col-md-6">
+                                  <button type="button" className="btn btn-default" data-dismiss="modal">No</button>
+                                </div>
+                                <div className="col-md-6">
+                                  <button type="button" className="btn theBtn" onClick={this.handleRemove}>Yes</button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* /horizotal form */ }
+                </div>
+              </div>
+              {/* /grid */ }
+
+            </div>
+            {/* /main content */ }
+
+          </div>
+          {/* /page content */ }
+
+        </div>
+        {/* /page container */ }
       </div>
     )
   }
