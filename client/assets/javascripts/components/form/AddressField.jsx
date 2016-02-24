@@ -58,7 +58,7 @@ var AddressField = React.createClass({
 
   getDefaultProps: function() {
     return {
-      placeholder: 'Select from suggestion or enter full address'
+      placeholder: ''
     };
   },
 
