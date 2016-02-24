@@ -11,7 +11,8 @@ class LoanDashboardPage::LoanMemberAssociationsPresenter
 
   def loan_members_associations_json_options
     {
-      include: {
+      include: [
+        :loan_members_title,
         loan_member: {
           include: {
             user: {
@@ -20,7 +21,7 @@ class LoanDashboardPage::LoanMemberAssociationsPresenter
             }
           }
         }
-      }
+      ]
     }
   end
 end
