@@ -39,7 +39,7 @@ var Managements = React.createClass({
               <div className="panel-heading">
                 <h5 className="panel-title">Potential Users</h5>
                 <div className="heading-elements">
-                  
+
                 </div>
               </div>
               <div className="panel-body">

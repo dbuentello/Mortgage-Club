@@ -92,26 +92,26 @@ var Managements = React.createClass({
             {/* /table */ }
 
             {/* Grid */ }
-				    <div className="row">
-					    <div className="col-md-12">
+            <div className="row">
+              <div className="col-md-12">
 
-    						{/* Horizontal form */ }
-    						<div className="panel panel-flat">
-    							<div className="panel-heading">
-    								<h5 className="panel-title">Add new member</h5>
-    								<div className="heading-elements">
+                {/* Horizontal form */ }
+                <div className="panel panel-flat">
+                  <div className="panel-heading">
+                    <h5 className="panel-title">Add new member</h5>
+                    <div className="heading-elements">
 
-	                	</div>
-                	</div>
+                    </div>
+                  </div>
 
-    							<div className="panel-body">
+                  <div className="panel-body">
                      <Form Url={url} Method='POST' onReloadTable={this.onReloadTable}></Form>
                   </div>
-    						</div>
-    						{/* /horizotal form */ }
-					    </div>
-				    </div>
-				    {/* /grid */ }
+                </div>
+                {/* /horizotal form */ }
+              </div>
+            </div>
+            {/* /grid */ }
 
           </div>
           {/* /main content */ }
