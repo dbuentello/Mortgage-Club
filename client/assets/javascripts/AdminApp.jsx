@@ -45,44 +45,7 @@ window.AdminApp = React.createClass({
 
     return (
       <div>
-        <nav className="topMenu sticky backgroundInverse pvm zIndexNavigation overlayFullWidth">
-          <div className="plm prl">
-            <div className="row">
-              <div className="col-xs-6 typeLowlight">
-                <a className="mrl" href="/loan_assignments"> MortgageClub </a>
-              </div>
-              <div className="col-xs-2 text-right pull-right">
-                {user
-                ? <div className="dropdown cols10 txtR">
-                    <a href="#">{user.firstName}</a>
-                    <div className="dropdownBox dropdownBoxRight box boxBasic backgroundLowlight">
-                      <ul className="dropdownList">
-                      <li><a href="/borrower_managements" className="dropdownLink">Borrowers</a></li>
-                        <li><a href="/lenders" className="dropdownLink">Lenders</a></li>
-                        <li><a href="/homepage_rates" className="dropdownLink">Homepage Rates</a></li>
-                        <li><a href="/loan_member_managements" className="dropdownLink">Loan Members</a></li>
-                        <li><a href="/loan_assignments" className="dropdownLink">Loan Assignment</a></li>
-                        <li><a href="/loan_faq_managements" className="dropdownLink">Loan FAQs</a></li>
-                        <li><a href="/loan_activity_type_managements" className="dropdownLink">Loan Activity Types</a></li>
-                        <li><a href="/potential_user_managements" className="dropdownLink">Rate Alert</a></li>
-                        <li><a href="/auth/register/edit" className="dropdownLink">Profile</a></li>
-                        <li><a href="/auth/logout" className="dropdownLink" data-method="delete">Log out</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                : <span>
-                    <a className="linkTypeReversed mrm" href="/auth/login">
-                      Log in
-                    </a>
-                    <a className="linkTypeReversed mrm" href="/auth/register/signup">
-                      Sign up
-                    </a>
-                  </span>
-                }
-              </div>
-            </div>
-          </div>
-        </nav>
+      
 
         <div className="page-alert"/>
 
