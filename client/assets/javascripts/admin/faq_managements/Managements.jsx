@@ -88,9 +88,9 @@ var Managements = React.createClass({
     						{/* Horizontal form */ }
     						<div className="panel panel-flat">
     							<div className="panel-heading">
-    								<h5 className="panel-title">Add new Question</h5>
+    								<h5 className="panel-title">Add new FAQ</h5>
     								<div className="heading-elements">
-    									
+
 	                	</div>
                 	</div>
 
