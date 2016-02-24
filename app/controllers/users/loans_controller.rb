@@ -36,7 +36,7 @@ class Users::LoansController < Users::BaseController
   end
 
   def create
-    @loan = InitializeFirstLoanService.new(current_user).call
+    @loan = InitializeFirstLoanService.new(current_user, cookies[:initial_quotes]).call
 
     if @loan.save
       render json: {loan_id: @loan.id}, status: 200

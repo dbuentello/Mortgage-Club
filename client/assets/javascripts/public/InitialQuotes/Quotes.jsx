@@ -97,13 +97,31 @@ var Quotes = React.createClass({
       method: "POST",
       dataType: "json",
       success: function(response) {
-        location.href = "/auth/register/signup";
+        if(this.props.currentUser) {
+          this.createLoan();
+        }
+        else {
+          location.href = "/auth/register/signup";
+        }
       }.bind(this)
     });
   },
 
   backToQuotesForm: function() {
     location.href = "/quotes";
+  },
+
+  createLoan: function() {
+    $.ajax({
+      url: "/loans",
+      method: "POST",
+      dataType: "json",
+      success: function(response) {
+        location.href = "/loans/" + response.loan_id + "/edit";
+      },
+      error: function(response, status, error) {
+      }.bind(this)
+    });
   },
 
   render: function() {
