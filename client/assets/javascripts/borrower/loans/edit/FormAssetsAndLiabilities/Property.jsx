@@ -46,6 +46,7 @@ var Property = React.createClass({
     state.property.other_financing_amount = state.property.other_financing_amount ? this.formatCurrency(state.property.other_financing_amount) : null;
     state.property.hoa_due = state.property.hoa_due ? this.formatCurrency(state.property.hoa_due) : null;
     state.property.gross_rental_income = state.property.gross_rental_income ? this.formatCurrency(state.property.gross_rental_income) : null;
+    state.property.estimated_mortgage_insurance = state.property.estimated_mortgage_insurance ? this.formatCurrency(state.property.estimated_mortgage_insurance) : null;
 
     return state;
   },
@@ -316,7 +317,6 @@ var Property = React.createClass({
                         keyName={'property_other_mortgage_payment_amount'}
                         value={this.state.property.other_mortgage_payment_amount}
                         format={this.formatCurrency}
-                        liveFormat={true}
                         editable={true}
                         maxLength={15}
                         validationTypes={["currency"]}
@@ -344,7 +344,6 @@ var Property = React.createClass({
                         keyName={'property_other_financing_amount' + this.props.index}
                         value={this.state.property.other_financing_amount}
                         format={this.formatCurrency}
-                        liveFormat={true}
                         editable={true}
                         maxLength={15}
                         validationTypes={["currency"]}
