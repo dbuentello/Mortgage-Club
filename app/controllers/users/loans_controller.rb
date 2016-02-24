@@ -24,15 +24,35 @@ class Users::LoansController < Users::BaseController
     )
 
     respond_to do |format|
-      format.html { render template: 'borrower_app' }
+      format.html { render template: "borrower_app".freeze }
     end
   end
 
   def get_list_property_addresses
-    loan_ids = current_user.loans.pluck(:id)
-    subject_property_ids = Property.where(loan_id: loan_ids, is_subject: true).pluck(:id)
-    array_addresses = Address.where(property_id: subject_property_ids).pluck(:property_id, :street_address, :city, :state, :zip)
-    Hash[array_addresses.map { |id, street_address, city, state, zip| [id, street_address.nil? ? "" : "#{street_address}, #{city}, #{state} #{zip}"] }]
+    list = {}
+    addresses = current_user.loans
+                            .joins(properties: :address)
+                            .where("properties.is_subject = true".freeze)
+                            .pluck(
+                              "properties.id".freeze, "addresses.street_address".freeze,
+                              "addresses.city".freeze, "addresses.state".freeze, "addresses.zip".freeze
+                            )
+
+    addresses.each do |address|
+      property_id = address[0]
+      street_address = address[1]
+      city = address[2]
+      state = address[3]
+      zip = address[4]
+
+      if street_address.nil?
+        list[property_id] = "Unknown Address".freeze
+      else
+        list[property_id] = "#{street_address}, #{city}, #{state} #{zip}"
+      end
+    end
+    list
+>>>>>>> Reduce memory consumption
   end
 
   def create

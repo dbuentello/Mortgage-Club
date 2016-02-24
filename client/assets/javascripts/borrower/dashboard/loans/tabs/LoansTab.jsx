@@ -13,12 +13,7 @@ var LoansTab = React.createClass({
           </a>
           <div className="caption">
             <a href={"/my/dashboard/" + loan.id}>
-              {
-                this.props.addresses[loan.subject_property.id] ?
-                  <h6><strong>{this.props.addresses[loan.subject_property.id]}</strong></h6>
-                :
-                  <h6><strong>Unknown Address</strong></h6>
-              }
+              <h6><strong>{this.props.addresses[loan.subject_property.id]}</strong></h6>
             </a>
             <p><strong>Status:</strong> {loan.pretty_status}</p>
             <p><strong>Create at:</strong> {moment(loan.created_at).format("MMM DD, YYYY")}</p>
@@ -41,7 +36,7 @@ var LoansTab = React.createClass({
                   </a>
                 </p>
             }
-        </div>
+          </div>
         </div>
       </div>
     );

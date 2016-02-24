@@ -11,7 +11,7 @@ class LoanListPage::UserPresenter
 
   def json_options
     {
-      only: [:id, :to_s, :avatar_url, :role_name, :email, :first_name, :last_name],
+      only: [:id, :to_s, :avatar_url, :email, :first_name, :last_name],
       methods: [:avatar_url]
     }
   end

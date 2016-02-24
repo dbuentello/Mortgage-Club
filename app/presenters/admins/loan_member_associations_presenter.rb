@@ -16,7 +16,7 @@ class Admins::LoanMemberAssociationsPresenter
           include: {
             user: {
               only: [ :email ],
-              methods: [ :to_s , :avatar_url]
+              methods: [:avatar_url]
             }
           }
         }

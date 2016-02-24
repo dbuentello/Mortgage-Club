@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
     :avatar
   ]
 
+  # it should be called if it's necessary.
   def to_s
     "#{first_name} #{last_name}"
   end
@@ -106,7 +107,7 @@ class User < ActiveRecord::Base
   end
 
   def role_name
-    roles.pluck(:name).join(", ") unless roles.empty?
+    roles.pluck(:name).join(", ".freeze) unless roles.empty?
   end
 
   def avatar_url
