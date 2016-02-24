@@ -21,7 +21,6 @@ var Managements = React.createClass({
   },
 
   handleRemove: function(event) {
-    console.log("loan_members_titles/"+this.state.titleId);
    $.ajax({
       url: "loan_members_titles/"+this.state.titleId,
       method: "DELETE",
@@ -48,7 +47,7 @@ var Managements = React.createClass({
                 <tr>
                   <th>Title</th>
                   <th>Action</th>
-                  <th></th>
+
                 </tr>
               </thead>
               <tbody>
@@ -61,15 +60,17 @@ var Managements = React.createClass({
 
                         <td>
                           <span>
-                            <a className='btn btn-primary' href={'loan_members_titles/' + title.id + '/edit'} data-method='get'>Edit</a>
+                            <a className='linkTypeReversed btn btn-primary member-title-action' href={'loan_members_titles/' + title.id + '/edit'} data-method='get'>Edit</a>
+                          </span>
+                          <span></span>
+                          <span>
+                            <a className='linkTypeReversed btn btn-danger member-title-action' onClick={this.handleRemoveTitle} id={title.id}>Delete</a>
                           </span>
 
                         </td>
-                        <td>
-                          <span>
-                            <a className='btn btn-danger' onClick={this.handleRemoveTitle} id={title.id}>Delete</a>
-                          </span>
-                        </td>
+
+
+
                       </tr>
                     )
                   }, this)
