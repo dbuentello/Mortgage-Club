@@ -402,10 +402,13 @@ hr {
   }
 
   .nav-pills>li+li {
-    margin-left:32px;
+    margin-right:20px;
   }
 
-
+  .nav-pills > li {
+    float: right !important;
+    padding-top: 0.125em;
+  }
   #loanBtn {
     background:white;
     color:#15c0f1;
