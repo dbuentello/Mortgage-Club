@@ -9,6 +9,8 @@ var ContactTab = React.createClass({
     return (
       <div className="board contact-board overview">
           {
+            this.props.contactList
+            ?
             _.map(this.props.contactList, function(contact, index) {
               return (
                 <div>
@@ -35,6 +37,8 @@ var ContactTab = React.createClass({
                 </div>
               )
             }, this)
+            :
+            null
           }
       </div>
     )
