@@ -2,9 +2,23 @@ var _ = require('lodash');
 
 var TabAsset = {
   assetCompleted: function(loan) {
-    if(!this.propertyCompleted(loan.subject_property, false, loan.purpose)) { return false; }
+    if(loan.borrower === undefined || loan.borrower === null){
+      return false;
+    }
 
-    if(this.requiredPrimaryProperty(loan) && !this.propertyCompleted(loan.primary_property, false, loan.purpose)) {
+    if(loan.borrower.current_address === undefined || loan.borrower.current_address === null){
+      return false;
+    }
+
+    if(loan.borrower.current_address.cached_address === undefined || loan.borrower.current_address.cached_address === null){
+      return false;
+    }
+
+    if(!this.propertyCompleted(loan.subject_property, false, loan.purpose)){
+      return false;
+    }
+
+    if(this.requiredPrimaryProperty(loan) && !this.propertyCompleted(loan.primary_property, false, loan.purpose, loan.borrower.current_address.cached_address)) {
       return false;
     }
 
@@ -47,7 +61,7 @@ var TabAsset = {
     return true;
   },
 
-  propertyCompleted: function(property, isRental, loanPurpose) {
+  propertyCompleted: function(property, isRental, loanPurpose, borrowerAddress) {
     isRental = isRental || false;
     isRefinance = loanPurpose == "refinance" ? true : false;
 
@@ -69,10 +83,16 @@ var TabAsset = {
       return false;
     }
 
-    if(!this.addressCompleted(property.address)) {
-      return false;
+    if(borrowerAddress !== undefined){
+      if(!this.addressCompleted(borrowerAddress)) {
+        return false;
+      }
     }
-
+    else {
+      if(!this.addressCompleted(property.address)) {
+        return false;
+      }
+    }
     return true;
   },
 
