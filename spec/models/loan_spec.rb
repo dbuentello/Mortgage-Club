@@ -109,6 +109,14 @@ describe Loan do
       end
     end
 
+    context "non existing loan_members_title in loans_members_associations" do
+      it "returns nil" do
+        loan_with_loan_member.loans_members_associations.last
+        loan_with_loan_member.loans_members_associations.last.update(loan_members_title: nil)
+        expect(loan_with_loan_member.relationship_manager).to be_nil
+      end
+    end
+
     context "loans_members_associations are valid" do
       let!(:manager) { FactoryGirl.create(:loan_members_title, title: "manager")}
       it "returns a loan member" do
