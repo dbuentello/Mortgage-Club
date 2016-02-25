@@ -20,7 +20,7 @@ class LoansMembersAssociation < ActiveRecord::Base
   belongs_to :loan_members_title
 
   def pretty_title
-    return unless loan_members_title
-    loan_members_title.title
+    return unless loan_members_title_id
+    LoanMembersTitle.find(loan_members_title_id).title
   end
 end

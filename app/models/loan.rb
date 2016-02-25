@@ -82,13 +82,8 @@ class Loan < ActiveRecord::Base
   def relationship_manager
     return if loans_members_associations.empty?
 
-    associations = loans_members_associations.includes(:loan_members_title).where(loan_id: self.id)
-    associations.each do |association|
-      if association.loan_members_title.title == "manager"
-        return association.loan_member
-      end
-    end
-    nil
+    association = loans_members_associations.joins(:loan_members_title).where("loan_members_titles.title = ?", "Manager").last
+    association.loan_member if association
   end
 
   def fixed_rate_amortization?
