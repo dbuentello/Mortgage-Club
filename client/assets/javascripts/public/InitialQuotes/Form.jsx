@@ -119,7 +119,8 @@ var Form = React.createClass({
               mortgagePurpose = {this.state[fields.mortgagePurpose.keyName]}
               propertyValue = {this.currencyToNumber(this.state[fields.propertyValue.keyName])}
               propertyUsage = {this.state[fields.propertyUsage.keyName]}
-              propertyType = {this.state[fields.propertyType.keyName]}/>
+              propertyType = {this.state[fields.propertyType.keyName]}
+              currentUser={this.props.bootstrapData.currentUser}/>
           :
             <div>
               <h1>Initial Quotes</h1>

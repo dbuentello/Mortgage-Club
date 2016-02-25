@@ -165,6 +165,8 @@ Rails.application.routes.draw do
       resources :lender_templates
     end
 
+    resources :loan_members_titles
+
     resources :borrower_managements, only: [:index] do
       member do
         get "switch"

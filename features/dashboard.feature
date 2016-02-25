@@ -17,4 +17,3 @@ Feature: Dashboard
       And I should see "property-document-name"
     Then I click on "Contacts"
       And I should see "Michael Gifford"
-      And I should see "(manager)"

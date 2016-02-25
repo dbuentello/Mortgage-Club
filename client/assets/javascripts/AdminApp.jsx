@@ -13,6 +13,9 @@ var Loans = require("admin/Loans");
 var LoanMemberManagements = require("admin/member_managements/Managements");
 var EditMemberPage = require("admin/member_managements/EditPage");
 
+var LoanMembersTitleManagements = require("admin/loan_members_titles/Managements");
+var EditLoanMembersTitle = require("admin/loan_members_titles/EditPage");
+
 var LoanFaqManagements = require("admin/faq_managements/Managements");
 var EditFaqPage = require("admin/faq_managements/EditPage");
 
@@ -45,7 +48,6 @@ window.AdminApp = React.createClass({
 
     return (
       <div>
-      
 
         <div className="page-alert"/>
 
@@ -66,6 +68,8 @@ var routes = (
     <Route name="loan_member_managements" path="/loan_member_managements" handler={LoanMemberManagements}/>
     <Route path="/loan_member_managements/:id/edit" handler={EditMemberPage}/>
     <Route name="loan_faq_managements" path="/loan_faq_managements" handler={LoanFaqManagements}/>
+    <Route path="/loan_members_titles" handler={LoanMembersTitleManagements}/>
+    <Route path="/loan_members_titles/:id/edit" handler={EditLoanMembersTitle}/>
     <Route path="/loan_faq_managements/:id/edit" handler={EditFaqPage}/>
     <Route name="loan_activity_type_managements" path="/loan_activity_type_managements" handler={LoanActivityTypeManagements}/>
     <Route path="/loan_activity_type_managements/:id/edit" handler={EditActivityTypePage}/>
