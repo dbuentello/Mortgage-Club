@@ -76,6 +76,7 @@ describe CompletedLoanServices::TabProperty do
       @service.subject_property.address.street_address2 = nil
       @service.subject_property.address.city = nil
       @service.subject_property.address.state = nil
+      @service.subject_property.address.zip = nil
 
       expect(@service.address_completed?).to be_falsey
     end

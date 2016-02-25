@@ -34,8 +34,8 @@ FactoryGirl.define do
 
   factory :loan_with_properties, parent: :loan do |f|
     after(:build) do |loan, property|
-      create(:property_with_address, loan: loan, is_subject: true)
-      create(:property_with_address, loan: loan, is_primary: true)
+      create(:property_with_address, loan: loan, is_subject: true, is_primary: false)
+      create(:property_with_address, loan: loan, is_primary: true, is_subject: false)
       create(:property_with_address, loan: loan, is_primary: false, is_subject: false)
     end
   end
