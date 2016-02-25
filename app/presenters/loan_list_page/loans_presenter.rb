@@ -17,7 +17,7 @@ class LoanListPage::LoansPresenter
           only: [ :email ]
         }
       },
-      methods: [:subject_property, :pretty_status]
+      methods: [:pretty_status]
     }
   end
 end

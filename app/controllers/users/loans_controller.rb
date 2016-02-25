@@ -11,7 +11,6 @@ class Users::LoansController < Users::BaseController
 
     ref_url = "#{url_for(:only_path => false)}?refcode=#{current_user.id}"
     invites = Invite.where(sender_id: current_user.id).order(created_at: :desc)
-    addresses = get_list_property_addresses
 
     bootstrap(
       loans: LoanListPage::LoansPresenter.new(current_user.loans).show,
@@ -20,7 +19,7 @@ class Users::LoansController < Users::BaseController
       refCode: params[:refcode],
       refLink: ref_url,
       user_email: current_user.email,
-      addresses: addresses
+      commonInfo: get_common_info
     )
 
     respond_to do |format|
@@ -28,31 +27,31 @@ class Users::LoansController < Users::BaseController
     end
   end
 
-  def get_list_property_addresses
+  def get_common_info
     list = {}
-    addresses = current_user.loans
+    info = current_user.loans
                             .joins(properties: :address)
                             .where("properties.is_subject = true".freeze)
                             .pluck(
-                              "properties.id".freeze, "addresses.street_address".freeze,
-                              "addresses.city".freeze, "addresses.state".freeze, "addresses.zip".freeze
+                              "loans.id".freeze, "addresses.street_address".freeze,
+                              "addresses.city".freeze, "addresses.state".freeze,
+                              "addresses.zip".freeze, "properties.zillow_image_url".freeze
                             )
 
-    addresses.each do |address|
-      property_id = address[0]
-      street_address = address[1]
-      city = address[2]
-      state = address[3]
-      zip = address[4]
+    info.each do |i|
+      loan_id = i[0]
+      street_address = i[1]
+      city = i[2]
+      state = i[3]
+      zip = i[4]
+      zillow_image_url = i[5]
 
-      if street_address.nil?
-        list[property_id] = "Unknown Address".freeze
-      else
-        list[property_id] = "#{street_address}, #{city}, #{state} #{zip}"
-      end
+      list[loan_id] = {
+        zillow_image_url: zillow_image_url,
+        address: street_address.nil? ? "Unknown Address".freeze : "#{street_address}, #{city}, #{state} #{zip}"
+      }
     end
     list
->>>>>>> Reduce memory consumption
   end
 
   def create
