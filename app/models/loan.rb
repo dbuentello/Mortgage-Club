@@ -82,7 +82,7 @@ class Loan < ActiveRecord::Base
   def relationship_manager
     return if loans_members_associations.empty?
 
-    association = loans_members_associations.joins(:loan_members_title).where("loan_members_titles.title = ?", "Manager").first
+    association = loans_members_associations.joins(:loan_members_title).where("loan_members_titles.title = ?", "Manager").last
     association.loan_member if association
   end
 
