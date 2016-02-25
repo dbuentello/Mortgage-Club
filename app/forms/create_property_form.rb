@@ -1,8 +1,10 @@
 class CreatePropertyForm
   include ActiveModel::Model
 
-  attr_accessor :loan, :primary_property, :subject_property, :credit_report_id,
-                :primary_property_params, :subject_property_params, :rental_properties_params
+  attr_accessor :loan, :primary_property, :subject_property,
+                :credit_report_id, :primary_property_params,
+                :subject_property_params, :rental_properties_params,
+                :borrower_address
 
   def initialize(args)
     @loan = Loan.find_by_id(args[:loan_id])
@@ -12,6 +14,7 @@ class CreatePropertyForm
     @subject_property_params = args[:subject_property]
     @rental_properties_params = args[:rental_properties] || []
     @credit_report_id = args[:credit_report_id]
+    @borrower_address = args[:borrower_address]
   end
 
   # validates :loan_id, :properties, presence: true
@@ -23,6 +26,8 @@ class CreatePropertyForm
       update_subject_property
       update_primary_property
     end
+
+    update_borrower_address
     true
   end
 
@@ -52,9 +57,26 @@ class CreatePropertyForm
   def update_primary_property
     return unless primary_property
 
-    primary_property.update(property_params(primary_property_params))
+    primary_property.update(property_params(primary_property_params).except(:address_attributes))
+
+    primary_property.address.destroy if primary_property.address
     # primary_property.update_mortgage_payment_amount
     update_liabilities(primary_property, primary_property_params)
+  end
+
+  def update_borrower_address
+    return unless borrower_address
+    return unless borrower_address[:cached_address]
+
+    address = BorrowerAddress.find(borrower_address[:id]).address
+    address.update(
+      street_address: borrower_address[:cached_address][:street_address],
+      street_address2: borrower_address[:cached_address][:street_address2],
+      zip: borrower_address[:cached_address][:zip],
+      state: borrower_address[:cached_address][:state],
+      city: borrower_address[:cached_address][:city],
+      full_text: borrower_address[:cached_address][:full_text]
+    )
   end
 
   def update_liabilities(property, params)
