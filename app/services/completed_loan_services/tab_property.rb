@@ -43,7 +43,7 @@ module CompletedLoanServices
       return false unless subject_property.address
 
       address = subject_property.address
-      return false if address.street_address.blank? && address.city.blank? && address.state.blank? && address.street_address2.blank?
+      return false if address.street_address.blank? && address.city.blank? && address.state.blank? && address.street_address2.blank? && address.zip.blank?
 
       address.full_text.present?
     end

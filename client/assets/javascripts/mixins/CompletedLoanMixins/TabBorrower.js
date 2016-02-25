@@ -94,7 +94,7 @@ var TabBorrower = {
 
   addressCompleted: function(address) {
     if(address == null || address == undefined) { return false; }
-    if(address.street_address == null && address.city == null && address.state == null && address.street_address2 == null)
+    if(address.street_address == null || address.city == null || address.state == null || address.zip == null)
       return false;
 
     return true;

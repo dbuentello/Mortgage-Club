@@ -37,7 +37,7 @@ var FormAssetsAndLiabilities = React.createClass({
     state.isValid = true;
     state.assets = this.props.loan.borrower.assets;
 
-    if(this.props.loan.borrower != undefined && this.props.loan.borrower != null && this.props.loan.borrower.current_address != undefined && this.props.loan.borrower.current_address != null)
+    if(this.props.loan.borrower != undefined && this.props.loan.borrower != null && this.props.loan.borrower.current_address != undefined && this.props.loan.borrower.current_address != null && state.primary_property !== null)
       state.primary_property.address = this.props.loan.borrower.current_address.cached_address;
 
     if (state.assets.length == 0) {

@@ -83,24 +83,30 @@ var TabAsset = {
       return false;
     }
 
-    if(borrowerAddress !== undefined){
-      if(!this.addressCompleted(borrowerAddress)) {
+    if(property.is_primary === true){
+      if(!this.addressCompleted(borrowerAddress, isRental)) {
         return false;
       }
     }
     else {
-      if(!this.addressCompleted(property.address)) {
+      if(!this.addressCompleted(property.address, isRental)) {
         return false;
       }
     }
     return true;
   },
 
-  addressCompleted: function(address) {
+  addressCompleted: function(address, isRental) {
     if(address == null || address == undefined) { return false; }
-    if(address.street_address == null && address.city == null && address.state == null && address.street_address2 == null)
-      return false;
 
+    if(isRental){
+      if(address.street_address == null && address.city == null && address.state == null && address.zip == null)
+        return false;
+    }
+    else{
+      if(address.street_address == null || address.city == null || address.state == null || address.zip == null)
+        return false;
+    }
     return true;
   },
 
