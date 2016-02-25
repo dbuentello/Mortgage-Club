@@ -51,9 +51,6 @@ window.BorrowerApp = React.createClass({
   },
 
   componentDidMount: function() {
-    // show flash message from Rails controller on this Client
-    var flashes = this.props.flashes;
-    this.showFlashes(flashes);
     $("#newLoanBtn").on("click", this.createLoan);
   }
 });
