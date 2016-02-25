@@ -4,7 +4,7 @@ class Admins::LoanAssignmentsController < Admins::BaseController
   def index
     loans = Loan.all
     loan_members = LoanMember.all
-    first_loan_associations = loans.first.loans_members_associations
+    first_loan_associations = loans.first.loans_members_associations.includes(:loan_members_title)
 
     bootstrap(
       loans: Admins::LoansPresenter.new(loans).show,
@@ -56,6 +56,6 @@ class Admins::LoanAssignmentsController < Admins::BaseController
   private
 
   def reload_loans_members_associations_json
-    Admins::LoanMemberAssociationsPresenter.new(@loan.loans_members_associations).show
+    Admins::LoanMemberAssociationsPresenter.new(@loan.loans_members_associations.includes(:loan_members_title)).show
   end
 end
