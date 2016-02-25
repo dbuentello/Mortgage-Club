@@ -204,7 +204,7 @@ var Borrower = React.createClass({
               editable={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
               onChange={this.props.onChange}
-              placeholder=""/>
+              validationTypes={["address"]}/>
           </div>
         </div>
         <div className="form-group">

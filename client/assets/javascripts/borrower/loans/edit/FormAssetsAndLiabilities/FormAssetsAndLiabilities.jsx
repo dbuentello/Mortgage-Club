@@ -312,7 +312,7 @@ var FormAssetsAndLiabilities = React.createClass({
     var allFieldsAreOK = true;
 
     var fields = {
-      addressError: {value: property.address, validationTypes: ["empty"]},
+      addressError: {value: property.address, validationTypes: ["empty", "address"]},
       propertyTypeError: {value: property.property_type, validationTypes: ["empty"]},
       estimatedHazardInsuranceError: {value: this.formatCurrency(property.estimated_hazard_insurance), validationTypes: ["currency"]},
       estimatedPropertyTaxError: {value: this.formatCurrency(property.estimated_property_tax), validationTypes: ["currency"]},

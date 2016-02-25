@@ -41,6 +41,10 @@ module.exports = {
               state[errorName] = true;
             }
             break;
+          case "address":
+            if(!this.elementIsAddress(field.value)){
+              state[errorName] = true;
+            }
         }
       }, this)
     }, this);
@@ -108,6 +112,18 @@ module.exports = {
     }
     if(typeof(obj) == "string") {
       if(obj.trim() == "") {
+        return true;
+      }
+    }
+
+    return false;
+  },
+
+  elementIsAddress: function(obj){
+    if(obj !== undefined){
+      if((obj.city != undefined && obj.city != null && obj.city != "")
+        && (obj.state != undefined && obj.state != null && obj.state != "")
+        && (obj.zip != undefined && obj.zip != null && obj.zip != "")) {
         return true;
       }
     }

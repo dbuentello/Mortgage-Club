@@ -93,6 +93,11 @@ var ValidationField = React.createClass({
             isInvalid = true;
           }
           break;
+         case "address":
+          if(!this.elementIsAddress(this.props.value)) {
+            isInvalid = true;
+          }
+          break;
       }
     }, this);
 

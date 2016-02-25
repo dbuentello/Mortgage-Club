@@ -263,7 +263,8 @@ var Property = React.createClass({
               address={this.state.property.address}
               keyName={'property_address' + this.props.index}
               editable={true}
-              onChange={this.onChange}/>
+              onChange={this.onChange}
+              validationTypes={["address"]}/>
           </div>
         </div>
         <div className='form-group'>
