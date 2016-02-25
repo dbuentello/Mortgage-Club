@@ -84,7 +84,7 @@ class Loan < ActiveRecord::Base
 
     associations = loans_members_associations.includes(:loan_members_title).where(loan_id: self.id)
     associations.each do |association|
-      if association.loan_members_title.title == "manager"
+      if association.loan_members_title.present? && association.loan_members_title.title == "Manager"
         return association.loan_member
       end
     end
