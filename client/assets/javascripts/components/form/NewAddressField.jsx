@@ -105,6 +105,10 @@ var AddressField = React.createClass({
         }
       }
     }));
+
+    $(document.body).on('mousedown', '.pac-container .pac-item', function(e) {
+      google.maps.event.trigger(this.autocomplete, 'place_changed');
+    }.bind(this));
   },
 
   componentDidMount: function() {
@@ -155,9 +159,12 @@ var AddressField = React.createClass({
         change = {},
         addressType, i, val;
 
+    if (place === undefined)
+      return;
+
     // prevent error Uncaught TypeError
     if (typeof place.address_components == 'undefined') {
-      return ;
+      return;
     }
 
     // Get each component of the address from the place details

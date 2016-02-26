@@ -20,7 +20,8 @@ Feature: BorrowerTabAtNewLoanPage
         And I fill in "Years in School" with "12"
       Then I select "Unmarried" from "Marital Status"
       Then I clear value in "Your Current Address"
-        And I fill in "Your Current Address" with "Albuquerque, Albuquerque, NM 87106"
+        And I fill in "Your Current Address" with "1921 South Las Vegas Boulevard, Las Vegas, NV 89104"
+        Then I click on address autocomplete
       Then I choose "true_first_borrower_currently_own"
       Then I clear value in "Number of years you have lived here"
         And I fill in "Number of years you have lived here" with "2"
