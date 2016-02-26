@@ -51,7 +51,7 @@ var ValidationField = React.createClass({
     }
     // for address
     if(typeof(this.props.value) == "object") {
-      if(this.props.value.street_address == null || this.props.value.street_address == "") {
+      if(this.props.value.full_text == null || this.props.value.full_text == "") {
         return true;
       }
     }

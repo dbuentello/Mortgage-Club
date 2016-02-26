@@ -81,6 +81,36 @@ describe CompletedLoanServices::TabProperty do
       expect(@service.address_completed?).to be_falsey
     end
 
+    it "returns false with street address nil" do
+      @service.subject_property.address.street_address = nil
+
+      expect(@service.address_completed?).to be_falsey
+    end
+
+    it "returns false with zip nil" do
+      @service.subject_property.address.zip = nil
+
+      expect(@service.address_completed?).to be_falsey
+    end
+
+    it "returns false with state nil" do
+      @service.subject_property.address.state = nil
+
+      expect(@service.address_completed?).to be_falsey
+    end
+
+    it "returns false with city nil" do
+      @service.subject_property.address.city = nil
+
+      expect(@service.address_completed?).to be_falsey
+    end
+
+    it "returns false with street address nil" do
+      @service.subject_property.address.street_address = nil
+
+      expect(@service.address_completed?).to be_falsey
+    end
+
     it "returns false with full text nil" do
       @service.subject_property.address.full_text = nil
 
