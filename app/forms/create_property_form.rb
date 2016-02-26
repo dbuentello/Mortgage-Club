@@ -10,7 +10,7 @@ class CreatePropertyForm
     @loan = Loan.find_by_id(args[:loan_id])
     @primary_property = loan.primary_property
     @subject_property = loan.subject_property
-    @primary_property_params = args[:primary_property]
+    @primary_property_params = args[:primary_property].except(:address_attributes)
     @subject_property_params = args[:subject_property]
     @rental_properties_params = args[:rental_properties] || []
     @credit_report_id = args[:credit_report_id]
@@ -56,8 +56,7 @@ class CreatePropertyForm
 
   def update_primary_property
     return unless primary_property
-
-    primary_property.update(property_params(primary_property_params).except(:address_attributes))
+    primary_property.update(property_params(primary_property_params))
 
     primary_property.address.destroy if primary_property.address
     # primary_property.update_mortgage_payment_amount

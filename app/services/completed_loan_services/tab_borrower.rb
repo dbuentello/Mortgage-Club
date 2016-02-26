@@ -27,7 +27,6 @@ module CompletedLoanServices
       return false if borrower.current_address.is_rental.nil?
       return false unless borrower.current_address.years_at_address
       return false if borrower.current_address.years_at_address < 0
-      return false unless borrower.current_address.address
       return false unless address_completed?(borrower.current_address.address)
       return false if rent_house_and_monthly_rent_valid?(borrower.current_address)
       return false unless previous_address_completed?(borrower)
@@ -50,6 +49,7 @@ module CompletedLoanServices
     end
 
     def address_completed?(address)
+      return false unless address
       return false if address.street_address.blank? || address.city.blank? || address.state.blank? || address.zip.blank?
 
       address.full_text.present?

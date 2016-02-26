@@ -51,7 +51,7 @@ describe CompletedLoanServices::TabAssets do
     expect(@service.call).to be_truthy
   end
 
-  describe "check assets completed" do
+  describe "#assets_completed?" do
     it "returns false with asset not valid" do
       @service.assets[0].institution_name = nil
       expect(@service.assets_completed?).to be_falsey
@@ -62,7 +62,7 @@ describe CompletedLoanServices::TabAssets do
     end
   end
 
-  describe "check asset completed" do
+  describe "#asset_completed?" do
     it "returns false with institution name nil" do
       asset.institution_name = nil
       expect(@service.asset_completed?(asset)).to be_falsey
@@ -83,7 +83,7 @@ describe CompletedLoanServices::TabAssets do
     end
   end
 
-  describe "checks rental properties completed" do
+  describe "#rental_properties_completed?" do
     it "returns true with own investment property nil" do
       @service.own_investment_property = nil
       expect(@service.rental_properties_completed?).to be_truthy
@@ -195,7 +195,7 @@ describe CompletedLoanServices::TabAssets do
     end
   end
 
-  describe "checks address completed" do
+  describe "#address_completed?" do
     it "returns false with address nil" do
       expect(@service.address_completed?(false, nil)).to be_falsey
     end
