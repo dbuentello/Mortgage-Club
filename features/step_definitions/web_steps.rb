@@ -57,6 +57,20 @@ When /^I click on a first "([^\"]+)"$/ do |text|
   first(:link, "#{text}").click
 end
 
+Then /^I click on address autocompleted$/ do
+  page.execute_script("
+    var temp = document.getElementsByClassName('pac-container');
+    for(var i = 0; i < temp.length; i++){
+      if(temp[i].hasAttribute('display') == 'none'){
+      }else{
+        if(temp[i].firstChild !== null){
+          //console.log(temp[i].firstChild.text());
+        }
+      }
+    }
+  ");
+end
+
 When /^I am at loan management page$/ do
   many_steps %{
     Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"

@@ -137,7 +137,8 @@ var FormProperty = React.createClass({
                 editable={true}
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.address)}
-                placeholder=""/>
+                placeholder=""
+                editMode={this.props.editMode}/>
             </div>
           </div>
           <div className="form-group">
@@ -152,7 +153,8 @@ var FormProperty = React.createClass({
                 editable={true}
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.propertyPurpose)}
-                allowBlank={true}/>
+                allowBlank={true}
+                editMode={this.props.editMode}/>
             </div>
             {
               this.state[fields.propertyPurpose.name] != "primary_residence" && this.state[fields.propertyPurpose.name] != ""  && this.state[fields.propertyPurpose.name] != null
@@ -170,7 +172,8 @@ var FormProperty = React.createClass({
                     onFocus={this.onFocus.bind(this, fields.grossRentalIncome)}
                     validationTypes={["currency"]}
                     onChange={this.onChange}
-                    onBlur={this.onBlur}/>
+                    onBlur={this.onBlur}
+                    editMode={this.props.editMode}/>
                 </div>
               :
                 null
@@ -187,7 +190,8 @@ var FormProperty = React.createClass({
                 yesLabel="Purchase"
                 noLabel="Refinance"
                 onFocus={this.onFocus.bind(this, fields.loanPurpose)}
-                onChange={this.onChange}/>
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
             </div>
           </div>
           {this.state[fields.loanPurpose.name] === null ? null :
@@ -207,7 +211,8 @@ var FormProperty = React.createClass({
                     onFocus={this.onFocus.bind(this, fields.purchasePrice)}
                     validationTypes={["currency"]}
                     onBlur={this.onBlur}
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
             :
@@ -225,7 +230,8 @@ var FormProperty = React.createClass({
                     onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
                     validationTypes={["currency"]}
                     onBlur={this.onBlur}
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
           }
@@ -249,7 +255,8 @@ var FormProperty = React.createClass({
                     format={this.formatYear}
                     onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)}
                     validationTypes={["integer"]}
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
           }

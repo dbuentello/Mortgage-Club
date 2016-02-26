@@ -59,7 +59,8 @@ var OtherIncome = React.createClass({
             options={otherIncomes}
             editable={true}
             onChange={this.onChange}
-            allowBlank={true} />
+            allowBlank={true}
+            editMode={this.props.editMode}/>
         </div>
         <div className="col-md-6">
           <div className='col-md-11'>
@@ -74,7 +75,8 @@ var OtherIncome = React.createClass({
               maxLength={15}
               validationTypes={["currency"]}
               onChange={this.onChange}
-              onBlur={this.onBlur}/>
+              onBlur={this.onBlur}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-sm-1 trash-anchor">
             <a className="iconRemove clickable" onClick={this.remove.bind(this, index)}>

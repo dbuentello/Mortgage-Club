@@ -35,7 +35,8 @@ var Income = React.createClass({
         amountError={income.amountError}
         onChangeType={this.changeIncomeType}
         onChangeAmount={this.changeIncomeAmount}
-        onRemove={this.removeOtherIncome}/>
+        onRemove={this.removeOtherIncome}
+        editMode={this.props.editMode}/>
     );
   },
 
@@ -120,7 +121,8 @@ var Income = React.createClass({
               editable={true}
               maxLength={100}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentEmployerName)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className='col-md-6'>
             <AddressField
@@ -131,7 +133,7 @@ var Income = React.createClass({
               editable={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentEmployerAddress)}
               onChange={this.props.onChange}
-              placeholder=""/>
+              editMode={this.props.editMode}/>
           </div>
         </div>
         <div className='form-group'>
@@ -144,7 +146,8 @@ var Income = React.createClass({
               editable={true}
               maxLength={100}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentJobTitle)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className='col-md-6'>
             <TextField
@@ -158,7 +161,8 @@ var Income = React.createClass({
               format={this.formatInteger}
               validationTypes={["integer"]}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentYearsAtEmployer)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         {
@@ -175,7 +179,8 @@ var Income = React.createClass({
                     editable={true}
                     maxLength={100}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousEmployerName)}
-                    onChange={this.props.onChange}/>
+                    onChange={this.props.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
                 <div className="col-md-6">
                   <TextField
@@ -189,7 +194,8 @@ var Income = React.createClass({
                     maxLength={15}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyIncome)}
                     onChange={this.props.onChange}
-                    onBlur={this.props.onBlur}/>
+                    onBlur={this.props.onBlur}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
               <div className="form-group">
@@ -202,7 +208,8 @@ var Income = React.createClass({
                     editable={true}
                     maxLength={100}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousJobTitle)}
-                    onChange={this.props.onChange}/>
+                    onChange={this.props.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
                 <div className="col-md-6">
                   <TextField
@@ -216,7 +223,8 @@ var Income = React.createClass({
                     format={this.formatInteger}
                     validationTypes={["integer"]}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousYearsAtEmployer)}
-                    onChange={this.props.onChange}/>
+                    onChange={this.props.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
             </div>
@@ -233,7 +241,8 @@ var Income = React.createClass({
               editable={true}
               maxLength={100}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.employerContactName)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-6">
             <TextField
@@ -247,7 +256,8 @@ var Income = React.createClass({
               editable={true}
               validationTypes={["phoneNumber"]}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.employerContactNumber)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         <h6 className="text-capitalize title-h6">income details</h6>
@@ -265,7 +275,8 @@ var Income = React.createClass({
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.baseIncome)}
               onChange={this.props.onChange}
               placeholder="e.g. 99,000"
-              onBlur={this.props.onBlur}/>
+              onBlur={this.props.onBlur}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-6">
             <SelectField
@@ -277,7 +288,8 @@ var Income = React.createClass({
               editable={true}
               onChange={this.props.onChange}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.incomeFrequency)}
-              allowBlank={true}/>
+              allowBlank={true}
+              editMode={this.props.editMode}/>
           </div>
         </div>
 

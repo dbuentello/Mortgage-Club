@@ -122,7 +122,8 @@ var Form = React.createClass({
             onFocus={this.onFocus}
             onChange={this.onChange}
             onBlur={this.onBlur}
-            updateOtheIncomes={this.updateOtheIncomes}/>
+            updateOtheIncomes={this.updateOtheIncomes}
+            editMode={this.props.editMode}/>
           {
             this.props.loan.secondary_borrower
             ?
@@ -160,7 +161,8 @@ var Form = React.createClass({
                 onFocus={this.onFocus}
                 onChange={this.onChange}
                 onBlur={this.onBlur}
-                updateOtheIncomes={this.updateOtheIncomes}/>
+                updateOtheIncomes={this.updateOtheIncomes}
+                editMode={this.props.editMode}/>
             </div>
             : null
           }

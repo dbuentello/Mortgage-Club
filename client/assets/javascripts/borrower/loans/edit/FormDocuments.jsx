@@ -148,7 +148,8 @@ var FormDocuments = React.createClass({
                       customParams={customParams}
                       supportOtherDescription={owner_upload_fields[key].customDescription}
                       uploadSuccessCallback={this.afterUploadingDocumentBorrower}
-                      removeSuccessCallback={this.afterRemovingDocumentBorrower}/>
+                      removeSuccessCallback={this.afterRemovingDocumentBorrower}
+                      editMode={this.props.editMode}/>
                   </div>
                 )
               }

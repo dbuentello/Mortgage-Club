@@ -120,7 +120,8 @@ var Form = React.createClass({
               options={borrowerCountOptions}
               editable={this.state.borrower_editable}
               onFocus={this.onFocus.bind(this, borrower_fields.applyingAs)}
-              onChange={this.coBorrowerHanlder}/>
+              onChange={this.coBorrowerHanlder}
+              editMode={this.props.editMode}/>
             </div>
           </div>
           <Borrower
@@ -166,7 +167,8 @@ var Form = React.createClass({
             selfEmployedErorr={this.state[borrower_fields.selfEmployed.error]}
             onChange={this.onChange}
             onFocus={this.onFocus}
-            onBlur={this.onBlur}/>
+            onBlur={this.onBlur}
+            editMode={this.props.editMode}/>
 
             { this.state.hasSecondaryBorrower ?
               <div className="box mtn">
@@ -219,7 +221,8 @@ var Form = React.createClass({
                   isSecondary={true}
                   onChange={this.onChange}
                   onFocus={this.onFocus}
-                  onBlur={this.onBlur}/>
+                  onBlur={this.onBlur}
+                  editMode={this.props.editMode}/>
               </div>
             : null }
             <div className="form-group">

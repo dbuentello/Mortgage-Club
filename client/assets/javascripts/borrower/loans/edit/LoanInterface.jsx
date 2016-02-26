@@ -24,6 +24,7 @@ var LoanInterface = React.createClass({
 
   getInitialState: function() {
     var loan = this.props.bootstrapData.currentLoan;
+    creditCardCompleted = this.loanIsCompleted(loan);
     var borrower_type = this.props.bootstrapData.borrower_type;
     var menu = this.buildMenu(loan);
     var activeItem = _.findWhere(menu, {complete: false}) || menu[0];
@@ -33,14 +34,15 @@ var LoanInterface = React.createClass({
       active: activeItem,
       loan: loan,
       borrower_type: borrower_type,
-      completedLoan: this.loanIsCompleted(loan)
+      completedLoan: this.loanIsCompleted(loan),
+      is_edit_mode: this.props.bootstrapData.is_edit_mode
     };
   },
 
   render: function() {
     var activeItem = this.state.active;
 
-    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu} goToAllDonePage={this.goToAllDonePage} updateDocuments={this.updateDocuments}/>;
+    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} editMode={this.state.is_edit_mode} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu} goToAllDonePage={this.goToAllDonePage} updateDocuments={this.updateDocuments}/>;
 
     return (
       <div className="content accountPart editLoan">

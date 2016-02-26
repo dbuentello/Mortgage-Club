@@ -86,7 +86,8 @@ var FormAssetsAndLiabilities = React.createClass({
         otherFinancingAmountError={property.otherFinancingAmountError}
         estimatedMortgageInsuranceError={property.estimatedMortgageInsuranceError}
         hoaDueError={property.hoaDueError}
-        isPurchase={this.props.loan.purpose == "purchase"}/>
+        isPurchase={this.props.loan.purpose == "purchase"}
+        editMode={this.props.editMode}/>
     );
   },
 
@@ -99,7 +100,8 @@ var FormAssetsAndLiabilities = React.createClass({
         onRemove={this.removeAsset}
         institutionNameError={asset.institutionNameError}
         assetTypeError={asset.assetTypeError}
-        currentBalanceError={asset.currentBalanceError}/>
+        currentBalanceError={asset.currentBalanceError}
+        editMode={this.props.editMode}/>
     );
   },
   // keepTrackOfSelectedLiabilities: function(unselectedLiability, selectedLiability) {
@@ -164,7 +166,8 @@ var FormAssetsAndLiabilities = React.createClass({
                     otherFinancingAmountError={this.state.subject_property.otherFinancingAmountError}
                     estimatedMortgageInsuranceError={this.state.subject_property.estimatedMortgageInsuranceError}
                     hoaDueError={this.state.subject_property.hoaDueError}
-                    isPurchase={this.props.loan.purpose == "purchase"}/>
+                    isPurchase={this.props.loan.purpose == "purchase"}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
             :
@@ -191,7 +194,8 @@ var FormAssetsAndLiabilities = React.createClass({
                     otherFinancingAmountError={this.state.primary_property.otherFinancingAmountError}
                     estimatedMortgageInsuranceError={this.state.primary_property.estimatedMortgageInsuranceError}
                     hoaDueError={this.state.primary_property.hoaDueError}
-                    isPurchase={this.props.loan.purpose == "purchase"}/>
+                    isPurchase={this.props.loan.purpose == "purchase"}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
             :
@@ -208,7 +212,8 @@ var FormAssetsAndLiabilities = React.createClass({
                 checked={this.state.own_investment_property}
                 keyName={"own_investment_property"}
                 editable={true}
-                onChange={this.onChange}/>
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
             </div>
           </div>
           {
