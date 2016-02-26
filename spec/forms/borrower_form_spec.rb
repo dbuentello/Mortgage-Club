@@ -128,12 +128,16 @@ describe BorrowerForm do
     end
 
     context "with borrower current address own" do
-      it "creates new primary property" do
-        @form_with_borrower_own_address.loan.properties.find_by(is_primary: true).destroy
-        @form_with_borrower_own_address.is_primary_borrower = true
-        @form_with_borrower_own_address.save
+      context "with loan has no primary property" do
+        it "creates new primary property" do
+          @form_with_borrower_own_address.loan.properties.find_by(is_primary: true).destroy
+          @form_with_borrower_own_address.is_primary_borrower = true
+          @form_with_borrower_own_address.save
 
-        expect(loan.primary_property).not_to be_nil
+          expect(loan.primary_property).not_to be_nil
+          expect(loan.primary_property.is_primary).to be_truthy
+          expect(loan.primary_property.usage).to eq("primary_residence")
+        end
       end
     end
   end
