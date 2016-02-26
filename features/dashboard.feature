@@ -6,7 +6,7 @@ Feature: Dashboard
       And I press "Yes" in the modal "deleteLoan"
 
   @javascript
-  Scenario: view a loan
+  Scenario: view loan in view mode
     When I am at dashboard page
       And I click on "View"
       Then I click "Property"
