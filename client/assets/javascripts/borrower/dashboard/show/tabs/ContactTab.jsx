@@ -9,6 +9,8 @@ var ContactTab = React.createClass({
     return (
       <div className="board contact-board overview">
           {
+            this.props.contactList
+            ?
             _.map(this.props.contactList, function(contact, index) {
               return (
                 <div>
@@ -17,7 +19,7 @@ var ContactTab = React.createClass({
                       <img src={contact.loan_member.user.avatar_url} className="avatar"/>
                     </div>
                     <div className="col-sm-10">
-                      <p>{contact.loan_member.user.to_s}({contact.loan_members_title.title})</p>
+                      <p>{contact.loan_member.user.to_s}({contact.pretty_title})</p>
                       <p className="contact-email">
                         <a href="mailto:{contact.loan_member.user.email}">
                           {contact.loan_member.user.email}
@@ -35,6 +37,8 @@ var ContactTab = React.createClass({
                 </div>
               )
             }, this)
+            :
+            null
           }
       </div>
     )

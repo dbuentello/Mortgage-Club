@@ -20,5 +20,4 @@
 //= require auto-complete.min
 
 // Important to import jquery_ujs before bundle_BorrowerApp as that patches jquery xhr to use the authenticity token!
-
 //= require build/bundle_BorrowerApp

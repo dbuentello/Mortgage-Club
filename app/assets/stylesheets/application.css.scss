@@ -563,25 +563,37 @@ hr {
 }
 
 @media (min-width:384px) and (max-width: 414px) {
-  #signupBtn {
+  #signupBtn, #loginBtn{
     width:100%;
+  }
+  #loginBtn {
+    margin-left: 20px;
   }
 }
 
 @media (min-width:375px) and (max-width: 384px) {
-  #signupBtn {
+  #signupBtn, #loginBtn {
     width:100%;
+  }
+  #loginBtn {
+    margin-left: 20px;
   }
 }
 
 @media (min-width: 320px) and (max-width: 375px) {
-  #signupBtn {
+  #signupBtn, #loginBtn {
     width:100%;
+  }
+  #loginBtn {
+    margin-left: 20px;
   }
 }
 
 @media (max-width: 320px) {
-  #signupBtn {
+  #signupBtn, #loginBtn {
     width:100%;
+  }
+  #loginBtn {
+    margin-left: 20px;
   }
 }
