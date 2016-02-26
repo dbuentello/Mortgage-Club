@@ -56,7 +56,8 @@ var Asset = React.createClass({
               editable={true}
               onChange={this.onChange}
               maxLength={200}
-              value={this.state.institution_name}/>
+              value={this.state.institution_name}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         <div className='form-group'>
@@ -69,7 +70,8 @@ var Asset = React.createClass({
               editable={true}
               onChange={this.onChange}
               allowBlank={true}
-              value={this.state.asset_type}/>
+              value={this.state.asset_type}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         <div className='form-group'>
@@ -84,16 +86,23 @@ var Asset = React.createClass({
               maxLength={15}
               onChange={this.onChange}
               onBlur={this.onBlur}
-              value={this.state.current_balance}/>
+              value={this.state.current_balance}
+              editMode={this.props.editMode}/>
           </div>
         </div>
-        <div className='form-group'>
-          <div className='col-md-1'>
-            <a className="remove clickable" onClick={this.handleRemove}>
-              Remove
-            </a>
-          </div>
-        </div>
+        {
+          this.props.editMode
+          ?
+            <div className='form-group'>
+              <div className='col-md-1'>
+                <a className="remove clickable" onClick={this.handleRemove}>
+                  Remove
+                </a>
+              </div>
+            </div>
+          :
+            null
+        }
       </div>
     );
   }

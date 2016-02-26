@@ -86,7 +86,8 @@ var FormAssetsAndLiabilities = React.createClass({
         otherFinancingAmountError={property.otherFinancingAmountError}
         estimatedMortgageInsuranceError={property.estimatedMortgageInsuranceError}
         hoaDueError={property.hoaDueError}
-        isPurchase={this.props.loan.purpose == "purchase"}/>
+        isPurchase={this.props.loan.purpose == "purchase"}
+        editMode={this.props.editMode}/>
     );
   },
 
@@ -99,7 +100,8 @@ var FormAssetsAndLiabilities = React.createClass({
         onRemove={this.removeAsset}
         institutionNameError={asset.institutionNameError}
         assetTypeError={asset.assetTypeError}
-        currentBalanceError={asset.currentBalanceError}/>
+        currentBalanceError={asset.currentBalanceError}
+        editMode={this.props.editMode}/>
     );
   },
   // keepTrackOfSelectedLiabilities: function(unselectedLiability, selectedLiability) {
@@ -129,14 +131,21 @@ var FormAssetsAndLiabilities = React.createClass({
               {this.state.assets.map(this.eachAsset)}
             </div>
           </div>
-          <div className='form-group'>
-            <div className='col-md-12 clickable' onClick={this.addAsset}>
-              <h5>
-                <span className="glyphicon glyphicon-plus-sign"></span>
-                  Add asset
-              </h5>
-            </div>
-          </div>
+          {
+            this.props.editMode
+            ?
+              <div className='form-group'>
+                <div className='col-md-12 clickable' onClick={this.addAsset}>
+                  <h5>
+                    <span className="glyphicon glyphicon-plus-sign"></span>
+                      Add asset
+                  </h5>
+                </div>
+              </div>
+            :
+              null
+          }
+
           {
             this.state.subject_property
             ?
@@ -164,7 +173,8 @@ var FormAssetsAndLiabilities = React.createClass({
                     otherFinancingAmountError={this.state.subject_property.otherFinancingAmountError}
                     estimatedMortgageInsuranceError={this.state.subject_property.estimatedMortgageInsuranceError}
                     hoaDueError={this.state.subject_property.hoaDueError}
-                    isPurchase={this.props.loan.purpose == "purchase"}/>
+                    isPurchase={this.props.loan.purpose == "purchase"}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
             :
@@ -191,7 +201,8 @@ var FormAssetsAndLiabilities = React.createClass({
                     otherFinancingAmountError={this.state.primary_property.otherFinancingAmountError}
                     estimatedMortgageInsuranceError={this.state.primary_property.estimatedMortgageInsuranceError}
                     hoaDueError={this.state.primary_property.hoaDueError}
-                    isPurchase={this.props.loan.purpose == "purchase"}/>
+                    isPurchase={this.props.loan.purpose == "purchase"}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
             :
@@ -208,7 +219,8 @@ var FormAssetsAndLiabilities = React.createClass({
                 checked={this.state.own_investment_property}
                 keyName={"own_investment_property"}
                 editable={true}
-                onChange={this.onChange}/>
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
             </div>
           </div>
           {
@@ -221,20 +233,27 @@ var FormAssetsAndLiabilities = React.createClass({
                 </div>
               </div>
               {this.state.rental_properties.map(this.eachProperty)}
-              <div className='form-group'>
-                <div className='col-md-12 clickable' onClick={this.addProperty}>
-                  <h5>
-                    <span className="glyphicon glyphicon-plus-sign"></span>
-                    Add property
-                  </h5>
-                </div>
-              </div>
+              {
+                this.props.editMode
+                ?
+                  <div className='form-group'>
+                    <div className='col-md-12 clickable' onClick={this.addProperty}>
+                      <h5>
+                        <span className="glyphicon glyphicon-plus-sign"></span>
+                        Add property
+                      </h5>
+                    </div>
+                  </div>
+                :
+                  null
+              }
+
             </div>
             : null
           }
           <div className="form-group">
             <div className="col-md-12">
-              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              <button disabled={this.props.editMode ? null : "disabled"} className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
             </div>
           </div>
         </form>

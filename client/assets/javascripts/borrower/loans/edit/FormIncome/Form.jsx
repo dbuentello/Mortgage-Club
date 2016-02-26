@@ -122,7 +122,8 @@ var Form = React.createClass({
             onFocus={this.onFocus}
             onChange={this.onChange}
             onBlur={this.onBlur}
-            updateOtheIncomes={this.updateOtheIncomes}/>
+            updateOtheIncomes={this.updateOtheIncomes}
+            editMode={this.props.editMode}/>
           {
             this.props.loan.secondary_borrower
             ?
@@ -160,13 +161,14 @@ var Form = React.createClass({
                 onFocus={this.onFocus}
                 onChange={this.onChange}
                 onBlur={this.onBlur}
-                updateOtheIncomes={this.updateOtheIncomes}/>
+                updateOtheIncomes={this.updateOtheIncomes}
+                editMode={this.props.editMode}/>
             </div>
             : null
           }
           <div className="form-group">
             <div className="col-md-12">
-              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              <button disabled={this.props.editMode ? null : "disabled"}  className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
             </div>
           </div>
         </form>

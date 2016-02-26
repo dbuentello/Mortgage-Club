@@ -191,7 +191,7 @@ var Dropzone = React.createClass({
   },
 
   remove: function() {
-    if (this.state.fileIsExisting) {
+    if (this.state.fileIsExisting && this.props.editMode !== false) {
       // notify removing
       this.setState({ tip: 'Deleting ...' });
 
@@ -229,6 +229,9 @@ var Dropzone = React.createClass({
     if (this.props.supportOtherDescription) {
       var customDescription = <span><input className='mhl' placeholder='Description' onChange={this.onChangeDiscription}/></span>
     }
+
+    var disabled = this.props.editMode === false ? "disabled" : null;
+
     return (
       <div className='form-group row'>
         <div className='col-md-6'>
@@ -236,7 +239,7 @@ var Dropzone = React.createClass({
           {customDescription}
         </div>
         <div className='col-md-6' id={this.props.field.name + "_id"}>
-          <div ref='box' className='row fileBtn'>
+          <div ref='box' className={disabled + ' row fileBtn'}>
             <table width="100%">
               <tr className="height-50">
                 <td width="8%">
@@ -255,7 +258,7 @@ var Dropzone = React.createClass({
                         <h5 className='fileBtnSmall file' onClick={this.onClick} onDragLeave={this.onDragLeave}
                           onDragOver={this.onDragOver} onDrop={this.onDrop}>
                           <span className="filename">{this.state.tip}</span>
-                          <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
+                          <input disabled={disabled} ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
                             onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
                           </input>
                         </h5>
@@ -264,7 +267,7 @@ var Dropzone = React.createClass({
                           onDragOver={this.onDragOver} onDrop={this.onDrop}>
                           <img src='/icons/upload.png' className="iconUpload"/>
                           {this.state.tip}
-                          <input ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
+                          <input disabled={disabled} ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
                             onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
                           </input>
                         </h5>
