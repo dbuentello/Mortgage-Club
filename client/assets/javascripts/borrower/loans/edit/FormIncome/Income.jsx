@@ -295,14 +295,19 @@ var Income = React.createClass({
 
         {this.state.otherIncomes.map(this.eachOtherIncome)}
 
-        <div className="form-group">
-          <div className="col-md-12 clickable" onClick={this.addOtherIncome}>
-            <h5>
-              <span className="glyphicon glyphicon-plus-sign"></span>
-                Add Other Income
-            </h5>
-          </div>
-        </div>
+        {
+          this.props.editMode
+          ?
+            <div className="form-group">
+              <div className="col-md-12 clickable" onClick={this.addOtherIncome}>
+                <h5>
+                  <span className="glyphicon glyphicon-plus-sign"></span>
+                    Add Other Income
+                </h5>
+              </div>
+            </div>
+          : null
+        }
       </div>
     )
   }

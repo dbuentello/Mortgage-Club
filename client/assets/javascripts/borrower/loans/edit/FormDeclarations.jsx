@@ -269,7 +269,7 @@ var FormDeclarations = React.createClass({
           </div>
           <div className="form-group">
             <div className="col-md-12">
-              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              <button disabled={this.props.editMode ? null : "disabled"}  className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
             </div>
           </div>
         </form>

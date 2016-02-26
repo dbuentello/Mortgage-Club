@@ -131,14 +131,21 @@ var FormAssetsAndLiabilities = React.createClass({
               {this.state.assets.map(this.eachAsset)}
             </div>
           </div>
-          <div className='form-group'>
-            <div className='col-md-12 clickable' onClick={this.addAsset}>
-              <h5>
-                <span className="glyphicon glyphicon-plus-sign"></span>
-                  Add asset
-              </h5>
-            </div>
-          </div>
+          {
+            this.props.editMode
+            ?
+              <div className='form-group'>
+                <div className='col-md-12 clickable' onClick={this.addAsset}>
+                  <h5>
+                    <span className="glyphicon glyphicon-plus-sign"></span>
+                      Add asset
+                  </h5>
+                </div>
+              </div>
+            :
+              null
+          }
+
           {
             this.state.subject_property
             ?
@@ -226,20 +233,27 @@ var FormAssetsAndLiabilities = React.createClass({
                 </div>
               </div>
               {this.state.rental_properties.map(this.eachProperty)}
-              <div className='form-group'>
-                <div className='col-md-12 clickable' onClick={this.addProperty}>
-                  <h5>
-                    <span className="glyphicon glyphicon-plus-sign"></span>
-                    Add property
-                  </h5>
-                </div>
-              </div>
+              {
+                this.props.editMode
+                ?
+                  <div className='form-group'>
+                    <div className='col-md-12 clickable' onClick={this.addProperty}>
+                      <h5>
+                        <span className="glyphicon glyphicon-plus-sign"></span>
+                        Add property
+                      </h5>
+                    </div>
+                  </div>
+                :
+                  null
+              }
+
             </div>
             : null
           }
           <div className="form-group">
             <div className="col-md-12">
-              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              <button disabled={this.props.editMode ? null : "disabled"} className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
             </div>
           </div>
         </form>

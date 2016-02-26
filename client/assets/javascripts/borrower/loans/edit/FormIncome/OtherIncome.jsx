@@ -62,28 +62,48 @@ var OtherIncome = React.createClass({
             allowBlank={true}
             editMode={this.props.editMode}/>
         </div>
-        <div className="col-md-6">
-          <div className='col-md-11'>
-            <TextField
-              activateRequiredField={this.props.amountError}
-              label="Annual Gross Amount"
-              ref="incomeAmount"
-              keyName={this.props.name + "_amount_" + index}
-              value={this.props.amount}
-              format={this.formatCurrency}
-              editable={true}
-              maxLength={15}
-              validationTypes={["currency"]}
-              onChange={this.onChange}
-              onBlur={this.onBlur}
-              editMode={this.props.editMode}/>
-          </div>
-          <div className="col-sm-1 trash-anchor">
-            <a className="iconRemove clickable" onClick={this.remove.bind(this, index)}>
-              <img src="/icons/trash.png"/>
-            </a>
-          </div>
-        </div>
+        {
+          this.props.editMode
+          ?
+            <div className="col-md-6">
+              <div className='col-md-11'>
+                <TextField
+                  activateRequiredField={this.props.amountError}
+                  label="Annual Gross Amount"
+                  ref="incomeAmount"
+                  keyName={this.props.name + "_amount_" + index}
+                  value={this.props.amount}
+                  format={this.formatCurrency}
+                  editable={true}
+                  maxLength={15}
+                  validationTypes={["currency"]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  editMode={this.props.editMode}/>
+              </div>
+              <div className="col-sm-1 trash-anchor">
+                <a className="iconRemove clickable" onClick={this.remove.bind(this, index)}>
+                  <img src="/icons/trash.png"/>
+                </a>
+              </div>
+            </div>
+          :
+            <div className="col-md-6">
+              <TextField
+                activateRequiredField={this.props.amountError}
+                label="Annual Gross Amount"
+                ref="incomeAmount"
+                keyName={this.props.name + "_amount_" + index}
+                value={this.props.amount}
+                format={this.formatCurrency}
+                editable={true}
+                maxLength={15}
+                validationTypes={["currency"]}
+                onChange={this.onChange}
+                onBlur={this.onBlur}
+                editMode={this.props.editMode}/>
+            </div>
+        }
       </div>
     );
   }

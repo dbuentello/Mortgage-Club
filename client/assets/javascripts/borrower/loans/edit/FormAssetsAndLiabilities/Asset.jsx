@@ -90,13 +90,19 @@ var Asset = React.createClass({
               editMode={this.props.editMode}/>
           </div>
         </div>
-        <div className='form-group'>
-          <div className='col-md-1'>
-            <a className="remove clickable" onClick={this.handleRemove}>
-              Remove
-            </a>
-          </div>
-        </div>
+        {
+          this.props.editMode
+          ?
+            <div className='form-group'>
+              <div className='col-md-1'>
+                <a className="remove clickable" onClick={this.handleRemove}>
+                  Remove
+                </a>
+              </div>
+            </div>
+          :
+            null
+        }
       </div>
     );
   }

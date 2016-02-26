@@ -216,7 +216,7 @@ var FormDocuments = React.createClass({
             }
           <div className='form-group'>
             <div className='col-md-12'>
-              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              <button disabled={this.props.editMode ? null : "disabled"}  className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
             </div>
           </div>
         </form>

@@ -456,7 +456,7 @@ var Property = React.createClass({
           }
         </div>
         <div className='form-group'>
-          { this.props.isShowRemove == true
+          { this.props.isShowRemove == true && this.props.editMode == true
             ? <div className='box text-right col-xs-11'>
                 <a className="remove clickable" onClick={this.remove.bind(this, index)}>
                   Remove

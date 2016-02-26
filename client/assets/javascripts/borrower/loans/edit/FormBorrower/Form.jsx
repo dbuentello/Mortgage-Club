@@ -227,7 +227,7 @@ var Form = React.createClass({
             : null }
             <div className="form-group">
               <div className="col-md-12">
-                <button type="submit" className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                <button disabled={this.props.editMode ? null : "disabled"}  type="submit" className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
               </div>
             </div>
         </form>
