@@ -32,14 +32,12 @@ var Form = React.createClass({
         phoneNumber: this.props.Member.phone_number
       };
     }else {
-      return {
-        sendConfirmation: true
-      };
+      return {};
     }
   },
 
   onChange: function(event) {
-    this.setState(event)
+    this.setState(event);
   },
 
   onClick: function(event) {
@@ -121,8 +119,7 @@ var Form = React.createClass({
               <UploadField
                 label="Avatar"
                 keyName="avatar"
-                name="loan_member[avatar]"
-              />
+                name="loan_member[avatar]"/>
             </div>
           </div>
           <div className="form-group">
@@ -150,7 +147,7 @@ var Form = React.createClass({
           <div className="form-group">
             <div className="col-sm-4">
               <TextField
-                label="Phone number"
+                label="Phone Number"
                 keyName="phoneNumber"
                 name="loan_member[phone_number]"
                 value={this.state.phoneNumber}
@@ -158,19 +155,23 @@ var Form = React.createClass({
                 onChange={this.onChange}/>
             </div>
           </div>
-          { !this.props.Member ?
+          {
+            this.props.Member
+            ?
+              null
+            :
             <div className="form-group">
               <div className="col-sm-4">
-                <BooleanRadio
-                  label="Send confirmation email?"
-                  keyName="sendConfirmation"
-                  name="send_confirmation_email"
+                <TextField
+                  label="Default Password"
+                  keyName="password"
+                  name="loan_member[password]"
+                  value={this.state.password}
                   editable={true}
-                  checked={this.state.sendConfirmation}
+                  placeholder={"Minimum is 8 characters"}
                   onChange={this.onChange}/>
               </div>
             </div>
-            : null
           }
           <div className="form-group">
             <div className="col-sm-10">

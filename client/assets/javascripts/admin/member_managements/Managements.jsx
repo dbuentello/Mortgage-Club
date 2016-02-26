@@ -61,7 +61,7 @@ var Managements = React.createClass({
                       <th>Avatar</th>
                       <th>Name</th>
                       <th>Email</th>
-                      <th>Phone number</th>
+                      <th>Phone Number</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
