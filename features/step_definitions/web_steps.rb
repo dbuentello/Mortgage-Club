@@ -57,19 +57,19 @@ When /^I click on a first "([^\"]+)"$/ do |text|
   first(:link, "#{text}").click
 end
 
-Then /^I click on address autocompleted$/ do
-  page.execute_script("
-    var temp = document.getElementsByClassName('pac-container');
-    for(var i = 0; i < temp.length; i++){
-      if(temp[i].hasAttribute('display') == 'none'){
-      }else{
-        if(temp[i].firstChild !== null){
-          //console.log(temp[i].firstChild.text());
-        }
-      }
-    }
-  ");
-end
+# Then /^I click on address autocompleted$/ do
+#   page.execute_script("
+#     var temp = document.getElementsByClassName('pac-container');
+#     for(var i = 0; i < temp.length; i++){
+#       if(temp[i].hasAttribute('display') == 'none'){
+#       }else{
+#         if(temp[i].firstChild !== null){
+#           //console.log(temp[i].firstChild.text());
+#         }
+#       }
+#     }
+#   ")
+# end
 
 When /^I am at loan management page$/ do
   many_steps %{
