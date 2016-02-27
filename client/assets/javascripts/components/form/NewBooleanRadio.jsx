@@ -52,6 +52,8 @@ var BooleanRadioView = React.createClass({
         requiredMessage = this.props.requiredMessage  || "This field is required",
         isDeclaration = this.props.isDeclaration === undefined ? false : true;
 
+    var disabled = this.props.editMode === false ? "disabled" : null;
+
     if (this.props.checked) {
       display = this.props.yesLabel;
     } else if (this.props.checked === false) {
@@ -66,7 +68,7 @@ var BooleanRadioView = React.createClass({
             <h6>{this.props.label}</h6>
             <div className="row">
               <div className={customColumn} onClick={this.checkedRadio}>
-                <input type="radio" className="pointer" value="true" name={this.props.name} onChange={this.handleChange}
+                <input disabled={disabled} type="radio" className="pointer" value="true" name={this.props.name} onChange={this.handleChange}
                   checked={display === this.props.yesLabel} id={"true_" + this.props.keyName}/>
                 <label htmlFor="own" className="customRadio">
                   <span className="first-circle"><span className="second-circle"></span></span>
@@ -74,7 +76,7 @@ var BooleanRadioView = React.createClass({
                 </label>
               </div>
               <div className={customColumn} onClick={this.checkedRadio}>
-                <input type="radio" className="pointer" value="false" name={this.props.name} onChange={this.handleChange}
+                <input disabled={disabled} type="radio" className="pointer" value="false" name={this.props.name} onChange={this.handleChange}
                   checked={display === this.props.noLabel} id={'false_' + this.props.keyName}/>
                 <label htmlFor="own" className="customRadio">
                   <span className="first-circle"><span className="second-circle"></span></span>
@@ -90,7 +92,7 @@ var BooleanRadioView = React.createClass({
             <h6>{this.props.label}</h6>
             <div className="row" id={this.props.keyName}>
               <div className={customColumn} onClick={this.checkedRadio}>
-                <input type="radio" className="pointer" value="true" name={this.props.name} onChange={this.handleChange}
+                <input disabled={disabled} type="radio" className="pointer" value="true" name={this.props.name} onChange={this.handleChange}
                   checked={display === this.props.yesLabel} id={"true_" + this.props.keyName}/>
                 <label htmlFor="own" className="customRadio">
                   <span className="first-circle"><span className="second-circle"></span></span>
@@ -98,7 +100,7 @@ var BooleanRadioView = React.createClass({
                 </label>
               </div>
               <div className={customColumn} onClick={this.checkedRadio}>
-                <input type="radio" className="pointer" value="false" name={this.props.name} onChange={this.handleChange}
+                <input disabled={disabled} type="radio" className="pointer" value="false" name={this.props.name} onChange={this.handleChange}
                   checked={display === this.props.noLabel} id={'false_' + this.props.keyName}/>
                 <label htmlFor="own" className="customRadio">
                   <span className="first-circle"><span className="second-circle"></span></span>

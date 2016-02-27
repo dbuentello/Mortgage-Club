@@ -148,7 +148,8 @@ var FormDocuments = React.createClass({
                       customParams={customParams}
                       supportOtherDescription={owner_upload_fields[key].customDescription}
                       uploadSuccessCallback={this.afterUploadingDocumentBorrower}
-                      removeSuccessCallback={this.afterRemovingDocumentBorrower}/>
+                      removeSuccessCallback={this.afterRemovingDocumentBorrower}
+                      editMode={this.props.editMode}/>
                   </div>
                 )
               }
@@ -215,7 +216,7 @@ var FormDocuments = React.createClass({
             }
           <div className='form-group'>
             <div className='col-md-12'>
-              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              <button disabled={this.props.editMode ? null : "disabled"}  className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
             </div>
           </div>
         </form>

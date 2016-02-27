@@ -34,9 +34,8 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
   end
 
   def create
-    default_password = 'loan_member_password'
-    @user = User.new(user_params.merge(password: default_password, password_confirmation: default_password))
-    @user.skip_confirmation! unless params[:send_confirmation_email]
+    @user = User.new(user_params.merge(password_confirmation: user_params[:password]))
+    @user.skip_confirmation!
     @loan_member = @user.build_loan_member(loan_member_params)
 
     if @user.save
@@ -70,7 +69,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
   end
 
   def user_params
-    params.require(:loan_member).permit(:email, :first_name, :last_name, :avatar)
+    params.require(:loan_member).permit(:email, :first_name, :last_name, :avatar, :password)
   end
 
   def set_loan_member

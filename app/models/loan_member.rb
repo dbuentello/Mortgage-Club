@@ -32,6 +32,6 @@ class LoanMember < ActiveRecord::Base
   def title(loan)
     return unless handle_this_loan?(loan)
 
-    loans_members_associations.where(loan_id: loan.id, loan_member_id: id).last.pretty_title
+    loans_members_associations.includes(:loan_members_title).where(loan_id: loan.id, loan_member_id: id).last.loan_members_title.title
   end
 end

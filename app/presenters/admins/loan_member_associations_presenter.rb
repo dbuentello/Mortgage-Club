@@ -11,7 +11,8 @@ class Admins::LoanMemberAssociationsPresenter
 
   def json_options
     {
-      include: {
+      include: [
+        :loan_members_title,
         loan_member: {
           include: {
             user: {
@@ -20,7 +21,7 @@ class Admins::LoanMemberAssociationsPresenter
             }
           }
         }
-      },
+      ],
       methods: [ :pretty_title ]
     }
   end

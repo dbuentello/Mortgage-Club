@@ -97,7 +97,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :loans, only: [:create, :edit, :update, :destroy] do
+    resources :loans do
       get :get_secondary_borrower_info, on: :collection
     end
 
@@ -164,6 +164,8 @@ Rails.application.routes.draw do
     resources :lenders do
       resources :lender_templates
     end
+
+    resources :loan_members_titles
 
     resources :borrower_managements, only: [:index] do
       member do

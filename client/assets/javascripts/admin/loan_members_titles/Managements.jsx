@@ -1,26 +1,40 @@
 var _ = require('lodash');
 var React = require('react/addons');
+var ModalLink = require('components/ModalLink');
 var Form = require('./Form');
 
 var Managements = React.createClass({
-  propTypes: {
-    bootstrapData: React.PropTypes.object,
-  },
-
   getInitialState: function() {
     return {
-      members: this.props.bootstrapData.loan_members
+      titles: this.props.bootstrapData.loan_members_titles
     }
   },
-
-  onReloadTable: function(loan_members) {
+  onReloadTable: function(titles) {
     this.setState(
-      {members: loan_members}
+      {titles: titles}
     )
   },
 
+  handleRemoveTitle: function(event) {
+    this.setState({titleId: event.target.id});
+    $("#removeTitleItem").modal();
+  },
+
+  handleRemove: function(event) {
+   $.ajax({
+      url: "loan_members_titles/"+this.state.titleId,
+      method: "DELETE",
+      success: function(response) {
+          location.href = '/loan_members_titles';
+        }.bind(this),
+        error: function(response, status, error) {
+          console.log(response);
+        }.bind(this)
+    });
+  },
+
   render: function() {
-    var url = '/loan_member_managements/';
+    var url = '/loan_members_titles/';
 
     return (
       <div>
@@ -58,29 +72,32 @@ var Managements = React.createClass({
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>Avatar</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone number</th>
+                        <th>Title</th>
                         <th>Actions</th>
+
                       </tr>
                     </thead>
                     <tbody>
                       {
-                        _.map(this.state.members, function(member) {
+                        _.map(this.state.titles, function(title) {
                           return (
-                            <tr key={member.id}>
-                              <td>
-                                <img src={member.user.avatar_url} width="40px" height="30px"/>
-                              </td>
-                              <td>{member.user.first_name + " " + member.user.last_name}</td>
-                              <td>{member.user.email}</td>
-                              <td>{member.phone_number}</td>
+                            <tr key={title.id}>
+
+                              <td>{title.title}</td>
+
                               <td>
                                 <span>
-                                  <a className='linkTypeReversed btn btn-primary' href={'loan_member_managements/' + member.id + '/edit'} data-method='get'>Edit</a>
+                                  <a className='linkTypeReversed btn btn-primary member-title-action' href={'loan_members_titles/' + title.id + '/edit'} data-method='get'>Edit</a>
                                 </span>
+                                <span></span>
+                                <span>
+                                  <a className='linkTypeReversed btn btn-danger member-title-action' onClick={this.handleRemoveTitle} id={title.id}>Delete</a>
+                                </span>
+
                               </td>
+
+
+
                             </tr>
                           )
                         }, this)
@@ -90,42 +107,6 @@ var Managements = React.createClass({
                 </div>
               </div>
               {/* /table */ }
-              <div className="table-responsive">
-                <table className="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>Avatar</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone Number</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      _.map(this.state.members, function(member) {
-                        return (
-                          <tr key={member.id}>
-                            <td>
-                              <img src={member.user.avatar_url} width="40px" height="30px"/>
-                            </td>
-                            <td>{member.user.to_s}</td>
-                            <td>{member.user.email}</td>
-                            <td>{member.phone_number}</td>
-                            <td>
-                              <span>
-                                <a className='linkTypeReversed btn btn-primary' href={'loan_member_managements/' + member.id + '/edit'} data-method='get'>Edit</a>
-                              </span>
-                            </td>
-                          </tr>
-                        )
-                      }, this)
-                    }
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            {/* /table */ }
 
               {/* Grid */ }
               <div className="row">
@@ -143,6 +124,28 @@ var Managements = React.createClass({
                     <div className="panel-body">
                        <Form Url={url} Method='POST' onReloadTable={this.onReloadTable}></Form>
                     </div>
+                    <div className="modal fade" id="removeTitleItem" tabIndex="-1" role="dialog" aria-labelledby="Confirmation">
+                      <div className="modal-dialog modal-md" role="document">
+                        <div className="modal-content">
+                          <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
+                          <div className="modal-body text-center">
+
+                            <h3 className={this.props.bodyClass}>Are you sure you want to delete this title ?</h3>
+
+                            <form className="form-horizontal">
+                              <div className="form-group">
+                                <div className="col-md-6">
+                                  <button type="button" className="btn btn-default" data-dismiss="modal">No</button>
+                                </div>
+                                <div className="col-md-6">
+                                  <button type="button" className="btn theBtn" onClick={this.handleRemove}>Yes</button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   {/* /horizotal form */ }
                 </div>
@@ -157,7 +160,7 @@ var Managements = React.createClass({
 
         </div>
         {/* /page container */ }
-    </div>
+      </div>
     )
   }
 

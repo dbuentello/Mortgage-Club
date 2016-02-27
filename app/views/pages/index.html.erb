@@ -3,55 +3,56 @@
     <div class="container">
       <div class="row">
         <div id="home-left" class="col-md-12">
-          <div id="home-left-header"><h1>The easiest way to get a mortgage.</h1></div>
+          <div id="home-left-header"><h1>Always save time and money on your mortgage.</h1></div>
           <p class="lead">Apply in minutes. Shop all qualified loan programs. Lock in the best mortgage instantly.</p>
         </div>
 
-        <% cache("home-right #{@last_updated}") do %>
-          <div id="home-right" class="col-md-offset-3 col-md-6 rates">
-            <div id="home-right-header">
-              <h1 class="text-uppercase">
-                MORTGAGE RATES
-              </h1>
-              <p class="">(as of <%= @last_updated %>)</p>
-            </div>
-            <div class="row">
-              <div class="col-12 col-sm-12 col-lg-12">
-                <div class="wrapper">
-                  <div class="table-responsive borderless">
-                    <table class="table homeTable">
-                      <tr class="table-header">
-                        <td>Programs</td><td>Mortgage Club</td><td>Wells Fargo</td><td>Quicken Loans</td>
-                      </tr>
-                      <tr class="table-content">
-                        <td>30 Year Fixed<hr/></td>
-                        <td><%= @mortgage_aprs['loan_tek']['apr_30_year'] %><hr/></td>
-                        <td><%= @mortgage_aprs['wellsfargo']['apr_30_year'] %><hr/></td>
-                        <td><%= @mortgage_aprs['quicken_loans']['apr_30_year'] %><hr/></td>
-                      </tr>
-                      <tr class="table-content">
-                        <td>15 Year Fixed<hr/></td>
-                        <td><%= @mortgage_aprs['loan_tek']['apr_15_year'] %><hr/></td>
-                        <td><%= @mortgage_aprs['wellsfargo']['apr_15_year'] %><hr/></td>
-                        <td><%= @mortgage_aprs['quicken_loans']['apr_15_year'] %><hr/></td>
-                      </tr>
-                      <tr class="table-content">
-                        <td>5/1 ARM<hr/></td>
-                        <td><%= @mortgage_aprs['loan_tek']['apr_5_libor'] %><hr/></td>
-                        <td><%= @mortgage_aprs['wellsfargo']['apr_5_libor'] %><hr/></td>
-                        <td><%= @mortgage_aprs['quicken_loans']['apr_5_libor'] %><hr/></td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <%= link_to "find my rate", new_user_registration_path, class: "btn btn-lg theBtn text-uppercase", role: "button", id: "applyBtn" %>
-              <!-- <a id="applyBtn" class="btn btn-lg theBtn text-uppercase" href="#" role="button">sign up for beta</a> -->
-            </div>
+        <div id="home-right" class="col-md-offset-3 col-md-6 rates">
+          <div id="home-right-header">
+            <h1 class="text-uppercase">
+              MORTGAGE RATES
+            </h1>
+            <p class="">(as of <%= @last_updated %>)</p>
           </div>
-        <% end %>
+          <div class="row">
+
+            <div class="col-12 col-sm-12 col-lg-12">
+            <div class="wrapper">
+   <div class="table-responsive borderless">
+              <table class="table homeTable">
+                <tr class="table-header">
+                  <td>Programs</td><td>Mortgage Club</td><td>Wells Fargo</td><td>Quicken Loans</td>
+                </tr>
+                <tr class="table-content">
+                  <td>30 Year Fixed<hr/></td>
+                  <td><%= @mortgage_aprs['loan_tek']['apr_30_year'] %><hr/></td>
+                  <td><%= @mortgage_aprs['wellsfargo']['apr_30_year'] %><hr/></td>
+                  <td><%= @mortgage_aprs['quicken_loans']['apr_30_year'] %><hr/></td>
+                </tr>
+                <tr class="table-content">
+                  <td>15 Year Fixed<hr/></td>
+                  <td><%= @mortgage_aprs['loan_tek']['apr_15_year'] %><hr/></td>
+                  <td><%= @mortgage_aprs['wellsfargo']['apr_15_year'] %><hr/></td>
+                  <td><%= @mortgage_aprs['quicken_loans']['apr_15_year'] %><hr/></td>
+                </tr>
+                <tr class="table-content">
+                  <td>5/1 ARM<hr/></td>
+                  <td><%= @mortgage_aprs['loan_tek']['apr_5_libor'] %><hr/></td>
+                  <td><%= @mortgage_aprs['wellsfargo']['apr_5_libor'] %><hr/></td>
+                  <td><%= @mortgage_aprs['quicken_loans']['apr_5_libor'] %><hr/></td>
+                </tr>
+              </table>
+            </div>
+            </div>
+            </div>
+
+          </div>
+
+          <div>
+            <%= link_to "find my rate", new_user_registration_path, class: "btn btn-lg theBtn text-uppercase", role: "button", id: "applyBtn" %>
+            <!-- <a id="applyBtn" class="btn btn-lg theBtn text-uppercase" href="#" role="button">sign up for beta</a> -->
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -59,8 +60,8 @@
   <hr/>
     <div class="container">
         <div class="row header-logos">
-          <div class="col-md-2  col-sm-6 col-sm-offset-4 col-md-offset-0   header-logo asseen">
-            <div class="text-uppercase">Our wholesale investors</div>
+          <div class="col-md-2  col-sm-6 col-sm-offset-4 col-md-offset-0 header-logo asseen">
+            <div class="text-uppercase"><p>Our wholesale</p><p> investors</p></div>
           </div>
           <div class="col-md-8">
             <div class="row">
@@ -82,7 +83,7 @@
             </div>
           </div>
           <div class="col-md-1 col-sm-12 col-sm-offset-4 col-md-offset-0 header-logo asseen">
-            <div class="text-uppercase">And many more</div>
+            <div class="text-uppercase"><p>And many</p><p>more</p></div>
           </div>
 
         </div>
@@ -186,8 +187,8 @@
           <%= image_tag("why6.png") %>
           <div class="bigNum">6</div>
           <div class="whyText">
-            <h6>Always Select The Best Loan</h6>
-            <p>Our team of finance and engineer geeks has developed a proprietary True Cost of Mortgage algorithm.</p>
+            <h6>Always Select The Best Mortgage</h6>
+            <p>Our team of finance and engineer geeks has developed a proprietary Trust Cost of Mortgage algorithm to help you select the best mortgage.</p>
           </div>
         </div>
       </div>
@@ -297,5 +298,8 @@
     // });
 
     $('[data-toggle="tooltip"]').tooltip();
+    $zopim(function() {
+      $zopim.livechat.window.hide();
+    });
   })
 </script>
