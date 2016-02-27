@@ -25,71 +25,35 @@ var Managements = React.createClass({
     return (
       <div>
           {/* Page header */ }
-        <div className="page-header">
-          <div className="page-header-content">
-            <div className="page-title">
-              <h4><i className="icon-arrow-left52 position-left"></i> <span className="text-semibold">Team member</span> - Management</h4>
-            </div>
+      <div className="page-header">
+        <div className="page-header-content">
+          <div className="page-title">
+            <h4><i className="icon-arrow-left52 position-left"></i> <span className="text-semibold">Team member</span> - Management</h4>
           </div>
         </div>
-        {/* /page header */ }
+      </div>
+      {/* /page header */ }
 
-        {/* Page container */ }
-        <div className="page-container">
+      {/* Page container */ }
+      <div className="page-container">
 
-          {/* Page content */ }
-          <div className="page-content">
+        {/* Page content */ }
+        <div className="page-content">
 
-            {/* Main content */ }
-            <div className="content-wrapper">
+          {/* Main content */ }
+          <div className="content-wrapper">
 
-              {/* Table */ }
-              <div className="panel panel-flat">
-                <div className="panel-heading">
-                  <h5 className="panel-title">Team Members</h5>
-                  <div className="heading-elements">
+            {/* Table */ }
+            <div className="panel panel-flat">
+              <div className="panel-heading">
+                <h5 className="panel-title">Team Members</h5>
+                <div className="heading-elements">
 
-                  </div>
-                </div>
-                <div className="panel-body">
-
-                </div>
-                <div className="table-responsive">
-                  <table className="table table-striped table-hover">
-                    <thead>
-                      <tr>
-                        <th>Avatar</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone number</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        _.map(this.state.members, function(member) {
-                          return (
-                            <tr key={member.id}>
-                              <td>
-                                <img src={member.user.avatar_url} width="40px" height="30px"/>
-                              </td>
-                              <td>{member.user.first_name + " " + member.user.last_name}</td>
-                              <td>{member.user.email}</td>
-                              <td>{member.phone_number}</td>
-                              <td>
-                                <span>
-                                  <a className='linkTypeReversed btn btn-primary' href={'loan_member_managements/' + member.id + '/edit'} data-method='get'>Edit</a>
-                                </span>
-                              </td>
-                            </tr>
-                          )
-                        }, this)
-                      }
-                    </tbody>
-                  </table>
                 </div>
               </div>
-              {/* /table */ }
+              <div className="panel-body">
+
+              </div>
               <div className="table-responsive">
                 <table className="table table-striped table-hover">
                   <thead>
@@ -127,36 +91,36 @@ var Managements = React.createClass({
             </div>
             {/* /table */ }
 
-              {/* Grid */ }
-              <div className="row">
-                <div className="col-md-12">
+            {/* Grid */ }
+            <div className="row">
+              <div className="col-md-12">
 
-                  {/* Horizontal form */ }
-                  <div className="panel panel-flat">
-                    <div className="panel-heading">
-                      <h5 className="panel-title">Add new member</h5>
-                      <div className="heading-elements">
+                {/* Horizontal form */ }
+                <div className="panel panel-flat">
+                  <div className="panel-heading">
+                    <h5 className="panel-title">Add new member</h5>
+                    <div className="heading-elements">
 
-                      </div>
-                    </div>
-
-                    <div className="panel-body">
-                       <Form Url={url} Method='POST' onReloadTable={this.onReloadTable}></Form>
                     </div>
                   </div>
-                  {/* /horizotal form */ }
-                </div>
-              </div>
-              {/* /grid */ }
 
+                  <div className="panel-body">
+                     <Form Url={url} Method='POST' onReloadTable={this.onReloadTable}></Form>
+                  </div>
+                </div>
+                {/* /horizotal form */ }
+              </div>
             </div>
-            {/* /main content */ }
+            {/* /grid */ }
 
           </div>
-          {/* /page content */ }
+          {/* /main content */ }
 
         </div>
-        {/* /page container */ }
+        {/* /page content */ }
+
+      </div>
+      {/* /page container */ }
     </div>
     )
   }
