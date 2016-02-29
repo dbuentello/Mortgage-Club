@@ -80,19 +80,20 @@ class CreatePropertyForm
 
   def update_liabilities(property, params)
     property.liabilities.update_all(property_id: nil)
-    return if params[:mortgagePayment].blank?
     update_mortgage_payment(property, params)
     update_other_financing(property, params)
   end
 
   def update_mortgage_payment(property, params)
-    if new_mortgage_payment_liability?(params)
-      liability = create_new_liability(params[:other_mortgage_payment_amount], "Mortgage", credit_report_id)
-    else
-      liability = Liability.find(params[:mortgagePayment])
-    end
+    if params[:mortgagePayment].present?
+      if new_mortgage_payment_liability?(params)
+        liability = create_new_liability(params[:other_mortgage_payment_amount], "Mortgage", credit_report_id)
+      else
+        liability = Liability.find(params[:mortgagePayment])
+      end
 
-    link_liability_to_property(property.id, liability, "Mortgage")
+      link_liability_to_property(property.id, liability, "Mortgage")
+    end
   end
 
   def update_other_financing(property, params)
