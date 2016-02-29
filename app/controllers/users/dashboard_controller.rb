@@ -2,6 +2,8 @@ class Users::DashboardController < Users::BaseController
   before_action :set_loan, only: [:show]
 
   def show
+    return redirect_to edit_loan_path(@loan) if @loan.new_loan?
+
     property = @loan.subject_property
     closing = @loan.closing || Closing.create(name: 'Closing', loan_id: @loan.id)
     loan_activities = @loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10)
