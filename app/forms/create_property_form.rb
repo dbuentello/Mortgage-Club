@@ -81,32 +81,36 @@ class CreatePropertyForm
   def update_liabilities(property, params)
     property.liabilities.update_all(property_id: nil)
     return if params[:mortgagePayment].blank?
+    update_mortgage_payment(property, params)
+    update_other_financing(property, params)
+  end
 
-    if new_mortgage_payment_liability?(params) || new_other_financing_liability?(params)
-      liability = create_other_liability(params)
+  def update_mortgage_payment(property, params)
+    if new_mortgage_payment_liability?(params)
+      liability = create_new_liability(params[:other_mortgage_payment_amount], "Mortgage", credit_report_id)
     else
-      return if params[:mortgagePayment].blank?
       liability = Liability.find(params[:mortgagePayment])
     end
-    link_liability_to_property(property.id, liability, "Mortgage")
 
+    link_liability_to_property(property.id, liability, "Mortgage")
+  end
+
+  def update_other_financing(property, params)
     if params[:otherFinancing].present?
-      link_liability_to_property(property.id, params[:otherFinancing], "OtherFinancing")
+      if params[:otherFinancing] == "OtherFinancing"
+        other_liability = create_new_liability(params[:other_financing_amount], "OtherFinancing", credit_report_id)
+      else
+        other_liability = Liability.find(params[:otherFinancing])
+      end
+
+      link_liability_to_property(property.id, other_liability, "OtherFinancing")
     end
   end
 
-  def create_other_liability(params)
-    if new_mortgage_payment_liability?(params)
-      payment_amount = params[:other_mortgage_payment_amount]
-      account_type = "Mortgage"
-    else
-      payment_amount = params[:other_financing_amount]
-      account_type = "OtherFinancing"
-    end
-
-    Liability.create(
-      payment: payment_amount,
-      account_type: account_type,
+  def create_new_liability(amount, type, credit_report_id)
+     Liability.create(
+      payment: amount,
+      account_type: type,
       credit_report_id: credit_report_id,
       user_input: true
     )
