@@ -1,4 +1,4 @@
-class Admins::SettingsController <  Admins::BaseController
+class Admins::SettingsController < Admins::BaseController
   before_action :set_setting, except: [:index]
 
   def index
