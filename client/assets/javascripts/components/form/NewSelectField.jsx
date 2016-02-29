@@ -88,6 +88,8 @@ var NewSelectField = React.createClass({
   render: function() {
     var requiredMessage = this.props.requiredMessage || "This field is required";
     var unSelected = this.props.activateRequiredField&&(this.props.value==null || this.props.value==""|| this.props.value.trim()=="" || this.state.name==null || this.state.name.trim()=="")
+    var disabled = this.props.editMode === false ? "disabled" : null;
+
     return (
       <div>
         <div className="select-box">
@@ -102,7 +104,7 @@ var NewSelectField = React.createClass({
               null
           }
           <div>
-            <select className="form-control" id={this.props.keyName} name={this.props.label} onChange={this.handleChange} onFocus={this.handleFocus} value={this.props.value || ''}>
+            <select disabled={disabled} className="form-control" id={this.props.keyName} name={this.props.label} onChange={this.handleChange} onFocus={this.handleFocus} value={this.props.value || ''}>
               {(this.props.placeholder) ? <option value="" disabled={true}>{this.props.placeholder}</option> : null}
               {this.state.options.map(function (option, i) {
                 return (

@@ -97,7 +97,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :loans, only: [:create, :edit, :update, :destroy] do
+    resources :loans do
       get :get_secondary_borrower_info, on: :collection
     end
 

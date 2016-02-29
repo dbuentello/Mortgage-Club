@@ -45,7 +45,7 @@ Feature: BorrowerTabAtNewLoanPage
         And I fill in "secondary_borrower_email" with "co-borrower@gmail.com"
         And I fill in "secondary_borrower_years_in_school" with "9"
         And I clear value in "Your co-borrower current address"
-        And I fill in "secondary_borrower_current_address" with "Albuquerque, Albuquerque, NM 87106"
+        And I fill in "secondary_borrower_current_address" with "1920 South Las Vegas Boulevard, Las Vegas, NV 89104"
         And I choose "true_secondary_borrower_currently_own"
         And I fill in "secondary_borrower_years_in_current_address" with "5"
         And I choose "false_secondary_borrower_self_employed"

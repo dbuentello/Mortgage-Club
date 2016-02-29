@@ -31,7 +31,8 @@ var Borrower = React.createClass({
               customClass={"account-text-input"}
               maxLength={35}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.firstName)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-3">
             <TextField
@@ -41,7 +42,8 @@ var Borrower = React.createClass({
               customClass={"account-text-input"}
               maxLength={35}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.middleName)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-3">
             <TextField
@@ -52,7 +54,8 @@ var Borrower = React.createClass({
               customClass={"account-text-input"}
               maxLength={35}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.lastName)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-3">
             <TextField
@@ -62,7 +65,8 @@ var Borrower = React.createClass({
               value={this.props.suffix}
               customClass={"account-text-input"}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.suffix)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         <div className="form-group">
@@ -77,12 +81,13 @@ var Borrower = React.createClass({
                   customClass={"account-text-input"}
                   onFocus={_.bind(this.props.onFocus, this, this.props.fields.email)}
                   validationTypes={["email"]}
-                  onChange={this.props.onChange}/>
+                  onChange={this.props.onChange}
+                  editMode={this.props.editMode}/>
               </div>
               :
                 null
             }
-          
+
         </div>
         <div className="form-group">
           <div className="col-md-6">
@@ -96,7 +101,8 @@ var Borrower = React.createClass({
               liveFormat={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.ssn)}
               validationTypes={["ssn"]}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-6">
             <TextField
@@ -111,7 +117,8 @@ var Borrower = React.createClass({
               format={this.formatPhoneNumber}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.phone)}
               validationTypes={["phoneNumber"]}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         <div className="form-group">
@@ -123,7 +130,8 @@ var Borrower = React.createClass({
               value={this.props.dob}
               customClass={"account-text-input"}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.dob)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-4">
             <TextField
@@ -137,7 +145,8 @@ var Borrower = React.createClass({
               format={this.formatInteger}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.yearsInSchool)}
               validationTypes={["integer"]}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-4">
             <SelectField
@@ -149,7 +158,8 @@ var Borrower = React.createClass({
               editable={true}
               allowBlank={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.maritalStatus)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         <div className="form-group">
@@ -163,7 +173,8 @@ var Borrower = React.createClass({
               noLabel={"No"}
               editable={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.selfEmployed)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-4">
             <TextField
@@ -177,7 +188,8 @@ var Borrower = React.createClass({
               format={this.formatInteger}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.numberOfDependents)}
               validationTypes={["integer"]}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-4">
             { parseInt(this.props.numberOfDependents, 10) > 0 ?
@@ -190,7 +202,8 @@ var Borrower = React.createClass({
                 placeholder="e.g. 12, 7, 3"
                 onFocus={_.bind(this.props.onFocus, this, this.props.fields.dependentAges)}
                 validationTypes={["agesOfDependents"]}
-                onChange={this.props.onChange}/>
+                onChange={this.props.onChange}
+                editMode={this.props.editMode}/>
             : null }
           </div>
         </div>
@@ -204,7 +217,8 @@ var Borrower = React.createClass({
               editable={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
               onChange={this.props.onChange}
-              validationTypes={["address"]}/>
+              validationTypes={["address"]}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         <div className="form-group">
@@ -218,7 +232,8 @@ var Borrower = React.createClass({
               noLabel={"Rent"}
               editable={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentlyOwn)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-4">
             { this.props.currentlyOwn == false
@@ -234,7 +249,8 @@ var Borrower = React.createClass({
                   onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentMonthlyRent)}
                   validationTypes={["currency"]}
                   onChange={this.props.onChange}
-                  onBlur={this.props.onBlur}/>
+                  onBlur={this.props.onBlur}
+                  editMode={this.props.editMode}/>
               : null
             }
           </div>
@@ -250,10 +266,11 @@ var Borrower = React.createClass({
               format={this.formatInteger}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.yearsInCurrentAddress)}
               validationTypes={["integer"]}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
         </div>
-        
+
         { parseInt(this.props.yearsInCurrentAddress, 10) < 2 ?
           <div>
           <div className="form-group">
@@ -266,7 +283,7 @@ var Borrower = React.createClass({
                 editable={true}
                 onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousAddress)}
                 onChange={this.props.onChange}
-                placeholder=""/>
+                editMode={this.props.editMode}/>
             </div>
           </div>
           <div className="form-group">
@@ -280,7 +297,8 @@ var Borrower = React.createClass({
                 noLabel={"Rent"}
                 editable={true}
                 onFocus={_.bind(this.props.onFocus, this, this.props.fields.previouslyOwn)}
-                onChange={this.props.onChange}/>
+                onChange={this.props.onChange}
+                editMode={this.props.editMode}/>
             </div>
             <div className="col-md-4">
               { this.props.previouslyOwn == false
@@ -296,7 +314,8 @@ var Borrower = React.createClass({
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyRent)}
                     validationTypes={["currency"]}
                     onChange={this.props.onChange}
-                    onBlur={this.props.onBlur}/>
+                    onBlur={this.props.onBlur}
+                    editMode={this.props.editMode}/>
                 : null
               }
             </div>
@@ -312,7 +331,8 @@ var Borrower = React.createClass({
                 format={this.formatInteger}
                 onFocus={_.bind(this.props.onFocus, this, this.props.fields.yearsInPreviousAddress)}
                 validationTypes={["integer"]}
-                onChange={this.props.onChange}/>
+                onChange={this.props.onChange}
+                editMode={this.props.editMode}/>
             </div>
           </div>
         </div>

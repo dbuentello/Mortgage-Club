@@ -14,7 +14,6 @@ var LoanInterface = require('borrower/loans/edit/LoanInterface');
 var MortgageRates = require('borrower/loans/rates/MortgageRates');
 var Underwriting = require('borrower/loans/underwriting/Underwriting');
 var ESigning = require('borrower/loans/DocusignIframe');
-var LoanActivityInterface = require('borrower/loans/show/LoanActivityInterface');
 
 var Dashboard = require('borrower/dashboard/show/Dashboard');
 var HomeDashBoard = require('borrower/dashboard/loans/HomeDashBoard');
@@ -61,7 +60,7 @@ window.BorrowerApp = React.createClass({
 var routes = (
   <Route name='app' path='/' handler={BorrowerApp}>
     <Route name='edit_loan' path='loans/:id/edit' handler={LoanInterface}/>
-    <Route name='loan' path='loans/:id' handler={LoanActivityInterface}/>
+    <Route name='show_loan' path='loans/:id' handler={LoanInterface}/>
     <Route name='underwriting' handler={Underwriting}/>
     <Route name='rates' handler={MortgageRates}/>
     <Route name='loan_list' path='my/loans' handler={HomeDashBoard}/>

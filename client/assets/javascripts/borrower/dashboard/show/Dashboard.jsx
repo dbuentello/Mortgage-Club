@@ -81,7 +81,7 @@ var Dashboard = React.createClass({
               <p>Status: {loan.pretty_status}</p>
             </div>
             <div className='col-md-3'>
-              <a className='btn edit-btn' href="#"><i className="iconInfo mrs"/>View</a>
+              <a className='btn edit-btn' href={'/loans/' + loan.id}><i className="iconInfo mrs"/>View</a>
               <ModalLink
                 id="deleteLoan"
                 icon="iconTrash mrs"
