@@ -80,6 +80,7 @@ class CreatePropertyForm
 
   def update_liabilities(property, params)
     property.liabilities.update_all(property_id: nil)
+    return if property_does_not_have_any_liabilities?(params)
     update_mortgage_payment(property, params)
     update_other_financing(property, params)
   end
@@ -126,9 +127,9 @@ class CreatePropertyForm
 
   private
 
-  # def property_does_not_have_any_liabilities?(params)
-  #   params[:mortgagePayment].blank? && params[:otherFinancing].blank?
-  # end
+  def property_does_not_have_any_liabilities?(params)
+    params[:mortgagePayment].blank? && params[:otherFinancing].blank?
+  end
 
   def new_property?(property_attributes)
     property_attributes[:id].nil?
