@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   def bootstrap(data={})
-    @bootstrap_data = {
+     @bootstrap_data = {
       currentUser: current_user.present? ? {
         id: current_user.id,
         firstName: current_user.first_name,

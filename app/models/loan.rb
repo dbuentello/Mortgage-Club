@@ -108,7 +108,8 @@ class Loan < ActiveRecord::Base
 
   def pretty_status
     return if status.nil?
-    return "New" if new_loan?
+    return "New".freeze if new_loan?
+
     status.titleize
   end
 end

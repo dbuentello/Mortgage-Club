@@ -44,18 +44,12 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Rails Html Sanitizer for HTML sanitization
 gem 'rails-html-sanitizer'
 
-# Use Unicorn as the app server
-gem 'unicorn'
-
 # Parse CSS and add vendor prefixes to rules by Can I Use
 gem 'autoprefixer-rails', '~> 5.2.1.1'
 
 gem 'react-rails', '~> 1.0'
 
 gem 'httparty'
-
-gem 'rest-client'
-
 gem 'faraday'
 gem 'faraday_middleware'
 gem 'faraday_middleware-parse_oj', '~> 0.3.0'
@@ -120,6 +114,7 @@ group :development do
   gem 'rack-mini-profiler', require: false
 
   gem 'derailed'
+  gem 'stackprof'
 end
 
 group :development, :test do
