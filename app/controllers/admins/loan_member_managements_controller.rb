@@ -2,7 +2,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
   before_action :set_loan_member, except: [:index, :create]
 
   def index
-    loans = Loan.all
+    loans = Loan.all.includes(:user, properties: :address)
     loan_members = LoanMember.all
 
     bootstrap(
