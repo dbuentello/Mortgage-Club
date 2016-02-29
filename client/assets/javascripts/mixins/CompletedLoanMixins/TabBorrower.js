@@ -51,6 +51,9 @@ var TabBorrower = {
     if (borrower.current_address.years_at_address < 0)
       return false;
 
+    if (!this.addressCompleted(borrower.current_address.cached_address))
+      return false;
+
     if (this.rentHouseAndMonthlyRentNotValid(borrower.current_address))
       return false;
 
@@ -86,6 +89,14 @@ var TabBorrower = {
 
     if (this.rentHouseAndMonthlyRentNotValid(borrower.previous_address))
       return false;
+    return true;
+  },
+
+  addressCompleted: function(address) {
+    if(address == null || address == undefined) { return false; }
+    if(address.street_address == null || address.city == null || address.state == null || address.zip == null)
+      return false;
+
     return true;
   },
 

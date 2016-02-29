@@ -2,14 +2,15 @@ class Admins::LoanAssignmentsController < Admins::BaseController
   before_action :set_loan, except: [:index]
 
   def index
-    loans = Loan.all
+    loans = Loan.all.includes(:user, properties: :address)
     loan_members = LoanMember.all
-    first_loan_associations = loans.first.loans_members_associations
+    first_loan_associations = loans.first.loans_members_associations.includes(:loan_members_title)
 
     bootstrap(
       loans: Admins::LoansPresenter.new(loans).show,
       loan_members: Admins::LoanMembersPresenter.new(loan_members).show,
-      associations: Admins::LoanMemberAssociationsPresenter.new(first_loan_associations).show
+      associations: Admins::LoanMemberAssociationsPresenter.new(first_loan_associations).show,
+      loan_members_titles: LoanMembersTitle.all
     )
 
     respond_to do |format|
@@ -26,8 +27,8 @@ class Admins::LoanAssignmentsController < Admins::BaseController
         loan_member_id: loan_member.id
       )
 
-      assignment.title = params[:title]
-      @loan.pending! if assignment.save
+      assignment.loan_members_title_id = params[:title]
+      assignment.save
     end
 
     render json: {associations: reload_loans_members_associations_json}, status: 200
@@ -55,6 +56,6 @@ class Admins::LoanAssignmentsController < Admins::BaseController
   private
 
   def reload_loans_members_associations_json
-    Admins::LoanMemberAssociationsPresenter.new(@loan.loans_members_associations).show
+    Admins::LoanMemberAssociationsPresenter.new(@loan.loans_members_associations.includes(:loan_members_title)).show
   end
 end

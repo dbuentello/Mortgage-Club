@@ -1,6 +1,6 @@
 class Users::LoansController < Users::BaseController
-  before_action :set_loan, only: [:edit, :update, :destroy]
-  before_action :load_liabilities, only: [:edit]
+  before_action :set_loan, only: [:edit, :update, :destroy, :show]
+  before_action :load_liabilities, only: [:edit, :show]
 
   def index
     if current_user.loans.size < 1
@@ -32,11 +32,11 @@ class Users::LoansController < Users::BaseController
     loan_ids = current_user.loans.pluck(:id)
     subject_property_ids = Property.where(loan_id: loan_ids, is_subject: true).pluck(:id)
     array_addresses = Address.where(property_id: subject_property_ids).pluck(:property_id, :street_address, :city, :state, :zip)
-    Hash[array_addresses.map { |id, street_address, city, state, zip| [id, street_address.nil? ? "" : "#{street_address}, #{city}, #{state}, #{zip}"] }]
+    Hash[array_addresses.map { |id, street_address, city, state, zip| [id, street_address.nil? ? "" : "#{street_address}, #{city}, #{state} #{zip}"] }]
   end
 
   def create
-    @loan = InitializeFirstLoanService.new(current_user).call
+    @loan = InitializeFirstLoanService.new(current_user, cookies[:initial_quotes]).call
 
     if @loan.save
       render json: {loan_id: @loan.id}, status: 200
@@ -46,10 +46,28 @@ class Users::LoansController < Users::BaseController
   end
 
   def edit
+    return redirect_to action: :show if !@loan.new_loan?
+
     bootstrap({
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       liabilities: @liabilities,
-      borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower"
+      borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower",
+      is_edit_mode: true
+    })
+
+    respond_to do |format|
+      format.html { render template: 'borrower_app' }
+    end
+  end
+
+  def show
+    return redirect_to action: :edit if @loan.new_loan?
+
+    bootstrap({
+      currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
+      liabilities: @liabilities,
+      borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower",
+      is_edit_mode: false
     })
 
     respond_to do |format|

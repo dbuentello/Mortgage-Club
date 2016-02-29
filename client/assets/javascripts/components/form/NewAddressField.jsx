@@ -58,7 +58,7 @@ var AddressField = React.createClass({
 
   getDefaultProps: function() {
     return {
-      placeholder: 'Select from suggestion or enter full address'
+      placeholder: ''
     };
   },
 
@@ -97,6 +97,8 @@ var AddressField = React.createClass({
 
     this.listeners.push(google.maps.event.addDomListener(el, 'keydown', function (e) {
       if (e.keyCode == 13) {
+        // google.maps.event.trigger(this.autocomplete, 'place_changed');
+
         if (e.preventDefault) {
           e.preventDefault();
         } else {
@@ -157,7 +159,7 @@ var AddressField = React.createClass({
 
     // prevent error Uncaught TypeError
     if (typeof place.address_components == 'undefined') {
-      return ;
+      return;
     }
 
     // Get each component of the address from the place details
@@ -205,6 +207,8 @@ var AddressField = React.createClass({
         val = getFormattedAddress(address) || '',
         requiredMessage = this.props.requiredMessage || "This field is required";
 
+    var disabled = this.props.editMode === false ? "disabled" : null;
+
     return (
       <div>
         <h6>{this.props.label}</h6>
@@ -217,7 +221,7 @@ var AddressField = React.createClass({
           :
             null
         }
-        <input className="form-control" type="text"
+        <input disabled={disabled} className="form-control" type="text"
           value={val} placeholder={this.props.placeholder}
           onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange} id={this.props.keyName} name={this.props.label}/>
         <img src="/icons/address.png" alt="title"/>

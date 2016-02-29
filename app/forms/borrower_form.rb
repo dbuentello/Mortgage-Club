@@ -47,19 +47,13 @@ class BorrowerForm
   end
 
   def create_primary_property
-    if current_address.property.present? && current_address.property.loan_id == loan.id
-      property = current_address.property
-      property.is_primary = true
-      property.usage = "primary_residence"
-    else
-      property = Property.new(loan: loan, is_primary: true, usage: "primary_residence")
-      property.address = current_address
-    end
-    property.save!
+    return if loan.primary_property.present?
+
+    Property.create(loan: loan, is_primary: true, usage: "primary_residence")
   end
 
   def unset_primary_property
-    loan.primary_property.update(is_primary: false) if loan.primary_property
+    loan.primary_property.destroy if loan.primary_property
   end
 
   def update_old_address

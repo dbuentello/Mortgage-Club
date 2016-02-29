@@ -11,6 +11,7 @@ Feature: InitialQuotes
     And I select "Single Family Home" from "Property type"
     And I press "Get rates"
     And I should see "Sort by"
+    And I scroll up to the top
   Then At first klass ".board-header" I click link "Select"
     And I should see "sign up"
 

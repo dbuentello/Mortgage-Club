@@ -1,7 +1,5 @@
 <div class="header clearfix">
-  
-    
- <% if current_user %>
+  <% if current_user %>
     <nav class="navbar navbar-default mortgageNav shadowBottom">
     <% else %>
      <nav class="navbar navbar-default mortgageNav navbar-fixed-top shadowBottom">
@@ -15,12 +13,10 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand logo" href="/"><%= image_tag asset_path("mortgageclubLOGO.png")%></a>
-          
         </div>
       <div class="collapse navbar-collapse mortgageNav" id="links-home">
        <% if current_user %>
         <ul class="nav navbar-nav navbar-right">
-         
             <li>
               <a id="newLoanBtn" class="btn btn-ms btn-success theBtn text-uppercase">
                 <p>
@@ -56,22 +52,18 @@
             </ul>
           <% else %>
           <ul class="nav nav-pills navbar-right">
-            <% if Rails.env.test? %>
-              <li>
-                <%= link_to new_user_session_path, class: "btn btn-ms btn-success theBtn text-uppercase", id: "loginBtn" do %>
-                  <%= image_tag image_path("loginICON.png"), id: "loginImg" %>Log in
-                <% end %>
-              </li>
-            <% end %>
             <li>
               <%= link_to "Find my rate", new_user_registration_path, class: "btn btn-ms theBtn text-uppercase", id: "signupBtn"%>
             </li>
-          
+            <li>
+              <%= link_to new_user_session_path, class: "btn btn-ms theBtn text-uppercase", id: "loginBtn" do %>
+                <%= image_tag image_path("loginICON.png"), id: "loginImg" %>Log in
+              <% end %>
+            </li>
         </ul>
         <% end %>
       </div>
       </div>
     </nav>
 
-  
 </div>

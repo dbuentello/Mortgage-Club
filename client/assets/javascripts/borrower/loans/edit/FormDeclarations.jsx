@@ -229,7 +229,8 @@ var FormDeclarations = React.createClass({
                       customColumn={"col-xs-2"}
                       editable={true}
                       checked={this.state[checkboxFields[key].name]}
-                      onChange={this.onChange}/>
+                      onChange={this.onChange}
+                      editMode={this.props.editMode}/>
                     </div>
                 </div>
               )
@@ -247,7 +248,8 @@ var FormDeclarations = React.createClass({
                 editable={true}
                 name={'type_of_property'}
                 placeholder="Select your type of property"
-                onChange={this.onChange}/>
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
             </div>
           </div>
           <div className='form-group' style={{display: this.state.display_sub_question}}>
@@ -261,12 +263,13 @@ var FormDeclarations = React.createClass({
                 editable={true}
                 placeholder="Select your title of property"
                 name={'title_of_property'}
-                onChange={this.onChange}/>
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
             </div>
           </div>
           <div className="form-group">
             <div className="col-md-12">
-              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              <button disabled={this.props.editMode ? null : "disabled"}  className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
             </div>
           </div>
         </form>

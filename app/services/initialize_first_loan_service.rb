@@ -59,14 +59,7 @@ class InitializeFirstLoanService
 
     Property.create(
       is_primary: true,
-      address: Address.create(
-        street_address: address.street_address,
-        street_address2: address.street_address2,
-        zip: address.zip,
-        state: address.state,
-        city: address.city,
-        full_text: address.full_text
-      )
+      usage: "primary_residence"
     )
   end
 
@@ -100,7 +93,7 @@ class InitializeFirstLoanService
 
   def assign_loan_to_billy(loan)
     return unless user = User.where(email: "billy@mortgageclub.co").last
-
-    user.loan_member.loans_members_associations.find_or_create_by(loan_id: loan.id, title: "manager")
+    manager = LoanMembersTitle.find_or_create_by(title: "Manager")
+    user.loan_member.loans_members_associations.find_or_create_by(loan_id: loan.id, loan_members_title: manager)
   end
 end

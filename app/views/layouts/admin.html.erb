@@ -4,13 +4,14 @@
   <title>MortgageClub</title>
   <meta name="google-site-verification" content="K8Dz959pwoVbxPRhUZtZZPODqDsTnuS3xnr7RbsFLE8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= stylesheet_link_tag 'admin-pages', media: 'all', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+    <%= render "/shared/admin/navbar" %>
   <%= yield %>
 
+  <%= render "/shared/admin/footer" %>
   <%= javascript_include_tag 'admin', 'data-turbolinks-track' => false %>
 </body>
 </html>

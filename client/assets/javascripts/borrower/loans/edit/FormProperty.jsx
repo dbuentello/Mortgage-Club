@@ -10,7 +10,7 @@ var SelectField = require("components/form/NewSelectField");
 var TextField = require("components/form/NewTextField");
 var BooleanRadio = require("components/form/NewBooleanRadio");
 var fields = {
-  address: {label: 'Property Address', name: 'address', error: "addressError", validationTypes: ["empty"]},
+  address: {label: 'Property Address', name: 'address', error: "addressError", validationTypes: ["empty", "address"]},
   loanPurpose: {label: "Purpose Of Loan", name: "purpose", error: "loanError", validationTypes: ["empty"]},
   grossRentalIncome: {label: "Estimated Rental Income", name: "gross_rental_income", error: "grossRentalIncomeError", validationTypes: ["empty", "currency"]},
   propertyPurpose: {label: "Property Will Be", name: "usage", error: "propertyError", validationTypes: ["empty"]},
@@ -137,7 +137,8 @@ var FormProperty = React.createClass({
                 editable={true}
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.address)}
-                placeholder=""/>
+                validationTypes={["address"]}
+                editMode={this.props.editMode}/>
             </div>
           </div>
           <div className="form-group">
@@ -152,7 +153,8 @@ var FormProperty = React.createClass({
                 editable={true}
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.propertyPurpose)}
-                allowBlank={true}/>
+                allowBlank={true}
+                editMode={this.props.editMode}/>
             </div>
             {
               this.state[fields.propertyPurpose.name] != "primary_residence" && this.state[fields.propertyPurpose.name] != ""  && this.state[fields.propertyPurpose.name] != null
@@ -170,7 +172,8 @@ var FormProperty = React.createClass({
                     onFocus={this.onFocus.bind(this, fields.grossRentalIncome)}
                     validationTypes={["currency"]}
                     onChange={this.onChange}
-                    onBlur={this.onBlur}/>
+                    onBlur={this.onBlur}
+                    editMode={this.props.editMode}/>
                 </div>
               :
                 null
@@ -187,7 +190,8 @@ var FormProperty = React.createClass({
                 yesLabel="Purchase"
                 noLabel="Refinance"
                 onFocus={this.onFocus.bind(this, fields.loanPurpose)}
-                onChange={this.onChange}/>
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
             </div>
           </div>
           {this.state[fields.loanPurpose.name] === null ? null :
@@ -207,7 +211,8 @@ var FormProperty = React.createClass({
                     onFocus={this.onFocus.bind(this, fields.purchasePrice)}
                     validationTypes={["currency"]}
                     onBlur={this.onBlur}
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
             :
@@ -225,7 +230,8 @@ var FormProperty = React.createClass({
                     onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
                     validationTypes={["currency"]}
                     onBlur={this.onBlur}
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
           }
@@ -249,13 +255,14 @@ var FormProperty = React.createClass({
                     format={this.formatYear}
                     onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)}
                     validationTypes={["integer"]}
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
           }
           <div className="form-group">
             <div className="col-md-12">
-              <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              <button disabled={this.props.editMode ? null : "disabled"} className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
             </div>
           </div>
         </form>

@@ -35,7 +35,8 @@ var Income = React.createClass({
         amountError={income.amountError}
         onChangeType={this.changeIncomeType}
         onChangeAmount={this.changeIncomeAmount}
-        onRemove={this.removeOtherIncome}/>
+        onRemove={this.removeOtherIncome}
+        editMode={this.props.editMode}/>
     );
   },
 
@@ -74,12 +75,45 @@ var Income = React.createClass({
     this.setState({otherIncomes: arr});
   },
 
+  componentDidUpdate: function() {
+
+  },
+
+  componentDidMount: function() {
+    $("#" + this.props.fields.currentEmployerName.name).autoComplete({
+      minChars: 1,
+      source: function(term, response){
+        $.getJSON("https://autocomplete.clearbit.com/v1/companies/suggest", { query: term }, function(data){ response(data); });
+      },
+      renderItem: function (item, search) {
+        var default_logo = "/unknown-logo.gif";
+
+        if(item.logo == null) {
+          var logo = default_logo;
+        } else {
+          var logo = item.logo + "?size=25x25";
+        }
+
+        var container = "<div class='autocomplete-suggestion' data-name='" + item.name + "' data-val='" + search + "'>";
+        container += '<span class="icon"><img align="center" src="'+ logo + '" onerror="this.src=\'' + default_logo + '\'"></span> ';
+        container += item.name + "<span class='domain'>" + item.domain + "</span></div>";
+        return container;
+      },
+      onSelect: function(e, term, item){
+        var state = {};
+        state[this.props.fields.currentEmployerName.name] = item.data("name");
+        this.props.onChange(state);
+      }.bind(this)
+    });
+  },
+
   render: function() {
     return (
       <div>
         <div className='form-group'>
           <div className='col-md-6'>
             <TextField
+              customClass={"autocomplete-input"}
               activateRequiredField={this.props.currentEmployerNameError}
               label={this.props.fields.currentEmployerName.label}
               keyName={this.props.fields.currentEmployerName.name}
@@ -87,7 +121,8 @@ var Income = React.createClass({
               editable={true}
               maxLength={100}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentEmployerName)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className='col-md-6'>
             <AddressField
@@ -98,7 +133,7 @@ var Income = React.createClass({
               editable={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentEmployerAddress)}
               onChange={this.props.onChange}
-              placeholder=""/>
+              editMode={this.props.editMode}/>
           </div>
         </div>
         <div className='form-group'>
@@ -111,7 +146,8 @@ var Income = React.createClass({
               editable={true}
               maxLength={100}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentJobTitle)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className='col-md-6'>
             <TextField
@@ -125,7 +161,8 @@ var Income = React.createClass({
               format={this.formatInteger}
               validationTypes={["integer"]}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentYearsAtEmployer)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         {
@@ -142,7 +179,8 @@ var Income = React.createClass({
                     editable={true}
                     maxLength={100}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousEmployerName)}
-                    onChange={this.props.onChange}/>
+                    onChange={this.props.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
                 <div className="col-md-6">
                   <TextField
@@ -156,7 +194,8 @@ var Income = React.createClass({
                     maxLength={15}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousMonthlyIncome)}
                     onChange={this.props.onChange}
-                    onBlur={this.props.onBlur}/>
+                    onBlur={this.props.onBlur}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
               <div className="form-group">
@@ -169,7 +208,8 @@ var Income = React.createClass({
                     editable={true}
                     maxLength={100}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousJobTitle)}
-                    onChange={this.props.onChange}/>
+                    onChange={this.props.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
                 <div className="col-md-6">
                   <TextField
@@ -183,7 +223,8 @@ var Income = React.createClass({
                     format={this.formatInteger}
                     validationTypes={["integer"]}
                     onFocus={_.bind(this.props.onFocus, this, this.props.fields.previousYearsAtEmployer)}
-                    onChange={this.props.onChange}/>
+                    onChange={this.props.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
             </div>
@@ -200,7 +241,8 @@ var Income = React.createClass({
               editable={true}
               maxLength={100}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.employerContactName)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-6">
             <TextField
@@ -214,7 +256,8 @@ var Income = React.createClass({
               editable={true}
               validationTypes={["phoneNumber"]}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.employerContactNumber)}
-              onChange={this.props.onChange}/>
+              onChange={this.props.onChange}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         <h6 className="text-capitalize title-h6">income details</h6>
@@ -232,7 +275,8 @@ var Income = React.createClass({
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.baseIncome)}
               onChange={this.props.onChange}
               placeholder="e.g. 99,000"
-              onBlur={this.props.onBlur}/>
+              onBlur={this.props.onBlur}
+              editMode={this.props.editMode}/>
           </div>
           <div className="col-md-6">
             <SelectField
@@ -244,20 +288,26 @@ var Income = React.createClass({
               editable={true}
               onChange={this.props.onChange}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.incomeFrequency)}
-              allowBlank={true}/>
+              allowBlank={true}
+              editMode={this.props.editMode}/>
           </div>
         </div>
 
         {this.state.otherIncomes.map(this.eachOtherIncome)}
 
-        <div className="form-group">
-          <div className="col-md-12 clickable" onClick={this.addOtherIncome}>
-            <h5>
-              <span className="glyphicon glyphicon-plus-sign"></span>
-                Add Other Income
-            </h5>
-          </div>
-        </div>
+        {
+          this.props.editMode
+          ?
+            <div className="form-group">
+              <div className="col-md-12 clickable" onClick={this.addOtherIncome}>
+                <h5>
+                  <span className="glyphicon glyphicon-plus-sign"></span>
+                    Add Other Income
+                </h5>
+              </div>
+            </div>
+          : null
+        }
       </div>
     )
   }

@@ -32,7 +32,7 @@ var borrower_fields = {
   maritalStatus: {label: 'Marital Status', name: 'first_borrower_marital_status', fieldName: 'marital_status', helpText: 'Married (includes registered domestic partners), Unmarried (includes single, divorced, widowed)', error: "maritalStatusError", validationTypes: ["empty"]},
   numberOfDependents: {label: 'Number of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "numberOfDependencesError", validationTypes: ["empty", "integer"]},
   dependentAges: {label: 'Ages of Dependents', name: 'first_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: "dependentAgesError", validationTypes: ["empty", "agesOfDependents"]},
-  currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null, error: "currentAddressError", validationTypes: ["empty"]},
+  currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null, error: "currentAddressError", validationTypes: ["empty", "address"]},
   currentlyOwn: {label: 'Own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "currentlyOwnError", validationTypes: ["empty"]},
   selfEmployed: {label: 'Are you self-employed?', name: 'first_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "selfEmployedError", validationTypes: ["empty"]},
   yearsInCurrentAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "yearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
@@ -120,7 +120,8 @@ var Form = React.createClass({
               options={borrowerCountOptions}
               editable={this.state.borrower_editable}
               onFocus={this.onFocus.bind(this, borrower_fields.applyingAs)}
-              onChange={this.coBorrowerHanlder}/>
+              onChange={this.coBorrowerHanlder}
+              editMode={this.props.editMode}/>
             </div>
           </div>
           <Borrower
@@ -166,7 +167,8 @@ var Form = React.createClass({
             selfEmployedErorr={this.state[borrower_fields.selfEmployed.error]}
             onChange={this.onChange}
             onFocus={this.onFocus}
-            onBlur={this.onBlur}/>
+            onBlur={this.onBlur}
+            editMode={this.props.editMode}/>
 
             { this.state.hasSecondaryBorrower ?
               <div className="box mtn">
@@ -219,12 +221,13 @@ var Form = React.createClass({
                   isSecondary={true}
                   onChange={this.onChange}
                   onFocus={this.onFocus}
-                  onBlur={this.onBlur}/>
+                  onBlur={this.onBlur}
+                  editMode={this.props.editMode}/>
               </div>
             : null }
             <div className="form-group">
               <div className="col-md-12">
-                <button type="submit" className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                <button disabled={this.props.editMode ? null : "disabled"}  type="submit" className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
               </div>
             </div>
         </form>

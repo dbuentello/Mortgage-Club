@@ -84,12 +84,36 @@ var Loans = React.createClass({
     });
 
     return (
-      <div className='content container'>
-        <div className='pal'>
-          <div className='row'>
-            <h2 className='mbl'>Loan Assignment</h2>
-            <div className='box mtn'>
-              <div className='row'>
+      <div>
+          {/* Page header */ }
+      <div className="page-header">
+        <div className="page-header-content">
+          <div className="page-title">
+            <h4><i className="icon-arrow-left52 position-left"></i> <span className="text-semibold">Loan Assignment</span> - Management</h4>
+          </div>
+        </div>
+      </div>
+      {/* /page header */ }
+
+      {/* Page container */ }
+      <div className="page-container">
+
+        {/* Page content */ }
+        <div className="page-content">
+
+          {/* Main content */ }
+          <div className="content-wrapper">
+
+            {/* Table */ }
+            <div className="panel panel-flat">
+              <div className="panel-heading">
+                <h5 className="panel-title">Loan Assignments</h5>
+                <div className="heading-elements">
+
+                </div>
+              </div>
+              <div className="panel-body">
+                <div className='row'>
                 <div className='col-xs-3'>
                   <label className='pan'>
                     <span className='h7 typeBold'>Loans</span>
@@ -122,46 +146,57 @@ var Loans = React.createClass({
                   <label className='pan'>
                     <span className='h7 typeBold'>Title</span>
                   </label>
-                  <select className='form-control title-list'>
-                    <option value='sale'>Sale</option>
-                    <option value='premier_agent'>Premier Agent</option>
-                    <option value='manager'>Manager</option>
+                  <select className='form-control title-list text-capitalize'>
+                    {
+                      _.map(this.props.bootstrapData.loan_members_titles, function(title) {
+                        return (
+                            <option value={title.id} key={title.id}>{title.title}</option>
+                          )
+                      })
+                    }
                   </select>
                 </div>
-                <div className='col-xs-3 ptl'>
+                <div className='col-xs-3' style={{'margin-top': '25px'}}  >
                   <button className='btn btn-primary' onClick={this.onAssignClick}>Assign</button>
                 </div>
               </div>
+              </div>
+              <div className="table-responsive">
+                <table className="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Assignee</th>
+                      <th>Title</th>
+                      <th style={{'width': '10%'}}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      _.map(this.state.associations, function(association) {
+                        return (
+                          <tr key={association.id}>
+                            <td>{association.loan_member.user.to_s}</td>
+                            <td>{association.pretty_title}</td>
+                            <td><button className='btn btn-danger' value={association.id} onClick={this.onRemoveClick}>Remove</button></td>
+                          </tr>
+                        )
+                      }, this)
+                    }
+                  </tbody>
+                </table>
+              </div>
             </div>
+            {/* /table */ }
+
           </div>
-          <div className='row'>
-            <div className='table-responsive'>
-              <table className='mtxl table table-bordered table-striped table-hover'>
-                <thead>
-                  <tr>
-                    <th>Assignee</th>
-                    <th>Title</th>
-                    <th style={{'width': '10%'}}></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    _.map(this.state.associations, function(association) {
-                      return (
-                        <tr key={association.id}>
-                          <td>{association.loan_member.user.to_s}</td>
-                          <td>{association.pretty_title}</td>
-                          <td><button className='btn btn-danger' value={association.id} onClick={this.onRemoveClick}>Remove</button></td>
-                        </tr>
-                      )
-                    }, this)
-                  }
-                </tbody>
-              </table>
-            </div>
-          </div>
+          {/* /main content */ }
+
         </div>
+        {/* /page content */ }
+
       </div>
+      {/* /page container */ }
+    </div>
     )
   }
 
