@@ -357,15 +357,12 @@ var FormAssetsAndLiabilities = React.createClass({
 
     var states = this.getStateOfInvalidFields(fields);
 
-
-
     if(!_.isEmpty(states)) {
       _.each(states, function(value, key) {
         property[key] = true;
       });
       allFieldsAreOK = false;
     }
-
     return allFieldsAreOK;
   },
 
@@ -498,7 +495,6 @@ var FormAssetsAndLiabilities = React.createClass({
           }.bind(this),
           error: function(response, status, error) {
             this.setState({saving: false});
-            // this.setState({saving: false});
           }
         });
       },
