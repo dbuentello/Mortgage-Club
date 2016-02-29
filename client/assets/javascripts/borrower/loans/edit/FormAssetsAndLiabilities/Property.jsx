@@ -80,6 +80,7 @@ var Property = React.createClass({
         // this.setState({selectedOtherFinancingLiability: value});
         // this.props.keepTrackOfSelectedLiabilities(unSelectedLiability, this.state.selectedOtherFinancingLiability);
         this.setState({
+          setOtherFinancing: false,
           mortgageLiabilities: this.reloadMortgageLiabilities(value)
         });
       }
