@@ -36,6 +36,10 @@ var FormAssetsAndLiabilities = React.createClass({
     state.saving = false;
     state.isValid = true;
     state.assets = this.props.loan.borrower.assets;
+
+    if(this.props.loan.borrower != undefined && this.props.loan.borrower != null && this.props.loan.borrower.current_address != undefined && this.props.loan.borrower.current_address != null && state.primary_property !== null)
+      state.primary_property.address = this.props.loan.borrower.current_address.cached_address;
+
     if (state.assets.length == 0) {
       var defaultAsset = this.getDefaultAsset();
       defaultAsset.asset_type = 'checkings';
@@ -327,7 +331,7 @@ var FormAssetsAndLiabilities = React.createClass({
     var allFieldsAreOK = true;
 
     var fields = {
-      addressError: {value: property.address, validationTypes: ["empty"]},
+      addressError: {value: property.address, validationTypes: ["empty", "address"]},
       propertyTypeError: {value: property.property_type, validationTypes: ["empty"]},
       estimatedHazardInsuranceError: {value: this.formatCurrency(property.estimated_hazard_insurance), validationTypes: ["currency"]},
       estimatedPropertyTaxError: {value: this.formatCurrency(property.estimated_property_tax), validationTypes: ["currency"]},
@@ -432,8 +436,11 @@ var FormAssetsAndLiabilities = React.createClass({
     this.setState({saving: true, isValid: true});
 
     var primary_property = this.state.primary_property;
+    var borrower_address = this.props.loan.borrower.current_address;
+
     if (primary_property){
       primary_property = this.formatProperty(primary_property);
+      borrower_address.cached_address = primary_property.address;
     }
 
     var subject_property = this.state.subject_property;
@@ -473,7 +480,8 @@ var FormAssetsAndLiabilities = React.createClass({
             primary_property: this.state.primary_property,
             subject_property: this.state.subject_property,
             rental_properties: this.state.rental_properties,
-            own_investment_property: this.state.own_investment_property
+            own_investment_property: this.state.own_investment_property,
+            borrower_address: borrower_address
           },
           success: function(response) {
             if (this.loanIsCompleted(response.loan)) {

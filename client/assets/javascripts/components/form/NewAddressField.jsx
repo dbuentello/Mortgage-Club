@@ -159,7 +159,7 @@ var AddressField = React.createClass({
 
     // prevent error Uncaught TypeError
     if (typeof place.address_components == 'undefined') {
-      return ;
+      return;
     }
 
     // Get each component of the address from the place details

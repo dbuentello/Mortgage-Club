@@ -264,6 +264,7 @@ var Property = React.createClass({
               keyName={'property_address' + this.props.index}
               editable={true}
               onChange={this.onChange}
+              validationTypes={["address"]}
               editMode={this.props.editMode}/>
           </div>
         </div>

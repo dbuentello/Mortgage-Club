@@ -217,6 +217,7 @@ var Borrower = React.createClass({
               editable={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
               onChange={this.props.onChange}
+              validationTypes={["address"]}
               editMode={this.props.editMode}/>
           </div>
         </div>
