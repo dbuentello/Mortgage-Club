@@ -5,13 +5,19 @@ class OcrNotificationsController < ApplicationController
   include HTTParty
 
   def receive
-    if request.raw_post.present?
-      raw_post = JSON.parse(request.raw_post)
+    @setting = Setting.all.first
+    if @setting
+      if @setting.ocr
+        byebug
+        if request.raw_post.present?
+          raw_post = JSON.parse(request.raw_post)
 
-      if raw_post["SubscribeURL"].present?
-        ConfirmSubscriptionService.call(raw_post)
-      else
-        OcrServices::ProcessPaystub.call(raw_post)
+          if raw_post["SubscribeURL"].present?
+            ConfirmSubscriptionService.call(raw_post)
+          else
+            OcrServices::ProcessPaystub.call(raw_post)
+          end
+        end
       end
     end
     render nothing: true, status: 200, content_type: 'text/html'
