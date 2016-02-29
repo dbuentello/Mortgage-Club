@@ -308,6 +308,7 @@ var Property = React.createClass({
                 <div className='col-md-6'>
                   <SelectField
                     label='Mortgage Payment'
+                    activateRequiredField={this.props.mortgagePaymentError}
                     keyName={'property_mortgagePayment' + this.props.index}
                     options={this.state.mortgageLiabilities}
                     value={this.state.property.mortgagePayment}
