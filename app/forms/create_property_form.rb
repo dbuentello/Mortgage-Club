@@ -25,9 +25,9 @@ class CreatePropertyForm
       update_rental_properties
       update_subject_property
       update_primary_property
+      update_borrower_address
     end
 
-    update_borrower_address
     true
   end
 
