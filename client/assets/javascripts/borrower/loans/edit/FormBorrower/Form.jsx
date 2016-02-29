@@ -120,7 +120,8 @@ var Form = React.createClass({
               options={borrowerCountOptions}
               editable={this.state.borrower_editable}
               onFocus={this.onFocus.bind(this, borrower_fields.applyingAs)}
-              onChange={this.coBorrowerHanlder}/>
+              onChange={this.coBorrowerHanlder}
+              editMode={this.props.editMode}/>
             </div>
           </div>
           <Borrower
@@ -166,7 +167,8 @@ var Form = React.createClass({
             selfEmployedErorr={this.state[borrower_fields.selfEmployed.error]}
             onChange={this.onChange}
             onFocus={this.onFocus}
-            onBlur={this.onBlur}/>
+            onBlur={this.onBlur}
+            editMode={this.props.editMode}/>
 
             { this.state.hasSecondaryBorrower ?
               <div className="box mtn">
@@ -219,12 +221,13 @@ var Form = React.createClass({
                   isSecondary={true}
                   onChange={this.onChange}
                   onFocus={this.onFocus}
-                  onBlur={this.onBlur}/>
+                  onBlur={this.onBlur}
+                  editMode={this.props.editMode}/>
               </div>
             : null }
             <div className="form-group">
               <div className="col-md-12">
-                <button type="submit" className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                <button disabled={this.props.editMode ? null : "disabled"}  type="submit" className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
               </div>
             </div>
         </form>

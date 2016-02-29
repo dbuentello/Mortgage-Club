@@ -92,6 +92,8 @@ var TextField = React.createClass({
     var customClass = this.props.customClass || "",
       requiredMessage = this.props.requiredMessage || "This field is required";
 
+    var disabled = this.props.editMode === false ? "disabled" : null;
+
     return (
       <div>
         <h6>{this.props.label}</h6>
@@ -105,7 +107,7 @@ var TextField = React.createClass({
             null
         }
         <div>
-          <input className={"form-control " + customClass } type="text" value={this.props.value} maxLength={this.props.maxLength}
+          <input className={"form-control " + customClass } type="text" disabled={disabled} value={this.props.value} maxLength={this.props.maxLength}
               onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.label} id={this.props.keyName}/>
 
           <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage} validationTypes={this.props.validationTypes}/>

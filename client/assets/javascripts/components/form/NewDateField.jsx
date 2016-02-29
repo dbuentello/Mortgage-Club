@@ -52,11 +52,12 @@ var DateFieldView = React.createClass({
   render: function() {
     var dateVal = this.isoToUsDate(this.props.value) || this.props.emptyStaticText,
     requiredMessage = this.props.requiredMessage || "This field is required";
+    var disabled = this.props.editMode === false ? "disabled" : null;
 
     return (
       <div>
         <h6>{this.props.label}</h6>
-        <input className={"form-control " + this.props.customClass} defaultValue={dateVal} type="text" placeholder={this.props.placeholder} data-date-end-date="0d"
+        <input disabled={disabled} className={"form-control " + this.props.customClass} defaultValue={dateVal} type="text" placeholder={this.props.placeholder} data-date-end-date="0d"
           onBlur={this.onBlur} onFocus={this.handleFocus} id={this.props.keyName} name={this.props.label}/>
         <img src="/icons/date.png" alt="title" onClick={this.showDatePicker}/>
         <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={dateVal} title={requiredMessage} validationTypes={this.props.validationTypes}/>

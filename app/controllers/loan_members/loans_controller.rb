@@ -1,6 +1,6 @@
 class LoanMembers::LoansController < LoanMembers::BaseController
   def index
-    loans = current_user.loan_member.loans
+    loans = current_user.loan_member.loans.includes(:user, properties: :address)
 
     bootstrap(loans: LoanMembers::LoansPresenter.new(loans).show)
 

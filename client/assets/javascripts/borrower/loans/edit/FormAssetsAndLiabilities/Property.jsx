@@ -263,7 +263,8 @@ var Property = React.createClass({
               address={this.state.property.address}
               keyName={'property_address' + this.props.index}
               editable={true}
-              onChange={this.onChange}/>
+              onChange={this.onChange}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         <div className='form-group'>
@@ -276,7 +277,8 @@ var Property = React.createClass({
               options={propertyTypes}
               editable={true}
               onChange={this.onChange}
-              allowBlank={true}/>
+              allowBlank={true}
+              editMode={this.props.editMode}/>
           </div>
           <div className='col-md-6'>
             <TextField
@@ -289,7 +291,8 @@ var Property = React.createClass({
               maxLength={15}
               onChange={this.onChange}
               format={this.formatCurrency}
-              onBlur={this.onBlur}/>
+              onBlur={this.onBlur}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         {
@@ -307,7 +310,8 @@ var Property = React.createClass({
                     value={this.state.property.mortgagePayment}
                     editable={true}
                     onChange={this.onChange}
-                    allowBlank={true}/>
+                    allowBlank={true}
+                    editMode={this.props.editMode}/>
                 </div>
                 { this.state.setOtherMortgagePayment
                   ? <div className='col-md-6'>
@@ -321,7 +325,8 @@ var Property = React.createClass({
                         maxLength={15}
                         validationTypes={["currency"]}
                         onChange={this.onChange}
-                        onBlur={this.onBlur}/>
+                        onBlur={this.onBlur}
+                        editMode={this.props.editMode}/>
                     </div>
                   : null
                 }
@@ -335,7 +340,8 @@ var Property = React.createClass({
                     options={this.state.otherFinancingLiabilities}
                     editable={true}
                     onChange={this.onChange}
-                    allowBlank={true}/>
+                    allowBlank={true}
+                    editMode={this.props.editMode}/>
                 </div>
                 { this.state.setOtherFinancing
                   ? <div className='col-md-6'>
@@ -349,7 +355,8 @@ var Property = React.createClass({
                         maxLength={15}
                         validationTypes={["currency"]}
                         onChange={this.onChange}
-                        onBlur={this.onBlur}/>
+                        onBlur={this.onBlur}
+                        editMode={this.props.editMode}/>
                     </div>
                   : null
                 }
@@ -365,7 +372,8 @@ var Property = React.createClass({
                     validationTypes={["currency"]}
                     onChange={this.onChange}
                     format={this.formatCurrency}
-                    onBlur={this.onBlur}/>
+                    onBlur={this.onBlur}
+                    editMode={this.props.editMode}/>
                 </div>
                 <div className='col-md-6'>
                   <SelectField
@@ -376,7 +384,8 @@ var Property = React.createClass({
                     options={mortgageInclueEscrows}
                     editable={true}
                     onChange={this.onChange}
-                    allowBlank={true}/>
+                    allowBlank={true}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
             </div>
@@ -393,7 +402,8 @@ var Property = React.createClass({
               validationTypes={["currency"]}
               onChange={this.onChange}
               format={this.formatCurrency}
-              onBlur={this.onBlur}/>
+              onBlur={this.onBlur}
+              editMode={this.props.editMode}/>
           </div>
           <div className='col-md-3'>
             <TextField
@@ -406,7 +416,8 @@ var Property = React.createClass({
               validationTypes={["currency"]}
               onChange={this.onChange}
               format={this.formatCurrency}
-              onBlur={this.onBlur}/>
+              onBlur={this.onBlur}
+              editMode={this.props.editMode}/>
           </div>
           <div className='col-md-3 pln'>
             <TextField
@@ -418,7 +429,8 @@ var Property = React.createClass({
               validationTypes={["currency"]}
               onChange={this.onChange}
               format={this.formatCurrency}
-              onBlur={this.onBlur}/>
+              onBlur={this.onBlur}
+              editMode={this.props.editMode}/>
           </div>
         </div>
         <div className='form-group'>
@@ -436,14 +448,15 @@ var Property = React.createClass({
                   validationTypes={["currency"]}
                   onChange={this.onChange}
                   format={this.formatCurrency}
-                  onBlur={this.onBlur}/>
+                  onBlur={this.onBlur}
+                  editMode={this.props.editMode}/>
               </div>
             :
               null
           }
         </div>
         <div className='form-group'>
-          { this.props.isShowRemove == true
+          { this.props.isShowRemove == true && this.props.editMode == true
             ? <div className='box text-right col-xs-11'>
                 <a className="remove clickable" onClick={this.remove.bind(this, index)}>
                   Remove

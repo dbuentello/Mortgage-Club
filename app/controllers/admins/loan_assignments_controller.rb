@@ -2,7 +2,7 @@ class Admins::LoanAssignmentsController < Admins::BaseController
   before_action :set_loan, except: [:index]
 
   def index
-    loans = Loan.all
+    loans = Loan.all.includes(:user, properties: :address)
     loan_members = LoanMember.all
     first_loan_associations = loans.first.loans_members_associations.includes(:loan_members_title)
 
@@ -28,7 +28,7 @@ class Admins::LoanAssignmentsController < Admins::BaseController
       )
 
       assignment.loan_members_title_id = params[:title]
-      @loan.pending! if assignment.save
+      assignment.save
     end
 
     render json: {associations: reload_loans_members_associations_json}, status: 200
