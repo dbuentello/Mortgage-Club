@@ -11,8 +11,9 @@ Feature: InitialQuotes
     And I select "Single Family Home" from "Property type"
     And I press "Get rates"
     And I should see "Sort by"
+    And I scroll up to the top
   Then At first klass ".board-header" I click link "Select"
-    And I should see "Sign up"
+    And I should see "sign up"
 
   @javascript @vcr
   Scenario: select help me choose
@@ -30,4 +31,4 @@ Feature: InitialQuotes
   Then I click on "help me choose"
     And I should see "Your Best Option"
   Then At first klass ".best-rate" I click link "Select"
-    And I should see "Sign up"
+    And I should see "sign up"
