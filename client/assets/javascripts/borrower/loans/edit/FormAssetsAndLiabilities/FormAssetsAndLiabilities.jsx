@@ -86,6 +86,7 @@ var FormAssetsAndLiabilities = React.createClass({
         estimatedHazardInsuranceError={property.estimatedHazardInsuranceError}
         estimatedPropertyTaxError={property.estimatedPropertyTaxError}
         grossRentalIncomeError={property.grossRentalIncomeError}
+        mortgagePaymentError={property.mortgagePaymentError}
         otherMortgagePaymentAmountError={property.otherMortgagePaymentAmountError}
         otherFinancingAmountError={property.otherFinancingAmountError}
         estimatedMortgageInsuranceError={property.estimatedMortgageInsuranceError}
@@ -173,6 +174,7 @@ var FormAssetsAndLiabilities = React.createClass({
                     estimatedHazardInsuranceError={this.state.subject_property.estimatedHazardInsuranceError}
                     estimatedPropertyTaxError={this.state.subject_property.estimatedPropertyTaxError}
                     grossRentalIncomeError={this.state.subject_property.grossRentalIncomeError}
+                    mortgagePaymentError={this.state.subject_property.mortgagePaymentError}
                     otherMortgagePaymentAmountError={this.state.subject_property.otherMortgagePaymentAmountError}
                     otherFinancingAmountError={this.state.subject_property.otherFinancingAmountError}
                     estimatedMortgageInsuranceError={this.state.subject_property.estimatedMortgageInsuranceError}
@@ -201,6 +203,7 @@ var FormAssetsAndLiabilities = React.createClass({
                     estimatedHazardInsuranceError={this.state.primary_property.estimatedHazardInsuranceError}
                     estimatedPropertyTaxError={this.state.primary_property.estimatedPropertyTaxError}
                     grossRentalIncomeError={this.state.primary_property.grossRentalIncomeError}
+                    mortgagePaymentError={this.state.primary_property.mortgagePaymentError}
                     otherMortgagePaymentAmountError={this.state.primary_property.otherMortgagePaymentAmountError}
                     otherFinancingAmountError={this.state.primary_property.otherFinancingAmountError}
                     estimatedMortgageInsuranceError={this.state.primary_property.estimatedMortgageInsuranceError}
@@ -332,6 +335,7 @@ var FormAssetsAndLiabilities = React.createClass({
 
     var fields = {
       addressError: {value: property.address, validationTypes: ["empty", "address"]},
+      mortgagePaymentError: { value: property.mortgagePayment, validationTypes: ["empty"]},
       propertyTypeError: {value: property.property_type, validationTypes: ["empty"]},
       estimatedHazardInsuranceError: {value: this.formatCurrency(property.estimated_hazard_insurance), validationTypes: ["currency"]},
       estimatedPropertyTaxError: {value: this.formatCurrency(property.estimated_property_tax), validationTypes: ["currency"]},
