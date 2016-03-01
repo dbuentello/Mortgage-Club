@@ -86,27 +86,26 @@ class CreatePropertyForm
   end
 
   def update_mortgage_payment(property, params)
-    if params[:mortgagePayment].present?
-      if new_mortgage_payment_liability?(params)
-        liability = create_new_liability(params[:other_mortgage_payment_amount], "Mortgage", credit_report_id)
-      else
-        liability = Liability.find(params[:mortgagePayment])
-      end
-
-      link_liability_to_property(property.id, liability, "Mortgage")
+    return unless params[:mortgagePayment].present?
+    if new_mortgage_payment_liability?(params)
+      liability = create_new_liability(params[:other_mortgage_payment_amount], "Mortgage", credit_report_id)
+    else
+      liability = Liability.find(params[:mortgagePayment])
     end
+
+    link_liability_to_property(property.id, liability, "Mortgage")
   end
 
   def update_other_financing(property, params)
-    if params[:otherFinancing].present?
-      if params[:otherFinancing] == "OtherFinancing"
-        other_liability = create_new_liability(params[:other_financing_amount], "OtherFinancing", credit_report_id)
-      else
-        other_liability = Liability.find(params[:otherFinancing])
-      end
+    return unless params[:otherFinancing].present?
 
-      link_liability_to_property(property.id, other_liability, "OtherFinancing")
+    if params[:otherFinancing] == "OtherFinancing"
+      other_liability = create_new_liability(params[:other_financing_amount], "OtherFinancing", credit_report_id)
+    else
+      other_liability = Liability.find(params[:otherFinancing])
     end
+
+    link_liability_to_property(property.id, other_liability, "OtherFinancing")
   end
 
   def create_new_liability(amount, type, credit_report_id)
