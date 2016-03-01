@@ -8,11 +8,14 @@ var Managements = React.createClass({
       setting: this.props.bootstrapData.setting
     }
   },
-  onOCRClick: function(event) {
-    this.state.setting.ocr = !this.state.setting.ocr;
-    this.setState({
-      setting: this.state.setting
-    });
+  componentDidMount: function(){
+    $("#ocr").bootstrapSwitch();
+    $('#ocr').on('switchChange.bootstrapSwitch', function(event, state) {
+      this.state.setting.ocr = !this.state.setting.ocr;
+      this.setState({
+        setting: this.state.setting
+      });
+    }.bind(this));
   },
   componentDidUpdate: function(){
     $.ajax({
@@ -20,7 +23,7 @@ var Managements = React.createClass({
        method: "PUT",
        data: this.state.setting,
        success: function(response) {
-            console.log("ok");
+
          }.bind(this),
          error: function(response, status, error) {
            console.log(response);
@@ -70,23 +73,19 @@ var Managements = React.createClass({
                       <tr>
                         <th>setting</th>
                         <th>Actions</th>
-
                       </tr>
                     </thead>
                     <tbody>
-
-
-                            <tr key={this.state.setting.id}>
-                              <td>
-                                Enable OCR
-                              </td>
-                              <td>
-                                <input type="checkbox" className="styled" defaultChecked={this.state.setting.ocr} onChange={this.onOCRClick}/>
-
-                                </td>
-                            </tr>
-
-
+                      <tr key={this.state.setting.id}>
+                        <td>
+                          Enable OCR
+                        </td>
+                        <td>
+                          <label>
+                            <input type="checkbox" id="ocr" data-on-color="success" data-off-color="default" data-on-text="Enable" data-off-text="Disable" className="switch" defaultChecked={this.state.setting.ocr} />
+                          </label>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>

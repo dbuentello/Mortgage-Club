@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :setting do
-    ocr false
+  factory :setting do |f|
+    f.ocr false
   end
 
 end
