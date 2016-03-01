@@ -55,35 +55,39 @@ var DocumentTab = React.createClass({
     };
   },
   componentDidMount: function () {
-  	$('.bootstrap-select').selectpicker();
-
+    $('.bootstrap-select').selectpicker();
+    $('.bootstrap-select').change(this.onChange);
   },
   onChange: function(event) {
     var type_of_document = event.target.value;
     switch(type_of_document) {
       case "property":
-        this.setState({displayProperty: {display: true}});
-        this.setState({displayBorrower: {display: 'none'}});
-        this.setState({displayLoan: {display: 'none'}});
-        this.setState({displayClosing: {display: 'none'}});
+        this.setState({displayProperty: {display: true},
+          displayBorrower: {display: 'none'},
+          displayLoan: {display: 'none'},
+          displayClosing: {display: 'none'}
+        });
         break;
       case "borrower":
-        this.setState({displayBorrower: {display: true}});
-        this.setState({displayProperty: {display: 'none'}});
-        this.setState({displayLoan: {display: 'none'}});
-        this.setState({displayClosing: {display: 'none'}});
+        this.setState({displayBorrower: {display: true},
+          displayProperty: {display: 'none'},
+          displayLoan: {display: 'none'},
+          displayClosing: {display: 'none'}
+        });
         break;
       case "loan":
-        this.setState({displayLoan: {display: true}});
-        this.setState({displayProperty: {display: 'none'}});
-        this.setState({displayBorrower: {display: 'none'}});
-        this.setState({displayClosing: {display: 'none'}});
+        this.setState({displayLoan: {display: true},
+          displayProperty: {display: 'none'},
+          displayBorrower: {display: 'none'},
+          displayClosing: {display: 'none'}
+        });
         break;
       case "closing":
-        this.setState({displayClosing: {display: true}});
-        this.setState({displayLoan: {display: 'none'}});
-        this.setState({displayProperty: {display: 'none'}});
-        this.setState({displayBorrower: {display: 'none'}});
+        this.setState({displayClosing: {display: true},
+          displayLoan: {display: 'none'},
+          displayProperty: {display: 'none'},
+          displayBorrower: {display: 'none'}
+        });
         break;
     }
   },
