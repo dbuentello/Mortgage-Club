@@ -20,6 +20,7 @@ describe("check if tab property is completed or not", function() {
         city: "Lorem ipsum",
         state: "Lorem ipsum",
         street_address2: "Lorem ipsum",
+        zip: "12345"
       }
     },
     purpose: "purchase"
@@ -39,6 +40,7 @@ describe("check if tab property is completed or not", function() {
         city: "Lorem ipsum",
         state: "Lorem ipsum",
         street_address2: "Lorem ipsum",
+        zip: "12345"
       }
     },
     purpose: "purchase"
@@ -58,6 +60,7 @@ describe("check if tab property is completed or not", function() {
         city: null,
         state: null,
         street_address2: null,
+        zip: null
       }
     },
     purpose: "purchase"
@@ -77,6 +80,7 @@ describe("check if tab property is completed or not", function() {
         city: "Lorem ipsum",
         state: "Lorem ipsum",
         street_address2: "Lorem ipsum",
+        zip: "12345"
       }
     },
     purpose: "purchase"
@@ -97,6 +101,7 @@ describe("check if tab property is completed or not", function() {
         city: "Lorem ipsum",
         state: "Lorem ipsum",
         street_address2: "Lorem ipsum",
+        zip: "12345"
       }
     },
     purpose: "refinance"

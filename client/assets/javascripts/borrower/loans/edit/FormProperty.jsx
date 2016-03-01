@@ -10,7 +10,7 @@ var SelectField = require("components/form/NewSelectField");
 var TextField = require("components/form/NewTextField");
 var BooleanRadio = require("components/form/NewBooleanRadio");
 var fields = {
-  address: {label: 'Property Address', name: 'address', error: "addressError", validationTypes: ["empty"]},
+  address: {label: 'Property Address', name: 'address', error: "addressError", validationTypes: ["empty", "address"]},
   loanPurpose: {label: "Purpose Of Loan", name: "purpose", error: "loanError", validationTypes: ["empty"]},
   grossRentalIncome: {label: "Estimated Rental Income", name: "gross_rental_income", error: "grossRentalIncomeError", validationTypes: ["empty", "currency"]},
   propertyPurpose: {label: "Property Will Be", name: "usage", error: "propertyError", validationTypes: ["empty"]},
@@ -137,7 +137,7 @@ var FormProperty = React.createClass({
                 editable={true}
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.address)}
-                placeholder=""
+                validationTypes={["address"]}
                 editMode={this.props.editMode}/>
             </div>
           </div>

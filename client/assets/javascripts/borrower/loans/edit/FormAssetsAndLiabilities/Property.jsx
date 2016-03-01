@@ -80,6 +80,7 @@ var Property = React.createClass({
         // this.setState({selectedOtherFinancingLiability: value});
         // this.props.keepTrackOfSelectedLiabilities(unSelectedLiability, this.state.selectedOtherFinancingLiability);
         this.setState({
+          setOtherFinancing: false,
           mortgageLiabilities: this.reloadMortgageLiabilities(value)
         });
       }
@@ -130,6 +131,7 @@ var Property = React.createClass({
         // this.setState({selectedOtherFinancingLiability: value});
         // this.props.keepTrackOfSelectedLiabilities(unSelectedLiability, this.state.selectedOtherFinancingLiability);
         this.setState({
+          setOtherFinancing: false,
           mortgageLiabilities: this.reloadMortgageLiabilities(value)
         });
       }
@@ -264,6 +266,7 @@ var Property = React.createClass({
               keyName={'property_address' + this.props.index}
               editable={true}
               onChange={this.onChange}
+              validationTypes={["address"]}
               editMode={this.props.editMode}/>
           </div>
         </div>

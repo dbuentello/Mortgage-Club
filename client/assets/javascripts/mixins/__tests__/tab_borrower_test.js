@@ -24,6 +24,12 @@ describe("check if tab borrower is completed or not", function() {
       marital_status: "married",
       dependent_count: 0,
       current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          state: "CA",
+          zip: "94103"
+        },
         is_rental: false,
         years_at_address: 5
       }
@@ -42,6 +48,12 @@ describe("check if tab borrower is completed or not", function() {
       dependent_count: 2,
       dependent_ages: [1, 2],
       current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          state: "CA",
+          zip: "94103"
+        },
         is_rental: false,
         years_at_address: 5
       }
@@ -59,6 +71,12 @@ describe("check if tab borrower is completed or not", function() {
       marital_status: "married",
       dependent_count: 0,
       current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          state: "CA",
+          zip: "94103"
+        },
         is_rental: true,
         years_at_address: 5,
         monthly_rent: 1000
@@ -77,6 +95,12 @@ describe("check if tab borrower is completed or not", function() {
       marital_status: "married",
       dependent_count: 0,
       current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          state: "CA",
+          zip: "94103"
+        },
         is_rental: false,
         years_at_address: 5
       }
@@ -91,6 +115,12 @@ describe("check if tab borrower is completed or not", function() {
       marital_status: "married",
       dependent_count: 0,
       current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          state: "CA",
+          zip: "94103"
+        },
         is_rental: false,
         years_at_address: 5
       }
@@ -109,6 +139,12 @@ describe("check if tab borrower is completed or not", function() {
       dependent_count: 2,
       dependent_ages: [1, 2],
       current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          state: "CA",
+          zip: "94103"
+        },
         is_rental: false,
         years_at_address: 5
       }
@@ -124,6 +160,12 @@ describe("check if tab borrower is completed or not", function() {
       dependent_count: 2,
       dependent_ages: [1, 2],
       current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          state: "CA",
+          zip: "94103"
+        },
         is_rental: false,
         years_at_address: 5
       }
@@ -141,6 +183,12 @@ describe("check if tab borrower is completed or not", function() {
       marital_status: "married",
       dependent_count: 0,
       current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          state: "CA",
+          zip: "94103"
+        },
         is_rental: true,
         years_at_address: 5,
         monthly_rent: 1000
@@ -156,6 +204,12 @@ describe("check if tab borrower is completed or not", function() {
       marital_status: "married",
       dependent_count: 0,
       current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          state: "CA",
+          zip: "94103"
+        },
         is_rental: true,
         years_at_address: 5,
         monthly_rent: 1000
@@ -188,6 +242,12 @@ describe("check if tab borrower is completed or not", function() {
       dependent_count: 2,
       dependent_ages: [],
       current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          state: "CA",
+          zip: "94103"
+        },
         is_rental: false,
         years_at_address: 5
       }
@@ -205,6 +265,104 @@ describe("check if tab borrower is completed or not", function() {
       marital_status: "married",
       dependent_count: 0,
       current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          state: "CA",
+          zip: "94103"
+        },
+        is_rental: true,
+        years_at_address: 5,
+        monthly_rent: ""
+      }
+    }
+  };
+
+  var invalidStreetAddressBorrower = {
+    borrower: {
+      self_employed: false,
+      first_name: "Tang",
+      last_name: "Nguyen",
+      ssn: "123-12-1232",
+      dob: "24/12/1992",
+      years_in_school: 10,
+      marital_status: "married",
+      dependent_count: 0,
+      current_address: {
+        cached_address: {
+          city: "New York",
+          state: "CA",
+          zip: "94103"
+        },
+        is_rental: true,
+        years_at_address: 5,
+        monthly_rent: ""
+      }
+    }
+  };
+
+  var invalidCityAddressBorrower = {
+    borrower: {
+      self_employed: false,
+      first_name: "Tang",
+      last_name: "Nguyen",
+      ssn: "123-12-1232",
+      dob: "24/12/1992",
+      years_in_school: 10,
+      marital_status: "married",
+      dependent_count: 0,
+      current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          state: "CA",
+          zip: "94103"
+        },
+        is_rental: true,
+        years_at_address: 5,
+        monthly_rent: ""
+      }
+    }
+  };
+
+  var invalidStateAddressBorrower = {
+    borrower: {
+      self_employed: false,
+      first_name: "Tang",
+      last_name: "Nguyen",
+      ssn: "123-12-1232",
+      dob: "24/12/1992",
+      years_in_school: 10,
+      marital_status: "married",
+      dependent_count: 0,
+      current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          zip: "94103"
+        },
+        is_rental: true,
+        years_at_address: 5,
+        monthly_rent: ""
+      }
+    }
+  };
+
+  var invalidZipAddressBorrower = {
+    borrower: {
+      self_employed: false,
+      first_name: "Tang",
+      last_name: "Nguyen",
+      ssn: "123-12-1232",
+      dob: "24/12/1992",
+      years_in_school: 10,
+      marital_status: "married",
+      dependent_count: 0,
+      current_address: {
+        cached_address: {
+          street_address: "123 Silver Mecount",
+          city: "New York",
+          state: "CA"
+        },
         is_rental: true,
         years_at_address: 5,
         monthly_rent: ""
@@ -246,5 +404,21 @@ describe("check if tab borrower is completed or not", function() {
 
   it("returns false with invalid house rental borrower", function() {
     expect(subject.completed.apply(subject, [invalidHouseRentalBorrower])).toBe(false);
+  });
+
+  it("returns false with invalid street address borrower", function() {
+    expect(subject.completed.apply(subject, [invalidStreetAddressBorrower])).toBe(false);
+  });
+
+  it("returns false with invalid city address borrower", function() {
+    expect(subject.completed.apply(subject, [invalidCityAddressBorrower])).toBe(false);
+  });
+
+  it("returns false with invalid state address borrower", function() {
+    expect(subject.completed.apply(subject, [invalidStateAddressBorrower])).toBe(false);
+  });
+
+  it("returns false with invalid zip address borrower", function() {
+    expect(subject.completed.apply(subject, [invalidZipAddressBorrower])).toBe(false);
   });
 });

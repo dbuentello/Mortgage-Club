@@ -46,6 +46,8 @@ class Users::LoansController < Users::BaseController
   end
 
   def edit
+    return redirect_to action: :show if !@loan.new_loan?
+
     bootstrap({
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       liabilities: @liabilities,
@@ -59,6 +61,8 @@ class Users::LoansController < Users::BaseController
   end
 
   def show
+    return redirect_to action: :edit if @loan.new_loan?
+
     bootstrap({
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       liabilities: @liabilities,

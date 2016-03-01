@@ -1,17 +1,20 @@
 class CreatePropertyForm
   include ActiveModel::Model
 
-  attr_accessor :loan, :primary_property, :subject_property, :credit_report_id,
-                :primary_property_params, :subject_property_params, :rental_properties_params
+  attr_accessor :loan, :primary_property, :subject_property,
+                :credit_report_id, :primary_property_params,
+                :subject_property_params, :rental_properties_params,
+                :borrower_address
 
   def initialize(args)
     @loan = Loan.find_by_id(args[:loan_id])
     @primary_property = loan.primary_property
     @subject_property = loan.subject_property
-    @primary_property_params = args[:primary_property]
+    @primary_property_params = args[:primary_property].except(:address_attributes)
     @subject_property_params = args[:subject_property]
     @rental_properties_params = args[:rental_properties] || []
     @credit_report_id = args[:credit_report_id]
+    @borrower_address = args[:borrower_address]
   end
 
   # validates :loan_id, :properties, presence: true
@@ -22,7 +25,9 @@ class CreatePropertyForm
       update_rental_properties
       update_subject_property
       update_primary_property
+      update_borrower_address
     end
+
     true
   end
 
@@ -51,37 +56,62 @@ class CreatePropertyForm
 
   def update_primary_property
     return unless primary_property
-
     primary_property.update(property_params(primary_property_params))
+
+    primary_property.address.destroy if primary_property.address
     # primary_property.update_mortgage_payment_amount
     update_liabilities(primary_property, primary_property_params)
+  end
+
+  def update_borrower_address
+    return unless borrower_address
+    return unless borrower_address[:cached_address]
+
+    address = BorrowerAddress.find(borrower_address[:id]).address
+    address.update(
+      street_address: borrower_address[:cached_address][:street_address],
+      street_address2: borrower_address[:cached_address][:street_address2],
+      zip: borrower_address[:cached_address][:zip],
+      state: borrower_address[:cached_address][:state],
+      city: borrower_address[:cached_address][:city],
+      full_text: borrower_address[:cached_address][:full_text]
+    )
   end
 
   def update_liabilities(property, params)
     property.liabilities.update_all(property_id: nil)
     return if property_does_not_have_any_liabilities?(params)
+    update_mortgage_payment(property, params)
+    update_other_financing(property, params)
+  end
 
-    if new_mortgage_payment_liability?(params) || new_other_financing_liability?(params)
-      liability = create_other_liability(params)
+  def update_mortgage_payment(property, params)
+    return unless params[:mortgagePayment].present?
+    if new_mortgage_payment_liability?(params)
+      liability = create_new_liability(params[:other_mortgage_payment_amount], "Mortgage", credit_report_id)
     else
-      liability_id = params[:mortgagePayment].present? ? params[:mortgagePayment] : params[:otherFinancing]
-      liability = Liability.find(liability_id)
+      liability = Liability.find(params[:mortgagePayment])
     end
+
     link_liability_to_property(property.id, liability, "Mortgage")
   end
 
-  def create_other_liability(params)
-    if new_mortgage_payment_liability?(params)
-      payment_amount = params[:other_mortgage_payment_amount]
-      account_type = "Mortgage"
+  def update_other_financing(property, params)
+    return unless params[:otherFinancing].present?
+
+    if params[:otherFinancing] == "OtherFinancing"
+      other_liability = create_new_liability(params[:other_financing_amount], "OtherFinancing", credit_report_id)
     else
-      payment_amount = params[:other_financing_amount]
-      account_type = "OtherFinancing"
+      other_liability = Liability.find(params[:otherFinancing])
     end
 
-    Liability.create(
-      payment: payment_amount,
-      account_type: account_type,
+    link_liability_to_property(property.id, other_liability, "OtherFinancing")
+  end
+
+  def create_new_liability(amount, type, credit_report_id)
+     Liability.create(
+      payment: amount,
+      account_type: type,
       credit_report_id: credit_report_id,
       user_input: true
     )
