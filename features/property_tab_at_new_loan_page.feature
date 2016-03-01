@@ -5,7 +5,7 @@ Feature: PropertyTabAtNewLoanPage
       And I should see "Property"
       Then I click link with div "#tabProperty a"
         And I clear value in "Property Address"
-      Then I fill in "Property Address" with "1921 South Las Vegas"
+      Then I fill in "Property Address" with "1920 South Las Vegas Boulevard, Las Vegas"
       And I wait for 1 seconds
         And I select "Vacation Home" from "Property Will Be"
         And I clear value in "Estimated Rental Income"
