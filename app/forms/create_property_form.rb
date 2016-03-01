@@ -81,28 +81,37 @@ class CreatePropertyForm
   def update_liabilities(property, params)
     property.liabilities.update_all(property_id: nil)
     return if property_does_not_have_any_liabilities?(params)
+    update_mortgage_payment(property, params)
+    update_other_financing(property, params)
+  end
 
-    if new_mortgage_payment_liability?(params) || new_other_financing_liability?(params)
-      liability = create_other_liability(params)
+  def update_mortgage_payment(property, params)
+    return unless params[:mortgagePayment].present?
+    if new_mortgage_payment_liability?(params)
+      liability = create_new_liability(params[:other_mortgage_payment_amount], "Mortgage", credit_report_id)
     else
-      liability_id = params[:mortgagePayment].present? ? params[:mortgagePayment] : params[:otherFinancing]
-      liability = Liability.find(liability_id)
+      liability = Liability.find(params[:mortgagePayment])
     end
+
     link_liability_to_property(property.id, liability, "Mortgage")
   end
 
-  def create_other_liability(params)
-    if new_mortgage_payment_liability?(params)
-      payment_amount = params[:other_mortgage_payment_amount]
-      account_type = "Mortgage"
+  def update_other_financing(property, params)
+    return unless params[:otherFinancing].present?
+
+    if params[:otherFinancing] == "OtherFinancing"
+      other_liability = create_new_liability(params[:other_financing_amount], "OtherFinancing", credit_report_id)
     else
-      payment_amount = params[:other_financing_amount]
-      account_type = "OtherFinancing"
+      other_liability = Liability.find(params[:otherFinancing])
     end
 
-    Liability.create(
-      payment: payment_amount,
-      account_type: account_type,
+    link_liability_to_property(property.id, other_liability, "OtherFinancing")
+  end
+
+  def create_new_liability(amount, type, credit_report_id)
+     Liability.create(
+      payment: amount,
+      account_type: type,
       credit_report_id: credit_report_id,
       user_input: true
     )

@@ -353,15 +353,12 @@ var FormAssetsAndLiabilities = React.createClass({
 
     var states = this.getStateOfInvalidFields(fields);
 
-
-
     if(!_.isEmpty(states)) {
       _.each(states, function(value, key) {
         property[key] = true;
       });
       allFieldsAreOK = false;
     }
-
     return allFieldsAreOK;
   },
 
@@ -484,17 +481,16 @@ var FormAssetsAndLiabilities = React.createClass({
             borrower_address: borrower_address
           },
           success: function(response) {
+            this.props.bootstrapData.liabilities = response.liabilities;
             if (this.loanIsCompleted(response.loan)) {
               this.props.goToAllDonePage(response.loan);
             }
             else {
               this.props.setupMenu(response, 5);
-              this.props.bootstrapData.liabilities = response.liabilities;
             }
           }.bind(this),
           error: function(response, status, error) {
             this.setState({saving: false});
-            // this.setState({saving: false});
           }
         });
       },
