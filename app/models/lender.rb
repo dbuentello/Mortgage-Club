@@ -90,7 +90,9 @@ class Lender < ActiveRecord::Base
       docs_email: "docs@dummy.com",
       contact_email: "support@dummy.com",
       contact_name: "John Doe",
-      contact_phone: "01-1234-678"
+      contact_phone: "01-1234-678",
+      nmls: "123456789",
+      logo: File.new("#{Rails.root}/public/mortgageclubLOGO.png")
     )
   end
 
