@@ -49,7 +49,17 @@ class BorrowerForm
   def create_primary_property
     return if loan.primary_property.present?
 
-    Property.create(loan: loan, is_primary: true, usage: "primary_residence")
+    if loan_refinance_and_borrower_subject_same_address?
+      subject_property = loan.subject_property
+
+      Property.create(loan: loan, is_primary: true, usage: "primary_residence",
+        property_type: subject_property.property_type, market_price: subject_property.market_price,
+        mortgage_includes_escrows: subject_property.mortgage_includes_escrows,
+        estimated_property_tax: subject_property.estimated_property_tax,
+        estimated_hazard_insurance: subject_property.estimated_hazard_insurance)
+    else
+      Property.create(loan: loan, is_primary: true, usage: "primary_residence")
+    end
   end
 
   def unset_primary_property
@@ -67,6 +77,19 @@ class BorrowerForm
 
   def borrower_rents_house?
     current_borrower_address.is_rental
+  end
+
+  def loan_refinance_and_borrower_subject_same_address?
+    subject_property_address = loan.subject_property.address
+
+    return true if current_address.city == subject_property_address.city &&
+                  current_address.state == subject_property_address.state &&
+                  current_address.street_address == subject_property_address.street_address &&
+                  current_address.street_address2 == subject_property_address.street_address2 &&
+                  current_address.zip == subject_property_address.zip &&
+                  loan.refinance?
+
+    false
   end
 
   def validate_attributes
@@ -87,7 +110,7 @@ class BorrowerForm
 
   def current_address
     @current_address ||= begin
-       borrower.current_address.present? ? borrower.current_address.address : Address.new
+      borrower.current_address.present? ? borrower.current_address.address : Address.new
     end
   end
 

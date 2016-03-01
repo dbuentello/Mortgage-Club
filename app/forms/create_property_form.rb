@@ -10,7 +10,7 @@ class CreatePropertyForm
     @loan = Loan.find_by_id(args[:loan_id])
     @primary_property = loan.primary_property
     @subject_property = loan.subject_property
-    @primary_property_params = args[:primary_property].except(:address_attributes)
+    @primary_property_params = args[:primary_property].except(:address_attributes) if args[:primary_property].present?
     @subject_property_params = args[:subject_property]
     @rental_properties_params = args[:rental_properties] || []
     @credit_report_id = args[:credit_report_id]

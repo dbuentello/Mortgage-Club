@@ -348,14 +348,15 @@ var FormAssetsAndLiabilities = React.createClass({
 
   copyProperty: function(srcProp, desProp){
     var address = desProp.address;
-    address.city = srcProp.city;
-    address.full_text = srcProp.full_text;
-    address.state = srcProp.state;
-    address.zip = srcProp.zip;
-    address.street_address = srcProp.street_address;
-    address.street_address2 = srcProp.street_address2;
+    address.city = srcProp.address.city;
+    address.full_text = srcProp.address.full_text;
+    address.state = srcProp.address.state;
+    address.zip = srcProp.address.zip;
+    address.street_address = srcProp.address.street_address;
+    address.street_address2 = srcProp.address.street_address2;
 
     desProp.address_attributes = address;
+    desProp.address = address;
     desProp.market_price = this.currencyToNumber(srcProp.market_price);
     desProp.other_mortgage_payment_amount = this.currencyToNumber(srcProp.other_mortgage_payment_amount);
     desProp.other_financing_amount = this.currencyToNumber(srcProp.other_financing_amount);
