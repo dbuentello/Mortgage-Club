@@ -42,7 +42,7 @@ module Docusign
                 y_position: "466",
                 document_id: "1",
                 fontSize: "size9",
-                fontColor:"black",
+                fontColor: "black",
                 bold: "false",
                 italic: "false",
                 underline: "false"
