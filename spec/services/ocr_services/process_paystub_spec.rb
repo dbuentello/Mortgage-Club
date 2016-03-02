@@ -1,11 +1,12 @@
 require "rails_helper"
 
 describe OcrServices::ProcessPaystub do
+
   let(:borrower) { FactoryGirl.create(:borrower) }
   let(:ocr_with_first_document) { FactoryGirl.create(:ocr_with_first_document) }
 
-  it "calls ParseXmlFile service" do
-    expect(OcrServices::ParseXmlFile).to receive(:call).and_return({})
+  it "calls ParsePaystubFile service" do
+    expect(OcrServices::ParsePaystubFile).to receive(:call).and_return({})
     OcrServices::ProcessPaystub.call(nil)
   end
 
@@ -21,7 +22,7 @@ describe OcrServices::ProcessPaystub do
     let(:ocr) { FactoryGirl.create(:ocr_with_full_data) }
 
     before(:each) do
-      allow(OcrServices::ParseXmlFile).to receive(:call).and_return({
+      allow(OcrServices::ParsePaystubFile).to receive(:call).and_return({
         borrower_id: borrower.id
       })
       allow_any_instance_of(OcrServices::UpdatePaystubOcr).to receive(:call).and_return(ocr)

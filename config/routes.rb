@@ -166,7 +166,7 @@ Rails.application.routes.draw do
     end
 
     resources :loan_members_titles
-
+    resources :settings, only: [:index, :update]
     resources :borrower_managements, only: [:index] do
       member do
         get "switch"

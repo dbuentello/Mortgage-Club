@@ -20,7 +20,7 @@
 //= require admin/plugins/forms/selects/bootstrap_select.min
 //= require admin/core/app
 //= require admin/pages/form_bootstrap_select
-
+//= require admin/plugins/forms/styling/switch.min
 // Important to import jquery_ujs before bundle_AdminApp as that patches jquery xhr to use the authenticity token!
 
 //= require build/bundle_AdminApp
