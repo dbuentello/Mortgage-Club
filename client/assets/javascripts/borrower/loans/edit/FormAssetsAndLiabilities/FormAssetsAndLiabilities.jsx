@@ -257,7 +257,13 @@ var FormAssetsAndLiabilities = React.createClass({
           }
           <div className="form-group">
             <div className="col-md-12">
-              <button disabled={this.props.editMode ? null : "disabled"} className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              {
+                this.props.editMode
+                ?
+                  <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                :
+                  <button className="btn theBtn text-uppercase" id="nextBtn" onClick={this.next}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              }
             </div>
           </div>
         </form>
@@ -420,6 +426,11 @@ var FormAssetsAndLiabilities = React.createClass({
     var top = offset === undefined ? 0 : offset.top;
     $('html, body').animate({scrollTop: top}, 1000);
     this.setState({isValid: true});
+  },
+
+  next: function(event){
+    this.props.next(6);
+    event.preventDefault();
   },
 
   save: function(event) {

@@ -339,6 +339,37 @@
   }
 }
 
+#nextBtn {
+  background:#00bd9c;
+  color: #ffffff;
+  height:50px;
+  border-color:#00bd9c;
+  width:230px;
+  float:left;
+  font-size: 14px;
+  margin-top: 20px;
+  img {
+    position:relative;
+    margin-top:6px;
+    filter:brightness(0) invert(1);
+    -webkit-filter:brightness(0) invert(1);
+    border:none; right:-10px;
+    margin-right:10px;
+  }
+}
+
+#nextBtn:hover {
+  background: #ffffff;
+  color:#00bd9c;
+
+  img {
+    filter:brightness(100%) invert(0);
+    -webkit-filter:brightness(100%) invert(0);
+    animation:loginAnim 2s infinite;
+    -webkit-animation:loginAnim 2s infinite;
+  }
+}
+
 .boolean-div {
   width:5px;
   height:5px;
