@@ -8,7 +8,7 @@ var TermTab = React.createClass({
     return (
       <div className="term-board">
         <h1> Your Final Loan Terms </h1>
-        <span> Your Loan Summary: <span>
+        <span> Your Loan Summary: </span>
         <div className="table-responsive">
           <table className="table table-striped term-table">
             <tbody>
