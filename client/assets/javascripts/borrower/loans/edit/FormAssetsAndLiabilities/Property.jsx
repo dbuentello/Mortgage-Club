@@ -300,7 +300,7 @@ var Property = React.createClass({
           </div>
         </div>
         {
-          this.props.isPurchase == true
+          this.props.isPurchase == true && (this.state.property.is_primary == true || this.state.property.is_subject == true)
           ?
             null
           :
