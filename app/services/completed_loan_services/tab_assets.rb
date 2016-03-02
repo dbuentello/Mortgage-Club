@@ -75,7 +75,12 @@ module CompletedLoanServices
       return false if loan_refinance && property.mortgage_includes_escrows.nil?
       return false unless property.estimated_property_tax.present?
       return false unless property.estimated_hazard_insurance.present?
-      return false if is_rental && property.gross_rental_income.nil?
+
+      if is_rental
+        return false if property.mortgage_includes_escrows.nil?
+        return false if property.gross_rental_income.nil?
+      end
+
       true
     end
 

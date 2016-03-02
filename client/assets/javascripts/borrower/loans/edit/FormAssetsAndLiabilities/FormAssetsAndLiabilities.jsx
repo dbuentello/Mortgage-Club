@@ -344,7 +344,7 @@ var FormAssetsAndLiabilities = React.createClass({
       marketPriceError: {value: this.formatCurrency(property.market_price), validationTypes: ["currency"]},
     };
 
-    if(this.props.loan.purpose != "purchase")
+    if(this.props.loan.purpose != "purchase" || (property.is_primary == false && property.is_subject == false))
       fields.mortgageIncludesEscrowsError = {value: this.formatCurrency(property.mortgage_includes_escrows), validationTypes: ["currency"]};
     if(property.other_mortgage_payment_amount)
       fields.otherMortgagePaymentAmountError = {value: this.formatCurrency(property.other_mortgage_payment_amount), validationTypes: ["currency"]};
