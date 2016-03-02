@@ -60,7 +60,6 @@ var Loans = React.createClass({
                 </thead>
                 <tbody>
 
-
                   {
                     _.map(this.props.bootstrapData.loans, function(loan) {
                       return (
@@ -68,7 +67,7 @@ var Loans = React.createClass({
                           <td>{loan.user.to_s}</td>
                           <td>{loan.user.email}</td>
                           <td>
-                            <select className={"loan" +loan.id} data-loanId={loan.id} onChange={this.handleLoanChanged}>
+                            <select className={"loan" +loan.id + " loan-status"} data-loanId={loan.id} onChange={this.handleLoanChanged}>
                               {
                                 _.map(this.props.bootstrapData.loan_statuses, function(status){
                                   var statusValue = status[0];
@@ -83,7 +82,6 @@ var Loans = React.createClass({
                               }
                             </select>
 
-
                             {
                               this.state.activeId == loan.id
                               ?
@@ -94,8 +92,6 @@ var Loans = React.createClass({
                               :
                               null
                             }
-
-
 
 
                           </td>
