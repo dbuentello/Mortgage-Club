@@ -7,6 +7,7 @@ class Users::DashboardController < Users::BaseController
     property = @loan.subject_property
     closing = @loan.closing || Closing.create(name: 'Closing', loan_id: @loan.id)
     loan_activities = @loan.loan_activities.includes(loan_member: :user).recent_loan_activities(10)
+    term_info = "Term information"
 
     bootstrap(
       loan: LoanDashboardPage::LoanPresenter.new(@loan).show,
@@ -19,7 +20,8 @@ class Users::DashboardController < Users::BaseController
       closing_documents: LoanDashboardPage::DocumentsPresenter.new(closing.documents).show,
       property_documents: LoanDashboardPage::DocumentsPresenter.new(property.documents).show,
       loan_documents: LoanDashboardPage::DocumentsPresenter.new(@loan.documents).show,
-      faqs_list: LoanDashboardPage::FaqsPresenter.new(Faq.all).show
+      faqs_list: LoanDashboardPage::FaqsPresenter.new(Faq.all).show,
+      term_info: term_info
     )
 
     respond_to do |format|

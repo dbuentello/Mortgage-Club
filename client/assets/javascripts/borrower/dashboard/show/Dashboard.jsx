@@ -12,6 +12,7 @@ var ContactTab = require('./tabs/ContactTab');
 var PropertyTab = require('./tabs/PropertyTab');
 var LoanTab = require('./tabs/LoanTab');
 var ClosingTab = require('./tabs/ClosingTab');
+var TermTab = require('./tabs/TermTab');
 var RelationshipManager = require('./RelationshipManager');
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
@@ -61,6 +62,7 @@ var Dashboard = React.createClass({
     var closingDocuments = this.props.bootstrapData.closing_documents;
     var manager = this.props.bootstrapData.manager;
     var checklists = this.props.bootstrapData.checklists;
+    var termInfo = this.props.bootstrapData.term_info
 
     return (
       <div className="content loan-dashboard">
@@ -128,6 +130,9 @@ var Dashboard = React.createClass({
               <li role="presentation">
                 <a href="#contacts" aria-controls="contacts" role="tab" data-toggle="tab">Contacts</a>
               </li>
+              <li role="presentation">
+                <a href="#terms" aria-controls="terms" role="tab" data-toggle="tab">Terms</a>
+              </li>
             </ul>
           </div>
 
@@ -151,6 +156,9 @@ var Dashboard = React.createClass({
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="contacts">
                   <ContactTab contactList={contactList}></ContactTab>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="terms">
+                  <TermTab termInfo={termInfo}></TermTab>
                 </div>
               </div>
             </div>

@@ -101,14 +101,14 @@ a.remove {
   padding-top: 7px;
   padding-bottom: 7px;
 }
-.loan-dashboard {
-  padding-top: 0px !important;
-}
+
 
 .padding-top-10{
   padding-top: 10px;
 }
+/* Loan dashboard */
 .loan-dashboard {
+  padding-top: 0px !important;
   .dashboard-top {
     padding-top: 31px;
     padding-bottom: 25px;
@@ -171,6 +171,12 @@ a.remove {
     color: #15c0f1 !important;
     font-size: 16px !important;
   }
+  table.table.table-striped.term-table tr:nth-child(odd) td {
+    background-color:#fff;
+  }
+  table.table.table-striped.term-table tr:nth-child(even) td {
+    background-color:#f8f8f8;
+  }
 
   .mortgageTabs {
     margin-top: 20px;
@@ -178,7 +184,7 @@ a.remove {
 
     li a {
       padding: 14px auto;
-      width: 120px;
+      width: 100px;
       text-align: center;
       color: #b7b7b7;
     }
@@ -225,6 +231,7 @@ a.remove {
       padding-bottom: 14px;
     }
   }
+
   .overviewTab {
 
     .sign-board {
@@ -306,6 +313,7 @@ a.remove {
       }
     }
   }
+
   .table > thead > tr > th{
       border-bottom: none;
   }
@@ -414,6 +422,7 @@ a.remove {
       border-top: none;
     }
   }
+
 }
 .editLoan {
   .tooltip > .tooltip-inner {
