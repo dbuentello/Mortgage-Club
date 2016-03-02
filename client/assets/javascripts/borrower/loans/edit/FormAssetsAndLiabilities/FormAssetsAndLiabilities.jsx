@@ -344,7 +344,7 @@ var FormAssetsAndLiabilities = React.createClass({
       marketPriceError: {value: this.formatCurrency(property.market_price), validationTypes: ["currency"]},
     };
 
-    if(this.props.loan.purpose != "purchase" || (property.is_primary == false && property.is_subject == false))
+    if(this.props.loan.purpose != "purchase" || (property.is_primary != true && property.is_subject != true))
       fields.mortgageIncludesEscrowsError = {value: this.formatCurrency(property.mortgage_includes_escrows), validationTypes: ["currency"]};
     if(property.other_mortgage_payment_amount)
       fields.otherMortgagePaymentAmountError = {value: this.formatCurrency(property.other_mortgage_payment_amount), validationTypes: ["currency"]};
@@ -354,7 +354,7 @@ var FormAssetsAndLiabilities = React.createClass({
       fields.estimatedMortgageInsuranceError = {value: this.formatCurrency(property.estimated_mortgage_insurance), validationTypes: ["currency"]};
     if(property.hoa_due)
       fields.hoaDueError = {value: this.formatCurrency(property.hoa_due), validationTypes: ["currency"]};
-    if(property.usage != "primary_residence" && property.is_primary == false && property.is_subject == false)
+    if(property.usage != "primary_residence" && property.is_primary != true && property.is_subject != true)
       fields.grossRentalIncomeError = {value: this.formatCurrency(property.gross_rental_income), validationTypes: ["currency"]}
 
     var states = this.getStateOfInvalidFields(fields);
