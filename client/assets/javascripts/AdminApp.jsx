@@ -18,7 +18,6 @@ var EditLoanMembersTitle = require("admin/loan_members_titles/EditPage");
 
 var SettingManagements = require("admin/setting_managements/Managements");
 
-
 var LoanFaqManagements = require("admin/faq_managements/Managements");
 var EditFaqPage = require("admin/faq_managements/EditPage");
 

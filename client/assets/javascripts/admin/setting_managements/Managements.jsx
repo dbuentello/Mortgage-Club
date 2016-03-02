@@ -30,11 +30,8 @@ var Managements = React.createClass({
          }.bind(this)
      });
   },
-
-
   render: function() {
     var url = '/setting/';
-
     return (
       <div>
           {/* Page header */ }
@@ -61,11 +58,9 @@ var Managements = React.createClass({
                 <div className="panel-heading">
                   <h5 className="panel-setting">setting</h5>
                   <div className="heading-elements">
-
                   </div>
                 </div>
                 <div className="panel-body">
-
                 </div>
                 <div className="table-responsive">
                   <table className="table table-striped table-hover">
@@ -92,7 +87,6 @@ var Managements = React.createClass({
               </div>
               {/* /table */ }
 
-
             </div>
             {/* /main content */ }
 
@@ -104,7 +98,6 @@ var Managements = React.createClass({
       </div>
     )
   }
-
 });
 
 module.exports = Managements;

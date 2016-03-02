@@ -23,10 +23,6 @@ class Admins::SettingsController < Admins::BaseController
     end
   end
 
-
-
-
-
   private
 
   def setting_params
