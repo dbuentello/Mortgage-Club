@@ -42,7 +42,7 @@ var LoanInterface = React.createClass({
   render: function() {
     var activeItem = this.state.active;
 
-    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} editMode={this.state.is_edit_mode} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} setupMenu={this.setupMenu} goToAllDonePage={this.goToAllDonePage} updateDocuments={this.updateDocuments}/>;
+    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} editMode={this.state.is_edit_mode} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} next={this.next} setupMenu={this.setupMenu} goToAllDonePage={this.goToAllDonePage} updateDocuments={this.updateDocuments}/>;
 
     return (
       <div className="content accountPart editLoan">
@@ -223,7 +223,14 @@ var LoanInterface = React.createClass({
       }
     });
   },
+  next: function(step, last_step){
+    if(last_step === true)
+      location.href = "/my/dashboard/" + this.state.loan.id;
 
+    this.setState({
+      active: this.state.menu[step]
+    });
+  },
   autosave: function(loan, step) {
     $.ajax({
       url: "/loans/" + this.state.loan.id,

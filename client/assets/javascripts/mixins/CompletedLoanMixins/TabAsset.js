@@ -78,9 +78,14 @@ var TabAsset = {
       return false;
     }
 
-    if(isRental == true && property.gross_rental_income == null)
-    {
-      return false;
+    if(isRental){
+      if(property.mortgage_includes_escrows == null){
+        return false;
+      }
+
+      if(property.gross_rental_income == null){
+        return false;
+      }
     }
 
     if(property.is_primary === true){
@@ -97,7 +102,9 @@ var TabAsset = {
   },
 
   addressCompleted: function(address, isRental) {
-    if(address == null || address == undefined) { return false; }
+    if(address == null || address == undefined) {
+      return false;
+    }
 
     if(isRental){
       if(address.street_address == null && address.city == null && address.state == null && address.zip == null)

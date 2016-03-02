@@ -46,6 +46,10 @@ var Dashboard = React.createClass({
     });
   },
 
+  viewLoan: function(){
+    location.href = '/loans/' + this.props.bootstrapData.loan.id;
+  },
+
   render: function() {
     var address = this.props.bootstrapData.address;
     var loan    = this.props.bootstrapData.loan;
@@ -81,7 +85,18 @@ var Dashboard = React.createClass({
               <p>Status: {loan.pretty_status}</p>
             </div>
             <div className='col-md-3'>
-              <a className='btn edit-btn' href={'/loans/' + loan.id}><i className="iconInfo mrs"/>View</a>
+              <ModalLink
+                id="viewLoan"
+                icon="iconInfo mrs"
+                name="View"
+                title={null}
+                class="btn edit-btn"
+                bodyClass="mc-blue-primary-text"
+                body="You are about to view your application only. You cannot make any edits since it was already submitted."
+                labelNo="Cancel"
+                labelYes="Proceed"
+                yesCallback={this.viewLoan} />
+
               <ModalLink
                 id="deleteLoan"
                 icon="iconTrash mrs"
