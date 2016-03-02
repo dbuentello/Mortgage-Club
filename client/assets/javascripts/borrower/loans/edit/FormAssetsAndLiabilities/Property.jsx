@@ -67,6 +67,7 @@ var Property = React.createClass({
         // this.setState({selectedMortgageLiability: value});
         // this.props.keepTrackOfSelectedLiabilities(unSelectedLiability, value);
         this.setState({
+          setOtherMortgagePayment: false,
           otherFinancingLiabilities: this.reloadOtherFinancingLiabilities(value)
         });
       }
@@ -303,7 +304,7 @@ var Property = React.createClass({
           </div>
         </div>
         {
-          this.props.isPurchase == true
+          this.props.isPurchase == true && (this.state.property.is_primary == true || this.state.property.is_subject == true)
           ?
             null
           :

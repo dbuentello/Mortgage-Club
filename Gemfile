@@ -108,7 +108,9 @@ gem 'fuzzy-string-match'
 
 gem 'puma'
 
-gem "devise-async"
+gem 'devise-async'
+
+gem 'pdf-forms'
 
 group :development do
   # just run bundle exec erd

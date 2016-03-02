@@ -259,7 +259,13 @@ var FormAssetsAndLiabilities = React.createClass({
           }
           <div className="form-group">
             <div className="col-md-12">
-              <button disabled={this.props.editMode ? null : "disabled"} className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              {
+                this.props.editMode
+                ?
+                  <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                :
+                  <button className="btn theBtn text-uppercase" id="nextBtn" onClick={this.next}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              }
             </div>
           </div>
         </form>
@@ -382,7 +388,7 @@ var FormAssetsAndLiabilities = React.createClass({
       marketPriceError: {value: this.formatCurrency(property.market_price), validationTypes: ["currency"]},
     };
 
-    if(this.props.loan.purpose != "purchase")
+    if(this.props.loan.purpose != "purchase" || (property.is_primary == false && property.is_subject == false))
       fields.mortgageIncludesEscrowsError = {value: this.formatCurrency(property.mortgage_includes_escrows), validationTypes: ["currency"]};
     if(property.other_mortgage_payment_amount)
       fields.otherMortgagePaymentAmountError = {value: this.formatCurrency(property.other_mortgage_payment_amount), validationTypes: ["currency"]};
@@ -468,6 +474,11 @@ var FormAssetsAndLiabilities = React.createClass({
 
   addressChange: function(){
     this.forceUpdate();
+  },
+
+  next: function(event){
+    this.props.next(6);
+    event.preventDefault();
   },
 
   save: function(event) {

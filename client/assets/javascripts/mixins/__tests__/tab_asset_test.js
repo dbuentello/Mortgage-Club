@@ -89,6 +89,88 @@ describe("check if tab asset is completed or not", function() {
     }
   };
 
+  var otherPropertiesWithEscrowNil = {
+    subject_property: {
+      id: "lorem",
+      property_type: Math.floor(Math.random() * propertyTypes.length),
+      usage: 0,
+      market_price: 12233232,
+      mortgage_includes_escrows: 32232,
+      estimated_property_tax: 323223,
+      estimated_hazard_insurance: 223233,
+      is_subject: true,
+      address: {
+        street_address: "Lorem ipsum",
+        city: "Lorem ipsum",
+        state: "Lorem ipsum",
+        street_address2: "Lorem ipsum",
+        zip: "12345"
+      }
+    },
+    primary_property: {
+      id: "ipsum",
+      property_type: Math.floor(Math.random() * propertyTypes.length),
+      usage: 0,
+      market_price: 12233232,
+      mortgage_includes_escrows: 32232,
+      estimated_property_tax: 323223,
+      estimated_hazard_insurance: 223233,
+      is_primary: true
+    },
+    own_investment_property: true,
+    rental_properties: [
+      {
+        property_type: Math.floor(Math.random() * propertyTypes.length),
+        usage: 2,
+        market_price: 12233232,
+        estimated_property_tax: 323223,
+        estimated_hazard_insurance: 223233,
+        gross_rental_income: 213213,
+        is_rental: true,
+        address: {
+          street_address: "Lorem ipsum",
+          city: "Lorem ipsum",
+          state: "Lorem ipsum",
+          street_address2: "Lorem ipsum",
+          zip: "12345"
+        }
+      },
+      {
+        property_type: Math.floor(Math.random() * propertyTypes.length),
+        usage: 2,
+        market_price: 12233232,
+        mortgage_includes_escrows: 32232,
+        estimated_property_tax: 323223,
+        estimated_hazard_insurance: 223233,
+        gross_rental_income: 213213,
+        is_rental: true,
+        address: {
+          street_address: "Lorem ipsum",
+          city: "Lorem ipsum",
+          state: "Lorem ipsum",
+          street_address2: "Lorem ipsum",
+          zip: "12345"
+        }
+      }
+    ],
+    borrower: {
+      current_address: {
+        cached_address: {
+          street_address: "Lorem ipsum",
+          city: "Lorem ipsum",
+          state: "Lorem ipsum",
+          street_address2: "Lorem ipsum",
+          zip: "12345"
+        }
+      },
+      assets: [
+        {institution_name: "Lorem Ipsum", asset_type: Math.floor(Math.random() * assetTypes.length), current_balance: 3322332},
+        {institution_name: "Lorem Ipsum", asset_type: Math.floor(Math.random() * assetTypes.length), current_balance: 3322332},
+        {institution_name: "Lorem Ipsum", asset_type: Math.floor(Math.random() * assetTypes.length), current_balance: 3322332}
+      ]
+    }
+  };
+
   var assetHasInvalidSubjectProperty = {
     subject_property: {
       id: "lorem",
@@ -422,5 +504,9 @@ describe("check if tab asset is completed or not", function() {
 
   it("returns false with invalid borrower address", function() {
     expect(subject.assetCompleted.apply(subject, [invalidBorrowerAddress])).toBe(false);
+  });
+
+  it("returns false with invalid escrow of other properties", function(){
+    expect(subject.assetCompleted.apply(subject, [otherPropertiesWithEscrowNil])).toBe(false);
   });
 });

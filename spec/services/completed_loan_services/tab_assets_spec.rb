@@ -99,6 +99,18 @@ describe CompletedLoanServices::TabAssets do
       @service.rental_properties.first.property_type = nil
       expect(@service.rental_properties_completed?).to be_falsey
     end
+
+    it "returns false with escrow nil" do
+      @service.own_investment_property = true
+      @service.rental_properties.first.mortgage_includes_escrows = nil
+      expect(@service.rental_properties_completed?).to be_falsey
+    end
+
+    it "returns false with rental income nil" do
+      @service.own_investment_property = true
+      @service.rental_properties.first.gross_rental_income = nil
+      expect(@service.rental_properties_completed?).to be_falsey
+    end
   end
 
   describe "checks subject property completed" do

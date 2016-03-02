@@ -9,12 +9,13 @@ Feature: Dashboard
   Scenario: view loan in view mode
     When I am at dashboard page
       And I click on "View"
+      And I press "Proceed" in the modal "viewLoan"
       Then I click "Property"
         And I should see "Property Address"
         And I should not see "I am applying"
-        And I click on "Save and Continue"
-        And I should see "Property Address"
-        And I should not see "I am applying"
+        And I click on "Next"
+        And I should see "I am applying"
+        And I should not see "Property Address"
 
   @javascript
   Scenario: display borrower's address and loan's title
