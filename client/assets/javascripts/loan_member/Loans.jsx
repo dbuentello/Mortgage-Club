@@ -6,6 +6,36 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var Loans = React.createClass({
   mixins: [FlashHandler, TextFormatMixin],
+  getInitialState: function() {
+    return ({
+    });
+  },
+
+  handleLoanChanged: function(event) {
+    var loan = $(event.currentTarget.classList)[0];
+    loan = loan.substring(4, loan.length);
+    this.setState({activeId: loan})
+  },
+
+  updateLoan: function(event) {
+    var loan = $(event.currentTarget.classList)[0];
+    loan = loan.substring(6, loan.length);
+    var statusValue = $(".loan"+loan).val();
+    $.ajax({
+      url: "/loan_members/loans/"+loan,
+      method: "put",
+      dataType: "json",
+      data: {
+        status: statusValue
+      },
+      success: function(data) {
+        this.setState({activeId: null});
+      }.bind(this),
+      error: function(response) {
+
+      }
+    });
+  },
 
   render: function() {
     return (
@@ -31,7 +61,6 @@ var Loans = React.createClass({
                 <tbody>
 
 
-
                   {
                     _.map(this.props.bootstrapData.loans, function(loan) {
                       return (
@@ -39,11 +68,33 @@ var Loans = React.createClass({
                           <td>{loan.user.to_s}</td>
                           <td>{loan.user.email}</td>
                           <td>
+                            <select className={"loan" +loan.id} data-loanId={loan.id} onChange={this.handleLoanChanged}>
+                              {
+                                _.map(this.props.bootstrapData.loan_statuses, function(status){
+                                  var statusValue = status[0];
+                                  var statusLabel = status[1];
+                                  var isSelected = (statusValue === loan.status ? "selected" :null);
+                                  return (
+                                      <option value={statusValue} selected={statusValue === loan.status}>
+                                        { statusLabel }
+                                      </option>
+                                    )
+                                },this)
+                              }
+                            </select>
 
-                            {loan.status == "pending"
-                            ? <span className="label label-info">{loan.status}</span>
-                          : <span className="label label-success">{loan.status}</span>
-                          }
+
+                            {
+                              this.state.activeId == loan.id
+                              ?
+                              <span>
+                                <a onClick={this.updateLoan} className={"loanID"+loan.id + " btn-update-loan"}>
+                                  <i className="icon-floppy-disk"></i></a>
+                              </span>
+                              :
+                              null
+                            }
+
 
 
 
