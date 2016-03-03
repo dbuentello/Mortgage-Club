@@ -245,14 +245,14 @@ var Form = React.createClass({
               <button className="btn btn-primary" onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? 'Submitting' : 'Submit' }</button>
               &nbsp;
               { this.props.Member ?
-                <a className="btn btn-danger" data-toggle="modal" data-target="#removeUser" disabled={this.state.removing}>{ this.state.removing ? 'Removing' : 'Remove' }</a>
+                <a className="btn btn-danger" data-toggle="modal" data-target="#removeLoanMember" disabled={this.state.removing}>{ this.state.removing ? 'Removing' : 'Remove' }</a>
               : null
               }
             </div>
           </div>
         </form>
         <ModalLink
-          id="removeUser"
+          id="removeLoanMember"
           title="Confirmation"
           body="Are you sure to remove this user?"
           yesCallback={this.onRemove}>

@@ -6,7 +6,7 @@ describe Admins::LoanMemberManagementsController do
   describe "#create" do
     context "when valid params" do
       before do
-        @loan_member_params = { first_name: "Jon", last_name: "Smith",
+        @loan_member_params = {first_name: "Jon", last_name: "Smith",
           email: Faker::Internet.email, password: "secret-password",
           company_name: "Green Valley",
           company_address: "Sillicon Valley",
