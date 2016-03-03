@@ -9,7 +9,7 @@ var WhyPart = require("public/homepage/WhyPart");
 var BankPart = require("public/homepage/BankPart");
 var HomePart = require("public/homepage/HomePart");
 
-var RateAlert = require('public/RateAlert');
+var InitialQuotes = require('public/InitialQuotes/Form');
 
 var RefinancingAlert = React.createClass({
 
@@ -18,7 +18,7 @@ var RefinancingAlert = React.createClass({
       <div className="homepage">
         <HomePart bootstrapData={this.props.bootstrapData} ></HomePart>
         <BankPart></BankPart>
-        <RateAlert bootstrapData={this.props.bootstrapData}/>
+        <InitialQuotes bootstrapData={this.props.bootstrapData}/>
         <WhyPart> </WhyPart>
         <HowPart> </HowPart>
         <ClientPart> </ClientPart>
