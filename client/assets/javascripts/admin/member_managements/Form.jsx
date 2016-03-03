@@ -29,9 +29,14 @@ var Form = React.createClass({
         email: this.props.Member.user ? this.props.Member.user.email : '',
         firstName: this.props.Member.user.first_name,
         lastName: this.props.Member.user.last_name,
-        phoneNumber: this.props.Member.phone_number
+        phoneNumber: this.props.Member.phone_number,
+        nmlsId: this.props.Member.nmls_id,
+        companyName: this.props.Member.company_name,
+        companyAddress: this.props.Member.company_address,
+        companyPhoneNumber: this.props.Member.company_phone_number,
+        companyNmls: this.props.Member.company_nmls
       };
-    }else {
+    } else {
       return {};
     }
   },
@@ -57,6 +62,11 @@ var Form = React.createClass({
             first_name: response.loan_member.first_name,
             last_name: response.loan_member.last_name,
             phone_number: response.loan_member.phone_number,
+            nmls_id: response.loan_member.nmls_id,
+            company_name: response.loan_member.company_name,
+            company_address: response.loan_member.company_address,
+            company_phone_number: response.loan_member.company_phone_number,
+            company_nmls: response.loan_member.company_nmls,
             saving: false
           }
         );
@@ -155,6 +165,62 @@ var Form = React.createClass({
                 onChange={this.onChange}/>
             </div>
           </div>
+          <div className="form-group">
+            <div className="col-sm-4">
+              <TextField
+                label="Individual NMLS"
+                keyName="nmlsId"
+                name="loan_member[nmls_id]"
+                value={this.state.nmlsId}
+                editable={true}
+                onChange={this.onChange}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-4">
+              <TextField
+                label="Company Name"
+                keyName="companyName"
+                name="loan_member[company_name]"
+                value={this.state.companyName}
+                editable={true}
+                onChange={this.onChange}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-4">
+              <TextField
+                label="Company Address"
+                keyName="companyAddress"
+                name="loan_member[company_address]"
+                value={this.state.companyAddress}
+                editable={true}
+                onChange={this.onChange}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-4">
+              <TextField
+                label="Company Phone Number"
+                keyName="companyPhoneNumber"
+                name="loan_member[company_phone_number]"
+                value={this.state.companyPhoneNumber}
+                editable={true}
+                onChange={this.onChange}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-4">
+              <TextField
+                label="Company NMLS"
+                keyName="companyNmls"
+                name="loan_member[company_nmls]"
+                value={this.state.companyNmls}
+                editable={true}
+                onChange={this.onChange}/>
+            </div>
+          </div>
+
           {
             this.props.Member
             ?
@@ -168,6 +234,7 @@ var Form = React.createClass({
                   name="loan_member[password]"
                   value={this.state.password}
                   editable={true}
+                  password={true}
                   placeholder={"Minimum is 8 characters"}
                   onChange={this.onChange}/>
               </div>

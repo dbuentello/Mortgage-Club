@@ -91,7 +91,9 @@ var TextField = React.createClass({
         tooltip = this.props.tooltip,
         type = this.props.hidden == true ? "hidden" : "text",
         hasTooltip = tooltip.hasOwnProperty('text') && tooltip.hasOwnProperty('position');
-
+    if (this.props.password === true) {
+      type = "password";
+    }
     if (this.props.format == 'number') {
       displayText = this.commafy(this.props.value, this.props.decimals);
     } else if (this.props.format == 'currency') {
