@@ -24,6 +24,11 @@ class LoanMember < ActiveRecord::Base
   delegate :last_name, to: :user, allow_nil: true
 
   validates :user_id, presence: true
+  validates :nmls_id, presence: true
+  validates :company_nmls, presence: true
+  validates :company_name, presence: true
+  validates :company_address, presence: true
+  validates :company_phone_number, presence: true
 
   def handle_this_loan?(loan)
     loans_members_associations.where(loan_id: loan.id, loan_member_id: id).present?
