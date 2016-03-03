@@ -59,19 +59,3 @@ Feature: LoanMemberManagements
       And the "First Name" field should contain "Cuong"
       And the "Last Name" field should contain "Vu"
       And the "Phone Number" field should contain "8889998"
-
-  @javascript
-  Scenario: remove a member
-    Given there is a admin with the first name "Admin" and with the email "admin@man.net" and the password "secretpass" and the password confirmation "secretpass"
-      And there is a loans members association
-      And I login as "admin@man.net" with password "secretpass"
-    Then I should see "Admin"
-      And I click "Admin"
-      And I should see "Loan Members"
-    Then I click "Loan Members"
-      And I should see "Loan Members"
-      And I should see "Edit"
-      And I click on "Edit"
-    Then I click on "Remove" in the ".btn-danger"
-      And I click on "Yes" in the ".remove-loan-member"
-    Then I should be on the loan member managements page
