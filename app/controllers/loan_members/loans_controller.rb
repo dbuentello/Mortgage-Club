@@ -4,7 +4,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
 
     loan_statuses = Loan.statuses.map {|key,value| [key, key.titleize]}
     bootstrap(loans: LoanMembers::LoansPresenter.new(loans).show,
-      loan_statuses:loan_statuses
+      loan_statuses: loan_statuses
       )
     respond_to do |format|
       format.html { render template: 'loan_member_app' }
