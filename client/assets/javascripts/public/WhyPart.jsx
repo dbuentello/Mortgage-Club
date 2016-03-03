@@ -9,7 +9,7 @@ var WhyPart = React.createClass({
           <h1 className="text-uppercase white-header">Why us?</h1>
           <div className="row">
             <div className="col-lg-6 clearfix whyItem">
-              <%= image_tag("why1.png") %>
+              <img src="/why1.png" />
               <div className="bigNum">1</div>
               <div className="whyText">
                 <h6>Lowest Rate Guaranteed</h6>
@@ -18,7 +18,7 @@ var WhyPart = React.createClass({
             </div>
 
             <div className="col-lg-6 clearfix whyItem">
-              <%= image_tag("why2.png") %>
+              <img src="/why2.png" />
               <div className="bigNum">2</div>
               <div className="whyText">
                 <h6>Save Time</h6>
@@ -26,7 +26,7 @@ var WhyPart = React.createClass({
               </div>
             </div>
             <div className="col-lg-6 clearfix whyItem">
-              <%= image_tag("why3.png") %>
+              <img src="/why3.png" />
               <div className="bigNum">3</div>
               <div className="whyText">
                 <h6>Transparent</h6>
@@ -35,15 +35,15 @@ var WhyPart = React.createClass({
             </div>
 
             <div className="col-lg-6 clearfix whyItem">
-              <%= image_tag("why4.png") %>
+              <img src="/why4.png" />
               <div className="bigNum">4</div>
               <div className="whyText">
                 <h6>Personal Advice</h6>
                 <p>Your Relationship Manager  is compensated by salary and bonus based on customer satisfaction to remove commission bias.</p>
               </div>
             </div>
-                    <div className="col-lg-6 clearfix whyItem">
-              <%= image_tag("why5.png") %>
+            <div className="col-lg-6 clearfix whyItem">
+              <img src="/why5.png" />
               <div className="bigNum">5</div>
               <div className="whyText">
                 <h6>100% Secured</h6>
@@ -52,7 +52,7 @@ var WhyPart = React.createClass({
             </div>
 
             <div className="col-lg-6 clearfix whyItem">
-              <%= image_tag("why6.png") %>
+              <img src="/why6.png" />
               <div className="bigNum">6</div>
               <div className="whyText">
                 <h6>Always Select The Best Mortgage</h6>
@@ -60,13 +60,8 @@ var WhyPart = React.createClass({
               </div>
             </div>
           </div>
-
-
           </div>
       </div>
-
-
-
     );
   }
 });
