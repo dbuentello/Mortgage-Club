@@ -97,13 +97,13 @@ var Form = React.createClass({
         url: this.props.Url,
         method: 'DELETE',
         success: function(response) {
-          var flash = { "alert-success": response.message };
-          this.showFlashes(flash);
+          // var flash = { "alert-success": response.message };
+          // this.showFlashes(flash);
           location.href = '/loan_member_managements';
         }.bind(this),
         error: function(response, status, error) {
-          var flash = { "alert-danger": response.responseJSON.message };
-          this.showFlashes(flash);
+          // var flash = { "alert-danger": response.responseJSON.message };
+          // this.showFlashes(flash);
         }.bind(this)
       });
     }
@@ -255,8 +255,8 @@ var Form = React.createClass({
           id="removeUser"
           title="Confirmation"
           body="Are you sure to remove this user?"
-          yesCallback={this.onRemove}
-        />
+          yesCallback={this.onRemove}>
+        </ModalLink>
       </div>
     )
   }
