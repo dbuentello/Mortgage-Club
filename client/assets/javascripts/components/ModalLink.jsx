@@ -38,7 +38,7 @@ var ModalLink = React.createClass({
           null
         }
 
-        <div className="modal" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby={labelId}>
+        <div className="modal fade" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby={labelId}>
           <div className="modal-dialog modal-md" role="document">
             <div className="modal-content">
               <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>

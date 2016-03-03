@@ -89,6 +89,9 @@ var Form = React.createClass({
     });
   },
 
+  handleRemove: function() {
+    $("#removeLoanMember").modal();
+  },
   onRemove: function(event) {
     if(this.props.Member) {
       this.setState({removing: true});
@@ -245,18 +248,34 @@ var Form = React.createClass({
               <button className="btn btn-primary" onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? 'Submitting' : 'Submit' }</button>
               &nbsp;
               { this.props.Member ?
-                <a className="btn btn-danger" data-toggle="modal" data-target="#removeLoanMember" disabled={this.state.removing}>{ this.state.removing ? 'Removing' : 'Remove' }</a>
+                <a className="btn btn-danger" onClick={this.handleRemove} disabled={this.state.removing}>{ this.state.removing ? 'Removing' : 'Remove' }</a>
               : null
               }
             </div>
           </div>
         </form>
-        <ModalLink
-          id="removeLoanMember"
-          title="Confirmation"
-          body="Are you sure to remove this user?"
-          yesCallback={this.onRemove}>
-        </ModalLink>
+        <div className="modal fade" id="removeLoanMember" tabIndex="-1" role="dialog" aria-labelledby="Confirmation">
+          <div className="modal-dialog modal-md" role="document">
+            <div className="modal-content">
+              <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
+              <div className="modal-body text-center">
+
+                <h3 className={this.props.bodyClass}>Are you sure you want to delete this title ?</h3>
+
+                <form className="form-horizontal">
+                  <div className="form-group">
+                    <div className="col-md-6">
+                      <button type="button" className="btn btn-default" data-dismiss="modal">No</button>
+                    </div>
+                    <div className="col-md-6">
+                      <button type="button" className="btn theBtn" onClick={this.onRemove}>Yes</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
