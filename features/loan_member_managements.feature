@@ -73,5 +73,5 @@ Feature: LoanMemberManagements
       And I should see "Edit"
       And I click on "Edit"
     Then I click on "Remove" in the ".btn-danger"
-      And I press "Yes" in the modal "removeLoanMember"
+      And I click on "Yes" in the ".remove-loan-member"
     Then I should be on the loan member managements page

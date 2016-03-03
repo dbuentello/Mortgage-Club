@@ -268,7 +268,7 @@ var Form = React.createClass({
                       <button type="button" className="btn btn-default" data-dismiss="modal">No</button>
                     </div>
                     <div className="col-md-6">
-                      <button type="button" className="btn theBtn" onClick={this.onRemove}>Yes</button>
+                      <button type="button" className="btn theBtn remove-loan-member" onClick={this.onRemove}>Yes</button>
                     </div>
                   </div>
                 </form>
