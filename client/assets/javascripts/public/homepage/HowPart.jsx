@@ -60,7 +60,8 @@ var ClientPart = React.createClass({
               </div>
             </div>
             <div className="col-md-6 clearfix col-md-pull-6 howItem">
-              <img scr="/howFooterPic.png" />
+              <img src="/HowFooterPic.png" />
+              
             </div>
           </div>
         </div>
