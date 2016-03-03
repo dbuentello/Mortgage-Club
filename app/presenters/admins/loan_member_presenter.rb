@@ -11,7 +11,7 @@ class Admins::LoanMemberPresenter
 
   def json_options
     {
-      only: [:nmls_id, :company_name, :company_address, :company_phone_number, :company_nmls],
+      only: [:id, :nmls_id, :company_name, :company_address, :company_phone_number, :company_nmls],
       include: {
         user: {
           only: [:email, :first_name, :last_name],
