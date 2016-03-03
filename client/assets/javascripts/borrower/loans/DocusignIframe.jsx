@@ -33,9 +33,16 @@ var DocusignIframe = React.createClass({
       },
       dataType: 'json',
       success: function(response) {
+        var height = $("body").height() - $(".navbar").height() - $(".footer").height();
+        this.setState({docusignLoaded: true});
+
+        if(height > 600){
+          $(this.refs.iframe.getDOMNode()).height(height + "px");
+        }
+
         $(this.refs.iframe.getDOMNode()).attr("src", response.message.url);
         $(this.refs.iframe.getDOMNode()).css("display", "block");
-        this.setState({docusignLoaded: true});
+
       }.bind(this),
       error: function(response, status, error) {
         var flash = { "alert-danger": response.responseJSON.message };
@@ -48,16 +55,19 @@ var DocusignIframe = React.createClass({
   render: function() {
     return (
       <div className='content container iframeContentFull'>
-        <div className='pal'>
-          <div className='row'>
-            <div className='col-xs-3'>
-              <h5 style={{display: this.state.docusignLoaded ? 'none' : null}}>Loading...please wait</h5>
+        {
+          this.state.docusignLoaded
+          ?
+            null
+          :
+            <div className='row'>
+              <div className='col-xs-3'>
+                <h5>Loading...please wait</h5>
+              </div>
             </div>
-          </div>
-          <br/>
-          <div className='mtl text-left'>
-            <iframe ref='iframe' height='600px' width='100%' style={{display: 'none'}}></iframe>
-          </div>
+        }
+        <div>
+          <iframe ref='iframe' height='600px' width='100%' style={{display: 'none'}}></iframe>
         </div>
       </div>
     )
