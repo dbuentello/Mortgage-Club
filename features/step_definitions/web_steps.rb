@@ -181,7 +181,7 @@ When /^I select "([^\"]*)" from "([^\"]*)" at "([^\"]*)"$/ do |value, field, ele
 end
 When /^I select "([^\"]*)" at "([^\"]*)"$/ do |val, element|
   within(:css, element) do
-    find("option[value=#{val}").click
+    find("option[value=#{val}]").click
   end
 end
 
