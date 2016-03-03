@@ -374,3 +374,5 @@ end
 #   loan.late_days = 15
 #   loan.save
 # end
+
+Setting.create(ocr: false)
