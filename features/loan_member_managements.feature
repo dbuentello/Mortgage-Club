@@ -73,5 +73,6 @@ Feature: LoanMemberManagements
       And I should see "Edit"
       And I click on "Edit"
     Then I click on "Remove"
+      And I wait for 1 seconds
       And I press "Yes" in the modal "removeUser"
     Then I should be on the loan member managements page
