@@ -14,15 +14,16 @@ module Docusign
 
     # GET tabs from default recipient of either an envelope or a template
     def get_envelope_recipients_and_tabs(envelope_id)
-      cache_key = "Docusign - Template #{envelope_id}"
-      if recipients = REDIS.get(cache_key)
-        recipients = JSON.parse(recipients)
-      else
-        recipients = @client.get_envelope_recipients(envelope_id: envelope_id, include_tabs: true)
-        REDIS.set(cache_key, recipients.to_json)
-        REDIS.expire(cache_key, 24.hour.to_i)
-      end
-      recipients
+      # cache_key = "Docusign - Template #{envelope_id}"
+      # if recipients = REDIS.get(cache_key)
+      #   recipients = JSON.parse(recipients)
+      # else
+      #   recipients = @client.get_envelope_recipients(envelope_id: envelope_id, include_tabs: true)
+      #   REDIS.set(cache_key, recipients.to_json)
+      #   REDIS.expire(cache_key, 24.hour.to_i)
+      # end
+      # recipients
+      @client.get_envelope_recipients(envelope_id: envelope_id, include_tabs: true)
     end
 
     # GET list of tabs from template name to apply

@@ -4,7 +4,7 @@ class ElectronicSignatureController < ApplicationController
   def new
     bootstrap({
       loan: LoanDashboardPage::LoanPresenter.new(@loan).show,
-      rate: params[:rate],
+      rate: params[:rate]
     })
 
     respond_to do |format|
@@ -13,7 +13,7 @@ class ElectronicSignatureController < ApplicationController
   end
 
   def create
-    templates = Template.where(name: ["Loan Estimate", "Servicing Disclosure", "Uniform Residential Loan Application"])
+    templates = Template.where(name: ["Servicing Disclosure"])
     if templates.empty?
       return render json: {
               message: "Template does not exist yet",
@@ -48,6 +48,20 @@ class ElectronicSignatureController < ApplicationController
     utility = DocusignRest::Utility.new
 
     if params[:event] == "signing_complete"
+      if @loan.secondary_borrower && @loan.secondary_borrower.user.id != params[:user_id]
+        recipient_view = Docusign::GetRecipientViewService.call(
+          params[:envelope_id],
+          @loan.secondary_borrower.user,
+          embedded_response_electronic_signature_index_url(
+            loan_id: params[:loan_id],
+            envelope_id: params[:envelope_id],
+            user_id: @loan.secondary_borrower.user.id
+          )
+        )
+
+        return redirect_to recipient_view["url"] if recipient_view
+      end
+
       @loan.submitted!
       Docusign::MapEnvelopeToLenderDocument.new(params[:envelope_id], params[:user_id], params[:loan_id]).delay.call
       RatesComparisonServices::Base.new(params[:loan_id], params[:user_id]).call
