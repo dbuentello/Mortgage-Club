@@ -17,36 +17,35 @@ module LoanTekServices
       lender_info = get_lender_info(quotes)
 
       programs = []
+
+      quotes = quotes.select{|quote| quote["DiscountPts"] > -1}
+
       quotes.each do |quote|
-        if quote["DiscountPts"] > -1
-          apr = quote["APR"] / 100
-          rate = get_interest_rate(quote)
-          lender_name = quote["LenderName"]
-          discount_pts = quote["DiscountPts"] / 100
+        apr = quote["APR"] / 100
+        rate = get_interest_rate(quote)
+        lender_name = quote["LenderName"]
+        discount_pts = quote["DiscountPts"] / 100
 
-          program = select_program_exist(programs, apr, rate, lender_name, discount_pts)
-
-          if program.empty?
-            program = {
-              lender_name: lender_name,
-              product: get_product_name(quote),
-              apr: apr,
-              loan_amount: quote["FeeSet"]["LoanAmount"],
-              interest_rate: rate,
-              total_fee: quote["FeeSet"]["TotalFees"],
-              fees: quote["FeeSet"]["Fees"] || [],
-              period: get_period(quote),
-              down_payment: get_down_payment(quote),
-              monthly_payment: get_monthly_payment(quote),
-              lender_credit: get_lender_credit(quote),
-              total_closing_cost: get_total_closing_cost(quote),
-              nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
-              logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
-              loan_type: quote["ProductFamily"],
-              discount_pts: discount_pts
-            }
-            programs << program
-          end
+        if !existing_program?(programs, apr, rate, lender_name, discount_pts)
+          program = {
+            lender_name: lender_name,
+            product: get_product_name(quote),
+            apr: apr,
+            loan_amount: quote["FeeSet"]["LoanAmount"],
+            interest_rate: rate,
+            total_fee: quote["FeeSet"]["TotalFees"],
+            fees: quote["FeeSet"]["Fees"] || [],
+            period: get_period(quote),
+            down_payment: get_down_payment(quote),
+            monthly_payment: get_monthly_payment(quote),
+            lender_credit: get_lender_credit(quote),
+            total_closing_cost: get_total_closing_cost(quote),
+            nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
+            logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
+            loan_type: quote["ProductFamily"],
+            discount_pts: discount_pts
+          }
+          programs << program
         end
       end
 
@@ -54,10 +53,12 @@ module LoanTekServices
       programs.sort_by { |program| program[:apr] }
     end
 
-    def self.select_program_exist(programs, apr, rate, lender_name, discount_pts)
-      programs.select do |program|
-        program[:lender_name] == lender_name && program[:apr] == apr && program[:interest_rate] == rate && program[:discount_pts] == discount_pts
+    def self.existing_program?(programs, apr, rate, lender_name, discount_pts)
+      programs.each do |program|
+        return true if program[:lender_name] == lender_name && program[:apr] == apr && program[:interest_rate] == rate && program[:discount_pts] == discount_pts
       end
+
+      false
     end
 
     def self.get_lender_info(quotes)
