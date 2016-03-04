@@ -4,8 +4,11 @@ module Docusign
   class CreateEnvelopeService
     UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
     FORM_4506_PATH = "#{Rails.root}/form_templates/form4506t.pdf".freeze
+    BORROWER_CERTIFICATION_PATH = "#{Rails.root}/form_templates/Borrower-Certification-and-Authorization.pdf".freeze
+
     UNIFORM_OUTPUT_PATH = "#{Rails.root}/tmp/uniform.pdf".freeze
     FORM_4506_OUTPUT_PATH = "#{Rails.root}/tmp/form4506t.pdf".freeze
+    BORROWER_CERTIFICATION_OUTPUT_PATH = "#{Rails.root}/tmp/certification.pdf".freeze
 
     attr_accessor :pdftk
 
@@ -53,7 +56,8 @@ module Docusign
         },
         files: [
           {path: UNIFORM_OUTPUT_PATH},
-          {path: FORM_4506_OUTPUT_PATH}
+          {path: FORM_4506_OUTPUT_PATH},
+          {path: BORROWER_CERTIFICATION_OUTPUT_PATH}
         ],
         signers: [
           {
@@ -90,12 +94,14 @@ module Docusign
       )
       File.delete(UNIFORM_OUTPUT_PATH)
       File.delete(FORM_4506_OUTPUT_PATH)
+      File.delete(BORROWER_CERTIFICATION_OUTPUT_PATH)
       envelope
     end
 
     def create_document_by_adobe_field_names(loan)
       generate_uniform(loan)
       generate_form_4506
+      generate_form_certification
     end
 
     def generate_uniform(loan)
@@ -107,6 +113,11 @@ module Docusign
     def generate_form_4506
       pdftk.get_field_names(FORM_4506_PATH)
       pdftk.fill_form(FORM_4506_PATH, "tmp/form4506t.pdf")
+    end
+
+    def generate_form_certification
+      pdftk.get_field_names(BORROWER_CERTIFICATION_PATH)
+      pdftk.fill_form(FORM_4506_PATH, "tmp/certification.pdf")
     end
   end
 end
