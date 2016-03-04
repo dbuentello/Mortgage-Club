@@ -55,7 +55,7 @@ describe RateServices::UpdateLoanDataFromSelectedRate do
       expect(loan.service_cannot_shop_fees).to eq({:fees=>[{:name=>"Appraisal fee", :amount=>495.0}, {:name=>"Credit report fee", :amount=>25.0}], :total=>520.0})
       expect(loan.origination_charges_fees).to eq({:fees=>[{:name=>"Loan origination fee", :amount=>995.0}], :total=>995.0})
       expect(loan.service_can_shop_fees).to eq({:fees=>[{:name=>"Wire transfer fee", :amount=>252.0}], :total=>252.0})
-      expect(loan.lender_name).to eq("Sebonic Financial")
+      expect(loan.lender.name).to eq("Sebonic Financial")
       expect(loan.lender_nmls_id).to eq("66247")
       expect(loan.interest_rate).to eq(0.036)
       expect(loan.amortization_type).to eq("30 year fixed")
