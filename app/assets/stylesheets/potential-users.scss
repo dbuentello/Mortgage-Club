@@ -1,6 +1,6 @@
 .rate-alert .container{
   .thank-you {
-    padding-top: 100px;
+    padding-top: 30px;
     color: #12a7d1;
 
     h1 {
@@ -18,7 +18,7 @@
   }
 }
 .rate-alert {
-  padding-top: 60px;
+  padding-top: 0px;
 }
 .potential-users {
   h1 {
@@ -73,13 +73,10 @@
       border: #c3c3c3 1px solid;
       text-align: center;
       height: 60px;
-      width: 56%;
     }
 
     input {
-      position: absolute;
-      top: -1000px;
-      left: 0;
+      display: none;
     }
     .iconUpload {
       position: relative !important;
