@@ -58,8 +58,8 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         subject_property_address: property.address.try(:address),
         no_units:  property.no_of_unit,
         subject_property_description: "See preliminary title",
-        property_title: "To Be Determined",
-        property_manner: "To Be Determined in escrow",
+        property_title: "To be determined",
+        property_manner: "To be determined in escrow",
         fee_simple: "Yes"
       })
     end
@@ -198,8 +198,8 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         loan_amount_exclude_pmi: "%.2f" % (loan.amount - loan.pmi_mip_funding_fee.to_f),
         pmi_mip_financed: "%.2f" % loan.pmi_mip_funding_fee_financed,
         loan_amount_m_n: "%.2f" % loan.amount,
-        borrower_cash: "%.2f" % borrower_cash,
-        total_costs: "%.2f" % total_cost_transactions
+        borrower_cash: "%.2f" %(borrower_cash),
+        total_costs: "%.2f" %(total_cost_transactions)
       })
     end
 
@@ -250,7 +250,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
           proposed_real_estate_taxes: "%.2f" % property.estimated_property_tax,
           proposed_mortgage_insurance: "%.2f" % property.estimated_mortgage_insurance,
           proposed_homeowner: "%.2f" % property.hoa_due,
-          proposed_total: "%.2f" % proposed_total_expense
+          proposed_total: "%.2f" %(proposed_total_expense)
         })
       end
     end
@@ -269,7 +269,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
           present_real_estate_taxes: "%.2f" % property.estimated_property_tax,
           present_mortgage_insurance: "%.2f" % property.estimated_mortgage_insurance,
           present_homeowner: "%.2f" % property.hoa_due,
-          present_total: "%.2f" % present_total_expense
+          present_total: "%.2f" %(present_total_expense)
         })
       end
     end
@@ -279,30 +279,30 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     it "maps right values" do
       @service.build_declaration("borrower", @service.borrower)
       expect(@service.params).to include({
-        borrower_a_no: declaration.outstanding_judgment ? nil : "Yes",
-        borrower_a_yes: declaration.outstanding_judgment ? "Yes" : nil,
-        borrower_b_no: declaration.bankrupt ? nil : "Yes",
-        borrower_b_yes: declaration.bankrupt ? "Yes" : nil,
-        borrower_c_no: declaration.property_foreclosed ? nil : "Yes",
-        borrower_c_yes: declaration.property_foreclosed ? "Yes" : nil,
-        borrower_d_no: declaration.party_to_lawsuit ? nil : "Yes",
-        borrower_d_yes: declaration.party_to_lawsuit ? "Yes" : nil,
-        borrower_e_no: declaration.loan_foreclosure ? nil : "Yes",
-        borrower_e_yes: declaration.loan_foreclosure ? "Yes" : nil,
-        borrower_f_no: declaration.present_delinquent_loan ? nil : "Yes",
-        borrower_f_yes: declaration.present_delinquent_loan ? "Yes" : nil,
-        borrower_g_no: declaration.child_support ? nil : "Yes",
-        borrower_g_yes: declaration.child_support ? "Yes" : nil,
-        borrower_h_no: declaration.down_payment_borrowed ? nil : "Yes",
-        borrower_h_yes: declaration.down_payment_borrowed ? "Yes" : nil,
-        borrower_i_no: declaration.co_maker_or_endorser ? nil : "Yes",
-        borrower_i_yes: declaration.co_maker_or_endorser ? "Yes" : nil,
-        borrower_j_no: declaration.us_citizen ? nil : "Yes",
-        borrower_j_yes: declaration.us_citizen ? "Yes" : nil,
-        borrower_k_no: declaration.permanent_resident_alien ? nil : "Yes",
-        borrower_k_yes: declaration.permanent_resident_alien ? "Yes" : nil,
-        borrower_m_no: declaration.ownership_interest ? nil : "Yes",
-        borrower_m_yes: declaration.ownership_interest ? "Yes" : nil,
+        borrower_a_no: declaration.outstanding_judgment ? "Off" : "Yes",
+        borrower_a_yes: declaration.outstanding_judgment ? "Yes" : "Off",
+        borrower_b_no: declaration.bankrupt ? "Off" : "Yes",
+        borrower_b_yes: declaration.bankrupt ? "Yes" : "Off",
+        borrower_c_no: declaration.property_foreclosed ? "Off" : "Yes",
+        borrower_c_yes: declaration.property_foreclosed ? "Yes" : "Off",
+        borrower_d_no: declaration.party_to_lawsuit ? "Off" : "Yes",
+        borrower_d_yes: declaration.party_to_lawsuit ? "Yes" : "Off",
+        borrower_e_no: declaration.loan_foreclosure ? "Off" : "Yes",
+        borrower_e_yes: declaration.loan_foreclosure ? "Yes" : "Off",
+        borrower_f_no: declaration.present_delinquent_loan ? "Off" : "Yes",
+        borrower_f_yes: declaration.present_delinquent_loan ? "Yes" : "Off",
+        borrower_g_no: declaration.child_support ? "Off" : "Yes",
+        borrower_g_yes: declaration.child_support ? "Yes" : "Off",
+        borrower_h_no: declaration.down_payment_borrowed ? "Off" : "Yes",
+        borrower_h_yes: declaration.down_payment_borrowed ? "Yes" : "Off",
+        borrower_i_no: declaration.co_maker_or_endorser ? "Off" : "Yes",
+        borrower_i_yes: declaration.co_maker_or_endorser ? "Yes" : "Off",
+        borrower_j_no: declaration.us_citizen ? "Off" : "Yes",
+        borrower_j_yes: declaration.us_citizen ? "Yes" : "Off",
+        borrower_k_no: declaration.permanent_resident_alien ? "Off" : "Yes",
+        borrower_k_yes: declaration.permanent_resident_alien ? "Yes" : "Off",
+        borrower_m_no: declaration.ownership_interest ? "Off" : "Yes",
+        borrower_m_yes: declaration.ownership_interest ? "Yes" : "Off",
         borrower_m1: declaration.type_of_property,
         borrower_m2: declaration.title_of_property
       })
@@ -332,6 +332,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       expect(@service.params).to include({
         borrower_yrs_job_1: current_employment.duration,
         borrower_yrs_employed_1: current_employment.duration,
+        borrower_self_employed_1: @service.borrower.self_employed ? "Yes" : "Off",
         borrower_employer_1: current_employment.employer_name,
         borrower_employer_street_1: current_employment.address.street_address,
         borrower_employer_city_state_1: "#{current_employment.address.city}, #{current_employment.address.state} #{current_employment.address.zip}",
@@ -350,7 +351,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         borrower_name: @service.borrower.full_name,
         borrower_ssn: @service.borrower.ssn,
         borrower_home_phone: @service.borrower.phone,
-        borrower_dob: @service.borrower.dob.strftime('%D'),
+        borrower_dob: @service.borrower.dob.strftime("%m/%d/%Y"),
         borrower_yrs_school: @service.borrower.years_in_school,
         borrower_married: "Yes",
         borrower_dependents: @service.borrower.dependent_count,
@@ -436,7 +437,6 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.build_purchase_loan
       expect(@service.params).to include({
         purpose_purchase: "Yes",
-        original_cost_1: "%.2f" % property.purchase_price.to_f,
         source_down_payment: "Checking account"
       })
     end

@@ -24,10 +24,10 @@ describe Users::ChecklistsController do
 
   describe ".load_docusign" do
     context "valid template" do
-      it "calls Docusign::CreateEnvelopeService" do
+      it "calls Docusign::CreateEnvelopeForChecklistService" do
         allow(Docusign::GetRecipientViewService).to receive(:call).and_return("")
-        allow_any_instance_of(Docusign::CreateEnvelopeService).to receive(:call).and_return("")
-        expect_any_instance_of(Docusign::CreateEnvelopeService).to receive(:call)
+        allow_any_instance_of(Docusign::CreateEnvelopeForChecklistService).to receive(:call).and_return("")
+        expect_any_instance_of(Docusign::CreateEnvelopeForChecklistService).to receive(:call)
 
         get :load_docusign, id: checklist.id, template_name: checklist.template.name, loan_id: checklist.loan.id
       end

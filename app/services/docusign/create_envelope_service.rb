@@ -88,7 +88,7 @@ module Docusign
 
     def generate_form_certification
       pdftk.get_field_names(BORROWER_CERTIFICATION_PATH)
-      pdftk.fill_form(FORM_4506_PATH, "tmp/certification.pdf")
+      pdftk.fill_form(BORROWER_CERTIFICATION_PATH, "tmp/certification.pdf")
     end
   end
 end

@@ -19,7 +19,7 @@ class Users::ChecklistsController < Users::BaseController
             }, status: 500
     end
 
-    envelope = Docusign::CreateEnvelopeService.new(current_user, @loan, [template]).call
+    envelope = Docusign::CreateEnvelopeForChecklistService.new.call(current_user, @loan)
     if envelope
       docusign_callback_url = docusign_callback_checklists_url(
         loan_id: @loan.id,
