@@ -17,7 +17,7 @@ Feature: LoanMemberManagements
       And I fill in "Individual NMLS" with "124566"
       And I fill in "Company Name" with "Green Apple"
       And I fill in "Company Address" with "2346 Hope Avenue Wall Street"
-      And I fill in "Company Phone Number" with "(234)-888-9998"
+      And I fill in "Company Phone Number" with "(234)888-9998"
       And I fill in "Company NMLS" with "234311"
       And I fill in "Default Password" with "this-is-a-password"
       And I attach the file "spec/files/avatar.png" to the hidden "loan_member[avatar]"
@@ -59,3 +59,19 @@ Feature: LoanMemberManagements
       And the "First Name" field should contain "Cuong"
       And the "Last Name" field should contain "Vu"
       And the "Phone Number" field should contain "8889998"
+
+  @javascript
+  Scenario: remove a member
+    Given there is a admin with the first name "Admin" and with the email "admin@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a loans members association
+      And I login as "admin@man.net" with password "secretpass"
+    Then I should see "Admin"
+      And I click "Admin"
+      And I should see "Loan Members"
+    Then I click "Loan Members"
+      And I should see "Loan Members"
+      And I should see "Edit"
+      And I click on "Edit"
+    Then I click on "Remove"
+      And I press "Yes" in the modal "removeLoanMember"
+    Then I should be on the loan member managements page
