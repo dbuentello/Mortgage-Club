@@ -12,8 +12,8 @@ var Loans = React.createClass({
   },
 
   componentDidMount: function() {
-    $('.bootstrap-select').selectpicker();
-    $('.bootstrap-select').change(this.handleLoanChanged);
+    // $('.bootstrap-select').selectpicker();
+    // $('.bootstrap-select').change(this.handleLoanChanged);
   },
 
   handleLoanChanged: function(event) {
@@ -73,7 +73,7 @@ var Loans = React.createClass({
                           <td>{loan.user.email}</td>
                           <td>
 
-                            <select className={"loan" +loan.id + " loan-status bootstrap-select show-tick"} data-loanId={loan.id}>
+                            <select className={"loan" +loan.id + " loan-status"} onChange={this.handleLoanChanged} data-loanId={loan.id}>
                               {
                                 _.map(this.props.bootstrapData.loan_statuses, function(status){
                                   var statusValue = status[0];
