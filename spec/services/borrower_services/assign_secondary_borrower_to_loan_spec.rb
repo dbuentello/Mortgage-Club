@@ -20,8 +20,10 @@ describe BorrowerServices::AssignSecondaryBorrowerToLoan do
     let!(:loan) { FactoryGirl.create(:loan_with_all_associations) }
 
     it "calls save params" do
-      expect_any_instance_of(Loan).to receive(:save).and_return true
-      BorrowerServices::AssignSecondaryBorrowerToLoan.new(loan, @secondary_params, nil).call
+      VCR.use_cassette("assigning secondary borrower to loan") do
+        expect_any_instance_of(Loan).to receive(:save).and_return true
+        BorrowerServices::AssignSecondaryBorrowerToLoan.new(loan, @secondary_params, nil).call
+      end
     end
   end
 end
