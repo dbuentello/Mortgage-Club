@@ -71,17 +71,17 @@ module Docusign
         build_housing_expense("proposed", subject_property)
         build_housing_expense("present", primary_property) if primary_property
 
-        @params[:borrower_rental_income] = number_with_delimiter(get_net_value)
-        @params[:sum_total_income] = number_with_delimiter(@params[:total_base_income].to_f + @params[:total_overtime].to_f +
+        @params[:borrower_rental_income] = "%.2f" % get_net_value
+        @params[:sum_total_income] = "%.2f" % (@params[:total_base_income].to_f + @params[:total_overtime].to_f
                                                        @params[:total_bonuses].to_f + @params[:total_commissions].to_f +
                                                        @params[:total_dividends].to_f)
         if @params[:sum_total_income]
-          @params[:total_base_income] = number_with_delimiter(@params[:total_base_income].to_f)
-          @params[:total_overtime] = number_with_delimiter(@params[:total_overtime].to_f)
-          @params[:total_bonuses] = number_with_delimiter(@params[:total_bonuses].to_f)
-          @params[:total_commissions] = number_with_delimiter(@params[:total_commissions].to_f)
-          @params[:total_interest] = number_with_delimiter(@params[:total_dividends].to_f)
-          @params[:total_rental_income] = number_with_delimiter(get_net_value)
+          @params[:total_base_income] = "%.2f" % @params[:total_base_income].to_f
+          @params[:total_overtime] = "%.2f" % @params[:total_overtime].to_f
+          @params[:total_bonuses] = "%.2f" % @params[:total_bonuses].to_f
+          @params[:total_commissions] = "%.2f" % @params[:total_commissions].to_f
+          @params[:total_interest] = "%.2f" % @params[:total_dividends].to_f
+          @params[:total_rental_income] = "%.2f" % get_net_value
         end
       end
 
@@ -106,7 +106,7 @@ module Docusign
         # leave blank now
         # subordinate_financing
         # closing_costs_paid_by_seller
-        @params[:purchase_price] = "%.2f" % subject_property.purchase_price
+        @params[:purchase_price] = "%.2f" % subject_property.purchase_price.to_f
         @params[:refinance] = "%.2f" % loan.amount if loan.refinance?
         @params[:prepaid_items] = "%.2f" % loan.estimated_prepaid_items.to_f
         @params[:closing_costs] = "%.2f" % loan.estimated_closing_costs.to_f
@@ -131,17 +131,17 @@ module Docusign
       end
 
       def build_housing_expense(type, property)
-        @params[(type + "_total").to_sym] = number_with_delimiter((property.mortgage_payment + property.other_financing +
+        @params[(type + "_total").to_sym] = "%.2f" % (property.mortgage_payment + property.other_financing +
                                             property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
-                                            property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f))
+                                            property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f)
 
-        @params[(type + "_rent").to_sym] = number_with_delimiter(borrower.current_address.monthly_rent) if primary_property && borrower.current_address.is_rental
-        @params[(type + "_mortgage").to_sym] = number_with_delimiter(property.mortgage_payment)
-        @params[(type + "_other_financing").to_sym] = number_with_delimiter(property.other_financing)
-        @params[(type + "_hazard_insurance").to_sym] = number_with_delimiter(property.estimated_hazard_insurance)
-        @params[(type + "_real_estate_taxes").to_sym] = number_with_delimiter(property.estimated_property_tax)
-        @params[(type + "_mortgage_insurance").to_sym] = number_with_delimiter(property.estimated_mortgage_insurance)
-        @params[(type + "_homeowner").to_sym] = number_with_delimiter(property.hoa_due)
+        @params[(type + "_rent").to_sym] = "%.2f" % borrower.current_address.monthly_rent if primary_property && borrower.current_address.is_rental
+        @params[(type + "_mortgage").to_sym] = "%.2f" % property.mortgage_payment
+        @params[(type + "_other_financing").to_sym] = "%.2f" % property.other_financing
+        @params[(type + "_hazard_insurance").to_sym] = "%.2f" % property.estimated_hazard_insurance
+        @params[(type + "_real_estate_taxes").to_sym] = "%.2f" % property.estimated_property_tax
+        @params[(type + "_mortgage_insurance").to_sym] = "%.2f" % property.estimated_mortgage_insurance
+        @params[(type + "_homeowner").to_sym] = "%.2f" % property.hoa_due
       end
 
       def total_cost_transactions
@@ -190,14 +190,14 @@ module Docusign
       end
 
       def build_gross_monthly_income(role, borrower)
-        @params[(role + "_total_monthly_income").to_sym] = "%.2f" % borrower.total_income
-        @params[(role + "_base_income").to_sym] = number_with_delimiter(borrower.current_salary)
-        @params[(role + "_overtime").to_sym] = number_with_delimiter(borrower.gross_overtime)
-        @params[(role + "_bonuses").to_sym] = number_with_delimiter(borrower.gross_bonus)
-        @params[(role + "_commissions").to_sym] = number_with_delimiter(borrower.gross_commission)
-        @params[(role + "_interest").to_sym] = number_with_delimiter(borrower.gross_interest)
+        @params[(role + "_total_monthly_income").to_sym] = "%.2f" % borrower.total_income.to_f
+        @params[(role + "_base_income").to_sym] = "%.2f" % borrower.current_salary.to_f
+        @params[(role + "_overtime").to_sym] = "%.2f" % borrower.gross_overtime.to_f
+        @params[(role + "_bonuses").to_sym] = "%.2f" % borrower.gross_bonus.to_f
+        @params[(role + "_commissions").to_sym] = "%.2f" % borrower.gross_commission.to_f
+        @params[(role + "_interest").to_sym] = "%.2f" % borrower.gross_interest.to_f
 
-        @params[:total_base_income] = @params[:total_base_income].to_f + borrower.current_salary
+        @params[:total_base_income] = @params[:total_base_income].to_f + borrower.current_salary.to_f
         @params[:total_overtime] = @params[:total_overtime].to_f + borrower.gross_overtime.to_f
         @params[:total_bonuses] = @params[:total_bonuses].to_f + borrower.gross_bonus.to_f
         @params[:total_commissions] = @params[:total_commissions].to_f + borrower.gross_commission.to_f
@@ -245,8 +245,8 @@ module Docusign
       def build_refinance_loan
         @params[:purpose_refinance] = "Yes"
         @params[:year_lot_acquired_2] = subject_property.original_purchase_year
-        @params[:original_cost_2] = number_with_delimiter(subject_property.original_purchase_price)
-        @params[:amount_existing_liens_2] = number_with_delimiter(subject_property.refinance_amount)
+        @params[:original_cost_2] = "%.2f" % subject_property.original_purchase_price
+        @params[:amount_existing_liens_2] = "%.2f" % subject_property.refinance_amount
 
         if loan.amount > subject_property.total_liability_balance
           @params[:purpose_of_refinance] = "Cash out"
@@ -259,7 +259,7 @@ module Docusign
 
       def build_purchase_loan
         @params[:purpose_purchase] = "Yes"
-        @params[:original_cost_1] = number_with_delimiter(subject_property.purchase_price)
+        @params[:original_cost_1] = "%.2f" % subject_property.purchase_price.to_f
         @params[:source_down_payment] = "Checking account"
       end
 
