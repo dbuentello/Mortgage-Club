@@ -15,9 +15,7 @@ describe BorrowerServices::AssignSecondaryBorrowerToLoan do
     }
 
     allow_any_instance_of(Digest::MD5).to receive(:hexdigest).and_return "8820245fb6"
-
   end
-
 
   describe "the method for assigning secondary borrower for a loan" do
     let!(:loan) { FactoryGirl.create(:loan_with_all_associations) }
@@ -32,7 +30,5 @@ describe BorrowerServices::AssignSecondaryBorrowerToLoan do
       expect_any_instance_of(Loan).to receive(:save).and_return true
       BorrowerServices::AssignSecondaryBorrowerToLoan.new(loan, @secondary_params, nil).call
     end
-
-
   end
 end
