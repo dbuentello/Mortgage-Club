@@ -1,8 +1,9 @@
 module BorrowerServices
   class AssignSecondaryBorrowerToLoan
-    attr_accessor :loan, :owner, :secondary_borrower, :secondary_params
+    attr_accessor :loan, :owner, :secondary_borrower, :secondary_params, :is_new_user
 
     def initialize(loan, secondary_params, secondary_borrower)
+      @is_new_user = false
       @loan = loan
       @secondary_params = secondary_params
       @owner = existing_user ? existing_user : create_owner
@@ -32,7 +33,10 @@ module BorrowerServices
 
     def create_owner
       user_form = UserForm.new(params: user_params, skip_confirmation: true)
-      return user_form.user if user_form.save
+      return unless user_form.save
+      user_form.save
+      @is_user = true
+      user_form.user
     end
 
     def default_password
@@ -40,7 +44,7 @@ module BorrowerServices
     end
 
     def send_email_to_secondary_borrower
-      if existing_user.present?
+      if @is_new_user
         email_options = {is_new_user: false, default_password: nil}
       else
         email_options = {is_new_user: true, default_password: default_password}
