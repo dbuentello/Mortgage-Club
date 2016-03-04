@@ -3,6 +3,7 @@ require "rails_helper"
 describe LoanTekServices::ReadQuotes do
   let(:quotes) do
     [
+      "DiscountPts" => 1,
       "LenderName" => "Provident Funding",
       "ProductName" => "15yearFixed",
       "Fees" => -1520.0,
