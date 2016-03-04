@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   get "backend_test", to: "pages#backend_test"
   get "frontend_test", to: "pages#frontend_test"
 
-  get "refinance-alert", to: "ab_testings#refinancing_alert"
-  get "refinance_alert", to: "initial_quotes#index"
+  get "refinance_alert", to: "ab_testings#refinance_alert"
+  #get "rate_drop_alert", to: "initial_quotes#index"
 
   get "rate-alert", to: "potential_users#new"
   post "/potential_users", to: "potential_users#create"

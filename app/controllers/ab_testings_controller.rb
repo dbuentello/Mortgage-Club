@@ -3,7 +3,7 @@ class AbTestingsController < ApplicationController
   skip_before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
 
-  def refinancing_alert
+  def refinance_alert
     @refcode = params[:refcode]
     @mortgage_aprs = HomepageRateServices::GetMortgageAprs.call
     @last_updated = nil

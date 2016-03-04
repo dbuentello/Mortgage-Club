@@ -90,14 +90,14 @@ var RateAlert = React.createClass({
                     <h1>Thank you for setting rate alert!</h1>
                     <p>Keep an eye out for our email and/or text message soon.</p>
                     <img src="/rate_alert.png"/>
+                    <br />
                   </div>
                 </div>
               :
                 <div className="mtl">
                   <div className="col-md-9 col-md-offset-2">
-                    <h1>RATE ALERT</h1>
-                    <p>{"Please upload your latest mortgage statement so our software can start tracking your mortgage rates. We'll alert you as soon as you can save money by refinancing with Mortgage Club (after accounting for closing costs)!"}</p>
-                  </div>
+                    <h1>REFINANCE ALERT</h1>
+                    </div>
                   <div className="col-md-12 col-md-offset-4">
                     <form className="potential-users form-horizontal text-center" action="/potential_users" type="json" enctype="multipart/form-data" method="post" name="fileinfo">
                       <div className="form-group">

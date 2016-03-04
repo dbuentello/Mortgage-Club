@@ -11,7 +11,7 @@ var HomePart = require("public/homepage/HomePart");
 
 var RateAlert = require('public/RateAlert');
 
-var RefinancingAlert = React.createClass({
+var RateDropAlert = React.createClass({
 
   render: function() {
       return (
@@ -19,12 +19,9 @@ var RefinancingAlert = React.createClass({
         <HomePart data={this.props.bootstrapData} ></HomePart>
         <BankPart></BankPart>
         <RateAlert bootstrapData={this.props.bootstrapData}/>
-        <WhyPart> </WhyPart>
-        <HowPart> </HowPart>
-        <ClientPart> </ClientPart>
       </div>
     );
   }
 });
 
-module.exports = RefinancingAlert;
+module.exports = RateDropAlert;
