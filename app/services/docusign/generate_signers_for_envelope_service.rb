@@ -27,27 +27,10 @@ module Docusign
           email: envelope_hash[:user][:email],
           role_name: 'Normal'
         }
-        signer_2 = {
-          embedded: envelope_hash[:embedded],
-          name: loan.secondary_borrower.user.to_s,
-          email: loan.secondary_borrower.user.email,
-          role_name: 'Normal',
-          sign_here_tabs: [
-            {
-              name: "Signature 3",
-              page_number: "1",
-              x_position: "323",
-              y_position: "491",
-              document_id: "1",
-              optional: "true"
-            }
-          ]
-        }
         document_id += 1
         signer.merge!(tabs)
         remove_co_signature(signer) unless envelope_requires_cosignature?(template)
         signers << signer
-        signers << signer_2
       end
       signers
     end

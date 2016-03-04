@@ -66,10 +66,11 @@ class ElectronicSignatureController < ApplicationController
 
     if params[:event] == "signing_complete"
       if @loan.secondary_borrower && @loan.secondary_borrower.user.id != params[:user_id]
-        recipient_view = Docusign::GetRecipientViewService.call(
-          params[:envelope_id],
-          @loan.secondary_borrower.user,
-          embedded_response_electronic_signature_index_url(
+        recipient_view = DocusignRest::Client.new.get_recipient_view(
+          envelope_id: params[:envelope_id],
+          name: "#{@loan.secondary_borrower.user.first_name} #{@loan.secondary_borrower.user.last_name}",
+          email: @loan.secondary_borrower.user.email,
+          return_url: embedded_response_electronic_signature_index_url(
             loan_id: params[:loan_id],
             envelope_id: params[:envelope_id],
             user_id: @loan.secondary_borrower.user.id
