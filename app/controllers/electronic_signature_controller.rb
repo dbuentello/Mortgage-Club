@@ -13,7 +13,8 @@ class ElectronicSignatureController < ApplicationController
   end
 
   def create
-    templates = Template.where(name: ["Servicing Disclosure"])
+    templates = Template.where(name: ["Uniform Residential Loan Application"])
+
     if templates.empty?
       return render json: {
               message: "Template does not exist yet",
@@ -22,25 +23,41 @@ class ElectronicSignatureController < ApplicationController
     end
 
     # TODO: only update loan's data after user signed contract
-    RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:fees], lender_params)
-    @loan.reload
+    # RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:fees], lender_params)
+    # @loan.reload
 
-    envelope = Docusign::CreateEnvelopeService.new(current_user, @loan, templates).call
+    # envelope = Docusign::CreateEnvelopeService.new(current_user, @loan, templates).call
 
-    if envelope
-      recipient_view = Docusign::GetRecipientViewService.call(
-        envelope['envelopeId'],
-        current_user,
-        embedded_response_electronic_signature_index_url(
-          loan_id: params[:id],
-          envelope_id: envelope['envelopeId'],
-          user_id: current_user.id
-        )
+    # if envelope
+    #   recipient_view = Docusign::GetRecipientViewService.call(
+    #     envelope['envelopeId'],
+    #     current_user,
+    #     embedded_response_electronic_signature_index_url(
+    #       loan_id: params[:id],
+    #       envelope_id: envelope['envelopeId'],
+    #       user_id: current_user.id
+    #     )
+    #   )
+    #   return render json: {message: recipient_view}, status: 200 if recipient_view
+    # end
+    envelope = Docusign::CreateEnvelopeService.new.call(current_user, @loan)
+
+    recipient_view = DocusignRest::Client.new.get_recipient_view(
+      envelope_id: envelope['envelopeId'],
+      name: "#{current_user.first_name} #{current_user.last_name}",
+      email: current_user.email,
+      return_url: embedded_response_electronic_signature_index_url(
+        loan_id: params[:id],
+        envelope_id: envelope['envelopeId'],
+        user_id: current_user.id
       )
-      return render json: {message: recipient_view}, status: 200 if recipient_view
-    end
+    )
 
-    render json: {message: "can't render iframe"}, status: 500
+    if recipient_view
+      render json: {message: recipient_view}, status: 200
+    else
+      render json: {message: "can't render iframe"}, status: 500
+    end
   end
 
   # GET /electronic_signature/embedded_response
