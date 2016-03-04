@@ -151,7 +151,7 @@ var RateAlert = React.createClass({
                       </div>
                       <div className="row">
                         <div className="col-xs-5">
-                          <button className="btn theBtn submit-btn text-uppercase" onClick={this.handleSubmit}>SET ALERT</button>
+                          <button className="btn theBtn submit-btn text-uppercase" onClick={this.handleSubmit}>{this.props.bootstrapData.homepage ? this.props.bootstrapData.homepage.btn_alert : 'SET ALERT'}</button>
                         </div>
                       </div>
                     </form>

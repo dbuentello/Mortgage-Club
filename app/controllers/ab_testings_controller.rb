@@ -15,7 +15,12 @@ class AbTestingsController < ApplicationController
     bootstrap(
       last_updated: @last_updated,
       refcode: @refcode,
-      mortgage_aprs: @mortgage_aprs
+      mortgage_aprs: @mortgage_aprs,
+      homepage: {
+        title_alert: I18n.t('homepage.title_alert'),
+        btn_alert: I18n.t('homepage.btn_alert'),
+        description_alert: I18n.t('homepage.description_alert')
+      }
     )
     respond_to do |format|
       format.html { render template: "public_app" }

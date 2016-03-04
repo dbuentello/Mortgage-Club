@@ -23,7 +23,12 @@ class InitialQuotesController < ApplicationController
       property_value: quote_cookies["property_value"],
       mortgage_purpose: quote_cookies["mortgage_purpose"] || "purchase",
       property_usage: quote_cookies["property_usage"] || "primary_residence",
-      property_type: quote_cookies["property_type"] || "sfh"
+      property_type: quote_cookies["property_type"] || "sfh",
+      homepage: {
+        title_alert: I18n.t('homepage.title_alert'),
+        btn_alert: I18n.t('homepage.btn_alert'),
+        description_alert: I18n.t('homepage.description_alert')
+      }
     )
 
     respond_to do |format|

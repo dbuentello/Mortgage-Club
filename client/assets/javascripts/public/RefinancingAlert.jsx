@@ -16,7 +16,7 @@ var RefinancingAlert = React.createClass({
   render: function() {
       return (
       <div className="homepage">
-        <HomePart bootstrapData={this.props.bootstrapData} ></HomePart>
+        <HomePart data={this.props.bootstrapData} ></HomePart>
         <BankPart></BankPart>
         <RateAlert bootstrapData={this.props.bootstrapData}/>
         <WhyPart> </WhyPart>
