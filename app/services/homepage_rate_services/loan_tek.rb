@@ -10,7 +10,8 @@ module HomepageRateServices
       response = connection.post do |conn|
         conn.headers["Content-Type"] = "application/json"
         conn.body = {
-          BestExecutionMethodType: 1,
+          BestExecutionMethodType: 3,
+          LockPeriod: 30,
           QuotingChannel: 0,
           ClientDefinedIdentifier: ENV["LOANTEK_IDENTIFIER"],
           ZipCode: 94103,
@@ -20,7 +21,8 @@ module HomepageRateServices
           LoanToValue: 80,
           PropertyUsage: 1,
           PropertyType: 1,
-          QuoteTypesToReturn: [-1, 0, 1, 2, 3, 4]
+          QuoteTypesToReturn: [-1, 0],
+          LoanProgramsOfInterest: [1, 2, 3]
         }.to_json
       end
 
@@ -33,9 +35,11 @@ module HomepageRateServices
       apr_5_libor = 100
 
       rates = quotes.each do |quote|
-        apr_30_year = quote["APR"] if quote["ProductName"] == "30yearFixed" && quote["APR"] < apr_30_year
-        apr_15_year = quote["APR"] if quote["ProductName"] == "15yearFixed" && quote["APR"] < apr_15_year
-        apr_5_libor = quote["APR"] if quote["ProductName"] == "5yearARM" && quote["APR"] < apr_5_libor
+        if quote["DiscountPts"] > -1
+          apr_30_year = quote["APR"] if quote["ProductName"] == "30yearFixed" && quote["APR"] < apr_30_year
+          apr_15_year = quote["APR"] if quote["ProductName"] == "15yearFixed" && quote["APR"] < apr_15_year
+          apr_5_libor = quote["APR"] if quote["ProductName"] == "5yearARM" && quote["APR"] < apr_5_libor
+        end
       end
 
       {

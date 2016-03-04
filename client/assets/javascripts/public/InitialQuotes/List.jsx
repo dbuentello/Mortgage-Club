@@ -35,6 +35,14 @@ var List = React.createClass({
     }
   },
 
+  componentDidUpdate: function() {
+    if(this.props.quotes !== undefined && this.props.quotes !== null && this.props.quotes.length == 1){
+      if($("span.glyphicon-menu-down").length > 0){
+        $("span.glyphicon-menu-down")[0].click();
+      }
+    }
+  },
+
   calcDownPayment: function(down_payment, loan_amount){
     return parseFloat(down_payment/loan_amount) * 100;
   },
@@ -92,6 +100,7 @@ var List = React.createClass({
                       </div>
                       <h4>Lender fees</h4>
                       <ul className="fee-items">
+                        <li className="lender-fee-item">{quote.discount_pts < 0 ? "Lender credit" : "Discount point"}: {this.formatCurrency(quote.discount_pts * quote.loan_amount, "$")}</li>
                         {
                           _.map(quote.fees, function(fee){
                             return (
@@ -114,10 +123,10 @@ var List = React.createClass({
                     <div className="col-md-6">
                       <h4>Monthly payment details</h4>
                       <div className="row">
-                        <div className="col-xs-9">
-                          <p className="col-xs-12 cost">Principle and interest</p>
+                        <div className="col-md-9">
+                          <p className="col-xs-12 cost">Principal and interest</p>
                         </div>
-                        <div className="col-xs-3">
+                        <div className="col-md-3">
                           <p className="col-xs-12 cost">{this.formatCurrency(quote.monthly_payment, "$")}</p>
                         </div>
                       </div>
