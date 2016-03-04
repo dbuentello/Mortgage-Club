@@ -93,6 +93,9 @@ var RateAlert = React.createClass({
                     <p>Keep an eye out for our email and/or text message soon.</p>
                     <img src="/rate_alert.png"/>
                     <br />
+                    <br />
+                    <br />
+                    
                   </div>
                 </div>
               :
