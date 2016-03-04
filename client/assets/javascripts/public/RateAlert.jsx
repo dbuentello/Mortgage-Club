@@ -80,7 +80,9 @@ var RateAlert = React.createClass({
 
     return (
       <div className="rate-alert">
+          <section id="rate_alert">
         <div className="rate-alert-form">
+
           <div className="container">
             {
               this.state.isSuccess
@@ -95,13 +97,11 @@ var RateAlert = React.createClass({
                 </div>
               :
                 <div className="mtl">
-                  <div className="col-md-9 col-md-offset-2">
-                    <h1>REFINANCE ALERT</h1>
-                    </div>
-                  <div className="col-md-12 col-md-offset-4">
+
+                  <div className="col-md-4 col-md-offset-4">
                     <form className="potential-users form-horizontal text-center" action="/potential_users" type="json" enctype="multipart/form-data" method="post" name="fileinfo">
                       <div className="form-group">
-                        <div className="col-sm-5 email-address">
+                        <div className="col-sm-12 email-address">
                           <h5 className="text-left">Email Address</h5>
                           <input type="email" className="form-control" name="potential_user[email]"
                             id="email" data-toggle="tooltip" data-original-title={this.state.emailError}/>
@@ -109,7 +109,7 @@ var RateAlert = React.createClass({
                         </div>
                       </div>
                       <div className="form-group">
-                        <div className="col-sm-5 phone-number">
+                        <div className="col-sm-12 phone-number">
                           <h5 className="text-left">Phone Number (optional)</h5>
                           <input type="text" className="form-control" name="potential_user[phone_number]" id="phone_number" value={this.state.phoneNumber} onChange={this.changePhoneNumber}
                             data-toggle="tooltip" data-original-title={this.state.phoneNumberError}/>
@@ -117,9 +117,9 @@ var RateAlert = React.createClass({
                         </div>
                       </div>
                       <div className="form-group">
-                        <div className="col-xs-9">
+                        <div className="col-xs-12">
                           <div className="row file-upload-button">
-                            <div className="col-md-7 text-center document-upload" data-toggle="tooltip" data-original-title={this.state.documentError}>
+                            <div className="col-md-12 text-center document-upload" data-toggle="tooltip" data-original-title={this.state.documentError}>
                                 <label>
                                   {
                                     this.state.labelUpload == "Upload your mortgage statement"
@@ -129,40 +129,41 @@ var RateAlert = React.createClass({
                                   <input name="potential_user[mortgage_statement]" id="uploadFile" type="file" onChange={this.handleFileChange}/>
                                   <span className="fileName">{this.state.labelUpload}</span>
                                 </label>
+                                <p id="des_upload">{"Don't have a soft copy? No worries, you can take picture and send it to (415) 964-0668"}</p>
                             </div>
-                            <div className="col-md-5 text-center">
-                              <p>{"Don't have a soft copy? No worries, you can take picture and email it to rate-alert@mortgageclub.co"}</p>
-                            </div>
+
                           </div>
                         </div>
                       </div>
                       <div className="form-group send-as">
-                        <div className="col-sm-5">
+                        <div className="col-sm-12">
                           <h5 className="text-left" data-toggle="tooltip" data-original-title={this.state.alertMethodError}>Send As</h5>
-                            <div className="col-md-6 text-left">
+                            <div className="col-md-4 text-left">
                               <input type="checkbox" name="potential_user[send_as_email]" id="sendAsEmail"/>
                               <label className="customCheckbox blueCheckBox2" htmlFor="sendAsEmail">Email</label>
                             </div>
-                            <div className="col-md-6 text-left">
+                            <div className="col-md-5 col-md-offset-1 text-left">
                               <input type="checkbox" name="potential_user[send_as_text_message]" id="sendAsText"/>
                               <label className="customCheckbox blueCheckBox2" htmlFor="sendAsText">Text message</label>
                             </div>
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-xs-5">
+                        <div className="col-xs-12">
                           <button className="btn theBtn submit-btn text-uppercase" onClick={this.handleSubmit}>{this.props.bootstrapData.homepage ? this.props.bootstrapData.homepage.btn_alert : 'SET ALERT'}</button>
                         </div>
                       </div>
                     </form>
                   </div>
                   <div className="col-md-7 col-md-offset-3 mbl">
-                    <p>(Please note: The use of information collected shall be limited to the purpose of monitoring your mortgage rates. We do not sell or share your information with anyone else).</p>
+                    <p><b>Please note:</b> The use of information collected shall be limited to the purpose of monitoring your mortgage rates. We do not sell or share your information with anyone else.</p>
                   </div>
                 </div>
             }
           </div>
+
         </div>
+        </section>
       </div>
     );
   }

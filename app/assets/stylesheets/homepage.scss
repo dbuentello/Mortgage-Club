@@ -178,12 +178,16 @@ padding-top: 60px;
 
   #applyBtn {
     width:auto;
-
     background-color:#15c0f1;
-    margin-top:5px;
-    padding: 10px 20px;
+    margin-top:25px;
   }
-
+  #des_upload {
+    padding-top: 15px;
+    color: #a1a1a1;
+    letter-spacing: .03em;
+    font-style: italic;
+    font-family: "aileronlight";
+  }
   #applyBtn:hover {
     background-color:white;
     border-color:#15c0f1;
@@ -207,8 +211,8 @@ padding-top: 60px;
 
   #home-right-header h1{
     color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
+
+    padding-bottom: 7px;
     margin: 0;
     letter-spacing: .05em;
     font-size: 1.75em;

@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   get "refinance_alert", to: "ab_testings#refinance_alert"
   #get "rate_drop_alert", to: "initial_quotes#index"
 
-  get "rate-alert", to: "potential_users#new"
   post "/potential_users", to: "potential_users#create"
   post "mailjet_tracking", to: "mailjet_tracking#track"
   get "/esigning/:id", to: "electronic_signature#new"
