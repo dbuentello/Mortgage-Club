@@ -332,6 +332,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       expect(@service.params).to include({
         borrower_yrs_job_1: current_employment.duration,
         borrower_yrs_employed_1: current_employment.duration,
+        borrower_self_employed_1: @service.borrower.self_employed ? "Yes" : "Off",
         borrower_employer_1: current_employment.employer_name,
         borrower_employer_street_1: current_employment.address.street_address,
         borrower_employer_city_state_1: "#{current_employment.address.city}, #{current_employment.address.state} #{current_employment.address.zip}",

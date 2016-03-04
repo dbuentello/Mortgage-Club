@@ -32,7 +32,10 @@ module Docusign
         @params[:interest_rate] = "#{"%.3f" % (loan.interest_rate.to_f * 100)}"
         @params[:number_of_month] = loan.num_of_months
         @params[:arm_fixed_rate] = "Yes" if loan.fixed_rate_amortization?
-        @params[:arm_type] = "Yes" if loan.arm_amortization?
+        if loan.arm_amortization?
+          @params[:arm_type] = "Yes"
+          @params[:arm_type_explain] = loan.amortization_type
+        end
       end
 
       def build_section_2
@@ -43,8 +46,8 @@ module Docusign
         @params[:primary_residence] = "Yes" if subject_property.primary_residence?
         @params[:secondary_residence] = "Yes" if subject_property.vacation_home?
         @params[:investment] = "Yes" if subject_property.rental_property?
-        @params[:property_title] = "To Be Determined"
-        @params[:property_manner] = "To Be Determined in escrow"
+        @params[:property_title] = "To be determined"
+        @params[:property_manner] = "To be determined in escrow"
         @params[:fee_simple] = "Yes"
 
         if loan.purchase?
@@ -86,20 +89,8 @@ module Docusign
       end
 
       def build_section_6
-        return unless credit_report
-
-        credit_report.liabilities.includes(:address).each_with_index do |liability, index|
-          nth = index.to_s
-          @params[("liabilities_company_" + nth).to_sym] = liability.name
-          if liability.address
-            @params[("liabilities_street_" + nth).to_sym] = liability.address.street_address
-            @params[("liabilities_city_state_" + nth).to_sym] = "#{liability.address.city}, #{liability.address.state} #{liability.address.zip}"
-          end
-
-          @params[("liabilities_payment_" + nth).to_sym] = number_with_delimiter(liability.payment.to_f / liability.months.to_f)
-          @params[("liabilities_balance_" + nth).to_sym] = number_with_delimiter(liability.balance.to_f)
-          @params[("liabilities_acc_" + nth).to_sym] = liability.account_number
-        end
+        build_liabilities
+        build_assets
       end
 
       def build_section_7
@@ -121,6 +112,7 @@ module Docusign
 
       def build_section_8
         build_declaration("borrower", borrower)
+        build_declaration("co_borrower", borrower)
         build_declaration("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
       end
 
@@ -128,6 +120,35 @@ module Docusign
         @params[:borrower_do_not_wish] = "Yes"
         @params[:co_borrower_do_not_wish] = "Yes" if loan.secondary_borrower
         @params[:applicant_submitted_internet] = "Yes"
+      end
+
+      def build_assets
+        count = 0
+        borrower.assets.each do |asset|
+          count += 1
+          nth = count.to_s
+          @params[("asset_" + nth).to_sym] = asset.institution_name
+          @params[("asset_balance_" + nth).to_sym] = "%.2f" % asset.current_balance.to_f
+        end
+      end
+
+      def build_liabilities
+        return unless credit_report
+        count = 0
+
+        credit_report.liabilities.includes(:address).each do |liability|
+          count += 1
+          nth = count.to_s
+          @params[("liabilities_company_" + nth).to_sym] = liability.name
+          if liability.address
+            @params[("liabilities_street_" + nth).to_sym] = liability.address.street_address
+            @params[("liabilities_city_state_" + nth).to_sym] = "#{liability.address.city}, #{liability.address.state} #{liability.address.zip}"
+          end
+
+          @params[("liabilities_payment_" + nth).to_sym] = "#{liability.payment.to_f} / {liability.months.to_f}"
+          @params[("liabilities_balance_" + nth).to_sym] = "%.2f" % liability.balance.to_f
+          @params[("liabilities_acc_" + nth).to_sym] = liability.account_number
+        end
       end
 
       def build_housing_expense(type, property)
@@ -178,7 +199,7 @@ module Docusign
         }
         # Ex: @params["declarations_" + role + "_b_yes"] = "Yes" if declaration.bankrupt
         boolean_mapping.each do |key, field|
-          @params[(prefix + key + yes_answer).to_sym] = @params[(prefix + key + no_answer).to_sym] = nil
+          @params[(prefix + key + yes_answer).to_sym] = @params[(prefix + key + no_answer).to_sym] = "Off"
           if declaration.send(field)
             @params[(prefix + key + yes_answer).to_sym] = "Yes"
           else
@@ -207,6 +228,7 @@ module Docusign
       def build_employment_info(role, borrower)
         @params[(role + "_yrs_job_1").to_sym] = borrower.current_employment.duration
         @params[(role + "_yrs_employed_1").to_sym] = borrower.current_employment.duration
+        @params[(role + "_self_employed_1").to_sym] = borrower.self_employed ? "Yes" : "Off"
 
         [borrower.current_employment, borrower.previous_employment].each_with_index do |employment, index|
           next if employment.nil?
@@ -225,7 +247,7 @@ module Docusign
         @params[(role + "_name").to_sym] = borrower.full_name
         @params[(role + "_ssn").to_sym] = borrower.ssn
         @params[(role + "_home_phone").to_sym] = borrower.phone
-        @params[(role + "_dob").to_sym] = borrower.dob.strftime('%D') if borrower.dob
+        @params[(role + "_dob").to_sym] = borrower.dob.strftime("%m/%d/%Y") if borrower.dob
         @params[(role + "_yrs_school").to_sym] = borrower.years_in_school
         @params[(role + "_married").to_sym] = "Yes" if borrower.married?
         @params[(role + "_unmarried").to_sym] = "Yes" if borrower.unmarried?
@@ -259,7 +281,6 @@ module Docusign
 
       def build_purchase_loan
         @params[:purpose_purchase] = "Yes"
-        @params[:original_cost_1] = "%.2f" % subject_property.purchase_price.to_f
         @params[:source_down_payment] = "Checking account"
       end
 
@@ -277,6 +298,7 @@ module Docusign
           @params[:loan_type_other] = "Yes"
           @params[:loan_type_other_explain] = loan.loan_type
         end
+        @params[:va] = "Yes"
       end
 
       def get_net_value
