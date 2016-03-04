@@ -131,17 +131,17 @@ module Docusign
       end
 
       def build_housing_expense(type, property)
-        @params[(type + "_total").to_sym] = "%.2f" % (property.mortgage_payment + property.other_financing +
-                                            property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
+        @params[(type + "_total").to_sym] = "%.2f" % (property.mortgage_payment.to_f + property.other_financing.to_f +
+                                            property.estimated_hazard_insurance + property.estimated_property_tax +
                                             property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f)
 
         @params[(type + "_rent").to_sym] = "%.2f" % borrower.current_address.monthly_rent if primary_property && borrower.current_address.is_rental
-        @params[(type + "_mortgage").to_sym] = "%.2f" % property.mortgage_payment
-        @params[(type + "_other_financing").to_sym] = "%.2f" % property.other_financing
+        @params[(type + "_mortgage").to_sym] = "%.2f" % property.mortgage_payment.to_f
+        @params[(type + "_other_financing").to_sym] = "%.2f" % property.other_financing.to_f
         @params[(type + "_hazard_insurance").to_sym] = "%.2f" % property.estimated_hazard_insurance
         @params[(type + "_real_estate_taxes").to_sym] = "%.2f" % property.estimated_property_tax
-        @params[(type + "_mortgage_insurance").to_sym] = "%.2f" % property.estimated_mortgage_insurance
-        @params[(type + "_homeowner").to_sym] = "%.2f" % property.hoa_due
+        @params[(type + "_mortgage_insurance").to_sym] = "%.2f" % property.estimated_mortgage_insurance.to_f
+        @params[(type + "_homeowner").to_sym] = "%.2f" % property.hoa_due.to_f
       end
 
       def total_cost_transactions

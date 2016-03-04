@@ -16,35 +16,6 @@ module Docusign
       @pdftk = PdfForms.new(ENV.fetch("PDFTK_BIN", "/usr/local/bin/pdftk"), flatten: true)
     end
 
-    # def call
-    #   @envelope_hash = build_envelope_hash
-    #   signers = Docusign::GenerateSignersForEnvelopeService.new(loan, templates, @envelope_hash).call
-
-    #   envelope_response = client.create_envelope_from_template(
-    #     status: 'sent',
-    #     email: {
-    #       subject: "The test email subject envelope",
-    #       body: "Envelope body content here"
-    #     },
-    #     template_id: "ee4df9c1-80fd-408b-b791-334a1b75d01d",
-    #     signers: signers
-    #   )
-
-    #   # envelope_response = client.create_envelope_from_composite_template(
-    #   #   status: 'sent',
-    #   #   email: {
-    #   #     subject: @envelope_hash[:email_subject],
-    #   #     body: @envelope_hash[:email_body]
-    #   #   },
-    #   #   server_template_ids: template_ids,
-    #   #   signers: signers
-    #   # )
-
-    #   if envelope_response["errorCode"].nil?
-    #     save_envelope_object_into_database(envelope_response["envelopeId"], @envelope_hash[:loan_id])
-    #     return envelope_response
-    #   end
-    # end
     def call(user, loan)
       create_document_by_adobe_field_names(loan)
       client = DocusignRest::Client.new

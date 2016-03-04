@@ -13,35 +13,16 @@ class ElectronicSignatureController < ApplicationController
   end
 
   def create
-    templates = Template.where(name: ["Uniform Residential Loan Application"])
+    # templates = Template.where(name: ["Uniform Residential Loan Application"])
 
-    if templates.empty?
-      return render json: {
-              message: "Template does not exist yet",
-              details: "Template #{params[:template_name]} does not exist yet!"
-            }, status: 500
-    end
-
-    # TODO: only update loan's data after user signed contract
-    # RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:fees], lender_params)
-    # @loan.reload
-
-    # envelope = Docusign::CreateEnvelopeService.new(current_user, @loan, templates).call
-
-    # if envelope
-    #   recipient_view = Docusign::GetRecipientViewService.call(
-    #     envelope['envelopeId'],
-    #     current_user,
-    #     embedded_response_electronic_signature_index_url(
-    #       loan_id: params[:id],
-    #       envelope_id: envelope['envelopeId'],
-    #       user_id: current_user.id
-    #     )
-    #   )
-    #   return render json: {message: recipient_view}, status: 200 if recipient_view
+    # if templates.empty?
+    #   return render json: {
+    #           message: "Template does not exist yet",
+    #           details: "Template #{params[:template_name]} does not exist yet!"
+    #         }, status: 500
     # end
-    envelope = Docusign::CreateEnvelopeService.new.call(current_user, @loan)
 
+    envelope = Docusign::CreateEnvelopeService.new.call(current_user, @loan)
     recipient_view = DocusignRest::Client.new.get_recipient_view(
       envelope_id: envelope['envelopeId'],
       name: "#{current_user.first_name} #{current_user.last_name}",
