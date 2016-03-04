@@ -1,3 +1,4 @@
+# rubocop:disable ClassLength
 module Docusign
   module Templates
     class UniformResidentialLoanApplication
@@ -74,8 +75,8 @@ module Docusign
         build_housing_expense("proposed", subject_property)
         build_housing_expense("present", primary_property) if primary_property
 
-        @params[:borrower_rental_income] = "%.2f" % get_net_value
-        @params[:sum_total_income] = "%.2f" % (@params[:total_base_income].to_f + @params[:total_overtime].to_f
+        @params[:borrower_rental_income] = "%.2f" %(get_net_value)
+        @params[:sum_total_income] = "%.2f" % (@params[:total_base_income].to_f + @params[:total_overtime].to_f +
                                                        @params[:total_bonuses].to_f + @params[:total_commissions].to_f +
                                                        @params[:total_dividends].to_f)
         if @params[:sum_total_income]
@@ -84,7 +85,7 @@ module Docusign
           @params[:total_bonuses] = "%.2f" % @params[:total_bonuses].to_f
           @params[:total_commissions] = "%.2f" % @params[:total_commissions].to_f
           @params[:total_interest] = "%.2f" % @params[:total_dividends].to_f
-          @params[:total_rental_income] = "%.2f" % get_net_value
+          @params[:total_rental_income] = "%.2f" %(get_net_value)
         end
       end
 
@@ -106,13 +107,12 @@ module Docusign
         @params[:loan_amount_exclude_pmi] = "%.2f" % (loan.amount - loan.pmi_mip_funding_fee.to_f)
         @params[:pmi_mip_financed] = "%.2f" % loan.pmi_mip_funding_fee_financed.to_f
         @params[:loan_amount_m_n] = "%.2f" % loan.amount
-        @params[:borrower_cash] = "%.2f" % borrower_cash
-        @params[:total_costs] = "%.2f" % total_cost_transactions
+        @params[:borrower_cash] = "%.2f" %(borrower_cash)
+        @params[:total_costs] = "%.2f" %(total_cost_transactions)
       end
 
       def build_section_8
         build_declaration("borrower", borrower)
-        build_declaration("co_borrower", borrower)
         build_declaration("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
       end
 
@@ -298,7 +298,6 @@ module Docusign
           @params[:loan_type_other] = "Yes"
           @params[:loan_type_other_explain] = loan.loan_type
         end
-        @params[:va] = "Yes"
       end
 
       def get_net_value
@@ -307,3 +306,4 @@ module Docusign
     end
   end
 end
+# rubocop:enable ClassLength
