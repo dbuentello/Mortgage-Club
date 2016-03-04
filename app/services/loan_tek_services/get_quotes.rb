@@ -33,6 +33,7 @@ module LoanTekServices
           BestExecutionMethodType: execution_method,
           QuotingChannel: quoting_channel,
           ClientDefinedIdentifier: client_defined_identifier,
+          LockPeriod: lock_period,
           ZipCode: zipcode,
           CreditScore: credit_score,
           LoanPurpose: loan_purpose,
@@ -40,7 +41,8 @@ module LoanTekServices
           LoanToValue: loan_to_value,
           PropertyUsage: property_usage,
           PropertyType: property_type,
-          QuoteTypesToReturn: quote_types_to_return
+          QuoteTypesToReturn: quote_types_to_return,
+          LoanProgramsOfInterest: loan_programs_of_interest
         }.to_json
       end
       success? ? LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"]) : []
@@ -60,12 +62,22 @@ module LoanTekServices
       ENV["LOANTEK_IDENTIFIER"]
     end
 
+    def lock_period
+      #30 days
+      30
+    end
+
     def execution_method
-      1
+      #Just remove stop
+      3
     end
 
     def quoting_channel
       0
+    end
+
+    def loan_programs_of_interest
+      [1, 2, 3]
     end
 
     def zipcode
