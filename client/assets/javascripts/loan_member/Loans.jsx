@@ -11,6 +11,11 @@ var Loans = React.createClass({
     });
   },
 
+  componentDidMount: function() {
+    // $('.bootstrap-select').selectpicker();
+    // $('.bootstrap-select').change(this.handleLoanChanged);
+  },
+
   handleLoanChanged: function(event) {
     var loan = $(event.currentTarget.classList)[0];
     loan = loan.substring(4, loan.length);
@@ -67,12 +72,13 @@ var Loans = React.createClass({
                           <td>{loan.user.to_s}</td>
                           <td>{loan.user.email}</td>
                           <td>
-                            <select className={"loan" +loan.id + " loan-status"} data-loanId={loan.id} onChange={this.handleLoanChanged}>
+
+                            <select className={"loan" +loan.id + " loan-status"} onChange={this.handleLoanChanged} data-loanId={loan.id}>
                               {
                                 _.map(this.props.bootstrapData.loan_statuses, function(status){
                                   var statusValue = status[0];
                                   var statusLabel = status[1];
-                                  var isSelected = (statusValue === loan.status ? "selected" :null);
+                                  var isSelected = (statusValue === loan.status ? "selected" : null);
                                   return (
                                       <option value={statusValue} selected={statusValue === loan.status}>
                                         { statusLabel }
@@ -81,18 +87,22 @@ var Loans = React.createClass({
                                 },this)
                               }
                             </select>
+                            <span>
+                              {
+                                this.state.activeId == loan.id
+                                ?
+                                <span>
+                                  &nbsp;
+                                  <a onClick={this.updateLoan} className={"loanID"+loan.id + " btn-update-loan"}>
+                                    <i className="icon-floppy-disk save-btn"></i></a>
+                                </span>
 
-                            {
-                              this.state.activeId == loan.id
-                              ?
-                              <span>
-                                <a onClick={this.updateLoan} className={"loanID"+loan.id + " btn-update-loan"}>
-                                  <i className="icon-floppy-disk"></i></a>
-                              </span>
-                              :
-                              null
-                            }
-
+                                :
+                                <span>
+                                &nbsp;
+                                </span>
+                              }
+                            </span>
 
                           </td>
                           <td>{this.formatTime(loan.created_at)}</td>

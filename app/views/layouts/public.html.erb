@@ -45,7 +45,7 @@ src="https://www.facebook.com/tr?id=971021386313588&ev=PageView&noscript=1"
     <% end %>
 
 
-      <!--Start of Zopim Live Chat Script-->
+    <% if Rails.env.production? %>
        <!--Start of Zopim Live Chat Script-->
     <script type="text/javascript">
       window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
@@ -55,11 +55,12 @@ $.src="//v2.zopim.com/?3iekAjgdsMVBdIaGinAceGBxY9VKQNLd";z.t=+new Date;$.
 type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
     </script>
-   <script type="text/javascript">
+    <script type="text/javascript">
       $zopim(function(){
         $zopim.livechat.window.hide();
       })
     </script>
+    <% end %>
       <!--End of Zopim Live Chat Script-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
     <%= javascript_include_tag 'public', 'data-turbolinks-track' => false %>
