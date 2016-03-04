@@ -16,30 +16,48 @@ module LoanTekServices
     def self.call(quotes)
       lender_info = get_lender_info(quotes)
 
-      programs = quotes.map! do |quote|
+      programs = []
+      quotes.each do |quote|
         if quote["DiscountPts"] > -1
-          {
-            lender_name: quote["LenderName"],
-            product: get_product_name(quote),
-            apr: quote["APR"] / 100,
-            loan_amount: quote["FeeSet"]["LoanAmount"],
-            interest_rate: get_interest_rate(quote),
-            total_fee: quote["FeeSet"]["TotalFees"],
-            fees: quote["FeeSet"]["Fees"] || [],
-            period: get_period(quote),
-            down_payment: get_down_payment(quote),
-            monthly_payment: get_monthly_payment(quote),
-            lender_credit: get_lender_credit(quote),
-            total_closing_cost: get_total_closing_cost(quote),
-            nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
-            logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
-            loan_type: quote["ProductFamily"]
-          }
-        end
-      end.compact
+          apr = quote["APR"] / 100
+          rate = get_interest_rate(quote)
+          lender_name = quote["LenderName"]
+          discount_pts = quote["DiscountPts"] / 100
 
-      build_characteristics(programs)
+          program = select_program_exist(programs, apr, rate, lender_name, discount_pts)
+
+          if program.empty?
+            program = {
+              lender_name: lender_name,
+              product: get_product_name(quote),
+              apr: apr,
+              loan_amount: quote["FeeSet"]["LoanAmount"],
+              interest_rate: rate,
+              total_fee: quote["FeeSet"]["TotalFees"],
+              fees: quote["FeeSet"]["Fees"] || [],
+              period: get_period(quote),
+              down_payment: get_down_payment(quote),
+              monthly_payment: get_monthly_payment(quote),
+              lender_credit: get_lender_credit(quote),
+              total_closing_cost: get_total_closing_cost(quote),
+              nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
+              logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
+              loan_type: quote["ProductFamily"],
+              discount_pts: discount_pts
+            }
+            programs << program
+          end
+        end
+      end
+
+      programs = build_characteristics(programs)
       programs.sort_by { |program| program[:apr] }
+    end
+
+    def self.select_program_exist(programs, apr, rate, lender_name, discount_pts)
+      programs.select do |program|
+        program[:lender_name] == lender_name && program[:apr] == apr && program[:interest_rate] == rate && program[:discount_pts] == discount_pts
+      end
     end
 
     def self.get_lender_info(quotes)
@@ -114,6 +132,10 @@ module LoanTekServices
         elsif program[:total_closing_cost] == characteristics[program[:product]][:total_closing_cost]
           program[:characteristic] = "Of all #{program[:product]} mortgages on MortgageClub that you've qualified for, this one has the lowest total closing cost."
         end
+      end
+
+      programs = programs.reject do |program|
+        program[:apr] - characteristics[program[:product]][:apr] > 0.01
       end
     end
 
