@@ -1,6 +1,14 @@
 var React = require('react/addons');
 
 var HomePart = React.createClass({
+  componentDidMount: function(){
+    $("#applyBtn").on("click", function( e ) {
+      e.preventDefault();
+      $("body, html").animate({
+          scrollTop: $( $(this).attr('href') ).offset().top
+      }, 1000);
+});
+  },
   render: function() {
     var signupURL = "/auth/register/signup";
     return (
@@ -54,7 +62,7 @@ var HomePart = React.createClass({
               </div>
 
               <div>
-                <a className="btn btn-lg theBtn text-uppercase" role="button" id="applyBtn" href={"/auth/register/signup"}>{this.props.data.homepage.btn_alert}</a>
+                <a className="btn btn-lg theBtn text-uppercase" role="button" id="applyBtn" href={"#rate_alert"}>{this.props.data.homepage.btn_alert}</a>
               </div>
             </div>
           </div>

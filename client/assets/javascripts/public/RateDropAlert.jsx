@@ -18,7 +18,7 @@ var RateDropAlert = React.createClass({
       <div className="homepage">
         <HomePart data={this.props.bootstrapData} ></HomePart>
         <BankPart></BankPart>
-        <RateAlert bootstrapData={this.props.bootstrapData}/>
+        
       </div>
     );
   }

@@ -12,10 +12,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def refinancing_alert
-
-  end
-
   def developer_infographics
   end
 
