@@ -7,6 +7,9 @@ class InitialQuotesController < ApplicationController
     quote_cookies = get_quote_cookies
 
     bootstrap(
+      last_updated: @last_updated,
+      refcode: @refcode,
+      mortgage_aprs: @mortgage_aprs,
       zipcode: quote_cookies["zip_code"],
       credit_score: quote_cookies["credit_score"],
       property_value: quote_cookies["property_value"],
