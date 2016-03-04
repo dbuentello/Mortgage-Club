@@ -39,12 +39,12 @@ class ElectronicSignatureController < ApplicationController
     #   )
     #   return render json: {message: recipient_view}, status: 200 if recipient_view
     # end
-    envelope = Docusign::XyzService.new.call
+    envelope = Docusign::CreateEnvelopeService.new.call(current_user, @loan)
 
     recipient_view = DocusignRest::Client.new.get_recipient_view(
       envelope_id: envelope['envelopeId'],
-      name: "Cuong Vu",
-      email: "cuongvu0103@gmail.com",
+      name: "#{current_user.first_name} #{current_user.last_name}",
+      email: current_user.email,
       return_url: embedded_response_electronic_signature_index_url(
         loan_id: params[:id],
         envelope_id: envelope['envelopeId'],
