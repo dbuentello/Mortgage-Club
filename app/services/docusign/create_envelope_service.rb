@@ -1,67 +1,141 @@
-require 'open-uri'
+require "pdf_forms"
 
 module Docusign
   class CreateEnvelopeService
-    attr_accessor :user, :loan, :client, :helper, :templates
+    UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
+    FORM_4506_PATH = "#{Rails.root}/form_templates/form4506t.pdf".freeze
+    BORROWER_CERTIFICATION_PATH = "#{Rails.root}/form_templates/Borrower-Certification-and-Authorization.pdf".freeze
 
-    def initialize(user, loan, templates)
-      @user = user
-      @loan = loan
-      @templates = templates
-      @client = DocusignRest::Client.new
-      @helper = Docusign::Helper.new(client: @client)
+    UNIFORM_OUTPUT_PATH = "#{Rails.root}/tmp/uniform.pdf".freeze
+    FORM_4506_OUTPUT_PATH = "#{Rails.root}/tmp/form4506t.pdf".freeze
+    BORROWER_CERTIFICATION_OUTPUT_PATH = "#{Rails.root}/tmp/certification.pdf".freeze
+
+    attr_accessor :pdftk
+
+    def initialize
+      @pdftk = PdfForms.new(ENV.fetch("PDFTK_BIN", "/usr/local/bin/pdftk"), flatten: true)
     end
 
-    def call
-      @envelope_hash = build_envelope_hash
-      signers = Docusign::GenerateSignersForEnvelopeService.new(loan, templates, @envelope_hash).call
-      envelope_response = client.create_envelope_from_composite_template(
-        status: 'sent',
-        email: {
-          subject: @envelope_hash[:email_subject],
-          body: @envelope_hash[:email_body]
-        },
-        server_template_ids: template_ids,
-        signers: signers
+    def call(user, loan)
+      generates_documents_by_adobe_field_names(loan)
+      client = DocusignRest::Client.new
+      envelope = client.create_envelope_from_document(
+        {
+          status: "sent",
+          email: {
+            subject: "Electronic Signature Request from MortgageClub Corporation",
+            body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
+          },
+          files: [
+            {path: UNIFORM_OUTPUT_PATH},
+            {path: FORM_4506_OUTPUT_PATH},
+            {path: BORROWER_CERTIFICATION_OUTPUT_PATH}
+          ],
+          signers: build_signers(user, loan)
+        }
       )
 
-      if envelope_response["errorCode"].nil?
-        save_envelope_object_into_database(envelope_response["envelopeId"], @envelope_hash[:loan_id])
-        return envelope_response
+      delete_temp_files
+      envelope
+    end
+
+    def generates_documents_by_adobe_field_names(loan)
+      generate_uniform(loan)
+      generate_form_4506
+      generate_form_certification
+    end
+
+    def generate_uniform(loan)
+      data = Docusign::Templates::UniformResidentialLoanApplication.new(loan).build
+      pdftk.get_field_names(UNIFORM_PATH)
+      pdftk.fill_form(UNIFORM_PATH, "tmp/uniform.pdf", data)
+    end
+
+    def generate_form_4506
+      pdftk.get_field_names(FORM_4506_PATH)
+      pdftk.fill_form(FORM_4506_PATH, "tmp/form4506t.pdf")
+    end
+
+    def generate_form_certification
+      pdftk.get_field_names(BORROWER_CERTIFICATION_PATH)
+      pdftk.fill_form(BORROWER_CERTIFICATION_PATH, "tmp/certification.pdf")
+    end
+
+    def delete_temp_files
+      File.delete(UNIFORM_OUTPUT_PATH)
+      File.delete(FORM_4506_OUTPUT_PATH)
+      File.delete(BORROWER_CERTIFICATION_OUTPUT_PATH)
+    end
+
+    def build_signers(user, loan)
+      signers =
+        [
+          {
+            embedded: true,
+            name: "#{user.first_name} #{user.last_name}",
+            email: user.email,
+            role_name: "Normal",
+            sign_here_tabs: [
+              {
+                name: "Signature",
+                page_number: "4",
+                x_position: "90",
+                y_position: "439",
+                document_id: "1",
+                optional: "false"
+              }
+            ],
+            date_signed_tabs: [
+              {
+                name: "Date Signed",
+                page_number: "4",
+                x_position: "240",
+                y_position: "467",
+                document_id: "1",
+                fontSize: "size9",
+                fontColor: "black",
+                bold: "false",
+                italic: "false",
+                underline: "false"
+              }
+            ]
+          }
+        ]
+
+      if loan.secondary_borrower
+        signers << {
+          embedded: true,
+          name: "#{loan.secondary_borrower.user.first_name} #{loan.secondary_borrower.user.last_name}",
+          email: loan.secondary_borrower.user.email,
+          role_name: "Normal",
+          sign_here_tabs: [
+            {
+              name: "Signature",
+              page_number: "4",
+              x_position: "385",
+              y_position: "439",
+              document_id: "1",
+              optional: "true"
+            }
+          ],
+          date_signed_tabs: [
+            {
+              name: "Date Signed",
+              page_number: "4",
+              x_position: "521",
+              y_position: "467",
+              document_id: "1",
+              fontSize: "size9",
+              fontColor: "black",
+              bold: "false",
+              italic: "false",
+              underline: "false"
+            }
+          ]
+        }
       end
-    end
 
-    private
-
-    def build_envelope_hash
-      envelope_hash = {
-        user: {name: user.to_s, email: user.email},
-        data: mapping_value,
-        loan_id: loan.id,
-        embedded: true,
-        email_subject: "Electronic Signature Request from Mortgage Club",
-        email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
-      }
-    end
-
-    def template_ids
-      templates.map { |template| template.docusign_id }
-    end
-
-    def mapping_value
-      templates.map do |template|
-        template.template_mapping.new(loan).build
-      end
-    end
-
-    def save_envelope_object_into_database(envelope_id, loan_id)
-      envelope = Envelope.find_or_initialize_by(
-        loan_id: loan_id
-      )
-      envelope.docusign_id = envelope_id
-      envelope.save
+      signers
     end
   end
 end
-
-#{"errorCode"=>"INVALID_REQUEST_PARAMETER", "message"=>"The request contained at least one invalid parameter. 'recipientId' not set for recipient."}

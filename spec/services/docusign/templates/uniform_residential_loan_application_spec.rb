@@ -18,24 +18,24 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.build_section_1
 
       expect(@service.params).to include({
-        "loan_amount" => number_with_delimiter(loan.amount),
-        "interest_rate" => "#{(loan.interest_rate.to_f * 100).round(3)}",
-        "no_of_month" => loan.num_of_months
+        loan_amount: number_with_delimiter(loan.amount.round),
+        interest_rate: "#{"%.3f" % (loan.interest_rate.to_f * 100)}",
+        number_of_month: loan.num_of_months
       })
     end
 
     it "marks 'x' to only one amortization type" do
       @service.loan.amortization_type = "5/1 ARM"
       @service.build_section_1
-      expect(@service.params["amortization_fixed_rate"]).not_to eq("x")
-      expect(@service.params["amortization_arm"]).to eq("x")
+      expect(@service.params[:arm_fixed_rate]).not_to eq("Yes")
+      expect(@service.params[:arm_type]).to eq("Yes")
     end
 
     context "fixed rate" do
       it "marks 'x' to param's amortization" do
         @service.loan.amortization_type = "30 year fixed"
         @service.build_section_1
-        expect(@service.params["amortization_fixed_rate"]).to eq("x")
+        expect(@service.params[:arm_fixed_rate]).to eq("Yes")
       end
     end
 
@@ -43,7 +43,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       it "marks 'x' to param's amortization" do
         @service.loan.amortization_type = "5/1 ARM"
         @service.build_section_1
-        expect(@service.params["amortization_arm"]).to eq("x")
+        expect(@service.params[:arm_type]).to eq("Yes")
       end
     end
   end
@@ -55,12 +55,12 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       property = loan.subject_property
       @service.build_section_2
       expect(@service.params).to include({
-        "property_address" => property.address.try(:address),
-        "no_of_units" => property.no_of_unit,
-        "legal_description" => "See preliminary title",
-        "property_title" => "To Be Determined",
-        "property_manner" => "To Be Determined in escrow",
-        "property_fee_simple" => "x"
+        subject_property_address: property.address.try(:address),
+        no_units:  property.no_of_unit,
+        subject_property_description: "See preliminary title",
+        property_title: "To be determined",
+        property_manner: "To be determined in escrow",
+        fee_simple: "Yes"
       })
     end
 
@@ -68,16 +68,16 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.subject_property.usage = "primary_residence"
       @service.build_section_2
 
-      expect(@service.params["secondary_property"]).not_to eq("x")
-      expect(@service.params["investment_property"]).not_to eq("x")
-      expect(@service.params["primary_property"]).to eq("x")
+      expect(@service.params[:secondary_residence]).not_to eq("Yes")
+      expect(@service.params[:investment]).not_to eq("Yes")
+      expect(@service.params[:primary_residence]).to eq("Yes")
     end
 
     it "marks 'x' to only one property's purpose" do
       @service.build_section_2
 
-      expect(@service.params["loan_purpose_refinance"]).not_to eq("x")
-      expect(@service.params["loan_purpose_purchase"]).to eq("x")
+      expect(@service.params[:purpose_refinance]).not_to eq("Yes")
+      expect(@service.params[:purpose_purchase]).to eq("Yes")
     end
 
     context "purchase" do
@@ -85,7 +85,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         @service.loan.purpose = "purchase"
         @service.build_section_2
 
-        expect(@service.params["loan_purpose_purchase"]).to eq("x")
+        expect(@service.params[:purpose_purchase]).to eq("Yes")
       end
     end
 
@@ -190,16 +190,16 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       borrower_cash = (total_cost_transactions - loan.other_credits.to_f - loan.amount).round(2)
       @service.build_section_7
       expect(@service.params).to include({
-        "purchase_price" => align(number_with_delimiter(loan.subject_property.purchase_price.to_f), 9),
-        "estimated_prepaid_items" => align(number_with_delimiter(loan.estimated_prepaid_items), 9),
-        "estimated_closing_costs" => align(number_with_delimiter(loan.estimated_closing_costs), 9),
-        "pmi_funding_fee" => align(number_with_delimiter(loan.pmi_mip_funding_fee), 9),
-        "other_credit" => align(number_with_delimiter(loan.other_credits), 9),
-        "loan_amount_exclude_pmi_mip" => align(number_with_delimiter(loan.amount - loan.pmi_mip_funding_fee.to_f), 9),
-        "pmi_mip_funding_fee_financed" => align(number_with_delimiter(loan.pmi_mip_funding_fee_financed), 9),
-        "total_loan_amount" => align(number_with_delimiter(loan.amount), 9),
-        "borrower_cash" => align(number_with_delimiter(borrower_cash), 9),
-        "total_cost_transactions" => number_with_delimiter(total_cost_transactions)
+        purchase_price: number_to_currency(loan.subject_property.purchase_price.to_f, unit: ""),
+        prepaid_items: number_to_currency(loan.estimated_prepaid_items, unit: ""),
+        closing_costs: number_to_currency(loan.estimated_closing_costs, unit: ""),
+        pmi_mip: number_to_currency(loan.pmi_mip_funding_fee, unit: ""),
+        other_credits: number_to_currency(loan.other_credits, unit: ""),
+        loan_amount_exclude_pmi: number_to_currency((loan.amount - loan.pmi_mip_funding_fee.to_f), unit: ""),
+        pmi_mip_financed: number_to_currency(loan.pmi_mip_funding_fee_financed, unit: ""),
+        loan_amount_m_n: number_to_currency(loan.amount, unit: ""),
+        borrower_cash: number_to_currency(borrower_cash, unit: ""),
+        total_costs: number_to_currency(total_cost_transactions, unit: "")
       })
     end
 
@@ -208,7 +208,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         @service.loan.purpose = "refinance"
         @service.build_section_7
         expect(@service.params).to include({
-          "refinance" => align(number_with_delimiter(@service.loan.amount), 9)
+          refinance: number_to_currency(@service.loan.amount, unit: "")
         })
       end
     end
@@ -239,18 +239,18 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     context "subject property" do
       it "maps right values" do
         property = @service.subject_property
-        proposed_total_expense = number_with_delimiter((property.mortgage_payment + property.other_financing +
-                                              property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
-                                              property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f))
+        proposed_total_expense = property.mortgage_payment + property.other_financing +
+                                 property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
+                                 property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f
         @service.build_housing_expense("proposed", property)
         expect(@service.params).to include({
-          "proposed_first_mortgage" => align(number_with_delimiter(property.mortgage_payment), proposed_total_expense.length),
-          "proposed_other_financing" => align(number_with_delimiter(property.other_financing), proposed_total_expense.length),
-          "proposed_hazard_insurance" => align(number_with_delimiter(property.estimated_hazard_insurance), proposed_total_expense.length),
-          "proposed_estate_taxes" => align(number_with_delimiter(property.estimated_property_tax), proposed_total_expense.length),
-          "proposed_mortgage_insurance" => align(number_with_delimiter(property.estimated_mortgage_insurance), proposed_total_expense.length),
-          "proposed_homeowner" => align(number_with_delimiter(property.hoa_due), proposed_total_expense.length),
-          "proposed_total_expense" => proposed_total_expense
+          proposed_mortgage: number_to_currency(property.mortgage_payment, unit: ""),
+          proposed_other_financing: number_to_currency(property.other_financing, unit: ""),
+          proposed_hazard_insurance: number_to_currency(property.estimated_hazard_insurance, unit: ""),
+          proposed_real_estate_taxes: number_to_currency(property.estimated_property_tax, unit: ""),
+          proposed_mortgage_insurance: number_to_currency(property.estimated_mortgage_insurance, unit: ""),
+          proposed_homeowner: number_to_currency(property.hoa_due, unit: ""),
+          proposed_total: number_to_currency(proposed_total_expense, unit: "")
         })
       end
     end
@@ -258,18 +258,18 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     context "primary property" do
       it "maps right values" do
         property = @service.primary_property
-        present_total_expense = number_with_delimiter(property.mortgage_payment + property.other_financing +
-                                              property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
-                                              property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f)
+        present_total_expense = property.mortgage_payment + property.other_financing +
+                                property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
+                                property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f
         @service.build_housing_expense("present", property)
         expect(@service.params).to include({
-          "present_first_mortgage" => align(number_with_delimiter(property.mortgage_payment), present_total_expense.length),
-          "present_other_financing" => align(number_with_delimiter(property.other_financing), present_total_expense.length),
-          "present_hazard_insurance" => align(number_with_delimiter(property.estimated_hazard_insurance), present_total_expense.length),
-          "present_estate_taxes" => align(number_with_delimiter(property.estimated_property_tax), present_total_expense.length),
-          "present_mortgage_insurance" => align(number_with_delimiter(property.estimated_mortgage_insurance), present_total_expense.length),
-          "present_homeowner" => align(number_with_delimiter(property.hoa_due), present_total_expense.length),
-          "present_total_expense" => present_total_expense
+          present_mortgage: number_to_currency(property.mortgage_payment, unit: ""),
+          present_other_financing: number_to_currency(property.other_financing, unit: ""),
+          present_hazard_insurance: number_to_currency(property.estimated_hazard_insurance, unit: ""),
+          present_real_estate_taxes: number_to_currency(property.estimated_property_tax, unit: ""),
+          present_mortgage_insurance: number_to_currency(property.estimated_mortgage_insurance, unit: ""),
+          present_homeowner: number_to_currency(property.hoa_due, unit: ""),
+          present_total: number_to_currency(present_total_expense, unit: "")
         })
       end
     end
@@ -279,32 +279,32 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     it "maps right values" do
       @service.build_declaration("borrower", @service.borrower)
       expect(@service.params).to include({
-        "declarations_borrower_a_yes" => declaration.outstanding_judgment ? "x" : nil,
-        "declarations_borrower_b_yes" => declaration.bankrupt ? "x" : nil,
-        "declarations_borrower_c_yes" => declaration.property_foreclosed ? "x" : nil,
-        "declarations_borrower_d_yes" => declaration.party_to_lawsuit ? "x" : nil,
-        "declarations_borrower_e_yes" => declaration.loan_foreclosure ? "x" : nil,
-        "declarations_borrower_f_yes" => declaration.present_delinquent_loan ? "x" : nil,
-        "declarations_borrower_g_yes" => declaration.child_support ? "x" : nil,
-        "declarations_borrower_h_yes" => declaration.down_payment_borrowed ? "x" : nil,
-        "declarations_borrower_i_yes" => declaration.co_maker_or_endorser ? "x" : nil,
-        "declarations_borrower_j_yes" => declaration.us_citizen ? "x" : nil,
-        "declarations_borrower_k_yes" => declaration.permanent_resident_alien ? "x" : nil,
-        "declarations_borrower_m_yes" => declaration.ownership_interest ? "x" : nil,
-        "declarations_borrower_a_no" => declaration.outstanding_judgment ? nil : "x",
-        "declarations_borrower_b_no" => declaration.bankrupt ? nil : "x",
-        "declarations_borrower_c_no" => declaration.property_foreclosed ? nil : "x",
-        "declarations_borrower_d_no" => declaration.party_to_lawsuit ? nil : "x",
-        "declarations_borrower_e_no" => declaration.loan_foreclosure ? nil : "x",
-        "declarations_borrower_f_no" => declaration.present_delinquent_loan ? nil : "x",
-        "declarations_borrower_g_no" => declaration.child_support ? nil : "x",
-        "declarations_borrower_h_no" => declaration.down_payment_borrowed ? nil : "x",
-        "declarations_borrower_i_no" => declaration.co_maker_or_endorser ? nil : "x",
-        "declarations_borrower_j_no" => declaration.us_citizen ? nil : "x",
-        "declarations_borrower_k_no" => declaration.permanent_resident_alien ? nil : "x",
-        "declarations_borrower_m_no" => declaration.ownership_interest ? nil : "x",
-        "declarations_borrower_m_1"  => declaration.type_of_property,
-        "declarations_borrower_m_2"  => declaration.title_of_property
+        borrower_a_no: declaration.outstanding_judgment ? "Off" : "Yes",
+        borrower_a_yes: declaration.outstanding_judgment ? "Yes" : "Off",
+        borrower_b_no: declaration.bankrupt ? "Off" : "Yes",
+        borrower_b_yes: declaration.bankrupt ? "Yes" : "Off",
+        borrower_c_no: declaration.property_foreclosed ? "Off" : "Yes",
+        borrower_c_yes: declaration.property_foreclosed ? "Yes" : "Off",
+        borrower_d_no: declaration.party_to_lawsuit ? "Off" : "Yes",
+        borrower_d_yes: declaration.party_to_lawsuit ? "Yes" : "Off",
+        borrower_e_no: declaration.loan_foreclosure ? "Off" : "Yes",
+        borrower_e_yes: declaration.loan_foreclosure ? "Yes" : "Off",
+        borrower_f_no: declaration.present_delinquent_loan ? "Off" : "Yes",
+        borrower_f_yes: declaration.present_delinquent_loan ? "Yes" : "Off",
+        borrower_g_no: declaration.child_support ? "Off" : "Yes",
+        borrower_g_yes: declaration.child_support ? "Yes" : "Off",
+        borrower_h_no: declaration.down_payment_borrowed ? "Off" : "Yes",
+        borrower_h_yes: declaration.down_payment_borrowed ? "Yes" : "Off",
+        borrower_i_no: declaration.co_maker_or_endorser ? "Off" : "Yes",
+        borrower_i_yes: declaration.co_maker_or_endorser ? "Yes" : "Off",
+        borrower_j_no: declaration.us_citizen ? "Off" : "Yes",
+        borrower_j_yes: declaration.us_citizen ? "Yes" : "Off",
+        borrower_k_no: declaration.permanent_resident_alien ? "Off" : "Yes",
+        borrower_k_yes: declaration.permanent_resident_alien ? "Yes" : "Off",
+        borrower_m_no: declaration.ownership_interest ? "Off" : "Yes",
+        borrower_m_yes: declaration.ownership_interest ? "Yes" : "Off",
+        borrower_m1: declaration.type_of_property,
+        borrower_m2: declaration.title_of_property
       })
     end
   end
@@ -313,14 +313,13 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     it "maps right values" do
       borrower = @service.borrower
       @service.build_gross_monthly_income("borrower", borrower)
-      borrower_total_income = number_with_delimiter(borrower.total_income.to_f)
 
       expect(@service.params).to include({
-        "borrower_base_income" => align(number_with_delimiter(borrower.current_salary), borrower_total_income.length),
-        "borrower_overtime" => align(number_with_delimiter(borrower.gross_overtime.to_f), borrower_total_income.length),
-        "borrower_bonuses" => align(number_with_delimiter(borrower.gross_bonus.to_f), borrower_total_income.length),
-        "borrower_commissions" => align(number_with_delimiter(borrower.gross_commission.to_f), borrower_total_income.length),
-        "borrower_total_income" => borrower_total_income
+        borrower_base_income: number_to_currency(borrower.current_salary, unit: ""),
+        borrower_overtime: number_to_currency(borrower.gross_overtime.to_f, unit: ""),
+        borrower_bonuses: number_to_currency(borrower.gross_bonus.to_f, unit: ""),
+        borrower_commissions: number_to_currency(borrower.gross_commission.to_f, unit: ""),
+        borrower_total_monthly_income: number_to_currency(borrower.total_income.to_f, unit: "")
       })
     end
   end
@@ -331,13 +330,14 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.build_employment_info("borrower", @service.borrower)
 
       expect(@service.params).to include({
-        "borrower_yrs_job" => current_employment.duration,
-        "borrower_yrs_employed" => current_employment.duration,
-        "borrower_name_employer_1" => current_employment.employer_name,
-        "borrower_street_employer_1" => current_employment.address.street_address,
-        "borrower_city_and_state_employer_1" => "#{current_employment.address.city}, #{current_employment.address.state} #{current_employment.address.zip}",
-        "borrower_position_1" => current_employment.job_title,
-        "borrower_business_phone_1" => current_employment.employer_contact_number
+        borrower_yrs_job_1: current_employment.duration,
+        borrower_yrs_employed_1: current_employment.duration,
+        borrower_self_employed_1: @service.borrower.self_employed ? "Yes" : "Off",
+        borrower_employer_1: current_employment.employer_name,
+        borrower_employer_street_1: current_employment.address.street_address,
+        borrower_employer_city_state_1: "#{current_employment.address.city}, #{current_employment.address.state} #{current_employment.address.zip}",
+        borrower_position_1: current_employment.job_title,
+        borrower_business_phone_1: current_employment.employer_contact_number
       })
     end
   end
@@ -348,18 +348,18 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.build_borrower_info("borrower", @service.borrower)
 
       expect(@service.params).to include({
-        "borrower_name" => @service.borrower.full_name,
-        "borrower_social_security_number" => @service.borrower.ssn,
-        "borrower_home_phone" => @service.borrower.phone,
-        "borrower_dob" => @service.borrower.dob.strftime('%D'),
-        "borrower_yrs_school" => @service.borrower.years_in_school,
-        "borrower_married" => "x",
-        "borrower_dependents_no" => @service.borrower.dependent_count,
-        "borrower_dependents_ages" => @service.borrower.dependent_ages.join(", "),
-        "borrower_present_address" => @service.borrower.display_current_address,
-        "borrower_present_address_no_yrs" => @service.borrower.current_address.try(:years_at_address),
-        "borrower_former_address" => @service.borrower.display_previous_address,
-        "borrower_former_address_no_yrs" => @service.borrower.previous_address.try(:years_at_address)
+        borrower_name: @service.borrower.full_name,
+        borrower_ssn: @service.borrower.ssn,
+        borrower_home_phone: @service.borrower.phone,
+        borrower_dob: @service.borrower.dob.strftime("%m/%d/%Y"),
+        borrower_yrs_school: @service.borrower.years_in_school,
+        borrower_married: "Yes",
+        borrower_dependents: @service.borrower.dependent_count,
+        borrower_ages: @service.borrower.dependent_ages.join(", "),
+        borrower_present_address: @service.borrower.display_current_address,
+        borrower_no_yrs: @service.borrower.current_address.try(:years_at_address),
+        borrower_former_address: @service.borrower.display_previous_address,
+        borrower_former_no_yrs: @service.borrower.previous_address.try(:years_at_address)
       })
     end
   end
@@ -368,18 +368,18 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     it "marks 'x' to only one mortgage applied type" do
       @service.loan.loan_type = "Conventional"
       @service.build_section_1
-      expect(@service.params['mortgage_applied_fha']).not_to eq("x")
-      expect(@service.params['mortgage_applied_usda']).not_to eq("x")
-      expect(@service.params['mortgage_applied_va']).not_to eq("x")
-      expect(@service.params['mortgage_applied_other']).not_to eq("x")
-      expect(@service.params['mortgage_applied_conventional']).to eq("x")
+      expect(@service.params[:fha]).not_to eq("Yes")
+      expect(@service.params[:usda]).not_to eq("Yes")
+      expect(@service.params[:va]).not_to eq("Yes")
+      expect(@service.params[:loan_type_other]).not_to eq("Yes")
+      expect(@service.params[:conventional]).to eq("Yes")
     end
 
     context "Conventional" do
       it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "Conventional"
         @service.build_section_1
-        expect(@service.params['mortgage_applied_conventional']).to eq("x")
+        expect(@service.params[:conventional]).to eq("Yes")
       end
     end
 
@@ -387,7 +387,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "FHA"
         @service.build_section_1
-        expect(@service.params['mortgage_applied_fha']).to eq("x")
+        expect(@service.params[:fha]).to eq("Yes")
       end
     end
 
@@ -395,7 +395,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "USDA"
         @service.build_section_1
-        expect(@service.params['mortgage_applied_usda']).to eq("x")
+        expect(@service.params[:usda]).to eq("Yes")
       end
     end
 
@@ -403,7 +403,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "VA"
         @service.build_section_1
-        expect(@service.params['mortgage_applied_va']).to eq("x")
+        expect(@service.params[:va]).to eq("Yes")
       end
     end
 
@@ -411,7 +411,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "LoremIpsum"
         @service.build_section_1
-        expect(@service.params['mortgage_applied_other']).to eq("x")
+        expect(@service.params[:loan_type_other]).to eq("Yes")
       end
     end
   end
@@ -419,22 +419,26 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
   describe "#build_refinance_loan" do
     it "maps right values relating to refinance" do
       property = @service.loan.subject_property
-      purpose_of_refinance = (@service.loan.amount > property.total_liability_balance) ? "Cash out" : "Rate and term"
       @service.build_refinance_loan
       expect(@service.params).to include({
-        "loan_purpose_refinance" => "x",
-        "refinance_year_acquired" => property.original_purchase_year,
-        "refinance_original_cost" => number_with_delimiter(property.original_purchase_price.to_f),
-        "refinance_amount_existing_liens" => number_with_delimiter(property.refinance_amount),
-        "purpose_of_refinance" => purpose_of_refinance,
-        "year_built" => property.year_built
+        purpose_refinance: "Yes",
+        year_lot_acquired_2: property.original_purchase_year,
+        original_cost_2: number_to_currency(property.original_purchase_price.to_f, unit: ""),
+        amount_existing_liens_2: number_to_currency(property.refinance_amount, unit: ""),
+        purpose_of_refinance: "Cash out",
+        year_built: property.year_built
       })
     end
   end
-end
 
-def align(value, max_length)
-  return unless value
-
-  (value.length < max_length) ? value.rjust(max_length + 1) : value
+  describe "#build_purchase_loan" do
+    it "maps right values relating to refinance" do
+      property = @service.loan.subject_property
+      @service.build_purchase_loan
+      expect(@service.params).to include({
+        purpose_purchase: "Yes",
+        source_down_payment: "Checking account"
+      })
+    end
+  end
 end
