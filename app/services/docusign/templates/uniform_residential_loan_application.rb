@@ -29,7 +29,7 @@ module Docusign
 
       def build_section_1
         build_loan_type
-        @params[:loan_amount] = number_with_delimiter(loan.amount.to_f)
+        @params[:loan_amount] = number_with_delimiter(loan.amount.to_f.round)
         @params[:interest_rate] = "#{"%.3f" % (loan.interest_rate.to_f * 100)}"
         @params[:number_of_month] = loan.num_of_months
         @params[:arm_fixed_rate] = "Yes" if loan.fixed_rate_amortization?
@@ -75,17 +75,17 @@ module Docusign
         build_housing_expense("proposed", subject_property)
         build_housing_expense("present", primary_property) if primary_property
 
-        @params[:borrower_rental_income] = "%.2f" %(get_net_value)
-        @params[:sum_total_income] = "%.2f" % (@params[:total_base_income].to_f + @params[:total_overtime].to_f +
+        @params[:borrower_rental_income] = number_to_currency(get_net_value, unit: "")
+        @params[:sum_total_income] = number_to_currency((@params[:total_base_income].to_f + @params[:total_overtime].to_f +
                                                        @params[:total_bonuses].to_f + @params[:total_commissions].to_f +
-                                                       @params[:total_dividends].to_f)
+                                                       @params[:total_dividends].to_f), unit: "")
         if @params[:sum_total_income]
-          @params[:total_base_income] = "%.2f" % @params[:total_base_income].to_f
-          @params[:total_overtime] = "%.2f" % @params[:total_overtime].to_f
-          @params[:total_bonuses] = "%.2f" % @params[:total_bonuses].to_f
-          @params[:total_commissions] = "%.2f" % @params[:total_commissions].to_f
-          @params[:total_interest] = "%.2f" % @params[:total_dividends].to_f
-          @params[:total_rental_income] = "%.2f" %(get_net_value)
+          @params[:total_base_income] = number_to_currency(@params[:total_base_income].to_f, unit: "")
+          @params[:total_overtime] = number_to_currency(@params[:total_overtime].to_f, unit: "")
+          @params[:total_bonuses] = number_to_currency(@params[:total_bonuses].to_f, unit: "")
+          @params[:total_commissions] = number_to_currency(@params[:total_commissions].to_f, unit: "")
+          @params[:total_interest] = number_to_currency(@params[:total_dividends].to_f, unit: "")
+          @params[:total_rental_income] = number_to_currency(get_net_value, unit: "")
         end
       end
 
@@ -98,17 +98,17 @@ module Docusign
         # leave blank now
         # subordinate_financing
         # closing_costs_paid_by_seller
-        @params[:purchase_price] = "%.2f" % subject_property.purchase_price.to_f
-        @params[:refinance] = "%.2f" % loan.amount if loan.refinance?
-        @params[:prepaid_items] = "%.2f" % loan.estimated_prepaid_items.to_f
-        @params[:closing_costs] = "%.2f" % loan.estimated_closing_costs.to_f
-        @params[:pmi_mip] = "%.2f" % loan.pmi_mip_funding_fee.to_f
-        @params[:other_credits] = "%.2f" % loan.other_credits.to_f
-        @params[:loan_amount_exclude_pmi] = "%.2f" % (loan.amount - loan.pmi_mip_funding_fee.to_f)
-        @params[:pmi_mip_financed] = "%.2f" % loan.pmi_mip_funding_fee_financed.to_f
-        @params[:loan_amount_m_n] = "%.2f" % loan.amount
-        @params[:borrower_cash] = "%.2f" %(borrower_cash)
-        @params[:total_costs] = "%.2f" %(total_cost_transactions)
+        @params[:purchase_price] = number_to_currency(subject_property.purchase_price.to_f, unit: "")
+        @params[:refinance] = number_to_currency(loan.amount, unit: "") if loan.refinance?
+        @params[:prepaid_items] = number_to_currency(loan.estimated_prepaid_items.to_f, unit: "")
+        @params[:closing_costs] = number_to_currency(loan.estimated_closing_costs.to_f, unit: "")
+        @params[:pmi_mip] = number_to_currency(loan.pmi_mip_funding_fee.to_f, unit: "")
+        @params[:other_credits] = number_to_currency(loan.other_credits.to_f, unit: "")
+        @params[:loan_amount_exclude_pmi] = number_to_currency((loan.amount - loan.pmi_mip_funding_fee.to_f), unit: "")
+        @params[:pmi_mip_financed] = number_to_currency(loan.pmi_mip_funding_fee_financed.to_f, unit: "")
+        @params[:loan_amount_m_n] = number_to_currency(loan.amount, unit: "")
+        @params[:borrower_cash] = number_to_currency((borrower_cash), unit: "")
+        @params[:total_costs] = number_to_currency((total_cost_transactions), unit: "")
       end
 
       def build_section_8
@@ -128,7 +128,7 @@ module Docusign
           count += 1
           nth = count.to_s
           @params[("asset_" + nth).to_sym] = asset.institution_name
-          @params[("asset_balance_" + nth).to_sym] = "%.2f" % asset.current_balance.to_f
+          @params[("asset_balance_" + nth).to_sym] = number_to_currency(asset.current_balance.to_f, unit: "")
         end
       end
 
@@ -145,8 +145,8 @@ module Docusign
             @params[("liabilities_city_state_" + nth).to_sym] = "#{liability.address.city}, #{liability.address.state} #{liability.address.zip}"
           end
 
-          @params[("liabilities_payment_" + nth).to_sym] = "#{liability.payment.to_f} / #{liability.months.to_i}"
-          @params[("liabilities_balance_" + nth).to_sym] = "%.2f" % liability.balance.to_f
+          @params[("liabilities_payment_" + nth).to_sym] = "#{number_to_currency(liability.payment.to_f, unit: "")} / #{liability.months.to_i}"
+          @params[("liabilities_balance_" + nth).to_sym] = number_to_currency(liability.balance.to_f, unit: "")
           @params[("liabilities_acc_" + nth).to_sym] = liability.account_number
         end
       end
@@ -156,13 +156,13 @@ module Docusign
                                             property.estimated_hazard_insurance + property.estimated_property_tax +
                                             property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f)
 
-        @params[(type + "_rent").to_sym] = "%.2f" % borrower.current_address.monthly_rent if primary_property && borrower.current_address.is_rental
-        @params[(type + "_mortgage").to_sym] = "%.2f" % property.mortgage_payment.to_f
-        @params[(type + "_other_financing").to_sym] = "%.2f" % property.other_financing.to_f
-        @params[(type + "_hazard_insurance").to_sym] = "%.2f" % property.estimated_hazard_insurance
-        @params[(type + "_real_estate_taxes").to_sym] = "%.2f" % property.estimated_property_tax
-        @params[(type + "_mortgage_insurance").to_sym] = "%.2f" % property.estimated_mortgage_insurance.to_f
-        @params[(type + "_homeowner").to_sym] = "%.2f" % property.hoa_due.to_f
+        @params[(type + "_rent").to_sym] = number_to_currency(borrower.current_address.monthly_rent, unit: "") if primary_property && borrower.current_address.is_rental
+        @params[(type + "_mortgage").to_sym] = number_to_currency(property.mortgage_payment.to_f, unit: "")
+        @params[(type + "_other_financing").to_sym] = number_to_currency(property.other_financing.to_f, unit: "")
+        @params[(type + "_hazard_insurance").to_sym] = number_to_currency(property.estimated_hazard_insurance, unit: "")
+        @params[(type + "_real_estate_taxes").to_sym] = number_to_currency(property.estimated_property_tax, unit: "")
+        @params[(type + "_mortgage_insurance").to_sym] = number_to_currency(property.estimated_mortgage_insurance.to_f, unit: "")
+        @params[(type + "_homeowner").to_sym] = number_to_currency(property.hoa_due.to_f, unit: "")
       end
 
       def total_cost_transactions
@@ -211,12 +211,12 @@ module Docusign
       end
 
       def build_gross_monthly_income(role, borrower)
-        @params[(role + "_total_monthly_income").to_sym] = "%.2f" % borrower.total_income.to_f
-        @params[(role + "_base_income").to_sym] = "%.2f" % borrower.current_salary.to_f
-        @params[(role + "_overtime").to_sym] = "%.2f" % borrower.gross_overtime.to_f
-        @params[(role + "_bonuses").to_sym] = "%.2f" % borrower.gross_bonus.to_f
-        @params[(role + "_commissions").to_sym] = "%.2f" % borrower.gross_commission.to_f
-        @params[(role + "_interest").to_sym] = "%.2f" % borrower.gross_interest.to_f
+        @params[(role + "_total_monthly_income").to_sym] = number_to_currency(borrower.total_income.to_f, unit: "")
+        @params[(role + "_base_income").to_sym] = number_to_currency(borrower.current_salary.to_f, unit: "")
+        @params[(role + "_overtime").to_sym] = number_to_currency(borrower.gross_overtime.to_f, unit: "")
+        @params[(role + "_bonuses").to_sym] = number_to_currency(borrower.gross_bonus.to_f, unit: "")
+        @params[(role + "_commissions").to_sym] = number_to_currency(borrower.gross_commission.to_f, unit: "")
+        @params[(role + "_interest").to_sym] = number_to_currency(borrower.gross_interest.to_f, unit: "")
 
         @params[:total_base_income] = @params[:total_base_income].to_f + borrower.current_salary.to_f
         @params[:total_overtime] = @params[:total_overtime].to_f + borrower.gross_overtime.to_f
@@ -267,8 +267,8 @@ module Docusign
       def build_refinance_loan
         @params[:purpose_refinance] = "Yes"
         @params[:year_lot_acquired_2] = subject_property.original_purchase_year
-        @params[:original_cost_2] = "%.2f" % subject_property.original_purchase_price
-        @params[:amount_existing_liens_2] = "%.2f" % subject_property.refinance_amount
+        @params[:original_cost_2] = number_to_currency(subject_property.original_purchase_price, unit: "")
+        @params[:amount_existing_liens_2] = number_to_currency(subject_property.refinance_amount, unit: "")
 
         if loan.amount > subject_property.total_liability_balance
           @params[:purpose_of_refinance] = "Cash out"

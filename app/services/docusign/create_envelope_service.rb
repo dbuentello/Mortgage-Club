@@ -17,7 +17,7 @@ module Docusign
     end
 
     def call(user, loan)
-      create_document_by_adobe_field_names(loan)
+      generates_documents_by_adobe_field_names(loan)
       client = DocusignRest::Client.new
       envelope = client.create_envelope_from_document(
         {
@@ -39,7 +39,7 @@ module Docusign
       envelope
     end
 
-    def create_document_by_adobe_field_names(loan)
+    def generates_documents_by_adobe_field_names(loan)
       generate_uniform(loan)
       generate_form_4506
       generate_form_certification
@@ -89,8 +89,8 @@ module Docusign
               {
                 name: "Date Signed",
                 page_number: "4",
-                x_position: "521",
-                y_position: "466",
+                x_position: "240",
+                y_position: "467",
                 document_id: "1",
                 fontSize: "size9",
                 fontColor: "black",
@@ -112,10 +112,24 @@ module Docusign
             {
               name: "Signature",
               page_number: "4",
-              x_position: "180",
+              x_position: "385",
               y_position: "439",
               document_id: "1",
               optional: "true"
+            }
+          ],
+          date_signed_tabs: [
+            {
+              name: "Date Signed",
+              page_number: "4",
+              x_position: "521",
+              y_position: "467",
+              document_id: "1",
+              fontSize: "size9",
+              fontColor: "black",
+              bold: "false",
+              italic: "false",
+              underline: "false"
             }
           ]
         }
