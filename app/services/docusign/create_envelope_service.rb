@@ -115,7 +115,7 @@ module Docusign
               x_position: "385",
               y_position: "439",
               document_id: "1",
-              optional: "true"
+              optional: "false"
             }
           ],
           date_signed_tabs: [
