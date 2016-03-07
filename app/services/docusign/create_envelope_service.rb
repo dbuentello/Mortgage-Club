@@ -17,9 +17,10 @@ module Docusign
     end
 
     def call(user, loan)
-      create_document_by_adobe_field_names(loan)
+      # create_document_by_adobe_field_names(loan)
       client = DocusignRest::Client.new
-      envelope = client.create_envelope_from_document(
+
+      document_data = {
         status: "sent",
         email: {
           subject: "Electronic Signature Request from MortgageClub Corporation",
@@ -62,7 +63,28 @@ module Docusign
             ]
           }
         ]
-      )
+      }
+
+      if loan.secondary_borrower
+        document_data[:signers] << {
+          embedded: true,
+          name: "#{loan.secondary_borrower.user.first_name} #{loan.secondary_borrower.user.last_name}",
+          email: loan.secondary_borrower.user.email,
+          role_name: "Normal",
+          sign_here_tabs: [
+            {
+              name: "Signature",
+              page_number: "4",
+              x_position: "180",
+              y_position: "439",
+              document_id: "1",
+              optional: "true"
+            }
+          ]
+        }
+      end
+      byebug
+      envelope = client.create_envelope_from_document(document_data)
       File.delete(UNIFORM_OUTPUT_PATH)
       File.delete(FORM_4506_OUTPUT_PATH)
       File.delete(BORROWER_CERTIFICATION_OUTPUT_PATH)
