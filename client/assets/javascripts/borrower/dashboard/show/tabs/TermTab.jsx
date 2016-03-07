@@ -4,7 +4,14 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var TermTab = React.createClass({
   mixins: [TextFormatMixin],
+  getInitialState: function() {
+    return ({});
+  },
+
   render: function() {
+    console.log(this.props.loan);
+    var loanId = this.props.loan.amount
+    var loan = this.props.loan
     return (
       <div className="term-board">
         <h1> Your Final Loan Terms </h1>
@@ -17,20 +24,18 @@ var TermTab = React.createClass({
                   Property Address
                 </td>
                 <td>
-                  {}
+                  {
+                    this.props.address
+                    ?
+                    this.props.address
+                    :
+                    <span>Unknown Address</span>
+                  }
                 </td>
               </tr>
               <tr>
                 <td>
-                  Borrower Name
-                </td>
-                <td>
-                  {}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Guarantor Name
+                  Property Value
                 </td>
                 <td>
                   {}
@@ -41,7 +46,15 @@ var TermTab = React.createClass({
                   Loan Amount
                 </td>
                 <td>
-                  {}
+                  {this.formatCurrency(this.props.loan.amount,"$")}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Loan Type
+                </td>
+                <td>
+                  {this.props.loan.loan_type}
                 </td>
               </tr>
               <tr>
@@ -73,7 +86,7 @@ var TermTab = React.createClass({
                   Interest Rate
                 </td>
                 <td>
-                  {}
+                  {this.props.loan.interest_rate}
                 </td>
               </tr>
               <tr>
@@ -86,7 +99,7 @@ var TermTab = React.createClass({
               </tr>
               <tr>
                 <td>
-                  Amortization
+                  Closing Cost
                 </td>
                 <td>
                   {}
@@ -94,10 +107,10 @@ var TermTab = React.createClass({
               </tr>
               <tr>
                 <td>
-                  Origination Fee
+                  Discount Points
                 </td>
                 <td>
-                  {}
+                  {loan.discount_points}
                 </td>
               </tr>
               <tr>

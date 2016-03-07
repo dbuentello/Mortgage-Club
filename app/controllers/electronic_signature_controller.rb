@@ -15,6 +15,7 @@ class ElectronicSignatureController < ApplicationController
   def create
     RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:fees], lender_params)
     @loan.reload
+
     envelope = Docusign::CreateEnvelopeService.new.call(current_user, @loan)
     recipient_view = DocusignRest::Client.new.get_recipient_view(
       envelope_id: envelope['envelopeId'],
@@ -71,7 +72,8 @@ class ElectronicSignatureController < ApplicationController
     params.require(:lender).permit(
       :interest_rate, :lender_name, :lender_nmls_id,
       :period, :amortization_type, :monthly_payment,
-      :apr, :loan_type, :total_closing_cost
+      :discount_points, :apr,
+      :loan_type, :total_closing_cost
     )
   end
 end
