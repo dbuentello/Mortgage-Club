@@ -36,6 +36,11 @@ module.exports = {
               state[errorName] = true;
             }
             break;
+          case "percent":
+            if(!this.elementIsValidPercent(field.value)) {
+              state[errorName] = true;
+            }
+            break;
           case "phoneNumber":
             if(!this.elementIsPhoneNumber(field.value)) {
               state[errorName] = true;
@@ -47,7 +52,11 @@ module.exports = {
 
     return state;
   },
+  elementIsValidPercent: function(obj){
+    var currencyPattern = /^((\$\d+)|(\$\d+(,\d{3})*(\.\d*)?))$/;
 
+    return currencyPattern.test(obj);
+  },
   elementIsValidCurrency: function(obj){
     var currencyPattern = /^((\$\d+)|(\$\d+(,\d{3})*(\.\d*)?))$/;
 

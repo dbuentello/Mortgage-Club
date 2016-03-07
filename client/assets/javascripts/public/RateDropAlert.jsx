@@ -1,18 +1,42 @@
 var React = require("react/addons");
+
 var Dropzone = require("components/form/NewDropzone");
 var TextField = require("components/form/NewTextField");
+var SelectField = require("components/form/NewSelectField");
+
 var TextFormatMixin = require("mixins/TextFormatMixin");
+var ObjectHelperMixin = require('mixins/ObjectHelperMixin');
 
 var BankPart = require("public/homepage/BankPart");
 var HomePart = require("public/homepage/HomePart");
 
+var fields = {
+  refinancePurpose: {label: "Refinance Purpose", name: "purpose", error: "purposeError", validationTypes: ["empty"]},
+  creditScore: {label: "Estimated credit score", name: "credit_score", error: "creditScoreError", validationTypes: ["empty"]}
+};
+var refinancePurposes = [
+  {value: "lower_rate", name: "Lower rate"},
+  {value: "cash_out", name: "Cash out"}
+];
+var creditScores = [
+  {value: "740", name: "740+"},
+  {value: "720_739", name: "720 - 739"},
+  {value: "700_719", name: "700 - 719"},
+  {value: "680_699", name: "680 - 699"},
+  {value: "660_679", name: "660 - 679"},
+  {value: "640_659", name: "640 - 659"},
+  {value: "620_629", name: "620 - 629"}
 
+];
 
 var RateDropAlert = React.createClass({
   mixins: [TextFormatMixin],
+
   getInitialState: function() {
     return {
-      phoneNumber: null
+      phoneNumber: null,
+      current_mortgage_balance: null,
+      estimate_home_value: null
     }
   },
 
@@ -51,7 +75,14 @@ var RateDropAlert = React.createClass({
       }.bind(this)
     });
   },
+  onChange: function (change) {
+    console.dir(change);
+    this.setState(change);
 
+  },
+  onBlur: function(blur) {
+    this.setState(blur);
+  },
   changePhoneNumber: function(event) {
     var phoneNumber = this.formatPhoneNumber(event.target.value);
     this.setState({phoneNumber: phoneNumber});
@@ -118,6 +149,91 @@ var RateDropAlert = React.createClass({
                                   data-toggle="tooltip" data-original-title={this.state.phoneNumberError}/>
                                 <img src="/icons/phone.png" alt="title"/>
                               </div>
+                            </div>
+                            <div className="form-group">
+                              <div className="col-sm-12">
+                                <SelectField
+                                  requiredMessage="This field is required"
+                                  value={this.state[fields.refinancePurpose.name]}
+                                  label={fields.refinancePurpose.label}
+                                  keyName={fields.refinancePurpose.name}
+
+                                  options={refinancePurposes}
+                                  editable={true}
+                                  onChange={this.onChange}
+                                  editMode={true}
+                                  allowBlank={true}
+                                  />
+                              </div>
+
+                            </div>
+
+                            <div className="form-group">
+                              <div className="col-sm-12">
+                                <TextField
+
+                                  label='Current Mortgage Balance'
+                                  keyName={'current_mortgage_balance'}
+                                  format={this.formatCurrency}
+                                  editable={true}
+                                  validationTypes={["currency"]}
+                                  maxLength={15}
+                                  onChange={this.onChange}
+                                  value={this.state.current_mortgage_balance}
+                                  onBlur={this.onBlur}
+                                  editMode={true}/>
+                              </div>
+
+                            </div>
+                            <div className="form-group">
+                              <div className="col-sm-12">
+                                <TextField
+
+                                  label='Current Mortgage Rate'
+                                  keyName={'current_mortgage_rate'}
+                                  format={this.formatPercent}
+                                  editable={true}
+                                  validationTypes={["percent"]}
+                                  maxLength={4}
+                                  onChange={this.onChange}
+                                  value={this.state.current_mortgage_rate}
+                                  onBlur={this.onBlur}
+                                  editMode={true}/>
+                              </div>
+
+                            </div>
+                            <div className="form-group">
+                              <div className="col-sm-12">
+                                <TextField
+                                  label='Estimated Home Value'
+                                  keyName={'estimate_home_value'}
+                                  format={this.formatCurrency}
+                                  editable={true}
+                                  validationTypes={["currency"]}
+                                  maxLength={15}
+                                  onChange={this.onChange}
+                                  value={this.state.estimate_home_value}
+                                  onBlur={this.onBlur}
+                                  editMode={true}/>
+                              </div>
+
+                            </div>
+                            <div className="form-group">
+                              <div className="col-sm-12">
+                                <SelectField
+                                  requiredMessage="This field is required"
+                                  value={this.state[fields.creditScore.name]}
+                                  label={fields.creditScore.label}
+                                  keyName={fields.creditScore.name}
+
+                                  options={creditScores}
+                                  editable={true}
+                                  onChange={this.onChange}
+                                  editMode={true}
+                                  allowBlank={true}
+                                  />
+                              </div>
+
                             </div>
                             <div className="form-group send-as">
                               <div className="col-sm-12">

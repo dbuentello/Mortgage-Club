@@ -112,6 +112,10 @@ var TextFormatMixin = {
     if (!val) { return; }
     return ('' + val).replace(/[^0-9\.]/g, '');
   },
+  formatPercent: function(val) {
+    if (!val) { return; }
+    return ('' + val).replace(/[^0-9\.]/g, '');
+  },
 
   formatSSN: function(val) {
     if (!val) { return; }
