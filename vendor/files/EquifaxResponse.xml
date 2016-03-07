@@ -1,0 +1,546 @@
+<RESPONSE_GROUP MISMOVersionID="2.3.1">
+<RESPONDING_PARTY _Name="EQUIFAX MORTGAGE SOLUTIONS" _StreetAddress="1505 WINDWARD CONCOURSE" _City="ALPHARETTA" _State="GA" _PostalCode="30005">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="770-740-6613"/>
+</CONTACT_DETAIL>
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Fax" _Value="770-740-6125"/>
+</CONTACT_DETAIL>
+</RESPONDING_PARTY>
+<RESPOND_TO_PARTY _Name="EMS SYNTHETIC MONITOR ACCOUNT" _StreetAddress="1525 WINDWARD CONCOURSE" _City="ALPHARETTA" _State="GA" _PostalCode="30005">
+<CONTACT_DETAIL _Name="asif"/>
+</RESPOND_TO_PARTY>
+<RESPONSE InternalAccountIdentifier="999EM00503" ResponseDateTime="2015-08-14">
+<KEY _Name="MinScoreResult" _Value="Scoring Not Requested"/>
+<RESPONSE_DATA>
+<CREDIT_RESPONSE CreditReportLastUpdatedDate="2015-08-14" CreditReportIdentifier="V5E1V3" CreditReportFirstIssuedDate="2015-08-14" MISMOVersionID="2.3.1" CreditResponseID="CRV5E1V3" CreditReportMergeType="Blend" CreditReportType="Merge" CreditRatingCodeType="Experian">
+<_DATA_INFORMATION>
+<DATA_VERSION _Name="Equifax" _Number="5"/>
+<DATA_VERSION _Name="Experian" _Number="7"/>
+<DATA_VERSION _Name="Trans Union" _Number="4"/>
+</_DATA_INFORMATION>
+<CREDIT_BUREAU _Name="EQUIFAX MORTGAGE SOLUTIONS" _StreetAddress="1505 WINDWARD CONCOURSE" _City="ALPHARETTA" _State="GA" _PostalCode="30005" _DisclaimerText="The reporting bureau certifies that; (a) public records have been checked for tax liens, judgments, foreclosures, garnishments, bankruptcies, and other legal actions involving the subject(s) with the results indicated above; or (b) equivalent information has been obtained through the use of a qualified public records reporting service with the results indicated above. The records of real estate transfers which do not involve foreclosures may be excluded. Equifax Credit Services certifies that the information provided in this report meets the requirements of the U.S. Dept. of HUD, FHA, VA, USDA, RECD & FSA, Fannie Mae and FHLMC. The information is confidential and not to be divulged except as required by PUBLIC LAW 91-508, 93-579, 94-239.">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="770-740-6613"/>
+</CONTACT_DETAIL>
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Fax" _Value="770-740-6125"/>
+</CONTACT_DETAIL>
+</CREDIT_BUREAU>
+<CREDIT_REPORT_PRICE _Amount="12.33" _Type="Total"/>
+<CREDIT_REPOSITORY_INCLUDED _EquifaxIndicator="Y" _ExperianIndicator="Y" _TransUnionIndicator="Y"/>
+<REQUESTING_PARTY LenderCaseIdentifier="LOANNUMBER4" InternalAccountIdentifier="999EM00503" _Name="EMS SYNTHETIC MONITOR ACCOUNT" _StreetAddress="1525 WINDWARD CONCOURSE" _City="ALPHARETTA" _State="GA" _PostalCode="30005" _RequestedByName="asif">
+<CONTACT_DETAIL _Name="asif"/>
+</REQUESTING_PARTY>
+<CREDIT_REQUEST_DATA CreditRequestID="CTV5E1V3" BorrowerID="BNUM1" CreditReportIdentifier="V5E1V3" CreditReportType="Merge" CreditReportRequestActionType="Submit" CreditRepositoriesSelectedCount="3" CreditRequestDateTime="2015-08-14" CreditRequestType="Individual">
+<CREDIT_REPOSITORY_INCLUDED _EquifaxIndicator="Y" _ExperianIndicator="Y" _TransUnionIndicator="Y"/>
+</CREDIT_REQUEST_DATA>
+<BORROWER _FirstName="PAM" _LastName="FIRE" _MiddleName="D" _BirthDate="47" BorrowerID="BNUM1" _NameSuffix="JR" _SSN="111-44-0294" _PrintPositionType="Borrower" MaritalStatusType="Unknown">
+<_RESIDENCE _StreetAddress="126 4TH ST" _City="ATLANTA" _State="GA" _PostalCode="30014" BorrowerResidencyType="Current"/>
+</BORROWER>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0000" _AccountIdentifier="10923896" _AccountOpenedDate="2003-08" _AccountReportedDate="2004-09" _AccountStatusDate="2004-09" _HighBalanceAmount="2753" _HighCreditAmount="2753" _LastActivityDate="2004-08" _MonthsReviewedCount="13" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0000" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="COMMOLOCO"/>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0001" _AccountIdentifier="122345679" _AccountOpenedDate="2006-04" _AccountReportedDate="2007-05" _AccountStatusDate="2007-05" _HighBalanceAmount="4577" _HighCreditAmount="4577" _LastActivityDate="2007-03" _MonthsReviewedCount="13" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0001" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="COMMOLOCO"/>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0002" _AccountIdentifier="122389905" _AccountReportedDate="2006-10" _AccountStatusDate="2006-10" _LastActivityDate="2004-04" _MonthsReviewedCount="20" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0002" _AccountOwnershipType="Individual" _AccountStatusType="Open" _AccountType="Revolving" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Banking" CreditLoanType="CheckCreditOrLineOfCredit">
+<_CREDITOR _Name="BP-MAXI" _StreetAddress="SERV DE CREDITO A INDIVIDUOS PO BOX 362708" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="7877597000"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>LINE OF CREDIT</_Text>
+</CREDIT_COMMENT>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>AMT IN HIGH CREDIT IS CREDIT LIMIT</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746BB00067"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0003" _AccountIdentifier="127878235" _AccountOpenedDate="2004-08" _AccountReportedDate="2005-08" _AccountStatusDate="2005-08" _HighBalanceAmount="2753" _HighCreditAmount="2753" _LastActivityDate="2005-06" _MonthsReviewedCount="12" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0003" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="COMMOLOCO"/>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0004" _AccountIdentifier="127890036" _AccountOpenedDate="2005-06" _AccountReportedDate="2006-05" _AccountStatusDate="2006-05" _HighBalanceAmount="2712" _HighCreditAmount="2712" _LastActivityDate="2006-04" _MonthsReviewedCount="11" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0004" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="COMMOLOCO"/>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0005" _AccountIdentifier="17803341" _AccountOpenedDate="2001-12" _AccountReportedDate="2002-11" _AccountStatusDate="2002-11" _HighBalanceAmount="2034" _HighCreditAmount="2034" _LastActivityDate="2002-10" _MonthsReviewedCount="11" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0005" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="COMMOLOCO"/>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0006" _AccountIdentifier="19045044" _AccountOpenedDate="2002-10" _AccountReportedDate="2003-10" _AccountStatusDate="2003-10" _HighBalanceAmount="2753" _HighCreditAmount="2753" _LastActivityDate="2003-08" _MonthsReviewedCount="12" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0006" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="COMMOLOCO"/>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0007" _AccountIdentifier="232334784" _AccountOpenedDate="2007-03" _AccountReportedDate="2008-04" _AccountStatusDate="2008-04" _HighBalanceAmount="4574" _HighCreditAmount="4574" _LastActivityDate="2008-03" _MonthsReviewedCount="13" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0007" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="COMMOLOCO"/>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0008" _AccountIdentifier="23452" _AccountOpenedDate="2004-02" _AccountReportedDate="2004-11" _AccountStatusDate="2004-11" _HighCreditAmount="538" _LastActivityDate="2004-07" _PastDueAmount="242" _UnpaidBalanceAmount="242" _ChargeOffAmount="242" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0008" _AccountOwnershipType="Individual" _AccountStatusType="Open" _AccountType="Open" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="Y" _TermsDescription="MONTHLY" CreditBusinessType="Wholesale" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="KOMO 78" _StreetAddress="PO BOX 6359" _City="CAGUAS" _State="PR" _PostalCode="00626">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097575215"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="9" _Type="Collection"/>
+<_LATE_COUNT _30Days="" _60Days="" _90Days=""/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>COLLECTION ACCOUNT</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746WC00026"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0009" _AccountIdentifier="236712890434673" _AccountOpenedDate="2003-10" _AccountReportedDate="2006-04" _AccountStatusDate="2006-04" _HighBalanceAmount="745" _HighCreditAmount="745" _LastActivityDate="2005-09" _MonthsReviewedCount="12" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0009" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="Y" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="BWAC" _StreetAddress="BOX 87" _City="CAROLINA" _State="PR" _PostalCode="00630">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097679090"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="3" _Type="Late60Days"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FF00023"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0010" _AccountIdentifier="236790450434342" _AccountOpenedDate="2003-09" _AccountReportedDate="2003-11" _AccountStatusDate="2003-11" _HighBalanceAmount="2413" _HighCreditAmount="2413" _LastActivityDate="2003-11" _MonthsReviewedCount="2" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0010" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="BWAC" _StreetAddress="BOX 87" _City="CAROLINA" _State="PR" _PostalCode="00630">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097679090"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FF00023"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0011" _AccountIdentifier="239023231" _AccountOpenedDate="2008-03" _AccountReportedDate="2009-01" _AccountStatusDate="2009-01" _HighBalanceAmount="4615" _HighCreditAmount="4615" _LastActivityDate="2009-01" _MonthsReviewedCount="10" _UnpaidBalanceAmount="3653" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0011" _AccountOwnershipType="Individual" _AccountStatusType="Open" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _MonthlyPaymentAmount="96" _TermsSourceType="Provided" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="COMMOLOCO"/>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0012" _AccountIdentifier="56230201011" _AccountOpenedDate="2002-08" _AccountReportedDate="2003-09" _AccountStatusDate="2003-09" _HighBalanceAmount="2870" _HighCreditAmount="2870" _LastActivityDate="2003-08" _MonthsReviewedCount="13" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0012" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>PERSONAL LOAN</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0013" _AccountIdentifier="56230201345" _AccountOpenedDate="2008-03" _AccountReportedDate="2009-02" _AccountStatusDate="2009-02" _HighBalanceAmount="4703" _HighCreditAmount="4703" _LastActivityDate="2009-02" _MonthsReviewedCount="10" _UnpaidBalanceAmount="3625" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0013" _AccountOwnershipType="Individual" _AccountStatusType="Open" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _MonthlyPaymentAmount="97" _TermsSourceType="Provided" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="Unsecured">
+<_CREDITOR _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>UNSECURED</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0014" _AccountIdentifier="56230204905" _AccountOpenedDate="2005-11" _AccountReportedDate="2007-07" _AccountStatusDate="2007-07" _HighBalanceAmount="4920" _HighCreditAmount="4920" _LastActivityDate="2006-12" _MonthsReviewedCount="20" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0014" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="Secured">
+<_CREDITOR _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>UNSECURED</_Text>
+</CREDIT_COMMENT>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>REFINANCED</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0015" _AccountIdentifier="56230209783" _AccountOpenedDate="2004-08" _AccountReportedDate="2005-06" _AccountStatusDate="2005-06" _HighBalanceAmount="2870" _HighCreditAmount="2870" _LastActivityDate="2005-04" _MonthsReviewedCount="10" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0015" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="Unsecured">
+<_CREDITOR _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>UNSECURED</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0016" _AccountIdentifier="56230212015" _AccountOpenedDate="2006-12" _AccountReportedDate="2007-12" _AccountStatusDate="2007-12" _HighBalanceAmount="5062" _HighCreditAmount="5062" _LastActivityDate="2007-07" _MonthsReviewedCount="12" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0016" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="Unsecured">
+<_CREDITOR _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>UNSECURED</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0017" _AccountIdentifier="56230234009" _AccountOpenedDate="2005-04" _AccountReportedDate="2006-01" _AccountStatusDate="2006-01" _HighBalanceAmount="2972" _HighCreditAmount="2972" _LastActivityDate="2005-11" _MonthsReviewedCount="9" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0017" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="Unsecured">
+<_CREDITOR _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>UNSECURED</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0018" _AccountIdentifier="56230234693" _AccountOpenedDate="2001-11" _AccountReportedDate="2002-10" _AccountStatusDate="2002-10" _HighBalanceAmount="2106" _HighCreditAmount="2106" _LastActivityDate="2002-08" _MonthsReviewedCount="11" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0018" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>PERSONAL LOAN</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0019" _AccountIdentifier="56230267673" _AccountOpenedDate="2007-07" _AccountReportedDate="2008-08" _AccountStatusDate="2008-08" _HighBalanceAmount="5062" _HighCreditAmount="5062" _LastActivityDate="2008-03" _MonthsReviewedCount="12" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0019" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="Unsecured">
+<_CREDITOR _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>UNSECURED</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0020" _AccountIdentifier="56230290239" _AccountOpenedDate="2003-08" _AccountReportedDate="2004-10" _AccountStatusDate="2004-10" _HighBalanceAmount="2870" _HighCreditAmount="2870" _LastActivityDate="2004-08" _MonthsReviewedCount="14" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0020" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>PERSONAL LOAN</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0021" _AccountIdentifier="78064078893" _AccountOpenedDate="1990-11" _AccountReportedDate="2009-03" _AccountStatusDate="2009-03" _HighCreditAmount="1822" _LastActivityDate="2009-03" _MonthsReviewedCount="99" _UnpaidBalanceAmount="706" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0021" _AccountOwnershipType="JointContractualLiability" _AccountStatusType="Open" _AccountType="Revolving" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _MonthlyPaymentAmount="35" _TermsSourceType="Calculated" _TermsDescription="MONTHLY" CreditBusinessType="Automotive" CreditLoanType="CreditCard">
+<_CREDITOR _Name="WEST-AUTO" _StreetAddress="P O BOX 75002" _City="LEVITTOWN" _State="PR" _PostalCode="00950">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097958585"/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>CREDIT CARD</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746AT00035"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0022" _AccountIdentifier="78230304010145459" _AccountOpenedDate="1995-06" _AccountReportedDate="2008-08" _AccountStatusDate="2008-08" _HighCreditAmount="550" _LastActivityDate="2006-04" _MonthsReviewedCount="29" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0022" _AccountOwnershipType="JointContractualLiability" _AccountStatusType="Open" _AccountType="Revolving" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="Y" _TermsDescription="MONTHLY" CreditBusinessType="Banking" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="PITUSA" _StreetAddress="PO BOX 760" _City="HATO REY" _State="PR" _PostalCode="00919">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="787-792-3635 "/>
+</CONTACT_DETAIL>
+</_CREDITOR>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_HIGHEST_ADVERSE_RATING _Code="3" _Date="2006-09" _Type="Late90Days"/>
+<_LATE_COUNT _30Days="15" _60Days="13" _90Days="22"/>
+<_MOST_RECENT_ADVERSE_RATING _Code="3" _Date="2006-09" _Type="Late90Days"/>
+<_PAYMENT_PATTERN _Data="XXXXXXXXXXXXXXXXXXXXXX33" _StartDate="2008-07"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>AMT IN HIGH CREDIT IS CREDIT LIMIT</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746BB00190"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0023" _AccountIdentifier="7889238" _AccountOpenedDate="1999-08" _AccountReportedDate="2004-03" _AccountStatusDate="2004-03" _HighBalanceAmount="2047" _HighCreditAmount="2047" _LastActivityDate="2004-02" _MonthsReviewedCount="55" _UnpaidBalanceAmount="0" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0023" _AccountOwnershipType="JointContractualLiability" _AccountStatusType="Closed" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditBusinessType="Finance" CreditLoanType="UnknownLoanType">
+<_CREDITOR _Name="CITIF/AVCO"/>
+<_CURRENT_RATING _Code="0" _Type="TooNew"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FF00049"/>
+</CREDIT_LIABILITY>
+<CREDIT_LIABILITY CreditLiabilityID="TRD0024" _AccountIdentifier="89010190019" _AccountOpenedDate="2008-12" _AccountReportedDate="2009-03" _AccountStatusDate="2009-03" _HighBalanceAmount="5450" _HighCreditAmount="5450" _LastActivityDate="2009-03" _MonthsReviewedCount="2" _UnpaidBalanceAmount="5253" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditTradeReferenceID="CTR0024" _AccountOwnershipType="Individual" _AccountStatusType="Open" _AccountType="Installment" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _MonthlyPaymentAmount="107" _TermsSourceType="Provided" _TermsDescription="MONTHLY" CreditBusinessType="Banking" CreditLoanType="Unsecured">
+<_CREDITOR _Name="SANTANDER"/>
+<_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+<_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+<CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+<_Text>UNSECURED</_Text>
+</CREDIT_COMMENT>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746BB00273"/>
+</CREDIT_LIABILITY>
+<CREDIT_FILE CreditFileID="B-EFX-01" CreditRepositorySourceType="Equifax" BorrowerID="BNUM1" CreditScoreID="CRScr0000">
+<_ALERT_MESSAGE _Code="N" _CategoryType="FACTAAddressDiscrepancy" _Type="Other" _TypeOtherDescription="FACTA">
+<_Text>
+FACTA: Address Discrepancy - NO SUBSTANTIAL DIFFERENCE OCCURRED.
+</_Text>
+</_ALERT_MESSAGE>
+<_ALERT_MESSAGE _Type="EquifaxSAFESCAN">
+<_Text>
+INQUIRY SSN HAS NEVER BEEN ISSUED OR WAS ISSUED AFTER JUNE 2011.
+</_Text>
+</_ALERT_MESSAGE>
+<_ALERT_MESSAGE _Code="Y" _CategoryType="FACTARiskScoreValue" _Type="Other" _TypeOtherDescription="FACTA">
+<_Text>
+FACTA: Risk Score Value - NUMBER OF INQUIRIES ADVERSELY AFFECTED THE SCORE BUT NOT SIGNIFICANTLY
+</_Text>
+</_ALERT_MESSAGE>
+<_ALERT_MESSAGE _Code="Y" _CategoryType="FACTARiskScoreValue" _Type="Other" _TypeOtherDescription="FACTA">
+<_Text>
+FACTA: Risk Score Value - NUMBER OF INQUIRIES ADVERSELY AFFECTED THE SCORE BUT NOT SIGNIFICANTLY
+</_Text>
+</_ALERT_MESSAGE>
+<_BORROWER _SSN="111440294" _FirstName="TESTER" _LastName="QUICKEN31" _UnparsedName="TESTER QUICKEN31"/>
+<_VARIATION _Type="DifferentName"/>
+<_VARIATION _Type="DifferentAddress"/>
+</CREDIT_FILE>
+<CREDIT_SCORE CreditScoreID="CRScr0000" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditReportIdentifier="V5E1V3" CreditRepositorySourceType="Equifax" _ModelNameType="Other" _ModelNameTypeOtherDescription="EquifaxVantageScore" _Value="00692" _FACTAInquiriesIndicator="Y">
+<_FACTOR _Code="00050" _Text="SCORE TEXT NOT PRESENT"/>
+<_FACTOR _Code="00031" _Text="TOO FEW ACCOUNTS WITH RECENT PAYMENT INFORMATION "/>
+<_FACTOR _Code="000TS" _Text="SCORE TEXT NOT PRESENT"/>
+<_FACTOR _Code="000TD" _Text="SCORE TEXT NOT PRESENT"/>
+</CREDIT_SCORE>
+<CREDIT_SCORE CreditScoreID="CRScr0001" BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditReportIdentifier="V5E1V3" CreditRepositorySourceType="Equifax" _ModelNameType="EquifaxBeacon5.0" _Value="00693" _FACTAInquiriesIndicator="Y">
+<_FACTOR _Code="00039" _Text="SERIOUS DELINQUENCY"/>
+<_FACTOR _Code="00014" _Text="LENGTH OF TIME ACCOUNTS HAVE BEEN ESTABLISHED"/>
+<_FACTOR _Code="00006" _Text="TOO MANY CONSUMER FINANCE COMPANY ACCOUNTS"/>
+<_FACTOR _Code="00010" _Text="PROPORTION OF BALANCES TO CREDIT LIMITS IS TOO HIGH ON BANK REVOLVING OR OTHER REVOLVING ACCOUNTS"/>
+</CREDIT_SCORE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0000" _Name="COMMOLOCO">
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0001" _Name="COMMOLOCO">
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0002" _Name="BP-MAXI" _StreetAddress="SERV DE CREDITO A INDIVIDUOS PO BOX 362708" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="7877597000"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746BB00067"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0003" _Name="COMMOLOCO">
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0004" _Name="COMMOLOCO">
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0005" _Name="COMMOLOCO">
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0006" _Name="COMMOLOCO">
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0007" _Name="COMMOLOCO">
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0008" _Name="KOMO 78" _StreetAddress="PO BOX 6359" _City="CAGUAS" _State="PR" _PostalCode="00626">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097575215"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746WC00026"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0009" _Name="BWAC" _StreetAddress="BOX 87" _City="CAROLINA" _State="PR" _PostalCode="00630">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097679090"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FF00023"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0010" _Name="BWAC" _StreetAddress="BOX 87" _City="CAROLINA" _State="PR" _PostalCode="00630">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097679090"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FF00023"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0011" _Name="COMMOLOCO">
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00295"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0012" _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0013" _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0014" _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0015" _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0016" _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0017" _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0018" _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0019" _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0020" _Name="IF PR INC" _StreetAddress="PO BOX 71504 RECURSOS HUMANOS" _City="SAN JUAN" _State="PR" _PostalCode="00936">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097597044"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FP00527"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0021" _Name="WEST-AUTO" _StreetAddress="P O BOX 75002" _City="LEVITTOWN" _State="PR" _PostalCode="00950">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="8097958585"/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746AT00035"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0022" _Name="PITUSA" _StreetAddress="PO BOX 760" _City="HATO REY" _State="PR" _PostalCode="00919">
+<CONTACT_DETAIL>
+<CONTACT_POINT _Type="Phone" _Value="787-792-3635 "/>
+</CONTACT_DETAIL>
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746BB00190"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0023" _Name="CITIF/AVCO">
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746FF00049"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0024" _Name="SANTANDER">
+<CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="746BB00273"/>
+</CREDIT_TRADE_REFERENCE>
+<CREDIT_COMMENT _SourceType="Equifax" _Type="BureauRemarks">
+<_Text>
+ADDRESS DISCREPANCY:(N) NO SUBSTANTIAL DIFFERENCE OCCURRED
+</_Text>
+</CREDIT_COMMENT>
+<CREDIT_COMMENT _SourceType="Equifax" _Type="BureauRemarks">
+<_Text>CREDIT REPORT SSN: 111440294</_Text>
+</CREDIT_COMMENT>
+<CREDIT_COMMENT _SourceType="Equifax" _Type="BureauRemarks">
+<_Text>CREDIT REPORT SSN CONFIRMED: N</_Text>
+</CREDIT_COMMENT>
+<CREDIT_COMMENT _SourceType="Equifax" _Type="BureauRemarks">
+<_Text>INQUIRY SSN: 111440294</_Text>
+</CREDIT_COMMENT>
+<CREDIT_COMMENT _SourceType="Experian" _Type="BureauRemarks">
+<_Text>****** NO RECORD FOUND *********** - XPN</_Text>
+</CREDIT_COMMENT>
+<CREDIT_COMMENT _SourceType="TransUnion" _Type="BureauRemarks">
+<_Text>NO HIT reported for BORROWER from TU</_Text>
+</CREDIT_COMMENT>
+<CREDIT_COMMENT _SourceType="TransUnion" _Type="BureauRemarks">
+<_Text>
+05 - Exact match between SSN on input and SSN on file
+</_Text>
+</CREDIT_COMMENT>
+<CREDIT_SUMMARY _Name="Generic Summary">
+<_DATA_SET _Name="TotalMortAccounts" _Value="0"/>
+<_DATA_SET _Name="TotalMortAccountsWithBal" _Value="0"/>
+<_DATA_SET _Name="TotalMortBalance" _Value=" 0"/>
+<_DATA_SET _Name="TotalMortPayments" _Value=" 0"/>
+<_DATA_SET _Name="TotalMort30" _Value="0"/>
+<_DATA_SET _Name="TotalMort60" _Value="0"/>
+<_DATA_SET _Name="TotalMort90" _Value="0"/>
+<_DATA_SET _Name="MortLateDate" _Value=""/>
+<_DATA_SET _Name="TotalInstAccounts" _Value="21"/>
+<_DATA_SET _Name="TotalInstAccountsWithBal" _Value="3"/>
+<_DATA_SET _Name="TotalInstBalance" _Value=" 12531"/>
+<_DATA_SET _Name="TotalInstPayments" _Value=" 300"/>
+<_DATA_SET _Name="TotalInst30" _Value="0"/>
+<_DATA_SET _Name="TotalInst60" _Value="0"/>
+<_DATA_SET _Name="TotalInst90" _Value="0"/>
+<_DATA_SET _Name="InstLateDate" _Value=""/>
+<_DATA_SET _Name="TotalRevolveAccounts" _Value="3"/>
+<_DATA_SET _Name="TotalRevolveAccountsWithBal" _Value="1"/>
+<_DATA_SET _Name="TotalRevolveBalance" _Value=" 706"/>
+<_DATA_SET _Name="TotalRevolvePayments" _Value=" 35"/>
+<_DATA_SET _Name="TotalRevolve30" _Value="15"/>
+<_DATA_SET _Name="TotalRevolve60" _Value="13"/>
+<_DATA_SET _Name="TotalRevolve90" _Value="22"/>
+<_DATA_SET _Name="RevolveLateDate" _Value=""/>
+<_DATA_SET _Name="TotalCollAccounts" _Value="1"/>
+<_DATA_SET _Name="TotalCollAccountsWithBal" _Value="1"/>
+<_DATA_SET _Name="TotalCollBalance" _Value=" 242"/>
+<_DATA_SET _Name="TotalCollPayments" _Value=" 0"/>
+<_DATA_SET _Name="TotalColl30" _Value="0"/>
+<_DATA_SET _Name="TotalColl60" _Value="0"/>
+<_DATA_SET _Name="TotalColl90" _Value="0"/>
+<_DATA_SET _Name="CollLateDate" _Value=""/>
+<_DATA_SET _Name="TotalOtherAccounts" _Value="0"/>
+<_DATA_SET _Name="TotalOtherAccountsWithBal" _Value="0"/>
+<_DATA_SET _Name="TotalOtherBalance" _Value=" 0"/>
+<_DATA_SET _Name="TotalOtherPayments" _Value=" 0"/>
+<_DATA_SET _Name="TotalOther30" _Value="0"/>
+<_DATA_SET _Name="TotalOther60" _Value="0"/>
+<_DATA_SET _Name="TotalOther90" _Value="0"/>
+<_DATA_SET _Name="OtherLateDate" _Value=""/>
+<_DATA_SET _Name="TotalAccounts" _Value="25"/>
+<_DATA_SET _Name="TotalAccountsWithBal" _Value="5"/>
+<_DATA_SET _Name="TotalBalance" _Value=" 13479"/>
+<_DATA_SET _Name="TotalPayments" _Value=" 335"/>
+<_DATA_SET _Name="Total30" _Value="15"/>
+<_DATA_SET _Name="Total60" _Value="13"/>
+<_DATA_SET _Name="Total90" _Value="22"/>
+<_DATA_SET _Name="LateDate" _Value=""/>
+<_DATA_SET _Name="TotalLiens" _Value="0"/>
+<_DATA_SET _Name="TotalJudgements" _Value="0"/>
+<_DATA_SET _Name="TotalForeclosure" _Value="0"/>
+<_DATA_SET _Name="TotalBankruptcy" _Value="0"/>
+<_DATA_SET _Name="TotalOtherPr" _Value="0"/>
+<_DATA_SET _Name="TotalPr" _Value="0"/>
+<_DATA_SET _Name="TotalPastDue" _Value="242"/>
+<_DATA_SET _Name="TotalInqs" _Value="0"/>
+</CREDIT_SUMMARY>
+<REGULATORY_PRODUCT BorrowerID="BNUM1" CreditFileID="B-EFX-01" CreditRepositorySourceType="Equifax" _SourceType="OFAC" _ProviderDescription="ComplianceDataCenter" _ResultText="OFAC check clear" _ResultStatusType="Clear" _DisclaimerText="THE ID PROVIDED IS SIMILAR TO AN INDIVIDUAL ON THE OFAC LIST. THIS IS NOT A CONSUMER RPT. DO NOT USE TO DETERMINE ELIGIBILITY FOR CREDIT OR ANY OTHER FCRA PURPOSE. GO TO USTREAS.GOV/OFFICES/ENFORCEMENT/OFAC/FAQ/ANSWER.SHTML FOR OFAC HOTLINE INFO."/>
+</CREDIT_RESPONSE>
+</RESPONSE_DATA>
+</RESPONSE>
+</RESPONSE_GROUP>
