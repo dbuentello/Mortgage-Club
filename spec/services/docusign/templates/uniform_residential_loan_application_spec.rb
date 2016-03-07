@@ -18,7 +18,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.build_section_1
 
       expect(@service.params).to include({
-        loan_amount: number_with_delimiter(loan.amount),
+        loan_amount: number_with_delimiter(loan.amount.round),
         interest_rate: "#{"%.3f" % (loan.interest_rate.to_f * 100)}",
         number_of_month: loan.num_of_months
       })
@@ -190,16 +190,16 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       borrower_cash = (total_cost_transactions - loan.other_credits.to_f - loan.amount).round(2)
       @service.build_section_7
       expect(@service.params).to include({
-        purchase_price: "%.2f" % loan.subject_property.purchase_price.to_f,
-        prepaid_items: "%.2f" % loan.estimated_prepaid_items,
-        closing_costs: "%.2f" % loan.estimated_closing_costs,
-        pmi_mip: "%.2f" % loan.pmi_mip_funding_fee,
-        other_credits: "%.2f" % loan.other_credits,
-        loan_amount_exclude_pmi: "%.2f" % (loan.amount - loan.pmi_mip_funding_fee.to_f),
-        pmi_mip_financed: "%.2f" % loan.pmi_mip_funding_fee_financed,
-        loan_amount_m_n: "%.2f" % loan.amount,
-        borrower_cash: "%.2f" %(borrower_cash),
-        total_costs: "%.2f" %(total_cost_transactions)
+        purchase_price: number_to_currency(loan.subject_property.purchase_price.to_f, unit: ""),
+        prepaid_items: number_to_currency(loan.estimated_prepaid_items, unit: ""),
+        closing_costs: number_to_currency(loan.estimated_closing_costs, unit: ""),
+        pmi_mip: number_to_currency(loan.pmi_mip_funding_fee, unit: ""),
+        other_credits: number_to_currency(loan.other_credits, unit: ""),
+        loan_amount_exclude_pmi: number_to_currency((loan.amount - loan.pmi_mip_funding_fee.to_f), unit: ""),
+        pmi_mip_financed: number_to_currency(loan.pmi_mip_funding_fee_financed, unit: ""),
+        loan_amount_m_n: number_to_currency(loan.amount, unit: ""),
+        borrower_cash: number_to_currency(borrower_cash, unit: ""),
+        total_costs: number_to_currency(total_cost_transactions, unit: "")
       })
     end
 
@@ -208,7 +208,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         @service.loan.purpose = "refinance"
         @service.build_section_7
         expect(@service.params).to include({
-          refinance: "%.2f" % @service.loan.amount
+          refinance: number_to_currency(@service.loan.amount, unit: "")
         })
       end
     end
@@ -244,13 +244,13 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
                                  property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f
         @service.build_housing_expense("proposed", property)
         expect(@service.params).to include({
-          proposed_mortgage: "%.2f" % property.mortgage_payment,
-          proposed_other_financing: "%.2f" % property.other_financing,
-          proposed_hazard_insurance: "%.2f" % property.estimated_hazard_insurance,
-          proposed_real_estate_taxes: "%.2f" % property.estimated_property_tax,
-          proposed_mortgage_insurance: "%.2f" % property.estimated_mortgage_insurance,
-          proposed_homeowner: "%.2f" % property.hoa_due,
-          proposed_total: "%.2f" %(proposed_total_expense)
+          proposed_mortgage: number_to_currency(property.mortgage_payment, unit: ""),
+          proposed_other_financing: number_to_currency(property.other_financing, unit: ""),
+          proposed_hazard_insurance: number_to_currency(property.estimated_hazard_insurance, unit: ""),
+          proposed_real_estate_taxes: number_to_currency(property.estimated_property_tax, unit: ""),
+          proposed_mortgage_insurance: number_to_currency(property.estimated_mortgage_insurance, unit: ""),
+          proposed_homeowner: number_to_currency(property.hoa_due, unit: ""),
+          proposed_total: number_to_currency(proposed_total_expense, unit: "")
         })
       end
     end
@@ -263,13 +263,13 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
                                 property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f
         @service.build_housing_expense("present", property)
         expect(@service.params).to include({
-          present_mortgage: "%.2f" % property.mortgage_payment,
-          present_other_financing: "%.2f" % property.other_financing,
-          present_hazard_insurance: "%.2f" % property.estimated_hazard_insurance,
-          present_real_estate_taxes: "%.2f" % property.estimated_property_tax,
-          present_mortgage_insurance: "%.2f" % property.estimated_mortgage_insurance,
-          present_homeowner: "%.2f" % property.hoa_due,
-          present_total: "%.2f" %(present_total_expense)
+          present_mortgage: number_to_currency(property.mortgage_payment, unit: ""),
+          present_other_financing: number_to_currency(property.other_financing, unit: ""),
+          present_hazard_insurance: number_to_currency(property.estimated_hazard_insurance, unit: ""),
+          present_real_estate_taxes: number_to_currency(property.estimated_property_tax, unit: ""),
+          present_mortgage_insurance: number_to_currency(property.estimated_mortgage_insurance, unit: ""),
+          present_homeowner: number_to_currency(property.hoa_due, unit: ""),
+          present_total: number_to_currency(present_total_expense, unit: "")
         })
       end
     end
@@ -315,11 +315,11 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.build_gross_monthly_income("borrower", borrower)
 
       expect(@service.params).to include({
-        borrower_base_income: "%.2f" % borrower.current_salary,
-        borrower_overtime: "%.2f" % borrower.gross_overtime.to_f,
-        borrower_bonuses: "%.2f" % borrower.gross_bonus.to_f,
-        borrower_commissions: "%.2f" % borrower.gross_commission.to_f,
-        borrower_total_monthly_income: "%.2f" % borrower.total_income.to_f
+        borrower_base_income: number_to_currency(borrower.current_salary, unit: ""),
+        borrower_overtime: number_to_currency(borrower.gross_overtime.to_f, unit: ""),
+        borrower_bonuses: number_to_currency(borrower.gross_bonus.to_f, unit: ""),
+        borrower_commissions: number_to_currency(borrower.gross_commission.to_f, unit: ""),
+        borrower_total_monthly_income: number_to_currency(borrower.total_income.to_f, unit: "")
       })
     end
   end
@@ -423,8 +423,8 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       expect(@service.params).to include({
         purpose_refinance: "Yes",
         year_lot_acquired_2: property.original_purchase_year,
-        original_cost_2: "%.2f" % property.original_purchase_price.to_f,
-        amount_existing_liens_2: "%.2f" % property.refinance_amount,
+        original_cost_2: number_to_currency(property.original_purchase_price.to_f, unit: ""),
+        amount_existing_liens_2: number_to_currency(property.refinance_amount, unit: ""),
         purpose_of_refinance: "Cash out",
         year_built: property.year_built
       })

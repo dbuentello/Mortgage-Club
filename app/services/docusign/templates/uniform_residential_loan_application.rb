@@ -152,9 +152,9 @@ module Docusign
       end
 
       def build_housing_expense(type, property)
-        @params[(type + "_total").to_sym] = "%.2f" % (property.mortgage_payment.to_f + property.other_financing.to_f +
+        @params[(type + "_total").to_sym] = number_to_currency(property.mortgage_payment.to_f + property.other_financing.to_f +
                                             property.estimated_hazard_insurance + property.estimated_property_tax +
-                                            property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f)
+                                            property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f, unit: "")
 
         @params[(type + "_rent").to_sym] = number_to_currency(borrower.current_address.monthly_rent, unit: "") if primary_property && borrower.current_address.is_rental
         @params[(type + "_mortgage").to_sym] = number_to_currency(property.mortgage_payment.to_f, unit: "")
