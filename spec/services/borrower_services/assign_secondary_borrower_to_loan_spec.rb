@@ -21,7 +21,7 @@ describe BorrowerServices::AssignSecondaryBorrowerToLoan do
     let!(:loan) { FactoryGirl.create(:loan_with_all_associations) }
     it "calls CoBorrowerMailer with proper params" do
       message_delivery = instance_double(ActionMailer::MessageDelivery)
-      expect(CoBorrowerMailer).to receive(:notify_being_added).with(loan.id, {is_new_user: true, default_password: "8820245fb6"}).and_return(message_delivery)
+      expect(CoBorrowerMailer).to receive(:notify_being_added).with(loan.id, {is_new_user: false, default_password: nil}).and_return(message_delivery)
       expect(message_delivery).to receive(:deliver_later)
       BorrowerServices::AssignSecondaryBorrowerToLoan.new(loan, @secondary_params, nil).call
     end
