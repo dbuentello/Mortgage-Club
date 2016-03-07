@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   get "home_test_rates", to: "pages#home_test_rates"
   get "backend_test", to: "pages#backend_test"
   get "frontend_test", to: "pages#frontend_test"
-  get "rate-alert", to: "potential_users#new"
+
+  get "refinance_alert", to: "ab_testings#refinance_alert"
+  #get "rate_drop_alert", to: "initial_quotes#index"
+
   post "/potential_users", to: "potential_users#create"
   post "mailjet_tracking", to: "mailjet_tracking#track"
   get "/esigning/:id", to: "electronic_signature#new"
@@ -166,7 +169,7 @@ Rails.application.routes.draw do
     end
 
     resources :loan_members_titles
-
+    resources :settings, only: [:index, :update]
     resources :borrower_managements, only: [:index] do
       member do
         get "switch"

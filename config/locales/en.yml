@@ -40,4 +40,8 @@ en:
               blank: "This is field required"
               confirmation: "Doesn't match Password"
             email:
-              taken: "This email has already been taken" 
+              taken: "This email has already been taken"
+  homepage:
+    title_alert: "FREE REFINANCE ALERT"
+    btn_alert: "SET MY ALERT"
+    description_alert: "Our software monitors thousands of loan programs and alert you when you can save money by refinancing with MortgageClub."

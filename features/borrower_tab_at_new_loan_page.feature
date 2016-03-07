@@ -45,7 +45,9 @@ Feature: BorrowerTabAtNewLoanPage
         And I fill in "secondary_borrower_email" with "co-borrower@gmail.com"
         And I fill in "secondary_borrower_years_in_school" with "9"
         And I clear value in "Your co-borrower current address"
-        And I fill in "secondary_borrower_current_address" with "1920 South Las Vegas Boulevard, Las Vegas, NV 89104"
+        And I fill in "secondary_borrower_current_address" with "1920 South Las Vegas Boulevard"
+        And I wait for 2 seconds
+        And I choose "true_secondary_borrower_currently_own"
         And I choose "true_secondary_borrower_currently_own"
         And I fill in "secondary_borrower_years_in_current_address" with "5"
         And I choose "false_secondary_borrower_self_employed"
@@ -55,6 +57,7 @@ Feature: BorrowerTabAtNewLoanPage
         Then I click on "Save and Continue"
           And I wait for 2 seconds
           And I should not see "This field is required"
+          And I should not see "This field is invalid"
         When I click on "Borrower"
           And I should see "With a co-borrower"
           And the "secondary_borrower_first_name" field should contain "Mark"

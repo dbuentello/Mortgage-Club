@@ -139,7 +139,7 @@ var ChecklistExplanation = React.createClass({
               <h4 className="modal-title" id={labelId}>{this.props.title}</h4>
             </div>
             <div className="modal-body">
-              <iframe ref='iframe' height='600px' width='100%'></iframe>
+              <iframe ref='iframe' height='500px' width='100%'></iframe>
               <div ref='indicator' className="progress-indicator"><div className="spinner"></div></div>
             </div>
           </div>

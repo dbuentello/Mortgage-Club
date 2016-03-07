@@ -13,17 +13,19 @@ module LoanTekServices
       @response = connection.post do |conn|
         conn.headers["Content-Type"] = "application/json"
         conn.body = {
-          BestExecutionMethodType: 1,
+          BestExecutionMethodType: 3,
+          LockPeriod: 30,
           QuotingChannel: 0,
           ClientDefinedIdentifier: ENV["LOANTEK_IDENTIFIER"],
           LoanToValue: 80,
-          QuoteTypesToReturn: [-1, 0, 1, 2, 3, 4],
+          QuoteTypesToReturn: [-1, 0],
           ZipCode: get_zip_code,
           CreditScore: get_credit_score,
           LoanPurpose: get_loan_purpose,
           LoanAmount: get_loan_amount,
           PropertyUsage: get_property_usage,
-          PropertyType: get_property_type
+          PropertyType: get_property_type,
+          LoanProgramsOfInterest: [1, 2, 3]
         }.to_json
       end
 

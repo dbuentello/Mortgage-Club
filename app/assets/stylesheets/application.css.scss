@@ -80,9 +80,11 @@ body {
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
-  padding-bottom: 125px;
+  padding-bottom: 100px;
 }
-
+.nav-borrower {
+  height: calc(100vh - 100px);
+}
 .tooltip > .tooltip-inner {
   background-color: #FBF7AA;
   border-color: #F9E98E;
@@ -560,6 +562,10 @@ hr {
 
 #signupBtn {
   width:140px;
+}
+
+.modal-docusign {
+  margin-top: 100px;
 }
 
 @media (min-width:384px) and (max-width: 414px) {
