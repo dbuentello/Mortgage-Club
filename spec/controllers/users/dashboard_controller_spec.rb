@@ -9,17 +9,16 @@ describe Users::DashboardController do
 
       it "redirect to edit page" do
         get :show, id: loan.id
-        expect(response.status).to eq 302
+        expect(response.status).to eq(302)
       end
     end
 
     context "with completed loan" do
       let!(:loan) { FactoryGirl.create(:loan_with_all_associations, status: :submitted) }
 
-      it "shows loan information correctly" do
-        loan.update(status: :submitted)
+      it "renders template borrower_app" do
         get :show, id: loan.id
-        expect(response.status).to eq 200
+        expect(response).to render_template("borrower_app")
       end
     end
 
@@ -27,16 +26,11 @@ describe Users::DashboardController do
 
       before do
         @loan = FactoryGirl.create(:loan_with_all_associations)
-        @user = User.new(FactoryGirl.attributes_for(:user, email: "tester_borrower@gmail.com"))
-        @user.skip_confirmation!
-        @user.save
-        @loan.user = @user
-        @loan.save
       end
 
       it "not allow to access the page" do
         get :show, id: @loan.id
-        expect(response.status).to eq 403
+        expect(response.status).to eq(403)
       end
     end
   end
