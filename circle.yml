@@ -2,7 +2,7 @@ dependencies:
   cache_directories:
     - pdftk
   pre:
-    - sudo apt-get install pdftk
+    - if [[ ! -e pdftk ]]; then sudo apt-get install pdftk; fi
 test:
   pre:
     - bundle exec rake assets:webpack
