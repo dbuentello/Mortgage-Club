@@ -56,7 +56,7 @@ var secondary_borrower_fields = {
   maritalStatus: {label: 'Marital Status', name: 'secondary_borrower_marital_status', fieldName: 'marital_status', helpText: null, error: "coMarialStatusError", validationTypes: ["empty"]},
   numberOfDependents: {label: 'Number of dependents', name: 'secondary_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "coNumberOfdependencesError", validationTypes: ["empty", "integer"]},
   dependentAges: {label: 'Ages of Dependents', name: 'secondary_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: null, validationTypes: ["empty", "agesOfDependents"]},
-  currentAddress: {label: 'Your co-borrower current address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null, error: "coCurrentAddressError", validationTypes: ["empty"]},
+  currentAddress: {label: 'Your co-borrower current address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null, error: "coCurrentAddressError", validationTypes: ["empty", "address"]},
   currentlyOwn: {label: 'Own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "coCurrentlyOwnError", validationTypes: ["empty"]},
   selfEmployed: {label: 'Is your co-borrower self-employed?', name: 'secondary_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "coSelfEmployError", validationTypes: ["empty"]},
   yearsInCurrentAddress: {label: 'Number of years they have lived here', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "coYearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
