@@ -85,7 +85,7 @@ var Borrowers = React.createClass({
                           <td>{borrower.phone}</td>
                           <th>
                             <a className="linkTypeReversed btn btn-primary btn-sm col-sm-10 text-center" href={"/borrower_managements/" + borrower.user.id + "/switch"}>Switch to borrower</a>
-                            <a id={borrower.id} className='linkTypeReversed btn btn-danger btn-sm member-title-action' onClick={this.handleRemoveBorrower}> Delete </a>
+                            <a id={borrower.id} className='linkTypeReversed btn btn-danger btn-sm member-title-action' onClick={this.handleRemoveBorrower}> Remove </a>
                           </th>
                         </tr>
                       )
@@ -100,7 +100,7 @@ var Borrowers = React.createClass({
               <div className="modal-content">
                 <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
                 <div className="modal-body text-center">
-                  <h3 className={this.props.bodyClass}>Are you sure you want to delete this borrower?</h3>
+                  <h3 className={this.props.bodyClass}>Are you sure you want to remove this borrower?</h3>
                   <form className="form-horizontal">
                     <div className="form-group">
                       <div className="col-md-6">
