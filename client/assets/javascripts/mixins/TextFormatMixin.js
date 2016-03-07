@@ -112,9 +112,23 @@ var TextFormatMixin = {
     if (!val) { return; }
     return ('' + val).replace(/[^0-9\.]/g, '');
   },
-  formatPercent: function(val) {
-    if (!val) { return; }
-    return ('' + val).replace(/[^0-9\.]/g, '');
+  formatPercent: function(value) {
+    var money;
+    var decimal = 3;
+
+    if (!value) {
+      return value;
+    }
+
+    if (typeof value === 'string' || value instanceof String) {
+      value = value.replace(/[^(\d|.).-]/g, '');
+    }
+
+    value = Math.ceil(value * 1000) / 1000;
+    money = Math.abs(value);
+
+
+    return this.commafy(money, decimal) + "%";
   },
 
   formatSSN: function(val) {

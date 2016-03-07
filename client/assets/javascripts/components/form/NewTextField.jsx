@@ -85,7 +85,9 @@ var TextField = React.createClass({
       displayText = this.commafy(this.props.value, this.props.decimals);
     } else if (this.props.format == "currency") {
       displayText = this.formatCurrency(this.props.value, this.props.currency);
-    } else if (_.isFunction(this.props.format)) {
+    } else if (this.props.format == "percent") {
+      displayText = this.formatPercent(this.props.value);
+    }else if (_.isFunction(this.props.format)) {
       displayText = this.props.format(this.props.value);
     }
 
