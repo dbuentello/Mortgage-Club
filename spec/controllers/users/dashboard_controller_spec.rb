@@ -32,7 +32,6 @@ describe Users::DashboardController do
         @user.save
         @loan.user = @user
         @loan.save
-
       end
 
       it "not allow to access the page" do
