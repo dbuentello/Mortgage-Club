@@ -170,7 +170,7 @@ Rails.application.routes.draw do
 
     resources :loan_members_titles
     resources :settings, only: [:index, :update]
-    resources :borrower_managements, only: [:index] do
+    resources :borrower_managements, only: [:index, :destroy] do
       member do
         get "switch"
       end
