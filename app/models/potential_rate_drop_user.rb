@@ -5,7 +5,7 @@ class PotentialRateDropUser < ActiveRecord::Base
     :refinance_purpose,
     :current_mortgage_balance,
     :current_mortgage_rate,
-    :estimate_home_value,
+    :estimated_home_value,
     :zip,
     :credit_score,
     :send_as_email,
@@ -17,7 +17,7 @@ class PotentialRateDropUser < ActiveRecord::Base
   validates :current_mortgage_balance, presence: true
   validates :current_mortgage_rate, presence: true
   validates :credit_score, presence: true
-  validates :estimate_home_value, presence: true
+  validates :estimated_home_value, presence: true
   validates :zip, presence: true
 
   validate :alert_method_cannot_be_blank
