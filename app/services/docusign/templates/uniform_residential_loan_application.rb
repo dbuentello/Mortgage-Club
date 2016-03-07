@@ -145,7 +145,7 @@ module Docusign
             @params[("liabilities_city_state_" + nth).to_sym] = "#{liability.address.city}, #{liability.address.state} #{liability.address.zip}"
           end
 
-          @params[("liabilities_payment_" + nth).to_sym] = "#{liability.payment.to_f} / {liability.months.to_f}"
+          @params[("liabilities_payment_" + nth).to_sym] = "#{liability.payment.to_f} / #{liability.months.to_i}"
           @params[("liabilities_balance_" + nth).to_sym] = "%.2f" % liability.balance.to_f
           @params[("liabilities_acc_" + nth).to_sym] = liability.account_number
         end
