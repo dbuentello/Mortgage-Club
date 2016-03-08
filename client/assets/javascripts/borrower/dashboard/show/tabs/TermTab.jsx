@@ -4,18 +4,39 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var TermTab = React.createClass({
   mixins: [TextFormatMixin],
-  getInitialState: function() {
-    return ({});
+
+  calculateMonthlyHousingExpense: function(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue) {
+    var expense = 0.0;
+    if(parseFloat(hoaDue))
+    {
+      expense += parseFloat(hoaDue);
+    }
+
+    if(parseFloat(mortgageInsurance))
+    {
+      expense += parseFloat(mortgageInsurance);
+    }
+
+    expense += parseFloat(monthlyPayment);
+    expense += parseFloat(homeOwnerInsurance);
+    expense += parseFloat(propertyTax);
+    return expense;
   },
 
   render: function() {
-    var loanId = this.props.loan.amount
-    var loan = this.props.loan
+    var loan = this.props.loan;
+    var property = loan.primary_property;
+    var propertyTax = property.estimated_property_tax;
+    var homeOwnerInsurance = property.estimated_hazard_insurance;
+    var monthlyPayment = loan.monthly_payment;
+    var hoaDue = property.hoa_due
+    var mortgageInsurance = property.estimated_mortgage_insurance;
+    var totalCost = this.calculateMonthlyHousingExpense(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue);
     return (
-      <div className="panel panel-flat">
+      <div className="panel panel-flat terms-view">
         <div>
           <div className="row">
-            <h4> Your Loan Summary </h4>
+            <h4 className="loan-summary"> Your Loan Summary </h4>
           </div>
 
           <div className="table-responsive term-board">
@@ -54,7 +75,7 @@ var TermTab = React.createClass({
                     Loan Amount
                   </td>
                   <td>
-                    {this.formatCurrency(this.props.loan.amount,"$")}
+                    {this.formatCurrency(loan.amount,"$")}
                   </td>
                 </tr>
                 <tr>
@@ -62,7 +83,7 @@ var TermTab = React.createClass({
                     Loan Type
                   </td>
                   <td>
-                    {this.props.loan.loan_type}
+                    {loan.amortization_type}
                   </td>
                 </tr>
                 <tr>
@@ -85,39 +106,46 @@ var TermTab = React.createClass({
           <div className="table-responsive term-board">
             <table className="table table-striped term-table">
               <tbody>
+                {
+                  loan.lender_credits < 0.0
+                  ?
+
+                    <tr>
+                      <td className="loan-field">
+                        Lender Credits
+                      </td>
+                      <td>
+                        {this.formatCurrency(loan.lender_credits, "$")}
+                      </td>
+                    </tr>
+
+                  :
+
+                    <tr>
+                      <td className="loan-field">
+                        Discount Points
+                      </td>
+                      <td>
+                        {this.formatCurrency(loan.lender_credits, "$")}
+                      </td>
+                    </tr>
+                }
                 <tr>
-                  <td>
-                    Closing Cost
+                  <td className="loan-field">
+                    Lender Fees
                   </td>
                   <td>
-                    {}
+                    {this.formatCurrency(loan.loan_costs, "$")}
                   </td>
                 </tr>
-
-                  {
-                    loan.lender_credits < 0.0
-                    ?
-
-                      <tr>
-                        <td className="loan-field">
-                          Lender Credits
-                        </td>
-                        <td>
-                          {this.formatCurrency(loan.lender_credits, "$")}
-                        </td>
-                      </tr>
-
-                    :
-
-                      <tr>
-                        <td className="loan-field">
-                          Discount Points
-                        </td>
-                        <td>
-                          {this.formatCurrency(loan.lender_credits, "$")}
-                        </td>
-                      </tr>
-                  }
+                <tr>
+                  <td className="loan-field">
+                    Third Party Services
+                  </td>
+                  <td>
+                    {this.formatCurrency(loan.third_party_fees, "$")}
+                  </td>
+                </tr>
                 <tr>
                   <td className="loan-field">
                     Prepaid Items
@@ -147,6 +175,14 @@ var TermTab = React.createClass({
               <tbody>
                 <tr>
                   <td className="loan-field">
+                    Principal and Interest
+                  </td>
+                  <td>
+                    {this.formatCurrency(loan.monthly_payment, "$")}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="loan-field">
                     Homeowners Insurance
                   </td>
                   <td>
@@ -161,20 +197,40 @@ var TermTab = React.createClass({
                     {this.formatCurrency(loan.primary_property.estimated_property_tax, "$")}
                   </td>
                 </tr>
+                {
+                  loan.primary_property.estimated_mortgage_insurance>0.0
+                  ?
+                  <tr>
+                    <td>
+                      Mortgage Insurance
+                    </td>
+                    <td>
+                      {this.formatCurrency(loan.primary_property.estimated_mortgage_insurance, "$")}
+                    </td>
+                  </tr>
+                  :
+                  null
+                }
+                {
+                  ((loan.subject_property.hoa_due > 0.0) && (loan.subject_property.hoa_due !== 0.0))
+                  ?
+                  <tr>
+                    <td>
+                      HOA Due
+                    </td>
+                    <td>
+                      {this.formatCurrency(loan.primary_property.hoa_due,"$")}
+                    </td>
+                  </tr>
+                  :
+                  null
+                }
                 <tr>
                   <td>
-                    Mortgage Insurance
+                    Total Monthly Housing Expense (est.)
                   </td>
                   <td>
-                    {this.formatCurrency(loan.primary_property.estimated_mortgage_insurance, "$")}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    HOA Due
-                  </td>
-                  <td>
-                    {this.formatCurrency(loan.primary_property.hoa_due,"$")}
+                    {this.formatCurrency(totalCost, "$")}
                   </td>
                 </tr>
               </tbody>
