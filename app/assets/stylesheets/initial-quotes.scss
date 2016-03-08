@@ -1,5 +1,15 @@
 .initial-quotes {
-  padding-top: 0px;
+  padding-top: 85px;
+
+  p {
+    font-size: 1.1em;
+    color: #00436E;
+    text-align: center;
+  }
+
+  p.explanation {
+    font-style: italic;
+  }
 
   h2 {
     text-align: center;
@@ -17,12 +27,6 @@
   h6 {
     font-size: 1.1em;
     color: #15c0f1;
-  }
-
-  form {
-    .form-group:first-child {
-      margin-top: 10px;
-    }
   }
 
   .mortgage-quotes {
