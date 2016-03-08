@@ -177,6 +177,10 @@ a.remove {
   table.table.table-striped.term-table tr:nth-child(even) td {
     background-color:#f8f8f8;
   }
+  .term-board {
+    border-radius: 5px;
+    border: #b7b7b7 1px solid;
+  }
 
   .mortgageTabs {
     margin-top: 20px;
