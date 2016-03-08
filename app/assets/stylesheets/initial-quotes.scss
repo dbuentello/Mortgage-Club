@@ -1,4 +1,6 @@
 .initial-quotes {
+  padding-top: 0px;
+
   h2 {
     text-align: center;
   }
@@ -7,8 +9,6 @@
     color: #00436E;
     text-align: center;
   }
-
-  padding-top: 67px;
 
   .tooltip > .tooltip-arrow {
     border-bottom-color: #FBF7AA;
@@ -44,6 +44,7 @@
     .col-xs-9 {
       margin-top: 20px;
       padding: 0px 50px;
+      float: right;
     }
 
     .board {
