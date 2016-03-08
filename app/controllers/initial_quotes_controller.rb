@@ -23,7 +23,7 @@ class InitialQuotesController < ApplicationController
 
   def create
     quotes = LoanTekServices::GetInitialQuotes.new(quotes_params).call
-    ap quotes
+
     render json: {quotes: quotes}
   end
 
