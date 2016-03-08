@@ -25,7 +25,7 @@ var TermTab = React.createClass({
 
   render: function() {
     var loan = this.props.loan;
-    var property = loan.primary_property;
+    var property = loan.subject_property;
     var propertyTax = property.estimated_property_tax;
     var homeOwnerInsurance = property.estimated_hazard_insurance;
     var monthlyPayment = loan.monthly_payment;
