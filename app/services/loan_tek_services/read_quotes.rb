@@ -62,7 +62,7 @@ module LoanTekServices
     end
 
     def self.get_lender_info(quotes)
-      lender_names = quotes.map { |q| q["LenderName"] }
+      lender_names = quotes.map { |q| q["LenderName"] }.uniq
       lender_info = {}
       Lender.where(name: lender_names).each do |lender|
         lender_info[lender.name] = {nmls: lender.nmls, logo_url: lender.logo_url}
