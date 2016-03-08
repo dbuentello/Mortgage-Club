@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get "frontend_test", to: "pages#frontend_test"
 
   get "refinance_alert", to: "ab_testings#refinance_alert"
+  get "rate_drop_alert", to: "ab_testings#rate_drop_alert"
+
+  post "/rate_drop_alert", to: "potential_rate_drop_users#create"
 
   post "/potential_users", to: "potential_users#create"
   post "mailjet_tracking", to: "mailjet_tracking#track"
@@ -161,6 +164,9 @@ Rails.application.routes.draw do
     end
 
     resources :potential_user_managements, only: [:index, :edit, :update, :destroy] do
+    end
+
+    resources :potential_rate_drop_user_managements, only: [:index, :edit, :update, :destroy] do
     end
 
     resources :lenders do

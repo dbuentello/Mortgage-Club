@@ -36,6 +36,11 @@ module.exports = {
               state[errorName] = true;
             }
             break;
+          case "percent":
+            if(!this.elementIsValidPercent(field.value)) {
+              state[errorName] = true;
+            }
+            break;
           case "phoneNumber":
             if(!this.elementIsPhoneNumber(field.value)) {
               state[errorName] = true;
@@ -47,7 +52,11 @@ module.exports = {
 
     return state;
   },
+  elementIsValidPercent: function(obj){
+    var percentPattern = /^((\$\d+)|(\$\d+(,\d{3})*(\.\d*)?))$/;
 
+    return percentPattern.test(obj);
+  },
   elementIsValidCurrency: function(obj){
     var currencyPattern = /^((\$\d+)|(\$\d+(,\d{3})*(\.\d*)?))$/;
 
@@ -73,6 +82,7 @@ module.exports = {
   },
 
   elementIsEmail: function(obj) {
+    //console.log("check email in FormValidationMixin");
     if(!obj) { return false; }
     var emailReg =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return emailReg.test(obj);
