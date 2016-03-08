@@ -4,14 +4,16 @@ var SelectField = require("components/form/NewSelectField");
 var TextFormatMixin = require("mixins/TextFormatMixin");
 var ValidationObject = require("mixins/FormValidationMixin");
 var Quotes = require("./Quotes")
+var changedPropertyValue = false;
 
 var fields = {
-  zipcode: {label: "ZIP code", name: "zipcode", keyName: "zipcode", error: "zipcodeError"},
-  creditScore: {label: "Credit score", name: "credit_score", keyName: "creditScore", error: "creditScoreError"},
-  mortgagePurpose: {label: "Mortgage purpose", name: "mortgage_purpose", keyName: "mortgagePurpose", error: "mortgagePurposeError"},
-  propertyValue: {label: "Property value", name: "property_value", keyName: "propertyValue", error: "propertyValueError"},
-  propertyUsage: {label: "Property will be", name: "property_usage", keyName: "propertyUsage", error: "propertyUsageError"},
-  propertyType: {label: "Property type", name: "property_type", keyName: "propertyType", error: "propertyTypeError"},
+  mortgagePurpose: {label: "Mortgage Purpose", name: "mortgage_purpose", keyName: "mortgagePurpose", error: "mortgagePurposeError"},
+  zipcode: {label: "ZIP Code", name: "zipcode", keyName: "zipcode", error: "zipcodeError"},
+  propertyValue: {label: "Property Value", name: "property_value", keyName: "propertyValue", error: "propertyValueError"},
+  downPayment: {label: "Down Payment", name: "down_payment", keyName: "downPayment", error: "downPaymentError"},
+  propertyUsage: {label: "Property Will Be", name: "property_usage", keyName: "propertyUsage", error: "propertyUsageError"},
+  propertyType: {label: "Property Type", name: "property_type", keyName: "propertyType", error: "propertyTypeError"},
+  creditScore: {label: "Credit Score", name: "credit_score", keyName: "creditScore", error: "creditScoreError"},
 };
 
 var mortgagePurposeOptions = [
@@ -31,28 +33,52 @@ var propertyTypeOptions = [
   {name: "Triplex", value: "triplex"},
   {name: "Fourplex", value: "fourplex"},
   {name: "Condo", value: "condo"}
-]
+];
+
+var creditScoreOptions = [
+  {name: "740+", value: "740"},
+  {name: "720-739", value: 720},
+  {name: "700-719", value: 700},
+  {name: "680-699", value: 680},
+  {name: "660-679", value: 660},
+  {name: "640-659", value: 640},
+  {name: "620-629", value: 620}
+];
 
 var Form = React.createClass({
   mixins: [TextFormatMixin, ValidationObject],
 
   getInitialState: function() {
     var state = {};
-    state[fields.zipcode.keyName] = this.props.bootstrapData[fields.zipcode.name];
-    state[fields.creditScore.keyName] = this.props.bootstrapData[fields.creditScore.name];
-    state[fields.propertyValue.keyName] = this.formatCurrency(this.props.bootstrapData[fields.propertyValue.name], "$");
     state[fields.mortgagePurpose.keyName] = this.props.bootstrapData[fields.mortgagePurpose.name];
+    state[fields.zipcode.keyName] = this.props.bootstrapData[fields.zipcode.name];
+    state[fields.propertyValue.keyName] = this.formatCurrency(this.props.bootstrapData[fields.propertyValue.name], "$");
+    state[fields.downPayment.keyName] = this.formatCurrency(this.props.bootstrapData[fields.downPayment.name]);
     state[fields.propertyUsage.keyName] = this.props.bootstrapData[fields.propertyUsage.name];
     state[fields.propertyType.keyName] = this.props.bootstrapData[fields.propertyType.name];
-
+    state[fields.creditScore.keyName] = this.props.bootstrapData[fields.creditScore.name];
     return state;
   },
 
   onChange: function(change) {
+    var key = _.keys(change)[0];
+    if(key == fields.propertyValue.keyName) {
+      changedPropertyValue = true;
+    }
+
     this.setState(change);
   },
 
   onBlur: function(blur) {
+    var key = _.keys(blur)[0];
+
+    if(key == fields.propertyValue.keyName && changedPropertyValue == true) {
+      var state = {};
+      var value = this.currencyToNumber(_.values(blur)[0]) * 0.2;
+      state[fields.downPayment.keyName] = this.formatCurrency(value);
+      this.setState(state);
+      changedPropertyValue = false;
+    }
     this.setState(blur);
   },
 
@@ -67,19 +93,23 @@ var Form = React.createClass({
       return false;
     }
 
+    $( "html" ).addClass( "loading" );
+
     $.ajax({
       url: "/initial_quotes",
       data: {
-        zip_code: this.state[fields.zipcode.keyName],
-        credit_score: this.state[fields.creditScore.keyName],
         mortgage_purpose: this.state[fields.mortgagePurpose.keyName],
+        zip_code: this.state[fields.zipcode.keyName],
         property_value: this.currencyToNumber(this.state[fields.propertyValue.keyName]),
+        down_payment: this.currencyToNumber(this.state[fields.downPayment.keyName]),
         property_usage: this.state[fields.propertyUsage.keyName],
-        property_type: this.state[fields.propertyType.keyName]
+        property_type: this.state[fields.propertyType.keyName],
+        credit_score: this.state[fields.creditScore.keyName]
       },
       method: "POST",
       dataType: "json",
       success: function(response) {
+        $( "html" ).removeClass( "loading" );
         this.setState({
           quotes: response.quotes
         })
@@ -123,10 +153,22 @@ var Form = React.createClass({
               currentUser={this.props.bootstrapData.currentUser}/>
           :
             <div>
-              <h1>Initial Quotes</h1>
-              <form className="form-horizontal col-md-offset-4" id="form-quotes">
+              <p>Answer a few questions and get a customized rate quote in 10 seconds.</p>
+              <p className="explanation">{"We've pre-filled some questions with common answers."}</p>
+              <form className="form-horizontal col-md-offset-3" id="form-quotes">
                 <div className="form-group">
-                  <div className="col-md-6">
+                  <div className="col-md-4">
+                    <SelectField
+                      activateRequiredField={this.state[fields.mortgagePurpose.error]}
+                      label={fields.mortgagePurpose.label}
+                      keyName={fields.mortgagePurpose.keyName}
+                      options={mortgagePurposeOptions}
+                      editable={true}
+                      onChange={this.onChange}
+                      allowBlank={true}
+                      value={this.state[fields.mortgagePurpose.keyName]}/>
+                  </div>
+                  <div className="col-md-4">
                     <TextField
                       activateRequiredField={this.state[fields.zipcode.error]}
                       label={fields.zipcode.label}
@@ -140,7 +182,7 @@ var Form = React.createClass({
                   </div>
                 </div>
                 <div className="form-group">
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <TextField
                       activateRequiredField={this.state[fields.propertyValue.error]}
                       label={fields.propertyValue.label}
@@ -152,36 +194,21 @@ var Form = React.createClass({
                       onChange={this.onChange}
                       onBlur={this.onBlur}/>
                   </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <TextField
-                      activateRequiredField={this.state[fields.creditScore.error]}
-                      label={fields.creditScore.label}
-                      keyName={fields.creditScore.keyName}
+                      activateRequiredField={this.state[fields.downPayment.error]}
+                      label={fields.downPayment.label}
+                      keyName={fields.downPayment.keyName}
                       editable={true}
+                      maxLength={11}
+                      format={this.formatCurrency}
+                      value={this.state[fields.downPayment.keyName]}
                       onChange={this.onChange}
-                      maxLength={3}
-                      format={this.formatInteger}
-                      liveFormat={true}
-                      value={this.state[fields.creditScore.keyName]}/>
+                      onBlur={this.onBlur}/>
                   </div>
                 </div>
                 <div className="form-group">
-                  <div className="col-md-6">
-                    <SelectField
-                      activateRequiredField={this.state[fields.mortgagePurpose.error]}
-                      label={fields.mortgagePurpose.label}
-                      keyName={fields.mortgagePurpose.keyName}
-                      options={mortgagePurposeOptions}
-                      editable={true}
-                      onChange={this.onChange}
-                      allowBlank={true}
-                      value={this.state[fields.mortgagePurpose.keyName]}/>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <SelectField
                       activateRequiredField={this.state[fields.propertyUsage.error]}
                       label={fields.propertyUsage.label}
@@ -192,9 +219,7 @@ var Form = React.createClass({
                       allowBlank={true}
                       value={this.state[fields.propertyUsage.keyName]}/>
                   </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <SelectField
                       activateRequiredField={this.state[fields.propertyType.error]}
                       label={fields.propertyType.label}
@@ -207,8 +232,21 @@ var Form = React.createClass({
                   </div>
                 </div>
                 <div className="form-group">
-                  <div className="col-md-6 col-md-offset-2">
-                    <button className="btn theBtn text-uppercase" onClick={this.onSubmit}>Get rates</button>
+                  <div className="col-md-4">
+                    <SelectField
+                        activateRequiredField={this.state[fields.creditScore.error]}
+                        label={fields.creditScore.label}
+                        keyName={fields.creditScore.keyName}
+                        options={creditScoreOptions}
+                        editable={true}
+                        onChange={this.onChange}
+                        allowBlank={true}
+                        value={this.state[fields.creditScore.keyName]}/>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <div className="col-md-6 col-md-offset-3">
+                    <button className="btn theBtn text-uppercase" onClick={this.onSubmit}>find my rates</button>
                   </div>
                 </div>
               </form>

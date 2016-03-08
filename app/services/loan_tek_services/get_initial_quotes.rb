@@ -17,7 +17,7 @@ module LoanTekServices
           LockPeriod: 30,
           QuotingChannel: 0,
           ClientDefinedIdentifier: ENV["LOANTEK_IDENTIFIER"],
-          LoanToValue: 80,
+          LoanToValue: get_loan_to_value,
           QuoteTypesToReturn: [-1, 0],
           ZipCode: get_zip_code,
           CreditScore: get_credit_score,
@@ -79,7 +79,12 @@ module LoanTekServices
     end
 
     def get_loan_amount
-      info[:property_value].to_f * 0.8
+      info[:property_value].to_f - info[:down_payment].to_f
+    end
+
+    def get_loan_to_value
+      loan_amount = get_loan_amount
+      (loan_amount * 100 / info[:property_value].to_f).round(3)
     end
 
     def success?

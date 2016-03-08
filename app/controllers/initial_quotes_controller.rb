@@ -8,8 +8,9 @@ class InitialQuotesController < ApplicationController
 
     bootstrap(
       zipcode: quote_cookies["zip_code"],
-      credit_score: quote_cookies["credit_score"],
-      property_value: quote_cookies["property_value"],
+      credit_score: quote_cookies["credit_score"] || 740,
+      property_value: quote_cookies["property_value"] || 500_000,
+      down_payment: quote_cookies["down_payment"] || (500_000 * 0.2),
       mortgage_purpose: quote_cookies["mortgage_purpose"] || "purchase",
       property_usage: quote_cookies["property_usage"] || "primary_residence",
       property_type: quote_cookies["property_type"] || "sfh"
@@ -22,7 +23,7 @@ class InitialQuotesController < ApplicationController
 
   def create
     quotes = LoanTekServices::GetInitialQuotes.new(quotes_params).call
-
+    ap quotes
     render json: {quotes: quotes}
   end
 
@@ -47,6 +48,6 @@ class InitialQuotesController < ApplicationController
   end
 
   def quotes_params
-    params.permit(:zip_code, :credit_score, :mortgage_purpose, :property_value, :property_usage, :property_type)
+    params.permit(:zip_code, :credit_score, :mortgage_purpose, :property_value, :property_usage, :property_type, :down_payment)
   end
 end
