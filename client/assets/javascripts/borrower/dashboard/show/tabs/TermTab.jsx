@@ -110,7 +110,7 @@ var TermTab = React.createClass({
                   Discount Points
                 </td>
                 <td>
-                  {loan.discount_points}
+                  {loan.lender_credits}
                 </td>
               </tr>
               <tr>

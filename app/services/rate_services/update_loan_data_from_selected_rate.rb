@@ -19,7 +19,7 @@ module RateServices
         l.amortization_type = quote[:amortization_type]
         l.monthly_payment = quote[:monthly_payment].to_f
         l.apr = quote[:apr].to_f
-        l.discount_points = quote[:discount_points].to_f
+        l.lender_credits = quote[:lender_credits].to_f
         l.loan_type = quote[:loan_type] ? quote[:loan_type].capitalize : nil
         l.estimated_closing_costs = quote[:total_closing_cost].to_f
         l.save
