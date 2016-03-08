@@ -298,11 +298,11 @@ var RateDropAlert = React.createClass({
                               <div className="col-sm-12">
                                 <h6 className="text-left" data-toggle="tooltip" data-original-title={this.state.alertMethodError}>Send As</h6>
                                   <div className="col-sm-4 text-left">
-                                    <input type="checkbox" name="send_as_email" id="sendAsEmail"/>
+                                    <input type="checkbox" name="send_as_email" checked id="sendAsEmail"/>
                                     <label className="customCheckbox blueCheckBox2" htmlFor="sendAsEmail">Email</label>
                                   </div>
                                   <div className="col-sm-4 col-sm-offset-2 text-left">
-                                    <input type="checkbox" name="send_as_text_message" id="sendAsText"/>
+                                    <input type="checkbox" name="send_as_text_message" checked id="sendAsText"/>
                                     <label className="customCheckbox blueCheckBox2" htmlFor="sendAsText">Text message</label>
                                   </div>
                               </div>
