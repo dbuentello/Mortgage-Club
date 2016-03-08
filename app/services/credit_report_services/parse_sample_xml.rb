@@ -17,7 +17,7 @@ module CreditReportServices
         address = liability.build_address
         address.assign_attributes(get_address_attributes(credit_liability))
 
-        liability.save if valid_address?(address)
+        liability.save
       end
       credit_report.reload
       credit_report.liabilities
