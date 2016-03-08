@@ -10,7 +10,6 @@ class PotentialRateDropUserController < ApplicationController
   end
 
   def create
-    byebug
     potential_rate_drop_user = PotentialRateDropUser.new(potential_rate_drop_params)
 
     if potential_rate_drop_user.save
@@ -24,7 +23,7 @@ class PotentialRateDropUserController < ApplicationController
 
   def render_error(potential_rate_drop_user)
     render json: {
-      email: potential_rate_drop_user.errors[:email].present? ? "This field is required" : nil
+      alert_method: potential_rate_drop_user.errors[:alert_method].present? ? "This field is required" : nil
       }, status: 500
   end
 

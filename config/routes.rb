@@ -166,6 +166,9 @@ Rails.application.routes.draw do
     resources :potential_user_managements, only: [:index, :edit, :update, :destroy] do
     end
 
+    resources :potential_rate_drop_user_managements, only: [:index, :edit, :update, :destroy] do
+    end
+
     resources :lenders do
       resources :lender_templates
     end

@@ -2,10 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .rate-drop-alert {
-
+  margin: -50px;
   .tooltip > .tooltip-arrow {
     border-bottom-color: #FBF7AA;
   }
+
   select {
     -webkit-appearance: none;
     height: 38px;
