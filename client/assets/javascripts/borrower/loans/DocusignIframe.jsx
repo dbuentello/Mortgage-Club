@@ -15,7 +15,7 @@ var DocusignIframe = React.createClass({
   },
 
   componentDidMount: function() {
-    clock = window.setInterval(this.incrementPercentage, 60);
+    clock = window.setInterval(this.incrementPercentage, 50);
     $.ajax({
       url: "/electronic_signature",
       method: 'POST',
