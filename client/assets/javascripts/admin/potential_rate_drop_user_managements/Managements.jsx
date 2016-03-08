@@ -8,7 +8,7 @@ var Managements = React.createClass({
 
   getInitialState: function(){
     return {
-      potential_users: this.props.bootstrapData.potential_users
+      potential_rate_drop_users: this.props.bootstrapData.potential_rate_drop_users
     }
   },
 
@@ -19,7 +19,7 @@ var Managements = React.createClass({
       <div className="page-header">
         <div className="page-header-content">
           <div className="page-title">
-            <h4><i className="icon-arrow-left52 position-left"></i> <span className="text-semibold">Potential Users</span> - Management</h4>
+            <h4><i className="icon-arrow-left52 position-left"></i> <span className="text-semibold">Potential Rate Drop Users</span> - Management</h4>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@ var Managements = React.createClass({
             {/* Table */ }
             <div className="panel panel-flat">
               <div className="panel-heading">
-                <h5 className="panel-title">Potential Users</h5>
+                <h5 className="panel-title">Potential Rate Drop Users</h5>
                 <div className="heading-elements">
 
                 </div>
@@ -52,28 +52,24 @@ var Managements = React.createClass({
                       <th>Email</th>
                       <th>Phone Number</th>
                       <th>Send As</th>
-                      <th>Mortgage Statement</th>
-                      <th>Actions</th>
+                      <th>Credit Score</th>
+                      
                     </tr>
                   </thead>
                   <tbody>
                     {
-                      _.map(this.state.potential_users, function(potential_user) {
+                      _.map(this.state.potential_rate_drop_users, function(potential_rate_drop_user) {
                         return (
-                          <tr key={potential_user.id}>
-                            <td>{potential_user.email}</td>
-                            <td>{potential_user.phone_number}</td>
-                            <td>{potential_user.alert_method}</td>
+                          <tr key={potential_rate_drop_user.id}>
+                            <td>{potential_rate_drop_user.email}</td>
+                            <td>{potential_rate_drop_user.phone_number}</td>
+                            <td>{potential_rate_drop_user.alert_method}</td>
                             <td>
-                              <a href={potential_user.url}>
-                                {potential_user.mortgage_statement_file_name}
-                              </a>
+
+                                {potential_rate_drop_user.credit_score}
+
                             </td>
-                            <td>
-                              <span>
-                                <a className='linkTypeReversed btn btn-primary' href={'potential_user_managements/' + potential_user.id + '/edit'} data-method='get'>Edit</a>
-                              </span>
-                            </td>
+
                           </tr>
                         )
                       }, this)

@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .rate-drop-alert {
-  margin: -50px;
+
   .tooltip > .tooltip-arrow {
     border-bottom-color: #FBF7AA;
   }
@@ -16,6 +16,10 @@
   h6 {
     font-size: 1.1em;
     color: #15c0f1;
+  }
+  #rate_alert {
+    margin: -50px 0 !important;
+    padding: 50px 0 !important;
   }
   .form-group img {
     top: initial;

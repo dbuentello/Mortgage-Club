@@ -13,9 +13,9 @@ var HomePart = require("public/homepage/HomePart");
 
 var fields = {
   refinancePurpose: {label: "Refinance Purpose", name: "refinance_purpose",keyName: "refinancePurpose", error: "purposeError",validationTypes: "empty"},
-  creditScore: {label: "Estimated credit score", name: "credit_score",keyName: "creditScore", error: "creditScoreError",validationTypes: "empty"},
-  zip: {label: "Zip code", name: "zip", keyName: "zip",error: "zipError", validationTypes: "empty"},
-  currentMortgageRate: {label: "Current Mortgage rate", name: "current_mortgage_rate",keyName: "currentMortgageRate", error: "currentMortgageRateError",validationTypes: "empty"},
+  creditScore: {label: "Estimated Credit Score", name: "credit_score",keyName: "creditScore", error: "creditScoreError",validationTypes: "empty"},
+  zip: {label: "ZIP Code", name: "zip", keyName: "zip",error: "zipError", validationTypes: "empty"},
+  currentMortgageRate: {label: "Current Mortgage Rate", name: "current_mortgage_rate",keyName: "currentMortgageRate", error: "currentMortgageRateError",validationTypes: "empty"},
   estimatedHomeValue: {label: "Estimated home value", name: "estimated_home_value",keyName: "estimatedHomeValue", error: "estimatedHomeValueError",validationTypes: "empty"},
   currentMortgageBalance: {label: "Current Mortgage Balance", name: "current_mortgage_balance",keyName: "currentMortgageBalance", error: "currentMortgageBalanceError",validationTypes: "empty"},
   email: {label: "Email", name: "email",keyName: "email", error: "emailError",validationTypes: "email"},
@@ -173,10 +173,10 @@ var RateDropAlert = React.createClass({
                     :
                       <div className="mtl">
 
-                        <div className="col-md-4 col-md-offset-4">
+                        <div className="col-md-8 col-md-offset-2">
                           <form className="form-horizontal text-center" action="/rate_drop_alert" type="json" enctype="multipart/form-data" method="post" name="fileinfo">
                             <div className="form-group">
-                              <div className="col-sm-12 email-address text-left">
+                              <div className="col-sm-6 email-address text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.email.error]}
                                   label={fields.email.label}
@@ -190,9 +190,7 @@ var RateDropAlert = React.createClass({
                                   />
                                 <img src="/icons/mail.png" alt="title"/>
                               </div>
-                            </div>
-                            <div className="form-group">
-                              <div className="col-sm-12 phone-number text-left">
+                              <div className="col-sm-6 phone-number text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.phoneNumber.error]}
                                   label={fields.phoneNumber.label}
@@ -213,8 +211,9 @@ var RateDropAlert = React.createClass({
                                 <img src="/icons/phone.png" alt="title"/>
                               </div>
                             </div>
+
                             <div className="form-group">
-                              <div className="col-sm-12 text-left">
+                              <div className="col-sm-6 text-left">
                                 <SelectField
                                   activateRequiredField={this.state[fields.refinancePurpose.error]}
                                   value={this.state[fields.refinancePurpose.keyName]}
@@ -228,11 +227,7 @@ var RateDropAlert = React.createClass({
                                   allowBlank={true}
                                   />
                               </div>
-
-                            </div>
-
-                            <div className="form-group">
-                              <div className="col-sm-12 text-left">
+                              <div className="col-sm-6 text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.currentMortgageBalance.error]}
                                   label={fields.currentMortgageBalance.label}
@@ -248,10 +243,11 @@ var RateDropAlert = React.createClass({
                                   editMode={true}/>
 
                               </div>
-
                             </div>
+
+
                             <div className="form-group">
-                              <div className="col-sm-12 text-left">
+                              <div className="col-sm-6 text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.currentMortgageRate.error]}
                                   label={fields.currentMortgageRate.label}
@@ -266,10 +262,7 @@ var RateDropAlert = React.createClass({
                                   onBlur={this.onBlur}
                                   editMode={true}/>
                               </div>
-
-                            </div>
-                            <div className="form-group">
-                              <div className="col-sm-12 text-left">
+                              <div className="col-sm-6 text-left text-capitalize">
                                 <TextField
                                   activateRequiredField={this.state[fields.estimatedHomeValue.error]}
                                   label={fields.estimatedHomeValue.label}
@@ -285,10 +278,10 @@ var RateDropAlert = React.createClass({
                                   onBlur={this.onBlur}
                                   editMode={true}/>
                               </div>
-
                             </div>
+
                             <div className="form-group">
-                              <div className="col-sm-12 text-left">
+                              <div className="col-sm-6 text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.zip.error]}
                                   label={fields.zip.label}
@@ -305,10 +298,7 @@ var RateDropAlert = React.createClass({
                                   liveFormat={true}
                                   editMode={true}/>
                               </div>
-
-                            </div>
-                            <div className="form-group">
-                              <div className="col-sm-12 text-left">
+                              <div className="col-sm-6 text-left">
                                 <SelectField
                                   activateRequiredField={this.state[fields.creditScore.error]}
                                   label={fields.creditScore.label}
@@ -322,16 +312,16 @@ var RateDropAlert = React.createClass({
                                   allowBlank={true}
                                   />
                               </div>
-
                             </div>
+
                             <div className="form-group send-as">
                               <div className="col-sm-12">
                                 <h6 className="text-left" data-toggle="tooltip" data-original-title={this.state.alertMethodError}>Send As</h6>
-                                  <div className="col-md-4 text-left">
+                                  <div className="col-sm-4 text-left">
                                     <input type="checkbox" name="send_as_email" id="sendAsEmail"/>
                                     <label className="customCheckbox blueCheckBox2" htmlFor="sendAsEmail">Email</label>
                                   </div>
-                                  <div className="col-md-5 col-md-offset-1 text-left">
+                                  <div className="col-sm-4 col-sm-offset-2 text-left">
                                     <input type="checkbox" name="send_as_text_message" id="sendAsText"/>
                                     <label className="customCheckbox blueCheckBox2" htmlFor="sendAsText">Text message</label>
                                   </div>
@@ -344,7 +334,7 @@ var RateDropAlert = React.createClass({
                             </div>
                           </form>
                         </div>
-                        <div className="col-md-7 col-md-offset-3 mbl">
+                        <div className="col-md-7 col-md-offset-3 mbl form-group">
                           <p><b>Please note:</b> The use of information collected shall be limited to the purpose of monitoring your mortgage rates. We do not sell or share your information with anyone else.</p>
                         </div>
                       </div>
