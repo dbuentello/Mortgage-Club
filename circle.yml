@@ -1,6 +1,6 @@
 dependencies:
   cache_directories:
-    - pdftk
+    - "../pdftk"
   pre:
     - if [[ ! -e pdftk ]]; then sudo apt-get install pdftk; fi
 test:
