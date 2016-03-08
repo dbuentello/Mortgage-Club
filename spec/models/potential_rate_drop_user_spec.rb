@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe PotentialRateDropUser, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should validate_presence_of(:email) }
+  it { should validate_presence_of(:zip) }
+
+  it "has a valid factory" do
+    expect(FactoryGirl.build(:potential_rate_drop_user)).to be_valid
+  end
 end
