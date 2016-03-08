@@ -123,6 +123,14 @@ var TermTab = React.createClass({
               </tr>
               <tr>
                 <td>
+                  Down Payment
+                </td>
+                <td>
+                  {loan.down_payment}
+                </td>
+              </tr>
+              <tr>
+                <td>
                   Target Closing Date
                 </td>
                 <td>
