@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var React = require('react/addons');
+var clock;
 
 var DocusignIframe = React.createClass({
   propTypes: {
@@ -8,11 +9,13 @@ var DocusignIframe = React.createClass({
 
   getInitialState: function() {
     return {
-      docusignLoaded: false
+      docusignLoaded: false,
+      percentage: 0,
     }
   },
 
   componentDidMount: function() {
+    clock = window.setInterval(this.incrementPercentage, 60);
     $.ajax({
       url: "/electronic_signature",
       method: 'POST',
@@ -33,6 +36,7 @@ var DocusignIframe = React.createClass({
       },
       dataType: 'json',
       success: function(response) {
+        window.clearInterval(clock);
         var height = $("body").height() - $(".navbar").height() - $(".footer").height();
         this.setState({docusignLoaded: true});
 
@@ -50,17 +54,31 @@ var DocusignIframe = React.createClass({
     });
   },
 
+  incrementPercentage: function() {
+    var counter = this.state.percentage + 1;
+    this.setState({
+      percentage: counter
+    });
+    document.getElementById('percent').innerHTML = counter + '%';
+    if(counter == 100) {
+      window.clearInterval(clock);
+    }
+  },
+
   render: function() {
     return (
-      <div className='content container iframeContentFull'>
+      <div className='content container iframeContentFull' id='docusign'>
         {
           this.state.docusignLoaded
           ?
             null
           :
             <div className='row'>
-              <div className='col-xs-3'>
-                <h5>Loading...please wait</h5>
+              <div className='col-xs-4'>
+                <div id='percent'>0%</div>
+              </div>
+              <div className='col-xs-8'>
+                <div id='status'>{"Hang tight, we're generating disclosure forms for you to sign!"}</div>
               </div>
             </div>
         }
