@@ -174,12 +174,22 @@ a.remove {
   table.table.table-striped.term-table tr:nth-child(odd) td {
     background-color:#fff;
   }
+  table.table.table-striped.term-table tr:nth-child(odd) td.loan-field {
+    width: 39%;
+  }
   table.table.table-striped.term-table tr:nth-child(even) td {
     background-color:#f8f8f8;
   }
   .term-board {
     border-radius: 5px;
     border: #b7b7b7 1px solid;
+  }
+  #terms {
+    h4 {
+      margin: 16px;
+      color: #15c0f1;
+      padding: 2px 0px 2px;
+    }
   }
 
   .mortgageTabs {

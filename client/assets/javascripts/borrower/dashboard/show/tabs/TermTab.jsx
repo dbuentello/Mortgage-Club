@@ -9,21 +9,20 @@ var TermTab = React.createClass({
   },
 
   render: function() {
-    console.log(this.props.loan);
-    console.log(this.props.loan.primary_property);
     var loanId = this.props.loan.amount
     var loan = this.props.loan
     return (
       <div className="panel panel-flat">
-
         <div>
-          <h4> Your Final Loan Terms </h4>
-          <span> Your Loan Summary: </span>
+          <div className="row">
+            <h4> Your Loan Summary </h4>
+          </div>
+
           <div className="table-responsive term-board">
             <table className="table table-striped term-table">
               <tbody>
                 <tr>
-                  <td>
+                  <td className="loan-field">
                     Property Address
                   </td>
                   <td>
@@ -37,7 +36,7 @@ var TermTab = React.createClass({
                   </td>
                 </tr>
                 <tr>
-                  <td>
+                  <td className="loan-field">
                     Property Value
                   </td>
                   <td>
@@ -74,14 +73,18 @@ var TermTab = React.createClass({
                     {this.commafy(loan.interest_rate*100, 3)}%
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    Loan Type
-                  </td>
-                  <td>
-                    {}
-                  </td>
-                </tr>
+
+
+              </tbody>
+            </table>
+
+          </div>
+          <div className="row">
+            <h4>Closing Cost</h4>
+          </div>
+          <div className="table-responsive term-board">
+            <table className="table table-striped term-table">
+              <tbody>
                 <tr>
                   <td>
                     Closing Cost
@@ -90,44 +93,72 @@ var TermTab = React.createClass({
                     {}
                   </td>
                 </tr>
+
+                  {
+                    loan.lender_credits < 0.0
+                    ?
+
+                      <tr>
+                        <td className="loan-field">
+                          Lender Credits
+                        </td>
+                        <td>
+                          {this.formatCurrency(loan.lender_credits, "$")}
+                        </td>
+                      </tr>
+
+                    :
+
+                      <tr>
+                        <td className="loan-field">
+                          Discount Points
+                        </td>
+                        <td>
+                          {this.formatCurrency(loan.lender_credits, "$")}
+                        </td>
+                      </tr>
+                  }
                 <tr>
-                  <td>
-                    Discount Points
-                  </td>
-                  <td>
-                    {loan.discount_points}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                  <td className="loan-field">
                     Prepaid Items
                   </td>
                   <td>
-                    {loan.estimated_prepaid_items}
+                    {this.formatCurrency(loan.estimated_prepaid_items, "$")}
                   </td>
                 </tr>
                 <tr>
-                  <td>
+                  <td className="loan-field">
                     Down Payment
                   </td>
                   <td>
-                    {loan.down_payment}
+                    {this.formatCurrency(loan.down_payment, "$")}
                   </td>
                 </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="row">
+            <h4> Housing Expense</h4>
+          </div>
+
+          <div className="table-responsive term-board">
+            <table className="table table-striped term-table">
+              <tbody>
                 <tr>
-                  <td>
+                  <td className="loan-field">
                     Homeowners Insurance
                   </td>
                   <td>
-                    {loan.primary_property.estimated_hazard_insurance}
+                    {this.formatCurrency(loan.primary_property.estimated_hazard_insurance, "$")}
                   </td>
                 </tr>
                 <tr>
-                  <td>
+                  <td className="loan-field">
                     Property Tax
                   </td>
                   <td>
-                    {loan.primary_property.estimated_property_tax}
+                    {this.formatCurrency(loan.primary_property.estimated_property_tax, "$")}
                   </td>
                 </tr>
                 <tr>
@@ -135,7 +166,7 @@ var TermTab = React.createClass({
                     Mortgage Insurance
                   </td>
                   <td>
-                    {loan.primary_property.estimated_mortgage_insurance}
+                    {this.formatCurrency(loan.primary_property.estimated_mortgage_insurance, "$")}
                   </td>
                 </tr>
                 <tr>
@@ -143,20 +174,13 @@ var TermTab = React.createClass({
                     HOA Due
                   </td>
                   <td>
-                    {loan.primary_property.hoa_due}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Mortgage Insurance
-                  </td>
-                  <td>
-                    {loan.estimated_prepaid_items}
+                    {this.formatCurrency(loan.primary_property.hoa_due,"$")}
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
+
         </div>
       </div>
     )
