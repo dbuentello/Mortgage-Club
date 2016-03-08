@@ -12,13 +12,13 @@ var BankPart = require("public/homepage/BankPart");
 var HomePart = require("public/homepage/HomePart");
 
 var fields = {
-  refinancePurpose: {label: "Refinance Purpose", name: "refinance_purpose",keyName: "refinancePurpose", error: "purposeError"},
-  creditScore: {label: "Estimated credit score", name: "credit_score",keyName: "creditScore", error: "creditScoreError"},
-  zip: {label: "Zip code", name: "zip", keyName: "zip",error: "zipError"},
-  currentMortgageRate: {label: "Current Mortgage rate", name: "current_mortgage_rate",keyName: "currentMortgageRate", error: "currentMortgageRateError"},
-  estimatedHomeValue: {label: "Estimated home value", name: "estimated_home_value",keyName: "estimatedHomeValue", error: "estimatedHomeValueError"},
-  currentMortgageBalance: {label: "Current Mortgage Balance", name: "current_mortgage_balance",keyName: "currentMortgageBalance", error: "currentMortgageBalanceError"},
-  email: {label: "Email", name: "email",keyName: "email", error: "emailError"},
+  refinancePurpose: {label: "Refinance Purpose", name: "refinance_purpose",keyName: "refinancePurpose", error: "purposeError",validationTypes: "empty"},
+  creditScore: {label: "Estimated credit score", name: "credit_score",keyName: "creditScore", error: "creditScoreError",validationTypes: "empty"},
+  zip: {label: "Zip code", name: "zip", keyName: "zip",error: "zipError", validationTypes: "empty"},
+  currentMortgageRate: {label: "Current Mortgage rate", name: "current_mortgage_rate",keyName: "currentMortgageRate", error: "currentMortgageRateError",validationTypes: "empty"},
+  estimatedHomeValue: {label: "Estimated home value", name: "estimated_home_value",keyName: "estimatedHomeValue", error: "estimatedHomeValueError",validationTypes: "empty"},
+  currentMortgageBalance: {label: "Current Mortgage Balance", name: "current_mortgage_balance",keyName: "currentMortgageBalance", error: "currentMortgageBalanceError",validationTypes: "empty"},
+  email: {label: "Email", name: "email",keyName: "email", error: "emailError",validationTypes: "email"},
   phoneNumber: {label: "Phone Number (optional)", name: "phone_number",keyName: "phoneNumber", error: "phoneNumberError"}
 
 };
@@ -59,7 +59,7 @@ var RateDropAlert = React.createClass({
     var requiredFields = {};
 
     _.each(Object.keys(fields), function(key) {
-      requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
+      requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: [fields[key].validationTypes]};
     }, this);
 
 
@@ -76,35 +76,42 @@ var RateDropAlert = React.createClass({
     event.preventDefault();
 
     if (this.valid() == false) {
+      console.log("not ok");
       return false;
     }
-    var form = document.forms.namedItem("fileinfo");
-    var formData = new FormData(form);
-  //  console.log(formData);
-    formData.append("potential_rate_drop_user[current_mortgage_balance]",this.state.current_mortgage_balance);
-    formData.append("potential_rate_drop_user[current_mortgage_rate]",this.state.current_mortgage_rate);
-    formData.append("potential_rate_drop_user[estimated_home_value]",this.state.estimated_home_value);
-    formData.append("potential_rate_drop_user[refinance_purpose]",this.state[fields.refinancePurpose.name]);
-    formData.append("potential_rate_drop_user[credit_score]",this.state[fields.creditScore.name]);
-    formData.append("potential_rate_drop_user[zip]",this.state.zip);
+    //var form = document.forms.namedItem("fileinfo");
+  //  var formData = new FormData(form);
+//  console.log(formData);
+//    //formData.get()
 
+    var sendAsEmail = $('#sendAsEmail').is(':checked');
+    var sendAsTextMessage =$('#sendAsText').is(':checked');
+
+    console.log("send as Email" + sendAsEmail);
+    console.log("send as text Message" + sendAsTextMessage);
     $.ajax({
       url: "/rate_drop_alert",
-      data: formData,
+      data: {
+        current_mortgage_balance: this.currencyToNumber(this.state[fields.currentMortgageBalance.keyName]),
+        credit_score: this.state[fields.creditScore.keyName],
+        current_mortgage_rate: this.percentToNumber(this.state[fields.currentMortgageRate.keyName]),
+        estimated_home_value: this.currencyToNumber(this.state[fields.estimatedHomeValue.keyName]),
+        refinance_purpose: this.state[fields.refinancePurpose.keyName],
+        zip: this.state[fields.zip.keyName],
+        email: this.state[fields.email.keyName],
+        phone_number: this.state[fields.phoneNumber.keyName],
+        send_as_email: sendAsEmail,
+        send_as_text_message: sendAsTextMessage
+      },
       method: "POST",
       dataType: "json",
       success: function(response) {
         this.setState({isSuccess:true});
         setInterval(function() {
           location.href = "/";
-        }, 5000);
+        }, 500000);
       }.bind(this),
-      cache: false,
-      contentType: false,
-      processData: false,
-      async: true,
       error: function(response){
-        console.dir(response.responseJSON)
         this.setState({
           alertMethodError: response.responseJSON.alert_method
         })
@@ -112,12 +119,7 @@ var RateDropAlert = React.createClass({
     });
   },
   onChange: function (change) {
-    console.dir(change);
-    console.log("before change "+this.state[fields.refinancePurpose.keyName]);
     this.setState(change);
-    console.log("after change "+this.state[fields.refinancePurpose.keyName]);
-
-
   },
   onBlur: function(blur) {
     this.setState(blur);
@@ -181,7 +183,7 @@ var RateDropAlert = React.createClass({
                                   keyName={fields.email.keyName}
                                   value={this.state[fields.email.keyName]}
                                   editable={true}
-
+                                  validationTypes={["email"]}
                                   onChange={this.onChange}
                                   onBlur={this.onBlur}
                                   editMode={true}
@@ -259,7 +261,7 @@ var RateDropAlert = React.createClass({
                                   format={this.formatPercent}
                                   editable={true}
                                   validationTypes={["percent"]}
-                                  maxLength={10}
+                                  maxLength={6}
                                   onChange={this.onChange}
                                   onBlur={this.onBlur}
                                   editMode={true}/>
@@ -326,11 +328,11 @@ var RateDropAlert = React.createClass({
                               <div className="col-sm-12">
                                 <h6 className="text-left" data-toggle="tooltip" data-original-title={this.state.alertMethodError}>Send As</h6>
                                   <div className="col-md-4 text-left">
-                                    <input type="checkbox" name="potential_rate_drop_user[send_as_email]" id="sendAsEmail"/>
+                                    <input type="checkbox" name="send_as_email" id="sendAsEmail"/>
                                     <label className="customCheckbox blueCheckBox2" htmlFor="sendAsEmail">Email</label>
                                   </div>
                                   <div className="col-md-5 col-md-offset-1 text-left">
-                                    <input type="checkbox" name="potential_rate_drop_user[send_as_text_message]" id="sendAsText"/>
+                                    <input type="checkbox" name="send_as_text_message" id="sendAsText"/>
                                     <label className="customCheckbox blueCheckBox2" htmlFor="sendAsText">Text message</label>
                                   </div>
                               </div>

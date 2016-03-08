@@ -40,6 +40,13 @@ var TextFormatMixin = {
 
     return val.replace('$', '').replace(/\,/g, '');
   },
+  percentToNumber: function(val) {
+    if (!val) {
+      return val;
+    }
+
+    return val.replace('%', '').replace(/\,/g, '');
+  },
 
   formatCurrency: function(cashflow, decimals, unit) {
     var negative, money, prefix;

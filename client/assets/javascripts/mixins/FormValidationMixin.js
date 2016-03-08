@@ -53,9 +53,9 @@ module.exports = {
     return state;
   },
   elementIsValidPercent: function(obj){
-    var currencyPattern = /^((\$\d+)|(\$\d+(,\d{3})*(\.\d*)?))$/;
+    var percentPattern = /^((\$\d+)|(\$\d+(,\d{3})*(\.\d*)?))$/;
 
-    return currencyPattern.test(obj);
+    return percentPattern.test(obj);
   },
   elementIsValidCurrency: function(obj){
     var currencyPattern = /^((\$\d+)|(\$\d+(,\d{3})*(\.\d*)?))$/;
@@ -82,6 +82,7 @@ module.exports = {
   },
 
   elementIsEmail: function(obj) {
+    //console.log("check email in FormValidationMixin");
     if(!obj) { return false; }
     var emailReg =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return emailReg.test(obj);

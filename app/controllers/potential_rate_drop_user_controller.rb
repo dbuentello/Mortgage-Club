@@ -11,7 +11,6 @@ class PotentialRateDropUserController < ApplicationController
 
   def create
     potential_rate_drop_user = PotentialRateDropUser.new(potential_rate_drop_params)
-
     if potential_rate_drop_user.save
       render json: {message: "success"}
     else
@@ -28,6 +27,6 @@ class PotentialRateDropUserController < ApplicationController
   end
 
   def potential_rate_drop_params
-    params.require(:potential_rate_drop_user).permit(PotentialRateDropUser::PERMITTED_ATTRS)
+    params.permit(PotentialRateDropUser::PERMITTED_ATTRS)
   end
 end
