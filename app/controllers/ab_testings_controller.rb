@@ -37,7 +37,7 @@ class AbTestingsController < ApplicationController
   end
 
   private
-  
+
   def homepage_data
     @refcode = params[:refcode]
     @mortgage_aprs = HomepageRateServices::GetMortgageAprs.call
@@ -47,7 +47,4 @@ class AbTestingsController < ApplicationController
       @last_updated = @last_updated.gsub("PDT", "PST")
     end
   end
-
-
-
 end
