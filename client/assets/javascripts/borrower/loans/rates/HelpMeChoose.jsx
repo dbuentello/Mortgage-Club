@@ -2,6 +2,8 @@ var _ = require('lodash');
 var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var MortgageCalculatorMixin = require('mixins/MortgageCalculatorMixin');
+var List = require('./List');
+
 var yearSlider, avgRateSlider, taxRateSlider;
 var expectedMortgageDuration = 9;
 var investmentReturnRate = 0.08;
@@ -16,7 +18,7 @@ var HelpMeChoose = React.createClass({
 
   getInitialState: function() {
     return {
-      bestRate: null
+      possibleRates: null
     }
   },
 
@@ -33,7 +35,7 @@ var HelpMeChoose = React.createClass({
     possibleRates = possibleRates.slice(0, 1);
 
     this.setState({
-      bestRate: possibleRates[0]
+      possibleRates: possibleRates
     });
   },
 
@@ -300,14 +302,15 @@ var HelpMeChoose = React.createClass({
             }
           </div>
         </div>
+
+        <div className="col-xs-12 account-content padding-left-55 custom-left-mortgage-rates">
+          <div id="mortgagePrograms">
+            <List loanAmount={this.props.loan.amount} programs={this.state.possibleRates} subjectProperty={this.props.loan.subject_property} selectRate={this.props.selectRate} displayTotalCost={true}/>
+          </div>
+        </div>
       </div>
     )
   }
 });
 
-        // <div className="col-xs-12 account-content padding-left-55 custom-left-mortgage-rates">
-        //   <div id="mortgagePrograms">
-        //     <List loanAmount={this.props.bootstrapData.currentLoan.amount} programs={this.state.possibleRates} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={true}/>
-        //   </div>
-        // </div>
 module.exports = HelpMeChoose;
