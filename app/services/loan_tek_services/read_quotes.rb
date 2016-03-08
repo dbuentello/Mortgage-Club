@@ -38,7 +38,7 @@ module LoanTekServices
             period: get_period(quote),
             down_payment: get_down_payment(quote),
             monthly_payment: get_monthly_payment(quote),
-            lender_credit: get_lender_credit(quote),
+            lender_credits: get_lender_credits(quote),
             total_closing_cost: get_total_closing_cost(quote),
             nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
             logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
@@ -83,13 +83,13 @@ module LoanTekServices
       payment.round
     end
 
-    def self.get_lender_credit(quote)
-      quote["Fees"] < 0 ? quote["Fees"] : 0
+    def self.get_lender_credits(quote)
+      quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"]
     end
 
     def self.get_total_closing_cost(quote)
       total_fee = quote["FeeSet"]["TotalFees"].to_f
-      lender_credit = get_lender_credit(quote)
+      lender_credit = get_lender_credits(quote)
       total_fee - lender_credit
     end
 

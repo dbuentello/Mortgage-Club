@@ -11,7 +11,11 @@ class LoanDashboardPage::LoanPresenter
 
   def json_options
     {
-      only: [ :id, :amount, :created_at, :interest_rate, :amortization_type ],
+      only: [ :id, :amount, :created_at, :interest_rate, :amortization_type,
+        :down_payment, :estimated_cash_to_close,
+        :loan_costs,
+        :third_party_fees, :monthly_payment,
+        :lender_credits, :estimated_prepaid_items],
       include: {
         properties: {
           only: [:id],
