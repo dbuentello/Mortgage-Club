@@ -23,10 +23,10 @@ var Form = React.createClass({
   },
 
   getInitialState: function() {
-    if(this.props.PotentialUser) {
+    if(this.props.PotentialRateDropUser) {
       return {
-        email: this.props.PotentialUser.email,
-        phone_number: this.props.PotentialUser.phone_number,
+        email: this.props.PotentialRateDropUser.email,
+        phone_number: this.props.PotentialRateDropUser.phone_number,
       };
     }
   },
@@ -75,7 +75,7 @@ var Form = React.createClass({
   },
 
   onRemove: function(event) {
-    if(this.props.PotentialUser) {
+    if(this.props.PotentialRateDropUser) {
       this.setState({removing: true});
 
       $.ajax({
@@ -124,15 +124,15 @@ var Form = React.createClass({
             <div className="col-sm-10">
               <button className="btn btn-primary" onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? 'Submitting' : 'Submit' }</button>
               &nbsp;
-              { this.props.PotentialUser ?
-                <a className="btn btn-danger" data-toggle="modal" data-target="#removePotentialUser" disabled={this.state.removing}>{ this.state.removing ? 'Removing' : 'Remove' }</a>
+              { this.props.PotentialRateDropUser ?
+                <a className="btn btn-danger" data-toggle="modal" data-target="#removePotentialRateDropUser" disabled={this.state.removing}>{ this.state.removing ? 'Removing' : 'Remove' }</a>
               : null
               }
             </div>
           </div>
         </form>
         <ModalLink
-          id="removePotentialUser"
+          id="removePotentialRateDropUser"
           title="Confirmation"
           body="Are you sure to remove this potential user?"
           yesCallback={this.onRemove}

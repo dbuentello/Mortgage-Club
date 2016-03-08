@@ -45,7 +45,7 @@ class Admins::PotentialRateDropUserManagementsController < Admins::BaseControlle
   private
 
   def potential_rate_drop_user_params
-    params.require(:potential_rate_drop_user).permit(:email, :phone_number)
+    params.require(:potential_rate_drop_user).permit(:email, :phone_number, :zip, :current_mortgage_rate, :current_mortgage_balance, :estimated_home_value, :credit_score, :refinance_purpose)
   end
 
   def set_potential_rate_drop_user
