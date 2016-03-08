@@ -49,7 +49,7 @@ class BorrowerForm
   def create_primary_property
     return if loan.primary_property.present?
 
-    if loan_refinance_and_borrower_subject_same_address?
+    if loan.refinance? && borrower_and_subject_property_same_address?
       subject_property = loan.subject_property
 
       Property.create(loan: loan, is_primary: true, usage: "primary_residence",
@@ -79,15 +79,14 @@ class BorrowerForm
     current_borrower_address.is_rental
   end
 
-  def loan_refinance_and_borrower_subject_same_address?
+  def borrower_and_subject_property_same_address?
     subject_property_address = loan.subject_property.address
 
     return true if current_address.city == subject_property_address.city &&
                   current_address.state == subject_property_address.state &&
                   current_address.street_address == subject_property_address.street_address &&
                   current_address.street_address2 == subject_property_address.street_address2 &&
-                  current_address.zip == subject_property_address.zip &&
-                  loan.refinance?
+                  current_address.zip == subject_property_address.zip
 
     false
   end
