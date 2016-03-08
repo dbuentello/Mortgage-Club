@@ -54,7 +54,7 @@ var Property = React.createClass({
   onChange: function(change) {
     var index = this.props.index;
 
-    var key = _.keys(change)[0].replace(this.props.index, '');
+    var key = _.keys(change)[0].replace("_" + this.props.index, '');
     key = key.replace("_", ".");
     var value = _.values(change)[0];
 
@@ -106,10 +106,9 @@ var Property = React.createClass({
   onBlur: function(change) {
     var index = this.props.index;
 
-    var key = _.keys(change)[0].replace(this.props.index, '');
+    var key = _.keys(change)[0].replace("_" + this.props.index, '');
     key = key.replace("_", ".");
     var value = _.values(change)[0];
-
     if (key == 'property.mortgagePayment') {
       if (value == 'Mortgage') {
         this.setState({setOtherMortgagePayment: true});
@@ -325,7 +324,7 @@ var Property = React.createClass({
                   ? <div className='col-md-6'>
                       <TextField
                         label='Other Amount'
-                        keyName={'property_other_mortgage_payment_amount_'}
+                        keyName={'property_other_mortgage_payment_amount_' + this.props.index}
                         value={this.state.property.other_mortgage_payment_amount}
                         format={this.formatCurrency}
                         editable={true}
