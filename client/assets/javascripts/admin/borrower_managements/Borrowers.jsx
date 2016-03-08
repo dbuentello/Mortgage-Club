@@ -84,7 +84,7 @@ var Borrowers = React.createClass({
                           <td>{borrower.dob ? this.isoToUsDate(borrower.dob) : null}</td>
                           <td>{borrower.phone}</td>
                           <th>
-                            <a className="linkTypeReversed btn btn-primary btn-sm col-sm-10 text-center" href={"/borrower_managements/" + borrower.user.id + "/switch"}>Switch to borrower</a>
+                            <a className="linkTypeReversed btn btn-primary btn-sm member-title-action" href={"/borrower_managements/" + borrower.user.id + "/switch"}>Switch to borrower</a>
                             <a id={borrower.id} className='linkTypeReversed btn btn-danger btn-sm member-title-action' onClick={this.handleRemoveBorrower}> Remove </a>
                           </th>
                         </tr>
