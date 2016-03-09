@@ -18,13 +18,21 @@ var Quotes = React.createClass({
   },
 
   onFilterQuote: function(filteredQuotes) {
+    this.removeChart();
     this.setState({quotes: filteredQuotes})
   },
 
   handleSortChange: function(event) {
+    this.removeChart();
     var option = $("#sortRateOptions").val();
     var sortedRates = this.sortBy(option, this.state.quotes);
     this.setState({quotes: sortedRates});
+  },
+
+  removeChart: function(){
+    $(".line-chart").empty();
+    $(".pie-chart").empty();
+    $("span.glyphicon-menu-up").click();
   },
 
   sortBy: function(field, quotes) {
@@ -62,25 +70,6 @@ var Quotes = React.createClass({
 
   backToRateHandler: function() {
     this.setState({helpMeChoose: false});
-  },
-
-  choosePossibleRates: function(periods, avgRate, taxRate) {
-    var totalCost = 0;
-    var result;
-    var possibleRates = _.sortBy(this.state.quotes, function (rate) {
-      result = this.totalCost(rate, taxRate, avgRate, periods);
-      rate["total_cost"] = result["totalCost"];
-      rate["result"] = result;
-      return rate["total_cost"];
-    }.bind(this));
-
-    possibleRates = possibleRates.slice(0, 1);
-
-    this.setState({
-      possibleRates: possibleRates,
-      bestRate: possibleRates[0],
-      helpMeChoose: true
-    });
   },
 
   selectRate: function(rate) {
@@ -134,13 +123,13 @@ var Quotes = React.createClass({
               {
                 this.state.helpMeChoose
                 ?
-                  <div className="content container mortgage-rates padding-top-0 white-background">
+                  <div className="content container mortgage-quotes padding-top-0 white-background">
                     <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.state.quotes} selectRate={this.selectRate} isInitialQuotes={true}/>
                   </div>
                 :
-                  <div className="content container mortgage-rates padding-top-0 row">
+                  <div className="content container mortgage-quotes padding-top-0 row">
                     <div className="col-xs-3 subnav quote-filter">
-                      <Filter programs={this.props.quotes} onFilterProgram={this.onFilterProgram}></Filter>
+                      <Filter programs={this.props.quotes} onFilterProgram={this.onFilterQuote}></Filter>
                     </div>
                     <div className="col-xs-9 account-content padding-left-50">
                       <div className="row actions">

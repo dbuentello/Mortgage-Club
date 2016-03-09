@@ -44,11 +44,18 @@ var MortgageRates = React.createClass({
   },
 
   onFilterProgram: function(filteredPrograms) {
+    this.removeChart();
     this.setState({programs: filteredPrograms})
   },
 
   backToRateHandler: function() {
     this.setState({helpMeChoose: false});
+  },
+
+  removeChart: function(){
+    $(".line-chart").empty();
+    $(".pie-chart").empty();
+    $("span.glyphicon-menu-up").click();
   },
 
   render: function() {
@@ -110,8 +117,8 @@ var MortgageRates = React.createClass({
   },
 
   sortBy: function(field, programs) {
+    this.removeChart();
     var sortedRates = [];
-
     switch(field) {
       case "apr":
         sortedRates = _.sortBy(programs, function (rate) {
