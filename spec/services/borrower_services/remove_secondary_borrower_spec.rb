@@ -5,7 +5,7 @@ describe BorrowerServices::RemoveSecondaryBorrower do
   describe ".call" do
     let!(:loan) { FactoryGirl.create(:loan_with_all_associations) }
 
-    context "when current user remove secondary_borrower" do
+    context "when current user removes secondary_borrower" do
       it "calls save method for borrower that will be removed" do
         expect_any_instance_of(Borrower).to receive(:save).and_return true
         BorrowerServices::RemoveSecondaryBorrower.call(loan.user, loan, :secondary_borrower)
@@ -18,7 +18,7 @@ describe BorrowerServices::RemoveSecondaryBorrower do
       end
     end
 
-    context "when current user remove borrower" do
+    context "when current user removes borrower" do
       it "calls save method for borrower that will be removed" do
         expect_any_instance_of(Borrower).to receive(:save).and_return true
         BorrowerServices::RemoveSecondaryBorrower.call(loan.user, loan, :borrower)
