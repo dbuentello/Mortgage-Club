@@ -13,6 +13,7 @@ class InitializeFirstLoanService
 
     loan = Loan.create(
       purpose: info["mortgage_purpose"],
+      down_payment: info["down_payment"],
       user: user,
       properties: properties,
       closing: Closing.create(name: "Closing"),

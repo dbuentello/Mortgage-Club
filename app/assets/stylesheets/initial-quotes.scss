@@ -1,4 +1,16 @@
 .initial-quotes {
+  padding-top: 85px;
+
+  p {
+    font-size: 1.1em;
+    color: #00436E;
+    text-align: center;
+  }
+
+  p.explanation {
+    font-style: italic;
+  }
+
   h2 {
     text-align: center;
   }
@@ -8,8 +20,6 @@
     text-align: center;
   }
 
-  padding-top: 67px;
-
   .tooltip > .tooltip-arrow {
     border-bottom-color: #FBF7AA;
   }
@@ -17,12 +27,6 @@
   h6 {
     font-size: 1.1em;
     color: #15c0f1;
-  }
-
-  form {
-    .form-group:first-child {
-      margin-top: 10px;
-    }
   }
 
   .mortgage-quotes {
@@ -44,6 +48,7 @@
     .col-xs-9 {
       margin-top: 20px;
       padding: 0px 50px;
+      float: right;
     }
 
     .board {

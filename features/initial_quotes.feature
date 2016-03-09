@@ -2,14 +2,14 @@ Feature: InitialQuotes
   @javascript @vcr
   Scenario: fill in form and see rates
   When I go to the quotes page
-    And I should see "Initial Quotes"
-  Then I fill in "ZIP code" with "95127"
-    And I fill in "Property value" with "400000"
-    And I fill in "Credit score" with "750"
-    And I select "Purchase" from "Mortgage purpose"
-    And I select "Primary Residence" from "Property will be"
-    And I select "Single Family Home" from "Property type"
-    And I press "Get rates"
+    And I should see "Answer a few questions and get a customized rate quote in 10 seconds."
+  Then I select "Purchase" from "Mortgage Purpose"
+    And I fill in "ZIP Code" with "95127"
+    And I fill in "Property Value" with "500000"
+    And I select "Primary Residence" from "Property Will Be"
+    And I select "Single Family Home" from "Property Type"
+    And I select "740+" from "Credit Score"
+    And I press "find my rates"
     And I should see "Sort by"
     And I scroll up to the top
   Then At first klass ".board-header" I click link "Select"
@@ -18,14 +18,14 @@ Feature: InitialQuotes
   @javascript @vcr
   Scenario: select help me choose
   When I go to the quotes page
-    And I should see "Initial Quotes"
-  Then I fill in "ZIP code" with "95127"
-    And I fill in "Property value" with "400000"
-    And I fill in "Credit score" with "750"
-    And I select "Purchase" from "Mortgage purpose"
-    And I select "Primary Residence" from "Property will be"
-    And I select "Single Family Home" from "Property type"
-    And I press "Get rates"
+    And I should see "Answer a few questions and get a customized rate quote in 10 seconds."
+  Then I select "Purchase" from "Mortgage Purpose"
+  And I fill in "ZIP Code" with "95127"
+    And I fill in "Property Value" with "500000"
+    And I select "Primary Residence" from "Property Will Be"
+    And I select "Single Family Home" from "Property Type"
+    And I select "740+" from "Credit Score"
+    And I press "find my rates"
     And I should see "help me choose"
     And I scroll up to the top
   Then I click on "help me choose"
