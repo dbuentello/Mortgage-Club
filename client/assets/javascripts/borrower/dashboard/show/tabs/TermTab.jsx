@@ -162,6 +162,14 @@ var TermTab = React.createClass({
                     {this.formatCurrency(loan.down_payment, "$")}
                   </td>
                 </tr>
+                <tr>
+                  <td className="loan-field">
+                    <i>Total Cash to Close (est.)</i>
+                  </td>
+                  <td>
+                    <i>{this.formatCurrency(loan.estimated_cash_to_close, "$")}</i>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -227,10 +235,10 @@ var TermTab = React.createClass({
                 }
                 <tr>
                   <td>
-                    Total Monthly Housing Expense (est.)
+                    <i>Total Monthly Housing Expense (est.)</i>
                   </td>
                   <td>
-                    {this.formatCurrency(totalCost, "$")}
+                    <i>{this.formatCurrency(totalCost, "$")}</i>
                   </td>
                 </tr>
               </tbody>
