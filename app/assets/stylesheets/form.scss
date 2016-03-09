@@ -146,3 +146,7 @@ button[type=submit] {padding:11px 26px; border-radius:6px; box-shadow:none; font
 .fileBtn .fileBtnSmall:hover, .fileBtn .fileBtnSmall:hover img {filter:saturate(100%); -webkit-filter:saturate(100%); cursor:pointer; color:#15c0f1;}
 
 .fileBtn .fileBtnSmall.file {font-style:italic;}
+
+.m-margin-bottom {
+  margin-bottom: -50px;
+}
