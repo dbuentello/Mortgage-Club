@@ -57,7 +57,7 @@ var MortgageRates = React.createClass({
     var subjectProperty = this.props.bootstrapData.currentLoan.subject_property;
 
     return (
-      <div className="content">
+      <div>
         {
           this.state.helpMeChoose
           ?

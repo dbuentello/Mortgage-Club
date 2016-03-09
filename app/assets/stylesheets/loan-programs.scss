@@ -200,7 +200,7 @@
   }
   background: linear-gradient(to right, #f6f6f6 , white);
   .programs-filter {
-    margin-top: -44px;
+    margin-top: 0px;
     height: 100%;
     margin-left: -16px;
   }
@@ -209,7 +209,9 @@
     height: 100%;
     margin-left: -16px;
   }
-
+  .navigation-section{
+    padding-top: 20px;
+  }
   .account-content .form-group:last-child {
     margin-bottom: 25px;
   }
