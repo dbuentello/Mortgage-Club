@@ -44,6 +44,8 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Rails Html Sanitizer for HTML sanitization
 gem 'rails-html-sanitizer'
 
+# SEO for fb
+gem 'meta-tags'
 # Parse CSS and add vendor prefixes to rules by Can I Use
 gem 'autoprefixer-rails', '~> 5.2.1.1'
 

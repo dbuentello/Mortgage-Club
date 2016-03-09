@@ -18,8 +18,7 @@ var fields = {
   currentMortgageRate: {label: "Current Mortgage Rate", name: "current_mortgage_rate",keyName: "currentMortgageRate", error: "currentMortgageRateError",validationTypes: "empty"},
   estimatedHomeValue: {label: "Estimated home value", name: "estimated_home_value",keyName: "estimatedHomeValue", error: "estimatedHomeValueError",validationTypes: "empty"},
   currentMortgageBalance: {label: "Current Mortgage Balance", name: "current_mortgage_balance",keyName: "currentMortgageBalance", error: "currentMortgageBalanceError",validationTypes: "empty"},
-  email: {label: "Email", name: "email",keyName: "email", error: "emailError",validationTypes: "email"},
-  phoneNumber: {label: "Phone Number (optional)", name: "phone_number",keyName: "phoneNumber", error: "phoneNumberError"}
+  email: {label: "Email", name: "email",keyName: "email", error: "emailError",validationTypes: "email"}
 
 };
 var refinancePurposes = [
@@ -44,7 +43,7 @@ var RateDropAlert = React.createClass({
     var state = {};
 
     state[fields.email.keyName] = null;
-    state[fields.phoneNumber.keyName] = null;
+
     state[fields.refinancePurpose.keyName] = "lower_rate";
     state[fields.creditScore.keyName] = "740";
     state[fields.zip.keyName] = null;
@@ -61,13 +60,10 @@ var RateDropAlert = React.createClass({
     _.each(Object.keys(fields), function(key) {
       requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: [fields[key].validationTypes]};
     }, this);
-
-
     if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
       this.setState(this.getStateOfInvalidFields(requiredFields));
       isValid = false;
     }
-
     return isValid;
   },
 
@@ -78,13 +74,8 @@ var RateDropAlert = React.createClass({
     if (this.valid() == false) {
       return false;
     }
-    //var form = document.forms.namedItem("fileinfo");
-  //  var formData = new FormData(form);
-//  console.log(formData);
-//    //formData.get()
 
-    var sendAsEmail = $('#sendAsEmail').is(':checked');
-    var sendAsTextMessage =$('#sendAsText').is(':checked');
+
 
     $.ajax({
       url: "/rate_drop_alert",
@@ -95,10 +86,8 @@ var RateDropAlert = React.createClass({
         estimated_home_value: this.currencyToNumber(this.state[fields.estimatedHomeValue.keyName]),
         refinance_purpose: this.state[fields.refinancePurpose.keyName],
         zip: this.state[fields.zip.keyName],
-        email: this.state[fields.email.keyName],
-        phone_number: this.state[fields.phoneNumber.keyName],
-        send_as_email: sendAsEmail,
-        send_as_text_message: sendAsTextMessage
+        email: this.state[fields.email.keyName]
+
       },
       method: "POST",
       dataType: "json",
@@ -109,9 +98,7 @@ var RateDropAlert = React.createClass({
         }, 500000);
       }.bind(this),
       error: function(response){
-        this.setState({
-          alertMethodError: response.responseJSON.alert_method
-        })
+
       }.bind(this)
     });
   },
@@ -121,20 +108,16 @@ var RateDropAlert = React.createClass({
   onBlur: function(blur) {
     this.setState(blur);
   },
-  changePhoneNumber: function(event) {
-    var phoneNumber = this.formatPhoneNumber(event.target.value);
-    this.setState({phoneNumber: phoneNumber});
-  },
+
 
   componentDidUpdate: function() {
-    if(event.target.id != "phone_number") {
+
       this.renderTooltip();
-    }
+
   },
 
   componentDidMount: function(event) {
-    $('#sendAsEmail').prop('checked', true);
-    $('#sendAsText').prop('checked', true);
+
     this.renderTooltip();
   },
 
@@ -184,23 +167,23 @@ var RateDropAlert = React.createClass({
                                   onBlur={this.onBlur}
                                   editMode={true}
                                   />
-                                <img src="/icons/mail.png" alt="title"/>
+
                               </div>
-                              <div className="col-sm-6 phone-number text-left">
+
+                              <div className="col-sm-6 text-left">
                                 <TextField
-                                  activateRequiredField={this.state[fields.phoneNumber.error]}
-                                  label={fields.phoneNumber.label}
-                                  keyName={fields.phoneNumber.keyName}
-                                  value={this.state[fields.phoneNumber.keyName]}
-                                  liveFormat={true}
-                                  format={this.formatPhoneNumber}
+                                  activateRequiredField={this.state[fields.zip.error]}
+                                  label={fields.zip.label}
+                                  keyName={fields.zip.keyName}
+                                  value={this.state[fields.zip.keyName]}
+                                  format={this.formatInteger}
                                   editable={true}
-                                  maxLength={15}
+                                  validationTypes={["number"]}
+                                  maxLength={6}
                                   onChange={this.onChange}
                                   onBlur={this.onBlur}
-                                  editMode={true}
-                                  />
-                                <img src="/icons/phone.png" alt="title"/>
+                                  liveFormat={true}
+                                  editMode={true}/>
                               </div>
                             </div>
                             <div className="form-group">
@@ -218,22 +201,9 @@ var RateDropAlert = React.createClass({
                                   onBlur={this.onBlur}
                                   editMode={true}/>
                               </div>
-                              <div className="col-sm-6 text-left">
-                                <TextField
-                                  activateRequiredField={this.state[fields.zip.error]}
-                                  label={fields.zip.label}
-                                  keyName={fields.zip.keyName}
-                                  value={this.state[fields.zip.keyName]}
-                                  format={this.formatInteger}
-                                  editable={true}
-                                  validationTypes={["number"]}
-                                  maxLength={6}
-                                  onChange={this.onChange}
-                                  onBlur={this.onBlur}
-                                  liveFormat={true}
-                                  editMode={true}/>
-                              </div>
+
                             </div>
+
                             <div className="form-group">
                               <div className="col-sm-6 text-left text-capitalize">
                                 <TextField
@@ -292,29 +262,20 @@ var RateDropAlert = React.createClass({
                                   />
                               </div>
                             </div>
-                            <div className="form-group send-as">
-                              <div className="col-sm-12">
-                                <h6 className="text-left" data-toggle="tooltip" data-original-title={this.state.alertMethodError}>Send As</h6>
-                                  <div className="col-sm-4 text-left">
-                                    <input type="checkbox" name="send_as_email" id="sendAsEmail"/>
-                                    <label className="customCheckbox blueCheckBox2" htmlFor="sendAsEmail">Email</label>
-                                  </div>
-                                  <div className="col-sm-4 col-sm-offset-2 text-left">
-                                    <input type="checkbox" name="send_as_text_message" id="sendAsText"/>
-                                    <label className="customCheckbox blueCheckBox2" htmlFor="sendAsText">Text message</label>
-                                  </div>
-                              </div>
-                            </div>
-                            <div className="row">
+
+                            <div className="form-group">
                               <div className="col-xs-12">
                                 <button className="btn theBtn submit-btn text-uppercase" onClick={this.handleSubmit}>{this.props.bootstrapData.homepage.btn_alert}</button>
                               </div>
                             </div>
+                            <div className="form-group">
+                              <div className="col-sm-10 col-sm-offset-1 m-margin-bottom">
+                                <p><b>Please note:</b> The use of information collected shall be limited to the purpose of monitoring your mortgage rates. We do not sell or share your information with anyone else.</p>
+                              </div>
+                            </div>
                           </form>
                         </div>
-                        <div className="col-md-7 col-md-offset-3 mbl form-group">
-                          <p><b>Please note:</b> The use of information collected shall be limited to the purpose of monitoring your mortgage rates. We do not sell or share your information with anyone else.</p>
-                        </div>
+
                       </div>
                   }
                 </div>

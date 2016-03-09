@@ -68,4 +68,35 @@ class ApplicationController < ActionController::Base
     @loan.own_investment_property = params[:own_investment_property]
     @loan.save
   end
+
+  before_action :prepare_meta_tags, if: "request.get?"
+
+  def prepare_meta_tags(options={})
+    site_name   = "MortgageClub"
+    title       = "LOWEST RATE GUARANTEED" #["controller_name", "action_name"].join(" ")
+    description = "MortgageClub leverages big data and advanced technology to replace your loan officer and pass on the savings to you."
+    image       = options[:image] || (request.base_url + ActionController::Base.helpers.asset_path('howFooterPic.png'))
+  
+    current_url = request.url
+
+    # Let's prepare a nice set of defaults
+    defaults = {
+      site:        site_name,
+      title:       title,
+      image:       image,
+      description: description,
+      og: {
+        url: current_url,
+        site_name: site_name,
+        title: title,
+        image: image,
+        description: description,
+        type: 'website'
+      }
+    }
+
+    options.reverse_merge!(defaults)
+
+    set_meta_tags options
+  end
 end

@@ -14,17 +14,6 @@ describe PotentialRateDropUsersController do
         expect(JSON.parse(response.body)["message"]).to eq("success")
       end
     end
-
-    context "with invalid params" do
-      it "returns error" do
-        potential_rate_drop_user[:send_as_email] = nil
-        potential_rate_drop_user[:send_as_text_message] = nil
-
-        post :create, potential_rate_drop_user
-
-        expect(JSON.parse(response.body)["alert_method"]).to eq("This field is required")
-      end
-    end
   end
 
 end
