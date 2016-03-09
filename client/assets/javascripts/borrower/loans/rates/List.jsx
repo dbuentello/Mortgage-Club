@@ -22,8 +22,8 @@ var List = React.createClass({
     programs: React.PropTypes.array
   },
 
-  componentDidUpdate: function() {
-    if(this.props.programs !== undefined && this.props.programs !== null && this.props.programs.length == 1){
+  componentDidMount: function() {
+    if(this.props.displayTotalCost){
       if($("span.glyphicon-menu-down").length > 0){
         $("span.glyphicon-menu-down")[0].click();
       }

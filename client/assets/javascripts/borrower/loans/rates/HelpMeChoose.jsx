@@ -17,8 +17,10 @@ var HelpMeChoose = React.createClass({
   },
 
   getInitialState: function() {
+    var possibleRates = this.choosePossibleRates(9, 0.08, 0.2);
     return {
-      possibleRates: null
+      possibleRates: possibleRates,
+      bestRate: possibleRates[0]
     }
   },
 
@@ -33,17 +35,24 @@ var HelpMeChoose = React.createClass({
     }.bind(this));
 
     possibleRates = possibleRates.slice(0, 1);
-
-    this.setState({
-      possibleRates: possibleRates
-    });
+    return possibleRates;
   },
 
   componentDidMount: function() {
     this.buildYearsChart();
     this.buildAverageRatesChart();
     this.buildTaxRatesChart();
-    this.choosePossibleRates(9, 0.08, 0.2);
+  },
+
+  componentDidUpdate: function(prevProps, prevState) {
+    console.log(prevState.bestRate, this.state.bestRate)
+    if(prevState.bestRate.lender_credits !== this.state.bestRate.lender_credits){
+      console.log(1);
+      $("span.glyphicon-menu-up").click();
+      $(".line-chart").empty();
+      $(".pie-chart").empty();
+      $("span.glyphicon-menu-down").click();
+    }
   },
 
   buildTaxRatesChart: function() {
@@ -103,7 +112,8 @@ var HelpMeChoose = React.createClass({
       value += normalized_number;
       klassName = rectKlassName + value;
       d3.select("." + klassName).attr("class", "highlight " + klassName);
-      this.choosePossibleRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate);
+      var possibleRates = this.choosePossibleRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate);
+      this.setState({possibleRates: possibleRates, bestRate: possibleRates[0]});
     }.bind(this));
     d3.select(selection).call(slider);
     slider.value(1); // fix the bug of d3.js slider
@@ -142,7 +152,8 @@ var HelpMeChoose = React.createClass({
         $('.tax_rate_chart .value').val(value + '%')
         break;
     }
-    this.choosePossibleRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate);
+    var possibleRates = this.choosePossibleRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate);
+    this.setState({possibleRates: possibleRates, bestRate: possibleRates[0]});
   },
 
   correctValue: function(value, type) {
