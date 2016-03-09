@@ -18,8 +18,9 @@ describe BorrowerServices::AssignSecondaryBorrowerToLoan do
   end
 
   describe "#call" do
-    context "with valid params" do
-      let!(:loan) { FactoryGirl.create(:loan_with_all_associations) }
+    let!(:loan) { FactoryGirl.create(:loan_with_all_associations) }
+
+    context "when valid params" do
       it "calls CoBorrowerMailer with proper params" do
         message_delivery = instance_double(ActionMailer::MessageDelivery)
         expect(CoBorrowerMailer).to receive(:notify_being_added).with(loan.id, {is_new_user: false, default_password: nil}).and_return(message_delivery)
@@ -27,9 +28,16 @@ describe BorrowerServices::AssignSecondaryBorrowerToLoan do
         described_class.new(loan, @secondary_params, nil).call
       end
 
-      it "calls save params" do
+      it "calls save method and returns true" do
         expect_any_instance_of(Loan).to receive(:save).and_return true
         described_class.new(loan, @secondary_params, nil).call
+      end
+    end
+
+    context "when invalid params" do
+      it "returns nil with user params" do
+        @secondary_params[:borrower].delete(:first_name)
+        described_class.new(loan, @secondary_params, loan.secondary_borrower).call
       end
     end
   end
