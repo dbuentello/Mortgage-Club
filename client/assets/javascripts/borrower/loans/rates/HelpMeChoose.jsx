@@ -44,17 +44,6 @@ var HelpMeChoose = React.createClass({
     this.buildTaxRatesChart();
   },
 
-  componentDidUpdate: function(prevProps, prevState) {
-    console.log(prevState.bestRate, this.state.bestRate)
-    if(prevState.bestRate.lender_credits !== this.state.bestRate.lender_credits){
-      console.log(1);
-      $("span.glyphicon-menu-up").click();
-      $(".line-chart").empty();
-      $(".pie-chart").empty();
-      $("span.glyphicon-menu-down").click();
-    }
-  },
-
   buildTaxRatesChart: function() {
     // build slider
     taxRateSlider = this.generateSliderChart('.tax_rate_chart .slider', 'tax_rect_nth', 0, 50, 1, '.selected_tax_rate .value');

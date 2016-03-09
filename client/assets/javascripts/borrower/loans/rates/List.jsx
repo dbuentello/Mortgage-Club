@@ -30,6 +30,38 @@ var List = React.createClass({
     }
   },
 
+  componentDidUpdate: function(prevProps, prevState) {
+    if(this.props.programs.length === 1){
+      if(prevProps.programs[0].apr !== this.props.programs[0].apr){
+        $(".line-chart").empty();
+        $(".pie-chart").empty();
+        if ($("#piechart0 svg").length == 0){
+          var rate = this.props.programs[0];
+          var total = this.totalMonthlyPayment(
+            rate.monthly_payment,
+            this.state.estimatedMortgageInsurance,
+            this.state.estimatedPropertyTax,
+            this.state.estimatedHazardInsurance
+          );
+          this.drawPieChart(
+            0,
+            rate.monthly_payment,
+            this.state.estimatedHazardInsurance,
+            this.state.estimatedPropertyTax ,
+            this.state.estimatedMortgageInsurance,
+            this.state.hoaDue,
+            total
+          );
+        }
+
+        if ($("#linechart0 svg").length == 0){
+          var rate = this.props.programs[0];
+          this.drawLineChart(0, rate.period, parseInt(rate.loan_amount), rate.interest_rate, rate.monthly_payment);
+        }
+      }
+    }
+  },
+
   calDownPayment: function(down_payment, loan_amount){
     return parseFloat(down_payment/loan_amount)*100;
   },
