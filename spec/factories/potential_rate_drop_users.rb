@@ -9,7 +9,7 @@ FactoryGirl.define do
     zip "MyString"
     credit_score 1
     send_as_email false
-    send_as_text_message false
+    send_as_text_message true
   end
 
 end

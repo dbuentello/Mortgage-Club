@@ -76,7 +76,6 @@ var RateDropAlert = React.createClass({
     event.preventDefault();
 
     if (this.valid() == false) {
-      console.log("not ok");
       return false;
     }
     //var form = document.forms.namedItem("fileinfo");
@@ -87,8 +86,6 @@ var RateDropAlert = React.createClass({
     var sendAsEmail = $('#sendAsEmail').is(':checked');
     var sendAsTextMessage =$('#sendAsText').is(':checked');
 
-    console.log("send as Email" + sendAsEmail);
-    console.log("send as text Message" + sendAsTextMessage);
     $.ajax({
       url: "/rate_drop_alert",
       data: {
@@ -136,7 +133,8 @@ var RateDropAlert = React.createClass({
   },
 
   componentDidMount: function(event) {
-
+    $('#sendAsEmail').prop('checked', true);
+    $('#sendAsText').prop('checked', true);
     this.renderTooltip();
   },
 
