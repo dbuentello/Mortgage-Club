@@ -28,7 +28,7 @@ describe Users::DashboardController do
         @loan = FactoryGirl.create(:loan_with_all_associations)
       end
 
-      it "not allow to access the page" do
+      it "cannot access the loan" do
         get :show, id: @loan.id
         expect(response.status).to eq(403)
       end
