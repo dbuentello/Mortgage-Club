@@ -61,13 +61,10 @@ var RateDropAlert = React.createClass({
     _.each(Object.keys(fields), function(key) {
       requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: [fields[key].validationTypes]};
     }, this);
-
-
     if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
       this.setState(this.getStateOfInvalidFields(requiredFields));
       isValid = false;
     }
-
     return isValid;
   },
 
@@ -78,10 +75,6 @@ var RateDropAlert = React.createClass({
     if (this.valid() == false) {
       return false;
     }
-    //var form = document.forms.namedItem("fileinfo");
-  //  var formData = new FormData(form);
-//  console.log(formData);
-//    //formData.get()
 
     var sendAsEmail = $('#sendAsEmail').is(':checked');
     var sendAsTextMessage =$('#sendAsText').is(':checked');
