@@ -212,7 +212,12 @@ if User.where(email: 'loan_member@mortgageclub.co').blank?
   user.skip_confirmation!
   user.save
 
-  user.create_loan_member
+  user.create_loan_member(company_name: "MortgageClub Corporation", company_address: "156 2nd St, San Francisco, CA 94105",
+    company_phone_number: "(415) 964-0668",
+    company_nmls: "1456787",
+    nmls_id: "1457126",
+    phone_number: "(650) 787-7799"
+    )
   user.add_role :loan_member
 end
 
@@ -225,7 +230,12 @@ if User.where(email: 'billy@mortgageclub.co').blank?
   user.skip_confirmation!
   user.save
 
-  user.create_loan_member
+  user.create_loan_member(company_name: "MortgageClub Corporation", company_address: "156 2nd St, San Francisco, CA 94105",
+    company_phone_number: "(415) 964-0668",
+    company_nmls: "1456787",
+    nmls_id: "1457126",
+    phone_number: "(650) 787-7799"
+    )
   user.add_role :loan_member
 end
 

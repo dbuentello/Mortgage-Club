@@ -62,9 +62,9 @@ var TermTab = React.createClass({
                   </td>
                   <td>
                     {
-                      loan.subject_property.market_price
+                      property.market_price
                       ?
-                      this.formatCurrency(loan.subject_property.market_price, "$")
+                      this.formatCurrency(property.market_price, "$")
                       :
                       null
                     }
@@ -186,7 +186,7 @@ var TermTab = React.createClass({
                     Homeowners Insurance
                   </td>
                   <td>
-                    {this.formatCurrency(loan.primary_property.estimated_hazard_insurance, "$")}
+                    {this.formatCurrency(property.estimated_hazard_insurance, "$")}
                   </td>
                 </tr>
                 <tr>
@@ -194,32 +194,32 @@ var TermTab = React.createClass({
                     Property Tax
                   </td>
                   <td>
-                    {this.formatCurrency(loan.primary_property.estimated_property_tax, "$")}
+                    {this.formatCurrency(property.estimated_property_tax, "$")}
                   </td>
                 </tr>
                 {
-                  loan.primary_property.estimated_mortgage_insurance>0.0
+                  property.estimated_mortgage_insurance>0.0
                   ?
                   <tr>
                     <td>
                       Mortgage Insurance
                     </td>
                     <td>
-                      {this.formatCurrency(loan.primary_property.estimated_mortgage_insurance, "$")}
+                      {this.formatCurrency(property.estimated_mortgage_insurance, "$")}
                     </td>
                   </tr>
                   :
                   null
                 }
                 {
-                  ((loan.subject_property.hoa_due > 0.0) && (loan.subject_property.hoa_due !== 0.0))
+                  ((property.hoa_due > 0.0) && (property.hoa_due !== 0.0))
                   ?
                   <tr>
                     <td>
                       HOA Due
                     </td>
                     <td>
-                      {this.formatCurrency(loan.primary_property.hoa_due,"$")}
+                      {this.formatCurrency(property.hoa_due,"$")}
                     </td>
                   </tr>
                   :
