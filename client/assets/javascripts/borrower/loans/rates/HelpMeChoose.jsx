@@ -2,7 +2,8 @@ var _ = require('lodash');
 var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var MortgageCalculatorMixin = require('mixins/MortgageCalculatorMixin');
-var List = require('./List');
+var ListPrograms = require('./List');
+var ListQuotes = require('public/InitialQuotes/List');
 
 var yearSlider, avgRateSlider, taxRateSlider;
 var expectedMortgageDuration = 9;
@@ -305,7 +306,13 @@ var HelpMeChoose = React.createClass({
 
         <div className="col-xs-12 account-content padding-left-55 custom-left-mortgage-rates">
           <div id="mortgagePrograms">
-            <List loanAmount={this.props.loan.amount} programs={this.state.possibleRates} subjectProperty={this.props.loan.subject_property} selectRate={this.props.selectRate} displayTotalCost={true}/>
+            {
+              this.props.isInitialQuotes
+              ?
+                <ListQuotes quotes={this.state.possibleRates} selectRate={this.props.selectRate} displayTotalCost={true}/>
+              :
+                <ListPrograms loanAmount={this.props.loan.amount} programs={this.state.possibleRates} subjectProperty={this.props.loan.subject_property} selectRate={this.props.selectRate} displayTotalCost={true}/>
+            }
           </div>
         </div>
       </div>

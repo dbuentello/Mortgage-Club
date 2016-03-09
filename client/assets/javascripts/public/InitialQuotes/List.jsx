@@ -35,10 +35,25 @@ var List = React.createClass({
     }
   },
 
-  componentDidUpdate: function() {
-    if(this.props.quotes !== undefined && this.props.quotes !== null && this.props.quotes.length == 1){
+
+  componentDidMount: function() {
+    if(this.props.displayTotalCost){
       if($("span.glyphicon-menu-down").length > 0){
         $("span.glyphicon-menu-down")[0].click();
+      }
+    }
+  },
+
+  componentDidUpdate: function(prevProps, prevState) {
+    if(this.props.quotes.length === 1){
+      if(prevProps.quotes[0].apr !== this.props.quotes[0].apr){
+        $(".line-chart").empty();
+        $(".pie-chart").empty();
+
+        if ($("#linechart0 svg").length == 0){
+          var quote = this.props.quotes[0];
+          this.drawLineChart(0, quote.period, parseInt(quote.loan_amount), quote.interest_rate, quote.monthly_payment);
+        }
       }
     }
   },
