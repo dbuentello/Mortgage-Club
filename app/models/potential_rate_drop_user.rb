@@ -20,8 +20,6 @@ class PotentialRateDropUser < ActiveRecord::Base
   validates :estimated_home_value, presence: true
   validates :zip, presence: true
 
-  validate :alert_method_cannot_be_blank
-
   def alert_method
     return "Email and Text Message" if send_as_email && send_as_text_message
     return "Email" if send_as_email

@@ -50,10 +50,10 @@ var Managements = React.createClass({
                   <thead>
                     <tr>
                       <th>Email</th>
-                      <th>Phone Number</th>
-                      <th>Send As</th>
+                      <th>Refinance Purpose</th>
+                      <th>ZIP Code</th>
                       <th>Credit Score</th>
-                      
+
                     </tr>
                   </thead>
                   <tbody>
@@ -62,8 +62,8 @@ var Managements = React.createClass({
                         return (
                           <tr key={potential_rate_drop_user.id}>
                             <td>{potential_rate_drop_user.email}</td>
-                            <td>{potential_rate_drop_user.phone_number}</td>
-                            <td>{potential_rate_drop_user.alert_method}</td>
+                            <td>{potential_rate_drop_user.refinance_purpose}</td>
+                            <td>{potential_rate_drop_user.zip}</td>
                             <td>
 
                                 {potential_rate_drop_user.credit_score}
