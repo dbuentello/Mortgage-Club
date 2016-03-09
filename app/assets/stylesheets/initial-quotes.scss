@@ -33,6 +33,10 @@
     overflow: hidden;
   }
 
+  .form-group img {
+    right: 50px !important;
+  }
+
   .navigation-section {
     .back-btn {
       color: white;
@@ -46,7 +50,6 @@
 
   .quotes-list {
     .col-xs-9 {
-      margin-top: 20px;
       padding: 0px 50px;
       float: right;
     }
@@ -242,7 +245,7 @@
     margin-left: -16px;
   }
   .actions {
-    padding-left: 15px;
+    padding-top: 20px;
   }
   .account-content .form-group:last-child {
     margin-bottom: 25px;

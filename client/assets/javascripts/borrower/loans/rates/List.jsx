@@ -22,10 +22,42 @@ var List = React.createClass({
     programs: React.PropTypes.array
   },
 
-  componentDidUpdate: function() {
-    if(this.props.programs !== undefined && this.props.programs !== null && this.props.programs.length == 1){
+  componentDidMount: function() {
+    if(this.props.displayTotalCost){
       if($("span.glyphicon-menu-down").length > 0){
         $("span.glyphicon-menu-down")[0].click();
+      }
+    }
+  },
+
+  componentDidUpdate: function(prevProps, prevState) {
+    if(this.props.programs.length === 1){
+      if(prevProps.programs[0].apr !== this.props.programs[0].apr){
+        $(".line-chart").empty();
+        $(".pie-chart").empty();
+        if ($("#piechart0 svg").length == 0){
+          var rate = this.props.programs[0];
+          var total = this.totalMonthlyPayment(
+            rate.monthly_payment,
+            this.state.estimatedMortgageInsurance,
+            this.state.estimatedPropertyTax,
+            this.state.estimatedHazardInsurance
+          );
+          this.drawPieChart(
+            0,
+            rate.monthly_payment,
+            this.state.estimatedHazardInsurance,
+            this.state.estimatedPropertyTax ,
+            this.state.estimatedMortgageInsurance,
+            this.state.hoaDue,
+            total
+          );
+        }
+
+        if ($("#linechart0 svg").length == 0){
+          var rate = this.props.programs[0];
+          this.drawLineChart(0, rate.period, parseInt(rate.loan_amount), rate.interest_rate, rate.monthly_payment);
+        }
       }
     }
   },
