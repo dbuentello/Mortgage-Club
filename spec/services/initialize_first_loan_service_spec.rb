@@ -15,7 +15,8 @@ describe InitializeFirstLoanService do
         mortgage_purpose: "purchase",
         property_type: "sfh",
         property_usage: "primary_residence",
-        property_value: 400000
+        property_value: 400_000,
+        down_payment: 100_000
       }.to_json
     end
 
@@ -27,7 +28,8 @@ describe InitializeFirstLoanService do
       loan = described_class.new(user, @quote_cookies).call
 
       expect(loan.purpose).to eq("purchase")
-      expect(loan.subject_property.purchase_price).to eq(400000)
+      expect(loan.down_payment).to eq(100_000)
+      expect(loan.subject_property.purchase_price).to eq(400_000)
       expect(loan.subject_property.property_type).to eq("sfh")
       expect(loan.subject_property.usage).to eq("primary_residence")
     end
@@ -42,6 +44,7 @@ describe InitializeFirstLoanService do
       loan = described_class.new(user, @quote_cookies).call
 
       expect(loan.purpose).to be_nil
+      expect(loan.down_payment).to be_nil
       expect(loan.subject_property.purchase_price).to be_nil
       expect(loan.subject_property.property_type).to be_nil
       expect(loan.subject_property.usage).to be_nil
