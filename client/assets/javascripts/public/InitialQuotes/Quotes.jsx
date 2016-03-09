@@ -139,7 +139,7 @@ var Quotes = React.createClass({
                   </div>
                 :
                   <div className="content container mortgage-rates padding-top-0 row">
-                    <div className="col-xs-3 subnav programs-filter">
+                    <div className="col-xs-3 subnav quote-filter">
                       <Filter programs={this.props.quotes} onFilterProgram={this.onFilterProgram}></Filter>
                     </div>
                     <div className="col-xs-9 account-content padding-left-50">
