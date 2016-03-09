@@ -146,7 +146,7 @@ var List = React.createClass({
                       </div>
                       <h4>Lender fees</h4>
                       <ul className="fee-items">
-                        <li className="lender-fee-item">{rate.discount_pts < 0 ? "Lender credit" : "Discount point"}: {this.formatCurrency(rate.discount_pts * rate.loan_amount, "$")}</li>
+                        <li className="lender-fee-item">{rate.lender_credits < 0 ? "Lender credits" : "Discount points"}: {this.formatCurrency(rate.lender_credits)}</li>
                         {
                           _.map(rate.fees, function(fee){
                             return (

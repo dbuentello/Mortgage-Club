@@ -43,6 +43,7 @@ describe RateServices::UpdateLoanDataFromSelectedRate do
       period: 60,
       amortization_type: "30 year fixed",
       monthly_payment: 1824,
+      lender_credits: -3000.0,
       apr: 3.625
     }
   end
@@ -61,6 +62,7 @@ describe RateServices::UpdateLoanDataFromSelectedRate do
       expect(loan.amortization_type).to eq("30 year fixed")
       expect(loan.monthly_payment).to eq(1824)
       expect(loan.num_of_months).to eq(60)
+      expect(loan.lender_credits).to eq(-3000.0)
       expect(loan.apr).to eq(3.625)
     end
   end
