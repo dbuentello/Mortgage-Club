@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe BorrowerServices::AssignSecondaryBorrowerToLoan do
   before do
-    @secondary_params =  {
+    @secondary_params = {
       borrower: {
         first_name: "John",
         last_name: "Smith",
