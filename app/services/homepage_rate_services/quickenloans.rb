@@ -26,7 +26,7 @@ module HomepageRateServices
           end
         end
       end
-      byebug
+
       {
         "apr_30_year" => apr_30_year == 0 ? nil : apr_30_year,
         "apr_15_year" => apr_15_year == 0 ? nil : apr_15_year,
