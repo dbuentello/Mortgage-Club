@@ -155,7 +155,7 @@ var RateDropAlert = React.createClass({
                         <div className="col-md-8 col-md-offset-2">
                           <form className="form-horizontal text-center" action="/rate_drop_alert" type="json" enctype="multipart/form-data" method="post" name="fileinfo">
                             <div className="form-group">
-                              <div className="col-sm-12 email-address text-left">
+                              <div className="col-sm-6 email-address text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.email.error]}
                                   label={fields.email.label}
@@ -167,25 +167,9 @@ var RateDropAlert = React.createClass({
                                   onBlur={this.onBlur}
                                   editMode={true}
                                   />
-                                <img src="/icons/mail.png" alt="title"/>
+
                               </div>
 
-                            </div>
-                            <div className="form-group">
-                              <div className="col-sm-6 text-left">
-                                <TextField
-                                  activateRequiredField={this.state[fields.currentMortgageRate.error]}
-                                  label={fields.currentMortgageRate.label}
-                                  keyName={fields.currentMortgageRate.keyName}
-                                  value={this.state[fields.currentMortgageRate.keyName]}
-                                  format={this.formatPercent}
-                                  editable={true}
-                                  validationTypes={["percent"]}
-                                  maxLength={6}
-                                  onChange={this.onChange}
-                                  onBlur={this.onBlur}
-                                  editMode={true}/>
-                              </div>
                               <div className="col-sm-6 text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.zip.error]}
@@ -202,6 +186,24 @@ var RateDropAlert = React.createClass({
                                   editMode={true}/>
                               </div>
                             </div>
+                            <div className="form-group">
+                              <div className="col-sm-6 text-left">
+                                <TextField
+                                  activateRequiredField={this.state[fields.currentMortgageRate.error]}
+                                  label={fields.currentMortgageRate.label}
+                                  keyName={fields.currentMortgageRate.keyName}
+                                  value={this.state[fields.currentMortgageRate.keyName]}
+                                  format={this.formatPercent}
+                                  editable={true}
+                                  validationTypes={["percent"]}
+                                  maxLength={6}
+                                  onChange={this.onChange}
+                                  onBlur={this.onBlur}
+                                  editMode={true}/>
+                              </div>
+
+                            </div>
+
                             <div className="form-group">
                               <div className="col-sm-6 text-left text-capitalize">
                                 <TextField
