@@ -31,6 +31,7 @@ class PotentialRateDropUser < ActiveRecord::Base
   private
 
   def alert_method_cannot_be_blank
-    errors.add(:alert_method, "can't be blank") if send_as_email.nil? && send_as_text_message.nil?
+    errors.add(:alert_method, "can't be blank") if (send_as_email.nil? && send_as_text_message.nil?) || (!send_as_email && !send_as_text_message)
+
   end
 end

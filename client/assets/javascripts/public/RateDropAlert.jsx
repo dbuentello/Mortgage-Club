@@ -76,7 +76,6 @@ var RateDropAlert = React.createClass({
     event.preventDefault();
 
     if (this.valid() == false) {
-      console.log("not ok");
       return false;
     }
     //var form = document.forms.namedItem("fileinfo");
@@ -87,8 +86,6 @@ var RateDropAlert = React.createClass({
     var sendAsEmail = $('#sendAsEmail').is(':checked');
     var sendAsTextMessage =$('#sendAsText').is(':checked');
 
-    console.log("send as Email" + sendAsEmail);
-    console.log("send as text Message" + sendAsTextMessage);
     $.ajax({
       url: "/rate_drop_alert",
       data: {
@@ -136,7 +133,8 @@ var RateDropAlert = React.createClass({
   },
 
   componentDidMount: function(event) {
-
+    $('#sendAsEmail').prop('checked', true);
+    $('#sendAsText').prop('checked', true);
     this.renderTooltip();
   },
 
@@ -298,11 +296,11 @@ var RateDropAlert = React.createClass({
                               <div className="col-sm-12">
                                 <h6 className="text-left" data-toggle="tooltip" data-original-title={this.state.alertMethodError}>Send As</h6>
                                   <div className="col-sm-4 text-left">
-                                    <input type="checkbox" name="send_as_email" checked id="sendAsEmail"/>
+                                    <input type="checkbox" name="send_as_email" id="sendAsEmail"/>
                                     <label className="customCheckbox blueCheckBox2" htmlFor="sendAsEmail">Email</label>
                                   </div>
                                   <div className="col-sm-4 col-sm-offset-2 text-left">
-                                    <input type="checkbox" name="send_as_text_message" checked id="sendAsText"/>
+                                    <input type="checkbox" name="send_as_text_message" id="sendAsText"/>
                                     <label className="customCheckbox blueCheckBox2" htmlFor="sendAsText">Text message</label>
                                   </div>
                               </div>
