@@ -22,6 +22,7 @@ module RateServices
         l.lender_credits = quote[:lender_credits].to_f
         l.loan_type = quote[:loan_type] ? quote[:loan_type].capitalize : nil
         l.estimated_closing_costs = quote[:total_closing_cost].to_f
+        l.down_payment = BigDecimal(quote[:down_payment]),
         l.save
       end
     rescue ActiveRecord::RecordNotFound
