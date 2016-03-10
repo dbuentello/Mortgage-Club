@@ -75,8 +75,8 @@ class ApplicationController < ActionController::Base
     site_name   = "MortgageClub"
     title       = "LOWEST RATE GUARANTEED" #["controller_name", "action_name"].join(" ")
     description = "MortgageClub leverages big data and advanced technology to replace your loan officer and pass on the savings to you."
-    image       = options[:image] || (request.base_url + ActionController::Base.helpers.asset_path('howFooterPic.png'))
-  
+    image       = options[:image] || (request.base_url + ActionController::Base.helpers.asset_path('open-graph.png'))
+
     current_url = request.url
 
     # Let's prepare a nice set of defaults
