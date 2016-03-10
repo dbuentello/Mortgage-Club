@@ -1,4 +1,4 @@
-class CreatePropertyForm
+class LiabilityForm
   include ActiveModel::Model
 
   attr_accessor :loan, :primary_property, :subject_property,
