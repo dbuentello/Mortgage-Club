@@ -1,10 +1,12 @@
 .initial-quotes {
-  padding-top: 85px;
+  padding-top: 65px;
 
-  p {
-    font-size: 1.1em;
-    color: #00436E;
-    text-align: center;
+  .quotes-form {
+    p {
+      font-size: 1.1em;
+      color: #00436E;
+      text-align: center;
+    }
   }
 
   p.explanation {
@@ -33,8 +35,10 @@
     overflow: hidden;
   }
 
-  .form-group img {
-    right: 50px !important;
+  .quotes-list{
+    .form-group img {
+      right: 50px !important;
+    }
   }
 
   .navigation-section {

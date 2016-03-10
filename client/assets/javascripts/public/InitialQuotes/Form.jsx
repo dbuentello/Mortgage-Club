@@ -152,8 +152,8 @@ var Form = React.createClass({
               propertyType = {this.state[fields.propertyType.keyName]}
               currentUser={this.props.bootstrapData.currentUser}/>
           :
-            <div>
-              <p>Answer a few questions and get a customized rate quote in 10 seconds.</p>
+            <div className="quotes-form">
+              <p style={{"padding-top": "20px"}}>Answer a few questions and get a customized rate quote in 10 seconds.</p>
               <p className="explanation">{"We've pre-filled some questions with common answers."}</p>
               <form className="form-horizontal col-md-offset-3" id="form-quotes">
                 <div className="form-group">
