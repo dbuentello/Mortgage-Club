@@ -70,12 +70,6 @@ Rails.application.routes.draw do
   resources :employments, only: [:show] do
   end
 
-  resources :properties, only: [:create, :destroy] do
-    collection do
-      get :search
-    end
-  end
-
   resources :charges, only: [:new, :create]
 
   resources :electronic_signature, only: [:new, :create] do
@@ -106,6 +100,13 @@ Rails.application.routes.draw do
 
     resources :borrowers, only: [:update]
     resources :assets, path: "borrower_assets", only: [:create]
+    resources :liabilities, only: [:create]
+
+    resources :properties, only: [:create, :destroy] do
+      collection do
+        get :search
+      end
+    end
   end
 
 
