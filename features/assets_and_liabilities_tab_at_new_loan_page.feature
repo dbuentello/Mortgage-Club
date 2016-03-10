@@ -31,12 +31,6 @@ Feature: AssetsAndLiabilitiesTabAtNewLoanPage
           Then I fill in "property_estimated_hazard_insurance_subject_property" with "$10.00"
         And I clear value in "property_estimated_property_tax_subject_property"
           Then I fill in "property_estimated_property_tax_subject_property" with "$100.00"
-        And I clear value in "property_market_price_primary_property"
-          Then I fill in "property_market_price_primary_property" with "$400,000.00"
-        And I clear value in "property_estimated_hazard_insurance_primary_property"
-          Then I fill in "property_estimated_hazard_insurance_primary_property" with "$10.00"
-        And I clear value in "property_estimated_property_tax_primary_property"
-          Then I fill in "property_estimated_property_tax_primary_property" with "$100.00"
       And I click on "Save and Continue"
         Then I should see "Are there any outstanding judgments against you?"
 
