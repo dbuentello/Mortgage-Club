@@ -123,11 +123,11 @@ var Quotes = React.createClass({
               {
                 this.state.helpMeChoose
                 ?
-                  <div className="content container mortgage-quotes padding-top-0 white-background">
+                  <div className="content container mortgage-quotes white-background" style={{"padding-top":"20px"}}>
                     <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.state.quotes} selectRate={this.selectRate} isInitialQuotes={true}/>
                   </div>
                 :
-                  <div className="content container mortgage-quotes padding-top-0 row">
+                  <div className="content container mortgage-rates padding-top-0 row">
                     <div className="col-xs-3 subnav quote-filter">
                       <Filter programs={this.props.quotes} onFilterProgram={this.onFilterQuote}></Filter>
                     </div>
