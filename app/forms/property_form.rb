@@ -11,7 +11,7 @@ class PropertyForm
     return false unless valid?
 
     ActiveRecord::Base.transaction do
-      destroy_primary_property if primary_residence? && loan.primary_property
+      # destroy_primary_property if primary_residence? && loan.primary_property
       loan.save!
       subject_property.save!
       address.save!

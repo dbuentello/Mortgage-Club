@@ -2,7 +2,7 @@ Feature: AssetsAndLiabilitiesTabAtNewLoanPage
   @javascript
   Scenario: user update asset with loan purchase
     When I am at loan management page
-      And I click link with div "#tabProperty a"
+      And I click "Property"
         And I clear value in "Property Address"
         Then I fill in "Property Address" with "1920 South Las Vegas Boulevard, Las Vegas"
         And I wait for 2 seconds
@@ -12,7 +12,9 @@ Feature: AssetsAndLiabilitiesTabAtNewLoanPage
         And I choose "true_purpose"
         And I clear value in "Purchase Price"
           Then I fill in "Purchase Price" with "$400,000.00"
-          Then I click on "Save and Continue"
+        And I clear value in "Down Payment"
+          Then I fill in "Down Payment" with "$1,345.00"
+        Then I click on "Save and Continue"
         And I should see "I am applying"
       When I click link with div "#tabAssetsAndLiabilities"
         And I clear value in "Institution Name"
@@ -41,7 +43,7 @@ Feature: AssetsAndLiabilitiesTabAtNewLoanPage
   @javascript
   Scenario: user update asset with loan refinance
     When I am at loan management page
-      And I click link with div "#tabProperty a"
+      And I click "Property"
         And I clear value in "Property Address"
           Then I fill in "Property Address" with "1920 South Las Vegas Boulevard, Las Vegas"
         And I wait for 2 seconds
@@ -70,13 +72,6 @@ Feature: AssetsAndLiabilitiesTabAtNewLoanPage
           Then I fill in "property_estimated_hazard_insurance_subject_property" with "$10.00"
         And I clear value in "property_estimated_property_tax_subject_property"
           Then I fill in "property_estimated_property_tax_subject_property" with "$100.00"
-        And I clear value in "property_market_price_primary_property"
-          Then I fill in "property_market_price_primary_property" with "$400,000.00"
-        And I select "Yes, include my property taxes and insurance" from "property_mortgage_includes_escrows_primary_property"
-        And I clear value in "property_estimated_hazard_insurance_primary_property"
-          Then I fill in "property_estimated_hazard_insurance_primary_property" with "$10.00"
-        And I clear value in "property_estimated_property_tax_primary_property"
-          Then I fill in "property_estimated_property_tax_primary_property" with "$100.00"
       And I click on "Save and Continue"
         Then I should see "Are there any outstanding judgments against you?"
 
