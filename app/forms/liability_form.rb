@@ -4,7 +4,7 @@ class LiabilityForm
   attr_accessor :loan, :primary_property, :subject_property,
                 :credit_report_id, :primary_property_params,
                 :subject_property_params, :rental_properties_params,
-                :borrower_address
+                :borrower_address, :own_investment_property
 
   def initialize(args)
     @loan = Loan.find_by_id(args[:loan_id])
@@ -15,6 +15,7 @@ class LiabilityForm
     @rental_properties_params = args[:rental_properties] || []
     @credit_report_id = args[:credit_report_id]
     @borrower_address = args[:borrower_address]
+    @own_investment_property = args[:own_investment_property]
   end
 
   # validates :loan_id, :properties, presence: true
@@ -22,6 +23,7 @@ class LiabilityForm
     return false if loan.nil?
 
     ActiveRecord::Base.transaction do
+      update_loan
       update_rental_properties
       update_subject_property
       update_primary_property
@@ -29,6 +31,12 @@ class LiabilityForm
     end
 
     true
+  end
+
+  def update_loan
+    loan.own_investment_property = own_investment_property
+    loan.amount = CalculateLoanAmountService.call(loan)
+    loan.save!
   end
 
   def update_rental_properties
