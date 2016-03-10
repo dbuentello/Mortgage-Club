@@ -190,7 +190,11 @@
   .helpful-text {font-style:italic; color:#959595; font-size:.9em; padding-top:5px;}
   .form-group .helpful-text img {display:inline-block; position:relative; bottom:0; top:0; left:0; border:none; margin-right:7px; margin-top:-5px;}
 
-  select {-webkit-appearance:none; height:38px; width:100%; }
+  select {
+    -webkit-appearance:none;
+    -moz-appearance: none;
+    height:38px; width:100%;
+  }
   select:hover {border-color:#15c0f1; outline:none; box-shadow:none; cursor:pointer;}
   select:focus {border-color:#15c0f1; outline:none; box-shadow:none;}
   select:focus + img {border-left:#15c0f1 1px solid; filter:saturate(100%); -webkit-filter:saturate(100%);}
