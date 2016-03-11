@@ -4,9 +4,6 @@ Feature: PropertyTabAtNewLoanPage
     When I am at loan management page
       And I should see "Property"
       Then I click "Property"
-        And I clear value in "Property Address"
-      Then I fill in "Property Address" with "1920 South Las Vegas Boulevard, Las Vegas"
-      And I wait for 2 seconds
         And I select "Vacation Home" from "Property Will Be"
         And I clear value in "Estimated Rental Income"
           Then I fill in "Estimated Rental Income" with "$1,111.00"
@@ -15,6 +12,7 @@ Feature: PropertyTabAtNewLoanPage
           Then I fill in "Purchase Price" with "$12,345.00"
         And I clear value in "Down Payment"
           Then I fill in "Down Payment" with "$1,345.00"
+          And I wait for 2000 seconds
         Then I click on "Save and Continue"
         And I should see "I am applying"
       When I click "Property"
