@@ -319,11 +319,14 @@ var FormAssetsAndLiabilities = React.createClass({
   },
 
   subjectPropertyAndPrimaryPropertySameAddress: function(){
-    if (this.state.primary_property == null || this.state.subject_property == null)
+    if (this.state.primary_property === null || this.state.subject_property === null)
       return false;
 
     var primary_address = this.state.primary_property.address;
     var subject_address = this.state.subject_property.address;
+
+    if (primary_address === null || primary_address === undefined || subject_address === null || subject_address === undefined)
+      return false;
 
     if(primary_address.city == subject_address.city &&
       primary_address.state == subject_address.state &&

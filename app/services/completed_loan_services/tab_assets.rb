@@ -2,8 +2,7 @@ module CompletedLoanServices
   class TabAssets
     attr_accessor :assets, :rental_properties,
                   :primary_property, :subject_property,
-                  :own_investment_property, :loan_refinance,
-                  :borrower
+                  :own_investment_property, :loan_refinance
 
     def initialize(args)
       @assets = args[:assets]
@@ -12,13 +11,9 @@ module CompletedLoanServices
       @primary_property = args[:primary_property]
       @own_investment_property = args[:own_investment_property]
       @loan_refinance = args[:loan_refinance]
-      @borrower = args[:borrower]
     end
 
     def call
-      return false unless borrower
-      return false unless borrower.current_address
-
       return false unless subject_property
       return false unless assets_completed?
       return false unless rental_properties_completed?
@@ -47,10 +42,6 @@ module CompletedLoanServices
       true
     end
 
-    def available_primary_property?
-      primary_property && primary_property.id != subject_property.id && subject_property.is_primary == false
-    end
-
     def asset_completed?(asset)
       return false unless asset
       return false unless asset.institution_name.present?
@@ -63,13 +54,7 @@ module CompletedLoanServices
     def property_completed?(property, is_rental = false)
       return false unless property
       return false unless property.property_type.present?
-
-      if property.is_primary && property.is_subject == false
-        return false unless address_completed?(false, borrower.current_address.address)
-      else
-        return false unless address_completed?(is_rental, property.address)
-      end
-
+      return false unless address_completed?(is_rental, property.address)
       return false unless property.usage.present?
       return false unless property.market_price.present?
       return false if loan_refinance && property.mortgage_includes_escrows.nil?
@@ -84,6 +69,10 @@ module CompletedLoanServices
       true
     end
 
+    def available_primary_property?
+      primary_property && !same_address?(primary_property.address, subject_property.address)
+    end
+
     def address_completed?(is_rental, address)
       return false unless address.present?
 
@@ -94,6 +83,13 @@ module CompletedLoanServices
       end
 
       address.full_text.present?
+    end
+
+    def same_address?(address1, address2)
+      return false unless address1 || address2
+      return true if address1.city == address2.city && address1.state == address2.state && address1.street_address == address2.street_address && address1.street_address2 == address2.street_address2 && address1.zip == address2.zip
+
+      false
     end
   end
 end
