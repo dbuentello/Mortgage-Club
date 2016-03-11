@@ -63,6 +63,7 @@ class LiabilityForm
   end
 
   def update_primary_property
+    return if subject_property.is_primary
     return unless primary_property
     primary_property.update(property_params(primary_property_params))
 

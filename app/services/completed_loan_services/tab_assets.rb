@@ -48,7 +48,7 @@ module CompletedLoanServices
     end
 
     def available_primary_property?
-      primary_property && primary_property != subject_property
+      primary_property && primary_property.id != subject_property.id && subject_property.is_primary == false
     end
 
     def asset_completed?(asset)
@@ -64,7 +64,7 @@ module CompletedLoanServices
       return false unless property
       return false unless property.property_type.present?
 
-      if property.is_primary
+      if property.is_primary && property.is_subject == false
         return false unless address_completed?(false, borrower.current_address.address)
       else
         return false unless address_completed?(is_rental, property.address)

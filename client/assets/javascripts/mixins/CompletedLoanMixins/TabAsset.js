@@ -88,7 +88,7 @@ var TabAsset = {
       }
     }
 
-    if(property.is_primary === true){
+    if(property.is_primary === true && property.is_subject === false){
       if(!this.addressCompleted(borrowerAddress, isRental)) {
         return false;
       }
@@ -118,7 +118,7 @@ var TabAsset = {
   },
 
   requiredPrimaryProperty: function(loan) {
-    if(loan.primary_property !== undefined && loan.primary_property !== null && loan.primary_property.id !== loan.subject_property.id) {
+    if(loan.primary_property !== undefined && loan.primary_property !== null && loan.primary_property.id !== loan.subject_property.id && loan.subject_property.is_primary === false) {
       return true;
     }
     return false;
