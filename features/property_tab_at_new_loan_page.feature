@@ -22,4 +22,4 @@ Feature: PropertyTabAtNewLoanPage
         And I should see "Purchase"
         And the "Purchase Price" field should contain "$12,345.00"
         And the "Down Payment" field should contain "$1,345.00"
-        And the "Estimated Rental Income" field should contain "$1,111.00"
+        And the "Estimated Rental Income" field should not contain ""
