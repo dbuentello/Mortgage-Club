@@ -15,7 +15,7 @@ class LoanDashboardPage::LoanMemberPresenter
       include: {
         user: {
           only: [:email, :first_name, :last_name],
-          methods: [:to_s, :avatar_url, :role_name]
+          methods: [:to_s, :avatar_url]
         }
       }
     }

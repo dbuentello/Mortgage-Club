@@ -21,7 +21,7 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
 
-      <% if Rails.env.production? %>
+    <% unless Rails.env.test? %>
       <!--Start of Zopim Live Chat Script-->
       <script type="text/javascript">
         window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
@@ -37,9 +37,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
           $zopim.livechat.window.hide();
         })
       </script>
-      <% end %>
-
-
+    <% end %>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
 

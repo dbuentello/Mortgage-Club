@@ -38,7 +38,7 @@ class LoanDashboardPage::LoanPresenter
         }
       },
       methods: [
-        :num_of_years, :purpose_titleize, :primary_property, :subject_property, :pretty_status
+        :num_of_years, :purpose_titleize, :subject_property, :pretty_status
       ]
     }
   end

@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  before_action :prepare_meta_tags, if: "request.get?"
 
   def find_root_path
     return unauthenticated_root_path unless current_user
@@ -40,7 +41,7 @@ class ApplicationController < ActionController::Base
   end
 
   def bootstrap(data={})
-    @bootstrap_data = {
+     @bootstrap_data = {
       currentUser: current_user.present? ? {
         id: current_user.id,
         firstName: current_user.first_name,
@@ -61,5 +62,34 @@ class ApplicationController < ActionController::Base
     end
 
     customized_flash
+  end
+
+  def prepare_meta_tags(options={})
+    site_name   = "MortgageClub"
+    title       = "FREE REFINANCE ALERT" #["controller_name", "action_name"].join(" ")
+    description = "MortgageClub leverages big data and advanced technology to replace your loan officer and pass on the savings to you."
+    image       = options[:image] || (request.base_url + ActionController::Base.helpers.asset_path('open-graph.png'))
+
+    current_url = request.url
+
+    # Let's prepare a nice set of defaults
+    defaults = {
+      site:        site_name,
+      title:       title,
+      image:       image,
+      description: description,
+      og: {
+        url: current_url,
+        site_name: site_name,
+        title: title,
+        image: image,
+        description: description,
+        type: 'website'
+      }
+    }
+
+    options.reverse_merge!(defaults)
+
+    set_meta_tags options
   end
 end

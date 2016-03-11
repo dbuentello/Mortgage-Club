@@ -12,20 +12,6 @@ var HomePart = require("public/homepage/HomePart");
 var RateAlert = require('public/RateAlert');
 
 var RefinanceAlert = React.createClass({
-  getInitialState: function() {
-    return {
-      has_quotes: false,
-      quotes: null
-    }
-  },
-  changeQuote: function (quotes) {
-    console.log("aaaaaaa");
-    console.log(quotes);
-    this.setState({
-      has_quotes: true,
-      quotes: quotes
-    });
-  },
   render: function() {
       return (
         <div className="homepage">

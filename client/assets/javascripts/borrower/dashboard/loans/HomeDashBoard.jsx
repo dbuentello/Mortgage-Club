@@ -31,7 +31,7 @@ var HomeDashBoard = React.createClass({
     var invites = this.props.bootstrapData.invites;
     var refCode = this.props.bootstrapData.refCode;
     var userEmail = this.props.bootstrapData.user_email;
-    var addresses = this.props.bootstrapData.addresses;
+    var commonInfo = this.props.bootstrapData.commonInfo;
     if (refCode != null) {
       document.cookie = "_refcode=" + refCode;
     }
@@ -47,7 +47,7 @@ var HomeDashBoard = React.createClass({
           <div className='tabs'>
             <div className="tab-content">
               <div role="tabpanel" className="tab-pane fade in active" id="loans">
-                <LoansTab loans={loans} addresses={addresses}/>
+                <LoansTab loans={loans} commonInfo={commonInfo}/>
               </div>
               <div role="tabpanel" className="tab-pane fade" id="referrals">
                 <ReferralsTab refLink={refLink} invites={invites}/>
