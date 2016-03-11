@@ -6,7 +6,7 @@ Feature: PropertyTabAtNewLoanPage
       Then I click "Property"
         And I clear value in "Property Address"
       Then I fill in "Property Address" with "1920 South Las Vegas Boulevard, Las Vegas"
-      And I wait for 1 seconds
+      And I wait for 2 seconds
         And I select "Vacation Home" from "Property Will Be"
         And I clear value in "Estimated Rental Income"
           Then I fill in "Estimated Rental Income" with "$1,111.00"
