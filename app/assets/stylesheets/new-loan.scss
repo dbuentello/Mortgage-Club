@@ -191,6 +191,7 @@
   .form-group .helpful-text img {display:inline-block; position:relative; bottom:0; top:0; left:0; border:none; margin-right:7px; margin-top:-5px;}
 
   select {
+    appearance: none;
     -webkit-appearance:none;
     -moz-appearance: none;
     height:38px; width:100%;
