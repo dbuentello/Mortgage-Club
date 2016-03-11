@@ -32,20 +32,11 @@ var FormAssetsAndLiabilities = React.createClass({
     state.own_investment_property = this.props.loan.own_investment_property;
     state.rental_properties = this.props.loan.rental_properties;
     state.subject_property = this.props.loan.subject_property;
+    state.primary_property = this.props.loan.primary_property;
 
-    if(state.subject_property !== undefined && state.subject_property !== null & state.subject_property.is_primary === false){
-      state.primary_property = this.props.loan.primary_property;
-    }else{
-      state.primary_property = null;
-    }
-
-    state.borrower_current_address = this.props.loan.borrower.current_address;
     state.saving = false;
     state.isValid = true;
     state.assets = this.props.loan.borrower.assets;
-
-    if(this.props.loan.borrower != undefined && this.props.loan.borrower != null && this.props.loan.borrower.current_address != undefined && this.props.loan.borrower.current_address != null && state.primary_property !== null && state.primary_property !== undefined)
-      state.primary_property.address = this.props.loan.borrower.current_address.cached_address;
 
     if (state.assets.length == 0) {
       var defaultAsset = this.getDefaultAsset();
@@ -193,7 +184,7 @@ var FormAssetsAndLiabilities = React.createClass({
               null
           }
           {
-            (this.state.primary_property && this.state.primary_property != this.state.subject_property && this.isRefinanceAndSameAddress() == false)
+            (this.state.primary_property && this.subjectPropertyAndPrimaryPropertySameAddress() == false)
             ?
               <div className='form-group'>
                 <div className='col-md-12'>
@@ -327,19 +318,18 @@ var FormAssetsAndLiabilities = React.createClass({
     }
   },
 
-  isRefinanceAndSameAddress: function(){
-    if (this.state.borrower_current_address == null || this.state.subject_property == null)
+  subjectPropertyAndPrimaryPropertySameAddress: function(){
+    if (this.state.primary_property == null || this.state.subject_property == null)
       return false;
 
-    var borrower_address = this.state.borrower_current_address.cached_address;
-    var property_address = this.state.subject_property.address;
+    var primary_address = this.state.primary_property.address;
+    var subject_address = this.state.subject_property.address;
 
-    if(borrower_address.city == property_address.city &&
-      borrower_address.state == property_address.state &&
-      borrower_address.street_address == property_address.street_address &&
-      borrower_address.street_address2 == property_address.street_address2 &&
-      borrower_address.zip == property_address.zip &&
-      this.props.loan.purpose == "refinance")
+    if(primary_address.city == subject_address.city &&
+      primary_address.state == subject_address.state &&
+      primary_address.street_address == subject_address.street_address &&
+      primary_address.street_address2 == subject_address.street_address2 &&
+      primary_address.zip == subject_address.zip)
       return true;
     return false;
   },
@@ -368,7 +358,6 @@ var FormAssetsAndLiabilities = React.createClass({
     address.street_address2 = srcProp.address.street_address2;
 
     desProp.address_attributes = address;
-    desProp.address = address;
     desProp.market_price = this.currencyToNumber(srcProp.market_price);
     desProp.other_mortgage_payment_amount = this.currencyToNumber(srcProp.other_mortgage_payment_amount);
     desProp.other_financing_amount = this.currencyToNumber(srcProp.other_financing_amount);
@@ -442,7 +431,7 @@ var FormAssetsAndLiabilities = React.createClass({
   valid: function(){
     var isValid = true;
 
-    if(this.state.primary_property && this.state.primary_property != this.state.subject_property && !this.isRefinanceAndSameAddress()){
+    if(this.state.primary_property && !this.subjectPropertyAndPrimaryPropertySameAddress()){
       if(this.setStateForInvalidFieldsOfProperty(this.state.primary_property) == false) {
         isValid = false;
       }
@@ -503,16 +492,13 @@ var FormAssetsAndLiabilities = React.createClass({
     }
 
     var primary_property = this.state.primary_property;
-    var borrower_address = this.props.loan.borrower.current_address;
-
     if (primary_property){
-      if(this.isRefinanceAndSameAddress()){
+      if(this.subjectPropertyAndPrimaryPropertySameAddress()){
         primary_property = this.copyProperty(subject_property, primary_property);
       }
       else{
         primary_property = this.formatProperty(primary_property);
       }
-      borrower_address.cached_address = primary_property.address;
     }
 
     var rental_properties = [];
@@ -547,8 +533,7 @@ var FormAssetsAndLiabilities = React.createClass({
             primary_property: this.state.primary_property,
             subject_property: this.state.subject_property,
             rental_properties: this.state.rental_properties,
-            own_investment_property: this.state.own_investment_property,
-            borrower_address: borrower_address
+            own_investment_property: this.state.own_investment_property
           },
           success: function(response) {
             this.props.bootstrapData.liabilities = response.liabilities;
