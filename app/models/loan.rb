@@ -28,6 +28,7 @@ class Loan < ActiveRecord::Base
   PERMITTED_ATTRS = [
     :credit_check_agree,
     :purpose,
+    :down_payment,
     properties_attributes: [:id] + Property::PERMITTED_ATTRS,
     borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS,
     secondary_borrower_attributes: [:id] + Borrower::PERMITTED_ATTRS

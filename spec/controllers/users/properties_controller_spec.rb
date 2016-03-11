@@ -1,8 +1,8 @@
 require "rails_helper"
 
-describe PropertiesController do
-
+describe Users::PropertiesController do
   include_context "signed in as borrower user of loan"
+
   before(:each) {
     loan.primary_property.update(property_type: 'sfh')
     loan.borrower.create_credit_report
@@ -23,7 +23,7 @@ describe PropertiesController do
     }
   end
 
-  context 'when property invalid' do
+  context 'when property is invalid' do
     it {
       delete :destroy, id: 'invalid-property'
       expect(response.status).to eq(200)
@@ -46,5 +46,4 @@ describe PropertiesController do
       expect(JSON.parse(response.body)['zestimate']).to be_nil
     end
   end
-
 end

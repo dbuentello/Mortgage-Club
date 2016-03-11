@@ -532,7 +532,7 @@ var FormAssetsAndLiabilities = React.createClass({
       data: JSON.stringify({assets: _assets}),
       success: function(resp){
         $.ajax({
-          url: '/properties/',
+          url: '/liabilities',
           method: 'POST',
           context: this,
           dataType: 'json',

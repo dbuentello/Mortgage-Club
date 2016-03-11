@@ -48,10 +48,10 @@ class BorrowerForm
 
   def create_primary_property
     return if loan.primary_property.present?
+    subject_property = loan.subject_property
+    # return subject_property.update(is_primary: true) if subject_property.primary_residence?
 
     if loan.refinance? && borrower_and_subject_property_same_address?
-      subject_property = loan.subject_property
-
       Property.create(loan: loan, is_primary: true, usage: "primary_residence",
         property_type: subject_property.property_type, market_price: subject_property.market_price,
         mortgage_includes_escrows: subject_property.mortgage_includes_escrows,
