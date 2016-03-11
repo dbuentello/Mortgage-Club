@@ -53,7 +53,7 @@ var HomepageRates = React.createClass({
                               <td>{rate.program}</td>
                               <td>{rate.rate_value}%</td>
                               <th>
-                                <a className="linkTypeReversed btn btn-primary btn-sm col-sm-10 text-center" href={"/homepage_rates/" + rate.id + "/edit"}>Edit</a>
+                                <a className="linkTypeReversed btn btn-primary btn-sm member-title-action" href={"/homepage_rates/" + rate.id + "/edit"}>Edit</a>
                               </th>
                             </tr>
                           )

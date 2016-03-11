@@ -22,6 +22,7 @@ class Address < ActiveRecord::Base
   belongs_to :liability, inverse_of: :address, foreign_key: 'liability_id'
 
   PERMITTED_ATTRS = [
+    :id,
     :street_address,
     :street_address2,
     :city,

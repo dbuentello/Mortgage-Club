@@ -59,7 +59,8 @@ module CompletedLoanServices
         rental_properties: rental_properties,
         primary_property: primary_property,
         own_investment_property: own_investment_property,
-        loan_refinance: loan.refinance?
+        loan_refinance: loan.refinance?,
+        borrower: borrower
       }).call
     end
 

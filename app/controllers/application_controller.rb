@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  before_action :prepare_meta_tags, if: "request.get?"
 
   def find_root_path
     return unauthenticated_root_path unless current_user
@@ -62,14 +63,6 @@ class ApplicationController < ActionController::Base
 
     customized_flash
   end
-
-  def set_loan_edit_page
-    @loan = Loan.find(params[:loan_id])
-    @loan.own_investment_property = params[:own_investment_property]
-    @loan.save
-  end
-
-  before_action :prepare_meta_tags, if: "request.get?"
 
   def prepare_meta_tags(options={})
     site_name   = "MortgageClub"

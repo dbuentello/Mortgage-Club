@@ -73,7 +73,7 @@ When /^I am at dashboard page$/ do
   many_steps %{
     Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a closing with the name "Fake Name"
-      And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the status "pending" and with the user above and with the closing above
+      And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the status "pending" and with the user above and with the closing above and with the monthly_payment "5356"
       And there is a loan_member_user_with_loan_member with the first name "Michael" and the last name "Gifford"
       And there is a property with the id "be69aefe-3946-4b85-9c54-58dd51306b1c" and with the purchase price "1000000" and with the usage "0" and with the is primary "1" and with the is subject "1" and with the loan above
       And there is a address with the street address "81458 Borer Falls" and the street address2 "Apt. 305" and the city "West Emiltown" and the state "Virginia" and the zip "9999" and the property id "be69aefe-3946-4b85-9c54-58dd51306b1c"
@@ -132,6 +132,20 @@ When /^I am at loan member dashboard$/ do
 
   }
 end
+When /^I am at loan list page$/ do
+  many_steps %{
+    Given there is a borrower_user_with_borrower with the email "john_doe@gmail.com" and with the first name "John" and the last name "Doe"
+      And there is a closing with the name "Fake Name"
+      And there is a lender with the name "Quickens Loan"
+      And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the closing above and with the user above and with the lender above
+      And there is a property with the purchase price "1000000" and with the usage "0" and with the is primary "1" and with the is subject "1" and with loan above
+      And there is a loan_member_user_with_loan_member with the email "loan_member@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the first name "Mark" and the last name "Lim"
+      And there is a loan members title with the title "sale"
+      And there is a loans members association with the loan above and with the loan member above and with the loan members title above
+      And there is a checklist_upload with the loan above
+      And I login as "loan_member@gmail.com" with password "secretpass"
+  }
+end
 
 When /^I clear value in "(.*?)"$/ do |field|
   patiently do
@@ -165,6 +179,12 @@ When /^I select "([^\"]*)" from "([^\"]*)" at "([^\"]*)"$/ do |value, field, ele
     select(value, from: field)
   end
 end
+When /^I select "([^\"]*)" at "([^\"]*)"$/ do |val, element|
+  within(:css, element) do
+    find("option[value=#{val}]").click
+  end
+end
+
 
 When /^I fill in "([^\"]*)" with "([^\"]*)" at "([^\"]*)"$/ do |field, value, element|
   within(:css, element) do

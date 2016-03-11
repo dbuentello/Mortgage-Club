@@ -46,6 +46,10 @@ module.exports = {
               state[errorName] = true;
             }
             break;
+          case "address":
+            if(!this.elementIsAddress(field.value)){
+              state[errorName] = true;
+            }
         }
       }, this)
     }, this);
@@ -111,13 +115,26 @@ module.exports = {
     if(obj == null) {
       return true;
     }
+
     if(typeof(obj) == "object") {
-      if(obj.street_address != undefined && (obj.street_address == null || obj.street_address == "")) {
+      if(obj.full_text == undefined || obj.full_text == null || obj.full_text == "") {
         return true;
       }
     }
     if(typeof(obj) == "string") {
       if(obj.trim() == "") {
+        return true;
+      }
+    }
+
+    return false;
+  },
+
+  elementIsAddress: function(obj){
+    if(obj !== undefined && obj !== null){
+      if((obj.city != undefined && obj.city != null && obj.city != "")
+        && (obj.state != undefined && obj.state != null && obj.state != "")
+        && (obj.zip != undefined && obj.zip != null && obj.zip != "")) {
         return true;
       }
     }

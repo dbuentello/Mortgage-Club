@@ -13,6 +13,7 @@ class InitializeFirstLoanService
 
     loan = Loan.create(
       purpose: info["mortgage_purpose"],
+      down_payment: info["down_payment"],
       user: user,
       properties: properties,
       closing: Closing.create(name: "Closing"),
@@ -59,15 +60,7 @@ class InitializeFirstLoanService
 
     Property.create(
       is_primary: true,
-      usage: "primary_residence",
-      address: Address.create(
-        street_address: address.street_address,
-        street_address2: address.street_address2,
-        zip: address.zip,
-        state: address.state,
-        city: address.city,
-        full_text: address.full_text
-      )
+      usage: "primary_residence"
     )
   end
 

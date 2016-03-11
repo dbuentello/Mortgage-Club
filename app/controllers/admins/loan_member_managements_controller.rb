@@ -2,7 +2,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
   before_action :set_loan_member, except: [:index, :create]
 
   def index
-    loans = Loan.all
+    loans = Loan.all.includes(:user, properties: :address)
     loan_members = LoanMember.all
 
     bootstrap(
@@ -36,16 +36,20 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
   def create
     @user = User.new(user_params.merge(password_confirmation: user_params[:password]))
     @user.skip_confirmation!
-    @loan_member = @user.build_loan_member(loan_member_params)
 
     if @user.save
-      @user.add_role :loan_member
-
-      render json: {
-        loan_member: Admins::LoanMemberPresenter.new(@loan_member).show,
-        loan_members: Admins::LoanMembersPresenter.new(LoanMember.all).show,
-        message: 'Created sucessfully'
-      }, status: 200
+      @loan_member = @user.build_loan_member(loan_member_params)
+      if @loan_member.save
+        @user.add_role :loan_member
+        render json: {
+          loan_member: Admins::LoanMemberPresenter.new(@loan_member).show,
+          loan_members: Admins::LoanMembersPresenter.new(LoanMember.all).show,
+          message: 'Created sucessfully'
+        }, status: 200
+      else
+        @user.destroy
+        render json: {message: @loan_member.errors.full_messages.first}, status: 500
+      end
     else
       render json: {message: @user.errors.full_messages.first}, status: 500
     end
@@ -65,7 +69,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
   private
 
   def loan_member_params
-    params.require(:loan_member).permit(:phone_number)
+    params.require(:loan_member).permit(:phone_number, :nmls_id, :company_name, :company_address, :company_phone_number, :company_nmls)
   end
 
   def user_params

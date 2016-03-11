@@ -3,6 +3,7 @@ require "rails_helper"
 describe LoanTekServices::ReadQuotes do
   let(:quotes) do
     [
+      "DiscountPts" => 1.0,
       "LenderName" => "Provident Funding",
       "ProductName" => "15yearFixed",
       "Fees" => -1520.0,
@@ -37,7 +38,6 @@ describe LoanTekServices::ReadQuotes do
   describe ".call" do
     it "returns a valid array" do
       programs = described_class.call(quotes)
-
       expect(programs).to include({
         lender_name: "Provident Funding",
         product: "15 year fixed",
@@ -62,11 +62,12 @@ describe LoanTekServices::ReadQuotes do
         period: 180,
         down_payment: 72000.0,
         monthly_payment: 2618,
-        lender_credit: -1520.0,
-        total_closing_cost: 3035.0,
+        lender_credits: 3600.0,
+        total_closing_cost: -2085.0,
         nmls: nil,
         logo_url: nil,
         loan_type: "CONVENTIONAL",
+        discount_pts: 0.01,
         characteristic: "Of all 15 year fixed mortgages on MortgageClub that you've qualified for, this one has the lowest APR."
       })
     end

@@ -12,6 +12,7 @@ var ContactTab = require('./tabs/ContactTab');
 var PropertyTab = require('./tabs/PropertyTab');
 var LoanTab = require('./tabs/LoanTab');
 var ClosingTab = require('./tabs/ClosingTab');
+var TermTab = require('./tabs/TermTab');
 var RelationshipManager = require('./RelationshipManager');
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler],
@@ -44,6 +45,10 @@ var Dashboard = React.createClass({
         this.showFlashes(flash);
       }.bind(this)
     });
+  },
+
+  viewLoan: function(){
+    location.href = '/loans/' + this.props.bootstrapData.loan.id;
   },
 
   render: function() {
@@ -81,7 +86,18 @@ var Dashboard = React.createClass({
               <p>Status: {loan.pretty_status}</p>
             </div>
             <div className='col-md-3'>
-              <a className='btn edit-btn' href={'/loans/' + loan.id}><i className="iconInfo mrs"/>View</a>
+              <ModalLink
+                id="viewLoan"
+                icon="iconInfo mrs"
+                name="View"
+                title={null}
+                class="btn edit-btn"
+                bodyClass="mc-blue-primary-text"
+                body="You are about to view your application only. You cannot make any edits since it was already submitted."
+                labelNo="Cancel"
+                labelYes="Proceed"
+                yesCallback={this.viewLoan} />
+
               <ModalLink
                 id="deleteLoan"
                 icon="iconTrash mrs"
@@ -98,6 +114,9 @@ var Dashboard = React.createClass({
             <ul className="nav nav-tabs mortgageTabs" role="tablist">
               <li role="presentation" className="active">
                 <a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a>
+              </li>
+              <li role="presentation">
+                <a href="#terms" aria-controls="terms" role="tab" data-toggle="tab">Terms</a>
               </li>
               <li role="presentation">
                 <a href="#property" aria-controls="property" role="tab" data-toggle="tab">Property</a>
@@ -121,6 +140,9 @@ var Dashboard = React.createClass({
               <div className="tab-content">
                 <div role="tabpanel" className="tab-pane fade in active" id="overview">
                   <OverviewTab loan={loan} borrower={loan.borrower} checklists={checklists} />
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="terms">
+                  <TermTab loan={loan} address={address}></TermTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="property">
                   <PropertyTab propertyDocuments={propertyDocuments}></PropertyTab>

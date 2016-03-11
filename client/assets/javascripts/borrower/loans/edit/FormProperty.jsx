@@ -4,20 +4,22 @@ var TextFormatMixin = require("mixins/TextFormatMixin");
 var ObjectHelperMixin = require("mixins/ObjectHelperMixin");
 var FlashHandler = require("mixins/FlashHandler");
 var ValidationObject = require("mixins/FormValidationMixin");
+var CheckCompletedLoanMixin = require('mixins/CheckCompletedLoanMixin');
 
 var AddressField = require("components/form/NewAddressField");
 var SelectField = require("components/form/NewSelectField");
 var TextField = require("components/form/NewTextField");
 var BooleanRadio = require("components/form/NewBooleanRadio");
 var fields = {
-  address: {label: 'Property Address', name: 'address', error: "addressError", validationTypes: ["empty"]},
+  address: {label: 'Property Address', name: 'address', error: "addressError", validationTypes: ["empty", "address"]},
   loanPurpose: {label: "Purpose Of Loan", name: "purpose", error: "loanError", validationTypes: ["empty"]},
   grossRentalIncome: {label: "Estimated Rental Income", name: "gross_rental_income", error: "grossRentalIncomeError", validationTypes: ["empty", "currency"]},
   propertyPurpose: {label: "Property Will Be", name: "usage", error: "propertyError", validationTypes: ["empty"]},
   purchasePrice: {label: "Purchase Price", name: "purchase_price", error: "purchaseError", validationTypes: ["empty", "currency"]},
   originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", error: "originalPurchasePriceError", validationTypes: ["empty", "currency"]},
   originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", error: "originalPurchaseYearError", validationTypes: ["empty", "integer"]},
-  yearBuilt: {label: "Year Built", name: "year_built", error: "yearBuiltError", validationTypes: ["empty"]}
+  yearBuilt: {label: "Year Built", name: "year_built", error: "yearBuiltError", validationTypes: ["empty"]},
+  downPayment: {label: "Down Payment", name: "down_payment", error: "downPyamentError", validationTypes: ["empty", "currency"]}
 };
 
 var loanPurposes = [
@@ -40,7 +42,7 @@ var propertyTypes = [
 ];
 
 var FormProperty = React.createClass({
-  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler, ValidationObject],
+  mixins: [ObjectHelperMixin, TextFormatMixin, FlashHandler, ValidationObject, CheckCompletedLoanMixin],
 
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
@@ -137,7 +139,7 @@ var FormProperty = React.createClass({
                 editable={true}
                 onChange={this.onChange}
                 onFocus={this.onFocus.bind(this, fields.address)}
-                placeholder=""
+                validationTypes={["address"]}
                 editMode={this.props.editMode}/>
             </div>
           </div>
@@ -195,74 +197,96 @@ var FormProperty = React.createClass({
             </div>
           </div>
           {this.state[fields.loanPurpose.name] === null ? null :
-            this.state[fields.loanPurpose.name] == true
+            this.isPurchase()
             ?
-              <div className="form-group">
-                <div className="col-md-6">
-                  <TextField
-                    requiredMessage="This field is required"
-                    activateRequiredField={this.state[fields.purchasePrice.error]}
-                    label={fields.purchasePrice.label}
-                    keyName={fields.purchasePrice.name}
-                    value={this.state[fields.purchasePrice.name]}
-                    editable={true}
-                    maxLength={15}
-                    format={this.formatCurrency}
-                    onFocus={this.onFocus.bind(this, fields.purchasePrice)}
-                    validationTypes={["currency"]}
-                    onBlur={this.onBlur}
-                    onChange={this.onChange}
-                    editMode={this.props.editMode}/>
+              <div>
+                <div className="form-group">
+                  <div className="col-md-6">
+                    <TextField
+                      requiredMessage="This field is required"
+                      activateRequiredField={this.state[fields.purchasePrice.error]}
+                      label={fields.purchasePrice.label}
+                      keyName={fields.purchasePrice.name}
+                      value={this.state[fields.purchasePrice.name]}
+                      editable={true}
+                      maxLength={15}
+                      format={this.formatCurrency}
+                      onFocus={this.onFocus.bind(this, fields.purchasePrice)}
+                      validationTypes={["currency"]}
+                      onBlur={this.onBlur}
+                      onChange={this.onChange}
+                      editMode={this.props.editMode}/>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <div className="col-md-6">
+                    <TextField
+                      requiredMessage="This field is required"
+                      activateRequiredField={this.state[fields.downPayment.error]}
+                      label={fields.downPayment.label}
+                      keyName={fields.downPayment.name}
+                      value={this.state[fields.downPayment.name]}
+                      editable={true}
+                      maxLength={15}
+                      format={this.formatCurrency}
+                      onFocus={this.onFocus.bind(this, fields.downPayment)}
+                      validationTypes={["currency"]}
+                      onBlur={this.onBlur}
+                      onChange={this.onChange}
+                      editMode={this.props.editMode}/>
+                  </div>
                 </div>
               </div>
             :
-              <div className="form-group">
-                <div className="col-md-6">
-                  <TextField
-                    requiredMessage="This field is required"
-                    activateRequiredField={this.state[fields.originalPurchasePrice.error]}
-                    label={fields.originalPurchasePrice.label}
-                    keyName={fields.originalPurchasePrice.name}
-                    value={this.state[fields.originalPurchasePrice.name]}
-                    editable={true}
-                    maxLength={15}
-                    format={this.formatCurrency}
-                    onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
-                    validationTypes={["currency"]}
-                    onBlur={this.onBlur}
-                    onChange={this.onChange}
-                    editMode={this.props.editMode}/>
+              <div>
+                <div className="form-group">
+                  <div className="col-md-6">
+                    <TextField
+                      requiredMessage="This field is required"
+                      activateRequiredField={this.state[fields.originalPurchasePrice.error]}
+                      label={fields.originalPurchasePrice.label}
+                      keyName={fields.originalPurchasePrice.name}
+                      value={this.state[fields.originalPurchasePrice.name]}
+                      editable={true}
+                      maxLength={15}
+                      format={this.formatCurrency}
+                      onFocus={this.onFocus.bind(this, fields.originalPurchasePrice)}
+                      validationTypes={["currency"]}
+                      onBlur={this.onBlur}
+                      onChange={this.onChange}
+                      editMode={this.props.editMode}/>
+                  </div>
                 </div>
-              </div>
-          }
-          {
-            this.state[fields.loanPurpose.name] === null ? null :
-            this.state[fields.loanPurpose.name] == true
-            ? null
-            :
-              <div className="form-group">
-                <div className="col-md-6">
-                  <TextField
-                    requiredMessage="This field is required"
-                    activateRequiredField={this.state[fields.originalPurchaseYear.error]}
-                    label={fields.originalPurchaseYear.label}
-                    keyName={fields.originalPurchaseYear.name}
-                    value={this.state[fields.originalPurchaseYear.name]}
-                    placeholder="YYYY"
-                    editable={true}
-                    maxLength={4}
-                    liveFormat={true}
-                    format={this.formatYear}
-                    onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)}
-                    validationTypes={["integer"]}
-                    onChange={this.onChange}
-                    editMode={this.props.editMode}/>
+                <div className="form-group">
+                  <div className="col-md-6">
+                    <TextField
+                      requiredMessage="This field is required"
+                      activateRequiredField={this.state[fields.originalPurchaseYear.error]}
+                      label={fields.originalPurchaseYear.label}
+                      keyName={fields.originalPurchaseYear.name}
+                      value={this.state[fields.originalPurchaseYear.name]}
+                      placeholder="YYYY"
+                      editable={true}
+                      maxLength={4}
+                      liveFormat={true}
+                      format={this.formatYear}
+                      onFocus={this.onFocus.bind(this, fields.originalPurchaseYear)}
+                      validationTypes={["integer"]}
+                      onChange={this.onChange}
+                      editMode={this.props.editMode}/>
+                  </div>
                 </div>
               </div>
           }
           <div className="form-group">
             <div className="col-md-12">
-              <button disabled={this.props.editMode ? null : "disabled"} className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+            {
+              this.props.editMode
+              ?
+                <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              :
+                <button className="btn theBtn text-uppercase" id="nextBtn" onClick={this.next}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
+            }
             </div>
           </div>
         </form>
@@ -295,6 +319,7 @@ var FormProperty = React.createClass({
     state[fields.grossRentalIncome.name] = this.formatCurrency(property[fields.grossRentalIncome.name]);
     state[fields.originalPurchasePrice.name] = this.formatCurrency(property[fields.originalPurchasePrice.name]);
     state[fields.originalPurchaseYear.name] = property[fields.originalPurchaseYear.name];
+    state[fields.downPayment.name] = loan[fields.downPayment.name] != 0 ? this.formatCurrency(loan[fields.downPayment.name]) : null;
     state.property_type = property.property_type;
     state.market_price = property.market_price;
     state.estimated_hazard_insurance = property.estimated_hazard_insurance;
@@ -308,44 +333,53 @@ var FormProperty = React.createClass({
     var loan = {};
     var purpose = this.state[fields.loanPurpose.name];
 
-    if (purpose != null) {
-      if (purpose == true) {
-        loan[fields.loanPurpose.name] = "purchase";
-      } else {
-        loan[fields.loanPurpose.name] = "refinance";
-      }
+    if (this.isPurchase()) {
+      loan[fields.loanPurpose.name] = "purchase";
+      loan[fields.downPayment.name] = this.currencyToNumber(this.state[fields.downPayment.name]);
     } else {
-      loan[fields.loanPurpose.name] = purpose;
+      loan[fields.loanPurpose.name] = "refinance";
     }
-
-    loan.properties_attributes = {id: this.state["property_id"]};
-    loan.properties_attributes[fields.propertyPurpose.name] = this.state[fields.propertyPurpose.name];
-    loan.properties_attributes[fields.purchasePrice.name] = this.currencyToNumber(this.state[fields.purchasePrice.name]);
-    loan.properties_attributes[fields.originalPurchasePrice.name] = this.currencyToNumber(this.state[fields.originalPurchasePrice.name]);
-    loan.properties_attributes[fields.grossRentalIncome.name] = this.currencyToNumber(this.state[fields.grossRentalIncome.name]);
-    loan.properties_attributes[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
-    loan.properties_attributes.address_attributes = this.state.address;
-    loan.properties_attributes.zpid = this.state.property ? this.state.property.zpid : null;
-    loan.properties_attributes.is_subject = true
-    loan.properties_attributes.property_type = this.state.property_type;
-
-    if(loan[fields.loanPurpose.name] == "purchase"){
-      loan.properties_attributes.market_price = this.currencyToNumber(this.state[fields.purchasePrice.name]);
-    }else{
-      loan.properties_attributes.market_price = this.currencyToNumber(this.state.marketPrice);
-    }
-
-    loan.properties_attributes.estimated_hazard_insurance = this.state.estimatedHazardInsurance;
-    loan.properties_attributes.estimated_property_tax = this.state.estimatedPropertyTax;
-    loan.properties_attributes.is_primary = this.isPrimaryProperty();
-    loan.properties_attributes.year_built = this.state.yearBuilt;
-    loan.properties_attributes.zillow_image_url = this.state.zillowImageUrl;
 
     return loan;
   },
 
+  buildSubjectPropertyFromState: function() {
+    var property = {};
+
+    property.id = this.state.property_id;
+    property[fields.propertyPurpose.name] = this.state[fields.propertyPurpose.name];
+    property.zpid = this.state.property ? this.state.property.zpid : null;
+    property.is_subject = true;
+    property.property_type = this.state.property_type;
+
+    if(!this.isPrimaryProperty()) {
+      property[fields.grossRentalIncome.name] = this.currencyToNumber(this.state[fields.grossRentalIncome.name]);
+    }
+
+    if(this.isPurchase()){
+      property[fields.purchasePrice.name] = this.currencyToNumber(this.state[fields.purchasePrice.name]);
+      property.market_price = this.currencyToNumber(this.state[fields.purchasePrice.name]);
+    }else{
+      property[fields.originalPurchasePrice.name] = this.currencyToNumber(this.state[fields.originalPurchasePrice.name]);
+      property[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
+      property.market_price = this.currencyToNumber(this.state.marketPrice);
+    }
+
+    property.estimated_hazard_insurance = this.state.estimatedHazardInsurance;
+    property.estimated_property_tax = this.state.estimatedPropertyTax;
+    property.is_primary = this.isPrimaryProperty();
+    property.year_built = this.state.yearBuilt;
+    property.zillow_image_url = this.state.zillowImageUrl;
+
+    return property;
+  },
+
+  buildAddressFromState: function() {
+    return this.state.address;
+  },
+
   isPrimaryProperty: function() {
-    this.state[fields.propertyPurpose.name] == "primary_residence"
+    return this.state[fields.propertyPurpose.name] == "primary_residence";
   },
 
   isRefinance: function() {
@@ -373,6 +407,7 @@ var FormProperty = React.createClass({
 
     if(this.isPurchase()) {
       requiredFields[fields.purchasePrice.error] = {value: this.state[fields.purchasePrice.name], validationTypes: fields.purchasePrice.validationTypes};
+      requiredFields[fields.downPayment.error] = {value: this.state[fields.downPayment.name], validationTypes: fields.downPayment.validationTypes};
     }
 
     if(this.isRefinance()) {
@@ -380,7 +415,7 @@ var FormProperty = React.createClass({
       requiredFields[fields.originalPurchaseYear.error] = {value: this.state[fields.originalPurchaseYear.name], validationTypes: fields.originalPurchaseYear.validationTypes};
     }
 
-    if(this.state[fields.propertyPurpose.name] !== "primary_residence") {
+    if(!this.isPrimaryProperty()) {
       requiredFields[fields.grossRentalIncome.error] = {value: this.state[fields.grossRentalIncome.name], validationTypes: fields.grossRentalIncome.validationTypes};
     }
 
@@ -394,7 +429,6 @@ var FormProperty = React.createClass({
       this.setState(this.getStateOfInvalidFields(requiredFields));
       isValid = false;
     }
-
     return isValid;
   },
 
@@ -403,12 +437,40 @@ var FormProperty = React.createClass({
 
     if(this.valid()){
       this.setState({isValid: true});
-      this.props.saveLoan(this.buildLoanFromState(), 0);
+      $.ajax({
+        url: "/properties/",
+        method: "POST",
+        context: this,
+        dataType: "json",
+        data: {
+          loan: this.buildLoanFromState(),
+          subject_property: this.buildSubjectPropertyFromState(),
+          address: this.buildAddressFromState(),
+          loan_id: this.props.loan.id,
+        },
+        success: function(response) {
+          this.setState({saving: false});
+          if (this.loanIsCompleted(response.loan)) {
+            this.props.goToAllDonePage(response.loan);
+          }
+          else {
+            this.props.setupMenu(response, 0);
+          }
+        }.bind(this),
+        error: function(response, status, error) {
+          this.setState({saving: false});
+        }
+      });
     }
     else {
       this.setState({saving: false, isValid: false});
     }
 
+    event.preventDefault();
+  },
+
+  next: function(event){
+    this.props.next(1);
     event.preventDefault();
   },
 

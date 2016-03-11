@@ -12,7 +12,6 @@ var HomePart = require("public/homepage/HomePart");
 var RateAlert = require('public/RateAlert');
 
 var RefinanceAlert = React.createClass({
-  
   render: function() {
       return (
         <div className="homepage">

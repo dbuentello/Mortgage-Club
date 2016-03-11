@@ -15,7 +15,8 @@ describe InitializeFirstLoanService do
         mortgage_purpose: "purchase",
         property_type: "sfh",
         property_usage: "primary_residence",
-        property_value: 400000
+        property_value: 400_000,
+        down_payment: 100_000
       }.to_json
     end
 
@@ -27,7 +28,8 @@ describe InitializeFirstLoanService do
       loan = described_class.new(user, @quote_cookies).call
 
       expect(loan.purpose).to eq("purchase")
-      expect(loan.subject_property.purchase_price).to eq(400000)
+      expect(loan.down_payment).to eq(100_000)
+      expect(loan.subject_property.purchase_price).to eq(400_000)
       expect(loan.subject_property.property_type).to eq("sfh")
       expect(loan.subject_property.usage).to eq("primary_residence")
     end
@@ -42,6 +44,7 @@ describe InitializeFirstLoanService do
       loan = described_class.new(user, @quote_cookies).call
 
       expect(loan.purpose).to be_nil
+      expect(loan.down_payment).to be_nil
       expect(loan.subject_property.purchase_price).to be_nil
       expect(loan.subject_property.property_type).to be_nil
       expect(loan.subject_property.usage).to be_nil
@@ -63,16 +66,10 @@ describe InitializeFirstLoanService do
       it "creates a new loan" do
         loan = described_class.new(user_has_borrower).call
         primary_property_address = loan.primary_property.address
-        borrower_current_address = user_has_borrower.borrower.current_address.address
 
         expect(loan.primary_property).not_to be_nil
-
-        expect(primary_property_address.street_address).to eq(borrower_current_address.street_address)
-        expect(primary_property_address.street_address2).to eq(borrower_current_address.street_address2)
-        expect(primary_property_address.zip).to eq(borrower_current_address.zip)
-        expect(primary_property_address.state).to eq(borrower_current_address.state)
-        expect(primary_property_address.city).to eq(borrower_current_address.city)
-        expect(primary_property_address.full_text).to eq(borrower_current_address.full_text)
+        expect(loan.primary_property.is_primary).to be_truthy
+        expect(loan.primary_property.usage).to eq("primary_residence")
       end
     end
 

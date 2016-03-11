@@ -46,6 +46,7 @@ var Property = React.createClass({
     state.property.other_financing_amount = state.property.other_financing_amount ? this.formatCurrency(state.property.other_financing_amount) : null;
     state.property.hoa_due = state.property.hoa_due ? this.formatCurrency(state.property.hoa_due) : null;
     state.property.gross_rental_income = state.property.gross_rental_income ? this.formatCurrency(state.property.gross_rental_income) : null;
+    state.property.estimated_mortgage_insurance = state.property.estimated_mortgage_insurance ? this.formatCurrency(state.property.estimated_mortgage_insurance) : null;
 
     return state;
   },
@@ -53,7 +54,7 @@ var Property = React.createClass({
   onChange: function(change) {
     var index = this.props.index;
 
-    var key = _.keys(change)[0].replace(this.props.index, '');
+    var key = _.keys(change)[0].replace("_" + this.props.index, '');
     key = key.replace("_", ".");
     var value = _.values(change)[0];
 
@@ -66,6 +67,7 @@ var Property = React.createClass({
         // this.setState({selectedMortgageLiability: value});
         // this.props.keepTrackOfSelectedLiabilities(unSelectedLiability, value);
         this.setState({
+          setOtherMortgagePayment: false,
           otherFinancingLiabilities: this.reloadOtherFinancingLiabilities(value)
         });
       }
@@ -80,6 +82,7 @@ var Property = React.createClass({
         // this.setState({selectedOtherFinancingLiability: value});
         // this.props.keepTrackOfSelectedLiabilities(unSelectedLiability, this.state.selectedOtherFinancingLiability);
         this.setState({
+          setOtherFinancing: false,
           mortgageLiabilities: this.reloadMortgageLiabilities(value)
         });
       }
@@ -103,10 +106,9 @@ var Property = React.createClass({
   onBlur: function(change) {
     var index = this.props.index;
 
-    var key = _.keys(change)[0].replace(this.props.index, '');
+    var key = _.keys(change)[0].replace("_" + this.props.index, '');
     key = key.replace("_", ".");
     var value = _.values(change)[0];
-
     if (key == 'property.mortgagePayment') {
       if (value == 'Mortgage') {
         this.setState({setOtherMortgagePayment: true});
@@ -130,6 +132,7 @@ var Property = React.createClass({
         // this.setState({selectedOtherFinancingLiability: value});
         // this.props.keepTrackOfSelectedLiabilities(unSelectedLiability, this.state.selectedOtherFinancingLiability);
         this.setState({
+          setOtherFinancing: false,
           mortgageLiabilities: this.reloadMortgageLiabilities(value)
         });
       }
@@ -189,6 +192,9 @@ var Property = React.createClass({
       dataType: 'json',
       context: this,
       success: function(response) {
+        if(this.props.addressChange !== undefined && this.props.index == "subject_property")
+          this.props.addressChange();
+
         if (response.message == 'cannot find') {
           // actually 404 error
           return;
@@ -261,9 +267,10 @@ var Property = React.createClass({
               activateRequiredField={this.props.addressError}
               label='Address'
               address={this.state.property.address}
-              keyName={'property_address' + this.props.index}
+              keyName={'property_address_' + this.props.index}
               editable={true}
               onChange={this.onChange}
+              validationTypes={["address"]}
               editMode={this.props.editMode}/>
           </div>
         </div>
@@ -272,7 +279,7 @@ var Property = React.createClass({
             <SelectField
               activateRequiredField={this.props.propertyTypeError}
               label='Property Type'
-              keyName={'property_property_type' + this.props.index}
+              keyName={'property_property_type_' + this.props.index}
               value={this.state.property.property_type}
               options={propertyTypes}
               editable={true}
@@ -284,7 +291,7 @@ var Property = React.createClass({
             <TextField
               activateRequiredField={this.props.marketPriceError}
               label='Estimated Market Value'
-              keyName={'property_market_price' + this.props.index}
+              keyName={'property_market_price_' + this.props.index}
               value={this.state.property.market_price}
               validationTypes={["currency"]}
               editable={true}
@@ -296,7 +303,7 @@ var Property = React.createClass({
           </div>
         </div>
         {
-          this.props.isPurchase == true
+          this.props.isPurchase == true && (this.state.property.is_primary == true || this.state.property.is_subject == true)
           ?
             null
           :
@@ -305,7 +312,7 @@ var Property = React.createClass({
                 <div className='col-md-6'>
                   <SelectField
                     label='Mortgage Payment'
-                    keyName={'property_mortgagePayment' + this.props.index}
+                    keyName={'property_mortgagePayment_' + this.props.index}
                     options={this.state.mortgageLiabilities}
                     value={this.state.property.mortgagePayment}
                     editable={true}
@@ -317,10 +324,9 @@ var Property = React.createClass({
                   ? <div className='col-md-6'>
                       <TextField
                         label='Other Amount'
-                        keyName={'property_other_mortgage_payment_amount'}
+                        keyName={'property_other_mortgage_payment_amount_' + this.props.index}
                         value={this.state.property.other_mortgage_payment_amount}
                         format={this.formatCurrency}
-                        liveFormat={true}
                         editable={true}
                         maxLength={15}
                         validationTypes={["currency"]}
@@ -335,7 +341,7 @@ var Property = React.createClass({
                 <div className='col-md-6'>
                   <SelectField
                     label='Other Financing (if applicable)'
-                    keyName={'property_otherFinancing' + this.props.index}
+                    keyName={'property_otherFinancing_' + this.props.index}
                     value={this.state.property.otherFinancing}
                     options={this.state.otherFinancingLiabilities}
                     editable={true}
@@ -347,10 +353,9 @@ var Property = React.createClass({
                   ? <div className='col-md-6'>
                       <TextField
                         label='Other Amount'
-                        keyName={'property_other_financing_amount' + this.props.index}
+                        keyName={'property_other_financing_amount_' + this.props.index}
                         value={this.state.property.other_financing_amount}
                         format={this.formatCurrency}
-                        liveFormat={true}
                         editable={true}
                         maxLength={15}
                         validationTypes={["currency"]}
@@ -365,7 +370,7 @@ var Property = React.createClass({
                 <div className='col-md-6'>
                   <TextField
                     label='Mortgage Insurance (if applicable)'
-                    keyName={'property_estimated_mortgage_insurance' + this.props.index}
+                    keyName={'property_estimated_mortgage_insurance_' + this.props.index}
                     value={this.state.property.estimated_mortgage_insurance}
                     editable={true}
                     maxLength={15}
@@ -379,7 +384,7 @@ var Property = React.createClass({
                   <SelectField
                     activateRequiredField={this.props.mortgageIncludesEscrowsError}
                     label='Does your mortgage payment include escrows?'
-                    keyName={'property_mortgage_includes_escrows' + this.props.index}
+                    keyName={'property_mortgage_includes_escrows_' + this.props.index}
                     value={this.state.property.mortgage_includes_escrows}
                     options={mortgageInclueEscrows}
                     editable={true}
@@ -395,7 +400,7 @@ var Property = React.createClass({
             <TextField
               activateRequiredField={this.props.estimatedHazardInsuranceError}
               label='Homeowner’s Insurance'
-              keyName={'property_estimated_hazard_insurance' + this.props.index}
+              keyName={'property_estimated_hazard_insurance_' + this.props.index}
               value={this.state.property.estimated_hazard_insurance}
               editable={true}
               maxLength={15}
@@ -409,7 +414,7 @@ var Property = React.createClass({
             <TextField
               activateRequiredField={this.props.estimatedPropertyTaxError}
               label='Property Tax'
-              keyName={'property_estimated_property_tax' + this.props.index}
+              keyName={'property_estimated_property_tax_' + this.props.index}
               value={this.state.property.estimated_property_tax}
               editable={true}
               maxLength={15}
@@ -422,7 +427,7 @@ var Property = React.createClass({
           <div className='col-md-3 pln'>
             <TextField
               label='HOA Due (if applicable)'
-              keyName={'property_hoa_due' + this.props.index}
+              keyName={'property_hoa_due_' + this.props.index}
               value={this.state.property.hoa_due}
               editable={true}
               maxLength={15}
@@ -441,7 +446,7 @@ var Property = React.createClass({
                 <TextField
                   activateRequiredField={this.props.grossRentalIncomeError}
                   label='Estimated Rental Income'
-                  keyName={'property_gross_rental_income' + this.props.index}
+                  keyName={'property_gross_rental_income_' + this.props.index}
                   value={this.state.property.gross_rental_income}
                   maxLength={15}
                   editable={true}

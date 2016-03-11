@@ -61,7 +61,7 @@ var TextFormatMixin = {
     }
 
     cashflow = Math.ceil(cashflow * 100) / 100;
-    negative = (cashflow < 0 ? '-' : '');
+    negative = (cashflow < 0 ? '(' : '');
     money = Math.abs(cashflow);
     prefix;
 
@@ -71,7 +71,9 @@ var TextFormatMixin = {
       prefix = negative + '$';
     }
 
-    return prefix + this.commafy(money, decimal);
+    suffix = negative == '(' ? ')' : '';
+
+    return prefix + this.commafy(money, decimal) + suffix;
   },
 
   /**

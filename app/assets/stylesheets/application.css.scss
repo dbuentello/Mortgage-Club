@@ -22,6 +22,7 @@ $rails: true;
 @import "potential-users";
 @import "underwritting";
 @import "initial-quotes";
+@import "docusign";
 @import "potential_rate_drop_user";
 
 @font-face {
@@ -81,9 +82,11 @@ body {
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
-  padding-bottom: 125px;
+  padding-bottom: 100px;
 }
-
+.nav-borrower {
+  height: calc(100vh - 100px);
+}
 .tooltip > .tooltip-inner {
   background-color: #FBF7AA;
   border-color: #F9E98E;
@@ -563,6 +566,10 @@ hr {
   width:140px;
 }
 
+.modal-docusign {
+  margin-top: 100px;
+}
+
 @media (min-width:384px) and (max-width: 414px) {
   #signupBtn, #loginBtn{
     width:100%;
@@ -596,5 +603,17 @@ hr {
   }
   #loginBtn {
     margin-left: 20px;
+  }
+}
+
+html.loading {
+  background: #FFFFFF url(asset_path("loading.gif")) no-repeat 50% 40%;
+  -webkit-transition: background-color 0;
+  transition: background-color 0;
+
+  body {
+    opacity: 0.5;
+    -webkit-transition: opacity 0.5;
+    transition: opacity 0.5;
   }
 }

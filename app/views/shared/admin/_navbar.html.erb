@@ -73,12 +73,20 @@
             <i class="icon-list"></i> Loan Activity Types
             <% end %>
           </li>
+
           <li class="divider"></li>
           <li>
           <%= link_to  edit_user_registration_path(current_user) do  %>
           <i class="icon-user-plus"></i>  My Profile
           <% end %>
-          <li><%= link_to  destroy_user_session_path, method: :delete do %>
+          </li>
+          <li>
+            <%= link_to  settings_path do %>
+            <i class="icon-list"></i> Settings
+            <% end %>
+          </li>
+          <li>
+            <%= link_to  destroy_user_session_path, method: :delete do %>
             <i class="icon-switch2"></i> Log Out
             <% end %>
           </li>

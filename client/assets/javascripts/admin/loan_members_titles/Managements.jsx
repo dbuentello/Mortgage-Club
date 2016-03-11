@@ -91,7 +91,7 @@ var Managements = React.createClass({
                                 </span>
                                 <span></span>
                                 <span>
-                                  <a className='linkTypeReversed btn btn-danger member-title-action' onClick={this.handleRemoveTitle} id={title.id}>Delete</a>
+                                  <a className='linkTypeReversed btn btn-danger member-title-action' onClick={this.handleRemoveTitle} id={title.id}>Remove</a>
                                 </span>
 
                               </td>
@@ -130,7 +130,7 @@ var Managements = React.createClass({
                           <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
                           <div className="modal-body text-center">
 
-                            <h3 className={this.props.bodyClass}>Are you sure you want to delete this title ?</h3>
+                            <h3 className={this.props.bodyClass}>Are you sure you want to remove this title?</h3>
 
                             <form className="form-horizontal">
                               <div className="form-group">

@@ -9,8 +9,7 @@ module RateServices
       lender = get_lender(quote[:lender_name])
 
       loan.tap do |l|
-        l.lender_id = lender.id
-        l.lender_name = lender.name
+        l.lender = lender
         l.service_cannot_shop_fees = get_fees(fees, SERVICES_CANNOT_SHOP_TYPES)
         l.origination_charges_fees = get_fees(fees, ORIGINATION_TYPES)
         l.service_can_shop_fees = get_fees(fees, SERVICES_CAN_SHOP_TYPES)
@@ -20,6 +19,7 @@ module RateServices
         l.amortization_type = quote[:amortization_type]
         l.monthly_payment = quote[:monthly_payment].to_f
         l.apr = quote[:apr].to_f
+        l.lender_credits = quote[:lender_credits].to_f
         l.loan_type = quote[:loan_type] ? quote[:loan_type].capitalize : nil
         l.estimated_closing_costs = quote[:total_closing_cost].to_f
         l.save

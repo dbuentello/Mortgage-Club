@@ -1,5 +1,4 @@
 var React = require("react/addons");
-
 var Dropzone = require("components/form/NewDropzone");
 var TextField = require("components/form/NewTextField");
 var SelectField = require("components/form/NewSelectField");
@@ -75,8 +74,6 @@ var RateDropAlert = React.createClass({
       return false;
     }
 
-
-
     $.ajax({
       url: "/rate_drop_alert",
       data: {
@@ -108,7 +105,6 @@ var RateDropAlert = React.createClass({
   onBlur: function(blur) {
     this.setState(blur);
   },
-
 
   componentDidUpdate: function() {
 
@@ -165,9 +161,7 @@ var RateDropAlert = React.createClass({
                                   validationTypes={["email"]}
                                   onChange={this.onChange}
                                   onBlur={this.onBlur}
-                                  editMode={true}
-                                  />
-
+                                  editMode={true}/>
                               </div>
 
                               <div className="col-sm-6 text-left">
@@ -201,9 +195,7 @@ var RateDropAlert = React.createClass({
                                   onBlur={this.onBlur}
                                   editMode={true}/>
                               </div>
-
                             </div>
-
                             <div className="form-group">
                               <div className="col-sm-6 text-left text-capitalize">
                                 <TextField
@@ -258,11 +250,9 @@ var RateDropAlert = React.createClass({
                                   editable={true}
                                   onChange={this.onChange}
                                   editMode={true}
-                                  allowBlank={true}
-                                  />
+                                  allowBlank={true}/>
                               </div>
                             </div>
-
                             <div className="form-group">
                               <div className="col-xs-12">
                                 <button className="btn theBtn submit-btn text-uppercase" onClick={this.handleSubmit}>{this.props.bootstrapData.homepage.btn_alert}</button>
@@ -275,7 +265,6 @@ var RateDropAlert = React.createClass({
                             </div>
                           </form>
                         </div>
-
                       </div>
                   }
                 </div>

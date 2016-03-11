@@ -19,7 +19,9 @@ var ModalLink = React.createClass({
       id: "modal",
       class: "btn",
       title: 'Confirmation',
-      body: 'Are you sure?'
+      body: 'Are you sure?',
+      labelNo: 'No',
+      labelYes: 'Yes'
     };
   },
 
@@ -47,10 +49,10 @@ var ModalLink = React.createClass({
                 <form className="form-horizontal">
                   <div className="form-group">
                     <div className="col-md-6">
-                      <button type="button" className="btn btn-default" data-dismiss="modal">No</button>
+                      <button type="button" className="btn btn-default" data-dismiss="modal">{this.props.labelNo}</button>
                     </div>
                     <div className="col-md-6">
-                      <button type="button" className="btn theBtn" onClick={this.props.yesCallback}>Yes</button>
+                      <button type="button" className="btn theBtn" onClick={this.props.yesCallback}>{this.props.labelYes}</button>
                     </div>
                   </div>
                 </form>

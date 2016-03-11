@@ -47,19 +47,23 @@ class BorrowerForm
   end
 
   def create_primary_property
-    if current_address.property.present? && current_address.property.loan_id == loan.id
-      property = current_address.property
-      property.is_primary = true
-      property.usage = "primary_residence"
+    return if loan.primary_property.present?
+    subject_property = loan.subject_property
+    # return subject_property.update(is_primary: true) if subject_property.primary_residence?
+
+    if loan.refinance? && borrower_and_subject_property_same_address?
+      Property.create(loan: loan, is_primary: true, usage: "primary_residence",
+        property_type: subject_property.property_type, market_price: subject_property.market_price,
+        mortgage_includes_escrows: subject_property.mortgage_includes_escrows,
+        estimated_property_tax: subject_property.estimated_property_tax,
+        estimated_hazard_insurance: subject_property.estimated_hazard_insurance)
     else
-      property = Property.new(loan: loan, is_primary: true, usage: "primary_residence")
-      property.address = current_address
+      Property.create(loan: loan, is_primary: true, usage: "primary_residence")
     end
-    property.save!
   end
 
   def unset_primary_property
-    loan.primary_property.update(is_primary: false) if loan.primary_property
+    loan.primary_property.destroy if loan.primary_property
   end
 
   def update_old_address
@@ -73,6 +77,18 @@ class BorrowerForm
 
   def borrower_rents_house?
     current_borrower_address.is_rental
+  end
+
+  def borrower_and_subject_property_same_address?
+    subject_property_address = loan.subject_property.address
+
+    return true if current_address.city == subject_property_address.city &&
+                  current_address.state == subject_property_address.state &&
+                  current_address.street_address == subject_property_address.street_address &&
+                  current_address.street_address2 == subject_property_address.street_address2 &&
+                  current_address.zip == subject_property_address.zip
+
+    false
   end
 
   def validate_attributes
@@ -93,7 +109,7 @@ class BorrowerForm
 
   def current_address
     @current_address ||= begin
-       borrower.current_address.present? ? borrower.current_address.address : Address.new
+      borrower.current_address.present? ? borrower.current_address.address : Address.new
     end
   end
 

@@ -8,18 +8,16 @@ var SelectPicker = React.createClass({
   mixins: [StaticFieldMixin],
 
   componentDidMount: function () {
-  	$('.bootstrap-select').selectpicker();
-    $('.bootstrap-select').on('change', function(){
-      console.log("testtt");
-      //this.onChange();
-  });
+    $('.bootstrap-select').selectpicker();
   },
+
   getDefaultProps: function() {
     return {
       placeholder: null,
       valid: true
     };
   },
+
   getInitialState: function () {
     var options = this.props.options,
       selected;

@@ -7,13 +7,15 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
 
     @loan.closing ||= Closing.create(name: 'Closing', loan_id: @loan.id)
 
+    subject_property = @loan.properties.includes(:documents).find { |p| p.is_subject == true }
+
     bootstrap(
       loan: LoanMembers::LoanPresenter.new(@loan).show,
       first_activity: first_activity(@loan),
       activity_types: LoanMembers::ActivityTypesPresenter.new(ActivityType.all).show,
       loan_activities: loan_activities,
       borrower: LoanMembers::BorrowerPresenter.new(@loan.borrower).show,
-      property: LoanMembers::PropertyPresenter.new(@loan.subject_property).show,
+      property: LoanMembers::PropertyPresenter.new(subject_property).show,
       closing: LoanMembers::ClosingPresenter.new(@loan.closing).show,
       templates: LoanMembers::TemplatesPresenter.new(Template.all).show,
       lender_templates: get_lender_templates,

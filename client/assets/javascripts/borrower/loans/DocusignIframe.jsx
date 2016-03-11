@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var React = require('react/addons');
+var clock;
 
 var DocusignIframe = React.createClass({
   propTypes: {
@@ -8,11 +9,13 @@ var DocusignIframe = React.createClass({
 
   getInitialState: function() {
     return {
-      docusignLoaded: false
+      docusignLoaded: false,
+      percentage: 0,
     }
   },
 
   componentDidMount: function() {
+    clock = window.setInterval(this.incrementPercentage, 50);
     $.ajax({
       url: "/electronic_signature",
       method: 'POST',
@@ -28,36 +31,60 @@ var DocusignIframe = React.createClass({
           monthly_payment: this.props.bootstrapData.rate.monthly_payment,
           apr: this.props.bootstrapData.rate.apr,
           loan_type: this.props.bootstrapData.rate.loan_type,
-          total_closing_cost: this.props.bootstrapData.rate.total_closing_cost
+          total_closing_cost: this.props.bootstrapData.rate.total_closing_cost,
+          lender_credits: this.props.bootstrapData.rate.lender_credits
         }
       },
       dataType: 'json',
       success: function(response) {
+        window.clearInterval(clock);
+        var height = $("body").height() - $(".navbar").height() - $(".footer").height();
+        this.setState({docusignLoaded: true});
+
+        if(height > 600){
+          $(this.refs.iframe.getDOMNode()).height(height + "px");
+        }
+
         $(this.refs.iframe.getDOMNode()).attr("src", response.message.url);
         $(this.refs.iframe.getDOMNode()).css("display", "block");
-        this.setState({docusignLoaded: true});
+
       }.bind(this),
       error: function(response, status, error) {
-        var flash = { "alert-danger": response.responseJSON.message };
-        this.showFlashes(flash);
         this.setState({docusignLoaded: true});
       }
     });
   },
 
+  incrementPercentage: function() {
+    var counter = this.state.percentage + 1;
+    this.setState({
+      percentage: counter
+    });
+    document.getElementById('percent').innerHTML = counter + '%';
+    if(counter == 100) {
+      window.clearInterval(clock);
+    }
+  },
+
   render: function() {
     return (
-      <div className='content container iframeContentFull'>
-        <div className='pal'>
-          <div className='row'>
-            <div className='col-xs-3'>
-              <h5 style={{display: this.state.docusignLoaded ? 'none' : null}}>Loading...please wait</h5>
+      <div className='content container iframeContentFull' id='docusign'>
+        {
+          this.state.docusignLoaded
+          ?
+            null
+          :
+            <div className='row'>
+              <div className='col-xs-4'>
+                <div id='percent'>0%</div>
+              </div>
+              <div className='col-xs-8'>
+                <div id='status'>{"Hang tight, we're generating disclosure forms for you to sign!"}</div>
+              </div>
             </div>
-          </div>
-          <br/>
-          <div className='mtl text-left'>
-            <iframe ref='iframe' height='600px' width='100%' style={{display: 'none'}}></iframe>
-          </div>
+        }
+        <div>
+          <iframe ref='iframe' height='600px' width='100%' style={{display: 'none'}}></iframe>
         </div>
       </div>
     )

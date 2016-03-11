@@ -5,7 +5,7 @@ class Users::LoansController < Users::BaseController
   def index
     if current_user.loans.size < 1
       loan = InitializeFirstLoanService.new(current_user, cookies[:initial_quotes]).call
-      cookies.delete(:initial_quotes) if cookies[:initial_quotes]
+      delete_quote_cookies
       return redirect_to edit_loan_path(loan)
     end
 
@@ -56,6 +56,7 @@ class Users::LoansController < Users::BaseController
 
   def create
     @loan = InitializeFirstLoanService.new(current_user, cookies[:initial_quotes]).call
+    delete_quote_cookies
 
     if @loan.save
       render json: {loan_id: @loan.id}, status: 200
@@ -65,6 +66,8 @@ class Users::LoansController < Users::BaseController
   end
 
   def edit
+    return redirect_to action: :show if !@loan.new_loan?
+
     bootstrap({
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       liabilities: @liabilities,
@@ -78,6 +81,8 @@ class Users::LoansController < Users::BaseController
   end
 
   def show
+    return redirect_to action: :edit if @loan.new_loan?
+
     bootstrap({
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       liabilities: @liabilities,
@@ -138,6 +143,10 @@ class Users::LoansController < Users::BaseController
   # end
 
   private
+
+  def delete_quote_cookies
+    cookies.delete(:initial_quotes) if cookies[:initial_quotes]
+  end
 
   def load_liabilities
     credit_report = @loan.borrower.credit_report

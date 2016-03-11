@@ -33,9 +33,14 @@ var FormAssetsAndLiabilities = React.createClass({
     state.rental_properties = this.props.loan.rental_properties;
     state.primary_property = this.props.loan.primary_property;
     state.subject_property = this.props.loan.subject_property;
+    state.borrower_current_address = this.props.loan.borrower.current_address;
     state.saving = false;
     state.isValid = true;
     state.assets = this.props.loan.borrower.assets;
+
+    if(this.props.loan.borrower != undefined && this.props.loan.borrower != null && this.props.loan.borrower.current_address != undefined && this.props.loan.borrower.current_address != null && state.primary_property !== null)
+      state.primary_property.address = this.props.loan.borrower.current_address.cached_address;
+
     if (state.assets.length == 0) {
       var defaultAsset = this.getDefaultAsset();
       defaultAsset.asset_type = 'checkings';
@@ -174,6 +179,7 @@ var FormAssetsAndLiabilities = React.createClass({
                     estimatedMortgageInsuranceError={this.state.subject_property.estimatedMortgageInsuranceError}
                     hoaDueError={this.state.subject_property.hoaDueError}
                     isPurchase={this.props.loan.purpose == "purchase"}
+                    addressChange={this.addressChange}
                     editMode={this.props.editMode}/>
                 </div>
               </div>
@@ -181,7 +187,7 @@ var FormAssetsAndLiabilities = React.createClass({
               null
           }
           {
-            (this.state.primary_property && this.state.primary_property != this.state.subject_property)
+            (this.state.primary_property && this.state.primary_property != this.state.subject_property && this.isRefinanceAndSameAddress() == false)
             ?
               <div className='form-group'>
                 <div className='col-md-12'>
@@ -253,7 +259,13 @@ var FormAssetsAndLiabilities = React.createClass({
           }
           <div className="form-group">
             <div className="col-md-12">
-              <button disabled={this.props.editMode ? null : "disabled"} className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              {
+                this.props.editMode
+                ?
+                  <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                :
+                  <button className="btn theBtn text-uppercase" id="nextBtn" onClick={this.next}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
+              }
             </div>
           </div>
         </form>
@@ -309,6 +321,23 @@ var FormAssetsAndLiabilities = React.createClass({
     }
   },
 
+  isRefinanceAndSameAddress: function(){
+    if (this.state.borrower_current_address == null || this.state.subject_property == null)
+      return false;
+
+    var borrower_address = this.state.borrower_current_address.cached_address;
+    var property_address = this.state.subject_property.address;
+
+    if(borrower_address.city == property_address.city &&
+      borrower_address.state == property_address.state &&
+      borrower_address.street_address == property_address.street_address &&
+      borrower_address.street_address2 == property_address.street_address2 &&
+      borrower_address.zip == property_address.zip &&
+      this.props.loan.purpose == "refinance")
+      return true;
+    return false;
+  },
+
   formatProperty: function(property) {
     property.address_attributes = property.address;
     property.market_price = this.currencyToNumber(property.market_price);
@@ -323,18 +352,43 @@ var FormAssetsAndLiabilities = React.createClass({
     return property;
   },
 
+  copyProperty: function(srcProp, desProp){
+    var address = desProp.address;
+    address.city = srcProp.address.city;
+    address.full_text = srcProp.address.full_text;
+    address.state = srcProp.address.state;
+    address.zip = srcProp.address.zip;
+    address.street_address = srcProp.address.street_address;
+    address.street_address2 = srcProp.address.street_address2;
+
+    desProp.address_attributes = address;
+    desProp.address = address;
+    desProp.market_price = this.currencyToNumber(srcProp.market_price);
+    desProp.other_mortgage_payment_amount = this.currencyToNumber(srcProp.other_mortgage_payment_amount);
+    desProp.other_financing_amount = this.currencyToNumber(srcProp.other_financing_amount);
+    desProp.estimated_mortgage_insurance = this.currencyToNumber(srcProp.estimated_mortgage_insurance);
+    desProp.estimated_hazard_insurance = this.currencyToNumber(srcProp.estimated_hazard_insurance);
+    desProp.estimated_property_tax = this.currencyToNumber(srcProp.estimated_property_tax);
+    desProp.hoa_due = this.currencyToNumber(srcProp.hoa_due);
+    desProp.gross_rental_income = this.currencyToNumber(srcProp.gross_rental_income);
+    desProp.property_type = srcProp.property_type;
+    desProp.mortgage_includes_escrows = srcProp.mortgage_includes_escrows;
+
+    return desProp;
+  },
+
   setStateForInvalidFieldsOfProperty: function(property) {
     var allFieldsAreOK = true;
 
     var fields = {
-      addressError: {value: property.address, validationTypes: ["empty"]},
+      addressError: {value: property.address, validationTypes: ["empty", "address"]},
       propertyTypeError: {value: property.property_type, validationTypes: ["empty"]},
       estimatedHazardInsuranceError: {value: this.formatCurrency(property.estimated_hazard_insurance), validationTypes: ["currency"]},
       estimatedPropertyTaxError: {value: this.formatCurrency(property.estimated_property_tax), validationTypes: ["currency"]},
       marketPriceError: {value: this.formatCurrency(property.market_price), validationTypes: ["currency"]},
     };
 
-    if(this.props.loan.purpose != "purchase")
+    if(this.props.loan.purpose != "purchase" || (property.is_primary != true && property.is_subject != true))
       fields.mortgageIncludesEscrowsError = {value: this.formatCurrency(property.mortgage_includes_escrows), validationTypes: ["currency"]};
     if(property.other_mortgage_payment_amount)
       fields.otherMortgagePaymentAmountError = {value: this.formatCurrency(property.other_mortgage_payment_amount), validationTypes: ["currency"]};
@@ -344,12 +398,10 @@ var FormAssetsAndLiabilities = React.createClass({
       fields.estimatedMortgageInsuranceError = {value: this.formatCurrency(property.estimated_mortgage_insurance), validationTypes: ["currency"]};
     if(property.hoa_due)
       fields.hoaDueError = {value: this.formatCurrency(property.hoa_due), validationTypes: ["currency"]};
-    if(property.usage != "primary_residence" && property.is_primary == false && property.is_subject == false)
+    if(property.usage != "primary_residence" && property.is_primary != true && property.is_subject != true)
       fields.grossRentalIncomeError = {value: this.formatCurrency(property.gross_rental_income), validationTypes: ["currency"]}
 
     var states = this.getStateOfInvalidFields(fields);
-
-
 
     if(!_.isEmpty(states)) {
       _.each(states, function(value, key) {
@@ -357,7 +409,6 @@ var FormAssetsAndLiabilities = React.createClass({
       });
       allFieldsAreOK = false;
     }
-
     return allFieldsAreOK;
   },
 
@@ -385,7 +436,7 @@ var FormAssetsAndLiabilities = React.createClass({
   valid: function(){
     var isValid = true;
 
-    if(this.state.primary_property && this.state.primary_property != this.state.subject_property){
+    if(this.state.primary_property && this.state.primary_property != this.state.subject_property && !this.isRefinanceAndSameAddress()){
       if(this.setStateForInvalidFieldsOfProperty(this.state.primary_property) == false) {
         isValid = false;
       }
@@ -421,6 +472,15 @@ var FormAssetsAndLiabilities = React.createClass({
     this.setState({isValid: true});
   },
 
+  addressChange: function(){
+    this.forceUpdate();
+  },
+
+  next: function(event){
+    this.props.next(6);
+    event.preventDefault();
+  },
+
   save: function(event) {
     event.preventDefault();
 
@@ -431,14 +491,22 @@ var FormAssetsAndLiabilities = React.createClass({
 
     this.setState({saving: true, isValid: true});
 
-    var primary_property = this.state.primary_property;
-    if (primary_property){
-      primary_property = this.formatProperty(primary_property);
-    }
-
     var subject_property = this.state.subject_property;
     if (subject_property){
       subject_property = this.formatProperty(subject_property);
+    }
+
+    var primary_property = this.state.primary_property;
+    var borrower_address = this.props.loan.borrower.current_address;
+
+    if (primary_property){
+      if(this.isRefinanceAndSameAddress()){
+        primary_property = this.copyProperty(subject_property, primary_property);
+      }
+      else{
+        primary_property = this.formatProperty(primary_property);
+      }
+      borrower_address.cached_address = primary_property.address;
     }
 
     var rental_properties = [];
@@ -464,7 +532,7 @@ var FormAssetsAndLiabilities = React.createClass({
       data: JSON.stringify({assets: _assets}),
       success: function(resp){
         $.ajax({
-          url: '/properties/',
+          url: '/liabilities',
           method: 'POST',
           context: this,
           dataType: 'json',
@@ -473,20 +541,20 @@ var FormAssetsAndLiabilities = React.createClass({
             primary_property: this.state.primary_property,
             subject_property: this.state.subject_property,
             rental_properties: this.state.rental_properties,
-            own_investment_property: this.state.own_investment_property
+            own_investment_property: this.state.own_investment_property,
+            borrower_address: borrower_address
           },
           success: function(response) {
+            this.props.bootstrapData.liabilities = response.liabilities;
             if (this.loanIsCompleted(response.loan)) {
               this.props.goToAllDonePage(response.loan);
             }
             else {
               this.props.setupMenu(response, 5);
-              this.props.bootstrapData.liabilities = response.liabilities;
             }
           }.bind(this),
           error: function(response, status, error) {
             this.setState({saving: false});
-            // this.setState({saving: false});
           }
         });
       },

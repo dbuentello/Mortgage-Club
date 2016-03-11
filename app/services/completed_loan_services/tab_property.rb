@@ -27,6 +27,7 @@ module CompletedLoanServices
     def purpose_completed?
       return false unless loan.purpose.present?
       return false if loan.purchase? && !subject_property.purchase_price.present?
+      return false if loan.purchase? && loan.down_payment.nil?
       return false if loan.refinance? && !refinance_completed?
 
       true
@@ -40,10 +41,10 @@ module CompletedLoanServices
     end
 
     def address_completed?
-      return false unless subject_property.address
-
       address = subject_property.address
-      return false if address.street_address.blank? && address.city.blank? && address.state.blank? && address.street_address2.blank?
+
+      return false unless address
+      return false if address.street_address.blank? || address.city.blank? || address.state.blank? || address.zip.blank?
 
       address.full_text.present?
     end

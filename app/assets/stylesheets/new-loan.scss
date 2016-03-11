@@ -2,12 +2,12 @@
   padding-top: 0px;
   overflow:hidden;
   background: rgba(246,246,246,1);
-  background: -moz-linear-gradient(left, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 39%, rgba(255,255,255,1) 42%, rgba(255,255,255,1) 100%);
-  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(246,246,246,1)), color-stop(39%, rgba(246,246,246,1)), color-stop(42%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
-  background: -webkit-linear-gradient(left, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 39%, rgba(255,255,255,1) 42%, rgba(255,255,255,1) 100%);
-  background: -o-linear-gradient(left, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 39%, rgba(255,255,255,1) 42%, rgba(255,255,255,1) 100%);
-  background: -ms-linear-gradient(left, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 39%, rgba(255,255,255,1) 42%, rgba(255,255,255,1) 100%);
-  background: linear-gradient(to right, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 39%, rgba(255,255,255,1) 42%, rgba(255,255,255,1) 100%);
+  background: -moz-linear-gradient(to right, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 25%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%);
+  background: -webkit-gradient(to right bottom, right top, color-stop(0%, rgba(246,246,246,1)), color-stop(25%, rgba(246,246,246,1)), color-stop(30%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
+  background: -webkit-linear-gradient(to right, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 25%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%);
+  background: -o-linear-gradient(to right, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 25%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%);
+  background: -ms-linear-gradient(to right, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 25%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(to right, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 25%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#ffffff', GradientType=1 );
 
   h4 {font-family:'aileronregular'; font-style:italic; font-size:1em; color:#555555;}
@@ -48,6 +48,7 @@
   -ms-transition: left 0.4s ease-in-out;
   -o-transition: left 0.4s ease-in-out;
   transition: left 0.4s ease-in-out;
+  height: calc(100vh - 165px);
 
   .open-sidebar { left: 240px; }
 
@@ -130,6 +131,7 @@
 
 .account-content {
   padding: 20px;
+
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   position: relative;
@@ -328,6 +330,37 @@
 }
 
 #continueBtn:hover {
+  background: #ffffff;
+  color:#00bd9c;
+
+  img {
+    filter:brightness(100%) invert(0);
+    -webkit-filter:brightness(100%) invert(0);
+    animation:loginAnim 2s infinite;
+    -webkit-animation:loginAnim 2s infinite;
+  }
+}
+
+#nextBtn {
+  background:#00bd9c;
+  color: #ffffff;
+  height:50px;
+  border-color:#00bd9c;
+  width:230px;
+  float:left;
+  font-size: 14px;
+  margin-top: 20px;
+  img {
+    position:relative;
+    margin-top:6px;
+    filter:brightness(0) invert(1);
+    -webkit-filter:brightness(0) invert(1);
+    border:none; right:-10px;
+    margin-right:10px;
+  }
+}
+
+#nextBtn:hover {
   background: #ffffff;
   color:#00bd9c;
 

@@ -5,9 +5,7 @@ Rails.application.routes.draw do
   get "backend_test", to: "pages#backend_test"
   get "frontend_test", to: "pages#frontend_test"
 
-  get "refinance_alert", to: "ab_testings#refinance_alert"
   get "rate_drop_alert", to: "ab_testings#rate_drop_alert"
-
   post "/rate_drop_alert", to: "potential_rate_drop_users#create"
 
   post "/potential_users", to: "potential_users#create"
@@ -72,12 +70,6 @@ Rails.application.routes.draw do
   resources :employments, only: [:show] do
   end
 
-  resources :properties, only: [:create, :destroy] do
-    collection do
-      get :search
-    end
-  end
-
   resources :charges, only: [:new, :create]
 
   resources :electronic_signature, only: [:new, :create] do
@@ -108,6 +100,13 @@ Rails.application.routes.draw do
 
     resources :borrowers, only: [:update]
     resources :assets, path: "borrower_assets", only: [:create]
+    resources :liabilities, only: [:create]
+
+    resources :properties, only: [:create, :destroy] do
+      collection do
+        get :search
+      end
+    end
   end
 
 
@@ -174,8 +173,8 @@ Rails.application.routes.draw do
     end
 
     resources :loan_members_titles
-
-    resources :borrower_managements, only: [:index] do
+    resources :settings, only: [:index, :update]
+    resources :borrower_managements, only: [:index, :destroy] do
       member do
         get "switch"
       end

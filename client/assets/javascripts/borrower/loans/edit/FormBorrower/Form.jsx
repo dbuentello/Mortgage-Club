@@ -32,7 +32,7 @@ var borrower_fields = {
   maritalStatus: {label: 'Marital Status', name: 'first_borrower_marital_status', fieldName: 'marital_status', helpText: 'Married (includes registered domestic partners), Unmarried (includes single, divorced, widowed)', error: "maritalStatusError", validationTypes: ["empty"]},
   numberOfDependents: {label: 'Number of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "numberOfDependencesError", validationTypes: ["empty", "integer"]},
   dependentAges: {label: 'Ages of Dependents', name: 'first_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: "dependentAgesError", validationTypes: ["empty", "agesOfDependents"]},
-  currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null, error: "currentAddressError", validationTypes: ["empty"]},
+  currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null, error: "currentAddressError", validationTypes: ["empty", "address"]},
   currentlyOwn: {label: 'Own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "currentlyOwnError", validationTypes: ["empty"]},
   selfEmployed: {label: 'Are you self-employed?', name: 'first_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "selfEmployedError", validationTypes: ["empty"]},
   yearsInCurrentAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "yearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
@@ -56,7 +56,7 @@ var secondary_borrower_fields = {
   maritalStatus: {label: 'Marital Status', name: 'secondary_borrower_marital_status', fieldName: 'marital_status', helpText: null, error: "coMarialStatusError", validationTypes: ["empty"]},
   numberOfDependents: {label: 'Number of dependents', name: 'secondary_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "coNumberOfdependencesError", validationTypes: ["empty", "integer"]},
   dependentAges: {label: 'Ages of Dependents', name: 'secondary_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: null, validationTypes: ["empty", "agesOfDependents"]},
-  currentAddress: {label: 'Your co-borrower current address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null, error: "coCurrentAddressError", validationTypes: ["empty"]},
+  currentAddress: {label: 'Your co-borrower current address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null, error: "coCurrentAddressError", validationTypes: ["empty", "address"]},
   currentlyOwn: {label: 'Own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "coCurrentlyOwnError", validationTypes: ["empty"]},
   selfEmployed: {label: 'Is your co-borrower self-employed?', name: 'secondary_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "coSelfEmployError", validationTypes: ["empty"]},
   yearsInCurrentAddress: {label: 'Number of years they have lived here', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "coYearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
@@ -227,7 +227,13 @@ var Form = React.createClass({
             : null }
             <div className="form-group">
               <div className="col-md-12">
-                <button disabled={this.props.editMode ? null : "disabled"}  type="submit" className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                {
+                  this.props.editMode
+                  ?
+                    <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                  :
+                    <button className="btn theBtn text-uppercase" id="nextBtn" onClick={this.next}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                }
               </div>
             </div>
         </form>
@@ -446,6 +452,11 @@ var Form = React.createClass({
       }
     });
 
+    event.preventDefault();
+  },
+
+  next: function(event){
+    this.props.next(2);
     event.preventDefault();
   },
 
