@@ -25,25 +25,20 @@ class BorrowerForm
     true
   end
 
-  private
-
-  def assign_value_to_attributes
-    current_address.assign_attributes(form_params[:current_address])
-    current_borrower_address.assign_attributes(form_params[:current_borrower_address])
-    borrower.assign_attributes(form_params[:borrower])
-  end
-
-  def setup_associations
-    current_borrower_address.address = current_address
-    borrower.borrower_addresses << current_borrower_address
-  end
-
   def update_primary_property
     if borrower_rents_house?
       unset_primary_property
     else
       create_primary_property
     end
+  end
+
+  def borrower_rents_house?
+    current_borrower_address.is_rental
+  end
+
+  def unset_primary_property
+    loan.primary_property.destroy if loan.primary_property
   end
 
   def create_primary_property
@@ -63,10 +58,20 @@ class BorrowerForm
         full_text: current_address.full_text
       )
     )
+
   end
 
-  def unset_primary_property
-    loan.primary_property.destroy if loan.primary_property
+  private
+
+  def assign_value_to_attributes
+    current_address.assign_attributes(form_params[:current_address])
+    current_borrower_address.assign_attributes(form_params[:current_borrower_address])
+    borrower.assign_attributes(form_params[:borrower])
+  end
+
+  def setup_associations
+    current_borrower_address.address = current_address
+    borrower.borrower_addresses << current_borrower_address
   end
 
   def update_old_address
@@ -76,10 +81,6 @@ class BorrowerForm
 
   def primary_borrower?
     is_primary_borrower
-  end
-
-  def borrower_rents_house?
-    current_borrower_address.is_rental
   end
 
   def validate_attributes
