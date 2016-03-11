@@ -206,6 +206,23 @@
   select:hover {border-color:#15c0f1; outline:none; box-shadow:none; cursor:pointer;}
   select:focus {border-color:#15c0f1; outline:none; box-shadow:none;}
   select:focus + img { cursor: default; border-left:#15c0f1 1px solid; filter:saturate(100%); -webkit-filter:saturate(100%); -moz-filter:saturate(100%);}
+  .address-icon {
+    background: url(asset_path('address.png')) no-repeat right center;
+  }
+  .date-icon {
+    background: url(asset_path('date.png')) no-repeat right center;
+  }
+  .form-group input.form-control.address, .form-group input.form-control.date-field {
+    float:right;
+  }
+  .form-group input.form-control.address ~ span, .form-group input.form-control.date-field ~ span {
+    float:right;
+    width: 30px;
+    height: 30px;
+    top: -30px;
+    right: -12px;
+    position: relative;
+  }
 
   .form-group>div>h5 {font-size:1.25em; color:#15c0f1; margin-top:0; letter-spacing:.04em; line-height:1.5em;}
 
