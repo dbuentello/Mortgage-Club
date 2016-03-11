@@ -11,6 +11,7 @@ var fields = {
   zipcode: {label: "ZIP Code", name: "zipcode", keyName: "zipcode", error: "zipcodeError"},
   propertyValue: {label: "Property Value", name: "property_value", keyName: "propertyValue", error: "propertyValueError"},
   downPayment: {label: "Down Payment", name: "down_payment", keyName: "downPayment", error: "downPaymentError"},
+  mortgageBalance: {label: "Current Mortgage Balance", name: "mortgage_balance", keyName: "mortgageBalance", error: "mortgageBalanceError"},
   propertyUsage: {label: "Property Will Be", name: "property_usage", keyName: "propertyUsage", error: "propertyUsageError"},
   propertyType: {label: "Property Type", name: "property_type", keyName: "propertyType", error: "propertyTypeError"},
   creditScore: {label: "Credit Score", name: "credit_score", keyName: "creditScore", error: "creditScoreError"},
@@ -54,6 +55,7 @@ var Form = React.createClass({
     state[fields.zipcode.keyName] = this.props.bootstrapData[fields.zipcode.name];
     state[fields.propertyValue.keyName] = this.formatCurrency(this.props.bootstrapData[fields.propertyValue.name], "$");
     state[fields.downPayment.keyName] = this.formatCurrency(this.props.bootstrapData[fields.downPayment.name]);
+    state[fields.mortgageBalance.keyName] = this.formatCurrency(this.props.bootstrapData[fields.mortgageBalance.name]);
     state[fields.propertyUsage.keyName] = this.props.bootstrapData[fields.propertyUsage.name];
     state[fields.propertyType.keyName] = this.props.bootstrapData[fields.propertyType.name];
     state[fields.creditScore.keyName] = this.props.bootstrapData[fields.creditScore.name];
@@ -95,13 +97,25 @@ var Form = React.createClass({
 
     $( "html" ).addClass( "loading" );
 
+    var downPayment = null;
+    var mortgageBalance = null;
+
+    if(this.isPurchaseLoan()) {
+      downPayment = this.currencyToNumber(this.state[fields.downPayment.keyName]);
+    }
+
+    if(this.isRefinanceLoan()) {
+      mortgageBalance = this.currencyToNumber(this.state[fields.mortgageBalance.keyName]);
+    }
+
     $.ajax({
       url: "/initial_quotes",
       data: {
         mortgage_purpose: this.state[fields.mortgagePurpose.keyName],
         zip_code: this.state[fields.zipcode.keyName],
         property_value: this.currencyToNumber(this.state[fields.propertyValue.keyName]),
-        down_payment: this.currencyToNumber(this.state[fields.downPayment.keyName]),
+        down_payment: downPayment,
+        mortgage_balance: mortgageBalance,
         property_usage: this.state[fields.propertyUsage.keyName],
         property_type: this.state[fields.propertyType.keyName],
         credit_score: this.state[fields.creditScore.keyName]
@@ -125,7 +139,14 @@ var Form = React.createClass({
     var requiredFields = {};
 
     _.each(Object.keys(fields), function(key) {
-      requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
+      // with purchase loan, we don't validate mortgage balance
+      if(this.isPurchaseLoan() && key != fields.mortgageBalance.keyName){
+        requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
+      }
+      // with refinance loan, we don't validate down payment
+      if(this.isRefinanceLoan() && key != fields.downPayment.keyName){
+        requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
+      }
     }, this);
 
 
@@ -135,6 +156,14 @@ var Form = React.createClass({
     }
 
     return isValid;
+  },
+
+  isPurchaseLoan: function() {
+    return this.state[fields.mortgagePurpose.keyName] == "purchase";
+  },
+
+  isRefinanceLoan: function() {
+    return this.state[fields.mortgagePurpose.keyName] == "refinance";
   },
 
   render: function() {
@@ -194,18 +223,35 @@ var Form = React.createClass({
                       onChange={this.onChange}
                       onBlur={this.onBlur}/>
                   </div>
-                  <div className="col-md-4">
-                    <TextField
-                      activateRequiredField={this.state[fields.downPayment.error]}
-                      label={fields.downPayment.label}
-                      keyName={fields.downPayment.keyName}
-                      editable={true}
-                      maxLength={11}
-                      format={this.formatCurrency}
-                      value={this.state[fields.downPayment.keyName]}
-                      onChange={this.onChange}
-                      onBlur={this.onBlur}/>
-                  </div>
+                  {
+                    this.isPurchaseLoan()
+                    ?
+                      <div className="col-md-4">
+                        <TextField
+                          activateRequiredField={this.state[fields.downPayment.error]}
+                          label={fields.downPayment.label}
+                          keyName={fields.downPayment.keyName}
+                          editable={true}
+                          maxLength={11}
+                          format={this.formatCurrency}
+                          value={this.state[fields.downPayment.keyName]}
+                          onChange={this.onChange}
+                          onBlur={this.onBlur}/>
+                      </div>
+                    :
+                      <div className="col-md-4">
+                        <TextField
+                          activateRequiredField={this.state[fields.mortgageBalance.error]}
+                          label={fields.mortgageBalance.label}
+                          keyName={fields.mortgageBalance.keyName}
+                          editable={true}
+                          maxLength={11}
+                          format={this.formatCurrency}
+                          value={this.state[fields.mortgageBalance.keyName]}
+                          onChange={this.onChange}
+                          onBlur={this.onBlur}/>
+                      </div>
+                  }
                 </div>
                 <div className="form-group">
                   <div className="col-md-4">

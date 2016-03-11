@@ -35,7 +35,7 @@ module LoanTekServices
     private
 
     def get_loan_purpose
-      info[:mortgage_purpose] == "purchase" ? 1 : 2
+      purchase_loan? ? 1 : 2
     end
 
     def get_credit_score
@@ -79,7 +79,12 @@ module LoanTekServices
     end
 
     def get_loan_amount
-      info[:property_value].to_f - info[:down_payment].to_f
+      if purchase_loan?
+        amount = info[:property_value].to_f - info[:down_payment].to_f
+      else
+        amount = info[:mortgage_balance].to_f
+      end
+      amount
     end
 
     def get_loan_to_value
@@ -89,6 +94,10 @@ module LoanTekServices
 
     def success?
       response.status == 200
+    end
+
+    def purchase_loan?
+      info[:mortgage_purpose] == "purchase"
     end
   end
 end
