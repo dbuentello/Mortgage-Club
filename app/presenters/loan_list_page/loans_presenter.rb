@@ -14,11 +14,10 @@ class LoanListPage::LoansPresenter
       only: [:id, :created_at, :amount, :interest_rate, :status],
       include: {
         user: {
-          only: [ :email ],
-          methods: [ :to_s ]
+          only: [ :email ]
         }
       },
-      methods: [:subject_property, :pretty_status]
+      methods: [:pretty_status]
     }
   end
 end

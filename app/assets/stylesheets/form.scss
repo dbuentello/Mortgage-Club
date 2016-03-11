@@ -6,7 +6,9 @@
 
 /*checkbox*/
 .form-group input[type=checkbox] {display:none;line-height: 16px;}
-.form-group label.customCheckbox:before {border-radius:0; border:#c3c3c3 1px solid; content: "";
+.form-group label.customCheckbox:before {
+    border-radius:0;
+    border:#c3c3c3 1px solid; content: "";
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -21,7 +23,7 @@
     font-size: 1em;
     color: #15c0f1;
     text-align: center;
-    line-height: 16px;
+    line-height: 20px;
 }
 
 .form-group input[type=checkbox]:checked + label.blueCheckBox:before {
@@ -33,10 +35,20 @@
     text-indent:2px;
 }
 
-.form-group label.customCheckbox {color:#a1a1a1; letter-spacing:.03em; font-family:"aileronlight"; margin-top:10px;}
-.form-group label.customCheckbox.blueCheckBox {color:#555555; font-style:italic; text-indent:-25px; margin-left:25px; font-weight:300;}
+.form-group label.customCheckbox {
+  color:#a1a1a1;
+  letter-spacing:.03em;
+  font-family:"aileronlight";
+  margin-top:10px;
+}
+.form-group label.customCheckbox.blueCheckBox {
+  color:#555555; font-style:italic;
+  text-indent:-25px;
+  margin-left:25px; font-weight:300;}
 
-.modal-md .form-group label.blueCheckBox {float:left; font-style:normal; padding-left:15px;}
+.modal-md .form-group label.blueCheckBox {
+  float:left; font-style:normal;
+  padding-left:16px;}
 
 /*radio*/
 .form-group input[type=radio] {opacity:0; width:20px; height:20px; position:absolute; bottom:5px; left:15px; z-index:10;}
@@ -134,3 +146,7 @@ button[type=submit] {padding:11px 26px; border-radius:6px; box-shadow:none; font
 .fileBtn .fileBtnSmall:hover, .fileBtn .fileBtnSmall:hover img {filter:saturate(100%); -webkit-filter:saturate(100%); cursor:pointer; color:#15c0f1;}
 
 .fileBtn .fileBtnSmall.file {font-style:italic;}
+
+.m-margin-bottom {
+  margin-bottom: -50px;
+}

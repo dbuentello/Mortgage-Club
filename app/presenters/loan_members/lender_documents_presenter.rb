@@ -16,7 +16,7 @@ class LoanMembers::LenderDocumentsPresenter
           only: [:id]
         },
         user: {
-          methods: [:to_s, :avatar_url, :role_name]
+          methods: [:to_s, :avatar_url]
         }
       },
     }
