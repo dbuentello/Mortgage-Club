@@ -331,7 +331,6 @@ var FormAssetsAndLiabilities = React.createClass({
     if(primary_address.city == subject_address.city &&
       primary_address.state == subject_address.state &&
       primary_address.street_address == subject_address.street_address &&
-      primary_address.street_address2 == subject_address.street_address2 &&
       primary_address.zip == subject_address.zip)
       return true;
     return false;

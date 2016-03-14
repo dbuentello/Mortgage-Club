@@ -87,7 +87,7 @@ module CompletedLoanServices
 
     def same_address?(address1, address2)
       return false unless address1 || address2
-      return true if address1.city == address2.city && address1.state == address2.state && address1.street_address == address2.street_address && address1.street_address2 == address2.street_address2 && address1.zip == address2.zip
+      return true if address1.city == address2.city && address1.state == address2.state && address1.street_address == address2.street_address && address1.zip == address2.zip
 
       false
     end
