@@ -75,7 +75,7 @@ var RateDropAlert = React.createClass({
     }
 
     $.ajax({
-      url: "/rate_drop_alert",
+      url: "/refinance_alert",
       data: {
         current_mortgage_balance: this.currencyToNumber(this.state[fields.currentMortgageBalance.keyName]),
         credit_score: this.state[fields.creditScore.keyName],
@@ -149,9 +149,9 @@ var RateDropAlert = React.createClass({
                     :
                       <div className="mtl">
                         <div className="col-md-8 col-md-offset-2">
-                          <form className="form-horizontal text-center" action="/rate_drop_alert" type="json" enctype="multipart/form-data" method="post" name="fileinfo">
+                          <form className="form-horizontal text-center" action="/refinance_alert" type="json" enctype="multipart/form-data" method="post" name="fileinfo">
                             <div className="form-group">
-                              <div className="col-sm-6 email-address text-left">
+                              <div className="col-sm-12 email-address text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.email.error]}
                                   label={fields.email.label}
@@ -164,21 +164,7 @@ var RateDropAlert = React.createClass({
                                   editMode={true}/>
                               </div>
 
-                              <div className="col-sm-6 text-left">
-                                <TextField
-                                  activateRequiredField={this.state[fields.zip.error]}
-                                  label={fields.zip.label}
-                                  keyName={fields.zip.keyName}
-                                  value={this.state[fields.zip.keyName]}
-                                  format={this.formatInteger}
-                                  editable={true}
-                                  validationTypes={["number"]}
-                                  maxLength={6}
-                                  onChange={this.onChange}
-                                  onBlur={this.onBlur}
-                                  liveFormat={true}
-                                  editMode={true}/>
-                              </div>
+
                             </div>
                             <div className="form-group">
                               <div className="col-sm-6 text-left">
@@ -193,6 +179,21 @@ var RateDropAlert = React.createClass({
                                   maxLength={6}
                                   onChange={this.onChange}
                                   onBlur={this.onBlur}
+                                  editMode={true}/>
+                              </div>
+                              <div className="col-sm-6 text-left">
+                                <TextField
+                                  activateRequiredField={this.state[fields.zip.error]}
+                                  label={fields.zip.label}
+                                  keyName={fields.zip.keyName}
+                                  value={this.state[fields.zip.keyName]}
+                                  format={this.formatInteger}
+                                  editable={true}
+                                  validationTypes={["number"]}
+                                  maxLength={6}
+                                  onChange={this.onChange}
+                                  onBlur={this.onBlur}
+                                  liveFormat={true}
                                   editMode={true}/>
                               </div>
                             </div>
