@@ -56,7 +56,7 @@ en:
       fail: "Sorry. Currently the system cannot %{process}"
       field_required: "This field is required"
       iframe_render_error: "can't render iframe"
-      object_not_found: "%{object} does not exist"
+      object_not_found: "%{object} not found"
       page_not_found: "We can't seem to find the page you're looking for."
       permission_denied: "You don't have permission to retrieve the page"
       page_not_found_or_permission_denied: "The page does not exist or you don't have permmission to access!"
