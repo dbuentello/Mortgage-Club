@@ -112,7 +112,7 @@ Rails.application.routes.draw do
 
     resources :dashboard, only: [:show]
 
-    resources :lender_documents, only: [:create] do
+    resources :lender_documents, only: [:create, :destroy] do
       member do
         get "download"
       end
