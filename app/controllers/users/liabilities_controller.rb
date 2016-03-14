@@ -9,8 +9,7 @@ class Users::LiabilitiesController < Users::BaseController
       credit_report_id: credit_report_id,
       subject_property: params[:subject_property],
       primary_property: params[:primary_property],
-      rental_properties: params[:rental_properties],
-      borrower_address: params[:borrower_address]
+      rental_properties: params[:rental_properties]
     })
 
     if @properties.save

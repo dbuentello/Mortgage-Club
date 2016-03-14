@@ -6,7 +6,7 @@ describe CompletedLoanServices::TabAssets do
   let!(:address) { FactoryGirl.create(:address)}
 
   before(:each) do
-    loan.primary_property.update(address: nil)
+    loan.primary_property
 
     @loan_params = {
       assets: loan.borrower.assets,
@@ -14,21 +14,10 @@ describe CompletedLoanServices::TabAssets do
       rental_properties: loan.rental_properties,
       primary_property: loan.primary_property,
       own_investment_property: loan.own_investment_property,
-      loan_refinance: loan.refinance?,
-      borrower: loan.borrower
+      loan_refinance: loan.refinance?
     }
 
     @service = CompletedLoanServices::TabAssets.new(@loan_params)
-  end
-
-  it "returns false with borrower nil" do
-    @service.borrower = nil
-    expect(@service.call).to be_falsey
-  end
-
-  it "returns false with borrower current address nil" do
-    @service.borrower.borrower_addresses.where(is_current: true).destroy_all
-    expect(@service.call).to be_falsey
   end
 
   it "returns false with subject property nil" do
@@ -170,8 +159,8 @@ describe CompletedLoanServices::TabAssets do
         expect(@service.property_completed?(@property)).to be_falsey
       end
 
-      it "returns false with borrower current address nil" do
-        @service.borrower.current_address.address = nil
+      it "returns false with address nil" do
+        @property.address = nil
         expect(@service.property_completed?(@property)).to be_falsey
       end
 
