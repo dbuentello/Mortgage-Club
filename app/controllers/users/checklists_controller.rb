@@ -4,20 +4,20 @@ class Users::ChecklistsController < Users::BaseController
 
   def update
     if @checklist.update(checklist_params)
-      render json: {message: 'Updated successfully'}, status: 200
+      render json: {message: t("messages.info.success", status: "updated")}, status: 200
     else
-      render json: {message: "Cannot update the checklist"}, status: 500
+      render json: {message: t("messages.errors.fail", process: "update")}, status: 500
     end
   end
 
   def load_docusign
     template = Template.where(name: params[:template_name]).first
     if template.blank?
-      return render json:
-        {
-          message: "Template does not exist yet",
-          details: "Template #{params[:template_name]} does not exist yet!"
-        }, status: 500
+
+      return render json: {
+              message: t("messages.errors.object_not_found", object: "Template"),
+              details: t("messages.errors.object_not_found", object: "Template #{params[:template_name]}")
+            }, status: 500
     end
 
     envelope = Docusign::CreateEnvelopeForChecklistService.new.call(current_user, @loan)
@@ -32,7 +32,7 @@ class Users::ChecklistsController < Users::BaseController
       return render json: {message: recipient_view}, status: 200 if recipient_view
     end
 
-    render json: {message: "can't render iframe"}, status: 500
+    render json: {message: t("iframe_error")}, status: 500
   end
 
   def docusign_callback

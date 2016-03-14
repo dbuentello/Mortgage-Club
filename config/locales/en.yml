@@ -46,7 +46,17 @@ en:
     btn_alert: "SET MY ALERT"
     description_alert: "Our software monitors thousands of loan programs and alert you when you can save money by refinancing with MortgageClub."
   messages:
+    info:
+      success: "The information is %{status} successfully"
     errors:
-      page_not_exist: "The page does not exist"
+      fail: "Sorry. Currently the system cannot %{process}"
+      object_not_found: "%{object} does not exist"
+      page_not_found: "We can't seem to find the page you're looking for."
       permission_denied: "You don't have permission to retrieve the page"
+      page_not_found_or_permission_denied: "The page does not exist or you don't have permmission to access!"
+  users:
+    checklists:
+      load_docusign:
+        iframe_error: "can't render iframe"
+
 
