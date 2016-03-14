@@ -93,7 +93,7 @@ Rails.application.routes.draw do
     end
     resources :loans do
       collection do
-        get "/:id/income", to: "loans#updateIncome"
+        get "/:id/income", to: "loans#update_income"
       end
 
       get :get_secondary_borrower_info, on: :collection

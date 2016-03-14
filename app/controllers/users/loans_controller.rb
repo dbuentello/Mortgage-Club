@@ -80,7 +80,7 @@ class Users::LoansController < Users::BaseController
     end
   end
 
-  def updateIncome
+  def update_income
     render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show}
   end
 
