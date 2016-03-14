@@ -221,11 +221,11 @@ var AddressField = React.createClass({
           :
             null
         }
-        <div>
+        <div className="address-field">
           <input disabled={disabled} className="form-control address" type="text"
             value={val} placeholder={this.props.placeholder}
             onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange} id={this.props.keyName} name={this.props.label}/>
-          <span className="address-icon"></span>
+          <img src="/icons/address.png" alt="title"/>
         </div>
         <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={address} title={requiredMessage} validationTypes={this.props.validationTypes}/>
       </div>

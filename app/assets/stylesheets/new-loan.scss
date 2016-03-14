@@ -218,6 +218,16 @@
   .address-icon {
     background: url(asset_path('address.png')) no-repeat right center;
   }
+  .address-field + img, .date-field + img {
+    float: right;
+    width: 30px;
+    height: 30px;
+    margin-top: -36px;
+    padding-top: 2px;
+    top: 2px !important;
+    right: 4px;
+    position: relative;
+  }
   .date-icon {
     background: url(asset_path('date.png')) no-repeat right center;
     cursor: pointer;
