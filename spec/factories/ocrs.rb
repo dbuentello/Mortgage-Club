@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :ocr do
+  factory :ocr do |fac|
     borrower
 
     factory :ocr_with_first_document do |f|
