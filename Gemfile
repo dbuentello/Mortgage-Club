@@ -108,8 +108,6 @@ gem 'devise-async'
 
 gem 'pdf-forms'
 
-gem "recaptcha", require: "recaptcha/rails"
-
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
@@ -148,6 +146,8 @@ group :development, :test do
 
   # Pretty print your Ruby objects with style
   gem 'awesome_print'
+
+  gem "recaptcha", require: "recaptcha/rails"
 end
 
 group :test do
