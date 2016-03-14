@@ -17,7 +17,7 @@ var RelationshipManager = React.createClass({
               <img src={this.props.manager.user.avatar_url} className="avatar"/>
             </div>
             <div className='col-xs-8'>
-              <h4 className="account-name-text">{this.props.manager.user.to_s}</h4>
+              <h4 className="account-name-text">{this.props.manager.user.first_name + " " + this.props.manager.user.last_name}</h4>
               <p>
                 <span className="glyphicon glyphicon-earphone"></span>
                 {this.formatPhoneNumber(this.props.manager.phone_number)}

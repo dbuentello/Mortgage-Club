@@ -73,7 +73,7 @@ var Managements = React.createClass({
                             <td>
                               <img src={member.user.avatar_url} width="40px" height="30px"/>
                             </td>
-                            <td>{member.user.to_s}</td>
+                            <td>{member.user.first_name + " " + member.user.last_name}</td>
                             <td>{member.user.email}</td>
                             <td>{member.phone_number}</td>
                             <td>

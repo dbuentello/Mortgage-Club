@@ -11,7 +11,6 @@ class Users::LoansController < Users::BaseController
 
     ref_url = "#{url_for(:only_path => false)}?refcode=#{current_user.id}"
     invites = Invite.where(sender_id: current_user.id).order(created_at: :desc)
-    addresses = get_list_property_addresses
 
     bootstrap(
       loans: LoanListPage::LoansPresenter.new(current_user.loans).show,
@@ -20,19 +19,39 @@ class Users::LoansController < Users::BaseController
       refCode: params[:refcode],
       refLink: ref_url,
       user_email: current_user.email,
-      addresses: addresses
+      commonInfo: get_common_info
     )
 
     respond_to do |format|
-      format.html { render template: 'borrower_app' }
+      format.html { render template: "borrower_app".freeze }
     end
   end
 
-  def get_list_property_addresses
-    loan_ids = current_user.loans.pluck(:id)
-    subject_property_ids = Property.where(loan_id: loan_ids, is_subject: true).pluck(:id)
-    array_addresses = Address.where(property_id: subject_property_ids).pluck(:property_id, :street_address, :city, :state, :zip)
-    Hash[array_addresses.map { |id, street_address, city, state, zip| [id, street_address.nil? ? "" : "#{street_address}, #{city}, #{state} #{zip}"] }]
+  def get_common_info
+    list = {}
+    info = current_user.loans
+                            .joins(properties: :address)
+                            .where("properties.is_subject = true".freeze)
+                            .pluck(
+                              "loans.id".freeze, "addresses.street_address".freeze,
+                              "addresses.city".freeze, "addresses.state".freeze,
+                              "addresses.zip".freeze, "properties.zillow_image_url".freeze
+                            )
+
+    info.each do |i|
+      loan_id = i[0]
+      street_address = i[1]
+      city = i[2]
+      state = i[3]
+      zip = i[4]
+      zillow_image_url = i[5]
+
+      list[loan_id] = {
+        zillow_image_url: zillow_image_url,
+        address: street_address.nil? ? "Unknown Address".freeze : "#{street_address}, #{city}, #{state} #{zip}"
+      }
+    end
+    list
   end
 
   def create

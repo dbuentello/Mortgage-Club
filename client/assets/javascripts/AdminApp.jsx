@@ -33,6 +33,9 @@ var EditTemplate = require("admin/lenders/EditTemplate");
 var PotentialUserManagements = require("admin/potential_user_managements/Managements");
 var EditPotentialUserPage = require("admin/potential_user_managements/EditPage");
 
+var PotentialRateDropUserManagements = require("admin/potential_rate_drop_user_managements/Managements");
+var EditPotentialRateDropUserPage = require("admin/potential_rate_drop_user_managements/EditPage");
+
 var BorrowerManagements = require("admin/borrower_managements/Borrowers");
 
 var HomepageRateManagement = require("admin/homepage_rate_managements/Managements");
@@ -85,6 +88,9 @@ var routes = (
     <Route path="/lenders/:id/lender_templates/:id/edit" handler={EditTemplate}/>
     <Route name="/potential_user_managements" path="/potential_user_managements" handler={PotentialUserManagements}/>
     <Route path="/potential_user_managements/:id/edit" handler={EditPotentialUserPage}/>
+    <Route name="/potential_rate_drop_user_managements" path="/potential_rate_drop_user_managements" handler={PotentialRateDropUserManagements}/>
+    <Route path="/potential_rate_drop_user_managements/:id/edit" handler={EditPotentialRateDropUserPage}/>
+
     <Route path="/borrower_managements" handler={BorrowerManagements}/>
     <DefaultRoute handler={Loans}/>
   </Route>
