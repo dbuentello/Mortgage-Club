@@ -83,7 +83,23 @@ var Form = React.createClass({
     if(!this.state.isValid)
       this.scrollTopError();
   },
-
+  componentWillMount: function(){
+    console.log(this.props.loan);
+    $.ajax({
+      url: "/loans/" + this.props.loan.id + "/income",
+      method: "GET",
+      success: function(response) {
+        if(response != null ){
+          var state = this.buildStateFromLoan(response.loan);
+          state.isValid = true;
+          this.setState(state);
+        }
+      }.bind(this),
+      error: function(response, status, error) {
+        // do something else
+      }
+    });
+  },
   componentDidMount: function(){
     $("body").scrollTop(0);
   },

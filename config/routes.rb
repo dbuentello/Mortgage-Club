@@ -82,10 +82,8 @@ Rails.application.routes.draw do
     scope "/my" do
       # resources :loans do
       # end
-
       resources :dashboard do
       end
-
       resources :checklists do
         collection do
           get :load_docusign
@@ -93,15 +91,16 @@ Rails.application.routes.draw do
         end
       end
     end
-
     resources :loans do
+      collection do
+        get "/:id/income", to: "loans#updateIncome"
+      end
+
       get :get_secondary_borrower_info, on: :collection
     end
-
     resources :borrowers, only: [:update]
     resources :assets, path: "borrower_assets", only: [:create]
     resources :liabilities, only: [:create]
-
     resources :properties, only: [:create, :destroy] do
       collection do
         get :search
@@ -109,33 +108,26 @@ Rails.application.routes.draw do
     end
   end
 
-
   namespace :loan_members do
     resources :loan_activities, only: [:index, :show, :create] do
       collection do
         get "get_activities_by_conditions"
       end
     end
-
     resources :checklists do
     end
-
     resources :loans do
     end
-
     resources :dashboard do
     end
-
     resources :lender_documents do
       member do
         get "download"
       end
-
       collection do
         get "get_other_documents"
       end
     end
-
     resources :submissions do
       collection do
         post "submit_to_lender"
