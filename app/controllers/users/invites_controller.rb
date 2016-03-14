@@ -21,10 +21,10 @@ class Users::InvitesController < Users::BaseController
       render json: {
         success: true,
         invites: LoanListPage::InvitesPresenter.new(invites).show,
-        message: "#{invite_counter} person was successfully invited to Mortgage Club!"
+        message: t("invites.create.add_success", invite_counter: invite_counter)
       }
     else
-      render json: {success: false, message: "Error, the email is already invited or not valid!"}
+      render json: {success: false, message: t("invites.create.add_failed")}
     end
   end
 end

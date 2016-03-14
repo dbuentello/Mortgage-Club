@@ -73,5 +73,12 @@ en:
         add_failed: "Cannot save property"
       search:
         not_found: "Cannot find"
+    registrations:
+      update:
+        confirmation_needed: "Update need confirmation"
+  invites:
+    create:
+      add_success: "%{invite_counter} person was successfully invited to Mortgage Club!"
+      add_failed: "Error, the email is already invited or not valid!"
 
 

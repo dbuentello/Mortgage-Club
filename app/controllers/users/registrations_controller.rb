@@ -50,7 +50,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ? :update_needs_confirmation : :updated
         set_flash_message :notice, flash_key
       else
-        message = update_needs_confirmation?(resource, prev_unconfirmed_email) ? "Update need confirmation" : "Update successfully"
+        message = update_needs_confirmation?(resource, prev_unconfirmed_email) ? t("users.registrations.update.confirmation_needed") : t("messages.info.success", status: "updated")
       end
       sign_in resource_name, resource, bypass: true
 
