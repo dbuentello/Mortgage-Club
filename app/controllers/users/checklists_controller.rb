@@ -32,7 +32,7 @@ class Users::ChecklistsController < Users::BaseController
       return render json: {message: recipient_view}, status: 200 if recipient_view
     end
 
-    render json: {message: t("iframe_error")}, status: 500
+    render json: {message: t("messages.errors.iframe_render_error")}, status: 500
   end
 
   def docusign_callback

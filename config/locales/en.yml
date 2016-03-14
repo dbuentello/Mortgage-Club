@@ -50,13 +50,15 @@ en:
       success: "The information is %{status} successfully"
     errors:
       fail: "Sorry. Currently the system cannot %{process}"
+      iframe_render_error: "can't render iframe"
       object_not_found: "%{object} does not exist"
       page_not_found: "We can't seem to find the page you're looking for."
       permission_denied: "You don't have permission to retrieve the page"
       page_not_found_or_permission_denied: "The page does not exist or you don't have permmission to access!"
   users:
-    checklists:
-      load_docusign:
-        iframe_error: "can't render iframe"
+    assets:
+      create:
+        add_success: "Add new asset sucessfully"
+        add_failed: "Add new asset failed"
 
 
