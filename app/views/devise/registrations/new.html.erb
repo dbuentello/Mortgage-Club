@@ -37,6 +37,9 @@
               </div>
             </div>
             <div class="form-group">
+              <div class="g-recaptcha" data-sitekey="6LcskRoTAAAAAFcJDUsjtKVQvBp-ZrXZ6bhqeLlJ"></div>
+            </div>
+            <div class="form-group">
               <button class="btn btn-ms text-uppercase theBtn deviseBtn" id="btnSignupDevise" type="submit" value="sign up">sign up</button>
             </div>
           <% end %>
@@ -46,7 +49,7 @@
   </div>
 </div>
 
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript">
   // Set cookie invite token value
   <% if @token.present? %>
