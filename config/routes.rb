@@ -231,5 +231,7 @@ Rails.application.routes.draw do
 
   get "developer_infographics", to: "pages#developer_infographics"
 
-  get "*path", to: "errors#show", code: 404
+  %w( 404 403 500 ).each do |code|
+    get code, :to => "errors#show", :code => code
+  end
 end
