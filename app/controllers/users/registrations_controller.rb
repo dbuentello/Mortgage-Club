@@ -143,13 +143,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def check_captcha
-    if verify_recaptcha
-      true
-    else
-      flash.delete :recaptcha_error
-      self.resource = resource_class.new sign_up_params
-      resource.errors.add(:recaptcha_error, "Please confirm you're not a robot!")
-      respond_with_navigational(resource) { render :new }
-    end
+    return true if verify_recaptcha
+
+    flash.delete :recaptcha_error
+    self.resource = resource_class.new sign_up_params
+    resource.errors.add(:recaptcha_error, "Please confirm you're not a robot!")
+    respond_with_navigational(resource) { render :new }
   end
 end
