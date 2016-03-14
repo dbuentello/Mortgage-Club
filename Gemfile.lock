@@ -486,6 +486,7 @@ DEPENDENCIES
   guard-rspec
   guard-rubocop
   httparty
+  i18n
   jbuilder
   jquery-rails
   json-schema
