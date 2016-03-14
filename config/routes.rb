@@ -69,8 +69,6 @@ Rails.application.routes.draw do
   resources :employments, only: [:show] do
   end
 
-  resources :charges, only: [:new, :create]
-
   resources :electronic_signature, only: [:new, :create] do
     get "embedded_response", on: :collection
   end
