@@ -193,6 +193,7 @@
   h6 {font-size:1.1em; color:#15c0f1;}
   .helpful-text {font-style:italic; color:#959595; font-size:.9em; padding-top:5px;}
   .form-group .helpful-text img {display:inline-block; position:relative; bottom:0; top:0; left:0; border:none; margin-right:7px; margin-top:-5px;}
+
   select {
      appearance: none;
     -webkit-appearance:none;
@@ -202,6 +203,7 @@
     float:left;
     filter:saturate(100%); -webkit-filter:saturate(100%); -moz-filter:saturate(100%);
   }
+
   .select-field img {
     position: relative;
     top: 2px !important;
@@ -216,9 +218,11 @@
   select::-ms-expand {
     display: none;
   }
+
   select:hover {border-color:#15c0f1; outline:none; box-shadow:none; cursor:pointer;}
   select:focus {border-color:#15c0f1; outline:none; box-shadow:none;}
   select:focus + img { cursor: default; border-left:#15c0f1 1px solid; filter:saturate(100%); -webkit-filter:saturate(100%); -moz-filter:saturate(100%);}
+
   .address-field img {
     float: right;
     width: 30px;
@@ -230,6 +234,7 @@
     position: relative;
     cursor: pointer;
   }
+
   .date-field img {
     float: right;
     height: 30px;
@@ -243,14 +248,6 @@
 
   .form-group input.form-control.address {
     float:right;
-  }
-  .form-group input.form-control.address ~ span, .form-group input.form-control.date-field ~ span {
-    float:right;
-    width: 30px;
-    height: 30px;
-    top: -30px;
-    right: -12px;
-    position: relative;
   }
 
   .form-group>div>h5 {font-size:1.25em; color:#15c0f1; margin-top:0; letter-spacing:.04em; line-height:1.5em;}
