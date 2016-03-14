@@ -27,6 +27,9 @@
       &:hover {
        color: #00a9dc;
        -webkit-filter: saturate(100%);
+       -ms-filter: saturate(100%);
+       -moz-filter: saturate(100%);
+       filter: saturate(100%);
       }
     }
   }
@@ -199,15 +202,15 @@
     float:left;
     filter:saturate(100%); -webkit-filter:saturate(100%); -moz-filter:saturate(100%);
   }
-  select + img {
+  .select-field img {
+    position: relative;
+    top: 2px !important;
     float: right;
     width: 30px;
     height: 30px;
     margin-top: -36px;
     padding-top: 2px;
-    top: 2px !important;
     right: 4px;
-    position: relative;
   }
 
   select::-ms-expand {
@@ -277,7 +280,7 @@
   .form-group>div {margin-top:25px;}
 
   .fileBtn .fileBtnSmall:hover, .fileBtn .fileBtnSmall:hover img {
-    filter:saturate(100%); -webkit-filter:saturate(100%); -moz-filter: saturate(100%); cursor:pointer; color:#15c0f1;
+    filter:saturate(100%); -webkit-filter:saturate(100%); -moz-filter: saturate(100%); -ms-filter: saturate(100%); cursor:pointer; color:#15c0f1;
   }
 
   .fileBtn h5 {
@@ -380,8 +383,10 @@
   img {
     position:relative;
     margin-top:6px;
+    -ms-filter: brightness(0) invert(1);
     filter:brightness(0) invert(1);
     -webkit-filter:brightness(0) invert(1);
+    -moz-filter: brightness(0) invert(1);;
     border:none; right:-10px;
     margin-right:10px;
   }
@@ -394,6 +399,8 @@
   img {
     filter:brightness(100%) invert(0);
     -webkit-filter:brightness(100%) invert(0);
+    -ms-filter:brightness(100%) invert(0);
+    -moz-filter: brightness(100%) invert(0);
     animation:loginAnim 2s infinite;
     -webkit-animation:loginAnim 2s infinite;
   }
@@ -412,6 +419,8 @@
     position:relative;
     margin-top:6px;
     filter:brightness(0) invert(1);
+    -moz-filter:brightness(0) invert(1);
+    -ms-filter:brightness(0) invert(1);
     -webkit-filter:brightness(0) invert(1);
     border:none; right:-10px;
     margin-right:10px;
