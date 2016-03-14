@@ -45,3 +45,8 @@ en:
     title_alert: "FREE REFINANCE ALERT"
     btn_alert: "SET MY ALERT"
     description_alert: "Our software monitors thousands of loan programs and alert you when you can save money by refinancing with MortgageClub."
+  messages:
+    errors:
+      page_not_exist: "The page does not exist"
+      permission_denied: "You don't have permission to retrieve the page"
+
