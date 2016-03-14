@@ -19,7 +19,7 @@ class Admins::BorrowerManagementsController < Admins::BaseController
     borrower = Borrower.find(params[:id])
     if borrower.destroy
       render json: {
-        message: "Removed the #{borrower.to_s} successfully",
+        message: "Removed the #{borrower} successfully",
         borrowers: borrowers
       }, status: 200
     else

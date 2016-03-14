@@ -41,8 +41,8 @@ Lint/RescueException:
 
 # Offense count: 4
 # Cop supports --auto-correct.
-Lint/StringConversionInInterpolation:
-  Enabled: false
+# Lint/StringConversionInInterpolation:
+#   Enabled: false
 
 # Offense count: 30
 # Cop supports --auto-correct.

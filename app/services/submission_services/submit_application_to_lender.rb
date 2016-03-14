@@ -15,7 +15,7 @@ module SubmissionServices
 
       LoanMemberMailer.submit_application({
         documents_info: get_documents_info,
-        loan_member_email: "#{staff.to_s} <#{staff.email}>",
+        loan_member_email: "#{staff} <#{staff.email}>",
         email_content: email_content,
         email_subject: email_subject,
         loan_id: loan.id

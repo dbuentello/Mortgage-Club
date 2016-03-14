@@ -16,7 +16,7 @@ describe SubmissionServices::GetEmailInfo do
         loan_member_name: staff.to_s,
         client_name: loan.borrower.user.to_s,
         loan_member_title: loan_member.title(loan),
-        loan_member_email: "#{staff.to_s} <#{staff.email}>",
+        loan_member_email: "#{staff} <#{staff.email}>",
         loan_member_short_email: staff.email,
         loan_member_phone_number: loan_member.phone_number,
         loan_id: loan.id

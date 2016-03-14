@@ -10,7 +10,7 @@ class CoBorrowerMailer < ActionMailer::Base
 
     mail(
       to: @secondary_borrower.user.email,
-      subject: "You have been added as secondary borrower by #{@loan.user.to_s}"
+      subject: "You have been added as secondary borrower by #{@loan.user}"
     )
   end
 
@@ -20,7 +20,7 @@ class CoBorrowerMailer < ActionMailer::Base
 
     mail(
       to: @secondary_borrower.user.email,
-      subject: "You have been removed as secondary borrower by #{@loan.user.to_s}"
+      subject: "You have been removed as secondary borrower by #{@loan.user}"
     )
   end
 
@@ -30,7 +30,7 @@ class CoBorrowerMailer < ActionMailer::Base
 
     mail(
       to: @loan.user.email,
-      subject: "Your co-borrower #{@secondary_borrower.user.to_s} has left your loan"
+      subject: "Your co-borrower #{@secondary_borrower.user} has left your loan"
     )
   end
 end

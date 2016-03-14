@@ -18,7 +18,7 @@ describe SubmissionServices::SubmitApplicationToLender do
 
         expect(LoanMemberMailer).to receive(:submit_application).with({
           documents_info: [{url: "http://example.com", file_name: lender_document.lender_template.name << File.extname(lender_document.attachment_file_name)}],
-          loan_member_email: "#{staff.to_s} <#{staff.email}>",
+          loan_member_email: "#{staff} <#{staff.email}>",
           email_content: "Email Content",
           email_subject: "Email Subject",
           loan_id: loan.id
@@ -41,7 +41,7 @@ describe SubmissionServices::SubmitApplicationToLender do
               {url: "http://example.com", file_name: lender_document.lender_template.name + File.extname(lender_document.attachment_file_name)},
               {url: "http://example.com", file_name: second_lender_document.description + File.extname(second_lender_document.attachment_file_name)}
             ],
-            loan_member_email: "#{staff.to_s} <#{staff.email}>",
+            loan_member_email: "#{staff} <#{staff.email}>",
             email_content: "Email Content",
             email_subject: "Email Subject",
             loan_id: loan.id
