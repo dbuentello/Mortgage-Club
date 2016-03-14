@@ -31,9 +31,9 @@ FactoryGirl.define do
     f.gross_rental_income { Faker::Number.number(5) }
   end
 
-  factory :property_with_address, parent: :property do |f|
+  factory :property_with_address, parent: :property do
     after(:build) do |property, address|
-      create(:address, property: property)
+      create(address: address, property: property)
     end
   end
 end
