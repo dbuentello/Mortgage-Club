@@ -38,10 +38,10 @@
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <p style="color: red"><%= resource.errors.messages[:recaptcha_error].try(:first) %></p>
                 <div align="center">
                   <%= recaptcha_tags %>
                 </div>
+                <p style="color: red"><%= resource.errors.messages[:recaptcha_error].try(:first) %></p>
               </div>
             </div>
             <div class="form-group">
