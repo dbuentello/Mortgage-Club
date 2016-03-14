@@ -62,6 +62,16 @@ en:
         add_failed: "Add new asset failed"
     liabilities:
       create:
-        save_failed: "cannot save liabilities"
+        add_failed: "cannot save liabilities"
+    loans:
+      create:
+        add_failed: "Cannot create new loan"
+      destroy:
+        destroy_failed: "Cannot destroy loan"
+    properties:
+      create:
+        add_failed: "Cannot save property"
+      search:
+        not_found: "Cannot find"
 
 
