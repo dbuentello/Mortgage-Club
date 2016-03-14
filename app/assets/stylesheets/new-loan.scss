@@ -195,9 +195,18 @@
     -moz-appearance: none;
     height:38px;
     width:100%;
-    float:right;
-    background: url(asset_path('dropdownArrow.png')) no-repeat right center;
+    float:left;
     filter:saturate(100%); -webkit-filter:saturate(100%); -moz-filter:saturate(100%);
+  }
+  select + img {
+    float: right;
+    width: 30px;
+    height: 30px;
+    margin-top: -36px;
+    padding-top: 2px;
+    top: 2px !important;
+    right: 4px;
+    position: relative;
   }
 
   select::-ms-expand {
@@ -211,6 +220,10 @@
   }
   .date-icon {
     background: url(asset_path('date.png')) no-repeat right center;
+    cursor: pointer;
+  }
+  .dropdownArrow {
+
   }
   .form-group input.form-control.address, .form-group input.form-control.date-field {
     float:right;
