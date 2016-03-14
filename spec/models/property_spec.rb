@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Property do
   let(:property) { FactoryGirl.create(:property_with_address) }
-  let (:primary_property) {FactoryGirl.create(:primary_property)}
+  let(:primary_property) {FactoryGirl.create(:primary_property)}
   let(:rental_property) {FactoryGirl.create(:rental_property)}
 
   it 'has a valid factory' do

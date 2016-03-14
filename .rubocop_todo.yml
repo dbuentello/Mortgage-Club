@@ -6,30 +6,30 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 2
-Lint/AmbiguousOperator:
-  Enabled: false
+# Lint/AmbiguousOperator:
+#   Enabled: false
 
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
-  Enabled: false
+   Enabled: false
 
 # Offense count: 3
 # Cop supports --auto-correct.
-Lint/DeprecatedClassMethods:
-  Enabled: false
+# Lint/DeprecatedClassMethods:
+#   Enabled: false
 
 # Offense count: 2
-Lint/HandleExceptions:
-  Enabled: false
+# Lint/HandleExceptions:
+#   Enabled: false
 
 # Offense count: 1
-Lint/LiteralInCondition:
-  Enabled: false
+# Lint/LiteralInCondition:
+#   Enabled: false
 
 # Offense count: 9
-Lint/ParenthesesAsGroupedExpression:
-  Enabled: false
+# Lint/ParenthesesAsGroupedExpression:
+#   Enabled: false
 
 # Offense count: 2
 Lint/RescueException:

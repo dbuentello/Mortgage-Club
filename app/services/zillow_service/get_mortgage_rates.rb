@@ -15,7 +15,7 @@ module ZillowService
       cache_key = "zillow-mortgage-rates-#{loan_id}-#{@zipcode}"
 
 
-      if rates = REDIS.get(cache_key)
+      if rates == REDIS.get(cache_key)
         rates = JSON.parse(rates)
       else
         rates = call_crawler_to_get_rates
