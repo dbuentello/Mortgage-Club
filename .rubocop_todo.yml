@@ -9,10 +9,6 @@
 Lint/AmbiguousOperator:
   Enabled: false
 
-# Offense count: 29
-Lint/AmbiguousRegexpLiteral:
-  Enabled: false
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
