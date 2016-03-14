@@ -305,6 +305,8 @@ module Docusign
       end
 
       def get_primary_property
+        return unless loan.primary_property
+
         if subject_property_and_primary_property_have_same_address?(loan.primary_property)
           return loan.subject_property
         else
