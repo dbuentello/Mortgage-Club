@@ -48,8 +48,13 @@ en:
   messages:
     info:
       success: "The information is %{status} successfully"
+    status:
+      ok: "ok"
+      success: "success"
+      error: "error"
     errors:
       fail: "Sorry. Currently the system cannot %{process}"
+      field_required: "This field is required"
       iframe_render_error: "can't render iframe"
       object_not_found: "%{object} does not exist"
       page_not_found: "We can't seem to find the page you're looking for."
