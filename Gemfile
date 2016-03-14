@@ -146,6 +146,8 @@ group :development, :test do
 
   # Pretty print your Ruby objects with style
   gem 'awesome_print'
+
+  gem "recaptcha", require: "recaptcha/rails"
 end
 
 group :test do
