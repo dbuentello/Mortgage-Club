@@ -10,7 +10,8 @@ Rails.application.routes.draw do
 
   post "/potential_users", to: "potential_users#create"
   post "mailjet_tracking", to: "mailjet_tracking#track"
-  get "/esigning/:id", to: "electronic_signature#new"
+
+  get "/esigning/:id", to: "users/electronic_signature#new"
 
   authenticated :user, ->(u) { u.has_role?(:borrower) } do
     root to: "users/loans#index", as: :borrower_root
@@ -52,25 +53,7 @@ Rails.application.routes.draw do
     get "signup", to: "users/registrations#new", as: :custom_signup
   end
 
-  resources :invites, only: [:index, :create]
-
-  resources :rates, only: [:index] do
-    collection do
-      post :select
-    end
-  end
-
-  resources :underwriting, only: [:index] do
-    collection do
-      get :check_loan
-    end
-  end
-
   resources :employments, only: [:show] do
-  end
-
-  resources :electronic_signature, only: [:new, :create] do
-    get "embedded_response", on: :collection
   end
 
   get "/my/loans", to: "users/loans#index", as: :my_loans
@@ -102,6 +85,24 @@ Rails.application.routes.draw do
     resources :properties, only: [:create, :destroy] do
       collection do
         get :search
+      end
+    end
+
+    resources :electronic_signature, only: [:new, :create] do
+      get "embedded_response", on: :collection
+    end
+
+    resources :invites, only: [:index, :create]
+
+    resources :rates, only: [:index] do
+      collection do
+        post :select
+      end
+    end
+
+    resources :underwriting, only: [:index] do
+      collection do
+        get :check_loan
       end
     end
   end
@@ -228,7 +229,5 @@ Rails.application.routes.draw do
 
   get "developer_infographics", to: "pages#developer_infographics"
 
-  %w( 404 403 500 ).each do |code|
-    get code, :to => "errors#show", :code => code
-  end
+  get "*path", to: "errors#show", code: 404
 end
