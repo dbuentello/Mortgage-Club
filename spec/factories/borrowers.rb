@@ -30,14 +30,14 @@ FactoryGirl.define do
       user { build(:borrower_user) }
     end
 
-    factory :borrower_with_credit_report, parent: :borrower do |f|
+    factory :borrower_with_credit_report, parent: :borrower do
       after(:build) do |borrower, credit_report|
         create(:credit_report, borrower: borrower)
       end
     end
 
-    factory :borrower_with_documents_self_employed, parent: :borrower do |f|
-      f.self_employed { true }
+    factory :borrower_with_documents_self_employed, parent: :borrower do |factory|
+      factory.self_employed { true }
       after(:build) do |borrower|
         create(:document, subjectable: borrower, document_type: "first_personal_tax_return")
         create(:document, subjectable: borrower, document_type: "second_personal_tax_return")
@@ -48,8 +48,8 @@ FactoryGirl.define do
       end
     end
 
-    factory :borrower_with_documents_self_employed_taxes_joinly, parent: :borrower do |f|
-      f.self_employed { true }
+    factory :borrower_with_documents_self_employed_taxes_joinly, parent: :borrower do |factory|
+      factory.self_employed { true }
       after(:build) do |borrower|
         create(:document, subjectable: borrower, document_type: "first_business_tax_return")
         create(:document, subjectable: borrower, document_type: "second_business_tax_return")
@@ -58,8 +58,8 @@ FactoryGirl.define do
       end
     end
 
-    factory :borrower_with_documents_not_self_employed, parent: :borrower do |f|
-      f.self_employed { false }
+    factory :borrower_with_documents_not_self_employed, parent: :borrower do |factory|
+      factory.self_employed { false }
       after(:build) do |borrower|
         create(:document, subjectable: borrower, document_type: "first_w2")
         create(:document, subjectable: borrower, document_type: "second_w2")
@@ -72,8 +72,8 @@ FactoryGirl.define do
       end
     end
 
-    factory :borrower_with_documents_not_self_employed_taxes_joinly, parent: :borrower do |f|
-      f.self_employed { false }
+    factory :borrower_with_documents_not_self_employed_taxes_joinly, parent: :borrower do |factory|
+      factory.self_employed { false }
       after(:build) do |borrower|
         create(:document, subjectable: borrower, document_type: "first_w2")
         create(:document, subjectable: borrower, document_type: "second_w2")
