@@ -180,6 +180,7 @@
 
   .form-group .fileBtn img {
     bottom: 0px !important;
+    left: 0px;
   }
 
   .form-group .fileBtn .iconUpload {
@@ -218,7 +219,7 @@
   .address-icon {
     background: url(asset_path('address.png')) no-repeat right center;
   }
-  .address-field + img, .date-field + img {
+  .address-field img {
     float: right;
     width: 30px;
     height: 30px;
@@ -227,15 +228,20 @@
     top: 2px !important;
     right: 4px;
     position: relative;
-  }
-  .date-icon {
-    background: url(asset_path('date.png')) no-repeat right center;
     cursor: pointer;
   }
-  .dropdownArrow {
-
+  .date-field img {
+    float: right;
+    height: 30px;
+    margin-top: -36px;
+    padding-top: 2px;
+    top: 2px !important;
+    right: -9px;
+    position: relative;
+    cursor: pointer;
   }
-  .form-group input.form-control.address, .form-group input.form-control.date-field {
+
+  .form-group input.form-control.address {
     float:right;
   }
   .form-group input.form-control.address ~ span, .form-group input.form-control.date-field ~ span {
@@ -271,7 +277,7 @@
   .form-group>div {margin-top:25px;}
 
   .fileBtn .fileBtnSmall:hover, .fileBtn .fileBtnSmall:hover img {
-    filter:saturate(100%); -webkit-filter:saturate(100%); cursor:pointer; color:#15c0f1;
+    filter:saturate(100%); -webkit-filter:saturate(100%); -moz-filter: saturate(100%); cursor:pointer; color:#15c0f1;
   }
 
   .fileBtn h5 {

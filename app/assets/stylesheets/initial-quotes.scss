@@ -292,7 +292,9 @@
 
   .form-group img {
     top: initial;
+    -moz-filter: saturate(0%);
     -webkit-filter: saturate(0%);
+    filter: saturate(0%);
     bottom: 6px;
     cursor: pointer;
     pointer-events: none;
