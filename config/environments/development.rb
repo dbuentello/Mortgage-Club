@@ -19,7 +19,7 @@ Rails.application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
-  config.logger = Logger.new("log/log-#{Time.now.strftime('%d-%m-%y')}.log", shift_age = 'daily')
+  config.logger = Logger.new("log/development/log-#{Time.now.strftime('%d-%m-%y')}.log", shift_age = 'daily')
 
   # Set to :warn to decrease the log volume.
   config.log_level = :warn

@@ -42,7 +42,7 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-  config.logger = Logger.new("log/log-#{Time.now.strftime('%d-%m-%y')}.log", shift_age = 'daily')
+  config.logger = Logger.new("log/staging/log-#{Time.now.strftime('%d-%m-%y')}.log", shift_age = 'daily')
 
   # Set to :warn to decrease the log volume.
   config.log_level = :warn
