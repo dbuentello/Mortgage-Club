@@ -60,5 +60,8 @@ en:
       create:
         add_success: "Add new asset sucessfully"
         add_failed: "Add new asset failed"
+    liabilities:
+      create:
+        save_failed: "cannot save liabilities"
 
 
