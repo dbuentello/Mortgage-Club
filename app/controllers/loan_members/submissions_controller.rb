@@ -8,7 +8,7 @@ class LoanMembers::SubmissionsController < LoanMembers::BaseController
 
     if service.call
       @loan.conditionally_approved!
-      return render json: {message: "Sent to lender sucessfully"}, status: 200
+      return render json: {message: t("loan_members.submissions.submit_to_lender.send_success")}, status: 200
     else
       return render json: {message: service.error_message}, status: 500
     end

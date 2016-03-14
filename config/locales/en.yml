@@ -81,6 +81,13 @@ en:
     registrations:
       update:
         confirmation_needed: "Update need confirmation"
+  loan_members:
+    loans:
+      update:
+        success: "Your loan has been saved successfully"
+    submissions:
+      submit_to_lender:
+        send_success: "Sent to lender sucessfully"
   invites:
     create:
       add_success: "%{invite_counter} person was successfully invited to Mortgage Club!"

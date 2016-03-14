@@ -6,7 +6,7 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
 
     result = LoanActivityServices::CreateActivity.new.call(loan_member, loan_activity_params)
     if result.success?
-      render json: {activities: LoanActivity.get_latest_by_loan(loan), success: "Success"}, status: 200
+      render json: {activities: LoanActivity.get_latest_by_loan(loan), success: t("messages.status.uccess")}, status: 200
     else
       render json: {error: result.error_message}, status: 500
     end
