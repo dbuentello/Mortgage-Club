@@ -12,7 +12,7 @@ var HomePart = React.createClass({
   render: function() {
     var signupURL = "/auth/register/signup";
     return (
-      <div className="content homePart">
+      <div className="content home-part">
         <div className="container">
           <div className="row">
             <div id="home-left" className="col-md-12">
