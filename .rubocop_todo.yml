@@ -105,8 +105,8 @@ Style/AccessorMethodName:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-Style/AlignArray:
-  Enabled: false
+# Style/AlignArray:
+#   Enabled: false
 
 # Offense count: 5
 # Cop supports --auto-correct.
