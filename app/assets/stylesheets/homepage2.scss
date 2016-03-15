@@ -1,5 +1,4 @@
 // Application homepage
-
 body {
   font-family: 'aileronregular';
   min-height: 100vh;
@@ -7,7 +6,6 @@ body {
   padding-bottom: 100px; //footer padding
   position: relative;
 }
-
 .borderless {
   border: none !important;
 }
@@ -22,44 +20,38 @@ body {
 #signup-btn {
   width: 140px;
 }
-
 #login-btn:hover {
   background: white;
   color: #15c0f1;
   border-color: #15c0f1;
 }
-
-
-
 #login-btn {
   background: white;
   color: #a1a1a1;
   border-color: #a1a1a1;
   width: 140px;
 }
-
-
-  #login-btn:hover #login-img {
-    animation:loginAnim 2s infinite;
-    -webkit-animation:loginAnim 2s infinite;
-    filter:grayscale(0%);
-    -webkit-filter:grayscale(0%);
-  }
-  
-  #login-img {
-    height:18px;
-    width:auto;
-    margin-right:21px;
-    margin-top:-4px;
-    filter:grayscale(100%);
-    -webkit-filter:grayscale(100%);
-  }
+#login-btn:hover #login-img {
+  animation: loginAnim 2s infinite;
+  -webkit-animation: loginAnim 2s infinite;
+  filter:grayscale(0%);
+  -webkit-filter: grayscale(0%);
+}
+#login-img {
+  height: 18px;
+  width: auto;
+  margin-right: 21px;
+  margin-top: -4px;
+  filter:grayscale(100%);
+  -webkit-filter: grayscale(100%);
+}
 //========== end Button  ============//
+
+// ============ Header ========//
 .header {
   .mortgage-nav {
     background-color: white;
     padding: 5px 0; //top bottom 5px
-
     // not test
     .dropdown {
       .dropdownArrow {
@@ -166,7 +158,6 @@ body {
     margin-right: 7px;
     margin-top: -9px;
   }
-
   .active-loans #loanBtnImg:hover {
     filter:brightness(10000%);
     -webkit-filter: brightness(10000%);
@@ -196,14 +187,15 @@ body {
     -webkit-filter: brightness(10000%);
   }
 }
+// ========== end header =========//
 
 
+//========= media query =========//
 // Screen smaller than 992px
 @media (max-width: 992px) {
   .footer-right {
     float: left;
   }
-
   body {
     padding-bottom: 180px;
   }
@@ -245,7 +237,6 @@ body {
     margin-left: 20px;
   }
 }
-
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */
@@ -260,529 +251,407 @@ body {
     border-bottom: 0 !important;
   }
 }
-
 @media (min-width: 992px) and (max-width:1200px) {
   #top-info {
-    font-size:1em;
-    padding-top:10px;
+    font-size: 1em;
+    padding-top: 10px;
   }
-
-  #left-info h6, #right-info h6 {
-    margin-top:-2px;
-    font-size:.9em;
+  #left-info h6,
+  #right-info h6 {
+    margin-top: -2px;
+    font-size: 0.9em;
   }
-
-  #left-info p, #right-info p {
-    font-size:.8em;
-    line-height:.6em;
+  #left-info p,
+  #right-info p {
+    font-size: 0.8em;
+    line-height: 0.6em;
   }
-
   .howItem img {
-    width:70%;
+    width: 70%;
   }
-
   .howItem img:last-child {
-    width:90%;
+    width: 90%;
   }
-
   .footer-right {
     //margin-top:55px;
   }
-  #footerLogo {
-    }
-
-
+  #footerLogo {}
 }
-
 @media (min-width: 768px) and (max-width: 992px) {
   #top-info {
-    font-size:2.5em;
-    padding-top:2%;
+    font-size: 2.5em;
+    padding-top: 2%;
   }
   .license {
     bottom: -10% !important;
   }
-  #left-info h6, #right-info h6 {
-    margin-top:64px;
-    font-size:2.3em;
+  #left-info h6,
+  #right-info h6 {
+    margin-top: 64px;
+    font-size: 2.3em;
   }
-
-  #left-info p, #right-info p {
-    font-size:1.7em;
-    line-height:1.35em;
+  #left-info p,
+  #right-info p {
+    font-size: 1.7em;
+    line-height: 1.35em;
   }
-
   #right-info {
-    padding-left:35px;
+    padding-left: 35px;
   }
-
   #home-left {
-    text-align:center;
+    text-align: center;
   }
-
   #home-right {
-    padding-top:80px;
+    padding-top: 80px;
   }
-
-
-  #footerLogo {
-
-  }
-
-
-
+  #footerLogo {}
   #home-top-info .row {
-    padding:20px;
+    padding: 20px;
   }
   .client p {
-    padding: 15px 25px 40px 25px !important;
+    padding: 15px 25px 40px !important;
   }
 }
 @media (min-width:416px) and (max-width: 768px) {
-  .homeTable td{
-    font-size:0.9em;
+  .homeTable td {
+    font-size: 0.9em;
   }
   #top-info {
-    font-size:2em;
-    padding-top:3%;
-    padding-left:30px;
+    font-size: 2em;
+    padding-top: 3%;
+    padding-left: 30px;
   }
-
-  #left-info, #right-info {
-    padding-top:8.4%;
-  }
-
-  #left-info h6, #right-info h6 {
-    margin-top:19.9%;
-    font-size:2.2em;
-  }
-
-  #left-info p, #right-info p {
-    font-size:1.7em;
-    line-height:1.2em;
-  }
-
+  #left-info,
   #right-info {
-    padding-left:35px;
+    padding-top: 8.4%;
   }
-
+  #left-info h6,
+  #right-info h6 {
+    margin-top: 19.9%;
+    font-size: 2.2em;
+  }
+  #left-info p,
+  #right-info p {
+    font-size: 1.7em;
+    line-height: 1.2em;
+  }
+  #right-info {
+    padding-left: 35px;
+  }
   #home-left {
-    text-align:center;
+    text-align: center;
   }
-
   #home-right {
-    padding-top:80px;
+    padding-top: 80px;
   }
-
   .howItem .bigNum {
-    margin-left:50px;
+    margin-left: 50px;
   }
-
   .howItem .whyText {
-    text-align:left;
+    text-align: left;
   }
   .whyText {
-
     width: 100% !important;
-
   }
-
   .howItem {
-    text-align:center;
+    text-align: center;
   }
-
   .howItem img {
-    margin-left:auto;
-    margin-right:auto;
-
+    margin-left: auto;
+    margin-right: auto;
   }
-
   .whyItem {
-    margin-top:30px;
-    height:150px;
+    margin-top: 30px;
+    height: 150px;
   }
-
-  .whyItem img{
-    margin-left:50px;
+  .whyItem img {
+    margin-left: 50px;
   }
-
   .footer-right {
     //margin-top:50px;
   }
-  #footerLogo {
-
-  }
-
-
-
+  #footerLogo {}
   #home-top-info .row {
-    padding:15px;
+    padding: 15px;
   }
   .license {
     bottom: -10% !important;
   }
 }
-
-
 @media (min-width:384px) and (max-width: 414px) {
   #home-left {
-    text-align:center;
+    text-align: center;
   }
   .license {
     bottom: -10% !important;
   }
-  .homeTable td{
-    font-size:0.7em;
+  .homeTable td {
+    font-size: 0.7em;
   }
-
-  .content h1{
-    font-size:2.9em;
+  .content h1 {
+    font-size: 2.9em;
   }
-
-
   .whyItem {
-    text-align:center;
-    width:80%;
-    margin-left:auto;
-    margin-right:auto;
-    position:relative;
-    height:auto;
+    text-align: center;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    height: auto;
   }
-
   .whyItem img {
-    width:60%;
-    height:auto;
-    margin-left:auto;
-    margin-right:auto;
-    float:none;
-    margin-top:0;
+    width: 60%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    margin-top: 0;
   }
-
   .whyItem .bigNum {
-    display:none;
+    display: none;
   }
-
   .whyItem .whyText {
-    float:none;
-    width:100%;
-    margin:0;
-    padding-bottom:20px;
+    float: none;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
   }
-
   .howItem img {
-    width:80%;
-    height:auto;
-    margin-left:40px;
+    width: 80%;
+    height: auto;
+    margin-left: 40px;
   }
-
   .footer-right {
-
     //margin-top:50px;
   }
-
   #footerLogo {
-
-    float:none;
-    width:70%;
-    display:block;
+    float: none;
+    width: 70%;
+    display: block;
     //margin-top:120px;
   }
-
-
-
   .footer {
     //height:300px;
   }
-
   .logo {
-    width:200px;
+    width: 200px;
   }
-
   .nav li {
-    float:none;
-    width:100%;
+    float: none;
+    width: 100%;
   }
-
   .nav-pills>li+li {
-    margin-left:0;
-    margin-top:3px;
+    margin-left: 0;
+    margin-top: 3px;
   }
-
   #home-top-info .row {
-    padding:10px;
+    padding: 10px;
   }
-
   #top-info {
-    padding-top:6px;
+    padding-top: 6px;
   }
-
   .client p {
-    width:100%;
-
+    width: 100%;
   }
-
   .footer-right img:first-child {
     margin-left: 12px;
   }
 }
-
-
 @media (min-width:375px) and (max-width: 384px) {
-  .logo img{
-    width:200px;
+  .logo img {
+    width: 200px;
   }
-
   .footer-right {
     //width:75%;
   }
 }
-
 @media (min-width: 320px) and (max-width: 375px) {
-
   #home-left {
-    text-align:center;
+    text-align: center;
   }
-
-  .content h1{
-    font-size:1.7em;
-    padding:15px;
+  .content h1 {
+    font-size: 1.7em;
+    padding: 15px;
   }
-
   .whyItem {
-    text-align:center;
-    width:80%;
-    margin-left:auto;
-    margin-right:auto;
-    position:relative;
-    height:auto;
+    text-align: center;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    height: auto;
   }
-
   .whyItem img {
-    width:60%;
-    height:auto;
-    margin-left:auto;
-    margin-right:auto;
-    float:none;
-    margin-top:0;
+    width: 60%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    margin-top: 0;
   }
-
   .whyItem .bigNum {
-    display:none;
+    display: none;
   }
-
   .whyItem .whyText {
-    float:none;
-    width:100%;
-    margin:0;
-    padding-bottom:20px;
+    float: none;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
   }
-
   .howItem img {
-    width:80%;
-    height:auto;
-    margin-left:40px;
+    width: 80%;
+    height: auto;
+    margin-left: 40px;
   }
-
   .footer-right {
-
     //margin-top:50px;
   }
-
   .footer-right div {
-    width:100%;
+    width: 100%;
   }
-
   #footerLogo {
-
-    float:none;
-    width:70%;
-    display:block;
+    float: none;
+    width: 70%;
+    display: block;
     //margin-top:120px;
   }
-
-
-
   .footer {
-    height:300px;
+    height: 300px;
   }
-
-  .logo img{
-    width:200px;
+  .logo img {
+    width: 200px;
   }
-
   .nav li {
-    float:none;
-    width:100%;
+    float: none;
+    width: 100%;
   }
-
   .nav-pills>li+li {
-    margin-left:0;
-    margin-top:3px;
+    margin-left: 0;
+    margin-top: 3px;
   }
-
   .howItem {
-    margin-top:40px;
+    margin-top: 40px;
   }
-
   .whyItem {
-    margin-top:40px;
+    margin-top: 40px;
   }
-
   #home-top-info .row {
-    padding:10px;
+    padding: 10px;
   }
-
   #top-info {
-    font-size:1.1em;
-    padding-top:6px;
+    font-size: 1.1em;
+    padding-top: 6px;
   }
-
   .client p {
-    width:100%;
+    width: 100%;
   }
 }
-
 @media (max-width: 414px) {
   .equal-housing {
-    margin-left: 0px !important;
+    margin-left: 0 !important;
   }
 }
-
 @media (max-width: 320px) {
-
   #home-left {
-    text-align:center;
+    text-align: center;
   }
-
-  .content h1{
-    font-size:1.8em;
-    line-height:1.3em;
-    padding:15px;
+  .content h1 {
+    font-size: 1.8em;
+    line-height: 1.3em;
+    padding: 15px;
   }
-
   .bigger {
-    font-size:1em;
+    font-size: 1em;
   }
-
   .smaller {
-    width:85%;
-    font-size:.7em;
+    width: 85%;
+    font-size: 0.7em;
   }
-
   #home-right {
-    padding-top:40px;
-    padding-bottom:40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
-
   #home-right-table {
-    width:90%;
-    margin-top:13px;
+    width: 90%;
+    margin-top: 13px;
   }
-
   .home-right-small {
-    font-size:.8em;
-    padding:2px;
+    font-size: 0.8em;
+    padding: 2px;
   }
-
   .note {
-    width:80%;
+    width: 80%;
   }
-
   .whyItem img {
-    width:50%;
-    height:auto;
-    margin-left:auto;
-    margin-right:auto;
-    float:none;
-    margin-top:0;
+    width: 50%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    margin-top: 0;
   }
-
   .whyItem .bigNum {
-    font-size:3em;
+    font-size: 3em;
   }
-
   .howItem img {
-    width:80%;
-    height:auto;
-    margin-left:40px;
+    width: 80%;
+    height: auto;
+    margin-left: 40px;
   }
-
   .howItem img:last-child {
-    margin-left:20px;
+    margin-left: 20px;
   }
-
   .footer-right {
-
     //margin-top:50px;
   }
   .whyText {
-
     width: 100% !important;
-
   }
-
   #footerLogo {
-
-    float:none;
-    width:70%;
-    display:block;
+    float: none;
+    width: 70%;
+    display: block;
     //margin-top:120px;
   }
-
-
-
   #home-right-table2 {
-    overflow-x:hidden;
+    overflow-x: hidden;
   }
-
   .footer {
     //height:300px;
   }
-
-  .logo img{
-    width:150px;
+  .logo img {
+    width: 150px;
   }
-
   .nav li {
-    float:none;
-    width:100%;
+    float: none;
+    width: 100%;
   }
-
   .nav-pills>li+li {
-    margin-left:0;
-    margin-top:3px;
+    margin-left: 0;
+    margin-top: 3px;
   }
-
-
   .howItem {
-    margin-top:30px;
+    margin-top: 30px;
   }
-
   .whyItem {
-    margin-top:30px;
+    margin-top: 30px;
   }
-
   #home-top-info .row {
-    padding:10px;
+    padding: 10px;
   }
-
   #top-info {
-    font-size:1em;
-    padding-top:4px;
+    font-size: 1em;
+    padding-top: 4px;
   }
-
   #left-info {
-    padding-left:5px;
+    padding-left: 5px;
   }
-
   #right-info {
-    padding-left:15px;
+    padding-left: 15px;
   }
-
   .client p {
-    width:100%;
+    width: 100%;
   }
-
   .footer-right img:first-child {
     margin-left: 12px;
   }
