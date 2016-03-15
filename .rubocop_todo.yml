@@ -484,13 +484,13 @@ Style/SingleLineBlockParams:
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: ExactNameMatch, AllowPredicates, AllowDSLWriters, IgnoreClassMethods, Whitelist.
-Style/TrivialAccessors:
-  Enabled: false
+# Style/TrivialAccessors:
+#   Enabled: false
 
 # Offense count: 17
 # Cop supports --auto-correct.
-Style/VariableInterpolation:
-  Enabled: false
+# Style/VariableInterpolation:
+#   Enabled: false
 
 # Offense count: 10
 # Cop supports --auto-correct.
