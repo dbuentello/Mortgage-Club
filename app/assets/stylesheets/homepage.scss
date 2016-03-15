@@ -93,7 +93,7 @@ padding-top: 60px;
     padding-top: 65px;
   }
 
-  .mortgageNav {
+  .mortgage-nav {
     border:none;
     margin-top:7px;
     background-color:white;
@@ -595,14 +595,14 @@ padding-top: 60px;
     background-color:rgb(51, 122, 183);
   }
 
-  .footerRight {
+  .footer-right {
     color:white;
     //float:right;
    // margin-top:50px;
     //text-align:center;
   }
 
-  .footerRight img {
+  .footer-right img {
     float:left;
     width:30px;
     height:auto;
@@ -614,28 +614,28 @@ padding-top: 60px;
     -webkit-transform:(1,1);
   }
 
-  .footerRight img:first-child {
+  .footer-right img:first-child {
     margin-left:0;
   }
 
-  .footerRight img:last-child {
+  .footer-right img:last-child {
     margin-right:0;
   }
 
-  .footerRight p {
+  .footer-right p {
     clear:both;
     font-family:'aileronlight';
     font-size:1.125em;
     letter-spacing:.03em;
   }
 
-  .footerRight div {
+  .footer-right div {
     width:100%;
     margin-left:auto;
     margin-right:auto;
   }
 
-  .footerRight img:hover {
+  .footer-right img:hover {
     transform: scale(1.2,1.2);
     -webkit-transform:(1.2,1.2);
     cursor:pointer;
@@ -707,7 +707,7 @@ padding-top: 60px;
     width:90%;
   }
 
-  .footerRight {
+  .footer-right {
     //margin-top:55px;
   }
   #footerLogo {
@@ -715,15 +715,7 @@ padding-top: 60px;
 
 
 }
-@media (max-width: 992px) {
-  .footerRight {
-    float:left !important;
-   //margin-top:55px;
-  }
-  body {
-    padding-bottom: 180px !important;
-  }
-}
+
 @media (min-width: 768px) and (max-width: 992px) {
   #top-info {
     font-size:2.5em;
@@ -836,7 +828,7 @@ padding-top: 60px;
     margin-left:50px;
   }
 
-  .footerRight {
+  .footer-right {
     //margin-top:50px;
   }
   #footerLogo {
@@ -905,7 +897,7 @@ padding-top: 60px;
     margin-left:40px;
   }
 
-  .footerRight {
+  .footer-right {
 
     //margin-top:50px;
   }
@@ -951,7 +943,7 @@ padding-top: 60px;
 
   }
 
-  .footerRight img:first-child {
+  .footer-right img:first-child {
     margin-left: 12px;
   }
 }
@@ -962,7 +954,7 @@ padding-top: 60px;
     width:200px;
   }
 
-  .footerRight {
+  .footer-right {
     //width:75%;
   }
 }
@@ -1013,12 +1005,12 @@ padding-top: 60px;
     margin-left:40px;
   }
 
-  .footerRight {
+  .footer-right {
 
     //margin-top:50px;
   }
 
-  .footerRight div {
+  .footer-right div {
     width:100%;
   }
 
@@ -1141,7 +1133,7 @@ padding-top: 60px;
     margin-left:20px;
   }
 
-  .footerRight {
+  .footer-right {
 
     //margin-top:50px;
   }
@@ -1213,7 +1205,7 @@ padding-top: 60px;
     width:100%;
   }
 
-  .footerRight img:first-child {
+  .footer-right img:first-child {
     margin-left: 12px;
   }
 }
@@ -1236,7 +1228,7 @@ padding-top: 60px;
 
 .footer > div {position:relative;}
 
-.footerRight {
+.footer-right {
   color:white;
 
   float:right;
