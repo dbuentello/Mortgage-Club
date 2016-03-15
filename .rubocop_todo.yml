@@ -123,8 +123,8 @@ Style/AccessorMethodName:
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/AndOr:
-  Enabled: false
+# Style/AndOr:
+#   Enabled: false
 
 # Offense count: 5
 # Cop supports --auto-correct.

@@ -10,7 +10,7 @@ class InvitesController < ApplicationController
       invite = Invite.new(email: email, name: name, phone: phone)
       invite.sender_id = current_user.id
 
-      if invite.save and invite.recipient.nil?
+      if invite.save && invite.recipient.nil?
         InviteMailer.new_user_invite(current_user, invite).deliver_later
         invite_counter += 1
       end
