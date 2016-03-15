@@ -109,7 +109,7 @@ var Form = React.createClass({
     }
 
     $.ajax({
-      url: "/initial_quotes",
+      url: "/quotes",
       data: {
         mortgage_purpose: this.state[fields.mortgagePurpose.keyName],
         zip_code: this.state[fields.zipcode.keyName],
