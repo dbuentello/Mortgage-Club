@@ -41,6 +41,18 @@ en:
               confirmation: "Doesn't match Password"
             email:
               taken: "This email has already been taken"
+        checklist:
+          attributes:
+            document_type:
+              needed_proper_document: "must belong to a proper document"
+            subject_name:
+              needed_proper_subject: "must belong to a proper subject"
+        document:
+          attributes:
+            document_type:
+              needed_proper_document: "must belong to a proper document"
+
+
   homepage:
     title_alert: "FREE REFINANCE ALERT"
     btn_alert: "SET MY ALERT"
@@ -60,6 +72,14 @@ en:
       page_not_found: "We can't seem to find the page you're looking for."
       permission_denied: "You don't have permission to retrieve the page"
       page_not_found_or_permission_denied: "The page does not exist or you don't have permmission to access!"
+  admins:
+    borrower_managements:
+      destroy:
+        remove_success: "Removed the %{borrower} successfully"
+        remove_failed: "Cannot remove the checklist"
+    loan_activity_type_managements:
+      update:
+
   users:
     assets:
       create:
