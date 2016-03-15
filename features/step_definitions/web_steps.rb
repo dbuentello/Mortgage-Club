@@ -58,7 +58,7 @@ When(/^I click on a first "([^\"]+)"$/) do |text|
 end
 
 When(/^I am at loan management page$/) do
-  many_steps %{
+  many_steps %(
     Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a closing with the name "Fake Name"
       And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the closing above
@@ -66,11 +66,11 @@ When(/^I am at loan management page$/) do
       And there is a address with the street address "81458 Borer Falls" and the street address2 "Apt. 305" and the city "West Emiltown" and the state "Virginia" and the zip "9999" with the property above
       When I login as "testing@man.net" with password "secretpass"
         And I follow "Edit Application"
-  }
+  )
 end
 
 When(/^I am at dashboard page$/) do
-  many_steps %{
+  many_steps %(
     Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a closing with the name "Fake Name"
       And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the status "pending" and with the user above and with the closing above and with the monthly_payment "5356"
@@ -83,11 +83,11 @@ When(/^I am at dashboard page$/) do
       And there is a loans members association with the loan above and with loan members title above
       And I login as "testing@man.net" with password "secretpass"
     Then I follow "Dashboard"
-  }
+  )
 end
 
 When(/^I am at my loans page$/) do
-  many_steps %{
+  many_steps %(
     Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and with the first name "Billy" and with the last name "Tran"
       And there is a closing with the name "Fake Name"
       And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the closing above
@@ -99,11 +99,11 @@ When(/^I am at my loans page$/) do
       And there is a loans members association with the loan above and with the loan member above
       And there is a loans members association with the loan above and with the loan members title above
       And I login as "testing@man.net" with password "secretpass"
-  }
+  )
 end
 
 When(/^I am at loan management page which has co-borrower$/) do
-  many_steps %{
+  many_steps %(
     Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a closing with the name "Fake Name"
       And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the closing above
@@ -113,11 +113,11 @@ When(/^I am at loan management page which has co-borrower$/) do
       And there is a address with the street address "81458 Borer Falls" and the street address2 "Apt. 305" and the city "West Emiltown" and the state "Virginia" and the zip "9999" with the property above
       When I login as "testing@man.net" with password "secretpass"
         And I follow "Edit Application"
-  }
+  )
 end
 
 When(/^I am at loan member dashboard$/) do
-  many_steps %{
+  many_steps %(
     Given there is a borrower_user_with_borrower with the email "john_doe@gmail.com" and with the first name "John" and the last name "Doe"
       And there is a closing with the name "Fake Name"
       And there is a lender with the name "Quickens Loan"
@@ -129,11 +129,10 @@ When(/^I am at loan member dashboard$/) do
       And there is a checklist_upload with the loan above
       And I login as "loan_member@gmail.com" with password "secretpass"
     Then I click link with div ".linkTypeReversed"
-
-  }
+  )
 end
 When(/^I am at loan list page$/) do
-  many_steps %{
+  many_steps %(
     Given there is a borrower_user_with_borrower with the email "john_doe@gmail.com" and with the first name "John" and the last name "Doe"
       And there is a closing with the name "Fake Name"
       And there is a lender with the name "Quickens Loan"
@@ -144,7 +143,7 @@ When(/^I am at loan list page$/) do
       And there is a loans members association with the loan above and with the loan member above and with the loan members title above
       And there is a checklist_upload with the loan above
       And I login as "loan_member@gmail.com" with password "secretpass"
-  }
+  )
 end
 
 When(/^I clear value in "(.*?)"$/) do |field|
