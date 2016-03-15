@@ -24,9 +24,9 @@ class Zillow
   def self.parse_property(response)
     if (response['searchresults']['response'])
       property = response['searchresults']['response']['results']['result'][0] || response['searchresults']['response']['results']['result']
-      property.merge!({
+      property.merge!(
         :useCode => USE_CODE[property['useCode']]
-      })
+      )
 
       params = {
         'zip' => property['address']['zipcode'],
@@ -39,9 +39,9 @@ class Zillow
   end
 
   def self.parse_payments(response, property)
-    property.merge({
+    property.merge(
       :monthlyTax => response['paymentsdetails']['response']['monthlypropertytaxes'],
       :monthlyInsurance => response['paymentsdetails']['response']['monthlyhazardinsurance']
-    })
+    )
   end
 end

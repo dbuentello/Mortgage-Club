@@ -9,11 +9,11 @@ class RatesController < ApplicationController
       rate_programs = LoanTekServices::GetQuotes.new(@loan).call
     end
 
-    bootstrap({
+    bootstrap(
       currentLoan: LoanProgram::LoanProgramPresenter.new(@loan).show,
       programs: rate_programs,
       debug_info: get_debug_info
-    })
+    )
 
     render template: 'borrower_app'
   end

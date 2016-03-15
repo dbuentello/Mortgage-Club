@@ -145,14 +145,14 @@ Style/AccessorMethodName:
 
 # Offense count: 4
 # Cop supports --auto-correct.
-Style/BlockEndNewline:
-  Enabled: false
+# Style/BlockEndNewline:
+#   Enabled: false
 
 # Offense count: 10
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/BracesAroundHashParameters:
-  Enabled: false
+# Style/BracesAroundHashParameters:
+#   Enabled: false
 
 # Offense count: 21
 # Cop supports --auto-correct.

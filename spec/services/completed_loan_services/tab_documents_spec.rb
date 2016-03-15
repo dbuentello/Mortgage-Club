@@ -4,10 +4,10 @@ describe CompletedLoanServices::TabDocuments do
   let!(:loan) { FactoryGirl.create(:loan_with_secondary_borrower) }
 
   before(:each) do
-    @service = CompletedLoanServices::TabDocuments.new({
+    @service = CompletedLoanServices::TabDocuments.new(
       borrower: loan.borrower,
       secondary_borrower: loan.secondary_borrower
-    })
+    )
   end
 
   context "with secondary borrower nil" do

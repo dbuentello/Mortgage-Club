@@ -10,7 +10,7 @@ class Admins::BorrowerManagementsController < Admins::BaseController
   def switch
     return unless current_user.admin?
 
-    sign_in(:user, User.find(params[:id]), {bypass: true})
+    sign_in(:user, User.find(params[:id]), bypass: true)
 
     redirect_to my_loans_path
   end

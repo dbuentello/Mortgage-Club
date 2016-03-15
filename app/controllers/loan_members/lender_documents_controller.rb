@@ -5,13 +5,13 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
   def create
     return render json: {message: "Template is not found"}, status: 500 unless template = LenderTemplate.find_by_id(params[:template_id])
 
-    service = LenderDocumentServices::UploadFile.new({
+    service = LenderDocumentServices::UploadFile.new(
       loan: @loan,
       template: template,
       file: params[:file],
       description: params[:description],
       user: current_user
-    })
+    )
 
     if service.call
       render json: {

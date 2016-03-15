@@ -16,13 +16,18 @@ describe SubmissionServices::SubmitApplicationToLender do
       it "calls LoanMemberMailer with proper params" do
         message_delivery = instance_double(ActionMailer::MessageDelivery)
 
-        expect(LoanMemberMailer).to receive(:submit_application).with({
-          documents_info: [{url: "http://example.com", file_name: lender_document.lender_template.name << File.extname(lender_document.attachment_file_name)}],
+        expect(LoanMemberMailer).to receive(:submit_application).with(
+          documents_info: [
+            {
+              url: "http://example.com",
+              file_name: lender_document.lender_template.name << File.extname(lender_document.attachment_file_name)
+            }
+          ],
           loan_member_email: "#{staff} <#{staff.email}>",
           email_content: "Email Content",
           email_subject: "Email Subject",
           loan_id: loan.id
-        }).and_return(message_delivery)
+        ).and_return(message_delivery)
         expect(message_delivery).to receive(:deliver_later)
 
         described_class.new(loan, staff, "Email Subject", "Email Content").call
@@ -36,16 +41,22 @@ describe SubmissionServices::SubmitApplicationToLender do
           second_lender_document.lender_template.update(is_other: true)
           message_delivery = instance_double(ActionMailer::MessageDelivery)
 
-          expect(LoanMemberMailer).to receive(:submit_application).with({
+          expect(LoanMemberMailer).to receive(:submit_application).with(
             documents_info: [
-              {url: "http://example.com", file_name: lender_document.lender_template.name + File.extname(lender_document.attachment_file_name)},
-              {url: "http://example.com", file_name: second_lender_document.description + File.extname(second_lender_document.attachment_file_name)}
+              {
+                url: "http://example.com",
+                file_name: lender_document.lender_template.name + File.extname(lender_document.attachment_file_name)
+              },
+              {
+                url: "http://example.com",
+                file_name: second_lender_document.description + File.extname(second_lender_document.attachment_file_name)
+              }
             ],
             loan_member_email: "#{staff} <#{staff.email}>",
             email_content: "Email Content",
             email_subject: "Email Subject",
             loan_id: loan.id
-          }).and_return(message_delivery)
+          ).and_return(message_delivery)
           expect(message_delivery).to receive(:deliver_later)
 
           described_class.new(loan, staff, "Email Subject", "Email Content").call

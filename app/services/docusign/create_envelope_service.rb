@@ -20,19 +20,17 @@ module Docusign
       generates_documents_by_adobe_field_names(loan)
       client = DocusignRest::Client.new
       envelope = client.create_envelope_from_document(
-        {
-          status: "sent",
-          email: {
-            subject: "Electronic Signature Request from MortgageClub Corporation",
-            body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
-          },
-          files: [
-            {path: UNIFORM_OUTPUT_PATH},
-            {path: FORM_4506_OUTPUT_PATH},
-            {path: BORROWER_CERTIFICATION_OUTPUT_PATH}
-          ],
-          signers: build_signers(user, loan)
-        }
+        status: "sent",
+        email: {
+          subject: "Electronic Signature Request from MortgageClub Corporation",
+          body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
+        },
+        files: [
+          {path: UNIFORM_OUTPUT_PATH},
+          {path: FORM_4506_OUTPUT_PATH},
+          {path: BORROWER_CERTIFICATION_OUTPUT_PATH}
+        ],
+        signers: build_signers(user, loan)
       )
 
       delete_temp_files

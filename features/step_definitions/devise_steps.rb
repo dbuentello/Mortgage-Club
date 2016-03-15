@@ -36,7 +36,7 @@ end
 
 Given(/^I login via Facebook$/) do
   OmniAuth.config.test_mode = true
-  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new(
     :provider => 'facebook',
     :uid => '123545',
     :info => {
@@ -47,7 +47,7 @@ Given(/^I login via Facebook$/) do
       :expires_at => '1609286400',
       :expires => true
     }
-  })
+  )
   visit('/users/sign_in')
   click_link_or_button 'Đăng Nhập Bằng Facebook'
 end
@@ -60,7 +60,7 @@ end
 
 When(/^I connect my Facebook account$/) do
   OmniAuth.config.test_mode = true
-  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new(
     :provider => 'facebook',
     :uid => '123545',
     :info => {
@@ -71,14 +71,14 @@ When(/^I connect my Facebook account$/) do
       :expires_at => '1609286400',
       :expires => true
     }
-  })
+  )
   visit('/users/settings')
   click_link_or_button 'Kết nối TK Facebook'
 end
 
 When(/^Facebook login is mocked$/) do
   OmniAuth.config.test_mode = true
-  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new(
     :provider => 'facebook',
     :uid => '123545',
     :info => {
@@ -89,5 +89,5 @@ When(/^Facebook login is mocked$/) do
       :expires_at => '1609286400',
       :expires => true
     }
-  })
+  )
 end

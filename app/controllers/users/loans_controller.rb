@@ -68,12 +68,12 @@ class Users::LoansController < Users::BaseController
   def edit
     return redirect_to action: :show if !@loan.new_loan?
 
-    bootstrap({
+    bootstrap(
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       liabilities: @liabilities,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower",
       is_edit_mode: true
-    })
+    )
 
     respond_to do |format|
       format.html { render template: 'borrower_app' }
@@ -83,12 +83,12 @@ class Users::LoansController < Users::BaseController
   def show
     return redirect_to action: :edit if @loan.new_loan?
 
-    bootstrap({
+    bootstrap(
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       liabilities: @liabilities,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower",
       is_edit_mode: false
-    })
+    )
 
     respond_to do |format|
       format.html { render template: 'borrower_app' }

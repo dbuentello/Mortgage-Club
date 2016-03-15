@@ -26,7 +26,7 @@ module ZillowService
 
     def set_up_crawler
       Capybara.register_driver :poltergeist do |app|
-        Capybara::Poltergeist::Driver.new(app, {js_errors: false, timeout: 60})
+        Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 60)
       end
       crawler = Capybara::Session.new(:poltergeist)
       crawler.driver.headers = {'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X)"}

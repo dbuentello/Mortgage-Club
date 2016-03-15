@@ -31,13 +31,13 @@ module ZillowService
       down_payment = get_down_payment(purchase_price)
       annual_income = get_annual_income(loan)
 
-      ZillowService::CrawlZillowRates.new({
+      ZillowService::CrawlZillowRates.new(
         zipcode: zipcode,
         purchase_price: purchase_price,
         down_payment: down_payment,
         annual_income: annual_income,
         number_of_results: 25
-      }).call
+      ).call
     end
 
     private

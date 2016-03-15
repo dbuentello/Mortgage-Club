@@ -14,15 +14,13 @@ describe DocumentServices::UploadFile do
       uploaded_file.content_type = "application/pdf" # it's so weird
 
       described_class.new(
-        {
-          subject_type: "Closing",
-          subject_id: closing.id,
-          document_type: "closing_disclosure",
-          current_user: user,
-          params: {
-            file: uploaded_file,
-            description: "This is a closing disclosure"
-          }
+        subject_type: "Closing",
+        subject_id: closing.id,
+        document_type: "closing_disclosure",
+        current_user: user,
+        params: {
+          file: uploaded_file,
+          description: "This is a closing disclosure"
         }
       )
     end

@@ -9,7 +9,7 @@ describe SubmissionServices::GetEmailInfo do
 
   context "with valid params" do
     it "returns an email's info" do
-      expect(described_class.new(loan, loan_member, staff).call).to include({
+      expect(described_class.new(loan, loan_member, staff).call).to include(
         templates_name: loan.lender.lender_templates.where(is_other: false).pluck(:description),
         lender_name: loan.lender.name,
         lender_email: loan.lender.lock_rate_email,
@@ -20,7 +20,7 @@ describe SubmissionServices::GetEmailInfo do
         loan_member_short_email: staff.email,
         loan_member_phone_number: loan_member.phone_number,
         loan_id: loan.id
-      })
+      )
     end
   end
 

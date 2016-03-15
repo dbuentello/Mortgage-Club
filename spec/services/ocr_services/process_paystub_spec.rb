@@ -22,9 +22,7 @@ describe OcrServices::ProcessPaystub do
     let(:ocr) { FactoryGirl.create(:ocr_with_full_data) }
 
     before(:each) do
-      allow(OcrServices::ParsePaystubFile).to receive(:call).and_return({
-        borrower_id: borrower.id
-      })
+      allow(OcrServices::ParsePaystubFile).to receive(:call).and_return(borrower_id: borrower.id)
       allow_any_instance_of(OcrServices::UpdatePaystubOcr).to receive(:call).and_return(ocr)
     end
 

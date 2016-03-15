@@ -17,11 +17,11 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     it "maps right values" do
       @service.build_section_1
 
-      expect(@service.params).to include({
+      expect(@service.params).to include(
         loan_amount: number_with_delimiter(loan.amount.round),
         interest_rate: "#{"%.3f" % (loan.interest_rate.to_f * 100)}",
         number_of_month: loan.num_of_months
-      })
+      )
     end
 
     it "marks 'x' to only one amortization type" do
@@ -54,14 +54,14 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     it "maps right values" do
       property = loan.subject_property
       @service.build_section_2
-      expect(@service.params).to include({
+      expect(@service.params).to include(
         subject_property_address: property.address.try(:address),
         no_units:  property.no_of_unit,
         subject_property_description: "See preliminary title",
         property_title: "To be determined",
         property_manner: "To be determined in escrow",
         fee_simple: "Yes"
-      })
+      )
     end
 
     it "marks 'x' to only one property's usage" do
@@ -189,7 +189,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
                                   loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f).round(2)
       borrower_cash = (total_cost_transactions - loan.other_credits.to_f - loan.amount).round(2)
       @service.build_section_7
-      expect(@service.params).to include({
+      expect(@service.params).to include(
         purchase_price: number_to_currency(loan.subject_property.purchase_price.to_f, unit: ""),
         prepaid_items: number_to_currency(loan.estimated_prepaid_items, unit: ""),
         closing_costs: number_to_currency(loan.estimated_closing_costs, unit: ""),
@@ -200,16 +200,16 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         loan_amount_m_n: number_to_currency(loan.amount, unit: ""),
         borrower_cash: number_to_currency(borrower_cash, unit: ""),
         total_costs: number_to_currency(total_cost_transactions, unit: "")
-      })
+      )
     end
 
     context "refinance" do
       it "maps right values" do
         @service.loan.purpose = "refinance"
         @service.build_section_7
-        expect(@service.params).to include({
+        expect(@service.params).to include(
           refinance: number_to_currency(@service.loan.amount, unit: "")
-        })
+        )
       end
     end
   end
@@ -243,7 +243,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
                                  property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
                                  property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f
         @service.build_housing_expense("proposed", property)
-        expect(@service.params).to include({
+        expect(@service.params).to include(
           proposed_mortgage: number_to_currency(property.mortgage_payment, unit: ""),
           proposed_other_financing: number_to_currency(property.other_financing, unit: ""),
           proposed_hazard_insurance: number_to_currency(property.estimated_hazard_insurance, unit: ""),
@@ -251,7 +251,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
           proposed_mortgage_insurance: number_to_currency(property.estimated_mortgage_insurance, unit: ""),
           proposed_homeowner: number_to_currency(property.hoa_due, unit: ""),
           proposed_total: number_to_currency(proposed_total_expense, unit: "")
-        })
+        )
       end
     end
 
@@ -262,7 +262,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
                                 property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
                                 property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f
         @service.build_housing_expense("present", property)
-        expect(@service.params).to include({
+        expect(@service.params).to include(
           present_mortgage: number_to_currency(property.mortgage_payment, unit: ""),
           present_other_financing: number_to_currency(property.other_financing, unit: ""),
           present_hazard_insurance: number_to_currency(property.estimated_hazard_insurance, unit: ""),
@@ -270,7 +270,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
           present_mortgage_insurance: number_to_currency(property.estimated_mortgage_insurance, unit: ""),
           present_homeowner: number_to_currency(property.hoa_due, unit: ""),
           present_total: number_to_currency(present_total_expense, unit: "")
-        })
+        )
       end
     end
   end
@@ -278,7 +278,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
   describe "#build_declaration" do
     it "maps right values" do
       @service.build_declaration("borrower", @service.borrower)
-      expect(@service.params).to include({
+      expect(@service.params).to include(
         borrower_a_no: declaration.outstanding_judgment ? "Off" : "Yes",
         borrower_a_yes: declaration.outstanding_judgment ? "Yes" : "Off",
         borrower_b_no: declaration.bankrupt ? "Off" : "Yes",
@@ -305,7 +305,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         borrower_m_yes: declaration.ownership_interest ? "Yes" : "Off",
         borrower_m1: declaration.type_of_property,
         borrower_m2: declaration.title_of_property
-      })
+      )
     end
   end
 
@@ -314,13 +314,13 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       borrower = @service.borrower
       @service.build_gross_monthly_income("borrower", borrower)
 
-      expect(@service.params).to include({
+      expect(@service.params).to include(
         borrower_base_income: number_to_currency(borrower.current_salary, unit: ""),
         borrower_overtime: number_to_currency(borrower.gross_overtime.to_f, unit: ""),
         borrower_bonuses: number_to_currency(borrower.gross_bonus.to_f, unit: ""),
         borrower_commissions: number_to_currency(borrower.gross_commission.to_f, unit: ""),
         borrower_total_monthly_income: number_to_currency(borrower.total_income.to_f, unit: "")
-      })
+      )
     end
   end
 
@@ -329,7 +329,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       current_employment = @service.borrower.current_employment
       @service.build_employment_info("borrower", @service.borrower)
 
-      expect(@service.params).to include({
+      expect(@service.params).to include(
         borrower_yrs_job_1: current_employment.duration,
         borrower_yrs_employed_1: current_employment.duration,
         borrower_self_employed_1: @service.borrower.self_employed ? "Yes" : "Off",
@@ -338,7 +338,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         borrower_employer_city_state_1: "#{current_employment.address.city}, #{current_employment.address.state} #{current_employment.address.zip}",
         borrower_position_1: current_employment.job_title,
         borrower_business_phone_1: current_employment.employer_contact_number
-      })
+      )
     end
   end
 
@@ -347,7 +347,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.borrower.marital_status = "married"
       @service.build_borrower_info("borrower", @service.borrower)
 
-      expect(@service.params).to include({
+      expect(@service.params).to include(
         borrower_name: @service.borrower.full_name,
         borrower_ssn: @service.borrower.ssn,
         borrower_home_phone: @service.borrower.phone,
@@ -360,7 +360,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         borrower_no_yrs: @service.borrower.current_address.try(:years_at_address),
         borrower_former_address: @service.borrower.display_previous_address,
         borrower_former_no_yrs: @service.borrower.previous_address.try(:years_at_address)
-      })
+      )
     end
   end
 
@@ -420,14 +420,14 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     it "maps right values relating to refinance" do
       property = @service.loan.subject_property
       @service.build_refinance_loan
-      expect(@service.params).to include({
+      expect(@service.params).to include(
         purpose_refinance: "Yes",
         year_lot_acquired_2: property.original_purchase_year,
         original_cost_2: number_to_currency(property.original_purchase_price.to_f, unit: ""),
         amount_existing_liens_2: number_to_currency(property.refinance_amount, unit: ""),
         purpose_of_refinance: "Cash out",
         year_built: property.year_built
-      })
+      )
     end
   end
 
@@ -435,10 +435,10 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     it "maps right values relating to refinance" do
       @service.loan.subject_property
       @service.build_purchase_loan
-      expect(@service.params).to include({
+      expect(@service.params).to include(
         purpose_purchase: "Yes",
         source_down_payment: "Checking account"
-      })
+      )
     end
   end
 end

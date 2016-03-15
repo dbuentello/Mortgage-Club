@@ -3,21 +3,21 @@ require "rails_helper"
 describe HomepageRateServices::CrawlMortgageAprs do
   describe ".call" do
     before(:each) do
-      allow(HomepageRateServices::LoanTek).to receive(:call).and_return({
+      allow(HomepageRateServices::LoanTek).to receive(:call).and_return(
         "apr_30_year" => 2.1,
         "apr_15_year" => 2.2,
         "apr_5_libor" => 2.3
-      })
-      allow(HomepageRateServices::Quickenloans).to receive(:call).and_return({
+      )
+      allow(HomepageRateServices::Quickenloans).to receive(:call).and_return(
         "apr_30_year" => 2.4,
         "apr_15_year" => 2.5,
         "apr_5_libor" => 2.6
-      })
-      allow(HomepageRateServices::Wellsfargo).to receive(:call).and_return({
+      )
+      allow(HomepageRateServices::Wellsfargo).to receive(:call).and_return(
         "apr_30_year" => 2.7,
         "apr_15_year" => 2.8,
         "apr_5_libor" => 2.9
-      })
+      )
     end
 
     it "returns aprs with valid values" do
