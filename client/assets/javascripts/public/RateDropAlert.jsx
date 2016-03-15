@@ -255,7 +255,7 @@ var RateDropAlert = React.createClass({
                             </div>
                             <div className="form-group">
                               <div className="col-xs-12">
-                                <button className="btn theBtn submit-btn text-uppercase" onClick={this.handleSubmit}>{this.props.bootstrapData.homepage.btn_alert}</button>
+                                <button className="btn btn-mc submit-btn text-uppercase" onClick={this.handleSubmit}>{this.props.bootstrapData.homepage.btn_alert}</button>
                               </div>
                             </div>
                             <div className="form-group">

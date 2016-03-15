@@ -138,7 +138,7 @@ var Managements = React.createClass({
                                   <button type="button" className="btn btn-default" data-dismiss="modal">No</button>
                                 </div>
                                 <div className="col-md-6">
-                                  <button type="button" className="btn theBtn" onClick={this.handleRemove}>Yes</button>
+                                  <button type="button" className="btn btn-mc" onClick={this.handleRemove}>Yes</button>
                                 </div>
                               </div>
                             </form>

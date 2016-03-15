@@ -172,7 +172,7 @@ var Quotes = React.createClass({
             <div className="not-found">
               <h2>{"We're sorry, there aren't any quotes matching your needs."}</h2>
               <div className="row">
-                <button className="btn theBtn col-md-offset-5" onClick={this.backToQuotesForm}>Back</button>
+                <button className="btn btn-mc col-md-offset-5" onClick={this.backToQuotesForm}>Back</button>
               </div>
             </div>
         }

@@ -62,7 +62,7 @@ var HomePart = React.createClass({
               </div>
 
               <div>
-                <a className="btn btn-lg theBtn text-uppercase" role="button" id="applyBtn" href={"#rate_alert"}>{this.props.data.homepage.btn_alert}</a>
+                <a className="btn btn-lg btn-mc text-uppercase" role="button" id="applyBtn" href={"#rate_alert"}>{this.props.data.homepage.btn_alert}</a>
               </div>
             </div>
           </div>
