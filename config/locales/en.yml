@@ -51,6 +51,11 @@ en:
           attributes:
             document_type:
               needed_proper_document: "must belong to a proper document"
+            attachment_content_type:
+              content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+            attachment_size:
+              size_too_large: " must be less than or equal to 10MB"
+
 
 
   homepage:
