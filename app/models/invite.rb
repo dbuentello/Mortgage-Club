@@ -14,7 +14,6 @@ class Invite < ActiveRecord::Base
       with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
     }
 
-
   def check_user_existence
     recipient = User.find_by(email: email)
    if recipient

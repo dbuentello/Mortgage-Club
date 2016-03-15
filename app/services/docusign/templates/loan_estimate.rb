@@ -182,11 +182,9 @@ module Docusign
         end
       end
 
-
       def initial_escrow_payment_at_closing
         if intial_escrow_payment_total != 0.0
           @params['intial_escrow_payment_total'] = Money.new(intial_escrow_payment_total * 100).format(no_cents_if_whole: true)
-
 
           map_number_to_params(
             [

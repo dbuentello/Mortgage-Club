@@ -1,6 +1,5 @@
 require "rails_helper"
 
-
 describe UserForm do
   before(:each) do
     @params = {

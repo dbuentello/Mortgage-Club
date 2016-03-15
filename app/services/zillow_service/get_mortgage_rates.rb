@@ -14,7 +14,6 @@ module ZillowService
       @zipcode = zipcode[0..4] if zipcode.length > 5
       cache_key = "zillow-mortgage-rates-#{loan_id}-#{@zipcode}"
 
-
       if rates == REDIS.get(cache_key)
         rates = JSON.parse(rates)
       else

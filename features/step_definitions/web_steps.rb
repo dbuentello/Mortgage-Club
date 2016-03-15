@@ -185,7 +185,6 @@ When(/^I select "([^\"]*)" at "([^\"]*)"$/) do |val, element|
   end
 end
 
-
 When(/^I fill in "([^\"]*)" with "([^\"]*)" at "([^\"]*)"$/) do |field, value, element|
   within(:css, element) do
     fill_in(field, with: value)
