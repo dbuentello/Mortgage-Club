@@ -7,7 +7,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
 
     bootstrap(
       loans: Admins::LoansPresenter.new(loans).show,
-      loan_members: Admins::LoanMembersPresenter.new(loan_members).show,
+      loan_members: Admins::LoanMembersPresenter.new(loan_members).show
     )
 
     respond_to do |format|

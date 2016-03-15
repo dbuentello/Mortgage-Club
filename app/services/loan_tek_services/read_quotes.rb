@@ -10,7 +10,7 @@ module LoanTekServices
       "7yearARM" => "7 year ARM",
       "5yearARM" => "5 year ARM",
       "3yearARM" => "3 year ARM",
-      "1yearARM" => "1 year ARM",
+      "1yearARM" => "1 year ARM"
     }
 
     def self.call(quotes)

@@ -8,7 +8,7 @@ describe Invite do
   it "raises an error with an invalid email" do
     expect do
       raise Invite.new(
-        email: "abc",
+        email: "abc"
       ).valid?
     end.to raise_error(TypeError)
   end

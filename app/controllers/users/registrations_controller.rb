@@ -94,7 +94,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       email: resource.errors.messages[:email].try(:first),
       password: resource.errors.messages[:password].try(:first),
       current_password: resource.errors.messages[:current_password].try(:first),
-      password_confirmation: resource.errors.messages[:password_confirmation].try(:first),
+      password_confirmation: resource.errors.messages[:password_confirmation].try(:first)
     }, status: 500
   end
 

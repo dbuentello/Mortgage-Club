@@ -16,7 +16,7 @@ class BorrowerGovernmentMonitoringInfo < ActiveRecord::Base
   PERMITTED_ATTRS = [
     :is_hispanic_or_latino,
     :gender_type,
-    borrower_races_attributes: [:id] + BorrowerRace::PERMITTED_ATTRS,
+    borrower_races_attributes: [:id] + BorrowerRace::PERMITTED_ATTRS
   ]
 
   enum gender_type: {

@@ -24,7 +24,7 @@ class LoanMembers::LoansPresenter
         },
         subject_property: {
           include: :address
-        },
+        }
       }
     }
   end

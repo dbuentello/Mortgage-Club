@@ -23,7 +23,7 @@ class Admins::LoansPresenter
         },
         subject_property: {
           include: :address
-        },
+        }
       }
     }
   end

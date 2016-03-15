@@ -48,15 +48,15 @@ describe LoanTekServices::ReadQuotes do
         fees: [
           {
             "Description" => "Loan origination fee",
-            "FeeAmount" => 995.0,
+            "FeeAmount" => 995.0
           },
           {
             "Description" => "Appraisal fee",
-            "FeeAmount" => 495.0,
+            "FeeAmount" => 495.0
           },
           {
             "Description" => "Credit report fee",
-            "FeeAmount" => 25.0,
+            "FeeAmount" => 25.0
           }
         ],
         period: 180,

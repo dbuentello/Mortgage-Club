@@ -41,7 +41,7 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
 
   def get_other_documents
     render json: {
-      lender_documents: LoanMembers::LenderDocumentsPresenter.new(@loan.other_lender_documents).show,
+      lender_documents: LoanMembers::LenderDocumentsPresenter.new(@loan.other_lender_documents).show
     }, status: 200
   end
 

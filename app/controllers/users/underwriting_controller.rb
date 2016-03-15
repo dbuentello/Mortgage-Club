@@ -5,7 +5,7 @@ class Users::UnderwritingController < Users::BaseController
     return redirect_to edit_loan_url(@loan) unless @loan.completed?
 
     bootstrap(
-      currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
+      currentLoan: LoanEditPage::LoanPresenter.new(@loan).show
     )
     render template: "borrower_app"
   end
