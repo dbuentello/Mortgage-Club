@@ -38,7 +38,7 @@ module SubmissionServices
 
     def get_templates_name
       templates_name = loan.lender.lender_templates.includes(:lender_documents).order(:is_other).map do |lender_template|
-        lender_template.is_other? ? lender_template.lender_documents.map { |document| document.description } : lender_template.description
+        lender_template.is_other? ? lender_template.lender_documents.map(&:description) : lender_template.description
       end
       templates_name.flatten!
     end

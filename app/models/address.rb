@@ -40,7 +40,7 @@ class Address < ActiveRecord::Base
       street_address2,
       city,
       state
-    ].compact.reject { |x| x.blank? }
+    ].compact.reject(&:blank?)
 
     if components.empty?
       full_text

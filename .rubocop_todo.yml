@@ -461,8 +461,8 @@ Style/SingleLineBlockParams:
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoredMethods.
-Style/SymbolProc:
-  Enabled: false
+# Style/SymbolProc:
+#   Enabled: false
 
 # Offense count: 38
 # Cop supports --auto-correct.
