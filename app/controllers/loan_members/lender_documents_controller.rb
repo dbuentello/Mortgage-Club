@@ -33,9 +33,9 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
 
   def destroy
     if @document.destroy
-      return render json: {message: t("loan_members.lender_documents.create.add_success")}, status: 200
+      return render json: {message: t("loan_members.lender_documents.remove.remove_success")}, status: 200
     else
-      return render json: {message: t("loan_members.lender_documents.create.add_failed")}, status: 500
+      return render json: {message: t("loan_members.lender_documents.remove.remove_failed")}, status: 500
     end
   end
 

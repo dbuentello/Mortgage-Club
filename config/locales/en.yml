@@ -158,6 +158,9 @@ en:
       create:
         add_failed: "Failed to upload document"
         add_success: "Created successfully"
+      remove:
+        remove_failed: "Remove file failed"
+        remove_success: "Removed it sucessfully"
   invites:
     create:
       add_failed: "Error, the email is already invited or not valid!"
