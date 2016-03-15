@@ -200,8 +200,8 @@ Style/ClassAndModuleChildren:
 # Offense count: 19
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/EmptyLinesAroundBlockBody:
-  Enabled: false
+# Style/EmptyLinesAroundBlockBody:
+#   Enabled: false
 
 # Offense count: 27
 # Cop supports --auto-correct.

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe HomepageRateServices::Quickenloans do
-
   it 'gets aprs from Quickenloans successfully' do
     # VCR.use_cassette("get aprs from Quickenloans") do
     #   response = HomepageRateServices::Quickenloans.call

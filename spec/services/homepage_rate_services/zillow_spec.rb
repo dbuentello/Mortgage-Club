@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe HomepageRateServices::Zillow do
-
   it 'gets aprs from Zillow successfully' do
     # VCR.use_cassette("get aprs from Zillow", :record => :new_episodes) do
     #   response = HomepageRateServices::Zillow.call

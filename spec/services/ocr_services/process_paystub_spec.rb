@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe OcrServices::ProcessPaystub do
-
   let(:borrower) { FactoryGirl.create(:borrower) }
   let(:ocr_with_first_document) { FactoryGirl.create(:ocr_with_first_document) }
 

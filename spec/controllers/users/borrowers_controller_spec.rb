@@ -128,7 +128,6 @@ RSpec.describe Users::BorrowersController do
 
     context "when applying as secondary borrower" do
       context "with valid params both borrower" do
-
         it "calls AssignSecondaryBorrowerToLoan service" do
           expect_any_instance_of(BorrowerServices::AssignSecondaryBorrowerToLoan).to receive(:call)
           put :update, id: borrower.id, borrower: @borrower_params, has_secondary_borrower: "true", loan_id: loan.id, secondary_borrower: @secondary_borrower

@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe RatesController do
-
   include_context "signed in as borrower user of loan"
 
   before(:each) do

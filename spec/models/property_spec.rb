@@ -64,5 +64,4 @@ describe Property do
       end
     end
   end
-
 end

@@ -15,5 +15,4 @@ describe PotentialRateDropUsersController do
       end
     end
   end
-
 end

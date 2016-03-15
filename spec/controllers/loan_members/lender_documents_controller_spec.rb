@@ -27,7 +27,6 @@ describe LoanMembers::LenderDocumentsController do
                         file: @uploaded_file,
                         format: :json
         end.to change{LenderDocument.count}.from(0).to(1)
-
       end
 
       it "renders document's info" do
