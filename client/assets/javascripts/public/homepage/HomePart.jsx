@@ -2,7 +2,7 @@ var React = require('react/addons');
 
 var HomePart = React.createClass({
   componentDidMount: function(){
-    $("#applyBtn").on("click", function( e ) {
+    $("#apply-btn").on("click", function( e ) {
       e.preventDefault();
       $("body, html").animate({
           scrollTop: $( $(this).attr('href') ).offset().top
@@ -62,7 +62,7 @@ var HomePart = React.createClass({
               </div>
 
               <div>
-                <a className="btn btn-lg btn-mc text-uppercase" role="button" id="applyBtn" href={"#rate_alert"}>{this.props.data.homepage.btn_alert}</a>
+                <a className="btn btn-lg btn-mc text-uppercase" role="button" id="apply-btn" href={"#rate_alert"}>{this.props.data.homepage.btn_alert}</a>
               </div>
             </div>
           </div>
