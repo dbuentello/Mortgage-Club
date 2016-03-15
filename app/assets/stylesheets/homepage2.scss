@@ -18,11 +18,43 @@ body {
   -moz-box-shadow: 0 3px 24px -2px rgba(0,0,0,0.1);
   margin-bottom: 0;
 }
-// Button
+//=========== Button ==============//
 #signup-btn {
   width: 140px;
 }
-// end Button
+
+#login-btn:hover {
+  background: white;
+  color: #15c0f1;
+  border-color: #15c0f1;
+}
+
+
+
+#login-btn {
+  background: white;
+  color: #a1a1a1;
+  border-color: #a1a1a1;
+  width: 140px;
+}
+
+
+  #login-btn:hover #login-img {
+    animation:loginAnim 2s infinite;
+    -webkit-animation:loginAnim 2s infinite;
+    filter:grayscale(0%);
+    -webkit-filter:grayscale(0%);
+  }
+  
+  #login-img {
+    height:18px;
+    width:auto;
+    margin-right:21px;
+    margin-top:-4px;
+    filter:grayscale(100%);
+    -webkit-filter:grayscale(100%);
+  }
+//========== end Button  ============//
 .header {
   .mortgage-nav {
     background-color: white;

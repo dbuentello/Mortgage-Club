@@ -407,27 +407,8 @@ hr {
     cursor: pointer;
   }
 }
-#login-btn {
-  background: white;
-  color: #a1a1a1;
-  border-color: #a1a1a1;
-  width: 140px;
-}
-#login-btn:hover {
-  background: white;
-  color: #15c0f1;
-  border-color: #15c0f1;
-}
-#login-btn:hover #login-img {
-  animation: loginAnim 2s infinite;
-  -webkit-animation: loginAnim 2s infinite;
-}
-#login-img {
-  height: 18px;
-  width: auto;
-  margin-right: 10px;
-  margin-top: -4px;
-}
+
+
 @keyframes loginAnim {
   0% {
     transform: translateX(0);
