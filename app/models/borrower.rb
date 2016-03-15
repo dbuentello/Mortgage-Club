@@ -21,13 +21,13 @@
 class Borrower < ActiveRecord::Base
   belongs_to :user, inverse_of: :borrower, foreign_key: 'user_id', autosave: true
   belongs_to :loan, inverse_of: :secondary_borrower, foreign_key: 'loan_id'
-  has_one   :borrower_government_monitoring_info, inverse_of: :borrower, dependent: :destroy
-  has_one   :credit_report, inverse_of: :borrower, dependent: :destroy
-  has_many  :borrower_addresses, inverse_of: :borrower, dependent: :destroy
-  has_many  :employments, inverse_of: :borrower, dependent: :destroy
-  has_one  :ocr, inverse_of: :borrower, dependent: :destroy
+  has_one :borrower_government_monitoring_info, inverse_of: :borrower, dependent: :destroy
+  has_one :credit_report, inverse_of: :borrower, dependent: :destroy
+  has_one :ocr, inverse_of: :borrower, dependent: :destroy
+  has_one :declaration, dependent: :destroy
+  has_many :borrower_addresses, inverse_of: :borrower, dependent: :destroy
+  has_many :employments, inverse_of: :borrower, dependent: :destroy
   has_many :documents, as: :subjectable, dependent: :destroy
-  has_one  :declaration, dependent: :destroy
   has_many :assets, dependent: :destroy
 
   accepts_nested_attributes_for :borrower_addresses, allow_destroy: true

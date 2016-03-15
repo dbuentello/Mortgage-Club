@@ -10,7 +10,7 @@
 
 class BorrowerGovernmentMonitoringInfo < ActiveRecord::Base
   belongs_to :borrower, inverse_of: :borrower_government_monitoring_info, foreign_key: 'borrower_id'
-  has_many   :borrower_races, inverse_of: :borrower_government_monitoring_info, dependent: :destroy
+  has_many :borrower_races, inverse_of: :borrower_government_monitoring_info, dependent: :destroy
   accepts_nested_attributes_for :borrower_races, allow_destroy: true
 
   PERMITTED_ATTRS = [
