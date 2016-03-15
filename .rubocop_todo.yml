@@ -309,8 +309,8 @@ Style/GuardClause:
 #   Enabled: false
 
 # Offense count: 1
-Style/MultilineTernaryOperator:
-  Enabled: false
+# Style/MultilineTernaryOperator:
+#   Enabled: false
 
 # Offense count: 2
 # Cop supports --auto-correct.

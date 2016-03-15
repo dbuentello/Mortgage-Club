@@ -47,8 +47,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if resource_updated
       if is_flashing_format?
-        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
-          :update_needs_confirmation : :updated
+        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ? :update_needs_confirmation : :updated
         set_flash_message :notice, flash_key
       else
         message = update_needs_confirmation?(resource, prev_unconfirmed_email) ? "Update need confirmation" : "Update successfully"
