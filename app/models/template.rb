@@ -23,17 +23,6 @@ class Template < ActiveRecord::Base
   validates :name, :docusign_id, :state, presence: true
   validates :name, uniqueness: true
 
-  after_save :clear_cache
-
-  # clear cache for Docusign tabs
-  def clear_cache
-    begin
-      REDIS.del name if REDIS.get(name)
-    rescue Exception => e
-      Rails.logger.error(e)
-    end
-  end
-
   # TODO: Refactor this method, it's a bad practice
   def template_mapping
     case name
