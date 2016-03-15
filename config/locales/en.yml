@@ -53,8 +53,17 @@ en:
               needed_proper_document: "must belong to a proper document"
             attachment_content_type:
               content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
-            attachment_size:
+            attachment_file_size:
               size_too_large: " must be less than or equal to 10MB"
+            attachment:
+              size_too_large: " must be less than or equal to 10MB"
+              content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+        lender:
+          attributes:
+            logo:
+              size_too_large: " must be less than or equal to 2MB"
+            logo_file_size:
+              size_too_large: " must be less than or equal to 2MB"
 
 
 
