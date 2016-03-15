@@ -56,9 +56,7 @@ class ApplicationController < ActionController::Base
     flash.each do |msg_type, message|
       type = bootstrap_class_for(msg_type)
 
-      if type.present?
-        customized_flash[type] = message
-      end
+      customized_flash[type] = message if type.present?
     end
 
     customized_flash

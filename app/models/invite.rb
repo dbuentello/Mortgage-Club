@@ -16,9 +16,7 @@ class Invite < ActiveRecord::Base
 
   def check_user_existence
     recipient = User.find_by(email: email)
-   if recipient
-      self.recipient_id = recipient.id
-   end
+    self.recipient_id = recipient.id if recipient
   end
 
   def generate_token

@@ -255,8 +255,8 @@ Style/GuardClause:
 # Offense count: 8
 # Cop supports --auto-correct.
 # Configuration parameters: MaxLineLength.
-Style/IfUnlessModifier:
-  Enabled: false
+# Style/IfUnlessModifier:
+#   Enabled: false
 
 # Offense count: 22
 # Cop supports --auto-correct.
