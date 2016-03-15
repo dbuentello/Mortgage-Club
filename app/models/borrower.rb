@@ -118,7 +118,7 @@ class Borrower < ActiveRecord::Base
     return false unless years_in_school.present?
     return false unless marital_status.present?
     return false unless dependent_count
-    return false if (dependent_count > 0 && dependent_ages.blank?)
+    return false if dependent_count > 0 && dependent_ages.blank?
     return false unless current_address
     return false if current_address.is_rental.nil?
     return false unless current_address.years_at_address

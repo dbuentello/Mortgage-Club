@@ -22,7 +22,7 @@ class Zillow
   end
 
   def self.parse_property(response)
-    if (response['searchresults']['response'])
+    if response['searchresults']['response']
       property = response['searchresults']['response']['results']['result'][0] || response['searchresults']['response']['results']['result']
       property.merge!(
         useCode: USE_CODE[property['useCode']]
