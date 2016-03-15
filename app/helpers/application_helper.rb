@@ -13,8 +13,6 @@ module ApplicationHelper
       "alert-warning"   # Yellow
     when "notice"
       "alert-info"      # Blue
-    else
-      nil # don't accept other types
     end
   end
 

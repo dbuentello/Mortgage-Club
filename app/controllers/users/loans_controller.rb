@@ -162,12 +162,10 @@ class Users::LoansController < Users::BaseController
   end
 
   def co_borrower_params
-    if params[:loan][:secondary_borrower_attributes].present?
-      permit_attrs = Borrower::PERMITTED_ATTRS + [:email, :_remove]
-      params.require(:loan).require(:secondary_borrower_attributes).permit(permit_attrs)
-    else
-      nil
-    end
+    return unless params[:loan][:secondary_borrower_attributes].present?
+
+    permit_attrs = Borrower::PERMITTED_ATTRS + [:email, :_remove]
+    params.require(:loan).require(:secondary_borrower_attributes).permit(permit_attrs)
   end
 
   def borrower_info_params
