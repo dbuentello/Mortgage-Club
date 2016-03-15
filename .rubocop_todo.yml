@@ -478,8 +478,8 @@ Style/SingleLineBlockParams:
 
 # Offense count: 7
 # Cop supports --auto-correct.
-Style/TrailingWhitespace:
-  Enabled: false
+# Style/TrailingWhitespace:
+#   Enabled: false
 
 # Offense count: 4
 # Cop supports --auto-correct.
