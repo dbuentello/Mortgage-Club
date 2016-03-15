@@ -13,8 +13,6 @@ module ZillowService
       end
     end
 
-    private
-
     #data.css('#hdp-tax-history table tbody td')[0]
     #<td>2014</td>
     #data.css('#hdp-tax-history table tbody td')[1]
