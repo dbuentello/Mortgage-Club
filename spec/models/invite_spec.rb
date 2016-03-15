@@ -6,11 +6,11 @@ describe Invite do
   end
 
   it "raises an error with an invalid email" do
-    expect {
+    expect do
       raise Invite.new(
         email: "abc",
       ).valid?
-    }.to raise_error(TypeError)
+    end.to raise_error(TypeError)
   end
 
   it "is invalid without a loan member" do

@@ -13,16 +13,20 @@ describe Asset, type: :model do
 
   describe '#bulk_update' do
     let(:borrower) { FactoryGirl.create :borrower }
-    let(:asset_params) {
-      [{
-         institution_name: Faker::Name.name,
-         asset_type: :checkings,
-         current_balance: 18.84},
-       {
-         institution_name: Faker::Name.name,
-         asset_type: :savings,
-         current_balance: 11.35}]
-    }
+    let(:asset_params) do
+      [
+        {
+          institution_name: Faker::Name.name,
+          asset_type: :checkings,
+          current_balance: 18.84
+        },
+        {
+          institution_name: Faker::Name.name,
+          asset_type: :savings,
+          current_balance: 11.35
+        }
+      ]
+    end
 
     context 'with new assets only' do
       it 'should add new assets' do

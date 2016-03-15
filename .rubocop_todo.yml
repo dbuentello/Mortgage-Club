@@ -129,19 +129,19 @@ Style/AccessorMethodName:
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/BarePercentLiterals:
-  Enabled: false
+# Style/BarePercentLiterals:
+#   Enabled: false
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/BlockComments:
-  Enabled: false
+# Style/BlockComments:
+#   Enabled: false
 
 # Offense count: 20
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, ProceduralMethods, FunctionalMethods, IgnoredMethods.
-Style/BlockDelimiters:
-  Enabled: false
+# Style/BlockDelimiters:
+#   Enabled: false
 
 # Offense count: 4
 # Cop supports --auto-correct.

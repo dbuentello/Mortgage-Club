@@ -7,24 +7,24 @@ FactoryGirl.define do
 
     factory :borrower_document, parent: :document do |factory|
       factory.subjectable { create(:borrower) }
-      factory.document_type {
+      factory.document_type do
         %w(
           first_w2 second_w2 first_paystub second_paystub first_bank_statement second_bank_statement
           first_federal_tax_return second_federal_tax_return first_personal_tax_return second_personal_tax_return
           first_business_tax_return second_business_tax_return other_borrower_report
         ).sample
-      }
+      end
     end
 
     factory :property_document, parent: :document do |factory|
       factory.subjectable { create(:property) }
-      factory.document_type {
+      factory.document_type do
         %w(
           appraisal_report flood_zone_certification homeowners_insurance
           inspection_report lease_agreement mortgage_statement purchase_agreement
           risk_report termite_report title_report other_property_report
         ).sample
-      }
+      end
     end
 
     factory :loan_document, parent: :document do |factory|

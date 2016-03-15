@@ -3,7 +3,7 @@ require "rails_helper"
 describe Users::PropertiesController do
   include_context "signed in as borrower user of loan"
 
-  before(:each) {
+  before(:each) do
     loan.primary_property.update(property_type: 'sfh')
     loan.borrower.create_credit_report
     address = FactoryGirl.build(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: loan.primary_property.id)
@@ -13,22 +13,22 @@ describe Users::PropertiesController do
     @property.save
     address = FactoryGirl.build(:address, street_address: "209 Silver Eagle Road", city: "Sacramento", zip: 95839, property_id: @property.id)
     address.save
-  }
+  end
 
   context 'when property is valid' do
-    it {
+    it do
       delete :destroy, id: @property.id
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['message']).to eq('ok')
-    }
+    end
   end
 
   context 'when property is invalid' do
-    it {
+    it do
       delete :destroy, id: 'invalid-property'
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['message']).to eq('error')
-    }
+    end
   end
 
   describe "#search" do

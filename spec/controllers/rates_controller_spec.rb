@@ -4,11 +4,11 @@ describe RatesController do
 
   include_context "signed in as borrower user of loan"
 
-  before(:each) {
+  before(:each) do
     loan.subject_property.update(property_type: "sfh")
     address = FactoryGirl.build(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: loan.subject_property.id)
     address.save
-  }
+  end
 
   describe "GET #index" do
     it "shows list quotes when the loan completed" do

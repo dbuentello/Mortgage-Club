@@ -65,13 +65,13 @@ describe LoanActivity do
     end
 
     it "raises an error with an invalid activity_status" do
-      expect {
+      expect do
         raise LoanActivity.new(
           loan: loan,
           loan_member: loan_member,
           activity_status: 10
         ).valid?
-      }.to raise_error(ArgumentError)
+      end.to raise_error(ArgumentError)
     end
   end
 end
