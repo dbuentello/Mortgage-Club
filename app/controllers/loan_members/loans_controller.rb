@@ -2,7 +2,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   def index
     loans = current_user.loan_member.loans.includes(:user, properties: :address)
 
-    loan_statuses = Loan.statuses.map {|key,value| [key, key.titleize]}
+    loan_statuses = Loan.statuses.map {|key, _value| [key, key.titleize]}
     bootstrap(loans: LoanMembers::LoansPresenter.new(loans).show,
       loan_statuses: loan_statuses
       )

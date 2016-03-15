@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :employment do |f|
+  factory :employment do
     address
     borrower
 

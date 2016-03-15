@@ -12,7 +12,7 @@ FactoryGirl.define do
     f.user { create(:loan_member_user) }
 
     factory :loan_member_with_activites, parent: :loan_member do
-      after(:build) do |loan_member, evaluator|
+      after(:build) do |loan_member, _evaluator|
         create_list(:loan_activity, Random.rand(1..3), loan_member: loan_member)
       end
     end

@@ -21,7 +21,7 @@ FactoryGirl.define do
     f.is_file_taxes_jointly { [true, false].sample }
     f.dependent_count { Faker::Number.number(6) }
 
-    after(:build) do |borrower, evaluator|
+    after(:build) do |borrower, _evaluator|
       create(:employment, borrower: borrower, is_current: true)
       create_list(:borrower_address, 1, borrower: borrower)
     end
@@ -31,7 +31,7 @@ FactoryGirl.define do
     end
 
     factory :borrower_with_credit_report, parent: :borrower do
-      after(:build) do |borrower, credit_report|
+      after(:build) do |borrower, _credit_report|
         create(:credit_report, borrower: borrower)
       end
     end
