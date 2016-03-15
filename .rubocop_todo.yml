@@ -173,18 +173,18 @@ Style/ClassAndModuleChildren:
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, AllowInnerBackticks.
-Style/CommandLiteral:
-  Enabled: false
+# Style/CommandLiteral:
+#   Enabled: false
 
 # Offense count: 160
-Style/Documentation:
-  Enabled: false
+# Style/Documentation:
+#   Enabled: false
 
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/DotPosition:
-  Enabled: false
+# Style/DotPosition:
+#   Enabled: false
 
 # Offense count: 2
 # Cop supports --auto-correct.
