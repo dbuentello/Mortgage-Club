@@ -74,7 +74,7 @@ var Quotes = React.createClass({
 
   selectRate: function(rate) {
     $.ajax({
-      url: "/initial_quotes/save_info",
+      url: "/quotes/save_info",
       data: {
         zip_code: this.props.bootstrapData.zipCode,
         credit_score: this.props.bootstrapData.creditScore,

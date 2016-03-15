@@ -11,9 +11,6 @@ Rails.application.routes.draw do
   post "/potential_users", to: "potential_users#create"
   post "mailjet_tracking", to: "mailjet_tracking#track"
   get "/esigning/:id", to: "electronic_signature#new"
-  get "/quotes", to: "initial_quotes#index"
-  get "/quotes/:id", to: "initial_quotes#show"
-  post "/quotes", to: "initial_quotes#create"
 
   authenticated :user, ->(u) { u.has_role?(:borrower) } do
     root to: "users/loans#index", as: :borrower_root
@@ -223,7 +220,7 @@ Rails.application.routes.draw do
     post "receive", on: :collection
   end
 
-  resources :initial_quotes, only: [:index, :create, :show] do
+  resources :initial_quotes, only: [:index, :show, :create], path: "quotes" do
     collection do
       post "save_info"
     end
