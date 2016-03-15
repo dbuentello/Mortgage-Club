@@ -36,7 +36,7 @@ describe Users::ChecklistsController do
     context "with invalid template" do
       it "raises an error" do
         get :load_docusign, id: checklist.id, template_name: "", loan_id: checklist.loan.id
-        expect(response.body).to eq("{\"message\":\"Template does not exist yet\",\"details\":\"Template  does not exist yet!\"}")
+        expect(response.body).to eq("{\"message\":\"Template is not found\",\"details\":\"Template  does not exist yet!\"}")
       end
     end
   end
