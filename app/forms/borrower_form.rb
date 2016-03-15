@@ -57,7 +57,6 @@ class BorrowerForm
         full_text: current_address.full_text
       )
     )
-
   end
 
   private
