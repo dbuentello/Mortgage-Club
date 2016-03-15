@@ -13,7 +13,7 @@ class BorrowerAddress < ActiveRecord::Base
   ]
 
   def cached_address
-    Rails.cache.fetch("borrower_address-#{id}-#{updated_at.to_i}", expires_in: 7.day) do
+    Rails.cache.fetch("borrower_address-#{id}-#{updated_at.to_i}", expires_in: 7.days) do
       self.address
     end
   end

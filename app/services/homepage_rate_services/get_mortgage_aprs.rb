@@ -17,7 +17,7 @@ module HomepageRateServices
         aprs = get_aprs
 
         REDIS.set(cache_key, aprs.to_json)
-        REDIS.expire(cache_key, 168.hour.to_i)
+        REDIS.expire(cache_key, 168.hours)
       end
 
       aprs
