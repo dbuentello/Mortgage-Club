@@ -39,15 +39,15 @@ module LoanTekServices
     end
 
     def get_credit_score
-      info[:credit_score].to_i
+      info["credit_score"].to_i
     end
 
     def get_zip_code
-      info[:zip_code]
+      info["zip_code"]
     end
 
     def get_property_usage
-      case info[:property_usage]
+      case info["property_usage"]
       when "primary_residence"
         usage = 1
       when "vacation_home"
@@ -61,7 +61,7 @@ module LoanTekServices
     end
 
     def get_property_type
-      case info[:property_type]
+      case info["property_type"]
       when "sfh"
         property_type = 1
       when "duplex"
@@ -80,16 +80,16 @@ module LoanTekServices
 
     def get_loan_amount
       if purchase_loan?
-        amount = info[:property_value].to_f - info[:down_payment].to_f
+        amount = info["property_value"].to_f - info["down_payment"].to_f
       else
-        amount = info[:mortgage_balance].to_f
+        amount = info["mortgage_balance"].to_f
       end
       amount
     end
 
     def get_loan_to_value
       loan_amount = get_loan_amount
-      (loan_amount * 100 / info[:property_value].to_f).round(3)
+      (loan_amount * 100 / info["property_value"].to_f).round(3)
     end
 
     def success?
@@ -97,7 +97,7 @@ module LoanTekServices
     end
 
     def purchase_loan?
-      info[:mortgage_purpose] == "purchase"
+      info["mortgage_purpose"] == "purchase"
     end
   end
 end
