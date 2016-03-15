@@ -8,7 +8,7 @@ module LoanTekServices
     end
 
     def call
-      url = "https://api.loantek.com/Clients/WebServices/Client/#{ENV["LOANTEK_CLIENT_ID"]}/Pricing/V2/Quotes/LoanPricer/#{ENV["LOANTEK_USER_ID"]}"
+      url = "https://api.loantek.com/Clients/WebServices/Client/#{ENV['LOANTEK_CLIENT_ID']}/Pricing/V2/Quotes/LoanPricer/#{ENV['LOANTEK_USER_ID']}"
       connection = Faraday.new(url: url)
       @response = connection.post do |conn|
         conn.headers["Content-Type"] = "application/json"

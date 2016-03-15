@@ -438,25 +438,25 @@ Style/SingleLineBlockParams:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-Style/SpaceInsideRangeLiteral:
-  Enabled: false
+# Style/SpaceInsideRangeLiteral:
+#   Enabled: false
 
 # Offense count: 6
 # Cop supports --auto-correct.
-Style/SpecialGlobalVars:
-  Enabled: false
+# Style/SpecialGlobalVars:
+#   Enabled: false
 
 # Offense count: 808
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/StringLiterals:
-  Enabled: false
+# Style/StringLiterals:
+#   Enabled: false
 
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/StringLiteralsInInterpolation:
-  Enabled: false
+# Style/StringLiteralsInInterpolation:
+#   Enabled: false
 
 # Offense count: 1
 # Cop supports --auto-correct.

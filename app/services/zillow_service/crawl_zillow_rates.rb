@@ -119,10 +119,10 @@ module ZillowService
       lender_credit = quote["lenderCredit".freeze]
 
       if quote["arm".freeze]
-        product = "#{quote["arm".freeze]["fixedRateMonths"] / 12}/1 ARM"
+        product = "#{quote['arm'.freeze]['fixedRateMonths'] / 12}/1 ARM"
         period = quote["arm"]["fixedRateMonths".freeze]
       else
-        product = "#{quote["termMonths"] / 12} year fixed"
+        product = "#{quote['termMonths'] / 12} year fixed"
         period = quote["termMonths".freeze]
       end
 
