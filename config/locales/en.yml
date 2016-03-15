@@ -26,6 +26,10 @@ en:
       separator: "."
   activerecord:
     errors:
+      messages:
+        blank: "can't be blank"
+        invalid_upload_document_type: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+        file_size_limited_10_mb: " must be less than or equal to 10MB"
       models:
         checklist:
           attributes:
@@ -63,10 +67,17 @@ en:
           attributes:
             property:
               limited_quantity: "Property can't have more than two liabilities"
+            liabilities:
+              limited_quantity: "Property can't have more than two liabilities"
         loan:
           attributes:
             loan_type:
               invalid_loan_type: "%{value} is not a valid loan type"
+              invalid_loan_status: "%{value} is not a valid status"
+        potential_rate_drop_user:
+          attributes:
+            alert_method:
+              empty_alert_method: "can't be blank"
 
         user:
           attributes:
