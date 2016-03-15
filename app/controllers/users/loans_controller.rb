@@ -122,26 +122,6 @@ class Users::LoansController < Users::BaseController
     end
   end
 
-  # GET get_co_borrower_info
-  # def get_secondary_borrower_info
-  #   is_existing = Form::CoBorrower.check_existing_borrower(current_user, params[:email])
-
-  #   if is_existing
-  #     is_valid = Form::CoBorrower.check_valid_borrower(borrower_info_params)
-
-  #     if is_valid
-  #       user = User.where(email: params[:email]).first
-  #       borrower = user.borrower
-
-  #       render json: {secondary_borrower: BorrowerPresenter.new(borrower).show}, status: :ok
-  #     else
-  #       render json: {message: 'Invalid email or date of birth or social security number'}, status: :ok
-  #     end
-  #   else
-  #     render json: {message: 'Not found'}, status: :ok
-  #   end
-  # end
-
   private
 
   def delete_quote_cookies

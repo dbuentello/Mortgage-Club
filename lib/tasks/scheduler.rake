@@ -8,4 +8,9 @@ namespace :scheduler do
 
     puts "done."
   end
+
+  desc "Clear quote queries were created before seven days ago"
+  task clear_quote_queries: :environment do
+    QuoteQuery.where("created_at < ?", 7.days.ago).destroy_all
+  end
 end

@@ -1,5 +1,6 @@
 require "rails_helper"
-RSpec.describe Users::BorrowersController do
+
+describe Users::BorrowersController do
   include_context "signed in as borrower user of loan"
   describe "GET #update" do
     let!(:loan) { FactoryGirl.create(:loan) }

@@ -121,6 +121,7 @@ group :development do
 
   gem 'derailed'
   gem 'stackprof'
+  gem 'traceroute'
 end
 
 group :development, :test do

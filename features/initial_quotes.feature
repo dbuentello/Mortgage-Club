@@ -1,7 +1,7 @@
 Feature: InitialQuotes
   @javascript @vcr
   Scenario: fill in form and see rates
-  When I go to the quotes page
+  When I go to the initial quotes page
     And I should see "Answer a few questions and get a customized rate quote in 10 seconds."
   Then I select "Purchase" from "Mortgage Purpose"
     And I should see "Down Payment"
@@ -18,7 +18,7 @@ Feature: InitialQuotes
 
   @javascript @vcr
   Scenario: select help me choose
-  When I go to the quotes page
+  When I go to the initial quotes page
     And I should see "Answer a few questions and get a customized rate quote in 10 seconds."
   Then I select "Purchase" from "Mortgage Purpose"
     And I should see "Down Payment"
@@ -37,7 +37,7 @@ Feature: InitialQuotes
 
   @javascript @vcr
   Scenario: fill in form with refinance loan and see rates
-  When I go to the quotes page
+  When I go to the initial quotes page
     And I should see "Answer a few questions and get a customized rate quote in 10 seconds."
   Then I select "Refinance" from "Mortgage Purpose"
     And I should see "Current Mortgage Balance"

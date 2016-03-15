@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe RatesController do
+describe Users::RatesController do
   include_context "signed in as borrower user of loan"
 
   before(:each) do
@@ -13,7 +13,6 @@ describe RatesController do
     it "shows list quotes when the loan completed" do
       allow_any_instance_of(Loan).to receive("completed?").and_return(true)
       allow_any_instance_of(LoanTekServices::GetQuotes).to receive(:call).and_return([{"lender_name": "Sebonic Financial", "nmls": "66247", "apr": 3.38, "monthly_payment": 2294, "loan_amount": 400000, "interest_rate": 3.375, "product": "20 year fixed", "total_fee": 1395, "down_payment": 100000}])
-      allow(controller).to receive(:get_debug_info).and_return(nil)
 
       get :index, :loan_id => loan.id
       expect(response.status).to eq(200)
@@ -23,7 +22,6 @@ describe RatesController do
     it "shows redirect to the loan edit page when the loan uncompleted" do
       allow_any_instance_of(Loan).to receive("completed?").and_return(false)
       allow_any_instance_of(LoanTekServices::GetQuotes).to receive(:call).and_return([{"lender_name": "Sebonic Financial", "nmls": "66247", "apr": 3.38, "monthly_payment": 2294, "loan_amount": 400000, "interest_rate": 3.375, "product": "20 year fixed", "total_fee": 1395, "down_payment": 100000}])
-      allow(controller).to receive(:get_debug_info).and_return(nil)
 
       get :index, :loan_id => loan.id
       expect(response.status).to eq(302)
@@ -32,7 +30,7 @@ describe RatesController do
     it "does not find quotes" do
       allow_any_instance_of(Loan).to receive("completed?").and_return(true)
       allow_any_instance_of(LoanTekServices::GetQuotes).to receive(:call).and_return([])
-      allow(controller).to receive(:get_debug_info).and_return(nil)
+
       get :index, :loan_id => loan.id
       expect(response.status).to eq(200)
       expect(assigns(:bootstrap_data)[:programs]).to eq([])

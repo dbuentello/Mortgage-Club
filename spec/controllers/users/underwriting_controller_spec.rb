@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe UnderwritingController do
+describe Users::UnderwritingController do
   include_context "signed in as borrower user of loan"
 
   before(:each) do

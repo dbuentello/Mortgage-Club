@@ -1,4 +1,4 @@
-class InvitesController < ApplicationController
+class Users::InvitesController < Users::BaseController
   def create
     invite_counter = 0
     i = 0
