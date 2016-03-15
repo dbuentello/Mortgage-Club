@@ -4,7 +4,7 @@ var ClientPart = React.createClass({
   render: function() {
 
     return (
-      <div className="content howPart">
+      <div className="content how-part">
         <div className="container">
           <h1 className="text-uppercase how-header">how it works</h1>
           <div className="row">
@@ -65,7 +65,7 @@ var ClientPart = React.createClass({
             </div>
           </div>
         </div>
-        <div id="howFooter"></div>
+        <div id="how-footer"></div>
         </div>
 
     );

@@ -276,6 +276,41 @@
     color: $mc-color;
   }
   // end why-part
+
+  // how part
+  .how-part p,
+  .how-part h6 {
+    color: black;
+  }
+  .howItem {
+    margin-top: 75px;
+  }
+  .how-part .bigNum {
+    color: #15c0f1;
+  }
+  .how-part img {
+    height: 120%;
+    margin-left: 40px;
+  }
+  .how-part .whyText {
+    width: 80%;
+  }
+  .how-part .whyText h6 {
+    font-size: 2.3em;
+    font-family: 'aileronregular';
+  }
+  .how-part .whyText p {
+    font-size: 1.25em;
+    font-family: 'aileronlight';
+  }
+  #how-footer {
+    margin-top: -100px;
+    background-color: #15c0f1;
+    height: 150px;
+    margin-top: -110px;
+    width: 100%;
+  }
+  //end how part
   .middle {
     .description {
       padding-top: 10px;
@@ -353,38 +388,7 @@
     font-family: 'aileronlight';
   }
 
-  .howPart p,
-  .howPart h6 {
-    color: black;
-  }
-  .howItem {
-    margin-top: 75px;
-  }
-  .howPart .bigNum {
-    color: #15c0f1;
-  }
-  .howPart img {
-    height: 120%;
-    margin-left: 40px;
-  }
-  .howPart .whyText {
-    width: 80%;
-  }
-  .howPart .whyText h6 {
-    font-size: 2.3em;
-    font-family: 'aileronregular';
-  }
-  .howPart .whyText p {
-    font-size: 1.25em;
-    font-family: 'aileronlight';
-  }
-  #howFooter {
-    margin-top: -100px;
-    background-color: #15c0f1;
-    height: 150px;
-    margin-top: -110px;
-    width: 100%;
-  }
+
   .clientPart {
     background-color: #fff;
     padding-bottom: 50px;
