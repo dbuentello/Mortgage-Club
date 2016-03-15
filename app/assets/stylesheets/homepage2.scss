@@ -11,6 +11,13 @@ body {
 .borderless {
   border: none !important;
 }
+// shadow of header navbar
+.shadow-bottom {
+  box-shadow: 0 3px 24px -2px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 3px 24px -2px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0 3px 24px -2px rgba(0,0,0,0.1);
+  margin-bottom: 0;
+}
 
 .header {
   .mortgage-nav {
@@ -123,17 +130,7 @@ body {
     margin-right: 7px;
     margin-top: -9px;
   }
-  .btn-mc {
-    background: #15c0f1;
-    border-color: #15c0f1;
-    color: white;
-    //margin-top: 5px;
-  }
-  .btn-mc:hover {
-    background: white;
-    color: #15c0f1;
-    border-color: #15c0f1;
-  }
+
   .active-loans #loanBtnImg:hover {
     filter:brightness(10000%);
     -webkit-filter: brightness(10000%);
