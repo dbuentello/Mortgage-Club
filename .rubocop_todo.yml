@@ -267,19 +267,19 @@ Style/GuardClause:
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/IndentationConsistency:
-  Enabled: false
+# Style/IndentationConsistency:
+#   Enabled: false
 
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: Width.
-Style/IndentationWidth:
-  Enabled: false
+# Style/IndentationWidth:
+#   Enabled: false
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/Lambda:
-  Enabled: false
+# Style/Lambda:
+#   Enabled: false
 
 # Offense count: 7
 # Cop supports --auto-correct.
