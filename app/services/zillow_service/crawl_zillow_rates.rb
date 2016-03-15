@@ -48,7 +48,7 @@ module ZillowService
                       "&purchase.firstTimeBuyer=false&purchase.newConstruction=false"\
                       "&partnerId=RD-CZMBMCZ&#{user_session_id}"
       crawler.visit url
-      request_code = crawler.text.split('":"').last.chomp('"}')
+      crawler.text.split('":"').last.chomp('"}')
     end
 
     def get_rates(quotes)

@@ -433,7 +433,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
 
   describe "#build_purchase_loan" do
     it "maps right values relating to refinance" do
-      property = @service.loan.subject_property
+      @service.loan.subject_property
       @service.build_purchase_loan
       expect(@service.params).to include({
         purpose_purchase: "Yes",

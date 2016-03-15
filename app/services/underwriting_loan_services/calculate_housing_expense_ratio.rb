@@ -2,7 +2,6 @@ module UnderwritingLoanServices
   class CalculateHousingExpenseRatio
     def self.call(loan)
       property = loan.subject_property
-      borrower = loan.borrower
       total_income = UnderwritingLoanServices::CalculateTotalIncome.call(loan)
 
       (property.liability_payments + property.estimated_mortgage_insurance.to_f +

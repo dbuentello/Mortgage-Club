@@ -15,11 +15,11 @@ module SubmissionServices
       client_name = get_client_name
 
       {
-        templates_name: get_templates_name,
+        templates_name: templates_name,
         lender_name: loan.lender.name,
         lender_email: loan.lender.lock_rate_email,
         loan_member_name: staff.to_s,
-        client_name: get_client_name,
+        client_name: client_name,
         loan_member_title: loan_member.title(loan),
         loan_member_email: "#{staff} <#{staff.email}>",
         loan_member_short_email: staff.email,

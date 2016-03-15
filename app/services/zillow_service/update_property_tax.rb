@@ -22,7 +22,7 @@ module ZillowService
       return unless data.css('#hdp-tax-history table tbody td')[0]
       return unless data.css('#hdp-tax-history table tbody td')[1]
 
-      year = data.css('#hdp-tax-history table tbody td')[0].text
+      data.css('#hdp-tax-history table tbody td')[0].text
       property_tax_text = data.css('#hdp-tax-history table tbody td')[1].text
 
       if property_tax_text.include? '-'

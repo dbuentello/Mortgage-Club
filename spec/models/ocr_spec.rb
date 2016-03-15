@@ -8,7 +8,7 @@ describe Ocr do
   end
 
   it 'a borrower has a ocr' do
-    ocr = borrower.create_ocr
+    borrower.create_ocr
     expect(borrower.ocr.present?).to eql(true)
   end
 end
