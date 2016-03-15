@@ -30,7 +30,7 @@ module Docusign
       def build_section_1
         build_loan_type
         @params[:loan_amount] = number_with_delimiter(loan.amount.to_f.round)
-        @params[:interest_rate] = "#{"%.3f" % (loan.interest_rate.to_f * 100)}"
+        @params[:interest_rate] = format("%0.03f", loan.interest_rate.to_f * 100) + "%"
         @params[:number_of_month] = loan.num_of_months
         @params[:arm_fixed_rate] = "Yes" if loan.fixed_rate_amortization?
         if loan.arm_amortization?

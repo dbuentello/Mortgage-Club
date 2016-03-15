@@ -42,17 +42,17 @@ describe HomepageRateServices::GetMortgageAprs do
       quicken_loans = result["quicken_loans"]
       wellsfargo = result["wellsfargo"]
 
-      expect(loan_tek["apr_30_year"]).to eq(sprintf("%0.03f", loan_tek_30.rate_value) + "%")
-      expect(loan_tek["apr_15_year"]).to eq(sprintf("%0.03f", loan_tek_15.rate_value) + "%")
-      expect(loan_tek["apr_5_libor"]).to eq(sprintf("%0.03f", loan_tek_arm.rate_value) + "%")
+      expect(loan_tek["apr_30_year"]).to eq(format("%0.03f", loan_tek_30.rate_value) + "%")
+      expect(loan_tek["apr_15_year"]).to eq(format("%0.03f", loan_tek_15.rate_value) + "%")
+      expect(loan_tek["apr_5_libor"]).to eq(format("%0.03f", loan_tek_arm.rate_value) + "%")
 
-      expect(quicken_loans["apr_30_year"]).to eq(sprintf("%0.03f", quicken_loans_30.rate_value) + "%")
-      expect(quicken_loans["apr_15_year"]).to eq(sprintf("%0.03f", quicken_loans_15.rate_value) + "%")
-      expect(quicken_loans["apr_5_libor"]).to eq(sprintf("%0.03f", quicken_loans_arm.rate_value) + "%")
+      expect(quicken_loans["apr_30_year"]).to eq(format("%0.03f", quicken_loans_30.rate_value) + "%")
+      expect(quicken_loans["apr_15_year"]).to eq(format("%0.03f", quicken_loans_15.rate_value) + "%")
+      expect(quicken_loans["apr_5_libor"]).to eq(format("%0.03f", quicken_loans_arm.rate_value) + "%")
 
-      expect(wellsfargo["apr_30_year"]).to eq(sprintf("%0.03f", wellsfargo_30.rate_value) + "%")
-      expect(wellsfargo["apr_15_year"]).to eq(sprintf("%0.03f", wellsfargo_15.rate_value) + "%")
-      expect(wellsfargo["apr_5_libor"]).to eq(sprintf("%0.03f", wellsfargo_arm.rate_value) + "%")
+      expect(wellsfargo["apr_30_year"]).to eq(format("%0.03f", wellsfargo_30.rate_value) + "%")
+      expect(wellsfargo["apr_15_year"]).to eq(format("%0.03f", wellsfargo_15.rate_value) + "%")
+      expect(wellsfargo["apr_5_libor"]).to eq(format("%0.03f", wellsfargo_arm.rate_value) + "%")
     end
   end
 end

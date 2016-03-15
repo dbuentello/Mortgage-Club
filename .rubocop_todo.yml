@@ -217,8 +217,8 @@ Style/ClassAndModuleChildren:
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/EmptyLinesAroundModuleBody:
-  Enabled: false
+# Style/EmptyLinesAroundModuleBody:
+#   Enabled: false
 
 # Offense count: 3
 # Configuration parameters: Exclude.
@@ -228,13 +228,13 @@ Style/FileName:
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/FirstParameterIndentation:
-  Enabled: false
+# Style/FirstParameterIndentation:
+#   Enabled: false
 
 # Offense count: 1
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/FormatString:
-  Enabled: false
+# Style/FormatString:
+#   Enabled: false
 
 # Offense count: 9
 # Configuration parameters: AllowedVariables.
