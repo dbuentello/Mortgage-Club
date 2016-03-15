@@ -35,11 +35,11 @@ module HomepageRateServices
       apr_5_libor = 100
 
       quotes.each do |quote|
-        if quote["DiscountPts"] > -1
-          apr_30_year = quote["APR"] if quote["ProductName"] == "30yearFixed" && quote["APR"] < apr_30_year
-          apr_15_year = quote["APR"] if quote["ProductName"] == "15yearFixed" && quote["APR"] < apr_15_year
-          apr_5_libor = quote["APR"] if quote["ProductName"] == "5yearARM" && quote["APR"] < apr_5_libor
-        end
+        next unless quote["DiscountPts"] > -1
+
+        apr_30_year = quote["APR"] if quote["ProductName"] == "30yearFixed" && quote["APR"] < apr_30_year
+        apr_15_year = quote["APR"] if quote["ProductName"] == "15yearFixed" && quote["APR"] < apr_15_year
+        apr_5_libor = quote["APR"] if quote["ProductName"] == "5yearARM" && quote["APR"] < apr_5_libor
       end
 
       {

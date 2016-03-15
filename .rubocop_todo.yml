@@ -319,8 +319,8 @@ Style/GuardClause:
 
 # Offense count: 1
 # Configuration parameters: EnforcedStyle, MinBodyLength, SupportedStyles.
-Style/Next:
-  Enabled: false
+# Style/Next:
+#   Enabled: false
 
 # Offense count: 2
 # Cop supports --auto-correct.
