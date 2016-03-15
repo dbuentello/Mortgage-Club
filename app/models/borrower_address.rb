@@ -18,7 +18,7 @@ class BorrowerAddress < ActiveRecord::Base
     end
   end
 
-  def as_json(opts={})
+  def as_json(opts = {})
     more_options = {
       methods: :cached_address
     }

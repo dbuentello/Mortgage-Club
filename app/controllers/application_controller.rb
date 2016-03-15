@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     authorize @loan, :update?
   end
 
-  def bootstrap(data={})
+  def bootstrap(data = {})
     @bootstrap_data =
     {
       currentUser: current_user.present? ? {id: current_user.id, firstName: current_user.first_name, lastName: current_user.last_name} : {},
@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
     customized_flash
   end
 
-  def prepare_meta_tags(options={})
+  def prepare_meta_tags(options = {})
     site_name   = "MortgageClub"
     title       = "FREE REFINANCE ALERT" # ["controller_name", "action_name"].join(" ")
     description = "MortgageClub leverages big data and advanced technology to replace your loan officer and pass on the savings to you."

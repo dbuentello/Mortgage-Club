@@ -60,7 +60,7 @@ class Employment < ActiveRecord::Base
     address.full_text
   end
 
-  def as_json(opts={})
+  def as_json(opts = {})
     more_options = {
       include: :address
     }

@@ -394,8 +394,8 @@ Style/SingleLineBlockParams:
 # Offense count: 9
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/SpaceAroundEqualsInParameterDefault:
-  Enabled: false
+# Style/SpaceAroundEqualsInParameterDefault:
+#   Enabled: false
 
 # Offense count: 4
 # Cop supports --auto-correct.
