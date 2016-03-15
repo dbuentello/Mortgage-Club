@@ -47,7 +47,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
         checklists: LoanMembers::ChecklistsPresenter.new(loan.checklists).show
       }, status: 200
     else
-      render json: {message: t("messages.errors.failed", process: "remove"), status: 500
+      render json: {message: t("messages.errors.failed", process: "remove")}, status: 500
     end
   end
 

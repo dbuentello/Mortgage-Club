@@ -124,9 +124,6 @@ en:
         remove_failed: "Cannot remove the checklist"
         remove_success: "Removed the %{borrower} successfully"
 
-    loan_activity_type_managements:
-      update:
-
   users:
     assets:
       create:
@@ -149,8 +146,6 @@ en:
       update:
         confirmation_needed: "Update need confirmation"
   loan_members:
-    checklists:
-
     loans:
       update:
         success: "Your loan has been saved successfully"
