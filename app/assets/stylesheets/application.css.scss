@@ -110,13 +110,7 @@ $rails: true;
   color: #A27D35;
   font-size: 14px;
 }
-.equal-housing {
-  margin-left: -120px;
-  color: white;
-  font-family: 'aileronlight';
-  font-size: 1.125em;
-  letter-spacing: 0.03em;
-}
+
 .tooltip > .tooltip-arrow {
   border-left-color: #FBF7AA !important;
 }
@@ -343,10 +337,7 @@ hr {
   height: 1px;
   background-color: #e1e1e1;
 }
-
-
-.logo img,
-#footerLogo {
+.logo img {
   width: 200px;
   padding-bottom: 5px;
 }

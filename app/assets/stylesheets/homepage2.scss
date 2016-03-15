@@ -270,10 +270,6 @@ $shadow-color: rgba(0,0,0,0.1);
   letter-spacing: .03em;
   //width: 50%;
 }
-.footer {
-  height: 150px;
-  background-color: $mc-color;
-}
 .footer-right {
   color: white;
   //float:right;
@@ -312,6 +308,17 @@ $shadow-color: rgba(0,0,0,0.1);
   transform: scale(1.2,1.2);
   -webkit-transform: (1.2,1.2);
   cursor: pointer;
+}
+#footerLogo {
+  width: 200px;
+  padding-bottom: 5px;
+}
+.equal-housing {
+  margin-left: -120px;
+  color: white;
+  font-family: 'aileronlight';
+  font-size: 1.125em;
+  letter-spacing: 0.03em;
 }
 #footerLogo {
   //float:left;
