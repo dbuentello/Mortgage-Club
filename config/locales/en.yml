@@ -27,8 +27,51 @@ en:
   activerecord:
     errors:
       models:
+        checklist:
+          attributes:
+            document_type:
+              needed_proper_document: "must belong to a proper document"
+            subject_name:
+              needed_proper_subject: "must belong to a proper subject"
+        document:
+          attributes:
+            attachment:
+              size_too_large: " must be less than or equal to 10MB"
+              content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+            attachment_content_type:
+              content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+            attachment_file_size:
+              size_too_large: " must be less than or equal to 10MB"
+            document_type:
+              needed_proper_document: "must belong to a proper document"
+        lender:
+          attributes:
+            logo:
+              size_too_large: " must be less than or equal to 2MB"
+            logo_file_size:
+              size_too_large: " must be less than or equal to 2MB"
+        lender_document:
+          attributes:
+            attachment:
+              content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+              size_too_large: " must be less than or equal to 10MB"
+            attachment_content_type:
+              content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+            attachment_file_size:
+              size_too_large: " must be less than or equal to 10MB"
+        liability:
+          attributes:
+            property:
+              limited_quantity: "Property can't have more than two liabilities"
+        loan:
+          attributes:
+            loan_type:
+              invalid_loan_type: "%{value} is not a valid loan type"
+
         user:
           attributes:
+            email:
+              taken: "This email has already been taken"
             first_name:
               blank: "This is field required"
             last_name:
@@ -39,33 +82,6 @@ en:
             password_confirmation:
               blank: "This is field required"
               confirmation: "Doesn't match Password"
-            email:
-              taken: "This email has already been taken"
-        checklist:
-          attributes:
-            document_type:
-              needed_proper_document: "must belong to a proper document"
-            subject_name:
-              needed_proper_subject: "must belong to a proper subject"
-        document:
-          attributes:
-            document_type:
-              needed_proper_document: "must belong to a proper document"
-            attachment_content_type:
-              content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
-            attachment_file_size:
-              size_too_large: " must be less than or equal to 10MB"
-            attachment:
-              size_too_large: " must be less than or equal to 10MB"
-              content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
-        lender:
-          attributes:
-            logo:
-              size_too_large: " must be less than or equal to 2MB"
-            logo_file_size:
-              size_too_large: " must be less than or equal to 2MB"
-
-
 
   homepage:
     title_alert: "FREE REFINANCE ALERT"
@@ -89,16 +105,17 @@ en:
   admins:
     borrower_managements:
       destroy:
-        remove_success: "Removed the %{borrower} successfully"
         remove_failed: "Cannot remove the checklist"
+        remove_success: "Removed the %{borrower} successfully"
+
     loan_activity_type_managements:
       update:
 
   users:
     assets:
       create:
-        add_success: "Add new asset sucessfully"
         add_failed: "Add new asset failed"
+        add_success: "Add new asset sucessfully"
     liabilities:
       create:
         add_failed: "cannot save liabilities"
@@ -124,7 +141,7 @@ en:
         send_success: "Sent to lender sucessfully"
   invites:
     create:
-      add_success: "%{invite_counter} person was successfully invited to Mortgage Club!"
       add_failed: "Error, the email is already invited or not valid!"
+      add_success: "%{invite_counter} person was successfully invited to Mortgage Club!"
 
 
