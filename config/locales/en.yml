@@ -93,6 +93,10 @@ en:
             password_confirmation:
               blank: "This is field required"
               confirmation: "Doesn't match Password"
+  errors:
+    messages:
+      file_not_found: "File is not found"
+      template_not_found: "Template is not found"
 
   homepage:
     title_alert: "FREE REFINANCE ALERT"
@@ -109,7 +113,7 @@ en:
       failed: "Sorry. Currently the system cannot %{process}"
       field_required: "This field is required"
       iframe_render_error: "can't render iframe"
-      object_not_found: "%{object} not found"
+      object_not_found: "%{object} is not found"
       page_not_found: "We can't seem to find the page you're looking for."
       permission_denied: "You don't have permission to retrieve the page"
       page_not_found_or_permission_denied: "The page does not exist or you don't have permmission to access!"
@@ -150,6 +154,10 @@ en:
     submissions:
       submit_to_lender:
         send_success: "Sent to lender sucessfully"
+    lender_documents:
+      create:
+        add_failed: "Failed to upload document"
+        add_success: "Created successfully"
   invites:
     create:
       add_failed: "Error, the email is already invited or not valid!"
