@@ -292,8 +292,11 @@
 
   .form-group img {
     top: initial;
-    -moz-filter: saturate(0%);
     -webkit-filter: saturate(0%);
+    -ms-filter: saturate(0%);
+    -moz-filter: saturate(0%);
+    -khtml-filter: saturate(0%);
+    -o-filter:saturate(0%);
     filter: saturate(0%);
     bottom: 6px;
     cursor: pointer;
@@ -303,6 +306,9 @@
   select {
     -webkit-appearance: none;
     -moz-appearance: none;
+    -khtml-appearance: none;
+    -o-appearance: none;
+    -ms-appearance: none;
     appearance: none;
     height: 38px;
     width: 100%;
