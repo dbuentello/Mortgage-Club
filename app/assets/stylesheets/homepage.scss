@@ -113,8 +113,121 @@
     color: white;
   }
   // end rate table and home background
+  // bank logo - investors
+  .header-logo {
+    text-align: center;
+    width: 100%;
+  }
+  // .header-logos {
+  //   .partner-logo {
+  //     img {
+  //       padding-top: 19px;
+  //       width: 100%;
+  //     }
+  //   }
+  // }
+  .header-logo {
+    .partner-logo {
+      img {
+        padding-top: 10px;
+        width: 100%;
+      }
+    }
+  }
+  .our-investors {
+    width: 100%;
+    background-color: #f3f5f7;
+    margin-top: -21px;
+  }
+  .our-investors div:last-child {
+    margin-right: 0;
+  }
+  .asseen {
 
+    display: table;
+  }
 
+  .asseen div {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 1.2em;
+    font-weight: 300;
+    color: #727b82;
+  }
+
+  //end bank logo
+
+  // hello-mortgage
+  .hello-mortgage {
+    padding-top: 65px;
+  }
+  .logo-text {
+    font-family: $font-mc;
+    color: $mc-color;
+    span {
+      color: #065a82;
+    }
+  }
+  .note {
+    margin-top: 28px;
+    font-size: 1.5em;
+    color: #000;
+    width: 60%;
+    line-height: 1.5em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-weight: 600;
+  }
+  #home-top-info {
+    margin-top: 60px;
+    position: relative;
+    margin-bottom: 70px;
+    .homepic-row {
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .text-bubble {
+    background-image: url(asset_path('text-bubble.jpg'));
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+    #top-info {
+      text-align: center;
+      font-family: 'aileronsemibold';
+      font-size: 1.25em;
+      color: #15c0f1;
+      font-weight: 500;
+      padding-top: 15px;
+    }
+    #left-info h6,
+    #right-info h6 {
+      font-size: 1em;
+      font-family: 'aileronsemibold';
+    }
+    #left-info p,
+    #right-info p {
+      font-size: 0.8em;
+      line-height: 0.9em;
+    }
+    #left-info,
+    #right-info {
+      padding-top: 70px;
+      padding-left: 20px;
+      padding-right: 0;
+    }
+    #left-info {
+      color: #9adaf0;
+    }
+    #right-info {
+      color: #a9a9aa;
+      padding-left: 26px;
+    }
+
+  // end hello-mortgage
   .middle {
     .description {
       padding-top: 10px;
@@ -138,15 +251,7 @@
   h1 {
     color: black;
   }
-  .container {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  .hello-mortgage {
-    padding-top: 65px;
-  }
+
   .nav>li>a:hover {
     background: white;
     color: rgb(51, 122, 183);
@@ -192,39 +297,9 @@
   }
 
 
-  .our-investors {
-    width: 100%;
-    background-color: #f3f5f7;
-    margin-top: -21px;
-  }
-  .our-investors div:last-child {
-    margin-right: 0;
-  }
-  .header-logo {
-    text-align: center;
-    width: 100%;
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-  .asseen {
-    width: 191px;
-    display: table;
-  }
-  .header-logo {
-    .partner-logo {
-      img {
-        padding-top: 20px;
-        width: 200px;
-      }
-    }
-  }
-  .asseen div {
-    display: table-cell;
-    vertical-align: middle;
-    font-size: 1.2em;
-    font-weight: 300;
-    color: #727b82;
-  }
+
+
+
 
   .content .white-header {
     font-weight: 500;
@@ -250,70 +325,9 @@
     text-align: center;
     font-family: 'aileronlight';
   }
-  .logo-text {
-    font-family: 'aileronsemibold';
-    color: #15c0f1;
-  }
-  .logo-text span {
-    color: #065a82;
-  }
-  .note {
-    margin-top: 28px;
-    font-size: 1.5em;
-    color: #000;
-    width: 60%;
-    line-height: 1.5em;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    font-weight: 599;
-  }
-  #home-top-info {
-    margin-top: 60px;
-    position: relative;
-    margin-bottom: 70px;
-    .homePicRow {
-      img {
-        width: 100%;
-      }
-    }
-  }
-  #top-info {
-    text-align: center;
-    font-family: 'aileronsemibold';
-    font-size: 1.25em;
-    color: #15c0f1;
-    font-weight: 500;
-    padding-top: 15px;
-  }
-  #left-info h6,
-  #right-info h6 {
-    font-size: 1em;
-    font-family: 'aileronsemibold';
-  }
-  #left-info p,
-  #right-info p {
-    font-size: 0.8em;
-    line-height: 0.9em;
-  }
-  #left-info,
-  #right-info {
-    padding-top: 70px;
-    padding-left: 20px;
-    padding-right: 0;
-  }
-  #left-info {
-    color: #9adaf0;
-  }
-  #right-info {
-    color: #a9a9aa;
-    padding-left: 26px;
-  }
-  .textBubble {
-    background-image: url(asset_path('textBubble.jpg'));
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-  }
+
+
+
   .noPadding {
     padding-left: 0;
     padding-right: 0;

@@ -7,6 +7,11 @@ body {
   position: relative;
 }
 
+.no-pad-lr {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .borderless {
   border: none !important;
 }

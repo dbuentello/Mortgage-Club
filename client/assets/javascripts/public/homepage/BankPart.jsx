@@ -7,7 +7,7 @@ var BankPart = React.createClass({
       <div className="our-investors content">
         <hr/>
         <div className="container">
-            <div className="row header-logos">
+            <div className="row header-logo">
               <div className="col-md-2  col-sm-6 col-sm-offset-4 col-md-offset-0 header-logo asseen">
                 <div className="text-uppercase"><p>Our wholesale</p><p> investors</p></div>
               </div>
@@ -39,7 +39,7 @@ var BankPart = React.createClass({
               </div>
             </div>
         </div>
-    
+
       </div>
 
     );
