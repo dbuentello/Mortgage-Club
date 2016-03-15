@@ -29,14 +29,7 @@ class Users::LoansController < Users::BaseController
 
   def get_common_info
     list = {}
-    info = current_user.loans
-                            .joins(properties: :address)
-                            .where("properties.is_subject = true".freeze)
-                            .pluck(
-                              "loans.id".freeze, "addresses.street_address".freeze,
-                              "addresses.city".freeze, "addresses.state".freeze,
-                              "addresses.zip".freeze, "properties.zillow_image_url".freeze
-                            )
+    info = current_user.loans.joins(properties: :address).where("properties.is_subject = true".freeze).pluck("loans.id".freeze, "addresses.street_address".freeze, "addresses.city".freeze, "addresses.state".freeze, "addresses.zip".freeze, "properties.zillow_image_url".freeze)
 
     info.each do |i|
       loan_id = i[0]

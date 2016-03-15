@@ -299,14 +299,14 @@ Style/GuardClause:
 
 # Offense count: 4
 # Cop supports --auto-correct.
-Style/MultilineBlockLayout:
-  Enabled: false
+# Style/MultilineBlockLayout:
+#   Enabled: false
 
 # Offense count: 8
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/MultilineOperationIndentation:
-  Enabled: false
+# Style/MultilineOperationIndentation:
+#   Enabled: false
 
 # Offense count: 1
 Style/MultilineTernaryOperator:

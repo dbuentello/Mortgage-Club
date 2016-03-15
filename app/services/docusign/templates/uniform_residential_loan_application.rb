@@ -319,9 +319,9 @@ module Docusign
         return false unless primary_address = primary_property.address
 
         subject_address.city == primary_address.city &&
-        subject_address.state == primary_address.state &&
-        subject_address.street_address == primary_address.street_address &&
-        subject_address.zip == primary_address.zip
+          subject_address.state == primary_address.state &&
+          subject_address.street_address == primary_address.street_address &&
+          subject_address.zip == primary_address.zip
       end
     end
   end
