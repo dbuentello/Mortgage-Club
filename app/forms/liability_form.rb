@@ -99,7 +99,7 @@ class LiabilityForm
   end
 
   def create_new_liability(amount, type, credit_report_id)
-     Liability.create(
+    Liability.create(
       payment: amount,
       account_type: type,
       credit_report_id: credit_report_id,

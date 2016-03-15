@@ -3,7 +3,7 @@ require "rails_helper"
 describe HomepageRateServices::CreateTodayHomepageRates do
   describe ".call" do
     before(:each) do
-     allow(HomepageRateServices::CrawlMortgageAprs).to receive(:call).and_return(
+      allow(HomepageRateServices::CrawlMortgageAprs).to receive(:call).and_return(
         "loan_tek" => {
           "apr_30_year" => 2.1,
           "apr_15_year" => 2.2,
