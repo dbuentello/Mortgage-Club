@@ -26,7 +26,7 @@ class InitialQuotesController < ApplicationController
     quote_query = QuoteQuery.new(query: quotes_params.to_json)
 
     if quote_query.save
-      render json: { code_id: quote_query.code_id }
+      render json: {code_id: quote_query.code_id}
     end
   end
 
