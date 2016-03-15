@@ -9,15 +9,15 @@ describe Users::InvitesController do
   describe "POST #create invite" do
     describe 'with valid attributes' do
       it '3 invites' do
-        expect { post :create, invite: {email: ["abc@gmail.com", "def@gmail.com", "123@gmail.com"], name: ["", "", ""], phone: ["", "", ""]}, format: :json }.to change{Invite.count}.by(3)
+        expect { post :create, invite: {email: ["abc@gmail.com", "def@gmail.com", "123@gmail.com"], name: ["", "", ""], phone: ["", "", ""]}, format: :json }.to change { Invite.count }.by(3)
       end
 
       it '2 invites' do
-        expect { post :create, invite: {email: ["abc@gmail.com", "def@gmail.com"], name: ["", ""], phone: ["", ""]}, format: :json }.to change{Invite.count}.by(2)
+        expect { post :create, invite: {email: ["abc@gmail.com", "def@gmail.com"], name: ["", ""], phone: ["", ""]}, format: :json }.to change { Invite.count }.by(2)
       end
 
       it '1 invite' do
-        expect { post :create, invite: {email: ["abc@gmail.com"], name: [""], phone: [""]}, format: :json }.to change{Invite.count}.by(1)
+        expect { post :create, invite: {email: ["abc@gmail.com"], name: [""], phone: [""]}, format: :json }.to change { Invite.count }.by(1)
       end
 
       it "response success" do
@@ -29,11 +29,11 @@ describe Users::InvitesController do
 
     context "with invalid attributes" do
       it '1 invite' do
-        expect { post :create, invite: {email: ["abc"], name: ["a"], phone: ["b"]}, format: :json }.to change{Invite.count}.by(0)
+        expect { post :create, invite: {email: ["abc"], name: ["a"], phone: ["b"]}, format: :json }.to change { Invite.count }.by(0)
       end
 
       it '2 invites' do
-        expect { post :create, invite: {email: ["abc@gmail.com", "def"], name: ["", ""], phone: ["", ""]}, format: :json }.to change{Invite.count}.by(1)
+        expect { post :create, invite: {email: ["abc@gmail.com", "def"], name: ["", ""], phone: ["", ""]}, format: :json }.to change { Invite.count }.by(1)
       end
 
       it 'response failure' do

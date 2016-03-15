@@ -13,8 +13,8 @@ class Admins::BorrowersPresenter
     {
       include: {
         user: {
-          only: [ :id, :email],
-          methods: [ :full_name ]
+          only: [:id, :email],
+          methods: [:full_name]
         }
       }
     }

@@ -82,7 +82,7 @@ When(/^Facebook login is mocked$/) do
     provider: 'facebook',
     uid: '123545',
     info: {
-      "email"=> "user@man.net"
+      "email" => "user@man.net"
     },
     credentials: {
       token: 'AAA',

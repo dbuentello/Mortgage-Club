@@ -166,7 +166,7 @@ module Docusign
       end
 
       def total_cost_transactions
-        @total_cost_transactions ||=  (subject_property.purchase_price.to_f + loan.estimated_prepaid_items.to_f +
+        @total_cost_transactions ||= (subject_property.purchase_price.to_f + loan.estimated_prepaid_items.to_f +
                                       loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f).round(2)
       end
 

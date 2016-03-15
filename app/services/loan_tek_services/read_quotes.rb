@@ -18,7 +18,7 @@ module LoanTekServices
 
       programs = []
 
-      quotes = quotes.select{|quote| quote["DiscountPts"] > -1}
+      quotes = quotes.select { |quote| quote["DiscountPts"] > -1 }
 
       quotes.each do |quote|
         apr = quote["APR"] / 100
@@ -77,8 +77,8 @@ module LoanTekServices
     def self.get_monthly_payment(quote)
       period = get_period(quote)
       rate_per_period = get_interest_rate(quote) / 12
-      numerator = rate_per_period * ((1 + rate_per_period) ** period)
-      denominator = ((1 + rate_per_period) ** period) - 1
+      numerator = rate_per_period * ((1 + rate_per_period)**period)
+      denominator = ((1 + rate_per_period)**period) - 1
       payment = quote["FeeSet"]["LoanAmount"].to_f * (numerator / denominator)
       payment.round
     end

@@ -24,6 +24,6 @@ describe RatesComparisonServices::GetRatesFromZillow do
   it "saves 4 records into database" do
     expect do
       described_class.new(loan, property, borrower).call
-    end.to change{RateComparison.count}.by(4)
+    end.to change { RateComparison.count }.by(4)
   end
 end

@@ -16,13 +16,13 @@ class Admins::LoanMemberAssociationsPresenter
         loan_member: {
           include: {
             user: {
-              only: [ :email ],
+              only: [:email],
               methods: [:avatar_url]
             }
           }
         }
       ],
-      methods: [ :pretty_title ]
+      methods: [:pretty_title]
     }
   end
 end

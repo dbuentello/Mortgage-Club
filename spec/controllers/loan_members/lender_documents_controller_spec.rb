@@ -26,7 +26,7 @@ describe LoanMembers::LenderDocumentsController do
                         description: "This is a description",
                         file: @uploaded_file,
                         format: :json
-        end.to change{LenderDocument.count}.from(0).to(1)
+        end.to change { LenderDocument.count }.from(0).to(1)
       end
 
       it "renders document's info" do

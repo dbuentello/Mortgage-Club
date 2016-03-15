@@ -13,13 +13,13 @@ class LoanMembers::LoanPresenter
     {
       include: {
         user: {
-          only: [ :email ],
-          methods: [ :to_s ]
+          only: [:email],
+          methods: [:to_s]
         },
         checklists: {
           include: {
             user: {
-              methods: [ :to_s ]
+              methods: [:to_s]
             }
           }
         },

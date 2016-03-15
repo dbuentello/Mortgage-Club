@@ -67,7 +67,7 @@ describe OcrServices::UpdatePaystubOcr do
 
   context "non-existent OCR's result" do
     it "creates a new OCR's record" do
-      expect { OcrServices::UpdatePaystubOcr.new(data, borrower.id).call }.to change{Ocr.count}.by(1)
+      expect { OcrServices::UpdatePaystubOcr.new(data, borrower.id).call }.to change { Ocr.count }.by(1)
     end
 
     it "creates a new OCR's record with right value" do

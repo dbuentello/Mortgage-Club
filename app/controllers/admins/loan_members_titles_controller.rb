@@ -1,4 +1,4 @@
-class Admins::LoanMembersTitlesController <  Admins::BaseController
+class Admins::LoanMembersTitlesController < Admins::BaseController
   before_action :set_title, except: [:index, :create]
 
   def index

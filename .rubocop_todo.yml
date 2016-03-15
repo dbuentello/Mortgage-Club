@@ -400,36 +400,36 @@ Style/SingleLineBlockParams:
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: MultiSpaceAllowedForOperators.
-Style/SpaceAroundOperators:
-  Enabled: false
+# Style/SpaceAroundOperators:
+#   Enabled: false
 
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/SpaceBeforeBlockBraces:
-  Enabled: false
+# Style/SpaceBeforeBlockBraces:
+#   Enabled: false
 
 # Offense count: 8
 # Cop supports --auto-correct.
-Style/SpaceBeforeComma:
-  Enabled: false
+# Style/SpaceBeforeComma:
+#   Enabled: false
 
 # Offense count: 8
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
-Style/SpaceInsideBlockBraces:
-  Enabled: false
+# Style/SpaceInsideBlockBraces:
+#   Enabled: false
 
 # Offense count: 16
 # Cop supports --auto-correct.
-Style/SpaceInsideBrackets:
-  Enabled: false
+# Style/SpaceInsideBrackets:
+#   Enabled: false
 
 # Offense count: 30
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SupportedStyles.
-Style/SpaceInsideHashLiteralBraces:
-  Enabled: false
+# Style/SpaceInsideHashLiteralBraces:
+#   Enabled: false
 
 # Offense count: 1
 # Cop supports --auto-correct.

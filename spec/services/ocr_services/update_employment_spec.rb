@@ -68,13 +68,13 @@ describe OcrServices::UpdateEmployment do
 
       describe "#create_new_employment" do
         it "creates a new employment" do
-          expect { OcrServices::UpdateEmployment.new(data, borrower.id).call }.to change{Employment.count}.by(1)
+          expect { OcrServices::UpdateEmployment.new(data, borrower.id).call }.to change { Employment.count }.by(1)
         end
       end
 
       describe "#create_employer_address" do
         it "creates a new address" do
-          expect { OcrServices::UpdateEmployment.new(data, borrower.id).call }.to change{Address.count}.by(1)
+          expect { OcrServices::UpdateEmployment.new(data, borrower.id).call }.to change { Address.count }.by(1)
         end
       end
     end

@@ -14,7 +14,7 @@ describe PotentialUsersController do
   describe "#create" do
     context "with valid params" do
       it "creates new record" do
-        expect{ post :create, potential_user: @potential_user_params}.to change(PotentialUser, :count).by 1
+        expect { post :create, potential_user: @potential_user_params }.to change(PotentialUser, :count).by 1
       end
 
       it "return a success message" do

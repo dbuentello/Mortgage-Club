@@ -3,7 +3,7 @@ include ActionView::Helpers::NumberHelper
 
 describe Docusign::Templates::UniformResidentialLoanApplication do
   let!(:loan) { FactoryGirl.create(:loan_with_properties) }
-  let!(:declaration) { FactoryGirl.create(:declaration, borrower: loan.borrower)}
+  let!(:declaration) { FactoryGirl.create(:declaration, borrower: loan.borrower) }
   before(:each) do
     @service = Docusign::Templates::UniformResidentialLoanApplication.new(loan)
   end

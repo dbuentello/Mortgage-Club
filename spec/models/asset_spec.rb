@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Asset, type: :model do
   context 'with invalid asset params' do
     describe 'Money amount fields exceed maximum allowed value will raise error' do
-      let(:asset) { FactoryGirl.build(:asset, current_balance: 123123123123)}
+      let(:asset) { FactoryGirl.build(:asset, current_balance: 123123123123) }
 
       it 'raise StatementInvalid Error' do
         expect { raise asset.save }.to raise_error(ActiveRecord::StatementInvalid)

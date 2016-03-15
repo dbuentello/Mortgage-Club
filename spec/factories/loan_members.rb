@@ -5,7 +5,7 @@ FactoryGirl.define do
     f.employee_id { Faker::Number.number(2) }
     f.nmls_id { Faker::Number.number(6).to_s }
     f.company_name { Faker::Company.name }
-    f.company_address { Faker::Address.street_address + ", " + Faker::Address.city + ", " + Faker::Address.state}
+    f.company_address { Faker::Address.street_address + ", " + Faker::Address.city + ", " + Faker::Address.state }
     f.company_phone_number { '(' + Faker::Number.number(3) + ') ' + Faker::Number.number(3) + '-' + Faker::Number.number(4) }
     f.company_nmls { Faker::Number.number(6).to_s }
     f.user { create(:loan_member_user) }

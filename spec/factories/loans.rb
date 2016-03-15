@@ -3,7 +3,7 @@ FactoryGirl.define do
     user { build(:borrower_user_with_borrower) }
     lender
 
-    f.purpose { Random.rand(0..1)}
+    f.purpose { Random.rand(0..1) }
 
     f.agency_case_number { Faker::Lorem.word }
     f.lender_case_number { Faker::Lorem.word }
@@ -20,7 +20,7 @@ FactoryGirl.define do
     f.other_credits { Faker::Number.decimal(6, 2) }
     f.other_credits_explain { Faker::Lorem.word }
     f.pmi_mip_funding_fee_financed { Faker::Number.decimal(6, 2) }
-    f.loan_type { ['Conventional', 'VA', 'FHA'].sample}
+    f.loan_type { ['Conventional', 'VA', 'FHA'].sample }
     f.prepayment_penalty { [true, false].sample }
     f.balloon_payment { [true, false].sample }
     f.monthly_payment { Faker::Number.decimal(6, 2) }

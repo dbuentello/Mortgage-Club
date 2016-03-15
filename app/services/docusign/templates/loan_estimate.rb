@@ -338,7 +338,7 @@ module Docusign
         @params['assumption_will_not_allow'] = 'x'
         @params['servicing_transfer'] = 'x'
         @params['late_fee_text_top'] = 'the monthly'
-        @params['late_fee_text_bottom'] ='principal and interest payment'
+        @params['late_fee_text_bottom'] = 'principal and interest payment'
         map_string_to_params(['late_days'])
       end
 
