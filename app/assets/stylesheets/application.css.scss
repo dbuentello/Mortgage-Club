@@ -462,51 +462,17 @@ hr {
     -webkit-transform: translateX(0);
   }
 }
-#signupBtn {
-  width: 140px;
-}
+
 .modal-docusign {
   margin-top: 100px;
 }
-@media (min-width:384px) and (max-width: 414px) {
-  #signupBtn,
-  #loginBtn {
-    width: 100%;
-  }
-  #loginBtn {
-    margin-left: 20px;
-  }
-}
 
-@media (min-width:375px) and (max-width: 384px) {
-  #signupBtn,
-  #loginBtn {
-    width: 100%;
-  }
-  #loginBtn {
-    margin-left: 20px;
-  }
-}
 
-@media (min-width: 320px) and (max-width: 375px) {
-  #signupBtn,
-  #loginBtn {
-    width: 100%;
-  }
-  #loginBtn {
-    margin-left: 20px;
-  }
-}
 
-@media (max-width: 320px) {
-  #signupBtn,
-  #loginBtn {
-    width: 100%;
-  }
-  #loginBtn {
-    margin-left: 20px;
-  }
-}
+
+
+
+
 
 html.loading {
   background: #FFFFFF url(asset_path('loading.gif')) no-repeat 50% 40%;
