@@ -147,7 +147,7 @@ body {
     width: 100%;
     width: 100%;
   }
-  #loginImg {
+  #login-img {
     height: 18px;
     width: auto;
     margin-right: 21px;
@@ -179,37 +179,37 @@ body {
 // Screen 384 to 414px
 @media (min-width:384px) and (max-width: 414px) {
   #signup-btn,
-  #loginBtn {
+  #login-btn {
     width: 100%;
   }
-  #loginBtn {
+  #login-btn {
     margin-left: 20px;
   }
 }
 @media (min-width:375px) and (max-width: 384px) {
   #signup-btn,
-  #loginBtn {
+  #login-btn {
     width: 100%;
   }
-  #loginBtn {
+  #login-btn {
     margin-left: 20px;
   }
 }
 @media (min-width: 320px) and (max-width: 375px) {
   #signup-btn,
-  #loginBtn {
+  #login-btn {
     width: 100%;
   }
-  #loginBtn {
+  #login-btn {
     margin-left: 20px;
   }
 }
 @media (max-width: 320px) {
   #signup-btn,
-  #loginBtn {
+  #login-btn {
     width: 100%;
   }
-  #loginBtn {
+  #login-btn {
     margin-left: 20px;
   }
 }
