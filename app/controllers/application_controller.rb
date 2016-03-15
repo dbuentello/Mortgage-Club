@@ -41,12 +41,9 @@ class ApplicationController < ActionController::Base
   end
 
   def bootstrap(data={})
-     @bootstrap_data = {
-      currentUser: current_user.present? ? {
-        id: current_user.id,
-        firstName: current_user.first_name,
-        lastName: current_user.last_name
-      } : {},
+    @bootstrap_data =
+    {
+      currentUser: current_user.present? ? {id: current_user.id, firstName: current_user.first_name, lastName: current_user.last_name} : {},
       flashes: customized_flash
     }.merge!(data)
   end
