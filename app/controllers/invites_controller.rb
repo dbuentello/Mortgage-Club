@@ -1,5 +1,4 @@
 class InvitesController < ApplicationController
-
   def create
     invite_counter = 0
     i = 0
@@ -28,5 +27,4 @@ class InvitesController < ApplicationController
       render json: {success: false, message: "Error, the email is already invited or not valid!"}
     end
   end
-
 end

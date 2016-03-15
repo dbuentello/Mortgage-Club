@@ -24,5 +24,4 @@ class Invite < ActiveRecord::Base
   def generate_token
      self.token = Digest::SHA1.hexdigest([self.sender_id, Time.zone.now, rand].join)
   end
-
 end

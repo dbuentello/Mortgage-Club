@@ -1,5 +1,4 @@
 class StepRunner
-
   def initialize(world, code, file, line_number)
     @world = world
     @code = code
@@ -59,7 +58,6 @@ class StepRunner
   end
 
   module Harness
-
     def many_steps(code, file = nil, line_number = nil)
       if file.nil?
         pos = caller(1)[0]
@@ -72,9 +70,7 @@ class StepRunner
       end
       StepRunner.new(self, code, file, line_number).run
     end
-
   end
-
 end
 
 World(StepRunner::Harness)
