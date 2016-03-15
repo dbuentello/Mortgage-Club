@@ -33,7 +33,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
     if @checklist.update(checklist_params)
       render json: {checklist: LoanMembers::ChecklistPresenter.new(@checklist).show, message: t("messages.info.success", status: "updated")}, status: 200
     else
-      render json: {message: t("messages.errors.fail", process: "update")}, status: 500
+      render json: {message: t("messages.errors.failed", process: "update")}, status: 500
     end
   end
 
@@ -47,7 +47,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
         checklists: LoanMembers::ChecklistsPresenter.new(loan.checklists).show
       }, status: 200
     else
-      render json: {message: t("messages.errors.fail", process: "remove"), status: 500
+      render json: {message: t("messages.errors.failed", process: "remove"), status: 500
     end
   end
 

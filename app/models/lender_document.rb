@@ -17,7 +17,7 @@ class LenderDocument < ActiveRecord::Base
     },
     size: {
       less_than_or_equal_to: 10.megabytes,
-      message: :size_too_large
+      message: :file_size_limited_10_mb
     }
 
   before_validation :set_private_token, on: :create

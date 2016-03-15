@@ -57,11 +57,11 @@ class Document < ActiveRecord::Base
     presence: true,
     content_type: {
       content_type: ALLOWED_MIME_TYPES,
-      message: :content_type_invalid
+      message: :invalid_upload_document_type
     },
     size: {
       less_than_or_equal_to: 10.megabytes,
-      message: :size_too_large
+      message: :file_size_limited_10_mb
     }
 
   validate :document_type_must_belong_to_proper_document

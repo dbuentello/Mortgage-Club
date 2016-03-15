@@ -22,7 +22,7 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
         message: t("messages.info.success", status: "created")
       }, status: 200
     else
-      render json: {message: t("messages.errors.fail", process: "upload document")}, status: 500
+      render json: {message: t("messages.errors.failed", process: "upload document")}, status: 500
     end
   end
 
@@ -35,7 +35,7 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
     if @document.destroy
       return render json: {message: t("messages.info.success", status: "removed")}, status: 200
     else
-      return render json: {message: t("messages.errors.fail", process: "remove")}, status: 500
+      return render json: {message: t("messages.errors.failed", process: "remove")}, status: 500
     end
   end
 

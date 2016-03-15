@@ -106,7 +106,7 @@ en:
       success: "success"
       error: "error"
     errors:
-      fail: "Sorry. Currently the system cannot %{process}"
+      failed: "Sorry. Currently the system cannot %{process}"
       field_required: "This field is required"
       iframe_render_error: "can't render iframe"
       object_not_found: "%{object} not found"

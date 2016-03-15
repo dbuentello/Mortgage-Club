@@ -6,7 +6,7 @@ class Users::ChecklistsController < Users::BaseController
     if @checklist.update(checklist_params)
       render json: {message: t("messages.info.success", status: "updated")}, status: 200
     else
-      render json: {message: t("messages.errors.fail", process: "update")}, status: 500
+      render json: {message: t("messages.errors.failed", process: "update")}, status: 500
     end
   end
 
