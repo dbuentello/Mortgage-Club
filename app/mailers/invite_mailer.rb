@@ -1,5 +1,5 @@
 class InviteMailer < ActionMailer::Base
-  default :from => ENV['EMAIL_SENDER']
+  default from: ENV['EMAIL_SENDER']
   def new_user_invite(sender, invite)
     @sender = sender
     @invite = invite

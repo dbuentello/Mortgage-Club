@@ -7,22 +7,22 @@ Given(/^I am a new, authenticated user$/) do
   password = 'secretpass'
   full_name = 'charitymap'
   User.new(
-    :email => email,
-    :password => password,
-    :password_confirmation => password,
-    :full_name => full_name
+    email: email,
+    password: password,
+    password_confirmation: password,
+    full_name: full_name
   ).save!
 
   visit '/users/sign_in'
-  fill_in "user_email", :with => email
-  fill_in "user_password", :with => password
+  fill_in "user_email", with: email
+  fill_in "user_password", with: password
   click_button "Đăng Nhập"
 end
 
 Given(/^I login as "(.*?)" with password "(.*?)"$/) do |email, password|
   visit '/auth/login'
-  fill_in "user_email", :with => email
-  fill_in "user_password", :with => password
+  fill_in "user_email", with: email
+  fill_in "user_password", with: password
   click_button "Log in"
 end
 
@@ -37,15 +37,15 @@ end
 Given(/^I login via Facebook$/) do
   OmniAuth.config.test_mode = true
   OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new(
-    :provider => 'facebook',
-    :uid => '123545',
-    :info => {
+    provider: 'facebook',
+    uid: '123545',
+    info: {
       "email" => "user@man.net"
     },
-    :credentials => {
-      :token => 'AAA',
-      :expires_at => '1609286400',
-      :expires => true
+    credentials: {
+      token: 'AAA',
+      expires_at: '1609286400',
+      expires: true
     }
   )
   visit('/users/sign_in')
@@ -53,23 +53,23 @@ Given(/^I login via Facebook$/) do
 end
 
 When(/^I change password as "(.*?)" with current password "(.*?)"$/) do |pass, current_pass|
-  fill_in "user_password", :with => pass
-  fill_in "user_password_confirmation", :with => pass
-  fill_in "user_current_password", :with => current_pass
+  fill_in "user_password", with: pass
+  fill_in "user_password_confirmation", with: pass
+  fill_in "user_current_password", with: current_pass
 end
 
 When(/^I connect my Facebook account$/) do
   OmniAuth.config.test_mode = true
   OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new(
-    :provider => 'facebook',
-    :uid => '123545',
-    :info => {
+    provider: 'facebook',
+    uid: '123545',
+    info: {
       "email" => "user@man.net"
     },
-    :credentials => {
-      :token => 'AAA',
-      :expires_at => '1609286400',
-      :expires => true
+    credentials: {
+      token: 'AAA',
+      expires_at: '1609286400',
+      expires: true
     }
   )
   visit('/users/settings')
@@ -79,15 +79,15 @@ end
 When(/^Facebook login is mocked$/) do
   OmniAuth.config.test_mode = true
   OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new(
-    :provider => 'facebook',
-    :uid => '123545',
-    :info => {
-      "email" => "user@man.net"
+    provider: 'facebook',
+    uid: '123545',
+    info: {
+      "email"=> "user@man.net"
     },
-    :credentials => {
-      :token => 'AAA',
-      :expires_at => '1609286400',
-      :expires => true
+    credentials: {
+      token: 'AAA',
+      expires_at: '1609286400',
+      expires: true
     }
   )
 end

@@ -238,8 +238,8 @@ Style/FileName:
 
 # Offense count: 9
 # Configuration parameters: AllowedVariables.
-Style/GlobalVars:
-  Enabled: false
+# Style/GlobalVars:
+#   Enabled: false
 
 # Offense count: 2
 # Configuration parameters: MinBodyLength.
@@ -249,8 +249,8 @@ Style/GuardClause:
 # Offense count: 197
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, UseHashRocketsWithSymbolValues.
-Style/HashSyntax:
-  Enabled: false
+# Style/HashSyntax:
+#   Enabled: false
 
 # Offense count: 8
 # Cop supports --auto-correct.
