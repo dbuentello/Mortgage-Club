@@ -117,8 +117,8 @@ Style/AccessorMethodName:
 # Offense count: 11
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/AlignParameters:
-  Enabled: false
+# Style/AlignParameters:
+#   Enabled: false
 
 # Offense count: 2
 # Cop supports --auto-correct.
