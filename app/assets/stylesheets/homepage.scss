@@ -282,7 +282,7 @@
   .how-part h6 {
     color: black;
   }
-  .howItem {
+  .how-item{
     margin-top: 75px;
   }
   .how-part .bigNum {
@@ -311,85 +311,12 @@
     width: 100%;
   }
   //end how part
-  .middle {
-    .description {
-      padding-top: 10px;
-      font-size: 18px;
-    }
-    .best-rates {
-      h3 {
-        text-align: center;
-      }
-      table {
-        th,
-        td {
-          text-align: center;
-        }
-      }
-    }
-  }
-  h6 {
-    color: inherit;
-  }
-  h1 {
-    color: black;
-  }
-  .nav>li>a:hover {
-    background: white;
-    color: rgb(51, 122, 183);
-  }
-  #howitworksBtn {
-    color: #a1a1a1;
-  }
-  #howitworksBtn:hover {
-    color: #31aceb;
-    background: white;
-  }
-  #des_upload {
-    padding-top: 15px;
-    color: #a1a1a1;
-    letter-spacing: 0.03em;
-    font-style: italic;
-    font-family: 'aileronlight';
-  }
-  #apply-btn:hover {
-    background-color: white;
-    border-color: #15c0f1;
-    color: #15c0f1;
-  }
-  #home-right {
-    text-align: center;
-    margin-bottom: 50px;
-    margin-top: 30px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 35px;
-  }
-  .info-button {
-    width: 22px;
-    margin-left: 5px;
-  }
 
-  .content .how-header,
-  .content .client-header {
-    margin-top: 80px;
-    font-weight: 500;
-  }
-  .clientPart .note {
+  // client part
+  .client-part .note {
     margin-top: 40px;
   }
-  .content h1 {
-    color: #15c0f1;
-    font-size: 4.2em;
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    font-family: 'aileronlight';
-  }
-
-
-  .clientPart {
+  .client-part {
     background-color: #fff;
     padding-bottom: 50px;
   }
@@ -435,6 +362,77 @@
     color: #000;
     font-size: 1.5em;
   }
+  // end client part
+
+  .middle {
+    .description {
+      padding-top: 10px;
+      font-size: 18px;
+    }
+    .best-rates {
+      h3 {
+        text-align: center;
+      }
+      table {
+        th,
+        td {
+          text-align: center;
+        }
+      }
+    }
+  }
+  h6 {
+    color: inherit;
+  }
+  h1 {
+    color: black;
+  }
+  .nav>li>a:hover {
+    background: white;
+    color: rgb(51, 122, 183);
+  }
+  #des_upload {
+    padding-top: 15px;
+    color: #a1a1a1;
+    letter-spacing: 0.03em;
+    font-style: italic;
+    font-family: 'aileronlight';
+  }
+  #apply-btn:hover {
+    background-color: white;
+    border-color: #15c0f1;
+    color: #15c0f1;
+  }
+  #home-right {
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 35px;
+  }
+  .info-button {
+    width: 22px;
+    margin-left: 5px;
+  }
+
+  .content .how-header,
+  .content .client-header {
+    margin-top: 80px;
+    font-weight: 500;
+  }
+
+  .content h1 {
+    color: #15c0f1;
+    font-size: 4.2em;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: 'aileronlight';
+  }
+
+
   @keyframes backtopAnim {
     0% {
       transform: translateY(0);

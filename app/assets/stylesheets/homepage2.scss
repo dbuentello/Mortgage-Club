@@ -341,10 +341,10 @@ body {
     font-size: 0.8em;
     line-height: 0.6em;
   }
-  .howItem img {
+  .how-itemimg {
     width: 70%;
   }
-  .howItem img:last-child {
+  .how-itemimg:last-child {
     width: 90%;
   }
   .footer-right {
@@ -419,19 +419,19 @@ body {
   #home-right {
     padding-top: 80px;
   }
-  .howItem .bigNum {
+  .how-item.bigNum {
     margin-left: 50px;
   }
-  .howItem .whyText {
+  .how-item.whyText {
     text-align: left;
   }
   .whyText {
     width: 100% !important;
   }
-  .howItem {
+  .how-item{
     text-align: center;
   }
-  .howItem img {
+  .how-itemimg {
     margin-left: auto;
     margin-right: auto;
   }
@@ -492,7 +492,7 @@ body {
     margin: 0;
     padding-bottom: 20px;
   }
-  .howItem img {
+  .how-itemimg {
     width: 80%;
     height: auto;
     margin-left: 40px;
@@ -574,7 +574,7 @@ body {
     margin: 0;
     padding-bottom: 20px;
   }
-  .howItem img {
+  .how-itemimg {
     width: 80%;
     height: auto;
     margin-left: 40px;
@@ -605,7 +605,7 @@ body {
     margin-left: 0;
     margin-top: 3px;
   }
-  .howItem {
+  .how-item{
     margin-top: 40px;
   }
   .why-item {
@@ -669,12 +669,12 @@ body {
   .why-item .bigNum {
     font-size: 3em;
   }
-  .howItem img {
+  .how-itemimg {
     width: 80%;
     height: auto;
     margin-left: 40px;
   }
-  .howItem img:last-child {
+  .how-itemimg:last-child {
     margin-left: 20px;
   }
   .footer-right {
@@ -706,7 +706,7 @@ body {
     margin-left: 0;
     margin-top: 3px;
   }
-  .howItem {
+  .how-item{
     margin-top: 30px;
   }
   .why-item {
