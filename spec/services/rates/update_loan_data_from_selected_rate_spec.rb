@@ -7,32 +7,32 @@ describe RateServices::UpdateLoanDataFromSelectedRate do
   before(:each) do
     @fees = {
       "0" => {
-               "HudLine" => "801",
-           "Description" => "Loan origination fee",
-          "IncludeInAPR" => "true",
-             "FeeAmount" => "995",
-               "FeeType" => "1"
+        "HudLine" => "801",
+        "Description" => "Loan origination fee",
+        "IncludeInAPR" => "true",
+        "FeeAmount" => "995",
+        "FeeType" => "1"
       },
       "1" => {
-               "HudLine" => "803",
-           "Description" => "Appraisal fee",
-          "IncludeInAPR" => "false",
-             "FeeAmount" => "495",
-               "FeeType" => "1"
+        "HudLine" => "803",
+        "Description" => "Appraisal fee",
+        "IncludeInAPR" => "false",
+        "FeeAmount" => "495",
+        "FeeType" => "1"
       },
       "2" => {
-               "HudLine" => "804",
-           "Description" => "Credit report fee",
-          "IncludeInAPR" => "false",
-             "FeeAmount" => "25",
-               "FeeType" => "1"
+        "HudLine" => "804",
+        "Description" => "Credit report fee",
+        "IncludeInAPR" => "false",
+        "FeeAmount" => "25",
+        "FeeType" => "1"
       },
       "3" => {
-               "HudLine" => "805",
-           "Description" => "Wire transfer fee",
-          "IncludeInAPR" => "false",
-             "FeeAmount" => "252",
-               "FeeType" => "1"
+        "HudLine" => "805",
+        "Description" => "Wire transfer fee",
+        "IncludeInAPR" => "false",
+        "FeeAmount" => "252",
+        "FeeType" => "1"
       }
     }
 

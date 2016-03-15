@@ -19,9 +19,11 @@ class InvitesController < ApplicationController
     invites = Invite.where(sender_id: current_user.id).order(created_at: :desc)
 
     if invite_counter > 0
-      render json: {success: true,
+      render json: {
+        success: true,
         invites: LoanListPage::InvitesPresenter.new(invites).show,
-        message: "#{invite_counter} person was successfully invited to Mortgage Club!"}
+        message: "#{invite_counter} person was successfully invited to Mortgage Club!"
+      }
     else
       render json: {success: false, message: "Error, the email is already invited or not valid!"}
     end

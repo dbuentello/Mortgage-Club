@@ -100,8 +100,8 @@ Style/AccessorMethodName:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/Alias:
-  Enabled: false
+# Style/Alias:
+#   Enabled: false
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -111,8 +111,8 @@ Style/AlignArray:
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle, SupportedLastArgumentHashStyles.
-Style/AlignHash:
-  Enabled: false
+# Style/AlignHash:
+#   Enabled: false
 
 # Offense count: 11
 # Cop supports --auto-correct.

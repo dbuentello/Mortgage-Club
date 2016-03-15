@@ -6,8 +6,12 @@ Given(/^I am a new, authenticated user$/) do
   email = 'testing@man.net'
   password = 'secretpass'
   full_name = 'charitymap'
-  User.new(:email => email, :password => password, :password_confirmation => password,
-    :full_name => full_name).save!
+  User.new(
+    :email => email,
+    :password => password,
+    :password_confirmation => password,
+    :full_name => full_name
+  ).save!
 
   visit '/users/sign_in'
   fill_in "user_email", :with => email
