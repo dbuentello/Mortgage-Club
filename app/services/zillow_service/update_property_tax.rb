@@ -30,7 +30,7 @@ module ZillowService
       elsif property_tax_text.include? '+'
         property_tax = property_tax_text.split('+').first
       end
-      BigDecimal.new(property_tax.gsub(/[^0-9\.]/,''))
+      BigDecimal.new(property_tax.gsub(/[^0-9\.]/, ''))
     end
 
     def self.scraping_data_from_zillow(zpid)

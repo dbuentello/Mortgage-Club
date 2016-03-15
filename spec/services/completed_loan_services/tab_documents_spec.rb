@@ -148,7 +148,7 @@ describe CompletedLoanServices::TabDocuments do
     describe "checks secondary borrower completed" do
       context "with taxes jointly" do
         context "with self employed" do
-          let!(:borrower) { FactoryGirl.create(:borrower_with_documents_self_employed, is_file_taxes_jointly: true ,loan: loan) }
+          let!(:borrower) { FactoryGirl.create(:borrower_with_documents_self_employed, is_file_taxes_jointly: true, loan: loan) }
           let!(:secondary_borrower) { FactoryGirl.create(:borrower_with_documents_self_employed_taxes_joinly, loan: loan) }
 
           before do
