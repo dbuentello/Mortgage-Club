@@ -4,7 +4,7 @@ var BankPart = React.createClass({
   render: function() {
 
     return (
-      <div className="home-footer content">
+      <div className="our-investors content">
         <hr/>
         <div className="container">
             <div className="row header-logos">

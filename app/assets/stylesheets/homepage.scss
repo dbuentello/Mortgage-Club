@@ -44,17 +44,16 @@
   #apply-btn {
     margin-top: 25px;
   }
-  //table
+  // ========= table
   .home-table .table-header td {
     border: none !important;
     padding: 14px !important;
   }
   .home-table td {
     border-right: 1px solid #e1e1e1 !important;
-    //box-shadow: 0px 24px 1px -24px #e1e1e1;
-    -webkit-box-shadow: 0 24px 1px -24px #c4c4c4;
-    -moz-box-shadow: 0 24px 1px -24px #c4c4c4;
-    box-shadow: 0 24px 1px -24px #c4c4c4;
+    -webkit-box-shadow: 0 24px 1px -24px $shadow-color;
+    -moz-box-shadow: 0 24px 1px -24px $shadow-color;
+    box-shadow: 0 24px 1px -24px $shadow-color;
     border-top: none !important;
     height: 30px;
     padding: 20px 14px 0 !important;
@@ -80,19 +79,42 @@
   .home-table tr:first-child td {
     box-shadow: none;
   }
+  .home-table {
+    background: white;
+    color: black;
+    //border-radius: 6px !important;
+    margin: 0 auto;
+    padding: 0 20px;
+    border: none !important;
+  }
+  .table-header {
+    background-color: $mc-color;
+    color: white;
+    font-family: 'aileronsemibold';
+    font-size: 1.25em;
+  }
+  .table-content {
+    background: #FFFFFF;
+  }
+  #home-right-header {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #home-right-header h1 {
+    color: white;
+    padding-bottom: 7px;
+    margin: 0;
+    letter-spacing: 0.05em;
+    font-size: 1.75em;
+    font-weight: 600;
+  }
+  #home-right-header p {
+    color: white;
+  }
   // end rate table and home background
 
-  .header-right {
-    .navbar-nav {
-      list-style: none;
-      li:first-child {
-        font-size: 18px;
-      }
-      li:not(:first-child) {
-        margin: 5px 5px 5px 10px;
-      }
-    }
-  }
+  
   .middle {
     .jumbotron {
       h2,
@@ -183,48 +205,20 @@
     padding-right: 20px;
     padding-bottom: 35px;
   }
-  #home-right-header {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  #home-right-header h1 {
-    color: white;
-    padding-bottom: 7px;
-    margin: 0;
-    letter-spacing: 0.05em;
-    font-size: 1.75em;
-    font-weight: 600;
-  }
+
   .info-button {
     width: 22px;
     margin-left: 5px;
   }
-  #home-right-header p {
-    color: white;
-  }
-  .home-table {
-    background: white;
-    color: black;
-    //border-radius: 6px !important;
-    margin: 0 auto;
-    padding: 0 20px;
-    border: none !important;
-  }
-  .table-header {
-    background-color: #15c0f1;
-    color: white;
-    font-family: 'aileronsemibold';
-    font-size: 1.25em;
-  }
-  .table-content {
-    background: #FFFFFF;
-  }
 
-  .home-footer {
+
+  .our-investors {
     width: 100%;
     background-color: #f3f5f7;
     margin-top: -21px;
+  }
+  .our-investors div:last-child {
+    margin-right: 0;
   }
   .header-logo {
     text-align: center;
@@ -251,9 +245,7 @@
     font-weight: 300;
     color: #727b82;
   }
-  .home-footer div:last-child {
-    margin-right: 0;
-  }
+
   .content .white-header {
     font-weight: 500;
     color: white;
