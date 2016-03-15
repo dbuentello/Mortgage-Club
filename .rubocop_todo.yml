@@ -284,13 +284,13 @@ Style/GuardClause:
 # Offense count: 7
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/LambdaCall:
-  Enabled: false
+# Style/LambdaCall:
+#   Enabled: false
 
 # Offense count: 19
 # Cop supports --auto-correct.
-Style/LeadingCommentSpace:
-  Enabled: false
+# Style/LeadingCommentSpace:
+#   Enabled: false
 
 # Offense count: 3
 # Cop supports --auto-correct.

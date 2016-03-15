@@ -178,7 +178,7 @@ module Docusign
       end
 
       def build_declaration(role, borrower)
-        #declarations_borrower_l_yes
+        # declarations_borrower_l_yes
         return unless declaration = borrower.declaration
         prefix = (role + "_").freeze
         yes_answer = "_yes".freeze

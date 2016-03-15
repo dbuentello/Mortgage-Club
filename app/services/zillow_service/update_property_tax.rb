@@ -13,10 +13,10 @@ module ZillowService
       end
     end
 
-    #data.css('#hdp-tax-history table tbody td')[0]
-    #<td>2014</td>
-    #data.css('#hdp-tax-history table tbody td')[1]
-    #<td class="numeric">$5,813<span class="zsg-lg-hide"><span class="delta-value"><span class="inc">+15.6%</span></span></span></td>
+    # data.css('#hdp-tax-history table tbody td')[0]
+    # <td>2014</td>
+    # data.css('#hdp-tax-history table tbody td')[1]
+    # <td class="numeric">$5,813<span class="zsg-lg-hide"><span class="delta-value"><span class="inc">+15.6%</span></span></span></td>
     def self.get_property_tax(zpid)
       return unless data = scraping_data_from_zillow(zpid)
       return unless data.css('#hdp-tax-history table tbody td')[0]
@@ -34,7 +34,7 @@ module ZillowService
     end
 
     def self.scraping_data_from_zillow(zpid)
-      #www.zillow.com/homes/19709750_zpid/
+      # www.zillow.com/homes/19709750_zpid/
       Capybara.register_driver :poltergeist do |app|
         Capybara::Poltergeist::Driver.new(app, js_errors: false)
       end

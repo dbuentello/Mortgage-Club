@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
 
   def prepare_meta_tags(options={})
     site_name   = "MortgageClub"
-    title       = "FREE REFINANCE ALERT" #["controller_name", "action_name"].join(" ")
+    title       = "FREE REFINANCE ALERT" # ["controller_name", "action_name"].join(" ")
     description = "MortgageClub leverages big data and advanced technology to replace your loan officer and pass on the savings to you."
     image       = options[:image] || (request.base_url + ActionController::Base.helpers.asset_path('open-graph.png'))
 
