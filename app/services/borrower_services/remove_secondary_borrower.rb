@@ -1,11 +1,11 @@
 module BorrowerServices
   class RemoveSecondaryBorrower
-    def self.call(user, loan, borrower_type)
+    def self.call(current_user, loan, borrower_type)
       case borrower_type
       when :borrower
         secondary_borrower = loan.secondary_borrower
       when :secondary_borrower
-        secondary_borrower = user.borrower
+        secondary_borrower = current_user.borrower
       end
 
       if secondary_borrower

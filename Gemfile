@@ -108,6 +108,8 @@ gem 'devise-async'
 
 gem 'pdf-forms'
 
+gem "recaptcha", require: "recaptcha/rails"
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'

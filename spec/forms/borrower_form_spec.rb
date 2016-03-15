@@ -2,8 +2,8 @@ require "rails_helper"
 
 describe BorrowerForm do
   let(:loan) { FactoryGirl.create(:loan_with_properties) }
-  let(:borrower) { FactoryGirl.create(:borrower) }
-  let(:borrower_address) { FactoryGirl.create(:borrower_address, borrower: borrower) }
+  let(:borrower) { loan.borrower }
+  let(:borrower_address) { FactoryGirl.create(:borrower_address, borrower: borrower, is_current: true) }
 
   before(:each) do
     @params = {
@@ -137,6 +137,40 @@ describe BorrowerForm do
           expect(loan.primary_property).not_to be_nil
           expect(loan.primary_property.is_primary).to be_truthy
           expect(loan.primary_property.usage).to eq("primary_residence")
+        end
+      end
+    end
+  end
+
+  describe "#update_primary_property" do
+    context "when borrower rents house" do
+      it "destroys primary property" do
+        @form.borrower.current_address.update(is_rental: true)
+        @form.update_primary_property
+
+        expect(@form.loan.primary_property).to be_nil
+      end
+    end
+    context "when borrower owns house" do
+      context "with primary property exist" do
+        it "returns nil" do
+          @form.loan.borrower.current_address.update(is_rental: false)
+
+          expect(@form.update_primary_property).to be_nil
+        end
+      end
+      context "with primary property not exist" do
+        it "returns new primary property" do
+          @form.loan.borrower.current_address.update(is_rental: false)
+          @form.loan.primary_property.destroy
+          @form.update_primary_property
+          primary_property = @form.loan.primary_property
+
+          expect(primary_property).not_to be_nil
+          expect(primary_property.address.street_address).to eq(borrower.current_address.address.street_address)
+          expect(primary_property.address.zip).to eq(borrower.current_address.address.zip)
+          expect(primary_property.address.state).to eq(borrower.current_address.address.state)
+          expect(primary_property.address.city).to eq(borrower.current_address.address.city)
         end
       end
     end
