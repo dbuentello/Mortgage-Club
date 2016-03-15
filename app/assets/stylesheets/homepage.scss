@@ -1,17 +1,85 @@
 @font-face {
   font-family: 'aileronlight';
-  src: url(asset_path("aileron-light-webfont.eot"));
-  src: url(asset_path("aileron-light-webfont.woff")) format('woff'), url(asset_path("aileron-light-webfont.ttf")) format('truetype');
+  src: url(asset_path('aileron-light-webfont.eot'));
+  src: url(asset_path('aileron-light-webfont.woff')) format('woff'), url(asset_path('aileron-light-webfont.ttf')) format('truetype');
 }
 @font-face {
   font-family: 'aileronsemibold';
-  src: url(asset_path("aileron-semibold-webfont.eot"));
-  src: url(asset_path("aileron-semibold-webfont.woff")) format('woff'), url(asset_path("aileron-semibold-webfont.ttf")) format('truetype');
+  src: url(asset_path('aileron-semibold-webfont.eot'));
+  src: url(asset_path('aileron-semibold-webfont.woff')) format('woff'), url(asset_path('aileron-semibold-webfont.ttf')) format('truetype');
 }
 .homepage {
   padding-top: 60px;
   // rate-table and home background
-
+  .home-part {
+    background-image: url(asset-path('home-bg-2.jpg'));
+    background-size: cover;
+    background-position: center;
+    padding-top: 30px;
+  }
+  #home-left {
+    text-align: center;
+    padding-top: 10px;
+  }
+  #home-left h1 {
+    font-size: 3em;
+    color: white;
+    padding: 15px 0;
+    margin: 0 0 0 20px;
+    font-weight: bold;
+    letter-spacing: 0.03em;
+  }
+  #home-left p {
+    /*margin: 15px 20px;*/
+    font-size: 1.6em;
+    line-height: 1.6em;
+    color: white;
+    font-family: 'aileronlight';
+    letter-spacing: 0.06em;
+  }
+  #home-left-header {
+    width: 100%;
+    text-align: center;
+  }
+  #apply-btn {
+    margin-top: 25px;
+  }
+  //table
+  .home-table .table-header td {
+    border: none !important;
+    padding: 14px !important;
+  }
+  .home-table td {
+    border-right: 1px solid #e1e1e1 !important;
+    //box-shadow: 0px 24px 1px -24px #e1e1e1;
+    -webkit-box-shadow: 0 24px 1px -24px #c4c4c4;
+    -moz-box-shadow: 0 24px 1px -24px #c4c4c4;
+    box-shadow: 0 24px 1px -24px #c4c4c4;
+    border-top: none !important;
+    height: 30px;
+    padding: 20px 14px 0 !important;
+  }
+  .home-table td hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #FFFFFF;
+    margin: 12px 10px 0 5px;
+    padding: 0;
+    width: 90%;
+  }
+  .home-table tr td:nth-child(2) {
+    width: 28%;
+  }
+  .home-table td:last-child {
+    border-right: none !important;
+  }
+  .home-table tr:last-child td hr {
+    width: 0;
+  }
+  .home-table tr:first-child td {
+    box-shadow: none;
+  }
   // end rate table and home background
 
   .header-right {
@@ -94,54 +162,13 @@
     color: #31aceb;
     background: white;
   }
-  .home-part {
-    background-image: url(asset-path('home-bg-2.jpg'));
-    background-size: cover;
-    background-position: center;
-    padding-top: 30px;
-    /*-webkit-box-shadow: inset 0 8px 6px -6px #999;
-         -moz-box-shadow: inset 0 8px 6px -6px #999;
-              box-shadow: inset 0 8px 6px -6px #999;
-    .rates {
-      .tooltip-inner {
-        min-width: 250px;
-        font-size: 15px;
-      }
-    }*/
-  }
-  #home-left {
-    text-align: center;
-    padding-top: 10px;
-  }
-  #home-left h1 {
-    font-size: 3em;
-    color: white;
-    padding: 15px 0;
-    margin: 0 0 0 20px;
-    font-weight: bold;
-    letter-spacing: 0.03em;
-  }
-  #home-left p {
-    /*margin: 15px 20px;*/
-    font-size: 1.6em;
-    line-height: 1.6em;
-    color: white;
-    font-family: 'aileronlight';
-    letter-spacing: 0.06em;
-  }
-  #home-left-header {
-    width: 100%;
-    text-align: center;
-  }
-  #apply-btn {
-    margin-top: 25px;
-  }
+
   #des_upload {
     padding-top: 15px;
     color: #a1a1a1;
     letter-spacing: 0.03em;
     font-style: italic;
-    font-family: "aileronlight";
+    font-family: 'aileronlight';
   }
   #apply-btn:hover {
     background-color: white;
@@ -176,7 +203,7 @@
   #home-right-header p {
     color: white;
   }
-  .homeTable {
+  .home-table {
     background: white;
     color: black;
     //border-radius: 6px !important;
@@ -193,42 +220,7 @@
   .table-content {
     background: #FFFFFF;
   }
-  .homeTable .table-header td {
-    border: none !important;
-    padding: 14px !important;
-  }
-  .homeTable td {
-    border-right: 1px solid #e1e1e1 !important;
-    //box-shadow: 0px 24px 1px -24px #e1e1e1;
-    -webkit-box-shadow: 0 24px 1px -24px #c4c4c4;
-    -moz-box-shadow: 0 24px 1px -24px #c4c4c4;
-    box-shadow: 0 24px 1px -24px #c4c4c4;
-    border-top: none !important;
-    height: 30px;
-    padding: 20px 14px 0 !important;
-  }
-  .homeTable td hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #FFFFFF;
-    margin: 12px 10px 0 5px;
-    padding: 0;
-    width: 90%;
-    //background-color:#FFFFFF;
-  }
-  .homeTable tr td:nth-child(2) {
-    width: 28%;
-  }
-  .homeTable td:last-child {
-    border-right: none !important;
-  }
-  .homeTable tr:last-child td hr {
-    width: 0;
-  }
-  .homeTable tr:first-child td {
-    box-shadow: none;
-  }
+
   .home-footer {
     width: 100%;
     background-color: #f3f5f7;

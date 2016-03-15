@@ -388,7 +388,7 @@ $shadow-color: rgba(0,0,0,0.1);
   }
 }
 @media (min-width:416px) and (max-width: 768px) {
-  .homeTable td {
+  .home-table td {
     font-size: 0.9em;
   }
   #top-info {
@@ -461,7 +461,7 @@ $shadow-color: rgba(0,0,0,0.1);
   .license {
     bottom: -10% !important;
   }
-  .homeTable td {
+  .home-table td {
     font-size: 0.7em;
   }
   .content h1 {

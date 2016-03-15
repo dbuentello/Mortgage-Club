@@ -32,7 +32,7 @@ var HomePart = React.createClass({
                 <div className="col-12 col-sm-12 col-lg-12">
                 <div className="wrapper">
        <div className="table-responsive borderless">
-                  <table className="table homeTable">
+                  <table className="table home-table">
                     <tr className="table-header">
                       <td>Programs</td><td>Mortgage Club</td><td>Wells Fargo</td><td>Quicken Loans</td>
                     </tr>
