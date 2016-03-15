@@ -143,10 +143,8 @@
     margin-right: 0;
   }
   .asseen {
-
     display: table;
   }
-
   .asseen div {
     display: table-cell;
     vertical-align: middle;
@@ -154,9 +152,7 @@
     font-weight: 300;
     color: #727b82;
   }
-
   //end bank logo
-
   // hello-mortgage
   .hello-mortgage {
     padding-top: 65px;
@@ -194,152 +190,56 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }
-
-    #top-info {
-      text-align: center;
-      font-family: 'aileronsemibold';
-      font-size: 1.25em;
-      color: #15c0f1;
-      font-weight: 500;
-      padding-top: 15px;
-    }
-    #left-info h6,
-    #right-info h6 {
-      font-size: 1em;
-      font-family: 'aileronsemibold';
-    }
-    #left-info p,
-    #right-info p {
-      font-size: 0.8em;
-      line-height: 0.9em;
-    }
-    #left-info,
-    #right-info {
-      padding-top: 70px;
-      padding-left: 20px;
-      padding-right: 0;
-    }
-    #left-info {
-      color: #9adaf0;
-    }
-    #right-info {
-      color: #a9a9aa;
-      padding-left: 26px;
-    }
-
-  // end hello-mortgage
-  .middle {
-    .description {
-      padding-top: 10px;
-      font-size: 18px;
-    }
-    .best-rates {
-      h3 {
-        text-align: center;
-      }
-      table {
-        th,
-        td {
-          text-align: center;
-        }
-      }
-    }
-  }
-  h6 {
-    color: inherit;
-  }
-  h1 {
-    color: black;
-  }
-
-  .nav>li>a:hover {
-    background: white;
-    color: rgb(51, 122, 183);
-  }
-  #howitworksBtn {
-    color: #a1a1a1;
-  }
-  #howitworksBtn:hover {
-    color: #31aceb;
-    background: white;
-  }
-
-  #des_upload {
+  #top-info {
+    text-align: center;
+    font-family: 'aileronsemibold';
+    font-size: 1.25em;
+    color: #15c0f1;
+    font-weight: 500;
     padding-top: 15px;
-    color: #a1a1a1;
-    letter-spacing: 0.03em;
-    font-style: italic;
-    font-family: 'aileronlight';
   }
-  #apply-btn:hover {
-    background-color: white;
-    border-color: #15c0f1;
-    color: #15c0f1;
+  #left-info h6,
+  #right-info h6 {
+    font-size: 1em;
+    font-family: 'aileronsemibold';
   }
-  #home-right {
-    text-align: center;
-    margin-bottom: 50px;
-    margin-top: 30px;
+  #left-info p,
+  #right-info p {
+    font-size: 0.8em;
+    line-height: 0.9em;
+  }
+  #left-info,
+  #right-info {
+    padding-top: 70px;
     padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 35px;
+    padding-right: 0;
   }
-
-  .info-button {
-    width: 22px;
-    margin-left: 5px;
+  #left-info {
+    color: #9adaf0;
   }
-
-
-
-
-
-
-  .content .white-header {
-    font-weight: 500;
-    color: white;
-    margin-top: 80px;
-    font-size: 4em;
-    color: #15c0f1;
+  #right-info {
+    color: #a9a9aa;
+    padding-left: 26px;
   }
-  .content .how-header,
-  .content .client-header {
-    margin-top: 80px;
-    font-weight: 500;
-  }
-  .clientPart .note {
-    margin-top: 40px;
-  }
-  .content h1 {
-    color: #15c0f1;
-    font-size: 4.2em;
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    font-family: 'aileronlight';
-  }
-
-
-
-
-  .whyPart {
+  // end hello-mortgage
+  // why-part
+  .why-part {
     background-color: #f6f6f6;
     padding-bottom: 80px;
     width: 100%;
   }
-  .whyPart .container .row:not(.whyPart .container .row:first-of-type) {
+  .why-part .container .row:not(.why-part .container .row:first-of-type) {
     margin-top: 20px;
   }
-  .whyItem {
+  .why-item {
     margin-top: 60px;
     color: black;
     // height:170px;
   }
-  .whyItem h6 {
+  .why-item h6 {
     color: black !important;
   }
-  .whyItem img {
+  .why-item img {
     float: left;
     width: auto;
     height: 80%;
@@ -369,6 +269,90 @@
     letter-spacing: 0.03em;
     line-height: 1.75em;
   }
+  .content .white-header {
+    font-weight: 500;
+    margin-top: 80px;
+    font-size: 4em;
+    color: $mc-color;
+  }
+  // end why-part
+  .middle {
+    .description {
+      padding-top: 10px;
+      font-size: 18px;
+    }
+    .best-rates {
+      h3 {
+        text-align: center;
+      }
+      table {
+        th,
+        td {
+          text-align: center;
+        }
+      }
+    }
+  }
+  h6 {
+    color: inherit;
+  }
+  h1 {
+    color: black;
+  }
+  .nav>li>a:hover {
+    background: white;
+    color: rgb(51, 122, 183);
+  }
+  #howitworksBtn {
+    color: #a1a1a1;
+  }
+  #howitworksBtn:hover {
+    color: #31aceb;
+    background: white;
+  }
+  #des_upload {
+    padding-top: 15px;
+    color: #a1a1a1;
+    letter-spacing: 0.03em;
+    font-style: italic;
+    font-family: 'aileronlight';
+  }
+  #apply-btn:hover {
+    background-color: white;
+    border-color: #15c0f1;
+    color: #15c0f1;
+  }
+  #home-right {
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 35px;
+  }
+  .info-button {
+    width: 22px;
+    margin-left: 5px;
+  }
+
+  .content .how-header,
+  .content .client-header {
+    margin-top: 80px;
+    font-weight: 500;
+  }
+  .clientPart .note {
+    margin-top: 40px;
+  }
+  .content h1 {
+    color: #15c0f1;
+    font-size: 4.2em;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: 'aileronlight';
+  }
+
   .howPart p,
   .howPart h6 {
     color: black;
@@ -447,7 +431,6 @@
     color: #000;
     font-size: 1.5em;
   }
-
   @keyframes backtopAnim {
     0% {
       transform: translateY(0);

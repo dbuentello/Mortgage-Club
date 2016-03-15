@@ -4,11 +4,11 @@ var WhyPart = React.createClass({
   render: function() {
 
     return (
-      <div className="content whyPart">
+      <div className="content why-part">
         <div className="container">
           <h1 className="text-uppercase white-header">Why us?</h1>
           <div className="row">
-            <div className="col-lg-6 clearfix whyItem">
+            <div className="col-lg-6 clearfix why-item">
               <img src="/why1.png" />
               <div className="bigNum">1</div>
               <div className="whyText">
@@ -17,7 +17,7 @@ var WhyPart = React.createClass({
               </div>
             </div>
 
-            <div className="col-lg-6 clearfix whyItem">
+            <div className="col-lg-6 clearfix why-item">
               <img src="/why2.png" />
               <div className="bigNum">2</div>
               <div className="whyText">
@@ -25,7 +25,7 @@ var WhyPart = React.createClass({
                 <p>By leveraging our technology, you can complete the loan application online in 10 mins and close your loan in 15 days.</p>
               </div>
             </div>
-            <div className="col-lg-6 clearfix whyItem">
+            <div className="col-lg-6 clearfix why-item">
               <img src="/why3.png" />
               <div className="bigNum">3</div>
               <div className="whyText">
@@ -34,7 +34,7 @@ var WhyPart = React.createClass({
               </div>
             </div>
 
-            <div className="col-lg-6 clearfix whyItem">
+            <div className="col-lg-6 clearfix why-item">
               <img src="/why4.png" />
               <div className="bigNum">4</div>
               <div className="whyText">
@@ -42,7 +42,7 @@ var WhyPart = React.createClass({
                 <p>Your Relationship Manager  is compensated by salary and bonus based on customer satisfaction to remove commission bias.</p>
               </div>
             </div>
-            <div className="col-lg-6 clearfix whyItem">
+            <div className="col-lg-6 clearfix why-item">
               <img src="/why5.png" />
               <div className="bigNum">5</div>
               <div className="whyText">
@@ -51,7 +51,7 @@ var WhyPart = React.createClass({
               </div>
             </div>
 
-            <div className="col-lg-6 clearfix whyItem">
+            <div className="col-lg-6 clearfix why-item">
               <img src="/why6.png" />
               <div className="bigNum">6</div>
               <div className="whyText">
