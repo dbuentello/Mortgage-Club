@@ -16,7 +16,7 @@ module CompletedLoanServices
       return false unless current_employment_duration_valid?
       return false unless borrower.gross_income
 
-      if !secondary_borrower.nil?
+      unless secondary_borrower.nil?
         return false unless secondary_borrower.current_employment
         return false unless employment_completed?(secondary_borrower.current_employment)
         return false unless co_current_employment_duration_valid?

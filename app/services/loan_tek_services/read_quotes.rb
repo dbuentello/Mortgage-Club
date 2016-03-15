@@ -26,7 +26,7 @@ module LoanTekServices
         lender_name = quote["LenderName"]
         discount_pts = quote["DiscountPts"] / 100
 
-        if !existing_program?(programs, apr, rate, lender_name, discount_pts)
+        unless existing_program?(programs, apr, rate, lender_name, discount_pts)
           program = {
             lender_name: lender_name,
             product: get_product_name(quote),

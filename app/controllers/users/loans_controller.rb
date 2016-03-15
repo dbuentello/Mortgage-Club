@@ -59,7 +59,7 @@ class Users::LoansController < Users::BaseController
   end
 
   def edit
-    return redirect_to action: :show if !@loan.new_loan?
+    return redirect_to action: :show unless @loan.new_loan?
 
     bootstrap(
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
