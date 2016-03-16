@@ -5,62 +5,19 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-# Lint/AmbiguousOperator:
-#   Enabled: false
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
    Enabled: false
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Lint/DeprecatedClassMethods:
-#   Enabled: false
-
-# Offense count: 2
-# Lint/HandleExceptions:
-#   Enabled: false
-
-# Offense count: 1
-# Lint/LiteralInCondition:
-#   Enabled: false
-
-# Offense count: 9
-# Lint/ParenthesesAsGroupedExpression:
-#   Enabled: false
-
 # Offense count: 2
 Lint/RescueException:
   Enabled: false
-
-# Offense count: 8
-# Lint/ShadowingOuterLocalVariable:
-#   Enabled: false
-
-# Offense count: 4
-# Cop supports --auto-correct.
-# Lint/StringConversionInInterpolation:
-#   Enabled: false
-
-# Offense count: 30
-# Cop supports --auto-correct.
-# Lint/UnusedBlockArgument:
-#   Enabled: false
 
 # Offense count: 10
 # Cop supports --auto-correct.
 Lint/UnusedMethodArgument:
   Enabled: false
-
-# Offense count: 1
-# Lint/UselessAccessModifier:
-#   Enabled: false
-
-# Offense count: 24
-# Lint/UselessAssignment:
-#   Enabled: false
 
 # Offense count: 49
 Metrics/AbcSize:
@@ -97,6 +54,102 @@ Metrics/PerceivedComplexity:
 # Offense count: 6
 Style/AccessorMethodName:
   Enabled: false
+
+# Offense count: 10
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# Offense count: 3
+# Configuration parameters: Exclude.
+Style/FileName:
+  Enabled: false
+
+# Offense count: 2
+# Configuration parameters: MinBodyLength.
+Style/GuardClause:
+  Enabled: false
+
+# Offense count: 2
+# Cop supports --auto-correct.
+Style/NumericLiterals:
+  MinDigits: 15
+
+# Offense count: 26
+# Cop supports --auto-correct.
+Style/PerlBackrefs:
+  Enabled: false
+
+# Offense count: 2
+# Cop supports --auto-correct.
+Style/RedundantSelf:
+  Enabled: false
+
+# Offense count: 12
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/SignalException:
+  Enabled: false
+
+# Offense count: 1
+# Configuration parameters: Methods.
+Style/SingleLineBlockParams:
+  Enabled: false
+
+# Offense count: 10
+# Cop supports --auto-correct.
+# Configuration parameters: WordRegex.
+Style/WordArray:
+  MinSize: 10
+
+# Offense count: 7
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles, AllowInnerSlashes.
+Style/RegexpLiteral:
+  Enabled: false
+
+# Offense count: 2
+# Lint/AmbiguousOperator:
+#   Enabled: false
+
+# Offense count: 3
+# Cop supports --auto-correct.
+# Lint/DeprecatedClassMethods:
+#   Enabled: false
+
+# Offense count: 2
+# Lint/HandleExceptions:
+#   Enabled: false
+
+# Offense count: 1
+# Lint/LiteralInCondition:
+#   Enabled: false
+
+# Offense count: 9
+# Lint/ParenthesesAsGroupedExpression:
+#   Enabled: false
+
+# Offense count: 8
+# Lint/ShadowingOuterLocalVariable:
+#   Enabled: false
+
+# Offense count: 4
+# Cop supports --auto-correct.
+# Lint/StringConversionInInterpolation:
+#   Enabled: false
+
+# Offense count: 30
+# Cop supports --auto-correct.
+# Lint/UnusedBlockArgument:
+#   Enabled: false
+
+# Offense count: 1
+# Lint/UselessAccessModifier:
+#   Enabled: false
+
+# Offense count: 24
+# Lint/UselessAssignment:
+#   Enabled: false
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -160,11 +213,6 @@ Style/AccessorMethodName:
 # Style/CaseIndentation:
 #   Enabled: false
 
-# Offense count: 10
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/ClassAndModuleChildren:
-  Enabled: false
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Style/ClosingParenthesisIndentation:
@@ -221,11 +269,6 @@ Style/ClassAndModuleChildren:
 #   Enabled: false
 
 # Offense count: 3
-# Configuration parameters: Exclude.
-Style/FileName:
-  Enabled: false
-
-# Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # Style/FirstParameterIndentation:
@@ -240,11 +283,6 @@ Style/FileName:
 # Configuration parameters: AllowedVariables.
 # Style/GlobalVars:
 #   Enabled: false
-
-# Offense count: 2
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Enabled: false
 
 # Offense count: 197
 # Cop supports --auto-correct.
@@ -322,11 +360,6 @@ Style/GuardClause:
 # Style/Next:
 #   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/NumericLiterals:
-  MinDigits: 15
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Style/ParallelAssignment:
@@ -344,42 +377,15 @@ Style/NumericLiterals:
 # Style/PercentLiteralDelimiters:
 #   Enabled: false
 
-# Offense count: 26
-# Cop supports --auto-correct.
-Style/PerlBackrefs:
-  Enabled: false
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Style/RedundantBegin:
 #   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Enabled: false
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, AllowInnerSlashes.
-Style/RegexpLiteral:
-  Enabled: false
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Style/SelfAssignment:
 #   Enabled: false
-
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/SignalException:
-  Enabled: false
-
-# Offense count: 1
-# Configuration parameters: Methods.
-Style/SingleLineBlockParams:
-  Enabled: false
 
 # Offense count: 182
 # Cop supports --auto-correct.
@@ -491,9 +497,3 @@ Style/SingleLineBlockParams:
 # Cop supports --auto-correct.
 # Style/VariableInterpolation:
 #   Enabled: false
-
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: WordRegex.
-Style/WordArray:
-  MinSize: 10
