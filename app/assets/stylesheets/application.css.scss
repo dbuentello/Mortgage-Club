@@ -11,11 +11,13 @@ $rails: true;
 @import 'dropzone-custom';
 // abstracts
 @import 'abstracts/variables';
+@import 'abstracts/mixins';
 // component
 @import 'components/button';
 @import 'components/util';
 @import 'components/devise';
 @import 'components/bootstrap-custom';
+@import 'components/animation';
 //layout
 @import 'layout/footer';
 @import 'layout/header';
@@ -54,41 +56,6 @@ body {
 }
 
 
-@keyframes loginAnim {
-  0% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(2px);
-  }
-  50% {
-    transform: translateX(-3px);
-  }
-  75% {
-    transform: translateX(2px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-@-webkit-keyframes loginAnim {
-  0% {
-    -webkit-transform: translateX(0);
-  }
-  25% {
-    -webkit-transform: translateX(2px);
-  }
-  50% {
-    -webkit-transform: translateX(-3px);
-  }
-  75% {
-    -webkit-transform: translateX(2px);
-  }
-  100% {
-    -webkit-transform: translateX(0);
-  }
-}
 
 .nav-borrower {
   height: calc(100vh - 100px);
@@ -348,40 +315,6 @@ hr {
 }
 
 
-@keyframes loginAnim {
-  0% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(2px);
-  }
-  50% {
-    transform: translateX(-3px);
-  }
-  75% {
-    transform: translateX(2px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-@-webkit-keyframes loginAnim {
-  0% {
-    -webkit-transform: translateX(0);
-  }
-  25% {
-    -webkit-transform: translateX(2px);
-  }
-  50% {
-    -webkit-transform: translateX(-3px);
-  }
-  75% {
-    -webkit-transform: translateX(2px);
-  }
-  100% {
-    -webkit-transform: translateX(0);
-  }
-}
 
 .modal-docusign {
   margin-top: 100px;

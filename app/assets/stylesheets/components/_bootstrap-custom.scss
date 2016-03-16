@@ -66,11 +66,11 @@
 }
 
 .tooltip > .tooltip-arrow {
-  border-left-color: $mcTooltipBg !important;
+  border-left-color: $mcTooltipBg;
 
 }
 .tooltip.bottom .tooltip-arrow {
-  border-bottom-color: $mcTooltipBg !important;
+  border-bottom-color: $mcTooltipBg;
 }
 .error-tooltip {
   position: absolute;
@@ -99,8 +99,5 @@
   background: #292f45;
   color: #FFFFFF;
   padding: 5px 10px;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  -khtml-border-radius: 6px;
-  border-radius: 6px;
+  @include border-radius(6px); //use mixins
 }

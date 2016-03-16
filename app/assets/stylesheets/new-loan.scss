@@ -336,8 +336,7 @@
   img {
     filter:brightness(100%) invert(0);
     -webkit-filter:brightness(100%) invert(0);
-    animation:loginAnim 2s infinite;
-    -webkit-animation:loginAnim 2s infinite;
+    @include animate-img-btn(loginAnim, 2s);
   }
 }
 
@@ -367,8 +366,7 @@
   img {
     filter:brightness(100%) invert(0);
     -webkit-filter:brightness(100%) invert(0);
-    animation:loginAnim 2s infinite;
-    -webkit-animation:loginAnim 2s infinite;
+    @include animate-img-btn(loginAnim, 2s);
   }
 }
 

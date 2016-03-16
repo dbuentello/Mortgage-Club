@@ -21,8 +21,7 @@
   }
 }
 #login-btn:hover img {
-  animation: loginAnim 2s infinite;
-  -webkit-animation: loginAnim 2s infinite;
+  @include animate-img-btn(loginAnim, 2s);
   filter:grayscale(0%);
   -webkit-filter: grayscale(0%);
 }
