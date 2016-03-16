@@ -12,7 +12,7 @@ describe LoanMembers::LenderDocumentsController do
     file = File.new(Rails.root.join "spec", "files", "sample.pdf")
     @uploaded_file = ActionDispatch::Http::UploadedFile.new(
       tempfile: file,
-      filename: File.basename(file),
+      filename: File.basename(file)
     )
     @uploaded_file.content_type = "application/pdf"
   end
@@ -20,14 +20,13 @@ describe LoanMembers::LenderDocumentsController do
   describe "#create" do
     context "successful" do
       it "creates a new document" do
-        expect {
+        expect do
           post :create, loan_id: loan.id,
                         template_id: lender.lender_templates.last,
                         description: "This is a description",
                         file: @uploaded_file,
                         format: :json
-        }.to change{LenderDocument.count}.from(0).to(1)
-
+        end.to change { LenderDocument.count }.from(0).to(1)
       end
 
       it "renders document's info" do

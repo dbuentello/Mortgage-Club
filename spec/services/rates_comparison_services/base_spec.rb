@@ -14,7 +14,7 @@ describe RatesComparisonServices::Base do
     ]
     allow_any_instance_of(Crawler::GoogleRates).to receive(:call).and_return(rates)
 
-    @crawler = Crawler::GoogleRates.new({
+    @crawler = Crawler::GoogleRates.new(
       purpose: "purchase",
       zipcode: 95127,
       property_value: 33322,
@@ -23,7 +23,7 @@ describe RatesComparisonServices::Base do
       purchase_price: 23232,
       market_price: 22323,
       balance: 342
-    })
+    )
   end
 
   describe "#get_rates" do

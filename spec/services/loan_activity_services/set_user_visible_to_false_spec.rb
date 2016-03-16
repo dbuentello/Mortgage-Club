@@ -3,7 +3,8 @@ require 'rails_helper'
 describe LoanActivityServices::SetUserVisibleToFalse do
   let(:loan_activity) { FactoryGirl.create(:loan_activity, name: "Verify borrower's income") }
   before(:each) do
-    @the_same_loan_activity = FactoryGirl.create(:loan_activity,
+    @the_same_loan_activity = FactoryGirl.create(
+      :loan_activity,
       loan: loan_activity.loan, activity_type: loan_activity.activity_type,
       name: loan_activity.name, user_visible: true
     )

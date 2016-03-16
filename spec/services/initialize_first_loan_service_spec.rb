@@ -5,7 +5,7 @@ describe InitializeFirstLoanService do
   let!(:billy) { FactoryGirl.create(:loan_member_user_with_loan_member, email: "billy@mortgageclub.co") }
 
   it "assigns loan to Billy automatically" do
-    expect { described_class.new(user).call }.to change{ LoansMembersAssociation.count }.by(1)
+    expect { described_class.new(user).call }.to change { LoansMembersAssociation.count }.by(1)
     expect(LoansMembersAssociation.last.loan_member.user.email).to eq("billy@mortgageclub.co")
   end
 
@@ -21,7 +21,7 @@ describe InitializeFirstLoanService do
     end
 
     it "creates a new loan" do
-      expect { described_class.new(user, @quote_cookies).call }.to change{ Loan.count }.by(1)
+      expect { described_class.new(user, @quote_cookies).call }.to change { Loan.count }.by(1)
     end
 
     it "creates a new loan with cookies's data" do
@@ -37,7 +37,7 @@ describe InitializeFirstLoanService do
 
   context "when quote_cookies is nil" do
     it "creates a new loan" do
-      expect { described_class.new(user, nil).call }.to change{ Loan.count }.by(1)
+      expect { described_class.new(user, nil).call }.to change { Loan.count }.by(1)
     end
 
     it "creates a new loan without cookies's data" do
@@ -59,13 +59,13 @@ describe InitializeFirstLoanService do
     end
 
     it "creates a new loan" do
-      expect { described_class.new(user_has_borrower).call }.to change{Loan.count}.by(1)
+      expect { described_class.new(user_has_borrower).call }.to change { Loan.count }.by(1)
     end
 
     context "with correct primary property" do
       it "creates a new loan" do
         loan = described_class.new(user_has_borrower).call
-        primary_property_address = loan.primary_property.address
+        loan.primary_property.address
 
         expect(loan.primary_property).not_to be_nil
         expect(loan.primary_property.is_primary).to be_truthy

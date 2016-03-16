@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe HomepageRateServices::Chase do
-
   it 'gets aprs from Chase successfully' do
     VCR.use_cassette("get aprs from Chase") do
       # response = HomepageRateServices::Chase.call

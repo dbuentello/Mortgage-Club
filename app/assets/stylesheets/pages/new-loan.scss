@@ -25,8 +25,13 @@
       left: 0px;
       padding-left: 12px;
       &:hover {
-       color: #00a9dc;
-       -webkit-filter: saturate(100%);
+        color: #00a9dc;
+        -webkit-filter: saturate(100%);
+        -ms-filter: saturate(100%);
+        -moz-filter: saturate(100%);
+        -khtml-filter: saturate(100%);
+        -o-filter:saturate(100%);
+        filter: saturate(100%);
       }
     }
   }
@@ -161,8 +166,25 @@
   .form-horizontal {padding-left:20px;}
   .form-group:first-child {margin-top:15px;}
   .form-group:last-child {margin-bottom:20px;}
-  .form-group img {top:initial; -webkit-filter:saturate(0%); filter:saturate(0%); bottom:6px;}
-  input:focus + img {border-left:#15c0f1 1px solid; filter:saturate(100%); -webkit-filter:saturate(100%);}
+  .form-group img {
+    top:initial;
+    -webkit-filter: saturate(0%);
+    -ms-filter: saturate(0%);
+    -moz-filter: saturate(0%);
+    -khtml-filter: saturate(0%);
+    -o-filter:saturate(0%);
+    filter: saturate(0%);
+    bottom:6px;
+  }
+  input:focus + img {
+    border-left:#15c0f1 1px solid;
+    -webkit-filter: saturate(100%);
+    -ms-filter: saturate(100%);
+    -moz-filter: saturate(100%);
+    -khtml-filter: saturate(100%);
+    -o-filter:saturate(100%);
+    filter: saturate(100%);
+  }
 
   .icon-trash {
     cursor: pointer;
@@ -170,16 +192,27 @@
 
   .icon-trash img:hover {
     -webkit-filter: saturate(100%);
+    -ms-filter: saturate(100%);
+    -moz-filter: saturate(100%);
+    -khtml-filter: saturate(100%);
+    -o-filter:saturate(100%);
+    filter: saturate(100%);
     color: #15c0f1;
   }
 
   .icon-download img:hover {
     -webkit-filter: saturate(100%);
+    -ms-filter: saturate(100%);
+    -moz-filter: saturate(100%);
+    -khtml-filter: saturate(100%);
+    -o-filter:saturate(100%);
+    filter: saturate(100%);
     color: #15c0f1;
   }
 
   .form-group .fileBtn img {
     bottom: 0px !important;
+    left: 0px;
   }
 
   .form-group .fileBtn .iconUpload {
@@ -190,10 +223,78 @@
   .helpful-text {font-style:italic; color:#959595; font-size:.9em; padding-top:5px;}
   .form-group .helpful-text img {display:inline-block; position:relative; bottom:0; top:0; left:0; border:none; margin-right:7px; margin-top:-5px;}
 
-  select {-webkit-appearance:none; height:38px; width:100%; }
+  select {
+    -webkit-appearance:none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    -khtml-appearance: none;
+    appearance: none;
+    height:38px;
+    width:100%;
+    float:left;
+    -khtml-filter: saturate(100%);
+    -o-filter: saturate(100%);
+    -webkit-filter: saturate(100%);
+    -moz-filter: saturate(100%);
+    -ms-filter: saturate(100%);
+    filter: saturate(100%);
+  }
+
+  .select-field img {
+    position: relative;
+    top: 2px !important;
+    float: right;
+    width: 30px;
+    height: 30px;
+    margin-top: -36px;
+    padding-top: 2px;
+    right: 4px;
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+
   select:hover {border-color:#15c0f1; outline:none; box-shadow:none; cursor:pointer;}
   select:focus {border-color:#15c0f1; outline:none; box-shadow:none;}
-  select:focus + img {border-left:#15c0f1 1px solid; filter:saturate(100%); -webkit-filter:saturate(100%);}
+  select:focus + img {
+    cursor: default;
+    border-left:#15c0f1 1px solid;
+    -webkit-filter: saturate(100%);
+    -moz-filter: saturate(100%);
+    -khtml-filter: saturate(100%);
+    -ms-filter: saturate(100%);
+    -o-filter:saturate(100%);
+    filter: saturate(100%);
+  }
+
+  .address-field img {
+    float: right;
+    width: 30px;
+    height: 30px;
+    margin-top: -36px;
+    padding-top: 2px;
+    top: 2px !important;
+    right: 4px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .date-field img {
+    float: right;
+    height: 30px;
+    margin-top: -36px;
+    padding-top: 2px;
+    top: 2px !important;
+    right: -9px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .form-group input.form-control.address {
+    float:right;
+  }
 
   .form-group>div>h5 {font-size:1.25em; color:#15c0f1; margin-top:0; letter-spacing:.04em; line-height:1.5em;}
 
@@ -219,7 +320,13 @@
   .form-group>div {margin-top:25px;}
 
   .fileBtn .fileBtnSmall:hover, .fileBtn .fileBtnSmall:hover img {
-    filter:saturate(100%); -webkit-filter:saturate(100%); cursor:pointer; color:#15c0f1;
+    -webkit-filter: saturate(100%);
+    -moz-filter: saturate(100%);
+    -khtml-filter: saturate(100%);
+    -ms-filter: saturate(100%);
+    -o-filter:saturate(100%);
+    filter: saturate(100%);
+    cursor:pointer; color:#15c0f1;
   }
 
   .fileBtn h5 {
@@ -322,8 +429,10 @@
   img {
     position:relative;
     margin-top:6px;
+    -ms-filter: brightness(0) invert(1);
     filter:brightness(0) invert(1);
     -webkit-filter:brightness(0) invert(1);
+    -moz-filter: brightness(0) invert(1);;
     border:none; right:-10px;
     margin-right:10px;
   }
@@ -332,11 +441,12 @@
 #continueBtn:hover {
   background: #ffffff;
   color:#00bd9c;
-
   img {
-    filter:brightness(100%) invert(0);
-    -webkit-filter:brightness(100%) invert(0);
     @include animate-img-btn(loginAnim, 2s);
+    -webkit-filter:brightness(100%) invert(0);
+    -ms-filter:brightness(100%) invert(0);
+    -moz-filter: brightness(100%) invert(0);
+    filter:brightness(100%) invert(0);
   }
 }
 
@@ -353,6 +463,8 @@
     position:relative;
     margin-top:6px;
     filter:brightness(0) invert(1);
+    -moz-filter:brightness(0) invert(1);
+    -ms-filter:brightness(0) invert(1);
     -webkit-filter:brightness(0) invert(1);
     border:none; right:-10px;
     margin-right:10px;

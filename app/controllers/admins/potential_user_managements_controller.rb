@@ -34,7 +34,7 @@ class Admins::PotentialUserManagementsController < Admins::BaseController
   def destroy
     if @potential_user.destroy
       render json: {
-        message: "Removed the #{@potential_user.to_s} successfully",
+        message: "Removed the #{@potential_user} successfully",
         potential_users: Admins::PotentialUsersPresenter.new(PotentialUser.all).show
       }, status: 200
     else

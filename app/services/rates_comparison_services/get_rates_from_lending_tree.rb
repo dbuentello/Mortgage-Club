@@ -14,7 +14,7 @@ module RatesComparisonServices
     private
 
     def crawler
-      Crawler::LendingTreeRates.new({
+      Crawler::LendingTreeRates.new(
         purpose: loan.purpose,
         property_type: property.property_type,
         usage: property.usage,
@@ -26,7 +26,7 @@ module RatesComparisonServices
         credit_score: borrower.credit_score,
         purchase_price: property.purchase_price,
         balance: get_balance
-      })
+      )
     end
 
     def property_address

@@ -32,7 +32,7 @@
 
   .quotes-list{
     .form-group img {
-      right: 50px !important;
+      right: 20px !important;
     }
   }
 
@@ -228,11 +228,6 @@
     margin-left: -19px;
   }
 
-  .quotes-filter {
-    margin-bottom: -99999px;
-    padding-bottom: 99999px;
-    margin-left: -16px;
-  }
   .actions {
     padding-top: 20px;
   }
@@ -278,6 +273,11 @@
   .form-group img {
     top: initial;
     -webkit-filter: saturate(0%);
+    -ms-filter: saturate(0%);
+    -moz-filter: saturate(0%);
+    -khtml-filter: saturate(0%);
+    -o-filter:saturate(0%);
+    filter: saturate(0%);
     bottom: 6px;
     cursor: pointer;
     pointer-events: none;
@@ -285,11 +285,28 @@
 
   select {
     -webkit-appearance: none;
+    -moz-appearance: none;
+    -khtml-appearance: none;
+    -o-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
     height: 38px;
     width: 100%;
     cursor: pointer;
   }
-
+  select::-ms-expand {
+    display: none;
+  }
+  .select-field img {
+    position: relative;
+    top: 2px !important;
+    float: right;
+    width: 30px;
+    height: 30px;
+    margin-top: -36px;
+    padding-top: 2px;
+    right: 4px;
+  }
   .helpmechoose .calculator .calc-form  {
     .calc-form {
       position: relative;

@@ -16,5 +16,4 @@ class Signer < ActiveRecord::Base
   belongs_to :user, inverse_of: :signers
 
   validates :envelope_id, :user_id, :recipient_id, presence: true
-
 end

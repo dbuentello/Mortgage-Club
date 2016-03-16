@@ -13,10 +13,11 @@ class Users::ChecklistsController < Users::BaseController
   def load_docusign
     template = Template.where(name: params[:template_name]).first
     if template.blank?
-      return render json: {
-              message: "Template does not exist yet",
-              details: "Template #{params[:template_name]} does not exist yet!"
-            }, status: 500
+      return render json:
+        {
+          message: "Template does not exist yet",
+          details: "Template #{params[:template_name]} does not exist yet!"
+        }, status: 500
     end
 
     envelope = Docusign::CreateEnvelopeForChecklistService.new.call(current_user, @loan)

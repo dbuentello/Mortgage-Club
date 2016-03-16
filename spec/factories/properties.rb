@@ -17,7 +17,7 @@ FactoryGirl.define do
   end
 
   factory :primary_property, parent: :property do |f|
-    f.usage {'primary_residence'}
+    f.usage { 'primary_residence' }
     f.is_primary { true }
   end
 
@@ -27,12 +27,12 @@ FactoryGirl.define do
   end
 
   factory :rental_property, parent: :property do |f|
-    f.is_primary {false}
+    f.is_primary { false }
     f.gross_rental_income { Faker::Number.number(5) }
   end
 
-  factory :property_with_address, parent: :property do |f|
-    after(:build) do |property, address|
+  factory :property_with_address, parent: :property do
+    after(:build) do |property|
       create(:address, property: property)
     end
   end

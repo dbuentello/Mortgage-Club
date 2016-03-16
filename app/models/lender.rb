@@ -48,7 +48,7 @@ class Lender < ActiveRecord::Base
   validates_attachment :logo,
     presence: true,
     content_type: {
-      content_type: /\Aimage\/.*\Z/,
+      content_type: /\Aimage\/.*\Z/
     },
     size: {
       less_than_or_equal_to: 2.megabytes,

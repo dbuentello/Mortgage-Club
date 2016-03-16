@@ -23,9 +23,13 @@ module CompletedLoanServices
       return false if declaration.co_maker_or_endorser.nil?
       return false if declaration.present_delinquent_loan.nil?
       return false if declaration.us_citizen.nil?
-      return false if (declaration.permanent_resident_alien.nil? && declaration.us_citizen == false)
+      return false if declaration.permanent_resident_alien.nil? && declaration.us_citizen == false
       return false if declaration.ownership_interest.nil?
-      return false if declaration.ownership_interest == true && (declaration.type_of_property.nil? || declaration.title_of_property.nil?)
+
+      if declaration.ownership_interest == true
+        return false if declaration.type_of_property.nil?
+        return false if declaration.title_of_property.nil?
+      end
 
       true
     end

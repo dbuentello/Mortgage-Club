@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe ActivityType do
-  it { should have_many(:loan_activities)}
+  it { should have_many(:loan_activities) }
 
   it "has a valid activity type" do
     expect(FactoryGirl.build(:activity_type)).to be_valid

@@ -1,10 +1,10 @@
 <div class="header clearfix">
   <% if current_user %>
-    <nav class="navbar navbar-default mortgage-nav borderless shadow-bottom">
-    <% else %>
-     <nav class="navbar navbar-default mortgage-nav navbar-fixed-top borderless shadow-bottom ">
-    <% end %>
-     <div class="container">
+  <nav class="navbar navbar-default mortgage-nav borderless shadow-bottom">
+  <% else %>
+    <nav class="navbar navbar-default mortgage-nav navbar-fixed-top borderless shadow-bottom ">
+      <% end %>
+      <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#links-home" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
@@ -14,34 +14,34 @@
           </button>
           <a class="navbar-brand logo" href="/"><%= image_tag asset_path("mortgageclubLOGO.png")%></a>
         </div>
-      <div class="collapse navbar-collapse borderless" id="links-home">
-       <% if current_user %>
-        <ul class="nav navbar-nav navbar-right">
+        <div class="collapse navbar-collapse borderless" id="links-home">
+          <% if current_user %>
+          <ul class="nav navbar-nav navbar-right">
             <li>
               <a id="newLoanBtn" class="btn btn-ms btn-success btn-mc text-uppercase">
                 <p>
                   <span class="glyphicon glyphicon-plus-sign"></span>
-                   new loan
+                  new loan
                 </p>
               </a>
             </li>
             <% is_active_loans_menu = 'active-loans' if controller.controller_name == 'loans' %>
             <li>
               <%= link_to my_loans_path, class: "btn btn-ms btn-mc text-uppercase #{is_active_loans_menu}", id: "loanBtn" do %>
-                <%= image_tag asset_path("/icons/loanBtn.png"), id: "loanBtnImg" %>
-                Loans
+              <%= image_tag asset_path("/icons/loanBtn.png"), id: "loanBtnImg" %>
+              Loans
               <% end %>
             </li>
             <li>
               <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle btn-mc" id="accountBtn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <span>
-                  <img id="accountBtnImg" src="/icons/userBtn.png" atl="account"></img>
-                </span>
-                <span><%= current_user.first_name %></span>
-                <span>
-                  <img class="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
-                </span>
+                  <span>
+                    <img id="accountBtnImg" src="/icons/userBtn.png" atl="account"></img>
+                  </span>
+                  <span><%= current_user.first_name %></span>
+                  <span>
+                    <img class="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
+                  </span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="accountBtn">
                   <li><%= link_to "My Profile", edit_user_registration_path(current_user) %></li>
@@ -49,20 +49,20 @@
                 </ul>
               </div>
             </li>
-            </ul>
-          <% else %>
+          </ul>
+        <% else %>
           <ul class="nav nav-pills navbar-right">
             <li>
-              <%= link_to "Find my rates", quotes_path, class: "btn btn-ms btn-mc text-uppercase", id: "signup-btn"%>
+              <%= link_to "Find my rates", initial_quotes_path, class: "btn btn-ms btn-mc text-uppercase", id: "signupBtn"%>
             </li>
             <li>
               <%= link_to new_user_session_path, class: "btn btn-ms text-uppercase", id: "login-btn" do %>
-                <%= image_tag image_path("loginICON.png"), id: "login-img" %>Log in
+              <%= image_tag image_path("loginICON.png"), id: "login-img" %>Log in
               <% end %>
             </li>
-        </ul>
-        <% end %>
-      </div>
+          </ul>
+          <% end %>
+        </div>
       </div>
     </nav>
-</div>
+  </div>

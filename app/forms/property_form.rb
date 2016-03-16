@@ -54,10 +54,7 @@ class PropertyForm
       property_params[:purchase_price] = nil
     end
 
-    if primary_residence?
-      property_params[:gross_rental_income] = nil
-    end
-
+    property_params[:gross_rental_income] = nil if primary_residence?
     property_params
   end
 

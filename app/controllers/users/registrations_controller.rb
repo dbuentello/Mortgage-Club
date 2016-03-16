@@ -47,8 +47,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if resource_updated
       if is_flashing_format?
-        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
-          :update_needs_confirmation : :updated
+        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ? :update_needs_confirmation : :updated
         set_flash_message :notice, flash_key
       else
         message = update_needs_confirmation?(resource, prev_unconfirmed_email) ? "Update need confirmation" : "Update successfully"
@@ -95,22 +94,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
       email: resource.errors.messages[:email].try(:first),
       password: resource.errors.messages[:password].try(:first),
       current_password: resource.errors.messages[:current_password].try(:first),
-      password_confirmation: resource.errors.messages[:password_confirmation].try(:first),
+      password_confirmation: resource.errors.messages[:password_confirmation].try(:first)
     }, status: 500
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.for(:sign_up) { |u|
+    devise_parameter_sanitizer.for(:sign_up) do |u|
       u.permit(:first_name, :last_name, :email, :password, :password_confirmation)
-    }
+    end
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.for(:account_update) { |u|
+    devise_parameter_sanitizer.for(:account_update) do |u|
       u.permit(:email, :first_name, :last_name, :password, :password_confirmation, :current_password, :avatar)
-    }
+    end
   end
 
   # The path used after sign up.

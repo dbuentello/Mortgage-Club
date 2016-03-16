@@ -43,7 +43,6 @@ class BorrowerForm
 
   def create_primary_property
     return if loan.primary_property.present?
-    subject_property = loan.subject_property
 
     Property.create(
       loan: loan,
@@ -58,7 +57,6 @@ class BorrowerForm
         full_text: current_address.full_text
       )
     )
-
   end
 
   private
