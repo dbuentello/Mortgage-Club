@@ -14,7 +14,7 @@ $(document).on('ready', function(event) {
   });
   //Click event to scroll to top
   $('.cd-top').click(function(){
-    $('html, body').animate({scrollTop : 0},800);
+    $('html, body').animate({scrollTop : 0}, 800);
     return false;
   });
 
