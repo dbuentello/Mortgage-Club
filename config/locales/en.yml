@@ -93,6 +93,18 @@ en:
             password_confirmation:
               blank: "This is field required"
               confirmation: "Doesn't match Password"
+  common:
+    process:
+      add: "add"
+      create: "create"
+      remove: "remove"
+      update: "update"
+      update_checklist: "update the checklist"
+    status:
+      added: "added"
+      created: "created"
+      removed: "removed"
+      updated: "updated"
   errors:
     messages:
       file_not_found: "File is not found"
