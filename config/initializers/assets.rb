@@ -9,7 +9,7 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
-Rails.application.config.assets.precompile += %w(public.js admin.js admin-pages.css loan_member.js loan-members.css )
+Rails.application.config.assets.precompile += %w( jquery.js zopim.js public.js admin.js admin-pages.css loan_member.js loan-members.css )
 
 # Add webpack/assets/stylesheets to asset pipeline's search path.
 Rails.application.config.assets.paths << Rails.root.join("client", "assets" ,"stylesheets")
