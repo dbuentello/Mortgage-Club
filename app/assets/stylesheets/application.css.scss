@@ -5,13 +5,14 @@ $rails: true;
 // which has been added to the Rails asset pipeline search path.
 // See config/initializers/assets.rb.
 @import 'bootstrap-sprockets';
-
 @import 'bootstrap_datepicker';
 @import 'd3.slider';
 @import 'dropzone-custom';
 // abstracts
 @import 'abstracts/variables';
 @import 'abstracts/mixins';
+//base
+@import "base/fonts";
 // component
 @import 'components/button';
 @import 'components/util';
@@ -22,12 +23,9 @@ $rails: true;
 @import 'layout/footer';
 @import 'layout/header';
 @import 'layout/form';
-
 @import 'homepage';
 @import 'lenders';
-
 @import 'new-loan';
-
 @import 'pages';
 @import 'borrowers';
 @import 'loan-programs';
@@ -38,14 +36,6 @@ $rails: true;
 @import 'potential-rate-drop-user';
 @import 'homepage2';
 
-
-@font-face {
-  font-family: 'aileronregular';
-  src: url(asset_path('aileron-regular-webfont.eot'));
-  src: url(asset_path('aileron-regular-webfont.woff')) format('woff'),
-        url(asset_path('aileron-regular-webfont.ttf')) format('truetype');
-}
-
 // Application homepage
 body {
   font-family: 'aileronregular';
@@ -54,13 +44,9 @@ body {
   padding-bottom: 100px; //footer padding
   position: relative;
 }
-
-
-
 .nav-borrower {
   height: calc(100vh - 100px);
 }
-
 .cd-top {
   width: 40px;
   height: 40px;
@@ -69,7 +55,6 @@ body {
   bottom: 30px;
   display: none;
 }
-
 .active-component {
   opacity: 1;
 }
@@ -84,13 +69,13 @@ body {
 .main-btn,
 .main-btn:visited,
 .main-btn:active {
-  background: #15c0f1;
-  border-color: #15c0f1;
+  background: $mcColor;
+  border-color: $mcColor;
 }
 .main-btn:hover {
   background: #fff;
-  color: #15c0f1;
-  border: 1px #15c0f1 solid;
+  color: $mcColor;
+  border: 1px $mcColor solid;
 }
 .error-header {
   font-size: 34px;
@@ -100,8 +85,8 @@ body {
   .navigation-section {
     .back-btn {
       color: white;
-      background: #15c0f1;
-      border: #15c0f1 1px solid;
+      background: $mcColor;
+      border: $mcColor 1px solid;
       border-radius: 5px;
       font-size: 1.25em;
       margin-left: 57px;
@@ -198,26 +183,22 @@ body {
       }
     }
     .select-btn:hover {
-      color: #15c0f1;
+      color: $mcColor;
       background: #fff;
     }
     .select-btn {
       color: white;
-      background: #15c0f1;
-      border: #15c0f1 1px solid;
+      background: $mcColor;
+      border: $mcColor 1px solid;
       border-radius: 5px;
       font-size: 1.25em;
     }
     h2 {
-      color: #15c0f1;
+      color: $mcColor;
     }
   }
 }
-hr {
-  color: #e1e1e1;
-  height: 1px;
-  background-color: #e1e1e1;
-}
+
 .logo img {
   width: 200px;
   padding-bottom: 5px;
@@ -233,7 +214,7 @@ hr {
     padding: 0 15px;
   }
   h2 {
-    color: #15c0f1;
+    color: $mcColor;
     font-weight: 600;
     font-size: 1.5em;
     margin-bottom: 0;
@@ -279,20 +260,9 @@ hr {
     cursor: pointer;
   }
 }
-
-
-
 .modal-docusign {
   margin-top: 100px;
 }
-
-
-
-
-
-
-
-
 html.loading {
   background: #FFFFFF url(asset_path('loading.gif')) no-repeat 50% 40%;
   -webkit-transition: background-color 0;

@@ -8,8 +8,7 @@
   z-index: 1000;
   padding: 20px 35px 5px;
   #backtopBtn:hover {
-    animation: backtopAnim 1s infinite;
-    -webkit-animation: backtopAnim 1s infinite;
+    @include animate-img-btn(backtopAnim, 2s) ;
     cursor: pointer;
   }
 }
