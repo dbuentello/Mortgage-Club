@@ -1,30 +1,7 @@
 
 
 
-//=========== Button ==============//
-#signup-btn {
-  width: 140px;
-}
-#login-btn:hover {
-  background: white;
-  color: $mcColor;
-  border-color: $mcColor;
-}
-#login-btn {
-  background: white;
-  color: #a1a1a1;
-  border-color: #a1a1a1;
-  width: 140px;
-  img {
-    margin-right: 21px;
-    margin-top: -4px;
-  }
-}
-#login-btn:hover img {
-  @include animate-img-btn(loginAnim, 2s);
-  filter:grayscale(0%);
-  -webkit-filter: grayscale(0%);
-}
+
 // #login-img { // TODO: need to remove
 //   height: 18px;
 //   width: auto;

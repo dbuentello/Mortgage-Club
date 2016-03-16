@@ -153,21 +153,7 @@ button[type=submit] {
 .form-group h5 a {
   color: $mcColor;
 }
-.btn-mc {
-  background: $mcColor;
-  border-color: $mcColor;
-  color: white;
-}
-.btn-mc:hover {
-  background: white;
-  color: $mcColor;
-  border-color: $mcColor;
-}
-.btn-mc:focus {
-  background: white;
-  color: $mcColor;
-  border-color: $mcColor;
-}
+
 .fileBtn {
   border-radius: 6px;
   border: #c3c3c3 1px solid;

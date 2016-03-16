@@ -21,12 +21,15 @@ $rails: true;
 @import 'layout/footer';
 @import 'layout/header';
 @import 'layout/form';
+@import 'layout/error-pages';
+@import 'layout/mediaquery';
 //pages
 @import 'pages/helpmechoose';
+@import 'pages/homepage';
+@import 'pages/dev-infographics';
 
 @import 'd3.slider';
 @import 'dropzone-custom';
-@import 'homepage';
 @import 'lenders';
 @import 'new-loan';
 @import 'pages';
@@ -37,7 +40,6 @@ $rails: true;
 @import 'initial-quotes';
 @import 'docusign';
 @import 'potential-rate-drop-user';
-@import 'homepage2';
 
 // Application homepage
 body {
