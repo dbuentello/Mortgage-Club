@@ -1,0 +1,132 @@
+.header {
+  .mortgage-nav {
+    background-color: white;
+    padding: 5px 0; //top bottom 5px
+    // not test
+    .dropdown {
+      .dropdownArrow {
+        right: 0;
+        top: 3px;
+        border-left: $mc-color 1px solid;
+        margin-top: -2px;
+      }
+      .dropdown-toggle {
+        border-color: $mc-color;
+      }
+    }
+    .dropdown-menu {
+      min-width: 100%;
+      margin-top: -3px;
+      box-shadow: none;
+      padding: 0;
+      border-radius: 0;
+      border-color: $mc-color;
+      background-color: white;
+      color: $mc-color;
+    }
+    .dropdown-menu>li>a {
+      padding: 10px 20px;
+      color: $mc-color;
+    }
+    .dropdown-menu>li>a:hover {
+      background: $mc-color;
+      color: white;
+    }
+    .dropdown-menu>li>a:hover #logoutImg {
+      filter:brightness(100%);
+      -webkit-filter: brightness(100%);
+    }
+  }
+  #newLoanBtn {
+    background: white;
+    color: $mc-color;
+    border: none;
+    padding: 9px 12px !important;
+    margin: 0 5px 5px;
+    p {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    /*span {
+      margin-right:7px;
+    }*/
+  }
+  #newLoanBtn:hover {
+    background: $mc-color;
+    color: white;
+  }
+  .nav-pills>li+li {
+    margin-right: 20px;
+  }
+  .nav-pills > li {
+    float: right !important;
+    padding-top: 0.125em;
+  }
+  #loanBtn {
+    background: white;
+    color: $mc-color;
+    border: none;
+    padding: 9px 12px !important;
+    margin: 0 5px 5px;
+  }
+  #loanBtn:hover {
+    background: $mc-color;
+    color: white;
+  }
+  #loanBtn:hover #loanBtnImg {
+    filter:brightness(10000%);
+    -webkit-filter: brightness(10000%);
+  }
+  #loanBtn #loanBtnImg,
+  #accountBtn #accountBtnImg {
+    margin-right: 7px;
+    margin-top: -9px;
+  }
+  #accountBtn {
+    height: 38px;
+    width: auto;
+    background: white;
+    color: $mc-color;
+    border-radius: 6px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    text-align: left;
+    padding: 2px 2px 2px 12px;
+    border-bottom: solid 2px $mc-color;
+    img {
+      margin-left: 10px;
+    }
+    .dropdownArrow {
+      top: 5px;
+    }
+  }
+  #accountBtn:active {
+    box-shadow: none;
+    border-color: $mc-color;
+  }
+  #accountBtnImg {
+    margin-right: 7px;
+    margin-top: -9px;
+  }
+  .active-loans #loanBtnImg:hover {
+    filter:brightness(10000%);
+    -webkit-filter: brightness(10000%);
+  }
+  .nav>li>a:hover {
+    background: white;
+  }
+  .content {
+    position: relative;
+    width: 100%;
+    width: 100%;
+  }
+  #logoutImg {
+    height: 18px;
+    width: auto;
+    margin-right: 10px;
+    margin-top: -4px;
+    filter:brightness(10000%);
+    -webkit-filter: brightness(10000%);
+  }
+}
+// ========== end header =========//

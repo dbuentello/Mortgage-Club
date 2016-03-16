@@ -1,0 +1,74 @@
+//// ========= Footer ====/////
+.footer {
+  width: 100%;
+  //height:150px;
+  background-color: $mc-color;
+  position: absolute !important;
+  bottom: 0;
+  z-index: 1000;
+  padding: 20px 35px 5px;
+  #backtopBtn:hover {
+    animation: backtopAnim 1s infinite;
+    -webkit-animation: backtopAnim 1s infinite;
+    cursor: pointer;
+  }
+}
+.footer > div {
+  position: relative;
+}
+.footer-right {
+  color: white;
+  float: right;
+  img:first-child {
+    margin-left: 0;
+  }
+  img {
+    float: left;
+    width: 30px;
+    height: auto;
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-bottom: 15px;
+    transition: transform 0.5s ease;
+    transform: scale(1,1);
+    -webkit-transform: (1,1);
+  }
+  img:hover {
+    transform: scale(1.2,1.2);
+    -webkit-transform: (1.2,1.2);
+    cursor: pointer;
+  }
+  p {
+    clear: both;
+    font-family: 'aileronlight';
+    font-size: 1.125em;
+    letter-spacing: 0.03em;
+  }
+  div {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+}
+.license {
+  //position: absolute;
+  padding: 17px 20px 0 0;
+  color: white;
+  font-family: 'aileronlight';
+  font-size: 1.125em;
+  letter-spacing: 0.03em;
+  //width: 50%;
+}
+#footerLogo {
+  width: 200px;
+  padding-bottom: 5px;
+}
+.equal-housing {
+  margin-left: -120px;
+  color: white;
+  font-family: 'aileronlight';
+  font-size: 1.125em;
+  letter-spacing: 0.03em;
+}
+// =========== End footer ====////

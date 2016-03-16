@@ -1,0 +1,15 @@
+.no-pad-lr {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.borderless {
+  border: none !important;
+}
+// shadow of header navbar
+.shadow-bottom {
+  box-shadow: 0 3px 24px -2px $shadow-color;
+  -webkit-box-shadow: 0 3px 24px -2px $shadow-color;
+  -moz-box-shadow: 0 3px 24px -2px $shadow-color;
+  margin-bottom: 0;
+}

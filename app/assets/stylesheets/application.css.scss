@@ -9,8 +9,15 @@ $rails: true;
 @import 'bootstrap_datepicker';
 @import 'd3.slider';
 @import 'dropzone-custom';
-@import 'mixins';
-@import 'variables';
+// abstracts
+@import 'abstracts/variables';
+// component
+@import 'components/button';
+@import 'components/util';
+//layout
+@import 'layout/footer';
+@import 'layout/header';
+
 @import 'homepage';
 @import 'lenders';
 @import 'form';
@@ -26,11 +33,21 @@ $rails: true;
 @import 'potential-rate-drop-user';
 @import 'homepage2';
 
+
 @font-face {
   font-family: 'aileronregular';
   src: url(asset_path('aileron-regular-webfont.eot'));
   src: url(asset_path('aileron-regular-webfont.woff')) format('woff'),
         url(asset_path('aileron-regular-webfont.ttf')) format('truetype');
+}
+
+// Application homepage
+body {
+  font-family: 'aileronregular';
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-bottom: 100px; //footer padding
+  position: relative;
 }
 
 .padding-top-0 {
