@@ -15,9 +15,7 @@ describe BorrowerServices::AssignSecondaryBorrowerToLoan do
     }
   end
 
-  before(:each) {
-    allow_any_instance_of(Digest::MD5).to receive(:hexdigest).and_return "8820245fb6"
-  }
+  before(:each) { allow_any_instance_of(Digest::MD5).to receive(:hexdigest).and_return "8820245fb6" }
 
   describe "#call" do
     let!(:loan) { FactoryGirl.create(:loan_with_all_associations) }
