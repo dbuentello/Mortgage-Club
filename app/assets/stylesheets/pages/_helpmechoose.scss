@@ -1,0 +1,167 @@
+.helpmechoose {
+  left: 5%;
+  right: 5%;
+  margin-left: 10px;
+  margin-right: 10px;
+  h3 {
+    font-size: 19px;
+  }
+  .calculator {
+    rect {
+      fill: rgb(224, 224, 224);
+    }
+    rect:hover {
+      fill: #bad80a;
+    }
+    .highlight {
+      fill: #bad80a;
+    }
+    .bar_chart {
+      margin-bottom: -5px;
+    }
+    .calc-form {
+      position: relative;
+      margin-top: 20px;
+      .range {
+        float: right;
+        .slider {
+          width: 400px;
+          background-color: #e6e6e6;
+          box-shadow: inset 0 1px 3px rgba(0,0,0,.3);
+          border-radius: 10px;
+          border: none;
+          .d3-slider-handle {
+            top: -.4em;
+            width: 1.5em;
+            height: 1.5em;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+    .value {
+      width: 100%;
+      border: none;
+      border-radius: 0;
+      border-bottom: solid 1px #ddd;
+      font: inherit;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 14px;
+      padding: 4px 0;
+    }
+    .value:focus {
+      outline-width: 0;
+    }
+  }
+  .best-rate {
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    padding: 25px;
+    .secondary-cost {
+      line-height: 1.437em;
+      font-weight: 300;
+      color: #999;
+      font-size: 16px;
+    }
+    .bankname {
+      text-align: center;
+      img {
+        width: 100%;
+      }
+    }
+    .monthly-payment {
+      text-align: center;
+      background: #00bd9c;
+      padding: 15px 0 10px;
+      line-height: 1.437em;
+      margin-bottom: 20px;
+      .value {
+        font-size: 34px;
+      }
+      .primary-cost-unit {
+        display: inline-block;
+        text-align: left;
+        line-height: 1em;
+        font-size: 14px;
+        margin-left: 5px;
+      }
+    }
+    .select-btn:hover {
+      color: $mcColor;
+      background: #fff;
+    }
+    .select-btn {
+      color: white;
+      background: $mcColor;
+      border: $mcColor 1px solid;
+      border-radius: 5px;
+      font-size: 1.25em;
+    }
+    h2 {
+      color: $mcColor;
+    }
+  }
+}
+
+.logo img {
+  width: 200px;
+  padding-bottom: 5px;
+}
+.modal-md {
+  max-width: 405px;
+  .modal-content {
+    padding: 0 20px;
+  }
+  p {
+    clear: left;
+    text-align: left;
+    padding: 0 15px;
+  }
+  h2 {
+    color: $mcColor;
+    font-weight: 600;
+    font-size: 1.5em;
+    margin-bottom: 0;
+  }
+  h3 {
+    color: #555;
+    font-weight: 300;
+    font-size: 1em;
+    margin-top: 5px;
+  }
+  #continueBtn {
+    float: none;
+    font-size: 1.7em;
+  }
+  .form-group:last-child {
+    margin-bottom: 20px;
+  }
+  .form-group img.info-img {
+    position: relative;
+    float: right;
+    border: none;
+    display: inline-block;
+    margin-top: 5px;
+  }
+  #mobile {
+    padding-left: 25px;
+  }
+  img.flag {
+    left: 5px;
+    border: none;
+  }
+  .closeBtn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #aaa;
+    font-size: 1.5em;
+    z-index: 999;
+    transition: transform 0.5s ease;
+  }
+  .closeBtn:hover {
+    transform: rotate(45deg);
+    cursor: pointer;
+  }
+}

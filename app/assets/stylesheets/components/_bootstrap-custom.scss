@@ -66,8 +66,7 @@
 }
 
 .tooltip > .tooltip-arrow {
-  border-left-color: $mcTooltipBg;
-
+  border-left-color: $mcTooltipBg !important;
 }
 .tooltip.bottom .tooltip-arrow {
   border-bottom-color: $mcTooltipBg;
