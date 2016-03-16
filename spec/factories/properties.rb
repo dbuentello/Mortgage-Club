@@ -36,4 +36,27 @@ FactoryGirl.define do
       create(:address, property: property)
     end
   end
+
+  factory :property_completed, parent: :property do |f|
+    f.property_type { "sfh" }
+    f.usage { "primary_residence" }
+    f.purchase_price { 500000.0 }
+    f.market_price { 500000.0 }
+    f.estimated_property_tax { 391.0 }
+    f.estimated_hazard_insurance { 80.0 }
+    f.mortgage_includes_escrows { "taxes_and_insurance" }
+    f.estimated_mortgage_insurance { 0 }
+    f.hoa_due { 0 }
+    f.address
+  end
+
+  factory :primary_property_completed, parent: :property_completed do |f|
+    f.is_subject { false }
+    f.is_primary { true }
+  end
+
+  factory :subject_property_completed, parent: :property_completed do |f|
+    f.is_subject { true }
+    f.is_primary { false }
+  end
 end
