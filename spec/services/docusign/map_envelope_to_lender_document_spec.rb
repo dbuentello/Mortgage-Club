@@ -6,9 +6,7 @@ describe Docusign::MapEnvelopeToLenderDocument do
   let!(:lender_template_requirement) { FactoryGirl.create(:lender_template_requirement, lender: loan.lender, lender_template: lender_template) }
   let(:user) { FactoryGirl.create(:user) }
 
-  before(:each) do
-    @envelope_id = "53390977-43b7-4f5a-97dc-56e572002567"
-  end
+  let(:envelope_id) { "53390977-43b7-4f5a-97dc-56e572002567" }
 
   context "with missing envelope's id" do
     it "returns false" do

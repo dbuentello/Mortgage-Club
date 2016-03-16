@@ -12,8 +12,8 @@ describe OcrServices::UpdateEmployment do
     }
   end
 
-  context "existent borrower" do
-    context "existent employment" do
+  context "with existent borrower" do
+    context "with existent employment" do
       before(:each) do
         borrower.employments.destroy_all
         @employment = FactoryGirl.create(:employment, borrower: borrower, is_current: true)
@@ -35,7 +35,7 @@ describe OcrServices::UpdateEmployment do
           expect(@employment.ytd_salary).to eq(40000)
         end
 
-        context "existent address" do
+        context "with existent address" do
           it "calls #update_employer_address" do
             expect_any_instance_of(OcrServices::UpdateEmployment).to receive(:update_employer_address)
             OcrServices::UpdateEmployment.new(data, borrower.id).call
@@ -51,7 +51,7 @@ describe OcrServices::UpdateEmployment do
           end
         end
 
-        context "non-existent address" do
+        context "with non-existent address" do
           it "calls #create_employer_address" do
             @employment.address = nil
             expect_any_instance_of(OcrServices::UpdateEmployment).to receive(:create_employer_address)
@@ -61,7 +61,7 @@ describe OcrServices::UpdateEmployment do
       end
     end
 
-    context "non-existent employment" do
+    context "with non-existent employment" do
       before(:each) do
         borrower.employments.destroy_all
       end
@@ -80,7 +80,7 @@ describe OcrServices::UpdateEmployment do
     end
   end
 
-  context "non-existent borrower" do
+  context "with non-existent borrower" do
     it "returns nil" do
       expect(OcrServices::UpdateEmployment.new(nil, nil).call).to be_nil
     end

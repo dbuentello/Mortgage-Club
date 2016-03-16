@@ -21,7 +21,7 @@ describe User do
   end
 
   describe '.avatar_url' do
-    it "returns  avatar'url" do
+    it "returns avatar'url" do
       expect(user.avatar_url).to eq("/assets/avatar.png")
     end
   end

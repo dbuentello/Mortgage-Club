@@ -4,8 +4,8 @@ describe RateServices::UpdateLoanDataFromSelectedRate do
   let(:loan) { FactoryGirl.create(:loan) }
   let!(:lender) { FactoryGirl.create(:lender, name: "Sebonic Financial") }
 
-  before(:each) do
-    @fees = {
+  let(:fees) do
+    {
       "0" => {
         "HudLine" => "801",
         "Description" => "Loan origination fee",
@@ -35,8 +35,10 @@ describe RateServices::UpdateLoanDataFromSelectedRate do
         "FeeType" => "1"
       }
     }
+  end
 
-    @lender = {
+  let(:lender_params) do
+    {
       lender_name: "Sebonic Financial",
       lender_nmls_id: "66247",
       interest_rate: 0.036,
@@ -50,7 +52,7 @@ describe RateServices::UpdateLoanDataFromSelectedRate do
 
   context "valid params" do
     it "updates fees & lender'rates for loan" do
-      RateServices::UpdateLoanDataFromSelectedRate.call(loan.id, @fees, @lender)
+      RateServices::UpdateLoanDataFromSelectedRate.call(loan.id, fees, lender_params)
       loan.reload
 
       expect(loan.service_cannot_shop_fees).to eq(fees: [{name: "Appraisal fee", amount: 495.0}, {name: "Credit report fee", amount: 25.0}], total: 520.0)
@@ -70,7 +72,7 @@ describe RateServices::UpdateLoanDataFromSelectedRate do
   context "not found loan" do
     it "writes error log for this case" do
       expect(Rails.logger).to receive(:error).with("#LoanNotFound: cannot update loan's data from selected rate. Loan id: fake-id")
-      RateServices::UpdateLoanDataFromSelectedRate.call("fake-id", @fees, @lender)
+      RateServices::UpdateLoanDataFromSelectedRate.call("fake-id", fees, lender_params)
     end
   end
 end
