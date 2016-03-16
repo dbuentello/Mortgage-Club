@@ -31,7 +31,7 @@ Feature: LoanMemberManagements
     Then I click "Admin"
       And I should see "Log Out"
       And I click "Log Out"
-      And I should see "Always save time and money on your mortgage."
+      And I should see "100% Online. Lowest Rate Guaranteed."
       And I login as "cuongvu0103@gmail.com" with password "this-is-a-password"
       And I should see "Loans list"
 

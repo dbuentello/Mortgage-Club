@@ -37,14 +37,6 @@
               </div>
             </div>
             <div class="form-group">
-              <div class="col-sm-12">
-                <div align="center">
-                  <%= recaptcha_tags %>
-                </div>
-                <p style="color: red"><%= resource.errors.messages[:recaptcha_error].try(:first) %></p>
-              </div>
-            </div>
-            <div class="form-group">
               <button class="btn btn-ms text-uppercase theBtn deviseBtn" id="btnSignupDevise" type="submit" value="sign up">sign up</button>
             </div>
           <% end %>
@@ -53,6 +45,7 @@
     </div>
   </div>
 </div>
+
 
 <script type="text/javascript">
   // Set cookie invite token value
