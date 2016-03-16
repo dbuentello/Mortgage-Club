@@ -31,7 +31,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       expect(@service.params[:arm_type]).to eq("Yes")
     end
 
-    context "fixed rate" do
+    context "with fixed rate" do
       it "marks 'x' to param's amortization" do
         @service.loan.amortization_type = "30 year fixed"
         @service.build_section_1
@@ -39,7 +39,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       end
     end
 
-    context "arm" do
+    context "with arm" do
       it "marks 'x' to param's amortization" do
         @service.loan.amortization_type = "5/1 ARM"
         @service.build_section_1
@@ -80,7 +80,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       expect(@service.params[:purpose_purchase]).to eq("Yes")
     end
 
-    context "purchase" do
+    context "with purchase" do
       it "marks 'x' to purpose purchase" do
         @service.loan.purpose = "purchase"
         @service.build_section_2
@@ -89,7 +89,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       end
     end
 
-    context "refinance" do
+    context "with refinance" do
       it "calls #build_refinance_loan" do
         @service.loan.purpose = "refinance"
         expect_any_instance_of(
@@ -109,7 +109,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.build_section_3
     end
 
-    context "secondary borrower" do
+    context "with secondary borrower" do
       it "calls #build_borrower_info" do
         @service.loan.secondary_borrower = loan.borrower
         expect_any_instance_of(
@@ -130,7 +130,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.build_section_4
     end
 
-    context "secondary borrower" do
+    context "with secondary borrower" do
       it "calls #build_employment_info" do
         @service.loan.secondary_borrower = loan.borrower
         expect_any_instance_of(
@@ -160,7 +160,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.build_section_5
     end
 
-    context "secondary borrower" do
+    context "with secondary borrower" do
       it "calls #build_gross_monthly_income" do
         @service.loan.secondary_borrower = loan.borrower
         expect_any_instance_of(
@@ -171,7 +171,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       end
     end
 
-    context "primary property" do
+    context "with primary property" do
       it "calls #build_housing_expense" do
         @service.primary_property = @service.subject_property
         expect_any_instance_of(
@@ -203,7 +203,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       )
     end
 
-    context "refinance" do
+    context "with refinance" do
       it "maps right values" do
         @service.loan.purpose = "refinance"
         @service.build_section_7
@@ -223,7 +223,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.build_section_8
     end
 
-    context "secondary borrower" do
+    context "with secondary borrower" do
       it "calls #build_gross_monthly_income" do
         @service.loan.secondary_borrower = loan.borrower
         expect_any_instance_of(
@@ -236,7 +236,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
   end
 
   describe "#build_housing_expense" do
-    context "subject property" do
+    context "with subject property" do
       it "maps right values" do
         property = @service.subject_property
         proposed_total_expense = property.mortgage_payment + property.other_financing +
@@ -255,7 +255,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       end
     end
 
-    context "primary property" do
+    context "with primary property" do
       it "maps right values" do
         property = @service.primary_property
         present_total_expense = property.mortgage_payment + property.other_financing +
@@ -375,7 +375,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       expect(@service.params[:conventional]).to eq("Yes")
     end
 
-    context "Conventional" do
+    context "with Conventional" do
       it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "Conventional"
         @service.build_section_1
@@ -383,7 +383,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       end
     end
 
-    context "FHA" do
+    context "with FHA" do
       it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "FHA"
         @service.build_section_1
@@ -391,7 +391,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       end
     end
 
-    context "USDA" do
+    context "with USDA" do
       it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "USDA"
         @service.build_section_1
@@ -399,7 +399,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       end
     end
 
-    context "VA" do
+    context "with VA" do
       it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "VA"
         @service.build_section_1
@@ -407,7 +407,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       end
     end
 
-    context "Other" do
+    context "with Other" do
       it "marks 'x' to param's mortgage applied" do
         @service.loan.loan_type = "LoremIpsum"
         @service.build_section_1

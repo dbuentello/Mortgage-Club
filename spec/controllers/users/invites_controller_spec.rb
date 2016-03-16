@@ -10,13 +10,13 @@ describe Users::InvitesController do
     describe "with valid attributes" do
       context "with three emails" do
         it "creates three invitations" do
-          expect { post :create, invite: {email: ["abc@gmail.com", "def@gmail.com", "123@gmail.com"], name: ["", "", ""], phone: ["", "", ""]}, format: :json }.to change{Invite.count}.by(3)
+          expect { post :create, invite: {email: ["abc@gmail.com", "def@gmail.com", "123@gmail.com"], name: ["", "", ""], phone: ["", "", ""]}, format: :json }.to change { Invite.count }.by(3)
         end
       end
 
       context "with one email" do
         it "creates one invitations" do
-          expect { post :create, invite: {email: ["abc@gmail.com"], name: [""], phone: [""]}, format: :json }.to change{Invite.count}.by(1)
+          expect { post :create, invite: {email: ["abc@gmail.com"], name: [""], phone: [""]}, format: :json }.to change { Invite.count }.by(1)
         end
       end
 
@@ -36,7 +36,7 @@ describe Users::InvitesController do
 
       context "with one email" do
         it "does not create any invitations" do
-          expect { post :create, invite: {email: ["abc"], name: ["a"], phone: ["b"]}, format: :json }.to change{Invite.count}.by(0)
+          expect { post :create, invite: {email: ["abc"], name: ["a"], phone: ["b"]}, format: :json }.to change { Invite.count }.by(0)
         end
       end
 

@@ -12,20 +12,22 @@ describe Users::PropertiesController do
   let(:property) { FactoryGirl.create(:rental_property, property_type: "condo", loan_id: loan.id) }
   let!(:second_address) { FactoryGirl.create(:address, street_address: "209 Silver Eagle Road", city: "Sacramento", zip: 95839, property_id: property.id) }
 
-  context "when property is valid" do
-    it {
-      delete :destroy, id: property.id
-      expect(response.status).to eq(200)
-      expect(JSON.parse(response.body)["message"]).to eq("ok")
-    }
-  end
+  describe "#destroy" do
+    context "when property is valid" do
+      it "returns success" do
+        delete :destroy, id: property.id
+        expect(response.status).to eq(200)
+        expect(JSON.parse(response.body)["message"]).to eq("ok")
+      end
+    end
 
-  context "when property is invalid" do
-    it {
-      delete :destroy, id: "invalid-property"
-      expect(response.status).to eq(200)
-      expect(JSON.parse(response.body)["message"]).to eq("error")
-    }
+    context "when property is invalid" do
+      it "returns failure" do
+        delete :destroy, id: "invalid-property"
+        expect(response.status).to eq(200)
+        expect(JSON.parse(response.body)["message"]).to eq("error")
+      end
+    end
   end
 
   describe "#search" do

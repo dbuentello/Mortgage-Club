@@ -12,7 +12,6 @@ describe OcrNotificationsController do
     end
 
     context "when setting's OCR is false" do
-
       it "does not call OcrServices::ProcessPaystub" do
         expect(OcrServices::ProcessPaystub).not_to receive(:call)
       end

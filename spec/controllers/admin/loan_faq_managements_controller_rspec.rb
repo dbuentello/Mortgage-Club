@@ -17,14 +17,14 @@ describe Admins::LoanFaqManagementsController do
     end
   end
 
-  describe "DELETE #destroy" do
+  describe "#destroy" do
     it "destroys passed id faq" do
       delete :destroy, id: faq.id, format: :json
       expect(Faq.count).to eq(0)
     end
   end
 
-  describe "POST #create" do
+  describe "#create" do
     it "saves the new faq in the database" do
       expect { post :create, faq: attributes_for(:faq, question: "question", answer: "<p>answer</p>") }.to change(Faq, :count).by(1)
     end

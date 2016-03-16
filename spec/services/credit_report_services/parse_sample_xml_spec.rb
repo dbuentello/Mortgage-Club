@@ -8,7 +8,7 @@ describe CreditReportServices::ParseSampleXml do
     expect { CreditReportServices::ParseSampleXml.call(borrower) }.to change { Liability.count }.by(0)
   end
 
-  it "should create new liabilities" do
+  it "creates new liabilities" do
     expect { CreditReportServices::ParseSampleXml.call(borrower) }.to change { Liability.count }.by(8)
   end
 
@@ -21,7 +21,7 @@ describe CreditReportServices::ParseSampleXml do
     expect(CreditReport.last.score).not_to be_nil
   end
 
-  context "existent credit_report" do
+  context "with existent credit_report" do
     let!(:credit_report) { FactoryGirl.create(:credit_report, borrower: borrower) }
 
     it "does not create a new credit report" do
@@ -29,7 +29,7 @@ describe CreditReportServices::ParseSampleXml do
     end
   end
 
-  context "non-existent credit_report" do
+  context "with non-existent credit_report" do
     it "creates a new credit report" do
       expect { CreditReportServices::ParseSampleXml.call(borrower) }.to change { CreditReport.count }.by(1)
     end
@@ -66,7 +66,7 @@ describe CreditReportServices::ParseSampleXml do
     let(:credit_report) { FactoryGirl.create(:credit_report, borrower: borrower) }
     before(:each) { @credit_liability = credit_report.liabilities.first }
 
-    context "non-duplicate liability" do
+    context "with non duplicate liability" do
       it "returns false" do
         credit_report.liabilities = []
         expect(
@@ -75,7 +75,7 @@ describe CreditReportServices::ParseSampleXml do
       end
     end
 
-    context "duplicate liability" do
+    context "with duplicate liability" do
       it "returns true" do
         credit_report.reload
         expect(

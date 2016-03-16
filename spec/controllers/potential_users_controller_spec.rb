@@ -8,13 +8,13 @@ describe PotentialUsersController do
       filename: File.basename(file)
     )
     uploaded_file.content_type = "application/pdf"
-    potential_user_params = {email: "user@example.com", mortgage_statement: uploaded_file, send_as_email: true}
+    {email: "user@example.com", mortgage_statement: uploaded_file, send_as_email: true}
   end
 
   describe "#create" do
     context "with valid params" do
       it "creates new record" do
-        expect{ post :create, potential_user: potential_user_params }.to change(PotentialUser, :count).by 1
+        expect { post :create, potential_user: potential_user_params }.to change(PotentialUser, :count).by 1
       end
 
       it "return a success message" do

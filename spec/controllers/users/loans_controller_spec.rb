@@ -13,7 +13,7 @@ describe Users::LoansController do
   describe 'POST #create' do
     context "when current user does not have any loans" do
       it 'assigns the requested loan to @loan' do
-        expect { post :create, format: :json }.to change{Loan.count}.by(1)
+        expect { post :create, format: :json }.to change { Loan.count }.by(1)
       end
     end
   end

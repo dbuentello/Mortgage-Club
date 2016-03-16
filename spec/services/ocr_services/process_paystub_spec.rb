@@ -17,7 +17,7 @@ describe OcrServices::ProcessPaystub do
   #   OcrServices::ProcessPaystub.call(nil)
   # end
 
-  context "saved_two_paystub_result?" do
+  context "when saved_two_paystub_result? is true" do
     let(:ocr) { FactoryGirl.create(:ocr_with_full_data) }
 
     before(:each) do

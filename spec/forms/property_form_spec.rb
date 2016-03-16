@@ -4,9 +4,8 @@ describe PropertyForm do
   let(:loan) { FactoryGirl.create(:loan_with_properties) }
   let(:subject_property) { loan.subject_property }
   let(:address) { FactoryGirl.create(:address) }
-
-  before(:each) do
-    @params = ActionController::Parameters.new(
+  let(:params) do
+    ActionController::Parameters.new(
       loan: {
         purpose: "purchase",
         down_payment: "52300.00"
@@ -36,15 +35,16 @@ describe PropertyForm do
 
   describe "#save" do
     context "with purchase loan" do
-      before(:each) do
-        @params[:loan][:purpose] = "purchase"
+      let!(:property_form) do
+        params[:loan][:purpose] = "purchase"
         property_form = PropertyForm.new(
           loan: loan,
           subject_property: subject_property,
           address: address,
-          params: @params
+          params: params
         )
         property_form.save
+        property_form
       end
 
       it "saves loan with proper values" do
@@ -76,15 +76,16 @@ describe PropertyForm do
     end
 
     context "with refinance loan" do
-      before(:each) do
-        @params[:loan][:purpose] = "refinance"
+      let!(:property_form) do
+        params[:loan][:purpose] = "refinance"
         property_form = PropertyForm.new(
           loan: loan,
           subject_property: subject_property,
           address: address,
-          params: @params
+          params: params
         )
         property_form.save
+        property_form
       end
 
       it "saves loan with proper values" do
@@ -108,14 +109,15 @@ describe PropertyForm do
     end
 
     context "when property's usage is primary residence" do
-      before(:each) do
+      let!(:property_form) do
         property_form = PropertyForm.new(
           loan: loan,
           subject_property: subject_property,
           address: address,
-          params: @params
+          params: params
         )
         property_form.save
+        property_form
       end
 
       it "does not update gross rental income" do
@@ -124,17 +126,17 @@ describe PropertyForm do
     end
 
     context "when property's usage is not primary residence" do
-      before(:each) do
-        @params[:subject_property][:usage] = "vacation_home"
+      let!(:property_form) do
+        params[:subject_property][:usage] = "vacation_home"
         property_form = PropertyForm.new(
           loan: loan,
           subject_property: subject_property,
           address: address,
-          params: @params
+          params: params
         )
         property_form.save
+        property_form
       end
-
       it "updates gross rental income" do
         expect(subject_property.gross_rental_income).to eq(3_123.00)
       end

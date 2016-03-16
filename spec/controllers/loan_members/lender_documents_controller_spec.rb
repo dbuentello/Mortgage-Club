@@ -14,7 +14,7 @@ describe LoanMembers::LenderDocumentsController do
       file = File.new(Rails.root.join "spec", "files", "sample.pdf")
       @uploaded_file = ActionDispatch::Http::UploadedFile.new(
         tempfile: file,
-        filename: File.basename(file),
+        filename: File.basename(file)
       )
       @uploaded_file.content_type = "application/pdf"
     end
