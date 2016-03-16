@@ -10,7 +10,7 @@ $rails: true;
 @import 'abstracts/variables';
 @import 'abstracts/mixins';
 //base
-@import "base/fonts";
+@import 'base/fonts';
 // component
 @import 'components/button';
 @import 'components/util';
@@ -22,7 +22,7 @@ $rails: true;
 @import 'layout/header';
 @import 'layout/form';
 //pages
-@import "pages/helpmechoose";
+@import 'pages/helpmechoose';
 
 @import 'd3.slider';
 @import 'dropzone-custom';
@@ -60,22 +60,9 @@ body {
   width: 100%;
 }
 
-.mortgage-rates {
-  .navigation-section {
-    .back-btn {
-      color: white;
-      background: $mcColor;
-      border: $mcColor 1px solid;
-      border-radius: 5px;
-      font-size: 1.25em;
-      margin-left: 57px;
-    }
-  }
-}
-
-.modal-docusign {
-  margin-top: 100px;
-}
+// .modal-docusign {
+//   margin-top: 100px;
+// }
 html.loading {
   background: #FFFFFF url(asset_path('loading.gif')) no-repeat 50% 40%;
   -webkit-transition: background-color 0;

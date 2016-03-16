@@ -32,7 +32,6 @@
      border-top-left-radius: $radius;
      background-clip: padding-box;
 }
-
 @mixin animate-img-btn($animate, $time) {
   animation: $animate $time infinite;
   -webkit-animation: $animate $time infinite;
