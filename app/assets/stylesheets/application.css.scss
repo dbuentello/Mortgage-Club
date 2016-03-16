@@ -5,7 +5,7 @@ $rails: true;
 // which has been added to the Rails asset pipeline search path.
 // See config/initializers/assets.rb.
 @import 'bootstrap-sprockets';
-@import 'bootstrap-custom';
+
 @import 'bootstrap_datepicker';
 @import 'd3.slider';
 @import 'dropzone-custom';
@@ -14,15 +14,18 @@ $rails: true;
 // component
 @import 'components/button';
 @import 'components/util';
+@import 'components/devise';
+@import 'components/bootstrap-custom';
 //layout
 @import 'layout/footer';
 @import 'layout/header';
+@import 'layout/form';
 
 @import 'homepage';
 @import 'lenders';
-@import 'form';
+
 @import 'new-loan';
-@import 'devise';
+
 @import 'pages';
 @import 'borrowers';
 @import 'loan-programs';
@@ -50,39 +53,7 @@ body {
   position: relative;
 }
 
-.padding-top-0 {
-  padding-top: 0px;
-}
 
-.table-responsive {
-  background: white;
-}
-
-
-
-.grey-background {
-  background-color: #f6f6f6;
-}
-
-.white-background {
-  background-color: #fff;
-}
-
-.padding-left-50 {
-  padding-left: 50px;
-}
-
-.padding-left-55 {
-  padding-left: 55px;
-}
-
-.fixed-height-246 {
-  height: 246px;
-}
-
-.min-height-394 {
-  min-height: 540px;
-}
 @keyframes loginAnim {
   0% {
     transform: translateX(0);
@@ -122,48 +93,7 @@ body {
 .nav-borrower {
   height: calc(100vh - 100px);
 }
-.tooltip > .tooltip-inner {
-  background-color: #FBF7AA;
-  border-color: #F9E98E;
-  color: #A27D35;
-  font-size: 14px;
-}
 
-.tooltip > .tooltip-arrow {
-  border-left-color: #FBF7AA !important;
-}
-.error-tooltip {
-  position: absolute;
-  bottom: 100%;
-  background-color: black;
-  border: 2px solid white;
-  border-radius: 5px;
-  color: #fff;
-}
-.error-tooltip:before {
-  content: '';
-  position: absolute;
-  border-right: 21px solid #292f45;
-  border-top: 21px solid transparent;
-  border-bottom: 21px solid transparent;
-  bottom: -12px;
-  right: -20px;
-}
-.error-tooltip:after {
-  position: absolute;
-  content: attr(bubbletooltip);
-  font-weight: bold;
-  right: -148px;
-  bottom: -16px;
-  width: 120px;
-  background: #292f45;
-  color: #FFFFFF;
-  padding: 5px 10px;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  -khtml-border-radius: 6px;
-  border-radius: 6px;
-}
 .cd-top {
   width: 40px;
   height: 40px;

@@ -8,8 +8,40 @@
 }
 // shadow of header navbar
 .shadow-bottom {
-  box-shadow: 0 3px 24px -2px $shadow-color;
-  -webkit-box-shadow: 0 3px 24px -2px $shadow-color;
-  -moz-box-shadow: 0 3px 24px -2px $shadow-color;
+  box-shadow: 0 3px 24px -2px $mcShadowColor;
+  -webkit-box-shadow: 0 3px 24px -2px $mcShadowColor;
+  -moz-box-shadow: 0 3px 24px -2px $mcShadowColor;
   margin-bottom: 0;
+}
+
+.padding-top-0 {
+  padding-top: 0px;
+}
+
+.table-responsive {
+  background: white;
+}
+
+.grey-background {
+  background-color: #f6f6f6;
+}
+
+.white-background {
+  background-color: #fff;
+}
+
+.padding-left-50 {
+  padding-left: 50px;
+}
+
+.padding-left-55 {
+  padding-left: 55px;
+}
+
+.fixed-height-246 {
+  height: 246px;
+}
+
+.min-height-394 {
+  min-height: 540px;
 }

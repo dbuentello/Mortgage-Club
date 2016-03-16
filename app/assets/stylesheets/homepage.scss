@@ -60,9 +60,9 @@
   }
   .home-table td {
     border-right: 1px solid #e1e1e1 !important;
-    -webkit-box-shadow: 0 24px 1px -24px $shadow-color;
-    -moz-box-shadow: 0 24px 1px -24px $shadow-color;
-    box-shadow: 0 24px 1px -24px $shadow-color;
+    -webkit-box-shadow: 0 24px 1px -24px $mcShadowColor;
+    -moz-box-shadow: 0 24px 1px -24px $mcShadowColor;
+    box-shadow: 0 24px 1px -24px $mcShadowColor;
     border-top: none !important;
     height: 30px;
     padding: 20px 14px 0 !important;
@@ -97,7 +97,7 @@
     border: none !important;
   }
   .table-header {
-    background-color: $mc-color;
+    background-color: $mcColor;
     color: white;
     font-family: 'aileronsemibold';
     font-size: 1.25em;
@@ -159,8 +159,8 @@
     padding-top: 65px;
   }
   .logo-text {
-    font-family: $font-mc;
-    color: $mc-color;
+    font-family: $mcFont;
+    color: $mcColor;
     span {
       color: #065a82;
     }
@@ -274,7 +274,7 @@
     font-weight: 500;
     margin-top: 80px;
     font-size: 4em;
-    color: $mc-color;
+    color: $mcColor;
   }
   // end why-part
 

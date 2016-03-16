@@ -7,11 +7,11 @@
       .dropdownArrow {
         right: 0;
         top: 3px;
-        border-left: $mc-color 1px solid;
+        border-left: $mcColor 1px solid;
         margin-top: -2px;
       }
       .dropdown-toggle {
-        border-color: $mc-color;
+        border-color: $mcColor;
       }
     }
     .dropdown-menu {
@@ -20,16 +20,16 @@
       box-shadow: none;
       padding: 0;
       border-radius: 0;
-      border-color: $mc-color;
+      border-color: $mcColor;
       background-color: white;
-      color: $mc-color;
+      color: $mcColor;
     }
     .dropdown-menu>li>a {
       padding: 10px 20px;
-      color: $mc-color;
+      color: $mcColor;
     }
     .dropdown-menu>li>a:hover {
-      background: $mc-color;
+      background: $mcColor;
       color: white;
     }
     .dropdown-menu>li>a:hover #logoutImg {
@@ -39,7 +39,7 @@
   }
   #newLoanBtn {
     background: white;
-    color: $mc-color;
+    color: $mcColor;
     border: none;
     padding: 9px 12px !important;
     margin: 0 5px 5px;
@@ -52,7 +52,7 @@
     }*/
   }
   #newLoanBtn:hover {
-    background: $mc-color;
+    background: $mcColor;
     color: white;
   }
   .nav-pills>li+li {
@@ -64,13 +64,13 @@
   }
   #loanBtn {
     background: white;
-    color: $mc-color;
+    color: $mcColor;
     border: none;
     padding: 9px 12px !important;
     margin: 0 5px 5px;
   }
   #loanBtn:hover {
-    background: $mc-color;
+    background: $mcColor;
     color: white;
   }
   #loanBtn:hover #loanBtnImg {
@@ -86,13 +86,13 @@
     height: 38px;
     width: auto;
     background: white;
-    color: $mc-color;
+    color: $mcColor;
     border-radius: 6px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     text-align: left;
     padding: 2px 2px 2px 12px;
-    border-bottom: solid 2px $mc-color;
+    border-bottom: solid 2px $mcColor;
     img {
       margin-left: 10px;
     }
@@ -102,7 +102,7 @@
   }
   #accountBtn:active {
     box-shadow: none;
-    border-color: $mc-color;
+    border-color: $mcColor;
   }
   #accountBtnImg {
     margin-right: 7px;
