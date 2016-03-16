@@ -17,6 +17,7 @@ $rails: true;
 @import 'components/devise';
 @import 'components/bootstrap-custom';
 @import 'components/animation';
+@import 'components/dropzone-custom';
 //layout
 @import 'layout/footer';
 @import 'layout/header';
@@ -27,19 +28,23 @@ $rails: true;
 @import 'pages/helpmechoose';
 @import 'pages/homepage';
 @import 'pages/dev-infographics';
+@import 'pages/new-loan';
+@import 'pages/lenders';
+@import 'pages/underwritting'; // 0 to 100% after complete loan
+@import 'pages/docusign';
+@import 'pages/initial-quotes';
+@import 'pages/potential-rate-drop-user';
+@import 'pages/loan-programs';
+@import 'pages/potential-users';
+
 
 @import 'd3.slider';
-@import 'dropzone-custom';
-@import 'lenders';
-@import 'new-loan';
-@import 'pages';
+
+
 @import 'borrowers';
-@import 'loan-programs';
-@import 'potential-users';
-@import 'underwritting';
-@import 'initial-quotes';
-@import 'docusign';
-@import 'potential-rate-drop-user';
+
+
+
 
 // Application homepage
 body {
