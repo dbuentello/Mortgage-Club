@@ -1,5 +1,5 @@
-@import "admin";
-@import "admin/override";
-@import "_dropzone-custom";
+@import 'admin';
+@import 'admin/override';
+@import 'components/dropzone-custom';
 
 .lead { font-size: 15px;margin-bottom:0px; }
