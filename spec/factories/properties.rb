@@ -47,16 +47,17 @@ FactoryGirl.define do
     f.mortgage_includes_escrows { "taxes_and_insurance" }
     f.estimated_mortgage_insurance { 0 }
     f.hoa_due { 0 }
-    f.address
   end
 
   factory :primary_property_completed, parent: :property_completed do |f|
     f.is_subject { false }
     f.is_primary { true }
+    f.address
   end
 
   factory :subject_property_completed, parent: :property_completed do |f|
     f.is_subject { true }
     f.is_primary { false }
+    f.address { build(:address, street_address: "1720 Silver Meadow Court", zip: "95121", state: "CA", city: "San Jose") }
   end
 end

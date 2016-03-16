@@ -146,6 +146,18 @@ When(/^I am at loan list page$/) do
   )
 end
 
+When(/^I am at select rates page$/) do
+  many_steps %(
+    Given there is a loan completed
+      And I login as "testing@man.net" with password "password"
+      And I click on "Edit Application"
+      And I click on "Save and Continue"
+      And I click on "See my rates"
+      And I should see "Preparing loan programs to display"
+      And I should see "Sort by"
+  )
+end
+
 When(/^I clear value in "(.*?)"$/) do |field|
   patiently do
     fill_in(field, with: '')
