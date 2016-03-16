@@ -4,7 +4,7 @@ describe Users::LoansController do
   include_context 'signed in as borrower user of loan'
   let!(:not_permission_loan) { FactoryGirl.create(:loan) }
   let(:other_user) { FactoryGirl.create(:borrower_user_with_borrower) }
-  let!(:credit_report) { FactoryGirl.create(:credit_report, borrower: loan.borrower)}
+  let!(:credit_report) { FactoryGirl.create(:credit_report, borrower: loan.borrower) }
 
   before do
     not_permission_loan.user = other_user
@@ -12,7 +12,7 @@ describe Users::LoansController do
 
   describe 'POST #create' do
     it 'assigns the requested loan to @loan' do
-      expect { post :create, format: :json }.to change{Loan.count}.by(1)
+      expect { post :create, format: :json }.to change { Loan.count }.by(1)
     end
   end
 
@@ -53,13 +53,13 @@ describe Users::LoansController do
   describe 'DELETE #destroy' do
     context 'when user has permission to delete a loan' do
       it 'destroys passed id loan' do
-        expect { delete :destroy, id: loan.id, format: :json }.to change{Loan.count}.by(-1)
+        expect { delete :destroy, id: loan.id, format: :json }.to change { Loan.count }.by(-1)
       end
     end
 
     context 'when user access other user loan' do
       it 'does not allow a user delete the loan' do
-        expect { delete :destroy, id: not_permission_loan.id, format: :json }.to change{Loan.count}.by(0)
+        expect { delete :destroy, id: not_permission_loan.id, format: :json }.to change { Loan.count }.by(0)
       end
 
       it 'returns status 403' do

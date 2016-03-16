@@ -3,7 +3,7 @@ require "rails_helper"
 describe CompletedLoanServices::TabAssets do
   let!(:loan) { FactoryGirl.create(:loan_with_properties) }
   let!(:asset) { FactoryGirl.create(:asset, borrower: loan.borrower) }
-  let!(:address) { FactoryGirl.create(:address)}
+  let!(:address) { FactoryGirl.create(:address) }
 
   before(:each) do
     loan.primary_property

@@ -9,7 +9,7 @@ class Users::LoansController < Users::BaseController
       return redirect_to edit_loan_path(loan)
     end
 
-    ref_url = "#{url_for(:only_path => false)}?refcode=#{current_user.id}"
+    ref_url = "#{url_for(only_path: false)}?refcode=#{current_user.id}"
     invites = Invite.where(sender_id: current_user.id).order(created_at: :desc)
 
     bootstrap(
@@ -29,14 +29,7 @@ class Users::LoansController < Users::BaseController
 
   def get_common_info
     list = {}
-    info = current_user.loans
-                            .joins(properties: :address)
-                            .where("properties.is_subject = true".freeze)
-                            .pluck(
-                              "loans.id".freeze, "addresses.street_address".freeze,
-                              "addresses.city".freeze, "addresses.state".freeze,
-                              "addresses.zip".freeze, "properties.zillow_image_url".freeze
-                            )
+    info = current_user.loans.joins(properties: :address).where("properties.is_subject = true".freeze).pluck("loans.id".freeze, "addresses.street_address".freeze, "addresses.city".freeze, "addresses.state".freeze, "addresses.zip".freeze, "properties.zillow_image_url".freeze)
 
     info.each do |i|
       loan_id = i[0]
@@ -66,14 +59,14 @@ class Users::LoansController < Users::BaseController
   end
 
   def edit
-    return redirect_to action: :show if !@loan.new_loan?
+    return redirect_to action: :show unless @loan.new_loan?
 
-    bootstrap({
+    bootstrap(
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       liabilities: @liabilities,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower",
       is_edit_mode: true
-    })
+    )
 
     respond_to do |format|
       format.html { render template: 'borrower_app' }
@@ -83,12 +76,12 @@ class Users::LoansController < Users::BaseController
   def show
     return redirect_to action: :edit if @loan.new_loan?
 
-    bootstrap({
+    bootstrap(
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       liabilities: @liabilities,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower",
       is_edit_mode: false
-    })
+    )
 
     respond_to do |format|
       format.html { render template: 'borrower_app' }
@@ -142,12 +135,10 @@ class Users::LoansController < Users::BaseController
   end
 
   def co_borrower_params
-    if params[:loan][:secondary_borrower_attributes].present?
-      permit_attrs = Borrower::PERMITTED_ATTRS + [:email, :_remove]
-      params.require(:loan).require(:secondary_borrower_attributes).permit(permit_attrs)
-    else
-      nil
-    end
+    return unless params[:loan][:secondary_borrower_attributes].present?
+
+    permit_attrs = Borrower::PERMITTED_ATTRS + [:email, :_remove]
+    params.require(:loan).require(:secondary_borrower_attributes).permit(permit_attrs)
   end
 
   def borrower_info_params

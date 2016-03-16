@@ -16,8 +16,8 @@ describe Checklist do
 
   describe "#subject_id" do
     let!(:loan) { FactoryGirl.create(:loan) }
-    let!(:property) { FactoryGirl.create(:subject_property, loan: loan)}
-    let!(:closing) { FactoryGirl.create(:closing, loan: loan)}
+    let!(:property) { FactoryGirl.create(:subject_property, loan: loan) }
+    let!(:closing) { FactoryGirl.create(:closing, loan: loan) }
     let(:checklist) { FactoryGirl.create(:checklist, loan: loan) }
 
     context "with borrower subject" do

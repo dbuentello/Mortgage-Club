@@ -18,7 +18,7 @@ class LoanMembers::LenderDocumentPresenter
         user: {
           methods: [:to_s, :avatar_url]
         }
-      },
+      }
     }
   end
 end

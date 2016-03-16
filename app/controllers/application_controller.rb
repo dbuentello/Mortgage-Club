@@ -40,13 +40,10 @@ class ApplicationController < ActionController::Base
     authorize @loan, :update?
   end
 
-  def bootstrap(data={})
-     @bootstrap_data = {
-      currentUser: current_user.present? ? {
-        id: current_user.id,
-        firstName: current_user.first_name,
-        lastName: current_user.last_name
-      } : {},
+  def bootstrap(data = {})
+    @bootstrap_data =
+    {
+      currentUser: current_user.present? ? {id: current_user.id, firstName: current_user.first_name, lastName: current_user.last_name} : {},
       flashes: customized_flash
     }.merge!(data)
   end
@@ -56,17 +53,15 @@ class ApplicationController < ActionController::Base
     flash.each do |msg_type, message|
       type = bootstrap_class_for(msg_type)
 
-      if type.present?
-        customized_flash[type] = message
-      end
+      customized_flash[type] = message if type.present?
     end
 
     customized_flash
   end
 
-  def prepare_meta_tags(options={})
+  def prepare_meta_tags(options = {})
     site_name   = "MortgageClub"
-    title       = "FREE REFINANCE ALERT" #["controller_name", "action_name"].join(" ")
+    title       = "FREE REFINANCE ALERT" # ["controller_name", "action_name"].join(" ")
     description = "MortgageClub leverages big data and advanced technology to replace your loan officer and pass on the savings to you."
     image       = options[:image] || (request.base_url + ActionController::Base.helpers.asset_path('open-graph.png'))
 

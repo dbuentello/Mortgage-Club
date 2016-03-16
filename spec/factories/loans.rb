@@ -3,7 +3,7 @@ FactoryGirl.define do
     user { build(:borrower_user_with_borrower) }
     lender
 
-    f.purpose { Random.rand(0..1)}
+    f.purpose { Random.rand(0..1) }
 
     f.agency_case_number { Faker::Lorem.word }
     f.lender_case_number { Faker::Lorem.word }
@@ -20,7 +20,7 @@ FactoryGirl.define do
     f.other_credits { Faker::Number.decimal(6, 2) }
     f.other_credits_explain { Faker::Lorem.word }
     f.pmi_mip_funding_fee_financed { Faker::Number.decimal(6, 2) }
-    f.loan_type { ['Conventional', 'VA', 'FHA'].sample}
+    f.loan_type { ['Conventional', 'VA', 'FHA'].sample }
     f.prepayment_penalty { [true, false].sample }
     f.balloon_payment { [true, false].sample }
     f.monthly_payment { Faker::Number.decimal(6, 2) }
@@ -32,20 +32,20 @@ FactoryGirl.define do
     f.service_can_shop_fees { {fees: [], total: 0} }
   end
 
-  factory :loan_with_properties, parent: :loan do |f|
-    after(:build) do |loan, property|
+  factory :loan_with_properties, parent: :loan do
+    after(:build) do |loan, _property|
       create(:property_with_address, loan: loan, is_subject: true, is_primary: false)
       create(:property_with_address, loan: loan, is_primary: true, is_subject: false)
       create(:property_with_address, loan: loan, is_primary: false, is_subject: false)
     end
   end
 
-  factory :loan_with_secondary_borrower, parent: :loan do |f|
+  factory :loan_with_secondary_borrower, parent: :loan do
     association :secondary_borrower, factory: [:borrower, :with_user]
   end
 
-  factory :loan_with_all_associations, parent: :loan do |f|
-    after(:build) do |loan, property|
+  factory :loan_with_all_associations, parent: :loan do
+    after(:build) do |loan, _property|
       create_list(:property, Random.rand(1..3), loan: loan)
       loan.properties.first.update(is_subject: true)
     end
@@ -53,17 +53,17 @@ FactoryGirl.define do
     association :secondary_borrower, factory: :borrower
   end
 
-  factory :loan_with_activites, parent: :loan do |f|
-    after(:build) do |loan, evaluator|
+  factory :loan_with_activites, parent: :loan do
+    after(:build) do |loan, _evaluator|
       create_list(:loan_activity, Random.rand(1..3), loan: loan)
     end
   end
 
-  factory :loan_with_closing, parent: :loan do |f|
+  factory :loan_with_closing, parent: :loan do
     closing
   end
 
-  factory :loan_with_loan_member, parent: :loan do |f|
+  factory :loan_with_loan_member, parent: :loan do
     after(:build) do |loan|
       create(:loans_members_association, loan: loan)
     end

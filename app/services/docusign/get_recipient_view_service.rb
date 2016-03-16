@@ -15,4 +15,4 @@ module Docusign
   end
 end
 
-#{"errorCode"=>"RECIPIENT_NOT_IN_SEQUENCE", "message"=>"The token for an out of sequence recipient cannot be generated."}
+# {"errorCode"=>"RECIPIENT_NOT_IN_SEQUENCE", "message"=>"The token for an out of sequence recipient cannot be generated."}

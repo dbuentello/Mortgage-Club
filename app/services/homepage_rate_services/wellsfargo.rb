@@ -3,13 +3,13 @@ module HomepageRateServices
     include HTTParty
 
     def self.call
-      apr_5_libor = WellsfargoServices::CrawlWellsfargoArmRate.new({
+      apr_5_libor = WellsfargoServices::CrawlWellsfargoArmRate.new(
         loan_purpose: "Purchase",
         home_value: 400000,
         down_payment: 80000,
         property_state: "CA",
         property_county: "San Francisco"
-      }).call
+      ).call
 
       apr_30_year = 0
       apr_15_year = 0

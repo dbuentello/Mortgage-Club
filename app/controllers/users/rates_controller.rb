@@ -5,14 +5,14 @@ class Users::RatesController < Users::BaseController
     return redirect_to edit_loan_url(@loan) unless @loan.completed?
 
     rate_programs = []
-    if @loan.subject_property.address && zipcode = @loan.subject_property.address.zip
+    if @loan.subject_property.address && @loan.subject_property.address.zip
       rate_programs = LoanTekServices::GetQuotes.new(@loan).call
     end
 
-    bootstrap({
+    bootstrap(
       currentLoan: LoanProgram::LoanProgramPresenter.new(@loan).show,
       programs: rate_programs
-    })
+    )
 
     render template: 'borrower_app'
   end

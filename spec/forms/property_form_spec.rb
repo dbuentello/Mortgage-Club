@@ -6,7 +6,7 @@ describe PropertyForm do
   let(:address) { FactoryGirl.create(:address) }
 
   before(:each) do
-    @params = ActionController::Parameters.new({
+    @params = ActionController::Parameters.new(
       loan: {
         purpose: "purchase",
         down_payment: "52300.00"
@@ -31,19 +31,19 @@ describe PropertyForm do
         full_text: "2332 California Street, San Francisco, California, Hoa Kỳ"
       },
       loan_id: "9dd9c2ff-08b6-41b8-b4aa-a9468f4d3bba"
-    })
+    )
   end
 
   describe "#save" do
     context "with purchase loan" do
       before(:each) do
         @params[:loan][:purpose] = "purchase"
-        property_form = PropertyForm.new({
+        property_form = PropertyForm.new(
           loan: loan,
           subject_property: subject_property,
           address: address,
           params: @params
-        })
+        )
         property_form.save
       end
 
@@ -78,12 +78,12 @@ describe PropertyForm do
     context "with refinance loan" do
       before(:each) do
         @params[:loan][:purpose] = "refinance"
-        property_form = PropertyForm.new({
+        property_form = PropertyForm.new(
           loan: loan,
           subject_property: subject_property,
           address: address,
           params: @params
-        })
+        )
         property_form.save
       end
 
@@ -109,12 +109,12 @@ describe PropertyForm do
 
     context "when property's usage is primary residence" do
       before(:each) do
-        property_form = PropertyForm.new({
+        property_form = PropertyForm.new(
           loan: loan,
           subject_property: subject_property,
           address: address,
           params: @params
-        })
+        )
         property_form.save
       end
 
@@ -126,12 +126,12 @@ describe PropertyForm do
     context "when property's usage is not primary residence" do
       before(:each) do
         @params[:subject_property][:usage] = "vacation_home"
-        property_form = PropertyForm.new({
+        property_form = PropertyForm.new(
           loan: loan,
           subject_property: subject_property,
           address: address,
           params: @params
-        })
+        )
         property_form.save
       end
 

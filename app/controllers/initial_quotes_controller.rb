@@ -25,9 +25,7 @@ class InitialQuotesController < ApplicationController
   def create
     quote_query = QuoteQuery.new(query: quotes_params.to_json)
 
-    if quote_query.save
-      render json: {code_id: quote_query.code_id}
-    end
+    render json: {code_id: quote_query.code_id} if quote_query.save
   end
 
   def show

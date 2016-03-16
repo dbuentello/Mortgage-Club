@@ -9,7 +9,7 @@ module OcrServices
 
       return if borrower.nil?
 
-      paystub_ocr = OcrServices::UpdatePaystubOcr.new(data, borrower_id).call
+      OcrServices::UpdatePaystubOcr.new(data, borrower_id).call
       # if paystub_ocr.saved_two_paystub_result? # demo purpose only
       standardized_data = OcrServices::StandardizePaystubData.new(borrower_id).call
       OcrServices::UpdateEmployment.new(standardized_data, borrower_id).call if standardized_data.present?

@@ -65,8 +65,7 @@ module Crawler
     end
 
     def select_type_of_property
-      purchase? ? crawler.find("label", text: "Great! What type of property are you purchasing?")
-                : crawler.find("label", text: "Great! What type of property are you refinancing?")
+      purchase? ? crawler.find("label", text: "Great! What type of property are you purchasing?") : crawler.find("label", text: "Great! What type of property are you refinancing?")
 
       types = {
         "sfh" => "Single Family Home",
@@ -150,8 +149,7 @@ module Crawler
     end
 
     def say_no_when_asked_about_trusted_pro
-      purchase? ? crawler.find("label", text: "Do you need a trusted pro to help with your upcoming move?")
-                : crawler.find("label", text: "Do you need a trusted pro for a major home improvement?")
+      purchase? ? crawler.find("label", text: "Do you need a trusted pro to help with your upcoming move?") : crawler.find("label", text: "Do you need a trusted pro for a major home improvement?")
       crawler.find(".label-text", text: "No").click
     end
 

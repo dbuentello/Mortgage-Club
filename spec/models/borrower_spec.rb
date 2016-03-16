@@ -25,7 +25,7 @@ describe Borrower do
   end
 
   context 'when created with invalid params' do
-    let(:borrower) { FactoryGirl.build(:borrower, gross_income: 123123123123)}
+    let(:borrower) { FactoryGirl.build(:borrower, gross_income: 123123123123) }
     it 'raises error when the gross_income exceeds maximum allowed value' do
       expect { raise borrower.save }.to raise_error(ActiveRecord::StatementInvalid)
     end

@@ -52,11 +52,11 @@ class Loan < ActiveRecord::Base
   validates :status, inclusion: {in: %w(new_loan submitted pending conditionally_approved approved closed), message: "%{value} is not a valid status"}, allow_nil: true
 
   def completed?
-    CompletedLoanServices::BaseCompleted.new({loan: self}).call
+    CompletedLoanServices::BaseCompleted.new(loan: self).call
   end
 
   def primary_property
-    properties.includes(:address).find { |p| p.is_primary == true && p.is_subject == false}
+    properties.includes(:address).find { |p| p.is_primary == true && p.is_subject == false }
   end
 
   def subject_property

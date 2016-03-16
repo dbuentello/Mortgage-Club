@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe BorrowerServices::RemoveSecondaryBorrower do
-
   describe ".call" do
     let!(:loan) { FactoryGirl.create(:loan_with_all_associations) }
 

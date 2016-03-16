@@ -4,12 +4,12 @@ describe CompletedLoanServices::TabIncome do
   let!(:loan) { FactoryGirl.create(:loan) }
 
   before(:each) do
-    @service = CompletedLoanServices::TabIncome.new({
+    @service = CompletedLoanServices::TabIncome.new(
       borrower: loan.borrower,
       current_employment: loan.borrower.current_employment,
       previous_employment: loan.borrower.previous_employment,
       secondary_borrower: nil
-    })
+    )
   end
 
   it "returns false with gross income nil" do

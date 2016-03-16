@@ -30,7 +30,6 @@ module UnderwritingLoanServices
       end
     end
 
-
     def verify_property
       @error_messages << "Sorry, your subject property does not exist." unless property
     end

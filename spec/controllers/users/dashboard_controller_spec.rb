@@ -23,7 +23,6 @@ describe Users::DashboardController do
     end
 
     context "when the loan that not belongs to the current user" do
-
       before do
         @loan = FactoryGirl.create(:loan_with_all_associations)
       end

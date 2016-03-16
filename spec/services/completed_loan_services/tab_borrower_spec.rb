@@ -4,10 +4,10 @@ describe CompletedLoanServices::TabBorrower do
   let!(:loan) { FactoryGirl.create(:loan_with_secondary_borrower) }
 
   before(:each) do
-    @service = CompletedLoanServices::TabBorrower.new({
+    @service = CompletedLoanServices::TabBorrower.new(
       borrower: loan.borrower,
       secondary_borrower: loan.secondary_borrower
-    })
+    )
   end
 
   it "returns true with borrower valid, secondary_borrower nil" do

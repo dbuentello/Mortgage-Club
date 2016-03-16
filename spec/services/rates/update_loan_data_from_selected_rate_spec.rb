@@ -7,32 +7,32 @@ describe RateServices::UpdateLoanDataFromSelectedRate do
   before(:each) do
     @fees = {
       "0" => {
-               "HudLine" => "801",
-           "Description" => "Loan origination fee",
-          "IncludeInAPR" => "true",
-             "FeeAmount" => "995",
-               "FeeType" => "1"
+        "HudLine" => "801",
+        "Description" => "Loan origination fee",
+        "IncludeInAPR" => "true",
+        "FeeAmount" => "995",
+        "FeeType" => "1"
       },
       "1" => {
-               "HudLine" => "803",
-           "Description" => "Appraisal fee",
-          "IncludeInAPR" => "false",
-             "FeeAmount" => "495",
-               "FeeType" => "1"
+        "HudLine" => "803",
+        "Description" => "Appraisal fee",
+        "IncludeInAPR" => "false",
+        "FeeAmount" => "495",
+        "FeeType" => "1"
       },
       "2" => {
-               "HudLine" => "804",
-           "Description" => "Credit report fee",
-          "IncludeInAPR" => "false",
-             "FeeAmount" => "25",
-               "FeeType" => "1"
+        "HudLine" => "804",
+        "Description" => "Credit report fee",
+        "IncludeInAPR" => "false",
+        "FeeAmount" => "25",
+        "FeeType" => "1"
       },
       "3" => {
-               "HudLine" => "805",
-           "Description" => "Wire transfer fee",
-          "IncludeInAPR" => "false",
-             "FeeAmount" => "252",
-               "FeeType" => "1"
+        "HudLine" => "805",
+        "Description" => "Wire transfer fee",
+        "IncludeInAPR" => "false",
+        "FeeAmount" => "252",
+        "FeeType" => "1"
       }
     }
 
@@ -53,9 +53,9 @@ describe RateServices::UpdateLoanDataFromSelectedRate do
       RateServices::UpdateLoanDataFromSelectedRate.call(loan.id, @fees, @lender)
       loan.reload
 
-      expect(loan.service_cannot_shop_fees).to eq({:fees=>[{:name=>"Appraisal fee", :amount=>495.0}, {:name=>"Credit report fee", :amount=>25.0}], :total=>520.0})
-      expect(loan.origination_charges_fees).to eq({:fees=>[{:name=>"Loan origination fee", :amount=>995.0}], :total=>995.0})
-      expect(loan.service_can_shop_fees).to eq({:fees=>[{:name=>"Wire transfer fee", :amount=>252.0}], :total=>252.0})
+      expect(loan.service_cannot_shop_fees).to eq(fees: [{name: "Appraisal fee", amount: 495.0}, {name: "Credit report fee", amount: 25.0}], total: 520.0)
+      expect(loan.origination_charges_fees).to eq(fees: [{name: "Loan origination fee", amount: 995.0}], total: 995.0)
+      expect(loan.service_can_shop_fees).to eq(fees: [{name: "Wire transfer fee", amount: 252.0}], total: 252.0)
       expect(loan.lender.name).to eq("Sebonic Financial")
       expect(loan.lender_nmls_id).to eq("66247")
       expect(loan.interest_rate).to eq(0.036)
