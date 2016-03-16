@@ -3,13 +3,10 @@ require "rails_helper"
 describe Users::RatesController do
   include_context "signed in as borrower user of loan"
 
-  before(:each) do
-    loan.subject_property.update(property_type: "sfh")
-    address = FactoryGirl.build(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: loan.subject_property.id)
-    address.save
-  end
+  let!(:subject_property) { FactoryGirl.create(:property, loan: loan, property_type: "sfh") }
+  let!(:address) { FactoryGirl.create(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: subject_property.id) }
 
-  describe "GET #index" do
+  describe "#index" do
     it "shows list quotes when the loan completed" do
       allow_any_instance_of(Loan).to receive("completed?").and_return(true)
       allow_any_instance_of(LoanTekServices::GetQuotes).to receive(:call).and_return([{"lender_name": "Sebonic Financial", "nmls": "66247", "apr": 3.38, "monthly_payment": 2294, "loan_amount": 400000, "interest_rate": 3.375, "product": "20 year fixed", "total_fee": 1395, "down_payment": 100000}])

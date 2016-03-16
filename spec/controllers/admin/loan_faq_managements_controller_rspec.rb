@@ -5,7 +5,7 @@ describe Admins::LoanFaqManagementsController do
 
   let!(:faq) { FactoryGirl.create(:faq) }
 
-  describe "GET #index" do
+  describe "#index" do
     it "assigns the requested faqs to bootstrap faqs" do
       get :index
       expect(assigns(:bootstrap_data)[:faqs].length).to eq(1)
@@ -45,7 +45,7 @@ describe Admins::LoanFaqManagementsController do
     end
   end
 
-  describe "GET #edit" do
+  describe "#edit" do
     it "assigns the requested faq to bootstrap faq" do
       get :edit, id: faq.id
       expect(assigns(:bootstrap_data)[:faq]["question"]).to eq("What is the question?")
@@ -57,7 +57,7 @@ describe Admins::LoanFaqManagementsController do
     end
   end
 
-  describe "PATCH #update" do
+  describe "#update" do
     it "updates faq in the database" do
       patch :update, id: faq.id, faq: attributes_for(:faq, question: "question", answer: "answer")
       expect(JSON.parse(response.body)["message"]).to include("Updated sucessfully")

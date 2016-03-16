@@ -7,17 +7,18 @@ describe LoanMembers::LenderDocumentsController do
   let(:document) { FactoryGirl.create(:lender_document, loan: loan, lender_template: lender.lender_templates.last) }
   let!(:loans_members_association) { FactoryGirl.create(:loans_members_association, loan_member: user.loan_member, loan: loan) }
 
-  before(:each) do
-    allow(Amazon::GetUrlService).to receive(:call).and_return("http://google.com")
-    file = File.new(Rails.root.join "spec", "files", "sample.pdf")
-    @uploaded_file = ActionDispatch::Http::UploadedFile.new(
-      tempfile: file,
-      filename: File.basename(file)
-    )
-    @uploaded_file.content_type = "application/pdf"
-  end
+  before(:each) { allow(Amazon::GetUrlService).to receive(:call).and_return("http://google.com") }
 
   describe "#create" do
+    before(:each) do
+      file = File.new(Rails.root.join "spec", "files", "sample.pdf")
+      @uploaded_file = ActionDispatch::Http::UploadedFile.new(
+        tempfile: file,
+        filename: File.basename(file),
+      )
+      @uploaded_file.content_type = "application/pdf"
+    end
+
     context "successful" do
       it "creates a new document" do
         expect do
