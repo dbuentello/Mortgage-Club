@@ -33,11 +33,14 @@
    ga('create', 'UA-74698103-1', 'auto');
    ga('send', 'pageview');
   </script>
+
   <!-- <link rel="icon" href="images/favicon.ico"> -->
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
+
   <%= csrf_meta_tags %>
   <%= display_meta_tags %>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
   <body>
     <!-- <div class="container flashSection">
@@ -54,51 +57,19 @@
     <% unless dev_infographics_page? %>
     <%= render "/shared/footer" %>
     <% end %>
-
+    <%= javascript_include_tag 'public', 'data-turbolinks-track' => false %>
     <% unless Rails.env.test? %>
-      <!--Start of Zopim Live Chat Script-->
-      <script type="text/javascript">
-        window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
-          d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-            _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
-            $.src="//v2.zopim.com/?3iekAjgdsMVBdIaGinAceGBxY9VKQNLd";z.t=+new Date;$.
-            type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
-
+      <script>
         $zopim(function(){
           $zopim.livechat.window.hide();
-        })
+        });
       </script>
     <% end %>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
-        <%= javascript_include_tag 'public', 'data-turbolinks-track' => false %>
-
     <script type="text/javascript">
-      $(document).ready(function(){
-        //Check to see if the window is top if not then display button
-        $(window).scroll(function(){
-          if ($(this).scrollTop() > 100) {
-            $('.cd-top').fadeIn();
-          } else {
-            $('.cd-top').fadeOut();
-          }
-        });
-        //Click event to scroll to top
-        $('.cd-top').click(function(){
-          $('html, body').animate({scrollTop : 0},800);
-          return false;
-        });
-
-        var elevator = new Elevator({
-          element: document.querySelector('#backtopBtn'),
-          duration:2000,
-        });
-
-        $("[data-toggle='tooltip']").tooltip({
-          placement: "left",
-          trigger: "manual"
-        }).tooltip("show");
-      });
+      $("[data-toggle='tooltip']").tooltip({
+        placement: "left",
+        trigger: "manual"
+      }).tooltip("show");
     </script>
     <script type="text/javascript">
       adroll_adv_id = "NDSCNHHAEJDGPEYTI3VING";
