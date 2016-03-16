@@ -36,21 +36,25 @@ body {
   color: #a1a1a1;
   border-color: #a1a1a1;
   width: 140px;
+  img {
+    margin-right: 21px;
+    margin-top: -4px;
+  }
 }
-#login-btn:hover #login-img {
+#login-btn:hover img {
   animation: loginAnim 2s infinite;
   -webkit-animation: loginAnim 2s infinite;
   filter:grayscale(0%);
   -webkit-filter: grayscale(0%);
 }
-#login-img {
-  height: 18px;
-  width: auto;
-  margin-right: 21px;
-  margin-top: -4px;
-  filter:grayscale(100%);
-  -webkit-filter: grayscale(100%);
-}
+// #login-img { // TODO: need to remove
+//   height: 18px;
+//   width: auto;
+//   margin-right: 21px;
+//   margin-top: -4px;
+//   filter:grayscale(100%);
+//   -webkit-filter: grayscale(100%);
+// }
 //========== end Button  ============//
 // ============ Header ========//
 .header {
@@ -174,14 +178,6 @@ body {
     position: relative;
     width: 100%;
     width: 100%;
-  }
-  #login-img {
-    height: 18px;
-    width: auto;
-    margin-right: 21px;
-    margin-top: -4px;
-    filter:grayscale(100%);
-    -webkit-filter: grayscale(100%);
   }
   #logoutImg {
     height: 18px;

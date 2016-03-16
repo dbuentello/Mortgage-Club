@@ -41,9 +41,18 @@
     width: 100%;
     text-align: center;
   }
+  #home-right {
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 35px;
+  }
   #apply-btn {
     margin-top: 25px;
   }
+
   // ========= table
   .home-table .table-header td {
     border: none !important;
@@ -118,14 +127,6 @@
     text-align: center;
     width: 100%;
   }
-  // .header-logos {
-  //   .partner-logo {
-  //     img {
-  //       padding-top: 19px;
-  //       width: 100%;
-  //     }
-  //   }
-  // }
   .header-logo {
     .partner-logo {
       img {
@@ -364,57 +365,17 @@
   }
   // end client part
 
-  .middle {
-    .description {
-      padding-top: 10px;
-      font-size: 18px;
-    }
-    .best-rates {
-      h3 {
-        text-align: center;
-      }
-      table {
-        th,
-        td {
-          text-align: center;
-        }
-      }
-    }
-  }
-  h6 {
-    color: inherit;
-  }
   h1 {
     color: black;
   }
-  .nav>li>a:hover {
-    background: white;
-    color: rgb(51, 122, 183);
-  }
-  #des_upload {
-    padding-top: 15px;
-    color: #a1a1a1;
-    letter-spacing: 0.03em;
-    font-style: italic;
-    font-family: 'aileronlight';
-  }
-  #apply-btn:hover {
-    background-color: white;
-    border-color: #15c0f1;
-    color: #15c0f1;
-  }
-  #home-right {
-    text-align: center;
-    margin-bottom: 50px;
-    margin-top: 30px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 35px;
-  }
-  .info-button {
-    width: 22px;
-    margin-left: 5px;
-  }
+
+  // #des_upload {   RateAlert.
+  //   padding-top: 15px;
+  //   color: #a1a1a1;
+  //   letter-spacing: 0.03em;
+  //   font-style: italic;
+  //   font-family: 'aileronlight';
+  // }
 
   .content .how-header,
   .content .client-header {
