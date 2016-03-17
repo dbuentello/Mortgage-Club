@@ -13,6 +13,8 @@ class Users::ElectronicSignatureController < Users::BaseController
   end
 
   def create
+    return render nothing: true, status: 200 if Rails.env.test?
+
     RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:fees], lender_params)
     @loan.reload
 
