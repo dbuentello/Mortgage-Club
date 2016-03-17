@@ -23,6 +23,26 @@
 
 //= require build/bundle_PublicApp
 
+adroll_adv_id = "NDSCNHHAEJDGPEYTI3VING";
+adroll_pix_id = "I7ZUQKIJDNFZTKERETJRFK";
+/* OPTIONAL: provide email to improve user identification */
+/* adroll_email = "username@example.com"; */
+(function () {
+  var _onload = function(){
+  if (document.readyState && !/loaded|complete/.test(document.readyState)){setTimeout(_onload, 10);return}
+  if (!window.__adroll_loaded){__adroll_loaded=true;setTimeout(_onload, 50);return}
+  var scr = document.createElement("script");
+  var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+  scr.setAttribute('async', 'true');
+  scr.type = "text/javascript";
+  scr.src = host + "/j/roundtrip.js";
+  ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+  };
+  if (window.addEventListener) {window.addEventListener('load', _onload, false);}
+  else {window.attachEvent('onload', _onload)}
+}());
+
 // Facebook Pixel Code
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
