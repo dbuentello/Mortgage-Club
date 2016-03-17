@@ -15,9 +15,9 @@ class Users::ChecklistsController < Users::BaseController
     if template.blank?
 
       return render json: {
-              message: t("errors.template_not_found"),
-              details: t("errors.template_not_exist", object_name: "#{params[:template_name]}")
-            }, status: 500
+        message: t("errors.template_not_found"),
+        details: t("errors.template_not_exist", object_name: "#{params[:template_name]}")
+      }, status: 500
     end
 
     envelope = Docusign::CreateEnvelopeForChecklistService.new.call(current_user, @loan)
