@@ -31,24 +31,24 @@ module UnderwritingLoanServices
     end
 
     def verify_property
-      @error_messages << "Sorry, your subject property does not exist." unless property
+      @error_messages << I18n.t("errors.subject_property_not_exist")unless property
     end
 
     def verify_property_eligibility
-      return @error_messages << "Sorry, your property must have an address." unless address
+      return @error_messages << I18n.t("errors.property_must_have_address") unless address
 
       if address.state != "CA"
-        @error_messages << "Sorry, we only lend in CA at this time. We'll contact you once we're ready to lend in."
+        @error_messages << I18n.t("errors.only_in_ca")
       end
 
       unless ["sfh", "duplex", "triplex", "fourplex", "condo"].include? property.property_type
-        @error_messages << "Sorry, your subject property is not eligible. We only offer loan programs for residential 1-4 units at this time."
+        @error_messages << I18n.t("errors.subject_property_not_eligible")
       end
     end
 
     def verify_credit_score
       if borrower.credit_score.nil? || borrower.credit_score < 620
-        @error_messages << "Sorry, your credit score is below the minimum required to obtain a mortgage."
+        @error_messages << I18n.t("errors.credit_score_too_low")
       end
     end
 
@@ -60,11 +60,11 @@ module UnderwritingLoanServices
       ratio = UnderwritingLoanServices::CalculateHousingExpenseRatio.call(loan)
 
       if debt_to_income > 0.5
-        @error_messages << "Your debt-to-income ratio is too high. We can't find any loan programs for you."
+        @error_messages << I18n.t("errors.debt_to_income_ratio_too_high")
       end
 
       if ratio > 0.28
-        @error_messages << "Your housing expense is currently too high. We can't find any loan programs for you."
+        @error_messages << I18n.t("errors.house_expense_too_high")
       end
     end
 
