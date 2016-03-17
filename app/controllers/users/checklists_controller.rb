@@ -4,9 +4,9 @@ class Users::ChecklistsController < Users::BaseController
 
   def update
     if @checklist.update(checklist_params)
-      render json: {message: t("messages.info.success", status: t("common.status.updated"))}, status: 200
+      render json: {message: t("info.success", status: t("common.status.updated"))}, status: 200
     else
-      render json: {message: t("messages.errors.failed", process: t("common.process.update_checklist"))}, status: 500
+      render json: {message: t("errors.failed", process: t("common.process.update_checklist"))}, status: 500
     end
   end
 
@@ -15,8 +15,8 @@ class Users::ChecklistsController < Users::BaseController
     if template.blank?
 
       return render json: {
-              message: t("errors.messages.template_not_found"),
-              details: t("errors.messages.template_not_exist", object_name: "#{params[:template_name]}")
+              message: t("errors.template_not_found"),
+              details: t("errors.template_not_exist", object_name: "#{params[:template_name]}")
             }, status: 500
     end
 
@@ -32,7 +32,7 @@ class Users::ChecklistsController < Users::BaseController
       return render json: {message: recipient_view}, status: 200 if recipient_view
     end
 
-    render json: {message: t("messages.errors.iframe_render_error")}, status: 500
+    render json: {message: t("errors.iframe_render_error")}, status: 500
   end
 
   def docusign_callback

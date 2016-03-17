@@ -6,7 +6,7 @@ class Admins::BaseController < ApplicationController
 
   def authenticate_admin!
     unless current_user.admin?
-      redirect_to admin_root_url, alert: t("messages.errors.page_not_found_or_permission_denied")
+      redirect_to admin_root_url, alert: t("errors.page_not_found_or_permission_denied")
     end
   end
 end

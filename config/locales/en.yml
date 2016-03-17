@@ -106,30 +106,28 @@ en:
       removed: "removed"
       updated: "updated"
   errors:
-    messages:
-      file_not_found: "File is not found"
-      template_not_found: "Template is not found"
-      template_not_exist: "Template %{object_name} does not exist yet!"
+    failed: "Cannot %{process}"
+    field_required: "This field is required"
+    file_not_found: "File is not found"
+    iframe_render_error: "can't render iframe"
+    object_not_found: "%{object_name} is not found"
+    page_not_found: "We can't seem to find the page you're looking for."
+    permission_denied: "You don't have permission to retrieve the page"
+    page_not_found_or_permission_denied: "The page does not exist or you don't have permmission to access!"
+    template_not_found: "Template is not found"
+    template_not_exist: "Template %{object_name} does not exist yet!"
+  info:
+    success: "The information is %{status} successfully"
+  status:
+    ok: "ok"
+    success: "success"
+    error: "error"
 
   homepage:
     title_alert: "FREE REFINANCE ALERT"
     btn_alert: "SET MY ALERT"
     description_alert: "Our software monitors thousands of loan programs and alert you when you can save money by refinancing with MortgageClub."
-  messages:
-    info:
-      success: "The information is %{status} successfully"
-    status:
-      ok: "ok"
-      success: "success"
-      error: "error"
-    errors:
-      failed: "Cannot %{process}"
-      field_required: "This field is required"
-      iframe_render_error: "can't render iframe"
-      object_not_found: "%{object_name} is not found"
-      page_not_found: "We can't seem to find the page you're looking for."
-      permission_denied: "You don't have permission to retrieve the page"
-      page_not_found_or_permission_denied: "The page does not exist or you don't have permmission to access!"
+
   admins:
     borrower_managements:
       destroy:

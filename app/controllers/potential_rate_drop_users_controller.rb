@@ -22,7 +22,7 @@ class PotentialRateDropUsersController < ApplicationController
 
   def render_error(potential_rate_drop_user)
     render json: {
-      alert_method: potential_rate_drop_user.errors[:alert_method].present? ? t("messages.errors.field_required") : nil
+      alert_method: potential_rate_drop_user.errors[:alert_method].present? ? t("errors.field_required") : nil
       }, status: 500
   end
 

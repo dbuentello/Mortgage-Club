@@ -3,7 +3,7 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
   before_action :set_document, only: [:download, :destroy]
 
   def create
-    return render json: {message: t("errors.messages.template_not_found")}, status: 500 unless template = LenderTemplate.find_by_id(params[:template_id])
+    return render json: {message: t("errors.template_not_found")}, status: 500 unless template = LenderTemplate.find_by_id(params[:template_id])
 
     service = LenderDocumentServices::UploadFile.new(
       loan: @loan,
@@ -48,7 +48,7 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
   private
 
   def set_document
-    return render json: {message: t("errors.messages.file_not_found")}, status: 500 unless @document = LenderDocument.find_by_id(params[:id])
+    return render json: {message: t("errors.file_not_found")}, status: 500 unless @document = LenderDocument.find_by_id(params[:id])
   end
 
   def get_download_url(document)

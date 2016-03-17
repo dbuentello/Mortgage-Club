@@ -11,7 +11,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
       render json: {
         checklist: LoanMembers::ChecklistPresenter.new(checklist).show,
         checklists: LoanMembers::ChecklistsPresenter.new(@loan.checklists).show,
-        message: t("messages.info.success", status: t("common.status.added"))
+        message: t("info.success", status: t("common.status.added"))
       }, status: 200
     else
       render json: {message: checklist.errors.full_messages.first}, status: 500
@@ -33,7 +33,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
     if @checklist.update(checklist_params)
       render json: {checklist: LoanMembers::ChecklistPresenter.new(@checklist).show, message: t("messages.info.success", status: "updated")}, status: 200
     else
-      render json: {message: t("messages.errors.failed", process: t("common.process.update"))}, status: 500
+      render json: {message: t("errors.failed", process: t("common.process.update"))}, status: 500
     end
   end
 
@@ -43,11 +43,11 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
 
     if checklist.destroy
       render json: {
-        message: t("messages.info.success", status: t("common.status.removed")),
+        message: t("info.success", status: t("common.status.removed")),
         checklists: LoanMembers::ChecklistsPresenter.new(loan.checklists).show
       }, status: 200
     else
-      render json: {message: t("messages.errors.failed", process: t("common.process.remove"))}, status: 500
+      render json: {message: t("errors.failed", process: t("common.process.remove"))}, status: 500
     end
   end
 
