@@ -53,8 +53,8 @@ When(/^I set the value "([^\"]*)" to the hidden "([^\"]*)"$/) do |value, field|
   page.execute_script("document.getElementsByName('#{field}')[0].value = '#{value}';")
 end
 
-When(/^I click on a first "([^\"]+)"$/) do |text|
-  first(:link, "#{text}").click
+When(/^I click on a first "([^\"]+)"$/) do |className|
+  first("#{className}").click
 end
 
 When(/^I am at loan management page$/) do
