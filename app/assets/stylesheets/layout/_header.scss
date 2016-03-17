@@ -32,10 +32,10 @@
       background: $mcColor;
       color: white;
     }
-    .dropdown-menu>li>a:hover #logoutImg {
-      filter:brightness(100%);
-      -webkit-filter: brightness(100%);
-    }
+    // .dropdown-menu>li>a:hover #logoutImg {
+    //   filter:brightness(100%);
+    //   -webkit-filter: brightness(100%);
+    // }
   }
   #newLoanBtn {
     background: white;
@@ -87,26 +87,17 @@
     width: auto;
     background: white;
     color: $mcColor;
-    border-radius: 6px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    @include border-radius-sides(6px,0,0,6px);
     text-align: left;
     padding: 2px 2px 2px 12px;
     border-bottom: solid 2px $mcColor;
     img {
       margin-left: 10px;
     }
-    .dropdownArrow {
-      top: 5px;
-    }
   }
   #accountBtn:active {
     box-shadow: none;
-    border-color: $mcColor;
-  }
-  #accountBtnImg {
-    margin-right: 7px;
-    margin-top: -9px;
+
   }
   .active-loans #loanBtnImg:hover {
     filter:brightness(10000%);
