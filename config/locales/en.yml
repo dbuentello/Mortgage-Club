@@ -126,6 +126,18 @@ en:
     success: "success"
     error: "error"
 
+  services:
+    docusign:
+      create_envelope_for_checklist_service:
+        envelope_email_subject: "Electronic Signature Request from MortgageClub Corporation"
+      create_envelope_service:
+        envelope_email_subject: "Electronic Signature Request from MortgageClub Corporation"
+        evelope_email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
+      create_template_service:
+        state: "California"
+        desription: "sample template"
+        email_subject: "Electronic Signature Request from Mortgage Club"
+        email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
   homepage:
     title_alert: "FREE REFINANCE ALERT"
     btn_alert: "SET MY ALERT"

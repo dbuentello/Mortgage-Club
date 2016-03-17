@@ -1,5 +1,6 @@
 require "pdf_forms"
 
+
 module Docusign
   class CreateEnvelopeService
     UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
@@ -34,8 +35,8 @@ module Docusign
       DocusignRest::Client.new.create_envelope_from_document(
         status: "sent",
         email: {
-          subject: "Electronic Signature Request from MortgageClub Corporation",
-          body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
+          subject: I18n.t("services.docusign.create_envelope_service.envelope_email_subject"),
+          body: I18n.t("services.docusign.create_envelope_service.evelope_email_body")
         },
         files: [
           {path: UNIFORM_OUTPUT_PATH},
