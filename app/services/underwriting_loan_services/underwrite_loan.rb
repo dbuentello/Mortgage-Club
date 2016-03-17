@@ -31,15 +31,13 @@ module UnderwritingLoanServices
     end
 
     def verify_property
-      @error_messages << I18n.t("errors.subject_property_not_exist")unless property
+      @error_messages << I18n.t("errors.subject_property_not_exist") unless property
     end
 
     def verify_property_eligibility
       return @error_messages << I18n.t("errors.property_must_have_address") unless address
 
-      if address.state != "CA"
-        @error_messages << I18n.t("errors.only_in_ca")
-      end
+      @error_messages << I18n.t("errors.only_in_ca") if address.state != "CA"
 
       unless ["sfh", "duplex", "triplex", "fourplex", "condo"].include? property.property_type
         @error_messages << I18n.t("errors.subject_property_not_eligible")
@@ -63,9 +61,7 @@ module UnderwritingLoanServices
         @error_messages << I18n.t("errors.debt_to_income_ratio_too_high")
       end
 
-      if ratio > 0.28
-        @error_messages << I18n.t("errors.house_expense_too_high")
-      end
+      @error_messages << I18n.t("errors.house_expense_too_high") if ratio > 0.28
     end
 
     def verify_down_payment_and_cash_reserves

@@ -1,6 +1,5 @@
 require "pdf_forms"
 
-
 module Docusign
   class CreateEnvelopeService
     UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
