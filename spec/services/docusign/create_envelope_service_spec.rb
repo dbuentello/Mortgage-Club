@@ -34,32 +34,21 @@ describe Docusign::CreateEnvelopeService do
   end
 
   describe "#generates_documents_by_adobe_field_names" do
-    it "creates three files" do
-      # File.delete(described_class::UNIFORM_OUTPUT_PATH) if File.exist?(described_class::UNIFORM_OUTPUT_PATH)
-      # File.delete(described_class::FORM_4506_OUTPUT_PATH) if File.exist?(described_class::FORM_4506_OUTPUT_PATH)
-      # File.delete(described_class::BORROWER_CERTIFICATION_OUTPUT_PATH) if File.exist?(described_class::BORROWER_CERTIFICATION_OUTPUT_PATH)
+    it "calls three methods" do
       allow_any_instance_of(Docusign::Templates::UniformResidentialLoanApplication).to receive(:build).and_return({})
+      expect_any_instance_of(described_class).to receive(:generate_uniform)
+      expect_any_instance_of(described_class).to receive(:generate_form_4506)
+      expect_any_instance_of(described_class).to receive(:generate_form_certification)
 
       described_class.new.generates_documents_by_adobe_field_names(loan)
-
-      expect(File).to exist(described_class::UNIFORM_OUTPUT_PATH)
-      expect(File).to exist(described_class::FORM_4506_OUTPUT_PATH)
-      expect(File).to exist(described_class::BORROWER_CERTIFICATION_OUTPUT_PATH)
     end
   end
 
   describe "#generate_envelope" do
-    it "generates an envelope successfully" do
-      VCR.use_cassette("generate envelope from Docusign") do
-        allow_any_instance_of(Docusign::Templates::UniformResidentialLoanApplication).to receive(:build).and_return({})
-        described_class.new.generates_documents_by_adobe_field_names(loan)
-        envelope = described_class.new.generate_envelope(user, loan)
+    it "calls DocusignRest" do
+      expect_any_instance_of(DocusignRest::Client).to receive(:create_envelope_from_document)
 
-        expect(envelope["envelopeId"]).not_to be_nil
-        expect(envelope["uri"]).not_to be_nil
-        expect(envelope["statusDateTime"]).not_to be_nil
-        expect(envelope["status"]).to eq("sent")
-      end
+      described_class.new.generate_envelope(user, loan)
     end
   end
 end
