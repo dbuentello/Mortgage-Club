@@ -11,8 +11,10 @@ describe Users::LoansController do
   end
 
   describe 'POST #create' do
-    it 'assigns the requested loan to @loan' do
-      expect { post :create, format: :json }.to change { Loan.count }.by(1)
+    context "when current user does not have any loans" do
+      it 'assigns the requested loan to @loan' do
+        expect { post :create, format: :json }.to change { Loan.count }.by(1)
+      end
     end
   end
 
@@ -27,7 +29,7 @@ describe Users::LoansController do
     end
 
     context 'when user does not have permission to edit loan' do
-      it 'responses 403' do
+      it 'responds 403' do
         get :edit, id: not_permission_loan.id
         expect(response.status).to eq 403
       end
@@ -68,47 +70,4 @@ describe Users::LoansController do
       end
     end
   end
-
-  # disable it temporarily
-  # describe 'GET #get_secondary_borrower_info' do
-  #   it "returns warning when email hasn't been existed" do
-  #     get :get_secondary_borrower_info, id: loan.id, email: "random_email@abc.com", format: :json
-
-  #     expect(JSON.parse(response.body)["message"]).to eq('Not found')
-  #   end
-
-  #   it "returns warning when co-borrower info is not correct" do
-  #     params = {
-  #       id: loan.id,
-  #       email: other_user.email,
-  #       ssn: "32323232"
-  #     }
-
-  #     get :get_secondary_borrower_info, params, format: :json
-  #     expect(JSON.parse(response.body)["message"]).to eq('Invalid email or date of birth or social security number')
-  #   end
-
-  #   it "returns warning when co-borrower info is enough" do
-  #     params = {
-  #       id: loan.id,
-  #       email: other_user.email,
-  #       dob: other_user.borrower.dob
-  #     }
-
-  #     get :get_secondary_borrower_info, params, format: :json
-  #     expect(JSON.parse(response.body)["message"]).to eq('Invalid email or date of birth or social security number')
-  #   end
-
-  #   it "returns full co-borrower data when email, dob and ssn number are correct" do
-  #     params = {
-  #       id: loan.id,
-  #       email: other_user.email,
-  #       dob: other_user.borrower.dob,
-  #       ssn: other_user.borrower.ssn
-  #     }
-
-  #     get :get_secondary_borrower_info, params, format: :json
-  #     expect(JSON.parse(response.body)["secondary_borrower"]).to be_truthy
-  #   end
-  # end
 end

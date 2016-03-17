@@ -4,7 +4,7 @@ describe Users::DashboardController do
   include_context "signed in as borrower user of loan"
 
   describe "#show" do
-    context "when new loan" do
+    context "when loan has status new" do
       let!(:loan) { FactoryGirl.create(:loan) }
 
       it "redirects to edit page" do
@@ -13,7 +13,7 @@ describe Users::DashboardController do
       end
     end
 
-    context "when completed loan" do
+    context "when loan is completed" do
       let!(:loan) { FactoryGirl.create(:loan_with_all_associations, status: :submitted) }
 
       it "renders template borrower_app" do
@@ -22,7 +22,7 @@ describe Users::DashboardController do
       end
     end
 
-    context "when the loan that not belongs to the current user" do
+    context "when loan does not belong to the current user" do
       before do
         @loan = FactoryGirl.create(:loan_with_all_associations)
       end

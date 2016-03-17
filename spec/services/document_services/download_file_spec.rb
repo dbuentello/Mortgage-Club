@@ -9,7 +9,7 @@ describe DocumentServices::DownloadFile do
     expect(url).not_to be_nil
   end
 
-  context 'invalid params' do
+  context 'with invalid params' do
     it 'raises RecordNotFound if document does not exist' do
       expect { raise DocumentServices::DownloadFile.call('non-existent-id') }.to raise_error(ActiveRecord::RecordNotFound)
     end

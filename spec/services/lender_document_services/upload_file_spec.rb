@@ -6,7 +6,7 @@ describe LenderDocumentServices::UploadFile do
   let(:user) { FactoryGirl.create(:user) }
 
   context "with normal template" do
-    before(:each) do
+    let(:service) do
       args = {
         file: uploaded_file,
         template: lender_template,
@@ -14,12 +14,12 @@ describe LenderDocumentServices::UploadFile do
         loan: loan,
         user: user
       }
-      @service = described_class.new(args)
+      described_class.new(args)
     end
 
     context "when document is not existing" do
       it "creates new document" do
-        expect { @service.call }.to change { LenderDocument.count }.from(0).to(1)
+        expect { service.call }.to change { LenderDocument.count }.from(0).to(1)
       end
     end
 
@@ -27,7 +27,7 @@ describe LenderDocumentServices::UploadFile do
       let!(:lender_document) { FactoryGirl.create(:lender_document, loan: loan, lender_template: lender_template) }
 
       it "updates document" do
-        expect { @service.call }.not_to change { LenderDocument.count }
+        expect { service.call }.not_to change { LenderDocument.count }
       end
     end
   end
