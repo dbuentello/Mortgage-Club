@@ -1,6 +1,6 @@
 dependencies:
   pre:
-    - sudo apt-get install pdftk; fi
+    - sudo apt-get install pdftk
 test:
   pre:
     - bundle exec rake assets:webpack
