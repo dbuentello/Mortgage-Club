@@ -37,7 +37,7 @@ module SubmissionServices
     def validate
       return @error_message = I18n.t("errors.loan_missing") unless loan
       return @error_message = I18n.t("errors.loan_not_belong_any_lender") unless loan.lender
-      return @error_message = I18n.t("errors.loan_not_adequate_document") if documents_are_incomlete?
+      return @error_message = I18n.t("errors.loan_not_adequate_documents") if documents_are_incomlete?
       return @error_message = I18n.t("errors.loan_missing_user_info") unless staff
       return @error_message = I18n.t("errors.email_subject_required") if email_subject.blank?
       @error_message = I18n.t("errors.email_content_required") if email_content.blank?
