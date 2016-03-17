@@ -98,6 +98,7 @@ en:
       add: "add"
       create: "create"
       remove: "remove"
+      remove_checklist: "remove the checklist"
       update: "update"
       update_checklist: "update the checklist"
     status:
@@ -133,6 +134,8 @@ en:
       destroy:
         remove_failed: "Cannot remove the checklist"
         remove_success: "Removed the %{borrower} successfully"
+    loan_activity_type_managements:
+
 
   users:
     assets:
