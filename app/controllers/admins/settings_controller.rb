@@ -16,7 +16,7 @@ class Admins::SettingsController < Admins::BaseController
     if @setting.update(setting_params)
       render json: {
         setting: @setting,
-        message: "Update successfully"
+        message: t("info.success", status: "common.status.updated"))
       }, status: 200
     else
       render json: {message: @setting.errors.full_messages.first}, status: 500
