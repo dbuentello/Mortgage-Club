@@ -1,6 +1,5 @@
 module OcrServices
   class ParsePaystubFile
-
     def self.call(raw_post)
       {
         employer_name: raw_post[:employer_name],

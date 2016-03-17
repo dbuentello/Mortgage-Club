@@ -9,7 +9,6 @@
 #
 
 class LoansMembersAssociation < ActiveRecord::Base
-
   ROLE_TITLES = {
     admin: 'Loan Admin',
     member: 'Loan Member'

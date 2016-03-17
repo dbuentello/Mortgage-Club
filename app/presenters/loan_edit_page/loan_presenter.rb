@@ -28,7 +28,7 @@ class LoanEditPage::LoanPresenter
           include: [
             :declaration, :documents, :assets,
             user: {
-              only: [ :email, :first_name ]
+              only: [:email, :first_name]
             }
           ],
           methods: [
@@ -40,7 +40,7 @@ class LoanEditPage::LoanPresenter
           include: [
             :declaration, :documents,
             user: {
-              only: [ :email ]
+              only: [:email]
             }
           ],
           methods: [

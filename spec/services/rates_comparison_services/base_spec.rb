@@ -3,6 +3,18 @@ require "rails_helper"
 describe RatesComparisonServices::Base do
   let(:loan) { FactoryGirl.create(:loan_with_properties) }
   let(:user) { FactoryGirl.create(:borrower_user) }
+  let(:crawler) do
+    Crawler::GoogleRates.new(
+      purpose: "purchase",
+      zipcode: 95127,
+      property_value: 33322,
+      credit_score: 650,
+      monthly_payment: 2341,
+      purchase_price: 23232,
+      market_price: 22323,
+      balance: 342
+    )
+  end
 
   before(:each) do
     rates = [
@@ -13,22 +25,11 @@ describe RatesComparisonServices::Base do
       {product: "3/1 ARM", apr: 4.5, lender_name: "American Interbanc Mortgage", total_fee: 1034}
     ]
     allow_any_instance_of(Crawler::GoogleRates).to receive(:call).and_return(rates)
-
-    @crawler = Crawler::GoogleRates.new({
-      purpose: "purchase",
-      zipcode: 95127,
-      property_value: 33322,
-      credit_score: 650,
-      monthly_payment: 2341,
-      purchase_price: 23232,
-      market_price: 22323,
-      balance: 342
-    })
   end
 
   describe "#get_rates" do
     it "returns a proper hash" do
-      expect(described_class.new(loan.id, user.id).get_rates(40000, @crawler)).to match_response_schema("rates_comparison")
+      expect(described_class.new(loan.id, user.id).get_rates(40000, crawler)).to match_response_schema("rates_comparison")
     end
   end
 end

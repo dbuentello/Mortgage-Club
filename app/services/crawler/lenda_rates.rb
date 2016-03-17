@@ -131,7 +131,7 @@ module Crawler
       return "740+" if credit_score >= 740
 
       score = 739
-      selected_score = "740+"
+      # selected_score = "740+"
       while score > 620
         break if credit_score > score
         score -= 20

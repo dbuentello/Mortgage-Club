@@ -6,8 +6,6 @@ var DateField = require('components/form/DateField');
 var SelectField = require('components/form/SelectField');
 var TextField = require('components/form/TextField');
 var HelpTooltip = require('components/form/HelpTooltip');
-var StripeCheckbox = require('components/StripeCheckbox');
-
 
 var FormCreditCheck = React.createClass({
   getInitialState: function() {

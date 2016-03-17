@@ -7,7 +7,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
 
     bootstrap(
       loans: Admins::LoansPresenter.new(loans).show,
-      loan_members: Admins::LoanMembersPresenter.new(loan_members).show,
+      loan_members: Admins::LoanMembersPresenter.new(loan_members).show
     )
 
     respond_to do |format|
@@ -58,7 +58,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
   def destroy
     if @loan_member.user.destroy
       render json: {
-        message: "Removed the #{@loan_member.user.to_s} successfully",
+        message: "Removed the #{@loan_member.user} successfully",
         loan_members: Admins::LoanMembersPresenter.new(LoanMember.all).show
       }, status: 200
     else

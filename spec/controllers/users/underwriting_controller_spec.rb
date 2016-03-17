@@ -1,16 +1,15 @@
 require "rails_helper"
 
-RSpec.describe UnderwritingController do
+describe Users::UnderwritingController do
   include_context "signed in as borrower user of loan"
 
-  before(:each) {
-    loan.subject_property.update(property_type: 'sfh')
-    address = FactoryGirl.build(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: loan.subject_property.id)
-    address.save
-  }
+  let!(:subject_property) { FactoryGirl.create(:property, loan: loan, property_type: "sfh") }
+  let!(:address) { FactoryGirl.create(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: subject_property.id) }
+
   describe "#index" do
     it "responds with code 200 when loan is completed" do
       allow_any_instance_of(Loan).to receive("completed?").and_return(true)
+
       get :index, loan_id: loan.id
       expect(response.status).to eq(200)
     end

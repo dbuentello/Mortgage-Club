@@ -2,12 +2,12 @@ class Users::PropertiesController < Users::BaseController
   before_action :set_loan, only: [:create]
 
   def create
-    property_form = PropertyForm.new({
+    property_form = PropertyForm.new(
       loan: @loan,
       subject_property: @loan.subject_property,
       address: address,
       params: params
-    })
+    )
 
     if property_form.save
       @loan.reload

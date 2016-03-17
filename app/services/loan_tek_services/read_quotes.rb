@@ -10,7 +10,7 @@ module LoanTekServices
       "7yearARM" => "7 year ARM",
       "5yearARM" => "5 year ARM",
       "3yearARM" => "3 year ARM",
-      "1yearARM" => "1 year ARM",
+      "1yearARM" => "1 year ARM"
     }
 
     def self.call(quotes)
@@ -18,7 +18,7 @@ module LoanTekServices
 
       programs = []
 
-      quotes = quotes.select{|quote| quote["DiscountPts"] > -1}
+      quotes = quotes.select { |quote| quote["DiscountPts"] > -1 }
 
       quotes.each do |quote|
         apr = quote["APR"] / 100
@@ -26,27 +26,27 @@ module LoanTekServices
         lender_name = quote["LenderName"]
         discount_pts = quote["DiscountPts"] / 100
 
-        if !existing_program?(programs, apr, rate, lender_name, discount_pts)
-          program = {
-            lender_name: lender_name,
-            product: get_product_name(quote),
-            apr: apr,
-            loan_amount: quote["FeeSet"]["LoanAmount"],
-            interest_rate: rate,
-            total_fee: quote["FeeSet"]["TotalFees"],
-            fees: quote["FeeSet"]["Fees"] || [],
-            period: get_period(quote),
-            down_payment: get_down_payment(quote),
-            monthly_payment: get_monthly_payment(quote),
-            lender_credits: get_lender_credits(quote),
-            total_closing_cost: get_total_closing_cost(quote),
-            nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
-            logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
-            loan_type: quote["ProductFamily"],
-            discount_pts: discount_pts
-          }
-          programs << program
-        end
+        next if existing_program?(programs, apr, rate, lender_name, discount_pts)
+
+        program = {
+          lender_name: lender_name,
+          product: get_product_name(quote),
+          apr: apr,
+          loan_amount: quote["FeeSet"]["LoanAmount"],
+          interest_rate: rate,
+          total_fee: quote["FeeSet"]["TotalFees"],
+          fees: quote["FeeSet"]["Fees"] || [],
+          period: get_period(quote),
+          down_payment: get_down_payment(quote),
+          monthly_payment: get_monthly_payment(quote),
+          lender_credits: get_lender_credits(quote),
+          total_closing_cost: get_total_closing_cost(quote),
+          nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
+          logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
+          loan_type: quote["ProductFamily"],
+          discount_pts: discount_pts
+        }
+        programs << program
       end
 
       programs = build_characteristics(programs)
@@ -77,8 +77,8 @@ module LoanTekServices
     def self.get_monthly_payment(quote)
       period = get_period(quote)
       rate_per_period = get_interest_rate(quote) / 12
-      numerator = rate_per_period * ((1 + rate_per_period) ** period)
-      denominator = ((1 + rate_per_period) ** period) - 1
+      numerator = rate_per_period * ((1 + rate_per_period)**period)
+      denominator = ((1 + rate_per_period)**period) - 1
       payment = quote["FeeSet"]["LoanAmount"].to_f * (numerator / denominator)
       payment.round
     end

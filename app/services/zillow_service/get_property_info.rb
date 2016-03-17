@@ -35,9 +35,9 @@ module ZillowService
       return unless property?(property_data)
 
       property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
-      property.merge!({
+      property.merge!(
         useCode: USE_CODE[property['useCode']]
-      })
+      )
 
       params = {
         'zip' => property['address']['zipcode'],
@@ -52,11 +52,11 @@ module ZillowService
       return unless monthly_payment?(monthly_payments)
 
       property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
-      property.merge({
+      property.merge(
         monthlyTax: monthly_payments['paymentsdetails']['response']['monthlypropertytaxes'],
         monthlyInsurance: monthly_payments['paymentsdetails']['response']['monthlyhazardinsurance'],
         zillowImageUrl: zillow_image_url
-      })
+      )
     end
 
     def self.get_zillow_image_url(property_data)

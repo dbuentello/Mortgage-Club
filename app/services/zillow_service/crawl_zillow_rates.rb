@@ -26,7 +26,7 @@ module ZillowService
 
     def set_up_crawler
       Capybara.register_driver :poltergeist do |app|
-        Capybara::Poltergeist::Driver.new(app, {js_errors: false, timeout: 60})
+        Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 60)
       end
       crawler = Capybara::Session.new(:poltergeist)
       crawler.driver.headers = {'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X)"}
@@ -48,7 +48,7 @@ module ZillowService
                       "&purchase.firstTimeBuyer=false&purchase.newConstruction=false"\
                       "&partnerId=RD-CZMBMCZ&#{user_session_id}"
       crawler.visit url
-      request_code = crawler.text.split('":"').last.chomp('"}')
+      crawler.text.split('":"').last.chomp('"}')
     end
 
     def get_rates(quotes)
@@ -119,10 +119,10 @@ module ZillowService
       lender_credit = quote["lenderCredit".freeze]
 
       if quote["arm".freeze]
-        product = "#{quote["arm".freeze]["fixedRateMonths"] / 12}/1 ARM"
+        product = "#{quote['arm'.freeze]['fixedRateMonths'] / 12}/1 ARM"
         period = quote["arm"]["fixedRateMonths".freeze]
       else
-        product = "#{quote["termMonths"] / 12} year fixed"
+        product = "#{quote['termMonths'] / 12} year fixed"
         period = quote["termMonths".freeze]
       end
 

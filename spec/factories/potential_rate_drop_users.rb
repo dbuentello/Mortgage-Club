@@ -11,5 +11,4 @@ FactoryGirl.define do
     send_as_email false
     send_as_text_message true
   end
-
 end

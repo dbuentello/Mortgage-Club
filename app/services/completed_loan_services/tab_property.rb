@@ -26,9 +26,15 @@ module CompletedLoanServices
 
     def purpose_completed?
       return false unless loan.purpose.present?
-      return false if loan.purchase? && !subject_property.purchase_price.present?
-      return false if loan.purchase? && loan.down_payment.nil?
+      return false if loan.purchase? && !purchase_completed?
       return false if loan.refinance? && !refinance_completed?
+
+      true
+    end
+
+    def purchase_completed?
+      return false unless subject_property.purchase_price.present?
+      return false unless loan.down_payment.present?
 
       true
     end

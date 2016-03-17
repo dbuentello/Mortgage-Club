@@ -14,13 +14,16 @@ class Admins::HomepageRatesController < Admins::BaseController
   def edit
     display_time = Time.zone.parse(@homepage_rate.display_time.to_s).strftime('%Y-%m-%d %H:%M')
 
-    bootstrap(homepage_rate: {
-      id: @homepage_rate.id,
-      rate_value: @homepage_rate.rate_value,
-      lender_name: @homepage_rate.lender_name,
-      program: @homepage_rate.program,
-      display_time: display_time
-    })
+    bootstrap(
+      homepage_rate:
+      {
+        id: @homepage_rate.id,
+        rate_value: @homepage_rate.rate_value,
+        lender_name: @homepage_rate.lender_name,
+        program: @homepage_rate.program,
+        display_time: display_time
+      }
+    )
 
     respond_to do |format|
       format.html { render template: "admin_app" }

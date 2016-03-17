@@ -14,12 +14,12 @@ module RatesComparisonServices
     private
 
     def crawler
-      ZillowService::CrawlZillowRates.new({
+      ZillowService::CrawlZillowRates.new(
         zipcode: property.address.zip,
         purchase_price: property.purchase_price.to_i,
         annual_income: borrower.annual_income,
         number_of_results: 1
-      })
+      )
     end
   end
 end

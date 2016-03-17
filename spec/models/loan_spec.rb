@@ -29,7 +29,7 @@ describe Loan do
       end
     end
 
-    context "loan has primary_property" do
+    context "when loan has primary property" do
       before(:each) do
         @loan = FactoryGirl.create(:loan_with_properties)
       end
@@ -41,13 +41,13 @@ describe Loan do
   end
 
   describe ".rental_properties" do
-    context "rental_properties is nil" do
+    context "when rental_properties is nil" do
       it "returns nil" do
         expect(loan.rental_properties).to eq([])
       end
     end
 
-    context "loan has rental_properties" do
+    context "when loan has rental_properties" do
       before(:each) do
         @loan = FactoryGirl.create(:loan_with_properties)
       end
@@ -59,14 +59,14 @@ describe Loan do
   end
 
   describe ".num_of_years" do
-    context "num_of_months is nil" do
+    context "when num_of_months is nil" do
       it "returns nil" do
         loan.num_of_months = nil
         expect(loan.num_of_years).to be_nil
       end
     end
 
-    context "num_of_months is a valid number" do
+    context "when num_of_months is a valid number" do
       it "returns number of years" do
         loan.num_of_months = 24
         expect(loan.num_of_years).to eq(2)
@@ -75,14 +75,14 @@ describe Loan do
   end
 
   describe ".purpose_titleize" do
-    context "purpose is nil" do
+    context "when purpose is nil" do
       it "returns nil" do
         loan.purpose = nil
         expect(loan.purpose_titleize).to be_nil
       end
     end
 
-    context "purpose is valid" do
+    context "when purpose is valid" do
       it "returns number of years" do
         loan.purpose = 1
         expect(loan.purpose_titleize).to eq("Refinance")
@@ -93,15 +93,15 @@ describe Loan do
   describe ".relationship_manager" do
     let(:loan_with_loan_member) { FactoryGirl.create(:loan_with_loan_member) }
 
-    context "loans_members_associations are empty" do
+    context "when loans_members_associations are empty" do
       it "returns nil if there is not any loans members associations" do
         loan.loans_members_associations = []
         expect(loan.relationship_manager).to be_nil
       end
     end
 
-    context "non existing relationship manager" do
-      let!(:sale) { FactoryGirl.create(:loan_members_title, title: "sale")}
+    context "when relationship manager is not existing" do
+      let!(:sale) { FactoryGirl.create(:loan_members_title, title: "sale") }
       it "returns nil" do
         loan_with_loan_member.loans_members_associations.last
         loan_with_loan_member.loans_members_associations.last.update(loan_members_title: sale)
@@ -109,7 +109,7 @@ describe Loan do
       end
     end
 
-    context "non existing loan_members_title in loans_members_associations" do
+    context "when loan_members_title is nil" do
       it "returns nil" do
         loan_with_loan_member.loans_members_associations.last
         loan_with_loan_member.loans_members_associations.last.update(loan_members_title: nil)
@@ -117,8 +117,8 @@ describe Loan do
       end
     end
 
-    context "loans_members_associations are valid" do
-      let!(:manager) { FactoryGirl.create(:loan_members_title, title: "manager")}
+    context "when loans_members_associations are valid" do
+      let!(:manager) { FactoryGirl.create(:loan_members_title, title: "manager") }
       it "returns a loan member" do
         loan_with_loan_member.loans_members_associations.last.update(loan_members_title_id: manager.id)
         expect(loan_with_loan_member.relationship_manager).to be_a(LoanMember)
@@ -127,14 +127,14 @@ describe Loan do
   end
 
   describe "#fixed_rate_amortization?" do
-    context "fixed rate" do
+    context "with fixed rate" do
       it "returns true" do
         loan.amortization_type = "30 year fixed"
         expect(loan.fixed_rate_amortization?).to be_truthy
       end
     end
 
-    context "other types" do
+    context "with other types" do
       it "returns false" do
         loan.amortization_type = "LoremIpsum"
         expect(loan.fixed_rate_amortization?).to be_falsey
@@ -143,14 +143,14 @@ describe Loan do
   end
 
   describe "#arm_amortization?" do
-    context "ARM" do
+    context "with ARM" do
       it "returns true" do
         loan.amortization_type = "5/1 ARM"
         expect(loan.arm_amortization?).to be_truthy
       end
     end
 
-    context "other types" do
+    context "with other types" do
       it "returns false" do
         loan.amortization_type = "LoremIpsum"
         expect(loan.arm_amortization?).to be_falsey

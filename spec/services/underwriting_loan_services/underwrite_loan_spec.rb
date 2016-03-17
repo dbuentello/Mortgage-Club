@@ -10,7 +10,7 @@ describe UnderwritingLoanServices::UnderwriteLoan do
   end
 
   describe "#verify_property" do
-    context "invalid" do
+    context "with invalid" do
       it "adds an error message" do
         @service.property = nil
         @service.verify_property
@@ -21,7 +21,7 @@ describe UnderwritingLoanServices::UnderwriteLoan do
   end
 
   describe "#verify_property_eligibility" do
-    context "invalid address" do
+    context "with invalid address" do
       it "adds an error message" do
         @service.address = nil
         @service.verify_property_eligibility
@@ -30,7 +30,7 @@ describe UnderwritingLoanServices::UnderwriteLoan do
       end
     end
 
-    context "invalid state" do
+    context "with invalid state" do
       it "adds an error message" do
         @service.address.state = "NY"
         @service.verify_property_eligibility
@@ -39,7 +39,7 @@ describe UnderwritingLoanServices::UnderwriteLoan do
       end
     end
 
-    context "invalid property type" do
+    context "with invalid property type" do
       it "adds an error message" do
         @service.property.property_type = nil
         @service.verify_property_eligibility
@@ -50,7 +50,7 @@ describe UnderwritingLoanServices::UnderwriteLoan do
   end
 
   describe "#verify_credit_score" do
-    context "less than 620" do
+    context "with less than 620" do
       it "adds an error message" do
         allow_any_instance_of(Borrower).to receive(:credit_score).and_return(100)
         @service.verify_credit_score
@@ -61,7 +61,7 @@ describe UnderwritingLoanServices::UnderwriteLoan do
   end
 
   describe "#verify_debt_to_income_and_ratio" do
-    context "debt_to_income > 0.5" do
+    context "with debt_to_income > 0.5" do
       it "adds an error message" do
         allow(UnderwritingLoanServices::CalculateDebtToIncome).to receive(:call).and_return(1)
         @service.verify_debt_to_income_and_ratio
@@ -70,7 +70,7 @@ describe UnderwritingLoanServices::UnderwriteLoan do
       end
     end
 
-    context "housing expense ratio > 0.28" do
+    context "with housing expense ratio > 0.28" do
       it "adds an error message" do
         allow(UnderwritingLoanServices::CalculateHousingExpenseRatio).to receive(:call).and_return(1)
         @service.verify_debt_to_income_and_ratio
@@ -81,14 +81,14 @@ describe UnderwritingLoanServices::UnderwriteLoan do
   end
 
   describe "#valid_loan?" do
-    context "valid loan" do
+    context "with valid loan" do
       it "returns true" do
         @service.error_messages = []
         expect(@service.valid_loan?).to be_truthy
       end
     end
 
-    context "invalid loan" do
+    context "with invalid loan" do
       it "returns false" do
         @service.error_messages = ["Error message"]
         expect(@service.valid_loan?).to be_falsey
@@ -97,7 +97,7 @@ describe UnderwritingLoanServices::UnderwriteLoan do
   end
 
   describe "#call" do
-    context "valid loan" do
+    context "with valid loan" do
       before(:each) do
         @service.address.state = "CA"
         allow_any_instance_of(Borrower).to receive(:credit_score).and_return(999)
@@ -110,7 +110,7 @@ describe UnderwritingLoanServices::UnderwriteLoan do
       end
     end
 
-    context "invalid loan" do
+    context "with invalid loan" do
       # it "returns false" do
       #   expect(@service.call).to be_falsey
       # end

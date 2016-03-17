@@ -17,7 +17,7 @@ module HomepageRateServices
         aprs = get_aprs
 
         REDIS.set(cache_key, aprs.to_json)
-        REDIS.expire(cache_key, 168.hour.to_i)
+        REDIS.expire(cache_key, 168.hours)
       end
 
       aprs
@@ -44,7 +44,7 @@ module HomepageRateServices
     def self.parse_rate_value(rate)
       return "-" unless rate.rate_value
 
-      sprintf("%0.03f", rate.rate_value) + "%"
+      format("%0.03f", rate.rate_value) + "%"
     end
   end
 end

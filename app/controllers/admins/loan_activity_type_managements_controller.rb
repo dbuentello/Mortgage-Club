@@ -48,7 +48,7 @@ class Admins::LoanActivityTypeManagementsController < Admins::BaseController
   def destroy
     if @activity_type.destroy
       render json: {
-        message: "Removed the #{@activity_type.to_s} successfully",
+        message: "Removed the #{@activity_type} successfully",
         activity_types: Admins::LoanActivityTypesPresenter.new(ActivityType.all).show
       }, status: 200
     else

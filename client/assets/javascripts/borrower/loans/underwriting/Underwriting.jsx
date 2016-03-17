@@ -76,8 +76,7 @@ var Underwriting = React.createClass({
           });
         } else {
           this.setState({
-            loanErrors: response.errors,
-            debugInfo: response.debug_info
+            loanErrors: response.errors
           });
           if (this.state.percentCounter >= 50) {
             this.showErrors(response.errors);

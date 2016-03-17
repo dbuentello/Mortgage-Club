@@ -10,7 +10,8 @@ var AppStarter = require('tools/AppStarter');
 var FrontendTest = require('public/FrontendTest');
 var BackendTest = require('public/BackendTest');
 var RateDropAlert = require('public/RateDropAlert');
-var InitialQuotes = require('public/InitialQuotes/Form');
+var FormInitialQuotes = require('public/InitialQuotes/Form');
+var InitialQuotes = require('public/InitialQuotes/Quotes');
 
 window.PublicApp = React.createClass({
   contextTypes: {
@@ -30,8 +31,9 @@ var routes = (
   <Route name='app' path='/' handler={PublicApp}>
     <Route name='frontend_test' handler={FrontendTest}/>
     <Route name='backend_test' handler={BackendTest}/>
+    <Route name='quotes' handler={FormInitialQuotes}/>
+    <Route name='quotes_list' path='/quotes/:id' handler={InitialQuotes}/>
     <Route name='refinance_alert' handler={RateDropAlert}/>
-    <Route name='quotes' handler={InitialQuotes}/>
     <DefaultRoute handler={BackendTest}/>
   </Route>
 );

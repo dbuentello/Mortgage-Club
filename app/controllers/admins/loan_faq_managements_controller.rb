@@ -47,7 +47,7 @@ class Admins::LoanFaqManagementsController < Admins::BaseController
   def destroy
     if @faq.destroy
       render json: {
-        message: "Removed the #{@faq.to_s} successfully",
+        message: "Removed the #{@faq} successfully",
         faqs: Admins::LoanFaqsPresenter.new(Faq.all).show
       }, status: 200
     else

@@ -5,7 +5,7 @@ describe Admins::LoanActivityTypeManagementsController do
 
   let!(:activity_type) { FactoryGirl.create(:activity_type) }
 
-  describe "GET #index" do
+  describe "#index" do
     it "assigns the requested @activity_types to bootstrap activity_types" do
       get :index
       expect(assigns(:bootstrap_data)[:activity_types].length).to eq(1)
@@ -17,14 +17,14 @@ describe Admins::LoanActivityTypeManagementsController do
     end
   end
 
-  describe "DELETE #destroy" do
+  describe "#destroy" do
     it "destroys passed id activity_type" do
       delete :destroy, id: activity_type.id, format: :json
       expect(ActivityType.count).to eq(0)
     end
   end
 
-  describe "POST #create" do
+  describe "#create" do
     it "saves the new activity_type in the database" do
       expect { post :create, activity_type: attributes_for(:activity_type, label: "label", type_name_mapping: ["name 1", "name 2"]) }.to change(ActivityType, :count).by(1)
     end
@@ -45,7 +45,7 @@ describe Admins::LoanActivityTypeManagementsController do
     end
   end
 
-  describe "GET #edit" do
+  describe "#edit" do
     it "assigns the requested activity_type to bootstrap activity_type" do
       get :edit, id: activity_type.id
       expect(assigns(:bootstrap_data)[:activity_type]["label"]).to eq("label")
@@ -57,7 +57,7 @@ describe Admins::LoanActivityTypeManagementsController do
     end
   end
 
-  describe "PATCH #update" do
+  describe "#update" do
     it "updates activity_type in the database" do
       patch :update, id: activity_type.id, activity_type: attributes_for(:activity_type, label: "label", type_name_mapping: ["name 1", "name 2"])
       expect(JSON.parse(response.body)["message"]).to include("Updated sucessfully")
