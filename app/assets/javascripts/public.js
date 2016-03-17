@@ -23,5 +23,14 @@
 // Important to import jquery_ujs before bundle_PublicApp as that patches jquery xhr to use the authenticity token!
 
 //= require build/bundle_PublicApp
+$(document).ready(function() {
+  var elevator = new Elevator({
+    element: document.querySelector('#backtopBtn'),
+    duration:2000,
+  });
 
-
+ $("[data-toggle='tooltip']").tooltip({
+    placement: "left",
+    trigger: "manual"
+  }).tooltip("show");
+});

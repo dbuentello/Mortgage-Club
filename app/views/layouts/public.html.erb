@@ -59,7 +59,7 @@
     <% end %>
     <%= javascript_include_tag 'public', 'data-turbolinks-track' => false %>
     <% unless Rails.env.test? %>
-      <script>
+      <script type="text/javascript">
         $zopim(function(){
           $zopim.livechat.window.hide();
         });
