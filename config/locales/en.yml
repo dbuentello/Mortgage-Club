@@ -94,6 +94,8 @@ en:
               blank: "This is field required"
               confirmation: "Doesn't match Password"
   common:
+    object:
+      assignment: "assignment"
     process:
       add: "add"
       create: "create"
@@ -134,8 +136,6 @@ en:
       destroy:
         remove_failed: "Cannot remove the checklist"
         remove_success: "Removed the %{borrower} successfully"
-    loan_activity_type_managements:
-
 
   users:
     assets:
