@@ -33,6 +33,7 @@ describe Docusign::CreateEnvelopeService do
     end
   end
 
+  # we can't test delete file because circleci doesn't support pdftk
   describe "#generates_documents_by_adobe_field_names" do
     it "calls three methods" do
       allow_any_instance_of(Docusign::Templates::UniformResidentialLoanApplication).to receive(:build).and_return({})
