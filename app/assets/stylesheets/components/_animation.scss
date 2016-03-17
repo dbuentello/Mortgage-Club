@@ -1,5 +1,5 @@
 // Standard syntax */
-@keyframes loginAnim {
+@keyframes login-anim {
   0% {
     transform: translateX(0);
   }
@@ -17,7 +17,7 @@
   }
 }
 // Chrome, Safari, Opera */
-@-webkit-keyframes loginAnim {
+@-webkit-keyframes login-anim {
   0% {
     -webkit-transform: translateX(0);
   }
@@ -35,7 +35,7 @@
   }
 }
 
-@keyframes backtopAnim {
+@keyframes backtop-anim {
   0% {
     transform: translateY(0);
   }
@@ -52,7 +52,7 @@
     transform: translateY(0);
   }
 }
-@-webkit-keyframes backtopAnim {
+@-webkit-keyframes backtop-anim {
   0% {
     -webkit-transform: translateY(0);
   }

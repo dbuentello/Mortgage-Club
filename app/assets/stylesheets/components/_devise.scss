@@ -27,7 +27,7 @@
       height: 37px;
     }
     .form-group input:not([type=checkbox]):not([type=radio]):focus {
-      border-bottom: $mcColor 1px solid;
+      border-bottom: $mc-color 1px solid;
     }
     /*checkbox*/
     .form-group input[type=checkbox] {
@@ -45,14 +45,14 @@
       line-height: 16px;
     }
     .form-group label.customCheckbox.blueCheckBox:before {
-      background: $mcColor;
+      background: $mc-color;
       border: none;
       content: "\00a0";
     }
     .form-group input[type=checkbox]:checked + label:before {
       content: "\2713";
       font-size: 1em;
-      color: $mcColor;
+      color: $mc-color;
       text-align: center;
       line-height: 16px;
     }
@@ -117,11 +117,11 @@
     }
     .form-group input:focus {
       border: none;
-      border-bottom: $mcColor 1px solid;
+      border-bottom: $mc-color 1px solid;
       box-shadow: none;
     }
     .form-group input:focus ~ img:not(.flag) {
-      border-left: $mcColor 1px solid;
+      border-left: $mc-color 1px solid;
     }
     .form-group img {
       position: absolute;
@@ -147,7 +147,7 @@
       box-shadow: none;
       font-size: 1.1em;
       width: 140px;
-      border: $mcColor 1px solid;
+      border: $mc-color 1px solid;
     }
     .loginPart {
       button[type=submit] {
@@ -162,7 +162,7 @@
       color: #c3c3c3;
     }
     .form-group h5 a {
-      color: $mcColor;
+      color: $mc-color;
     }
   }
   #logoutImg {
@@ -174,7 +174,7 @@
     -webkit-filter: brightness(10000%);
   }
   .content h1 {
-    color: $mcColor;
+    color: $mc-color;
     font-size: 4.2em;
     margin-top: 30px;
     margin-left: auto;
@@ -196,23 +196,23 @@
   }
   #btnLoginDevise {
     border-bottom: solid 2px rgba(0, 0, 0, 0.3);
-    border-color: $mcColor;
+    border-color: $mc-color;
   }
   #btnLoginDevise:hover {
     background: white;
-    color: $mcColor;
-    border-color: $mcColor;
+    color: $mc-color;
+    border-color: $mc-color;
   }
   #btnSignupDevise,
   #btnChangePassword {
     border-bottom: solid 2px rgba(0, 0, 0, 0.3);
-    border-color: $mcColor;
+    border-color: $mc-color;
   }
   #btnSignupDevise:hover,
   #btnChangePassword:hover {
     background: white;
-    color: $mcColor;
-    border-color: $mcColor;
+    color: $mc-color;
+    border-color: $mc-color;
   }
   #btnResetPasswordDevise {
     width: 200px;

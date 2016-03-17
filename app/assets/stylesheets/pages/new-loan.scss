@@ -442,7 +442,7 @@
   background: #ffffff;
   color:#00bd9c;
   img {
-    @include animate-img-btn(loginAnim, 2s);
+    @include animate-img-btn(login-anim, 2s);
     -webkit-filter:brightness(100%) invert(0);
     -ms-filter:brightness(100%) invert(0);
     -moz-filter: brightness(100%) invert(0);
@@ -478,7 +478,7 @@
   img {
     filter:brightness(100%) invert(0);
     -webkit-filter:brightness(100%) invert(0);
-    @include animate-img-btn(loginAnim, 2s);
+    @include animate-img-btn(login-anim, 2s);
   }
 }
 

@@ -4,8 +4,8 @@
 }
 #login-btn:hover {
   background: white;
-  color: $mcColor;
-  border-color: $mcColor;
+  color: $mc-color;
+  border-color: $mc-color;
 }
 #login-btn {
   background: white;
@@ -18,23 +18,23 @@
   }
 }
 #login-btn:hover img {
-  @include animate-img-btn(loginAnim, 2s);
+  @include animate-img-btn(login-anim, 2s);
   filter:grayscale(0%);
   -webkit-filter: grayscale(0%);
 }
 
 .btn-mc {
-  background: $mcColor;
-  border-color: $mcColor;
+  background: $mc-color;
+  border-color: $mc-color;
   color: white;
 }
 .btn-mc:hover {
   background: white;
-  color: $mcColor;
-  border-color: $mcColor;
+  color: $mc-color;
+  border-color: $mc-color;
 }
 .btn-mc:focus {
   background: white;
-  color: $mcColor;
-  border-color: $mcColor;
+  color: $mc-color;
+  border-color: $mc-color;
 }
