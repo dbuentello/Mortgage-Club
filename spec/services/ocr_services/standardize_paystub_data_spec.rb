@@ -5,7 +5,7 @@ describe OcrServices::StandardizePaystubData do
   let!(:ocr_data) { FactoryGirl.create(:ocr_with_full_data, borrower: borrower) }
 
   describe "#employer_name" do
-    context "similar name" do
+    context "with similar name" do
       it "returns a right employer name" do
         ocr_data.employer_name_1 = "Mortgage Club"
         ocr_data.employer_name_2 = "Mortgage Clu"
@@ -16,7 +16,7 @@ describe OcrServices::StandardizePaystubData do
       end
     end
 
-    # context "different name" do
+    # context "with different name" do
     #   it "returns nil" do
     #     ocr_data.employer_name_1 = "Mortgage Club"
     #     ocr_data.employer_name_2 = "Lending Home"
@@ -34,7 +34,7 @@ describe OcrServices::StandardizePaystubData do
     #   OcrServices::StandardizePaystubData.new(borrower.id).employer_full_address
     # end
 
-    context "first line and second line" do
+    context "with first line and second line" do
       it "returns a full employer address" do
         ocr_data.address_first_line_1 = "227 Nguyen Van Cu"
         ocr_data.address_first_line_2 = "227 Nguyen Van Cu"
@@ -47,7 +47,7 @@ describe OcrServices::StandardizePaystubData do
       end
     end
 
-    context "only first line" do
+    context "with only first line" do
       # it "returns a first line of employer address" do
       #   ocr_data.address_first_line_1 = "227 Nguyen Van Cu"
       #   ocr_data.address_first_line_2 = "227 Nguyen Van Cu"
@@ -60,7 +60,7 @@ describe OcrServices::StandardizePaystubData do
       # end
     end
 
-    context "only second line" do
+    context "with only second line" do
       # it "returns a second line of employer address" do
       #   ocr_data.address_first_line_1 = "227 Nguyen Van Cu"
       #   ocr_data.address_first_line_2 = "92 Nguyen Huu Canh"
@@ -73,7 +73,7 @@ describe OcrServices::StandardizePaystubData do
       # end
     end
 
-    context "different name" do
+    context "with different name" do
       # it "returns nils" do
       #   ocr_data.address_first_line_1 = "227 Nguyen Van Cu"
       #   ocr_data.address_first_line_2 = "92 Nguyen Huu Canh"
@@ -90,7 +90,7 @@ describe OcrServices::StandardizePaystubData do
   describe "#period" do
     before(:each) { Timecop.travel(Time.zone.local(2015, 11, 11)) }
 
-    context "semimonthly_frequency" do
+    context "with semimonthly_frequency" do
       it "returns semimonthly" do
         end_of_month = Time.zone.now.end_of_month
         ocr_data.period_ending_1 = end_of_month
@@ -116,7 +116,7 @@ describe OcrServices::StandardizePaystubData do
     #   end
     # end
 
-    context "weekly" do
+    context "with weekly" do
       it "returns weekly" do
         yesterday = Time.zone.now - 1.day
         ocr_data.period_ending_1 = yesterday
@@ -132,7 +132,7 @@ describe OcrServices::StandardizePaystubData do
   end
 
   describe "#salary" do
-    context "valid current salary" do
+    context "with valid current salary" do
       it "returns max number between two salaries" do
         ocr_data.current_salary_1 = 123456
         ocr_data.current_salary_2 = 123456
@@ -143,13 +143,13 @@ describe OcrServices::StandardizePaystubData do
       end
     end
 
-    context "invalid current salary" do
+    context "with invalid current salary" do
       before(:each) do
         ocr_data.current_salary_1 = 123456
         ocr_data.current_salary_2 = 1
       end
 
-      context "valid current earnings" do
+      context "with valid current earnings" do
         it "returns max number between two earnings" do
           ocr_data.current_earnings_1 = 123456
           ocr_data.current_earnings_2 = 123456
@@ -160,7 +160,7 @@ describe OcrServices::StandardizePaystubData do
         end
       end
 
-      context "invalid current earnings" do
+      context "with invalid current earnings" do
         # it "returns nil" do
         #   ocr_data.current_earnings_1 = 123456
         #   ocr_data.current_earnings_2 = 1
@@ -174,7 +174,7 @@ describe OcrServices::StandardizePaystubData do
   end
 
   describe "#ytd_salary" do
-    context "valid ytd salary" do
+    context "with valid ytd salary" do
       it "returns max number between two ytd salaries" do
         ocr_data.ytd_salary_1 = 123456
         ocr_data.ytd_salary_2 = 123456
@@ -185,7 +185,7 @@ describe OcrServices::StandardizePaystubData do
       end
     end
 
-    context "invalid ytd salary" do
+    context "with invalid ytd salary" do
       # it "returns nil" do
       #   ocr_data.ytd_salary_1 = 123456
       #   ocr_data.ytd_salary_2 = 1

@@ -8,36 +8,22 @@
   <meta name="google-site-verification" content="K8Dz959pwoVbxPRhUZtZZPODqDsTnuS3xnr7RbsFLE8" />
   <meta name="description" content="">
   <meta name="author" content="">
-  <!-- Facebook Pixel Code -->
-  <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-        document,'script','//connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '971021386313588');
-      fbq('track', "PageView");
-      fbq('track', 'ViewContent');
-  </script>
+
+  <!-- Noscript for Facbook Pixel Code -->
   <noscript>
     <img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=971021386313588&ev=PageView&noscript=1"
       />
   </noscript>
   <!-- End Facebook Pixel Code -->
-  <script>
-   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-   ga('create', 'UA-74698103-1', 'auto');
-   ga('send', 'pageview');
-  </script>
+
   <!-- <link rel="icon" href="images/favicon.ico"> -->
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
+
   <%= csrf_meta_tags %>
   <%= display_meta_tags %>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
   <body>
     <!-- <div class="container flashSection">
@@ -52,53 +38,9 @@
     <%= yield %>
 
     <% unless dev_infographics_page? %>
-    <%= render "/shared/footer" %>
+      <%= render "/shared/footer" %>
     <% end %>
-
-    <% unless Rails.env.test? %>
-      <!--Start of Zopim Live Chat Script-->
-      <script type="text/javascript">
-        window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
-          d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-            _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
-            $.src="//v2.zopim.com/?3iekAjgdsMVBdIaGinAceGBxY9VKQNLd";z.t=+new Date;$.
-            type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
-
-        $zopim(function(){
-          $zopim.livechat.window.hide();
-        })
-      </script>
-    <% end %>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
-        <%= javascript_include_tag 'public', 'data-turbolinks-track' => false %>
-
-    <script type="text/javascript">
-      $(document).ready(function(){
-        //Check to see if the window is top if not then display button
-        $(window).scroll(function(){
-          if ($(this).scrollTop() > 100) {
-            $('.cd-top').fadeIn();
-          } else {
-            $('.cd-top').fadeOut();
-          }
-        });
-        //Click event to scroll to top
-        $('.cd-top').click(function(){
-          $('html, body').animate({scrollTop : 0},800);
-          return false;
-        });
-
-        var elevator = new Elevator({
-          element: document.querySelector('#backtopBtn'),
-          duration:2000,
-        });
-
-        $("[data-toggle='tooltip']").tooltip({
-          placement: "left",
-          trigger: "manual"
-        }).tooltip("show");
-      });
-    </script>
+    <%= javascript_include_tag 'public', 'data-turbolinks-track' => false %>
+    <%= render "/shared/zopim" %>
   </body>
 </html>

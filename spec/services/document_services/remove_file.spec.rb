@@ -12,7 +12,7 @@ describe DocumentServices::RemoveFile do
     expect(DocumentServices::RemoveFile.call('ClosingDisclosure', closing_disclosure.id)).to be true
   end
 
-  context 'invalid params' do
+  context 'with invalid params' do
     it 'raises RecordNotFound if document does not exist' do
       expect { raise DocumentServices::RemoveFile.call('ClosingDisclosure', 'non-existent-id') }.to raise_error(ActiveRecord::RecordNotFound)
     end

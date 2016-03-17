@@ -3,43 +3,42 @@ require "rails_helper"
 describe Users::PropertiesController do
   include_context "signed in as borrower user of loan"
 
-  before(:each) do
-    loan.primary_property.update(property_type: 'sfh')
+  let(:borrower) do
     loan.borrower.create_credit_report
-    address = FactoryGirl.build(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: loan.primary_property.id)
-    address.save
-
-    @property = FactoryGirl.build(:rental_property, property_type: 'condo', loan_id: loan.id)
-    @property.save
-    address = FactoryGirl.build(:address, street_address: "209 Silver Eagle Road", city: "Sacramento", zip: 95839, property_id: @property.id)
-    address.save
+    loan.borrower
   end
+  let(:primary_property) { FactoryGirl.create(:property, property_type: "sfh", loan: loan) }
+  let!(:first_address) { FactoryGirl.create(:address, street_address: "208 Silver Eagle Road", city: "Sacramento", zip: 95838, property_id: loan.primary_property.id) }
+  let(:property) { FactoryGirl.create(:rental_property, property_type: "condo", loan_id: loan.id) }
+  let!(:second_address) { FactoryGirl.create(:address, street_address: "209 Silver Eagle Road", city: "Sacramento", zip: 95839, property_id: property.id) }
 
-  context 'when property is valid' do
-    it do
-      delete :destroy, id: @property.id
-      expect(response.status).to eq(200)
-      expect(JSON.parse(response.body)['message']).to eq('ok')
+  describe "#destroy" do
+    context "when property is valid" do
+      it "returns success" do
+        delete :destroy, id: property.id
+        expect(response.status).to eq(200)
+        expect(JSON.parse(response.body)["message"]).to eq("ok")
+      end
     end
-  end
 
-  context 'when property is invalid' do
-    it do
-      delete :destroy, id: 'invalid-property'
-      expect(response.status).to eq(200)
-      expect(JSON.parse(response.body)['message']).to eq('error')
+    context "when property is invalid" do
+      it "returns failure" do
+        delete :destroy, id: "invalid-property"
+        expect(response.status).to eq(200)
+        expect(JSON.parse(response.body)["message"]).to eq("error")
+      end
     end
   end
 
   describe "#search" do
-    it "seach with valid address" do
+    it "search with valid address" do
       search_params = {address: '4400 Forest Parkway', citystatezip: 'Sacramento, CA 95823'}
       get :search, search_params
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['zestimate']).not_to be_nil
     end
 
-    it "seach with invalid address" do
+    it "search with invalid address" do
       search_params = {address: 'this-is-a-invalid-address', citystatezip: 'this-is-a-invalid-city-zip'}
       get :search, search_params
       expect(response.status).to eq(200)

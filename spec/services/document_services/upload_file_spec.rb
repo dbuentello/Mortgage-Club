@@ -4,7 +4,7 @@ describe DocumentServices::UploadFile do
   let(:closing) { FactoryGirl.create(:closing) }
   let(:user) { FactoryGirl.create(:user) }
 
-  context "valid params" do
+  context "with valid params" do
     let(:service) do
       file = File.new(Rails.root.join "spec", "files", "sample.pdf")
       uploaded_file = ActionDispatch::Http::UploadedFile.new(
@@ -47,7 +47,7 @@ describe DocumentServices::UploadFile do
     end
   end
 
-  context "invalid params" do
+  context "with invalid params" do
     before(:each) do
       @args = {
         subject_type: "Closing",
@@ -60,7 +60,7 @@ describe DocumentServices::UploadFile do
       }
     end
 
-    it "return false if subject does not exist" do
+    it "returns false if subject does not exist" do
       @args[:subject_id] = "non-existent-id"
       expect(described_class.new(@args).call).to be_falsey
     end

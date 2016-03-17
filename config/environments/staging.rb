@@ -90,4 +90,5 @@ Rails.application.configure do
     # s3_host_alias
     # s3_permissions: 'authenticated-read'
   }
+  config.exceptions_app = self.routes
 end
