@@ -11,7 +11,7 @@ class Admins::LoanFaqsPresenter
 
   def json_options
     {
-      only: [ :id, :question, :answer ]
+      only: [:id, :question, :answer]
     }
   end
 end

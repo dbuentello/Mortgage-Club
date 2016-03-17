@@ -11,7 +11,6 @@ class PropertyForm
     return false unless valid?
 
     ActiveRecord::Base.transaction do
-      # destroy_primary_property if primary_residence? && loan.primary_property
       loan.save!
       subject_property.save!
       address.save!
@@ -39,11 +38,11 @@ class PropertyForm
   end
 
   def loan_params
-    if purchase_loan?
-      params.require(:loan).permit(:purpose, :down_payment)
-    elsif refinance_loan?
-      params.require(:loan).permit(:purpose)
-    end
+    loan_params = params.require(:loan).permit(:purpose, :down_payment)
+
+    loan_params[:down_payment] = nil if refinance_loan?
+
+    loan_params
   end
 
   def subject_property_params
@@ -55,10 +54,7 @@ class PropertyForm
       property_params[:purchase_price] = nil
     end
 
-    if primary_residence?
-      property_params[:gross_rental_income] = nil
-    end
-
+    property_params[:gross_rental_income] = nil if primary_residence?
     property_params
   end
 
@@ -94,9 +90,5 @@ class PropertyForm
     return unless params[:loan]
 
     params[:loan][:purpose]
-  end
-
-  def destroy_primary_property
-    loan.primary_property.destroy
   end
 end

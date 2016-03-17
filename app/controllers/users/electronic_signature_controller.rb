@@ -1,11 +1,11 @@
-class ElectronicSignatureController < ApplicationController
+class Users::ElectronicSignatureController < Users::BaseController
   before_action :set_loan, only: [:new, :create, :embedded_response]
 
   def new
-    bootstrap({
+    bootstrap(
       loan: LoanDashboardPage::LoanPresenter.new(@loan).show,
       rate: params[:rate]
-    })
+    )
 
     respond_to do |format|
       format.html { render template: 'borrower_app' }

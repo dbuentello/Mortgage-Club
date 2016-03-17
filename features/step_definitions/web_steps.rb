@@ -1,8 +1,8 @@
-Then /^I should see page title as "(.*)"$/ do |title|
+Then(/^I should see page title as "(.*)"$/) do |title|
   expect(page).to have_title "#{title}"
 end
 
-Then /^I should( not)? see "([^"]*)" in the "([^"]*)" input$/ do |negate, content, labeltext|
+Then(/^I should( not)? see "([^"]*)" in the "([^"]*)" input$/) do |negate, content, labeltext|
   if negate
     expect(page).not_to have_field(labeltext, with: content)
   else
@@ -10,38 +10,38 @@ Then /^I should( not)? see "([^"]*)" in the "([^"]*)" input$/ do |negate, conten
   end
 end
 
-Then /^I should see the avatar "(.+)"$/ do |image|
+Then(/^I should see the avatar "(.+)"$/) do |image|
   # expect(page).to have_xpath("//img[contains(@src=\"/public/uploads/users/1/'#{image}\")]")
   expect(page).to have_xpath("//img[contains(@src,\"/uploads/users/1/#{image}\")]")
 end
 
-Then /^I should not see the avatar "(.+)"$/ do |image|
+Then(/^I should not see the avatar "(.+)"$/) do |image|
   # expect(page).to have_xpath("//img[contains(@src=\"/public/uploads/users/1/'#{image}\")]")
   expect(page).not_to have_xpath("//img[contains(@src,\"/uploads/users/1/#{image}\")]")
 end
 
-When /^a GET request is sent to "(.*?)"$/ do |url|
+When(/^a GET request is sent to "(.*?)"$/) do |url|
   visit url
 end
 
-When /^I turn on delayed jobs$/ do
+When(/^I turn on delayed jobs$/) do
   Delayed::Worker.delay_jobs = true
 end
 
-When /^I turn off delayed jobs$/ do
+When(/^I turn off delayed jobs$/) do
   Delayed::Worker.delay_jobs = false
   Devise::Async.enabled = false
 end
 
-When /^I should see content as "(.*)"$/ do |content|
+When(/^I should see content as "(.*)"$/) do |content|
   expect(page).to have_selector("input[value='#{content}']")
 end
 
-Given /^I wait for (\d+) seconds?$/ do |n|
+Given(/^I wait for (\d+) seconds?$/) do |n|
   sleep(n.to_i)
 end
 
-When /^I attach the file "([^\"]*)" to the hidden "([^\"]*)"$/ do |path, field|
+When(/^I attach the file "([^\"]*)" to the hidden "([^\"]*)"$/) do |path, field|
   page.execute_script("document.getElementsByName('#{field}')[0].className = '';")
   page.execute_script("document.getElementsByName('#{field}')[0].setAttribute('style', 'display:block;')")
   patiently do
@@ -49,16 +49,16 @@ When /^I attach the file "([^\"]*)" to the hidden "([^\"]*)"$/ do |path, field|
   end
 end
 
-When /^I set the value "([^\"]*)" to the hidden "([^\"]*)"$/ do |value, field|
+When(/^I set the value "([^\"]*)" to the hidden "([^\"]*)"$/) do |value, field|
   page.execute_script("document.getElementsByName('#{field}')[0].value = '#{value}';")
 end
 
-When /^I click on a first "([^\"]+)"$/ do |text|
+When(/^I click on a first "([^\"]+)"$/) do |text|
   first(:link, "#{text}").click
 end
 
-When /^I am at loan management page$/ do
-  many_steps %{
+When(/^I am at loan management page$/) do
+  many_steps %(
     Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a closing with the name "Fake Name"
       And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the closing above
@@ -66,11 +66,11 @@ When /^I am at loan management page$/ do
       And there is a address with the street address "81458 Borer Falls" and the street address2 "Apt. 305" and the city "West Emiltown" and the state "Virginia" and the zip "9999" with the property above
       When I login as "testing@man.net" with password "secretpass"
         And I follow "Edit Application"
-  }
+  )
 end
 
-When /^I am at dashboard page$/ do
-  many_steps %{
+When(/^I am at dashboard page$/) do
+  many_steps %(
     Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a closing with the name "Fake Name"
       And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the status "pending" and with the user above and with the closing above and with the monthly_payment "5356"
@@ -83,11 +83,11 @@ When /^I am at dashboard page$/ do
       And there is a loans members association with the loan above and with loan members title above
       And I login as "testing@man.net" with password "secretpass"
     Then I follow "Dashboard"
-  }
+  )
 end
 
-When /^I am at my loans page$/ do
-  many_steps %{
+When(/^I am at my loans page$/) do
+  many_steps %(
     Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and with the first name "Billy" and with the last name "Tran"
       And there is a closing with the name "Fake Name"
       And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the closing above
@@ -99,11 +99,11 @@ When /^I am at my loans page$/ do
       And there is a loans members association with the loan above and with the loan member above
       And there is a loans members association with the loan above and with the loan members title above
       And I login as "testing@man.net" with password "secretpass"
-  }
+  )
 end
 
-When /^I am at loan management page which has co-borrower$/ do
-  many_steps %{
+When(/^I am at loan management page which has co-borrower$/) do
+  many_steps %(
     Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a closing with the name "Fake Name"
       And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the closing above
@@ -113,11 +113,11 @@ When /^I am at loan management page which has co-borrower$/ do
       And there is a address with the street address "81458 Borer Falls" and the street address2 "Apt. 305" and the city "West Emiltown" and the state "Virginia" and the zip "9999" with the property above
       When I login as "testing@man.net" with password "secretpass"
         And I follow "Edit Application"
-  }
+  )
 end
 
-When /^I am at loan member dashboard$/ do
-  many_steps %{
+When(/^I am at loan member dashboard$/) do
+  many_steps %(
     Given there is a borrower_user_with_borrower with the email "john_doe@gmail.com" and with the first name "John" and the last name "Doe"
       And there is a closing with the name "Fake Name"
       And there is a lender with the name "Quickens Loan"
@@ -129,11 +129,10 @@ When /^I am at loan member dashboard$/ do
       And there is a checklist_upload with the loan above
       And I login as "loan_member@gmail.com" with password "secretpass"
     Then I click link with div ".linkTypeReversed"
-
-  }
+  )
 end
-When /^I am at loan list page$/ do
-  many_steps %{
+When(/^I am at loan list page$/) do
+  many_steps %(
     Given there is a borrower_user_with_borrower with the email "john_doe@gmail.com" and with the first name "John" and the last name "Doe"
       And there is a closing with the name "Fake Name"
       And there is a lender with the name "Quickens Loan"
@@ -144,29 +143,29 @@ When /^I am at loan list page$/ do
       And there is a loans members association with the loan above and with the loan member above and with the loan members title above
       And there is a checklist_upload with the loan above
       And I login as "loan_member@gmail.com" with password "secretpass"
-  }
+  )
 end
 
-When /^I clear value in "(.*?)"$/ do |field|
+When(/^I clear value in "(.*?)"$/) do |field|
   patiently do
     fill_in(field, with: '')
   end
 end
 
-Then /^the  "(.*?)" field should contain "(.*?)"$/ do |field, value|
+Then(/^the  "(.*?)" field should contain "(.*?)"$/) do |field, value|
   field_labeled(field).value.should =~ /#{value}/
 end
 
-When /^I press "([^\"]*)" in the modal "([^\"]*)"$/ do |text, modal|
+When(/^I press "([^\"]*)" in the modal "([^\"]*)"$/) do |text, modal|
   button = page.find(:xpath, "//div[contains(@id, '#{modal}')]//button[contains(., '#{text}')]")
   button.click
 end
 
-When /^I click on "([^\"]*)" in the "([^\"]*)"$/ do |text, element|
+When(/^I click on "([^\"]*)" in the "([^\"]*)"$/) do |text, element|
   find(element, text: text).click
 end
 
-When /^I drag the file "([^\"]*)" to "([^\"]*)"$/ do |file, field|
+When(/^I drag the file "([^\"]*)" to "([^\"]*)"$/) do |file, field|
   page.execute_script("document.getElementsByName('#{field}')[0].className = '';")
   page.execute_script("document.getElementsByName('#{field}')[0].setAttribute('style', 'display:block;')")
   patiently do
@@ -174,25 +173,24 @@ When /^I drag the file "([^\"]*)" to "([^\"]*)"$/ do |file, field|
   end
 end
 
-When /^I select "([^\"]*)" from "([^\"]*)" at "([^\"]*)"$/ do |value, field, element|
+When(/^I select "([^\"]*)" from "([^\"]*)" at "([^\"]*)"$/) do |value, field, element|
   within(:css, element) do
     select(value, from: field)
   end
 end
-When /^I select "([^\"]*)" at "([^\"]*)"$/ do |val, element|
+When(/^I select "([^\"]*)" at "([^\"]*)"$/) do |val, element|
   within(:css, element) do
     find("option[value=#{val}]").click
   end
 end
 
-
-When /^I fill in "([^\"]*)" with "([^\"]*)" at "([^\"]*)"$/ do |field, value, element|
+When(/^I fill in "([^\"]*)" with "([^\"]*)" at "([^\"]*)"$/) do |field, value, element|
   within(:css, element) do
     fill_in(field, with: value)
   end
 end
 
-When /^At "([^\"]*)" I clear value in "(.*?)"$/ do |element, field|
+When(/^At "([^\"]*)" I clear value in "(.*?)"$/) do |element, field|
   within(:css, element) do
     patiently do
       fill_in(field, with: '')
@@ -200,22 +198,22 @@ When /^At "([^\"]*)" I clear value in "(.*?)"$/ do |element, field|
   end
 end
 
-When /^I click link with div "(.*?)"$/ do |element|
+When(/^I click link with div "(.*?)"$/) do |element|
   find(element).click
 end
 
-When /^I click on selectpicker "([^"]+)" and select "([^"]+)"$/ do |selector, value|
+When(/^I click on selectpicker "([^"]+)" and select "([^"]+)"$/) do |selector, value|
   patiently do
     find("button[data-id='#{selector}']").click
     find('.bootstrap-select .dropdown-menu ul li', text: value).click
   end
 end
 
-When /^At first klass "([^\"]*)" I click link "(.*?)"$/ do |element, text|
+When(/^At first klass "([^\"]*)" I click link "(.*?)"$/) do |element, text|
   first(element).find("a", text: text).click
 end
 
-When /^I scroll up to the top$/ do
+When(/^I scroll up to the top$/) do
   page.execute_script("window.scrollTo(100000, 0)")
   sleep(2)
 end

@@ -13,7 +13,7 @@ describe Docusign::MapChecklistExplanationToLenderDocument do
       VCR.use_cassette("download envelope from Docusign for checklist's explanation") do
         checklist.loan.lender_documents.destroy_all
         service = described_class.new(@envelope_id, checklist.id, checklist.loan.user.id)
-        expect{service.call}.to change{checklist.loan.lender_documents.count}.by(1)
+        expect { service.call }.to change { checklist.loan.lender_documents.count }.by(1)
       end
     end
   end

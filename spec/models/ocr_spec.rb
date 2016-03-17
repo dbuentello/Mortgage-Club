@@ -6,9 +6,4 @@ describe Ocr do
   it 'has a valid factory' do
     expect(FactoryGirl.build(:ocr)).to be_valid
   end
-
-  it 'a borrower has a ocr' do
-    ocr = borrower.create_ocr
-    expect(borrower.ocr.present?).to eql(true)
-  end
 end

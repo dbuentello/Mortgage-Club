@@ -7,27 +7,27 @@ describe LoanMembers::LenderDocumentsController do
   let(:document) { FactoryGirl.create(:lender_document, loan: loan, lender_template: lender.lender_templates.last) }
   let!(:loans_members_association) { FactoryGirl.create(:loans_members_association, loan_member: user.loan_member, loan: loan) }
 
-  before(:each) do
-    allow(Amazon::GetUrlService).to receive(:call).and_return("http://google.com")
-    file = File.new(Rails.root.join "spec", "files", "sample.pdf")
-    @uploaded_file = ActionDispatch::Http::UploadedFile.new(
-      tempfile: file,
-      filename: File.basename(file),
-    )
-    @uploaded_file.content_type = "application/pdf"
-  end
+  before(:each) { allow(Amazon::GetUrlService).to receive(:call).and_return("http://google.com") }
 
   describe "#create" do
+    before(:each) do
+      file = File.new(Rails.root.join "spec", "files", "sample.pdf")
+      @uploaded_file = ActionDispatch::Http::UploadedFile.new(
+        tempfile: file,
+        filename: File.basename(file)
+      )
+      @uploaded_file.content_type = "application/pdf"
+    end
+
     context "successful" do
       it "creates a new document" do
-        expect {
+        expect do
           post :create, loan_id: loan.id,
                         template_id: lender.lender_templates.last,
                         description: "This is a description",
                         file: @uploaded_file,
                         format: :json
-        }.to change{LenderDocument.count}.from(0).to(1)
-
+        end.to change { LenderDocument.count }.from(0).to(1)
       end
 
       it "renders document's info" do

@@ -16,7 +16,7 @@ class Admins::LenderTemplatesController < Admins::BaseController
 
   def create
     lender_template = LenderTemplate.new(template_params)
-    requirement = lender_template.lender_template_requirements.find_or_initialize_by(lender: @lender)
+    lender_template.lender_template_requirements.find_or_initialize_by(lender: @lender)
 
     if lender_template.save
       render json: lender_template

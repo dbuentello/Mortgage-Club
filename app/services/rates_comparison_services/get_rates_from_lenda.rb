@@ -34,7 +34,7 @@ module RatesComparisonServices
     private
 
     def crawler
-      Crawler::LendaRates.new({
+      Crawler::LendaRates.new(
         zipcode: property.address.zip,
         market_price: property.market_price,
         balance: get_balance,
@@ -43,7 +43,7 @@ module RatesComparisonServices
         usage: property.usage,
         annual_income: borrower.annual_income,
         monthly_debt: monthly_debt
-      })
+      )
     end
 
     def monthly_debt

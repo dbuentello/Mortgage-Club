@@ -14,7 +14,7 @@ module RatesComparisonServices
     private
 
     def crawler
-      Crawler::GoogleRates.new({
+      Crawler::GoogleRates.new(
         purpose: loan.purpose,
         zipcode: property.address.zip,
         property_value: property_value,
@@ -23,7 +23,7 @@ module RatesComparisonServices
         purchase_price: property.purchase_price,
         market_price: property.market_price,
         balance: get_balance
-      })
+      )
     end
 
     def property_value

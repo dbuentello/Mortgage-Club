@@ -38,7 +38,7 @@ describe LoanTekServices::ReadQuotes do
   describe ".call" do
     it "returns a valid array" do
       programs = described_class.call(quotes)
-      expect(programs).to include({
+      expect(programs).to include(
         lender_name: "Provident Funding",
         product: "15 year fixed",
         apr: 0.0375,
@@ -47,16 +47,16 @@ describe LoanTekServices::ReadQuotes do
         total_fee: 1515.0,
         fees: [
           {
-           "Description" => "Loan origination fee",
-             "FeeAmount" => 995.0,
+            "Description" => "Loan origination fee",
+            "FeeAmount" => 995.0
           },
           {
-           "Description" => "Appraisal fee",
-             "FeeAmount" => 495.0,
+            "Description" => "Appraisal fee",
+            "FeeAmount" => 495.0
           },
           {
-           "Description" => "Credit report fee",
-             "FeeAmount" => 25.0,
+            "Description" => "Credit report fee",
+            "FeeAmount" => 25.0
           }
         ],
         period: 180,
@@ -69,7 +69,7 @@ describe LoanTekServices::ReadQuotes do
         loan_type: "CONVENTIONAL",
         discount_pts: 0.01,
         characteristic: "Of all 15 year fixed mortgages on MortgageClub that you've qualified for, this one has the lowest APR."
-      })
+      )
     end
   end
 end

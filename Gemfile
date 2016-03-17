@@ -108,6 +108,8 @@ gem 'devise-async'
 
 gem 'pdf-forms'
 
+gem "recaptcha", require: "recaptcha/rails"
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
@@ -119,12 +121,13 @@ group :development do
 
   gem 'derailed'
   gem 'stackprof'
+  gem 'traceroute'
 end
 
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
+  gem 'guard-rubocop'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 

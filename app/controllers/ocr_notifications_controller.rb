@@ -1,6 +1,6 @@
 class OcrNotificationsController < ApplicationController
-  skip_before_action :verify_authenticity_token, :only => [:receive]
-  skip_before_action :authenticate_user!, :only => [:receive]
+  skip_before_action :verify_authenticity_token, only: [:receive]
+  skip_before_action :authenticate_user!, only: [:receive]
 
   def receive
     @setting = Setting.all.first

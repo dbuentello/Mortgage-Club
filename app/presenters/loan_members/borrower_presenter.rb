@@ -18,7 +18,7 @@ class LoanMembers::BorrowerPresenter
       include: [
         :documents,
         user: {
-          only: [ :email ]
+          only: [:email]
         }
       ],
       methods: [
@@ -30,7 +30,7 @@ class LoanMembers::BorrowerPresenter
 
   def borrower_documents_json_options
     {
-      methods: [ :file_icon_url, :class_name, :owner_name ]
+      methods: [:file_icon_url, :class_name, :owner_name]
     }
   end
 end

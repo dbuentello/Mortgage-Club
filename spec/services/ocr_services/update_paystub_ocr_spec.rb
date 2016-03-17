@@ -15,10 +15,10 @@ describe OcrServices::UpdatePaystubOcr do
     }
   end
 
-  context "existent OCR's result" do
+  context "with existent OCR's result" do
     let!(:ocr_result) { FactoryGirl.create(:ocr_with_first_document, borrower: borrower) }
 
-    context "first paystub" do
+    context "with first paystub" do
       before(:each) { data[:order_of_paystub] = 1 }
 
       it "calls #update_first_paystub_to_ocr" do
@@ -41,7 +41,7 @@ describe OcrServices::UpdatePaystubOcr do
       end
     end
 
-    context "second paystub" do
+    context "with second paystub" do
       before(:each) { data[:order_of_paystub] = 2 }
 
       it "calls #update_second_paystub_to_ocr" do
@@ -65,9 +65,9 @@ describe OcrServices::UpdatePaystubOcr do
     end
   end
 
-  context "non-existent OCR's result" do
+  context "with non-existent OCR's result" do
     it "creates a new OCR's record" do
-      expect { OcrServices::UpdatePaystubOcr.new(data, borrower.id).call }.to change{Ocr.count}.by(1)
+      expect { OcrServices::UpdatePaystubOcr.new(data, borrower.id).call }.to change { Ocr.count }.by(1)
     end
 
     it "creates a new OCR's record with right value" do

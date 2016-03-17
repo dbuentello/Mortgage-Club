@@ -11,6 +11,7 @@ var fields = {
   zipcode: {label: "ZIP Code", name: "zipcode", keyName: "zipcode", error: "zipcodeError"},
   propertyValue: {label: "Property Value", name: "property_value", keyName: "propertyValue", error: "propertyValueError"},
   downPayment: {label: "Down Payment", name: "down_payment", keyName: "downPayment", error: "downPaymentError"},
+  mortgageBalance: {label: "Current Mortgage Balance", name: "mortgage_balance", keyName: "mortgageBalance", error: "mortgageBalanceError"},
   propertyUsage: {label: "Property Will Be", name: "property_usage", keyName: "propertyUsage", error: "propertyUsageError"},
   propertyType: {label: "Property Type", name: "property_type", keyName: "propertyType", error: "propertyTypeError"},
   creditScore: {label: "Credit Score", name: "credit_score", keyName: "creditScore", error: "creditScoreError"},
@@ -54,6 +55,7 @@ var Form = React.createClass({
     state[fields.zipcode.keyName] = this.props.bootstrapData[fields.zipcode.name];
     state[fields.propertyValue.keyName] = this.formatCurrency(this.props.bootstrapData[fields.propertyValue.name], "$");
     state[fields.downPayment.keyName] = this.formatCurrency(this.props.bootstrapData[fields.downPayment.name]);
+    state[fields.mortgageBalance.keyName] = this.formatCurrency(this.props.bootstrapData[fields.mortgageBalance.name]);
     state[fields.propertyUsage.keyName] = this.props.bootstrapData[fields.propertyUsage.name];
     state[fields.propertyType.keyName] = this.props.bootstrapData[fields.propertyType.name];
     state[fields.creditScore.keyName] = this.props.bootstrapData[fields.creditScore.name];
@@ -93,15 +95,27 @@ var Form = React.createClass({
       return false;
     }
 
-    $( "html" ).addClass( "loading" );
+    $("html").addClass( "loading" );
+
+    var downPayment = null;
+    var mortgageBalance = null;
+
+    if(this.isPurchaseLoan()) {
+      downPayment = this.currencyToNumber(this.state[fields.downPayment.keyName]);
+    }
+
+    if(this.isRefinanceLoan()) {
+      mortgageBalance = this.currencyToNumber(this.state[fields.mortgageBalance.keyName]);
+    }
 
     $.ajax({
-      url: "/initial_quotes",
+      url: "/quotes",
       data: {
         mortgage_purpose: this.state[fields.mortgagePurpose.keyName],
         zip_code: this.state[fields.zipcode.keyName],
         property_value: this.currencyToNumber(this.state[fields.propertyValue.keyName]),
-        down_payment: this.currencyToNumber(this.state[fields.downPayment.keyName]),
+        down_payment: downPayment,
+        mortgage_balance: mortgageBalance,
         property_usage: this.state[fields.propertyUsage.keyName],
         property_type: this.state[fields.propertyType.keyName],
         credit_score: this.state[fields.creditScore.keyName]
@@ -109,10 +123,7 @@ var Form = React.createClass({
       method: "POST",
       dataType: "json",
       success: function(response) {
-        $( "html" ).removeClass( "loading" );
-        this.setState({
-          quotes: response.quotes
-        })
+        location.href = "/quotes/" + response.code_id;
       }.bind(this),
       error: function(response){
 
@@ -125,7 +136,14 @@ var Form = React.createClass({
     var requiredFields = {};
 
     _.each(Object.keys(fields), function(key) {
-      requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
+      // with purchase loan, we don't validate mortgage balance
+      if(this.isPurchaseLoan() && key != fields.mortgageBalance.keyName){
+        requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
+      }
+      // with refinance loan, we don't validate down payment
+      if(this.isRefinanceLoan() && key != fields.downPayment.keyName){
+        requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
+      }
     }, this);
 
 
@@ -137,63 +155,62 @@ var Form = React.createClass({
     return isValid;
   },
 
+  isPurchaseLoan: function() {
+    return this.state[fields.mortgagePurpose.keyName] == "purchase";
+  },
+
+  isRefinanceLoan: function() {
+    return this.state[fields.mortgagePurpose.keyName] == "refinance";
+  },
+
   render: function() {
     return (
       <div className="initial-quotes content">
-        {
-          this.state.quotes
-          ?
-            <Quotes quotes = {this.state.quotes}
-              zipCode = {this.state[fields.zipcode.keyName]}
-              creditScore = {this.state[fields.creditScore.keyName]}
-              mortgagePurpose = {this.state[fields.mortgagePurpose.keyName]}
-              propertyValue = {this.currencyToNumber(this.state[fields.propertyValue.keyName])}
-              propertyUsage = {this.state[fields.propertyUsage.keyName]}
-              propertyType = {this.state[fields.propertyType.keyName]}
-              currentUser={this.props.bootstrapData.currentUser}/>
-          :
-            <div className="quotes-form">
-              <p style={{"padding-top": "20px"}}>Answer a few questions and get a customized rate quote in 10 seconds.</p>
-              <p className="explanation">{"We've pre-filled some questions with common answers."}</p>
-              <form className="form-horizontal col-md-offset-3" id="form-quotes">
-                <div className="form-group">
-                  <div className="col-md-4">
-                    <SelectField
-                      activateRequiredField={this.state[fields.mortgagePurpose.error]}
-                      label={fields.mortgagePurpose.label}
-                      keyName={fields.mortgagePurpose.keyName}
-                      options={mortgagePurposeOptions}
-                      editable={true}
-                      onChange={this.onChange}
-                      allowBlank={true}
-                      value={this.state[fields.mortgagePurpose.keyName]}/>
-                  </div>
-                  <div className="col-md-4">
-                    <TextField
-                      activateRequiredField={this.state[fields.zipcode.error]}
-                      label={fields.zipcode.label}
-                      keyName={fields.zipcode.keyName}
-                      editable={true}
-                      onChange={this.onChange}
-                      maxLength={6}
-                      format={this.formatInteger}
-                      liveFormat={true}
-                      value={this.state[fields.zipcode.keyName]}/>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-md-4">
-                    <TextField
-                      activateRequiredField={this.state[fields.propertyValue.error]}
-                      label={fields.propertyValue.label}
-                      keyName={fields.propertyValue.keyName}
-                      editable={true}
-                      maxLength={11}
-                      format={this.formatCurrency}
-                      value={this.state[fields.propertyValue.keyName]}
-                      onChange={this.onChange}
-                      onBlur={this.onBlur}/>
-                  </div>
+        <div className="quotes-form">
+          <p style={{"padding-top": "20px"}}>Answer a few questions and get a customized rate quote in 10 seconds.</p>
+          <p className="explanation">{"We've pre-filled some questions with common answers."}</p>
+          <form className="form-horizontal col-md-offset-3" id="form-quotes">
+            <div className="form-group">
+              <div className="col-md-4">
+                <SelectField
+                  activateRequiredField={this.state[fields.mortgagePurpose.error]}
+                  label={fields.mortgagePurpose.label}
+                  keyName={fields.mortgagePurpose.keyName}
+                  options={mortgagePurposeOptions}
+                  editable={true}
+                  onChange={this.onChange}
+                  allowBlank={true}
+                  value={this.state[fields.mortgagePurpose.keyName]}/>
+              </div>
+              <div className="col-md-4">
+                <TextField
+                  activateRequiredField={this.state[fields.zipcode.error]}
+                  label={fields.zipcode.label}
+                  keyName={fields.zipcode.keyName}
+                  editable={true}
+                  onChange={this.onChange}
+                  maxLength={6}
+                  format={this.formatInteger}
+                  liveFormat={true}
+                  value={this.state[fields.zipcode.keyName]}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-md-4">
+                <TextField
+                  activateRequiredField={this.state[fields.propertyValue.error]}
+                  label={fields.propertyValue.label}
+                  keyName={fields.propertyValue.keyName}
+                  editable={true}
+                  maxLength={11}
+                  format={this.formatCurrency}
+                  value={this.state[fields.propertyValue.keyName]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}/>
+              </div>
+              {
+                this.isPurchaseLoan()
+                ?
                   <div className="col-md-4">
                     <TextField
                       activateRequiredField={this.state[fields.downPayment.error]}
@@ -206,52 +223,66 @@ var Form = React.createClass({
                       onChange={this.onChange}
                       onBlur={this.onBlur}/>
                   </div>
-                </div>
-                <div className="form-group">
+                :
                   <div className="col-md-4">
-                    <SelectField
-                      activateRequiredField={this.state[fields.propertyUsage.error]}
-                      label={fields.propertyUsage.label}
-                      keyName={fields.propertyUsage.keyName}
-                      options={propertyUsageOptions}
+                    <TextField
+                      activateRequiredField={this.state[fields.mortgageBalance.error]}
+                      label={fields.mortgageBalance.label}
+                      keyName={fields.mortgageBalance.keyName}
                       editable={true}
+                      maxLength={11}
+                      format={this.formatCurrency}
+                      value={this.state[fields.mortgageBalance.keyName]}
                       onChange={this.onChange}
-                      allowBlank={true}
-                      value={this.state[fields.propertyUsage.keyName]}/>
+                      onBlur={this.onBlur}/>
                   </div>
-                  <div className="col-md-4">
-                    <SelectField
-                      activateRequiredField={this.state[fields.propertyType.error]}
-                      label={fields.propertyType.label}
-                      keyName={fields.propertyType.keyName}
-                      options={propertyTypeOptions}
-                      editable={true}
-                      onChange={this.onChange}
-                      allowBlank={true}
-                      value={this.state[fields.propertyType.keyName]}/>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-md-4">
-                    <SelectField
-                        activateRequiredField={this.state[fields.creditScore.error]}
-                        label={fields.creditScore.label}
-                        keyName={fields.creditScore.keyName}
-                        options={creditScoreOptions}
-                        editable={true}
-                        onChange={this.onChange}
-                        allowBlank={true}
-                        value={this.state[fields.creditScore.keyName]}/>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-md-6 col-md-offset-3">
-                    <button className="btn theBtn text-uppercase" onClick={this.onSubmit}>find my rates</button>
-                  </div>
-                </div>
-              </form>
+              }
             </div>
-        }
+            <div className="form-group">
+              <div className="col-md-4">
+                <SelectField
+                  activateRequiredField={this.state[fields.propertyUsage.error]}
+                  label={fields.propertyUsage.label}
+                  keyName={fields.propertyUsage.keyName}
+                  options={propertyUsageOptions}
+                  editable={true}
+                  onChange={this.onChange}
+                  allowBlank={true}
+                  value={this.state[fields.propertyUsage.keyName]}/>
+              </div>
+              <div className="col-md-4">
+                <SelectField
+                  activateRequiredField={this.state[fields.propertyType.error]}
+                  label={fields.propertyType.label}
+                  keyName={fields.propertyType.keyName}
+                  options={propertyTypeOptions}
+                  editable={true}
+                  onChange={this.onChange}
+                  allowBlank={true}
+                  value={this.state[fields.propertyType.keyName]}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-md-4">
+                <SelectField
+                    activateRequiredField={this.state[fields.creditScore.error]}
+                    label={fields.creditScore.label}
+                    keyName={fields.creditScore.keyName}
+                    options={creditScoreOptions}
+                    editable={true}
+                    onChange={this.onChange}
+                    allowBlank={true}
+                    value={this.state[fields.creditScore.keyName]}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-md-6 col-md-offset-3">
+                <button className="btn theBtn text-uppercase" onClick={this.onSubmit}>find my rates</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
       </div>
     );
   }

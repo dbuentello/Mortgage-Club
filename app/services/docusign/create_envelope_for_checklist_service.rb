@@ -20,7 +20,7 @@ module Docusign
       envelope = client.create_envelope_from_document(
         status: "sent",
         email: {
-          subject: "Electronic Signature Request from MortgageClub Corporation",
+          subject: "Electronic Signature Request from MortgageClub Corporation"
         },
         files: [
           {path: CHECKLIST_FORM_OUTPUT_PATH}

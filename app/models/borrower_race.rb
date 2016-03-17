@@ -9,7 +9,7 @@
 
 class BorrowerRace < ActiveRecord::Base
   belongs_to :borrower_government_monitoring_info, inverse_of: :borrower_races, foreign_key: 'borrower_government_monitoring_info_id'
-  
+
   PERMITTED_ATTRS = [
     :race_type
   ]
