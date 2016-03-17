@@ -215,11 +215,11 @@ When(/^I click link with div "(.*?)"$/) do |element|
 end
 
 When(/^I check on checkbox "(.*?)"$/) do |element|
-  page.execute_script("$('#{element}').click()");
+  page.execute_script("$('#{element}').click()")
 end
 
 When(/^I uncheck on checkbox "(.*?)"$/) do |element|
-  page.execute_script("$('#{element}').click()");
+  page.execute_script("$('#{element}').click()")
 end
 
 When(/^I click on selectpicker "([^"]+)" and select "([^"]+)"$/) do |selector, value|
