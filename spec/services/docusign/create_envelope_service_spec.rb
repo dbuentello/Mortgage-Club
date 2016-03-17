@@ -35,9 +35,9 @@ describe Docusign::CreateEnvelopeService do
 
   describe "#generates_documents_by_adobe_field_names" do
     it "creates three files" do
-      File.delete(described_class::UNIFORM_OUTPUT_PATH)
-      File.delete(described_class::FORM_4506_OUTPUT_PATH)
-      File.delete(described_class::BORROWER_CERTIFICATION_OUTPUT_PATH)
+      File.delete(described_class::UNIFORM_OUTPUT_PATH) if File.exist?(described_class::UNIFORM_OUTPUT_PATH)
+      File.delete(described_class::FORM_4506_OUTPUT_PATH) if File.exist?(described_class::FORM_4506_OUTPUT_PATH)
+      File.delete(described_class::BORROWER_CERTIFICATION_OUTPUT_PATH) if File.exist?(described_class::BORROWER_CERTIFICATION_OUTPUT_PATH)
       allow_any_instance_of(Docusign::Templates::UniformResidentialLoanApplication).to receive(:build).and_return({})
 
       described_class.new.generates_documents_by_adobe_field_names(loan)
@@ -51,6 +51,8 @@ describe Docusign::CreateEnvelopeService do
   describe "#generate_envelope" do
     it "generates an envelope successfully" do
       VCR.use_cassette("generate envelope from Docusign") do
+        allow_any_instance_of(Docusign::Templates::UniformResidentialLoanApplication).to receive(:build).and_return({})
+        described_class.new.generates_documents_by_adobe_field_names(loan)
         envelope = described_class.new.generate_envelope(user, loan)
 
         expect(envelope["envelopeId"]).not_to be_nil
