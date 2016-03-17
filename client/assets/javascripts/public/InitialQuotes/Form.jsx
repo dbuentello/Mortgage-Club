@@ -236,79 +236,6 @@ var Form = React.createClass({
                       onChange={this.onChange}
                       onBlur={this.onBlur}/>
                   </div>
-                  {
-                    this.isPurchaseLoan()
-                    ?
-                      <div className="col-md-4">
-                        <TextField
-                          activateRequiredField={this.state[fields.downPayment.error]}
-                          label={fields.downPayment.label}
-                          keyName={fields.downPayment.keyName}
-                          editable={true}
-                          maxLength={11}
-                          format={this.formatCurrency}
-                          value={this.state[fields.downPayment.keyName]}
-                          onChange={this.onChange}
-                          onBlur={this.onBlur}/>
-                      </div>
-                    :
-                      <div className="col-md-4">
-                        <TextField
-                          activateRequiredField={this.state[fields.mortgageBalance.error]}
-                          label={fields.mortgageBalance.label}
-                          keyName={fields.mortgageBalance.keyName}
-                          editable={true}
-                          maxLength={11}
-                          format={this.formatCurrency}
-                          value={this.state[fields.mortgageBalance.keyName]}
-                          onChange={this.onChange}
-                          onBlur={this.onBlur}/>
-                      </div>
-                  }
-                </div>
-                <div className="form-group">
-                  <div className="col-md-4">
-                    <SelectField
-                      activateRequiredField={this.state[fields.propertyUsage.error]}
-                      label={fields.propertyUsage.label}
-                      keyName={fields.propertyUsage.keyName}
-                      options={propertyUsageOptions}
-                      editable={true}
-                      onChange={this.onChange}
-                      allowBlank={true}
-                      value={this.state[fields.propertyUsage.keyName]}/>
-                  </div>
-                  <div className="col-md-4">
-                    <SelectField
-                      activateRequiredField={this.state[fields.propertyType.error]}
-                      label={fields.propertyType.label}
-                      keyName={fields.propertyType.keyName}
-                      options={propertyTypeOptions}
-                      editable={true}
-                      onChange={this.onChange}
-                      allowBlank={true}
-                      value={this.state[fields.propertyType.keyName]}/>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-md-4">
-                    <SelectField
-                        activateRequiredField={this.state[fields.creditScore.error]}
-                        label={fields.creditScore.label}
-                        keyName={fields.creditScore.keyName}
-                        options={creditScoreOptions}
-                        editable={true}
-                        onChange={this.onChange}
-                        allowBlank={true}
-                        value={this.state[fields.creditScore.keyName]}/>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-md-6 col-md-offset-3">
-                    <button className="btn btn-mc text-uppercase" onClick={this.onSubmit}>find my rates</button>
-                  </div>
-                </div>
-              </form>
               }
             </div>
             <div className="form-group">
@@ -350,7 +277,7 @@ var Form = React.createClass({
             </div>
             <div className="form-group">
               <div className="col-md-6 col-md-offset-3">
-                <button className="btn theBtn text-uppercase" onClick={this.onSubmit}>find my rates</button>
+                <button className="btn btn-mc text-uppercase" onClick={this.onSubmit}>find my rates</button>
               </div>
             </div>
           </form>
