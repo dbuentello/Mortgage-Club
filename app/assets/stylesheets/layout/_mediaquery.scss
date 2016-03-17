@@ -1,74 +1,18 @@
-
-
-
-
-// #login-img { // TODO: need to remove
-//   height: 18px;
-//   width: auto;
-//   margin-right: 21px;
-//   margin-top: -4px;
-//   filter:grayscale(100%);
-//   -webkit-filter: grayscale(100%);
-// }
-//========== end Button  ============//
-// ============ Header ========//
-
-// ========== Homepage ==========//
-// ========== End Homepage ==========//
-
-//========= media query =========//
-// Screen smaller than 992px
-@media (max-width: 992px) {
-  .footer-right {
-    float: left;
-  }
-  body {
-    padding-bottom: 180px;
-  }
-}
 // Screen 384 to 414px
-@media (min-width:384px) and (max-width: 414px) {
-  #signup-btn,
-  #login-btn {
-    width: 100%;
-  }
-  #login-btn {
-    margin-left: 20px;
-  }
-}
-@media (min-width:375px) and (max-width: 384px) {
-  #signup-btn,
-  #login-btn {
-    width: 100%;
-  }
-  #login-btn {
-    margin-left: 20px;
-  }
-}
-@media (min-width: 320px) and (max-width: 375px) {
-  #signup-btn,
-  #login-btn {
-    width: 100%;
-  }
-  #login-btn {
-    margin-left: 20px;
-  }
-}
-@media (max-width: 320px) {
-  #signup-btn,
-  #login-btn {
-    width: 100%;
-  }
-  #login-btn {
-    margin-left: 20px;
-  }
-}
+// @media (max-width: 414px) {
+//   #signup-btn,
+//   #login-btn {
+//     width: 100%;
+//   }
+//   #login-btn {
+//     margin-left: 20px;
+//   }
+// }
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */
   .header,
-  .marketing,
-  .footer {
+  .marketing {
     padding-right: 0;
     padding-left: 0;
   }
@@ -94,18 +38,12 @@
   .how-itemimg:last-child {
     width: 90%;
   }
-  .footer-right {
-    //margin-top:55px;
-  }
-  #footerLogo {}
+
 }
 @media (min-width: 768px) and (max-width: 992px) {
   #top-info {
     font-size: 2.5em;
     padding-top: 2%;
-  }
-  .license {
-    bottom: -10% !important;
   }
   #left-info h6,
   #right-info h6 {
@@ -126,7 +64,7 @@
   #home-right {
     padding-top: 80px;
   }
-  #footerLogo {}
+
   #home-top-info .row {
     padding: 20px;
   }
@@ -189,25 +127,17 @@
   .why-item img {
     margin-left: 50px;
   }
-  .footer-right {
-    //margin-top:50px;
-  }
-  #footerLogo {}
+
   #home-top-info .row {
     padding: 15px;
   }
-  .license {
-    bottom: -10% !important;
-  }
+
 }
 @media (min-width:384px) and (max-width: 414px) {
   #home-left {
     text-align: center;
   }
-  // TODO : should move to one media query
-  .license {
-    bottom: -10% !important;
-  }
+
   .home-table td {
     font-size: 0.7em;
   }
@@ -244,29 +174,25 @@
     height: auto;
     margin-left: 40px;
   }
-  .footer-right {
-    //margin-top:50px;
-  }
-  #footerLogo {
-    float: none;
-    width: 70%;
-    display: block;
-    //margin-top:120px;
-  }
-  .footer {
-    //height:300px;
-  }
-  .logo {
-    width: 200px;
-  }
-  .nav li {
-    float: none;
-    width: 100%;
-  }
-  .nav-pills>li+li {
-    margin-left: 0;
-    margin-top: 3px;
-  }
+
+  // #footerLogo {
+  //   float: none;
+  //   width: 70%;
+  //   display: block;
+  //   //margin-top:120px;
+  // }
+
+  // .logo {
+  //   width: 200px;
+  // }
+  // .nav li {
+  //   float: none;
+  //   width: 100%;
+  // }
+  // .nav-pills>li+li {
+  //   margin-left: 0;
+  //   margin-top: 3px;
+  // }
   #home-top-info .row {
     padding: 10px;
   }
@@ -276,18 +202,9 @@
   .client p {
     width: 100%;
   }
-  .footer-right img:first-child {
-    margin-left: 12px;
-  }
+
 }
-@media (min-width:375px) and (max-width: 384px) {
-  .logo img {
-    width: 200px;
-  }
-  .footer-right {
-    //width:75%;
-  }
-}
+
 @media (min-width: 320px) and (max-width: 375px) {
   #home-left {
     text-align: center;
@@ -326,32 +243,24 @@
     height: auto;
     margin-left: 40px;
   }
-  .footer-right {
-    //margin-top:50px;
-  }
-  .footer-right div {
-    width: 100%;
-  }
-  #footerLogo {
-    float: none;
-    width: 70%;
-    display: block;
-    //margin-top:120px;
-  }
-  .footer {
-    height: 300px;
-  }
-  .logo img {
-    width: 200px;
-  }
-  .nav li {
-    float: none;
-    width: 100%;
-  }
-  .nav-pills>li+li {
-    margin-left: 0;
-    margin-top: 3px;
-  }
+  // #footerLogo {
+  //   float: none;
+  //   width: 70%;
+  //   display: block;
+  //   //margin-top:120px;
+  // }
+
+  // .logo img {
+  //   width: 200px;
+  // }
+  // .nav li {
+  //   float: none;
+  //   width: 100%;
+  // }
+  // .nav-pills>li+li {
+  //   margin-left: 0;
+  //   margin-top: 3px;
+  // }
   .how-item{
     margin-top: 40px;
   }
@@ -369,11 +278,7 @@
     width: 100%;
   }
 }
-@media (max-width: 414px) {
-  .equal-housing {
-    margin-left: 0 !important;
-  }
-}
+
 @media (max-width: 320px) {
   #home-left {
     text-align: center;
@@ -424,35 +329,30 @@
   .how-itemimg:last-child {
     margin-left: 20px;
   }
-  .footer-right {
-    //margin-top:50px;
-  }
   .whyText {
     width: 100% !important;
   }
-  #footerLogo {
-    float: none;
-    width: 70%;
-    display: block;
-    //margin-top:120px;
-  }
+  // #footerLogo {
+  //   float: none;
+  //   width: 70%;
+  //   display: block;
+  //   //margin-top:120px;
+  // }
   #home-right-table2 {
     overflow-x: hidden;
   }
-  .footer {
-    //height:300px;
-  }
-  .logo img {
-    width: 150px;
-  }
-  .nav li {
-    float: none;
-    width: 100%;
-  }
-  .nav-pills>li+li {
-    margin-left: 0;
-    margin-top: 3px;
-  }
+
+  // .logo img {
+  //   width: 150px;
+  // }
+  // .nav li {
+  //   float: none;
+  //   width: 100%;
+  // }
+  // .nav-pills>li+li {
+  //   margin-left: 0;
+  //   margin-top: 3px;
+  // }
   .how-item{
     margin-top: 30px;
   }
@@ -475,8 +375,6 @@
   .client p {
     width: 100%;
   }
-  .footer-right img:first-child {
-    margin-left: 12px;
-  }
+
 }
 /////=======  end Media ======== /////

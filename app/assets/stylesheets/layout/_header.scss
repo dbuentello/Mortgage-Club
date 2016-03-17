@@ -2,6 +2,9 @@
   .mortgage-nav {
     background-color: white;
     padding: 5px 0; //top bottom 5px
+    // @include respond-to(mobile){
+    //   width: 100vw;
+    // };
     // not test
     .dropdown {
       .dropdownArrow {

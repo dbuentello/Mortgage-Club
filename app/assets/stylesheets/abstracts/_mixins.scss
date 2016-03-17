@@ -43,3 +43,35 @@
   animation: $animate $time infinite;
   -webkit-animation: $animate $time infinite;
 }
+// Mixin for responsive
+$tablet: 768px;
+$medium-desktop: 992px;
+$large-desktop: 1200px;
+
+@mixin respond-to($media) {
+  @if $media == mobile {
+    @media only screen and (max-width: $tablet) {
+      @content;
+    }
+  }
+  @else if $media == mobile-tablet {
+    @media only screen and (max-width: $medium-desktop) {
+      @content;
+    }
+  }
+  @else if $media == tablet {
+    @media only screen and (min-width: $tablet + 1) and (max-width: $medium-desktop - 1) {
+      @content;
+    }
+  }
+  @else if $media == medium-desktop {
+    @media only screen and (min-width: $medium-desktop + 1) and (max-width: $large-desktop - 1) {
+      @content;
+    }
+  }
+  @else if $media == large-desktop {
+    @media only screen and (min-width: $large-desktop) {
+      @content;
+    }
+  }
+}
