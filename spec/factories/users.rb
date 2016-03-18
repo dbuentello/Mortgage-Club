@@ -51,4 +51,12 @@ FactoryGirl.define do
       end
     end
   end
+
+  factory :borrower_user_with_borrower_completed, parent: :user do |f|
+    f.email { "testing@man.net" }
+    after(:build) do |user|
+      user.add_role(:borrower)
+      build(:borrower_completed, user: user)
+    end
+  end
 end

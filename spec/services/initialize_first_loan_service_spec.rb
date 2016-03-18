@@ -10,8 +10,8 @@ describe InitializeFirstLoanService do
   end
 
   context "when quote_cookies is present" do
-    before(:each) do
-      @quote_cookies = {
+    let(:quote_cookies) do
+      {
         mortgage_purpose: "purchase",
         property_type: "sfh",
         property_usage: "primary_residence",
@@ -21,11 +21,11 @@ describe InitializeFirstLoanService do
     end
 
     it "creates a new loan" do
-      expect { described_class.new(user, @quote_cookies).call }.to change { Loan.count }.by(1)
+      expect { described_class.new(user, quote_cookies).call }.to change { Loan.count }.by(1)
     end
 
     it "creates a new loan with cookies's data" do
-      loan = described_class.new(user, @quote_cookies).call
+      loan = described_class.new(user, quote_cookies).call
 
       expect(loan.purpose).to eq("purchase")
       expect(loan.down_payment).to eq(100_000)

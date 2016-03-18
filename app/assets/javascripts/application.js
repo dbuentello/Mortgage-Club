@@ -18,6 +18,13 @@
 //= require d3.min
 //= require d3.slider
 //= require auto-complete.min
-
+//= require zopim
 // Important to import jquery_ujs before bundle_BorrowerApp as that patches jquery xhr to use the authenticity token!
 //= require build/bundle_BorrowerApp
+
+
+// General Config
+$(document).on('ready', function(event) {
+  $('.flashSection').delay(7000).fadeOut();
+  $('[data-toggle="tooltip"]').tooltip();
+});
