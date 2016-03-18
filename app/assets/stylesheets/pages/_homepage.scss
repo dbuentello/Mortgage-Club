@@ -295,6 +295,16 @@
   .why-part .container .row:not(.why-part .container .row:first-of-type) {
     margin-top: 20px;
   }
+  .bigNum {
+    color: $mc-color;
+    float: left;
+    font-family: 'aileronlight';
+    font-size: 4.5em;
+    margin-top: -10px;
+    @include respond-to(smobile) {
+      display: none;
+    };
+  }
   .why-item {
     @include respond-to(smobile) {
       text-align: center;
@@ -320,16 +330,6 @@
         margin-right: auto;
         float: none;
         margin-top: 0;
-      };
-    }
-    .bigNum {
-      color: $mc-color;
-      float: left;
-      font-family: 'aileronlight';
-      font-size: 4.5em;
-      margin-top: -10px;
-      @include respond-to(smobile) {
-        display: none;
       };
     }
     .whyText {
@@ -365,16 +365,10 @@
       color: black;
     }
 
-    .bigNum {
-      color: $mc-color;
-      @include respond-to(smobile) {
-        display: none;
-      };
-    }
+
     .how-item {
       margin-top: 75px;
       @include respond-to(mobile){
-        text-align: center;
         margin-top: 40px;
         img {
           width: 80%;
@@ -400,8 +394,7 @@
       width: 80%;
       @include respond-to(mobile){
         width: 95%;
-        margin-left: auto;
-        margin-right: auto;
+
       };
       h6 {
         font-size: 2.3em;
