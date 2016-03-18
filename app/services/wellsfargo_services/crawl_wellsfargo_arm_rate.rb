@@ -41,6 +41,7 @@ module WellsfargoServices
       crawler.fill_in("Home Value", with: home_value)
       crawler.fill_in("Down Payment", with: down_payment)
       crawler.select(property_state, from: "State")
+      crawler.execute_script("changeCounties()")
       crawler.select(property_county, from: "County")
     end
 
