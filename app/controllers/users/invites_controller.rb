@@ -21,10 +21,10 @@ class Users::InvitesController < Users::BaseController
       render json: {
         success: true,
         invites: LoanListPage::InvitesPresenter.new(invites).show,
-        message: t("invites.create.add_success", invite_counter: invite_counter)
+        message: t("invites.create.success", invite_counter: invite_counter)
       }
     else
-      render json: {success: false, message: t("invites.create.add_failed")}
+      render json: {success: false, message: t("invites.create.failed")}
     end
   end
 end

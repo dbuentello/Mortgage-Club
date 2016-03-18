@@ -15,7 +15,7 @@ class Users::LiabilitiesController < Users::BaseController
     if @properties.save
       render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show, liabilities: load_liabilities(@loan)}
     else
-      render json: {message: t("users.liabilities.create.add_failed")}, status: 500
+      render json: {message: t("users.liabilities.create.failed")}, status: 500
     end
   end
 

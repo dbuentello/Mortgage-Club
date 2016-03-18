@@ -19,10 +19,10 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
         lender_documents: LoanMembers::LenderDocumentsPresenter.new(@loan.lender_documents).show,
         download_url: get_download_url(service.lender_document),
         remove_url: get_remove_url(service.lender_document),
-        message: t("loan_members.lender_documents.create.add_success")
+        message: t("loan_members.lender_documents.create.success")
       }, status: 200
     else
-      render json: {message: t("loan_members.lender_documents.create.add_failed")}, status: 500
+      render json: {message: t("loan_members.lender_documents.create.failed")}, status: 500
     end
   end
 
@@ -33,9 +33,9 @@ class LoanMembers::LenderDocumentsController < LoanMembers::BaseController
 
   def destroy
     if @document.destroy
-      return render json: {message: t("loan_members.lender_documents.remove.remove_success")}, status: 200
+      return render json: {message: t("loan_members.lender_documents.remove.success")}, status: 200
     else
-      return render json: {message: t("loan_members.lender_documents.remove.remove_failed")}, status: 500
+      return render json: {message: t("loan_members.lender_documents.remove.failed")}, status: 500
     end
   end
 

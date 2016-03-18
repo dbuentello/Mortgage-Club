@@ -165,11 +165,11 @@ en:
   users:
     assets:
       create:
-        add_failed: "Add new asset failed"
-        add_success: "Add new asset sucessfully"
+        failed: "Add new asset failed"
+        success: "Add new asset sucessfully"
     liabilities:
       create:
-        add_failed: "cannot save liabilities"
+        failed: "cannot save liabilities"
     loans:
       create:
         add_failed: "Cannot create new loan"
@@ -177,7 +177,7 @@ en:
         destroy_failed: "Cannot destroy loan"
     properties:
       create:
-        add_failed: "Cannot save property"
+        failed: "Cannot save property"
       search:
         not_found: "Cannot find"
     registrations:
@@ -191,17 +191,17 @@ en:
         success: "Your loan has been saved successfully"
     submissions:
       submit_to_lender:
-        send_success: "Sent to lender sucessfully"
+        success: "Sent to lender sucessfully"
     lender_documents:
       create:
-        add_failed: "Failed to upload document"
-        add_success: "Created successfully"
+        failed: "Failed to upload document"
+        success: "Created successfully"
       remove:
-        remove_failed: "Remove file failed"
-        remove_success: "Removed it sucessfully"
+        failed: "Remove file failed"
+        success: "Removed it sucessfully"
   invites:
     create:
-      add_failed: "Error, the email is already invited or not valid!"
-      add_success: "%{invite_counter} person was successfully invited to Mortgage Club!"
+      failed: "Error, the email is already invited or not valid!"
+      success: "%{invite_counter} person was successfully invited to Mortgage Club!"
 
 

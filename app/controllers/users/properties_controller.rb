@@ -13,7 +13,7 @@ class Users::PropertiesController < Users::BaseController
       @loan.reload
       render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show}
     else
-      render json: {message: t("users.properties.create.add_failed")}, status: 500
+      render json: {message: t("users.properties.create.failed")}, status: 500
     end
   end
 
