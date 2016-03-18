@@ -364,22 +364,45 @@
     h6 {
       color: black;
     }
+
     .bigNum {
       color: $mc-color;
-    }
-    img {
-      height: 120%;
-      margin-left: 40px;
-      @include respond-to(mobile) {
-        margin-left: 0;
-        width: 90vw;
+      @include respond-to(smobile) {
+        display: none;
       };
     }
     .how-item {
       margin-top: 75px;
+      @include respond-to(mobile){
+        text-align: center;
+        margin-top: 40px;
+        img {
+          width: 80%;
+          height: auto;
+          margin-left: 40px;
+        }
+      };
+
+      img {
+        width: 70%;
+        height: 120%;
+        margin-left: 40px;
+        &:last-child {
+          width: 90%;
+        }
+        @include respond-to(mobile) {
+          margin-left: 0;
+          width: 90vw;
+        };
+      }
     }
     .whyText {
       width: 80%;
+      @include respond-to(mobile){
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+      };
       h6 {
         font-size: 2.3em;
         font-family: 'aileronregular';
@@ -431,6 +454,12 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
     padding: 15px 50px 50px;
+    @include respond-to(mobile){
+        width: 100%;
+    };
+    @include respond-to(tablet){
+      padding: 15px 25px 40px !important;
+    };
   }
   .client img {
     border-radius: 50%;
