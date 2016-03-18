@@ -2,9 +2,6 @@
   .mortgage-nav {
     background-color: white;
     padding: 5px 0; //top bottom 5px
-    // @include respond-to(mobile){
-    //   width: 100vw;
-    // };
     // not test
     .dropdown {
       .dropdownArrow {
@@ -60,10 +57,17 @@
   }
   .nav-pills>li+li {
     margin-right: 20px;
+    @include respond-to(mobile){
+      margin-right: 0;
+      margin-top: 5px;
+    };
   }
   .nav-pills > li {
     float: right !important;
     padding-top: 0.125em;
+    @include respond-to(mobile){
+      width: 100%;
+    };
   }
   #loanBtn {
     background: white;

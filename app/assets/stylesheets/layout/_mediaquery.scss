@@ -1,293 +1,55 @@
-// Screen 384 to 414px
-// @media (max-width: 414px) {
-//   #signup-btn,
-//   #login-btn {
-//     width: 100%;
-//   }
-//   #login-btn {
-//     margin-left: 20px;
-//   }
-// }
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing {
-    padding-right: 0;
-    padding-left: 0;
-  }
-}
 @media (min-width: 992px) and (max-width:1200px) {
-  #top-info {
-    font-size: 1em;
-    padding-top: 10px;
-  }
-  #left-info h6,
-  #right-info h6 {
-    margin-top: -2px;
-    font-size: 0.9em;
-  }
-  #left-info p,
-  #right-info p {
-    font-size: 0.8em;
-    line-height: 0.6em;
-  }
   .how-itemimg {
     width: 70%;
   }
   .how-itemimg:last-child {
     width: 90%;
   }
-
 }
 @media (min-width: 768px) and (max-width: 992px) {
-  #top-info {
-    font-size: 2.5em;
-    padding-top: 2%;
-  }
-  #left-info h6,
-  #right-info h6 {
-    margin-top: 64px;
-    font-size: 2.3em;
-  }
-  #left-info p,
-  #right-info p {
-    font-size: 1.7em;
-    line-height: 1.35em;
-  }
-  #right-info {
-    padding-left: 35px;
-  }
-  #home-left {
-    text-align: center;
-  }
-  #home-right {
-    padding-top: 80px;
-  }
-
-  #home-top-info .row {
-    padding: 20px;
-  }
   .client p {
     padding: 15px 25px 40px !important;
   }
 }
 @media (min-width:416px) and (max-width: 768px) {
-  .home-table td {
-    font-size: 0.9em;
-  }
-  #top-info {
-    font-size: 2em;
-    padding-top: 3%;
-    padding-left: 30px;
-  }
-  #left-info,
-  #right-info {
-    padding-top: 8.4%;
-  }
-  #left-info h6,
-  #right-info h6 {
-    margin-top: 19.9%;
-    font-size: 2.2em;
-  }
-  #left-info p,
-  #right-info p {
-    font-size: 1.7em;
-    line-height: 1.2em;
-  }
-  #right-info {
-    padding-left: 35px;
-  }
-  #home-left {
-    text-align: center;
-  }
-  #home-right {
-    padding-top: 80px;
-  }
   .how-item.bigNum {
     margin-left: 50px;
   }
   .how-item.whyText {
     text-align: left;
   }
-  .whyText {
-    width: 100% !important;
-  }
-  .how-item{
+  .how-item {
     text-align: center;
   }
   .how-itemimg {
     margin-left: auto;
     margin-right: auto;
   }
-  .why-item {
-    margin-top: 30px;
-    height: 150px;
-  }
-  .why-item img {
-    margin-left: 50px;
-  }
-
-  #home-top-info .row {
-    padding: 15px;
-  }
-
 }
 @media (min-width:384px) and (max-width: 414px) {
-  #home-left {
-    text-align: center;
-  }
-
-  .home-table td {
-    font-size: 0.7em;
-  }
-  .content h1 {
-    font-size: 2.9em;
-  }
-  .why-item {
-    text-align: center;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    height: auto;
-  }
-  .why-item img {
-    width: 60%;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    float: none;
-    margin-top: 0;
-  }
-  .why-item .bigNum {
-    display: none;
-  }
-  .why-item .whyText {
-    float: none;
-    width: 100%;
-    margin: 0;
-    padding-bottom: 20px;
-  }
   .how-itemimg {
     width: 80%;
     height: auto;
     margin-left: 40px;
   }
-
-  // #footerLogo {
-  //   float: none;
-  //   width: 70%;
-  //   display: block;
-  //   //margin-top:120px;
-  // }
-
-  // .logo {
-  //   width: 200px;
-  // }
-  // .nav li {
-  //   float: none;
-  //   width: 100%;
-  // }
-  // .nav-pills>li+li {
-  //   margin-left: 0;
-  //   margin-top: 3px;
-  // }
-  #home-top-info .row {
-    padding: 10px;
-  }
-  #top-info {
-    padding-top: 6px;
-  }
   .client p {
     width: 100%;
   }
-
 }
-
 @media (min-width: 320px) and (max-width: 375px) {
-  #home-left {
-    text-align: center;
-  }
-  .content h1 {
-    font-size: 1.7em;
-    padding: 15px;
-  }
-  .why-item {
-    text-align: center;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    height: auto;
-  }
-  .why-item img {
-    width: 60%;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    float: none;
-    margin-top: 0;
-  }
-  .why-item .bigNum {
-    display: none;
-  }
-  .why-item .whyText {
-    float: none;
-    width: 100%;
-    margin: 0;
-    padding-bottom: 20px;
-  }
   .how-itemimg {
     width: 80%;
     height: auto;
     margin-left: 40px;
   }
-  // #footerLogo {
-  //   float: none;
-  //   width: 70%;
-  //   display: block;
-  //   //margin-top:120px;
-  // }
-
-  // .logo img {
-  //   width: 200px;
-  // }
-  // .nav li {
-  //   float: none;
-  //   width: 100%;
-  // }
-  // .nav-pills>li+li {
-  //   margin-left: 0;
-  //   margin-top: 3px;
-  // }
-  .how-item{
+  .how-item {
     margin-top: 40px;
-  }
-  .why-item {
-    margin-top: 40px;
-  }
-  #home-top-info .row {
-    padding: 10px;
-  }
-  #top-info {
-    font-size: 1.1em;
-    padding-top: 6px;
   }
   .client p {
     width: 100%;
   }
 }
-
 @media (max-width: 320px) {
-  #home-left {
-    text-align: center;
-  }
-  .content h1 {
-    font-size: 1.8em;
-    line-height: 1.3em;
-    padding: 15px;
-  }
   .bigger {
     font-size: 1em;
   }
@@ -310,17 +72,6 @@
   .note {
     width: 80%;
   }
-  .why-item img {
-    width: 50%;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    float: none;
-    margin-top: 0;
-  }
-  .why-item .bigNum {
-    font-size: 3em;
-  }
   .how-itemimg {
     width: 80%;
     height: auto;
@@ -329,52 +80,13 @@
   .how-itemimg:last-child {
     margin-left: 20px;
   }
-  .whyText {
-    width: 100% !important;
-  }
-  // #footerLogo {
-  //   float: none;
-  //   width: 70%;
-  //   display: block;
-  //   //margin-top:120px;
-  // }
   #home-right-table2 {
     overflow-x: hidden;
   }
-
-  // .logo img {
-  //   width: 150px;
-  // }
-  // .nav li {
-  //   float: none;
-  //   width: 100%;
-  // }
-  // .nav-pills>li+li {
-  //   margin-left: 0;
-  //   margin-top: 3px;
-  // }
-  .how-item{
+  .how-item {
     margin-top: 30px;
-  }
-  .why-item {
-    margin-top: 30px;
-  }
-  #home-top-info .row {
-    padding: 10px;
-  }
-  #top-info {
-    font-size: 1em;
-    padding-top: 4px;
-  }
-  #left-info {
-    padding-left: 5px;
-  }
-  #right-info {
-    padding-left: 15px;
   }
   .client p {
     width: 100%;
   }
-
 }
-/////=======  end Media ======== /////
