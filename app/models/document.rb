@@ -57,11 +57,11 @@ class Document < ActiveRecord::Base
     presence: true,
     content_type: {
       content_type: ALLOWED_MIME_TYPES,
-      message: ' allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images'
+      message: :invalid_upload_document_type
     },
     size: {
       less_than_or_equal_to: 10.megabytes,
-      message: ' must be less than or equal to 10MB'
+      message: :file_size_limited_10_mb
     }
 
   validate :document_type_must_belong_to_proper_document
@@ -97,6 +97,6 @@ class Document < ActiveRecord::Base
     when "Closing"
       return if CLOSING_LIST.include? document_type
     end
-    errors.add(:document_type, "must belong to a proper document")
+    errors.add(:document_type, :needed_proper_document)
   end
 end

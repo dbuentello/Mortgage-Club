@@ -27,9 +27,9 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
 
   def update
     if @loan_member.update(loan_member_params) && @loan_member.user.update(user_params)
-      render json: {loan_member: Admins::LoanMemberPresenter.new(@loan_member).show, message: 'Updated sucessfully'}, status: 200
+      render json: {loan_member: Admins::LoanMemberPresenter.new(@loan_member).show, message: t("info.success", status: t("common.status.updated"))}, status: 200
     else
-      render json: {message: "Updated failed"}, status: 500
+      render json: {message: t("errors.failed", process: t("common.process.update"))}, status: 500
     end
   end
 
@@ -44,7 +44,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
         render json: {
           loan_member: Admins::LoanMemberPresenter.new(@loan_member).show,
           loan_members: Admins::LoanMembersPresenter.new(LoanMember.all).show,
-          message: 'Created sucessfully'
+          message: t("info.success", status: t("common.status.created"))
         }, status: 200
       else
         @user.destroy
@@ -58,11 +58,11 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
   def destroy
     if @loan_member.user.destroy
       render json: {
-        message: "Removed the #{@loan_member.user} successfully",
+        message: t("info.success", status: t("common.status.removed")),
         loan_members: Admins::LoanMembersPresenter.new(LoanMember.all).show
       }, status: 200
     else
-      render json: {message: "Cannot remove the checklist"}, status: 500
+      render json: {message: t("errors.failed", process: t("common.process.remove"))}, status: 500
     end
   end
 

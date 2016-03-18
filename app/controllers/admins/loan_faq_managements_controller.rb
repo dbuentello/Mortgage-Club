@@ -25,9 +25,9 @@ class Admins::LoanFaqManagementsController < Admins::BaseController
 
   def update
     if @faq.update(faq_params)
-      render json: {faq: Admins::LoanFaqPresenter.new(@faq).show, message: 'Updated sucessfully'}, status: 200
+      render json: {faq: Admins::LoanFaqPresenter.new(@faq).show, message: t("info.success", status: t("common.status.updated"))}, status: 200
     else
-      render json: {message: "Updated failed"}, status: 500
+      render json: {message: t("errors.failed", process: t("common.process.update"))}, status: 500
     end
   end
 
@@ -37,7 +37,7 @@ class Admins::LoanFaqManagementsController < Admins::BaseController
       render json: {
         faq: Admins::LoanFaqPresenter.new(@faq).show,
         faqs: Admins::LoanFaqsPresenter.new(Faq.all).show,
-        message: 'Created sucessfully'
+        message: t("info.success", status: t("common.status.created"))
       }, status: 200
     else
       render json: {message: @faq.errors.full_messages.first}, status: 500
@@ -47,11 +47,11 @@ class Admins::LoanFaqManagementsController < Admins::BaseController
   def destroy
     if @faq.destroy
       render json: {
-        message: "Removed the #{@faq} successfully",
+        message: t("info.success", status: t("common.status.removed")),
         faqs: Admins::LoanFaqsPresenter.new(Faq.all).show
       }, status: 200
     else
-      render json: {message: "Cannot remove the checklist"}, status: 500
+      render json: {message: t("errors.failed", process: t("common.process.remove"))}, status: 500
     end
   end
 

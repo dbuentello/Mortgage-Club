@@ -8,7 +8,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
       loan_statuses: loan_statuses
     )
     respond_to do |format|
-      format.html { render template: 'loan_member_app' }
+      format.html { render template: "loan_member_app" }
     end
   end
 
@@ -16,7 +16,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     loan = Loan.find(loan_id)
     if loan.update(loan_params)
       respond_to do |format|
-        format.json { render json: {message: "Your loan has been saved successfully"} }
+        format.json { render json: {message: t("loan_members.loans.update.success")} }
       end
     end
   end

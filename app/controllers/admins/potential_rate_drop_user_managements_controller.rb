@@ -27,18 +27,18 @@ class Admins::PotentialRateDropUserManagementsController < Admins::BaseControlle
     if @potential_rate_drop_user.update(potential_rate_drop_user_params)
       render json: {potential_rate_drop_user: Admins::PotentialRateDropUserPresenter.new(@potential_rate_drop_user).show, message: 'Updated sucessfully'}, status: 200
     else
-      render json: {message: "Updated failed"}, status: 500
+      render json: {message: t("errors.failed", process: t("common.process.update"))}, status: 500
     end
   end
 
   def destroy
     if @potential_rate_drop_user.destroy
       render json: {
-        message: "Removed the #{@potential_rate_drop_user} successfully",
+        message: t("info.success", status: t("common.status.removed")),
         potential_rate_drop_users: Admins::PotentialRateDropUsersPresenter.new(PotentialRateDropUser.all).show
       }, status: 200
     else
-      render json: {message: "Cannot remove the checklist"}, status: 500
+      render json: {message: t("errors.failed", process: t("common.process.remove"))}, status: 500
     end
   end
 

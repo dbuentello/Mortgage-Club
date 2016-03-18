@@ -5,7 +5,7 @@ class Users::BaseController < ApplicationController
 
   def authenticate_borrower!
     unless current_user.borrower?
-      redirect_to borrower_root_url, alert: "The page does not exist or you don't have permmission to access!"
+      redirect_to borrower_root_url, alert: t("info.page_not_found_or_permission_denied")
     end
   end
 end

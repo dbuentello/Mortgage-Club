@@ -33,7 +33,7 @@ class Users::ElectronicSignatureController < Users::BaseController
     if recipient_view
       render json: {message: recipient_view}, status: 200
     else
-      render json: {message: "can't render iframe"}, status: 500
+      render json: {message: t("errors.iframe_render_error")}, status: 500
     end
   end
 

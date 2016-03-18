@@ -13,7 +13,7 @@ class PotentialUsersController < ApplicationController
     potential_user = PotentialUser.new(potential_params)
 
     if potential_user.save
-      render json: {message: "success"}
+      render json: {message: t("status.success")}
     else
       return render_error(potential_user)
     end
@@ -22,10 +22,11 @@ class PotentialUsersController < ApplicationController
   private
 
   def render_error(potential_user)
+    required_message = t("errors.field_required")
     render json: {
-      email: potential_user.errors[:email].present? ? "This field is required" : nil,
-      mortgage_statement: potential_user.errors[:mortgage_statement].present? ? "This field is required" : nil,
-      alert_method: potential_user.errors[:alert_method].present? ? "This field is required" : nil
+      email: potential_user.errors[:email].present? ? required_message : nil,
+      mortgage_statement: potential_user.errors[:mortgage_statement].present? ? required_message : nil,
+      alert_method: potential_user.errors[:alert_method].present? ? required_message : nil
     }, status: 500
   end
 

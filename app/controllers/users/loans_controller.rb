@@ -54,7 +54,7 @@ class Users::LoansController < Users::BaseController
     if @loan.save
       render json: {loan_id: @loan.id}, status: 200
     else
-      render json: {message: "Cannot create new loan"}, status: 500
+      render json: {message: t("users.loans.create.add_failed")}, status: 500
     end
   end
 
@@ -111,7 +111,7 @@ class Users::LoansController < Users::BaseController
 
       render json: {redirect_path: my_loans_path}, status: 200
     else
-      render json: {message: "Cannot destroy loan"}, status: 500
+      render json: {message: t("users.loans.destroy.destroy_failed")}, status: 500
     end
   end
 

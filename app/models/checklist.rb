@@ -37,12 +37,12 @@ class Checklist < ActiveRecord::Base
     when "Loan"
       return if Document::LOAN_LIST.include? document_type
     end
-    errors.add(:document_type, "must belong to a proper document")
+    errors.add(:document_type, :needed_proper_document)
   end
 
   def subject_name_must_belong_to_proper_subject
     unless %w(Borrower Property Loan Closing).include? subject_name
-      errors.add(:subject_name, "must belong to a proper subject")
+      errors.add(:subject_name, :needed_proper_subject)
     end
   end
 end
