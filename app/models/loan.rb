@@ -12,7 +12,7 @@ class Loan < ActiveRecord::Base
   has_one :closing, inverse_of: :loan, dependent: :destroy
   has_many :documents, as: :subjectable, dependent: :destroy
   has_many :loan_activities, dependent: :destroy
-  has_many :loans_members_associations
+  has_many :loans_members_associations, dependent: :destroy
   has_many :loan_members, through: :loans_members_associations, dependent: :destroy
   has_many :checklists, dependent: :destroy
   has_many :lender_documents, dependent: :destroy
