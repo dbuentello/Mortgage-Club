@@ -13,3 +13,21 @@
   src: url(asset_path('aileron-semibold-webfont.eot'));
   src: url(asset_path('aileron-semibold-webfont.woff')) format('woff'), url(asset_path('aileron-semibold-webfont.ttf')) format('truetype');
 }
+.h1 {
+  font-size: 2em;
+  margin: .67em 0;
+}
+.h2 {
+  font-size: 1.5em;
+  margin: .75em 0;
+}
+@include respond-to(smobile){
+  .h1 {
+    font-size: 1.5em !important;
+    margin: .67em 0
+  }
+  .h2 {
+    font-size: 1.3em !important;
+    margin: .75em 0
+  }
+};

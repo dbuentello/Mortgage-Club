@@ -154,7 +154,8 @@ var RateDropAlert = React.createClass({
                               <div className="col-sm-12 email-address text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.email.error]}
-                                  label={fields.email.label}
+
+                                  placeholder={fields.email.label}
                                   keyName={fields.email.keyName}
                                   value={this.state[fields.email.keyName]}
                                   editable={true}
@@ -165,12 +166,10 @@ var RateDropAlert = React.createClass({
                               </div>
 
 
-                            </div>
-                            <div className="form-group">
                               <div className="col-sm-6 text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.currentMortgageRate.error]}
-                                  label={fields.currentMortgageRate.label}
+                                  placeholder={fields.currentMortgageRate.label}
                                   keyName={fields.currentMortgageRate.keyName}
                                   value={this.state[fields.currentMortgageRate.keyName]}
                                   format={this.formatPercent}
@@ -184,7 +183,8 @@ var RateDropAlert = React.createClass({
                               <div className="col-sm-6 text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.zip.error]}
-                                  label={fields.zip.label}
+
+                                  placeholder={fields.zip.label}
                                   keyName={fields.zip.keyName}
                                   value={this.state[fields.zip.keyName]}
                                   format={this.formatInteger}
