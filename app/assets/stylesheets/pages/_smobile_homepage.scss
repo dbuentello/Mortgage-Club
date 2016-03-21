@@ -1,0 +1,140 @@
+// for mobile screen - smaller than 414px
+@include respond-to(smobile) {
+  .homepage {
+    padding-top: 60px;
+    // rate-table and home background
+    .home-part {
+      padding-top: 0;
+    }
+    #home-left h1 {
+      font-size: 1.5em;
+      font-weight: 600;
+    }
+    #home-right {
+      margin-top: 0;
+    }
+    #apply-btn {
+      margin-top: 0;
+    }
+    // ========= table
+    .home-table td {
+      font-size: 0.7em;
+      padding: 20px 8px 0 !important;
+    }
+    #home-right-header h1 {
+      font-size: 1.3em;
+      font-weight: 400;
+    }
+    // end rate table and home background
+    // bank logo - investors
+    .our-investors {
+      p {
+        display: inline;
+      }
+    }
+    //end bank logo
+    // hello-mortgage
+    .hello-mortgage {
+      padding-top: 0;
+    }
+    .note {
+      font-size: 1.2em;
+      width: 85%;
+      font-weight: 300;
+      margin-top: 15px;
+    }
+    #home-top-info {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      .row {
+        padding: 5px;
+      }
+    }
+    #top-info {
+      font-size: 1em;
+      padding-top: 4px;
+    }
+    #right-info {
+      padding-left: 20px;
+    }
+    #left-info,
+    #right-info {
+      h6 {
+        font-size: 1em;
+      }
+      p {
+        font-size: 0.7em;
+        line-height: 0.5em;
+      }
+    }
+    // end hello-mortgage
+    // why-part
+    .bigNum {
+      display: none;
+    }
+    .why-item {
+      text-align: center;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      height: auto;
+      margin-top: 20px;
+      img {
+        width: 60%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+        margin-top: 0;
+      }
+      .whyText {
+        float: none;
+        width: 100%;
+        margin: 0;
+        padding-bottom: 10px;
+      }
+    }
+    // end why-part
+    // how part
+    .how-part {
+      p,
+      h2 {
+        color: black;
+      }
+      img {
+        &:last-child {
+          margin-left: 0 !important;
+        }
+      }
+      .how-item {
+        margin-top: 20px;
+        margin-left: 10px;
+      }
+      .whyText {
+        width: 95%;
+        p {
+          padding-left: 0;
+        }
+      }
+    }
+    //end how part
+    // client part
+    .client-part {
+      padding-bottom: 40px;
+    }
+    .client {
+      margin-top: 10px;
+    }
+    .client p {
+      padding: 15px 20px 35px !important;
+    }
+    .client img {
+      margin-top: 0;
+    }
+    .content .how-header,
+    .content .client-header {
+      margin-top: 40px !important;
+    }
+  }
+};

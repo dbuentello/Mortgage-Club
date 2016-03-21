@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'aileronregular';
+  src: url(asset_path('aileron-regular-webfont.eot'));
+  src: url(asset_path('aileron-regular-webfont.woff')) format('woff'), url(asset_path('aileron-regular-webfont.ttf')) format('truetype');
+}
+@font-face {
+  font-family: 'aileronlight';
+  src: url(asset_path('aileron-light-webfont.eot'));
+  src: url(asset_path('aileron-light-webfont.woff')) format('woff'), url(asset_path('aileron-light-webfont.ttf')) format('truetype');
+}
+@font-face {
+  font-family: 'aileronsemibold';
+  src: url(asset_path('aileron-semibold-webfont.eot'));
+  src: url(asset_path('aileron-semibold-webfont.woff')) format('woff'), url(asset_path('aileron-semibold-webfont.ttf')) format('truetype');
+}
+.h1 {
+  font-size: 2em;
+  margin: .67em 0;
+}
+.h2 {
+  font-size: 1.5em;
+  margin: .75em 0;
+}
+@include respond-to(smobile){
+  .h1 {
+    font-size: 1.5em !important;
+    margin: .67em 0
+  }
+  .h2 {
+    font-size: 1.3em !important;
+    margin: .75em 0
+  }
+};

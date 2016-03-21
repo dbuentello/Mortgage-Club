@@ -52,7 +52,7 @@ var ModalLink = React.createClass({
                       <button type="button" className="btn btn-default" data-dismiss="modal">{this.props.labelNo}</button>
                     </div>
                     <div className="col-md-6">
-                      <button type="button" className="btn theBtn" onClick={this.props.yesCallback}>{this.props.labelYes}</button>
+                      <button type="button" className="btn btn-mc" onClick={this.props.yesCallback}>{this.props.labelYes}</button>
                     </div>
                   </div>
                 </form>

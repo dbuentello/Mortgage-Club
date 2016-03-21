@@ -441,14 +441,12 @@
 #continueBtn:hover {
   background: #ffffff;
   color:#00bd9c;
-
   img {
+    @include animate-img-btn(login-anim, 2s);
     -webkit-filter:brightness(100%) invert(0);
     -ms-filter:brightness(100%) invert(0);
     -moz-filter: brightness(100%) invert(0);
     filter:brightness(100%) invert(0);
-    animation:loginAnim 2s infinite;
-    -webkit-animation:loginAnim 2s infinite;
   }
 }
 
@@ -480,8 +478,7 @@
   img {
     filter:brightness(100%) invert(0);
     -webkit-filter:brightness(100%) invert(0);
-    animation:loginAnim 2s infinite;
-    -webkit-animation:loginAnim 2s infinite;
+    @include animate-img-btn(login-anim, 2s);
   }
 }
 

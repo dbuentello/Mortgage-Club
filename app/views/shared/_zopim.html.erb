@@ -1,12 +1,50 @@
 <% unless Rails.env.test? %>
-  <script type="text/javascript">
-    window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
-      d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-      _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
-      $.src="//v2.zopim.com/?3iekAjgdsMVBdIaGinAceGBxY9VKQNLd";z.t=+new Date;$.
-      type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
-    $zopim(function(){
+<script type="text/javascript">
+
+
+  var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+  };
+  if( !isMobile.any() ){
+    window.$zopim || (function (d, s) {
+      var z = $zopim = function (c) {
+          z._.push(c)
+        },
+        $ = z.s = d.createElement(s),
+        e = d.getElementsByTagName(s)[0];
+      z.set = function (o) {
+        z.set._.push(o)
+      };
+      z._ = [];
+      z.set._ = [];
+      $.async = !0;
+      $.setAttribute("charset", "utf-8");
+      $.src = "//v2.zopim.com/?3iekAjgdsMVBdIaGinAceGBxY9VKQNLd";
+      z.t =+ new Date;
+      $.type = "text/javascript";
+      e.parentNode.insertBefore($, e)
+    })(document, "script");
+    $zopim(function () {
       $zopim.livechat.window.hide();
     });
-  </script>
+  }
+
+</script>
 <% end %>

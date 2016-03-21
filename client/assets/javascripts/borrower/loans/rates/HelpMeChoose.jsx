@@ -178,7 +178,7 @@ var HelpMeChoose = React.createClass({
       <div>
         <div className="row white-background">
           <div className="row navigation-section">
-            <button className="btn back-btn" onClick={this.props.backToRatePage}>Back </button>
+            <button className="btn back-btn btn-mc" onClick={this.props.backToRatePage}>Back </button>
           </div>
           <div className='row helpmechoose'>
             <div className='col-lg-7'>
