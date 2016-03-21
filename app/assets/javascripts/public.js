@@ -17,7 +17,6 @@
 //= require bootstrap-sprockets
 //= require d3.min
 //= require d3.slider
-//= require zopim
 
 // Important to import jquery_ujs before bundle_PublicApp as that patches jquery xhr to use the authenticity token!
 

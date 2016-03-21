@@ -52,7 +52,7 @@ class Lender < ActiveRecord::Base
     },
     size: {
       less_than_or_equal_to: 2.megabytes,
-      message: ' must be less than or equal to 2MB'
+      message: :size_too_large
     }
 
   after_save :create_other_lender_template

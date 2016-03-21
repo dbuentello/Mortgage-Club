@@ -26,9 +26,63 @@ en:
       separator: "."
   activerecord:
     errors:
+      messages:
+        blank: "can't be blank"
+        invalid_upload_document_type: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+        file_size_limited_10_mb: " must be less than or equal to 10MB"
       models:
+        checklist:
+          attributes:
+            document_type:
+              needed_proper_document: "must belong to a proper document"
+            subject_name:
+              needed_proper_subject: "must belong to a proper subject"
+        document:
+          attributes:
+            attachment:
+              size_too_large: " must be less than or equal to 10MB"
+              content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+            attachment_content_type:
+              content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+            attachment_file_size:
+              size_too_large: " must be less than or equal to 10MB"
+            document_type:
+              needed_proper_document: "must belong to a proper document"
+        lender:
+          attributes:
+            logo:
+              size_too_large: " must be less than or equal to 2MB"
+            logo_file_size:
+              size_too_large: " must be less than or equal to 2MB"
+        lender_document:
+          attributes:
+            attachment:
+              content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+              size_too_large: " must be less than or equal to 10MB"
+            attachment_content_type:
+              content_type_invalid: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+            attachment_file_size:
+              size_too_large: " must be less than or equal to 10MB"
+        liability:
+          attributes:
+            property:
+              limited_quantity: "Property can't have more than two liabilities"
+            liabilities:
+              limited_quantity: "Property can't have more than two liabilities"
+        loan:
+          attributes:
+            loan_type:
+              invalid_loan_type: "%{value} is not a valid loan type"
+              invalid_loan_status: "%{value} is not a valid status"
+        potential_rate_drop_user:
+          attributes:
+            alert_method:
+              empty_alert_method: "can't be blank"
+
         user:
           attributes:
+            email:
+              taken: "This email has already been taken"
             first_name:
               blank: "This is field required"
             last_name:
@@ -39,9 +93,115 @@ en:
             password_confirmation:
               blank: "This is field required"
               confirmation: "Doesn't match Password"
-            email:
-              taken: "This email has already been taken"
+  common:
+    object:
+      assignment: "assignment"
+    process:
+      add: "add"
+      create: "create"
+      remove: "remove"
+      remove_checklist: "remove the checklist"
+      update: "update"
+      update_checklist: "update the checklist"
+    status:
+      added: "added"
+      created: "created"
+      removed: "removed"
+      updated: "updated"
+  errors:
+    credit_score_too_low: "Sorry, your credit score is below the minimum required to obtain a mortgage."
+    debt_to_income_ratio_too_high: "Your debt-to-income ratio is too high. We can't find any loan programs for you."
+    email_subject_required: "Email's subject cannot be blank"
+    email_content_required: "Email's content cannot be blank"
+    failed: "Cannot %{process}"
+    field_required: "This field is required"
+    file_not_found: "File is not found"
+    house_expense_too_high: "Your housing expense is currently too high. We can't find any loan programs for you."
+    iframe_render_error: "can't render iframe"
+    loan_missing: "Loan is missing"
+    loan_not_belong_any_lender: "Loan does not belong to any lenders"
+    loan_not_adequate_documents: "Loan is not provided adequate documents"
+    loan_missing_user_info: "Don't know who is in charge of this loan"
+    object_not_found: "%{object_name} is not found"
+    only_in_ca: "Sorry, we only lend in CA at this time. We'll contact you once we're ready to lend in."
+    page_not_found: "We can't seem to find the page you're looking for."
+    page_not_found_or_permission_denied: "The page does not exist or you don't have permmission to access!"
+    permission_denied: "You don't have permission to retrieve the page"
+    property_must_have_address: "Sorry, your property must have an address."
+    subject_property_not_eligible: "Sorry, your subject property is not eligible. We only offer loan programs for residential 1-4 units at this time."
+    subject_property_not_exist: "Sorry, your subject property does not exist."
+    template_not_exist: "Template %{object_name} does not exist yet!"
+    template_not_found: "Template is not found"
+  info:
+    success: "The information is %{status} successfully"
+  status:
+    ok: "ok"
+    success: "success"
+    error: "error"
+
+  services:
+    docusign:
+      create_envelope_for_checklist_service:
+        envelope_email_subject: "Electronic Signature Request from MortgageClub Corporation"
+      create_envelope_service:
+        envelope_email_subject: "Electronic Signature Request from MortgageClub Corporation"
+        evelope_email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
+      create_template_service:
+        state: "California"
+        desription: "sample template"
+        email_subject: "Electronic Signature Request from Mortgage Club"
+        email_body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
   homepage:
     title_alert: "FREE REFINANCE ALERT"
     btn_alert: "SET MY ALERT"
     description_alert: "Our software monitors thousands of loan programs and alert you when you can save money by refinancing with MortgageClub."
+
+  admins:
+    borrower_managements:
+      destroy:
+        remove_failed: "Cannot remove the checklist"
+        remove_success: "Removed the %{borrower} successfully"
+
+  users:
+    assets:
+      create:
+        failed: "Add new asset failed"
+        success: "Add new asset sucessfully"
+    liabilities:
+      create:
+        failed: "cannot save liabilities"
+    loans:
+      create:
+        add_failed: "Cannot create new loan"
+      destroy:
+        destroy_failed: "Cannot destroy loan"
+    properties:
+      create:
+        failed: "Cannot save property"
+      search:
+        not_found: "Cannot find"
+    registrations:
+      create:
+        confirm_not_a_robot: "Please confirm you're not a robot!"
+      update:
+        confirmation_needed: "Update need confirmation"
+  loan_members:
+    loans:
+      update:
+        success: "Your loan has been saved successfully"
+    submissions:
+      submit_to_lender:
+        success: "Sent to lender sucessfully"
+    lender_documents:
+      create:
+        failed: "Failed to upload document"
+        success: "Created successfully"
+      remove:
+        failed: "Remove file failed"
+        success: "Removed it sucessfully"
+  invites:
+    create:
+      failed: "Error, the email is already invited or not valid!"
+      success: "%{invite_counter} person was successfully invited to Mortgage Club!"
+
+

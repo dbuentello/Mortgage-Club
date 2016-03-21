@@ -30,6 +30,7 @@ gem 'coffee-rails'
 # JavaScript libraries
 gem 'jquery-rails'
 gem 'lodash-rails'
+gem 'i18n'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'

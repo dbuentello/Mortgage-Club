@@ -13,11 +13,11 @@ class LenderDocument < ActiveRecord::Base
     presence: true,
     content_type: {
       content_type: ALLOWED_MIME_TYPES,
-      message: " allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images"
+      message: :content_type_invalid
     },
     size: {
       less_than_or_equal_to: 10.megabytes,
-      message: " must be less than or equal to 10MB"
+      message: :file_size_limited_10_mb
     }
 
   before_validation :set_private_token, on: :create

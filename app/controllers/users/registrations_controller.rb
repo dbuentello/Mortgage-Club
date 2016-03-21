@@ -50,7 +50,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ? :update_needs_confirmation : :updated
         set_flash_message :notice, flash_key
       else
-        message = update_needs_confirmation?(resource, prev_unconfirmed_email) ? "Update need confirmation" : "Update successfully"
+        message = update_needs_confirmation?(resource, prev_unconfirmed_email) ? t("users.registrations.update.confirmation_needed") : t("info.success", status: t("common.status.updated"))
       end
       sign_in resource_name, resource, bypass: true
 
@@ -146,7 +146,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     flash.delete :recaptcha_error
     self.resource = resource_class.new sign_up_params
-    resource.errors.add(:recaptcha_error, "Please confirm you're not a robot!")
+    resource.errors.add(:recaptcha_error, t("users.registrations.create.confirm_not_a_robot"))
     respond_with_navigational(resource) { render :new }
   end
 end

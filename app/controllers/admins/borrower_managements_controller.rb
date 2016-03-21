@@ -19,11 +19,11 @@ class Admins::BorrowerManagementsController < Admins::BaseController
     borrower = Borrower.find(params[:id])
     if borrower.destroy
       render json: {
-        message: "Removed the #{borrower} successfully",
+        message: t("admins.borrower_managements.destroy.remove_success", borrower: borrower.to_s),
         borrowers: borrowers
       }, status: 200
     else
-      render json: {message: "Cannot remove the checklist"}, status: 500
+      render json: {message: t("admins.borrower_managements.destroy.remove_failed")}, status: 500
     end
   end
 

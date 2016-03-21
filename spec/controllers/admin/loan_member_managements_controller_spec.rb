@@ -19,7 +19,7 @@ describe Admins::LoanMemberManagementsController do
 
       it "returns successful message" do
         post :create, loan_member: loan_member_params
-        expect(JSON.parse(response.body)["message"]).to eq("Created sucessfully")
+        expect(JSON.parse(response.body)["message"]).to eq(I18n.t("info.success", status: I18n.t("common.status.created")))
       end
 
       it "changes User data table by 1" do
