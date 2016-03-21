@@ -72,6 +72,16 @@ var Loans = React.createClass({
     });
   },
 
+  getLoanName: function(loan) {
+    if (loan.subject_property.address && loan.subject_property.address.street_address != null) {
+      var address = loan.subject_property.address.street_address;
+    }
+    else {
+      var address = "Unknown Address";
+    }
+    return loan.user.first_name + " " + loan.user.last_name + " - " + address;
+  },
+
   render: function() {
     var loanOptions = [];
     var memberOptions = [];
@@ -123,9 +133,9 @@ var Loans = React.createClass({
                     {
                       _.map(this.props.bootstrapData.loans, function(loan) {
                         return (
-                          <option value={loan.id} key={loan.id}>{'Loan of ' + loan.user.first_name + " " + loan.user.last_name}</option>
+                          <option value={loan.id} key={loan.id}>{this.getLoanName(loan)}</option>
                         )
-                      })
+                      }, this)
                     }
                   </select>
                 </div>

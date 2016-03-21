@@ -42,6 +42,16 @@ var Loans = React.createClass({
     });
   },
 
+  getLoanName: function(loan) {
+    if (loan.subject_property.address && loan.subject_property.address.street_address != null) {
+      var address = loan.subject_property.address.street_address;
+    }
+    else {
+      var address = "Unknown Address";
+    }
+    return loan.user.first_name + " " + loan.user.last_name + " - " + address;
+  },
+
   render: function() {
     return (
       <div className='content container'>
@@ -69,7 +79,7 @@ var Loans = React.createClass({
                     _.map(this.props.bootstrapData.loans, function(loan) {
                       return (
                         <tr key={loan.id}>
-                          <td>{loan.user.to_s}</td>
+                          <td>{this.getLoanName(loan)}</td>
                           <td>{loan.user.email}</td>
                           <td>
 
