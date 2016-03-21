@@ -11,7 +11,7 @@ module BorrowerServices
     end
 
     def call
-      if invalid_owner? || invalid_email_params? || owner_user_same_loan_user?
+      if invalid_owner? || invalid_email_params? || owner_is_the_same_as_loan_user?
         destroy_secondary_borrower
         return
       end
@@ -47,7 +47,7 @@ module BorrowerServices
       secondary_params[:borrower][:email].nil?
     end
 
-    def owner_user_same_loan_user?
+    def owner_is_the_same_as_loan_user?
       owner.id == loan.user.id
     end
 
