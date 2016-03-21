@@ -94,7 +94,7 @@ var Income = React.createClass({
           var logo = item.logo + "?size=25x25";
         }
 
-        var container = "<div class='autocomplete-suggestion' data-name='" + item.name + "' data-val='" + search + "'>";
+        var container = "<div class='autocomplete-suggestion' data-domain='" + item.domain + "' data-name='" + item.name + "' data-val='" + search + "'>";
         container += '<span class="icon"><img align="center" src="'+ logo + '" onerror="this.src=\'' + default_logo + '\'"></span> ';
         container += item.name + "<span class='domain'>" + item.domain + "</span></div>";
         return container;
@@ -102,9 +102,60 @@ var Income = React.createClass({
       onSelect: function(e, term, item){
         var state = {};
         state[this.props.fields.currentEmployerName.name] = item.data("name");
+
+        $.getJSON("https://api.fullcontact.com/v2/company/lookup.json?apiKey=1d1644160dedb85c&domain=" + item.data("domain"), function(data){ this.processCompanyData(data); }.bind(this));
+
         this.props.onChange(state);
       }.bind(this)
     });
+  },
+
+  processCompanyData: function(data){
+    var state = {};
+    if(data !== undefined && data !== null){
+      if(data.organization !== undefined && data.organization !== null){
+        if(data.organization.contactInfo !== undefined && data.organization.contactInfo !== null){
+          if(data.organization.contactInfo.phoneNumbers !== undefined && data.organization.contactInfo.phoneNumbers !== null && data.organization.contactInfo.phoneNumbers.length > 0){
+            var phone = data.organization.contactInfo.phoneNumbers[0];
+
+            state[this.props.fields.employerContactNumber.name] = this.formatPhoneNumber(phone.number.replace(/-/g, ""));
+            state[this.props.fields.employerContactName.name] = "HR Department";
+          }else{
+            state[this.props.fields.employerContactNumber.name] = "";
+            state[this.props.fields.employerContactName.name] = "";
+          }
+
+          if(data.organization.contactInfo.addresses !== undefined && data.organization.contactInfo.addresses !== null && data.organization.contactInfo.addresses.length > 0){
+            var address = data.organization.contactInfo.addresses[0];
+            var addressLine1 = address.addressLine1 || "";
+            var city = address.locality || "";
+            var region = (address.region !== undefined && address.region !== null) ? (address.region.code) : "";
+            var country = (address.country !== undefined && address.country !== null) ? (address.country.name) : "";
+            var zipCode = address.postalCode || "";
+
+            var currentAddress = this.props.currentEmployerAddress || {};
+            currentAddress.city = city;
+            currentAddress.state = region;
+            currentAddress.street_address = addressLine1;
+            currentAddress.zip = zipCode;
+            currentAddress.full_text = $.grep([addressLine1, city, region], Boolean).join(", ") + " " + zipCode;
+
+            state[this.props.fields.currentEmployerAddress.name] = currentAddress;
+          }else{
+            var currentAddress = this.props.currentEmployerAddress || {};
+
+            currentAddress.city = "";
+            currentAddress.state = "";
+            currentAddress.street_address = "";
+            currentAddress.zip = "";
+            currentAddress.full_text = "";
+
+            state[this.props.fields.currentEmployerAddress.name] = currentAddress;
+          }
+          this.props.onChange(state);
+        }
+      }
+    }
   },
 
   render: function() {
