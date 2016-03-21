@@ -25,7 +25,18 @@
     cursor: pointer;
     pointer-events: none;
   }
+
   .thank-you {
     padding-top: 50px;
   }
+  @include respond-to(smobile){
+    .form-group {
+      margin-top:10px;
+      margin-bottom: 10px;
+      .m-margin-bottom {
+        margin-bottom: 30px;
+      }
+    }
+
+  };
 }

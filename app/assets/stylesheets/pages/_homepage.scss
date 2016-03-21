@@ -6,9 +6,7 @@
     background-size: cover;
     background-position: center;
     padding-top: 30px;
-    @include respond-to(smobile) {
-      padding-top: 0;
-    };
+
   }
   #home-left {
     text-align: center;
@@ -21,10 +19,7 @@
     margin: 0 0 0 20px;
     font-weight: bold;
     letter-spacing: 0.03em;
-    @include respond-to(smobile) {
-      font-size: 1.5em;
-      font-weight: 600;
-    };
+
   }
   #home-left p {
     /*margin: 15px 20px;*/
@@ -45,15 +40,11 @@
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 35px;
-    @include respond-to(smobile) {
-      margin-top: 0;
-    };
+
   }
   #apply-btn {
     margin-top: 25px;
-    @include respond-to(smobile) {
-      margin-top: 0;
-    };
+
   }
   // ========= table
   .home-table .table-header td {
@@ -71,10 +62,7 @@
     @include respond-to(mobile) {
       font-size: 0.9em;
     };
-    @include respond-to(smobile) {
-      font-size: 0.7em;
-      padding: 20px 8px 0 !important;
-    };
+
   }
   .home-table td hr {
     display: block;
@@ -126,10 +114,7 @@
     letter-spacing: 0.05em;
     font-size: 1.75em;
     font-weight: 600;
-    @include respond-to(smobile) {
-      font-size: 1.3em;
-      font-weight: 400;
-    };
+
   }
   #home-right-header p {
     color: white;
@@ -151,11 +136,7 @@
     width: 100%;
     background-color: #f3f5f7;
     margin-top: -21px;
-    @include respond-to(smobile){
-      p {
-        display: inline;
-      }
-    };
+
   }
   .our-investors div:last-child {
     //margin-right: 0;
@@ -174,9 +155,7 @@
   // hello-mortgage
   .hello-mortgage {
     padding-top: 65px;
-    @include respond-to(smobile) {
-      padding-top: 0;
-    };
+
   }
   .logo-text {
     font-family: $mc-font;
@@ -188,11 +167,7 @@
   .note {
     margin-top: 28px;
     font-size: 1.5em;
-    @include respond-to(smobile) {
-      font-size: 1.2em;
-      width: 85%;
-      margin-top: 15px;
-    };
+
     color: #000;
     width: 60%;
     line-height: 1.5em;
@@ -211,15 +186,9 @@
       }
     };
     .row {
-      padding: 20px;
+      //padding: 20px;
     }
-    @include respond-to(smobile) {
-      margin-top: 20px;
-      margin-bottom: 20px;
-      .row {
-        padding: 5px;
-      }
-    };
+
   }
   .text-bubble {
     background-image: url(asset_path('text-bubble.jpg'));
@@ -242,10 +211,7 @@
       font-size: 2.5em;
       padding-top: 0;
     };
-    @include respond-to(smobile) {
-      font-size: 1em;
-      padding-top: 4px;
-    };
+
   }
   // #left-info h6,
   // #right-info h6 {
@@ -265,9 +231,7 @@
     @include respond-to(tablet) {
       padding-left: 35px;
     };
-    @include respond-to(smobile) {
-      padding-left: 20px;
-    };
+
   }
   #left-info,
   #right-info {
@@ -302,15 +266,7 @@
         line-height: 1.2em;
       }
     };
-    @include respond-to(smobile) {
-      h6 {
-        font-size: 1em;
-      }
-      p {
-        font-size: 0.7em;
-        line-height: 0.5em;
-      }
-    };
+
   }
   // end hello-mortgage
   // why-part
@@ -334,20 +290,10 @@
     font-family: 'aileronlight';
     font-size: 4.5em;
     margin-top: -10px;
-    @include respond-to(smobile) {
-      display: none;
-    };
+
   }
   .why-item {
-    @include respond-to(smobile) {
-      text-align: center;
-      width: 80%;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      height: auto;
-      margin-top: 20px;
-    };
+
     margin-top: 60px;
     color: black;
     img {
@@ -357,14 +303,7 @@
       @include respond-to(mobile) {
         margin-left: 50px;
       };
-      @include respond-to(smobile) {
-        width: 60%;
-        height: auto;
-        margin-left: auto;
-        margin-right: auto;
-        float: none;
-        margin-top: 0;
-      };
+
     }
     .whyText {
       display: block;
@@ -372,12 +311,7 @@
       width: 65%;
       float: left;
       margin-top: -4px;
-      @include respond-to(smobile) {
-        float: none;
-        width: 100%;
-        margin: 0;
-        padding-bottom: 10px;
-      };
+
       h2 {
         font-family: 'aileronsemibold';
         font-size: 2em;
@@ -388,7 +322,6 @@
         font-size: 1.125em;
         letter-spacing: 0.03em;
         line-height: 1.75em;
-
       }
     }
   }
@@ -402,9 +335,7 @@
     img {
       &:last-child {
         width: 90% !important;
-        @include respond-to(smobile) {
-          margin-left: 0 !important;
-        };
+
       }
     }
     .how-item {
@@ -414,10 +345,7 @@
         height: 120%;
         margin-left: 40px;
       }
-      @include respond-to(smobile) {
-        margin-top: 20px;
-        margin-left: 10px;
-      };
+
     }
     .whyText {
       width: 80%;
@@ -433,9 +361,7 @@
         font-family: 'aileronlight';
         line-height: 1.75em;
         padding-left: 40px;
-        @include respond-to(smobile){
-          padding-left: 0px;
-        };
+
       }
     }
     #how-footer {
@@ -455,9 +381,7 @@
     background-color: #fff;
     padding-bottom: 80px;
     margin-top: 0;
-    @include respond-to(smobile){
-      padding-bottom: 40px;
-    };
+
   }
   .clients {
     margin-top: 20px;
@@ -468,9 +392,7 @@
   .client {
     text-align: center;
     margin-top: 50px;
-    @include respond-to(smobile){
-      margin-top: 10px;
-    };
+
   }
   .client:last-child {
     margin-right: 0;
@@ -493,18 +415,14 @@
     @include respond-to(tablet) {
       padding: 15px 25px 40px !important;
     };
-    @include respond-to(smobile) {
-      padding: 15px 20px 35px !important;
-    };
+
   }
   .client img {
     border-radius: 50%;
     margin-top: 20px;
     width: 35%;
     height: auto;
-    @include respond-to(smobile){
-      margin-top: 0;
-    };
+
   }
   .client h4 {
     font-family: 'aileronsemibold';
@@ -516,21 +434,11 @@
     color: #000;
     font-size: 1.5em;
   }
-  // end client part
-  // #des_upload {   RateAlert.
-  //   padding-top: 15px;
-  //   color: #a1a1a1;
-  //   letter-spacing: 0.03em;
-  //   font-style: italic;
-  //   font-family: 'aileronlight';
-  // }
   .content .how-header,
   .content .client-header {
     margin-top: 80px !important;
     font-weight: 500;
-    @include respond-to(smobile) {
-      margin-top: 40px !important;
-    };
+
   }
   .content h1 {
     color: $mc-color;

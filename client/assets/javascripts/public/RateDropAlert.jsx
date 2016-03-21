@@ -154,8 +154,7 @@ var RateDropAlert = React.createClass({
                               <div className="col-sm-12 email-address text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.email.error]}
-
-                                  placeholder={fields.email.label}
+                                  label={fields.email.label}
                                   keyName={fields.email.keyName}
                                   value={this.state[fields.email.keyName]}
                                   editable={true}
@@ -169,7 +168,7 @@ var RateDropAlert = React.createClass({
                               <div className="col-sm-6 text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.currentMortgageRate.error]}
-                                  placeholder={fields.currentMortgageRate.label}
+                                  label={fields.currentMortgageRate.label}
                                   keyName={fields.currentMortgageRate.keyName}
                                   value={this.state[fields.currentMortgageRate.keyName]}
                                   format={this.formatPercent}
@@ -183,8 +182,7 @@ var RateDropAlert = React.createClass({
                               <div className="col-sm-6 text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.zip.error]}
-
-                                  placeholder={fields.zip.label}
+                                  label={fields.zip.label}
                                   keyName={fields.zip.keyName}
                                   value={this.state[fields.zip.keyName]}
                                   format={this.formatInteger}
@@ -260,7 +258,7 @@ var RateDropAlert = React.createClass({
                               </div>
                             </div>
                             <div className="form-group">
-                              <div className="col-sm-10 col-sm-offset-1 m-margin-bottom">
+                              <div className="col-sm-10 col-sm-offset-1">
                                 <p><b>Please note:</b> The use of information collected shall be limited to the purpose of monitoring your mortgage rates. We do not sell or share your information with anyone else.</p>
                               </div>
                             </div>
