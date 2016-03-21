@@ -100,7 +100,7 @@ Feature: IncomeTabAtNewLoanPage
         And I should see content as "(909) 123-4785"
         And I should see content as "$9,999.00"
 
-  @javascript
+  @javascript @vcr-full-contact-api
   Scenario: Borrower fills in employer name with autocomplete
     When I am at loan management page
       And I should see "Income"

@@ -9,4 +9,5 @@ end
 VCR.cucumber_tags do |t|
   t.tag "@vcr"
   t.tag "@vcr-select-rates"
+  t.tag "@vcr-full-contact-api"
 end
