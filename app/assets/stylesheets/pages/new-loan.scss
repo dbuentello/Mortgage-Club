@@ -239,6 +239,12 @@
     -moz-filter: saturate(100%);
     -ms-filter: saturate(100%);
     filter: saturate(100%);
+    text-shadow: 0 0 0 #000;
+  }
+
+  select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
   }
 
   .select-field img {
