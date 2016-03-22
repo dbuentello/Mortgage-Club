@@ -1,5 +1,5 @@
 class Users::LoansController < Users::BaseController
-  before_action :set_loan, only: [:edit, :update, :destroy, :show, :updateIncome]
+  before_action :set_loan, only: [:edit, :update, :destroy, :show, :update_income]
   before_action :load_liabilities, only: [:edit, :show]
 
   def index
