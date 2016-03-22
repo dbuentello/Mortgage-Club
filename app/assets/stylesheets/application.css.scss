@@ -53,6 +53,9 @@ body {
   @include respond-to(mobile-tablet){
     padding-bottom: 180px;
   };
+  @include respond-to(smobile){
+    padding-bottom: 130px;
+  };
   position: relative;
 
 }
