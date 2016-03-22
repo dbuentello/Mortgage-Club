@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post "mailjet_tracking", to: "mailjet_tracking#track"
 
   get "/esigning/:id", to: "users/electronic_signature#new"
+  get "/company_info", to: "users/borrowers#get_company_info"
 
   authenticated :user, ->(u) { u.has_role?(:borrower) } do
     root to: "users/loans#index", as: :borrower_root

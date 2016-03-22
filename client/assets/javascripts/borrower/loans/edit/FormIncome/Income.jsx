@@ -103,7 +103,7 @@ var Income = React.createClass({
         var state = {};
         state[this.props.fields.currentEmployerName.name] = item.data("name");
 
-        $.getJSON("https://api.fullcontact.com/v2/company/lookup.json?apiKey=1d1644160dedb85c&domain=" + item.data("domain"), function(data){ this.processCompanyData(data); }.bind(this));
+        $.getJSON("/company_info", {domain: item.data("domain")} ,function(data){ this.processCompanyData(data); }.bind(this));
 
         this.props.onChange(state);
       }.bind(this)
@@ -112,50 +112,24 @@ var Income = React.createClass({
 
   processCompanyData: function(data){
     var state = {};
-    if(data !== undefined && data !== null){
-      if(data.organization !== undefined && data.organization !== null){
-        if(data.organization.contactInfo !== undefined && data.organization.contactInfo !== null){
-          if(data.organization.contactInfo.phoneNumbers !== undefined && data.organization.contactInfo.phoneNumbers !== null && data.organization.contactInfo.phoneNumbers.length > 0){
-            var phone = data.organization.contactInfo.phoneNumbers[0];
 
-            state[this.props.fields.employerContactNumber.name] = this.formatPhoneNumber(phone.number.replace(/-/g, ""));
-            state[this.props.fields.employerContactName.name] = "HR Department";
-          }else{
-            state[this.props.fields.employerContactNumber.name] = "";
-            state[this.props.fields.employerContactName.name] = "";
-          }
+    var companyInfo = data.company_info;
+    var companyAddress = companyInfo.company_address;
+    var currentAddress = this.props.currentEmployerAddress || {};
 
-          if(data.organization.contactInfo.addresses !== undefined && data.organization.contactInfo.addresses !== null && data.organization.contactInfo.addresses.length > 0){
-            var address = data.organization.contactInfo.addresses[0];
-            var addressLine1 = address.addressLine1 || "";
-            var city = address.locality || "";
-            var region = (address.region !== undefined && address.region !== null) ? (address.region.code) : "";
-            var country = (address.country !== undefined && address.country !== null) ? (address.country.name) : "";
-            var zipCode = address.postalCode || "";
+    var phoneNumber = companyInfo.contact_phone_number == "" ? "" : companyInfo.contact_phone_number.replace(/-/g, "");
+    state[this.props.fields.employerContactNumber.name] = this.formatPhoneNumber(phoneNumber);
+    state[this.props.fields.employerContactName.name] = companyInfo.contact_name;
 
-            var currentAddress = this.props.currentEmployerAddress || {};
-            currentAddress.city = city;
-            currentAddress.state = region;
-            currentAddress.street_address = addressLine1;
-            currentAddress.zip = zipCode;
-            currentAddress.full_text = $.grep([addressLine1, city, region], Boolean).join(", ") + " " + zipCode;
+    var currentAddress = this.props.currentEmployerAddress || {};
+    currentAddress.city = companyAddress.city;
+    currentAddress.state = companyAddress.state;
+    currentAddress.street_address = companyAddress.street_address;
+    currentAddress.zip = companyAddress.zip;
+    currentAddress.full_text = $.grep([companyAddress.street_address, companyAddress.city, companyAddress.state], Boolean).join(", ") + " " + companyAddress.zip;
 
-            state[this.props.fields.currentEmployerAddress.name] = currentAddress;
-          }else{
-            var currentAddress = this.props.currentEmployerAddress || {};
-
-            currentAddress.city = "";
-            currentAddress.state = "";
-            currentAddress.street_address = "";
-            currentAddress.zip = "";
-            currentAddress.full_text = "";
-
-            state[this.props.fields.currentEmployerAddress.name] = currentAddress;
-          }
-          this.props.onChange(state);
-        }
-      }
-    }
+    state[this.props.fields.currentEmployerAddress.name] = currentAddress;
+    this.props.onChange(state);
   },
 
   render: function() {
