@@ -23,7 +23,7 @@ module FullContactServices
 
       read_company_info(JSON.parse(response.body)["organization"]) if success?
 
-      { company_info: company_info }
+      {company_info: company_info}
     end
 
     def success?

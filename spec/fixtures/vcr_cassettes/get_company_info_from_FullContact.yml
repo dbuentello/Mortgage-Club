@@ -21,11 +21,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 22 Mar 2016 04:02:47 GMT
+      - Tue, 22 Mar 2016 05:15:46 GMT
       Content-Type:
       - application/json; charset=UTF-8
-      Content-Length:
-      - '2231'
+      Transfer-Encoding:
+      - chunked
       Connection:
       - keep-alive
       Vary:
@@ -39,8 +39,8 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        ewogICJzdGF0dXMiIDogMjAwLAogICJyZXF1ZXN0SWQiIDogIjA0ODdlYjA5
-        LTMxZWUtNDgwNi1iNmI1LWZjZWVjMWRkMWY5MyIsCiAgImNhdGVnb3J5IiA6
+        ewogICJzdGF0dXMiIDogMjAwLAogICJyZXF1ZXN0SWQiIDogIjZiMjJiOTcx
+        LTJlMzEtNDRiYy04M2FmLWVlNGU1ZWUzZjgxNiIsCiAgImNhdGVnb3J5IiA6
         IFsgewogICAgIm5hbWUiIDogIk90aGVyIiwKICAgICJjb2RlIiA6ICJPVEhF
         UiIKICB9IF0sCiAgImxvZ28iIDogImh0dHBzOi8vZDJvanB4eHR1NjN3emwu
         Y2xvdWRmcm9udC5uZXQvc3RhdGljL2ExMWRkODcyYjEyYmNjMTA5YjZhMzZi
@@ -164,5 +164,5 @@ http_interactions:
         ICAgICJyYW5rIiA6IDQzLAogICAgICAibG9jYWxlIiA6ICJ1cyIKICAgIH0g
         XQogIH0KfQ==
     http_version: 
-  recorded_at: Tue, 22 Mar 2016 04:02:47 GMT
+  recorded_at: Tue, 22 Mar 2016 05:15:45 GMT
 recorded_with: VCR 2.9.3

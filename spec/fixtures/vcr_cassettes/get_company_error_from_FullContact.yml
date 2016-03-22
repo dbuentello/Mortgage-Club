@@ -21,11 +21,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 22 Mar 2016 04:16:41 GMT
+      - Tue, 22 Mar 2016 05:15:47 GMT
       Content-Type:
       - application/json; charset=UTF-8
-      Transfer-Encoding:
-      - chunked
+      Content-Length:
+      - '165'
       Connection:
       - keep-alive
       Vary:
@@ -33,17 +33,17 @@ http_interactions:
       X-Rate-Limit-Limit:
       - '60'
       X-Rate-Limit-Remaining:
-      - '59'
+      - '58'
       X-Rate-Limit-Reset:
-      - '60'
+      - '59'
     body:
       encoding: UTF-8
       string: |-
         {
           "status" : 422,
           "message" : "Input domain parameter (\"microsoft\") does not contain a valid domain.",
-          "requestId" : "1392519b-b202-41e9-b3de-094a647f3892"
+          "requestId" : "5bfd1313-4794-4a79-9e47-cc7422ae2be5"
         }
     http_version: 
-  recorded_at: Tue, 22 Mar 2016 04:16:42 GMT
+  recorded_at: Tue, 22 Mar 2016 05:15:47 GMT
 recorded_with: VCR 2.9.3
