@@ -194,6 +194,9 @@
     color: #12a7d1;
     font-size: 2.5em;
     font-family: 'aileronlight';
+    @include respond-to(smobile){
+      font-size: 2em;
+    };
   }
   #btnLoginDevise {
     border-bottom: solid 2px rgba(0, 0, 0, 0.3);
