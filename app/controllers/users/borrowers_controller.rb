@@ -21,6 +21,10 @@ class Users::BorrowersController < Users::BaseController
     end
   end
 
+  def get_company_info
+    render json: {company_info: FullContactServices::GetCompanyInfo.new(params[:domain]).call}
+  end
+
   private
 
   def update_secondary_borrower

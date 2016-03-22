@@ -94,7 +94,7 @@ var Income = React.createClass({
           var logo = item.logo + "?size=25x25";
         }
 
-        var container = "<div class='autocomplete-suggestion' data-name='" + item.name + "' data-val='" + search + "'>";
+        var container = "<div class='autocomplete-suggestion' data-domain='" + item.domain + "' data-name='" + item.name + "' data-val='" + search + "'>";
         container += '<span class="icon"><img align="center" src="'+ logo + '" onerror="this.src=\'' + default_logo + '\'"></span> ';
         container += item.name + "<span class='domain'>" + item.domain + "</span></div>";
         return container;
@@ -102,9 +102,32 @@ var Income = React.createClass({
       onSelect: function(e, term, item){
         var state = {};
         state[this.props.fields.currentEmployerName.name] = item.data("name");
+
+        $.getJSON("/company_info", {domain: item.data("domain")} ,function(data){ this.processCompanyData(data); }.bind(this));
+
         this.props.onChange(state);
       }.bind(this)
     });
+  },
+
+  processCompanyData: function(responseData){
+    var state = {};
+
+    var companyInfo = responseData.company_info;
+    var currentAddress = this.props.currentEmployerAddress || {};
+
+    var phoneNumber = companyInfo.contact_phone_number == "" ? "" : companyInfo.contact_phone_number.replace(/-/g, "");
+    state[this.props.fields.employerContactNumber.name] = this.formatPhoneNumber(phoneNumber);
+    state[this.props.fields.employerContactName.name] = companyInfo.contact_name;
+
+    currentAddress.city = companyInfo.city;
+    currentAddress.state = companyInfo.state;
+    currentAddress.street_address = companyInfo.street_address;
+    currentAddress.zip = companyInfo.zip;
+    currentAddress.full_text = $.grep([companyInfo.street_address, companyInfo.city, companyInfo.state], Boolean).join(", ") + " " + companyInfo.zip;
+
+    state[this.props.fields.currentEmployerAddress.name] = currentAddress;
+    this.props.onChange(state);
   },
 
   render: function() {

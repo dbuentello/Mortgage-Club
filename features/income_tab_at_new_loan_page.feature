@@ -100,15 +100,17 @@ Feature: IncomeTabAtNewLoanPage
         And I should see content as "(909) 123-4785"
         And I should see content as "$9,999.00"
 
-  @javascript
+  @javascript @vcr-full-contact-api
   Scenario: Borrower fills in employer name with autocomplete
     When I am at loan management page
       And I should see "Income"
       And I click "Income"
     Then I clear value in "Name Of Current Employer"
-      And I fill in "Name Of Current Employer" with "tech in"
-      And I should see "Tech in Asia"
-      And I click on "Tech in Asia"
+      And I fill in "Name Of Current Employer" with "VietNam"
+      And I should see "VietNamNet"
+      And I click on "VietNamNet"
+      And I wait for 4 seconds
       And I click on "Save and Continue"
     Then I click "Income"
-      And I should see "Tech in Asia"
+      And I should see "VietNamNet"
+      And the "Contact Phone Number" field should contain "(844) 377-2272"
