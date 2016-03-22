@@ -110,23 +110,21 @@ var Income = React.createClass({
     });
   },
 
-  processCompanyData: function(data){
+  processCompanyData: function(responseData){
     var state = {};
-
-    var companyInfo = data.company_info;
-    var companyAddress = companyInfo.company_address;
+    console.log(responseData);
+    var companyInfo = responseData.data.company_info;
     var currentAddress = this.props.currentEmployerAddress || {};
 
     var phoneNumber = companyInfo.contact_phone_number == "" ? "" : companyInfo.contact_phone_number.replace(/-/g, "");
     state[this.props.fields.employerContactNumber.name] = this.formatPhoneNumber(phoneNumber);
     state[this.props.fields.employerContactName.name] = companyInfo.contact_name;
 
-    var currentAddress = this.props.currentEmployerAddress || {};
-    currentAddress.city = companyAddress.city;
-    currentAddress.state = companyAddress.state;
-    currentAddress.street_address = companyAddress.street_address;
-    currentAddress.zip = companyAddress.zip;
-    currentAddress.full_text = $.grep([companyAddress.street_address, companyAddress.city, companyAddress.state], Boolean).join(", ") + " " + companyAddress.zip;
+    currentAddress.city = companyInfo.city;
+    currentAddress.state = companyInfo.state;
+    currentAddress.street_address = companyInfo.street_address;
+    currentAddress.zip = companyInfo.zip;
+    currentAddress.full_text = $.grep([companyInfo.street_address, companyInfo.city, companyInfo.state], Boolean).join(", ") + " " + companyInfo.zip;
 
     state[this.props.fields.currentEmployerAddress.name] = currentAddress;
     this.props.onChange(state);

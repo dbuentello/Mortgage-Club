@@ -1,13 +1,13 @@
 module FullContactServices
   class GetCompanyInfo
     attr_reader :domain
-    attr_accessor :contact_name, :contact_phone_number, :company_address, :response
+    attr_accessor :company_info, :response
 
     def initialize(domain)
       @domain = domain
-      @contact_name = ""
-      @contact_phone_number = ""
-      @company_address = {
+      @company_info = {
+        contact_name: "",
+        contact_phone_number: "",
         city: "",
         state: "",
         street_address: "",
@@ -23,11 +23,7 @@ module FullContactServices
 
       read_company_info(JSON.parse(response.body)["organization"]) if success?
 
-      {
-        contact_name: contact_name,
-        contact_phone_number: contact_phone_number,
-        company_address: company_address
-      }
+      { company_info: company_info }
     end
 
     def success?
@@ -35,26 +31,27 @@ module FullContactServices
     end
 
     def read_company_info(response_data)
-      if response_data["contactInfo"].present?
-        if response_data["contactInfo"]["phoneNumbers"].present?
-          phone = response_data["contactInfo"]["phoneNumbers"][0]
+      return unless response_data["contactInfo"].present?
 
-          @contact_name = "HR Department"
-          @contact_phone_number = phone["number"].to_s
-        end
+      read_phones_info(response_data["contactInfo"]["phoneNumbers"]) if response_data["contactInfo"]["phoneNumbers"].present?
+      read_addresses_info(response_data["contactInfo"]["addresses"]) if response_data["contactInfo"]["addresses"].present?
+    end
 
-        if response_data["contactInfo"]["addresses"].present?
-          address = response_data["contactInfo"]["addresses"][0]
-          state = address["region"].present? ? address["region"]["code"] : nil
+    def read_phones_info(phones)
+      phone = phones[0]
 
-          @company_address = {
-            street_address: address["addressLine1"].to_s,
-            city: address["locality"].to_s,
-            zip: address["postalCode"].to_s,
-            state: state.to_s
-          }
-        end
-      end
+      @company_info[:contact_name] = "HR Department"
+      @company_info[:contact_phone_number] = phone["number"].to_s
+    end
+
+    def read_addresses_info(addresses)
+      address = addresses[0]
+      state = address["region"].present? ? address["region"]["code"] : nil
+
+      @company_info[:street_address] = address["addressLine1"].to_s
+      @company_info[:city] = address["locality"].to_s
+      @company_info[:zip] = address["postalCode"].to_s
+      @company_info[:state] = state.to_s
     end
   end
 end

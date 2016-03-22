@@ -22,7 +22,7 @@ class Users::BorrowersController < Users::BaseController
   end
 
   def get_company_info
-    render json: {company_info: FullContactServices::GetCompanyInfo.new(params[:domain]).call}
+    render json: {data: FullContactServices::GetCompanyInfo.new(params[:domain]).call}
   end
 
   private

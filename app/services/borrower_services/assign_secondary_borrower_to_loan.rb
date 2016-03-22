@@ -11,7 +11,7 @@ module BorrowerServices
     end
 
     def call
-      if invalid_owner? || invalid_email_params? || owner_is_the_same_as_loan_user?
+      unless owner && secondary_params[:borrower][:email].present?
         destroy_secondary_borrower
         return
       end
@@ -37,18 +37,6 @@ module BorrowerServices
 
     def default_password
       @default_password ||= Digest::MD5.hexdigest(secondary_params[:borrower][:email]).first(10)
-    end
-
-    def invalid_owner?
-      owner.nil?
-    end
-
-    def invalid_email_params?
-      secondary_params[:borrower][:email].nil?
-    end
-
-    def owner_is_the_same_as_loan_user?
-      owner.id == loan.user.id
     end
 
     def send_email_to_secondary_borrower
