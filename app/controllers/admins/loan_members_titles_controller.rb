@@ -1,4 +1,4 @@
-class Admins::LoanMembersTitlesController <  Admins::BaseController
+class Admins::LoanMembersTitlesController < Admins::BaseController
   before_action :set_title, except: [:index, :create]
 
   def index
@@ -26,7 +26,7 @@ class Admins::LoanMembersTitlesController <  Admins::BaseController
     if @title.update(title_params)
       render json: {
         title: @title,
-        message: "Update successfully"
+        message: t("info.success", status: t("common.status.updated"))
       }, status: 200
     else
       render json: {message: @title.errors.full_messages.first}, status: 500
@@ -50,11 +50,11 @@ class Admins::LoanMembersTitlesController <  Admins::BaseController
   def destroy
     if @title.destroy
       render json: {
-        message: "Removed the the title successfully",
+        message: t("info.success", status: t("common.status.removed")),
         loan_members_titles: LoanMembersTitle.all
       }, status: 200
     else
-      render json: {message: "Cannot remove the the"}, status: 500
+      render json: {message: t("errors.failed", process: t("common.process.remove"))}, status: 500
     end
   end
 

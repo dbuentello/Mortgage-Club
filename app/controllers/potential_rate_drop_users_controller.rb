@@ -22,8 +22,8 @@ class PotentialRateDropUsersController < ApplicationController
 
   def render_error(potential_rate_drop_user)
     render json: {
-      alert_method: potential_rate_drop_user.errors[:alert_method].present? ? "This field is required" : nil
-      }, status: 500
+      alert_method: potential_rate_drop_user.errors[:alert_method].present? ? t("errors.field_required") : nil
+    }, status: 500
   end
 
   def potential_rate_drop_params

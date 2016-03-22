@@ -1,17 +1,15 @@
 Rails.application.routes.draw do
-
-  get "take_home_test", to: "pages#take_home_test", as: :take_home_test
   get "home_test_rates", to: "pages#home_test_rates"
   get "backend_test", to: "pages#backend_test"
   get "frontend_test", to: "pages#frontend_test"
 
-  get "rate_drop_alert", to: "ab_testings#rate_drop_alert"
-  post "/rate_drop_alert", to: "potential_rate_drop_users#create"
+  get "refinance_alert", to: "ab_testings#refinance_alert"
+  post "/refinance_alert", to: "potential_rate_drop_users#create"
 
   post "/potential_users", to: "potential_users#create"
   post "mailjet_tracking", to: "mailjet_tracking#track"
-  get "/esigning/:id", to: "electronic_signature#new"
-  get "/quotes", to: "initial_quotes#index"
+
+  get "/esigning/:id", to: "users/electronic_signature#new"
 
   authenticated :user, ->(u) { u.has_role?(:borrower) } do
     root to: "users/loans#index", as: :borrower_root
@@ -53,82 +51,82 @@ Rails.application.routes.draw do
     get "signup", to: "users/registrations#new", as: :custom_signup
   end
 
-  resources :invites, only: [:index, :create]
-
-  resources :rates, only: [:index] do
-    collection do
-      post :select
-    end
-  end
-
-  resources :underwriting, only: [:index] do
-    collection do
-      get :check_loan
-    end
-  end
-
-  resources :employments, only: [:show] do
-  end
-
-  resources :charges, only: [:new, :create]
-
-  resources :electronic_signature, only: [:new, :create] do
-    get "embedded_response", on: :collection
-  end
-
   get "/my/loans", to: "users/loans#index", as: :my_loans
 
   scope module: "users" do
     scope "/my" do
       # resources :loans do
       # end
-      resources :dashboard do
+
+      resources :dashboard, only: [:show] do
       end
-      resources :checklists do
+
+      resources :checklists, only: [:update] do
         collection do
           get :load_docusign
           get :docusign_callback
         end
       end
     end
-    resources :loans do
-      collection do
-        get "/:id/income", to: "loans#update_income"
-      end
 
-      get :get_secondary_borrower_info, on: :collection
+    resources :loans, except: [:new] do
+      collection do
+        get "/:id/income", to: "loans#updateIncome"
+      end
     end
+
     resources :borrowers, only: [:update]
     resources :assets, path: "borrower_assets", only: [:create]
     resources :liabilities, only: [:create]
+
     resources :properties, only: [:create, :destroy] do
       collection do
         get :search
       end
     end
+
+    resources :electronic_signature, only: [:new, :create] do
+      get "embedded_response", on: :collection
+    end
+
+    resources :invites, only: [:create]
+
+    resources :rates, only: [:index]
+
+    resources :underwriting, only: [:index] do
+      collection do
+        get :check_loan
+      end
+    end
   end
 
+
   namespace :loan_members do
-    resources :loan_activities, only: [:index, :show, :create] do
+    resources :loan_activities, only: [:create] do
       collection do
         get "get_activities_by_conditions"
       end
     end
-    resources :checklists do
+
+    resources :checklists, only: [:create, :edit, :update, :destroy] do
     end
-    resources :loans do
+
+    resources :loans, only: [:index, :update] do
     end
-    resources :dashboard do
-    end
-    resources :lender_documents do
+
+    resources :dashboard, only: [:show]
+
+    resources :lender_documents, only: [:create, :destroy] do
       member do
         get "download"
       end
+
       collection do
         get "get_other_documents"
       end
     end
-    resources :submissions do
+
+    resources :submissions, only: [] do
       collection do
         post "submit_to_lender"
         get "get_email_info"
@@ -143,16 +141,14 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :loan_member_managements do
+    resources :loan_member_managements, only: [:index, :edit, :update, :create, :destroy] do
     end
 
-    resources :homepage_rates
+    resources :homepage_rates, only: [:index, :edit, :update]
 
-    resources :loan_faq_managements do
-    end
+    resources :loan_faq_managements, except: [:new, :show]
 
-    resources :loan_activity_type_managements do
-    end
+    resources :loan_activity_type_managements, except: [:new, :show]
 
     resources :potential_user_managements, only: [:index, :edit, :update, :destroy] do
     end
@@ -160,11 +156,11 @@ Rails.application.routes.draw do
     resources :potential_rate_drop_user_managements, only: [:index, :edit, :update, :destroy] do
     end
 
-    resources :lenders do
-      resources :lender_templates
+    resources :lenders, except: [:show] do
+      resources :lender_templates, except: [:new, :show]
     end
 
-    resources :loan_members_titles
+    resources :loan_members_titles, except: [:new, :show]
     resources :settings, only: [:index, :update]
     resources :borrower_managements, only: [:index, :destroy] do
       member do
@@ -183,37 +179,13 @@ Rails.application.routes.draw do
         get "download"
       end
     end
-
-    resources :borrowers, only: [] do
-      collection do
-        post "upload"
-      end
-    end
-
-    resources :closings, only: [] do
-      collection do
-        post "upload"
-      end
-    end
-
-    resources :loans, only: [] do
-      collection do
-        post "upload"
-      end
-    end
-
-    resources :properties, only: [] do
-      collection do
-        post "upload"
-      end
-    end
   end
 
-  resources :ocr_notifications do
+  resources :ocr_notifications, only: [] do
     post "receive", on: :collection
   end
 
-  resources :initial_quotes, only: [:index, :create] do
+  resources :initial_quotes, only: [:index, :show, :create], path: "quotes" do
     collection do
       post "save_info"
     end

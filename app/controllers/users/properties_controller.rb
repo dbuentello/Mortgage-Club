@@ -2,18 +2,18 @@ class Users::PropertiesController < Users::BaseController
   before_action :set_loan, only: [:create]
 
   def create
-    property_form = PropertyForm.new({
+    property_form = PropertyForm.new(
       loan: @loan,
       subject_property: @loan.subject_property,
       address: address,
       params: params
-    })
+    )
 
     if property_form.save
       @loan.reload
       render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show}
     else
-      render json: {message: "cannot save property"}, status: 500
+      render json: {message: t("users.properties.create.failed")}, status: 500
     end
   end
 
@@ -35,7 +35,7 @@ class Users::PropertiesController < Users::BaseController
       render json: convert_property_type(response)
     else
       # render status: 404, nothing: true
-      render json: {message: "cannot find"}
+      render json: {message: t("users.properties.search.not_found")}
     end
   end
 

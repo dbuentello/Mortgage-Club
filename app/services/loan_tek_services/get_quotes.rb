@@ -63,12 +63,12 @@ module LoanTekServices
     end
 
     def lock_period
-      #30 days
+      # 30 days
       30
     end
 
     def execution_method
-      #Just remove stop
+      # Just remove stop
       3
     end
 

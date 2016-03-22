@@ -4,7 +4,7 @@ var ClientPart = React.createClass({
   render: function() {
 
     return (
-      <div className="content clientPart">
+      <div className="content client-part">
         <div className="container">
           <h1 className="text-uppercase client-header">meet our clients</h1>
           <h6 className="note">We work hard to provide our clients a painless mortgage experience and help them save time and money. </h6>

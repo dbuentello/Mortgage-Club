@@ -10,7 +10,7 @@ class Admins::BorrowerManagementsController < Admins::BaseController
   def switch
     return unless current_user.admin?
 
-    sign_in(:user, User.find(params[:id]), {bypass: true})
+    sign_in(:user, User.find(params[:id]), bypass: true)
 
     redirect_to my_loans_path
   end
@@ -19,11 +19,11 @@ class Admins::BorrowerManagementsController < Admins::BaseController
     borrower = Borrower.find(params[:id])
     if borrower.destroy
       render json: {
-        message: "Removed the #{borrower.to_s} successfully",
+        message: t("admins.borrower_managements.destroy.remove_success", borrower: borrower.to_s),
         borrowers: borrowers
       }, status: 200
     else
-      render json: {message: "Cannot remove the checklist"}, status: 500
+      render json: {message: t("admins.borrower_managements.destroy.remove_failed")}, status: 500
     end
   end
 

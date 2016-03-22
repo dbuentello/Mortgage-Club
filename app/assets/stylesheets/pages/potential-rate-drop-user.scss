@@ -1,0 +1,42 @@
+// Place all the styles related to the PotentialRateDropUser controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.rate-drop-alert {
+
+
+  select {
+    -webkit-appearance: none;
+    height: 38px;
+    width: 100%;
+    cursor: pointer;
+  }
+  h6 {
+    font-size: 1.1em;
+    color: #15c0f1;
+  }
+  #rate_alert {
+    margin: -50px 0 !important;
+    padding: 50px 0 !important;
+  }
+  .form-group img {
+    top: initial;
+    -webkit-filter: saturate(0%);
+    bottom: 6px;
+    cursor: pointer;
+    pointer-events: none;
+  }
+
+  .thank-you {
+    padding-top: 50px;
+  }
+  @include respond-to(smobile){
+    .form-group {
+      margin-top:10px;
+      margin-bottom: 10px;
+      .m-margin-bottom {
+        margin-bottom: 30px;
+      }
+    }
+
+  };
+}

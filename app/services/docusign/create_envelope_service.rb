@@ -18,24 +18,9 @@ module Docusign
 
     def call(user, loan)
       generates_documents_by_adobe_field_names(loan)
-      client = DocusignRest::Client.new
-      envelope = client.create_envelope_from_document(
-        {
-          status: "sent",
-          email: {
-            subject: "Electronic Signature Request from MortgageClub Corporation",
-            body: "As discussed, let's finish our contract by signing to this envelope. Thank you!"
-          },
-          files: [
-            {path: UNIFORM_OUTPUT_PATH},
-            {path: FORM_4506_OUTPUT_PATH},
-            {path: BORROWER_CERTIFICATION_OUTPUT_PATH}
-          ],
-          signers: build_signers(user, loan)
-        }
-      )
-
+      envelope = generate_envelope(user, loan)
       delete_temp_files
+
       envelope
     end
 
@@ -44,6 +29,30 @@ module Docusign
       generate_form_4506
       generate_form_certification
     end
+
+    def generate_envelope(user, loan)
+      DocusignRest::Client.new.create_envelope_from_document(
+        status: "sent",
+        email: {
+          subject: I18n.t("services.docusign.create_envelope_service.envelope_email_subject"),
+          body: I18n.t("services.docusign.create_envelope_service.evelope_email_body")
+        },
+        files: [
+          {path: UNIFORM_OUTPUT_PATH},
+          {path: FORM_4506_OUTPUT_PATH},
+          {path: BORROWER_CERTIFICATION_OUTPUT_PATH}
+        ],
+        signers: build_signers(user, loan)
+      )
+    end
+
+    def delete_temp_files
+      File.delete(UNIFORM_OUTPUT_PATH)
+      File.delete(FORM_4506_OUTPUT_PATH)
+      File.delete(BORROWER_CERTIFICATION_OUTPUT_PATH)
+    end
+
+    private
 
     def generate_uniform(loan)
       data = Docusign::Templates::UniformResidentialLoanApplication.new(loan).build
@@ -59,12 +68,6 @@ module Docusign
     def generate_form_certification
       pdftk.get_field_names(BORROWER_CERTIFICATION_PATH)
       pdftk.fill_form(BORROWER_CERTIFICATION_PATH, "tmp/certification.pdf")
-    end
-
-    def delete_temp_files
-      File.delete(UNIFORM_OUTPUT_PATH)
-      File.delete(FORM_4506_OUTPUT_PATH)
-      File.delete(BORROWER_CERTIFICATION_OUTPUT_PATH)
     end
 
     def build_signers(user, loan)

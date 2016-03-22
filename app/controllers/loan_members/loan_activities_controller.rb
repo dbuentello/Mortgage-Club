@@ -6,7 +6,7 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
 
     result = LoanActivityServices::CreateActivity.new.call(loan_member, loan_activity_params)
     if result.success?
-      render json: {activities: LoanActivity.get_latest_by_loan(loan), success: "Success"}, status: 200
+      render json: {activities: LoanActivity.get_latest_by_loan(loan), success: t("status.success")}, status: 200
     else
       render json: {error: result.error_message}, status: 500
     end
@@ -18,8 +18,7 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
         loan_id: loan_activity_params[:loan_id],
         activity_type_id: loan_activity_params[:activity_type_id],
         name: loan_activity_params[:name]
-      ).includes(loan_member: :user).
-      order(created_at: :desc).limit(1).first]
+      ).includes(loan_member: :user).order(created_at: :desc).limit(1).first]
     else
       loan_activities = LoanActivity.get_latest_by_loan_and_conditions(loan_activity_params)
       ActiveRecord::Associations::Preloader.new.preload(loan_activities, loan_member: :user)

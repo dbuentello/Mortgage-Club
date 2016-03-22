@@ -8,7 +8,7 @@ module Docusign
       def initialize(loan)
         @loan = loan
         @subject_property = loan.subject_property
-        @primary_property = loan.primary_property
+        @primary_property = get_primary_property
         @borrower = loan.borrower
         @credit_report = borrower.credit_report
         @params = {}
@@ -30,7 +30,7 @@ module Docusign
       def build_section_1
         build_loan_type
         @params[:loan_amount] = number_with_delimiter(loan.amount.to_f.round)
-        @params[:interest_rate] = "#{"%.3f" % (loan.interest_rate.to_f * 100)}"
+        @params[:interest_rate] = format("%0.03f", loan.interest_rate.to_f * 100) + "%"
         @params[:number_of_month] = loan.num_of_months
         @params[:arm_fixed_rate] = "Yes" if loan.fixed_rate_amortization?
         if loan.arm_amortization?
@@ -145,7 +145,7 @@ module Docusign
             @params[("liabilities_city_state_" + nth).to_sym] = "#{liability.address.city}, #{liability.address.state} #{liability.address.zip}"
           end
 
-          @params[("liabilities_payment_" + nth).to_sym] = "#{number_to_currency(liability.payment.to_f, unit: "")} / #{liability.months.to_i}"
+          @params[("liabilities_payment_" + nth).to_sym] = "#{number_to_currency(liability.payment.to_f, unit: '')} / #{liability.months.to_i}"
           @params[("liabilities_balance_" + nth).to_sym] = number_to_currency(liability.balance.to_f, unit: "")
           @params[("liabilities_acc_" + nth).to_sym] = liability.account_number
         end
@@ -166,7 +166,7 @@ module Docusign
       end
 
       def total_cost_transactions
-        @total_cost_transactions ||=  (subject_property.purchase_price.to_f + loan.estimated_prepaid_items.to_f +
+        @total_cost_transactions ||= (subject_property.purchase_price.to_f + loan.estimated_prepaid_items.to_f +
                                       loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f).round(2)
       end
 
@@ -178,7 +178,7 @@ module Docusign
       end
 
       def build_declaration(role, borrower)
-        #declarations_borrower_l_yes
+        # declarations_borrower_l_yes
         return unless declaration = borrower.declaration
         prefix = (role + "_").freeze
         yes_answer = "_yes".freeze
@@ -302,6 +302,26 @@ module Docusign
 
       def get_net_value
         @net_value ||= UnderwritingLoanServices::CalculateRentalIncome.call(loan)
+      end
+
+      def get_primary_property
+        return unless loan.primary_property
+
+        if subject_property_and_primary_property_have_same_address?(loan.primary_property)
+          return loan.subject_property
+        else
+          return loan.primary_property
+        end
+      end
+
+      def subject_property_and_primary_property_have_same_address?(primary_property)
+        return false unless subject_address = subject_property.address
+        return false unless primary_address = primary_property.address
+
+        subject_address.city == primary_address.city &&
+          subject_address.state == primary_address.state &&
+          subject_address.street_address == primary_address.street_address &&
+          subject_address.zip == primary_address.zip
       end
     end
   end

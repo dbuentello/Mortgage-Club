@@ -2,12 +2,13 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   def index
     loans = current_user.loan_member.loans.includes(:user, properties: :address)
 
-    loan_statuses = Loan.statuses.map {|key,value| [key, key.titleize]}
-    bootstrap(loans: LoanMembers::LoansPresenter.new(loans).show,
+    loan_statuses = Loan.statuses.map { |key, _value| [key, key.titleize] }
+    bootstrap(
+      loans: LoanMembers::LoansPresenter.new(loans).show,
       loan_statuses: loan_statuses
-      )
+    )
     respond_to do |format|
-      format.html { render template: 'loan_member_app' }
+      format.html { render template: "loan_member_app" }
     end
   end
 
@@ -15,7 +16,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     loan = Loan.find(loan_id)
     if loan.update(loan_params)
       respond_to do |format|
-        format.json { render json: {message: "Your loan has been saved successfully"} }
+        format.json { render json: {message: t("loan_members.loans.update.success")} }
       end
     end
   end

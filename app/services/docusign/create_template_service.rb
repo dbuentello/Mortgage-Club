@@ -6,10 +6,10 @@ module Docusign
 
       return unless docusign_template
 
-      options[:state] ||= "California"
-      options[:description] ||= "sample template"
-      options[:email_subject] ||= "Electronic Signature Request from Mortgage Club"
-      options[:email_body] ||= "As discussed, let's finish our contract by signing to this envelope. Thank you!"
+      options[:state] ||= I18n.t("services.docusign.create_template_service.state")
+      options[:description] ||= I18n.t("services.docusign.create_template_service.description")
+      options[:email_subject] ||= I18n.t("services.docusign.create_template_service.email_subject")
+      options[:email_body] ||= I18n.t("services.docusign.create_template_service.email_body")
       options[:user_id] =  nil
 
       template = Template.where(name: docusign_template["name"]).first_or_initialize

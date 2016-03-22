@@ -37,15 +37,15 @@ class Admins::LoanAssignmentsController < Admins::BaseController
   def destroy
     assignment = @loan.loans_members_associations.where(id: params[:id]).last
 
-    return render json: {message: 'Assignment not found'}, status: 500 unless assignment
+    return render json: {message: t("errors.object_not_found", t("common.object.assignment"))}, status: 500 unless assignment
 
     if assignment.destroy
       render json: {
-        message: "Remove the assigne sucessfully",
+        message: t("info.success", status: t("common.status.removed")),
         associations: reload_loans_members_associations_json
       }, status: 200
     else
-      render json: {message: "Cannot remove the assignee"}, status: 500
+      render json: {message: t("errors.failed", process: t("common.proccess.remove"))}, status: 500
     end
   end
 

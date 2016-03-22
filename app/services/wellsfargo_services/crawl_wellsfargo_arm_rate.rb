@@ -41,6 +41,7 @@ module WellsfargoServices
       crawler.fill_in("Home Value", with: home_value)
       crawler.fill_in("Down Payment", with: down_payment)
       crawler.select(property_state, from: "State")
+      crawler.execute_script("changeCounties()")
       crawler.select(property_county, from: "County")
     end
 
@@ -61,9 +62,12 @@ module WellsfargoServices
 
     def set_up_crawler
       Capybara.register_driver :poltergeist do |app|
-        Capybara::Poltergeist::Driver.new(app, {
-          js_errors: true, timeout: 40, phantomjs_options: ["--load-images=no", "--ignore-ssl-errors=yes"]
-        })
+        Capybara::Poltergeist::Driver.new(
+          app,
+          js_errors: true,
+          timeout: 40,
+          phantomjs_options: ["--load-images=no", "--ignore-ssl-errors=yes"]
+        )
       end
 
       Capybara.default_max_wait_time = 30

@@ -8,6 +8,5 @@ FactoryGirl.define do
     f.state { Faker::Address.state }
     f.city { Faker::Address.city }
     f.full_text { "10669 South Las Vegas Boulevard, Las Vegas, NV, United States" }
-
   end
 end

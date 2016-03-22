@@ -16,8 +16,8 @@ class LoanDashboardPage::LoanMemberAssociationsPresenter
         loan_member: {
           include: {
             user: {
-              only: [ :email ],
-              methods: [ :to_s , :avatar_url]
+              only: [:email],
+              methods: [:to_s, :avatar_url]
             }
           }
         }

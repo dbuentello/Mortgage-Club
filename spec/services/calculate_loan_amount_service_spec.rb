@@ -3,7 +3,6 @@ require "rails_helper"
 describe CalculateLoanAmountService do
   let(:loan) { FactoryGirl.create(:loan_with_properties, down_payment: 50_000) }
 
-
   describe ".calculate_loan_amount_for_refinance_loan" do
     context "with mortgage payment" do
       let!(:liability) { FactoryGirl.create(:liability, property: loan.subject_property, account_type: "Mortgage") }

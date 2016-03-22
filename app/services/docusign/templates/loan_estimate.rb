@@ -39,7 +39,7 @@ module Docusign
 
       def build_loan_terms
         @params['loan_amount'] = Money.new(loan.amount.to_i * 100).format(no_cents_if_whole: true)
-        @params['interest_rate'] = "#{"%.3f" % (loan.interest_rate.to_f * 100)}%"
+        @params['interest_rate'] = format("%0.03f", loan.interest_rate.to_f * 100) + "%"
         @params['monthly_principal_interest'] = Money.new(loan.monthly_payment.to_f.round(2) * 100).format
         @params['prepayment_penalty_amount'] = Money.new(loan.prepayment_penalty_amount.to_f.round(2) * 100).format
         @params['prepayment_penalty_text'] = loan.prepayment_penalty_text
@@ -182,11 +182,9 @@ module Docusign
         end
       end
 
-
       def initial_escrow_payment_at_closing
         if intial_escrow_payment_total != 0.0
           @params['intial_escrow_payment_total'] = Money.new(intial_escrow_payment_total * 100).format(no_cents_if_whole: true)
-
 
           map_number_to_params(
             [
@@ -332,15 +330,15 @@ module Docusign
 
       def comparisons
         map_number_to_params(['in_5_years_total', 'in_5_years_principal'])
-        @params['annual_percentage_rate'] = "#{"%.3f" % (loan.apr.to_f * 100)}%"
-        @params['total_interest_percentage'] = "#{"%.3f" % (loan.total_interest_percentage.to_f * 100)}%"
+        @params['annual_percentage_rate'] = format("%0.03f", loan.apr.to_f * 100) + "%"
+        @params['total_interest_percentage'] = format("%0.03f", loan.total_interest_percentage.to_f * 100) + "%"
       end
 
       def other_considerations
         @params['assumption_will_not_allow'] = 'x'
         @params['servicing_transfer'] = 'x'
         @params['late_fee_text_top'] = 'the monthly'
-        @params['late_fee_text_bottom'] ='principal and interest payment'
+        @params['late_fee_text_bottom'] = 'principal and interest payment'
         map_string_to_params(['late_days'])
       end
 

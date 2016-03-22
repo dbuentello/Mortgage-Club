@@ -13,13 +13,13 @@ module SubmissionServices
     def call
       return false unless valid?
 
-      LoanMemberMailer.submit_application({
+      LoanMemberMailer.submit_application(
         documents_info: get_documents_info,
-        loan_member_email: "#{staff.to_s} <#{staff.email}>",
+        loan_member_email: "#{staff} <#{staff.email}>",
         email_content: email_content,
         email_subject: email_subject,
         loan_id: loan.id
-      }).deliver_later
+      ).deliver_later
       true
     end
 
@@ -35,12 +35,12 @@ module SubmissionServices
     end
 
     def validate
-      return @error_message = "Loan is missing" unless loan
-      return @error_message = "Loan does not belong to any lenders" unless loan.lender
-      return @error_message = "Loan is not provided adequate documents" if documents_are_incomlete?
-      return @error_message = "Don't know who is in charge of this loan" unless staff
-      return @error_message = "Email's subject cannot be blank" if email_subject.blank?
-      @error_message = "Email's content cannot be blank" if email_content.blank?
+      return @error_message = I18n.t("errors.loan_missing") unless loan
+      return @error_message = I18n.t("errors.loan_not_belong_any_lender") unless loan.lender
+      return @error_message = I18n.t("errors.loan_not_adequate_documents") if documents_are_incomlete?
+      return @error_message = I18n.t("errors.loan_missing_user_info") unless staff
+      return @error_message = I18n.t("errors.email_subject_required") if email_subject.blank?
+      @error_message = I18n.t("errors.email_content_required") if email_content.blank?
     end
 
     def get_documents_info

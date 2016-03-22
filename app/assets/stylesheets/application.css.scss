@@ -1,619 +1,75 @@
 // This variable $rails is used by bootstrap-custom so that fonts are loaded slightly differently
 // with Rails vs. the Webpack Dev Server
 $rails: true;
-
 // Those scss files are located under client/assets/stylesheets,
 // which has been added to the Rails asset pipeline search path.
 // See config/initializers/assets.rb.
-@import "bootstrap-sprockets";
-@import "bootstrap-custom";
-@import "bootstrap_datepicker";
-@import "d3.slider";
-@import "dropzone-custom";
-@import "mixins";
-@import "homepage";
-@import "lenders";
-@import "form";
-@import "new-loan";
-@import "devise";
-@import "pages";
-@import "borrowers";
-@import "loan-programs";
-@import "potential-users";
-@import "underwritting";
-@import "initial-quotes";
-@import "docusign";
-@import "potential_rate_drop_user";
+@import 'bootstrap-sprockets';
+@import 'bootstrap_datepicker';
+// abstracts
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+//base
+@import 'base/fonts';
+// component
+@import 'components/button';
+@import 'components/util';
+@import 'components/devise';
+@import 'components/bootstrap-custom';
+@import 'components/animation';
+@import 'components/dropzone-custom';
+@import 'components/loading';
+//layout
+@import 'layout/footer';
+@import 'layout/header';
+@import 'layout/form';
+@import 'layout/error-pages';
+//pages
+@import 'pages/helpmechoose';
+@import 'pages/homepage';
+@import 'pages/smobile_homepage';
 
-@font-face {
-  font-family: 'aileronregular';
-  src: url(asset_path("aileron-regular-webfont.eot"));
-  src: url(asset_path("aileron-regular-webfont.woff")) format('woff'),
-       url(asset_path("aileron-regular-webfont.ttf")) format('truetype');
-}
-.padding-top-0 {
-  @include paddingTop(0px);
-}
-.table-responsive{
-    background:#FFFFFF;
+@import 'pages/dev-infographics';
+@import 'pages/new-loan';
+@import 'pages/underwritting'; // 0 to 100% after complete loan
+@import 'pages/docusign';
+@import 'pages/initial-quotes';
+@import 'pages/potential-rate-drop-user';
+@import 'pages/loan-programs';
+@import 'pages/potential-users';
 
-}
-.borderless {
-  border: none !important;
- // background: white;
-}
-.grey-background {
-  @include backgroundColor(#f6f6f6);
-}
-.white-background {
-  @include backgroundColor(#fff);
-}
-.padding-left-50 {
-  @include paddingLeft(50px);
-}
-.padding-left-55 {
-  @include paddingLeft(55px);
-}
-.fixed-height-246 {
-  @include fixedHeight(246px);
-}
-.min-height-394 {
-  @include minHeight(540px);
-}
 
-@keyframes loginAnim {
-  0% {transform:translateX(0);}
-  25% {transform:translateX(2px);}
-  50% {transform:translateX(-3px);}
-  75% {transform:translateX(2px);}
-  100% {transform:translateX(0);}
-}
+@import 'd3.slider';
 
-@-webkit-keyframes loginAnim {
-  0% {-webkit-transform:translateX(0);}
-  25% {-webkit-transform:translateX(2px);}
-  50% {-webkit-transform:translateX(-3px);}
-  75% {-webkit-transform:translateX(2px);}
-  100% {-webkit-transform:translateX(0);}
-}
 
+@import 'borrowers';
+
+// Application homepage
 body {
   font-family: 'aileronregular';
-  overflow-x: hidden;
-  position: relative;
   min-height: 100vh;
-  padding-bottom: 100px;
-}
-.nav-borrower {
-  height: calc(100vh - 100px);
-}
-.tooltip > .tooltip-inner {
-  background-color: #FBF7AA;
-  border-color: #F9E98E;
-  color: #A27D35;
-  font-size: 14px;
-}
-.equal-housing {
-    margin-left: -120px;
-    color: white;
-    font-family: 'aileronlight';
-    font-size: 1.125em;
-    letter-spacing: .03em;
-  }
-.tooltip > .tooltip-arrow {
-  border-left-color:#FBF7AA !important;
-}
-
-.error-tooltip {
-  position:absolute; bottom:100%;
-  background-color: black;
-  border: 2px solid white;
-  border-radius: 5px;
-  color: #fff;
-}
-.error-tooltip:before {
-  content: "";
-  position: absolute;
-  border-right: 21px solid #292f45;
-  border-top: 21px solid transparent;
-  border-bottom: 21px solid transparent;
-  bottom: -12px;
-  right: -20px;
-}
-
-.error-tooltip:after {
-  position: absolute;
-  content: attr(bubbletooltip);
-  font-weight:bold;
-  right: -148px;
-  bottom: -16px;
-  width:120px;
-  background: #292f45;
-  color: #FFFFFF;
-  padding: 5px 10px;
-  -moz-border-radius: 6px;
-  -webkit-border-radius:6px;
-  -khtml-border-radius:6px;
-  border-radius: 6px;
-}
-.cd-top{
-    width:40px;
-    height: 40px;
-    position:fixed;
-    right:30px;
-    bottom:30px;
-    display:none;
-}
-.arrow_box {
+  overflow-x: hidden;
+  padding-bottom: 100px; //footer padding
+  @include respond-to(mobile-tablet){
+    padding-bottom: 180px;
+  };
   position: relative;
-  right: -100%;
-  top: -25px;
-  color: #fff;
-  z-index: 999;
-  background: #F9E98E;
-  border: 1px solid #f5f0f0;
-  padding: 7px;
-  border-radius: 5px;
-  height: 34px;
+
 }
 
-.arrow_box:after, .arrow_box:before {
-  right: 100%;
-  top: 50%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
+// .nav-borrower {
+//   height: calc(100vh - 100px);
+// }
 
-.arrow_box:after {
-  border-color: rgba(25, 23, 24, 0);
-  border-right-color: #F9E98E;
-  border-width: 5px;
-  margin-top: -5px;
-}
-.arrow_box:before {
-  border-color: rgba(245, 240, 240, 0);
-  border-right-color: #f5f0f0;
-  border-width: 6px;
-  margin-top: -6px;
-}
-.active-component {
-    opacity: 1;
-  }
-
+// .active-component {
+//   opacity: 1;
+// }
 .content {
   position: relative;
   //margin-top: 30px;
   width: 100%;
 }
 
-.errors-page {
-  padding: 10px;
-}
-
-.main-btn, .main-btn:visited, .main-btn:active {
-  background: #15c0f1;
-  border-color: #15c0f1;
-}
-
-.main-btn:hover {
-  background: #fff;
-  color: #15c0f1;
-  border:1px #15c0f1 solid;
-}
-
-.error-header {
-  font-size: 39px;
-  color: #333333;
-}
-
-.mortgage-rates {
-  .navigation-section {
-    .back-btn {
-      color: white;
-      background: #15c0f1;
-      border: #15c0f1 1px solid;
-      border-radius: 5px;
-      font-size: 1.25em;
-      margin-left: 57px;
-    }
-  }
-}
-
-.helpmechoose {
-  left: 5%;
-  right: 5%;
-  margin-left: 10px;
-  margin-right: 10px;
-
-  h3 {
-    font-size: 19px;
-  }
-  .calculator {
-    rect {
-      fill: rgb(224, 224, 224);
-    }
-    rect:hover {
-      fill: #bad80a;
-    }
-    .highlight {
-      fill: #bad80a;
-    }
-    .bar_chart {
-      margin-bottom: -5px;
-    }
-    .calc-form {
-      position: relative;
-      margin-top: 20px;
-      .range {
-        float: right;
-        .slider {
-          width: 400px;
-          background-color: #e6e6e6;
-          box-shadow: inset 0 1px 3px rgba(0,0,0,.3);
-          border-radius: 10px;
-          border: none;
-          .d3-slider-handle {
-            top: -.4em;
-            width: 1.5em;
-            height: 1.5em;
-            border-radius: 50%;
-          }
-        }
-      }
-    }
-    .value {
-      width: 100%;
-      border: none;
-      border-radius: 0;
-      border-bottom: solid 1px #ddd;
-      font: inherit;
-      font-size: 18px;
-      font-weight: 300;
-      line-height: 14px;
-      padding: 4px 0;
-    }
-    .value:focus {
-      outline-width: 0;
-    }
-  }
-  .best-rate {
-    border: 1px solid #d2d2d2;
-    border-radius: 3px;
-    padding: 25px;
-    .secondary-cost {
-      line-height: 1.437em;
-      font-weight: 300;
-      color: #999;
-      font-size: 16px;
-    }
-    .bankname {
-      text-align: center;
-      img {
-        width: 100%;
-      }
-    }
-    .monthly-payment {
-      text-align: center;
-      background: #00bd9c;
-      padding: 15px 0 10px 0;
-      line-height: 1.437em;
-      margin-bottom: 20px;
-
-      .value {
-        font-size: 34px;
-      }
-      .primary-cost-unit {
-        display: inline-block;
-        text-align: left;
-        line-height: 1em;
-        font-size: 14px;
-        margin-left: 5px;
-      }
-    }
-    .select-btn:hover {
-      color: #15c0f1;
-      background: #fff;
-    }
-    .select-btn {
-      color: white;
-      background: #15c0f1;
-      border: #15c0f1 1px solid;
-      border-radius: 5px;
-      font-size: 1.25em;
-    }
-    h2 {
-      color: #15c0f1;
-    }
-  }
-}
-
-hr {
-  color:#e1e1e1;
-  height:1px;
-  background-color:#e1e1e1;
-}
-
-.shadowBottom {
-  -webkit-box-shadow: 0px 3px 24px -2px rgba(0,0,0,0.1);
-  -moz-box-shadow: 0px 3px 24px -2px rgba(0,0,0,0.1);
-  box-shadow: 0px 3px 24px -2px rgba(0,0,0,0.1);
-  margin-bottom: 0px !important;
-}
-
-.header {
-  border-bottom:none;
-  //height:60px;
-  z-index:1000;
-
-  .mortgageNav {
-    border:none;
-    padding-top:5px;
-    padding-bottom:5px;
-    background-color:white;
-    z-index:9999;
-
-    .dropdown {
-      .dropdownArrow {
-        right:0; top:3px;
-        border-left:#15c0f1 1px solid;
-        margin-top: -2px;
-      }
-      .dropdown-toggle {
-        border-color: #15c0f1;
-      }
-    }
-
-    .dropdown-menu {
-      min-width:100%;
-      margin-top:-3px;
-      box-shadow:none;
-      padding:0;
-      border-radius:0;
-      border-color:#15c0f1;
-      background-color: white;
-      color:#15c0f1;
-    }
-
-    .dropdown-menu>li>a {padding:10px 20px; color:#15c0f1;}
-
-    .dropdown-menu>li>a:hover {background: #15c0f1; color:white;}
-
-    .dropdown-menu>li>a:hover #logoutImg{filter:brightness(100%); -webkit-filter:brightness(100%);}
-  }
-
-  #newLoanBtn {
-    background:white;
-    color:#15c0f1;
-    border:none;
-    padding: 9px 12px !important;
-    margin: 0px 5px 5px 5px;
-    p {
-      display:table-cell;
-      vertical-align:middle;
-    }
-    /*span {
-      margin-right:7px;
-    }*/
-  }
-
-  #newLoanBtn:hover {
-    background:#15c0f1;
-    color:white;
-  }
-
-  .nav-pills>li+li {
-    margin-right:20px;
-  }
-
-  .nav-pills > li {
-    float: right !important;
-    padding-top: 0.125em;
-  }
-  #loanBtn {
-    background:white;
-    color:#15c0f1;
-    border:none;
-    padding: 9px 12px !important;
-    margin: 0px 5px 5px 5px;
-  }
-
-  #loanBtn:hover {background:#15c0f1; color:white;}
-
-  #loanBtn:hover #loanBtnImg {
-    filter:brightness(10000%); -webkit-filter: brightness(10000%);
-  }
-
-  #loanBtn #loanBtnImg, #accountBtn #accountBtnImg {margin-right:7px; margin-top:-9px;}
-
-  #accountBtn {
-    height:38px;
-    width:auto;
-    background:white;
-    color:#15c0f1;
-    border-radius:6px;
-    border-top-right-radius:0;
-    border-bottom-right-radius:0;
-    text-align:left;
-    padding: 2px 2px 2px 12px;
-
-    border-bottom: solid 2px rgb(21, 192, 241);
-
-    img {margin-left:10px;}
-
-    .dropdownArrow {top:5px;}
-  }
-
-  #accountBtn:active {box-shadow:none; border-color:#15c0f1}
-
-  #accountBtnImg {
-    margin-right: 7px;
-    margin-top: -9px;
-  }
-
-  .theBtn {
-    background:#15c0f1;
-    border-color:#15c0f1;
-    color:white;
-
-    //margin-top: 5px;
-  }
-
-  .theBtn:hover {background:white; color:#15c0f1;  border-color:#15c0f1;}
-
-  .active-loans #loanBtnImg:hover {
-    filter:brightness(10000%); -webkit-filter: brightness(10000%);
-  }
-
-  .nav>li>a:hover { background:white;}
-
-  .content {  position:relative;  width:100%; width:100%;}
-
-  #loginImg {
-    height:18px;
-    width:auto;
-    margin-right:21px;
-    margin-top:-4px;
-    filter:grayscale(100%);
-    -webkit-filter:grayscale(100%);
-  }
-
-  #logoutImg {
-    height:18px;
-    width:auto;
-    margin-right:10px;
-    margin-top:-4px;
-    filter:brightness(10000%); -webkit-filter:brightness(10000%)
-  }
-}
-
-.logo img, #footerLogo {
-  width:200px;
-  padding-bottom: 5px;
-}
-
-.modal-md {
-  max-width:405px;
-
-  .modal-content {padding:0 20px;}
-
-  p {clear:left; text-align:left; padding:0 15px;}
-
-  h2 {color:#15c0f1; font-weight:600; font-size:1.5em; margin-bottom:0;}
-
-  h3 {color:#555; font-weight:300; font-size:1em; margin-top:5px;}
-
-  #continueBtn {float:none; font-size:1.7em;}
-
-  .form-group:last-child {margin-bottom:20px;}
-
-  .form-group img.info-img {position:relative; float:right; border:none; display:inline-block; margin-top:5px;}
-
-  #mobile {padding-left:25px;}
-
-  img.flag {left:5px; border:none;}
-
-  .closeBtn {position:absolute; right:15px; top:15px; color:#aaa; font-size:1.5em; z-index:999; transition: transform .5s ease;}
-
-  .closeBtn:hover {transform:rotate(45deg); cursor:pointer;}
-}
-
-#loginBtn {
-  background:white;
-  color:#a1a1a1;
-  border-color:#a1a1a1;
-  width:140px;
-}
-
-#loginBtn:hover {
-  background: white;
-  color: #15c0f1;
-  border-color: #15c0f1;
-}
-
-#loginBtn:hover #loginImg {
-  animation:loginAnim 2s infinite;
-  -webkit-animation:loginAnim 2s infinite;
-}
-
-#loginImg {
-  height:18px;
-  width:auto;
-  margin-right:10px;
-  margin-top:-4px;
-}
-
-@keyframes loginAnim {
-  0% {transform:translateX(0);}
-  25% {transform:translateX(2px);}
-  50% {transform:translateX(-3px);}
-  75% {transform:translateX(2px);}
-  100% {transform:translateX(0);}
-}
-
-@-webkit-keyframes loginAnim {
-  0% {-webkit-transform:translateX(0);}
-  25% {-webkit-transform:translateX(2px);}
-  50% {-webkit-transform:translateX(-3px);}
-  75% {-webkit-transform:translateX(2px);}
-  100% {-webkit-transform:translateX(0);}
-}
-
-#signupBtn {
-  width:140px;
-}
-
-.modal-docusign {
-  margin-top: 100px;
-}
-
-@media (min-width:384px) and (max-width: 414px) {
-  #signupBtn, #loginBtn{
-    width:100%;
-  }
-  #loginBtn {
-    margin-left: 20px;
-  }
-}
-
-@media (min-width:375px) and (max-width: 384px) {
-  #signupBtn, #loginBtn {
-    width:100%;
-  }
-  #loginBtn {
-    margin-left: 20px;
-  }
-}
-
-@media (min-width: 320px) and (max-width: 375px) {
-  #signupBtn, #loginBtn {
-    width:100%;
-  }
-  #loginBtn {
-    margin-left: 20px;
-  }
-}
-
-@media (max-width: 320px) {
-  #signupBtn, #loginBtn {
-    width:100%;
-  }
-  #loginBtn {
-    margin-left: 20px;
-  }
-}
-
-html.loading {
-  background: #FFFFFF url(asset_path("loading.gif")) no-repeat 50% 40%;
-  -webkit-transition: background-color 0;
-  transition: background-color 0;
-
-  body {
-    opacity: 0.5;
-    -webkit-transition: opacity 0.5;
-    transition: opacity 0.5;
-  }
-}
+// .modal-docusign {
+//   margin-top: 100px;
+// }

@@ -23,9 +23,31 @@ class InitialQuotesController < ApplicationController
   end
 
   def create
-    quotes = LoanTekServices::GetInitialQuotes.new(quotes_params).call
+    quote_query = QuoteQuery.new(query: quotes_params.to_json)
 
-    render json: {quotes: quotes}
+    render json: {code_id: quote_query.code_id} if quote_query.save
+  end
+
+  def show
+    quotes = []
+    quote_query = QuoteQuery.find_by_code_id(params[:id])
+
+    if quote_query
+      begin
+        query = JSON.parse(quote_query.query)
+      rescue JSON::ParserError
+        query = {}
+      end
+      quotes = LoanTekServices::GetInitialQuotes.new(query).call
+    end
+
+    bootstrap(
+      quotes: quotes
+    )
+
+    respond_to do |format|
+      format.html { render template: "public_app" }
+    end
   end
 
   def save_info

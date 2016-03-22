@@ -38,7 +38,7 @@ class Liability < ActiveRecord::Base
     return unless property_id
 
     if Liability.where(property_id: property_id).count == 2
-      errors.add(:liabilities, "Property can't have more than two liabilities")
+      errors.add(:liabilities, :limited_quantity)
     end
   end
 end

@@ -45,8 +45,8 @@ class User < ActiveRecord::Base
   has_many :templates, inverse_of: :creator
   has_many :signers, inverse_of: :user
 
-  has_many :invitations, :class_name => "Invite", :foreign_key => 'recipient_id'
-  has_many :sent_invites, :class_name => "Invite", :foreign_key => 'sender_id'
+  has_many :invitations, class_name: "Invite", foreign_key: 'recipient_id'
+  has_many :sent_invites, class_name: "Invite", foreign_key: 'sender_id'
 
   has_one :borrower, inverse_of: :user, autosave: :true, dependent: :destroy
   has_one :loan_member, inverse_of: :user, autosave: :true, dependent: :destroy
@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
     }
 
   # Validate the attached image is image/jpg, image/png, etc
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   validates :token, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true

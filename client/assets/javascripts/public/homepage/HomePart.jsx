@@ -2,7 +2,7 @@ var React = require('react/addons');
 
 var HomePart = React.createClass({
   componentDidMount: function(){
-    $("#applyBtn").on("click", function( e ) {
+    $("#apply-btn").on("click", function( e ) {
       e.preventDefault();
       $("body, html").animate({
           scrollTop: $( $(this).attr('href') ).offset().top
@@ -12,12 +12,12 @@ var HomePart = React.createClass({
   render: function() {
     var signupURL = "/auth/register/signup";
     return (
-      <div className="content homePart">
+      <div className="content home-part">
         <div className="container">
           <div className="row">
             <div id="home-left" className="col-md-12">
               <div id="home-left-header"><h1>{this.props.data.homepage.title_alert}</h1></div>
-              <p className="lead">{this.props.data.homepage.description_alert}</p>
+              <p className="lead hidden-xs">{this.props.data.homepage.description_alert}</p>
             </div>
 
             <div id="home-right" className="col-md-offset-3 col-md-6 rates">
@@ -32,7 +32,7 @@ var HomePart = React.createClass({
                 <div className="col-12 col-sm-12 col-lg-12">
                 <div className="wrapper">
        <div className="table-responsive borderless">
-                  <table className="table homeTable">
+                  <table className="table home-table">
                     <tr className="table-header">
                       <td>Programs</td><td>Mortgage Club</td><td>Wells Fargo</td><td>Quicken Loans</td>
                     </tr>
@@ -62,7 +62,7 @@ var HomePart = React.createClass({
               </div>
 
               <div>
-                <a className="btn btn-lg theBtn text-uppercase" role="button" id="applyBtn" href={"#rate_alert"}>{this.props.data.homepage.btn_alert}</a>
+                <a className="btn btn-lg btn-mc text-uppercase" role="button" id="apply-btn" href={"#rate_alert"}>{this.props.data.homepage.btn_alert}</a>
               </div>
             </div>
           </div>

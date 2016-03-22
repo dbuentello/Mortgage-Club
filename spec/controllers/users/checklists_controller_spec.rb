@@ -7,7 +7,7 @@ describe Users::ChecklistsController do
   let(:user) { FactoryGirl.create(:user) }
 
   describe ".update" do
-    context "valid attributes" do
+    context "with valid attributes" do
       it "updates a checklist" do
         put :update, id: checklist.id, checklist: FactoryGirl.attributes_for(:checklist), format: :json
         expect(assigns(:checklist)).to eq(checklist)
@@ -23,7 +23,7 @@ describe Users::ChecklistsController do
   end
 
   describe ".load_docusign" do
-    context "valid template" do
+    context "with valid template" do
       it "calls Docusign::CreateEnvelopeForChecklistService" do
         allow(Docusign::GetRecipientViewService).to receive(:call).and_return("")
         allow_any_instance_of(Docusign::CreateEnvelopeForChecklistService).to receive(:call).and_return("")
@@ -33,16 +33,16 @@ describe Users::ChecklistsController do
       end
     end
 
-    context "invalid template" do
+    context "with invalid template" do
       it "raises an error" do
         get :load_docusign, id: checklist.id, template_name: "", loan_id: checklist.loan.id
-        expect(response.body).to eq("{\"message\":\"Template does not exist yet\",\"details\":\"Template  does not exist yet!\"}")
+        expect(response.body).to eq("{\"message\":\"Template is not found\",\"details\":\"Template  does not exist yet!\"}")
       end
     end
   end
 
   describe ".docusign_callback" do
-    context "signing_complete" do
+    context "when signing complete" do
       it "updates checklist's status to done" do
         allow_any_instance_of(Docusign::MapChecklistExplanationToLenderDocument).to receive(:call)
         get :docusign_callback, event: "signing_complete", id: checklist.id, loan_id: checklist.loan.id, envelope_id: "an-envelope-id", user_id: user.id

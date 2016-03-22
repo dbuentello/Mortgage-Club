@@ -115,7 +115,7 @@ class LoanActivity < ActiveRecord::Base
   # end
   #===== END WILL_DO
 
-  def as_json(opts={})
+  def as_json(opts = {})
     more_options = {
       methods: [
         :pretty_activity_type, :pretty_activity_status,

@@ -1,0 +1,333 @@
+.initial-quotes {
+  padding-top: 65px;
+
+  .quotes-form {
+    p {
+      font-size: 1.1em;
+      color: #00436E;
+      text-align: center;
+    }
+  }
+
+  p.explanation {
+    font-style: italic;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  h1 {
+    color: #00436E;
+    text-align: center;
+  }
+  h6 {
+    font-size: 1.1em;
+    color: $mc-color;
+  }
+
+  .mortgage-quotes {
+    overflow: hidden;
+  }
+
+  .quotes-list{
+    .form-group img {
+      right: 20px !important;
+    }
+  }
+
+
+  .quotes-list {
+    .col-xs-9 {
+      padding: 0px 50px;
+      float: right;
+    }
+
+    .board {
+      border-radius: 5px;
+      border: #959595 1px solid;
+      padding: 20px;
+      padding-bottom: 0;
+
+      .lender-fee-item {
+        list-style: none;
+        height: 30px;
+      }
+
+      .choose-board h3 {
+        margin-top: 0;
+        color: $mc-color;
+        font-weight: 600;
+        font-size: 1.15em;
+      }
+      .board-header {
+        h1.apr-text {
+          margin-top: 10px;
+          text-align: initial;
+          color: #555;
+          font-family: "aileronbold";
+          font-weight: 900;
+          line-height: 25px;
+          font-size: 23px;
+          padding: 0;
+          font-family: "aileronbold";
+        }
+        h3 {
+          margin-top: 0;
+          color: $mc-color;
+          font-weight: 600;
+          font-size: 1.15em;
+        }
+        .nmls-title{
+          color: #555;
+        }
+      }
+      .select-btn {
+        color: white;
+        background: $mc-color;
+        border: $mc-color 1px solid;
+        border-radius: 5px;
+        float: right;
+        font-size: 1.25em;
+        padding: 6px 30px;
+      }
+      .select-btn:hover {
+        color: $mc-color;
+        background: #fff;
+      }
+    }
+    ul.fee-items {
+      padding-left: 16px;
+    }
+
+    .board-content-toggle {
+      height:25px;
+      background:#f5f5f5;
+      color:#a6a6a6;
+      margin-left:-20px;
+      margin-right:-20px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom: -12px;
+    }
+    .board-content-toggle:hover {cursor:pointer; background:#fafafa;}
+    .board-content-toggle span.up-state{ transform:rotate(180deg);}
+    .board-content-toggle span {transition:transform .5s ease;}
+
+    .board-content.up-state {display:none;}
+
+    .board-content {
+      border-top: #ddd 1px solid;
+
+      h4 {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+    p.cost {
+      height: 30px;
+    }
+    p.note {
+      font-style: italic;
+    }
+    .note:before {content:'\e013'; color:#00bd9c; font-family:'Glyphicons Halflings'; margin-left:-1.4em; margin-right:.4em;}
+
+    .chart-part {
+      margin-top: 0px;
+      margin-left: -10px;
+      margin-right: -10px;
+      margin-bottom: 25px;
+
+      .pie-chart {
+        width: 100%;
+        display: flex;
+        aglign-items: center;
+        justify-content: center;
+        position: relative;
+
+        .piechart-center {
+          font-size: .7em;
+          margin: 0;
+          text-align: center;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin-top: -12px;
+          margin-left: -30.5px;
+        }
+      }
+
+      .line-chart {
+        margin-top: 55px;
+        .axis text {
+          font-size: .8em;
+          fill: #999;
+        }
+        line {
+          stroke: #ccc;
+          stroke-width: 1px;
+        }
+      }
+
+      table {
+        border: #e9e9e9 1px solid;
+        .info-label {
+          font-size: .9em;
+          font-weight: 300;
+          color: #555555;
+
+          span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+          }
+        }
+
+        .info-value {
+          font-size: .9em;
+          font-weight: 300;
+        }
+        tr:first-child td span:first-child {
+          background: #00bc9c;
+        }
+        tr:nth-child(2) td span:first-child {
+          background: #ff7575;
+        }
+        tr:nth-child(3) td span:first-child {
+          background: #14c0f0;
+        }
+        tbody td p {
+          color: #999;
+        }
+
+        p {
+          margin-top: 4px;
+          margin-bottom: 4px;
+          font-size: 1em;
+        }
+
+        tr td{
+          padding-right: 8px;
+          padding-left: 8px;
+          padding-top: 2px;
+          padding-bottom: 2px;
+        }
+        thead tr td{
+          border-top: none;
+        }
+      }
+    }
+  }
+
+  .custom-left-mortgage-rates {
+    margin-left: -19px;
+  }
+
+  .actions {
+    padding-top: 20px;
+  }
+  .account-content .form-group:last-child {
+    margin-bottom: 25px;
+  }
+
+  #sidebar {
+    input[type=checkbox]:checked + label:before {
+      content: "\2713";
+      font-size: 1em;
+      color: $mc-color;
+      text-align: center;
+      line-height: 16px;
+    }
+    input[type=checkbox] {
+      display: none;
+      line-height: 16px;
+    }
+    input[type=checkbox]:checked + label.blueCheckBox2:before {
+      font-size: 1em;
+      color: #fff;
+    }
+    label.customCheckbox:before {
+      border-radius: 0;
+      border: #c3c3c3 1px solid;
+      content: " ";
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 10px;
+      line-height: 16px;
+    }
+    label.customCheckbox.blueCheckBox2:before {
+      background: $mc-color;
+      border: none;
+      border-radius: 3px;
+      content: "\00a0";
+      margin-right: 7px;
+    }
+  }
+
+  .form-group img {
+    top: initial;
+    -webkit-filter: saturate(0%);
+    -ms-filter: saturate(0%);
+    -moz-filter: saturate(0%);
+    -khtml-filter: saturate(0%);
+    -o-filter:saturate(0%);
+    filter: saturate(0%);
+    bottom: 6px;
+    cursor: pointer;
+    pointer-events: none;
+  }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -khtml-appearance: none;
+    -o-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    height: 38px;
+    width: 100%;
+    cursor: pointer;
+  }
+  select::-ms-expand {
+    display: none;
+  }
+  .select-field img {
+    position: relative;
+    top: 2px !important;
+    float: right;
+    width: 30px;
+    height: 30px;
+    margin-top: -36px;
+    padding-top: 2px;
+    right: 4px;
+  }
+  .helpmechoose .calculator .calc-form  {
+    .calc-form {
+      position: relative;
+      margin-top: 20px;
+    }
+    .range {
+      float: right;
+    }
+    .slider {
+      width: 400px;
+      background-color: #e6e6e6;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      border: none;
+
+      .d3-slider-handle {
+        top: -.4em;
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 50%;
+      }
+    }
+  }
+}

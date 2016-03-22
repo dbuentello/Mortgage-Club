@@ -31,11 +31,7 @@ module CreditReportServices
 
     def self.duplicate?(credit_report, liability)
       credit_report.liabilities.each do |l|
-        if l.id.present? && liability.account_type == l.account_type &&
-          liability.payment == l.payment &&
-          liability.name == l.name
-          return true
-        end
+        return true if l.id.present? && liability.account_type == l.account_type && liability.payment == l.payment && liability.name == l.name
       end
       false
     end

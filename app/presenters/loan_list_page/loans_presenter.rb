@@ -14,7 +14,7 @@ class LoanListPage::LoansPresenter
       only: [:id, :created_at, :amount, :interest_rate, :status],
       include: {
         user: {
-          only: [ :email ]
+          only: [:email]
         }
       },
       methods: [:pretty_status]

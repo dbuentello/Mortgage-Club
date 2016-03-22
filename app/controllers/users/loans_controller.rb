@@ -9,7 +9,7 @@ class Users::LoansController < Users::BaseController
       return redirect_to edit_loan_path(loan)
     end
 
-    ref_url = "#{url_for(:only_path => false)}?refcode=#{current_user.id}"
+    ref_url = "#{url_for(only_path: false)}?refcode=#{current_user.id}"
     invites = Invite.where(sender_id: current_user.id).order(created_at: :desc)
 
     bootstrap(
@@ -29,14 +29,7 @@ class Users::LoansController < Users::BaseController
 
   def get_common_info
     list = {}
-    info = current_user.loans
-                            .joins(properties: :address)
-                            .where("properties.is_subject = true".freeze)
-                            .pluck(
-                              "loans.id".freeze, "addresses.street_address".freeze,
-                              "addresses.city".freeze, "addresses.state".freeze,
-                              "addresses.zip".freeze, "properties.zillow_image_url".freeze
-                            )
+    info = current_user.loans.joins(properties: :address).where("properties.is_subject = true".freeze).pluck("loans.id".freeze, "addresses.street_address".freeze, "addresses.city".freeze, "addresses.state".freeze, "addresses.zip".freeze, "properties.zillow_image_url".freeze)
 
     info.each do |i|
       loan_id = i[0]
@@ -61,19 +54,19 @@ class Users::LoansController < Users::BaseController
     if @loan.save
       render json: {loan_id: @loan.id}, status: 200
     else
-      render json: {message: "Cannot create new loan"}, status: 500
+      render json: {message: t("users.loans.create.add_failed")}, status: 500
     end
   end
 
   def edit
-    return redirect_to action: :show if !@loan.new_loan?
+    return redirect_to action: :show unless @loan.new_loan?
 
-    bootstrap({
+    bootstrap(
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       liabilities: @liabilities,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower",
       is_edit_mode: true
-    })
+    )
 
     respond_to do |format|
       format.html { render template: 'borrower_app' }
@@ -87,12 +80,12 @@ class Users::LoansController < Users::BaseController
   def show
     return redirect_to action: :edit if @loan.new_loan?
 
-    bootstrap({
+    bootstrap(
       currentLoan: LoanEditPage::LoanPresenter.new(@loan).show,
       liabilities: @liabilities,
       borrower_type: (@borrower_type == :borrower) ? "borrower" : "co_borrower",
       is_edit_mode: false
-    })
+    )
 
     respond_to do |format|
       format.html { render template: 'borrower_app' }
@@ -122,29 +115,9 @@ class Users::LoansController < Users::BaseController
 
       render json: {redirect_path: my_loans_path}, status: 200
     else
-      render json: {message: "Cannot destroy loan"}, status: 500
+      render json: {message: t("users.loans.destroy.destroy_failed")}, status: 500
     end
   end
-
-  # GET get_co_borrower_info
-  # def get_secondary_borrower_info
-  #   is_existing = Form::CoBorrower.check_existing_borrower(current_user, params[:email])
-
-  #   if is_existing
-  #     is_valid = Form::CoBorrower.check_valid_borrower(borrower_info_params)
-
-  #     if is_valid
-  #       user = User.where(email: params[:email]).first
-  #       borrower = user.borrower
-
-  #       render json: {secondary_borrower: BorrowerPresenter.new(borrower).show}, status: :ok
-  #     else
-  #       render json: {message: 'Invalid email or date of birth or social security number'}, status: :ok
-  #     end
-  #   else
-  #     render json: {message: 'Not found'}, status: :ok
-  #   end
-  # end
 
   private
 
@@ -166,12 +139,10 @@ class Users::LoansController < Users::BaseController
   end
 
   def co_borrower_params
-    if params[:loan][:secondary_borrower_attributes].present?
-      permit_attrs = Borrower::PERMITTED_ATTRS + [:email, :_remove]
-      params.require(:loan).require(:secondary_borrower_attributes).permit(permit_attrs)
-    else
-      nil
-    end
+    return unless params[:loan][:secondary_borrower_attributes].present?
+
+    permit_attrs = Borrower::PERMITTED_ATTRS + [:email, :_remove]
+    params.require(:loan).require(:secondary_borrower_attributes).permit(permit_attrs)
   end
 
   def borrower_info_params

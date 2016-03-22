@@ -2,10 +2,13 @@ require 'rails_helper'
 
 describe LoanActivityServices::CalculateProcessingTime do
   let(:previous_loan_activity) { FactoryGirl.create(:loan_activity) }
-  let(:loan_activity) { FactoryGirl.create(:loan_activity,
-    loan: previous_loan_activity.loan, activity_type: previous_loan_activity.activity_type,
-    name: previous_loan_activity.name, created_at: (previous_loan_activity.created_at + 1.hour)
-  )}
+  let(:loan_activity) do
+    FactoryGirl.create(
+      :loan_activity,
+      loan: previous_loan_activity.loan, activity_type: previous_loan_activity.activity_type,
+      name: previous_loan_activity.name, created_at: (previous_loan_activity.created_at + 1.hour)
+    )
+  end
 
   it "returns true with valid params" do
     result = LoanActivityServices::CalculateProcessingTime.new(loan_activity, previous_loan_activity).call

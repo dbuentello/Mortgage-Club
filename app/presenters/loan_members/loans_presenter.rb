@@ -13,8 +13,7 @@ class LoanMembers::LoansPresenter
     {
       include: {
         user: {
-          only: [ :email ],
-          methods: [ :to_s ]
+          only: [:email, :first_name, :last_name]
         },
         properties: {
           include: :address
@@ -24,7 +23,7 @@ class LoanMembers::LoansPresenter
         },
         subject_property: {
           include: :address
-        },
+        }
       }
     }
   end

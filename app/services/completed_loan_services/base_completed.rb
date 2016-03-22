@@ -25,26 +25,26 @@ module CompletedLoanServices
     end
 
     def borrower_completed?
-      CompletedLoanServices::TabBorrower.new({
+      CompletedLoanServices::TabBorrower.new(
         borrower: borrower,
         secondary_borrower: secondary_borrower
-      }).call
+      ).call
     end
 
     def documents_completed?
-      CompletedLoanServices::TabDocuments.new({
+      CompletedLoanServices::TabDocuments.new(
         borrower: borrower,
         secondary_borrower: secondary_borrower
-      }).call
+      ).call
     end
 
     def income_completed?
-      CompletedLoanServices::TabIncome.new({
+      CompletedLoanServices::TabIncome.new(
         borrower: borrower,
         current_employment: borrower.current_employment,
         previous_employment: borrower.previous_employment,
         secondary_borrower: secondary_borrower
-      }).call
+      ).call
     end
 
     def credit_completed?
@@ -53,15 +53,14 @@ module CompletedLoanServices
     end
 
     def assets_completed?
-      CompletedLoanServices::TabAssets.new({
+      CompletedLoanServices::TabAssets.new(
         assets: borrower.assets,
         subject_property: subject_property,
         rental_properties: rental_properties,
         primary_property: primary_property,
         own_investment_property: own_investment_property,
-        loan_refinance: loan.refinance?,
-        borrower: borrower
-      }).call
+        loan_refinance: loan.refinance?
+      ).call
     end
 
     def declarations_completed?
