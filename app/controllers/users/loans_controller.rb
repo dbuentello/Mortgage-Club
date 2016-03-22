@@ -1,5 +1,5 @@
 class Users::LoansController < Users::BaseController
-  before_action :set_loan, only: [:edit, :update, :destroy, :show]
+  before_action :set_loan, only: [:edit, :update, :destroy, :show, :update_income]
   before_action :load_liabilities, only: [:edit, :show]
 
   def index
@@ -71,6 +71,10 @@ class Users::LoansController < Users::BaseController
     respond_to do |format|
       format.html { render template: 'borrower_app' }
     end
+  end
+
+  def update_income
+    render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show}
   end
 
   def show
