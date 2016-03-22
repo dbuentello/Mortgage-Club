@@ -112,8 +112,8 @@ var Income = React.createClass({
 
   processCompanyData: function(responseData){
     var state = {};
-    console.log(responseData);
-    var companyInfo = responseData.data.company_info;
+
+    var companyInfo = responseData.company_info;
     var currentAddress = this.props.currentEmployerAddress || {};
 
     var phoneNumber = companyInfo.contact_phone_number == "" ? "" : companyInfo.contact_phone_number.replace(/-/g, "");
