@@ -1,7 +1,7 @@
 // for mobile screen - smaller than 414px
 @include respond-to(smobile) {
   .homepage {
-    padding-top: 60px;
+    //padding-top: 60px;
     // rate-table and home background
     .home-part {
       padding-top: 0;
@@ -101,7 +101,9 @@
       p,
       h2 {
         color: black;
+
       }
+
       img {
         &:last-child {
           margin-left: 0 !important;
@@ -112,6 +114,9 @@
         margin-left: 10px;
       }
       .whyText {
+        h2 {
+          font-weight: 600;
+        }
         width: 95%;
         p {
           padding-left: 0;

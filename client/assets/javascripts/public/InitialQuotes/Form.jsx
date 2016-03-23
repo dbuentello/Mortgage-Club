@@ -276,7 +276,7 @@ var Form = React.createClass({
               </div>
             </div>
             <div className="form-group">
-              <div className="col-xs-6 col-xs-offset-3 col-md-6 col-md-offset-3">
+              <div className="col-xs-6 col-xs-offset-2 col-md-6 col-md-offset-3">
                 <button className="btn btn-mc text-uppercase" onClick={this.onSubmit}>find my rates</button>
               </div>
             </div>

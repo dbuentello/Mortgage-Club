@@ -1,5 +1,5 @@
 .authentication-part {
-  padding-top: 60px;
+  //padding-top: 60px;
   .login-form,
   .signup-form,
   .user-update-form,
@@ -188,6 +188,9 @@
     color: #12a7d1;
     font-size: 2.5em;
     font-family: 'aileronlight';
+    @include respond-to(smobile){
+      font-size: 1.8em;
+    };
   }
   .forgot-password-part h2 {
     margin-top: 72px;
