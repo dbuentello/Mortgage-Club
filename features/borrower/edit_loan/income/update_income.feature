@@ -71,6 +71,7 @@ Feature: UpdateIncome
       And I click "Borrower" in the "#tabBorrower"
       Then I select "With a co-borrower" from "I am applying"
         And I should see "Please provide information about your co-borrower"
+        And I wait for 1 seconds
         And I click on "Save and Continue"
         And I should see "W2 - Most recent tax year"
       Then I click "Income"
