@@ -1,7 +1,6 @@
 module FullContactServices
   class GetPersonalInfo
-    attr_reader :email
-    attr_accessor :personal_info, :response
+    attr_accessor :personal_info, :response, :email
 
     def initialize(email)
       @email = email
@@ -40,6 +39,7 @@ module FullContactServices
 
     def read_positions_info(positions)
       current_position = positions[0]
+
       return if current_position["current"] == false
 
       current_work_years = get_work_years(current_position["startDate"], "#{Time.zone.now.year}-#{Time.zone.now.month}")
@@ -58,6 +58,8 @@ module FullContactServices
     end
 
     def get_work_years(start_date, end_date)
+      return 0 if start_date.nil? || end_date.nil?
+
       additional_year = 0
       month_end_date = end_date[5..6].to_i
       month_start_date = start_date[5..6].to_i
