@@ -27,7 +27,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.add_role :borrower
       resource.confirmed_at = Time.zone.now
       resource.skip_confirmation_notification!
-      resource.save
+
+      BorrowerServices::UpdateEmploymentForBorrower.new(resource.borrower).call if resource.save
 
       sign_in resource_name, resource, bypass: true
     end
