@@ -409,7 +409,7 @@
     background-image: url(asset_path('clientBubble.png'));
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    padding: 15px 50px 50px;
+    padding: 30px 50px 50px;
     @include respond-to(mobile) {
       width: 100%;
     };
