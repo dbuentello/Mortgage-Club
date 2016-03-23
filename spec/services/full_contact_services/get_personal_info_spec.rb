@@ -291,28 +291,28 @@ describe FullContactServices::GetPersonalInfo do
     end
 
     context "with start date valid"
-      context "with end date invalid" do
-        it "returns 0" do
-          expect(service.get_work_years("2016-12", nil)).to eq(0)
+    context "with end date invalid" do
+      it "returns 0" do
+        expect(service.get_work_years("2016-12", nil)).to eq(0)
+      end
+    end
+
+    context "with end date valid" do
+      context "when start year equals end year" do
+        it "returns 1" do
+          expect(service.get_work_years("2016-03", "2016-09")).to eq(1)
         end
       end
 
-      context "with end date valid" do
-        context "when start year equals end year" do
-          it "returns 1" do
-            expect(service.get_work_years("2016-03", "2016-09")).to eq(1)
-          end
+      context "when end year subtracts start year 1" do
+        it "returns 1 when start month greater than end month" do
+          expect(service.get_work_years("2016-09", "2017-03")).to eq(1)
         end
 
-        context "when end year subtracts start year 1" do
-          it "returns 1 when start month greater than end month" do
-            expect(service.get_work_years("2016-09", "2017-03")).to eq(1)
-          end
-
-          it "returns 2 when start month less than end month" do
-            expect(service.get_work_years("2016-03", "2017-09")).to eq(2)
-          end
+        it "returns 2 when start month less than end month" do
+          expect(service.get_work_years("2016-03", "2017-09")).to eq(2)
         end
       end
+    end
   end
 end
