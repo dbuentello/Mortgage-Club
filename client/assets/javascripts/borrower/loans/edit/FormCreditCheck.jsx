@@ -32,7 +32,7 @@ var FormCreditCheck = React.createClass({
 
   render: function() {
     return (
-      <div className='col-sm-9 col-xs-12 account-content min-height-394'>
+      <div className='col-sm-9 col-xs-12 account-content'>
         <form className='form-horizontal'>
           <div className='form-group'>
             <p className="box-description col-sm-12">

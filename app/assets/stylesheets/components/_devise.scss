@@ -1,4 +1,5 @@
 .authentication-part {
+  //padding-top: 60px;
   .login-form,
   .signup-form,
   .user-update-form,
@@ -183,16 +184,22 @@
     font-family: 'aileronlight';
   }
   .signupPart h2 {
-    margin-top: 72px;
+    margin-top: 50px;
     color: #12a7d1;
     font-size: 2.5em;
     font-family: 'aileronlight';
+    @include respond-to(smobile){
+      font-size: 1.8em;
+    };
   }
   .forgot-password-part h2 {
     margin-top: 72px;
     color: #12a7d1;
     font-size: 2.5em;
     font-family: 'aileronlight';
+    @include respond-to(smobile){
+      font-size: 2em;
+    };
   }
   #btnLoginDevise {
     border-bottom: solid 2px rgba(0, 0, 0, 0.3);
