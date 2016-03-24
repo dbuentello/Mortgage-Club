@@ -102,6 +102,16 @@ $(document).ready(function() {
    mixpanel.track("clickSignUp");
  });
  $("#findMyRateBtn").click(function(){
-   mixpanel.track("clickFindMyRateNavbar");
+   mixpanel.track("clickFindMyRatesNavbar");
  });
+ $("#apply-btn").click(function(){
+   mixpanel.track("clickFindMyRatesTable");
+ });
+ $(".select-btn").click(function(){
+   mixpanel.track("clickSelectHelpMeChoose");
+ });
+ $("#refinance-btn").click(function(){
+   mixpanel.track("clickSelectHelpMeChoose");
+ });
+ 
 });

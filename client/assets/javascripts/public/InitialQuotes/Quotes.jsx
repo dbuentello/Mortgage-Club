@@ -16,7 +16,9 @@ var Quotes = React.createClass({
       quotes: this.props.bootstrapData.quotes
     }
   },
-
+  componentDidMount: function(){
+      mixpanel.track("enterQuotesPage");
+  },
   onFilterQuote: function(filteredQuotes) {
     this.removeChart();
     this.setState({quotes: filteredQuotes})
@@ -65,6 +67,7 @@ var Quotes = React.createClass({
   },
 
   helpMeChoose: function() {
+    mixpanel.track("clickHelpMeChooseQuotes");
     this.setState({helpMeChoose: !this.state.helpMeChoose});
   },
 
