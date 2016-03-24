@@ -2,6 +2,7 @@ class InitialQuotesController < ApplicationController
   layout "public"
   skip_before_action :authenticate_user!
   skip_before_action :verify_authenticity_token, only: :create
+  before_action :set_mixpanel_token, only: [:index]
 
   def index
     quote_cookies = get_quote_cookies

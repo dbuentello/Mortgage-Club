@@ -39,7 +39,9 @@ class ApplicationController < ActionController::Base
     end
     authorize @loan, :update?
   end
-
+  def set_mixpanel_token
+    @mixpanel_token = ENV["MIXPANEL_TOKEN"]
+  end
   def bootstrap(data = {})
     @bootstrap_data =
     {
