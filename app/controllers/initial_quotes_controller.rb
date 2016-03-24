@@ -42,7 +42,8 @@ class InitialQuotesController < ApplicationController
     end
 
     bootstrap(
-      quotes: quotes
+      quotes: quotes,
+      data_cookies: query
     )
 
     respond_to do |format|

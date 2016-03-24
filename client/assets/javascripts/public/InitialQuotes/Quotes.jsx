@@ -73,15 +73,19 @@ var Quotes = React.createClass({
   },
 
   selectRate: function(rate) {
+    var dataCookies = this.props.bootstrapData.data_cookies;
+
     $.ajax({
       url: "/quotes/save_info",
       data: {
-        zip_code: this.props.bootstrapData.zipCode,
-        credit_score: this.props.bootstrapData.creditScore,
-        mortgage_purpose: this.props.bootstrapData.mortgagePurpose,
-        property_value: this.props.bootstrapData.propertyValue,
-        property_usage: this.props.bootstrapData.propertyUsage,
-        property_type: this.props.bootstrapData.propertyType
+        zip_code: dataCookies.zip_code,
+        credit_score: dataCookies.credit_score,
+        down_payment: dataCookies.down_payment,
+        mortgage_balance: dataCookies.mortgage_balance,
+        mortgage_purpose: dataCookies.mortgage_purpose,
+        property_value: dataCookies.property_value,
+        property_usage: dataCookies.property_usage,
+        property_type: dataCookies.property_type
       },
       method: "POST",
       dataType: "json",
