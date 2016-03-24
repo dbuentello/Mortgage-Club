@@ -96,22 +96,21 @@ $(document).ready(function() {
   }).tooltip("show");
 
  $("#login-btn").click(function(){
-   mixpanel.track("clickLoginBtn");
+   mixpanel.track("Navbar-Login");
  });
  $("#btnSignupDevise").click(function(){
-   mixpanel.track("clickSignUp");
+   mixpanel.track("SignUp-Btn-Click");
  });
  $("#findMyRateBtn").click(function(){
-   mixpanel.track("clickFindMyRatesNavbar");
+   mixpanel.track("Navbar-FindMyRates");
  });
  $("#apply-btn").click(function(){
-   mixpanel.track("clickFindMyRatesTable");
+   mixpanel.track("Homepage-FindMyRatesTable");
  });
- $(".select-btn").click(function(){
-   mixpanel.track("clickSelectHelpMeChoose");
- });
- $("#refinance-btn").click(function(){
-   mixpanel.track("clickSelectHelpMeChoose");
- });
- 
+ // $(".select-btn").click(function(){
+ //   console.log("click select help me choose");
+ //   mixpanel.track("clickSelectHelpMeChoose");
+ // });
+
+
 });
