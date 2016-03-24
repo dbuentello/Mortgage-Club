@@ -124,7 +124,8 @@ var Loans = React.createClass({
                         if (loan.user) {
                           return (
                             <option value={loan.id} key={loan.id}>{this.getLoanName(loan)}</option>
-                          )}
+                          )
+                        }
                       }, this)
                     }
                   </select>
@@ -136,8 +137,8 @@ var Loans = React.createClass({
                   <select className='form-control member-list'>
                     {
                       _.map(this.props.bootstrapData.loan_members, function(member) {
-                        if (member.user)
-                          {
+                        if (member.user) {
+
                             return (
                             <option value={member.id} key={member.id}>{member.user.first_name + " " + member.user.last_name}</option>
                           )
