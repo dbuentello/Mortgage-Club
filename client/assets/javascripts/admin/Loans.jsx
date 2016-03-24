@@ -138,7 +138,6 @@ var Loans = React.createClass({
                     {
                       _.map(this.props.bootstrapData.loan_members, function(member) {
                         if (member.user) {
-
                             return (
                             <option value={member.id} key={member.id}>{member.user.first_name + " " + member.user.last_name}</option>
                           )
