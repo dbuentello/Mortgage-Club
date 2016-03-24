@@ -89,13 +89,14 @@ var RateDropAlert = React.createClass({
       method: "POST",
       dataType: "json",
       success: function(response) {
+        mixpanel.track("RefinanceAlert-SetMyAlert-Success");
         this.setState({isSuccess:true});
         setInterval(function() {
           location.href = "/";
         }, 500000);
       }.bind(this),
       error: function(response){
-
+        mixpanel.track("RefinanceAlert-SetMyAlert-Error");
       }.bind(this)
     });
   },
@@ -113,7 +114,7 @@ var RateDropAlert = React.createClass({
   },
 
   componentDidMount: function(event) {
-
+    mixpanel.track("RefinanceAlert-Enter");
     this.renderTooltip();
   },
 

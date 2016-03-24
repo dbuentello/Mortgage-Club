@@ -65,7 +65,7 @@ var RateAlert = React.createClass({
   },
 
   componentDidMount: function(event) {
-    mixpanel.track("EnterRefinanceAlert");
+
     this.renderTooltip();
   },
 
@@ -154,7 +154,7 @@ var RateAlert = React.createClass({
                       </div>
                       <div className="row">
                         <div className="col-xs-12">
-                          <button className="btn btn-mc submit-btn text-uppercase" id="refinance-btn" onClick={this.handleSubmit}>{this.props.bootstrapData.homepage ? this.props.bootstrapData.homepage.btn_alert : 'SET ALERT'}</button>
+                          <button className="btn btn-mc submit-btn text-uppercase" onClick={this.handleSubmit}>{this.props.bootstrapData.homepage ? this.props.bootstrapData.homepage.btn_alert : 'SET ALERT'}</button>
                         </div>
                       </div>
                     </form>
