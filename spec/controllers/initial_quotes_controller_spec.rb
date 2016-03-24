@@ -18,7 +18,7 @@ describe InitialQuotesController do
           allow_any_instance_of(LoanTekServices::CheckQuotesForSlackBot).to receive(:call).and_return(true)
           allow_any_instance_of(LoanTekServices::CheckQuotesForSlackBot).to receive(:query_content).and_return("lorem ipsum")
 
-          post :slack_webhook, {initial_quote: { result: {}}}
+          post :slack_webhook, initial_quote: {result: {}}
 
           expect(JSON.parse(response.body)["speech"]).to eq("You can see your quotes at http://test.host/quotes/#{QuoteQuery.last.code_id}")
         end
@@ -28,7 +28,7 @@ describe InitialQuotesController do
         it "renders a sorry message" do
           allow_any_instance_of(LoanTekServices::CheckQuotesForSlackBot).to receive(:call).and_return(false)
 
-          post :slack_webhook, {initial_quote: { result: {}}}
+          post :slack_webhook, initial_quote: {result: {}}
 
           expect(JSON.parse(response.body)["speech"]).to eq("We're sorry, there aren't any quotes matching your needs.")
         end

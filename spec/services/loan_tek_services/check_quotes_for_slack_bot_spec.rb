@@ -27,7 +27,7 @@ describe LoanTekServices::CheckQuotesForSlackBot do
                     "property_value" => 450000,
                     "down_payment" => 50000,
                     "purpose" => "purchase"
-                  },
+                  }
                 }
               ]
             }
