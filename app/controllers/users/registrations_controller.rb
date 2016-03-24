@@ -28,7 +28,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.confirmed_at = Time.zone.now
       resource.skip_confirmation_notification!
       resource.save
-
       sign_in resource_name, resource, bypass: true
     end
   end
@@ -44,7 +43,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
     resource_updated = update_resource(resource, account_update_params)
     yield resource if block_given?
-
     if resource_updated
       if is_flashing_format?
         flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ? :update_needs_confirmation : :updated
@@ -121,9 +119,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-
   def update_resource(resource, params)
-    if params[:current_password].present?
+    if params[:current_password].present? || params[:password].present? || params[:password_confirmation].present?
       resource.update_with_password(params)
     else
       params.delete(:current_password)
