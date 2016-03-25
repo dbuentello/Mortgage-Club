@@ -148,6 +148,9 @@
   // hello-mortgage
   .hello-mortgage {
     padding-top: 65px;
+    h6 {
+      color: inherit;
+    }
   }
   .logo-text {
     font-family: $mc-font;
@@ -444,6 +447,7 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    font-family: 'aileronlight';
   }
   .nav-pills>li+li {
     margin-left: 25px;

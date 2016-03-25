@@ -23,14 +23,14 @@
 }
 
 .btn-mc {
-  background: $mc-color;
-  border-color: $mc-color;
+  background: $mc-color !important;
+  border-color: $mc-color !important;
   color: white;
 }
 .btn-mc:hover {
-  background: white;
-  color: $mc-color;
-  border-color: $mc-color;
+  background: white !important;
+  color: $mc-color !important;
+  border-color: $mc-color !important;
 }
 .btn-mc:focus {
   background: white;
