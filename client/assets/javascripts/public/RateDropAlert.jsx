@@ -164,8 +164,8 @@ var RateDropAlert = React.createClass({
                                   onBlur={this.onBlur}
                                   editMode={true}/>
                               </div>
-
-
+                            </div>
+                            <div className="form-group">
                               <div className="col-sm-6 text-left">
                                 <TextField
                                   activateRequiredField={this.state[fields.currentMortgageRate.error]}
