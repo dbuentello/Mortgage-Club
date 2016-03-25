@@ -58,6 +58,8 @@ module FullContactServices
     end
 
     def get_work_years(start_date, end_date)
+      # format_date: "2016-03"
+
       return 0 if start_date.nil? || end_date.nil?
 
       additional_year = 0
