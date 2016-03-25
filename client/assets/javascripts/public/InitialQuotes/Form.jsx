@@ -95,6 +95,7 @@ var Form = React.createClass({
       return false;
     }
 
+    mixpanel.track("Quotes-FindMyRatesForm");
     $("html").addClass( "loading" );
 
     var downPayment = null;

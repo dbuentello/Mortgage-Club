@@ -60,6 +60,7 @@
   <% if @token.present? %>
     document.cookie="_refToken=<%= @token %>";
   <% end %>
+  
 
   // Set invite token value
   var ref_token = getCookie('_refToken');

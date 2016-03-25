@@ -16,7 +16,9 @@ var Quotes = React.createClass({
       quotes: this.props.bootstrapData.quotes
     }
   },
-
+  componentDidMount: function(){
+      mixpanel.track("Quotes-Enter");
+  },
   onFilterQuote: function(filteredQuotes) {
     this.removeChart();
     this.setState({quotes: filteredQuotes})
@@ -65,6 +67,7 @@ var Quotes = React.createClass({
   },
 
   helpMeChoose: function() {
+    mixpanel.track("Quotes-HelpMeChoose");
     this.setState({helpMeChoose: !this.state.helpMeChoose});
   },
 
@@ -73,6 +76,7 @@ var Quotes = React.createClass({
   },
 
   selectRate: function(rate) {
+    mixpanel.track("Quotes-SelectRate");
     $.ajax({
       url: "/quotes/save_info",
       data: {
@@ -86,6 +90,7 @@ var Quotes = React.createClass({
       method: "POST",
       dataType: "json",
       success: function(response) {
+
         if(this.props.bootstrapData.currentUser.id) {
           this.createLoan();
         }
