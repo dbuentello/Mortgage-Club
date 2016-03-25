@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   layout "public"
   skip_before_action :authenticate_user!
-
+  before_action :set_mixpanel_token, only: [:index]
   def index
     @refcode = params[:refcode]
     @mortgage_aprs = HomepageRateServices::GetMortgageAprs.call

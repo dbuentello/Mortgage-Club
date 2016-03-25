@@ -83,7 +83,23 @@ var Form = React.createClass({
     if(!this.state.isValid)
       this.scrollTopError();
   },
-
+  componentWillMount: function(){
+    console.log(this.props.loan);
+    $.ajax({
+      url: "/loans/" + this.props.loan.id + "/income",
+      method: "GET",
+      success: function(response) {
+        if(response != null ){
+          var state = this.buildStateFromLoan(response.loan);
+          state.isValid = true;
+          this.setState(state);
+        }
+      }.bind(this),
+      error: function(response, status, error) {
+        // do something else
+      }
+    });
+  },
   componentDidMount: function(){
     $("body").scrollTop(0);
   },
@@ -171,9 +187,9 @@ var Form = React.createClass({
               {
                 this.props.editMode
                 ?
-                  <button className="btn theBtn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                  <button className="btn btn-mc text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
                 :
-                  <button className="btn theBtn text-uppercase" id="nextBtn" onClick={this.next}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                  <button className="btn btn-mc text-uppercase" id="nextBtn" onClick={this.next}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
               }
             </div>
           </div>

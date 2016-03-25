@@ -89,13 +89,14 @@ var RateDropAlert = React.createClass({
       method: "POST",
       dataType: "json",
       success: function(response) {
+        mixpanel.track("RefinanceAlert-SetMyAlert-Success");
         this.setState({isSuccess:true});
         setInterval(function() {
           location.href = "/";
         }, 500000);
       }.bind(this),
       error: function(response){
-
+        mixpanel.track("RefinanceAlert-SetMyAlert-Error");
       }.bind(this)
     });
   },
@@ -113,7 +114,7 @@ var RateDropAlert = React.createClass({
   },
 
   componentDidMount: function(event) {
-
+    mixpanel.track("RefinanceAlert-Enter");
     this.renderTooltip();
   },
 
@@ -163,8 +164,6 @@ var RateDropAlert = React.createClass({
                                   onBlur={this.onBlur}
                                   editMode={true}/>
                               </div>
-
-
                             </div>
                             <div className="form-group">
                               <div className="col-sm-6 text-left">
@@ -256,11 +255,11 @@ var RateDropAlert = React.createClass({
                             </div>
                             <div className="form-group">
                               <div className="col-xs-12">
-                                <button className="btn theBtn submit-btn text-uppercase" onClick={this.handleSubmit}>{this.props.bootstrapData.homepage.btn_alert}</button>
+                                <button className="btn btn-mc submit-btn text-uppercase" onClick={this.handleSubmit}>{this.props.bootstrapData.homepage.btn_alert}</button>
                               </div>
                             </div>
                             <div className="form-group">
-                              <div className="col-sm-10 col-sm-offset-1 m-margin-bottom">
+                              <div className="col-sm-10 col-sm-offset-1">
                                 <p><b>Please note:</b> The use of information collected shall be limited to the purpose of monitoring your mortgage rates. We do not sell or share your information with anyone else.</p>
                               </div>
                             </div>

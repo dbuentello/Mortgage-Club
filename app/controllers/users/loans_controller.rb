@@ -1,5 +1,5 @@
 class Users::LoansController < Users::BaseController
-  before_action :set_loan, only: [:edit, :update, :destroy, :show]
+  before_action :set_loan, only: [:edit, :update, :destroy, :show, :update_income]
   before_action :load_liabilities, only: [:edit, :show]
 
   def index
@@ -54,7 +54,7 @@ class Users::LoansController < Users::BaseController
     if @loan.save
       render json: {loan_id: @loan.id}, status: 200
     else
-      render json: {message: "Cannot create new loan"}, status: 500
+      render json: {message: t("users.loans.create.add_failed")}, status: 500
     end
   end
 
@@ -71,6 +71,10 @@ class Users::LoansController < Users::BaseController
     respond_to do |format|
       format.html { render template: 'borrower_app' }
     end
+  end
+
+  def update_income
+    render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show}
   end
 
   def show
@@ -111,7 +115,7 @@ class Users::LoansController < Users::BaseController
 
       render json: {redirect_path: my_loans_path}, status: 200
     else
-      render json: {message: "Cannot destroy loan"}, status: 500
+      render json: {message: t("users.loans.destroy.destroy_failed")}, status: 500
     end
   end
 

@@ -4,14 +4,14 @@
       <h6 class="error-header">
 
       Permission Denied!<br>
-      You don't have permission to retrieve the URL or link you requested.
+      <%= t("messages.errors.permission_denied") %>
 
       </h6>
     </div>
   </div>
   <div class="row text-center">
     <%= link_to @back_to_home_path do %>
-      <button class="btn btn-primary main-btn">
+      <button class="btn btn-primary btn-mc">
         Back to home
       </button>
     <% end %>

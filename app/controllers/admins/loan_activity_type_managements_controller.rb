@@ -25,9 +25,9 @@ class Admins::LoanActivityTypeManagementsController < Admins::BaseController
 
   def update
     if @activity_type.update(activity_type_params)
-      render json: {activity_type: Admins::LoanActivityTypePresenter.new(@activity_type).show, message: "Updated sucessfully"}, status: 200
+      render json: {activity_type: Admins::LoanActivityTypePresenter.new(@activity_type).show, message: t("info.success", status: t("common.status.updated"))}, status: 200
     else
-      render json: {message: "Updated failed"}, status: 500
+      render json: {message: t("errors.failed", process: t("common.process.update"))}, status: 500
     end
   end
 
@@ -38,7 +38,7 @@ class Admins::LoanActivityTypeManagementsController < Admins::BaseController
       render json: {
         activity_type: Admins::LoanActivityTypePresenter.new(@activity_type).show,
         activity_types: Admins::LoanActivityTypesPresenter.new(ActivityType.all).show,
-        message: "Created sucessfully"
+        message: t("info.success", status: t("created"))
       }, status: 200
     else
       render json: {message: @activity_type.errors.full_messages.first}, status: 500
@@ -48,11 +48,11 @@ class Admins::LoanActivityTypeManagementsController < Admins::BaseController
   def destroy
     if @activity_type.destroy
       render json: {
-        message: "Removed the #{@activity_type} successfully",
+        message: t("info.success", status: t("common.status.removed")),
         activity_types: Admins::LoanActivityTypesPresenter.new(ActivityType.all).show
       }, status: 200
     else
-      render json: {message: "Cannot remove the checklist"}, status: 500
+      render json: {message: t("errors.failed", process: t("common.process.remove_checklist"))}, status: 500
     end
   end
 

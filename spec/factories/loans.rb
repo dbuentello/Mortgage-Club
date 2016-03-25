@@ -68,4 +68,30 @@ FactoryGirl.define do
       create(:loans_members_association, loan: loan)
     end
   end
+
+  factory :loan_completed, parent: :loan do |f|
+    f.purpose { "purchase" }
+    f.amount { 400000.0 }
+    f.down_payment { 100000.0 }
+    f.status { "new_loan" }
+    f.agency_case_number { nil }
+    f.lender_case_number { nil }
+    f.interest_rate { nil }
+    f.num_of_months { nil }
+    f.amortization_type { nil }
+    f.rate_lock { nil }
+    f.refinance { nil }
+    f.estimated_prepaid_items { nil }
+    f.estimated_closing_costs { nil }
+    f.pmi_mip_funding_fee { nil }
+    f.loan_type { nil }
+    f.prepayment_penalty { nil }
+    f.balloon_payment { nil }
+    f.monthly_payment { nil }
+    f.prepayment_penalty_amount { nil }
+    f.pmi { nil }
+
+    f.user { build(:borrower_user_with_borrower_completed) }
+    f.properties { [build(:subject_property_completed), build(:primary_property_completed)] }
+  end
 end

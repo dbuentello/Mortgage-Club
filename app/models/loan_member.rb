@@ -15,7 +15,7 @@
 class LoanMember < ActiveRecord::Base
   belongs_to :user
 
-  has_many :loans_members_associations
+  has_many :loans_members_associations, dependent: :destroy
   has_many :loans, through: :loans_members_associations, dependent: :destroy
 
   has_many :loan_activities

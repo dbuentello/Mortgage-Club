@@ -53,8 +53,8 @@ When(/^I set the value "([^\"]*)" to the hidden "([^\"]*)"$/) do |value, field|
   page.execute_script("document.getElementsByName('#{field}')[0].value = '#{value}';")
 end
 
-When(/^I click on a first "([^\"]+)"$/) do |text|
-  first(:link, "#{text}").click
+When(/^I click on a first "([^\"]+)"$/) do |className|
+  first("#{className}").click
 end
 
 When(/^I am at loan management page$/) do
@@ -107,8 +107,7 @@ When(/^I am at loan management page which has co-borrower$/) do
     Given there is a borrower_user_with_borrower with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a closing with the name "Fake Name"
       And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the closing above
-      And there is a user with the email "co-borrower@man.net" and the password "secretpass" and the password confirmation "secretpass"
-      And there is a secondary borrower with the loan above and with the user above
+      And there is a secondary borrower cucumber with the loan above
       And there is a property with the purchase price "1000000" and with the usage "0" and with the is primary "1" and with the is subject "1" and with the loan above
       And there is a address with the street address "81458 Borer Falls" and the street address2 "Apt. 305" and the city "West Emiltown" and the state "Virginia" and the zip "9999" with the property above
       When I login as "testing@man.net" with password "secretpass"
@@ -143,6 +142,18 @@ When(/^I am at loan list page$/) do
       And there is a loans members association with the loan above and with the loan member above and with the loan members title above
       And there is a checklist_upload with the loan above
       And I login as "loan_member@gmail.com" with password "secretpass"
+  )
+end
+
+When(/^I am at select rates page$/) do
+  many_steps %(
+    Given there is a loan completed
+      And I login as "testing@man.net" with password "password"
+      And I click on "Edit Application"
+      And I click on "Save and Continue"
+      And I click on "See my rates"
+      And I should see "Preparing loan programs to display"
+      And I should see "Sort by"
   )
 end
 
@@ -200,6 +211,14 @@ end
 
 When(/^I click link with div "(.*?)"$/) do |element|
   find(element).click
+end
+
+When(/^I check on checkbox "(.*?)"$/) do |element|
+  page.execute_script("$('#{element}').click()")
+end
+
+When(/^I uncheck on checkbox "(.*?)"$/) do |element|
+  page.execute_script("$('#{element}').click()")
 end
 
 When(/^I click on selectpicker "([^"]+)" and select "([^"]+)"$/) do |selector, value|

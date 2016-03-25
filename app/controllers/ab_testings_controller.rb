@@ -3,6 +3,7 @@ class AbTestingsController < ApplicationController
   skip_before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
   before_action :homepage_data, only: [:refinance_alert]
+  before_action :set_mixpanel_token, only: [:refinance_alert]
 
   def refinance_alert
     bootstrap(

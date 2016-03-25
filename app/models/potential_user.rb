@@ -25,11 +25,11 @@ class PotentialUser < ActiveRecord::Base
     presence: true,
     content_type: {
       content_type: ALLOWED_MIME_TYPES,
-      message: ' allows MS Excel, MS Documents, MS Powerpoint, Rich Text, Text File and Images'
+      message: :invalid_upload_document_type
     },
     size: {
       less_than_or_equal_to: 10.megabytes,
-      message: ' must be less than or equal to 10MB'
+      message: :file_size_limited_10_mb
     }
   validate :alert_method_cannot_be_blank
 

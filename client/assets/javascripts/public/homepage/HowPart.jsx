@@ -4,11 +4,11 @@ var ClientPart = React.createClass({
   render: function() {
 
     return (
-      <div className="content howPart">
+      <div className="content how-part">
         <div className="container">
           <h1 className="text-uppercase how-header">how it works</h1>
           <div className="row">
-            <div className="col-md-6 clearfix howItem">
+            <div className="col-md-6 clearfix how-item">
               <div className="bigNum">1</div>
               <div className="whyText">
                 <h6>Apply</h6>
@@ -16,28 +16,28 @@ var ClientPart = React.createClass({
               </div>
             </div>
 
-            <div className="col-md-6 clearfix howItem">
+            <div className="col-md-6 clearfix how-item">
 
               <img src="/HowItWorks_Step_1.png" style={{width: '75%'}}/>
             </div>
           </div>
 
           <div className="row">
-            <div className="col-md-6 clearfix col-md-push-6 howItem">
+            <div className="col-md-6 clearfix col-md-push-6 how-item">
               <div className="bigNum">2</div>
               <div className="whyText">
                 <h6>Shop</h6>
                 <p>Based on your info, we’ll show you the loan programs that you qualify for from over 50 lenders on our platform. Our algorithm can recommend the best loan for you and help you lock in the rate instantly. Lowest rate guaranteed, the rate you see is the rate you get.</p>
               </div>
             </div>
-            <div className="col-md-6 clearfix col-md-pull-6 howItem">
+            <div className="col-md-6 clearfix col-md-pull-6 how-item">
 
               <img src="/HowItWorks_Step_2.png" style={{width: '75%'}}/>
             </div>
           </div>
 
           <div className="row">
-            <div className="col-md-6 clearfix howItem">
+            <div className="col-md-6 clearfix how-item">
               <div className="bigNum">3</div>
               <div className="whyText">
                 <h6>Approve</h6>
@@ -45,27 +45,27 @@ var ClientPart = React.createClass({
               </div>
             </div>
 
-            <div className="col-md-6 clearfix howItem">
+            <div className="col-md-6 clearfix how-item">
 
               <img src="/HowItWorks_Step_3.png" style={{width: '75%'}}/>
             </div>
           </div>
 
           <div className="row">
-            <div className="col-md-6 clearfix col-md-push-6 howItem">
+            <div className="col-md-6 clearfix col-md-push-6 how-item">
               <div className="bigNum">4</div>
               <div className="whyText">
                 <h6>Close</h6>
                 <p>Mortgage Club replaces manual processes and complicated paperwork with powerful software that cuts costs and reduces processing times. We can close your loan as fast as 15 days. We’ll work closely with escrow, title, and other parties to ensure you have a smooth closing.</p>
               </div>
             </div>
-            <div className="col-md-6 clearfix col-md-pull-6 howItem">
+            <div className="col-md-6 clearfix col-md-pull-6 how-item">
               <img src="/HowFooterPic.png" />
               
             </div>
           </div>
         </div>
-        <div id="howFooter"></div>
+        <div id="how-footer"></div>
         </div>
 
     );

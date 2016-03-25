@@ -30,6 +30,10 @@ FactoryGirl.define do
       user { build(:borrower_user) }
     end
 
+    factory :secondary_borrower_cucumber, parent: :borrower do
+      user { build(:borrower_user, email: "co-borrower@gmail.com") }
+    end
+
     factory :borrower_with_credit_report, parent: :borrower do
       after(:build) do |borrower, _credit_report|
         create(:credit_report, borrower: borrower)
@@ -81,6 +85,20 @@ FactoryGirl.define do
         create(:document, subjectable: borrower, document_type: "second_paystub")
         create(:document, subjectable: borrower, document_type: "first_bank_statement")
         create(:document, subjectable: borrower, document_type: "second_bank_statement")
+      end
+    end
+
+    factory :borrower_completed, parent: :borrower do |factory|
+      factory.self_employed { true }
+      after(:build) do |borrower|
+        create(:document, subjectable: borrower, document_type: "first_personal_tax_return")
+        create(:document, subjectable: borrower, document_type: "second_personal_tax_return")
+        create(:document, subjectable: borrower, document_type: "first_business_tax_return")
+        create(:document, subjectable: borrower, document_type: "second_business_tax_return")
+        create(:document, subjectable: borrower, document_type: "first_bank_statement")
+        create(:document, subjectable: borrower, document_type: "second_bank_statement")
+        create(:asset, borrower: borrower)
+        create(:declaration_false, borrower: borrower)
       end
     end
   end

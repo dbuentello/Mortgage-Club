@@ -28,7 +28,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.confirmed_at = Time.zone.now
       resource.skip_confirmation_notification!
       resource.save
-
       sign_in resource_name, resource, bypass: true
     end
   end
@@ -44,13 +43,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
     resource_updated = update_resource(resource, account_update_params)
     yield resource if block_given?
-
     if resource_updated
       if is_flashing_format?
         flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ? :update_needs_confirmation : :updated
         set_flash_message :notice, flash_key
       else
-        message = update_needs_confirmation?(resource, prev_unconfirmed_email) ? "Update need confirmation" : "Update successfully"
+        message = update_needs_confirmation?(resource, prev_unconfirmed_email) ? t("users.registrations.update.confirmation_needed") : t("info.success", status: t("common.status.updated"))
       end
       sign_in resource_name, resource, bypass: true
 
@@ -121,9 +119,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-
   def update_resource(resource, params)
-    if params[:current_password].present?
+    if params[:current_password].present? || params[:password].present? || params[:password_confirmation].present?
       resource.update_with_password(params)
     else
       params.delete(:current_password)
@@ -146,7 +143,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     flash.delete :recaptcha_error
     self.resource = resource_class.new sign_up_params
-    resource.errors.add(:recaptcha_error, "Please confirm you're not a robot!")
+    resource.errors.add(:recaptcha_error, t("users.registrations.create.confirm_not_a_robot"))
     respond_with_navigational(resource) { render :new }
   end
 end

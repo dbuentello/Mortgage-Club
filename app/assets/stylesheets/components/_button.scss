@@ -1,0 +1,39 @@
+//=========== Button ==============//
+#signup-btn {
+  width: 140px;
+}
+#login-btn:hover {
+  background: white;
+  color: $mc-color;
+  border-color: $mc-color;
+}
+#login-btn {
+  background: white;
+  color: #a1a1a1;
+  border-color: #a1a1a1;
+  img {
+    margin-right: 21px;
+    margin-top: -4px;
+  }
+}
+#login-btn:hover img {
+  @include animate-img-btn(login-anim, 2s);
+  filter:grayscale(0%);
+  -webkit-filter: grayscale(0%);
+}
+
+.btn-mc {
+  background: $mc-color !important;
+  border-color: $mc-color !important;
+  color: white;
+}
+.btn-mc:hover {
+  background: white !important;
+  color: $mc-color !important;
+  border-color: $mc-color !important;
+}
+.btn-mc:focus {
+  background: white;
+  color: $mc-color;
+  border-color: $mc-color;
+}

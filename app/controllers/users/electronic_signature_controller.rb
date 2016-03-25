@@ -13,6 +13,8 @@ class Users::ElectronicSignatureController < Users::BaseController
   end
 
   def create
+    return render nothing: true, status: 200 if Rails.env.test?
+
     RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:fees], lender_params)
     @loan.reload
 
@@ -31,7 +33,7 @@ class Users::ElectronicSignatureController < Users::BaseController
     if recipient_view
       render json: {message: recipient_view}, status: 200
     else
-      render json: {message: "can't render iframe"}, status: 500
+      render json: {message: t("errors.iframe_render_error")}, status: 500
     end
   end
 

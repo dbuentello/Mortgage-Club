@@ -1,0 +1,10 @@
+html.loading {
+  background: #FFFFFF url(asset_path('loading.gif')) no-repeat 50% 40%;
+  -webkit-transition: background-color 0;
+  transition: background-color 0;
+  body {
+    opacity: 0.5;
+    -webkit-transition: opacity 0.5;
+    transition: opacity 0.5;
+  }
+}
