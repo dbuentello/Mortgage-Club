@@ -19,7 +19,7 @@
           <% if current_user %>
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <a id="newLoanBtn" class="btn btn-ms btn-success btn-mc text-uppercase">
+              <a id="newLoanBtn" class="btn btn-ms btn-success text-uppercase">
                 <p>
                   <span class="glyphicon glyphicon-plus-sign"></span>
                   new loan
@@ -28,14 +28,14 @@
             </li>
             <% is_active_loans_menu = 'active-loans' if controller.controller_name == 'loans' %>
             <li>
-              <%= link_to my_loans_path, class: "btn btn-ms btn-mc text-uppercase #{is_active_loans_menu}", id: "loanBtn" do %>
+              <%= link_to my_loans_path, class: "btn btn-ms text-uppercase #{is_active_loans_menu}", id: "loanBtn" do %>
               <%= image_tag asset_path("/icons/loanBtn.png"), id: "loanBtnImg" %>
               Loans
               <% end %>
             </li>
             <li>
               <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle btn-mc" id="accountBtn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <button class="btn btn-default dropdown-toggle" id="accountBtn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   <span>
                     <img id="accountBtnImg" src="/icons/userBtn.png" atl="account"></img>
                   </span>
