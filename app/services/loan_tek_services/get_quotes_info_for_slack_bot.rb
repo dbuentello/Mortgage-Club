@@ -1,12 +1,18 @@
-# check if quotes are available with user's demand
 module LoanTekServices
-  class CheckQuotesForSlackBot
-    attr_reader :data, :context, :response
+  class GetQuotesInfoForSlackBot
+    attr_reader :data, :context, :response, :result
+
+    PRODUCT = {
+      "30yearFixed" => "30 year fixed",
+      "15yearFixed" => "15 year fixed",
+      "5yearARM" => "5 year ARM"
+    }
 
     def initialize(params)
       @data = params["initial_quote"]["result"] if params["initial_quote"].present? && params["initial_quote"]["result"].present?
       @context = data["contexts"].first if @data
       @response = []
+      @result = []
     end
 
     def call
@@ -33,7 +39,7 @@ module LoanTekServices
         }.to_json
       end
 
-      success? && quotes_are_present?
+      quotes?
     end
 
     def query_content
@@ -47,6 +53,25 @@ module LoanTekServices
         down_payment: down_payment,
         mortgage_balance: mortgage_balance
       }.to_json
+    end
+
+    def quotes?
+      @result = JSON.parse(response.body)
+      response.status == 200 && result.present? && result["Quotes"].present?
+    end
+
+    def quotes_summary
+      summary = "Lowest APR \n"
+      ["30yearFixed", "15yearFixed", "5yearARM"].each do |type|
+        programs = result["Quotes"].select { |p| p["ProductName"] == type }
+        next if programs.empty?
+
+        min_apr = programs.first["APR"]
+        programs.each { |p| min_apr = p["APR"] if min_apr > p["APR"] }
+        min_apr = format("%0.03f", min_apr)
+        summary += "#{PRODUCT[type]}: #{min_apr}% \n"
+      end
+      summary
     end
 
     private
@@ -137,13 +162,12 @@ module LoanTekServices
       context["parameters"]["purpose"] == "refinance"
     end
 
-    def success?
-      response.status == 200
-    end
+    def get_lowest_value(programs, type)
+      return if programs.nil? || programs.empty?
 
-    def quotes_are_present?
-      result = JSON.parse(response.body)
-      result.present? && result["Quotes"].present?
+      min = programs.first[type]
+      programs.each { |p| min = p[type] if min > p[type] }
+      min
     end
   end
 end
