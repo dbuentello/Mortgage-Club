@@ -1,6 +1,7 @@
 class InitialQuotesController < ApplicationController
   layout "public"
   skip_before_action :authenticate_user!
+  before_action :set_mixpanel_token, only: [:index]
   skip_before_action :verify_authenticity_token, only: [:create, :slack_webhook]
   before_action :validate_slack_bot, only: [:slack_webhook]
   SLACK_BOT_HEADER_VALUE = "MCsLACK!".freeze

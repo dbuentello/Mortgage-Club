@@ -65,6 +65,7 @@ var RateAlert = React.createClass({
   },
 
   componentDidMount: function(event) {
+
     this.renderTooltip();
   },
 
@@ -95,7 +96,7 @@ var RateAlert = React.createClass({
                     <br />
                     <br />
                     <br />
-                    
+
                   </div>
                 </div>
               :
