@@ -27,6 +27,7 @@ $rails: true;
 //pages
 @import 'pages/helpmechoose';
 @import 'pages/homepage';
+@import 'pages/dashboard';
 @import 'pages/smobile_homepage';
 
 @import 'pages/dev-infographics';
@@ -52,6 +53,9 @@ body {
   padding-bottom: 100px; //footer padding
   @include respond-to(mobile-tablet){
     padding-bottom: 180px;
+  };
+  @include respond-to(smobile){
+    padding-bottom: 130px;
   };
   position: relative;
 
