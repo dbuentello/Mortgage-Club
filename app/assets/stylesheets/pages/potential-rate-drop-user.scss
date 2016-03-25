@@ -25,14 +25,17 @@
     cursor: pointer;
     pointer-events: none;
   }
-
+  .submit-btn {
+      margin-top: 15px;
+      margin-bottom: 10px;
+  }
   .thank-you {
     padding-top: 50px;
   }
   @include respond-to(smobile){
     .form-group {
-      margin-top:10px;
-      margin-bottom: 10px;
+      margin-top:0;
+      margin-bottom: 0;
       .m-margin-bottom {
         margin-bottom: 30px;
       }

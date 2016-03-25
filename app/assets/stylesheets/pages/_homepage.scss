@@ -1,5 +1,5 @@
 .homepage {
-  padding-top: 60px;
+  //padding-top: 60px;
   // rate-table and home background
   .home-part {
     background-image: url(asset-path('home-bg-3.jpg'));
@@ -54,7 +54,7 @@
     box-shadow: 0 24px 1px -24px $mc-shadowcolor;
     border-top: none !important;
     height: 30px;
-    padding: 20px 14px 0 !important;
+    padding: 20px 10px 0 !important;
     @include respond-to(mobile) {
       font-size: 0.9em;
     };
@@ -409,7 +409,7 @@
     background-image: url(asset_path('clientBubble.png'));
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    padding: 15px 50px 50px;
+    padding: 30px 50px 50px;
     @include respond-to(mobile) {
       width: 100%;
     };

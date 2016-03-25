@@ -1,13 +1,20 @@
 .accountPart {
+
+  .account-content {
+    min-height: calc(100vh - 160px);
+  }
+  .subnav {
+    min-height: calc(100vh - 160px);
+  }
   padding-top: 0px;
   overflow:hidden;
   background: rgba(246,246,246,1);
-  background: -moz-linear-gradient(to right, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 25%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%);
-  background: -webkit-gradient(to right bottom, right top, color-stop(0%, rgba(246,246,246,1)), color-stop(25%, rgba(246,246,246,1)), color-stop(30%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
-  background: -webkit-linear-gradient(to right, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 25%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%);
-  background: -o-linear-gradient(to right, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 25%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%);
-  background: -ms-linear-gradient(to right, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 25%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%);
-  background: linear-gradient(to right, rgba(246,246,246,1) 0%, rgba(246,246,246,1) 25%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%);
+  background: -moz-linear-gradient(to right, rgba(246,246,246,1) 30%, rgba(255,255,255,1) 29%);
+  background: -webkit-gradient(to right bottom, right top, color-stop(29%, rgba(246,246,246,1)), color-stop(29%, rgba(255,255,255,1)));
+  background: -webkit-linear-gradient(to right, rgba(246,246,246,1) 29%, rgba(255,255,255,1) 29%);
+  background: -o-linear-gradient(to right, rgba(246,246,246,1) 29%, rgba(255,255,255,1) 29%);
+  background: -ms-linear-gradient(to right, rgba(246,246,246,1) 29%, rgba(255,255,255,1) 29%);
+  background: linear-gradient(to right, rgba(246,246,246,1) 29%, rgba(255,255,255,1) 29%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#ffffff', GradientType=1 );
 
   h4 {font-family:'aileronregular'; font-style:italic; font-size:1em; color:#555555;}
@@ -46,6 +53,7 @@
   // margin-bottom:-9999px;
   // padding-bottom:9999px;
   height:100%;
+  min-height: 400px;
   position: relative;
   left: 0;
   -webkit-transition: left 0.4s ease-in-out;
@@ -239,6 +247,12 @@
     -moz-filter: saturate(100%);
     -ms-filter: saturate(100%);
     filter: saturate(100%);
+    text-shadow: 0 0 0 #000;
+  }
+
+  select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
   }
 
   .select-field img {

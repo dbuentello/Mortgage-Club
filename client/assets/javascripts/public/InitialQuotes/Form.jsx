@@ -165,7 +165,7 @@ var Form = React.createClass({
 
   render: function() {
     return (
-      <div className="initial-quotes content">
+      <div className="initial-quotes content container">
         <div className="quotes-form">
           <p style={{"padding-top": "20px"}}>Answer a few questions and get a customized rate quote in 10 seconds.</p>
           <p className="explanation">{"We've pre-filled some questions with common answers."}</p>
@@ -276,7 +276,7 @@ var Form = React.createClass({
               </div>
             </div>
             <div className="form-group">
-              <div className="col-md-6 col-md-offset-3">
+              <div className="col-xs-6 col-xs-offset-2 col-md-6 col-md-offset-3">
                 <button className="btn btn-mc text-uppercase" onClick={this.onSubmit}>find my rates</button>
               </div>
             </div>

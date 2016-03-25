@@ -30,6 +30,10 @@ FactoryGirl.define do
       user { build(:borrower_user) }
     end
 
+    factory :secondary_borrower_cucumber, parent: :borrower do
+      user { build(:borrower_user, email: "co-borrower@gmail.com") }
+    end
+
     factory :borrower_with_credit_report, parent: :borrower do
       after(:build) do |borrower, _credit_report|
         create(:credit_report, borrower: borrower)
