@@ -3,6 +3,7 @@ var React = require('react/addons');
 var HomePart = React.createClass({
   componentDidMount: function(){
     $("#apply-btn").on("click", function( e ) {
+      mixpanel.track("RefinanceAlert-SetMyAlertTable");
       e.preventDefault();
       $("body, html").animate({
           scrollTop: $( $(this).attr('href') ).offset().top

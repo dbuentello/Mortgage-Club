@@ -83,9 +83,20 @@ $(document).ready(function() {
     element: document.querySelector('#backtopBtn'),
     duration:2000,
   });
-
  $("[data-toggle='tooltip']").tooltip({
     placement: "left",
     trigger: "manual"
   }).tooltip("show");
+ $("#login-btn").click(function(){
+   mixpanel.track("Navbar-Login");
+ });
+ $("#btnSignupDevise").click(function(){
+   mixpanel.track("SignUp-Btn-Click");
+ });
+ $("#findMyRateBtn").click(function(){
+   mixpanel.track("Navbar-FindMyRates");
+ });
+ $("#apply-btn").click(function(){
+   mixpanel.track("Homepage-FindMyRatesTable");
+ });
 });
