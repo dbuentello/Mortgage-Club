@@ -69,7 +69,7 @@ class InitialQuotesController < ApplicationController
         reply = "#{service.quotes_summary}You can see your quotes at #{initial_quote_url(id: quote_query.code_id)}"
       end
     end
-    ap reply
+
     render json: {
       speech: reply,
       displayText: reply,
