@@ -72,7 +72,7 @@ describe LoanTekServices::GetQuotesInfoForSlackBot do
       VCR.use_cassette("get quotes from LoanTek for Slackbot") do
         service = described_class.new(params)
         service.call
-        expect(service.quotes_summary).to eq("Lowest APR \n30 year fixed: 3.750% \n15 year fixed: 3.079% \n5 year ARM: 3.333% \n")
+        expect(service.quotes_summary).to eq("Lowest APR \n30 year fixed: 3.750% \n15 year fixed: 3.200% \n5 year ARM: 3.460% \n")
       end
     end
   end
