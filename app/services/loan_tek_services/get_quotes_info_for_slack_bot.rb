@@ -5,7 +5,7 @@ module LoanTekServices
     PRODUCT = {
       "30yearFixed" => "30 year fixed",
       "15yearFixed" => "15 year fixed",
-      "5yearARM" => "5 year ARM"
+      "5yearARM" => "5/1 ARM"
     }
 
     def initialize(params)

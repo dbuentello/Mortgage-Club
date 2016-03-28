@@ -7,10 +7,10 @@ module LoanTekServices
       "20yearFixed" => "20 year fixed",
       "15yearFixed" => "15 year fixed",
       "10yearFixed" => "10 year fixed",
-      "7yearARM" => "7 year ARM",
-      "5yearARM" => "5 year ARM",
-      "3yearARM" => "3 year ARM",
-      "1yearARM" => "1 year ARM"
+      "7yearARM" => "7/1 ARM",
+      "5yearARM" => "5/1 ARM",
+      "3yearARM" => "3/1 ARM",
+      "1yearARM" => "1/1 ARM"
     }
 
     def self.call(quotes)
@@ -115,7 +115,7 @@ module LoanTekServices
       characteristics = {}
       [
         "30 year fixed", "15 year fixed",
-        "7 year ARM", "5 year ARM", "FHA"
+        "7/1 ARM", "5/1 ARM", "FHA"
       ].each do |type|
         filtered_programs = filter_programs_by_product_type(programs, type)
         characteristics[type] = {
