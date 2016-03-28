@@ -137,9 +137,6 @@ var Form = React.createClass({
     var requiredFields = {};
 
     _.each(Object.keys(fields), function(key) {
-      if (key === fields.mortgagePurpose.keyName) {
-        requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
-      }
       // with purchase loan, we don't validate mortgage balance
       if(this.isPurchaseLoan() && key != fields.mortgageBalance.keyName) {
         requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
@@ -149,7 +146,6 @@ var Form = React.createClass({
         requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
       }
     }, this);
-
 
     if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
       this.setState(this.getStateOfInvalidFields(requiredFields));
@@ -183,7 +179,6 @@ var Form = React.createClass({
                   options={mortgagePurposeOptions}
                   editable={true}
                   onChange={this.onChange}
-                  allowBlank={true}
                   value={this.state[fields.mortgagePurpose.keyName]}/>
               </div>
               <div className="col-md-4">
@@ -251,7 +246,6 @@ var Form = React.createClass({
                   options={propertyUsageOptions}
                   editable={true}
                   onChange={this.onChange}
-                  allowBlank={true}
                   value={this.state[fields.propertyUsage.keyName]}/>
               </div>
               <div className="col-md-4">
@@ -262,7 +256,6 @@ var Form = React.createClass({
                   options={propertyTypeOptions}
                   editable={true}
                   onChange={this.onChange}
-                  allowBlank={true}
                   value={this.state[fields.propertyType.keyName]}/>
               </div>
             </div>
@@ -275,7 +268,6 @@ var Form = React.createClass({
                     options={creditScoreOptions}
                     editable={true}
                     onChange={this.onChange}
-                    allowBlank={true}
                     value={this.state[fields.creditScore.keyName]}/>
               </div>
             </div>
