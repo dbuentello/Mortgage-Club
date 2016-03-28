@@ -33,10 +33,6 @@ When(/^I turn off delayed jobs$/) do
   Devise::Async.enabled = false
 end
 
-When /^I reload the page$/ do
-  visit url_for(request.params)
-end
-
 When(/^I should see content as "(.*)"$/) do |content|
   expect(page).to have_selector("input[value='#{content}']")
 end
