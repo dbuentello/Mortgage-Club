@@ -31,10 +31,10 @@ var Filter = React.createClass({
         <div id="sidebar">
           <h5>Programs</h5>
           <input type="checkbox" name="30years" id="30years" onChange={_.bind(this.onChangeCriteria, null, "30 year fixed", "product")}/>
-          <label className="customCheckbox blueCheckBox2" htmlFor="30years">30 years fixed</label>
+          <label className="customCheckbox blueCheckBox2" htmlFor="30years">30 year fixed</label>
           <br/>
           <input type="checkbox" name="15years" id="15years" onChange={_.bind(this.onChangeCriteria, null, "15 year fixed", "product")}/>
-          <label className="customCheckbox blueCheckBox2" htmlFor="15years">15 years fixed</label>
+          <label className="customCheckbox blueCheckBox2" htmlFor="15years">15 year fixed</label>
           <br/>
           <input type="checkbox" name="71arm" id="71arm" onChange={_.bind(this.onChangeCriteria, null, "7/1 ARM", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="71arm">7/1 ARM</label>
