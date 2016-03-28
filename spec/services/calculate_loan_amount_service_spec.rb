@@ -21,9 +21,19 @@ describe CalculateLoanAmountService do
   end
 
   describe ".calculate_loan_amount_for_purchase_loan" do
-    it "returns a result of purchase price minus down payment" do
-      amount = loan.subject_property.purchase_price.to_f - loan.down_payment
-      expect(described_class.calculate_loan_amount_for_purchase_loan(loan)).to eq(amount)
+    context "with down payment" do
+      it "returns a result of purchase price minus down payment" do
+        amount = loan.subject_property.purchase_price.to_f - loan.down_payment
+        expect(described_class.calculate_loan_amount_for_purchase_loan(loan)).to eq(amount)
+      end
+    end
+
+    context "without down payment" do
+      it "returns 75% of subject property's purchase price" do
+        loan.down_payment = nil
+        amount = 0.75 * loan.subject_property.purchase_price.to_f
+        expect(described_class.calculate_loan_amount_for_purchase_loan(loan)).to eq(amount)
+      end
     end
   end
 
