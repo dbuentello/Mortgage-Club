@@ -18,6 +18,11 @@ class CalculateLoanAmountService
   end
 
   def self.calculate_loan_amount_for_purchase_loan(loan)
-    loan.subject_property.purchase_price.to_f - loan.down_payment
+    if loan.down_payment
+      amount = loan.subject_property.purchase_price.to_f - loan.down_payment
+    else
+      amount = loan.subject_property.purchase_price.to_f * 0.75
+    end
+    amount
   end
 end

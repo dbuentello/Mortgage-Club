@@ -19,7 +19,7 @@ var fields = {
   originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", error: "originalPurchasePriceError", validationTypes: ["empty", "currency"]},
   originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", error: "originalPurchaseYearError", validationTypes: ["empty", "integer"]},
   yearBuilt: {label: "Year Built", name: "year_built", error: "yearBuiltError", validationTypes: ["empty"]},
-  downPayment: {label: "Down Payment", name: "down_payment", error: "downPyamentError", validationTypes: ["empty", "currency"]}
+  downPayment: {label: "Down Payment", name: "down_payment"}
 };
 
 var loanPurposes = [
@@ -221,8 +221,6 @@ var FormProperty = React.createClass({
                 <div className="form-group">
                   <div className="col-md-6">
                     <TextField
-                      requiredMessage="This field is required"
-                      activateRequiredField={this.state[fields.downPayment.error]}
                       label={fields.downPayment.label}
                       keyName={fields.downPayment.name}
                       value={this.state[fields.downPayment.name]}
@@ -230,7 +228,6 @@ var FormProperty = React.createClass({
                       maxLength={15}
                       format={this.formatCurrency}
                       onFocus={this.onFocus.bind(this, fields.downPayment)}
-                      validationTypes={["currency"]}
                       onBlur={this.onBlur}
                       onChange={this.onChange}
                       editMode={this.props.editMode}/>
