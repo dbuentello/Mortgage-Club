@@ -137,12 +137,15 @@ var Form = React.createClass({
     var requiredFields = {};
 
     _.each(Object.keys(fields), function(key) {
+      if (key === fields.mortgagePurpose.keyName) {
+        requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
+      }
       // with purchase loan, we don't validate mortgage balance
-      if(this.isPurchaseLoan() && key != fields.mortgageBalance.keyName){
+      if(this.isPurchaseLoan() && key != fields.mortgageBalance.keyName) {
         requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
       }
       // with refinance loan, we don't validate down payment
-      if(this.isRefinanceLoan() && key != fields.downPayment.keyName){
+      if(this.isRefinanceLoan() && key != fields.downPayment.keyName) {
         requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: ["empty"]};
       }
     }, this);
