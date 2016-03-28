@@ -18,6 +18,8 @@ module ClearbitServices
     def call
       # response sample: https://gist.github.com/tangnv/5fafc3c6ab1d738ba512
 
+      return unless company_name.present?
+
       url = "https://discovery.clearbit.com/v1/companies/search?query=and:(name:'#{company_name}' country:us)"
       connection = Faraday.new(url: url)
       connection.basic_auth(ENV['CLEARBIT_KEY'], "")
@@ -92,6 +94,8 @@ module ClearbitServices
     end
 
     def update_address_info(address)
+      return unless address
+
       @company_info[:street_address] = [address["streetNumber"], address["streetName"]].compact.join(" ")
       @company_info[:city] = address["city"]
       @company_info[:zip] = address["postalCode"]

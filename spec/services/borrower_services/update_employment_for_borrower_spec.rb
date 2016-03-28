@@ -8,37 +8,43 @@ describe BorrowerServices::UpdateEmploymentForBorrower do
   before(:each) { borrower.employments.destroy_all }
 
   describe "#call" do
-    it "returns nil with borrower nil" do
-      service.borrower = nil
+    context "when borrower is nil" do
+      it "returns nil" do
+        service.borrower = nil
 
-      expect(service.call).to be_nil
-      expect(borrower.employments.count).to eq(0)
-    end
-
-    it "returns nil with borrower user nil" do
-      service.borrower.user = nil
-
-      expect(service.call).to be_nil
-      expect(borrower.employments.count).to eq(0)
-    end
-
-    context "with params valid" do
-      it "does not create new employment with current job info nil" do
-        personal_info = {
-          current_job_info: {
-            title: nil,
-            years: nil,
-            company_name: nil
-          }
-        }
-        allow_any_instance_of(FullContactServices::GetPersonalInfo).to receive(:call).and_return(personal_info)
-
-        service.call
-
+        expect(service.call).to be_nil
         expect(borrower.employments.count).to eq(0)
       end
+    end
 
-      context "without company info invalid" do
+    context "when borrower user nil" do
+      it "returns nil" do
+        service.borrower.user = nil
+
+        expect(service.call).to be_nil
+        expect(borrower.employments.count).to eq(0)
+      end
+    end
+
+    context "with valid params" do
+      context "when fields of current job info are nil" do
+        it "does not create new employment" do
+          personal_info = {
+            current_job_info: {
+              title: nil,
+              years: nil,
+              company_name: nil
+            }
+          }
+          allow_any_instance_of(FullContactServices::GetPersonalInfo).to receive(:call).and_return(personal_info)
+
+          service.call
+
+          expect(borrower.employments.count).to eq(0)
+        end
+      end
+
+      context "with invalid company info" do
         it "creates new current employment for borrower" do
           personal_info = {
             current_job_info: {
@@ -62,7 +68,7 @@ describe BorrowerServices::UpdateEmploymentForBorrower do
           }
 
           allow_any_instance_of(FullContactServices::GetPersonalInfo).to receive(:call).and_return(personal_info)
-          allow_any_instance_of(ClearbitServices::Discovery).to receive(:call).and_return(personal_info)
+          allow_any_instance_of(ClearbitServices::Discovery).to receive(:call).and_return(company_info)
 
           service.call
 
@@ -98,7 +104,7 @@ describe BorrowerServices::UpdateEmploymentForBorrower do
             zip: nil
           }
           allow_any_instance_of(FullContactServices::GetPersonalInfo).to receive(:call).and_return(personal_info)
-          allow_any_instance_of(ClearbitServices::Discovery).to receive(:call).and_return(personal_info)
+          allow_any_instance_of(ClearbitServices::Discovery).to receive(:call).and_return(company_info)
 
           service.call
 
@@ -118,7 +124,7 @@ describe BorrowerServices::UpdateEmploymentForBorrower do
         end
       end
 
-      context "with company info valid" do
+      context "with valid company info" do
         it "saves address for current employment" do
           personal_info = {
             current_job_info: {

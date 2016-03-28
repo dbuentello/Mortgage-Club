@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe FullContactServices::GetPersonalInfo do
   let!(:service) { described_class.new("cuongvu0103@gmail.com") }
-  let!(:personal_info_defaut) do
+  let!(:personal_info_default) do
     {
       current_job_info:
       {
@@ -20,7 +20,7 @@ describe FullContactServices::GetPersonalInfo do
   end
 
   describe "#call" do
-    context "with email valid" do
+    context "with valid email" do
       context "when email exists in FullContact" do
         it "returns status 200" do
           VCR.use_cassette("get status 200 from FullContact") do
@@ -29,7 +29,7 @@ describe FullContactServices::GetPersonalInfo do
             service.call
 
             expect(service.response.status).to eq(200)
-            expect(service.personal_info).not_to eq(personal_info_defaut)
+            expect(service.personal_info).not_to eq(personal_info_default)
           end
         end
       end
@@ -42,13 +42,13 @@ describe FullContactServices::GetPersonalInfo do
             service.call
 
             expect(service.response.status).to eq(404)
-            expect(service.personal_info).to eq(personal_info_defaut)
+            expect(service.personal_info).to eq(personal_info_default)
           end
         end
       end
     end
 
-    context "with email invalid" do
+    context "with invalid email" do
       it "returns status 422" do
         VCR.use_cassette("get status 422 from FullContact") do
           service.email = "cuongvu0103"
@@ -56,14 +56,14 @@ describe FullContactServices::GetPersonalInfo do
           service.call
 
           expect(service.response.status).to eq(422)
-          expect(service.personal_info).to eq(personal_info_defaut)
+          expect(service.personal_info).to eq(personal_info_default)
         end
       end
     end
   end
 
   describe "#read_personal_info" do
-    context "when response data has organizations" do
+    context "when response data contains organizations" do
       it "calls #read_positions_info" do
         response_data = {
           "organizations" => [
@@ -82,7 +82,7 @@ describe FullContactServices::GetPersonalInfo do
       end
     end
 
-    context "when response data hasn't organizations" do
+    context "when response data doesn't contain organizations" do
       context "with organizations not present" do
         it "does not call #read_positions_info" do
           response_data = {"organizations" => []}
@@ -137,7 +137,7 @@ describe FullContactServices::GetPersonalInfo do
 
           service.read_positions_info(positions)
 
-          expect(service.personal_info).to eq(personal_info_defaut)
+          expect(service.personal_info).to eq(personal_info_default)
         end
       end
 
@@ -195,7 +195,7 @@ describe FullContactServices::GetPersonalInfo do
       end
     end
     context "with 2 positions" do
-      context "with has 2 previous positions" do
+      context "when 2 previous positions" do
         it "does not assign current position" do
           positions = [
             {
@@ -215,11 +215,11 @@ describe FullContactServices::GetPersonalInfo do
 
           service.read_positions_info(positions)
 
-          expect(service.personal_info).to eq(personal_info_defaut)
+          expect(service.personal_info).to eq(personal_info_default)
         end
       end
 
-      context "with has 1 current position, 1 previous position" do
+      context "with 1 current position, 1 previous position" do
         it "assign current job info with current position duration greater 1" do
           positions = [
             {
