@@ -38,59 +38,87 @@ describe BorrowerServices::UpdateEmploymentForBorrower do
         expect(borrower.employments.count).to eq(0)
       end
 
-      it "creates new current employment for borrower" do
-        personal_info = {
-          current_job_info: {
-            title: "Developer",
-            years: 5,
-            company_name: "Microsoft"
-          },
-          prev_job_info: {
-            title: nil,
-            years: nil,
-            company_name: nil
-          }
-        }
-        allow_any_instance_of(FullContactServices::GetPersonalInfo).to receive(:call).and_return(personal_info)
-
-        service.call
-
-        expect(borrower.employments.count).to eq(1)
-
-        expect(borrower.current_employment).not_to be_nil
-        expect(borrower.current_employment.job_title).to eq(personal_info[:current_job_info][:title])
-        expect(borrower.current_employment.duration).to eq(personal_info[:current_job_info][:years])
-        expect(borrower.current_employment.employer_name).to eq(personal_info[:current_job_info][:company_name])
+      context "with company info valid" do
       end
 
-      it "creates new current employment, previous employment for borrower" do
-        personal_info = {
-          current_job_info: {
-            title: "Developer",
-            years: 1,
-            company_name: "Microsoft"
-          },
-          prev_job_info: {
-            title: "Developer",
-            years: 3,
-            company_name: "Facebook"
+      context "without company info invalid" do
+        it "creates new current employment for borrower" do
+          personal_info = {
+            current_job_info: {
+              title: "Developer",
+              years: 5,
+              company_name: "Microsoft"
+            },
+            prev_job_info: {
+              title: nil,
+              years: nil,
+              company_name: nil
+            }
           }
-        }
-        allow_any_instance_of(FullContactServices::GetPersonalInfo).to receive(:call).and_return(personal_info)
+          company_info = {
+            contact_name: nil,
+            contact_phone_number: nil,
+            city: nil,
+            state: nil,
+            street_address: nil,
+            zip: nil
+          }
 
-        service.call
+          allow_any_instance_of(FullContactServices::GetPersonalInfo).to receive(:call).and_return(personal_info)
+          allow_any_instance_of(ClearbitServices::Discovery).to receive(:call).and_return(personal_info)
 
-        expect(borrower.employments.count).to eq(2)
+          service.call
 
-        expect(borrower.current_employment).not_to be_nil
-        expect(borrower.current_employment.job_title).to eq(personal_info[:current_job_info][:title])
-        expect(borrower.current_employment.duration).to eq(personal_info[:current_job_info][:years])
-        expect(borrower.current_employment.employer_name).to eq(personal_info[:current_job_info][:company_name])
+          expect(borrower.employments.count).to eq(1)
 
-        expect(borrower.previous_employment).not_to be_nil
-        expect(borrower.previous_employment.job_title).to eq(personal_info[:prev_job_info][:title])
-        expect(borrower.previous_employment.duration).to eq(personal_info[:prev_job_info][:years])
-        expect(borrower.previous_employment.employer_name).to eq(personal_info[:prev_job_info][:company_name])
+          expect(borrower.current_employment).not_to be_nil
+          expect(borrower.current_employment.job_title).to eq(personal_info[:current_job_info][:title])
+          expect(borrower.current_employment.duration).to eq(personal_info[:current_job_info][:years])
+          expect(borrower.current_employment.employer_name).to eq(personal_info[:current_job_info][:company_name])
+
+          expect(borrower.current_employment.address).to be_nil
+        end
+
+        it "creates new current employment, previous employment for borrower" do
+          personal_info = {
+            current_job_info: {
+              title: "Developer",
+              years: 1,
+              company_name: "Microsoft"
+            },
+            prev_job_info: {
+              title: "Developer",
+              years: 3,
+              company_name: "Facebook"
+            }
+          }
+          company_info = {
+            contact_name: nil,
+            contact_phone_number: nil,
+            city: nil,
+            state: nil,
+            street_address: nil,
+            zip: nil
+          }
+          allow_any_instance_of(FullContactServices::GetPersonalInfo).to receive(:call).and_return(personal_info)
+          allow_any_instance_of(ClearbitServices::Discovery).to receive(:call).and_return(personal_info)
+
+          service.call
+
+          expect(borrower.employments.count).to eq(2)
+
+          expect(borrower.current_employment).not_to be_nil
+          expect(borrower.current_employment.job_title).to eq(personal_info[:current_job_info][:title])
+          expect(borrower.current_employment.duration).to eq(personal_info[:current_job_info][:years])
+          expect(borrower.current_employment.employer_name).to eq(personal_info[:current_job_info][:company_name])
+
+          expect(borrower.current_employment.address).to be_nil
+
+          expect(borrower.previous_employment).not_to be_nil
+          expect(borrower.previous_employment.job_title).to eq(personal_info[:prev_job_info][:title])
+          expect(borrower.previous_employment.duration).to eq(personal_info[:prev_job_info][:years])
+          expect(borrower.previous_employment.employer_name).to eq(personal_info[:prev_job_info][:company_name])
+        end
       end
     end
   end

@@ -1,0 +1,120 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.fullcontact.com/v2/company/lookup.json?apiKey=1d1644160dedb85c&domain=vietnamnet.vn
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 28 Mar 2016 07:44:57 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '1432'
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding, User-Agent
+      X-Rate-Limit-Limit:
+      - '60'
+      X-Rate-Limit-Remaining:
+      - '58'
+      X-Rate-Limit-Reset:
+      - '55'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ewogICJzdGF0dXMiIDogMjAwLAogICJyZXF1ZXN0SWQiIDogImIwZDRlY2Y1
+        LTY2YzgtNDRhYS1iYjliLTg5ZjhiYzcwOWU3NyIsCiAgImNhdGVnb3J5IiA6
+        IFsgewogICAgIm5hbWUiIDogIk90aGVyIiwKICAgICJjb2RlIiA6ICJPVEhF
+        UiIKICB9IF0sCiAgImxvZ28iIDogImh0dHBzOi8vZDJvanB4eHR1NjN3emwu
+        Y2xvdWRmcm9udC5uZXQvc3RhdGljL2MzNWI2OGJiMzExNzc2MThhMDZjNDVm
+        NjUyMWM0ZTI4XzgwZWM2NWU1ZjEwMDJiMTI4ZmJmZTExODg5NzEyYzk1ZmJk
+        OGI0ZThiYWUxNWIzZWU4MzNlNzc4NDlkMDhhNWMiLAogICJ3ZWJzaXRlIiA6
+        ICJodHRwOi8vdmlldG5hbW5ldC52biIsCiAgImxhbmd1YWdlTG9jYWxlIiA6
+        ICJ4LXVua25vd24iLAogICJvcmdhbml6YXRpb24iIDogewogICAgIm5hbWUi
+        IDogIlZpZXROYW1OZXQudm4iLAogICAgImZvdW5kZWQiIDogIjE5OTciLAog
+        ICAgImNvbnRhY3RJbmZvIiA6IHsKICAgICAgImVtYWlsQWRkcmVzc2VzIiA6
+        IFsgewogICAgICAgICJ2YWx1ZSIgOiAidmlldG5hbW5ldEB2aWV0bmFtbmV0
+        LnZuIiwKICAgICAgICAibGFiZWwiIDogIm90aGVyIgogICAgICB9IF0sCiAg
+        ICAgICJwaG9uZU51bWJlcnMiIDogWyB7CiAgICAgICAgIm51bWJlciIgOiAi
+        Kzg0IDQgMzc3MiAyNzI5IiwKICAgICAgICAibGFiZWwiIDogIm90aGVyIgog
+        ICAgICB9IF0sCiAgICAgICJhZGRyZXNzZXMiIDogWyB7CiAgICAgICAgImFk
+        ZHJlc3NMaW5lMSIgOiAiVOG6p25nIDQsIDE1NiBYw6MgxJDDoG4gMiwgxJDh
+        u5FuZyDEkGEiLAogICAgICAgICJsb2NhbGl0eSIgOiAiSGFub2kiLAogICAg
+        ICAgICJjb3VudHJ5IiA6IHsKICAgICAgICAgICJuYW1lIiA6ICJWaWV0bmFt
+        IiwKICAgICAgICAgICJjb2RlIiA6ICJWTiIKICAgICAgICB9LAogICAgICAg
+        ICJwb3N0YWxDb2RlIiA6ICI4NDQiLAogICAgICAgICJsYWJlbCIgOiAib3Ro
+        ZXIiCiAgICAgIH0gXQogICAgfSwKICAgICJsaW5rcyIgOiBbIHsKICAgICAg
+        InVybCIgOiAiaHR0cDovL3ZpZXRuYW1uZXQudm4vdm4vcnNzIiwKICAgICAg
+        ImxhYmVsIiA6ICJyc3MiCiAgICB9LCB7CiAgICAgICJ1cmwiIDogImh0dHA6
+        Ly92aWV0bmFtbmV0LnZuL3Jzcy9jaGluaC10cmkucnNzIiwKICAgICAgImxh
+        YmVsIiA6ICJyc3MiCiAgICB9IF0sCiAgICAiaW1hZ2VzIiA6IFsgewogICAg
+        ICAidXJsIiA6ICJodHRwczovL2Qyb2pweHh0dTYzd3psLmNsb3VkZnJvbnQu
+        bmV0L3N0YXRpYy9lOWVmNDM1YjE0YmIzM2JkODExYjE3OWVlZDliMDdlYV8y
+        NzMyYWVhZWRiNTI5ODE4YjJkMzZkNzJjYzNjMDFlOTA4ZjQ5ZmE3YjY5YWE3
+        OGEzOWU0MmFhMGRmNzQzODM0IiwKICAgICAgImxhYmVsIiA6ICJvdGhlciIK
+        ICAgIH0sIHsKICAgICAgInVybCIgOiAiaHR0cHM6Ly9kMm9qcHh4dHU2M3d6
+        bC5jbG91ZGZyb250Lm5ldC9zdGF0aWMvN2I0YmMwNjI0MzlkNzYxMTIyZDEz
+        MzI2MThhMjY4Y2NfZjg2YTQ3MmI4NDg4Y2IxNjQ4ZjRlOWI5YWNjODBkZDNm
+        Mjc5NGY5OTkzOTg1YzNjYmRlODM1YTY5MDI0ZDk2OCIsCiAgICAgICJsYWJl
+        bCIgOiAib3RoZXIiCiAgICB9IF0sCiAgICAia2V5d29yZHMiIDogWyAiMnNh
+        byIsICJCYW8gRGllbiBUdSIsICJCYW9kaWVudHUiLCAiQsODwqFvIGNow4PC
+        rSB2w4PCoCBUaW4gVMOhwrvCqWMiLCAiQsOhbyDEkGnhu4duIFThu60iLCAi
+        QuG6pXQgxJDhu5luZyBT4bqjbiIsICJDYW4gVGhvIiwgIkNhbnRobyIsICJD
+        aGluaCBTYWNoIiwgIkNoaW5oc2FjaCIsICJD4bqlbiBUaMahIiwgIkRpIMSQ
+        4buZbmciLCAiRG9pIFNvbmciLCAiRi1NZWRpYSIsICJIYSBOb2kiLCAiSGFu
+        b2kiLCAiSMOgIE7hu5lpIiwgIkktdmlldG5hbSIsICJLaW5oZG9hbmgiLCAi
+        S29yZWEiLCAiTGFvZG9uZyIsICJNZWRpYSIsICJNb2JpZm9uZSIsICJOaGFu
+        IERhbiIsICJOaGFuZGFuIiwgIk5ow6JuIETDom4iLCAiTm9pIEJhaSIsICJO
+        b2liYWkiLCAiTuG7mWkgQsOgaSIsICJRdW9jaG9pIiwgIlF14buRYyBI4buZ
+        aSIsICJTYWlnb24gU8OgaSBHw7JuIiwgIlNtYXJ0cGhvbmUiLCAiU3R5bGUi
+        LCAiU8OgaSBHw7JuIiwgIlRQIEhDTSIsICJUYW5zb25uaGF0IiwgIlRo4buD
+        IFRoYW8iLCAiVGludHVjb25saW5lIiwgIlRyZWFzdXJlIElzbGFuZCBNdXNp
+        YyBGZXN0aXZhbCIsICJUdWFudmlldG5hbSIsICJUw6JuIFPGoW4gTmjhuqV0
+        IiwgIlZOUFQiLCAiVmlldE5hbSIsICJWaWV0TmFtTmV0IiwgIlZpZXRuYW1l
+        c2UiLCAiVmlldHRlbCIsICJWaW5hcGhvbmUiLCAiVmnhu4VuIFRow7RuZyIs
+        ICJYYSBIb2kiLCAiWGFob2kiLCAiWMOjIEjhu5lpIiwgIsSQw6AgTuG6tW5n
+        IiwgIsSQ4budaSBT4buRbmciIF0KICB9LAogICJzb2NpYWxQcm9maWxlcyIg
+        OiBbIHsKICAgICJ0eXBlSWQiIDogImZhY2Vib29rIiwKICAgICJ0eXBlTmFt
+        ZSIgOiAiRmFjZWJvb2siLAogICAgInVybCIgOiAiaHR0cHM6Ly93d3cuZmFj
+        ZWJvb2suY29tL3d3dy52aWV0bmFtbmV0LnZuIgogIH0sIHsKICAgICJ0eXBl
+        SWQiIDogInR3aXR0ZXIiLAogICAgInR5cGVOYW1lIiA6ICJUd2l0dGVyIiwK
+        ICAgICJ1cmwiIDogImh0dHBzOi8vdHdpdHRlci5jb20vQmFvVmlldE5hbU5l
+        dCIsCiAgICAidXNlcm5hbWUiIDogIkJhb1ZpZXROYW1OZXQiCiAgfSwgewog
+        ICAgImJpbyIgOiAiVmlldG5hbU5ldCBpcyBhbiBvbmxpbmUgcGxhdGZvcm0g
+        dGhhdCBvZmZlcnMgdGhlIGxhdGVzdCBsb2NhbCBhbmQgaW50ZXJuYXRpb25h
+        bCBuZXdzLiIsCiAgICAidHlwZUlkIiA6ICJjcnVuY2hiYXNlY29tcGFueSIs
+        CiAgICAidHlwZU5hbWUiIDogIkNydW5jaEJhc2UiLAogICAgInVybCIgOiAi
+        aHR0cDovL3d3dy5jcnVuY2hiYXNlLmNvbS9vcmdhbml6YXRpb24vdmlldG5h
+        bW5ldCIsCiAgICAidXNlcm5hbWUiIDogInZpZXRuYW1uZXQiCiAgfSwgewog
+        ICAgInR5cGVJZCIgOiAia2xvdXQiLAogICAgInR5cGVOYW1lIiA6ICJLbG91
+        dCIsCiAgICAidXJsIiA6ICJodHRwOi8va2xvdXQuY29tL0Jhb1ZpZXROYW1O
+        ZXQiLAogICAgInVzZXJuYW1lIiA6ICJCYW9WaWV0TmFtTmV0IiwKICAgICJp
+        ZCIgOiAiNjMzMzE4NzczMjc0NjA2ODIiCiAgfSBdLAogICJ0cmFmZmljIiA6
+        IHsKICAgICJ0b3BDb3VudHJ5UmFua2luZyIgOiBbIHsKICAgICAgInJhbmsi
+        IDogMzEsCiAgICAgICJsb2NhbGUiIDogInZuIgogICAgfSwgewogICAgICAi
+        cmFuayIgOiAxOTQ3NiwKICAgICAgImxvY2FsZSIgOiAidXMiCiAgICB9LCB7
+        CiAgICAgICJyYW5rIiA6IDg4NDUsCiAgICAgICJsb2NhbGUiIDogImZyIgog
+        ICAgfSBdLAogICAgInJhbmtpbmciIDogWyB7CiAgICAgICJyYW5rIiA6IDM1
+        NDQsCiAgICAgICJsb2NhbGUiIDogImdsb2JhbCIKICAgIH0sIHsKICAgICAg
+        InJhbmsiIDogMTk0NzYsCiAgICAgICJsb2NhbGUiIDogInVzIgogICAgfSBd
+        CiAgfQp9
+    http_version: 
+  recorded_at: Mon, 28 Mar 2016 07:44:57 GMT
+recorded_with: VCR 2.9.3

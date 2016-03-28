@@ -16,6 +16,8 @@ module ClearbitServices
     end
 
     def call
+      # response sample: https://gist.github.com/tangnv/5fafc3c6ab1d738ba512
+
       url = "https://discovery.clearbit.com/v1/companies/search?query=and:(name:'#{company_name}' country:us)"
       connection = Faraday.new(url: url)
       connection.basic_auth(ENV['CLEARBIT_KEY'], "")
@@ -33,33 +35,53 @@ module ClearbitServices
     def read_company_info(response_data)
       return unless response_data["results"].present?
 
-      read_address_info(response_data["results"])
+      list_company_indexes = get_list_company_indexes(response_data["results"])
+
+      update_company_contact(response_data["results"], list_company_indexes)
     end
 
-    def read_address_info(response_data)
-      company_has_address_count_max = get_company_has_address_count_max(response_data)
+    def update_company_contact(response_data, list_company_indexes)
+      phone_info = nil
+      address_info = nil
 
-      update_phone_info(company_has_address_count_max[1][:phone])
-      update_address_info(company_has_address_count_max[1][:address])
+      list_company_indexes.each do |index|
+        break if phone_info && address_info
+
+        phone_info = get_phone_info(response_data[index]) unless phone_info
+        address_info = response_data[index]["geo"] unless address_info
+      end
+
+      update_phone_info(phone_info)
+      update_address_info(address_info)
     end
 
-    def get_company_contact(response_data)
+    def get_phone_info(response_data)
+      phone = response_data["phone"]
+
+      return phone if phone.present?
+      return unless response_data["site"].present? && response_data["site"]["phoneNumbers"].present?
+
+      response_data["site"]["phoneNumbers"][0]
+    end
+
+    def get_list_company_indexes(response_data)
       company_hash = {}
 
-      response_data.each do |company|
+      response_data.each_with_index do |company, index|
         company_response = company_hash[company["location"]]
 
         if company_response.present?
           company_response[:count] += 1
+          company_response[:indexes] << index
         else
           company_hash[company["location"]] = {
             count: 1,
-            address: company["geo"]
+            indexes: [index]
           }
         end
       end
 
-      company_hash.max_by(&:count)[1]
+      company_hash.max_by(&:count)[1][:indexes]
     end
 
     def update_phone_info(phone)
