@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.fullcontact.com/v2/person.json?apiKey=1d1644160dedb85c&email=cuongvu0103
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 23 Mar 2016 09:10:57 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '157'
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Charset,Accept
+      X-Rate-Limit-Limit:
+      - '60'
+      X-Rate-Limit-Remaining:
+      - '57'
+      X-Rate-Limit-Reset:
+      - '57'
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "status" : 422,
+          "message" : "Parameter(type='email', value='cuongvu0103') failed validation.",
+          "requestId" : "3b6c57f3-a172-44a3-b25e-5802f7de41dc"
+        }
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 09:10:57 GMT
+recorded_with: VCR 2.9.3
