@@ -7,7 +7,6 @@ var TextFormatMixin = require('mixins/TextFormatMixin');
 
 var LoansTab = require('./tabs/LoansTab');
 var ReferralsTab = require('./tabs/ReferralsTab');
-var SettingsTab = require('./tabs/SettingsTab');
 
 var HomeDashBoard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
@@ -42,7 +41,6 @@ var HomeDashBoard = React.createClass({
           <ul className="nav nav-tabs mortgageTabs" role="tablist">
             <li role="presentation" className="active"><a href="#loans" aria-controls="loans" role="tab" data-toggle="tab" className="text-capitalize">Loans</a></li>
             <li role="presentation"><a href="#referrals" aria-controls="referrals" role="tab" data-toggle="tab" className="text-capitalize">Referrals</a></li>
-            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab" class="text-capitalize">Settings</a></li>
           </ul>
           <div className='tabs'>
             <div className="tab-content">
@@ -51,9 +49,6 @@ var HomeDashBoard = React.createClass({
               </div>
               <div role="tabpanel" className="tab-pane fade" id="referrals">
                 <ReferralsTab refLink={refLink} invites={invites}/>
-              </div>
-              <div role="tabpanel" className="tab-pane fade" id="settings">
-                <SettingsTab user={user}/>
               </div>
             </div>
           </div>
