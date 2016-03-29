@@ -63,9 +63,46 @@ describe FullContactServices::GetPersonalInfo do
   end
 
   describe "#read_personal_info" do
+    context "when likelihood is nil" do
+      it "returns nil" do
+        response_data = {
+          "likelihood" => nil,
+          "organizations" => [
+            {
+              "title" => "developer",
+              "startDate" => "2016-01",
+              "name" => "Microsoft",
+              "current" => true
+            }
+          ]
+        }
+
+        expect(service.read_personal_info(response_data)).to be_nil
+      end
+    end
+
+    context "when likelihood is less than 0.8" do
+      it "returns nil" do
+        response_data = {
+          "likelihood" => 0.7,
+          "organizations" => [
+            {
+              "title" => "developer",
+              "startDate" => "2016-01",
+              "name" => "Microsoft",
+              "current" => true
+            }
+          ]
+        }
+
+        expect(service.read_personal_info(response_data)).to be_nil
+      end
+    end
+
     context "when response data contains organizations" do
       it "calls #read_positions_info" do
         response_data = {
+          "likelihood" => 0.9,
           "organizations" => [
             {
               "title" => "developer",

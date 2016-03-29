@@ -34,12 +34,15 @@ module FullContactServices
     end
 
     def read_personal_info(response_data)
+      return unless response_data["likelihood"].present? && response_data["likelihood"] > 0.8
+
       read_positions_info(response_data["organizations"]) if response_data["organizations"].present?
     end
 
     def read_positions_info(positions)
-      current_position = positions[0]
+      positions.sort! { |a,b| a["startDate"] ? (b["startDate"] ? b["startDate"] <=> a["startDate"] : -1) : (b["startDate"] ? 1 : 0 ) }
 
+      current_position = positions[0]
       return if current_position["current"] == false
 
       current_work_years = get_work_years(current_position["startDate"], "#{Time.zone.now.year}-#{Time.zone.now.month}")
@@ -69,6 +72,43 @@ module FullContactServices
       additional_year = 1 if month_end_date - month_start_date > 0
 
       end_date[0..3].to_i - start_date[0..3].to_i + additional_year
+    end
+
+    def test
+      abc = [
+        {
+          "isPrimary" => false,
+          "name" => "Trulia, Inc.",
+          "startDate" => "2013",
+          "endDate" => "2014",
+          "current" => false
+        },
+        {
+          "isPrimary" => true,
+          "name" => "Flexport",
+          "startDate" => "2014-09",
+          "title" => "Software Engineer",
+          "current" => true
+        },
+        {
+          "isPrimary" => false,
+          "name" => "Prager, Sealy & Co., LLC",
+          "endDate" => "2013",
+          "current" => false
+        },
+        {
+          "isPrimary" => false,
+          "name" => "Trulia, Inc.",
+          "current" => false
+        },
+        {
+          "isPrimary" => false,
+          "name" => "Prager, Sealy & Co., LLC",
+          "current" => false
+        }
+      ]
+
+      byebug
     end
   end
 end
