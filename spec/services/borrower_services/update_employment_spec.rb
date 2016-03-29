@@ -1,9 +1,9 @@
 require "rails_helper"
 
-describe BorrowerServices::UpdateEmploymentForBorrower do
+describe BorrowerServices::UpdateEmployment do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:borrower) { FactoryGirl.create(:borrower, user: user) }
-  let!(:service) { BorrowerServices::UpdateEmploymentForBorrower.new(borrower) }
+  let!(:service) { BorrowerServices::UpdateEmployment.new(borrower) }
 
   before(:each) { borrower.employments.destroy_all }
 
@@ -31,6 +31,11 @@ describe BorrowerServices::UpdateEmploymentForBorrower do
         it "does not create new employment" do
           personal_info = {
             current_job_info: {
+              title: nil,
+              years: nil,
+              company_name: nil
+            },
+            prev_job_info: {
               title: nil,
               years: nil,
               company_name: nil
