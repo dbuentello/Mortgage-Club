@@ -40,6 +40,7 @@ module FullContactServices
     end
 
     def read_positions_info(positions)
+      # more info: https://gist.github.com/tangnv/4e31e1d69ded57124263
       positions.sort! do |position_a, position_b|
         if position_a["startDate"]
           position_a["startDate"] ? position_b["startDate"] <=> position_a["startDate"] : -1
