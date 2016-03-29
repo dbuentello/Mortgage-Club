@@ -11,7 +11,7 @@ module BorrowerServices
 
       personal_info = FullContactServices::GetPersonalInfo.new(borrower.user.email).call
 
-      return unless valid_job_info?(personal_info[:current_job_info])
+      return unless job_info_valid?(personal_info[:current_job_info])
 
       company_info = ClearbitServices::Discovery.new(personal_info[:current_job_info][:company_name]).call
 
@@ -25,7 +25,7 @@ module BorrowerServices
         borrower: borrower
       )
 
-      if valid_address_info?(company_info)
+      if address_info_valid?(company_info)
         current_employment.address = Address.new(
           city: company_info[:city],
           state: company_info[:state],
@@ -36,7 +36,7 @@ module BorrowerServices
 
       current_employment.save
 
-      if valid_job_info?(personal_info[:prev_job_info])
+      if job_info_valid?(personal_info[:prev_job_info])
         prev_employment = Employment.new(
           job_title: personal_info[:prev_job_info][:title],
           duration: personal_info[:prev_job_info][:years],
@@ -49,13 +49,13 @@ module BorrowerServices
       end
     end
 
-    def valid_job_info?(job)
+    def job_info_valid?(job)
       return true if job[:title] && job[:years] && job[:company_name]
 
       false
     end
 
-    def valid_address_info?(address)
+    def address_info_valid?(address)
       return true if address[:city] || address[:state] || address[:zip] || address[:street_address]
 
       false
