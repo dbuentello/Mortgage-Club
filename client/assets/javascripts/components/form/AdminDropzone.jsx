@@ -26,7 +26,8 @@ var AdminDropzone = React.createClass({
         backgroundColor: "#FFF",
         color: "#000"
       },
-      supportOtherDescription: false
+      supportOtherDescription: false,
+      isOrder: false
     };
   },
 
@@ -50,7 +51,8 @@ var AdminDropzone = React.createClass({
     removeUrl: React.PropTypes.string,
     maxSize: React.PropTypes.number,
     supportOtherDescription: React.PropTypes.bool,
-    uploadSuccessCallback: React.PropTypes.func
+    uploadSuccessCallback: React.PropTypes.func,
+    isOther: React.PropTypes.bool,
   },
 
   componentDidMount: function() {

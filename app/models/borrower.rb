@@ -141,6 +141,10 @@ class Borrower < ActiveRecord::Base
     true
   end
 
+  def other_documents
+    documents.where(document_type: "other_borrower_report")
+  end
+
   def documents_completed?
     if self_employed
       required_documents = %w(first_personal_tax_return second_personal_tax_return

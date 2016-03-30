@@ -15,9 +15,11 @@ var borrower_fields = {
   first_business_tax_return: {label: 'Business tax return - Most recent year', name: 'first_business_tax_return', placeholder: descriptionDrap, type: 'FirstBusinessTaxReturn'},
   second_business_tax_return: {label: 'Business tax return - Previous year', name: 'second_business_tax_return', placeholder: descriptionDrap, type: 'SecondBusinessTaxReturn'},
   first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'first_federal_tax_return', placeholder: descriptionDrap, type: 'FirstFederalTaxReturn'},
-  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'second_federal_tax_return', placeholder: descriptionDrap, type: 'SecondFederalTaxReturn'},
-  other_borrower_report: {label: 'Other', name: 'other_borrower_report', placeholder: descriptionDrap, type: 'OtherBorrowerReport', customDescription: true}
+  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'second_federal_tax_return', placeholder: descriptionDrap, type: 'SecondFederalTaxReturn'}
 };
+var other_borrower_fields = {
+  other_borrower_report: {label: 'Other', name: 'other_borrower_report', placeholder: descriptionDrap, type: 'OtherBorrowerReport', customDescription: true, isOther: true}
+}
 var loan_fields = {
   hud_estimate: {label: 'Estimated settlement statement', name: 'hud_estimate', placeholder: descriptionDrap, type: 'HudEstimate'},
   hud_final: {label: 'Final settlement statement', name: 'hud_final', placeholder: descriptionDrap, type: 'HudFinal'},
@@ -113,7 +115,7 @@ var DocumentTab = React.createClass({
             <Upload subjectType={"Property"} subject={this.props.property} fields={property_fields}></Upload>
           </div>
           <div id="borrower_document_uploader" className="row" style={this.state.displayBorrower}>
-            <Upload subjectType={"Borrower"} subject={this.props.borrower} fields={borrower_fields}></Upload>
+            <Upload subjectType={"Borrower"} subject={this.props.borrower} fields={borrower_fields} otherBorrowerFields={other_borrower_fields}></Upload>
           </div>
           <div id="loan_uploader" className="row" style={this.state.displayLoan}>
             <Upload subjectType={"Loan"} subject={this.props.loan} fields={loan_fields}></Upload>
