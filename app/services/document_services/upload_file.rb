@@ -18,6 +18,7 @@ module DocumentServices
       document.description = params[:description]
       document.attachment_file_name = attachment_file_name
       document.user = current_user
+
       return document if document.save
     end
 

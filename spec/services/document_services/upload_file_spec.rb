@@ -19,6 +19,7 @@ describe DocumentServices::UploadFile do
         document_type: "closing_disclosure",
         current_user: user,
         params: {
+          original_filename: "closing disclosure.pdf",
           file: uploaded_file,
           description: "This is a closing disclosure"
         }
@@ -39,10 +40,6 @@ describe DocumentServices::UploadFile do
       it "uploads a document successfully" do
         expect(PDF_MINE_TYPES).to include(@document.attachment_content_type)
         expect(@document.description).to eq("This is a closing disclosure")
-      end
-
-      it "sets file name by standard format" do
-        expect(@document.attachment_file_name).to eq("Closing-#{closing.id}.pdf")
       end
     end
   end
