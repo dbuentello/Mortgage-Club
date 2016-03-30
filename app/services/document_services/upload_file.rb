@@ -16,7 +16,7 @@ module DocumentServices
       document.attachment = params[:file]
       document.original_filename = params[:original_filename]
       document.description = params[:description]
-      document.attachment_file_name = "#{args[:subject_type].constantize}-#{args[:subject_id]}#{file_extension}"
+      document.attachment_file_name = attachment_file_name
       document.user = current_user
       return document if document.save
     end
@@ -29,6 +29,15 @@ module DocumentServices
 
     def file_extension
       File.extname(params[:file].original_filename)
+    end
+
+    def attachment_file_name
+      if args[:document_type] == "first_paystub" || args[:document_type] == "second_paystub"
+        attachment_file_name = "#{args[:document_type]}-#{args[:subject_type].constantize}-#{args[:subject_id]}#{file_extension}"
+      else
+        attachment_file_name = params[:original_filename]
+      end
+      attachment_file_name
     end
   end
 end

@@ -16,8 +16,8 @@ module OcrServices
     end
 
     def self.get_order_of_paystub(doc_type)
-      return 1 if doc_type == 'FirstPaystub'
-      return 2 if doc_type == 'SecondPaystub'
+      return 1 if doc_type == "first_paystub"
+      return 2 if doc_type == "second_paystub"
     end
   end
 end

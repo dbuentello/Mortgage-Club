@@ -2,6 +2,7 @@ module OcrServices
   class ProcessPaystub
     def self.call(raw_post)
       data = OcrServices::ParsePaystubFile.call(raw_post)
+
       return if data.empty?
 
       borrower_id = data[:borrower_id]
