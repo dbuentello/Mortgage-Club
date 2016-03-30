@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  layout 'authentication'
+  layout 'authentication', except: :edit
 
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
@@ -35,9 +35,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    bootstrap(user: LoanListPage::UserPresenter.new(resource).show)
+    render template: "borrower_app"
+  end
 
   # PUT /resource
   def update

@@ -15,6 +15,7 @@ var MortgageRates = require('borrower/loans/rates/MortgageRates');
 var Underwriting = require('borrower/loans/underwriting/Underwriting');
 var ESigning = require('borrower/loans/DocusignIframe');
 
+var Profile = require('borrower/profile/Profile');
 var Dashboard = require('borrower/dashboard/show/Dashboard');
 var HomeDashBoard = require('borrower/dashboard/loans/HomeDashBoard');
 
@@ -60,6 +61,7 @@ var routes = (
     <Route name='show_loan' path='loans/:id' handler={LoanInterface}/>
     <Route name='underwriting' handler={Underwriting}/>
     <Route name='rates' handler={MortgageRates}/>
+    <Route name='profile' path='auth/register/profile' handler={Profile}/>
     <Route name='loan_list' path='my/loans' handler={HomeDashBoard}/>
     <Route name='loan_dashboard' path='my/dashboard/:id' handler={Dashboard}/>
     <Route name='esigning' path='esigning/:id' handler={ESigning}/>
