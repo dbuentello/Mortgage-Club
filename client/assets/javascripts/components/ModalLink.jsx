@@ -35,7 +35,7 @@ var ModalLink = React.createClass({
           this.props.name ?
           <a className={this.props.class} data-toggle="modal" data-target={dataTarget}><i className={this.props.icon}/>{this.props.name}</a>
           :
-          null
+          <a className={this.props.class} data-toggle="modal" data-target={dataTarget}><i className={this.props.icon}/></a>
         }
 
         <div className="modal fade" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby={labelId}>

@@ -1,9 +1,26 @@
 var moment = require("moment");
 var React = require("react/addons");
 var TextFormatMixin = require("mixins/TextFormatMixin");
+var ModalLink = require('components/ModalLink');
+var FlashHandler = require('mixins/FlashHandler');
+var _ = require('lodash');
 
 var LoansTab = React.createClass({
   mixins: [TextFormatMixin],
+  destroyLoan: function(loan_id) {
+    $.ajax({
+      url: '/loans/' + loan_id ,
+      method: 'DELETE',
+      dataType: 'json',
+      success: function(response) {
+        location.href = response.redirect_path;
+      },
+      error: function(response, status, error) {
+        var flash = { "alert-danger": response.message };
+        this.showFlashes(flash);
+      }.bind(this)
+    });
+  },
   eachLoan: function(loan, i) {
     return (
       <div className="col-md-4 loan-item" key={loan.id} index={i}>
@@ -11,6 +28,16 @@ var LoansTab = React.createClass({
           <a href={"/my/dashboard/" + loan.id}>
             <img className="img-responsive fixed-height-246" src={(this.props.commonInfo[loan.id] && this.props.commonInfo[loan.id].zillow_image_url) ? this.props.commonInfo[loan.id].zillow_image_url : "/default.jpg"}/>
           </a>
+          <ModalLink
+            id="deleteLoan"
+            icon="fa fa-trash-o fa-3x"
+            title={null}
+            class="btn delete-btn"
+            bodyClass="mc-blue-primary-text"
+            body="Are you sure you want to destroy this loan?"
+            yesCallback={_.bind(this.destroyLoan, null, loan.id)}
+          />
+
           <div className="caption">
             <a href={"/my/dashboard/" + loan.id}>
               <h6><strong>{this.props.commonInfo[loan.id] ? this.props.commonInfo[loan.id].address : ""}</strong></h6>
