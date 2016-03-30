@@ -6,11 +6,12 @@ var SettingsTab = React.createClass({
   mixins: [FlashHandler],
 
   getInitialState: function() {
+    var user = this.props.bootstrapData.user
     return {
-      avatarUrl: this.props.bootstrapData.user.avatar_url || "no-avatar.jpg",
-      email: this.props.bootstrapData.user.email,
-      first_name: this.props.bootstrapData.user.first_name,
-      last_name: this.props.bootstrapData.user.last_name,
+      avatarUrl: user.avatar_url || "no-avatar.jpg",
+      email: user.email,
+      first_name: user.first_name,
+      last_name: user.last_name,
     }
   },
 
