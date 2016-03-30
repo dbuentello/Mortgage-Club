@@ -99,4 +99,11 @@ $(document).ready(function() {
  $("#apply-btn").click(function(){
    mixpanel.track("Homepage-FindMyRatesTable");
  });
+
+ $(".avatar-chooser").bind("change", function(event) {
+  if (event.target.files && event.target.files[0]){
+    var img = URL.createObjectURL(event.target.files[0]);
+    $('.user-avatar').attr('src', img);
+  }
+ });
 });

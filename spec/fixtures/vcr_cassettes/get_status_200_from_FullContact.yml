@@ -1,0 +1,153 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.fullcontact.com/v2/person.json?apiKey=1d1644160dedb85c&email=cuongvu0103@gmail.com
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 23 Mar 2016 09:10:53 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '982'
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding, User-Agent
+      X-Rate-Limit-Limit:
+      - '60'
+      X-Rate-Limit-Remaining:
+      - '59'
+      X-Rate-Limit-Reset:
+      - '60'
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "status" : 200,
+          "requestId" : "0069330a-85a6-416c-9a72-d82fc108a40c",
+          "likelihood" : 0.93,
+          "photos" : [ {
+            "type" : "facebook",
+            "typeId" : "facebook",
+            "typeName" : "Facebook",
+            "url" : "https://d2ojpxxtu63wzl.cloudfront.net/static/e79edcd51ed1bc3bb0b2cf7fd6bc47c3_24f3105af63b4cee443507c51b2b5479b4cf6f83acb3be3f081e63d34768a0ad",
+            "isPrimary" : true
+          }, {
+            "type" : "gravatar",
+            "typeId" : "gravatar",
+            "typeName" : "Gravatar",
+            "url" : "https://d2ojpxxtu63wzl.cloudfront.net/static/6ebedea1d2e351f03917c59f5bde0461_a3c5d0fd9a4604219142c38f615540cf4fe398551f76246a7a6dae2eaea1af1c",
+            "isPrimary" : false
+          }, {
+            "type" : "linkedin",
+            "typeId" : "linkedin",
+            "typeName" : "LinkedIn",
+            "url" : "https://d2ojpxxtu63wzl.cloudfront.net/static/526dfb0e677bc2c4fad34f56e532d896_f5e3fd8d984936351bbb49b75986342d41aab02ad6c7044021b51658c39879c6",
+            "isPrimary" : false
+          } ],
+          "contactInfo" : {
+            "familyName" : "Vu",
+            "fullName" : "Cuong Vu",
+            "givenName" : "Cuong"
+          },
+          "organizations" : [ {
+            "isPrimary" : true,
+            "name" : "Mortgage Club",
+            "startDate" : "2015-08",
+            "title" : "Ruby on Rails Developer",
+            "current" : true
+          } ],
+          "demographics" : {
+            "locationDeduced" : {
+              "normalizedLocation" : "Vietnam",
+              "deducedLocation" : "Vietnam",
+              "country" : {
+                "deduced" : false,
+                "name" : "Vietnam",
+                "code" : "VN"
+              },
+              "continent" : {
+                "deduced" : true,
+                "name" : "Asia"
+              },
+              "likelihood" : 1.0
+            },
+            "gender" : "Male",
+            "locationGeneral" : "Vietnam"
+          },
+          "socialProfiles" : [ {
+            "type" : "angellist",
+            "typeId" : "angellist",
+            "typeName" : "AngelList",
+            "url" : "https://angel.co/cuong-vu",
+            "username" : "cuong-vu",
+            "id" : "1378712"
+          }, {
+            "type" : "github",
+            "typeId" : "github",
+            "typeName" : "Github",
+            "url" : "https://github.com/vumanhcuong",
+            "username" : "vumanhcuong"
+          }, {
+            "type" : "gravatar",
+            "typeId" : "gravatar",
+            "typeName" : "Gravatar",
+            "url" : "https://gravatar.com/cuongvu0103",
+            "username" : "cuongvu0103",
+            "id" : "42074691"
+          }, {
+            "type" : "facebook",
+            "typeId" : "facebook",
+            "typeName" : "Facebook",
+            "url" : "https://www.facebook.com/vumanhcuongIT"
+          }, {
+            "followers" : 233,
+            "type" : "linkedin",
+            "typeId" : "linkedin",
+            "typeName" : "LinkedIn",
+            "url" : "https://www.linkedin.com/in/vumanhcuong",
+            "username" : "vumanhcuong",
+            "id" : "193533511"
+          } ],
+          "digitalFootprint" : {
+            "topics" : [ {
+              "provider" : "angellist",
+              "value" : "Javascript"
+            }, {
+              "provider" : "angellist",
+              "value" : "Ruby on Rails"
+            }, {
+              "provider" : "angellist",
+              "value" : "Git"
+            }, {
+              "provider" : "angellist",
+              "value" : "MongoDB"
+            }, {
+              "provider" : "angellist",
+              "value" : "jQuery"
+            }, {
+              "provider" : "angellist",
+              "value" : "SpreeCommerce"
+            } ]
+          }
+        }
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 09:10:53 GMT
+recorded_with: VCR 2.9.3

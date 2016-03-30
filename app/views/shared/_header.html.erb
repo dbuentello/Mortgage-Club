@@ -45,7 +45,7 @@
                   </span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="accountBtn">
-                  <li><%= link_to "My Profile", edit_user_registration_path(current_user) %></li>
+                  <li><%= link_to "My Profile", edit_user_registration_path %></li>
                   <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %>
                 </ul>
               </div>

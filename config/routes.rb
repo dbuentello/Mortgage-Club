@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     path_names: {
       sign_in: "login",
       sign_out: "logout",
+      edit: "profile",
       password: "secret",
       confirmation: "verification",
       unlock: "unblock",

@@ -33,18 +33,18 @@ module FullContactServices
     def read_company_info(response_data)
       return unless response_data["contactInfo"].present?
 
-      read_phones_info(response_data["contactInfo"]["phoneNumbers"]) if response_data["contactInfo"]["phoneNumbers"].present?
-      read_addresses_info(response_data["contactInfo"]["addresses"]) if response_data["contactInfo"]["addresses"].present?
+      read_phone_info(response_data["contactInfo"]["phoneNumbers"]) if response_data["contactInfo"]["phoneNumbers"].present?
+      read_address_info(response_data["contactInfo"]["addresses"]) if response_data["contactInfo"]["addresses"].present?
     end
 
-    def read_phones_info(phones)
+    def read_phone_info(phones)
       phone = phones[0]
 
       @company_info[:contact_name] = "HR Department"
       @company_info[:contact_phone_number] = phone["number"].to_s
     end
 
-    def read_addresses_info(addresses)
+    def read_address_info(addresses)
       address = addresses[0]
       state = address["region"].present? ? address["region"]["code"] : nil
 
