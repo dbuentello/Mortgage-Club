@@ -9,7 +9,7 @@ var LoansTab = React.createClass({
       <div className="col-md-4 loan-item" key={loan.id} index={i}>
         <div className="loan-item-holder">
           <a href={"/my/dashboard/" + loan.id} className="img-link">
-            <img className="" src={(this.props.commonInfo[loan.id] && this.props.commonInfo[loan.id].zillow_image_url) ? this.props.commonInfo[loan.id].zillow_image_url : "/default.jpg"}/>
+            <img src={(this.props.commonInfo[loan.id] && this.props.commonInfo[loan.id].zillow_image_url) ? this.props.commonInfo[loan.id].zillow_image_url : "/default.jpg"}/>
           </a>
           <div className="caption">
             <a href={"/my/dashboard/" + loan.id}>
