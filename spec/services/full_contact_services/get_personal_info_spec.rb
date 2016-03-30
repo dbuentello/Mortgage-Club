@@ -63,20 +63,54 @@ describe FullContactServices::GetPersonalInfo do
   end
 
   describe "#read_personal_info" do
-    context "when response data contains organizations" do
-      it "calls #read_positions_info" do
+    context "when likelihood is nil" do
+      it "returns nil" do
         response_data = {
+          "likelihood" => nil,
           "organizations" => [
             {
               "title" => "developer",
               "startDate" => "2016-01",
-              "name" => "Microsoft",
-              "current" => true
+              "name" => "Microsoft"
             }
           ]
         }
 
-        expect_any_instance_of(described_class).to receive(:read_positions_info)
+        expect(service.read_personal_info(response_data)).to be_nil
+      end
+    end
+
+    context "when likelihood is less than 0.8" do
+      it "returns nil" do
+        response_data = {
+          "likelihood" => 0.7,
+          "organizations" => [
+            {
+              "title" => "developer",
+              "startDate" => "2016-01",
+              "name" => "Microsoft"
+            }
+          ]
+        }
+
+        expect(service.read_personal_info(response_data)).to be_nil
+      end
+    end
+
+    context "when response data contains organizations" do
+      it "calls #read_organizations_info" do
+        response_data = {
+          "likelihood" => 0.9,
+          "organizations" => [
+            {
+              "title" => "developer",
+              "startDate" => "2016-01",
+              "name" => "Microsoft"
+            }
+          ]
+        }
+
+        expect_any_instance_of(described_class).to receive(:read_organizations_info)
 
         service.read_personal_info(response_data)
       end
@@ -84,20 +118,20 @@ describe FullContactServices::GetPersonalInfo do
 
     context "when response data doesn't contain organizations" do
       context "with organizations not present" do
-        it "does not call #read_positions_info" do
+        it "does not call #read_organizations_info" do
           response_data = {"organizations" => []}
 
-          expect_any_instance_of(described_class).not_to receive(:read_positions_info)
+          expect_any_instance_of(described_class).not_to receive(:read_organizations_info)
 
           service.read_personal_info(response_data)
         end
       end
 
       context "with organizations nil" do
-        it "does not call #read_positions_info" do
+        it "does not call #read_organizations_info" do
           response_data = {}
 
-          expect_any_instance_of(described_class).not_to receive(:read_positions_info)
+          expect_any_instance_of(described_class).not_to receive(:read_organizations_info)
 
           service.read_personal_info(response_data)
         end
@@ -105,39 +139,23 @@ describe FullContactServices::GetPersonalInfo do
     end
   end
 
-  describe "#read_positions_info" do
+  describe "#read_organizations_info" do
     context "with 1 position" do
       context "with data valid" do
-        it "assigns current job info with current true" do
+        it "assigns current job info" do
           positions = [
             {
               "title" => "developer",
               "startDate" => "2016-01",
-              "name" => "Microsoft",
-              "current" => true
+              "name" => "Microsoft"
             }
           ]
 
-          service.read_positions_info(positions)
+          service.read_organizations_info(positions)
 
           expect(service.personal_info[:current_job_info][:title]).to eq("developer")
           expect(service.personal_info[:current_job_info][:company_name]).to eq("Microsoft")
           expect(service.personal_info[:current_job_info][:years]).to be >= 1
-        end
-
-        it "does not assign current job info with current false" do
-          positions = [
-            {
-              "title" => "developer",
-              "startDate" => "2016-01",
-              "name" => "Microsoft",
-              "current" => false
-            }
-          ]
-
-          service.read_positions_info(positions)
-
-          expect(service.personal_info).to eq(personal_info_default)
         end
       end
 
@@ -147,12 +165,11 @@ describe FullContactServices::GetPersonalInfo do
             {
               "title" => nil,
               "startDate" => "2016-01",
-              "name" => "Microsoft",
-              "current" => true
+              "name" => "Microsoft"
             }
           ]
 
-          service.read_positions_info(positions)
+          service.read_organizations_info(positions)
 
           expect(service.personal_info[:current_job_info][:title]).to be_nil
           expect(service.personal_info[:current_job_info][:company_name]).to eq("Microsoft")
@@ -164,12 +181,11 @@ describe FullContactServices::GetPersonalInfo do
             {
               "title" => "developer",
               "startDate" => "2016-01",
-              "name" => nil,
-              "current" => true
+              "name" => nil
             }
           ]
 
-          service.read_positions_info(positions)
+          service.read_organizations_info(positions)
 
           expect(service.personal_info[:current_job_info][:title]).to eq("developer")
           expect(service.personal_info[:current_job_info][:company_name]).to be_nil
@@ -181,12 +197,11 @@ describe FullContactServices::GetPersonalInfo do
             {
               "title" => "developer",
               "startDate" => nil,
-              "name" => "Microsoft",
-              "current" => true
+              "name" => "Microsoft"
             }
           ]
 
-          service.read_positions_info(positions)
+          service.read_organizations_info(positions)
 
           expect(service.personal_info[:current_job_info][:title]).to eq("developer")
           expect(service.personal_info[:current_job_info][:company_name]).to eq("Microsoft")
@@ -195,82 +210,52 @@ describe FullContactServices::GetPersonalInfo do
       end
     end
     context "with 2 positions" do
-      context "when 2 previous positions" do
-        it "does not assign current position" do
-          positions = [
-            {
-              "title" => "developer",
-              "startDate" => "2016-01",
-              "name" => "Microsoft",
-              "current" => false
-            },
-            {
-              "title" => "developer",
-              "startDate" => "2014-12",
-              "endDate" => "2016-01",
-              "name" => "Facebook",
-              "current" => false
-            }
-          ]
+      it "assign current job info with current position duration greater 1" do
+        positions = [
+          {
+            "title" => "developer",
+            "startDate" => "2015-01",
+            "name" => "Microsoft"
+          },
+          {
+            "title" => "developer",
+            "startDate" => "2013-12",
+            "endDate" => "2015-01",
+            "name" => "Facebook"
+          }
+        ]
 
-          service.read_positions_info(positions)
+        service.read_organizations_info(positions)
 
-          expect(service.personal_info).to eq(personal_info_default)
-        end
+        expect(service.personal_info[:current_job_info][:title]).to eq("developer")
+        expect(service.personal_info[:current_job_info][:company_name]).to eq("Microsoft")
+        expect(service.personal_info[:current_job_info][:years]).to be > 1
       end
 
-      context "with 1 current position, 1 previous position" do
-        it "assign current job info with current position duration greater 1" do
-          positions = [
-            {
-              "title" => "developer",
-              "startDate" => "2015-01",
-              "name" => "Microsoft",
-              "current" => true
-            },
-            {
-              "title" => "developer",
-              "startDate" => "2013-12",
-              "endDate" => "2015-01",
-              "name" => "Facebook",
-              "current" => false
-            }
-          ]
+      it "assign current job info, previous job info with current position duration less than 2" do
+        positions = [
+          {
+            "title" => "developer",
+            "startDate" => "2016-01",
+            "name" => "Microsoft"
+          },
+          {
+            "title" => "developer",
+            "startDate" => "2013-12",
+            "endDate" => "2016-01",
+            "name" => "Facebook"
+          }
+        ]
 
-          service.read_positions_info(positions)
+        service.read_organizations_info(positions)
 
-          expect(service.personal_info[:current_job_info][:title]).to eq("developer")
-          expect(service.personal_info[:current_job_info][:company_name]).to eq("Microsoft")
-          expect(service.personal_info[:current_job_info][:years]).to be > 1
-        end
+        expect(service.personal_info[:current_job_info][:title]).to eq("developer")
+        expect(service.personal_info[:current_job_info][:company_name]).to eq("Microsoft")
+        expect(service.personal_info[:current_job_info][:years]).to eq(1)
 
-        it "assign current job info, previous job info with current position duration less than 2" do
-          positions = [
-            {
-              "title" => "developer",
-              "startDate" => "2016-01",
-              "name" => "Microsoft",
-              "current" => true
-            },
-            {
-              "title" => "developer",
-              "startDate" => "2013-12",
-              "endDate" => "2016-01",
-              "name" => "Facebook",
-              "current" => false
-            }
-          ]
-
-          service.read_positions_info(positions)
-
-          expect(service.personal_info[:current_job_info][:title]).to eq("developer")
-          expect(service.personal_info[:current_job_info][:company_name]).to eq("Microsoft")
-          expect(service.personal_info[:current_job_info][:years]).to eq(1)
-
-          expect(service.personal_info[:prev_job_info][:title]).to eq("developer")
-          expect(service.personal_info[:prev_job_info][:company_name]).to eq("Facebook")
-          expect(service.personal_info[:prev_job_info][:years]).to eq(3)
-        end
+        expect(service.personal_info[:prev_job_info][:title]).to eq("developer")
+        expect(service.personal_info[:prev_job_info][:company_name]).to eq("Facebook")
+        expect(service.personal_info[:prev_job_info][:years]).to eq(3)
       end
     end
   end

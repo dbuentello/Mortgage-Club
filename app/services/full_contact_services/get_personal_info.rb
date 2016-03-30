@@ -34,22 +34,33 @@ module FullContactServices
     end
 
     def read_personal_info(response_data)
-      read_positions_info(response_data["organizations"]) if response_data["organizations"].present?
+      return unless response_data["likelihood"].present? && response_data["likelihood"] > 0.8
+
+      read_organizations_info(response_data["organizations"]) if response_data["organizations"].present?
     end
 
-    def read_positions_info(positions)
-      current_position = positions[0]
+    def read_organizations_info(organizations)
+      # more info: https://gist.github.com/tangnv/4e31e1d69ded57124263
+      # 1: first organization is greater than second organization
+      # 0: first organization and second organization are equivalent
+      # -1: first organization is less than second organization
+      organizations.sort! do |first_organization, second_organization|
+        if first_organization["startDate"]
+          second_organization["startDate"] ? second_organization["startDate"] <=> first_organization["startDate"] : -1
+        else
+          second_organization["startDate"] ? 1 : 0
+        end
+      end
 
-      return if current_position["current"] == false
-
+      current_position = organizations.first
       current_work_years = get_work_years(current_position["startDate"], "#{Time.zone.now.year}-#{Time.zone.now.month}")
 
       @personal_info[:current_job_info][:title] = current_position["title"]
       @personal_info[:current_job_info][:years] = current_work_years
       @personal_info[:current_job_info][:company_name] = current_position["name"]
 
-      if current_work_years < 2 && positions[1].present?
-        prev_position = positions[1]
+      if current_work_years < 2 && organizations[1].present?
+        prev_position = organizations.second
 
         @personal_info[:prev_job_info][:title] = prev_position["title"]
         @personal_info[:prev_job_info][:years] = get_work_years(prev_position["startDate"], prev_position["endDate"])
@@ -58,8 +69,9 @@ module FullContactServices
     end
 
     def get_work_years(start_date, end_date)
-      # format_date: "2016-03"
-
+      # formated_date: "2016-03"
+      # formated_date[0..3]: "2016"
+      # formated_date[5..6]: "03"
       return 0 if start_date.nil? || end_date.nil?
 
       additional_year = 0
