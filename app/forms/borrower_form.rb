@@ -44,19 +44,23 @@ class BorrowerForm
   def create_primary_property
     return if loan.primary_property.present?
 
-    Property.create(
+    property = Property.create(
       loan: loan,
       is_primary: true,
-      usage: "primary_residence",
-      address: Address.create(
-        street_address: current_address.street_address,
-        street_address2: current_address.street_address2,
-        zip: current_address.zip,
-        state: current_address.state,
-        city: current_address.city,
-        full_text: current_address.full_text
-      )
+      usage: "primary_residence"
     )
+
+    Address.create(
+      street_address: current_address.street_address,
+      street_address2: current_address.street_address2,
+      zip: current_address.zip,
+      state: current_address.state,
+      city: current_address.city,
+      full_text: current_address.full_text,
+      property_id: property.id
+    )
+
+    property
   end
 
   private

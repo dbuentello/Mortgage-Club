@@ -40,14 +40,16 @@ class InitializeFirstLoanService
   end
 
   def create_subject_property
-    Property.create(
+    property = Property.create(
       is_subject: true,
       purchase_price: get_purchase_price,
       original_purchase_price: get_original_purchase_price,
       property_type: info["property_type"],
-      usage: info["property_usage"],
-      address: Address.create
+      usage: info["property_usage"]
     )
+    Address.create(property_id: property.id)
+
+    property
   end
 
   def init_properties
@@ -56,20 +58,23 @@ class InitializeFirstLoanService
   end
 
   def create_primary_property
+    property = Property.create(
+      is_primary: true,
+      usage: "primary_residence"
+    )
     address = borrower_current_address.address
 
-    Property.create(
-      is_primary: true,
-      usage: "primary_residence",
-      address: Address.create(
-        street_address: address.street_address,
-        street_address2: address.street_address2,
-        zip: address.zip,
-        state: address.state,
-        city: address.city,
-        full_text: address.full_text
-      )
+    Address.create(
+      street_address: address.street_address,
+      street_address2: address.street_address2,
+      zip: address.zip,
+      state: address.state,
+      city: address.city,
+      full_text: address.full_text,
+      property_id: property.id
     )
+
+    property
   end
 
   def borrower_own_current_address?
