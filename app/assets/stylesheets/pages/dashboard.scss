@@ -1,3 +1,18 @@
 .borrower-dashboard {
   padding-bottom: 50px;
 }
+.trash-bd {
+  opacity:0;
+  // display: none !important;
+  position: absolute;
+  z-index: 1000;
+  padding-left: 10px;
+  margin-top: 5px;
+  margin-left: -28px;
+}
+.hover-img:hover .trash-bd {
+  // display: block !important;
+  opacity:1.0;
+  filter:alpha(opacity=100);
+  @include transition(.8s);
+}

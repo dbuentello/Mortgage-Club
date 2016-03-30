@@ -25,19 +25,20 @@ var LoansTab = React.createClass({
     return (
       <div className="col-md-4 loan-item" key={loan.id} index={i}>
         <div className="loan-item-holder">
-          <a href={"/my/dashboard/" + loan.id} className="img-link">
-            <img src={(this.props.commonInfo[loan.id] && this.props.commonInfo[loan.id].zillow_image_url) ? this.props.commonInfo[loan.id].zillow_image_url : "/default.jpg"}/>
-          </a>
-          <ModalLink
-            id="deleteLoan"
-            icon="fa fa-trash-o fa-3x"
-            title={null}
-            class="btn delete-btn"
-            bodyClass="mc-blue-primary-text"
-            body="Are you sure you want to destroy this loan?"
-            yesCallback={_.bind(this.destroyLoan, null, loan.id)}
-          />
-
+          <div className="hover-img">
+            <ModalLink
+              id="deleteLoan"
+              icon="fa fa-trash-o fa-2x trash-bd"
+              title={null}
+              class="btn delete-btn pull-right"
+              bodyClass="mc-blue-primary-text"
+              body="Are you sure you want to destroy this loan?"
+              yesCallback={_.bind(this.destroyLoan, null, loan.id)}
+            />
+            <a href={"/my/dashboard/" + loan.id} className="img-link">
+              <img src={(this.props.commonInfo[loan.id] && this.props.commonInfo[loan.id].zillow_image_url) ? this.props.commonInfo[loan.id].zillow_image_url : "/default.jpg"}/>
+            </a>
+          </div>
           <div className="caption">
             <a href={"/my/dashboard/" + loan.id}>
               <h6><strong>{this.props.commonInfo[loan.id] ? this.props.commonInfo[loan.id].address : ""}</strong></h6>
