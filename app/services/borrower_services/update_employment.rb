@@ -59,7 +59,7 @@ module BorrowerServices
     end
 
     def job_info_valid?(job)
-      return true if job[:title] && job[:years] && job[:company_name]
+      return true if job[:title] && job[:company_name]
 
       false
     end
