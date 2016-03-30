@@ -1,6 +1,9 @@
 .initial-quotes {
-  padding-top: 15px;
+
   .quotes-form {
+    p:first-child {
+      padding-top: 30px;
+    }
     p {
       font-size: 1.1em;
       color: #00436E;
@@ -31,7 +34,7 @@
   }
   .quotes-list {
     .col-xs-9 {
-      padding: 0 50px;
+    
       float: right;
     }
     .board {
@@ -208,7 +211,7 @@
     }
   }
   .custom-left-mortgage-rates {
-    margin-left: -19px;
+    //margin-left: -19px;
   }
   .actions {
     padding-top: 20px;

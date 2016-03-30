@@ -72,7 +72,7 @@ var MortgageRates = React.createClass({
               <HelpMeChoose backToRatePage={this.backToRateHandler} loan={this.props.bootstrapData.currentLoan} programs={this.state.programs} selectRate={this.selectRate} isInitialQuotes={false}/>
             </div>
           :
-            <div className="content container mortgage-rates padding-top-0">
+            <div className="content container mortgage-rates padding-top-0 row-eq-height">
               <div className="col-xs-3 subnav programs-filter">
                 <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
               </div>
