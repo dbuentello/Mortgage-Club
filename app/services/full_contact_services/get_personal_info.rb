@@ -56,14 +56,15 @@ module FullContactServices
       current_work_years = get_work_years(current_position["startDate"], "#{Time.zone.now.year}-#{Time.zone.now.month}")
 
       @personal_info[:current_job_info][:title] = current_position["title"]
-      @personal_info[:current_job_info][:years] = current_work_years
+      @personal_info[:current_job_info][:years] = current_work_years if current_work_years > 0
       @personal_info[:current_job_info][:company_name] = current_position["name"]
 
       if current_work_years < 2 && organizations[1].present?
         prev_position = organizations.second
+        prev_work_years = get_work_years(prev_position["startDate"], prev_position["endDate"])
 
         @personal_info[:prev_job_info][:title] = prev_position["title"]
-        @personal_info[:prev_job_info][:years] = get_work_years(prev_position["startDate"], prev_position["endDate"])
+        @personal_info[:prev_job_info][:years] = prev_work_years if prev_work_years > 0
         @personal_info[:prev_job_info][:company_name] = prev_position["name"]
       end
     end

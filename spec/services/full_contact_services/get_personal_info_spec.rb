@@ -192,7 +192,7 @@ describe FullContactServices::GetPersonalInfo do
           expect(service.personal_info[:current_job_info][:years]).to be >= 1
         end
 
-        it "returns current job years 0 with startDate nil" do
+        it "returns current job years nil with startDate nil" do
           positions = [
             {
               "title" => "developer",
@@ -205,7 +205,7 @@ describe FullContactServices::GetPersonalInfo do
 
           expect(service.personal_info[:current_job_info][:title]).to eq("developer")
           expect(service.personal_info[:current_job_info][:company_name]).to eq("Microsoft")
-          expect(service.personal_info[:current_job_info][:years]).to eq(0)
+          expect(service.personal_info[:current_job_info][:years]).to eq(nil)
         end
       end
     end
