@@ -37,7 +37,7 @@ hr {
 }
 
 .padding-left-50 {
-  padding-left: 50px;
+  padding-left: 50px !important;
 }
 
 .padding-left-55 {
@@ -50,4 +50,10 @@ hr {
 
 .min-height-500 {
   min-height: 500px !important;
+}
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
 }
