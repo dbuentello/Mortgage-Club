@@ -12,7 +12,16 @@ module DocumentServices
       return false if args[:subject_type].blank?
       return false unless subjectable
 
-      document = Document.find_or_initialize_by(subjectable: subjectable, document_type: args[:document_type])
+      if args[:document_type] == "other_borrower_report"
+        if params[:document_id].present?
+          document = Document.find(params[:document_id])
+        else
+          document = Document.new(subjectable: subjectable, document_type: args[:document_type])
+        end
+      else
+        document = Document.find_or_initialize_by(subjectable: subjectable, document_type: args[:document_type])
+      end
+
       document.attachment = params[:file]
       document.original_filename = params[:original_filename]
       document.description = params[:description]

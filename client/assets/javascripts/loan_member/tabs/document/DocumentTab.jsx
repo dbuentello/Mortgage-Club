@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var React = require('react/addons');
 var Upload = require('./Upload');
+var BorrowerUpload = require('./BorrowerUpload');
 
 var descriptionDrap = "Drop files to upload or CLICK";
 var borrower_fields = {
@@ -115,7 +116,7 @@ var DocumentTab = React.createClass({
             <Upload subjectType={"Property"} subject={this.props.property} fields={property_fields}></Upload>
           </div>
           <div id="borrower_document_uploader" className="row" style={this.state.displayBorrower}>
-            <Upload subjectType={"Borrower"} subject={this.props.borrower} fields={borrower_fields} otherBorrowerFields={other_borrower_fields}></Upload>
+            <BorrowerUpload subjectType={"Borrower"} subject={this.props.borrower} fields={borrower_fields} otherBorrowerFields={other_borrower_fields}></BorrowerUpload>
           </div>
           <div id="loan_uploader" className="row" style={this.state.displayLoan}>
             <Upload subjectType={"Loan"} subject={this.props.loan} fields={loan_fields}></Upload>

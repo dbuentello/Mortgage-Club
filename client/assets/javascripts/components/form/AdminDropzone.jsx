@@ -172,10 +172,6 @@ var AdminDropzone = React.createClass({
             if (this.props.uploadSuccessCallback) {
               this.props.uploadSuccessCallback();
             }
-
-            if (this.props.removeSuccessCallback) {
-              this.props.removeSuccessCallback();
-            }
           }.bind(this),
           cache: false,
           contentType: false,
@@ -235,6 +231,10 @@ var AdminDropzone = React.createClass({
 
           // console.log(response.message);
           var flash = { "alert-success": "Removed successfully!" };
+
+          if (this.props.removeSuccessCallback) {
+            this.props.removeSuccessCallback();
+          }
           this.showFlashes(flash);
         }.bind(this),
         error: function(response, status, error) {
