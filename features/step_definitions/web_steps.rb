@@ -49,8 +49,9 @@ When(/^I attach the file "([^\"]*)" to the hidden "([^\"]*)"$/) do |path, field|
   end
 end
 
-When (/^I attach the file "([^\"]*)" to the file input "([^\"]*)"$/) do |path, field|
-  page.all("input[type=file]", :visible => true)
+When (/^I attach the file "([^\"]*)" to the upload input "([^\"]*)"$/) do |path, field|
+  page.execute_script("document.getElementsByName('#{field}')[0].className = '';")
+  page.execute_script("document.getElementsByName('#{field}')[0].setAttribute('style', 'position:relative; display:block; top:0;')")
   patiently do
     attach_file(field, File.expand_path(path))
   end
