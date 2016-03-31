@@ -6,7 +6,7 @@ var SettingsTab = React.createClass({
   mixins: [FlashHandler],
 
   getInitialState: function() {
-    var user = this.props.bootstrapData.user
+    var user = this.props.bootstrapData.user;
     return {
       avatarUrl: user.avatar_url || "no-avatar.jpg",
       email: user.email,
@@ -35,8 +35,6 @@ var SettingsTab = React.createClass({
         break;
       case "current_password":
         this.setState({currentPasswordError: null});
-        break;
-      default:
         break;
     }
   },
