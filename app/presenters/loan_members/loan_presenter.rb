@@ -24,7 +24,10 @@ class LoanMembers::LoanPresenter
           }
         },
         documents: {},
-        lender_documents: {}
+        lender_documents: {},
+        lender: {
+          only: [:id]
+        }
       },
       methods: [:other_lender_documents, :pretty_status]
     }
