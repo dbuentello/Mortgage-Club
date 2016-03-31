@@ -37,7 +37,7 @@ var List = React.createClass({
 
 
   componentDidMount: function() {
-    if(this.props.displayTotalCost){
+    if(this.props.helpMeChoose){
       if($("span.glyphicon-menu-down").length > 0){
         $("span.glyphicon-menu-down")[0].click();
       }
@@ -45,7 +45,7 @@ var List = React.createClass({
   },
 
   componentDidUpdate: function(prevProps, prevState) {
-    if(this.props.displayTotalCost){
+    if(this.props.helpMeChoose){
       if(prevProps.quotes[0].apr !== this.props.quotes[0].apr){
         $(".line-chart").empty();
         $(".pie-chart").empty();
@@ -125,7 +125,7 @@ var List = React.createClass({
                         }
                       </ul>
                       {
-                        this.props.displayTotalCost
+                        this.props.helpMeChoose
                         ?
                           <div>
                             <span className="typeLowlight mlm">True Cost of Mortgage: </span>
