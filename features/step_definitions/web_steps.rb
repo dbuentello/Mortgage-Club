@@ -49,7 +49,7 @@ When(/^I attach the file "([^\"]*)" to the hidden "([^\"]*)"$/) do |path, field|
   end
 end
 
-When (/^I attach the file "([^\"]*)" to the upload input "([^\"]*)"$/) do |path, field|
+When (/^I attach the file "([^\"]*)" to the avatar file input "([^\"]*)"$/) do |path, field|
   page.execute_script("document.getElementsByName('#{field}')[0].className = '';")
   page.execute_script("document.getElementsByName('#{field}')[0].setAttribute('style', 'position:relative; display:block; top:0;')")
   patiently do
