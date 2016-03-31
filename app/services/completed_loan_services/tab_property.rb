@@ -34,7 +34,6 @@ module CompletedLoanServices
 
     def purchase_completed?
       return false unless subject_property.purchase_price.present?
-      return false unless loan.down_payment.present?
 
       true
     end

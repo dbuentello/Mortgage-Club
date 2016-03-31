@@ -52,10 +52,6 @@ var TabProperty = {
       return false;
     }
 
-    if(loan.purpose == "purchase" && loan.down_payment == null) {
-      return false;
-    }
-
     if(loan.purpose == "refinance" && this.loanDoesNotHaveRefinanceData(loan)) {
       return false;
     }
