@@ -9,5 +9,6 @@ Feature: UpdatePassword
       And I fill in "user[password_confirmation]" with "12345678"
       And I fill in "user[current_password]" with "secretpass"
       And I press "Update"
+      And I wait for 1 seconds
       And I reload the page
       Then I should see "Cuong Vu"
