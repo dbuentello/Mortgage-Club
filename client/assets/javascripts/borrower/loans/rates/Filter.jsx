@@ -14,9 +14,11 @@ var Filter = React.createClass({
 
   onChangeCriteria: function(option, type) {
     var criteria = type == "product" ? this.props.productCriteria : this.props.lenderCriteria;
+    var indexOfOption = criteria.indexOf(option);
+
     // user has already selected this option
-    if(criteria.indexOf(option) != -1) {
-      criteria.splice(option, 1);
+    if(indexOfOption != -1) {
+      criteria.splice(indexOfOption, 1);
     }
     else {
       criteria.push(option);
