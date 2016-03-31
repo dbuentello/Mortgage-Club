@@ -55,7 +55,9 @@ var BorrowerUpload = React.createClass({
       },
       success: function(response) {
         if(response.borrower_documents !== undefined && response.borrower_documents !== null) {
-          this.setState({otherBorrowerDocuments: response.borrower_documents});
+          var state = this.state;
+          state.otherBorrowerDocuments = response.borrower_documents;
+          this.setState(state);
         }
       }.bind(this)
     });
