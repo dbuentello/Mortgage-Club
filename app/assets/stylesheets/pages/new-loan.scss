@@ -3,9 +3,7 @@
   .account-content {
     min-height: calc(100vh - 160px);
   }
-  .subnav {
-    min-height: calc(100vh - 160px);
-  }
+
   padding-top: 0px;
   overflow:hidden;
   background: rgba(246,246,246,1);
@@ -52,8 +50,7 @@
   background: #f6f6f6;
   // margin-bottom:-9999px;
   // padding-bottom:9999px;
-  height:100%;
-  min-height: 400px;
+  
   position: relative;
   left: 0;
   -webkit-transition: left 0.4s ease-in-out;
@@ -61,7 +58,7 @@
   -ms-transition: left 0.4s ease-in-out;
   -o-transition: left 0.4s ease-in-out;
   transition: left 0.4s ease-in-out;
-  height: calc(100vh - 165px);
+
 
   .open-sidebar { left: 240px; }
 
