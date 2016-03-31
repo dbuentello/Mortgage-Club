@@ -50,19 +50,15 @@ var LoansTab = React.createClass({
             {
               loan.pretty_status == "New"
               ?
-                <p>
-                  <a href={"/loans/" + loan.id + "/edit"} className="btn edit-app-btn" role="button">
+                  <a href={"/loans/" + loan.id + "/edit"} className="btn edit-app-btn btn-mc btn-my-loan" role="button">
                     <i className="iconPencil mrs"></i>
                     <span>Edit Application</span>
                   </a>
-                </p>
               :
-                <p>
-                  <a href={"/my/dashboard/" + loan.id} className="btn dashboard-btn" role="button">
+                  <a href={"/my/dashboard/" + loan.id} className="btn dashboard-btn btn-mc btn-my-loan" role="button">
                     <img className="gear-icon" src="/icons/gear.png"/>
                     <span>Dashboard</span>
                   </a>
-                </p>
             }
           </div>
         </div>
