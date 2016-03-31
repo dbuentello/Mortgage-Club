@@ -74,6 +74,7 @@ Rails.application.routes.draw do
     resources :loans, except: [:new] do
       collection do
         get "/:id/income", to: "loans#update_income"
+        get "/borrower_other_documents", to: "loans#borrower_other_documents"
       end
     end
 
