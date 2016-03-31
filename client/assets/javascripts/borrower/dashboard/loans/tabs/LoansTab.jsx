@@ -26,6 +26,9 @@ var LoansTab = React.createClass({
       <div className="col-md-4 loan-item" key={loan.id} index={i}>
         <div className="loan-item-holder">
           <div className="hover-img">
+            {
+              loan.pretty_status == "New"
+              ?
             <ModalLink
               id="deleteLoan"
               icon="fa fa-trash-o fa-2x trash-bd"
@@ -35,6 +38,9 @@ var LoansTab = React.createClass({
               body="Are you sure you want to destroy this loan?"
               yesCallback={_.bind(this.destroyLoan, null, loan.id)}
             />
+          : ""
+          }
+
             <a href={"/my/dashboard/" + loan.id} className="img-link">
               <img src={(this.props.commonInfo[loan.id] && this.props.commonInfo[loan.id].zillow_image_url) ? this.props.commonInfo[loan.id].zillow_image_url : "/default.jpg"}/>
             </a>
