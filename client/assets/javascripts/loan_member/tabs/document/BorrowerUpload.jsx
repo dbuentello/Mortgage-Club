@@ -134,9 +134,9 @@ var BorrowerUpload = React.createClass({
                   tip={this.state[this.props.otherBorrowerFields[key].name]}
                   maxSize={10000000}
                   customParams={customParams}
-                  isOther={this.props.otherBorrowerFields[key].isOther}
                   supportOtherDescription={this.props.otherBorrowerFields[key].customDescription}
-                  uploadSuccessCallback={this.reloadOtherDocuments}/>
+                  uploadSuccessCallback={this.reloadOtherDocuments}
+                  resetAfterUploading={true}/>
               </div>
             )
           }, this)

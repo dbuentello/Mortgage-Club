@@ -19,7 +19,7 @@ var borrower_fields = {
   second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'second_federal_tax_return', placeholder: descriptionDrap, type: 'SecondFederalTaxReturn'}
 };
 var other_borrower_fields = {
-  other_borrower_report: {label: 'Other', name: 'other_borrower_report', placeholder: descriptionDrap, type: 'OtherBorrowerReport', customDescription: true, isOther: true}
+  other_borrower_report: {label: 'Other', name: 'other_borrower_report', placeholder: descriptionDrap, type: 'OtherBorrowerReport', customDescription: true}
 }
 var loan_fields = {
   hud_estimate: {label: 'Estimated settlement statement', name: 'hud_estimate', placeholder: descriptionDrap, type: 'HudEstimate'},

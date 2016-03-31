@@ -52,7 +52,7 @@ var AdminDropzone = React.createClass({
     maxSize: React.PropTypes.number,
     supportOtherDescription: React.PropTypes.bool,
     uploadSuccessCallback: React.PropTypes.func,
-    isOther: React.PropTypes.bool,
+    resetAfterUploading: React.PropTypes.bool,
   },
 
   componentDidMount: function() {
@@ -154,17 +154,34 @@ var AdminDropzone = React.createClass({
           enctype: 'multipart/form-data',
           data: formData,
           success: function(response) {
-            // update tip after update
-            this.setState({ tip: files[0].name });
+            if(this.props.resetAfterUploading === true){
+              this.setState({ tip: this.props.field.placeholder });
 
-            this.setState({ downloadUrl: response.download_url });
-            this.setState({ removeUrl: response.remove_url });
+              // disable the download button immediately
+              this.setState({ downloadUrl: 'javascript:void(0)' });
 
-            // tooltip chosen dropzone
-            $(this.refs.box.getDOMNode()).tooltip({ title: files[0].name });
+              this.setState({ removeUrl: 'javascript:void(0)' });
 
-            // highltight chosen dropzone
-            $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploaded.backgroundColor, color: this.props.uploaded.color});
+              // destroy tooltip
+              $(this.refs.box.getDOMNode()).tooltip('destroy');
+              $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.empty.backgroundColor, color: this.props.empty.color});
+
+              // update description empty
+              this.setState({ otherDescription: '' })
+              $("#other_borrower_report").val('');
+            }else{
+               // update tip after update
+              this.setState({ tip: files[0].name });
+
+              this.setState({ downloadUrl: response.download_url });
+              this.setState({ removeUrl: response.remove_url });
+
+              // tooltip chosen dropzone
+              $(this.refs.box.getDOMNode()).tooltip({ title: files[0].name });
+
+              // highltight chosen dropzone
+              $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploaded.backgroundColor, color: this.props.uploaded.color});
+            }
 
             var flash = { "alert-success": "Uploaded successfully!" };
             this.showFlashes(flash);
@@ -172,6 +189,7 @@ var AdminDropzone = React.createClass({
             if (this.props.uploadSuccessCallback) {
               this.props.uploadSuccessCallback();
             }
+
           }.bind(this),
           cache: false,
           contentType: false,
@@ -263,7 +281,7 @@ var AdminDropzone = React.createClass({
     }
 
     if (this.props.supportOtherDescription) {
-      var customDescription = <span><input className='mhl form-control' placeholder='Description' onChange={this.onChangeDiscription}/></span>
+      var customDescription = <span><input id='description-dropzone' className='mhl form-control' placeholder='Description' onChange={this.onChangeDiscription} value={this.state.otherDescription}/></span>
     }
 
     return (
