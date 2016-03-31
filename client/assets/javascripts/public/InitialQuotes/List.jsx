@@ -45,7 +45,7 @@ var List = React.createClass({
   },
 
   componentDidUpdate: function(prevProps, prevState) {
-    if(this.props.quotes.length === 1){
+    if(this.props.displayTotalCost){
       if(prevProps.quotes[0].apr !== this.props.quotes[0].apr){
         $(".line-chart").empty();
         $(".pie-chart").empty();
