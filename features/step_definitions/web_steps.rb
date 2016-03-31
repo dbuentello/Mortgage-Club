@@ -236,3 +236,7 @@ When(/^I scroll up to the top$/) do
   page.execute_script("window.scrollTo(100000, 0)")
   sleep(2)
 end
+
+When(/^I hover on "(.*?)"$/) do |element|
+  find(element).hover
+end
