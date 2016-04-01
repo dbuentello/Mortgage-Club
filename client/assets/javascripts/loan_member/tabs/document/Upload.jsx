@@ -43,13 +43,16 @@ var Upload = React.createClass({
       },
       success: function(response) {
         if(response.other_documents !== undefined && response.other_documents !== null) {
-          var state = this.state;
-          state.otherDocuments = response.other_documents;
+          var otherDocuments = response.other_documents;
 
-          _.each(state.otherDocuments, function(otherDocument) {
+          _.each(otherDocuments, function(otherDocument) {
             otherDocument.downloadUrl = "/document_uploaders/base_document/" + otherDocument.id + "/download";
             otherDocument.removeUrl = "/document_uploaders/base_document/" + otherDocument.id;
           }, this);
+
+          var state = this.state;
+          state.otherDocuments = otherDocuments;
+
           this.setState(state);
         }
       }.bind(this)
@@ -82,6 +85,7 @@ var Upload = React.createClass({
     ];
 
     var otherField = {label: "Other", placeholder: "Drop files to upload or CLICK"};
+
     return (
       <div>
         {
@@ -107,7 +111,7 @@ var Upload = React.createClass({
           }, this)
         }
         {
-          _.map(this.state.otherDocuments, function(otherDocument, index) {
+          _.map(this.state.otherDocuments, function(otherDocument) {
             var customParams = [
               {document_type: otherDocument.document_type},
               {subject_id: this.props.subject.id},
@@ -117,7 +121,7 @@ var Upload = React.createClass({
             ];
             var field = {label: otherDocument.description, placeholder: "Drop files to upload or CLICK"};
             return(
-              <div className="drop_zone" style={{"margin-top": "10px"}} key={index}>
+              <div className="drop_zone" style={{"margin-top": "10px"}} key={otherDocument.id}>
                 <Dropzone
                   field={field}
                   uploadUrl={uploadUrl}
