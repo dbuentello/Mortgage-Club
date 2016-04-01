@@ -100,3 +100,6 @@
   padding: 5px 10px;
   @include border-radius(6px); //use mixins
 }
+.btn:active {
+  box-shadow: none;
+}

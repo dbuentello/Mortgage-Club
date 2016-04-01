@@ -10,6 +10,7 @@
   .container {
     background-color: #fff;
   }
+
   .nav {
     padding-left: 0;
     margin-bottom: 0;
@@ -54,54 +55,31 @@
     margin-top: 15px;
     height: 40px;
   }
-  .dashboard-btn {
-    background: #15c0f1;
-    color: white;
-    display: flex;
-    align-items: center;
-    width: 160px;
-  }
+
   .dashboard-btn img {
     margin-right: 10px;
     transition: transform 2s ease;
   }
-  .dashboard-btn:hover {
-    color: white;
-  }
+
   .dashboard-btn:hover img {
     transform: rotate(360deg) scale(1.2);
   }
-  .edit-app-btn {
-    background: #15c0f1;
-    color: white;
-    display: flex;
-    align-items: center;
-    width: 160px;
-  }
-  .edit-app-btn:hover {
-    color: white;
-  }
-  .btn {
-    display: inline-block;
-    padding: 6px 10px;
-    margin-bottom: 0;
+  .btn-my-loan {
+    border: none;
     font-size: 14px;
     font-weight: 400;
+    padding: 6px 15px;
     line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
+    align-items: center;
+    background: #15c0f1;
+    color: white;
+    &:hover {
+      background: #15c0f1;
+      color: white;
+    }
   }
+
+
   .gear-icon {
     display: inline !important;
     margin-right: 12px !important;
