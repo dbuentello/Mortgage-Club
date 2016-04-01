@@ -24,7 +24,7 @@ var ChecklistUpload = React.createClass({
       state[doc_type + '_removedUrl'] = '/document_uploaders/base_document/' + borrower_document.id;
     }
     else {
-      state[doc_type] = 'drag file here or browse';
+      state[doc_type] = 'Drop files to upload or CLICK';
       state[doc_type + '_downloadUrl'] = 'javascript:void(0)';
       state[doc_type + '_removedUrl'] = 'javascript:void(0)';
     }
@@ -43,7 +43,7 @@ var ChecklistUpload = React.createClass({
     var checklist = this.props.checklist;
     var dataTarget = '#' + this.props.id;
     var labelId = this.props.id + 'Label';
-    var field = {label: checklist.document_description, name: checklist.document_type , placeholder: 'drag file here or browse'}
+    var field = {label: checklist.document_description, name: checklist.document_type , placeholder: 'Drop files to upload or CLICK'}
     var uploadUrl = '/document_uploaders/base_document/upload';
 
     var customParams = [
