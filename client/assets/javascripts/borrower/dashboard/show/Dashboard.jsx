@@ -97,17 +97,21 @@ var Dashboard = React.createClass({
                 labelNo="Cancel"
                 labelYes="Proceed"
                 yesCallback={this.viewLoan} />
-
-              <ModalLink
-                id="deleteLoan"
-                icon="iconTrash mrs"
-                name="Delete"
-                title={null}
-                class="btn delete-btn"
-                bodyClass="mc-blue-primary-text"
-                body="Are you sure you want to destroy this loan?"
-                yesCallback={this.destroyLoan}
-              />
+              {
+                loan.pretty_status == "New"
+                ?
+                  <ModalLink
+                    id="deleteLoan"
+                    icon="iconTrash mrs"
+                    name="Delete"
+                    title={null}
+                    class="btn delete-btn"
+                    bodyClass="mc-blue-primary-text"
+                    body="Are you sure you want to destroy this loan?"
+                    yesCallback={this.destroyLoan}
+                  />
+                : ""
+              }
             </div>
           </div>
           <div className="collapse navbar-collapse" id="links-dashboard">

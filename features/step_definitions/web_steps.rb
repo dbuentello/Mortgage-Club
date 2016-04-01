@@ -49,6 +49,14 @@ When(/^I attach the file "([^\"]*)" to the hidden "([^\"]*)"$/) do |path, field|
   end
 end
 
+When(/^I attach the file "([^\"]*)" to the avatar file input "([^\"]*)"$/) do |path, field|
+  page.execute_script("document.getElementsByName('#{field}')[0].className = '';")
+  page.execute_script("document.getElementsByName('#{field}')[0].setAttribute('style', 'position:relative; top:0;')")
+  patiently do
+    attach_file(field, File.expand_path(path))
+  end
+end
+
 When(/^I set the value "([^\"]*)" to the hidden "([^\"]*)"$/) do |value, field|
   page.execute_script("document.getElementsByName('#{field}')[0].value = '#{value}';")
 end
@@ -235,4 +243,14 @@ end
 When(/^I scroll up to the top$/) do
   page.execute_script("window.scrollTo(100000, 0)")
   sleep(2)
+end
+
+When(/^I hover on "(.*?)"$/) do |element|
+  find(element).hover
+end
+
+When(/^I click on the element "([^"]+)"$/) do |selector|
+  patiently do
+    page.find(selector).click
+  end
 end

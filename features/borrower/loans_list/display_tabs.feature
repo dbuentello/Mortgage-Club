@@ -6,4 +6,3 @@ Feature: DisplayTabs
     Then I go to the my loans page
       And I should see "Loans"
       And I should see "Referrals"
-      And I should see "Settings"

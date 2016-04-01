@@ -138,8 +138,8 @@ var Quotes = React.createClass({
                       <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.state.quotes} selectRate={this.selectRate} isInitialQuotes={true}/>
                     </div>
                   :
-                    <div className="content container mortgage-rates padding-top-0 row">
-                      <div className="col-xs-3 subnav quote-filter">
+                    <div className="content container mortgage-rates row-eq-height padding-top-0 row">
+                      <div className="col-xs-3 subnav">
                         <Filter programs={this.props.bootstrapData.quotes} onFilterProgram={this.onFilterQuote}></Filter>
                       </div>
                       <div className="col-xs-9 account-content padding-left-50">
@@ -174,7 +174,7 @@ var Quotes = React.createClass({
                           </div>
                         </div>
                         <div id="mortgagePrograms">
-                          <List quotes={this.state.quotes} selectRate={this.selectRate} displayTotalCost={false}/>
+                          <List quotes={this.state.quotes} selectRate={this.selectRate} helpMeChoose={false}/>
                         </div>
                       </div>
                     </div>

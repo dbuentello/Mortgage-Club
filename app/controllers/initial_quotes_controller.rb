@@ -62,13 +62,13 @@ class InitialQuotesController < ApplicationController
 
   def slack_webhook
     reply = "We're sorry, there aren't any quotes matching your needs."
-    service = LoanTekServices::CheckQuotesForSlackBot.new(params)
+    service = LoanTekServices::GetQuotesInfoForSlackBot.new(params)
 
     if service.call
       quote_query = QuoteQuery.new(query: service.query_content)
 
       if quote_query.save
-        reply = "You can see your quotes at #{initial_quote_url(id: quote_query.code_id)}"
+        reply = "#{service.quotes_summary}You can see your quotes at #{initial_quote_url(id: quote_query.code_id)}"
       end
     end
 

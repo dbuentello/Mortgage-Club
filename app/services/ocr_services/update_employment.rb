@@ -15,6 +15,7 @@ module OcrServices
 
       if employment.present?
         update_employment
+        create_employer_address(employment) unless employment.address.present?
       else
         new_employment = create_new_employment
         create_employer_address(new_employment)
@@ -25,17 +26,11 @@ module OcrServices
 
     def update_employment
       employment.update(
-        employer_name: data[:employer_name],
+        employer_name: employment.employer_name || data[:employer_name],
         pay_frequency: data[:period],
         current_salary: data[:current_salary],
         ytd_salary: data[:ytd_salary]
       )
-
-      if employment.address.present?
-        update_employer_address
-      else
-        create_employer_address(employment)
-      end
     end
 
     def create_new_employment
@@ -54,10 +49,6 @@ module OcrServices
         employment_id: employment.id,
         full_text: data[:employer_full_address]
       )
-    end
-
-    def update_employer_address
-      employment.address.update(full_text: data[:employer_full_address])
     end
   end
 end

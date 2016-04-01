@@ -309,9 +309,9 @@ var HelpMeChoose = React.createClass({
             {
               this.props.isInitialQuotes
               ?
-                <ListQuotes quotes={this.state.possibleRates} selectRate={this.props.selectRate} displayTotalCost={true}/>
+                <ListQuotes quotes={this.state.possibleRates} selectRate={this.props.selectRate} helpMeChoose={true}/>
               :
-                <ListPrograms loanAmount={this.props.loan.amount} programs={this.state.possibleRates} subjectProperty={this.props.loan.subject_property} selectRate={this.props.selectRate} displayTotalCost={true}/>
+                <ListPrograms loanAmount={this.props.loan.amount} programs={this.state.possibleRates} subjectProperty={this.props.loan.subject_property} selectRate={this.props.selectRate} helpMeChoose={true}/>
             }
           </div>
         </div>

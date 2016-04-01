@@ -6,7 +6,7 @@ var FlashHandler = require("mixins/FlashHandler");
 var OtherDocument = React.createClass({
   render: function() {
     var label = this.props.label ? this.props.label : "Other Document";
-    var fields = {label: label, placeholder: "drag file here or browse"};
+    var fields = {label: label, placeholder: "Drop files to upload or CLICK"};
     var customParams = [
       {template_id: this.props.otherTemplate.id},
       {loan_id: this.props.loanId}

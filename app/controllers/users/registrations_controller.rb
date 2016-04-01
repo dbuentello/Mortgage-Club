@@ -1,9 +1,9 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  layout 'authentication'
+  layout 'authentication', except: :edit
 
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
-  prepend_before_action :check_captcha, only: [:create]
+  before_action :check_captcha, only: [:create]
 
   # GET /resource/sign_up
   def new
@@ -27,15 +27,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.add_role :borrower
       resource.confirmed_at = Time.zone.now
       resource.skip_confirmation_notification!
-      resource.save
+
+      BorrowerServices::UpdateEmployment.new(resource.borrower).call if resource.save && !Rails.env.test?
+
       sign_in resource_name, resource, bypass: true
     end
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    bootstrap(user: LoanListPage::UserPresenter.new(resource).show)
+    render template: "borrower_app"
+  end
 
   # PUT /resource
   def update

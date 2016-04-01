@@ -16,7 +16,7 @@ describe OcrServices::UpdateEmployment do
     context "with existent employment" do
       before(:each) do
         borrower.employments.destroy_all
-        @employment = FactoryGirl.create(:employment, borrower: borrower, is_current: true)
+        @employment = FactoryGirl.create(:employment, employer_name: nil, borrower: borrower, is_current: true)
       end
 
       it "calls #update_employment" do
@@ -36,17 +36,13 @@ describe OcrServices::UpdateEmployment do
         end
 
         context "with existent address" do
-          it "calls #update_employer_address" do
-            expect_any_instance_of(OcrServices::UpdateEmployment).to receive(:update_employer_address)
-            OcrServices::UpdateEmployment.new(data, borrower.id).call
-          end
-
           describe "#update_employer_address" do
-            it "updates full_text field of address" do
+            it "does not update full_text field of address" do
+              current_address = @employment.address.full_text
               OcrServices::UpdateEmployment.new(data, borrower.id).call
               @employment.address.reload
 
-              expect(@employment.address.full_text).to eq("1 Infinite Loop Cupertino CA 95014")
+              expect(@employment.address.full_text).to eq(current_address)
             end
           end
         end

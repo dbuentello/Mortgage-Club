@@ -58,6 +58,10 @@ var MortgageRates = React.createClass({
     $("span.glyphicon-menu-up").click();
   },
 
+  componentDidMount: function() {
+    $("input[name=30years]").trigger("click");
+  },
+
   render: function() {
     // don't want to make ugly code
     var guaranteeMessage = "We're showing the best 3 loan options for you";
@@ -72,17 +76,16 @@ var MortgageRates = React.createClass({
               <HelpMeChoose backToRatePage={this.backToRateHandler} loan={this.props.bootstrapData.currentLoan} programs={this.state.programs} selectRate={this.selectRate} isInitialQuotes={false}/>
             </div>
           :
-            <div className="content container mortgage-rates padding-top-0">
+            <div className="content container mortgage-rates padding-top-0 row-eq-height">
               <div className="col-xs-3 subnav programs-filter">
                 <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
               </div>
               <div className="col-xs-9 account-content padding-left-50">
                 <div className="row actions">
                   <p>
-                    We’ve found {this.props.bootstrapData.programs ? this.props.bootstrapData.programs.length : 0} mortgage options for you. You can sort, filter, and choose one on your own or click
+                    We’ve found {this.state.programs ? this.state.programs.length : 0} mortgage options for you. You can sort, filter, and choose one on your own or click
                     <i> Help me choose </i>
-                    and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
-                    <i> Help me choose </i>.
+                    and our proprietary selection algorithm will help you choose the best mortgage.
                   </p>
                   <div className="row form-group actions-group" id="mortgageActions">
                     <div className="col-md-6">
@@ -107,7 +110,7 @@ var MortgageRates = React.createClass({
                   </div>
                 </div>
                 <div id="mortgagePrograms">
-                  <List loanAmount={this.props.bootstrapData.currentLoan.amount} programs={this.state.programs} subjectProperty={subjectProperty} selectRate={this.selectRate} displayTotalCost={false}/>
+                  <List loanAmount={this.props.bootstrapData.currentLoan.amount} programs={this.state.programs} subjectProperty={subjectProperty} selectRate={this.selectRate} helpMeChoose={false}/>
                 </div>
               </div>
             </div>
