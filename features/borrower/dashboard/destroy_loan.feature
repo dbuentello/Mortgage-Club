@@ -6,6 +6,6 @@ Feature: DestroyLoan
       And I wait for 1 seconds
     Then I click on the element ".delete-btn"
       And I wait for 1 seconds
-      And I press "Yes" in the modal "deleteLoan"
+      And I click on "Yes"
       And I wait for 1 seconds
       And I should see "Property Address"

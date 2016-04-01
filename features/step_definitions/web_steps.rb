@@ -241,7 +241,7 @@ When(/^I hover on "(.*?)"$/) do |element|
   find(element).hover
 end
 
-When /^I click on the element "([^"]+)"$/ do |selector|
+When(/^I click on the element "([^"]+)"$/) do |selector|
   patiently do
     page.find(selector).click
   end
