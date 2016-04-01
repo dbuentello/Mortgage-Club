@@ -26,19 +26,20 @@
                          <td align="left" style="color:#333;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size:13px;font-weight:normal;font-style:normal;line-height:150%;padding-top:20px;padding-right:20px;padding-bottom:20px;padding-left:20px;text-align:left" valign="top">
 
 
-                          <p>We've just received new user who wants to sign up our website to get a mortgage.
-                          The conversation content between the user and our Mortgage bot is below: </p>
-
-                            <% @sign_up_info.split("\n").each do |sentence| %>
-                              <%= sentence %> <br>
+                          <p>We've just received information about a user who wants to receive Rate Alert from our Mortgage bot </p>
+                          <p>Detail as following:</p>
+                            <% @rate_information.split("\n").each do |sentence| %>
+                              <%= sentence %>
                             <% end %>
-                            <br>
-                            And the information for the user who wants to sign up is: <br>
-                            Email:      <b>@user_email</b><br>
-                            User's name:<b>@user_name</b>
-                            <p>
-                              Please help him create a new user with the information as I mentioned above.
-                            </p>
+                          <br>
+                          And the information for the user who wants to receive Rate Alert from our system is: <br>
+                          Email:      <b>@user_email</b><br>
+                          User's name:<b>@user_name</b>
+
+                          <p>
+                              Please set a rate alert for him with the information above.
+                          </p>
+                          <br/>
 
                          </td>
                       </tr>
