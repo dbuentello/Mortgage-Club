@@ -58,6 +58,10 @@ var MortgageRates = React.createClass({
     $("span.glyphicon-menu-up").click();
   },
 
+  componentDidMount: function() {
+    $("input[name=30years]").trigger("click");
+  },
+
   render: function() {
     // don't want to make ugly code
     var guaranteeMessage = "We're showing the best 3 loan options for you";
