@@ -26,7 +26,7 @@ class LoanMembers::LoanPresenter
         documents: {},
         lender_documents: {}
       },
-      methods: [:other_lender_documents, :pretty_status]
+      methods: [:other_lender_documents, :pretty_status, :other_documents]
     }
   end
 end

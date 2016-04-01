@@ -1,7 +1,6 @@
 var _ = require('lodash');
 var React = require('react/addons');
 var Upload = require('./Upload');
-var BorrowerUpload = require('./BorrowerUpload');
 
 var descriptionDrap = "Drop files to upload or CLICK";
 var borrower_fields = {
@@ -18,21 +17,16 @@ var borrower_fields = {
   first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'first_federal_tax_return', placeholder: descriptionDrap, type: 'FirstFederalTaxReturn'},
   second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'second_federal_tax_return', placeholder: descriptionDrap, type: 'SecondFederalTaxReturn'}
 };
-var other_borrower_fields = {
-  other_borrower_report: {label: 'Other', name: 'other_borrower_report', placeholder: descriptionDrap, type: 'OtherBorrowerReport', customDescription: true}
-}
 var loan_fields = {
   hud_estimate: {label: 'Estimated settlement statement', name: 'hud_estimate', placeholder: descriptionDrap, type: 'HudEstimate'},
   hud_final: {label: 'Final settlement statement', name: 'hud_final', placeholder: descriptionDrap, type: 'HudFinal'},
   loan_estimate: {label: "Loan estimate", name: 'loan_estimate', placeholder: descriptionDrap, type: 'LoanEstimate'},
-  uniform_residential_lending_application: {label: 'Loan application form', name: 'uniform_residential_lending_application', placeholder: descriptionDrap, type: 'UniformResidentialLendingApplication'},
-  other_loan_report: {label: 'Other', name: 'other_loan_report', placeholder: descriptionDrap, type: 'OtherLoanReport', customDescription: true}
+  uniform_residential_lending_application: {label: 'Loan application form', name: 'uniform_residential_lending_application', placeholder: descriptionDrap, type: 'UniformResidentialLendingApplication'}
 }
 var closing_fields = {
   closing_disclosure: {label: 'Closing Disclosure', name: 'closing_disclosure', placeholder: descriptionDrap, type: 'ClosingDisclosure'},
   deed_of_trust: {label: 'Deed of Trust', name: 'deed_of_trust', placeholder: descriptionDrap, type: 'DeedOfTrust'},
-  loan_doc: {label: "Loan Document", name: 'loan_doc', placeholder: descriptionDrap, type: 'LoanDoc'},
-  other_closing_report: {label: 'Other', name: 'other_closing_report', placeholder: descriptionDrap, type: 'OtherClosingReport', customDescription: true}
+  loan_doc: {label: "Loan Document", name: 'loan_doc', placeholder: descriptionDrap, type: 'LoanDoc'}
 }
 var property_fields = {
   appraisal_report: {label: 'Appraised property value', name: 'appraisal_report', placeholder: descriptionDrap, type: 'AppraisalReport'},
@@ -44,8 +38,7 @@ var property_fields = {
   purchase_agreement: {label: 'Executed purchase agreement', name: 'purchase_agreement', placeholder: descriptionDrap, type: 'PurchaseAgreement'},
   risk_report: {label: "Home seller's disclosure report", name: 'risk_report', placeholder: descriptionDrap, type: 'RiskReport'},
   termite_report: {label: 'Termite report', name: 'termite_report', placeholder: descriptionDrap, type: 'TermiteReport'},
-  title_report: {label: 'Preliminary title report', name: 'title_report', placeholder: descriptionDrap, type: 'TitleReport'},
-  other_property_report: {label: 'Other', name: 'other_property_report', placeholder: descriptionDrap, type: 'OtherPropertyReport', customDescription: true}
+  title_report: {label: 'Preliminary title report', name: 'title_report', placeholder: descriptionDrap, type: 'TitleReport'}
 }
 
 var DocumentTab = React.createClass({
@@ -57,10 +50,12 @@ var DocumentTab = React.createClass({
       displayClosing: {display: 'none'}
     };
   },
+
   componentDidMount: function () {
     $('.bootstrap-select').selectpicker();
     $('.bootstrap-select').change(this.onChange);
   },
+
   onChange: function(event) {
     var type_of_document = event.target.value;
     switch(type_of_document) {
@@ -116,7 +111,7 @@ var DocumentTab = React.createClass({
             <Upload subjectType={"Property"} subject={this.props.property} fields={property_fields}></Upload>
           </div>
           <div id="borrower_document_uploader" className="row" style={this.state.displayBorrower}>
-            <BorrowerUpload subjectType={"Borrower"} subject={this.props.borrower} fields={borrower_fields} otherBorrowerFields={other_borrower_fields}></BorrowerUpload>
+            <Upload subjectType={"Borrower"} subject={this.props.borrower} fields={borrower_fields}></Upload>
           </div>
           <div id="loan_uploader" className="row" style={this.state.displayLoan}>
             <Upload subjectType={"Loan"} subject={this.props.loan} fields={loan_fields}></Upload>

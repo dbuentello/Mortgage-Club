@@ -287,7 +287,7 @@ var AdminDropzone = React.createClass({
     return (
       <div className="row">
         <div className="col-xs-5">
-          <label>
+          <label style={{'width': '100%'}}>
             <span className='h7'><b>{this.props.field.label}</b></span>
             {customDescription}
           </label>

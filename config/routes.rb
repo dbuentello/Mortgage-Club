@@ -129,7 +129,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :borrower_documents, only: [] do
+    resources :documents, only: [] do
       collection do
         get "get_other_documents"
       end

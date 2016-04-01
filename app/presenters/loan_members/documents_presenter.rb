@@ -1,4 +1,4 @@
-class LoanMembers::BorrowerDocumentsPresenter
+class LoanMembers::DocumentsPresenter
   def initialize(documents)
     @documents = documents
   end

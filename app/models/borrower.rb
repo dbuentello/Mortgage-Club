@@ -141,10 +141,6 @@ class Borrower < ActiveRecord::Base
     true
   end
 
-  def other_documents
-    documents.where(document_type: "other_borrower_report")
-  end
-
   def documents_completed?
     if self_employed
       required_documents = %w(first_personal_tax_return second_personal_tax_return
@@ -202,5 +198,9 @@ class Borrower < ActiveRecord::Base
   def annual_income
     return 0 unless current_employment.present? && current_employment.current_salary.present?
     (current_employment.current_salary * 12).round
+  end
+
+  def other_documents
+    documents.where(document_type: "other_borrower_report")
   end
 end

@@ -12,7 +12,7 @@ module DocumentServices
       return false if args[:subject_type].blank?
       return false unless subjectable
 
-      if args[:document_type] == "other_borrower_report"
+      if is_other_document?(args[:document_type])
         if params[:document_id].present?
           document = Document.find(params[:document_id])
         else
@@ -48,6 +48,12 @@ module DocumentServices
         attachment_file_name = params[:original_filename]
       end
       attachment_file_name
+    end
+
+    def is_other_document?(document_type)
+      return true if document_type == "other_borrower_report" || document_type == "other_loan_report" || document_type == "other_closing_report" || document_type == "other_property_report"
+
+      false
     end
   end
 end
