@@ -27,7 +27,7 @@ var AdminDropzone = React.createClass({
         color: "#000"
       },
       supportOtherDescription: false,
-      isOrder: false
+      resetAfterUploading: false
     };
   },
 
