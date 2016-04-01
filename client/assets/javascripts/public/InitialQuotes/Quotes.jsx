@@ -174,7 +174,7 @@ var Quotes = React.createClass({
                           </div>
                         </div>
                         <div id="mortgagePrograms">
-                          <List quotes={this.state.quotes} selectRate={this.selectRate} displayTotalCost={false}/>
+                          <List quotes={this.state.quotes} selectRate={this.selectRate} helpMeChoose={false}/>
                         </div>
                       </div>
                     </div>
