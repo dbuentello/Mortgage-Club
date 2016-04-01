@@ -1,12 +1,12 @@
 <p>Hi </p>
 
 <br/>
-<p>We've just received new signup information from our Mortgage bot <br>
+<p>We've just received new signup information from our Mortgage bot </p>
   <p>Detail as following:</p>
 
-  <pre>
-    <%= @sign_up_info %>
-  </pre>
+  <%= @sign_up_info.each do |sentence| %>
+    <%= sentence %>
+  <% end %>
 </p>
 
 

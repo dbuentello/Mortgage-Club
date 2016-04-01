@@ -1,13 +1,16 @@
 <p>Hi </p>
 
 <br/>
-<p>We've just received rate information from our Mortgage bot <br>
+<p>We've just received rate information from our Mortgage bot </p>
 <p>Detail as following:</p>
+  <%= @rate_information.each do |sentence| %>
+    <%= sentence %>
+  <% end %>
 
   <pre>
     <%= @rate_information %>
   </pre>
-</p>
+
 
 
 <br/>
