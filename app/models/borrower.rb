@@ -73,8 +73,7 @@ class Borrower < ActiveRecord::Base
     separated: 2
   }
 
-  def destroy_borrower
-    byebug
+  def destroy_completely
     return false unless self.user.destroy
     return self.user.destroy
   end
