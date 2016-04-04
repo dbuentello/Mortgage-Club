@@ -1,16 +1,10 @@
 module LoanTekServices
-  class GetQuotesInfoForSlackBot
+  class GetQuotesForSlackBot
     attr_reader :data, :context, :response, :result
 
-    PRODUCT = {
-      "30yearFixed" => "30 year fixed",
-      "15yearFixed" => "15 year fixed",
-      "5yearARM" => "5/1 ARM"
-    }
-
     def initialize(params)
-      @data = params["initial_quote"]["result"] if params["initial_quote"].present? && params["initial_quote"]["result"].present?
-      @context = data["contexts"].first if @data
+      @data = params["result"] if params["result"].present?
+      @context = data["contexts"].last if @data
       @response = []
       @result = []
     end
@@ -20,6 +14,7 @@ module LoanTekServices
 
       url = "https://api.loantek.com/Clients/WebServices/Client/#{ENV['LOANTEK_CLIENT_ID']}/Pricing/V2/Quotes/LoanPricer/#{ENV['LOANTEK_USER_ID']}"
       connection = Faraday.new(url: url)
+
       @response = connection.post do |conn|
         conn.headers["Content-Type"] = "application/json"
         conn.body = {
@@ -60,18 +55,8 @@ module LoanTekServices
       response.status == 200 && result.present? && result["Quotes"].present?
     end
 
-    def quotes_summary
-      summary = "Lowest APR \n"
-      ["30yearFixed", "15yearFixed", "5yearARM"].each do |type|
-        programs = result["Quotes"].select { |p| p["ProductName"] == type }
-        next if programs.empty?
-
-        min_apr = programs.first["APR"]
-        programs.each { |p| min_apr = p["APR"] if min_apr > p["APR"] }
-        min_apr = format("%0.03f", min_apr)
-        summary += "#{PRODUCT[type]}: #{min_apr}% \n"
-      end
-      summary
+    def quotes
+      result["Quotes"]
     end
 
     private
@@ -107,7 +92,7 @@ module LoanTekServices
         amount = mortgage_balance
       end
 
-      amount
+      amount.to_i
     end
 
     def usage
