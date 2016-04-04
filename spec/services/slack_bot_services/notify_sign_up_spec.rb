@@ -13,13 +13,21 @@ describe SlackBotServices::NotifySignUp do
           ]
         }
       }
-
     end
-    it "notifies loan member about Sign up information" do
-      # message_delivery = instance_double(ActionMailer::MessageDelivery)
-      # expect(MortgageBotMailer).to receive(:inform_sign_up_information)
-      described_class.call(@sign_up_info)
-      expect(Delayed::Job.count).to eq(1)
+
+    context "when params are valid" do
+      it "notifies loan member about Sign up information" do
+        described_class.call(@sign_up_info)
+        expect(Delayed::Job.count).to eq(1)
+      end
+    end
+
+    context "when params are invalid" do
+      it "notifies loan member about Sign up information" do
+        @sign_up_info["result"] = nil
+        described_class.call(@sign_up_info)
+        expect(Delayed::Job.count).to eq(0)
+      end
     end
   end
 end
