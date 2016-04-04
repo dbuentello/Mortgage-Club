@@ -73,6 +73,12 @@ class Borrower < ActiveRecord::Base
     separated: 2
   }
 
+  def destroy_borrower
+    byebug
+    return false unless self.user.destroy
+    return self.user.destroy
+  end
+
   def current_address
     borrower_addresses.find_by(is_current: true)
   end

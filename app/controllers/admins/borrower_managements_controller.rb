@@ -17,9 +17,9 @@ class Admins::BorrowerManagementsController < Admins::BaseController
 
   def destroy
     borrower = Borrower.find(params[:id])
-    if borrower.destroy
+
+    if borrower.destroy_borrower
       render json: {
-        message: t("admins.borrower_managements.destroy.remove_success", borrower: borrower.to_s),
         borrowers: borrowers
       }, status: 200
     else
@@ -28,6 +28,7 @@ class Admins::BorrowerManagementsController < Admins::BaseController
   end
 
   def borrowers
+    byebug
     Admins::BorrowersPresenter.new(Borrower.all.includes(:user).joins(:user).order(User.arel_table[:last_name])).show
   end
 end
