@@ -239,18 +239,34 @@ end
 When(/^At first klass "([^\"]*)" I click link "(.*?)"$/) do |element, text|
   first(element).find("a", text: text).click
 end
-
+When(/^At first klass "([^\"]*)" I click button "(.*?)"$/) do |element, text|
+  first(element).find("button", text: text).click
+end
 When(/^I scroll up to the top$/) do
   page.execute_script("window.scrollTo(100000, 0)")
   sleep(2)
 end
 
-When(/^I hover on "(.*?)"$/) do |element|
-  find(element).hover
+When(/^I hover on first klass "(.*?)"$/) do |element|
+  first(element).hover
 end
 
 When(/^I click on the element "([^"]+)"$/) do |selector|
   patiently do
     page.find(selector).click
+  end
+end
+When(/^I click on the first element "([^"]+)"$/) do |selector|
+  patiently do
+    page.first(selector).click
+  end
+end
+
+When(/^I cick on "([^\"]*)" within "([^\"]*)"$/) do |text,scope_selector|
+  within(scope_selector) do
+    contains_text = %{contains(., \"#{text}\")}
+    # find the innermost selector that matches
+    element = page.find(:xpath, ".//*[#{contains_text} and not (./*[#{contains_text}])]")
+    element.click
   end
 end
