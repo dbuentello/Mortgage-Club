@@ -1,5 +1,5 @@
 class MortgageBotMailer < ActionMailer::Base
-  default from: ENV['EMAIL_SENDER']
+  default from: ENV["EMAIL_SENDER"]
 
   def inform_sign_up_information(sign_up_info)
     @sign_up_info = sign_up_info

@@ -190,7 +190,12 @@ Rails.application.routes.draw do
   resources :initial_quotes, only: [:index, :show, :create], path: "quotes" do
     collection do
       post "save_info"
-      post "slack_webhook"
+    end
+  end
+
+  resources :slack_webhooks, only: [] do
+    collection do
+      post "receive"
     end
   end
 
