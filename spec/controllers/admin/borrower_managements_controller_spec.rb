@@ -5,7 +5,7 @@ describe Admins::BorrowerManagementsController do
 
   describe "#destroy" do
     context "when valid params" do
-      let!(:borrower) { FactoryGirl.create(:borrower, :with_user)}
+      let!(:borrower) { FactoryGirl.create(:borrower, :with_user) }
 
       it "returns status 200" do
         delete :destroy, id: borrower.id
