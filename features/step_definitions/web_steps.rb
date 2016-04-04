@@ -262,7 +262,7 @@ When(/^I click on the first element "([^"]+)"$/) do |selector|
   end
 end
 
-When(/^I cick on "([^\"]*)" within "([^\"]*)"$/) do |text,scope_selector|
+When(/^I cick on "([^\"]*)" within "([^\"]*)"$/) do |text, scope_selector|
   within(scope_selector) do
     contains_text = %{contains(., \"#{text}\")}
     # find the innermost selector that matches
