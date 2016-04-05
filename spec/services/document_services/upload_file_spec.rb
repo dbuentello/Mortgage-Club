@@ -52,7 +52,7 @@ describe DocumentServices::UploadFile do
           service.args[:subject_id] = borrower.id
           service.args[:document_type] = "other_borrower_report"
 
-          expect{service.call}.to change{borrower.documents.count}.by(1)
+          expect { service.call }.to change { borrower.documents.count }.by(1)
         end
       end
 
@@ -64,7 +64,7 @@ describe DocumentServices::UploadFile do
           service.args[:subject_id] = loan.id
           service.args[:document_type] = "other_loan_report"
 
-          expect{service.call}.to change{loan.documents.count}.by(1)
+          expect { service.call }.to change { loan.documents.count }.by(1)
         end
       end
 
@@ -76,7 +76,7 @@ describe DocumentServices::UploadFile do
           service.args[:subject_id] = closing_other_documents.id
           service.args[:document_type] = "other_closing_report"
 
-          expect{service.call}.to change{closing_other_documents.documents.count}.by(1)
+          expect { service.call }.to change { closing_other_documents.documents.count }.by(1)
         end
       end
 
@@ -88,7 +88,7 @@ describe DocumentServices::UploadFile do
           service.args[:subject_id] = property.id
           service.args[:document_type] = "other_property_report"
 
-          expect{service.call}.to change{property.documents.count}.by(1)
+          expect { service.call }.to change { property.documents.count }.by(1)
         end
       end
     end
