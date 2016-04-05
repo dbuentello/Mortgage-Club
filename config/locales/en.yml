@@ -160,7 +160,6 @@ en:
     borrower_managements:
       destroy:
         remove_failed: "Cannot remove the checklist"
-        remove_success: "Removed the %{borrower} successfully"
 
   users:
     assets:
