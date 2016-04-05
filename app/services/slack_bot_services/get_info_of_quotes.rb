@@ -17,7 +17,7 @@ module SlackBotServices
         quote_query = QuoteQuery.new(query: service.query_content)
 
         if quote_query.save
-          output = "#{summary(service.quotes)}You can see your quotes at #{Rails.application.routes.url_helpers.initial_quote_url(id: quote_query.code_id, host: host_name)} \n Do you want to apply for a mortgage now? (Yes/No)"
+          output = "#{summary(service.quotes)}\n Do you want to apply for a mortgage now? (Yes/No)"
         end
       end
 
