@@ -74,8 +74,8 @@ class Borrower < ActiveRecord::Base
   }
 
   def destroy_completely
-    return false unless self.user.destroy
-    self.user.destroy
+    return false unless user
+    user.destroy
   end
 
   def current_address
