@@ -30,11 +30,11 @@ describe Borrower do
     let!(:borrower) { FactoryGirl.create(:borrower, :with_user) }
 
     it 'destroys one record from Borrower data table' do
-      expect{borrower.destroy_completely}.to change(Borrower, :count).by(-1)
+      expect{ borrower.destroy_completely }.to change(Borrower, :count).by(-1)
     end
 
     it 'destroys one record from User data table' do
-      expect{borrower.destroy_completely}.to change(User, :count).by(-1)
+      expect{ borrower.destroy_completely }.to change(User, :count).by(-1)
     end
   end
 end

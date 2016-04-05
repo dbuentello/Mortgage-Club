@@ -14,7 +14,7 @@ describe Admins::BorrowerManagementsController do
 
       it "returns array of borrower" do
         @expected = {
-          :borrowers  => []
+          borrowers: []
         }.to_json
         delete :destroy, id: borrower.id
         expect(response.body).to eq(@expected)
