@@ -156,7 +156,7 @@ var FormDocuments = React.createClass({
             }, this)
           }
           {
-            _.map(this.state.otherBorrowerDocuments, function(borrowerDocument, index) {
+            _.map(this.state.otherBorrowerDocuments, function(borrowerDocument) {
               var customParams = [
                 {document_type: "other_borrower_report"},
                 {subject_id: borrower.id},
@@ -166,7 +166,7 @@ var FormDocuments = React.createClass({
               ];
               var field = {label: borrowerDocument.description};
               return(
-                <div className="drop_zone" style={{"margin-top": "10px"}} key={index}>
+                <div className="drop_zone" style={{"margin-top": "10px"}} key={borrowerDocument.id}>
                   <Dropzone
                     field={field}
                     uploadUrl={uploadUrl}
