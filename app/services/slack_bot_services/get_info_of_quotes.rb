@@ -9,7 +9,7 @@ module SlackBotServices
     }
 
     def self.call(params)
-      host_name = ENV.fetch("HOST_NAME", "localhost:4000")
+      # host_name = ENV.fetch("HOST_NAME", "localhost:4000")
       output = "We're sorry, there aren't any quotes matching your needs."
       service = LoanTekServices::GetQuotesForSlackBot.new(params)
 
