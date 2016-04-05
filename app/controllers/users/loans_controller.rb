@@ -92,6 +92,12 @@ class Users::LoansController < Users::BaseController
     end
   end
 
+  def borrower_other_documents
+    render json: {
+      borrower_documents: LoanEditPage::BorrowerDocumentsPresenter.new(Borrower.find(params[:borrower_id]).other_documents).show
+    }, status: 200
+  end
+
   def update
     if @loan.update(loan_params)
       loan = @loan.reload

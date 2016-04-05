@@ -199,4 +199,8 @@ class Borrower < ActiveRecord::Base
     return 0 unless current_employment.present? && current_employment.current_salary.present?
     (current_employment.current_salary * 12).round
   end
+
+  def other_documents
+    documents.where(document_type: "other_borrower_report")
+  end
 end
