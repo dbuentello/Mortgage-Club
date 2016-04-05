@@ -19,10 +19,22 @@ describe Borrower do
     end
   end
 
-  describe ".create_ocr" do
+  describe "#create_ocr" do
     it 'creates a new ocr record' do
       borrower.create_ocr
       expect(borrower.ocr.present?).to eql(true)
+    end
+  end
+
+  describe "#destroy_completely" do
+    let!(:borrower) { FactoryGirl.create(:borrower, :with_user) }
+
+    it 'destroys one record from Borrower data table' do
+      expect{borrower.destroy_completely}.to change(Borrower, :count).by(-1)
+    end
+
+    it 'destroys one record from User data table' do
+      expect{borrower.destroy_completely}.to change(User, :count).by(-1)
     end
   end
 end
