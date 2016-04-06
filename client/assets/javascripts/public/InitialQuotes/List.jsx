@@ -62,17 +62,22 @@ var List = React.createClass({
     return parseFloat(down_payment/loan_amount) * 100;
   },
 
+  estimatedClosingCost: function(quote) {
+    var estimatedClosingCost = 0.00;
+
+    quote.fees.map(function(fee)
+    {
+      estimatedClosingCost += parseFloat(fee.FeeAmount)||0.00;
+    });
+    return estimatedClosingCost;
+  },
+
   render: function() {
     return(
       <div>
         {
           _.map(this.props.quotes, function (quote, index) {
-            let estimatedClosingCost = 0.00;
 
-            quote.fees.map(function(fee)
-            {
-              estimatedClosingCost += parseFloat(fee.FeeAmount)||0.0;
-            });
             return (
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
@@ -91,7 +96,7 @@ var List = React.createClass({
                     <div className="col-md-3 col-sm-6 col-sm-6">
                       <p><span className="text-capitalize">rate:</span> {this.commafy(quote.interest_rate * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(quote.monthly_payment, "$")}</p>
-                      <p><span className="text-capitalize">total closing costs:</span> {this.formatCurrency(estimatedClosingCost+parseFloat(quote.lender_credits), "$")}</p>
+                      <p><span className="text-capitalize">total closing costs:</span> {this.formatCurrency(this.estimatedClosingCost(quote)+parseFloat(quote.lender_credits), "$")}</p>
                     </div>
 
                     <div className="col-md-3 col-sm-6 col-sm-6">
