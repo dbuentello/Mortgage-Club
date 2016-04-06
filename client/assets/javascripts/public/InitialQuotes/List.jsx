@@ -92,13 +92,13 @@ var List = React.createClass({
                       <h1 className="apr-text">{this.commafy(quote.apr * 100, 3)}% APR</h1>
                     </div>
 
-                    <div className="col-md-3 col-sm-6 col-sm-6">
+                    <div className="col-md-4 col-sm-6 col-sm-6">
                       <p><span className="text-capitalize">rate:</span> {this.commafy(quote.interest_rate * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(quote.monthly_payment, "$")}</p>
                       <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(this.estimatedClosingCost(quote)+parseFloat(quote.lender_credits), "$")}</p>
                     </div>
 
-                    <div className="col-md-3 col-sm-6 col-sm-6">
+                    <div className="col-md-2 col-sm-6 col-sm-6">
                       <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Select</a>
                     </div>
                   </div>
