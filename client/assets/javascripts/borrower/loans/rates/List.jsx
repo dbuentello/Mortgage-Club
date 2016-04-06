@@ -184,7 +184,7 @@ var List = React.createClass({
                           <p className="col-xs-12 cost">{this.formatCurrency(rate.down_payment, "$")} ({this.calDownPayment(rate.down_payment, rate.loan_amount)}%)</p>
                         </div>
                       </div>
-                      <h4>Lender fees</h4>
+                      <h4>Estimated Closing Costs</h4>
                       <ul className="fee-items">
                         <li className="lender-fee-item">{rate.lender_credits < 0 ? "Lender credit" : "Discount points"}: {this.formatCurrency(rate.lender_credits)}</li>
                         {

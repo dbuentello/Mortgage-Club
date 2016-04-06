@@ -67,6 +67,12 @@ var List = React.createClass({
       <div>
         {
           _.map(this.props.quotes, function (quote, index) {
+            let estimatedClosingCost = 0.00;
+
+            quote.fees.map(function(fee)
+            {
+              estimatedClosingCost += parseFloat(fee.FeeAmount)||0.0;
+            });
             return (
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
@@ -85,7 +91,7 @@ var List = React.createClass({
                     <div className="col-md-3 col-sm-6 col-sm-6">
                       <p><span className="text-capitalize">rate:</span> {this.commafy(quote.interest_rate * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(quote.monthly_payment, "$")}</p>
-                      <p><span className="text-capitalize">total closing cost:</span> {this.formatCurrency(quote.total_closing_cost, "$")}</p>
+                      <p><span className="text-capitalize">total closing costs:</span> {this.formatCurrency(estimatedClosingCost+parseFloat(quote.lender_credits), "$")}</p>
                     </div>
 
                     <div className="col-md-3 col-sm-6 col-sm-6">
@@ -113,9 +119,9 @@ var List = React.createClass({
                           <p className="col-xs-12 cost">{this.formatCurrency(quote.down_payment, "$")} ({this.calcDownPayment(quote.down_payment, quote.loan_amount)}%)</p>
                         </div>
                       </div>
-                      <h4>Lender fees</h4>
+                      <h4>Estimated Closing Costs</h4>
                       <ul className="fee-items">
-                        <li className="lender-fee-item">{quote.lender_credits < 0 ? "Lender credits" : "Discount points"}: {this.formatCurrency(quote.lender_credits)}</li>
+                        <li className="lender-fee-item">{quote.lender_credits < 0 ? "Lender credit" : "Discount points"}: {this.formatCurrency(quote.lender_credits)}</li>
                         {
                           _.map(quote.fees, function(fee){
                             return (
