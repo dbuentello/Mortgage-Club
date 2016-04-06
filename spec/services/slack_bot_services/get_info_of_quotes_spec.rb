@@ -63,7 +63,7 @@ describe SlackBotServices::GetInfoOfQuotes do
 
     it "returns a proper summary" do
       VCR.use_cassette("get quotes from LoanTek for Slackbot") do
-        expect(described_class.summary(quotes)).to eq("Good news, I've found mortgage loans for you. Lowest rates as of today: \n15 year fixed: 3.750% rate, $1,515.00 fees, $3,600.00 lender credit\n")
+        expect(described_class.summary(quotes)).to eq("Good news, I've found mortgage loans for you. Lowest rates as of today: \n15 year fixed: 3.750% rate, $0 origination fee, $3,600 lender credit\n")
       end
     end
   end
