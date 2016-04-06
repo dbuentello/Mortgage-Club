@@ -210,5 +210,8 @@ Rails.application.routes.draw do
 
   get "developer_infographics", to: "pages#developer_infographics"
 
+  get "mortgage_bot", to: "pages#slack_bot"
+  get "bot_privacy", to: "pages#slack_bot_privacy"
+
   get "*path", to: "errors#show", code: 404
 end
