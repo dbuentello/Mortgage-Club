@@ -1,48 +1,20 @@
-// This variable $rails is used by bootstrap-custom so that fonts are loaded slightly differently
-// with Rails vs. the Webpack Dev Server
-$rails: true;
-// Those scss files are located under client/assets/stylesheets,
-// which has been added to the Rails asset pipeline search path.
-// See config/initializers/assets.rb.
 @import 'bootstrap-sprockets';
 @import 'bootstrap_datepicker';
 // abstracts
 @import 'abstracts/variables';
 @import 'abstracts/mixins';
+//pages
+@import 'pages/helpmechoose';
 //base
 @import 'base/fonts';
 // component
 @import 'components/button';
 @import 'components/util';
-@import 'components/devise';
 @import 'components/bootstrap-custom';
 @import 'components/animation';
-@import 'components/dropzone-custom';
-@import 'components/loading';
 //layout
 @import 'layout/footer';
 @import 'layout/header';
-@import 'layout/form';
-@import 'layout/error-pages';
-//pages
-@import 'pages/helpmechoose';
-@import 'pages/homepage';
-@import 'pages/dashboard';
-@import 'pages/smobile_homepage';
-
-@import 'pages/dev-infographics';
-@import 'pages/new-loan';
-@import 'pages/underwritting'; // 0 to 100% after complete loan
-@import 'pages/docusign';
-@import 'pages/initial-quotes';
-@import 'pages/potential-rate-drop-user';
-@import 'pages/loan-programs';
-@import 'pages/potential-users';
-
-@import 'd3.slider';
-
-
-@import 'borrowers';
 
 // Application homepage
 body {
@@ -99,3 +71,44 @@ body {
 // .modal-docusign {
 //   margin-top: 100px;
 // }
+
+#slack-bot {
+  h1 {
+    font-size: 1.5em;
+    font-weight: 300;
+    color: #727b82;
+    letter-spacing: 0.03em;
+  }
+  p {
+    font-size: 1.25em;
+    font-family: 'aileronlight';
+    line-height: 1.75em;
+  }
+  .container {
+    margin-bottom: 40px;
+  }
+  .add-to-slack {
+    background-color: #f3f5f7;
+    width: 100vw;
+    height: 100px;
+    margin-left: 0px;
+    .slogan {
+      margin-top: 30px;
+    }
+    .link {
+      margin: 30px 0px;
+    }
+  }
+  .instruction {
+    margin-top: 50px;
+    margin-bottom: 35px;
+    .scenario {
+      padding-left: 0px;
+      padding-right: 0px;
+      margin-top: 20px;
+      margin-left: 20%;
+      max-width: 650px;
+      border: 1px solid #ccc;
+    }
+  }
+}
