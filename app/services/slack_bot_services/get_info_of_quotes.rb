@@ -36,7 +36,7 @@ module SlackBotServices
         programs.each { |p| lowest_program = p if lowest_program["APR"] > p["APR"] }
         min_apr = format("%0.03f", lowest_program["APR"])
         fees = "$0 origination fee"
-        lender_credit = number_to_currency((lowest_program["DiscountPts"].to_f / 100 * lowest_program["FeeSet"]["LoanAmount"].to_f).to_i, precision: 0)
+        lender_credit = number_to_currency((lowest_program["DiscountPts"].to_f / 100 * lowest_program["FeeSet"]["LoanAmount"].to_f).abs.to_i, precision: 0)
         summary += "#{PRODUCT[type]}: #{min_apr}% rate, #{fees}, #{lender_credit} lender credit\n"
       end
       summary
