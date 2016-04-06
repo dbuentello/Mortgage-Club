@@ -13,6 +13,9 @@ class LoanMembers::PropertyPresenter
     {
       include: [
         :documents
+      ],
+      methods: [
+        :other_documents
       ]
     }
   end

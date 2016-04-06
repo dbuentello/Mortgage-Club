@@ -37,7 +37,7 @@ module RateServices
       selected_fees = {}
       sum = 0
 
-      selected_fees[:fees] = fees.map do |fee|
+      selected_fees[:fees] = fees.to_a.map do |fee|
         next unless types.include? fee.last["Description"]
 
         amount = fee.last["FeeAmount"].to_f

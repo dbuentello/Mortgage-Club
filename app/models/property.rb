@@ -156,4 +156,8 @@ class Property < ActiveRecord::Base
       loan.update(amount: market_price.to_f * 0.8)
     end
   end
+
+  def other_documents
+    documents.where(document_type: "other_property_report")
+  end
 end

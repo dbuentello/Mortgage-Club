@@ -156,6 +156,32 @@ var FormDocuments = React.createClass({
             }, this)
           }
           {
+            _.map(this.state.otherBorrowerDocuments, function(borrowerDocument) {
+              var customParams = [
+                {document_type: "other_borrower_report"},
+                {subject_id: borrower.id},
+                {subject_type: "Borrower"},
+                {description: borrowerDocument.description},
+                {document_id: borrowerDocument.id}
+              ];
+              var field = {label: borrowerDocument.description};
+              return(
+                <div className="drop_zone" style={{"margin-top": "10px"}} key={borrowerDocument.id}>
+                  <Dropzone
+                    field={field}
+                    uploadUrl={uploadUrl}
+                    downloadUrl={borrowerDocument.downloadUrl}
+                    removeUrl={borrowerDocument.removeUrl}
+                    tip={borrowerDocument.attachment_file_name}
+                    maxSize={10000000}
+                    customParams={customParams}
+                    supportOtherDescription={false}
+                    removeSuccessCallback={this.reloadOtherDocuments}/>
+                </div>
+              )
+            }, this)
+          }
+          {
             secondary_borrower
             ?
               <div className='form-group'>
@@ -230,6 +256,25 @@ var FormDocuments = React.createClass({
     );
   },
 
+  reloadOtherDocuments: function(){
+    $.ajax({
+      url: "/loans/borrower_other_documents",
+      method: "GET",
+      context: this,
+      dataType: "json",
+      data: {
+        borrower_id: this.props.loan.borrower.id
+      },
+      success: function(response) {
+        if(response.borrower_documents !== undefined && response.borrower_documents !== null) {
+          var state = this.state;
+          state.otherBorrowerDocuments = response.borrower_documents;
+          this.setState(state);
+        }
+      }.bind(this)
+    });
+  },
+
   afterUploadingDocumentBorrower: function(typeDocument, name, id) {
     this.props.updateDocuments("borrower", typeDocument, "upload", this.state['is_file_taxes_jointly'], name, id);
   },
@@ -263,6 +308,14 @@ var FormDocuments = React.createClass({
     uploaded_files = [];
 
     this.setStateForUploadFields(borrower, state, owner_upload_fields);
+    if(borrower.other_documents !== undefined && borrower.other_documents !== null){
+      state.otherBorrowerDocuments = borrower.other_documents;
+
+      _.each(state.otherBorrowerDocuments, function(borrowerDocument) {
+        borrowerDocument.downloadUrl = "/document_uploaders/base_document/" + borrowerDocument.id + "/download";
+        borrowerDocument.removeUrl = "/document_uploaders/base_document/" + borrowerDocument.id;
+      }, this);
+    }
     if (secondary_borrower) {
       this.setStateForUploadFields(secondary_borrower, state, co_borrower_upload_fields);
       state.hasSecondaryBorrower = true;
@@ -272,15 +325,15 @@ var FormDocuments = React.createClass({
 
   setStateForUploadFields: function(borrower, state, upload_fields) {
     _.map(Object.keys(upload_fields), function(key) {
-      var borrower_document = _.find(borrower.documents, { 'document_type': key });
-      if (borrower_document){
+      var borrowerDocument = _.find(borrower.documents, { 'document_type': key });
+      if (borrowerDocument){
         uploaded_files.push(upload_fields[key].name);
 
-        state[upload_fields[key].name] = borrower_document.original_filename;
-        state[upload_fields[key].id] = borrower_document.id;
-        state[upload_fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + borrower_document.id + '/download';
+        state[upload_fields[key].name] = borrowerDocument.original_filename;
+        state[upload_fields[key].id] = borrowerDocument.id;
+        state[upload_fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + borrowerDocument.id + '/download';
 
-        state[upload_fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + borrower_document.id;
+        state[upload_fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + borrowerDocument.id;
       }
     }, this);
   },

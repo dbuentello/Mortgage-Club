@@ -2,9 +2,6 @@ class InitialQuotesController < ApplicationController
   layout "public"
   skip_before_action :authenticate_user!
   before_action :set_mixpanel_token, only: [:index]
-  skip_before_action :verify_authenticity_token, only: [:create, :slack_webhook]
-  before_action :validate_slack_bot, only: [:slack_webhook]
-  SLACK_BOT_HEADER_VALUE = "MCsLACK!".freeze
 
   def index
     quote_cookies = get_quote_cookies
@@ -60,30 +57,7 @@ class InitialQuotesController < ApplicationController
     render json: {success: true}
   end
 
-  def slack_webhook
-    reply = "We're sorry, there aren't any quotes matching your needs."
-    service = LoanTekServices::GetQuotesInfoForSlackBot.new(params)
-
-    if service.call
-      quote_query = QuoteQuery.new(query: service.query_content)
-
-      if quote_query.save
-        reply = "#{service.quotes_summary}You can see your quotes at #{initial_quote_url(id: quote_query.code_id)}"
-      end
-    end
-
-    render json: {
-      speech: reply,
-      displayText: reply,
-      source: "MortgageClub"
-    }
-  end
-
   private
-
-  def validate_slack_bot
-    return head :unauthorized if request.headers["HTTP_MORTGAGECLUB_SLACK"] != SLACK_BOT_HEADER_VALUE
-  end
 
   def get_quote_cookies
     return {} if cookies[:initial_quotes].nil?
