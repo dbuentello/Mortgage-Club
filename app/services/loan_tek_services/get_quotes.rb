@@ -68,12 +68,13 @@ module LoanTekServices
     end
 
     def execution_method
-      # Just remove stop
-      3
+      # By Rate
+      2
     end
 
     def quoting_channel
-      0
+      # LoanTek
+      3
     end
 
     def loan_programs_of_interest
