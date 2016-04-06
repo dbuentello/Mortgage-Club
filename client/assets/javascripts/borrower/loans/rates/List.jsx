@@ -126,10 +126,13 @@ var List = React.createClass({
   },
 
   estimatedClosingCost: function(rate) {
+    if(rate.fees.length === 0){
+      return 0.00;
+    }
     var estimatedClosingCost = 0.00;
 
     _.map(rate.fees, function(fee) {
-      estimatedClosingCost += parseFloat(fee.FeeAmount)||0.00;
+      estimatedClosingCost += parseFloat(fee.FeeAmount) || 0.00;
     });
     return estimatedClosingCost;
   },
