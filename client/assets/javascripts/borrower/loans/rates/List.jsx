@@ -130,6 +130,14 @@ var List = React.createClass({
       <div className='rates-list'>
         {
           _.map(this.props.programs, function (rate, index) {
+
+            let estimatedClosingCost = 0.00;
+
+            rate.fees.map(function(fee)
+            {
+              estimatedClosingCost += parseFloat(fee.FeeAmount)||0.0;
+            });
+
             return (
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
@@ -148,7 +156,7 @@ var List = React.createClass({
                     <div className="col-md-3 col-sm-6 col-sm-6">
                       <p><span className="text-capitalize">rate:</span> {this.commafy(rate.interest_rate * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(rate.monthly_payment, '$')}</p>
-                      <p><span className="text-capitalize">total closing cost:</span> {this.formatCurrency(rate.total_closing_cost, '$')}</p>
+                      <p><span className="text-capitalize">total closing cost:</span> {this.formatCurrency(estimatedClosingCost+parseFloat(rate.lender_credits), '$')}</p>
                     </div>
 
                     <div className="col-md-3 col-sm-6 col-sm-6">
@@ -178,7 +186,7 @@ var List = React.createClass({
                       </div>
                       <h4>Lender fees</h4>
                       <ul className="fee-items">
-                        <li className="lender-fee-item">{rate.lender_credits < 0 ? "Lender credits" : "Discount points"}: {this.formatCurrency(rate.lender_credits)}</li>
+                        <li className="lender-fee-item">{rate.lender_credits < 0 ? "Lender credit" : "Discount points"}: {this.formatCurrency(rate.lender_credits)}</li>
                         {
                           _.map(rate.fees, function(fee){
                             return (
