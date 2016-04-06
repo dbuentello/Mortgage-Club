@@ -18,6 +18,7 @@ var Quotes = React.createClass({
   },
   componentDidMount: function(){
       mixpanel.track("Quotes-Enter");
+      $("input[name=30years]").trigger("click");
   },
   onFilterQuote: function(filteredQuotes) {
     this.removeChart();
@@ -145,10 +146,9 @@ var Quotes = React.createClass({
                       <div className="col-xs-9 account-content padding-left-50">
                         <div className="row actions">
                           <p>
-                            We’ve found {this.props.bootstrapData.quotes ? this.props.bootstrapData.quotes.length : 0} mortgage options for you. You can sort, filter and choose one on your own or click
+                            We’ve found {this.state.quotes ? this.state.quotes.length : 0} mortgage options for you. You can sort, filter and choose one on your own or click
                             <i> Help me choose </i>
-                            and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
-                            <i> Help me choose</i>.
+                            and our proprietary selection algorithm will help you choose the best mortgage.
                           </p>
                           <p>{"Mortgage rates change frequently. We're showing the latest rates for your mortgage scenario."}</p>
                           <div className="row form-group actions-group" id="mortgageActions">
