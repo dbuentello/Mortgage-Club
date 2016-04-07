@@ -63,7 +63,7 @@ describe LoanTekServices::ReadQuotes do
         down_payment: 72000.0,
         monthly_payment: 2618,
         lender_credits: 360.0,
-        total_closing_cost: 1155.0,
+        total_closing_cost: 1875.0,
         nmls: nil,
         logo_url: nil,
         loan_type: "CONVENTIONAL",

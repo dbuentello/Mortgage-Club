@@ -84,7 +84,7 @@ var List = React.createClass({
 
         if(this.state.estimatedPropertyTax !== 0 && this.state.estimatedHazardInsurance !== 0){
           if ($("#piechart0 svg").length == 0){
-            var quote = this.props.quote[0];
+            var quote = this.props.quotes[0];
             var total = this.totalMonthlyPayment(
               quote.monthly_payment,
               0,
@@ -113,18 +113,6 @@ var List = React.createClass({
 
   calcDownPayment: function(down_payment, loan_amount){
     return parseFloat(down_payment/loan_amount) * 100;
-  },
-
-  estimatedClosingCost: function(quote) {
-    var estimatedClosingCost = parseFloat(quote.lender_credits) || 0.00;
-    if(quote.fees.length === 0) {
-      return estimatedClosingCost;
-    }
-
-    _.map(quote.fees, function(fee) {
-      estimatedClosingCost += parseFloat(fee.FeeAmount) || 0.00;
-    });
-    return estimatedClosingCost;
   },
 
   totalMonthlyPayment: function(monthly_payment, mtg_insurrance, tax, hazard_insurrance, hoa_due){
@@ -171,7 +159,7 @@ var List = React.createClass({
                     <div className="col-md-4 col-sm-6 col-sm-6">
                       <p><span className="text-capitalize">rate:</span> {this.commafy(quote.interest_rate * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(quote.monthly_payment, "$")}</p>
-                      <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(this.estimatedClosingCost(quote), "$")}</p>
+                      <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(quote.total_closing_cost, "$")}</p>
                     </div>
 
                     <div className="col-md-2 col-sm-6 col-sm-6">

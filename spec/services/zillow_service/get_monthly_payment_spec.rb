@@ -4,7 +4,7 @@ describe ZillowService::GetMonthlyPayment do
   context "with valid params" do
     it "gets monthly payment from Zillow successfully" do
       VCR.use_cassette("get monthly payment from Zillow") do
-        params ={
+        params = {
           "property_value" => "500000",
           "zip_code" => "94103"
         }
@@ -19,7 +19,7 @@ describe ZillowService::GetMonthlyPayment do
   context "with invalid params" do
     context "when property value is nil" do
       it "returns nil" do
-        params ={
+        params = {
           "property_value" => nil,
           "zip_code" => "94103"
         }
@@ -31,7 +31,7 @@ describe ZillowService::GetMonthlyPayment do
 
     context "when zip code is nil" do
       it "returns nil" do
-        params ={
+        params = {
           "property_value" => "500000",
           "zip_code" => nil
         }

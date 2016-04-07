@@ -84,7 +84,7 @@ module LoanTekServices
     end
 
     def self.get_lender_credits(quote)
-      return 0 if quote["DiscountPts"] == 0.125
+      return 0 if quote["DiscountPts"].nil? || quote["DiscountPts"] == 0.125
 
       quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"]
     end
@@ -92,7 +92,7 @@ module LoanTekServices
     def self.get_total_closing_cost(quote)
       total_fee = quote["FeeSet"]["TotalFees"].to_f
       lender_credit = get_lender_credits(quote)
-      total_fee - lender_credit
+      total_fee + lender_credit
     end
 
     def self.get_product_name(quote)
