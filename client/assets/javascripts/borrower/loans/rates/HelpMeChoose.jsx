@@ -281,10 +281,10 @@ var HelpMeChoose = React.createClass({
                 </div>
                 <div className='row secondary-cost'>
                   <div className='col-lg-6'>
-                    Total Closing Cost
+                    Estimated Closing Costs
                   </div>
                   <div className='col-lg-6'>
-                    {this.formatCurrency(this.state.bestRate.total_fee, '$')}
+                    {this.formatCurrency(this.state.bestRate.total_closing_cost, '$')}
                   </div>
                 </div>
                 <div className='row secondary-cost'>
@@ -309,7 +309,7 @@ var HelpMeChoose = React.createClass({
             {
               this.props.isInitialQuotes
               ?
-                <ListQuotes quotes={this.state.possibleRates} selectRate={this.props.selectRate} helpMeChoose={true}/>
+                <ListQuotes quotes={this.state.possibleRates} selectRate={this.props.selectRate} helpMeChoose={true} monthlyPayment={this.props.monthlyPayment}/>
               :
                 <ListPrograms loanAmount={this.props.loan.amount} programs={this.state.possibleRates} subjectProperty={this.props.loan.subject_property} selectRate={this.props.selectRate} helpMeChoose={true}/>
             }

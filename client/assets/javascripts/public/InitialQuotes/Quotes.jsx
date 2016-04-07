@@ -13,7 +13,8 @@ var Quotes = React.createClass({
   getInitialState: function() {
     return {
       helpMeChoose: false,
-      quotes: this.props.bootstrapData.quotes
+      quotes: this.props.bootstrapData.quotes,
+      monthlyPayment: this.props.bootstrapData.monthly_payment
     }
   },
 
@@ -151,7 +152,7 @@ var Quotes = React.createClass({
                   this.state.helpMeChoose
                   ?
                     <div className="content container mortgage-quotes white-background" style={{"padding-top":"20px"}}>
-                      <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.state.quotes} selectRate={this.selectRate} isInitialQuotes={true}/>
+                      <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.props.bootstrapData.quotes} selectRate={this.selectRate} monthlyPayment={this.state.monthlyPayment} isInitialQuotes={true}/>
                     </div>
                   :
                     <div className="content container mortgage-rates row-eq-height padding-top-0 row">
@@ -189,7 +190,7 @@ var Quotes = React.createClass({
                           </div>
                         </div>
                         <div id="mortgagePrograms">
-                          <List quotes={this.state.quotes} selectRate={this.selectRate} helpMeChoose={false}/>
+                          <List quotes={this.state.quotes} monthlyPayment={this.state.monthlyPayment} selectRate={this.selectRate} helpMeChoose={false}/>
                         </div>
                       </div>
                     </div>

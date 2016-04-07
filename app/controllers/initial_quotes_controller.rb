@@ -39,11 +39,13 @@ class InitialQuotesController < ApplicationController
         query = {}
       end
       quotes = LoanTekServices::GetInitialQuotes.new(query).call
+      monthly_payment = ZillowService::GetMonthlyPayment.new(query).call
     end
 
     bootstrap(
       quotes: quotes,
-      data_cookies: query
+      data_cookies: query,
+      monthly_payment: monthly_payment
     )
 
     respond_to do |format|

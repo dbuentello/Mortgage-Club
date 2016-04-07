@@ -18,7 +18,7 @@ module LoanTekServices
           QuotingChannel: 3,
           ClientDefinedIdentifier: ENV["LOANTEK_IDENTIFIER"],
           LoanToValue: get_loan_to_value,
-          QuoteTypesToReturn: [-1, 0],
+          QuoteTypesToReturn: [-1, 0, 1],
           ZipCode: get_zip_code,
           CreditScore: get_credit_score,
           LoanPurpose: get_loan_purpose,
