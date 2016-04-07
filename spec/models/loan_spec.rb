@@ -118,7 +118,7 @@ describe Loan do
     end
 
     context "when loans_members_associations are valid" do
-      let!(:manager) { FactoryGirl.create(:loan_members_title, title: "manager") }
+      let!(:manager) { FactoryGirl.create(:loan_members_title, title: "Relationship Manager") }
       it "returns a loan member" do
         loan_with_loan_member.loans_members_associations.last.update(loan_members_title_id: manager.id)
         expect(loan_with_loan_member.relationship_manager).to be_a(LoanMember)
