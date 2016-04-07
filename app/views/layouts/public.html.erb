@@ -16,6 +16,7 @@
     <!-- End Facebook Pixel Code -->
 
     <!-- <link rel="icon" href="images/favicon.ico"> -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
@@ -44,5 +45,9 @@ mixpanel.init("<%= @mixpanel_token %>");</script><!-- end Mixpanel -->
     <% end %>
     <%= javascript_include_tag 'public', 'data-turbolinks-track' => false %>
     <%= render "/shared/zopim" %>
+    <script type="text/javascript">
+      // Load the Visualization API and the corechart package.
+        google.charts.load('current', {'packages':['corechart']});
+    </script>
   </body>
 </html>

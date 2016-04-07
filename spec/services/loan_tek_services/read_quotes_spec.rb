@@ -3,7 +3,7 @@ require "rails_helper"
 describe LoanTekServices::ReadQuotes do
   let(:quotes) do
     [
-      "DiscountPts" => 1.0,
+      "DiscountPts" => 0.1,
       "LenderName" => "Provident Funding",
       "ProductName" => "15yearFixed",
       "Fees" => -1520.0,
@@ -62,12 +62,12 @@ describe LoanTekServices::ReadQuotes do
         period: 180,
         down_payment: 72000.0,
         monthly_payment: 2618,
-        lender_credits: 3600.0,
-        total_closing_cost: -2085.0,
+        lender_credits: 360.0,
+        total_closing_cost: 1875.0,
         nmls: nil,
         logo_url: nil,
         loan_type: "CONVENTIONAL",
-        discount_pts: 0.01,
+        discount_pts: 0.001,
         characteristic: "Of all 15 year fixed mortgages on MortgageClub that you've qualified for, this one has the lowest APR."
       )
     end
