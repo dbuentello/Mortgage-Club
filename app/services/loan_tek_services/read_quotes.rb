@@ -18,7 +18,7 @@ module LoanTekServices
 
       programs = []
 
-      quotes = quotes.select { |quote| quote["DiscountPts"] > -1 }
+      quotes = quotes.select { |quote| quote["DiscountPts"] <= 0.125 }
 
       quotes.each do |quote|
         apr = quote["APR"] / 100
@@ -44,7 +44,7 @@ module LoanTekServices
           nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
           logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
           loan_type: quote["ProductFamily"],
-          discount_pts: discount_pts
+          discount_pts: discount_pts == 0.00125 ? 0 : discount_pts
         }
         programs << program
       end
@@ -84,6 +84,8 @@ module LoanTekServices
     end
 
     def self.get_lender_credits(quote)
+      return 0 if quote["DiscountPts"] == 0.125
+
       quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"]
     end
 
@@ -136,7 +138,7 @@ module LoanTekServices
       end
 
       programs = programs.reject do |program|
-        program[:apr] - characteristics[program[:product]][:apr] > 0.01
+        program[:apr] - characteristics[program[:product]][:apr] > 0.00625
       end
     end
 

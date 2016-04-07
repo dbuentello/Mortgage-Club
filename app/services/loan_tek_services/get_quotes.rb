@@ -147,7 +147,7 @@ module LoanTekServices
     end
 
     def quote_types_to_return
-      [-1, 0]
+      [-1, 0, 1]
     end
 
     def success?

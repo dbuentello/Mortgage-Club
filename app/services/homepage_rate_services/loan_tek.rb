@@ -21,7 +21,7 @@ module HomepageRateServices
           LoanToValue: 80,
           PropertyUsage: 1,
           PropertyType: 1,
-          QuoteTypesToReturn: [-1, 0],
+          QuoteTypesToReturn: [-1, 0, 1],
           LoanProgramsOfInterest: [1, 2, 3]
         }.to_json
       end
