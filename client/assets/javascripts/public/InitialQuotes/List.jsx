@@ -63,10 +63,13 @@ var List = React.createClass({
   },
 
   estimatedClosingCost: function(quote) {
-    var estimatedClosingCost = 0.00;
+    var estimatedClosingCost = parseFloat(quote.lender_credits) || 0.00;
+    if(quote.fees.length === 0){
+      return estimatedClosingCost;
+    }
 
     _.map(quote.fees, function(fee) {
-      estimatedClosingCost += parseFloat(fee.FeeAmount)||0.00;
+      estimatedClosingCost += parseFloat(fee.FeeAmount) || 0.00;
     });
     return estimatedClosingCost;
   },
@@ -95,7 +98,7 @@ var List = React.createClass({
                     <div className="col-md-4 col-sm-6 col-sm-6">
                       <p><span className="text-capitalize">rate:</span> {this.commafy(quote.interest_rate * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(quote.monthly_payment, "$")}</p>
-                      <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(this.estimatedClosingCost(quote)+parseFloat(quote.lender_credits), "$")}</p>
+                      <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(this.estimatedClosingCost(quote), "$")}</p>
                     </div>
 
                     <div className="col-md-2 col-sm-6 col-sm-6">
