@@ -9,6 +9,7 @@ var ChartMixin = {
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
+      console.log(1);
       var data = google.visualization.arrayToDataTable([
         ['Label', 'Amount'],
         ['P&I (' + TextFormat.formatCurrency(principal) + ')',       principal],
@@ -52,7 +53,7 @@ var ChartMixin = {
       google.visualization.events.addListener(chart, 'onmouseout', function(entry) {
         chart.setSelection([]);
       });
-
+      console.log(data, options);
       chart.draw(data, options);
     }
   },

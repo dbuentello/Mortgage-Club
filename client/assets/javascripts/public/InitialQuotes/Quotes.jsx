@@ -13,7 +13,8 @@ var Quotes = React.createClass({
   getInitialState: function() {
     return {
       helpMeChoose: false,
-      quotes: this.props.bootstrapData.quotes
+      quotes: this.props.bootstrapData.quotes,
+      monthlyPayment: this.props.bootstrapData.monthly_payment
     }
   },
   componentDidMount: function(){
@@ -174,7 +175,7 @@ var Quotes = React.createClass({
                           </div>
                         </div>
                         <div id="mortgagePrograms">
-                          <List quotes={this.state.quotes} selectRate={this.selectRate} helpMeChoose={false}/>
+                          <List quotes={this.state.quotes} monthlyPayment={this.state.monthlyPayment} selectRate={this.selectRate} helpMeChoose={false}/>
                         </div>
                       </div>
                     </div>

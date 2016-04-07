@@ -35,6 +35,7 @@ var List = React.createClass({
       if(prevProps.programs[0].apr !== this.props.programs[0].apr){
         $(".line-chart").empty();
         $(".pie-chart").empty();
+
         if ($("#piechart0 svg").length == 0){
           var rate = this.props.programs[0];
           var total = this.totalMonthlyPayment(
@@ -75,6 +76,7 @@ var List = React.createClass({
     if(selectedBoardContent.css("display") == "none"){
       selectedBoardContent.slideToggle(500);
       $(event.target).find('span').toggleClass('up-state');
+
       if ($("#piechart" + index + " svg").length == 0){
         var rate = this.props.programs[index];
         var total = this.totalMonthlyPayment(
