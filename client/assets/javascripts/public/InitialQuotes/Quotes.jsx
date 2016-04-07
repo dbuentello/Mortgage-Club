@@ -136,7 +136,7 @@ var Quotes = React.createClass({
                   this.state.helpMeChoose
                   ?
                     <div className="content container mortgage-quotes white-background" style={{"padding-top":"20px"}}>
-                      <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.state.quotes} selectRate={this.selectRate} isInitialQuotes={true}/>
+                      <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.props.bootstrapData.quotes} selectRate={this.selectRate} isInitialQuotes={true}/>
                     </div>
                   :
                     <div className="content container mortgage-rates row-eq-height padding-top-0 row">

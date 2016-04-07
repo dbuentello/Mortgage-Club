@@ -21,10 +21,10 @@ module LoanTekServices
       quotes = quotes.select { |quote| quote["DiscountPts"] <= 0.125 }
 
       quotes.each do |quote|
-        apr = quote["APR"] / 100
-        rate = get_interest_rate(quote)
-        lender_name = quote["LenderName"]
         discount_pts = quote["DiscountPts"] / 100
+        lender_name = quote["LenderName"]
+        rate = get_interest_rate(quote)
+        apr = discount_pts_equals_to_0_125?(quote) ? rate : quote["APR"] / 100
 
         next if existing_program?(programs, apr, rate, lender_name, discount_pts)
 
@@ -44,7 +44,7 @@ module LoanTekServices
           nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
           logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
           loan_type: quote["ProductFamily"],
-          discount_pts: discount_pts == 0.00125 ? 0 : discount_pts
+          discount_pts: discount_pts_equals_to_0_125?(quote) ? 0 : discount_pts
         }
         programs << program
       end
@@ -152,6 +152,10 @@ module LoanTekServices
       min = programs.first[type]
       programs.each { |p| min = p[type] if min > p[type] }
       min
+    end
+
+    def self.discount_pts_equals_to_0_125?(quote)
+      quote["DiscountPts"] == 0.125
     end
   end
 end
