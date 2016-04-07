@@ -16,13 +16,23 @@ var Quotes = React.createClass({
       quotes: this.props.bootstrapData.quotes
     }
   },
-  componentDidMount: function(){
-      mixpanel.track("Quotes-Enter");
-      $("input[name=30years]").trigger("click");
+
+  getDefaultProps: function() {
+    return {
+      storedCriteria: []
+    }
   },
+
+  componentDidMount: function(){
+    mixpanel.track("Quotes-Enter");
+    $("input[name=30years]").trigger("click");
+  },
+
   onFilterQuote: function(filteredQuotes) {
     this.removeChart();
-    this.setState({quotes: filteredQuotes})
+    this.setState({
+      quotes: filteredQuotes
+    });
   },
 
   handleSortChange: function(event) {
@@ -37,7 +47,6 @@ var Quotes = React.createClass({
     $(".pie-chart").empty();
     $("span.glyphicon-menu-up").click();
   },
-
   sortBy: function(field, quotes) {
     var sortedRates = [];
 
@@ -69,7 +78,9 @@ var Quotes = React.createClass({
 
   helpMeChoose: function() {
     mixpanel.track("Quotes-HelpMeChoose");
-    this.setState({helpMeChoose: !this.state.helpMeChoose});
+    this.setState({helpMeChoose: !this.state.helpMeChoose,
+
+    });
   },
 
   backToRateHandler: function() {
@@ -124,6 +135,10 @@ var Quotes = React.createClass({
     });
   },
 
+  storedCriteria: function(criteria) {
+    var currentCriteria = this.props.storedCriteria;
+  },
+
   render: function() {
     return (
       <div className="initial-quotes">
@@ -141,7 +156,7 @@ var Quotes = React.createClass({
                   :
                     <div className="content container mortgage-rates row-eq-height padding-top-0 row">
                       <div className="col-xs-3 subnav">
-                        <Filter programs={this.props.bootstrapData.quotes} onFilterProgram={this.onFilterQuote}></Filter>
+                        <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.storedCriteria} onFilterProgram={this.onFilterQuote}></Filter>
                       </div>
                       <div className="col-xs-9 account-content padding-left-50">
                         <div className="row actions">
