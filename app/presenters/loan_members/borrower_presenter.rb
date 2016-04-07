@@ -23,7 +23,7 @@ class LoanMembers::BorrowerPresenter
       ],
       methods: [
         :current_address, :previous_address, :current_employment, :previous_employment,
-        :first_name, :last_name, :middle_name, :suffix
+        :first_name, :last_name, :middle_name, :suffix, :other_documents
       ]
     }
   end

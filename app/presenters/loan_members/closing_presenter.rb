@@ -13,6 +13,9 @@ class LoanMembers::ClosingPresenter
     {
       include: [
         :documents
+      ],
+      methods: [
+        :other_documents
       ]
     }
   end

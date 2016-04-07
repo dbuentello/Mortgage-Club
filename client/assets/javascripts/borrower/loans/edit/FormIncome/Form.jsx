@@ -84,7 +84,6 @@ var Form = React.createClass({
       this.scrollTopError();
   },
   componentWillMount: function(){
-    console.log(this.props.loan);
     $.ajax({
       url: "/loans/" + this.props.loan.id + "/income",
       method: "GET",

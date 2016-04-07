@@ -74,6 +74,7 @@ Rails.application.routes.draw do
     resources :loans, except: [:new] do
       collection do
         get "/:id/income", to: "loans#update_income"
+        get "/borrower_other_documents", to: "loans#borrower_other_documents"
       end
     end
 
@@ -123,6 +124,12 @@ Rails.application.routes.draw do
         get "download"
       end
 
+      collection do
+        get "get_other_documents"
+      end
+    end
+
+    resources :documents, only: [] do
       collection do
         get "get_other_documents"
       end
@@ -190,13 +197,21 @@ Rails.application.routes.draw do
   resources :initial_quotes, only: [:index, :show, :create], path: "quotes" do
     collection do
       post "save_info"
-      post "slack_webhook"
+    end
+  end
+
+  resources :slack_webhooks, only: [] do
+    collection do
+      post "receive"
     end
   end
 
   post "receive", to: "ocr_notifications#receive"
 
   get "developer_infographics", to: "pages#developer_infographics"
+
+  get "mortgage_bot", to: "slack_bot#bot"
+  get "bot_privacy", to: "slack_bot#privacy"
 
   get "*path", to: "errors#show", code: 404
 end

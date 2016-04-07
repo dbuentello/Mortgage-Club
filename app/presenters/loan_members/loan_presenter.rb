@@ -29,7 +29,7 @@ class LoanMembers::LoanPresenter
           only: [:id]
         }
       },
-      methods: [:other_lender_documents, :pretty_status]
+      methods: [:other_lender_documents, :pretty_status, :other_documents]
     }
   end
 end

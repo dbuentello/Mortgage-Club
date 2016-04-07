@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   layout "public"
   skip_before_action :authenticate_user!
   before_action :set_mixpanel_token, only: [:index]
+
   def index
     @refcode = params[:refcode]
     @mortgage_aprs = HomepageRateServices::GetMortgageAprs.call
@@ -38,5 +39,11 @@ class PagesController < ApplicationController
     headers["Access-Control-Allow-Methods"] = "GET"
 
     render json: {rates: @rates}, status: 200
+  end
+
+  def slack_bot
+  end
+
+  def slack_bot_privacy
   end
 end

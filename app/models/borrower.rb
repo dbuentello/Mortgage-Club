@@ -73,6 +73,11 @@ class Borrower < ActiveRecord::Base
     separated: 2
   }
 
+  def destroy_completely
+    return false unless user
+    user.destroy
+  end
+
   def current_address
     borrower_addresses.find_by(is_current: true)
   end
@@ -198,5 +203,9 @@ class Borrower < ActiveRecord::Base
   def annual_income
     return 0 unless current_employment.present? && current_employment.current_salary.present?
     (current_employment.current_salary * 12).round
+  end
+
+  def other_documents
+    documents.where(document_type: "other_borrower_report")
   end
 end

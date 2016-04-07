@@ -113,4 +113,8 @@ class Loan < ActiveRecord::Base
 
     status.titleize
   end
+
+  def other_documents
+    documents.where(document_type: "other_loan_report")
+  end
 end
