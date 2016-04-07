@@ -128,7 +128,7 @@ var List = React.createClass({
   estimatedClosingCost: function(rate) {
     var estimatedClosingCost = parseFloat(rate.lender_credits) || 0.00;
 
-    if(rate.fees.length === 0){
+    if(rate.fees.length === 0) {
       return estimatedClosingCost;
     }
 

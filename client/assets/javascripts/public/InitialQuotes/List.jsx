@@ -64,7 +64,7 @@ var List = React.createClass({
 
   estimatedClosingCost: function(quote) {
     var estimatedClosingCost = parseFloat(quote.lender_credits) || 0.00;
-    if(quote.fees.length === 0){
+    if(quote.fees.length === 0) {
       return estimatedClosingCost;
     }
 
