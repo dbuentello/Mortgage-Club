@@ -24,6 +24,12 @@ var Quotes = React.createClass({
     }
   },
 
+  // getDefaultProps: function() {
+  //   return {
+  //     storedCriteria: []
+  //   }
+  // },
+
   componentDidMount: function(){
     mixpanel.track("Quotes-Enter");
     $("input[name=30years]").trigger("click");
@@ -34,6 +40,11 @@ var Quotes = React.createClass({
     this.setState({
       quotes: filteredQuotes
     });
+  },
+
+  onStoredCriteriaChange: function(criteria) {
+    var currentCriteria = this.props.storedCriteria;
+    this.setState({storedCriteria: criteria});
   },
 
   handleSortChange: function(event) {
@@ -136,10 +147,6 @@ var Quotes = React.createClass({
     });
   },
 
-  storedCriteria: function(criteria) {
-    var currentCriteria = this.props.storedCriteria;
-  },
-
   render: function() {
     return (
       <div className="initial-quotes">
@@ -157,7 +164,7 @@ var Quotes = React.createClass({
                   :
                     <div className="content container mortgage-rates row-eq-height padding-top-0 row">
                       <div className="col-xs-3 subnav">
-                        <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.storedCriteria} onFilterProgram={this.onFilterQuote}></Filter>
+                        <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
                       </div>
                       <div className="col-xs-9 account-content padding-left-50">
                         <div className="row actions">
