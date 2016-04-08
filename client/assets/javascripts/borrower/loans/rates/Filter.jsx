@@ -5,7 +5,6 @@ var LoanProgramFilterMixin = require('mixins/LoanProgramFilterMixin');
 var Filter = React.createClass({
   mixins: [LoanProgramFilterMixin],
 
-
   getDefaultProps: function() {
     return {
       productCriteria: [],
@@ -19,11 +18,9 @@ var Filter = React.createClass({
     var criteria = type == "product" ? this.props.productCriteria : this.props.lenderCriteria;
     var indexOfOption = criteria.indexOf(option);
 
-
     // user has already selected this option
     if(indexOfOption != -1) {
       criteria.splice(indexOfOption, 1);
-
     }
     else {
       criteria.push(option);
@@ -40,11 +37,10 @@ var Filter = React.createClass({
       allCriteria.push(option);
     }
     this.props.storedCriteria(allCriteria);
-
   },
 
   isCriteriaChecked: function(option) {
-    return (this.props.allCriteria.indexOf(option) !== -1)
+    return (this.props.allCriteria.indexOf(option) !== -1);
   },
 
   render: function() {
@@ -87,7 +83,7 @@ var Filter = React.createClass({
               _.map(this.getRemainingLenders(), function(lender) {
                 return (
                   <div>
-                    <input type="checkbox" name="citibank2" id={lender} onChange={_.bind(this.onChangeCriteria, null, lender, "lender")}/>
+                    <input type="checkbox" name="citibank2" id={lender} checked={this.isCriteriaChecked(lender)} onChange={_.bind(this.onChangeCriteria, null, lender, "lender")}/>
                     <label className="customCheckbox blueCheckBox2" htmlFor={lender}>{lender}</label>
                   </div>
                 )

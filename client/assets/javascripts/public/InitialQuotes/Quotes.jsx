@@ -19,12 +19,6 @@ var Quotes = React.createClass({
     }
   },
 
-  // getDefaultProps: function() {
-  //   return {
-  //     storedCriteria: []
-  //   }
-  // },
-
   componentDidMount: function(){
     mixpanel.track("Quotes-Enter");
     $("input[name=30years]").trigger("click");
@@ -32,9 +26,7 @@ var Quotes = React.createClass({
 
   onFilterQuote: function(filteredQuotes) {
     this.removeChart();
-    this.setState({
-      quotes: filteredQuotes
-    });
+    this.setState({quotes: filteredQuotes});
   },
 
   onStoredCriteriaChange: function(criteria) {
