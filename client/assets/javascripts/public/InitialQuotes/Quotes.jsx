@@ -14,12 +14,7 @@ var Quotes = React.createClass({
     return {
       helpMeChoose: false,
       quotes: this.props.bootstrapData.quotes,
-      monthlyPayment: this.props.bootstrapData.monthly_payment
-    }
-  },
-
-  getDefaultProps: function() {
-    return {
+      monthlyPayment: this.props.bootstrapData.monthly_payment,
       storedCriteria: []
     }
   },

@@ -40,7 +40,6 @@ var Filter = React.createClass({
       allCriteria.push(option);
     }
     this.props.storedCriteria(allCriteria);
-    // console.log(storedCriteria);
 
   },
 
@@ -49,7 +48,6 @@ var Filter = React.createClass({
   },
 
   render: function() {
-    console.log(this.isCriteriaChecked("30 year fixed"));
     return (
       <div>
         <div id="sidebar">
