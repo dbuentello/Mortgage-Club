@@ -78,7 +78,6 @@ var Quotes = React.createClass({
   helpMeChoose: function() {
     mixpanel.track("Quotes-HelpMeChoose");
     this.setState({helpMeChoose: !this.state.helpMeChoose,
-
     });
   },
 
