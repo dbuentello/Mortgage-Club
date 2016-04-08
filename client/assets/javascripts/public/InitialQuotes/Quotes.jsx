@@ -26,9 +26,7 @@ var Quotes = React.createClass({
 
   onFilterQuote: function(filteredQuotes) {
     this.removeChart();
-    this.setState({
-      quotes: filteredQuotes
-    });
+    this.setState({quotes: filteredQuotes});
   },
 
   onStoredCriteriaChange: function(criteria) {

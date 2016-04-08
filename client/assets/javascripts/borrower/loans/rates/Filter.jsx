@@ -37,11 +37,10 @@ var Filter = React.createClass({
       allCriteria.push(option);
     }
     this.props.storedCriteria(allCriteria);
-
   },
 
   isCriteriaChecked: function(option) {
-    return (this.props.allCriteria.indexOf(option) !== -1)
+    return (this.props.allCriteria.indexOf(option) !== -1);
   },
 
   render: function() {
