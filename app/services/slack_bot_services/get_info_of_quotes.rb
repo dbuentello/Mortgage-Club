@@ -35,11 +35,9 @@ module SlackBotServices
         programs = quotes.select { |p| p["ProductName"] == type }
         next if programs.empty?
 
-
         lowest_program = programs.first
         programs.each { |p| lowest_program = p if lowest_program["APR"] > p["APR"] }
-        min_apr = format("%0.03f", lowest_program["APR"])
-        apr = calculate_apr(lowest_program)
+        min_apr = format("%0.03f", calculate_apr(lowest_program))
         lender_credit = number_to_currency(calculate_lender_credit(lowest_program), precision: 0)
         fees = "$0 origination fee"
 
