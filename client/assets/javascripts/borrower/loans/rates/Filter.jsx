@@ -5,7 +5,6 @@ var LoanProgramFilterMixin = require('mixins/LoanProgramFilterMixin');
 var Filter = React.createClass({
   mixins: [LoanProgramFilterMixin],
 
-
   getDefaultProps: function() {
     return {
       productCriteria: [],
@@ -19,11 +18,9 @@ var Filter = React.createClass({
     var criteria = type == "product" ? this.props.productCriteria : this.props.lenderCriteria;
     var indexOfOption = criteria.indexOf(option);
 
-
     // user has already selected this option
     if(indexOfOption != -1) {
       criteria.splice(indexOfOption, 1);
-
     }
     else {
       criteria.push(option);

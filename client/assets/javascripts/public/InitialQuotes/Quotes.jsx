@@ -19,12 +19,6 @@ var Quotes = React.createClass({
     }
   },
 
-  // getDefaultProps: function() {
-  //   return {
-  //     storedCriteria: []
-  //   }
-  // },
-
   componentDidMount: function(){
     mixpanel.track("Quotes-Enter");
     $("input[name=30years]").trigger("click");
