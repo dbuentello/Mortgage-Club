@@ -84,7 +84,7 @@ var Filter = React.createClass({
               _.map(this.getRemainingLenders(), function(lender) {
                 return (
                   <div>
-                    <input type="checkbox" name="citibank2" id={lender} onChange={_.bind(this.onChangeCriteria, null, lender, "lender")}/>
+                    <input type="checkbox" name="citibank2" id={lender} checked={this.isCriteriaChecked(lender)} onChange={_.bind(this.onChangeCriteria, null, lender, "lender")}/>
                     <label className="customCheckbox blueCheckBox2" htmlFor={lender}>{lender}</label>
                   </div>
                 )
