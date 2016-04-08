@@ -14,16 +14,24 @@ var Quotes = React.createClass({
     return {
       helpMeChoose: false,
       quotes: this.props.bootstrapData.quotes,
-      monthlyPayment: this.props.bootstrapData.monthly_payment
+      monthlyPayment: this.props.bootstrapData.monthly_payment,
+      storedCriteria: []
     }
   },
+
   componentDidMount: function(){
-      mixpanel.track("Quotes-Enter");
-      $("input[name=30years]").trigger("click");
+    mixpanel.track("Quotes-Enter");
+    $("input[name=30years]").trigger("click");
   },
+
   onFilterQuote: function(filteredQuotes) {
     this.removeChart();
-    this.setState({quotes: filteredQuotes})
+    this.setState({quotes: filteredQuotes});
+  },
+
+  onStoredCriteriaChange: function(criteria) {
+    var currentCriteria = this.props.storedCriteria;
+    this.setState({storedCriteria: criteria});
   },
 
   handleSortChange: function(event) {
@@ -38,7 +46,6 @@ var Quotes = React.createClass({
     $(".pie-chart").empty();
     $("span.glyphicon-menu-up").click();
   },
-
   sortBy: function(field, quotes) {
     var sortedRates = [];
 
@@ -70,7 +77,8 @@ var Quotes = React.createClass({
 
   helpMeChoose: function() {
     mixpanel.track("Quotes-HelpMeChoose");
-    this.setState({helpMeChoose: !this.state.helpMeChoose});
+    this.setState({helpMeChoose: !this.state.helpMeChoose,
+    });
   },
 
   backToRateHandler: function() {
@@ -142,7 +150,7 @@ var Quotes = React.createClass({
                   :
                     <div className="content container mortgage-rates row-eq-height padding-top-0 row">
                       <div className="col-xs-3 subnav">
-                        <Filter programs={this.props.bootstrapData.quotes} onFilterProgram={this.onFilterQuote}></Filter>
+                        <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
                       </div>
                       <div className="col-xs-9 account-content padding-left-50">
                         <div className="row actions">
