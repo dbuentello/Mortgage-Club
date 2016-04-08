@@ -137,6 +137,7 @@ module LoanTekServices
         end
       end
 
+      # TODO: refactor line 141-143
       programs = programs.reject do |program|
         program[:apr] - characteristics[program[:product]][:apr] > 0.00625
       end
