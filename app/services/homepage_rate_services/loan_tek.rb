@@ -10,9 +10,9 @@ module HomepageRateServices
       response = connection.post do |conn|
         conn.headers["Content-Type"] = "application/json"
         conn.body = {
-          BestExecutionMethodType: 3,
+          BestExecutionMethodType: 2,
           LockPeriod: 30,
-          QuotingChannel: 0,
+          QuotingChannel: 3,
           ClientDefinedIdentifier: ENV["LOANTEK_IDENTIFIER"],
           ZipCode: 94103,
           CreditScore: 760,
@@ -21,7 +21,7 @@ module HomepageRateServices
           LoanToValue: 80,
           PropertyUsage: 1,
           PropertyType: 1,
-          QuoteTypesToReturn: [-1, 0],
+          QuoteTypesToReturn: [-1, 0, 1],
           LoanProgramsOfInterest: [1, 2, 3]
         }.to_json
       end

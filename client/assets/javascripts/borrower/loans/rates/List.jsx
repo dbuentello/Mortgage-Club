@@ -35,6 +35,7 @@ var List = React.createClass({
       if(prevProps.programs[0].apr !== this.props.programs[0].apr){
         $(".line-chart").empty();
         $(".pie-chart").empty();
+
         if ($("#piechart0 svg").length == 0){
           var rate = this.props.programs[0];
           var total = this.totalMonthlyPayment(
@@ -75,6 +76,7 @@ var List = React.createClass({
     if(selectedBoardContent.css("display") == "none"){
       selectedBoardContent.slideToggle(500);
       $(event.target).find('span').toggleClass('up-state');
+
       if ($("#piechart" + index + " svg").length == 0){
         var rate = this.props.programs[index];
         var total = this.totalMonthlyPayment(
@@ -145,13 +147,13 @@ var List = React.createClass({
                       <h1 className="apr-text">{this.commafy(rate.apr * 100, 3)}% APR</h1>
                     </div>
 
-                    <div className="col-md-3 col-sm-6 col-sm-6">
+                    <div className="col-md-4 col-sm-6 col-sm-6">
                       <p><span className="text-capitalize">rate:</span> {this.commafy(rate.interest_rate * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(rate.monthly_payment, '$')}</p>
-                      <p><span className="text-capitalize">total closing cost:</span> {this.formatCurrency(rate.total_closing_cost, '$')}</p>
+                      <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(rate.total_closing_cost, '$')}</p>
                     </div>
 
-                    <div className="col-md-3 col-sm-6 col-sm-6">
+                    <div className="col-md-2 col-sm-6 col-sm-6">
                       <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Select</a>
                     </div>
                   </div>
@@ -176,9 +178,15 @@ var List = React.createClass({
                           <p className="col-xs-12 cost">{this.formatCurrency(rate.down_payment, "$")} ({this.calDownPayment(rate.down_payment, rate.loan_amount)}%)</p>
                         </div>
                       </div>
-                      <h4>Lender fees</h4>
+                      <h4>Estimated Closing Costs</h4>
                       <ul className="fee-items">
-                        <li className="lender-fee-item">{rate.lender_credits < 0 ? "Lender credits" : "Discount points"}: {this.formatCurrency(rate.lender_credits)}</li>
+                        {
+                          rate.lender_credits == 0
+                          ?
+                            null
+                          :
+                            <li className="lender-fee-item">{rate.lender_credits < 0 ? "Lender credit" : "Discount points"}: {this.formatCurrency(rate.lender_credits)}</li>
+                        }
                         {
                           _.map(rate.fees, function(fee){
                             return (

@@ -18,7 +18,8 @@ var MortgageRates = React.createClass({
       programs: this.props.bootstrapData.programs,
       helpMeChoose: false,
       signDoc: false,
-      selectedRate: null
+      selectedRate: null,
+      storedCriteria: []
     }
   },
 
@@ -35,6 +36,11 @@ var MortgageRates = React.createClass({
 
   helpMeChoose: function() {
     this.setState({helpMeChoose: !this.state.helpMeChoose});
+  },
+
+  onStoredCriteriaChange: function(criteria) {
+    var currentCriteria = this.props.storedCriteria;
+    this.setState({storedCriteria: criteria});
   },
 
   handleSortChange: function(event) {
@@ -73,12 +79,12 @@ var MortgageRates = React.createClass({
           this.state.helpMeChoose
           ?
             <div className="content container mortgage-rates padding-top-0 white-background">
-              <HelpMeChoose backToRatePage={this.backToRateHandler} loan={this.props.bootstrapData.currentLoan} programs={this.state.programs} selectRate={this.selectRate} isInitialQuotes={false}/>
+              <HelpMeChoose backToRatePage={this.backToRateHandler} loan={this.props.bootstrapData.currentLoan} programs={this.props.bootstrapData.programs} selectRate={this.selectRate} isInitialQuotes={false}/>
             </div>
           :
             <div className="content container mortgage-rates padding-top-0 row-eq-height">
               <div className="col-xs-3 subnav programs-filter">
-                <Filter programs={this.props.bootstrapData.programs} onFilterProgram={this.onFilterProgram}></Filter>
+                <Filter programs={this.props.bootstrapData.programs} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterProgram}></Filter>
               </div>
               <div className="col-xs-9 account-content padding-left-50">
                 <div className="row actions">

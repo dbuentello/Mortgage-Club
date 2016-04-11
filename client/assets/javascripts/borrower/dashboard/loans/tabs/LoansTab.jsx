@@ -30,7 +30,7 @@ var LoansTab = React.createClass({
               loan.pretty_status == "New"
               ?
             <ModalLink
-              id="deleteLoan"
+              id={loan.id}
               icon="fa fa-trash-o fa-2x trash-bd"
               title={null}
               class="btn delete-btn pull-right"

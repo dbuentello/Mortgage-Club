@@ -13,15 +13,25 @@ var Quotes = React.createClass({
   getInitialState: function() {
     return {
       helpMeChoose: false,
-      quotes: this.props.bootstrapData.quotes
+      quotes: this.props.bootstrapData.quotes,
+      monthlyPayment: this.props.bootstrapData.monthly_payment,
+      storedCriteria: []
     }
   },
+
   componentDidMount: function(){
-      mixpanel.track("Quotes-Enter");
+    mixpanel.track("Quotes-Enter");
+    $("input[name=30years]").trigger("click");
   },
+
   onFilterQuote: function(filteredQuotes) {
     this.removeChart();
-    this.setState({quotes: filteredQuotes})
+    this.setState({quotes: filteredQuotes});
+  },
+
+  onStoredCriteriaChange: function(criteria) {
+    var currentCriteria = this.props.storedCriteria;
+    this.setState({storedCriteria: criteria});
   },
 
   handleSortChange: function(event) {
@@ -36,7 +46,6 @@ var Quotes = React.createClass({
     $(".pie-chart").empty();
     $("span.glyphicon-menu-up").click();
   },
-
   sortBy: function(field, quotes) {
     var sortedRates = [];
 
@@ -68,7 +77,8 @@ var Quotes = React.createClass({
 
   helpMeChoose: function() {
     mixpanel.track("Quotes-HelpMeChoose");
-    this.setState({helpMeChoose: !this.state.helpMeChoose});
+    this.setState({helpMeChoose: !this.state.helpMeChoose,
+    });
   },
 
   backToRateHandler: function() {
@@ -135,20 +145,19 @@ var Quotes = React.createClass({
                   this.state.helpMeChoose
                   ?
                     <div className="content container mortgage-quotes white-background" style={{"padding-top":"20px"}}>
-                      <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.state.quotes} selectRate={this.selectRate} isInitialQuotes={true}/>
+                      <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.props.bootstrapData.quotes} selectRate={this.selectRate} monthlyPayment={this.state.monthlyPayment} isInitialQuotes={true}/>
                     </div>
                   :
                     <div className="content container mortgage-rates row-eq-height padding-top-0 row">
                       <div className="col-xs-3 subnav">
-                        <Filter programs={this.props.bootstrapData.quotes} onFilterProgram={this.onFilterQuote}></Filter>
+                        <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
                       </div>
                       <div className="col-xs-9 account-content padding-left-50">
                         <div className="row actions">
                           <p>
-                            We’ve found {this.props.bootstrapData.quotes ? this.props.bootstrapData.quotes.length : 0} mortgage options for you. You can sort, filter and choose one on your own or click
+                            We’ve found {this.state.quotes ? this.state.quotes.length : 0} mortgage options for you. You can sort, filter and choose one on your own or click
                             <i> Help me choose </i>
-                            and our proprietary selection algorithm will help you choose the best mortgage. No fees no costs option is also included in
-                            <i> Help me choose</i>.
+                            and our proprietary selection algorithm will help you choose the best mortgage.
                           </p>
                           <p>{"Mortgage rates change frequently. We're showing the latest rates for your mortgage scenario."}</p>
                           <div className="row form-group actions-group" id="mortgageActions">
@@ -174,7 +183,7 @@ var Quotes = React.createClass({
                           </div>
                         </div>
                         <div id="mortgagePrograms">
-                          <List quotes={this.state.quotes} selectRate={this.selectRate} helpMeChoose={false}/>
+                          <List quotes={this.state.quotes} monthlyPayment={this.state.monthlyPayment} selectRate={this.selectRate} helpMeChoose={false}/>
                         </div>
                       </div>
                     </div>

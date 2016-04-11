@@ -8,7 +8,9 @@ var Filter = React.createClass({
   getDefaultProps: function() {
     return {
       productCriteria: [],
-      lenderCriteria: []
+      lenderCriteria: [],
+      allCriteria: []
+
     };
   },
 
@@ -25,6 +27,20 @@ var Filter = React.createClass({
     }
     var filteredPrograms = this.filterPrograms(this.props.programs, this.props.productCriteria, this.props.lenderCriteria);
     this.props.onFilterProgram(filteredPrograms);
+
+    var allCriteria = this.props.allCriteria;
+    var indexOfCriteria = allCriteria.indexOf(option);
+    if(indexOfCriteria != -1) {
+      allCriteria.splice(indexOfCriteria, 1);
+    }
+    else {
+      allCriteria.push(option);
+    }
+    this.props.storedCriteria(allCriteria);
+  },
+
+  isCriteriaChecked: function(option) {
+    return (this.props.allCriteria.indexOf(option) !== -1);
   },
 
   render: function() {
@@ -32,26 +48,26 @@ var Filter = React.createClass({
       <div>
         <div id="sidebar">
           <h5>Programs</h5>
-          <input type="checkbox" name="30years" id="30years" onChange={_.bind(this.onChangeCriteria, null, "30 year fixed", "product")}/>
+          <input type="checkbox" name="30years" id="30years" checked={this.isCriteriaChecked("30 year fixed")} onChange={_.bind(this.onChangeCriteria, null, "30 year fixed", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="30years">30 year fixed</label>
           <br/>
-          <input type="checkbox" name="15years" id="15years" onChange={_.bind(this.onChangeCriteria, null, "15 year fixed", "product")}/>
+          <input type="checkbox" name="15years" id="15years" checked={this.isCriteriaChecked("15 year fixed")} onChange={_.bind(this.onChangeCriteria, null, "15 year fixed", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="15years">15 year fixed</label>
           <br/>
-          <input type="checkbox" name="71arm" id="71arm" onChange={_.bind(this.onChangeCriteria, null, "7/1 ARM", "product")}/>
+          <input type="checkbox" name="71arm" id="71arm" checked={this.isCriteriaChecked("7/1 ARM")} onChange={_.bind(this.onChangeCriteria, null, "7/1 ARM", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="71arm">7/1 ARM</label>
           <br/>
-          <input type="checkbox" name="51arm" id="51arm" onChange={_.bind(this.onChangeCriteria, null, "5/1 ARM", "product")}/>
+          <input type="checkbox" name="51arm" id="51arm" checked={this.isCriteriaChecked("5/1 ARM")} onChange={_.bind(this.onChangeCriteria, null, "5/1 ARM", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="51arm">5/1 ARM</label>
           <br/>
-          <input type="checkbox" name="fha" id="fha" onChange={_.bind(this.onChangeCriteria, null, "FHA", "product")}/>
+          <input type="checkbox" name="fha" id="fha" checked={this.isCriteriaChecked("FHA")} onChange={_.bind(this.onChangeCriteria, null, "FHA", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="fha">FHA</label>
-          <h5>Lenders</h5>
+          <h5>Wholesale investors</h5>
           {
             _.map(this.getFeaturedLenders(), function(lender) {
               return(
                 <div>
-                  <input type="checkbox" name="citibank" id={lender} onChange={_.bind(this.onChangeCriteria, null, lender, "lender")}/>
+                  <input type="checkbox" name="citibank" id={lender} checked={this.isCriteriaChecked(lender)} onChange={_.bind(this.onChangeCriteria, null, lender, "lender")}/>
                   <label className="customCheckbox blueCheckBox2" htmlFor={lender}>{lender}</label>
                 </div>
               )
@@ -59,7 +75,7 @@ var Filter = React.createClass({
           }
           <h5>
             <a role="button" data-toggle="collapse" href="#helpme-sidebar-collapse" aria-expanded="false" aria-controls="helpme-sidebar-collapse">
-              Show all providers<span className="glyphicon glyphicon-menu-down"></span>
+              Show all investors<span className="glyphicon glyphicon-menu-down"></span>
             </a>
           </h5>
           <div className="collapse" id="helpme-sidebar-collapse">
@@ -67,7 +83,7 @@ var Filter = React.createClass({
               _.map(this.getRemainingLenders(), function(lender) {
                 return (
                   <div>
-                    <input type="checkbox" name="citibank2" id={lender} onChange={_.bind(this.onChangeCriteria, null, lender, "lender")}/>
+                    <input type="checkbox" name="citibank2" id={lender} checked={this.isCriteriaChecked(lender)} onChange={_.bind(this.onChangeCriteria, null, lender, "lender")}/>
                     <label className="customCheckbox blueCheckBox2" htmlFor={lender}>{lender}</label>
                   </div>
                 )
