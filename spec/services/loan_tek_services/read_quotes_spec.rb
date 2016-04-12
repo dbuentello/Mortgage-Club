@@ -67,7 +67,7 @@ describe LoanTekServices::ReadQuotes do
         nmls: nil,
         logo_url: nil,
         loan_type: "CONVENTIONAL",
-        discount_pts: 0.001,
+        discount_pts: 0.0,
         characteristic: "Of all 15 year fixed mortgages on MortgageClub that you've qualified for, this one has the lowest APR."
       )
     end
