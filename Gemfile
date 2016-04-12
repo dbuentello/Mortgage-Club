@@ -83,9 +83,6 @@ gem 'stripe'
 # ActiveRecord backend integration for DelayedJob 3.0+
 gem 'delayed_job_active_record'
 
-# cron jobs
-gem 'whenever', :require => false
-
 # A Frontend for Delayed Job
 # gem 'delayed_job_web'
 
