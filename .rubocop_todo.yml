@@ -108,6 +108,9 @@ Style/WordArray:
 Style/RegexpLiteral:
   Enabled: false
 
+Style/ParameterLists:
+  Enabled: false
+
 # Offense count: 2
 # Lint/AmbiguousOperator:
 #   Enabled: false
