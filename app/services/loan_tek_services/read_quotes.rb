@@ -102,7 +102,7 @@ module LoanTekServices
       return 0 unless quote["FeeSet"]
       return 0 unless quote["FeeSet"]["Fees"]
 
-      admin_fee = quote["FeeSet"]["Fees"].first { |x| x["Description"] == "Administration fee" }
+      admin_fee = quote["FeeSet"]["Fees"].select { |x| x["Description"] == "Administration fee" }.first
 
       return 0 unless admin_fee
       admin_fee["FeeAmount"].to_f
