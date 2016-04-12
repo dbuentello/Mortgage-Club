@@ -46,7 +46,7 @@ module LoanTekServices
           nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
           logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
           loan_type: quote["ProductFamily"],
-          discount_pts: discount_pts_equals_to_0_125?(quote) ? 0 : discount_pts
+          discount_pts: discount_pts_equals_to_0_125?(quote) || check_to_hide_admin_fee(quote, admin_fee) ? 0 : discount_pts
         }
         programs << program
       end
@@ -88,7 +88,11 @@ module LoanTekServices
       return 0 if quote["DiscountPts"].nil?
       return 0 if quote["DiscountPts"].to_f >= 0 && quote["DiscountPts"].to_f <= 0.125
 
-      quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"] + admin_fee
+      total_fee = quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"] + admin_fee
+
+      return 0 if total_fee >= 0 && total_fee <= 1000
+
+      total_fee
     end
 
     def self.get_total_closing_cost(quote, admin_fee)
@@ -102,9 +106,10 @@ module LoanTekServices
       return 0 unless quote["FeeSet"]
       return 0 unless quote["FeeSet"]["Fees"]
 
-      admin_fee = quote["FeeSet"]["Fees"].select { |x| x["Description"] == "Administration fee" }.first
+      admin_fee = quote["FeeSet"]["Fees"].find { |x| x["Description"] == "Administration fee" }
 
       return 0 unless admin_fee
+
       admin_fee["FeeAmount"].to_f
     end
 
@@ -181,6 +186,14 @@ module LoanTekServices
 
     def self.discount_pts_equals_to_0_125?(quote)
       quote["DiscountPts"] == 0.125
+    end
+
+    def self.check_to_hide_admin_fee(quote, admin_fee)
+      total_fee = quote["DiscountPts"].to_f / 100 * quote["FeeSet"]["LoanAmount"].to_f + admin_fee
+
+      return true if total_fee >= 0 && total_fee <= 1000
+
+      false
     end
   end
 end
