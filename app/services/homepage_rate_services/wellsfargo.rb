@@ -18,15 +18,14 @@ module HomepageRateServices
       doc = Nokogiri::HTML(html)
 
       doc.css('#productName').each do |rate|
-        if rate.text == '15-Year Fixed Rate'.freeze && rate.at_css('a').attr('href') == '/mortgage/rates/purchase-assumptions?prod=3'.freeze
+        if rate.text == '15-Year Fixed Rate'.freeze && rate.at_css('a').attr('href') == '/mortgage/rates/purchase-assumptions?prod=4'.freeze
           apr_15_year = rate.parent.css('td').last.text.delete('%').to_f
-        elsif rate.text == '30-Year Fixed Rate'.freeze && rate.at_css('a').attr('href') == '/mortgage/rates/purchase-assumptions?prod=1'.freeze
+        elsif rate.text == '30-Year Fixed Rate'.freeze && rate.at_css('a').attr('href') == '/mortgage/rates/purchase-assumptions?prod=2'.freeze
           apr_30_year = rate.parent.css('td').last.text.delete('%').to_f
         else
           next
         end
       end
-
       {
         "apr_30_year" => apr_30_year,
         "apr_15_year" => apr_15_year,
