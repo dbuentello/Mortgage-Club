@@ -8,6 +8,13 @@ namespace :scheduler do
 
     puts "done."
   end
+  task crawl_rates_from_fred_economic: :environment do
+    puts "Crawling rates from fred economic"
+
+    FredEconomicServices::CrawlAvgRates.call
+
+    puts "done."
+  end
 
   desc "Clear quote queries were created before seven days ago"
   task clear_quote_queries: :environment do
