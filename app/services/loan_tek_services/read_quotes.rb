@@ -25,22 +25,24 @@ module LoanTekServices
         lender_name = quote["LenderName"]
         rate = get_interest_rate(quote)
         apr = discount_pts_equals_to_0_125?(quote) ? rate : quote["APR"] / 100
+        admin_fee = get_admin_fee(quote)
+        product = get_product_name(quote)
 
-        next if existing_program?(programs, apr, rate, lender_name, discount_pts)
+        next if existing_program?(programs, apr, rate, lender_name, discount_pts, product)
 
         program = {
           lender_name: lender_name,
-          product: get_product_name(quote),
+          product: product,
           apr: apr,
           loan_amount: quote["FeeSet"]["LoanAmount"],
           interest_rate: rate,
-          total_fee: quote["FeeSet"]["TotalFees"],
-          fees: quote["FeeSet"]["Fees"] || [],
+          total_fee: get_total_fee(quote, admin_fee),
+          fees: get_fees(quote),
           period: get_period(quote),
           down_payment: get_down_payment(quote),
           monthly_payment: get_monthly_payment(quote),
-          lender_credits: get_lender_credits(quote),
-          total_closing_cost: get_total_closing_cost(quote),
+          lender_credits: get_lender_credits(quote, admin_fee),
+          total_closing_cost: get_total_closing_cost(quote, admin_fee),
           nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
           logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
           loan_type: quote["ProductFamily"],
@@ -48,14 +50,13 @@ module LoanTekServices
         }
         programs << program
       end
-
       programs = build_characteristics(programs)
       programs.sort_by { |program| program[:apr] }
     end
 
-    def self.existing_program?(programs, apr, rate, lender_name, discount_pts)
+    def self.existing_program?(programs, apr, rate, lender_name, discount_pts, product)
       programs.each do |program|
-        return true if program[:lender_name] == lender_name && program[:apr] == apr && program[:interest_rate] == rate && program[:discount_pts] == discount_pts
+        return true if program[:lender_name] == lender_name && program[:apr] == apr && program[:interest_rate] == rate && program[:discount_pts] == discount_pts && program[:product] == product
       end
 
       false
@@ -83,16 +84,39 @@ module LoanTekServices
       payment.round
     end
 
-    def self.get_lender_credits(quote)
-      return 0 if quote["DiscountPts"].nil? || quote["DiscountPts"] == 0.125
+    def self.get_lender_credits(quote, admin_fee)
+      return 0 if quote["DiscountPts"].nil?
+      return 0 if quote["DiscountPts"].to_f >= 0 && quote["DiscountPts"].to_f <= 0.125
 
-      quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"]
+      quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"] + admin_fee
     end
 
-    def self.get_total_closing_cost(quote)
-      total_fee = quote["FeeSet"]["TotalFees"].to_f
-      lender_credit = get_lender_credits(quote)
+    def self.get_total_closing_cost(quote, admin_fee)
+      total_fee = get_total_fee(quote, admin_fee)
+      lender_credit = get_lender_credits(quote, admin_fee)
+
       total_fee + lender_credit
+    end
+
+    def self.get_admin_fee(quote)
+      return 0 unless quote["FeeSet"]
+      return 0 unless quote["FeeSet"]["Fees"]
+
+      admin_fee = quote["FeeSet"]["Fees"].first { |x| x["Description"] == "Administration fee" }
+
+      return 0 unless admin_fee
+      admin_fee["FeeAmount"].to_f
+    end
+
+    def self.get_fees(quote)
+      return [] unless quote["FeeSet"]
+      return [] unless quote["FeeSet"]["Fees"]
+
+      quote["FeeSet"]["Fees"].reject { |x| x["Description"] == "Administration fee" }
+    end
+
+    def self.get_total_fee(quote, admin_fee)
+      quote["FeeSet"]["TotalFees"].to_f - admin_fee
     end
 
     def self.get_product_name(quote)
