@@ -207,6 +207,7 @@ var Borrower = React.createClass({
             : null }
           </div>
         </div>
+
         <div className="form-group">
           <div className="col-md-12">
             <AddressField
@@ -221,6 +222,18 @@ var Borrower = React.createClass({
               editMode={this.props.editMode}/>
           </div>
         </div>
+        {
+          this.props.isCoBorrower
+          ?
+          <div className="form-group">
+            <div className="col-md-12">
+              <input type="checkbox" onChange={this.props.setCoBorrowerAddress} className="chk-current-address" name="chkSetCoBorrowerState" />
+               Same as borrower
+            </div>
+          </div>
+          :
+          null
+        }
         <div className="form-group">
           <div className="col-md-4">
             <BooleanRadio

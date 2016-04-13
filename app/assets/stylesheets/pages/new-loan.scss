@@ -50,7 +50,7 @@
   background: #f6f6f6;
   // margin-bottom:-9999px;
   // padding-bottom:9999px;
-  
+
   position: relative;
   left: 0;
   -webkit-transition: left 0.4s ease-in-out;
@@ -601,4 +601,8 @@
 .autocomplete_list button:hover {
   background-color: #ffffff;
   color: #499aff;
+}
+.form-group input[type=checkbox] {
+  line-height: 16px;
+  display: inline-block;
 }
