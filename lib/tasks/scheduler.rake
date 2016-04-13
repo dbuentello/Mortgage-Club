@@ -9,19 +9,9 @@ namespace :scheduler do
     puts "done."
   end
 
-  task crawl_rates_from_fred_economic: :environment do
-    puts "Crawling rates from fred economic"
-
-    FredEconomicServices::CrawlAvgRates.call
-
-    puts "done."
-  end
-
   task update_rates_from_fred_economic: :environment do
-    puts "Crawling rates from fred economic"
-
-    FredEconomicServices::CrawlAvgRates.update
-
+    puts "Crawling updated rates from fred economic"
+    FredEconomicServices::CrawlAvgRates.update if Time.zone.now.friday?
     puts "done."
   end
 
