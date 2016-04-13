@@ -351,6 +351,7 @@ var FormProperty = React.createClass({
     state[fields.grossRentalIncome.name] = this.formatCurrency(property[fields.grossRentalIncome.name]);
     state[fields.originalPurchasePrice.name] = this.formatCurrency(property[fields.originalPurchasePrice.name]);
     state[fields.originalPurchaseYear.name] = property[fields.originalPurchaseYear.name];
+    state[fields.estimatedMortgageBalance.name] = this.formatCurrency(property[fields.estimatedMortgageBalance.name]);
     state[fields.downPayment.name] = loan[fields.downPayment.name] != 0 ? this.formatCurrency(loan[fields.downPayment.name]) : null;
     state.property_type = property.property_type;
     state.market_price = property.market_price;
@@ -394,6 +395,7 @@ var FormProperty = React.createClass({
     }else{
       property[fields.originalPurchasePrice.name] = this.currencyToNumber(this.state[fields.originalPurchasePrice.name]);
       property[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
+      property[fields.estimatedMortgageBalance.name] = this.currencyToNumber(this.state[fields.estimatedMortgageBalance.name]);
       property.market_price = this.currencyToNumber(this.state.marketPrice);
     }
 
