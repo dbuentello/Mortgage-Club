@@ -211,23 +211,27 @@ var List = React.createClass({
                       <div className="row">
                         <div className="col-xs-9">
                           <p className="col-xs-12 cost">Principal and interest</p>
-                          {
-                            this.state.estimatedMortgageInsurance
-                            ?
-                            <p className="col-xs-12 cost">Estimated mortgage insurance</p>
-                            :
-                            null
-                          }
+                          <p className="col-xs-12 cost">
+                            {
+                              this.state.estimatedMortgageInsurance
+                              ?
+                              <span>Estimated mortgage insurance</span>
+                              :
+                              null
+                            }
+                          </p>
 
                           <p className="col-xs-12 cost">Estimated property tax</p>
                           <p className="col-xs-12 cost">Estimated homeowners insurance</p>
+                          <p className="col-xs-12 cost">
                           {
                             this.state.hoaDue
                             ?
-                            <p className="col-xs-12 cost">Hoa Due</p>
+                            <span>Hoa Due</span>
                             :
                             null
                           }
+                          </p>
 
                           <p className="col-xs-12 cost">Total estimated monthly payment</p>
                         </div>
