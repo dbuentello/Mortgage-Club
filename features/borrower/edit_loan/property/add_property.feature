@@ -23,3 +23,22 @@ Feature: AddProperty
         And the "Down Payment" field should contain "$1,345.00"
         And the "Purchase Price" field should not contain ""
         And the "Estimated Rental Income" field should not contain ""
+      Then I clear value in "Property Address"
+      Then I fill in "Property Address" with "1920 South Las Vegas Boulevard, Las Vegas"
+      And I wait for 2 seconds
+        And I select "Primary Residence" from "Property Will Be"
+        And I choose "false_purpose"
+        And I clear value in "Original Purchase Price"
+        Then I fill in "Original Purchase Price" with "$52,345.00"
+        And I clear value in "Purchase Year"
+        Then I fill in "Purchase Year" with "1995"
+        Then I clear value in "Estimated Mortgage Balance"
+        And I fill in "Estimated Mortgage Balance" with "$123,000.00"
+        Then I click on "Save and Continue"
+        And I wait for 2 seconds
+        And I should see "I am applying"
+      When I click "Property"
+        And I should see "Primary Residence"
+        And I should see "Refinance"
+        And the "Estimated Mortgage Balance" field should contain "$123,000.00"
+
