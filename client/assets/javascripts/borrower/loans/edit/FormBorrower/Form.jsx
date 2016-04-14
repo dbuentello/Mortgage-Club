@@ -109,7 +109,6 @@ var Form = React.createClass({
 
   setCoborrowerState: function(change) {
     if (change.currentTarget.checked === true){
-      console.log(this.state);
       var state = this.state;
       var updatedState = {};
       var borrowerAddress = state[borrower_fields.currentAddress.name];
