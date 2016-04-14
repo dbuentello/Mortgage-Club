@@ -211,10 +211,24 @@ var List = React.createClass({
                       <div className="row">
                         <div className="col-xs-9">
                           <p className="col-xs-12 cost">Principal and interest</p>
-                          <p className="col-xs-12 cost">Estimated mortgage insurance</p>
+                          {
+                            this.state.estimatedMortgageInsurance
+                            ?
+                            <p className="col-xs-12 cost">Estimated mortgage insurance</p>
+                            :
+                            null
+                          }
+
                           <p className="col-xs-12 cost">Estimated property tax</p>
                           <p className="col-xs-12 cost">Estimated homeowners insurance</p>
-                          <p className="col-xs-12 cost">Hoa Due</p>
+                          {
+                            this.state.hoaDue
+                            ?
+                            <p className="col-xs-12 cost">Hoa Due</p>
+                            :
+                            null
+                          }
+
                           <p className="col-xs-12 cost">Total estimated monthly payment</p>
                         </div>
                         <div className="col-xs-3">
@@ -225,7 +239,7 @@ var List = React.createClass({
                               ?
                               this.formatCurrency(this.state.estimatedMortgageInsurance, "$")
                               :
-                              this.formatCurrency("0", "$")
+                              null
                             }
                           </p>
                           <p className="col-xs-12 cost">
@@ -252,7 +266,7 @@ var List = React.createClass({
                               ?
                               this.formatCurrency(this.state.hoaDue, "$")
                               :
-                              this.formatCurrency("0", "$")
+                              null
                             }
                           </p>
                           <p className="col-xs-12 cost">
