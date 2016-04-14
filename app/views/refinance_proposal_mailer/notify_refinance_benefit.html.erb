@@ -576,11 +576,11 @@
 
                         <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
 
-                          <p>Dear <%= @user_name %></p>
+                          <p>Dear <%= @user_name %>,</p>
 
                           <p style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 19.5px;">
                             <p>
-                            Based on public records and our econometrics model, it looks like you are paying $2,139/month with Wells Fargo at an interest rate of 4.625%. Mortgage rates have dropped significantly and you have 2 options to refinance your existing mortgage and save money with MortgageClub.
+                            Based on public records and our econometrics model, it looks like you are paying $<%= @benefit_info[:current_monthly_payment] %>/month with Wells Fargo at an interest rate of 4.625%. Mortgage rates have dropped significantly and you have 2 options to refinance your existing mortgage and save money with MortgageClub.
                           </p>
                           <ol>
                             <li>
