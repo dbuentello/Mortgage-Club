@@ -227,6 +227,18 @@
   .helpful-text {font-style:italic; color:#959595; font-size:.9em; padding-top:5px;}
   .form-group .helpful-text img {display:inline-block; position:relative; bottom:0; top:0; left:0; border:none; margin-right:7px; margin-top:-5px;}
 
+  .form-group input[type=checkbox] {
+    line-height: 16px;
+    display: inline-block;
+  }
+
+  .form-group input[type=checkbox]:checked+label:before {
+    content: "";
+  }
+  .form-group input[type=checkbox] + label {
+    color: $mc-color;
+    font-size: 1.1em;
+  }
   select {
     -webkit-appearance:none;
     -moz-appearance: none;
@@ -600,16 +612,4 @@
 .autocomplete_list button:hover {
   background-color: #ffffff;
   color: #499aff;
-}
-.form-group input[type=checkbox] {
-  line-height: 16px;
-  display: inline-block;
-}
-
-.form-group input[type=checkbox]:checked+label:before {
-  content: "";
-}
-.form-group input[type=checkbox] + label {
-  color: $mc-color;
-  font-size: 1.1em;
 }
