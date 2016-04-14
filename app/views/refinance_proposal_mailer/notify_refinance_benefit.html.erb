@@ -580,11 +580,12 @@
 
                           <p style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 19.5px;">
                             <p>
-                            Based on public records and our econometrics model, it looks like you are paying $<%= @benefit_info[:current_monthly_payment] %>/month with Wells Fargo at an interest rate of 4.625%. Mortgage rates have dropped significantly and you have 2 options to refinance your existing mortgage and save money with MortgageClub.
+                            Based on public records and our econometrics model, it looks like you are paying $<%= @benefit_info[:current_monthly_payment] %>/month with Wells Fargo at an interest rate of <%= @benefit[:original_interest_rate] %>%. Mortgage rates have dropped significantly and you have 2 options to refinance your existing mortgage and save money with MortgageClub.
                           </p>
                           <ol>
                             <li>
-                              Lower rate refinance (no cash-out)
+                              Lower rate refinance (no cash-out) <br>
+                              As of today <%= Time.zone.today %>, we can offer you <%= @benefit_info[:new_interest_rate] %>% rate for a new <% @benefit_info[:original_term] %> mortgage, mortgage payment will be $<%= @benefit_info[:new_monthly_payment]/month, loan amount $399,004, NO discount points, NO closing costs, and $700 lender credit back to you at closing. You'd save a total of $5,567 in the first year, $15,043 in 3 years and $44,597 over 10 years.
                             </li>
                           </ol>
 
