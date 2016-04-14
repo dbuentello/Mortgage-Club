@@ -605,3 +605,11 @@
   line-height: 16px;
   display: inline-block;
 }
+
+.form-group input[type=checkbox]:checked+label:before {
+  content: "";
+}
+.form-group input[type=checkbox] + label {
+  color: $mc-color;
+  font-size: 1.1em;
+}
