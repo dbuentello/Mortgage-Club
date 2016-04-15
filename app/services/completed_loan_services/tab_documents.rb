@@ -28,7 +28,6 @@ module CompletedLoanServices
     end
 
     def not_jointly_document_completed?(not_jointly_borrower)
-
       required_documents = not_jointly_borrower.self_employed ? Document::BORROWER_SELF_EMPLOYED : Document::BORROWER_NOT_SELF_EMPLOYED
 
       (required_documents - not_jointly_borrower.documents.pluck(:document_type)).empty?
