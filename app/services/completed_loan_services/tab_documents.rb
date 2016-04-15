@@ -22,7 +22,7 @@ module CompletedLoanServices
 
     # The two last document first_bank_statement and second_bank_statement not need for co-borrower
     def secondary_jointly_document_completed?
-      required_documents = secondary_borrower.self_employed ? (Document::BORROWER_SELF_EMPLOYED_TAXES_JOINLY.slice(0...-2))  : (Document::BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY.slice(0...-2))
+      required_documents = secondary_borrower.self_employed ? (Document::BORROWER_SELF_EMPLOYED_TAXES_JOINLY.slice(0...-2)) : (Document::BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY.slice(0...-2))
 
       (required_documents - secondary_borrower.documents.pluck(:document_type)).empty?
     end
