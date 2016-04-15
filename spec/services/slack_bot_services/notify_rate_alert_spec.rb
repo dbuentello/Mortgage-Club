@@ -5,12 +5,10 @@ describe SlackBotServices::NotifyRateAlert do
     before(:each) do
       @sign_up_info = {
         "result" => {
-          "contexts" => [
-            "parameters" => {
-              "purpose" => "refinance",
-              "email" => "hoa@example.com"
-            }
-          ]
+          "parameters" => {
+            "purpose" => "refinance",
+            "email" => "hoa@example.com"
+          }
         }
       }
     end
@@ -23,7 +21,7 @@ describe SlackBotServices::NotifyRateAlert do
     end
 
     context "when params are invalid" do
-      it "notifies loan member about Rate Alert information" do
+      it "does not notify loan member about Rate Alert information" do
         @sign_up_info["result"] = nil
         described_class.call(@sign_up_info)
         expect(Delayed::Job.count).to eq(0)
