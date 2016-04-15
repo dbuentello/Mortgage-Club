@@ -1,7 +1,5 @@
 module CompletedLoanServices
   class TabDocuments
-    # Co-Borrower Except Documents
-    CO_EXCEPT_DOCS = ["first_bank_statement", "second_bank_statement"]
     attr_accessor :borrower, :secondary_borrower
 
     def initialize(args)
@@ -22,9 +20,9 @@ module CompletedLoanServices
       borrower.is_file_taxes_jointly ? secondary_jointly_document_completed? : secondary_not_jointly_document_completed?(secondary_borrower)
     end
 
+    # The two last document first_bank_statement and second_bank_statement not need for co-borrower
     def secondary_jointly_document_completed?
-      byebug
-      required_documents = secondary_borrower.self_employed ? (Document::BORROWER_SELF_EMPLOYED_TAXES_JOINLY - CO_EXCEPT_DOCS)  : (Document::BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY - CO_EXCEPT_DOCS)
+      required_documents = secondary_borrower.self_employed ? (Document::BORROWER_SELF_EMPLOYED_TAXES_JOINLY.slice(0...-2))  : (Document::BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY.slice(0...-2))
 
       (required_documents - secondary_borrower.documents.pluck(:document_type)).empty?
     end
@@ -37,7 +35,7 @@ module CompletedLoanServices
     end
 
     def secondary_not_jointly_document_completed?(co_not_jointly_borrower)
-      required_documents = co_not_jointly_borrower.self_employed ? Document::BORROWER_SELF_EMPLOYED - CO_EXCEPT_DOCS : Document::BORROWER_NOT_SELF_EMPLOYED - CO_EXCEPT_DOCS
+      required_documents = co_not_jointly_borrower.self_employed ? Document::BORROWER_SELF_EMPLOYED.slice(0...-2) : Document::BORROWER_NOT_SELF_EMPLOYED.slice(0...-2)
 
       (required_documents - co_not_jointly_borrower.documents.pluck(:document_type)).empty?
     end
