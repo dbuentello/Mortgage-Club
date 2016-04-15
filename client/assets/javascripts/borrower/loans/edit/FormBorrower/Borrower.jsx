@@ -228,7 +228,7 @@ var Borrower = React.createClass({
           <div className="form-group">
             <div className="col-md-12">
               <input type="checkbox" onChange={this.props.setCoBorrowerAddress} className="chk-current-address" name="chkSetCoBorrowerState" />
-              <label>Same as borrower</label>
+              <label for="chkSetCoBorrowerState">Same as borrower</label>
             </div>
           </div>
           :

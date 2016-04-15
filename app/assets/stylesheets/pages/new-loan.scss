@@ -232,12 +232,13 @@
     display: inline-block;
   }
 
-  .form-group input[type=checkbox]:checked+label:before {
+  .form-group input[type=checkbox]:checked + label:before {
     content: "";
   }
   .form-group input[type=checkbox] + label {
     color: $mc-color;
     font-size: 1.1em;
+    margin-left: 10px;
   }
   select {
     -webkit-appearance:none;
