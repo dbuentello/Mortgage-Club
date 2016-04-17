@@ -33,7 +33,7 @@ var borrower_fields = {
   numberOfDependents: {label: 'Number of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "numberOfDependencesError", validationTypes: ["empty", "integer"]},
   dependentAges: {label: 'Ages of Dependents', name: 'first_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: "dependentAgesError", validationTypes: ["empty", "agesOfDependents"]},
   currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null, error: "currentAddressError", validationTypes: ["empty", "address"]},
-  currentlyOwn: {label: 'Own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "currentlyOwnError", validationTypes: ["empty"]},
+  currentlyOwn: {label: 'Own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null, isEnabled: true ,error: "currentlyOwnError", validationTypes: ["empty"]},
   selfEmployed: {label: 'Are you self-employed?', name: 'first_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "selfEmployedError", validationTypes: ["empty"]},
   yearsInCurrentAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "yearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
   previousAddress: {label: 'Your previous address', name: 'first_borrower_previous_address', fieldName: 'previous_address', helpText: null, error: "previousAddressError", validationTypes: ["empty"]},
@@ -181,7 +181,8 @@ var Form = React.createClass({
             onChange={this.onChange}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
-            editMode={this.props.editMode}/>
+            editMode={this.props.editMode}
+            currentlyOwnEnabled={this.state[borrower_fields.currentlyOwn.isEnabled]}/>
 
             { this.state.hasSecondaryBorrower ?
               <div className="box mtn">
@@ -352,8 +353,9 @@ var Form = React.createClass({
         city: address.city
       };
       state[fields.currentAddress.name] = address_attributes;
-      state[fields.yearsInCurrentAddress.name] = (new Date(Date.now()).getFullYear())*1 - (state.subject_property.original_purchase_year)*1 + 1;
+      state[fields.yearsInCurrentAddress.name] = (new Date(Date.now()).getFullYear()) * 1 - (state.subject_property.original_purchase_year) * 1 + 1;
       state[fields.currentlyOwn.name] = true;
+      state[fields.currentlyOwn.isEnabled] = false;
     }
 
     var previousBorrowerAddress = borrower[fields.previousAddress.fieldName];

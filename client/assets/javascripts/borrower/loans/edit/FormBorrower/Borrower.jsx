@@ -246,7 +246,7 @@ var Borrower = React.createClass({
               editable={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentlyOwn)}
               onChange={this.props.onChange}
-              editMode={this.props.editMode}/>
+              editMode={this.props.editMode && this.props.currentlyOwnEnabled}/>
           </div>
           <div className="col-md-4">
             { this.props.currentlyOwn == false
