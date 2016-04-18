@@ -1,4 +1,4 @@
-module SlackBotServices
+module FacebookBotServices
   class GetInfoOfQuotes
     extend ParseQuotesForBot
 
@@ -9,7 +9,6 @@ module SlackBotServices
     }
 
     def self.call(params)
-      # host_name = ENV.fetch("HOST_NAME", "localhost:4000")
       output = "We're sorry, there aren't any quotes matching your needs."
       service = LoanTekServices::GetQuotesForBot.new(params)
 
@@ -17,19 +16,20 @@ module SlackBotServices
         quote_query = QuoteQuery.new(query: service.query_content)
 
         if quote_query.save
-          output = "#{summary(service.quotes)}\n Do you want to apply for a mortgage now? (Yes/No)"
+          output = generate_output(service.quotes, quote_query)
         end
       end
 
       output
     end
 
-    def self.summary(quotes)
+    def self.generate_output(quotes, quote_query)
       return if quotes.nil?
       quotes = get_valid_quotes(quotes)
       return if quotes.empty?
 
-      summary = "Good news, I've found mortgage loans for you. Lowest rates as of today: \n"
+      output = []
+      host_name = ENV.fetch("HOST_NAME", "localhost:4000")
 
       ["30yearFixed", "15yearFixed", "5yearARM"].each do |type|
         programs = quotes.select { |p| p["ProductName"] == type }
@@ -41,10 +41,14 @@ module SlackBotServices
         lender_credit = number_to_currency(calculate_lender_credit(lowest_program), precision: 0)
         fees = "$0 origination fee"
 
-        summary += "#{PRODUCT[type]}: #{min_apr}% rate, #{fees}, #{lender_credit} lender credit\n"
+        output << {
+          title: PRODUCT[type],
+          subtitle: "#{min_apr}% rate, #{fees}, #{lender_credit} lender credit",
+          url: Rails.application.routes.url_helpers.initial_quote_url(id: quote_query.code_id, program: type, host: host_name)
+        }
       end
 
-      summary
+      output
     end
   end
 end

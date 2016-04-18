@@ -2,16 +2,16 @@ require "rails_helper"
 
 describe SlackBotServices::GetInfoOfQuotes do
   describe ".call" do
-    it "calls GetQuotesForSlackBot service" do
-      expect_any_instance_of(LoanTekServices::GetQuotesForSlackBot).to receive(:call)
+    it "calls GetQuotesForBot service" do
+      expect_any_instance_of(LoanTekServices::GetQuotesForBot).to receive(:call)
       described_class.call({})
     end
 
     context "when quotes are available" do
       it "creates new QuoteQuery's record" do
-        allow_any_instance_of(LoanTekServices::GetQuotesForSlackBot).to receive(:call).and_return(true)
-        allow_any_instance_of(LoanTekServices::GetQuotesForSlackBot).to receive(:query_content).and_return("lorem ipsum")
-        allow_any_instance_of(LoanTekServices::GetQuotesForSlackBot).to receive(:quotes).and_return([])
+        allow_any_instance_of(LoanTekServices::GetQuotesForBot).to receive(:call).and_return(true)
+        allow_any_instance_of(LoanTekServices::GetQuotesForBot).to receive(:query_content).and_return("lorem ipsum")
+        allow_any_instance_of(LoanTekServices::GetQuotesForBot).to receive(:quotes).and_return([])
 
         expect { described_class.call({}) }.to change { QuoteQuery.count }.by(1)
       end
@@ -19,7 +19,7 @@ describe SlackBotServices::GetInfoOfQuotes do
 
     context "when quotes are not available" do
       it "returns a sorry message" do
-        allow_any_instance_of(LoanTekServices::GetQuotesForSlackBot).to receive(:call).and_return(false)
+        allow_any_instance_of(LoanTekServices::GetQuotesForBot).to receive(:call).and_return(false)
 
         expect(described_class.call({})).to eq("We're sorry, there aren't any quotes matching your needs.")
       end
@@ -61,7 +61,7 @@ describe SlackBotServices::GetInfoOfQuotes do
       ]
     end
 
-    it "returns a proper summary" do
+    it "returns a correct summary" do
       expect(described_class.summary(quotes)).to eq("Good news, I've found mortgage loans for you. Lowest rates as of today: \n15 year fixed: 3.750% rate, $0 origination fee, $439 lender credit\n")
     end
 

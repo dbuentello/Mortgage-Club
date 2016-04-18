@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe LoanTekServices::GetQuotesForSlackBot do
+describe LoanTekServices::GetQuotesForBot do
   describe "#call" do
     context "with invalid params" do
       let(:params) { {} }
