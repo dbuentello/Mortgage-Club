@@ -2,6 +2,10 @@ Then(/^I should see page title as "(.*)"$/) do |title|
   expect(page).to have_title "#{title}"
 end
 
+Then(/^the radio with id "([^\"]+)" to be disabled$/) do |id|
+  expect(page).to have_field(id, :type => 'radio', :disabled => true)
+end
+
 Then(/^I should( not)? see "([^"]*)" in the "([^"]*)" input$/) do |negate, content, labeltext|
   if negate
     expect(page).not_to have_field(labeltext, with: content)

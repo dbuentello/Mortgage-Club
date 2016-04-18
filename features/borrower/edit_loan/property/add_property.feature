@@ -36,15 +36,11 @@ Feature: AddProperty
         And I fill in "Estimated Mortgage Balance" with "$123,000.00"
         Then I click on "Save and Continue"
         And I wait for 2 seconds
-        And I should see "I am applying"
-      When I click "Property"
-        And I should see "Primary Residence"
-        And I should see "Refinance"
-        And the "Estimated Mortgage Balance" field should contain "$123,000.00"
-        Then I click on "Save and Continue"
+      And I should see "Borrower"
+      Then I click on "Borrower"
         And I should see "I am applying"
         And the "first_borrower_current_address" field should contain "1920 South Las Vegas Boulevard, Las Vegas, NV 89104"
         And the "first_borrower_years_in_current_address" field should contain "22"
-        And the radio button "true_first_borrower_currently_own" should be checked
+        And the radio with id "true_first_borrower_currently_own" to be disabled
 
 
