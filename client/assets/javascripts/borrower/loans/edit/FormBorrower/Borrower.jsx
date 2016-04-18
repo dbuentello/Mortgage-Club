@@ -207,32 +207,45 @@ var Borrower = React.createClass({
             : null }
           </div>
         </div>
-
-        <div className="form-group">
-          <div className="col-md-12">
-            <AddressField
-              activateRequiredField={this.props.currentAddressError}
-              label={this.props.fields.currentAddress.label}
-              address={this.props.currentAddress}
-              keyName={this.props.fields.currentAddress.name}
-              editable={true}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
-              onChange={this.props.onChange}
-              validationTypes={["address"]}
-              editMode={this.props.editMode}/>
-          </div>
-        </div>
         {
           this.props.isCoBorrower
           ?
           <div className="form-group">
             <div className="col-md-12">
-              <input type="checkbox" onChange={this.props.setCoBorrowerAddress} className="chk-current-address" name="chkSetCoBorrowerState" />
-              <label for="chkSetCoBorrowerState">Same as borrower</label>
+              <AddressField
+                handleCheckboxChange={this.props.handleCheckboxChange}
+                hasCustomCheckbox={true}
+                titleContainerClass="col-md-4"
+                checkboxContainerClass="col-md-4 co-borrower-container"
+                checkboxText="Same As Borrower"
+                checkboxId="chkSetCoBorrowerState"
+                customTitleAddressClass={"co-borrower-current-address"}
+                activateRequiredField={this.props.currentAddressError}
+                label={this.props.fields.currentAddress.label}
+                address={this.props.currentAddress}
+                keyName={this.props.fields.currentAddress.name}
+                editable={true}
+                onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
+                onChange={this.props.onChange}
+                validationTypes={["address"]}
+                editMode={this.props.editMode}/>
             </div>
           </div>
           :
-          null
+          <div className="form-group">
+            <div className="col-md-12">
+              <AddressField
+                activateRequiredField={this.props.currentAddressError}
+                label={this.props.fields.currentAddress.label}
+                address={this.props.currentAddress}
+                keyName={this.props.fields.currentAddress.name}
+                editable={true}
+                onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
+                onChange={this.props.onChange}
+                validationTypes={["address"]}
+                editMode={this.props.editMode}/>
+            </div>
+          </div>
         }
         <div className="form-group">
           <div className="col-md-4">

@@ -227,19 +227,42 @@
   .helpful-text {font-style:italic; color:#959595; font-size:.9em; padding-top:5px;}
   .form-group .helpful-text img {display:inline-block; position:relative; bottom:0; top:0; left:0; border:none; margin-right:7px; margin-top:-5px;}
 
-  .form-group input[type=checkbox] {
+  input[type=checkbox] {
+    display: none;
     line-height: 16px;
+  }
+  input[type=checkbox] + label {
     display: inline-block;
+    max-width: 100%;
+    font-weight: bold;
+    color: $mc-color;
+    line-height: 16px;
+    margin: 5px 0;
+    font-size: 1.1em;
+    font-family: "aileronlight";
+  }
+  input[type=checkbox] + label:before {
+    color: #fff;
+    background-color: $mc-color;
+    border-radius: 3px;
+    border: none;
+    font-size: 1.1em;
+    line-height: 16px;
+  }
+  input[type=checkbox]:checked + label:before {
+    color: #fff;
+    font-size: 1.1em;
+    border: none;
+    line-height: 16px;
+    background-color: $mc-color;
+  }
+  .co-borrower-current-address {
+    margin-left: -15px;
+  }
+  .co-borrower-container {
+    margin-left: -5px;
   }
 
-  .form-group input[type=checkbox]:checked + label:before {
-    content: "";
-  }
-  .form-group input[type=checkbox] + label {
-    color: $mc-color;
-    font-size: 1.1em;
-    margin-left: 10px;
-  }
   select {
     -webkit-appearance:none;
     -moz-appearance: none;
