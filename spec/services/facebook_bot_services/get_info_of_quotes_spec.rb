@@ -2,16 +2,16 @@ require "rails_helper"
 
 describe FacebookBotServices::GetInfoOfQuotes do
   describe ".call" do
-    it "calls GetQuotesForSlackBot service" do
-      expect_any_instance_of(LoanTekServices::GetQuotesForSlackBot).to receive(:call)
+    it "calls GetQuotesForFacebookBot service" do
+      expect_any_instance_of(LoanTekServices::GetQuotesForFacebookBot).to receive(:call)
       described_class.call({})
     end
 
     context "when quotes are available" do
       it "creates new QuoteQuery's record" do
-        allow_any_instance_of(LoanTekServices::GetQuotesForSlackBot).to receive(:call).and_return(true)
-        allow_any_instance_of(LoanTekServices::GetQuotesForSlackBot).to receive(:query_content).and_return("lorem ipsum")
-        allow_any_instance_of(LoanTekServices::GetQuotesForSlackBot).to receive(:quotes).and_return([])
+        allow_any_instance_of(LoanTekServices::GetQuotesForFacebookBot).to receive(:call).and_return(true)
+        allow_any_instance_of(LoanTekServices::GetQuotesForFacebookBot).to receive(:query_content).and_return("lorem ipsum")
+        allow_any_instance_of(LoanTekServices::GetQuotesForFacebookBot).to receive(:quotes).and_return([])
 
         expect { described_class.call({}) }.to change { QuoteQuery.count }.by(1)
       end
@@ -19,7 +19,7 @@ describe FacebookBotServices::GetInfoOfQuotes do
 
     context "when quotes are not available" do
       it "returns a sorry message" do
-        allow_any_instance_of(LoanTekServices::GetQuotesForSlackBot).to receive(:call).and_return(false)
+        allow_any_instance_of(LoanTekServices::GetQuotesForFacebookBot).to receive(:call).and_return(false)
 
         expect(described_class.call({})).to eq("We're sorry, there aren't any quotes matching your needs.")
       end
