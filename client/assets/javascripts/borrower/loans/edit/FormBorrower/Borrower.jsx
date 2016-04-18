@@ -210,25 +210,28 @@ var Borrower = React.createClass({
         {
           this.props.isCoBorrower
           ?
-          <div className="form-group">
-            <div className="col-md-12">
-              <AddressField
-                handleCheckboxChange={this.props.handleCheckboxChange}
-                hasCustomCheckbox={true}
-                titleContainerClass="col-md-4"
-                checkboxContainerClass="col-md-4 co-borrower-container"
-                checkboxText="Same as borrower"
-                checkboxId="chkSetCoBorrowerState"
-                customTitleAddressClass={"co-borrower-current-address"}
-                activateRequiredField={this.props.currentAddressError}
-                label={this.props.fields.currentAddress.label}
-                address={this.props.currentAddress}
-                keyName={this.props.fields.currentAddress.name}
-                editable={true}
-                onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
-                onChange={this.props.onChange}
-                validationTypes={["address"]}
-                editMode={this.props.editMode}/>
+          <div className="col-md-12">
+            <div className="col-md-8 address-container">
+              <div className="form-group">
+                <AddressField
+                    activateRequiredField={this.props.currentAddressError}
+                    label={this.props.fields.currentAddress.label}
+                    address={this.props.currentAddress}
+                    keyName={this.props.fields.currentAddress.name}
+                    editable={true}
+                    onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
+                    onChange={this.props.onChange}
+                    validationTypes={["address"]}
+                    editMode={this.props.editMode}/>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="form-group">
+
+                  <input type="checkbox" name="chkSetCoBorrowerState" id="chkSetCoBorrowerState" onChange={this.props.setCoBorrowerAddress}/>
+                  <label className="customCheckbox blueCheckBox2" htmlFor="chkSetCoBorrowerState">Same as borrower</label>
+
+              </div>
             </div>
           </div>
           :
@@ -247,6 +250,8 @@ var Borrower = React.createClass({
             </div>
           </div>
         }
+
+
         <div className="form-group">
           <div className="col-md-4">
             <BooleanRadio
