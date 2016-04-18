@@ -11,7 +11,7 @@ module SlackBotServices
     def self.call(params)
       # host_name = ENV.fetch("HOST_NAME", "localhost:4000")
       output = "We're sorry, there aren't any quotes matching your needs."
-      service = LoanTekServices::GetQuotesForBot.new(params)
+      service = LoanTekServices::GetQuotesForSlackBot.new(params)
 
       if service.call
         quote_query = QuoteQuery.new(query: service.query_content)

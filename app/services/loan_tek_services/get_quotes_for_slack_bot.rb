@@ -1,5 +1,5 @@
 module LoanTekServices
-  class GetQuotesForBot
+  class GetQuotesForSlackBot
     attr_reader :data, :context, :response, :result
 
     def initialize(params)

@@ -4,6 +4,6 @@ class FacebookWebhooksController < ApplicationController
 
   def receive
     output = FacebookBotServices::GetInfoOfQuotes.call(params)
-    render json: { output: output }
+    render json: {output: output}
   end
 end

@@ -45,6 +45,7 @@ class InitialQuotesController < ApplicationController
     bootstrap(
       quotes: quotes,
       data_cookies: query,
+      selected_programs: params[:program],
       monthly_payment: monthly_payment
     )
 

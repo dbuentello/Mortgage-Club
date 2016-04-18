@@ -10,7 +10,7 @@ module FacebookBotServices
 
     def self.call(params)
       output = "We're sorry, there aren't any quotes matching your needs."
-      service = LoanTekServices::GetQuotesForBot.new(params)
+      service = LoanTekServices::GetQuotesForFacebookBot.new(params)
 
       if service.call
         quote_query = QuoteQuery.new(query: service.query_content)
@@ -38,13 +38,14 @@ module FacebookBotServices
         lowest_program = programs.first
         programs.each { |p| lowest_program = p if lowest_program["APR"] > p["APR"] }
         min_apr = format("%0.03f", calculate_apr(lowest_program))
-        lender_credit = number_to_currency(calculate_lender_credit(lowest_program), precision: 0)
-        fees = "$0 origination fee"
+        monthly_payment = number_to_currency(get_monthly_payment(lowest_program), precision: 0)
+        total_closing_cost = number_to_currency(get_total_closing_cost(lowest_program), precision: 0)
 
         output << {
-          title: PRODUCT[type],
-          subtitle: "#{min_apr}% rate, #{fees}, #{lender_credit} lender credit",
-          url: Rails.application.routes.url_helpers.initial_quote_url(id: quote_query.code_id, program: type, host: host_name)
+          title: "#{min_apr}% APR",
+          subtitle: "Monthly Payment: #{monthly_payment}, Estimated Closing Cost: #{total_closing_cost}",
+          url: Rails.application.routes.url_helpers.initial_quote_url(id: quote_query.code_id, program: type, host: host_name),
+          type: type
         }
       end
 
