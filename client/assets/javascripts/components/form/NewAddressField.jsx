@@ -212,22 +212,6 @@ var AddressField = React.createClass({
     return (
       <div>
         {
-          this.props.hasCustomCheckbox
-          ?
-            <div className="md-col-12">
-              <div className={this.props.titleContainerClass}>
-                <h6 className={this.props.customTitleAddressClass}>{this.props.label}</h6>
-              </div>
-              <div className={this.props.checkboxContainerClass}>
-                <input type="checkbox" name={this.props.checkboxId} id={this.props.checkboxId} onChange={this.props.handleCheckboxChange}/>
-                <label className="customCheckbox blueCheckBox2" htmlFor={this.props.checkboxId}>{this.props.checkboxText}</label>
-              </div>
-            </div>
-          :
-            <h6>{this.props.label}</h6>
-        }
-
-        {
           this.props.helpText
           ?
             <p className="helpful-text">

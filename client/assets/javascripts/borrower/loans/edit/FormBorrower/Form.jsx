@@ -191,8 +191,6 @@ var Form = React.createClass({
                 <h3>Please provide information about your co-borrower</h3>
                 <Borrower
                   isCoBorrower={true}
-                  handleCheckboxChange={this.setCoborrowerState}
-                  setCoBorrowerAddress={this.setCoborrowerState}
                   loan={this.props.loan}
                   fields={secondary_borrower_fields}
                   firstName={this.state[secondary_borrower_fields.firstName.name]}
