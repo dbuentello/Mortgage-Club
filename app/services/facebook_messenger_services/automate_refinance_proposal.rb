@@ -11,16 +11,30 @@ class FacebookMessengerServices::AutomateRefinanceProposal
   # periods: must be converted to months
   # number_of_months: for instance, I want to get loan amount of the tenth month.
   def initialize(args)
-    @old_loan_amount = args[:old_loan_amount]
-    @new_loan_amount = args[:new_loan_amount]
-    @periods = args[:periods]
-    @old_interest_rate = args[:old_interest_rate] / 12
-    @new_interest_rate = args[:new_interest_rate] / 12
-    @lender_credit = args[:lender_credit]
-    @estimated_closing_costs = args[:estimated_closing_costs]
-    @current_home_value = args[:current_home_value]
+    @old_loan_amount = args[:old_loan_amount].to_f
+    @periods = args[:periods].to_f
+    @old_interest_rate = args[:old_interest_rate].to_f / 12
+    @new_interest_rate = args[:new_interest_rate].to_f / 12
+    @lender_credit = args[:lender_credit].to_f
+    @estimated_closing_costs = args[:estimated_closing_costs].to_f
+    @current_home_value = args[:current_home_value].to_f
     @original_loan_date = DateTime.strptime(args[:original_loan_date], "%m/%d/%Y")
     @start_due_date = (Time.zone.now + 61.days).beginning_of_month
+  end
+
+  def call
+    {
+      current_mortgage_balance: current_mortgage_balance,
+      current_monthly_payment: get_monthly_payment(old_interest_rate, old_loan_amount),
+      new_monthly_payment: get_monthly_payment(new_interest_rate, new_loan_amount),
+      net_closing_costs: net_closing_costs,
+      savings_1_year: savings_in_one_year,
+      savings_3_years: savings_in_three_years,
+      savings_10_years: savings_in_ten_years,
+      cash_out: cash_out,
+      net_closing_costs: net_closing_costs,
+      monthly_payment_for_cash_out: monthly_payment_for_cash_out
+    }
   end
 
   # rate is monthly rate. It should be divided by 12
