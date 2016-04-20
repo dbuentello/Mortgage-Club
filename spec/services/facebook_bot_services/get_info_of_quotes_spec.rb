@@ -21,12 +21,12 @@ describe FacebookBotServices::GetInfoOfQuotes do
       it "returns a sorry message" do
         allow_any_instance_of(LoanTekServices::GetQuotesForFacebookBot).to receive(:call).and_return(false)
 
-        expect(described_class.call({})).to eq("We're sorry, there aren't any quotes matching your needs.")
+        expect(described_class.call({})).to eq("{\"data\":\"We're sorry, there aren't any quotes matching your needs.\",\"status_code\":404}")
       end
     end
   end
 
-  describe ".generate_output" do
+  describe ".generate_data" do
     let(:quotes) do
       [
         {
@@ -87,7 +87,7 @@ describe FacebookBotServices::GetInfoOfQuotes do
     let(:quote_query) { FactoryGirl.create(:quote_query, code_id: "MColEK3w") }
 
     it "returns a correct output" do
-      expect(described_class.generate_output(quotes, quote_query)).to eq(
+      expect(described_class.generate_data(quotes, quote_query)).to eq(
         [
           {
             title: "3.350% APR",
