@@ -67,5 +67,5 @@ Feature: AddBorrower
           Then I clear value in "first_borrower_current_address"
         Then I fill in "first_borrower_current_address" with "1920 South Las Vegas Boulevard, Las Vegas"
           And I wait for 2 seconds
-        Then I click on a first ".regular-checkbox"
+        Then I click on a first ".customCheckbox"
         And the "secondary_borrower_current_address" field should contain "1920 South Las Vegas Boulevard, Las Vegas"
