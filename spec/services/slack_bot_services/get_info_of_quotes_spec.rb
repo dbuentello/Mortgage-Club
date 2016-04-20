@@ -61,7 +61,7 @@ describe SlackBotServices::GetInfoOfQuotes do
       ]
     end
 
-    it "returns a proper summary" do
+    it "returns a correct summary" do
       expect(described_class.summary(quotes)).to eq("Good news, I've found mortgage loans for you. Lowest rates as of today: \n15 year fixed: 3.750% rate, $0 origination fee, $439 lender credit\n")
     end
 

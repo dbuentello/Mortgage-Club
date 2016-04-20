@@ -1,6 +1,6 @@
 module SlackBotServices
   class GetInfoOfQuotes
-    extend ActionView::Helpers::NumberHelper
+    extend ParseQuotesForBot
 
     PRODUCT = {
       "30yearFixed" => "30 year fixed",
@@ -43,19 +43,8 @@ module SlackBotServices
 
         summary += "#{PRODUCT[type]}: #{min_apr}% rate, #{fees}, #{lender_credit} lender credit\n"
       end
+
       summary
-    end
-
-    def self.get_valid_quotes(quotes)
-      quotes.select { |quote| quote["DiscountPts"] <= 0.125 }
-    end
-
-    def self.calculate_lender_credit(program)
-      (program["DiscountPts"].to_f / 100 * program["FeeSet"]["LoanAmount"].to_f).abs.to_i
-    end
-
-    def self.calculate_apr(program)
-      program["DiscountPts"] == 0.125 ? program["Rate"] : program["APR"]
     end
   end
 end
