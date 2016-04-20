@@ -40,7 +40,8 @@ module FacebookBotServices
         programs.each { |p| lowest_program = p if lowest_program["APR"] > p["APR"] }
         min_apr = format("%0.03f", calculate_apr(lowest_program))
         monthly_payment = number_to_currency(get_monthly_payment(lowest_program), precision: 0)
-        total_closing_cost = number_to_currency(get_total_closing_cost(lowest_program), precision: 0)
+        admin_fee = get_admin_fee(lowest_program)
+        total_closing_cost = number_to_currency(get_total_closing_cost(lowest_program, admin_fee), precision: 0)
 
         data << {
           title: "#{min_apr}% APR",

@@ -22,10 +22,26 @@ module ParseQuotesForBot
     payment.round
   end
 
-  def get_total_closing_cost(quote)
-    total_fee = quote["FeeSet"]["TotalFees"].to_f
-    lender_credit = get_lender_credits(quote)
+  def get_total_closing_cost(quote, admin_fee)
+    total_fee = get_total_fee(quote, admin_fee)
+    lender_credit = get_lender_credits(quote, admin_fee)
+
     total_fee + lender_credit
+  end
+
+  def get_total_fee(quote, admin_fee)
+    quote["FeeSet"]["TotalFees"].to_f - admin_fee
+  end
+
+  def get_admin_fee(quote)
+    return 0 unless quote["FeeSet"]
+    return 0 unless quote["FeeSet"]["Fees"]
+
+    admin_fee = quote["FeeSet"]["Fees"].find { |q| q["Description"] == "Administration fee" }
+
+    return 0 unless admin_fee
+
+    admin_fee["FeeAmount"].to_f
   end
 
   def get_period(quote)
@@ -38,10 +54,15 @@ module ParseQuotesForBot
     quote["Rate"].to_f / 100
   end
 
-  def get_lender_credits(quote)
-    return 0 if quote["DiscountPts"].nil? || quote["DiscountPts"] == 0.125
+  def get_lender_credits(quote, admin_fee)
+    return 0 if quote["DiscountPts"].nil?
+    return 0 if quote["DiscountPts"].to_f >= 0 && quote["DiscountPts"].to_f <= 0.125
 
-    quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"]
+    total_fee = quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"] + admin_fee
+
+    return 0 if total_fee >= 0 && total_fee <= 1000
+
+    total_fee
   end
 
   def arm?(quote)
