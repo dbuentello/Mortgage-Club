@@ -36,8 +36,10 @@ var Quotes = React.createClass({
         case "5yearARM":
           $("input[name=51arm]").trigger("click");
           break;
-        default:
       }
+    }
+    else {
+      $("input[name=30years]").trigger("click");
     }
   },
 

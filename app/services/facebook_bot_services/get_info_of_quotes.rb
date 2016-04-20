@@ -25,7 +25,7 @@ module FacebookBotServices
     end
 
     def self.generate_data(quotes, quote_query)
-      return if quotes.nil?
+      return unless quotes.present?
       quotes = get_valid_quotes(quotes)
       return if quotes.empty?
 
