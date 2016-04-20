@@ -217,8 +217,8 @@ var AddressField = React.createClass({
         {
           this.props.hasCustomCheckbox
           ?
-            <div className="col-md-12">
-              <div className="col-md-8">
+            <div className="col-md-12 title-container">
+              <div className="col-md-8 title-container">
                 <h6>
                   {this.props.label}
                 </h6>
