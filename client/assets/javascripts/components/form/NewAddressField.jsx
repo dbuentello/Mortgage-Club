@@ -110,7 +110,8 @@ var AddressField = React.createClass({
   },
 
   componentDidMount: function() {
-    this.initAutocomplete(this.getDOMNode().getElementsByTagName('input')[0]);
+    var placeInput = this.getDOMNode().getElementsByTagName('input').length > 1 ? this.getDOMNode().getElementsByTagName('input')[1] : this.getDOMNode().getElementsByTagName('input')[0];
+    this.initAutocomplete(placeInput);
   },
 
   componentWillUnmount: function() {
@@ -211,7 +212,27 @@ var AddressField = React.createClass({
 
     return (
       <div>
-        <h6>{this.props.label}</h6>
+
+
+        {
+          this.props.hasCustomCheckbox
+          ?
+            <div className="col-md-12">
+              <div className="col-md-8">
+                <h6>
+                  {this.props.label}
+                </h6>
+              </div>
+              <div className="col-md-4">
+                <input type="checkbox" id="checkbox-borrower" onChange={this.props.handleCheckboxChange}/>
+                <label htmlFor="checkbox-borrower" className="customCheckbox blueCheckbox2">Same as borrower</label>
+              </div>
+
+
+            </div>
+          :
+          <h6>{this.props.label}</h6>
+        }
         {
           this.props.helpText
           ?
