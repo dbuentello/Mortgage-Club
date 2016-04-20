@@ -93,19 +93,22 @@ describe FacebookBotServices::GetInfoOfQuotes do
             title: "3.350% APR",
             subtitle: "Monthly Payment: $1,607, Estimated Closing Cost: $1,954",
             url: "http://localhost:4000/quotes/MColEK3w?program=30yearFixed",
-            type: "30yearFixed"
+            type: "30yearFixed",
+            img_url: "https://s3-us-west-2.amazonaws.com/production-homieo/facebook_messenger/30_year_fixed.jpg"
           },
           {
             title: "2.750% APR",
             subtitle: "Monthly Payment: $2,477, Estimated Closing Cost: $1,954",
             url: "http://localhost:4000/quotes/MColEK3w?program=15yearFixed",
-            type: "15yearFixed"
+            type: "15yearFixed",
+            img_url: "https://s3-us-west-2.amazonaws.com/production-homieo/facebook_messenger/15_year_fixed.jpg"
           },
           {
             title: "2.500% APR",
             subtitle: "Monthly Payment: $1,432, Estimated Closing Cost: $1,954",
             url: "http://localhost:4000/quotes/MColEK3w?program=5yearARM",
-            type: "5yearARM"
+            type: "5yearARM",
+            img_url: "https://s3-us-west-2.amazonaws.com/production-homieo/facebook_messenger/5_1_ARM.jpg"
           }
         ]
       )
