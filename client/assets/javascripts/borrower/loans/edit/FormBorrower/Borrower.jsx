@@ -208,31 +208,47 @@ var Borrower = React.createClass({
           </div>
         </div>
 
-        <div className="form-group">
-          <div className="col-md-12">
-            <AddressField
-              activateRequiredField={this.props.currentAddressError}
-              label={this.props.fields.currentAddress.label}
-              address={this.props.currentAddress}
-              keyName={this.props.fields.currentAddress.name}
-              editable={true}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
-              onChange={this.props.onChange}
-              validationTypes={["address"]}
-              editMode={this.props.editMode}/>
-          </div>
-        </div>
+
         {
           this.props.isCoBorrower
           ?
-          <div className="form-group">
-            <div className="col-md-12">
-              <input type="checkbox" onChange={this.props.setCoBorrowerAddress} className="chk-current-address" name="chkSetCoBorrowerState" />
-              <label for="chkSetCoBorrowerState">Same as borrower</label>
+          <div className="row">
+            <div className="col-md-8">
+              <div className="form-group">
+                <div className="col-md-12">
+                  <AddressField
+                      activateRequiredField={this.props.currentAddressError}
+                      label={this.props.fields.currentAddress.label}
+                      address={this.props.currentAddress}
+                      keyName={this.props.fields.currentAddress.name}
+                      editable={true}
+                      onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
+                      onChange={this.props.onChange}
+                      validationTypes={["address"]}
+                      editMode={this.props.editMode}/>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <input type="checkbox" id="checkbox-borrower" onChange={this.props.setCoBorrowerAddress} className="regular-checkbox"/>
+              <label htmlFor="checkbox-borrower">Same as borrower</label>
             </div>
           </div>
           :
-          null
+          <div className="form-group">
+            <div className="col-md-12">
+              <AddressField
+                activateRequiredField={this.props.currentAddressError}
+                label={this.props.fields.currentAddress.label}
+                address={this.props.currentAddress}
+                keyName={this.props.fields.currentAddress.name}
+                editable={true}
+                onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
+                onChange={this.props.onChange}
+                validationTypes={["address"]}
+                editMode={this.props.editMode}/>
+            </div>
+          </div>
         }
         <div className="form-group">
           <div className="col-md-4">
