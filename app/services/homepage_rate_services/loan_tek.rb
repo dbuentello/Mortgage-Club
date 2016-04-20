@@ -25,27 +25,24 @@ module HomepageRateServices
           LoanProgramsOfInterest: [1, 2, 3]
         }.to_json
       end
-
-      response.status == 200 ? sort_rates(JSON.parse(response.body)["Quotes"]) : []
+      response.status == 200 ? sort_rates(LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"])) : []
     end
 
     def self.sort_rates(quotes)
-      apr_30_year = 100
-      apr_15_year = 100
-      apr_5_libor = 100
+      apr_30_year = 1
+      apr_15_year = 1
+      apr_5_libor = 1
 
       quotes.each do |quote|
-        next unless quote["DiscountPts"] > -1
-
-        apr_30_year = quote["APR"] if quote["ProductName"] == "30yearFixed" && quote["APR"] < apr_30_year
-        apr_15_year = quote["APR"] if quote["ProductName"] == "15yearFixed" && quote["APR"] < apr_15_year
-        apr_5_libor = quote["APR"] if quote["ProductName"] == "5yearARM" && quote["APR"] < apr_5_libor
+        apr_30_year = quote[:apr] if quote[:product] == "30 year fixed" && quote[:apr] < apr_30_year
+        apr_15_year = quote[:apr] if quote[:product] == "15 year fixed" && quote[:apr] < apr_15_year
+        apr_5_libor = quote[:apr] if quote[:product] == "5/1 ARM" && quote[:apr] < apr_5_libor
       end
 
       {
-        "apr_30_year" => apr_30_year == 100 ? nil : apr_30_year,
-        "apr_15_year" => apr_15_year == 100 ? nil : apr_15_year,
-        "apr_5_libor" => apr_5_libor == 100 ? nil : apr_5_libor
+        "apr_30_year" => apr_30_year == 1 ? nil : apr_30_year * 100,
+        "apr_15_year" => apr_15_year == 1 ? nil : apr_15_year * 100,
+        "apr_5_libor" => apr_5_libor == 1 ? nil : apr_5_libor * 100
       }
     end
   end
