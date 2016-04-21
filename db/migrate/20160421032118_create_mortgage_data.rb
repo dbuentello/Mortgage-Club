@@ -1,9 +1,9 @@
-class CreateMortgageDataTable < ActiveRecord::Migration
+class CreateMortgageData < ActiveRecord::Migration
   def change
     create_table :mortgage_data, id: :uuid do |t|
       t.string :property_address, index: true
-      t.string :owner_name_1
-      t.string :owner_name_2
+      t.string :owner_name_1, index: true
+      t.string :owner_name_2, index: true
       t.decimal :original_purchase_price, precision: 13, scale: 2
       t.date :original_loan_date
       t.decimal :original_loan_amount, precision: 13, scale: 2
