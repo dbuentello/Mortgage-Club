@@ -30,8 +30,9 @@ Feature: AddProperty
         And I choose "false_purpose"
         And I clear value in "Original Purchase Price"
         Then I fill in "Original Purchase Price" with "$52,345.00"
+        And I wait for 2 second
         And I clear value in "Purchase Year"
-        Then I fill in "Purchase Year" with "1995"
+        Then I fill in "Purchase Year" with "1996"
         Then I clear value in "Estimated Mortgage Balance"
         And I fill in "Estimated Mortgage Balance" with "$123,000.00"
         Then I click on "Save and Continue"
@@ -40,7 +41,5 @@ Feature: AddProperty
       Then I click on "Borrower"
         And I should see "I am applying"
         And the "first_borrower_current_address" field should contain "1920 South Las Vegas Boulevard, Las Vegas, NV 89104"
-        And the "first_borrower_years_in_current_address" field should contain "22"
+        And the "first_borrower_years_in_current_address" field should contain "21"
         And the radio with id "true_first_borrower_currently_own" to be disabled
-
-
