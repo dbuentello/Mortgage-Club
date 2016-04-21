@@ -1,4 +1,4 @@
-module SlackBotServices
+module BotNotificationServices
   module ParseData
     def parsed_data(params)
       return unless data = params["result"]

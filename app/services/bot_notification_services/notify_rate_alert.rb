@@ -1,5 +1,5 @@
 # send email to Billy to notify that user wants to sign up for rate alert.
-module SlackBotServices
+module BotNotificationServices
   class NotifyRateAlert
     extend ParseData
 
