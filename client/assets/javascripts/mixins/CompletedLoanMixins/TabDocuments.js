@@ -1,10 +1,18 @@
 var BORROWER_SELF_EMPLOYED = ["first_personal_tax_return", "second_personal_tax_return", "first_business_tax_return", "second_business_tax_return", "first_bank_statement", "second_bank_statement"];
 
+var COBORROWER_SELF_EMPLOYED = ["first_personal_tax_return", "second_personal_tax_return", "first_business_tax_return", "second_business_tax_return"];
+
 var BORROWER_SELF_EMPLOYED_TAXES_JOINLY = ["first_business_tax_return", "second_business_tax_return", "first_bank_statement", "second_bank_statement"];
+
+var COBORROWER_SELF_EMPLOYED_TAXES_JOINLY = ["first_business_tax_return", "second_business_tax_return"];
 
 var BORROWER_NOT_SELF_EMPLOYED = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_federal_tax_return", "second_federal_tax_return", "first_bank_statement", "second_bank_statement"];
 
+var COBORROWER_NOT_SELF_EMPLOYED = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_federal_tax_return", "second_federal_tax_return"];
+
 var BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_bank_statement", "second_bank_statement"];
+
+var COBORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY = ["first_w2", "second_w2", "first_paystub", "second_paystub"];
 
 var TabDocuments = {
   documentsCompleted: function(loan){
@@ -25,7 +33,7 @@ var TabDocuments = {
   },
 
   secondaryJointlyDocumentCompleted: function(secondaryBorrower){
-    var requiredDocuments = secondaryBorrower.self_employed ? BORROWER_SELF_EMPLOYED_TAXES_JOINLY.slice(0, -2) : BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY.slice(0, -2)
+    var requiredDocuments = secondaryBorrower.self_employed ? COBORROWER_SELF_EMPLOYED_TAXES_JOINLY : COBORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY
     var currentDocuments = secondaryBorrower.documents.map(function(document){
       return document.document_type;
     });
@@ -50,8 +58,9 @@ var TabDocuments = {
 
     return  uploadedDocuments.length == 0;
   },
+
   coBorrowerNotJointlyDocumentCompleted: function(notJointlyCoBorrower){
-    var requiredDocuments = notJointlyCoBorrower.self_employed ? BORROWER_SELF_EMPLOYED.slice(0, -2) : BORROWER_NOT_SELF_EMPLOYED.slice(0, -2)
+    var requiredDocuments = notJointlyCoBorrower.self_employed ? COBORROWER_SELF_EMPLOYED : COBORROWER_NOT_SELF_EMPLOYED
 
     var currentDocuments = notJointlyCoBorrower.documents.map(function(document){
       return document.document_type;
