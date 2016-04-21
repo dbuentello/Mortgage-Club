@@ -72,6 +72,8 @@ module LoanTekServices
         property_type = 13
       when "condo"
         property_type = 3
+      when "multi_family"
+        property_type = 11
       else
         property_type = 0
       end
