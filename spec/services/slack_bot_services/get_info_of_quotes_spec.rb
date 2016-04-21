@@ -29,7 +29,7 @@ describe SlackBotServices::GetInfoOfQuotes do
   describe ".summary" do
     let(:quotes) do
       [
-        "DiscountPts" => 0.122,
+        "DiscountPts" => -0.102,
         "LenderName" => "Provident Funding",
         "ProductName" => "15yearFixed",
         "Fees" => -1520.0,
@@ -62,7 +62,7 @@ describe SlackBotServices::GetInfoOfQuotes do
     end
 
     it "returns a correct summary" do
-      expect(described_class.summary(quotes)).to eq("Good news, I've found mortgage loans for you. Lowest rates as of today: \n15 year fixed: 3.750% rate, $0 origination fee, $439 lender credit\n")
+      expect(described_class.summary(quotes)).to eq("Good news, I've found mortgage loans for you. Lowest rates as of today: \n15 year fixed: 3.750% rate, $0 origination fee, $367 lender credit\n")
     end
 
     context "when there are not any quotes having DiscountPts less than 0.125" do
@@ -127,18 +127,6 @@ describe SlackBotServices::GetInfoOfQuotes do
         }
         expect(described_class.calculate_apr(program)).to eq(3.222)
       end
-    end
-  end
-
-  describe ".calculate_lender_credit" do
-    it "calculates correctly" do
-      program = {
-        "DiscountPts" => -1.233,
-        "FeeSet" => {
-          "LoanAmount" => 456000
-        }
-      }
-      expect(described_class.calculate_lender_credit(program)).to eq(5622)
     end
   end
 end
