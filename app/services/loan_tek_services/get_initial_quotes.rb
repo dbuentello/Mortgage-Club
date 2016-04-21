@@ -64,7 +64,7 @@ module LoanTekServices
       case info["property_type"]
       when "sfh"
         property_type = 1
-      when "duplex"
+      when "duplex", "multi_family"
         property_type = 11
       when "triplex"
         property_type = 12
@@ -72,8 +72,6 @@ module LoanTekServices
         property_type = 13
       when "condo"
         property_type = 3
-      when "multi_family"
-        property_type = 11
       else
         property_type = 0
       end
