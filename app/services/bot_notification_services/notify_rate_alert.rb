@@ -4,10 +4,13 @@ module BotNotificationServices
     extend ParseData
 
     def self.call(params)
+      output = {}
       if data = parsed_data(params)
-        MortgageBotMailer.inform_rate_information(data).deliver_later
+        MortgageBotMailer.inform_rate_information(data, params[:source]).deliver_later
       end
-      "Awesome, we'll notify you when rates drop. Goodbye!"
+      output[:data] = "Awesome, we'll notify you when rates drop. Goodbye!"
+      output[:status_code] = 200
+      output.to_json
     end
   end
 end
