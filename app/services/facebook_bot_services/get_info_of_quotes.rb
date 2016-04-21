@@ -41,11 +41,12 @@ module FacebookBotServices
         min_apr = format("%0.03f", calculate_apr(lowest_program))
         monthly_payment = number_to_currency(get_monthly_payment(lowest_program), precision: 0)
         admin_fee = get_admin_fee(lowest_program)
-        total_closing_cost = number_to_currency(get_total_closing_cost(lowest_program, admin_fee), precision: 0)
+        lender_credit = number_to_currency(get_lender_credits(lowest_program, admin_fee).abs.to_i, precision: 0)
+        total_fee = number_to_currency(get_total_fee(lowest_program, admin_fee), precision: 0)
 
         data << {
           title: "#{min_apr}% APR",
-          subtitle: "Monthly Payment: #{monthly_payment}, Estimated Closing Cost: #{total_closing_cost}",
+          subtitle: "Monthly Payment: #{monthly_payment}, Lender Credit: #{lender_credit}, Est. Third Party Fees #{total_fee}",
           url: Rails.application.routes.url_helpers.initial_quote_url(id: quote_query.code_id, program: type, host: host_name),
           type: type,
           img_url: get_img_url(type)
@@ -57,7 +58,7 @@ module FacebookBotServices
 
     def self.default_output
       {
-        data: "We're sorry, there aren't any quotes matching your needs.",
+        data: "Sorry, I can't find any mortgage loans for you. I've asked my human colleagues to look into it. To go back to the main menu, simply type" + ' "start over"!',
         status_code: 404
       }
     end

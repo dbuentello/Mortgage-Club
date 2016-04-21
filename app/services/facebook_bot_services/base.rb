@@ -1,4 +1,4 @@
-module SlackBotServices
+module FacebookBotServices
   class Base
     attr_reader :service, :params
 
@@ -16,7 +16,7 @@ module SlackBotServices
     def select_service
       case conversation
       when "get-quotes"
-        return SlackBotServices::GetInfoOfQuotes
+        return FacebookBotServices::GetInfoOfQuotes
       when "create-account"
         return BotNotificationServices::NotifySignUp
       when "create-rate-alert"

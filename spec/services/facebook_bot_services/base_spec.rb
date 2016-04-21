@@ -1,12 +1,12 @@
 require "rails_helper"
 
-module SlackBotServices
+module FacebookBotServices
   describe Base do
     describe "#call" do
       context "with service" do
-        it "calls a SlackBot service" do
+        it "calls a FacebookBot service" do
           allow_any_instance_of(described_class).to receive(:conversation).and_return("get-quotes")
-          expect(SlackBotServices::GetInfoOfQuotes).to receive(:call)
+          expect(FacebookBotServices::GetInfoOfQuotes).to receive(:call)
 
           described_class.new({}).call
         end
@@ -23,7 +23,7 @@ module SlackBotServices
       context "with get-quotes" do
         it "returns correct class name" do
           allow_any_instance_of(described_class).to receive(:conversation).and_return("get-quotes")
-          expect(described_class.new({}).select_service).to eq(SlackBotServices::GetInfoOfQuotes)
+          expect(described_class.new({}).select_service).to eq(FacebookBotServices::GetInfoOfQuotes)
         end
       end
 

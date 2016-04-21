@@ -5,7 +5,7 @@ class FacebookWebhooksController < ApplicationController
   FB_BOT_HEADER_VALUE = "MCfB!".freeze
 
   def receive
-    output = FacebookBotServices::GetInfoOfQuotes.call(params)
+    output = FacebookBotServices::Base.new(params).call
 
     render json: {
       speech: output,

@@ -1,5 +1,5 @@
 # send email to Billy to notify that user wants to sign up.
-module SlackBotServices
+module BotNotificationServices
   class NotifySignUp
     extend ParseData
 
