@@ -1,0 +1,26 @@
+var React = require("react/addons");
+var TextFormatMixin = require("mixins/TextFormatMixin");
+var MortgageDataTable = require("./MortgageDataTable")
+
+var Borrowers = React.createClass({
+  mixins: [TextFormatMixin],
+
+  getInitialState: function() {
+    return {
+    }
+  },
+
+
+  render: function() {
+    return (
+    <div>
+      <form name="search">
+        <input type="text" name="address"/>
+        <button type="submit">Search </button>
+      </form>
+    </div>
+    );
+  }
+});
+
+module.exports = Borrowers;

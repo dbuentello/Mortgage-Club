@@ -9,6 +9,7 @@ var RouteHandler = Router.RouteHandler;
 var FlashHandler = require("mixins/FlashHandler");
 var AppStarter = require("tools/AppStarter");
 var Loans = require("admin/Loans");
+var MortgageData = require("admin/mortgage_data_managements/MortgageData");
 
 var LoanMemberManagements = require("admin/member_managements/Managements");
 var EditMemberPage = require("admin/member_managements/EditPage");
@@ -92,6 +93,8 @@ var routes = (
     <Route path="/potential_rate_drop_user_managements/:id/edit" handler={EditPotentialRateDropUserPage}/>
 
     <Route path="/borrower_managements" handler={BorrowerManagements}/>
+    <Route path="/mortgage_data" handler={MortgageData}/>
+
     <DefaultRoute handler={Loans}/>
   </Route>
 );
