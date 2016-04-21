@@ -21,7 +21,7 @@ describe FacebookBotServices::GetInfoOfQuotes do
       it "returns a sorry message" do
         allow_any_instance_of(LoanTekServices::GetQuotesForFacebookBot).to receive(:call).and_return(false)
 
-        expect(described_class.call({})).to eq("{\"data\":\"We're sorry, there aren't any quotes matching your needs.\",\"status_code\":404}")
+        expect(described_class.call({})).to eq("{\"data\":\"Sorry, I can't find any mortgage loans for you. I've asked my human colleagues to look into it. To go back to the main menu, simply type \\\"start over\\\"!\",\"status_code\":404}")
       end
     end
   end

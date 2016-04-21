@@ -57,7 +57,7 @@ module FacebookBotServices
 
     def self.default_output
       {
-        data: "We're sorry, there aren't any quotes matching your needs.",
+        data: "Sorry, I can't find any mortgage loans for you. I've asked my human colleagues to look into it. To go back to the main menu, simply type" + ' "start over"!',
         status_code: 404
       }
     end
