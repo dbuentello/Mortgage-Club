@@ -1,16 +1,16 @@
 module LoanTekServices
   class GetQuotesForFacebookBot
-    attr_reader :data, :context, :response, :result
+    attr_reader :data, :parameters, :response, :result
 
     def initialize(params)
       @data = params["result"] if params["result"].present?
-      @context = data["contexts"].last if @data
+      @parameters = data["parameters"] if @data
       @response = []
       @result = []
     end
 
     def call
-      return false unless data && context
+      return false unless data && parameters
 
       url = "https://api.loantek.com/Clients/WebServices/Client/#{ENV['LOANTEK_CLIENT_ID']}/Pricing/V2/Quotes/LoanPricer/#{ENV['LOANTEK_USER_ID']}"
       connection = Faraday.new(url: url)
@@ -41,10 +41,10 @@ module LoanTekServices
       {
         zip_code: zip_code,
         credit_score: credit_score,
-        mortgage_purpose: context["parameters"]["purpose"],
+        mortgage_purpose: parameters["purpose"],
         property_value: property_value,
-        property_usage: context["parameters"]["usage"],
-        property_type: context["parameters"]["property_type"],
+        property_usage: parameters["usage"],
+        property_type: parameters["property_type"],
         down_payment: down_payment,
         mortgage_balance: mortgage_balance
       }.to_json
@@ -66,13 +66,11 @@ module LoanTekServices
     end
 
     def zip_code
-      context["parameters"]["zipcode"].to_i
+      parameters["zipcode"].to_i
     end
 
     def credit_score
-      return unless data["parameters"]
-
-      data["parameters"]["credit_score"].to_i
+      parameters["credit_score"].to_i
     end
 
     def loan_purpose
@@ -96,7 +94,7 @@ module LoanTekServices
     end
 
     def usage
-      case context["parameters"]["usage"]
+      case parameters["usage"]
       when "primary_residence"
         usage = 1
       when "vacation_home"
@@ -110,7 +108,7 @@ module LoanTekServices
     end
 
     def property_type
-      case context["parameters"]["property_type"]
+      case parameters["property_type"]
       when "sfh"
         property_type = 1
       when "multi_family"
@@ -124,23 +122,23 @@ module LoanTekServices
     end
 
     def property_value
-      context["parameters"]["property_value"].to_i
+      parameters["property_value"].to_i
     end
 
     def mortgage_balance
-      context["parameters"]["mortgage_balance"].to_i
+      parameters["mortgage_balance"].to_i
     end
 
     def down_payment
-      context["parameters"]["down_payment"].to_i
+      parameters["down_payment"].to_i
     end
 
     def purchase_loan?
-      context["parameters"]["purpose"] == "purchase"
+      parameters["purpose"] == "purchase"
     end
 
     def refinance_loan?
-      context["parameters"]["purpose"] == "refinance"
+      parameters["purpose"] == "refinance"
     end
 
     def get_lowest_value(programs, type)
