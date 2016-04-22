@@ -55,15 +55,15 @@ var Borrowers = React.createClass({
                     <dt> Original Lender Average Overlay:</dt>
                     <dd>{record.original_lender_average_overlay}</dd>
                     <dt> Original Estimated Rate:</dt>
-                    <dd>{record.original_estimated_interest_rate}</dd>
+                    <dd>{this.commafy(record.original_estimated_interest_rate*100, 3)}%</dd>
                     <dt> Date of Proposal:</dt>
                     <dd>{record.date_of_proposal}</dd>
                     <dt> Original Estimated Mortgage Balance:</dt>
-                    <dd>{record.original_estimated_mortgage_balance}</dd>
+                    <dd>{this.formatCurrency(record.original_estimated_mortgage_balance, "$")}</dd>
                     <dt> Original Monthly Payment:</dt>
-                    <dd>{record.original_monthly_payment}</dd>
+                    <dd>{this.formatCurrency(record.original_monthly_payment, "$")}</dd>
                     <dt> Original Estimated Home Value:</dt>
-                    <dd>{record.original_estimated_home_value}</dd>
+                    <dd>{this.formatCurrency(record.original_estimated_home_value, "$")}</dd>
                   </dl>
 
                   <h3> Lower Rate </h3>
