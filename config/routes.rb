@@ -209,6 +209,7 @@ Rails.application.routes.draw do
   resources :facebook_webhooks, only: [] do
     collection do
       post "receive"
+      post "save_data"
     end
   end
 
