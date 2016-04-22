@@ -64,7 +64,7 @@ var List = React.createClass({
   },
 
   calDownPayment: function(down_payment, loan_amount){
-    if(down_payment == null || down_payment == undefined)
+    if(!down_payment)
       return 0;
 
     return parseFloat(down_payment/(down_payment + loan_amount)) * 100;
