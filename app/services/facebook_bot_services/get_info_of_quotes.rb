@@ -20,7 +20,6 @@ module FacebookBotServices
           output[:status_code] = 200
         end
       end
-
       output.to_json
     end
 
