@@ -207,20 +207,48 @@ var Borrower = React.createClass({
             : null }
           </div>
         </div>
-        <div className="form-group">
-          <div className="col-md-12">
-            <AddressField
-              activateRequiredField={this.props.currentAddressError}
-              label={this.props.fields.currentAddress.label}
-              address={this.props.currentAddress}
-              keyName={this.props.fields.currentAddress.name}
-              editable={true}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
-              onChange={this.props.onChange}
-              validationTypes={["address"]}
-              editMode={this.props.editMode}/>
+
+
+        {
+          this.props.isCoBorrower
+          ?
+          <div className="row">
+            <div className="col-md-12">
+              <div className="form-group">
+                <div className="col-md-12">
+                  <AddressField
+                    hasCustomCheckbox={true}
+                    handleCheckboxChange={this.props.setCoBorrowerAddress}
+                    activateRequiredField={this.props.currentAddressError}
+                    label={this.props.fields.currentAddress.label}
+                    address={this.props.currentAddress}
+                    keyName={this.props.fields.currentAddress.name}
+                    editable={true}
+                    onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
+                    onChange={this.props.onChange}
+                    validationTypes={["address"]}
+                    editMode={this.props.editMode}/>
+                </div>
+              </div>
+            </div>
+
           </div>
-        </div>
+          :
+          <div className="form-group">
+            <div className="col-md-12">
+              <AddressField
+                activateRequiredField={this.props.currentAddressError}
+                label={this.props.fields.currentAddress.label}
+                address={this.props.currentAddress}
+                keyName={this.props.fields.currentAddress.name}
+                editable={true}
+                onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentAddress)}
+                onChange={this.props.onChange}
+                validationTypes={["address"]}
+                editMode={this.props.editMode}/>
+            </div>
+          </div>
+        }
         <div className="form-group">
           <div className="col-md-4">
             <BooleanRadio
@@ -233,7 +261,7 @@ var Borrower = React.createClass({
               editable={true}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.currentlyOwn)}
               onChange={this.props.onChange}
-              editMode={this.props.editMode}/>
+              editMode={this.props.editMode && this.props.currentlyOwnEnabled}/>
           </div>
           <div className="col-md-4">
             { this.props.currentlyOwn == false

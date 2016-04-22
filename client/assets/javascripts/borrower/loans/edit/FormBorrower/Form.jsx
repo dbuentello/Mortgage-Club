@@ -33,7 +33,7 @@ var borrower_fields = {
   numberOfDependents: {label: 'Number of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "numberOfDependencesError", validationTypes: ["empty", "integer"]},
   dependentAges: {label: 'Ages of Dependents', name: 'first_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: "dependentAgesError", validationTypes: ["empty", "agesOfDependents"]},
   currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null, error: "currentAddressError", validationTypes: ["empty", "address"]},
-  currentlyOwn: {label: 'Own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "currentlyOwnError", validationTypes: ["empty"]},
+  currentlyOwn: {label: 'Own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null, isEnabled: true ,error: "currentlyOwnError", validationTypes: ["empty"]},
   selfEmployed: {label: 'Are you self-employed?', name: 'first_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "selfEmployedError", validationTypes: ["empty"]},
   yearsInCurrentAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "yearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
   previousAddress: {label: 'Your previous address', name: 'first_borrower_previous_address', fieldName: 'previous_address', helpText: null, error: "previousAddressError", validationTypes: ["empty"]},
@@ -107,6 +107,19 @@ var Form = React.createClass({
     this.setState(change);
   },
 
+  setCoborrowerState: function(change) {
+    if (change.currentTarget.checked === true){
+      var state = this.state;
+      var updatedState = {};
+      var borrowerAddress = state[borrower_fields.currentAddress.name];
+      updatedState[secondary_borrower_fields.currentAddress.name] = state[borrower_fields.currentAddress.name];
+      updatedState[secondary_borrower_fields.currentlyOwn.name] = state[borrower_fields.currentlyOwn.name];
+      updatedState[secondary_borrower_fields.currentMonthlyRent.name] = state[borrower_fields.currentMonthlyRent.name];
+      updatedState[secondary_borrower_fields.yearsInCurrentAddress.name] = state[borrower_fields.yearsInCurrentAddress.name];
+      this.setState(updatedState);
+    }
+  },
+
   render: function() {
     return (
       <div className="col-xs-9 account-content">
@@ -168,7 +181,8 @@ var Form = React.createClass({
             onChange={this.onChange}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
-            editMode={this.props.editMode}/>
+            editMode={this.props.editMode}
+            currentlyOwnEnabled={this.state[borrower_fields.currentlyOwn.isEnabled]}/>
 
             { this.state.hasSecondaryBorrower ?
               <div className="box mtn">
@@ -176,6 +190,8 @@ var Form = React.createClass({
                 <br/>
                 <h3>Please provide information about your co-borrower</h3>
                 <Borrower
+                  isCoBorrower={true}
+                  setCoBorrowerAddress={this.setCoborrowerState}
                   loan={this.props.loan}
                   fields={secondary_borrower_fields}
                   firstName={this.state[secondary_borrower_fields.firstName.name]}
@@ -291,6 +307,11 @@ var Form = React.createClass({
       console.log('cannot find proper case for borrower_type');
     };
 
+    // fill out information for the case refinance subject_property and the
+    // property is primary residence
+    if(loan.purpose == "refinance" && loan.subject_property.usage == "primary_residence") {
+      state.subject_property = loan.subject_property
+    }
     // build state for borrower
     state = this.buildStateFromBorrower(state, borrower, first_borrower_user, borrower_fields);
 
@@ -321,6 +342,21 @@ var Form = React.createClass({
         state[fields.currentMonthlyRent.name] = this.formatCurrency(currentBorrowerAddress.monthly_rent);
       }
     };
+
+    if(state.subject_property) {
+      var address = state.subject_property.address;
+      var address_attributes = {full_text: address.full_text,
+        street_address2: address.street_address2,
+        street_address: address.street_address,
+        zip: address.zip,
+        state: address.state,
+        city: address.city
+      };
+      state[fields.currentAddress.name] = address_attributes;
+      state[fields.yearsInCurrentAddress.name] = (new Date(Date.now()).getFullYear()) * 1 - (state.subject_property.original_purchase_year) * 1 + 1;
+      state[fields.currentlyOwn.name] = true;
+      state[fields.currentlyOwn.isEnabled] = false;
+    }
 
     var previousBorrowerAddress = borrower[fields.previousAddress.fieldName];
     if (previousBorrowerAddress) {

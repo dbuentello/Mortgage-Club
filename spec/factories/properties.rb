@@ -14,6 +14,7 @@ FactoryGirl.define do
     f.is_impound_account { [true, false].sample }
     f.is_primary { true }
     f.is_subject { false }
+    f.estimated_mortgage_balance { Faker::Number.number(6) }
   end
 
   factory :primary_property, parent: :property do |f|

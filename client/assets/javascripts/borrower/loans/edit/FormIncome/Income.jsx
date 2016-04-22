@@ -297,7 +297,6 @@ var Income = React.createClass({
               maxLength={15}
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.baseIncome)}
               onChange={this.props.onChange}
-              placeholder="e.g. 99,000"
               onBlur={this.props.onBlur}
               editMode={this.props.editMode}/>
           </div>
