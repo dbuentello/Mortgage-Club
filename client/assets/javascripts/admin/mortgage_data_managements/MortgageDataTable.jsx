@@ -20,7 +20,7 @@ var Borrowers = React.createClass({
               <thead>
 
                 <tr>
-                  <th>Address</th>
+                  <th>Property Address</th>
                   <th>Owner</th>
                   <th> Owner Name 2 </th>
                   <th>Original Purchase Price</th>
@@ -39,7 +39,6 @@ var Borrowers = React.createClass({
                   <th>New Loan Amount</th>
                   <th>New Interest Rate</th>
                   <th>Estimated Closing Costs</th>
-                  <th>Lender Credit </th>
                   <th>Net Closing Costs</th>
                   <th> New Monthly Payment</th>
                   <th> Savings in 1 year</th>
@@ -50,11 +49,8 @@ var Borrowers = React.createClass({
                   <th>Cash Out </th>
                   <th>New Interest Rate </th>
                   <th>Estimated Closing Costs </th>
-                  <th>Lender Credit </th>
                   <th>Net Closing Costs </th>
                   <th>New Monthly Payment </th>
-                  <th> </th>
-                  <th> </th>
                   <th> </th>
 
                 </tr>
@@ -83,7 +79,6 @@ var Borrowers = React.createClass({
                           <td>{mortgageDataRecord.lower_rate_loan_amount}</td>
                           <td>{mortgageDataRecord.lower_rate_interest_rate}</td>
                           <td>{mortgageDataRecord.lower_rate_estimated_closing_costs}</td>
-                          <td>{mortgageDataRecord.lower_rate_lender_credit}</td>
                           <td>{mortgageDataRecord.lower_rate_net_closing_costs}</td>
                           <td>{mortgageDataRecord.lower_rate_new_monthly_payment}</td>
                           <td>{mortgageDataRecord.lower_rate_savings_1year}</td>
@@ -94,13 +89,10 @@ var Borrowers = React.createClass({
                           <td>{mortgageDataRecord.cash_out_cash_amount}</td>
                           <td>{mortgageDataRecord.cash_out_interest_rate} </td>
                           <td>{mortgageDataRecord.cash_out_estimated_closing_costs} </td>
-                          <td>{mortgageDataRecord.cash_out_lender_credit} </td>
                           <td>{mortgageDataRecord.cash_out_net_closing_costs}</td>
                           <td>{mortgageDataRecord.cash_out_new_monthly_payment} </td>
                           <td><a className="btn btn-primary btn-sm member-title-action" href={"/mortgage_data/" + mortgageDataRecord.id}>More...</a>
-                            <a className="linkTypeReversed btn btn-primary btn-sm member-title-action" href={'/mortgage_data/' + mortgageDataRecord.id + '/edit'}>Edit</a></td>
-                          <td> </td>
-                          <td> </td>
+                           </td>
                       </tr>
                       )
                     }, this)
