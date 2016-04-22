@@ -29,7 +29,7 @@ module LoanTekServices
         }.to_json
       end
 
-      success? ? LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"]) : []
+      success? ? LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"], get_loan_purpose) : []
     end
 
     private

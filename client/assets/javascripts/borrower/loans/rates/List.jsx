@@ -64,7 +64,10 @@ var List = React.createClass({
   },
 
   calDownPayment: function(down_payment, loan_amount){
-    return parseFloat(down_payment/loan_amount)*100;
+    if(!down_payment)
+      return 0;
+
+    return parseFloat(down_payment/(down_payment + loan_amount)) * 100;
   },
 
   toggleHandler: function(index, event){
@@ -168,14 +171,26 @@ var List = React.createClass({
                           <p className="col-xs-12 cost">Interest Rate</p>
                           <p className="col-xs-12 cost">APR</p>
                           <p className="col-xs-12 cost">Loan amount</p>
-                          <p className="col-xs-12 cost">Down payment</p>
+                          {
+                            rate.down_payment == null
+                            ?
+                              null
+                            :
+                              <p className="col-xs-12 cost">Down payment</p>
+                          }
                         </div>
                         <div className="col-xs-6">
                           <p className="col-xs-12 cost">{rate.product}</p>
                           <p className="col-xs-12 cost">{this.commafy(rate.interest_rate * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.commafy(rate.apr * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.formatCurrency(rate.loan_amount, "$")}</p>
-                          <p className="col-xs-12 cost">{this.formatCurrency(rate.down_payment, "$")} ({this.calDownPayment(rate.down_payment, rate.loan_amount)}%)</p>
+                          {
+                            rate.down_payment == null
+                            ?
+                              null
+                            :
+                              <p className="col-xs-12 cost">{this.formatCurrency(rate.down_payment, "$")} ({this.calDownPayment(rate.down_payment, rate.loan_amount)}%)</p>
+                          }
                         </div>
                       </div>
                       <h4>Estimated Closing Costs</h4>

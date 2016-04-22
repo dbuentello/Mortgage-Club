@@ -13,7 +13,7 @@ module LoanTekServices
       "1yearARM" => "1/1 ARM"
     }
 
-    def self.call(quotes)
+    def self.call(quotes, loan_purpose)
       lender_info = get_lender_info(quotes)
 
       programs = []
@@ -39,7 +39,7 @@ module LoanTekServices
           total_fee: get_total_fee(quote, admin_fee),
           fees: get_fees(quote),
           period: get_period(quote),
-          down_payment: get_down_payment(quote),
+          down_payment: get_down_payment(quote, loan_purpose),
           monthly_payment: get_monthly_payment(quote),
           lender_credits: get_lender_credits(quote, admin_fee),
           total_closing_cost: get_total_closing_cost(quote, admin_fee),
@@ -71,8 +71,17 @@ module LoanTekServices
       lender_info
     end
 
-    def self.get_down_payment(quote)
-      quote["FeeSet"]["LoanAmount"].to_f * 0.2
+    def self.get_down_payment(quote, loan_purpose)
+      # loan purpose
+      # 1: purchase
+      # 2: refinance
+
+      return nil if loan_purpose == 2 || quote["LoanToValue"].nil?
+
+      loan_amount = quote["FeeSet"]["LoanAmount"].to_f
+      property_value = loan_amount / (quote["LoanToValue"].to_f / 100.0)
+
+      property_value - loan_amount
     end
 
     def self.get_monthly_payment(quote)
@@ -85,12 +94,12 @@ module LoanTekServices
     end
 
     def self.get_lender_credits(quote, admin_fee)
-      return 0 if quote["DiscountPts"].nil?
-      return 0 if quote["DiscountPts"].to_f >= 0 && quote["DiscountPts"].to_f <= 0.125
+      return 0.0 if quote["DiscountPts"].nil?
+      return 0.0 if quote["DiscountPts"].to_f >= 0 && quote["DiscountPts"].to_f <= 0.125
 
       total_fee = quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"] + admin_fee
 
-      return 0 if total_fee >= 0 && total_fee <= 1000
+      return 0.0 if total_fee >= 0 && total_fee <= 1000
 
       total_fee
     end
@@ -103,12 +112,12 @@ module LoanTekServices
     end
 
     def self.get_admin_fee(quote)
-      return 0 unless quote["FeeSet"]
-      return 0 unless quote["FeeSet"]["Fees"]
+      return 0.0 unless quote["FeeSet"]
+      return 0.0 unless quote["FeeSet"]["Fees"]
 
       admin_fee = quote["FeeSet"]["Fees"].find { |x| x["Description"] == "Administration fee" }
 
-      return 0 unless admin_fee
+      return 0.0 unless admin_fee
 
       admin_fee["FeeAmount"].to_f
     end
