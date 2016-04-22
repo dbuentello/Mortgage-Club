@@ -64,7 +64,7 @@ var Borrowers = React.createClass({
                     _.map(this.props.MortgageData, function(mortgageDataRecord){
                       return (
                         <tr>
-                          <td>{mortgageDataRecord.property_address}</td>
+                          <td><a href={"/mortgage_data/" + mortgageDataRecord.id}>{mortgageDataRecord.property_address}</a></td>
                           <td>{mortgageDataRecord.owner_name_2}</td>
                           <td>{mortgageDataRecord.owner_name_1} </td>
                           <td>{mortgageDataRecord.original_purchase_price}</td>
@@ -97,7 +97,8 @@ var Borrowers = React.createClass({
                           <td>{mortgageDataRecord.cash_out_lender_credit} </td>
                           <td>{mortgageDataRecord.cash_out_net_closing_costs}</td>
                           <td>{mortgageDataRecord.cash_out_new_monthly_payment} </td>
-                          <td> </td>
+                          <td><a className="btn btn-primary btn-sm member-title-action" href={"/mortgage_data/" + mortgageDataRecord.id}>More...</a>
+                            <a className="linkTypeReversed btn btn-primary btn-sm member-title-action" href={'/mortgage_data/' + mortgageDataRecord.id + '/edit'}>Edit</a></td>
                           <td> </td>
                           <td> </td>
                       </tr>
