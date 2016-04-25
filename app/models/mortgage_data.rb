@@ -1,6 +1,7 @@
 class MortgageData < ActiveRecord::Base
-  scope :search, -> (search) { where("property_address ILIKE ? OR owner_name_1 ILIKE ? OR owner_name_2 ILIKE ?", "%#{search}%", "%#{search}%", "%#{search}%") }
-  PER_PAGE = 2
+
+  self.per_page = 30
+
   PERMITTED_ATTRS = [:property_address,
     :owner_name_1,
     :owner_name_2,
@@ -37,4 +38,8 @@ class MortgageData < ActiveRecord::Base
     :cash_out_net_closing_costs,
     :cash_out_new_monthly_payment
   ]
+
+  def self.search(search)
+    where("property_address ILIKE ? OR owner_name_1 ILIKE ? OR owner_name_2 ILIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
+  end
 end

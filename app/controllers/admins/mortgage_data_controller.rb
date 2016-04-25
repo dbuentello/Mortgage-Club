@@ -1,8 +1,14 @@
 class Admins::MortgageDataController < Admins::BaseController
   def index
-    mortgage_data = MortgageData.paginate(page: params[:page], per_page: 2)
-    mortgage_data = MortgageData.search(search_params[:search]).paginate(page: params[:page], per_page: 2).order("created_at DESC") if params[:search]
-    bootstrap(mortgage_data: mortgage_data)
+    mortgage_data_all = MortgageData.all unless params[:search]
+    mortgage_data_all = MortgageData.search(search_params[:search]) if params[:search]
+    mortgage_data = mortgage_data_all.paginate(page: params[:page]).order("created_at DESC")
+    mortgage_data_count = (1.0*mortgage_data_all.count/MortgageData.per_page).ceil
+    byebug
+    bootstrap(mortgage_data: mortgage_data,
+        mortgage_data_count: mortgage_data_count,
+        current_page: (params[:page] || 1)
+      )
 
     respond_to do |format|
       format.html { render template: "admin_app" }

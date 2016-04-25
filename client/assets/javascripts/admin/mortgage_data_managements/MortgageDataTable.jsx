@@ -5,14 +5,6 @@ var PaginationSection = require("components/PaginationSection");
 var Borrowers = React.createClass({
   mixins: [TextFormatMixin],
 
-  getInitialState: function() {
-    return {
-
-    }
-  },
-
-
-
   render: function() {
     return (
       <div>
@@ -57,7 +49,7 @@ var Borrowers = React.createClass({
               </tbody>
             </table>
         </div>
-        <PaginationSection items={this.props.MortgageData} totalPages={this.props.MortgageData.length} />
+        <PaginationSection items={this.props.MortgageData} totalPages={this.props.totalPages} currentPage={this.props.currentPage} />
       </div>
     );
   }

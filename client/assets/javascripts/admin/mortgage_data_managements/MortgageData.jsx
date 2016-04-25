@@ -6,11 +6,6 @@ var SearchBox = require("./SearchBox");
 var Borrowers = React.createClass({
   mixins: [TextFormatMixin],
 
-  getInitialState: function() {
-    return {
-    }
-  },
-
   render: function() {
     return (
       <div>
@@ -18,7 +13,7 @@ var Borrowers = React.createClass({
       <div className="page-header">
         <div className="page-header-content">
           <div className="page-title">
-            <h4><i className="icon-arrow-left52 position-left"></i> <span className="text-semibold">Borrowers</span> - Management</h4>
+            <h4><i className="icon-arrow-left52 position-left"></i> <span className="text-semibold">Mortgage Data</span> - Management</h4>
           </div>
         </div>
       </div>
@@ -42,7 +37,7 @@ var Borrowers = React.createClass({
                 </div>
               </div>
               <div className="panel-body">
-                <MortgageDataTable MortgageData={this.props.bootstrapData.mortgage_data}/>
+                <MortgageDataTable MortgageData={this.props.bootstrapData.mortgage_data} totalPages={this.props.bootstrapData.mortgage_data_count} currentPage={this.props.bootstrapData.current_page}/>
               </div>
             </div>
             {/* /table */ }
