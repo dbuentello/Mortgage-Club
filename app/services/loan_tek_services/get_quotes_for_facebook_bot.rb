@@ -1,16 +1,15 @@
 module LoanTekServices
   class GetQuotesForFacebookBot
-    attr_reader :data, :parameters, :response, :result
+    attr_reader :parameters, :response, :result
 
     def initialize(params)
-      @data = params["result"] if params["result"].present?
-      @parameters = data["parameters"] if @data
+      @parameters = params["parameters"]
       @response = []
       @result = []
     end
 
     def call
-      return false unless data && parameters
+      return false unless parameters
 
       url = "https://api.loantek.com/Clients/WebServices/Client/#{ENV['LOANTEK_CLIENT_ID']}/Pricing/V2/Quotes/LoanPricer/#{ENV['LOANTEK_USER_ID']}"
       connection = Faraday.new(url: url)
