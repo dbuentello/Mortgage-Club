@@ -220,5 +220,8 @@ Rails.application.routes.draw do
   get "mortgage_bot", to: "slack_bot#bot"
   get "bot_privacy", to: "slack_bot#privacy"
 
+  get "facebook_bot", to: "facebook_bot#bot"
+  get "facebook_bot_privacy", to: "facebook_bot#privacy"
+
   get "*path", to: "errors#show", code: 404
 end
