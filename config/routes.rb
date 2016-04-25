@@ -206,6 +206,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :facebook_webhooks, only: [] do
+    collection do
+      post "receive"
+      post "save_data"
+    end
+  end
+
   post "receive", to: "ocr_notifications#receive"
 
   get "developer_infographics", to: "pages#developer_infographics"

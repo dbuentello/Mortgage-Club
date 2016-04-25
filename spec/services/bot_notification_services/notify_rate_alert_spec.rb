@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SlackBotServices::NotifyRateAlert do
+describe BotNotificationServices::NotifyRateAlert do
   describe ".call" do
     before(:each) do
       @sign_up_info = {

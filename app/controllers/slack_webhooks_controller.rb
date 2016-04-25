@@ -5,6 +5,7 @@ class SlackWebhooksController < ApplicationController
   SLACK_BOT_HEADER_VALUE = "MCsLACK!".freeze
 
   def receive
+    params[:source] = "Slack Bot"
     output = SlackBotServices::Base.new(params).call
 
     render json: {
