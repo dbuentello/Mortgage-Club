@@ -20,6 +20,7 @@ class Property < ActiveRecord::Base
     :estimated_property_tax,
     :estimated_hazard_insurance,
     :estimated_mortgage_insurance,
+    :estimated_mortgage_balance,
     :mortgage_includes_escrows,
     :is_impound_account,
     :hoa_due,

@@ -31,9 +31,8 @@ var co_borrower_upload_fields = {
   first_paystub: {label: "Paystub - Most recent period", name: 'co_first_paystub'},
   second_paystub: {label: 'Paystub - Previous period', name: 'co_second_paystub'},
   first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'co_first_federal_tax_return'},
-  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'co_second_federal_tax_return'},
-  first_bank_statement: {label: 'Bank statement - Most recent month', name: 'co_first_bank_statement'},
-  second_bank_statement: {label: 'Bank statement - Previous month', name: 'co_second_bank_statement'}
+  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'co_second_federal_tax_return'}
+
 };
 
 var uploaded_files = [];
@@ -91,12 +90,12 @@ var FormDocuments = React.createClass({
     var self_employed_fields = ['first_personal_tax_return', 'second_personal_tax_return', 'first_business_tax_return', 'second_business_tax_return', 'first_bank_statement', 'second_bank_statement'];
 
     // coborrower - unself employed
-    var co_borrower_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub',  'first_bank_statement', 'second_bank_statement'];
-    var co_borrower_no_file_taxes_jointly_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub', 'first_federal_tax_return', 'second_federal_tax_return',  'first_bank_statement', 'second_bank_statement'];
+    var co_borrower_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub'];
+    var co_borrower_no_file_taxes_jointly_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub', 'first_federal_tax_return', 'second_federal_tax_return'];
 
     // coborrower - self employed
-    var co_no_file_taxes_jointly_fields = ['first_personal_tax_return', 'second_personal_tax_return', 'first_business_tax_return', 'second_business_tax_return', 'first_bank_statement', 'second_bank_statement'];
-    var co_file_taxes_jointly_fields = ['first_business_tax_return', 'second_business_tax_return', 'first_bank_statement', 'second_bank_statement'];
+    var co_no_file_taxes_jointly_fields = ['first_personal_tax_return', 'second_personal_tax_return', 'first_business_tax_return', 'second_business_tax_return'];
+    var co_file_taxes_jointly_fields = ['first_business_tax_return', 'second_business_tax_return'];
 
     if (borrower.self_employed == true) {
       upload_fields = self_employed_fields;
@@ -359,8 +358,8 @@ var FormDocuments = React.createClass({
       borrower_uploaded_files.push(owner_upload_fields[upload_field].name);
     });
 
-    _.each(co_upload_fields, function(upload_field) {
-      co_borrower_uploaded_files.push(co_borrower_upload_fields[upload_field].name);
+    _.each(co_upload_fields, function(co_upload_field) {
+      co_borrower_uploaded_files.push(co_borrower_upload_fields[co_upload_field].name);
     });
 
     var result = borrower_uploaded_files.concat(co_borrower_uploaded_files).filter(function(i) {
