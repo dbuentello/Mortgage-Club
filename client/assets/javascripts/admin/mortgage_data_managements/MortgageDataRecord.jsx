@@ -5,6 +5,9 @@ var SearchBox = require("./SearchBox");
 
 var Borrowers = React.createClass({
   mixins: [TextFormatMixin],
+  handleGoBack: function() {
+    window.history.back();
+  },
 
   render: function() {
     var record = this.props.bootstrapData.mortgage_data_record;
@@ -32,6 +35,11 @@ var Borrowers = React.createClass({
               {/* Table */ }
               <div className="panel panel-flat">
                 <div className="panel-body">
+                  <div class="row">
+                    <button className="btn btn-primary pull-right back-btn" onClick={this.handleGoBack}><i className="icon-circle-left2 position-left"></i>
+                      Back
+                    </button>
+                  </div>
                   <h3> Original Loan Information </h3>
                   <dl className="dl-horizontal">
                     <dt>Property Address:</dt>
@@ -66,7 +74,7 @@ var Borrowers = React.createClass({
                     <dd>{this.formatCurrency(record.original_estimated_home_value, "$")}</dd>
                   </dl>
 
-                  <h3> Lower Rate </h3>
+                  <h3 className="text-center"> Lower Rate </h3>
                   <dl className="dl-horizontal">
                     <dt> New Loan Amount:</dt>
                     <dd>{record.lower_rate_loan_amount}</dd>
