@@ -45,7 +45,7 @@ Feature: AddBorrower
         And I fill in "secondary_borrower_email" with "co-borrower@gmail.com"
         And I fill in "secondary_borrower_years_in_school" with "9"
         And I clear value in "Your co-borrower current address"
-        And I fill in "secondary_borrower_current_address" with "1920 South Las Vegas Boulevard"
+        And I fill in "secondary_borrower_current_address" with "3460 Wilshire Boulevard, Los Angeles"
         And I wait for 2 seconds
         And I choose "true_secondary_borrower_currently_own"
         And I choose "true_secondary_borrower_currently_own"
@@ -69,3 +69,6 @@ Feature: AddBorrower
           And I wait for 2 seconds
         Then I click on a first ".customCheckbox"
         And the "secondary_borrower_current_address" field should contain "1920 South Las Vegas Boulevard, Las Vegas"
+        Then I wait for 2 seconds
+        And I click on a first ".customCheckbox"
+        Then the "secondary_borrower_current_address" field should contain "3460 Wilshire Avenue, La Habra, CA 90631"

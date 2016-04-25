@@ -112,21 +112,30 @@ var Form = React.createClass({
     var updateCoborrowerAddressDetails = {};
     if (change.currentTarget.checked === false){
       var secondary_borrower = this.props.loan.secondary_borrower;
-      var coborrowerCurrentAddress = secondary_borrower.current_address;
-      if(coborrowerCurrentAddress) {
-        var cachedAddress = coborrowerCurrentAddress.cached_address;
-        var oldCoborrowerCurrentAddress = {full_text: cachedAddress.full_text,
-          street_address2: cachedAddress.street_address2,
-          street_address: cachedAddress.street_address,
-          zip: cachedAddress.zip,
-          state: cachedAddress.state,
-          city: cachedAddress.city
-        };
-        updateCoborrowerAddressDetails[secondary_borrower_fields.currentAddress.name] = oldCoborrowerCurrentAddress;
-        updateCoborrowerAddressDetails[secondary_borrower_fields.currentlyOwn.name] = !coborrowerCurrentAddress.is_rental;
-        updateCoborrowerAddressDetails[secondary_borrower_fields.currentMonthlyRent.name] = this.formatCurrency(coborrowerCurrentAddress.monthly_rent, "$")
-        updateCoborrowerAddressDetails[secondary_borrower_fields.yearsInCurrentAddress.name] =coborrowerCurrentAddress.years_at_address;
+
+      if(secondary_borrower) {
+        var coborrowerCurrentAddress = secondary_borrower.current_address;
+        if(coborrowerCurrentAddress) {
+          var cachedAddress = coborrowerCurrentAddress.cached_address;
+          var oldCoborrowerCurrentAddress = {full_text: cachedAddress.full_text,
+            street_address2: cachedAddress.street_address2,
+            street_address: cachedAddress.street_address,
+            zip: cachedAddress.zip,
+            state: cachedAddress.state,
+            city: cachedAddress.city
+          };
+          updateCoborrowerAddressDetails[secondary_borrower_fields.currentAddress.name] = oldCoborrowerCurrentAddress;
+          updateCoborrowerAddressDetails[secondary_borrower_fields.currentlyOwn.name] = !coborrowerCurrentAddress.is_rental;
+          updateCoborrowerAddressDetails[secondary_borrower_fields.currentMonthlyRent.name] = this.formatCurrency(coborrowerCurrentAddress.monthly_rent, "$")
+          updateCoborrowerAddressDetails[secondary_borrower_fields.yearsInCurrentAddress.name] = coborrowerCurrentAddress.years_at_address;
+        }
+      } else {
+          updateCoborrowerAddressDetails[secondary_borrower_fields.currentAddress.name] = null;
+          updateCoborrowerAddressDetails[secondary_borrower_fields.currentlyOwn.name] = null;
+          updateCoborrowerAddressDetails[secondary_borrower_fields.currentMonthlyRent.name] = null;
+          updateCoborrowerAddressDetails[secondary_borrower_fields.yearsInCurrentAddress.name] = null;
       }
+
       this.setState(updateCoborrowerAddressDetails);
     } else if (change.currentTarget.checked === true){
       var borrowerAddress = state[borrower_fields.currentAddress.name];
