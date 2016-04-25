@@ -1,6 +1,6 @@
 class MortgageData < ActiveRecord::Base
 
-  self.per_page = 30
+  self.per_page = 5
 
   PERMITTED_ATTRS = [:property_address,
     :owner_name_1,
