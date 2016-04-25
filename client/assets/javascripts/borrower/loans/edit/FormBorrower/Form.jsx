@@ -112,7 +112,14 @@ var Form = React.createClass({
       var state = this.state;
       var updatedState = {};
       var borrowerAddress = state[borrower_fields.currentAddress.name];
-      updatedState[secondary_borrower_fields.currentAddress.name] = state[borrower_fields.currentAddress.name];
+      var currentBorrowerAddressDetails = {city: borrowerAddress["city"],
+        full_text: borrowerAddress["full_text"],
+        state: borrowerAddress["state"],
+        street_address: borrowerAddress["street_address"],
+        street_address2: borrowerAddress["street_address2"],
+        zip: borrowerAddress["zip"]
+      }
+      updatedState[secondary_borrower_fields.currentAddress.name] = currentBorrowerAddressDetails;
       updatedState[secondary_borrower_fields.currentlyOwn.name] = state[borrower_fields.currentlyOwn.name];
       updatedState[secondary_borrower_fields.currentMonthlyRent.name] = state[borrower_fields.currentMonthlyRent.name];
       updatedState[secondary_borrower_fields.yearsInCurrentAddress.name] = state[borrower_fields.yearsInCurrentAddress.name];
