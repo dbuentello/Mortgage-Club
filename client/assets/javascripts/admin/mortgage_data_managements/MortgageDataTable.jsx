@@ -1,5 +1,6 @@
 var React = require("react/addons");
 var TextFormatMixin = require("mixins/TextFormatMixin");
+var PaginationSection = require("components/PaginationSection");
 
 var Borrowers = React.createClass({
   mixins: [TextFormatMixin],
@@ -97,10 +98,10 @@ var Borrowers = React.createClass({
                       )
                     }, this)
                   }
-
               </tbody>
             </table>
-          </div>
+        </div>
+        <PaginationSection items={this.props.MortgageData} totalPages={this.props.MortgageData.length} />
       </div>
     );
   }

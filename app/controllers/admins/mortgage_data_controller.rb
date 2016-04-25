@@ -1,7 +1,7 @@
 class Admins::MortgageDataController < Admins::BaseController
   def index
-    mortgage_data = MortgageData.all
-    mortgage_data = MortgageData.search(search_params[:search]).order("created_at DESC") if params[:search]
+    mortgage_data = MortgageData.paginate(page: params[:page], per_page: 2)
+    mortgage_data = MortgageData.search(search_params[:search]).paginate(page: params[:page], per_page: 2).order("created_at DESC") if params[:search]
     bootstrap(mortgage_data: mortgage_data)
 
     respond_to do |format|

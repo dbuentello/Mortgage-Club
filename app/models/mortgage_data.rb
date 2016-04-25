@@ -1,5 +1,6 @@
 class MortgageData < ActiveRecord::Base
   scope :search, -> (search) { where("property_address ILIKE ? OR owner_name_1 ILIKE ? OR owner_name_2 ILIKE ?", "%#{search}%", "%#{search}%", "%#{search}%") }
+  PER_PAGE = 2
   PERMITTED_ATTRS = [:property_address,
     :owner_name_1,
     :owner_name_2,
