@@ -13,7 +13,7 @@ var Borrowers = React.createClass({
       <div className="page-header">
         <div className="page-header-content">
           <div className="page-title">
-            <h4><i className="icon-arrow-left52 position-left"></i> <span className="text-semibold">Mortgage Data</span> - Management</h4>
+            <h4><i className="icon-arrow-left52 position-left"></i> <a href="/mortgage_data"><span className="text-semibold">Mortgage Data</span> - Management</a></h4>
           </div>
         </div>
       </div>
