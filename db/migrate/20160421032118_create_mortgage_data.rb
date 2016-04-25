@@ -9,7 +9,7 @@ class CreateMortgageData < ActiveRecord::Migration
       t.decimal :original_loan_amount, precision: 13, scale: 2
       t.string :original_terms
       t.date :original_lock_in_date
-      t.date :avg_rate_at_lock_in_date
+      t.float :avg_rate_at_lock_in_date
       t.string :original_lender_name
       t.float :original_lender_average_overlay
       t.float :original_estimated_interest_rate
