@@ -18,9 +18,9 @@ module SlackBotServices
       when "get-quotes"
         return SlackBotServices::GetInfoOfQuotes
       when "create-account"
-        return SlackBotServices::NotifySignUp
+        return BotNotificationServices::NotifySignUp
       when "create-rate-alert"
-        return SlackBotServices::NotifyRateAlert
+        return BotNotificationServices::NotifyRateAlert
       end
     end
 

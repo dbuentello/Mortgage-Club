@@ -1,9 +1,8 @@
-module SlackBotServices
+module BotNotificationServices
   module ParseData
     def parsed_data(params)
       return unless data = params["result"]
-      return unless context = data["contexts"].last
-      return unless parameters = context["parameters"]
+      return unless parameters = data["parameters"]
 
       {
         purpose: parameters["purpose"],
@@ -15,7 +14,7 @@ module SlackBotServices
         property_type: parameters["property_type"],
         credit_score: parameters["credit_score"],
         name: parameters["name"],
-        email: parameters["email"].split(" ").last
+        email: parameters["email"]
       }
     end
   end

@@ -4,7 +4,7 @@ module ZillowService
 
     def initialize(info)
       @info = info
-      @zipcode = info["zip_code"]
+      @zipcode = info["zip_code"].to_s
       @property_value = info["property_value"]
     end
 

@@ -168,18 +168,6 @@ describe CompletedLoanServices::TabDocuments do
             expect(service.call).to be_falsey
           end
 
-          it "returns false with first bank statement nil" do
-            secondary_borrower.documents.find_by(document_type: "first_bank_statement").destroy
-            service.secondary_borrower = secondary_borrower
-            expect(service.call).to be_falsey
-          end
-
-          it "returns false with second bank statement nil" do
-            secondary_borrower.documents.find_by(document_type: "second_bank_statement").destroy
-            service.secondary_borrower = secondary_borrower
-            expect(service.call).to be_falsey
-          end
-
           it "returns true with valid values" do
             expect(service.call).to be_truthy
           end
@@ -219,17 +207,6 @@ describe CompletedLoanServices::TabDocuments do
             expect(service.call).to be_falsey
           end
 
-          it "returns false with first bank statement nil" do
-            secondary_borrower.documents.find_by(document_type: "first_bank_statement").destroy
-            service.secondary_borrower = secondary_borrower
-            expect(service.call).to be_falsey
-          end
-
-          it "returns false with second bank statement nil" do
-            secondary_borrower.documents.find_by(document_type: "second_bank_statement").destroy
-            service.secondary_borrower = secondary_borrower
-            expect(service.call).to be_falsey
-          end
           it "return trues with valid values" do
             expect(service.call).to be_truthy
           end

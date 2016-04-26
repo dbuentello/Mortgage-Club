@@ -2,8 +2,8 @@ require "capybara"
 require "capybara/poltergeist"
 
 module WellsfargoServices
-  class CrawlWellsfargoArmRate
-    attr_accessor :loan_purpose, :home_value, :down_payment, :property_state, :property_county, :crawler, :arm_rate
+  class CrawlWellsfargoRates
+    attr_accessor :loan_purpose, :home_value, :down_payment, :property_state, :property_county, :crawler, :rates
 
     def initialize(args)
       @loan_purpose = args[:loan_purpose]
@@ -12,7 +12,11 @@ module WellsfargoServices
       @property_state = args[:property_state]
       @property_county = args[:property_county]
       @crawler = set_up_crawler
-      @arm_rate = 0
+      @rates = {
+        apr_30_year: 0,
+        apr_15_year: 0,
+        apr_5_libor: 0
+      }
     end
 
     def call
@@ -26,10 +30,10 @@ module WellsfargoServices
       fill_input_data
       click_calculate
       sleep(3)
-      get_arm_rate
+      get_rates
       close_crawler
 
-      arm_rate
+      rates
     end
 
     def go_to_wellsfargo
@@ -49,13 +53,16 @@ module WellsfargoServices
       crawler.find("input[name=submitButton]").click
     end
 
-    def get_arm_rate
+    def get_rates
       rate_elements = crawler.all("#contentBody table tbody tr")
 
       rate_elements.each do |element|
-        if element.text.include? "5/1 ARM"
-          @arm_rate = element.find("td[headers='hdr3']").text.delete("%").to_f
-          break
+        if element.text.index("5/1 ARM").present? && rates[:apr_5_libor] == 0
+          @rates[:apr_5_libor] = element.find("td[headers='hdr3']").text.delete("%").to_f
+        elsif element.text.index("30-Year Fixed Rate").present? && rates[:apr_30_year] == 0
+          @rates[:apr_30_year] = element.find("td[headers='hdr3']").text.delete("%").to_f
+        elsif element.text.index("15-Year Fixed Rate").present? && rates[:apr_15_year] == 0
+          @rates[:apr_15_year] = element.find("td[headers='hdr3']").text.delete("%").to_f
         end
       end
     end

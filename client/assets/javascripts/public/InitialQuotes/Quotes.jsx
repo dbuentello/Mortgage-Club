@@ -19,9 +19,28 @@ var Quotes = React.createClass({
     }
   },
 
-  componentDidMount: function(){
+  componentDidMount: function() {
     mixpanel.track("Quotes-Enter");
-    $("input[name=30years]").trigger("click");
+    this.autoClickFilter();
+  },
+
+  autoClickFilter: function() {
+    if(this.props.bootstrapData.selected_programs) {
+      switch(this.props.bootstrapData.selected_programs) {
+        case "30yearFixed":
+          $("input[name=30years]").trigger("click");
+          break;
+        case "15yearFixed":
+          $("input[name=15years]").trigger("click");
+          break;
+        case "5yearARM":
+          $("input[name=51arm]").trigger("click");
+          break;
+      }
+    }
+    else {
+      $("input[name=30years]").trigger("click");
+    }
   },
 
   onFilterQuote: function(filteredQuotes) {

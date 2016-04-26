@@ -30,14 +30,14 @@ module SlackBotServices
       context "with create-account" do
         it "returns correct class name" do
           allow_any_instance_of(described_class).to receive(:conversation).and_return("create-account")
-          expect(described_class.new({}).select_service).to eq(SlackBotServices::NotifySignUp)
+          expect(described_class.new({}).select_service).to eq(BotNotificationServices::NotifySignUp)
         end
       end
 
       context "with create-rate-alert" do
         it "returns correct class name" do
           allow_any_instance_of(described_class).to receive(:conversation).and_return("create-rate-alert")
-          expect(described_class.new({}).select_service).to eq(SlackBotServices::NotifyRateAlert)
+          expect(described_class.new({}).select_service).to eq(BotNotificationServices::NotifyRateAlert)
         end
       end
     end
