@@ -1,30 +1,19 @@
+require "quotes_formulas"
+
 module LoanTekServices
   class ReadQuotes
-    PRODUCT = {
-      "40yearFixed" => "40 year fixed",
-      "30yearFixed" => "30 year fixed",
-      "25yearFixed" => "25 year fixed",
-      "20yearFixed" => "20 year fixed",
-      "15yearFixed" => "15 year fixed",
-      "10yearFixed" => "10 year fixed",
-      "7yearARM" => "7/1 ARM",
-      "5yearARM" => "5/1 ARM",
-      "3yearARM" => "3/1 ARM",
-      "1yearARM" => "1/1 ARM"
-    }
+    extend QuotesFormulas
 
     def self.call(quotes, loan_purpose)
       lender_info = get_lender_info(quotes)
-
       programs = []
-
-      quotes = quotes.select { |quote| quote["DiscountPts"] <= 0.125 }
+      quotes = get_valid_quotes(quotes)
 
       quotes.each do |quote|
         discount_pts = quote["DiscountPts"] / 100
         lender_name = quote["LenderName"]
         rate = get_interest_rate(quote)
-        apr = discount_pts_equals_to_0_125?(quote) ? rate : quote["APR"] / 100
+        apr = get_apr(quote)
         admin_fee = get_admin_fee(quote)
         product = get_product_name(quote)
 
@@ -175,7 +164,6 @@ module LoanTekServices
         end
       end
 
-      # TODO: refactor line 141-143
       programs = programs.reject do |program|
         program[:apr] - characteristics[program[:product]][:apr] > 0.00625
       end
@@ -191,18 +179,6 @@ module LoanTekServices
       min = programs.first[type]
       programs.each { |p| min = p[type] if min > p[type] }
       min
-    end
-
-    def self.discount_pts_equals_to_0_125?(quote)
-      quote["DiscountPts"] == 0.125
-    end
-
-    def self.check_to_hide_admin_fee(quote, admin_fee)
-      total_fee = quote["DiscountPts"].to_f / 100 * quote["FeeSet"]["LoanAmount"].to_f + admin_fee
-
-      return true if total_fee >= 0 && total_fee <= 1000
-
-      false
     end
   end
 end

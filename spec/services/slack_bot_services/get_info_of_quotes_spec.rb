@@ -105,28 +105,4 @@ describe SlackBotServices::GetInfoOfQuotes do
       end
     end
   end
-
-  describe ".calculate_apr" do
-    context "when DiscountPts equals to 0.125" do
-      it "returns Rate instead of APR" do
-        program = {
-          "DiscountPts" => 0.125,
-          "Rate" => 3.152,
-          "APR" => 3.222
-        }
-        expect(described_class.calculate_apr(program)).to eq(3.152)
-      end
-    end
-
-    context "when DiscountPts does not equal to 0.125" do
-      it "returns APR" do
-        program = {
-          "DiscountPts" => 0.195,
-          "Rate" => 3.152,
-          "APR" => 3.222
-        }
-        expect(described_class.calculate_apr(program)).to eq(3.222)
-      end
-    end
-  end
 end

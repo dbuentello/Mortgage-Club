@@ -1,6 +1,9 @@
+require "quotes_formulas"
+
 module FacebookBotServices
   class GetInfoOfQuotes
-    extend ParseQuotesForBot
+    extend ActionView::Helpers::NumberHelper
+    extend QuotesFormulas
 
     PRODUCT = {
       "30yearFixed" => "30 year fixed",
@@ -37,7 +40,7 @@ module FacebookBotServices
 
         lowest_program = programs.first
         programs.each { |p| lowest_program = p if lowest_program["APR"] > p["APR"] }
-        min_apr = format("%0.03f", calculate_apr(lowest_program))
+        min_apr = format("%0.03f", get_apr(lowest_program) * 100)
         monthly_payment = number_to_currency(get_monthly_payment(lowest_program), precision: 0)
         admin_fee = get_admin_fee(lowest_program)
         lender_credit = number_to_currency(get_lender_credits(lowest_program, admin_fee).abs.to_i, precision: 0)
