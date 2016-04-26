@@ -34,7 +34,7 @@
   }
   .quotes-list {
     .col-xs-9 {
-    
+
       float: right;
     }
     .board {
@@ -314,6 +314,8 @@
 }
 @include respond-to(smobile) {
   .initial-quotes {
+    padding-bottom: 20px;
+
     .quotes-form {
       .form-group {
         margin-top: 0;

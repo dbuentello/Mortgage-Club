@@ -271,8 +271,8 @@ var Form = React.createClass({
                     value={this.state[fields.creditScore.keyName]}/>
               </div>
             </div>
-            <div className="form-group">
-              <div className="col-xs-6 col-xs-offset-3 col-md-6 col-md-offset-3">
+            <div className="form-group text-center">
+              <div>
                 <button className="btn btn-mc text-uppercase" onClick={this.onSubmit}>find my rates</button>
               </div>
             </div>

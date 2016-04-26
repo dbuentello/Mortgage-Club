@@ -167,7 +167,12 @@
     opacity: 1 !important;
   }
 
-  .form-horizontal {padding-left:20px;}
+  .form-horizontal {
+    padding-left:20px;
+    @include respond-to(smobile){
+      padding-left: 0px;
+    }
+  }
   .form-group:first-child {margin-top:15px;}
   .form-group:last-child {margin-bottom:20px;}
   .form-group img {
