@@ -4,7 +4,7 @@ module LoanTekServices
   class ReadQuotes
     extend QuotesFormulas
 
-    def self.call(quotes)
+    def self.call(quotes, loan_purpose)
       lender_info = get_lender_info(quotes)
       programs = []
       quotes = get_valid_quotes(quotes)
@@ -28,7 +28,7 @@ module LoanTekServices
           total_fee: get_total_fee(quote, admin_fee),
           fees: get_fees(quote),
           period: get_period(quote),
-          down_payment: get_down_payment(quote),
+          down_payment: get_down_payment(quote, loan_purpose),
           monthly_payment: get_monthly_payment(quote),
           lender_credits: get_lender_credits(quote, admin_fee),
           total_closing_cost: get_total_closing_cost(quote, admin_fee),

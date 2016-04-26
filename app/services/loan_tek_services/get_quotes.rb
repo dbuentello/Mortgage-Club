@@ -45,7 +45,7 @@ module LoanTekServices
           LoanProgramsOfInterest: loan_programs_of_interest
         }.to_json
       end
-      success? ? LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"]) : []
+      success? ? LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"], loan_purpose) : []
     end
 
     private
