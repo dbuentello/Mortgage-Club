@@ -5,12 +5,6 @@ var MortgageDataTable = require("./MortgageDataTable")
 var SearchBox = React.createClass({
   mixins: [TextFormatMixin],
 
-  getInitialState: function() {
-    return {
-    }
-  },
-
-
   render: function() {
     return (
       <div>
