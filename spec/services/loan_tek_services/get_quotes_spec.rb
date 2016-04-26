@@ -14,8 +14,8 @@ describe LoanTekServices::GetQuotes do
 
     it "gets quotes with status 200" do
       VCR.use_cassette("get quotes from LoanTek") do
-        service.get_quotes
-        expect(service.response.status).to eq(200)
+
+        expect(service.get_quotes).not_to be_empty
       end
     end
 
