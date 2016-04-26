@@ -167,12 +167,39 @@ var Quotes = React.createClass({
                       <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.props.bootstrapData.quotes} selectRate={this.selectRate} monthlyPayment={this.state.monthlyPayment} isInitialQuotes={true}/>
                     </div>
                   :
-                    <div className="content container mortgage-rates row-eq-height padding-top-0 row">
-                      <div className="col-xs-3 subnav">
+                    <div className="content container mortgage-rates">
+                      <div className="col-xs-12 col-md-3 subnav hidden-xs">
                         <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
                       </div>
-                      <div className="col-xs-9 account-content padding-left-50">
-                        <div className="row actions">
+
+                      <div className="col-xs-12 col-md-9 account-content">
+                        <div className="mobile-xs-quote">
+                        <div className=" visible-xs">
+                          <p>
+                            We’ve found {this.state.quotes ? this.state.quotes.length : 0} mortgage options for you. You can sort, filter and choose one on your own or click
+                            <i> Help me choose. </i>
+                          </p>
+                        </div>
+                        <div className="row form-group visible-xs">
+                          <div className="col-xs-5 text-left">
+                            <a className="btn btn-mc-green text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
+                          </div>
+                          <div className="col-xs-2 text-left">
+                            <a className="btn btn-mc-green text-uppercase">Filter</a>
+                          </div>
+                          <div className="col-xs-4 select-box pull-right">
+                            <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
+                              <option value="apr">APR</option>
+                              <option value="pmt">Monthly Payment</option>
+                              <option value="rate">Rate</option>
+                              <option value="tcc">Total Closing Cost</option>
+                            </select>
+                            <span>&#9660;</span>
+                          </div>
+                        </div>
+
+                        </div>
+                        <div className="row actions hidden-xs">
                           <p>
                             We’ve found {this.state.quotes ? this.state.quotes.length : 0} mortgage options for you. You can sort, filter and choose one on your own or click
                             <i> Help me choose </i>

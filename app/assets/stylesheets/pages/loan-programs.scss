@@ -199,6 +199,9 @@
     margin-left: -19px;
   }
   background: linear-gradient(to right, #f6f6f6 , white);
+  @include respond-to(smobile){
+    background: none;
+  };
   .programs-filter {
     margin-top: 0px;
     margin-left: -16px;
