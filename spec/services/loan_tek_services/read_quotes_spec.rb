@@ -42,6 +42,7 @@ describe LoanTekServices::ReadQuotes do
 
       loan_purpose = 1
       programs = described_class.call(quotes, loan_purpose)
+
       expect(programs).to include(
         lender_name: "Provident Funding",
         product: "15 year fixed",

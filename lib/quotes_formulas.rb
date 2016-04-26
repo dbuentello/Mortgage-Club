@@ -12,6 +12,9 @@ module QuotesFormulas
     "1yearARM" => "1/1 ARM"
   }
 
+  PURCHASE = 1
+  REFINANCE = 2
+
   def get_valid_quotes(quotes)
     quotes.select { |quote| quote["DiscountPts"] <= 0.125 }
   end
@@ -38,7 +41,13 @@ module QuotesFormulas
     lender_info
   end
 
-  def get_down_payment(quote)
+  def get_down_payment(quote, loan_purpose)
+    return nil if loan_purpose == REFINANCE || quote["LoanToValue"].nil?
+
+    loan_amount = quote["FeeSet"]["LoanAmount"].to_f
+    property_value = loan_amount / (quote["LoanToValue"].to_f / 100.0)
+
+    property_value - loan_amount
     quote["FeeSet"]["LoanAmount"].to_f * 0.2
   end
 
