@@ -89,7 +89,7 @@ module LoanTekServices
 
     def get_loan_to_value
       loan_amount = get_loan_amount
-      (loan_amount * 100 / info["property_value"].to_f).round(3)
+      (loan_amount * 100 / info["property_value"].to_f).round(0)
     end
 
     def success?

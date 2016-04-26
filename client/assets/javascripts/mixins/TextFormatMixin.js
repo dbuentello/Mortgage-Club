@@ -50,7 +50,11 @@ var TextFormatMixin = {
 
   formatCurrency: function(cashflow, decimals, unit) {
     var negative, money, prefix;
-    var decimal = decimals | 2;
+    var decimal = 2;
+
+    if(!decimals){
+      decimal = parseInt(decimals);
+    }
 
     if (!cashflow) {
       return cashflow;
