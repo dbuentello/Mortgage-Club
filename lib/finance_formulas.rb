@@ -4,18 +4,6 @@ module FinanceFormulas
     ((-pv * pvif(rate, nper) - fv) / ((1.0 + rate * type) * fvifa(rate, nper)))
   end
 
-  def ipmt(rate, per, nper, pv, fv = 0, type = 0)
-    p = pmt(rate, nper, pv, fv, 0)
-    ip = -(pv * pow1p(rate, per - 1) * rate + p * pow1pm1(rate, per - 1))
-    (type == 0) ? ip : ip / (1 + rate)
-  end
-
-  def ppmt(rate, per, nper, pv, fv = 0, type = 0)
-    p = pmt(rate, nper, pv, fv, type)
-    ip = ipmt(rate, per, nper, pv, fv, type)
-    p - ip
-  end
-
   protected
 
   def pow1pm1(x, y)
