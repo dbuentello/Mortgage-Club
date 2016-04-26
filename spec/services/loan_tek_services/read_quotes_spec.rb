@@ -7,6 +7,7 @@ describe LoanTekServices::ReadQuotes do
       "LenderName" => "Provident Funding",
       "ProductName" => "15yearFixed",
       "Fees" => -1520.0,
+      "LoanToValue" => 80,
       "FeeSet" => {
         "Created" => "0001-01-01T00:00:00",
         "Updated" => "0001-01-01T00:00:00",
@@ -39,6 +40,7 @@ describe LoanTekServices::ReadQuotes do
     it "returns a valid array" do
       refinance = 2
       programs = described_class.call(quotes, 2)
+
       expect(programs).to include(
         lender_name: "Provident Funding",
         product: "15 year fixed",
@@ -61,7 +63,7 @@ describe LoanTekServices::ReadQuotes do
           }
         ],
         period: 180,
-        down_payment: 72000.0,
+        down_payment: 90000.0,
         monthly_payment: 2618,
         lender_credits: 0.0,
         total_closing_cost: 1515.0,

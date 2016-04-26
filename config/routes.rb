@@ -150,6 +150,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :mortgage_data, only: [:index, :show]
+
     resources :loan_member_managements, only: [:index, :edit, :update, :create, :destroy] do
     end
 
@@ -221,5 +223,9 @@ Rails.application.routes.draw do
   get "bot_privacy", to: "slack_bot#privacy"
 
   get "test", to: "pages#test"
+
+  get "facebook_bot", to: "facebook_bot#bot"
+  get "facebook_bot_privacy", to: "facebook_bot#privacy"
+
   get "*path", to: "errors#show", code: 404
 end

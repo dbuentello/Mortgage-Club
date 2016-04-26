@@ -112,7 +112,10 @@ var List = React.createClass({
   },
 
   calcDownPayment: function(down_payment, loan_amount){
-    return parseFloat(down_payment/loan_amount) * 100;
+    if(!down_payment)
+      return 0;
+
+    return parseFloat(down_payment/(down_payment + loan_amount)) * 100;
   },
 
   totalMonthlyPayment: function(monthly_payment, mtg_insurrance, tax, hazard_insurrance, hoa_due){
@@ -177,14 +180,26 @@ var List = React.createClass({
                           <p className="col-xs-12 cost">Interest Rate</p>
                           <p className="col-xs-12 cost">APR</p>
                           <p className="col-xs-12 cost">Loan amount</p>
-                          <p className="col-xs-12 cost">Down payment</p>
+                          {
+                            quote.down_payment == null
+                            ?
+                              null
+                            :
+                              <p className="col-xs-12 cost">Down payment</p>
+                          }
                         </div>
                         <div className="col-xs-6">
                           <p className="col-xs-12 cost">{quote.product}</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.interest_rate * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.apr * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.formatCurrency(quote.loan_amount, "$")}</p>
-                          <p className="col-xs-12 cost">{this.formatCurrency(quote.down_payment, "$")} ({this.calcDownPayment(quote.down_payment, quote.loan_amount)}%)</p>
+                          {
+                            quote.down_payment == null
+                            ?
+                              null
+                            :
+                              <p className="col-xs-12 cost">{this.formatCurrency(quote.down_payment, "$")} ({this.calcDownPayment(quote.down_payment, quote.loan_amount)}%)</p>
+                          }
                         </div>
                       </div>
                       <h4>Estimated Closing Costs</h4>

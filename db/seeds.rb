@@ -313,6 +313,23 @@ if Lender.where(name: 'Dummy Lender').blank?
   end
 end
 
+address_array = ["9772 Santiago Boulevard, Villa Park, CA",
+    "2909 East Athens Avenue, Orange, CA",
+    "1816 North Stoneridge Street, Orange, CA",
+    "18201 Sharon Lane, Villa Park, CA",
+    "9454 Henderson Way, Villa Park, CA",
+    "18362 James Road, Villa Park, CA",
+    "17982 Prado Circle, Villa Park, CA",
+    "10102 Ludwig Street, Villa Park, CA"
+  ]
+ower_name_array = ["Jane Rose", "Lucia Rotte", "Nancy Livia", "Rita Baley", "Russel Nguyen", "Max Chi", "Asly Monita", "Cameron Christophe"]
+owner_name_array_2 = ["Ronnie Camie", "Loxie Cameton", "Kelvin Nuxe", "Natalie Cossie", "Hana Mutte", "Angilia Besta", "David Richard", "Alex Home"]
+
+address_array.each_with_index do |address, index|
+  if MortgageData.where(property_address: address).blank?
+    MortgageData.create!(property_address: address, owner_name_1: ower_name_array[index], owner_name_2: owner_name_array_2[index], original_estimated_interest_rate: Random.new.rand(0.04))
+  end
+end
 # if Loan.where(lender_name: 'Ficus Bank').blank?
 #   user = User.where(email: 'borrower@gmail.com').first
 #   loan = user.loans.build(amount: Random.rand(100000..200000), interest_rate: Random.rand(0.25..1))
