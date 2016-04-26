@@ -15,7 +15,7 @@ var Borrowers = React.createClass({
     return (
     <div>
       <form name="search">
-        <input type="text" name="search[search]"/>
+        <input type="text" id="search_value" name="search[search]"/>
         <button type="submit">Search </button>
       </form>
     </div>
