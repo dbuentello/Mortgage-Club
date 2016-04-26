@@ -150,6 +150,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :mortgage_data, only: [:index, :show]
+
     resources :loan_member_managements, only: [:index, :edit, :update, :create, :destroy] do
     end
 
