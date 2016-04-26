@@ -18,7 +18,7 @@ FactoryGirl.define do
     f.original_estimated_home_value { Faker::Number.decimal(6, 2) }
     f.lower_rate_loan_amount { Faker::Number.decimal(6, 2) }
     f.lower_rate_interest_rate { Random.new.rand(0.004) }
-    f.lower_rate_loan_start_date { Date.today }
+    f.lower_rate_loan_start_date { Time.zone.today }
     f.lower_rate_estimated_closing_costs { Faker::Number.decimal(6, 2) }
     f.lower_rate_lender_credit { Faker::Number.decimal(6, 2) }
     f.lower_rate_net_closing_costs { Faker::Number.decimal(6, 2) }
@@ -30,7 +30,7 @@ FactoryGirl.define do
     f.cash_out_loan_amount { Faker::Number.decimal(6, 2) }
     f.cash_out_cash_amount { Faker::Number.decimal(6, 2) }
     f.cash_out_interest_rate { Random.new.rand(0.04) }
-    f.cash_out_loan_start_date { Date.today }
+    f.cash_out_loan_start_date { Time.zone.today }
     f.cash_out_estimated_closing_costs { Faker::Number.decimal(6, 2) }
     f.cash_out_lender_credit { Faker::Number.decimal(4, 2) }
     f.cash_out_net_closing_costs { Faker::Number.decimal(4, 2) }

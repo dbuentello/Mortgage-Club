@@ -3,12 +3,12 @@ class Admins::MortgageDataController < Admins::BaseController
     mortgage_data_all = MortgageData.all unless params[:search]
     mortgage_data_all = MortgageData.search(search_params[:search]) if params[:search]
     mortgage_data = mortgage_data_all.paginate(page: params[:page]).order("created_at DESC")
-    mortgage_data_count = (1.0*mortgage_data_all.count/MortgageData.per_page).ceil
+    mortgage_data_count = (1.0 * mortgage_data_all.count / MortgageData.per_page).ceil
 
     bootstrap(mortgage_data: mortgage_data,
-        mortgage_data_count: mortgage_data_count,
-        current_page: (params[:page] || 1)
-      )
+              mortgage_data_count: mortgage_data_count,
+              current_page: (params[:page] || 1)
+             )
 
     respond_to do |format|
       format.html { render template: "admin_app" }
