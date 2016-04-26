@@ -11,7 +11,7 @@ module LoanTekServices
 
     # https://api.loantek.com/Clients/Views/Quoting/LoanRequest-LoanPricer-v2.cshtml
     def call
-      cache_key = "loantek-quotes-#{loan.id}-#{loan.updated_at}-#{property.updated_at}-#{credit_score}"
+      cache_key = "loantek-quotes-#{loan.id}-#{loan.updated_at}-#{property.updated_at}-#{get_credit_score}"
 
       if quotes = REDIS.get(cache_key)
         quotes = JSON.parse(quotes)
