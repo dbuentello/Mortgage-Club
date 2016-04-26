@@ -25,71 +25,30 @@ module LoanTekServices
     end
 
     def get_quotes
-      url = "https://api.loantek.com/Clients/WebServices/Client/#{client_id}/Pricing/V2/Quotes/LoanPricer/#{user_id}"
-      connection = Faraday.new(url: url)
-      @response = connection.post do |conn|
-        conn.headers["Content-Type"] = "application/json"
-        conn.body = {
-          BestExecutionMethodType: execution_method,
-          QuotingChannel: quoting_channel,
-          ClientDefinedIdentifier: client_defined_identifier,
-          LockPeriod: lock_period,
-          ZipCode: zipcode,
-          CreditScore: credit_score,
-          LoanPurpose: loan_purpose,
-          LoanAmount: loan_amount,
-          LoanToValue: loan_to_value,
-          PropertyUsage: property_usage,
-          PropertyType: property_type,
-          QuoteTypesToReturn: quote_types_to_return,
-          LoanProgramsOfInterest: loan_programs_of_interest
-        }.to_json
-      end
-      success? ? LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"], loan_purpose) : []
+      quotes = LoanTekServices::SendRequestToLoanTek.call(
+        zipcode: get_zipcode,
+        credit_score: get_credit_score,
+        loan_purpose: get_loan_purpose,
+        loan_amount: get_loan_amount,
+        loan_to_value: get_loan_to_value,
+        property_usage: get_property_usage,
+        property_type: get_property_type
+      )
+
+      quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, loan_purpose)
     end
 
     private
 
-    def client_id
-      ENV["LOANTEK_CLIENT_ID"]
-    end
-
-    def user_id
-      ENV["LOANTEK_USER_ID"]
-    end
-
-    def client_defined_identifier
-      ENV["LOANTEK_IDENTIFIER"]
-    end
-
-    def lock_period
-      # 30 days
-      30
-    end
-
-    def execution_method
-      # By Rate
-      2
-    end
-
-    def quoting_channel
-      # LoanTek
-      3
-    end
-
-    def loan_programs_of_interest
-      [1, 2, 3]
-    end
-
-    def zipcode
+    def get_zipcode
       property.address.zip
     end
 
-    def credit_score
+    def get_credit_score
       borrower.credit_score.to_i
     end
 
-    def loan_purpose
+    def get_loan_purpose
       purpose = 0
       if loan.purchase?
         purpose = 1
@@ -100,16 +59,16 @@ module LoanTekServices
       purpose
     end
 
-    def loan_amount
+    def get_loan_amount
       loan.amount.to_i
     end
 
-    def loan_to_value
+    def get_loan_to_value
       property_value = loan.purchase? ? property.purchase_price : property.market_price
       (loan_amount * 100 / property_value).round(3)
     end
 
-    def property_usage
+    def get_property_usage
       case property.usage
       when "primary_residence"
         usage = 1
@@ -123,7 +82,7 @@ module LoanTekServices
       usage
     end
 
-    def property_type
+    def get_property_type
       case property.property_type
       when "sfh"
         property_type = 1
@@ -139,19 +98,6 @@ module LoanTekServices
         property_type = 0
       end
       property_type
-    end
-
-    def loan_programs
-      # get all programs
-      [0]
-    end
-
-    def quote_types_to_return
-      [-1, 0, 1]
-    end
-
-    def success?
-      response.status == 200
     end
   end
 end
