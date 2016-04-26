@@ -23,14 +23,6 @@ module QuotesFormulas
     discount_pts_equals_to_0_125?(quote) ? get_interest_rate(quote) : quote["APR"] / 100
   end
 
-  def existing_program?(programs, apr, rate, lender_name, discount_pts, product)
-    programs.each do |program|
-      return true if program[:lender_name] == lender_name && program[:apr] == apr && program[:interest_rate] == rate && program[:discount_pts] == discount_pts && program[:product] == product
-    end
-
-    false
-  end
-
   def get_lender_info(quotes)
     lender_names = quotes.map { |q| q["LenderName"] }.uniq
     lender_info = {}

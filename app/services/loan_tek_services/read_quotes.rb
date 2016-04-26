@@ -17,7 +17,7 @@ module LoanTekServices
         admin_fee = get_admin_fee(quote)
         product = get_product_name(quote)
 
-        next if existing_program?(programs, apr, rate, lender_name, discount_pts, product)
+        next if existing_program?(programs: programs, apr: apr, rate: rate, lender_name: lender_name, discount_pts: discount_pts, product: product)
 
         program = {
           lender_name: lender_name,
@@ -82,6 +82,18 @@ module LoanTekServices
       min = programs.first[type]
       programs.each { |p| min = p[type] if min > p[type] }
       min
+    end
+
+    def self.existing_program?(args)
+      args[:programs].each do |program|
+        return true if program[:lender_name] == args[:lender_name] &&
+                       program[:apr] == args[:apr] &&
+                       program[:interest_rate] == args[:rate] &&
+                       program[:discount_pts] == args[:discount_pts] &&
+                       program[:product] == args[:product]
+      end
+
+      false
     end
   end
 end
