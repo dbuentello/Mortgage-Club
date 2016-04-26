@@ -20,7 +20,7 @@ module SlackBotServices
         quote_query = QuoteQuery.new(query: service.query_content)
 
         if quote_query.save
-          output = "#{summary(service.quotes)}\n Do you want to apply for a mortgage now? (Yes/No)"
+          output = "#{summary(service.quotes)} Do you want to apply for a mortgage now? (Yes/No)"
         end
       end
 

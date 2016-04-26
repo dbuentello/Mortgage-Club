@@ -35,7 +35,7 @@ module LoanTekServices
         property_type: get_property_type
       )
 
-      quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, loan_purpose)
+      quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose)
     end
 
     private
@@ -64,6 +64,7 @@ module LoanTekServices
     end
 
     def get_loan_to_value
+      loan_amount = get_loan_amount
       property_value = loan.purchase? ? property.purchase_price : property.market_price
       (loan_amount * 100 / property_value).round(3)
     end

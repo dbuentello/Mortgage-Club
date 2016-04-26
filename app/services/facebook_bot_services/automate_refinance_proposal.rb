@@ -47,7 +47,7 @@ module FacebookBotServices
       ending_balance = amount
       total_interest = 0
 
-      number_of_months.times do |period|
+      number_of_months.times do
         total_interest += ending_balance * rate
         ending_balance = ending_balance * (1 + rate) - monthly_payment
       end
@@ -101,7 +101,7 @@ module FacebookBotServices
       ending_balance = amount
       total_interest = 0
 
-      number_of_months.times do |period|
+      number_of_months.times do
         total_interest += ending_balance * rate
         ending_balance = ending_balance * (1 + rate) - monthly_payment
       end
@@ -112,8 +112,9 @@ module FacebookBotServices
     def get_savings(end_due_date)
       original_start_due_date = (original_loan_date + 60.days).beginning_of_month
       savings = total_interest(old_interest_rate, old_loan_amount, get_number_of_months(original_start_due_date, end_due_date)) -
-        total_interest(old_interest_rate, old_loan_amount, get_number_of_months(original_start_due_date, start_due_date)) -
-        total_interest(new_interest_rate, new_loan_amount, get_number_of_months(start_due_date + 30.days, end_due_date)) - net_closing_costs
+                total_interest(old_interest_rate, old_loan_amount, get_number_of_months(original_start_due_date, start_due_date)) -
+                total_interest(new_interest_rate, new_loan_amount, get_number_of_months(start_due_date + 30.days, end_due_date)) -
+                net_closing_costs
 
       savings.round(0)
     end

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe FacebookBotServices::AutomateRefinanceProposal do
-  before(:each) { Timecop.freeze(Time.local(2016, 4, 7)) }
+  before(:each) { Timecop.freeze(Time.zone.local(2016, 4, 7)) }
 
   let(:service) do
     described_class.new(

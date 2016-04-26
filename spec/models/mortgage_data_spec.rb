@@ -9,7 +9,6 @@ describe MortgageData do
       let!(:mortgage_data_array) { FactoryGirl.create_list(:mortgage_data, 3) }
 
       it "lists the array of records that have property_address containing keyword" do
-        byebug
         expect(described_class.search("2309 Wilshire Boulevard, Santa Monica")).to include(mortgage_data)
         expect(described_class.search("Taylor")).to include(mortgage_data_with_owner_name)
         expect(described_class.search("Hemsworth")).to include(mortgage_data_with_another_owner_name)
