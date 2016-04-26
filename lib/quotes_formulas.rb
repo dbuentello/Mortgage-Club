@@ -48,7 +48,6 @@ module QuotesFormulas
     property_value = loan_amount / (quote["LoanToValue"].to_f / 100.0)
 
     property_value - loan_amount
-    quote["FeeSet"]["LoanAmount"].to_f * 0.2
   end
 
   def get_monthly_payment(quote)

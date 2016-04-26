@@ -1,18 +1,17 @@
 module LoanTekServices
   class GetQuotesForSlackBot
-    attr_reader :data, :context, :response, :result
+    attr_reader :data, :context, :quotes
 
     def initialize(params)
       @data = params["result"] if params["result"].present?
       @context = data["contexts"].last if @data
-      @response = []
-      @result = []
+      @quotes = []
     end
 
     def call
       return false unless data && context
 
-      quotes = LoanTekServices::SendRequestToLoanTek.call(
+      @quotes = LoanTekServices::SendRequestToLoanTek.call(
         zipcode: get_zipcode,
         credit_score: get_credit_score,
         loan_purpose: get_loan_purpose,
@@ -22,7 +21,7 @@ module LoanTekServices
         property_type: get_property_type
       )
 
-      quotes.present?
+      @quotes.present?
     end
 
     def query_content

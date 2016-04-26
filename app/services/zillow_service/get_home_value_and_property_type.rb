@@ -20,7 +20,7 @@ module ZillowService
       response = get("http://www.zillow.com/webservice/GetDeepSearchResults.htm", query: params)
       {
         current_home_value: get_current_home_value(response),
-        property_type: get_property_type(response),
+        property_type: get_property_type(response)
       }
     end
 
