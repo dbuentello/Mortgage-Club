@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://www.zillow.com/webservice/GetDeepSearchResults.htm?address=9999%20AnyWhere&citystatezip=10244&zws-id=X1-ZWz1aylbpp3aiz_98wrk
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 26 Apr 2016 06:59:30 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Cache-Control:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Internal-Host:
+      - '003'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '650'
+      Set-Cookie:
+      - F5P=2904606730.0.0000; path=/
+      - JSESSIONID=B8989D30A6C4059790B4DE570D370B6C; Path=/; HttpOnly
+      - JSESSIONID=B8989D30A6C4059790B4DE570D370B6C; Path=/; HttpOnly
+      - zguid=22|%5B%2279e52c6f-4f22-4f14-9c85-ddbb03bf060a%22%2C%22000000%22%2C%22%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%5Cu0000%22%2C%22false%40false%40false%40false%400%400%400%400%400%400%22%2C%220%22%2C%220%22%2C%220%22%2C%2210%22%2C%220%22%2C%220%400%400%400%400%400%22%2C%22%22%5D;
+        Domain=.zillow.com; Expires=Sun, 26-Apr-2026 18:59:30 GMT; Path=/
+      Via:
+      - 1.1 www.zillow.com
+      Vary:
+      - User-Agent
+    body:
+      encoding: UTF-8
+      string: '<?xml version="1.0" encoding="utf-8"?><SearchResults:searchresults
+        xsi:schemaLocation="http://www.zillow.com/static/xsd/SearchResults.xsd http://www.zillowstatic.com/vstatic/8927c76/static/xsd/SearchResults.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SearchResults="http://www.zillow.com/static/xsd/SearchResults.xsd"><request><address>9999
+        AnyWhere</address><citystatezip>10244</citystatezip></request><message><text>Error:
+        no exact match found for input address</text><code>508</code></message></SearchResults:searchresults><!--
+        H:003  T:5ms  S:150  R:Mon Apr 25 23:59:30 PDT 2016  B:4.0.28288-master.08b8689~hotfix.3583485
+        -->'
+    http_version: 
+  recorded_at: Tue, 26 Apr 2016 06:59:30 GMT
+recorded_with: VCR 2.9.3
