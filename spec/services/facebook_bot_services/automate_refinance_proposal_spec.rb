@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe FacebookMessengerServices::AutomateRefinanceProposal do
+describe FacebookBotServices::AutomateRefinanceProposal do
   before(:each) { Timecop.freeze(Time.local(2016, 4, 7)) }
 
   let(:service) do
