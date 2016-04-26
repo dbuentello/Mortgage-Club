@@ -3,7 +3,7 @@ var TextFormatMixin = require("mixins/TextFormatMixin");
 var MortgageDataTable = require("./MortgageDataTable");
 var SearchBox = require("./SearchBox");
 
-var Borrowers = React.createClass({
+var MortgageDataRecord = React.createClass({
   mixins: [TextFormatMixin],
   handleGoBack: function() {
     window.history.back();
@@ -134,4 +134,4 @@ var Borrowers = React.createClass({
   }
 });
 
-module.exports = Borrowers;
+module.exports = MortgageDataRecord;

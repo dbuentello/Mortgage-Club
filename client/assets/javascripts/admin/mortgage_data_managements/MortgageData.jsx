@@ -3,56 +3,56 @@ var TextFormatMixin = require("mixins/TextFormatMixin");
 var MortgageDataTable = require("./MortgageDataTable");
 var SearchBox = require("./SearchBox");
 
-var Borrowers = React.createClass({
+var MortgageData = React.createClass({
   mixins: [TextFormatMixin],
 
   render: function() {
     return (
       <div>
           {/* Page header */ }
-      <div className="page-header">
-        <div className="page-header-content">
-          <div className="page-title">
-            <h4><i className="icon-arrow-left52 position-left"></i> <a href="/mortgage_data"><span className="text-semibold">Mortgage Data</span> - Management</a></h4>
-          </div>
-        </div>
-      </div>
-      {/* /page header */ }
-
-      {/* Page container */ }
-      <div className="page-container">
-
-        {/* Page content */ }
-        <div className="page-content">
-
-          {/* Main content */ }
-          <div className="content-wrapper">
-
-            {/* Table */ }
-            <div className="panel panel-flat">
-              <div className="panel-heading">
-                <h5 className="panel-title">Mortgage Data</h5>
-                <div className="heading-elements">
-                  <SearchBox/>
-                </div>
-              </div>
-              <div className="panel-body">
-                <MortgageDataTable MortgageData={this.props.bootstrapData.mortgage_data} totalPages={this.props.bootstrapData.mortgage_data_count} currentPage={this.props.bootstrapData.current_page}/>
+          <div className="page-header">
+            <div className="page-header-content">
+              <div className="page-title">
+                <h4><i className="icon-arrow-left52 position-left"></i> <a href="/mortgage_data"><span className="text-semibold">Mortgage Data</span> - Management</a></h4>
               </div>
             </div>
-            {/* /table */ }
+          </div>
+          {/* /page header */ }
+
+          {/* Page container */ }
+          <div className="page-container">
+
+            {/* Page content */ }
+            <div className="page-content">
+
+              {/* Main content */ }
+              <div className="content-wrapper">
+
+                {/* Table */ }
+                <div className="panel panel-flat">
+                  <div className="panel-heading">
+                    <h5 className="panel-title">Mortgage Data</h5>
+                    <div className="heading-elements">
+                      <SearchBox/>
+                    </div>
+                  </div>
+                  <div className="panel-body">
+                    <MortgageDataTable MortgageData={this.props.bootstrapData.mortgage_data} totalPages={this.props.bootstrapData.mortgage_data_count} currentPage={this.props.bootstrapData.current_page}/>
+                  </div>
+                </div>
+                {/* /table */ }
+
+              </div>
+              {/* /main content */ }
+
+            </div>
+            {/* /page content */ }
 
           </div>
-          {/* /main content */ }
-
-        </div>
-        {/* /page content */ }
-
+          {/* /page container */ }
       </div>
-      {/* /page container */ }
-    </div>
     );
   }
 });
 
-module.exports = Borrowers;
+module.exports = MortgageData;
