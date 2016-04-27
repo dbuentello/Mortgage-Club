@@ -76,7 +76,7 @@ describe LoanTekServices::ReadQuotes do
         discount_pts: 0.0,
         pmi_monthly_premium_amount: 85.0,
         fha_upfront_premium_amount: 5400.0,
-        characteristic: "Of all 15 year fixed mortgages on MortgageClub that you've qualified for, this one has the lowest APR.",
+        characteristic: "Of all 15 year fixed mortgages on MortgageClub that you've qualified for, this one has the lowest APR."
       )
     end
   end

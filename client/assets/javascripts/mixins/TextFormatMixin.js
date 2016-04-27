@@ -53,7 +53,9 @@ var TextFormatMixin = {
     var decimal = 2;
 
     if(!decimals){
-      decimal = parseInt(decimals);
+      if(!isNaN(parseInt(decimals))){
+        decimal = parseInt(decimals);
+      }
     }
 
     if (!cashflow) {
