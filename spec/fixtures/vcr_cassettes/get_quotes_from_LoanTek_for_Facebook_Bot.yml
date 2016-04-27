@@ -1,0 +1,174 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.loantek.com/Clients/WebServices/Client/697/Pricing/V2/Quotes/LoanPricer/1746
+    body:
+      encoding: UTF-8
+      string: '{"BestExecutionMethodType":2,"QuotingChannel":3,"ClientDefinedIdentifier":"53ZnFveCNg4A","LockPeriod":30,"QuoteTypesToReturn":[-1,0,1],"LoanProgramsOfInterest":[1,2,3],"ZipCode":90212,"CreditScore":730,"LoanPurpose":1,"LoanAmount":460000,"LoanToValue":82.0,"PropertyUsage":2,"PropertyType":1}'
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Wed, 27 Apr 2016 03:46:36 GMT
+      Content-Length:
+      - '31607'
+    body:
+      encoding: UTF-8
+      string: '{"ClientDefinedIdentifier":"53ZnFveCNg4A","RequestDataContextId":-1,"BestExecutionMethodType":"ByRate","QuotesCount":22,"Quotes":[{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"SICsJ5LT5UynBI6cO9J5yw","LenderName":"UWM","ProductName":"30yearFixed","ProductId":"BFH30","DiscountPts":-0.461,"Fees":-2120.60,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5885,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Estimated third party fees, HUD Line: 814, Fee Type: $$, Amount: $1,947.00,
+        Include In APR: False<br />","Fees":[{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":1947.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":1947.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":4.625,"APR":4.625,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL-LPMI","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":2365.04,"Points":-1,"QuoteFees":-173.60},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"E49hXFh38kWsbwIC59NMlw","LenderName":"Provident
+        Funding","ProductName":"30yearFixed","ProductId":"CFH30","DiscountPts":-1.000,"OriginationPts":{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},"Fees":-3697.0,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5776,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Administration fee, HUD Line: 801, Fee Type: $$, Amount: $750.00, Include
+        In APR: False<br />Description: Estimated third party fees, HUD Line: 814,
+        Fee Type: $$, Amount: $1,947.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":2697.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":2697.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":4.000,"APR":4.224,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.41,"AnnualPremium":1886.00,"MonthlyRate":0.03,"MonthlyPremium":157.17,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":157.17,"ProductFamily":"CONVENTIONAL","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":2196.11,"Points":-1,"QuoteFees":-1000.0},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"nsGzSq2VPki2MwY8OOqXNA","LenderName":"UWM","ProductName":"30yearFixed","ProductId":"BFH30","DiscountPts":0.249,"Fees":1145.40,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5885,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Estimated third party fees, HUD Line: 814, Fee Type: $$, Amount: $1,947.00,
+        Include In APR: False<br />","Fees":[{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":1947.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":1947.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":4.375,"APR":4.396,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL-LPMI","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":2296.71,"Points":1,"QuoteFees":3092.40},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"cqOSuJIiMEWL_KAjBR6LRQ","LenderName":"UWM","ProductName":"30yearFixed","ProductId":"BFH30","DiscountPts":-0.190,"Fees":-874.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5885,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Estimated third party fees, HUD Line: 814, Fee Type: $$, Amount: $1,947.00,
+        Include In APR: False<br />","Fees":[{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":1947.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":1947.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":4.500,"APR":4.500,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL-LPMI","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":2330.75,"Points":0,"QuoteFees":1073.00},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"I9sem05-wUKRQuhKrhsdKQ","LenderName":"Provident
+        Funding","ProductName":"30yearFixed","ProductId":"CFH30","DiscountPts":-0.625,"OriginationPts":{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},"Fees":-2875.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5776,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Administration fee, HUD Line: 801, Fee Type: $$, Amount: $750.00, Include
+        In APR: False<br />Description: Estimated third party fees, HUD Line: 814,
+        Fee Type: $$, Amount: $1,947.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":2697.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":2697.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.875,"APR":4.116,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.41,"AnnualPremium":1886.00,"MonthlyRate":0.03,"MonthlyPremium":157.17,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":157.17,"ProductFamily":"CONVENTIONAL","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":2163.09,"Points":-1,"QuoteFees":-178.00},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"RaR9V9CrhE6xcU-ytWcccg","LenderName":"Provident
+        Funding","ProductName":"30yearFixed","ProductId":"CFH30","DiscountPts":0.000,"OriginationPts":{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},"Fees":0.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5776,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Administration fee, HUD Line: 801, Fee Type: $$, Amount: $750.00, Include
+        In APR: False<br />Description: Estimated third party fees, HUD Line: 814,
+        Fee Type: $$, Amount: $1,947.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":2697.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":2697.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.750,"APR":4.046,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.41,"AnnualPremium":1886.00,"MonthlyRate":0.03,"MonthlyPremium":157.17,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":157.17,"ProductFamily":"CONVENTIONAL","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":2130.33,"Points":0,"QuoteFees":2697.00},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"OFd_xmM2PUCQocAiMVQTGA","LenderName":"Provident
+        Funding","ProductName":"30yearFixed","ProductId":"CFH30","DiscountPts":0.750,"OriginationPts":{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},"Fees":3450.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5776,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Administration fee, HUD Line: 801, Fee Type: $$, Amount: $750.00, Include
+        In APR: False<br />Description: Estimated third party fees, HUD Line: 814,
+        Fee Type: $$, Amount: $1,947.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":2697.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":2697.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.625,"APR":3.985,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.41,"AnnualPremium":1886.00,"MonthlyRate":0.03,"MonthlyPremium":157.17,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":157.17,"ProductFamily":"CONVENTIONAL","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":2097.84,"Points":1,"QuoteFees":6147.00},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"c3h5auABm0i7MP_gxkawGA","LenderName":"UWM","ProductName":"15yearFixed","ProductId":"BFH15","DiscountPts":-0.721,"Fees":-2947.0,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5885,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Estimated third party fees, HUD Line: 814, Fee Type: $$, Amount: $1,947.00,
+        Include In APR: False<br />","Fees":[{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":1947.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":1947.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.875,"APR":3.875,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL-LPMI","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":3373.82,"Points":-1,"QuoteFees":-1000.0},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"LFGtuYgGHkWIxrGZfIG-zA","LenderName":"UWM","ProductName":"15yearFixed","ProductId":"BFH15","DiscountPts":-0.614,"Fees":-2824.40,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5885,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Estimated third party fees, HUD Line: 814, Fee Type: $$, Amount: $1,947.00,
+        Include In APR: False<br />","Fees":[{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":1947.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":1947.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.750,"APR":3.750,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL-LPMI","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":3345.22,"Points":-1,"QuoteFees":-877.40},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"bs7jlATUikSLSGriZyhcLw","LenderName":"UWM","ProductName":"15yearFixed","ProductId":"BFH15","DiscountPts":-0.270,"Fees":-1242.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5885,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Estimated third party fees, HUD Line: 814, Fee Type: $$, Amount: $1,947.00,
+        Include In APR: False<br />","Fees":[{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":1947.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":1947.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.625,"APR":3.625,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL-LPMI","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":3316.77,"Points":0,"QuoteFees":705.00},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"hv3klXf_1kaqwC62YJs46A","LenderName":"UWM","ProductName":"15yearFixed","ProductId":"BFH15","DiscountPts":0.141,"Fees":648.60,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5885,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Estimated third party fees, HUD Line: 814, Fee Type: $$, Amount: $1,947.00,
+        Include In APR: False<br />","Fees":[{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":1947.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":1947.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.500,"APR":3.521,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL-LPMI","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":3288.46,"Points":1,"QuoteFees":2595.60},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"J-WZ2b0Mu0i6ABcUlmrbeA","LenderName":"Provident
+        Funding","ProductName":"15yearFixed","ProductId":"CFH15","DiscountPts":-1.000,"OriginationPts":{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},"Fees":-3697.0,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5776,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Administration fee, HUD Line: 801, Fee Type: $$, Amount: $750.00, Include
+        In APR: False<br />Description: Estimated third party fees, HUD Line: 814,
+        Fee Type: $$, Amount: $1,947.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":2697.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":2697.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.250,"APR":3.438,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.36,"AnnualPremium":1656.00,"MonthlyRate":0.03,"MonthlyPremium":138.00,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":138.00,"ProductFamily":"CONVENTIONAL","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":3232.28,"Points":-1,"QuoteFees":-1000.0},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"drFJxUb2-kGIrA7u_7fhow","LenderName":"Provident
+        Funding","ProductName":"15yearFixed","ProductId":"CFH15","DiscountPts":-0.625,"OriginationPts":{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},"Fees":-2875.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5776,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Administration fee, HUD Line: 801, Fee Type: $$, Amount: $750.00, Include
+        In APR: False<br />Description: Estimated third party fees, HUD Line: 814,
+        Fee Type: $$, Amount: $1,947.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":2697.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":2697.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.125,"APR":3.341,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.36,"AnnualPremium":1656.00,"MonthlyRate":0.03,"MonthlyPremium":138.00,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":138.00,"ProductFamily":"CONVENTIONAL","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":3204.40,"Points":-1,"QuoteFees":-178.00},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"4Vn3dv_IgkubtNMj_HNyYg","LenderName":"UWM","ProductName":"15yearFixed","ProductId":"CFH15","DiscountPts":0.711,"Fees":3270.60,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5885,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Estimated third party fees, HUD Line: 814, Fee Type: $$, Amount: $1,947.00,
+        Include In APR: False<br />","Fees":[{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":1947.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":1947.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":2.990,"APR":3.401,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.36,"AnnualPremium":1656.00,"MonthlyRate":0.03,"MonthlyPremium":138.00,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":138.00,"ProductFamily":"CONVENTIONAL","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":3174.46,"Points":1,"QuoteFees":5217.60},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"deNkMkIkwUqrztdE2JftTw","LenderName":"Provident
+        Funding","ProductName":"15yearFixed","ProductId":"CFH15","DiscountPts":0.500,"OriginationPts":{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},"Fees":2300.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5776,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Administration fee, HUD Line: 801, Fee Type: $$, Amount: $750.00, Include
+        In APR: False<br />Description: Estimated third party fees, HUD Line: 814,
+        Fee Type: $$, Amount: $1,947.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":2697.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":2697.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":2.875,"APR":3.257,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.36,"AnnualPremium":1656.00,"MonthlyRate":0.03,"MonthlyPremium":138.00,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":138.00,"ProductFamily":"CONVENTIONAL","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":3149.09,"Points":1,"QuoteFees":4997.00},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"IMpnsGPiWEm6md7a_uLhkw","LenderName":"UWM","ProductName":"30yearFixed","ProductId":"CFH30","DiscountPts":0.100,"Fees":460.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5885,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Estimated third party fees, HUD Line: 814, Fee Type: $$, Amount: $1,947.00,
+        Include In APR: False<br />","Fees":[{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":1947.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":1947.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.990,"APR":4.290,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.41,"AnnualPremium":1886.00,"MonthlyRate":0.03,"MonthlyPremium":157.17,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":157.17,"ProductFamily":"CONVENTIONAL","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":2193.46,"Points":1,"QuoteFees":2407.00},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"S6BvrmPx7Uqp17HX4B5mpA","LenderName":"Provident
+        Funding","ProductName":"15yearFixed","ProductId":"CFH15","DiscountPts":-0.125,"OriginationPts":{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},"Fees":-575.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5776,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Administration fee, HUD Line: 801, Fee Type: $$, Amount: $750.00, Include
+        In APR: False<br />Description: Estimated third party fees, HUD Line: 814,
+        Fee Type: $$, Amount: $1,947.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":2697.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":2697.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.000,"APR":3.290,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.36,"AnnualPremium":1656.00,"MonthlyRate":0.03,"MonthlyPremium":138.00,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":138.00,"ProductFamily":"CONVENTIONAL","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":3176.68,"Points":0,"QuoteFees":2122.00},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"VTpsgbF1_ki61mpeLKN4fQ","LenderName":"Provident
+        Funding","ProductName":"30yearFixed","ProductId":"CFH30","DiscountPts":-1.000,"OriginationPts":{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},"Fees":-3697.0,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5776,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Administration fee, HUD Line: 801, Fee Type: $$, Amount: $750.00, Include
+        In APR: False<br />Description: Estimated third party fees, HUD Line: 814,
+        Fee Type: $$, Amount: $1,947.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":2697.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":2697.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":4.750,"APR":4.959,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.41,"AnnualPremium":1886.00,"MonthlyRate":0.03,"MonthlyPremium":157.17,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":157.17,"ProductFamily":"CONVENTIONAL","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":2399.58,"Points":-1,"QuoteFees":-1000.0},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"0JUcvnHVB0S1oIiP8Fajdw","LenderName":"Provident
+        Funding","ProductName":"15yearFixed","ProductId":"CFH15","DiscountPts":-1.500,"OriginationPts":{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},"Fees":-3697.0,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5776,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Administration fee, HUD Line: 801, Fee Type: $$, Amount: $750.00, Include
+        In APR: False<br />Description: Estimated third party fees, HUD Line: 814,
+        Fee Type: $$, Amount: $1,947.00, Include In APR: False<br />","Fees":[{"HudLine":801,"Description":"Administration
+        fee","IncludeInAPR":false,"FeeAmount":750.0,"FeeType":1},{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":2697.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":2697.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":4.000,"APR":4.177,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.36,"AnnualPremium":1656.00,"MonthlyRate":0.03,"MonthlyPremium":138.00,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":138.00,"ProductFamily":"CONVENTIONAL","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":3402.56,"Points":-1,"QuoteFees":-1000.0},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"HSdZMtJ0JEuVTDOIR_umzw","LenderName":"UWM","ProductName":"30yearFixed","ProductId":"BFH30","DiscountPts":0.535,"Fees":2461.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5885,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Estimated third party fees, HUD Line: 814, Fee Type: $$, Amount: $1,947.00,
+        Include In APR: False<br />","Fees":[{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":1947.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":1947.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":4.250,"APR":4.295,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL-LPMI","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":2262.92,"Points":1,"QuoteFees":4408.00},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"fUcwC_NnIU2rp8S8D9685Q","LenderName":"UWM","ProductName":"30yearFixed","ProductId":"BFH30","DiscountPts":0.895,"Fees":4117.00,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5885,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Estimated third party fees, HUD Line: 814, Fee Type: $$, Amount: $1,947.00,
+        Include In APR: False<br />","Fees":[{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":1947.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":1947.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":4.125,"APR":4.200,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL-LPMI","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"30","PrincipalAndInterestPayment":2229.39,"Points":1,"QuoteFees":6064.00},{"DateTime":"2016-04-26T20:46:37.1162529-07:00","ClientId":697,"UserId":1746,"LoanTekQuoteId":"RApuP0xbgU-sloVwBLIdig","LenderName":"UWM","ProductName":"15yearFixed","ProductId":"BFH15","DiscountPts":0.641,"Fees":2948.60,"FeeSet":{"Created":"0001-01-01T00:00:00","Updated":"0001-01-01T00:00:00","FeeSetId":5885,"LoanAmount":460000.0,"ItemizedFees":"Description:
+        Estimated third party fees, HUD Line: 814, Fee Type: $$, Amount: $1,947.00,
+        Include In APR: False<br />","Fees":[{"HudLine":814,"Description":"Estimated
+        third party fees","IncludeInAPR":false,"FeeAmount":1947.0,"FeeType":1}],"NonAPRFees":1947.0,"DollarFees":0.0,"PercentFees":0.0,"TotalFees":1947.0},"LockDay":30,"ARMDetails":{"IndexType":"               ","Margin":0.000,"FixRate":0,"AdjustRate":0,"InitialCap":0.000,"PeriodicCap":0.000,"LifetimeCap":0.000},"AdvertiserNote":"tbd","Rate":3.375,"APR":3.468,"FICO":730,"LoanToValue":82,"PropertyType":"SFH","PropertyUse":"SEC","MIPInfo":{"AnnualRate":0.0,"AnnualPremium":0.0,"MonthlyRate":0.0,"MonthlyPremium":0.0,"UpfrontRate":0.0,"UpfrontPremium":0.0},"UFMIPPercent":0.0,"MIP":0.0,"ProductFamily":"CONVENTIONAL-LPMI","ProductClass":"HIGH
+        BALANCE","ProductType":"FIXED","ProductTerm":"15","PrincipalAndInterestPayment":3260.30,"Points":1,"QuoteFees":4895.60}]}'
+    http_version: 
+  recorded_at: Wed, 27 Apr 2016 03:46:37 GMT
+recorded_with: VCR 2.9.3
