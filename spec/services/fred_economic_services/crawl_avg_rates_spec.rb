@@ -36,7 +36,7 @@ describe FredEconomicServices::CrawlAvgRates do
     before do
       @rates = {}
     end
-    it "makes JSON received parse message" do
+    it "calls JSON.parse" do
       VCR.use_cassette("crawls data on Fred Economic") do
         expect(JSON).to receive(:parse)
         described_class.crawl_data(type, nil, nil, @rates)
