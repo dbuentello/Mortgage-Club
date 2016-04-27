@@ -18,7 +18,7 @@ module FredEconomicServices
 
     # weekly update on Friday.
     def self.update
-      @rates = {}
+      @rates = Hash.new { |hsh, key| hsh[key] = {} }
       coed = Time.zone.today
       cosd = coed - 7
       crawl_data(YEAR_FIXED_30, cosd.to_s, coed.to_s, @rates)
