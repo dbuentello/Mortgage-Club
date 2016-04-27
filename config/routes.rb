@@ -114,8 +114,7 @@ Rails.application.routes.draw do
     resources :checklists, only: [:create, :edit, :update, :destroy] do
     end
 
-    resources :loans, only: [:index, :update] do
-    end
+    resources :loans, only: [:index, :update, :show]
 
     resources :dashboard, only: [:show]
 
