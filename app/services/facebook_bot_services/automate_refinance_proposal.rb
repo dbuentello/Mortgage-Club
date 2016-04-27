@@ -1,3 +1,4 @@
+#  LoanTek: get quote which has lowest apr and total_closing_cost <= 0 and interest_rate < original_interest_rate
 require "finance_formulas"
 
 module FacebookBotServices
@@ -5,7 +6,7 @@ module FacebookBotServices
     include FinanceFormulas
     attr_accessor :old_loan_amount, :new_loan_amount, :periods,
                   :original_loan_date, :lender_credit, :estimated_closing_costs,
-                  :new_interest_rate, :old_interest_rate, :start_due_date,
+                  :new_interest_rate, :start_due_date,
                   :current_home_value
 
     LENDER_AVG_OVERLAY = 0.0025
@@ -16,12 +17,12 @@ module FacebookBotServices
     def initialize(args)
       @old_loan_amount = args[:old_loan_amount].to_f
       @periods = args[:periods].to_f
-      @old_interest_rate = args[:old_interest_rate].to_f / 12
       @new_interest_rate = args[:new_interest_rate].to_f / 12
       @lender_credit = args[:lender_credit].to_f
       @estimated_closing_costs = args[:estimated_closing_costs].to_f
       @current_home_value = args[:current_home_value].to_f
       @original_loan_date = DateTime.strptime(args[:original_loan_date], "%m/%d/%Y")
+      @old_interest_rate = original_interest_rate
       @start_due_date = (Time.zone.now + 61.days).beginning_of_month
     end
 
@@ -36,7 +37,8 @@ module FacebookBotServices
         savings_10_years: savings_in_ten_years,
         cash_out: cash_out,
         net_closing_costs: net_closing_costs,
-        monthly_payment_for_cash_out: monthly_payment_for_cash_out
+        monthly_payment_for_cash_out: monthly_payment_for_cash_out,
+        original_interest_rate: original_interest_rate
       }
     end
 
@@ -66,10 +68,6 @@ module FacebookBotServices
       (-pmt(rate, periods, amount)).round(2)
     end
 
-    # def new_monthly_payment
-    #   @new_monthly_payment ||= -pmt(new_interest_rate, periods, new_loan_amount)
-    # end
-
     def original_lock_in_date
       original_loan_date - 30.days
     end
@@ -79,7 +77,11 @@ module FacebookBotServices
     end
 
     def avg_rate_lock_in_date
-      # query from Model with
+      @avg_rate_lock_in_date ||= begin
+        if fred_economic = FredEconomic.where(event_date: original_loan_date.to_date.to_s).last
+          fred_economic.year_fixed_30
+        end
+      end
     end
 
     def new_loan_amount

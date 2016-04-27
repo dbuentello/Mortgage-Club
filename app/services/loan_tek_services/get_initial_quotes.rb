@@ -1,10 +1,9 @@
 module LoanTekServices
   class GetInitialQuotes
-    attr_accessor :info, :response
+    attr_accessor :info
 
     def initialize(info)
       @info = info
-      @response = []
     end
 
     def call
