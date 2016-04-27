@@ -4,9 +4,10 @@ module RefinanceProposalServices
   class AutomateRefinanceProposal
     include FinanceFormulas
     attr_accessor :old_loan_amount, :periods, :original_loan_date,
-                  :lender_credit, :estimated_closing_costs,
-                  :old_interest_rate, :new_interest_rate, :start_due_date,
-                  :current_home_value
+                  :lender_credit, :lender_credit_cashout,
+                  :estimated_closing_costs, :estimated_closing_costs_cash_out,
+                  :old_interest_rate, :new_interest_rate, :new_interest_rate_cash_out,
+                  :start_due_date, :current_home_value
     LTV = 0.8
 
     # periods: must be converted to months
@@ -15,8 +16,11 @@ module RefinanceProposalServices
       @old_loan_amount = args[:old_loan_amount].to_f
       @periods = args[:periods].to_f
       @new_interest_rate = args[:new_interest_rate].to_f / 12
+      @new_interest_rate_cash_out = args[:new_interest_rate_cash_out] / 12
       @lender_credit = args[:lender_credit].to_f
+      @lender_credit_cashout = args[:lender_credit_cashout].to_f
       @estimated_closing_costs = args[:estimated_closing_costs].to_f
+      @estimated_closing_costs_cash_out = args[:estimated_closing_costs_cash_out].to_f
       @current_home_value = args[:current_home_value].to_f
       @original_loan_date = args[:original_loan_date]
       @old_interest_rate = args[:original_interest_rate] / 12
@@ -27,15 +31,24 @@ module RefinanceProposalServices
       {
         current_mortgage_balance: current_mortgage_balance,
         current_monthly_payment: get_monthly_payment(old_interest_rate, old_loan_amount),
-        new_monthly_payment: get_monthly_payment(new_interest_rate, new_loan_amount),
-        net_closing_costs: net_closing_costs,
-        savings_1_year: savings_in_one_year,
-        savings_3_years: savings_in_three_years,
-        savings_10_years: savings_in_ten_years,
-        cash_out: cash_out,
-        net_closing_costs: net_closing_costs,
-        monthly_payment_for_cash_out: monthly_payment_for_cash_out,
-        original_interest_rate: original_interest_rate
+        original_interest_rate: (old_interest_rate * 100 * 12).round(3),
+        lower_rate_refinance: {
+          new_interest_rate: (new_interest_rate * 100 * 12).round(3),
+          new_monthly_payment: get_monthly_payment(new_interest_rate, new_loan_amount).round,
+          net_closing_costs: net_closing_costs,
+          savings_1_year: savings_in_one_year,
+          savings_3_years: savings_in_three_years,
+          savings_10_years: savings_in_ten_years
+        },
+        cash_out_refinance: {
+          cash_out: cash_out,
+          net_closing_costs_cash_out: net_closing_costs_cash_out,
+          monthly_payment_cash_out: monthly_payment_cash_out.round,
+          current_home_value: current_home_value,
+          new_interest_rate: (new_interest_rate_cash_out * 100 * 12).round(3),
+          new_loan_amount: loan_amount_cash_out,
+          net_closing_costs: net_closing_costs_cash_out
+        }
       }
     end
 
@@ -123,16 +136,20 @@ module RefinanceProposalServices
       ((end_date.year * 12 + end_date.month) - (start_date.year * 12 + start_date.month)) + 1
     end
 
-    def loan_amount_for_cash_out
+    def loan_amount_cash_out
       current_home_value.to_f * LTV
     end
 
     def cash_out
-      loan_amount_for_cash_out - current_mortgage_balance
+      (loan_amount_cash_out - current_mortgage_balance).to_i
     end
 
-    def monthly_payment_for_cash_out
-      get_monthly_payment(new_interest_rate, loan_amount_for_cash_out)
+    def monthly_payment_cash_out
+      get_monthly_payment(new_interest_rate_cash_out, loan_amount_cash_out)
+    end
+
+    def net_closing_costs_cash_out
+      lender_credit_cashout + estimated_closing_costs_cash_out
     end
   end
 end

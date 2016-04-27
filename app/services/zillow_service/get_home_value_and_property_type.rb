@@ -7,7 +7,7 @@ module ZillowService
       'SingleFamily'    => "sfh",
       'Duplex'          => "duplex",
       'Triplex'         => "triplex",
-      'Quadruplex'      => "quadruplex",
+      'Quadruplex'      => "fourplex",
       'Condominium'     => "sfh"
     }
 
