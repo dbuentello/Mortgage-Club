@@ -182,7 +182,7 @@ var HelpMeChoose = React.createClass({
           </div>
           <div className='row helpmechoose'>
             <div className='col-lg-7'>
-              <div className='col-lg-11 calculator'>
+              <div className='row col-lg-11 calculator'>
                 <div className='years_chart mtxl'>
                   <div className='row'>
                     <div className='col-lg-12'>
@@ -232,6 +232,8 @@ var HelpMeChoose = React.createClass({
                     </div>
                   </div>
                 </div>
+                <br ></br>
+                <br ></br>
               </div>
             </div>
             {

@@ -30,7 +30,6 @@ var List = React.createClass({
     var selectedBoardContent = $("#board-content-" + index);
     currentState[index] = !currentState[index];
     this.setState(currentState);
-
     if(selectedBoardContent.css("display") == "none") {
       selectedBoardContent.slideToggle(500);
       $(event.target).find("span").toggleClass("up-state");
@@ -167,19 +166,22 @@ var List = React.createClass({
                     </div>
                   </div>
                 </div>
+                <br></br>
+
                 <div id={"board-content-" + index} className={this.state.toggleContentStates[index] === true ? "board-content" : "board-content up-state"}>
                   <div className="row">
+
                     <div className="col-md-6">
                       <h4>Product details</h4>
                       <div className="row">
-                        <div className="col-xs-6">
+                        <div className="col-xs-7">
                           <p className="col-xs-12 cost">Product type</p>
                           <p className="col-xs-12 cost">Interest Rate</p>
                           <p className="col-xs-12 cost">APR</p>
                           <p className="col-xs-12 cost">Loan amount</p>
                           <p className="col-xs-12 cost">Down payment</p>
                         </div>
-                        <div className="col-xs-6">
+                        <div className="col-xs-5">
                           <p className="col-xs-12 cost">{quote.product}</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.interest_rate * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.apr * 100, 3)}%</p>
@@ -218,13 +220,19 @@ var List = React.createClass({
                     <div className="col-md-6">
                       <h4>Monthly payment details</h4>
                       <div className="row">
-                        <div className="col-md-9">
-                          <p className="col-xs-12 cost">Principal and interest</p>
-                          <p className="col-xs-12 cost">Estimated property tax</p>
-                          <p className="col-xs-12 cost">Estimated homeowners insurance</p>
-                          <p className="col-xs-12 cost">Total estimated monthly payment</p>
+                        <div className="col-md-9 col-xs-9 hidden-xs pull-left">
+                          <p className="col-xs-12 cost ">Principal and interest</p>
+                          <p className="col-xs-12 cost ">Estimated property tax</p>
+                          <p className="col-xs-12 cost ">Estimated homeowners insurance</p>
+                          <p className="col-xs-12 cost ">Total estimated monthly payment</p>
+                          </div>
+                          <div className="col-xs-8 visible-xs pull-left">
+                          <p className="col-xs-12 cost ">Principal and interest</p>
+                          <p className="col-xs-12 cost ">Estimated property tax</p>
+                          <p className="col-xs-12 cost ">Est. homeowners ins.</p>
+                          <p className="col-xs-12 cost "> Total est. payment</p>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-3 col-xs-3">
                           <p className="col-xs-12 cost">{this.formatCurrency(quote.monthly_payment, "$")}</p>
                           <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedPropertyTax, "$")}</p>
                           <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedHazardInsurance, "$")}</p>
@@ -246,8 +254,9 @@ var List = React.createClass({
                     total={this.totalMonthlyPayment(quote.monthly_payment, 0, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance, 0)} />
 
                 </div>
-                <div className="board-content-toggle" onClick={_.bind(this.toggleHandler, null, index)}>
-                  <span className={this.state.toggleContentStates[index]===true ? "glyphicon glyphicon-menu-up" : "glyphicon glyphicon-menu-down"}></span>
+                <div className="board-content-toggle">
+                  <button onClick={_.bind(this.toggleHandler, null, index)}><span className={this.state.toggleContentStates[index]===true ? "glyphicon glyphicon-menu-up" : "glyphicon glyphicon-menu-down"} ></span></button>
+
                 </div>
               </div>
             );
