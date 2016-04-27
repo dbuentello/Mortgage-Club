@@ -47,7 +47,8 @@ module LoanTekServices
           logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
           loan_type: quote["ProductFamily"],
           discount_pts: discount_pts_equals_to_0_125?(quote) || check_to_hide_admin_fee(quote, admin_fee) ? 0 : discount_pts,
-          pmi_monthly_premium_amount: quote["MIP"].to_f.round(0)
+          pmi_monthly_premium_amount: quote["MIP"].to_f,
+          fha_upfront_premium_amount: get_fha_upfront_premium_amount(quote)
         }
         programs << program
       end
@@ -108,8 +109,9 @@ module LoanTekServices
     def self.get_total_closing_cost(quote, admin_fee)
       total_fee = get_total_fee(quote, admin_fee)
       lender_credit = get_lender_credits(quote, admin_fee)
+      fha_upfront_premium_amount = get_fha_upfront_premium_amount(quote)
 
-      total_fee + lender_credit
+      total_fee + lender_credit + fha_upfront_premium_amount
     end
 
     def self.get_admin_fee(quote)
@@ -146,6 +148,10 @@ module LoanTekServices
 
     def self.get_interest_rate(quote)
       quote["Rate"].to_f / 100
+    end
+
+    def self.get_fha_upfront_premium_amount(quote)
+      quote["UFMIPPercent"].to_f * quote["FeeSet"]["LoanAmount"].to_f
     end
 
     def self.arm?(quote)

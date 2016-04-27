@@ -212,6 +212,13 @@ var List = React.createClass({
                             <li className="lender-fee-item">{rate.lender_credits < 0 ? "Lender credit" : "Discount points"}: {this.formatCurrency(rate.lender_credits, 0, '$')}</li>
                         }
                         {
+                          rate.fha_upfront_premium_amount == 0
+                          ?
+                            null
+                          :
+                            <li className="lender-fee-item">Upfront mortgage insurance premium: {this.formatCurrency(rate.fha_upfront_premium_amount, 0, "$")}</li>
+                        }
+                        {
                           _.map(rate.fees, function(fee){
                             return (
                               <li className="lender-fee-item" key={fee["HudLine"]}>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, '$')}</li>
