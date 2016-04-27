@@ -42,5 +42,4 @@ describe LoanTekServices::SendRequestToLoanTek do
       expect(described_class.quote_types_to_return).to eq([-1, 0, 1])
     end
   end
-
 end
