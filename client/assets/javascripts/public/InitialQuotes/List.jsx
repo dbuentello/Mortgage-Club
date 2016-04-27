@@ -121,7 +121,7 @@ var List = React.createClass({
     if(!down_payment)
       return 0;
 
-    return (parseFloat(down_payment/(down_payment + loan_amount)) * 100).toFixed(3);
+    return (parseFloat(down_payment/(down_payment + loan_amount)) * 100).toFixed(0);
   },
 
   totalMonthlyPayment: function(monthly_payment, mtg_insurrance, tax, hazard_insurrance, hoa_due, mortgage_insurance_premium){
