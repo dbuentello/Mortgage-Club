@@ -630,8 +630,9 @@
 
 .mobile-xs-quote {
 
-    margin-left: -15px;
-    margin-right: -15px;
+  padding-top: 20px;
+  margin-left: -15px;
+  margin-right: -15px;
 
   .form-group {
     img {
@@ -650,4 +651,9 @@
     }
   }
 
+}
+#filterQuotes {
+  .modal-header {
+    border: 0;
+  }
 }

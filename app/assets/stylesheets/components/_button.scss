@@ -47,10 +47,19 @@
   color: #fff;
   background: $mc-green-color;
   border: $mc-green-color 1px solid !important;
-  padding: 11px 15px !important;
-  font-size: 13px !important;
+  padding: 11px 10px !important;
+  font-size: 12px !important;
   &:hover {
     color: $mc-green-color !important;
     background: #fff;
   }
+}
+
+.btn-filter {
+  color: black;
+  background: #fff;
+  border: #ccc 1px solid !important;
+  padding: 11px 10px !important;
+  font-size: 12px !important;
+  margin-left: 5px;
 }

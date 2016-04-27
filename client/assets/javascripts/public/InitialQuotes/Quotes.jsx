@@ -185,8 +185,26 @@ var Quotes = React.createClass({
                             <a className="btn btn-mc-green text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
                           </div>
                           <div className="col-xs-2 text-left">
-                            <a className="btn btn-mc-green text-uppercase">Filter</a>
+                            <a className="btn btn-filter text-uppercase" data-toggle="modal" data-target="#filterQuotes">Filter</a>
                           </div>
+
+
+                          <div className="modal fade" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div className="modal-dialog modal-sm" role="document">
+                              <div className="modal-content">
+                                <div className="modal-header">
+                                  <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div className="modal-body">
+                                  <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
+                                </div>
+                                <div className="modal-footer">
+                                  <button type="button" className="btn btn-default" data-dismiss="modal">OK</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                           <div className="col-xs-4 select-box pull-right">
                             <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
                               <option value="apr">APR</option>
