@@ -1,9 +1,9 @@
 require "rails_helper"
 
-describe LoanTekServices::GetDataForRefinanceProposal do
+describe LoanTekServices::GetDataForLowerRateRefinance do
   describe "#call" do
     context "when quote is valid" do
-      let(:service) { described_class.new(500_000, 400_000, "95127", 0.04625) }
+      let(:service) { described_class.new(500_000, 400_000, "95127", 0.04625, "sfh") }
 
       it "returns a hash" do
         VCR.use_cassette("get quotes from LoanTek for refinance proposal") do
@@ -17,7 +17,7 @@ describe LoanTekServices::GetDataForRefinanceProposal do
     end
 
     context "when quotes are empty" do
-      let(:service) { described_class.new(0, 0, "95127", 0.04625) }
+      let(:service) { described_class.new(0, 0, "95127", 0.04625, "sfh") }
 
       it "returns nil" do
         VCR.use_cassette("get empty quotes from LoanTek for refinance proposal") do
@@ -27,7 +27,7 @@ describe LoanTekServices::GetDataForRefinanceProposal do
     end
 
     context "when there are not any desired quotes" do
-      let(:service) { described_class.new(500_000, 400_000, "95127", 0.0125) }
+      let(:service) { described_class.new(500_000, 400_000, "95127", 0.0125, "sfh") }
 
       it "returns nil" do
         VCR.use_cassette("get quotes from LoanTek for refinance proposal") do

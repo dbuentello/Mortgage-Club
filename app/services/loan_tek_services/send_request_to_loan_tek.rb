@@ -18,7 +18,8 @@ module LoanTekServices
           LoanAmount: params[:loan_amount],
           LoanToValue: params[:loan_to_value],
           PropertyUsage: params[:property_usage],
-          PropertyType: params[:property_type]
+          PropertyType: params[:property_type],
+          CashOut: true
         }.to_json
       end
 
