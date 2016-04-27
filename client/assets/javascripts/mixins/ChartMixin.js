@@ -118,12 +118,13 @@ var ChartMixin = {
     var chartHeight = 320;
     var marginRight = 45;
     var marginBottom = 30;
+    var marginTop = 10;
 
     var xScale = d3.scale.linear()
       .range([0, chartWidth - marginRight]).domain([0, numOfMonths]);
 
     var yScale = d3.scale.linear()
-      .range([0, chartHeight - marginBottom]).domain([loanAmount, 0]);
+      .range([marginTop, chartHeight - marginBottom]).domain([loanAmount, 0]);
 
     var xAxis = d3.svg.axis().scale(xScale)
       .tickValues([0, numOfMonths / 3, numOfMonths / 3 * 2, numOfMonths])
