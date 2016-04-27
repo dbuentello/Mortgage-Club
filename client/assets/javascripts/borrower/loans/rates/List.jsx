@@ -43,7 +43,7 @@ var List = React.createClass({
             this.state.estimatedMortgageInsurance,
             this.state.estimatedPropertyTax,
             this.state.estimatedHazardInsurance,
-            0,
+            this.state.hoaDue,
             rate.pmi_monthly_premium_amount
           );
           this.drawPieChart(
@@ -90,7 +90,7 @@ var List = React.createClass({
           this.state.estimatedMortgageInsurance,
           this.state.estimatedPropertyTax,
           this.state.estimatedHazardInsurance,
-          0,
+          this.state.hoaDue,
           rate.pmi_monthly_premium_amount
         );
         this.drawPieChart(

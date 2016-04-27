@@ -46,7 +46,7 @@ module LoanTekServices
           nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
           logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
           loan_type: quote["ProductFamily"],
-          discount_pts: discount_pts_equals_to_0_125?(quote) || check_to_hide_admin_fee(quote, admin_fee) ? 0 : discount_pts,
+          discount_pts: discount_pts_equals_to_0_125?(quote) || hide_admin_fee?(quote, admin_fee) ? 0 : discount_pts,
           pmi_monthly_premium_amount: quote["MIP"].to_f,
           fha_upfront_premium_amount: get_fha_upfront_premium_amount(quote)
         }
@@ -204,7 +204,7 @@ module LoanTekServices
       quote["DiscountPts"] == 0.125
     end
 
-    def self.check_to_hide_admin_fee(quote, admin_fee)
+    def self.hide_admin_fee?(quote, admin_fee)
       total_fee = quote["DiscountPts"].to_f / 100 * quote["FeeSet"]["LoanAmount"].to_f + admin_fee
 
       return true if total_fee >= 0 && total_fee <= 1000
