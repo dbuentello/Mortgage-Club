@@ -2,8 +2,17 @@ require "rails_helper"
 
 describe FredEconomicServices::CrawlAvgRates do
   describe ".call" do
-    it "crawls data from Fred Economic 3 times" do
+    it "crawls data from Fred Economic Data 3 times to create new data" do
       VCR.use_cassette("get Fred Economic rate data") do
+        expect(described_class).to receive(:crawl_data).exactly(3).times
+        described_class.call
+      end
+    end
+  end
+
+  describe ".update" do
+    it "also crawls from Fred Economic Data 3 times to create or update data" do
+      VCR.use_cassette("get or update Fred Economic rate data") do
         expect(described_class).to receive(:crawl_data).exactly(3).times
         described_class.call
       end
