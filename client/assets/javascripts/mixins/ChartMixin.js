@@ -1,7 +1,7 @@
 var TextFormat = require("mixins/TextFormatMixin")
 var ChartMixin = {
 
-  drawPieChart: function(id, principal, hazardInsurance, propertyTax, mortgageInsurance, hoadue, totalMontlyPayment) {
+  drawPieChart: function(id, principal, hazardInsurance, propertyTax, mortgageInsurance, hoadue, mortgageInsurancePremium, totalMontlyPayment) {
     principal = parseFloat(principal);
     hazardInsurance = parseFloat(hazardInsurance);
     propertyTax = parseFloat(propertyTax);
@@ -18,12 +18,17 @@ var ChartMixin = {
 
       if (mortgageInsurance !== undefined && mortgageInsurance !== null && mortgageInsurance !== 0){
         mortgageInsurance = parseFloat(mortgageInsurance);
-        data.addRow(['H&I (' + TextFormat.formatCurrency(mortgageInsurance) + ')', mortgageInsurance])
+        data.addRow(['H&I (' + TextFormat.formatCurrency(mortgageInsurance) + ')', mortgageInsurance]);
       }
 
       if (hoadue !== undefined && hoadue !== null && hoadue !== 0){
         hoadue = parseFloat(hoadue);
-        data.addRow(['HOA Due (' + TextFormat.formatCurrency(hoadue) + ')', hoadue])
+        data.addRow(['HOA Due (' + TextFormat.formatCurrency(hoadue) + ')', hoadue]);
+      }
+
+      if (mortgageInsurancePremium !== undefined && mortgageInsurancePremium !== null && mortgageInsurancePremium !== 0){
+        mortgageInsurancePremium = parseFloat(mortgageInsurancePremium);
+        data.addRow(['MIP (' + TextFormat.formatCurrency(mortgageInsurancePremium) + ')', mortgageInsurancePremium]);
       }
 
       var options = {
@@ -36,7 +41,7 @@ var ChartMixin = {
         },
         pieSliceText: 'value',
         tooltip: {trigger: 'selection'},
-        colors: ['#3182BD', '#6BAED6', '#9ECAE1', '#C6DBEF', '#E9E4F2']
+        colors: ['#3182BD', '#6BAED6', '#9ECAE1', '#C6DBEF', '#E9E4F2', '#F2EFF6']
       };
 
       var chart = new google.visualization.PieChart(document.getElementById('piechart' + id));
