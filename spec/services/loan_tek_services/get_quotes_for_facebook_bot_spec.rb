@@ -6,7 +6,7 @@ describe LoanTekServices::GetQuotesForFacebookBot do
       let(:params) { {} }
 
       it "returns false" do
-        expect(described_class.new(params).call).to be_falsy
+        expect(described_class.new(params).call).to be_falsey
       end
     end
 

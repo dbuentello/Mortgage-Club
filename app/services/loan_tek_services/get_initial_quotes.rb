@@ -17,7 +17,7 @@ module LoanTekServices
         property_type: get_property_type
       )
 
-      quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes)
+      quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose)
     end
 
     private
