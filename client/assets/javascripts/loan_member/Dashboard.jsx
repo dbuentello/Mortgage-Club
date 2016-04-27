@@ -9,9 +9,11 @@ var DocumentTab = require("./tabs/document/DocumentTab");
 var LenderDocumentTab = require("./tabs/lender_document/LenderDocumentTab");
 var ChecklistTab = require("./tabs/checklist/ChecklistTab");
 var CompetitorRateTab = require("./tabs/competitor_rates/CompetitorRateTab");
+var LoanTermsTab = require("./tabs/loan_terms/LoanTermsTab");
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
   render: function() {
+    var sourceData = this.props.bootstrapData;
     return (
       <div>
         <div className="page-header">
@@ -29,10 +31,10 @@ var Dashboard = React.createClass({
                   <div className="category-content sidebar-user">
                     <div className="media">
                       <div className="media-body">
-                        <span className="media-heading text-bold">Loan of {this.props.bootstrapData.loan.user.to_s}</span>
+                        <span className="media-heading text-bold">Loan of {sourceData.loan.user.to_s}</span>
                       </div>
                       <div className="media-right media-middle">
-                        <span className="label label-info">{this.props.bootstrapData.loan.pretty_status}</span>
+                        <span className="label label-info">{sourceData.loan.pretty_status}</span>
                       </div>
                     </div>
                   </div>
@@ -68,6 +70,12 @@ var Dashboard = React.createClass({
                           Competitor Rates
                         </a>
                       </li>
+                      <li role="presentation">
+                        <a href="#loan_terms" aria-controls="loan_terms" role="tab" data-toggle="tab">
+                          <i className="icon-list3"></i>
+                          Loan Terms
+                        </a>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -76,19 +84,22 @@ var Dashboard = React.createClass({
             <div className="content-wrapper">
               <div className="tab-content">
                 <div role="tabpanel" className="tab-pane fade in active" id="activity">
-                  <ActivityTab loan={this.props.bootstrapData.loan} first_activity={this.props.bootstrapData.first_activity} loan_activities={this.props.bootstrapData.loan_activities} activity_types={this.props.bootstrapData.activity_types}></ActivityTab>
+                  <ActivityTab loan={sourceData.loan} first_activity={sourceData.first_activity} loan_activities={sourceData.loan_activities} activity_types={sourceData.activity_types}></ActivityTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="document">
-                  <DocumentTab loan={this.props.bootstrapData.loan} borrower={this.props.bootstrapData.borrower} property={this.props.bootstrapData.property} closing={this.props.bootstrapData.closing}></DocumentTab>
+                  <DocumentTab loan={sourceData.loan} borrower={sourceData.borrower} property={sourceData.property} closing={sourceData.closing}></DocumentTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="lender_document">
-                  <LenderDocumentTab loan={this.props.bootstrapData.loan} lenderTemplates={this.props.bootstrapData.lender_templates} otherLenderTemplate={this.props.bootstrapData.other_lender_template}></LenderDocumentTab>
+                  <LenderDocumentTab loan={sourceData.loan} lenderTemplates={sourceData.lender_templates} otherLenderTemplate={sourceData.other_lender_template}></LenderDocumentTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="checklist">
-                  <ChecklistTab loan={this.props.bootstrapData.loan} checklists={this.props.bootstrapData.loan.checklists} templates={this.props.bootstrapData.templates}></ChecklistTab>
+                  <ChecklistTab loan={sourceData.loan} checklists={sourceData.loan.checklists} templates={sourceData.templates}></ChecklistTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="competitor_rates">
-                  <CompetitorRateTab competitorRates={this.props.bootstrapData.competitor_rates} />
+                  <CompetitorRateTab competitorRates={sourceData.competitor_rates} />
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="loan_terms">
+                  <LoanTermsTab loan={sourceData.loan} />
                 </div>
               </div>
             </div>
