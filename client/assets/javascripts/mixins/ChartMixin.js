@@ -2,33 +2,33 @@ var TextFormat = require("mixins/TextFormatMixin")
 var ChartMixin = {
 
   drawPieChart: function(id, principal, hazardInsurance, propertyTax, mortgageInsurance, hoadue, mortgageInsurancePremium, totalMontlyPayment) {
-    principal = parseFloat(principal);
-    hazardInsurance = parseFloat(hazardInsurance);
-    propertyTax = parseFloat(propertyTax);
+    principal = Number(parseFloat(principal).toFixed(0));
+    hazardInsurance = Number(parseFloat(hazardInsurance).toFixed(0));
+    propertyTax = Number(parseFloat(propertyTax).toFixed(0));
 
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ['Label', 'Amount'],
-        ['P&I (' + TextFormat.formatCurrency(principal) + ')',       principal],
-        ['Insurance (' + TextFormat.formatCurrency(hazardInsurance) + ')', hazardInsurance],
-        ['Taxes (' + TextFormat.formatCurrency(propertyTax) + ')',     propertyTax]
+        ['P&I (' + TextFormat.formatCurrency(principal, 0) + ')',       principal],
+        ['Insurance (' + TextFormat.formatCurrency(hazardInsurance, 0) + ')', hazardInsurance],
+        ['Taxes (' + TextFormat.formatCurrency(propertyTax, 0) + ')',     propertyTax]
       ]);
 
       if (mortgageInsurance !== undefined && mortgageInsurance !== null && mortgageInsurance !== 0){
-        mortgageInsurance = parseFloat(mortgageInsurance);
-        data.addRow(['H&I (' + TextFormat.formatCurrency(mortgageInsurance) + ')', mortgageInsurance]);
+        mortgageInsurance = Number(parseFloat(mortgageInsurance).toFixed(0));
+        data.addRow(['H&I (' + TextFormat.formatCurrency(mortgageInsurance, 0) + ')', mortgageInsurance]);
       }
 
       if (hoadue !== undefined && hoadue !== null && hoadue !== 0){
-        hoadue = parseFloat(hoadue);
-        data.addRow(['HOA Due (' + TextFormat.formatCurrency(hoadue) + ')', hoadue]);
+        hoadue = Number(parseFloat(hoadue).toFixed(0));
+        data.addRow(['HOA Due (' + TextFormat.formatCurrency(hoadue, 0) + ')', hoadue]);
       }
 
       if (mortgageInsurancePremium !== undefined && mortgageInsurancePremium !== null && mortgageInsurancePremium !== 0){
-        mortgageInsurancePremium = parseFloat(mortgageInsurancePremium);
-        data.addRow(['MIP (' + TextFormat.formatCurrency(mortgageInsurancePremium) + ')', mortgageInsurancePremium]);
+        mortgageInsurancePremium = Number(parseFloat(mortgageInsurancePremium).toFixed(0));
+        data.addRow(['MIP (' + TextFormat.formatCurrency(mortgageInsurancePremium, 0) + ')', mortgageInsurancePremium]);
       }
 
       var options = {
@@ -106,29 +106,6 @@ var ChartMixin = {
   },
 
   drawLineChart: function(id, numOfMonths, loanAmount, interestRate, monthlyPayment) {
-    // var calculateData = this.mortgageCalculation(numOfMonths, loanAmount, interestRate, monthlyPayment);
-
-    // google.charts.setOnLoadCallback(drawChart);
-
-    // function drawChart() {
-    //   var data = new google.visualization.DataTable();
-
-    //   data.addColumn('number', 'Month');
-    //   data.addColumn('number', 'Principal');
-    //   data.addColumn('number', 'Interest');
-    //   data.addColumn('number', 'Remaining');
-
-    //   data.addRows(calculateData);
-
-    //   var options = {
-    //     curveType: 'function',
-    //     legend: { position: 'bottom' }
-    //   };
-
-    //   var chart = new google.visualization.LineChart(document.getElementById('linechart' + id));
-
-    //   chart.draw(data, options);
-    // }
     var colors = ["#ff7575", "#00bc9c", "#14c0f0"];
 
     var data = this.mortgageCalculation(numOfMonths, loanAmount, interestRate, monthlyPayment);
@@ -141,12 +118,13 @@ var ChartMixin = {
     var chartHeight = 320;
     var marginRight = 45;
     var marginBottom = 30;
+    var marginTop = 10;
 
     var xScale = d3.scale.linear()
       .range([0, chartWidth - marginRight]).domain([0, numOfMonths]);
 
     var yScale = d3.scale.linear()
-      .range([0, chartHeight - marginBottom]).domain([loanAmount, 0]);
+      .range([marginTop, chartHeight - marginBottom]).domain([loanAmount, 0]);
 
     var xAxis = d3.svg.axis().scale(xScale)
       .tickValues([0, numOfMonths / 3, numOfMonths / 3 * 2, numOfMonths])
@@ -166,10 +144,10 @@ var ChartMixin = {
       .outerTickSize(0)
       .innerTickSize(marginRight-chartWidth);
 
-    var yAxis2 = d3.svg.axis().scale(yScale).ticks(4)
-      .tickValues([loanAmount / 4, loanAmount / 2, loanAmount / 4 * 3])
+    var yAxis2 = d3.svg.axis().scale(yScale)
+      .ticks(4)
       .orient('right')
-      .tickPadding(3)
+      .tickPadding(5)
       .outerTickSize(0)
       .innerTickSize(0)
       .tickFormat(function(d) { return "$" + d / 1000 + "K"; });
@@ -227,15 +205,6 @@ var ChartMixin = {
       .attr('fill', 'none')
       .attr('pointer-events', 'all');
 
-
-    // svg.selectAll(".line-graph")
-    //   .append("circle") // add a circle to follow along path
-    //   .attr("class", "mouse-circle")
-    //   .attr("r", 5)
-    //   .style("stroke", function(d, i){return colors[i];})
-    //   .style("fill","none")
-    //   .style("stroke-width", "1px");
-
     var bisect = d3.bisector(function(d) { console.log(d); return d.month; });
 
     svgRect.on('mouseout', function(){
@@ -266,9 +235,9 @@ var ChartMixin = {
         var xOfMonth = sizeChart[0] / numOfMonths;
         var index = Math.floor(xCoor / xOfMonth);
 
-        $("#chart-interest" + id).html(TextFormat.formatCurrency(allData[0][0][index].amount));
-        $("#chart-principal" + id).html(TextFormat.formatCurrency(allData[0][1][index].amount));
-        $("#chart-remaining" + id).html(TextFormat.formatCurrency(allData[0][2][index].amount));
+        $("#chart-interest" + id).html(TextFormat.formatCurrency(allData[0][0][index].amount, 0));
+        $("#chart-principal" + id).html(TextFormat.formatCurrency(allData[0][1][index].amount, 0));
+        $("#chart-remaining" + id).html(TextFormat.formatCurrency(allData[0][2][index].amount, 0));
         $("#chart-duration" + id).html(numOfMonths - index + "mo");
 
         return "M"+ xCoor +"," + yRange[0] + "L" + xCoor + "," + yRange[1]; // position vertical line
