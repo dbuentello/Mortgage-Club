@@ -144,18 +144,18 @@ var List = React.createClass({
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
                   <div className="row">
-                    <div className="col-md-3 col-sm-6 col-sm-6">
+                    <div className="col-xs-4 col-md-3 col-sm-6 col-sm-6">
                       <img className="img-responsive" src={quote.logo_url}/>
-                      <h4 className="nmls-title">NMLS: #{quote.nmls}</h4>
+                      <h4 className="nmls-title hidden-xs">NMLS: #{quote.nmls}</h4>
                     </div>
 
-                    <div className="col-md-3 col-sm-6 col-sm-6">
+                    <div className="col-xs-8 col-md-3 col-sm-6 col-sm-6">
                       <h3 className="text-capitalize">{quote.lender_name}</h3>
                       <p>{quote.product}</p>
                       <h1 className="apr-text">{this.commafy(quote.apr * 100, 3)}% APR</h1>
                     </div>
 
-                    <div className="col-md-4 col-sm-6 col-sm-6">
+                    <div className="col-xs-12 col-md-4 col-sm-6 col-sm-6">
                       <p><span className="text-capitalize">rate:</span> {this.commafy(quote.interest_rate * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(quote.monthly_payment, "$")}</p>
                       <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(quote.total_closing_cost, "$")}</p>
@@ -181,7 +181,7 @@ var List = React.createClass({
                           <p className="col-xs-12 cost">Loan amount</p>
                           <p className="col-xs-12 cost">Down payment</p>
                         </div>
-                        <div className="col-xs-5">
+                        <div className="row-no-padding col-xs-5">
                           <p className="col-xs-12 cost">{quote.product}</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.interest_rate * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.apr * 100, 3)}%</p>
@@ -226,13 +226,13 @@ var List = React.createClass({
                           <p className="col-xs-12 cost ">Estimated homeowners insurance</p>
                           <p className="col-xs-12 cost ">Total estimated monthly payment</p>
                           </div>
-                          <div className="col-xs-8 visible-xs pull-left">
-                          <p className="col-xs-12 cost ">Principal and interest</p>
-                          <p className="col-xs-12 cost ">Estimated property tax</p>
+                          <div className="col-xs-8 row-no-padding-right visible-xs pull-left">
+                          <p className="col-xs-12 cost ">P & I</p>
+                          <p className="col-xs-12 cost ">Est. property tax</p>
                           <p className="col-xs-12 cost ">Est. homeowners ins.</p>
                           <p className="col-xs-12 cost "> Total est. payment</p>
                         </div>
-                        <div className="col-md-3 col-xs-3">
+                        <div className="row-no-padding col-md-3 col-xs-3">
                           <p className="col-xs-12 cost">{this.formatCurrency(quote.monthly_payment, "$")}</p>
                           <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedPropertyTax, "$")}</p>
                           <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedHazardInsurance, "$")}</p>
