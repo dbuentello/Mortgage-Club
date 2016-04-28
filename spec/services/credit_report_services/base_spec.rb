@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe CreditReportServices::Base do
   describe ".call" do
-    let(:borrower) { double("borrower", id: "B1", first_name: "Robert", last_name: "Ice", ssn: "301423221")}
+    let(:borrower) { double("borrower", id: "B1", first_name: "Robert", last_name: "Ice", ssn: "301423221") }
     let(:address) { double("address", street_address: "126 4th Street, Atlanta, MI 49709", city: "Atlanta", state: "MI", zip: "49709") }
 
     it "calls CreditReportServices::GetReport" do

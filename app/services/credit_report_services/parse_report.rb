@@ -39,6 +39,8 @@ module CreditReportServices
 
     def self.get_address_attributes(credit_liability)
       creditor = get_creditor(credit_liability)
+      return {} unless creditor.attributes['_StreetAddress'] && creditor.attributes['_City'] && creditor.attributes['_State'] && creditor.attributes['_PostalCode']
+
       {
         street_address: creditor.attributes['_StreetAddress'].value,
         city: creditor.attributes['_City'].value,
