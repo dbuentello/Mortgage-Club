@@ -10,6 +10,7 @@ class Property < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   PERMITTED_ATTRS = [
+    :id,
     :property_type,
     :usage,
     :original_purchase_year,

@@ -114,7 +114,11 @@ Rails.application.routes.draw do
     resources :checklists, only: [:create, :edit, :update, :destroy] do
     end
 
-    resources :loans, only: [:index, :update, :show]
+    resources :loans, only: [:index, :update, :show] do
+      member do
+        put :update_loan_terms, to: "loans#update_loan_terms"
+      end
+    end
 
     resources :dashboard, only: [:show]
 
