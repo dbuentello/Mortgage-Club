@@ -37,9 +37,11 @@ var LoanTerms = React.createClass({
   mixins: [TextFormatMixin],
 
   getInitialState: function() {
+    var addressId = this.props.address ? this.props.address.id : null;
     return {
       editMode: false,
       address: {
+        id: addressId,
         zip: null,
         state: null,
         city: null,
@@ -137,6 +139,7 @@ var LoanTerms = React.createClass({
       full_text: el.value
     });
     this.setState({address: {
+      id: this.state.address.id,
       street_address: address.street_address,
       street_address2: '',
       city: address.locality,
