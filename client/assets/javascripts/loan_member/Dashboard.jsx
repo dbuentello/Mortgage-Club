@@ -99,7 +99,7 @@ var Dashboard = React.createClass({
                   <CompetitorRateTab competitorRates={sourceData.competitor_rates} />
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="loan_terms">
-                  <LoanTermsTab loan={sourceData.loan} loanWritableParams={sourceData.loan_writable_attributes} address={sourceData.property_address}/>
+                  <LoanTermsTab loan={sourceData.loan} loanWritableAttributes={sourceData.loan_writable_attributes} address={sourceData.property_address}/>
                 </div>
               </div>
             </div>

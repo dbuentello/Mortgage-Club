@@ -58,6 +58,6 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
   end
 
   def writable_loan_params
-    params.permit(Loan.writable_attributes)
+    Loan.writable_attributes
   end
 end
