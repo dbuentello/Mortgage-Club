@@ -33,8 +33,14 @@ var LoanTerms = React.createClass({
 
   getInitialState: function() {
     var addressId = this.props.address ? this.props.address.id : null;
+
+    var fieldLength = this.props.loanWritableAttributes.length;
+    var loanFieldState = new Array(fieldLength);
+    loanFieldState.fill(false, 0, fieldLength);
+
     return {
       editMode: false,
+      loanFieldState: loanFieldState,
       address: {
         id: addressId,
         zip: null,
@@ -46,6 +52,7 @@ var LoanTerms = React.createClass({
       }
     };
   },
+
   listeners: [],
 
   componentFields: {
@@ -183,8 +190,16 @@ var LoanTerms = React.createClass({
     this.setState(change);
   },
 
-  handleShowField: function(event) {
+  handleShowFields: function(event) {
     event.preventDefault();
+    // var loan = $(event.currentTarget.classList)[0];
+    // loan = loan.substring(4, loan.length);
+    // this.setState({activeId: loan})
+
+    var selectedIndex = event.target.selectedIndex
+    var loanFieldState = this.state.loanFieldState;
+    loanFieldState[selectedIndex] = true;
+    this.setState({loanFieldState: loanFieldState});
   },
 
   renderLoanTermForm: function() {
@@ -197,23 +212,25 @@ var LoanTerms = React.createClass({
     var mortgageInsurance = property.estimated_mortgage_insurance;
     var totalCost = this.calculateMonthlyHousingExpense(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue);
     var restLoanFields  = this.props.loanWritableAttributes;
-    var MakeItem = function(X) {
+    var MakeItem = function(X, index) {
         return <option value={X}>{X}</option>;
     };
 
-    var RenderLoanFields = function(X) {
+    var RenderLoanField = function(X) {
       return (
-        <div className='form-group'>
-          <div className='col-sm-4'>
-            <TextField
-              label={X}
-              keyName={X}
-              name={"loan[" + X + "]"}
-              value={this.state[X] ? this.state[X] : null}
-              onChange={this.onChange}
-              editable={true}/>
+
+          <div className='form-group'>
+            <div className='col-sm-4'>
+              <TextField
+                label={X}
+                keyName={X}
+                name={"loan[" + X + "]"}
+                value={this.state[X] ? this.state[X] : null}
+                onChange={this.onChange}
+                editable={true}/>
+            </div>
           </div>
-        </div>
+
       );
     }.bind(this);
     return (
@@ -225,9 +242,8 @@ var LoanTerms = React.createClass({
           <div className="col-sm-8">
             <label className="col-xs-12 pan">
 
-              <span className='h7 typeBold'>{this.props.label}</span>
-              <input type="text" id="property_address" name="address[full_text]" />
-
+              <span className='h7 typeBold'>Property Address</span>
+              <input type="text" style={{width: "100%"}} id="property_address" name="address[full_text]" />
 
             </label>
 
@@ -424,17 +440,23 @@ var LoanTerms = React.createClass({
           </div>
         </div>
         {
-          restLoanFields.map(RenderLoanFields)
+          _.map(restLoanFields, function(X, index) {
+            if(this.state.loanFieldState[index] === true){
+              return RenderLoanField(X)
+            }
+          }.bind(this))
         }
         <div className="row">
           <div className='col-sm-4'>
-            <select>{restLoanFields.map(MakeItem)}</select>
+            <select onChange={this.handleShowFields}>{restLoanFields.map(MakeItem)}</select>
           </div>
-          <div className='col-sm-4'>
-            <button onClick={this.handleShowField}>Show</button>
+
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <button className="btn btn-primary pull-right" id="submit_form" onClick={this.handleSubmitForm}>Save</button>
           </div>
         </div>
-         <button id="submit_form" onClick={this.handleSubmitForm}>Save</button>
         </form>
       </div>
       )
@@ -448,8 +470,8 @@ var LoanTerms = React.createClass({
       dataType: "json",
       data: $('.loan_term_form').serialize(),
       success: function(data) {
-
-      },
+        this.setState({editMode: false})
+      }.bind(this),
       error: function(errorCode){
         console.log(errorCode);
       }

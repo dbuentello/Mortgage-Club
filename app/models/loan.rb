@@ -119,11 +119,11 @@ class Loan < ActiveRecord::Base
   end
 
   def self.readonly_attributes
-    ["id", "user_id", "lender_nmls_id", "lender_id", "created_at", "updated_at", "service_cannot_shop_fees", "origination_charges_fees", "service_can_shop_fees", "loan_type"]
+    ["id", "user_id", "created_at", "updated_at", "service_cannot_shop_fees", "origination_charges_fees", "service_can_shop_fees", "loan_type"]
   end
 
   def self.writable_attributes
     writetable_attrs = self.new.attributes.keys - self.readonly_attributes
-    writetable_attrs.map { |x| x.to_sym }
+    writetable_attrs.sort.map { |x| x.to_sym }
   end
 end
