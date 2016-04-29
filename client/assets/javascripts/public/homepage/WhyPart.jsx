@@ -39,7 +39,7 @@ var WhyPart = React.createClass({
               <div className="bigNum">4</div>
               <div className="whyText">
                 <h6>Personal Advice</h6>
-                <p>Your Relationship Manager  is compensated by salary and bonus based on customer satisfaction to remove commission bias.</p>
+                <p>Your Mortgage Advisor is compensated by salary and bonus based on customer satisfaction to remove commission bias.</p>
               </div>
             </div>
             <div className="col-lg-6 clearfix why-item">

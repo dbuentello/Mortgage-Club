@@ -107,7 +107,7 @@ class InitializeFirstLoanService
 
   def assign_loan_to_billy(loan)
     return unless user = User.where(email: "billy@mortgageclub.co").last
-    manager = LoanMembersTitle.find_or_create_by(title: "Relationship Manager")
+    manager = LoanMembersTitle.find_or_create_by(title: "Mortgage Advisor")
     user.loan_member.loans_members_associations.find_or_create_by(loan_id: loan.id, loan_members_title: manager)
   end
 end

@@ -24,7 +24,7 @@ var ContactTab = React.createClass({
                           contact.loan_members_title
                           ?
                           <span>
-                            ({contact.loan_members_title.title})
+                            &nbsp;({contact.loan_members_title.title})
                           </span>
                           :
                           null
