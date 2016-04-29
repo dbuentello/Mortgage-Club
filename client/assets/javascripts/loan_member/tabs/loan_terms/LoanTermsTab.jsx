@@ -28,11 +28,6 @@ function getFormattedAddress(addressable) {
   return (!address) ? addressable.full_text : address;
 }
 
-
-var fields = {
-  address: {label: 'Property Address', name: 'address', error: "addressError", validationTypes: ["empty", "address"]},
-};
-
 var LoanTerms = React.createClass({
   mixins: [TextFormatMixin],
 
@@ -77,13 +72,6 @@ var LoanTerms = React.createClass({
     this.listeners.push(google.maps.event.addListener(this.autocomplete, 'place_changed', function() {
 
       this.handleAddressChange(el);
-      // var state = {address: {zip: address.zip,
-      //   state: address.state,
-      //   street_address: address.street_address
-
-      // }};
-      // debugger
-      // this.setState(state);
 
     }.bind(this)));
 
@@ -100,6 +88,7 @@ var LoanTerms = React.createClass({
       }
     }));
   },
+
   handleAddressChange: function(el) {
     var place = this.autocomplete.getPlace(),
         address = {
@@ -148,8 +137,6 @@ var LoanTerms = React.createClass({
       full_text: el.value
     }})
 
-    // debugger
-    // return change;
   },
 
 
@@ -196,6 +183,10 @@ var LoanTerms = React.createClass({
     this.setState(change);
   },
 
+  handleShowField: function(event) {
+    event.preventDefault();
+  },
+
   renderLoanTermForm: function() {
     var loan = this.props.loan;
     var property = loan.subject_property;
@@ -205,15 +196,41 @@ var LoanTerms = React.createClass({
     var hoaDue = property.hoa_due
     var mortgageInsurance = property.estimated_mortgage_insurance;
     var totalCost = this.calculateMonthlyHousingExpense(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue);
+    var restLoanFields  = this.props.loanWritableAttributes;
+    var MakeItem = function(X) {
+        return <option value={X}>{X}</option>;
+    };
 
+    var RenderLoanFields = function(X) {
+      return (
+        <div className='form-group'>
+          <div className='col-sm-4'>
+            <TextField
+              label={X}
+              keyName={X}
+              name={"loan[" + X + "]"}
+              value={this.state[X] ? this.state[X] : null}
+              onChange={this.onChange}
+              editable={true}/>
+          </div>
+        </div>
+      );
+    }.bind(this);
     return (
     <div>
       <form className="form-horizontal loan_term_form">
         <div className='form-group'>
           <input type="hidden" name="property[id]" value={property.id}/>
 
-          <div className="col-sm-4">
-            <input type="text" id="property_address" name="address[full_text]" />
+          <div className="col-sm-8">
+            <label className="col-xs-12 pan">
+
+              <span className='h7 typeBold'>{this.props.label}</span>
+              <input type="text" id="property_address" name="address[full_text]" />
+
+
+            </label>
+
             <input type="hidden" name="address[id]" value={this.state.address.id}/>
             <input type="hidden" name="address[zip]" value={this.state.address.zip}/>
             <input type="hidden" name="address[city]" value={this.state.address.city}/>
@@ -265,18 +282,6 @@ var LoanTerms = React.createClass({
               keyName='interest_rate'
               name='loan[interest_rate]'
               value={this.state.interest_rate}
-              onChange={this.onChange}
-              editable={true}/>
-          </div>
-        </div>
-
-        <div className='form-group'>
-          <div className='col-sm-4'>
-            <TextField
-              label='Lender Credits'
-              keyName='lender_credits'
-              name='loan[lender_credits]'
-              value={this.state.lender_credits}
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -418,16 +423,15 @@ var LoanTerms = React.createClass({
               editable={true}/>
           </div>
         </div>
-
-        <div className='form-group'>
+        {
+          restLoanFields.map(RenderLoanFields)
+        }
+        <div className="row">
           <div className='col-sm-4'>
-            <TextField
-              label='Hoa DUE'
-              keyName='hoa_due'
-              name='property[hoa_due]'
-              value={this.state.hoa_due}
-              onChange={this.onChange}
-              editable={true}/>
+            <select>{restLoanFields.map(MakeItem)}</select>
+          </div>
+          <div className='col-sm-4'>
+            <button onClick={this.handleShowField}>Show</button>
           </div>
         </div>
          <button id="submit_form" onClick={this.handleSubmitForm}>Save</button>
@@ -435,6 +439,7 @@ var LoanTerms = React.createClass({
       </div>
       )
   },
+
   handleSubmitForm: function(event) {
     event.preventDefault();
     $.ajax({

@@ -28,6 +28,10 @@ class LoanMembers::LoansController < LoanMembers::BaseController
         respond_to do |format|
           format.json { render json: {message: t("loan_members.loans.update.success")} }
         end
+      else
+        respond_to do |format|
+          format.json { render json: {message: t("loan_members.loans.update.failed")}, status: 500 }
+        end
       end
     else
       respond_to do |format|
