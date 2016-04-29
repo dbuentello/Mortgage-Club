@@ -10,7 +10,7 @@ var RelationshipManager = React.createClass({
   render: function() {
     return (
       <div className="sidebar">
-        <h3 className='dashboard-header-text text-capitalize'>Your Mortgage Advisor</h3>
+        <h3 className='dashboard-header-text text-capitalize'>Your Relationship Manager</h3>
         { this.props.manager ?
           <div className='row'>
             <div className='col-xs-4'>
@@ -18,10 +18,6 @@ var RelationshipManager = React.createClass({
             </div>
             <div className='col-xs-8'>
               <h4 className="account-name-text">{this.props.manager.user.first_name + " " + this.props.manager.user.last_name}</h4>
-              <p>
-                <span className="glyphicon glyphicon-user"></span>
-                NMLS ID: {this.props.manager.nmls_id}
-              </p>
               <p>
                 <span className="glyphicon glyphicon-earphone"></span>
                 {this.formatPhoneNumber(this.props.manager.phone_number)}
@@ -35,7 +31,7 @@ var RelationshipManager = React.createClass({
             </div>
           </div>
           :
-          'There is not mortgage advisor'
+          'There is not relationship manager'
         }
 
         { (this.props.ActiveTab == 'overview') ?
