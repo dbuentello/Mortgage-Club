@@ -25,8 +25,10 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     loan = Loan.find(loan_id)
     if update_property
       if loan.update(loan_terms_params)
+        loan = loan.reload
+        property = loan.subject_property
         respond_to do |format|
-          format.json { render json: {message: t("loan_members.loans.update.success")} }
+          format.json { render json: {message: t("loan_members.loans.update.success"), loan: loan, property: property, address: property.address} }
         end
       else
         respond_to do |format|
@@ -53,12 +55,14 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   end
 
   def update_property
+    byebug
     property = Property.find(property_params[:id])
     create_or_update_property(property)
     property.update(property_params)
   end
 
   def create_or_update_property(property)
+    byebug
     address_params = params.require(:address).permit(Address::PERMITTED_ATTRS)
     if address_params[:id].present?
       address = Address.find(address_params[:id])

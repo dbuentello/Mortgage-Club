@@ -32,7 +32,18 @@ var LoanTerms = React.createClass({
   mixins: [TextFormatMixin],
 
   getInitialState: function() {
+    var loan = this.props.loan;
+    var property = loan.subject_property;
     var addressId = this.props.address ? this.props.address.id : null;
+    var address = {
+        id: addressId,
+        zip: null,
+        state: null,
+        city: null,
+        street_address: null,
+        street_address2: null,
+        full_text: null
+      };
 
     var fieldLength = this.props.loanWritableAttributes.length;
     var loanFieldState = new Array(fieldLength);
@@ -41,15 +52,9 @@ var LoanTerms = React.createClass({
     return {
       editMode: false,
       loanFieldState: loanFieldState,
-      address: {
-        id: addressId,
-        zip: null,
-        state: null,
-        city: null,
-        street_address: null,
-        street_address2: null,
-        full_text: null
-      }
+      loan: loan,
+      property: property,
+      address: (this.props.address || address)
     };
   },
 
@@ -164,6 +169,7 @@ var LoanTerms = React.createClass({
     var placeInput = document.getElementById('property_address');
     this.initAutocomplete(placeInput);
   },
+
   calculateMonthlyHousingExpense: function(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue) {
     var expense = 0.0;
     if(parseFloat(hoaDue))
@@ -185,10 +191,20 @@ var LoanTerms = React.createClass({
   handleEditLoan: function() {
     this.setState({editMode: true});
   },
-  onChange: function(change) {
 
-    this.setState(change);
+  onChange: function(change) {
+    this.setState({loan: change});
   },
+
+  onPropertyChange: function(change) {
+    // var property = this.state.property
+    this.setState({property: change})
+  },
+
+  onAddressChange: function(change) {
+    this.setState({address: change})
+  },
+
 
   handleShowFields: function(event) {
     event.preventDefault();
@@ -203,8 +219,9 @@ var LoanTerms = React.createClass({
   },
 
   renderLoanTermForm: function() {
-    var loan = this.props.loan;
-    var property = loan.subject_property;
+    var loan = this.state.loan;
+    var property = this.state.property;
+
     var propertyTax = property.estimated_property_tax;
     var homeOwnerInsurance = property.estimated_hazard_insurance;
     var monthlyPayment = loan.monthly_payment;
@@ -225,7 +242,7 @@ var LoanTerms = React.createClass({
                 label={X}
                 keyName={X}
                 name={"loan[" + X + "]"}
-                value={this.state[X] ? this.state[X] : null}
+                value={this.state.loan[X] ? this.state.loan[X] : null}
                 onChange={this.onChange}
                 editable={true}/>
             </div>
@@ -233,17 +250,18 @@ var LoanTerms = React.createClass({
 
       );
     }.bind(this);
+
     return (
     <div>
       <form className="form-horizontal loan_term_form">
         <div className='form-group'>
-          <input type="hidden" name="property[id]" value={property.id}/>
+          <input type="hidden" name="property[id]" value={this.props.property.id}/>
 
           <div className="col-sm-8">
             <label className="col-xs-12 pan">
 
               <span className='h7 typeBold'>Property Address</span>
-              <input type="text" style={{width: "100%"}} id="property_address" name="address[full_text]" />
+              <input type="text" style={{width: "100%"}} id="property_address"  onChange={this.onAddressChange} value={this.state.address.full_text} name="address[full_text]" />
 
             </label>
 
@@ -261,8 +279,8 @@ var LoanTerms = React.createClass({
               label='Property Value'
               keyName='property_value'
               name='property[market_price]'
-              value={this.state.market_price}
-              onChange={this.onChange}
+              value={this.state.property.market_price}
+              onChange={this.onPropertyChange}
               editable={true}/>
           </div>
         </div>
@@ -273,7 +291,7 @@ var LoanTerms = React.createClass({
               label='Loan Amount'
               keyName='loan_amount'
               name='loan[amount]'
-              value={this.state.loan_amount}
+              value={this.state.loan.amount}
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -309,7 +327,7 @@ var LoanTerms = React.createClass({
               label='Lender Credits'
               keyName='lender_credits'
               name='loan[lender_credits]'
-              value={this.state.lender_credits}
+              value={this.state.loan.lender_credits}
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -333,7 +351,7 @@ var LoanTerms = React.createClass({
               label='Third Party Services'
               keyName='third_party_fees'
               name='loan[third_party_fees]'
-              value={this.state.third_party_fees}
+              value={this.state.loan.third_party_fees}
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -345,7 +363,7 @@ var LoanTerms = React.createClass({
               label='Prepaid Items'
               keyName='prepaid_items'
               name='loan[estimated_prepaid_items]'
-              value={this.state.estimated_prepaid_items}
+              value={this.state.loan.estimated_prepaid_items}
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -357,7 +375,7 @@ var LoanTerms = React.createClass({
               label='Down payment'
               keyName='down_payment'
               name='loan[down_payment]'
-              value={this.state.down_payment}
+              value={this.state.loan.down_payment}
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -369,7 +387,7 @@ var LoanTerms = React.createClass({
               label='Total Cost to Close'
               keyName='estimated_cash_to_close'
               name='loan[estimated_cash_to_close]'
-              value={this.state.estimated_cash_to_close}
+              value={this.state.loan.estimated_cash_to_close}
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -377,7 +395,7 @@ var LoanTerms = React.createClass({
 
 
         <div className="row">
-          <h4> Housing Expense</h4>
+          <h4 className="terms-4-loan-members"> Housing Expense</h4>
         </div>
 
         <div className='form-group'>
@@ -386,7 +404,7 @@ var LoanTerms = React.createClass({
               label='Principal and Interest'
               keyName='monthly_payment'
               name='loan[monthly_payment]'
-              value={this.state.monthly_payment}
+              value={this.state.loan.monthly_payment}
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -398,8 +416,8 @@ var LoanTerms = React.createClass({
               label='Homeowners Insurance'
               keyName='estimated_hazard_insurance'
               name='property[estimated_hazard_insurance]'
-              value={this.state.estimated_hazard_insurance}
-              onChange={this.onChange}
+              value={this.state.property.estimated_hazard_insurance}
+              onChange={this.onPropertyChange}
               editable={true}/>
           </div>
         </div>
@@ -410,8 +428,8 @@ var LoanTerms = React.createClass({
               label='Property Tax'
               keyName='estimated_hazard_insurance'
               name='property[estimated_property_tax]'
-              value={this.state.estimated_property_tax}
-              onChange={this.onChange}
+              value={this.state.property.estimated_property_tax}
+              onChange={this.onPropertyChange}
               editable={true}/>
           </div>
         </div>
@@ -422,8 +440,8 @@ var LoanTerms = React.createClass({
               label='Mortgage Insurance'
               keyName='estimated_mortgage_insurance'
               name='property[estimated_mortgage_insurance]'
-              value={this.state.estimated_property_tax}
-              onChange={this.onChange}
+              value={this.state.property.estimated_property_tax}
+              onChange={this.onPropertyChange}
               editable={true}/>
           </div>
         </div>
@@ -434,8 +452,8 @@ var LoanTerms = React.createClass({
               label='Hoa DUE'
               keyName='hoa_due'
               name='property[hoa_due]'
-              value={this.state.hoa_due}
-              onChange={this.onChange}
+              value={this.state.property.hoa_due}
+              onChange={this.onPropertyChange}
               editable={true}/>
           </div>
         </div>
@@ -482,8 +500,8 @@ var LoanTerms = React.createClass({
   },
 
   renderViewTermBoard: function() {
-    var loan = this.props.loan;
-    var property = loan.subject_property;
+    var loan = this.state.loan;
+    var property = this.state.property
     var propertyTax = property.estimated_property_tax;
     var homeOwnerInsurance = property.estimated_hazard_insurance;
     var monthlyPayment = loan.monthly_payment;
@@ -554,7 +572,7 @@ var LoanTerms = React.createClass({
               </div>
 
               <div className="row">
-                <h4> Closing Cost </h4>
+                <h4 className="terms-4-loan-members"> Closing Cost </h4>
               </div>
 
               <div className="table-responsive term-board">
@@ -629,7 +647,7 @@ var LoanTerms = React.createClass({
               </div>
 
               <div className="row">
-                <h4> Housing Expense</h4>
+                <h4 className="terms-4-loan-members"> Housing Expense</h4>
               </div>
 
               <div className="table-responsive term-board">
