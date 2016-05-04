@@ -6,7 +6,7 @@ FactoryGirl.define do
     f.phone { '(' + Faker::Number.number(3) + ') ' + Faker::Number.number(3) + '-' + Faker::Number.number(4) }
 
     # all SS numbers starting with 000 are invalid
-    f.ssn { '000-' + Faker::Number.number(2) + '-' + Faker::Number.number(4) }
+    f.ssn { "301423221" }
     f.years_in_school { Random.rand(21) }
     f.marital_status { Random.rand(3) }
 
@@ -26,18 +26,16 @@ FactoryGirl.define do
       create_list(:borrower_address, 1, borrower: borrower)
     end
 
+    after(:build) do |borrower, _credit_report|
+      create(:credit_report, borrower: borrower)
+    end
+
     trait :with_user do
       user { build(:borrower_user) }
     end
 
     factory :secondary_borrower_cucumber, parent: :borrower do
       user { build(:borrower_user, email: "co-borrower@gmail.com") }
-    end
-
-    factory :borrower_with_credit_report, parent: :borrower do
-      after(:build) do |borrower, _credit_report|
-        create(:credit_report, borrower: borrower)
-      end
     end
 
     factory :borrower_with_documents_self_employed, parent: :borrower do |factory|

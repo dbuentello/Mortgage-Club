@@ -3,7 +3,7 @@ require "rails_helper"
 describe RatesComparisonServices::GetRatesFromGoogle do
   let(:loan) { FactoryGirl.create(:loan) }
   let(:property) { FactoryGirl.create(:property_with_address) }
-  let(:borrower) { FactoryGirl.create(:borrower_with_credit_report) }
+  let(:borrower) { FactoryGirl.create(:borrower) }
 
   before(:each) do
     rates = [
