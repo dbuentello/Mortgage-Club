@@ -1,0 +1,80 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://emscert.equifax.com/emsws/services/post/MergeCreditWWW
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version='1.0' encoding='utf-8'?>
+              <REQUEST_GROUP MISMOVersionID='2.3.1' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'><SUBMITTING_PARTY _Name='1183' _SequenceIdentifier='WFFE1' />
+                <REQUEST LoginAccountPassword='xp9?47%Sww'
+                LoginAccountIdentifier='999AUTO1' InternalAccountIdentifier='999AUTO1'
+                RequestingPartyBranchIdentifier='QTP RPBranchId'><KEY _Name='TestCaseDescription' _Value='good generates report 1 borrower' />
+                  <KEY _Name='Cost_Center' _Value='1183' /><KEY _Name='HTMLFile' _Value='false' /><KEY _Name='EDI' _Value='true' /><KEY _Name='BranchId' _Value='QTP Branch' /><REQUEST_DATA><CREDIT_REQUEST LenderCaseIdentifier='LOANNUMBER4'
+                    RequestingPartyRequestedByName='req by QTP'><CREDIT_REQUEST_DATA CreditReportType='Merge'
+                      CreditRequestType='Individual'
+                      CreditRequestID='CreditRequest1'
+                      CreditReportRequestActionType='Submit'
+                      BorrowerID='B1'><CREDIT_REPOSITORY_INCLUDED
+                        _EquifaxIndicator='Y' _ExperianIndicator='Y' _TransUnionIndicator='Y' /></CREDIT_REQUEST_DATA><LOAN_APPLICATION><BORROWER BorrowerID='' _FirstName='' _LastName=''
+                        _PrintPositionType='Borrower' _SSN=''><_RESIDENCE _StreetAddress='' _City=''
+                          _State='' _PostalCode='' BorrowerResidencyType='Current' /></BORROWER></LOAN_APPLICATION></CREDIT_REQUEST></REQUEST_DATA>
+                  </REQUEST>
+              </REQUEST_GROUP>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - text/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 28 Apr 2016 09:00:32 GMT
+      X-Powered-By:
+      - Servlet/3.0
+      Content-Length:
+      - '1078'
+      Expires:
+      - Thu, 01 Dec 1994 16:00:00 GMT
+      Cache-Control:
+      - no-cache="set-cookie, set-cookie2"
+      Content-Type:
+      - text/xml
+      Set-Cookie:
+      - mortgage-emsws_JSESSIONID=0000_rN3BW_4mhHshFDdIzBc1cE:mortgage-emsws_sunapp545_1_cloneid;
+        Path=/
+      Content-Language:
+      - en-US
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?><RESPONSE_GROUP MISMOVersionID="2.3.1">
+            <RESPONDING_PARTY _Name="EQUIFAX MORTGAGE SOLUTIONS"/>
+            <RESPONSE InternalAccountIdentifier="999AUTO1" ResponseDateTime="2016-04-28T05:00:22">
+        <KEY _Name="TestCaseDescription" _Value="good generates report 1 borrower"/>
+                  <KEY _Name="Cost_Center" _Value="1183"/>
+                <KEY _Name="HTMLFile" _Value="false"/>
+                <KEY _Name="EDI" _Value="true"/>
+                <KEY _Name="BranchId" _Value="QTP Branch"/>
+                <RESPONSE_DATA>
+                    <CREDIT_RESPONSE CreditReportType="Error" CreditResponseID="CreRpt0001" MISMOVersionID="2.3.1">
+                        <CREDIT_ERROR_MESSAGE _SourceType="Equifax">
+                            <_Text>Transaction type: REQUEST ERROR</_Text>
+                            <_Text>The required number of borrowers not present.</_Text>
+                        </CREDIT_ERROR_MESSAGE>
+                    </CREDIT_RESPONSE>
+                </RESPONSE_DATA>
+                <STATUS _Code="E066" _Condition="Error" _Description="The required number of borrowers not present."/>
+            </RESPONSE>
+        </RESPONSE_GROUP>
+    http_version: 
+  recorded_at: Thu, 28 Apr 2016 09:00:22 GMT
+recorded_with: VCR 2.9.3
