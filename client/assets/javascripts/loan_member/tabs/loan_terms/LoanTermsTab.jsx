@@ -508,6 +508,7 @@ var LoanTerms = React.createClass({
     var hoaDue = property.hoa_due
     var mortgageInsurance = property.estimated_mortgage_insurance;
     var totalCost = this.calculateMonthlyHousingExpense(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue);
+    var addressFullText = getFormattedAddress(this.props.address) || "Unknown Address";
     return ( <div>
               <div className="table-responsive term-board">
                 <table className="table table-striped term-table">
@@ -517,13 +518,7 @@ var LoanTerms = React.createClass({
                         Property Address
                       </td>
                       <td>
-                        {
-                          this.props.address
-                          ?
-                          this.props.address
-                          :
-                          <span>Unknown Address</span>
-                        }
+                        { addressFullText }
                       </td>
                     </tr>
                     <tr>
