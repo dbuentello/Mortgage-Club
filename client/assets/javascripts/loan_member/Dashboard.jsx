@@ -9,6 +9,7 @@ var DocumentTab = require("./tabs/document/DocumentTab");
 var LenderDocumentTab = require("./tabs/lender_document/LenderDocumentTab");
 var ChecklistTab = require("./tabs/checklist/ChecklistTab");
 var CompetitorRateTab = require("./tabs/competitor_rates/CompetitorRateTab");
+var LoanTermsTab = require("./tabs/loan_terms/LoanTermsTab");
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
   render: function() {
@@ -68,6 +69,12 @@ var Dashboard = React.createClass({
                           Competitor Rates
                         </a>
                       </li>
+                      <li role="presentation">
+                        <a href="#loan_terms" aria-controls="loan_terms" role="tab" data-toggle="tab">
+                          <i className="icon-list3"></i>
+                           Loan Terms
+                        </a>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -89,6 +96,9 @@ var Dashboard = React.createClass({
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="competitor_rates">
                   <CompetitorRateTab competitorRates={this.props.bootstrapData.competitor_rates} />
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="loan_terms">
+                  <LoanTermsTab loan={this.props.bootstrapData.loan} address={this.props.bootstrapData.property_address} property={this.props.bootstrapData.property} loanWritableAttributes={this.props.bootstrapData.loan_writable_attributes}/>
                 </div>
               </div>
             </div>
