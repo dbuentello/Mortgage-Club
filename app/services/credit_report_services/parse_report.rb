@@ -8,7 +8,7 @@ module CreditReportServices
       doc.css('CREDIT_LIABILITY').each do |credit_liability|
         liability = credit_report.liabilities.build
         liability.assign_attributes(get_liability_attributes(credit_liability))
-        next if liability.payment.nil? || liability.payment <= 0 || duplicate?(credit_report, liability)
+        next if liability.payment.to_f <= 0 || duplicate?(credit_report, liability)
 
         address = liability.build_address
         address.assign_attributes(get_address_attributes(credit_liability))
