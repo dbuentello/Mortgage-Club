@@ -129,7 +129,7 @@ var LoanTerms = React.createClass({
         zip: address.postal_code,
         full_text: el.value
       }})
-    }.bind(this)));
+    }));
 
     this.listeners.push(google.maps.event.addDomListener(el, 'keydown', function (e) {
       if (e.keyCode == 13) {
@@ -477,7 +477,7 @@ var LoanTerms = React.createClass({
       dataType: "json",
       data: $('.loan_term_form').serialize(),
       success: function(data) {
-        this.setState({editMode: false})
+        this.setState({editMode: false, loan: data.loan, property: data.property, address: data.address})
       }.bind(this),
       error: function(errorCode){
         console.log(errorCode);
