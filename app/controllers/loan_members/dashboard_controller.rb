@@ -7,15 +7,17 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
 
     @loan.closing ||= Closing.create(name: 'Closing', loan_id: @loan.id)
 
-    subject_property = @loan.properties.includes(:documents).find { |p| p.is_subject == true }
-
+    subject_property = @loan.properties.includes(:documents, :address).find { |p| p.is_subject == true }
+    property_address = subject_property.address ? subject_property.address : nil
     bootstrap(
       loan: LoanMembers::LoanPresenter.new(@loan).show,
+      loan_writable_attributes: writable_loan_params,
       first_activity: first_activity(@loan),
       activity_types: LoanMembers::ActivityTypesPresenter.new(ActivityType.all).show,
       loan_activities: loan_activities,
       borrower: LoanMembers::BorrowerPresenter.new(@loan.borrower).show,
       property: LoanMembers::PropertyPresenter.new(subject_property).show,
+      property_address: property_address,
       closing: LoanMembers::ClosingPresenter.new(@loan.closing).show,
       templates: LoanMembers::TemplatesPresenter.new(Template.all).show,
       lender_templates: get_lender_templates,
@@ -53,5 +55,9 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
     # TODO: refactor it
     # activity_status: -1 => not existed yet
     LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: loan.id).order(created_at: :desc).limit(1).first || {activity_status: -1}
+  end
+
+  def writable_loan_params
+    Loan.get_editable_attributes
   end
 end

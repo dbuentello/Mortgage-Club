@@ -117,4 +117,13 @@ class Loan < ActiveRecord::Base
   def other_documents
     documents.where(document_type: "other_loan_report")
   end
+
+  def self.get_uneditable_attributes
+    ["id", "user_id", "created_at", "updated_at", "service_cannot_shop_fees", "origination_charges_fees", "service_can_shop_fees", "loan_type"]
+  end
+
+  def self.get_editable_attributes
+    writetable_attrs = self.new.attributes.keys - self.get_uneditable_attributes
+    writetable_attrs.sort.map(&:to_sym)
+  end
 end
