@@ -8,6 +8,9 @@
   margin-left: 10px;
 }
 
+.pac-container:after{
+    content:none !important;
+}
 .address-input {
   -webkit-appearance: none;
   appearance: none;
