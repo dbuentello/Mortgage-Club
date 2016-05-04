@@ -28,6 +28,8 @@ describe CreditReportServices::ParseReport do
 
   context "with non-existent credit_report" do
     it "creates a new credit report" do
+      borrower.credit_report.destroy
+      borrower.reload
       expect { described_class.call(borrower, response) }.to change { CreditReport.count }.by(1)
     end
   end
