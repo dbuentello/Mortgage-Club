@@ -21,7 +21,53 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     end
   end
 
+  def update_loan_terms
+    loan = Loan.find(loan_id)
+    if update_property
+      if loan.update(loan_terms_params)
+        loan = loan.reload
+        property = loan.subject_property
+        respond_to do |format|
+          format.json { render json: {message: t("loan_members.loans.update.success"), loan: loan, property: property, address: property.address} }
+        end
+      else
+        respond_to do |format|
+          format.json { render json: {message: t("loan_members.loans.update.failed")}, status: 500 }
+        end
+      end
+    else
+      respond_to do |format|
+        format.json { render json: {message: t("loan_members.loans.update.failed")}, status: 500 }
+      end
+    end
+  end
+
   private
+
+  def loan_terms_params
+    params.require(:loan).permit(Loan.get_editable_attributes)
+  end
+
+  def property_params
+    params.require(:property).permit(Property::PERMITTED_ATTRS).reject{ |key, value| value.blank? }
+  end
+
+  def update_property
+    property = Property.find(property_params[:id])
+    create_or_update_address(property)
+    property.update(property_params)
+  end
+
+  def create_or_update_address(property)
+    address_params = params.require(:address).permit(Address::PERMITTED_ATTRS).reject{ |key, value| value.blank? }
+    if address_params[:id].present?
+      address = Address.find(address_params[:id])
+      address.update(address_params.except(:id))
+    else
+      property.build_address(address_params.except(:id))
+      property.address.save
+    end
+  end
 
   def loan_params
     params.permit(:status)
