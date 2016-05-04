@@ -26,7 +26,7 @@ module HomepageRateServices
           LoanProgramsOfInterest: [1, 2, 3]
         }.to_json
       end
-      response.status == 200 ? sort_rates(LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"]), loan_purpose) : []
+      response.status == 200 ? sort_rates(LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"], loan_purpose)) : []
     end
 
     def self.sort_rates(quotes)
