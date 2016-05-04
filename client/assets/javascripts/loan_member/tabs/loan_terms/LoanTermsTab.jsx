@@ -278,7 +278,7 @@ var LoanTerms = React.createClass({
           <div className='col-sm-4'>
             <TextField
               label='Loan Amount'
-              keyName='loan_amount'
+              keyName='amount'
               name='loan[amount]'
               value={this.state.loan.amount}
               onChange={this.onChange}
@@ -290,9 +290,9 @@ var LoanTerms = React.createClass({
           <div className='col-sm-4'>
             <TextField
               label='Loan Type'
-              keyName='loan_amount'
+              keyName='amortization_type'
               name='loan[amortization_type]'
-              value={this.state.amortization_type}
+              value={this.state.loan.amortization_type}
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -304,7 +304,7 @@ var LoanTerms = React.createClass({
               label='Interest Rate'
               keyName='interest_rate'
               name='loan[interest_rate]'
-              value={this.state.interest_rate}
+              value={this.state.loan.interest_rate}
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -326,9 +326,9 @@ var LoanTerms = React.createClass({
           <div className='col-sm-4'>
             <TextField
               label='Lender Fees'
-              keyName='lender_fees'
+              keyName='loan_costs'
               name='loan[loan_costs]'
-              value={this.state.loan_costs}
+              value={this.state.loan.loan_costs}
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -350,7 +350,7 @@ var LoanTerms = React.createClass({
           <div className='col-sm-4'>
             <TextField
               label='Prepaid Items'
-              keyName='prepaid_items'
+              keyName='estimated_prepaid_items'
               name='loan[estimated_prepaid_items]'
               value={this.state.loan.estimated_prepaid_items}
               onChange={this.onChange}
@@ -415,7 +415,7 @@ var LoanTerms = React.createClass({
           <div className='col-sm-4'>
             <TextField
               label='Property Tax'
-              keyName='estimated_hazard_insurance'
+              keyName='estimated_property_tax'
               name='property[estimated_property_tax]'
               value={this.state.property.estimated_property_tax}
               onChange={this.onPropertyChange}
@@ -429,7 +429,7 @@ var LoanTerms = React.createClass({
               label='Mortgage Insurance'
               keyName='estimated_mortgage_insurance'
               name='property[estimated_mortgage_insurance]'
-              value={this.state.property.estimated_property_tax}
+              value={this.state.property.estimated_mortgage_insurance}
               onChange={this.onPropertyChange}
               editable={true}/>
           </div>
