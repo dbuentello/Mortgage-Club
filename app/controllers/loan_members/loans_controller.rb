@@ -37,17 +37,15 @@ class LoanMembers::LoansController < LoanMembers::BaseController
       end
     else
       respond_to do |format|
-          format.json { render json: {message: t("loan_members.loans.update.failed")}, status: 500 }
+        format.json { render json: {message: t("loan_members.loans.update.failed")}, status: 500 }
       end
     end
   end
-
 
   private
 
   def loan_terms_params
     params.require(:loan).permit(Loan.writable_attributes)
-
   end
 
   def property_params

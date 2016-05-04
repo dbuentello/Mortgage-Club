@@ -124,6 +124,6 @@ class Loan < ActiveRecord::Base
 
   def self.writable_attributes
     writetable_attrs = self.new.attributes.keys - self.readonly_attributes
-    writetable_attrs.sort.map { |x| x.to_sym }
+    writetable_attrs.sort.map(&:to_sym)
   end
 end
