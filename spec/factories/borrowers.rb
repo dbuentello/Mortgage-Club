@@ -6,7 +6,7 @@ FactoryGirl.define do
     f.phone { '(' + Faker::Number.number(3) + ') ' + Faker::Number.number(3) + '-' + Faker::Number.number(4) }
 
     # all SS numbers starting with 000 are invalid
-    f.ssn { "301423221" }
+    f.ssn { "301-42-3221" }
     f.years_in_school { Random.rand(21) }
     f.marital_status { Random.rand(3) }
 
