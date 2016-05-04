@@ -76,15 +76,60 @@ var LoanTerms = React.createClass({
 
     // Create the autocomplete object, restricting the search
     // to geographical location types.
-    this.autocomplete = new google.maps.places.Autocomplete(el, {
+    var autocomplete = new google.maps.places.Autocomplete(el, {
       types: ['geocode'],
       componentRestrictions: {country: 'us'}
     });
 
-    this.listeners.push(google.maps.event.addListener(this.autocomplete, 'place_changed', function() {
+    this.listeners.push(google.maps.event.addListener(autocomplete, 'place_changed', function() {
 
-      this.handleAddressChange(el);
+      var place = autocomplete.getPlace();
+      var address = {
+          value: el.value
+        },
+        change = {},
+        addressType, i, val;
+        debugger
 
+      // prevent error Uncaught TypeError
+      if (typeof place.address_components == 'undefined') {
+        return;
+      }
+
+      // Get each component of the address from the place details
+      // and set the corresponding field in the state.
+      for (i = 0; i < place.address_components.length; i++) {
+        addressType = place.address_components[i].types[0];
+
+        if (this.componentFields[addressType]) {
+          val = place.address_components[i][this.componentFields[addressType]];
+          address[addressType] = val;
+        }
+      }
+
+      if (address.street_number && address.route) {
+        address.street_address = address.street_number + ' ' + address.route;
+      } else {
+        address.street_address = el.value.split(',')[0];
+      }
+
+      change["address"] = _.extend(this.props.address || {}, {
+        street_address: address.street_address,
+        street_address2: '',
+        city: address.locality,
+        state: address.administrative_area_level_1,
+        zip: address.postal_code,
+        full_text: el.value
+      });
+      this.setState({address: {
+        id: this.state.address.id,
+        street_address: address.street_address,
+        street_address2: '',
+        city: address.locality,
+        state: address.administrative_area_level_1,
+        zip: address.postal_code,
+        full_text: el.value
+      }})
     }.bind(this)));
 
     this.listeners.push(google.maps.event.addDomListener(el, 'keydown', function (e) {
@@ -100,57 +145,6 @@ var LoanTerms = React.createClass({
       }
     }));
   },
-
-  handleAddressChange: function(el) {
-    var place = this.autocomplete.getPlace(),
-        address = {
-          value: el.value
-        },
-        change = {},
-        addressType, i, val;
-
-    // prevent error Uncaught TypeError
-    if (typeof place.address_components == 'undefined') {
-      return;
-    }
-
-    // Get each component of the address from the place details
-    // and set the corresponding field in the state.
-    for (i = 0; i < place.address_components.length; i++) {
-      addressType = place.address_components[i].types[0];
-
-      if (this.componentFields[addressType]) {
-        val = place.address_components[i][this.componentFields[addressType]];
-        address[addressType] = val;
-      }
-    }
-
-    if (address.street_number && address.route) {
-      address.street_address = address.street_number + ' ' + address.route;
-    } else {
-      address.street_address = el.value.split(',')[0];
-    }
-
-    change["address"] = _.extend(this.props.address || {}, {
-      street_address: address.street_address,
-      street_address2: '',
-      city: address.locality,
-      state: address.administrative_area_level_1,
-      zip: address.postal_code,
-      full_text: el.value
-    });
-    this.setState({address: {
-      id: this.state.address.id,
-      street_address: address.street_address,
-      street_address2: '',
-      city: address.locality,
-      state: address.administrative_area_level_1,
-      zip: address.postal_code,
-      full_text: el.value
-    }})
-
-  },
-
 
   componentDidMount: function() {
     var placeInput = document.getElementById('property_address');
@@ -208,10 +202,6 @@ var LoanTerms = React.createClass({
 
   handleShowFields: function(event) {
     event.preventDefault();
-    // var loan = $(event.currentTarget.classList)[0];
-    // loan = loan.substring(4, loan.length);
-    // this.setState({activeId: loan})
-
     var selectedIndex = event.target.selectedIndex
     var loanFieldState = this.state.loanFieldState;
     loanFieldState[selectedIndex] = true;
