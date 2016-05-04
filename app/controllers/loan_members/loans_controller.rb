@@ -62,7 +62,6 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   end
 
   def create_or_update_property(property)
-    byebug
     address_params = params.require(:address).permit(Address::PERMITTED_ATTRS)
     if address_params[:id].present?
       address = Address.find(address_params[:id])
