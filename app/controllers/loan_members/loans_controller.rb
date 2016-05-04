@@ -49,7 +49,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   end
 
   def property_params
-    params.require(:property).permit(Property::PERMITTED_ATTRS).reject{ |key, value| value.blank? }
+    params.require(:property).permit(Property::PERMITTED_ATTRS).reject { |_, value| value.blank? }
   end
 
   def update_property
@@ -59,7 +59,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   end
 
   def create_or_update_address(property)
-    address_params = params.require(:address).permit(Address::PERMITTED_ATTRS).reject{ |key, value| value.blank? }
+    address_params = params.require(:address).permit(Address::PERMITTED_ATTRS).reject { |_, value| value.blank? }
     if address_params[:id].present?
       address = Address.find(address_params[:id])
       address.update(address_params.except(:id))
