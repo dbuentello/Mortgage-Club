@@ -55,7 +55,6 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   end
 
   def update_property
-    byebug
     property = Property.find(property_params[:id])
     create_or_update_property(property)
     property.update(property_params)
