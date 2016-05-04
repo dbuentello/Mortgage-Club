@@ -45,7 +45,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   private
 
   def loan_terms_params
-    params.require(:loan).permit(Loan.writable_attributes)
+    params.require(:loan).permit(Loan.get_editable_attributes)
   end
 
   def property_params

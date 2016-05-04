@@ -89,7 +89,6 @@ var LoanTerms = React.createClass({
         },
         change = {},
         addressType, i, val;
-        debugger
 
       // prevent error Uncaught TypeError
       if (typeof place.address_components == 'undefined') {
