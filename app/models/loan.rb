@@ -118,12 +118,12 @@ class Loan < ActiveRecord::Base
     documents.where(document_type: "other_loan_report")
   end
 
-  def self.readonly_attributes
+  def self.get_readonly_attributes
     ["id", "user_id", "created_at", "updated_at", "service_cannot_shop_fees", "origination_charges_fees", "service_can_shop_fees", "loan_type"]
   end
 
-  def self.writable_attributes
-    writetable_attrs = self.new.attributes.keys - self.readonly_attributes
+  def self.get_editable_attributes
+    writetable_attrs = self.new.attributes.keys - self.get_readonly_attributes
     writetable_attrs.sort.map(&:to_sym)
   end
 end

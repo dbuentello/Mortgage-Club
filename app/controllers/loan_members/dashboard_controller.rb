@@ -58,6 +58,6 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
   end
 
   def writable_loan_params
-    Loan.writable_attributes
+    Loan.get_editable_attributes
   end
 end
