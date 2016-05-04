@@ -11,3 +11,12 @@
 .pac-container:after{
     content:none !important;
 }
+.address-input {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid #ddd;
+  height: 36px;
+  border-radius: 3px;
+  padding: 6px 11px;
+  width: 100%;
+}

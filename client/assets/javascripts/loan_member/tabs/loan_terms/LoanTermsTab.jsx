@@ -261,7 +261,7 @@ var LoanTerms = React.createClass({
             <label className="col-xs-12 pan">
 
               <span className='h7 typeBold'>Property Address</span>
-              <input type="text" style={{width: "100%"}} id="property_address"  onChange={this.onAddressChange} value={this.state.address.full_text} name="address[full_text]" />
+              <input type="text" className="address-input" id="property_address"  onChange={this.onAddressChange} value={this.state.address.full_text} name="address[full_text]" />
 
             </label>
 
