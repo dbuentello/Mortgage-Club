@@ -101,7 +101,6 @@ module RefinanceProposalServices
       total_interest = 0
 
       number_of_months.times do
-        ap total_interest
         total_interest += ending_balance * rate
         ending_balance = ending_balance * (1 + rate) - monthly_payment
       end
@@ -155,17 +154,3 @@ module RefinanceProposalServices
     end
   end
 end
-
-#=
-# (vlookup('Amortization-Lower Rate'!$B$23,'Original Amortization'!B12:K371,10,true))-
-# (vlookup('Amortization-Lower Rate'!$B$11,'Original Amortization'!B12:K371,10,true))-
-# vlookup('Amortization-Lower Rate'!$B$23,'Amortization-Lower Rate'!B12:K371,10,true)-
-# B23
-
-# (vlookup('Amortization-Lower Rate'!$B$131,'Original Amortization'!B12:K371,10,true))-
-# (vlookup('Amortization-Lower Rate'!$B$11,'Original Amortization'!B12:K371,10,true))-
-# vlookup('Amortization-Lower Rate'!$B$131,'Amortization-Lower Rate'!B12:K371,10,true)-
-# B23
-
-
-

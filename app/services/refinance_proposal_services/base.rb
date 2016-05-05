@@ -28,15 +28,6 @@ module RefinanceProposalServices
         status_code: 404
       } unless loan_tek_data = get_data_from_loan_tek(reil_data[:property_value], reil_data[:loan_amount], reil_data[:zipcode], original_interest_rate, zillow_data[:property_type])
 
-      loan_tek_data = {
-        new_interest_rate: 0.0375,
-        estimated_closing_costs: -1838.0,
-        lender_credit: -3785.0,
-        new_interest_rate_cash_out: 0.0375,
-        estimated_closing_costs_cash_out: -1838.0,
-        lender_credit_cashout: -3785.0
-      }
-
       result = RefinanceProposalServices::AutomateRefinanceProposal.new(
         old_loan_amount: reil_data[:loan_amount],
         old_interest_rate: original_interest_rate,
