@@ -22,6 +22,20 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   end
 
   def update_loan_terms
+    if LoanMemberServices::UpdateLoanTermsServices.new(loan_id, loan_terms_params, property_params, address_params).update_loan
+      loan = Loan.find(loan_id)
+      respond_to do |format|
+        format.json { render json: {message: t("loan_members.loans.update.success"), loan: loan, property: loan.subject_property, address: loan.subject_property.address} }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: {message: loan.errors.full_messages}, status: 500 }
+      end
+    end
+  end
+
+  def update_loan_terms_old
+
     loan = Loan.find(loan_id)
     if update_property
       if loan.update(loan_terms_params)
@@ -49,7 +63,11 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   end
 
   def property_params
-    params.require(:property).permit(Property::PERMITTED_ATTRS).reject { |_, value| value.blank? }
+    params.require(:property).permit(Property::PERMITTED_ATTRS).reject{ |_, value| value.blank? }
+  end
+
+  def address_params
+    params.require(:address).permit(Address::PERMITTED_ATTRS).reject{ |_, value| value.blank? }
   end
 
   def update_property

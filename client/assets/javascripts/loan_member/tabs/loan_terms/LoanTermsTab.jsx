@@ -3,7 +3,6 @@ var React = require("react/addons");
 var TextFormatMixin = require("mixins/TextFormatMixin");
 
 var TextField = require("components/Form/TextField");
-var AddressField = require("components/Form/NewAddressField");
 function getFormattedAddress(addressable) {
   if (!addressable) {
     return 'Unknown';
@@ -76,12 +75,12 @@ var LoanTerms = React.createClass({
 
     // Create the autocomplete object, restricting the search
     // to geographical location types.
-    var autocomplete = new google.maps.places.Autocomplete(el, {
+    this.autocomplete = new google.maps.places.Autocomplete(el, {
       types: ['geocode'],
       componentRestrictions: {country: 'us'}
     });
 
-    this.listeners.push(google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    this.listeners.push(google.maps.event.addListener(this.autocomplete, 'place_changed', function() {
 
       var place = autocomplete.getPlace();
       var address = {
@@ -194,9 +193,9 @@ var LoanTerms = React.createClass({
     this.setState({property: change})
   },
 
-  onAddressChange: function(change) {
-    this.setState({address: change})
-  },
+  // onAddressChange: function(change) {
+  //   this.setState({address: change})
+  // },
 
 
   handleShowFields: function(event) {
@@ -248,7 +247,7 @@ var LoanTerms = React.createClass({
             <label className="col-xs-12 pan">
 
               <span className='h7 typeBold'>Property Address</span>
-              <input type="text" className="address-input" id="property_address"  onChange={this.onAddressChange} value={this.state.address.full_text} name="address[full_text]" />
+              <input type="text" className="address-input" id="property_address" name="address[full_text]" />
 
             </label>
 
