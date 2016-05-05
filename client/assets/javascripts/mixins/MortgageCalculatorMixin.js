@@ -37,14 +37,11 @@ var MortgageCalculatorMixin = {
       for(var i = 1; i <= expectedMortgageDuration; i++) {
         // is n't fixed rate
         if(i > numberOfMonthsFixed) {
-          console.log("begin")
-          console.log(i)
-          console.log(monthlyInterestRate)
-          console.log(adjustedMonthlyInterestRate);
           adjustedMonthlyInterestRate = monthlyInterestRate + cofiForecast[i - numberOfMonthsFixed];
-          console.dir(cofiForecast[i - numberOfMonthsFixed])
-          console.log(adjustedMonthlyInterestRate);
-          console.log("==========")
+        }
+        else {
+          // fixed rate
+          adjustedMonthlyInterestRate = monthlyInterestRate;
         }
         interestPayment = Math.round(amount * adjustedMonthlyInterestRate * 100) / 100;
         principalPayment = monthlyPayment - interestPayment;
