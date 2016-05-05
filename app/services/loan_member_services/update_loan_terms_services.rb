@@ -26,14 +26,10 @@ module LoanMemberServices
 
     def create_or_update_address(property)
       return true unless @address_params
-      if @address_params[:id].present?
-        address = Address.find(@address_id)
-        return address.update(@address_params.except(:id))
-      else
-        property.build_address(@address_params.except(:id))
-        return property.address.save
-      end
-      true
+
+      return address = Address.find(@address_id).update(@address_params) if @address_id
+      property.build_address(@address_params)
+      property.address.save
     end
   end
 end
