@@ -15,7 +15,7 @@ module LoanTekServices
           ZipCode: params[:zipcode],
           CreditScore: params[:credit_score],
           LoanPurpose: params[:loan_purpose],
-          LoanAmount: params[:loan_amount],
+          LoanAmount: params[:loan_amount].to_i,
           LoanToValue: params[:loan_to_value],
           PropertyUsage: params[:property_usage],
           PropertyType: params[:property_type],

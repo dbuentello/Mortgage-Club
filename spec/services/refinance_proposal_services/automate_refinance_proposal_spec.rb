@@ -42,7 +42,8 @@ describe RefinanceProposalServices::AutomateRefinanceProposal do
           new_interest_rate: 4.0,
           new_loan_amount: 480000,
           net_closing_costs: 1800.0
-        }
+        },
+        status_code: 200
       )
     end
   end

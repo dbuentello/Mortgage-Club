@@ -23,8 +23,8 @@ module RefinanceProposalServices
       @estimated_closing_costs_cash_out = args[:estimated_closing_costs_cash_out].to_f
       @current_home_value = args[:current_home_value].to_f
       @original_loan_date = args[:original_loan_date]
-      @old_interest_rate = args[:original_interest_rate] / 12
-      @start_due_date = (Time.zone.now + 61.days).beginning_of_month
+      @old_interest_rate = args[:old_interest_rate] / 12
+      @start_due_date = (Time.zone.now + 2.months).beginning_of_month
     end
 
     def call
@@ -48,7 +48,8 @@ module RefinanceProposalServices
           new_interest_rate: (new_interest_rate_cash_out * 100 * 12).round(3),
           new_loan_amount: loan_amount_cash_out,
           net_closing_costs: net_closing_costs_cash_out
-        }
+        },
+        status_code: 200
       }
     end
 
@@ -67,7 +68,7 @@ module RefinanceProposalServices
 
     def current_mortgage_balance
       # -1 because we want to get loan_balance which is a previous ending_balance
-      start_date = (original_loan_date + 60.days).beginning_of_month
+      start_date = (original_loan_date + 2.months).beginning_of_month
       number_of_months = get_number_of_months(start_date, Time.zone.now) - 1
       ending_balance(old_interest_rate, old_loan_amount, number_of_months)
     end
@@ -77,7 +78,7 @@ module RefinanceProposalServices
     end
 
     def original_lock_in_date
-      original_loan_date - 30.days
+      original_loan_date - 2.months
     end
 
     def new_loan_amount
@@ -86,7 +87,7 @@ module RefinanceProposalServices
 
     def new_loan_start_date
       # 5/7/2016
-      @new_loan_start_date ||= (Time.zone.now + 31.days).strftime('%m/%d/%Y')
+      @new_loan_start_date ||= (Time.zone.now + 1.month).strftime('%m/%d/%Y')
     end
 
     def net_closing_costs
@@ -100,6 +101,7 @@ module RefinanceProposalServices
       total_interest = 0
 
       number_of_months.times do
+        ap total_interest
         total_interest += ending_balance * rate
         ending_balance = ending_balance * (1 + rate) - monthly_payment
       end
@@ -108,10 +110,10 @@ module RefinanceProposalServices
     end
 
     def get_savings(end_due_date)
-      original_start_due_date = (original_loan_date + 60.days).beginning_of_month
+      original_start_due_date = (original_loan_date + 2.months).beginning_of_month
       savings = total_interest(old_interest_rate, old_loan_amount, get_number_of_months(original_start_due_date, end_due_date)) -
                 total_interest(old_interest_rate, old_loan_amount, get_number_of_months(original_start_due_date, start_due_date)) -
-                total_interest(new_interest_rate, new_loan_amount, get_number_of_months(start_due_date + 30.days, end_due_date)) -
+                total_interest(new_interest_rate, new_loan_amount, get_number_of_months((start_due_date + 1.month).beginning_of_month, end_due_date)) -
                 net_closing_costs
 
       savings.round(0)
@@ -153,3 +155,17 @@ module RefinanceProposalServices
     end
   end
 end
+
+#=
+# (vlookup('Amortization-Lower Rate'!$B$23,'Original Amortization'!B12:K371,10,true))-
+# (vlookup('Amortization-Lower Rate'!$B$11,'Original Amortization'!B12:K371,10,true))-
+# vlookup('Amortization-Lower Rate'!$B$23,'Amortization-Lower Rate'!B12:K371,10,true)-
+# B23
+
+# (vlookup('Amortization-Lower Rate'!$B$131,'Original Amortization'!B12:K371,10,true))-
+# (vlookup('Amortization-Lower Rate'!$B$11,'Original Amortization'!B12:K371,10,true))-
+# vlookup('Amortization-Lower Rate'!$B$131,'Amortization-Lower Rate'!B12:K371,10,true)-
+# B23
+
+
+

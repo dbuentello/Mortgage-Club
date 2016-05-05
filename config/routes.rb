@@ -212,6 +212,7 @@ Rails.application.routes.draw do
     collection do
       post "receive"
       post "save_data"
+      post "refinance"
     end
   end
 
@@ -221,8 +222,6 @@ Rails.application.routes.draw do
 
   get "mortgage_bot", to: "slack_bot#bot"
   get "bot_privacy", to: "slack_bot#privacy"
-
-  get "test", to: "pages#test"
 
   get "facebook_bot", to: "facebook_bot#bot"
   get "facebook_bot_privacy", to: "facebook_bot#privacy"
