@@ -230,6 +230,7 @@ var LoanTerms = React.createClass({
                 keyName={X}
                 name={"loan[" + X + "]"}
                 value={this.state[X]}
+                onChange={this.onChange}
                 editable={true}/>
             </div>
           </div>
@@ -444,7 +445,7 @@ var LoanTerms = React.createClass({
 
   handleSubmitForm: function(event) {
     event.preventDefault();
-    var loanData = _.extend($('.loan_term_form').serialize(), {property_id: this.state.property_id, address_id: this.state.address_id});
+    var loanData = $('.loan_term_form').serialize();
     debugger
     $.ajax({
       url: "/loan_members/loans/"+this.props.loan.id+"/update_loan_terms",
