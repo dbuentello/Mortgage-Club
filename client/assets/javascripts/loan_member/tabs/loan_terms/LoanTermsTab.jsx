@@ -230,7 +230,6 @@ var LoanTerms = React.createClass({
                 keyName={X}
                 name={"loan[" + X + "]"}
                 value={this.state[X]}
-                onChange={this.onChange}
                 editable={true}/>
             </div>
           </div>
@@ -279,7 +278,6 @@ var LoanTerms = React.createClass({
               label='Property Value'
               keyName='property_value'
               name='property[market_price]'
-              value={this.state["market_price"]}
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -681,35 +679,11 @@ var LoanTerms = React.createClass({
 
 
   render: function() {
-    // var loan = this.props.loan;
-    // var property = loan.subject_property;
-    // var propertyTax = property.estimated_property_tax;
-    // var homeOwnerInsurance = property.estimated_hazard_insurance;
-    // var monthlyPayment = loan.monthly_payment;
-    // var hoaDue = property.hoa_due
-    // var mortgageInsurance = property.estimated_mortgage_insurance;
-    // var totalCost = this.calculateMonthlyHousingExpense(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue);
     var restLoanFields  = this.props.loanWritableAttributes;
     var MakeItem = function(X, index) {
         return <option value={X}>{X}</option>;
     };
 
-    var RenderLoanField = function(X) {
-      return (
-
-          <div className='form-group'>
-            <div className='col-sm-4'>
-              <TextField
-                label={X}
-                keyName={X}
-                name={"loan[" + X + "]"}
-                value={this.state[X]}
-                onChange={this.onChange}
-                editable={true}/>
-            </div>
-          </div>
-      );
-    }.bind(this);
     return (
         <div className="panel panel-flat terms-view">
           <div>
