@@ -34,27 +34,35 @@ var LoanTerms = React.createClass({
     var loan = this.props.loan;
     var property = loan.subject_property;
     var addressId = this.props.address ? this.props.address.id : null;
-    var address = {
-        id: addressId,
-        zip: null,
-        state: null,
-        city: null,
-        street_address: null,
-        street_address2: null,
-        full_text: null
-      };
-
+    // var address = {
+    //     id: addressId,
+    //     zip: null,
+    //     state: null,
+    //     city: null,
+    //     street_address: null,
+    //     street_address2: null,
+    //     full_text: null
+    //   };
+    var address = this.props.address;
     var fieldLength = this.props.loanWritableAttributes.length;
     var loanFieldState = new Array(fieldLength);
     loanFieldState.fill(false, 0, fieldLength);
+    var state = loan;
+    var property_state = property;
+    var property_id = property_state.id;
 
-    return {
-      editMode: false,
-      loanFieldState: loanFieldState,
-      loan: loan,
-      property: property,
-      address: (this.props.address || address)
-    };
+    delete property_state["id"];
+
+    state = _.extend(state, property_state);
+    var address_state = address;
+    var address_id = address_state.id;
+    delete address_state["id"];
+    state = _.extend(state, address_state)
+    state = _.extend(state, { editMode: false, loanFieldState: loanFieldState,
+          address_id: address_id,
+          property_id: property_id
+        });
+    return state;
   },
 
   listeners: [],
@@ -81,53 +89,7 @@ var LoanTerms = React.createClass({
     });
 
     this.listeners.push(google.maps.event.addListener(this.autocomplete, 'place_changed', function() {
-
-      var place = autocomplete.getPlace();
-      var address = {
-          value: el.value
-        },
-        change = {},
-        addressType, i, val;
-
-      // prevent error Uncaught TypeError
-      if (typeof place.address_components == 'undefined') {
-        return;
-      }
-
-      // Get each component of the address from the place details
-      // and set the corresponding field in the state.
-      for (i = 0; i < place.address_components.length; i++) {
-        addressType = place.address_components[i].types[0];
-
-        if (this.componentFields[addressType]) {
-          val = place.address_components[i][this.componentFields[addressType]];
-          address[addressType] = val;
-        }
-      }
-
-      if (address.street_number && address.route) {
-        address.street_address = address.street_number + ' ' + address.route;
-      } else {
-        address.street_address = el.value.split(',')[0];
-      }
-
-      change["address"] = _.extend(this.props.address || {}, {
-        street_address: address.street_address,
-        street_address2: '',
-        city: address.locality,
-        state: address.administrative_area_level_1,
-        zip: address.postal_code,
-        full_text: el.value
-      });
-      this.setState({address: {
-        id: this.state.address.id,
-        street_address: address.street_address,
-        street_address2: '',
-        city: address.locality,
-        state: address.administrative_area_level_1,
-        zip: address.postal_code,
-        full_text: el.value
-      }})
+      this.handleAddressChange(el);
     }.bind(this)));
 
     this.listeners.push(google.maps.event.addDomListener(el, 'keydown', function (e) {
@@ -142,6 +104,56 @@ var LoanTerms = React.createClass({
         }
       }
     }));
+  },
+
+  handleAddressChange: function(el) {
+    var place = this.autocomplete.getPlace(),
+        address = {
+          value: el.value
+        },
+        change = {},
+        addressType, i, val;
+
+    // prevent error Uncaught TypeError
+    if (typeof place.address_components == 'undefined') {
+      return;
+    }
+
+    // Get each component of the address from the place details
+    // and set the corresponding field in the state.
+    for (i = 0; i < place.address_components.length; i++) {
+      addressType = place.address_components[i].types[0];
+
+      if (this.componentFields[addressType]) {
+        val = place.address_components[i][this.componentFields[addressType]];
+        address[addressType] = val;
+      }
+    }
+
+    if (address.street_number && address.route) {
+      address.street_address = address.street_number + ' ' + address.route;
+    } else {
+      address.street_address = el.value.split(',')[0];
+    }
+
+    change["address"] = {
+      street_address: address.street_address,
+      street_address2: '',
+      city: address.locality,
+      state: address.administrative_area_level_1,
+      zip: address.postal_code,
+      full_text: el.value
+    };
+
+    this.setState({
+      street_address: address.street_address,
+      street_address2: '',
+      city: address.locality,
+      state: address.administrative_area_level_1,
+      zip: address.postal_code,
+      full_text: el.value
+    });
+
   },
 
   componentDidMount: function() {
@@ -185,17 +197,13 @@ var LoanTerms = React.createClass({
   },
 
   onChange: function(change) {
-    this.setState({loan: change});
+    this.setState(change);
   },
 
   onPropertyChange: function(change) {
     // var property = this.state.property
     this.setState({property: change})
   },
-
-  // onAddressChange: function(change) {
-  //   this.setState({address: change})
-  // },
 
 
   handleShowFields: function(event) {
@@ -207,15 +215,6 @@ var LoanTerms = React.createClass({
   },
 
   renderLoanTermForm: function() {
-    var loan = this.state.loan;
-    var property = this.state.property;
-
-    var propertyTax = property.estimated_property_tax;
-    var homeOwnerInsurance = property.estimated_hazard_insurance;
-    var monthlyPayment = loan.monthly_payment;
-    var hoaDue = property.hoa_due
-    var mortgageInsurance = property.estimated_mortgage_insurance;
-    var totalCost = this.calculateMonthlyHousingExpense(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue);
     var restLoanFields  = this.props.loanWritableAttributes;
     var MakeItem = function(X, index) {
         return <option value={X}>{X}</option>;
@@ -230,10 +229,11 @@ var LoanTerms = React.createClass({
                 label={X}
                 keyName={X}
                 name={"loan[" + X + "]"}
+                value={this.state[X]}
+                onChange={this.onChange}
                 editable={true}/>
             </div>
           </div>
-
       );
     }.bind(this);
 
@@ -251,33 +251,23 @@ var LoanTerms = React.createClass({
 
             </label>
 
-            <input type="hidden" name="address[id]" value={this.state.address.id}/>
-            <input type="hidden" name="address[zip]" value={this.state.address.zip}/>
-            <input type="hidden" name="address[city]" value={this.state.address.city}/>
-            <input type="hidden" name="address[street_address]" value={this.state.address.street_address}/>
-            <input type="hidden" name="address[street_address2]" value={this.state.address.street_address2}/>
-            <input type="hidden" name="address[state]" value={this.state.address.state}/>
+            <input type="hidden" name="address[id]" value={this.state.address_id}/>
+            <input type="hidden" name="address[zip]" value={this.state.zip}/>
+            <input type="hidden" name="address[city]" value={this.state.city}/>
+            <input type="hidden" name="address[street_address]" value={this.state.street_address}/>
+            <input type="hidden" name="address[street_address2]" value={this.state.street_address2}/>
+            <input type="hidden" name="address[state]" value={this.state.state}/>
           </div>
         </div>
-        <div className='form-group'>
-          <div className='col-sm-4'>
-            <TextField
-              label='Property Value'
-              keyName='property_value'
-              name='property[market_price]'
-              value={this.state.property.market_price}
-              onChange={this.onPropertyChange}
-              editable={true}/>
-          </div>
-        </div>
+
+
 
         <div className='form-group'>
           <div className='col-sm-4'>
             <TextField
-              label='Loan Amount'
-              keyName='amount'
-              name='loan[amount]'
-              value={this.state.loan.amount}
+              label='Loan Type'
+              keyName='amortization_type'
+              name='loan[amortization_type]'
               onChange={this.onChange}
               editable={true}/>
           </div>
@@ -286,9 +276,11 @@ var LoanTerms = React.createClass({
         <div className='form-group'>
           <div className='col-sm-4'>
             <TextField
-              label='Loan Type'
-              keyName='amortization_type'
-              name='loan[amortization_type]'
+              label='Property Value'
+              keyName='property_value'
+              name='property[market_price]'
+              value={this.state["market_price"]}
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -299,6 +291,7 @@ var LoanTerms = React.createClass({
               label='Interest Rate'
               keyName='interest_rate'
               name='loan[interest_rate]'
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -309,6 +302,7 @@ var LoanTerms = React.createClass({
               label='Lender Credits'
               keyName='lender_credits'
               name='loan[lender_credits]'
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -319,6 +313,7 @@ var LoanTerms = React.createClass({
               label='Lender Fees'
               keyName='loan_costs'
               name='loan[loan_costs]'
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -329,6 +324,7 @@ var LoanTerms = React.createClass({
               label='Third Party Services'
               keyName='third_party_fees'
               name='loan[third_party_fees]'
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -339,6 +335,7 @@ var LoanTerms = React.createClass({
               label='Prepaid Items'
               keyName='estimated_prepaid_items'
               name='loan[estimated_prepaid_items]'
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -349,6 +346,7 @@ var LoanTerms = React.createClass({
               label='Down payment'
               keyName='down_payment'
               name='loan[down_payment]'
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -359,6 +357,7 @@ var LoanTerms = React.createClass({
               label='Total Cost to Close'
               keyName='estimated_cash_to_close'
               name='loan[estimated_cash_to_close]'
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -374,6 +373,7 @@ var LoanTerms = React.createClass({
               label='Principal and Interest'
               keyName='monthly_payment'
               name='loan[monthly_payment]'
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -384,6 +384,7 @@ var LoanTerms = React.createClass({
               label='Homeowners Insurance'
               keyName='estimated_hazard_insurance'
               name='property[estimated_hazard_insurance]'
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -394,6 +395,7 @@ var LoanTerms = React.createClass({
               label='Property Tax'
               keyName='estimated_property_tax'
               name='property[estimated_property_tax]'
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -404,6 +406,7 @@ var LoanTerms = React.createClass({
               label='Mortgage Insurance'
               keyName='estimated_mortgage_insurance'
               name='property[estimated_mortgage_insurance]'
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -414,6 +417,7 @@ var LoanTerms = React.createClass({
               label='Hoa DUE'
               keyName='hoa_due'
               name='property[hoa_due]'
+              onChange={this.onChange}
               editable={true}/>
           </div>
         </div>
@@ -442,26 +446,27 @@ var LoanTerms = React.createClass({
 
   handleSubmitForm: function(event) {
     event.preventDefault();
+    var loanData = _.extend($('.loan_term_form').serialize(), {property_id: this.state.property_id, address_id: this.state.address_id});
+    debugger
     $.ajax({
       url: "/loan_members/loans/"+this.props.loan.id+"/update_loan_terms",
       method: "PUT",
       dataType: "json",
-      data: $('.loan_term_form').serialize(),
+      data: loanData,
       success: function(data) {
         this.setState({editMode: false, loan: data.loan, property: data.property, address: data.address})
       }.bind(this),
       error: function(errorCode){
         console.log(errorCode);
       }
-
     });
 
 
   },
 
   renderViewTermBoard: function() {
-    var loan = this.state.loan;
-    var property = this.state.property
+    var loan = this.props.loan;
+    var property = this.props.property
     var propertyTax = property.estimated_property_tax;
     var homeOwnerInsurance = property.estimated_hazard_insurance;
     var monthlyPayment = loan.monthly_payment;
@@ -676,14 +681,35 @@ var LoanTerms = React.createClass({
 
 
   render: function() {
-    var loan = this.props.loan;
-    var property = loan.subject_property;
-    var propertyTax = property.estimated_property_tax;
-    var homeOwnerInsurance = property.estimated_hazard_insurance;
-    var monthlyPayment = loan.monthly_payment;
-    var hoaDue = property.hoa_due
-    var mortgageInsurance = property.estimated_mortgage_insurance;
-    var totalCost = this.calculateMonthlyHousingExpense(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue);
+    // var loan = this.props.loan;
+    // var property = loan.subject_property;
+    // var propertyTax = property.estimated_property_tax;
+    // var homeOwnerInsurance = property.estimated_hazard_insurance;
+    // var monthlyPayment = loan.monthly_payment;
+    // var hoaDue = property.hoa_due
+    // var mortgageInsurance = property.estimated_mortgage_insurance;
+    // var totalCost = this.calculateMonthlyHousingExpense(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue);
+    var restLoanFields  = this.props.loanWritableAttributes;
+    var MakeItem = function(X, index) {
+        return <option value={X}>{X}</option>;
+    };
+
+    var RenderLoanField = function(X) {
+      return (
+
+          <div className='form-group'>
+            <div className='col-sm-4'>
+              <TextField
+                label={X}
+                keyName={X}
+                name={"loan[" + X + "]"}
+                value={this.state[X]}
+                onChange={this.onChange}
+                editable={true}/>
+            </div>
+          </div>
+      );
+    }.bind(this);
     return (
         <div className="panel panel-flat terms-view">
           <div>

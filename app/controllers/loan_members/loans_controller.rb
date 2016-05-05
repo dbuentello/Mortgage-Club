@@ -22,7 +22,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   end
 
   def update_loan_terms
-    if LoanMemberServices::UpdateLoanTermsServices.new(loan_id, loan_terms_params, property_params, address_params).update_loan
+    if LoanMemberServices::UpdateLoanTermsServices.new(loan_id, property_id, address_id, loan_terms_params, property_params, address_params).update_loan
       loan = Loan.find(loan_id)
       respond_to do |format|
         format.json { render json: {message: t("loan_members.loans.update.success"), loan: loan, property: loan.subject_property, address: loan.subject_property.address} }
@@ -58,6 +58,13 @@ class LoanMembers::LoansController < LoanMembers::BaseController
 
   private
 
+  def property_id
+    params[:property][:id]
+  end
+
+  def address_id
+    params[:address][:id]
+  end
   def loan_terms_params
     params.require(:loan).permit(Loan.get_editable_attributes)
   end
