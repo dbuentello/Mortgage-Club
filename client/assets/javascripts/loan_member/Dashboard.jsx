@@ -97,9 +97,7 @@ var Dashboard = React.createClass({
                 <div role="tabpanel" className="tab-pane fade" id="competitor_rates">
                   <CompetitorRateTab competitorRates={this.props.bootstrapData.competitor_rates} />
                 </div>
-                <div role="tabpanel" className="tab-pane fade" id="loan_terms">
-                  <LoanTermsTab loan={this.props.bootstrapData.loan} address={this.props.bootstrapData.property_address} property={this.props.bootstrapData.property} loanWritableAttributes={this.props.bootstrapData.loan_writable_attributes}/>
-                </div>
+
               </div>
             </div>
           </div>
