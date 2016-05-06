@@ -8,10 +8,8 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
     @loan.closing ||= Closing.create(name: 'Closing', loan_id: @loan.id)
 
     subject_property = @loan.properties.includes(:documents).find { |p| p.is_subject == true }
-    property_address = subject_property.address ? subject_property.address : nil
     bootstrap(
       loan: LoanMembers::LoanPresenter.new(@loan).show,
-      loan_writable_attributes: writable_loan_params,
       first_activity: first_activity(@loan),
       activity_types: LoanMembers::ActivityTypesPresenter.new(ActivityType.all).show,
       loan_activities: loan_activities,

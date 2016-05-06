@@ -66,7 +66,6 @@ var LoanTerms = React.createClass({
     this.setState({property: change})
   },
 
-
   handleShowFields: function(event) {
     event.preventDefault();
     var selectedIndex = event.target.selectedIndex
@@ -74,7 +73,6 @@ var LoanTerms = React.createClass({
     loanFieldState[selectedIndex] = true;
     this.setState({loanFieldState: loanFieldState});
   },
-
 
   renderViewTermBoard: function() {
     var loan = this.props.bootstrapData.loan;

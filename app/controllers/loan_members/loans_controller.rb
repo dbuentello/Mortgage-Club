@@ -19,7 +19,6 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     bootstrap(
       loan: LoanMembers::LoanPresenter.new(@loan).show,
       loan_writable_attributes: editable_loan_params,
-      borrower: LoanMembers::BorrowerPresenter.new(@loan.borrower).show,
       property: LoanMembers::PropertyPresenter.new(subject_property).show,
       address: property_address
     )
