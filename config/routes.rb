@@ -212,6 +212,7 @@ Rails.application.routes.draw do
     collection do
       post "receive"
       post "save_data"
+      post "refinance"
     end
   end
 

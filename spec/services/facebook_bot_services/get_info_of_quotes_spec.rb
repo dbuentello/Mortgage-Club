@@ -11,7 +11,6 @@ describe FacebookBotServices::GetInfoOfQuotes do
       it "creates new QuoteQuery's record" do
         allow_any_instance_of(LoanTekServices::GetQuotesForFacebookBot).to receive(:call).and_return(true)
         allow_any_instance_of(LoanTekServices::GetQuotesForFacebookBot).to receive(:query_content).and_return("lorem ipsum")
-        allow_any_instance_of(LoanTekServices::GetQuotesForFacebookBot).to receive(:quotes).and_return([])
 
         expect { described_class.call({}) }.to change { QuoteQuery.count }.by(1)
       end

@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.loantek.com/Clients/WebServices/Client/697/Pricing/V2/Quotes/LoanPricer/1746
+    body:
+      encoding: UTF-8
+      string: '{"BestExecutionMethodType":2,"QuotingChannel":3,"ClientDefinedIdentifier":"53ZnFveCNg4A","LockPeriod":30,"QuoteTypesToReturn":[-1,0,1],"LoanProgramsOfInterest":[1,2,3],"ZipCode":"95127","CreditScore":740,"LoanPurpose":1,"LoanAmount":0.0,"LoanToValue":null,"PropertyUsage":1,"PropertyType":1}'
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 417
+      message: Expectation Failed
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Wed, 27 Apr 2016 03:52:04 GMT
+      Content-Length:
+      - '53'
+    body:
+      encoding: UTF-8
+      string: '"Loan Pricer Loan Request data appears to be invalid"'
+    http_version: 
+  recorded_at: Wed, 27 Apr 2016 03:52:04 GMT
+recorded_with: VCR 2.9.3
