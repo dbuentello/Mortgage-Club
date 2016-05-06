@@ -26,7 +26,7 @@ module LoanMemberServices
     def create_or_update_address(property)
       return true unless @address_params
 
-      return address = Address.find(@address_id).update(@address_params) if @address_id
+      return Address.find(@address_id).update(@address_params) if @address_id
       property.build_address(@address_params)
       property.address.save
     end
