@@ -31,13 +31,13 @@ module RefinanceProposalServices
       result = RefinanceProposalServices::AutomateRefinanceProposal.new(
         old_loan_amount: reil_data[:loan_amount],
         old_interest_rate: original_interest_rate,
-        new_interest_rate: loan_tek_data[:new_interest_rate],
-        new_interest_rate_cash_out: loan_tek_data[:new_interest_rate_cash_out],
+        new_interest_rate: loan_tek_data[:lower_rate][:interest_rate],
+        new_interest_rate_cash_out: loan_tek_data[:cash_out][:interest_rate],
         periods: 360,
-        lender_credit: loan_tek_data[:lender_credit],
-        lender_credit_cash_out: loan_tek_data[:lender_credit_cash_out],
-        estimated_closing_costs: loan_tek_data[:estimated_closing_costs],
-        estimated_closing_costs_cash_out: loan_tek_data[:estimated_closing_costs_cash_out],
+        lender_credit: loan_tek_data[:lower_rate][:lender_credit],
+        lender_credit_cash_out: loan_tek_data[:cash_out][:lender_credit],
+        estimated_closing_costs: loan_tek_data[:lower_rate][:estimated_closing_costs],
+        estimated_closing_costs_cash_out: loan_tek_data[:cash_out][:estimated_closing_costs],
         original_loan_date: reil_data[:original_loan_date],
         current_home_value: zillow_data[:current_home_value]
       ).call
@@ -67,10 +67,28 @@ module RefinanceProposalServices
     end
 
     def get_data_from_loan_tek(property_value, loan_amount, zipcode, original_interest_rate, property_type)
-      return unless lower_rate_refinance_data = LoanTekServices::GetDataForLowerRateRefinance.new(property_value, loan_amount, zipcode, original_interest_rate, property_type).call
-      return unless cash_out_refinance_data = LoanTekServices::GetDataForCashOutRefinance.new(property_value, loan_amount, zipcode, original_interest_rate, property_type).call
+      return unless lower_rate_refinance_data = LoanTekServices::GetDataForRefinanceProposal.new(
+        property_value: property_value,
+        loan_amount: loan_amount,
+        zipcode: zipcode,
+        original_interest_rate: original_interest_rate,
+        property_type: property_type,
+        cash_out: false
+      ).call
 
-      lower_rate_refinance_data.merge(cash_out_refinance_data)
+      return unless cash_out_refinance_data = LoanTekServices::GetDataForRefinanceProposal.new(
+        property_value: property_value,
+        loan_amount: loan_amount,
+        zipcode: zipcode,
+        original_interest_rate: original_interest_rate,
+        property_type: property_type,
+        cash_out: true
+      ).call
+
+      {
+        lower_rate: lower_rate_refinance_data,
+        cash_out: cash_out_refinance_data
+      }
     end
 
     def get_original_interest_rate(original_loan_date)

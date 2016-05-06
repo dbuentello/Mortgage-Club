@@ -1,21 +1,23 @@
 require "quotes_formulas"
 
 module LoanTekServices
-  class GetDataForCashOutRefinance
+  class GetDataForRefinanceProposal
     include QuotesFormulas
-    attr_reader :property_value, :loan_amount, :zipcode, :original_interest_rate, :property_type
+    attr_reader :property_value, :loan_amount, :zipcode,
+                :original_interest_rate, :property_type, :cash_out
 
     PURCHASE_LOAN = 1
     CREDIT_SCORE = 740
     PRIMARY_RESIDENCE = 1
     THIRTY_YEAR_FIXED = "30yearFixed"
 
-    def initialize(property_value, loan_amount, zipcode, original_interest_rate, property_type)
-      @property_value = property_value.to_f
-      @loan_amount = loan_amount.to_f
-      @zipcode = zipcode.to_s
-      @original_interest_rate = original_interest_rate.to_f
-      @property_type = property_type
+    def initialize(args)
+      @property_value = args[:property_value].to_f
+      @loan_amount = args[:loan_amount].to_f
+      @zipcode = args[:zipcode].to_s
+      @original_interest_rate = args[:original_interest_rate].to_f
+      @property_type = args[:property_type]
+      @cash_out = args[:cash_out]
     end
 
     def call
@@ -27,7 +29,7 @@ module LoanTekServices
         loan_to_value: get_loan_to_value,
         property_usage: PRIMARY_RESIDENCE,
         property_type: get_property_type,
-        cash_out: true
+        cash_out: cash_out
       )
 
       return if quotes.empty?
@@ -49,9 +51,9 @@ module LoanTekServices
       admin_fee = get_admin_fee(desired_quote)
 
       {
-        new_interest_rate_cash_out: get_interest_rate(desired_quote),
-        estimated_closing_costs_cash_out: get_total_closing_cost(desired_quote, admin_fee),
-        lender_credit_cashout: get_lender_credits(desired_quote, admin_fee)
+        interest_rate: get_interest_rate(desired_quote),
+        estimated_closing_costs: get_total_closing_cost(desired_quote, admin_fee),
+        lender_credit: get_lender_credits(desired_quote, admin_fee)
       }
     end
 

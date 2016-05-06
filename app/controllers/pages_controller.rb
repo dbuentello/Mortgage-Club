@@ -46,8 +46,4 @@ class PagesController < ApplicationController
 
   def slack_bot_privacy
   end
-
-  def test
-    @data = FacebookMessengerServices::AutomateRefinanceProposal.new(params).call
-  end
 end
