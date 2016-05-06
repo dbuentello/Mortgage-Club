@@ -1,8 +1,6 @@
 class LoanMembers::DashboardController < LoanMembers::BaseController
   before_action :set_loan, only: [:show]
 
-
-
   def show
     loan_activities = LoanActivity.get_latest_by_loan(@loan)
     ActiveRecord::Associations::Preloader.new.preload(loan_activities, loan_member: :user)

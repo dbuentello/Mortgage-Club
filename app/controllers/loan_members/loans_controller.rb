@@ -18,7 +18,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     property_address = subject_property.address ? subject_property.address : nil
     bootstrap(
       loan: LoanMembers::LoanPresenter.new(@loan).show,
-      loan_writable_attributes: writable_loan_params,
+      loan_writable_attributes: editable_loan_params,
       borrower: LoanMembers::BorrowerPresenter.new(@loan.borrower).show,
       property: LoanMembers::PropertyPresenter.new(subject_property).show,
       address: property_address
@@ -39,7 +39,6 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   end
 
   def update_loan_terms
-    byebug
     if LoanMemberServices::UpdateLoanTermsServices.new(loan_id, property_id, address_id, loan_terms_params, property_params, address_params).update_loan
       loan = Loan.find(loan_id)
       respond_to do |format|
@@ -82,8 +81,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     params[:id]
   end
 
-  def writable_loan_params
+  def editable_loan_params
     Loan.get_editable_attributes
   end
-
 end

@@ -19,7 +19,7 @@ describe LoanMemberServices::UpdateLoanTermsServices do
 
     context "with availale subject property" do
       let!(:loan) { FactoryGirl.create(:loan) }
-      let!(:property) { FactoryGirl.create(:property, loan_id: loan.id, is_subject: true)}
+      let!(:property) { FactoryGirl.create(:property, loan_id: loan.id, is_subject: true) }
       let!(:address) { FactoryGirl.create(:address, property_id: property.id) }
 
       let(:property_params) { {estimated_property_tax: 12, estimated_hazard_insurance: 11, estimated_mortgage_insurance: 3, estimated_mortgage_balance: 6} }
