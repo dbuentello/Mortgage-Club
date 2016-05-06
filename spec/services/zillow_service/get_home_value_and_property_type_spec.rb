@@ -17,10 +17,7 @@ describe ZillowService::GetHomeValueAndPropertyType do
     it "returns a hash containing nil" do
       VCR.use_cassette("do not get current home value from Zillow when params are invalid") do
         info = described_class.call("9999 AnyWhere", "10244")
-        expect(info).to include(
-          current_home_value: nil,
-          property_type: nil
-        )
+        expect(info).to be_nil
       end
     end
   end
