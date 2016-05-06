@@ -60,15 +60,14 @@ var Form = React.createClass({
         });
       }
     }
+
+    else if(change.target.id !=="address") {
+      var state = {};
+      state[change.target.id] = change.target.value;
+      this.setState(state);
+    }
     this.setState(change);
-
   },
-
-  onPropertyChange: function(change) {
-    // var property = this.state.property
-    this.setState({property: change})
-  },
-
 
   handleShowFields: function(event) {
     event.preventDefault();
@@ -130,8 +129,6 @@ var Form = React.createClass({
         <div className="panel panel-flat terms-view">
           <div>
 
-
-
             <div>
               <form className="form-horizontal loan_term_form">
                 <div className='form-group'>
@@ -170,14 +167,14 @@ var Form = React.createClass({
                 <div className='form-group'>
                   <div className='col-sm-4'>
                     <label> Property Value </label>
-                    <input name="property[market_price]" />
+                    <input name="property[market_price]" key="market_price" />
                   </div>
                 </div>
 
                 <div className='form-group'>
                   <div className='col-sm-4'>
                     <label>Interest Rate</label>
-                    <input name="loan[interest_rate]" onChange={this.onChange} />
+                    <input name="loan[interest_rate]" id="interest_rate" value={this.state.interest_rate} onChange={this.onChange} />
                   </div>
                 </div>
 
