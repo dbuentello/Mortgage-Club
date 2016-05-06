@@ -38,7 +38,30 @@ var Form = React.createClass({
 
 
   onChange: function(change) {
+    var address = change.address;
+    if (address) {
+      if (address.city && address.zip && address.state) {
+        var address_text = _.compact([
+        address.street_address,
+        address.street_address2,
+        address.city,
+        address.state
+      ]).join(', ');
+
+      if(address.zip) {
+        address_text += " " + address.zip;
+      }
+        this.setState({zip: address.zip,
+          state: address.state,
+          city: address.city,
+          street_address: address.street_address,
+          street_address2: address.street_address2,
+          full_text: address_text
+        });
+      }
+    }
     this.setState(change);
+
   },
 
   onPropertyChange: function(change) {
@@ -58,8 +81,9 @@ var Form = React.createClass({
 
   handleSubmitForm: function(event) {
     event.preventDefault();
-    var loanData = $('.loan_term_form').serialize();
-    debugger
+    // var loanData = JSON.parse(JSON.stringify($('.loan_term_form').serializeArray()));
+    var loanData = $(".loan_term_form :input[name!='address']").serialize();
+
     $.ajax({
       url: "/loan_members/loans/"+this.props.loan.id+"/update_loan_terms",
       method: "PUT",
@@ -126,11 +150,12 @@ var Form = React.createClass({
 
                     </label>
 
-                    <input type="hidden" name="address[id]" value={this.props.address.id}/>
+                    <input type="hidden" name="address[id]" value={this.props.address_id}/>
                     <input type="hidden" name="address[zip]" value={this.state.zip}/>
                     <input type="hidden" name="address[city]" value={this.state.city}/>
                     <input type="hidden" name="address[street_address]" value={this.state.street_address}/>
                     <input type="hidden" name="address[street_address2]" value={this.state.street_address2}/>
+                    <input type="hidden" name="address[full_text]" value={this.state.full_text}/>
                     <input type="hidden" name="address[state]" value={this.state.state}/>
                   </div>
                 </div>
@@ -173,7 +198,7 @@ var Form = React.createClass({
                 <div className='form-group'>
                   <div className='col-sm-4'>
                     <label> Third Party Fees </label>
-                    <input name="loan[third_party_fees] value={this.state.third_party_fees}" onChange={this.onChange}/>
+                    <input name="loan[third_party_fees]" value={this.state.third_party_fees} onChange={this.onChange}/>
 
                   </div>
                 </div>

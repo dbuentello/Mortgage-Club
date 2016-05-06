@@ -14,7 +14,6 @@ module LoanMemberServices
       loan = Loan.find(loan_id)
       create_or_update_property
       loan.update(@loan_terms_params)
-      logger.error(loan.errors.full_messages) unless loan.update(@loan_terms_params)
     end
 
     def create_or_update_property
