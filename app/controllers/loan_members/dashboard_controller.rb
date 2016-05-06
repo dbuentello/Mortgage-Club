@@ -1,6 +1,8 @@
 class LoanMembers::DashboardController < LoanMembers::BaseController
   before_action :set_loan, only: [:show]
 
+
+
   def show
     loan_activities = LoanActivity.get_latest_by_loan(@loan)
     ActiveRecord::Associations::Preloader.new.preload(loan_activities, loan_member: :user)
@@ -8,6 +10,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
     @loan.closing ||= Closing.create(name: 'Closing', loan_id: @loan.id)
 
     subject_property = @loan.properties.includes(:documents).find { |p| p.is_subject == true }
+    property_address = subject_property.address ? subject_property.address : nil
     bootstrap(
       loan: LoanMembers::LoanPresenter.new(@loan).show,
       loan_writable_attributes: writable_loan_params,

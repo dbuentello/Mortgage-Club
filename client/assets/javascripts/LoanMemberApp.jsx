@@ -10,6 +10,7 @@ var FlashHandler = require('mixins/FlashHandler');
 var AppStarter = require('tools/AppStarter');
 var Loans = require('loan_member/Loans')
 var Dashboard = require('loan_member/Dashboard');
+var LoanTerms = require("loan_member/loan_terms/LoanTerms");
 var EditChecklist = require('loan_member/tabs/checklist/EditPage');
 
 window.LoanMemberApp = React.createClass({
@@ -71,6 +72,7 @@ var routes = (
   <Route name='app' path='/' handler={LoanMemberApp}>
     <Route name='loans' path='/loan_members/loans' handler={Loans}/>
     <Route name='dashboard' path='/loan_members/dashboard/:id' handler={Dashboard}/>
+    <Route path="/loan_members/loans/:id/show_loan_terms" handler={LoanTerms} />
     <Route path="/loan_members/checklists/:id/edit" handler={EditChecklist}/>
     <DefaultRoute handler={Loans}/>
   </Route>

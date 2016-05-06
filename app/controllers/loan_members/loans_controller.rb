@@ -12,6 +12,23 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     end
   end
 
+  def show_loan_terms
+    @loan = Loan.find(params[:id])
+    subject_property = @loan.subject_property
+    property_address = subject_property.address ? subject_property.address : nil
+    bootstrap(
+      loan: LoanMembers::LoanPresenter.new(@loan).show,
+      loan_writable_attributes: writable_loan_params,
+      borrower: LoanMembers::BorrowerPresenter.new(@loan.borrower).show,
+      property: LoanMembers::PropertyPresenter.new(subject_property).show,
+      address: property_address
+    )
+
+    respond_to do |format|
+      format.html { render template: 'loan_member_app' }
+    end
+  end
+
   def update
     loan = Loan.find(loan_id)
     if loan.update(loan_params)
@@ -22,6 +39,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   end
 
   def update_loan_terms
+    byebug
     if LoanMemberServices::UpdateLoanTermsServices.new(loan_id, property_id, address_id, loan_terms_params, property_params, address_params).update_loan
       loan = Loan.find(loan_id)
       respond_to do |format|
@@ -63,4 +81,9 @@ class LoanMembers::LoansController < LoanMembers::BaseController
   def loan_id
     params[:id]
   end
+
+  def writable_loan_params
+    Loan.get_editable_attributes
+  end
+
 end

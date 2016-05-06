@@ -56,7 +56,6 @@ var LoanTerms = React.createClass({
     return state;
   },
 
-
   calculateMonthlyHousingExpense: function(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue) {
     var expense = 0.0;
     if(parseFloat(hoaDue))

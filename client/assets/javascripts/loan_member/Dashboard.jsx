@@ -9,7 +9,6 @@ var DocumentTab = require("./tabs/document/DocumentTab");
 var LenderDocumentTab = require("./tabs/lender_document/LenderDocumentTab");
 var ChecklistTab = require("./tabs/checklist/ChecklistTab");
 var CompetitorRateTab = require("./tabs/competitor_rates/CompetitorRateTab");
-var LoanTermsTab = require("./tabs/loan_terms/LoanTermsTab");
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
   render: function() {
@@ -67,12 +66,6 @@ var Dashboard = React.createClass({
                         <a href="#competitor_rates" aria-controls="competitor_rates" role="tab" data-toggle="tab">
                           <i className="icon-list3"></i>
                           Competitor Rates
-                        </a>
-                      </li>
-                      <li role="presentation">
-                        <a href="#loan_terms" aria-controls="loan_terms" role="tab" data-toggle="tab">
-                          <i className="icon-list3"></i>
-                           Loan Terms
                         </a>
                       </li>
                     </ul>

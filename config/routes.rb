@@ -115,7 +115,9 @@ Rails.application.routes.draw do
     end
 
     resources :loans, only: [:index, :update, :show] do
+      # get show_loan_terms, to: "dashboard#show_loan_terms"
       member do
+        get :show_loan_terms, to: "loans#show_loan_terms"
         put :update_loan_terms, to: "loans#update_loan_terms"
       end
     end

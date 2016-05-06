@@ -70,6 +70,7 @@ var Loans = React.createClass({
                     <th  tabIndex="0" rowSpan="1" colSpan="1">Status</th>
                     <th  tabIndex="0" rowSpan="1" colSpan="1">Created at</th>
                     <th  tabIndex="0" rowSpan="1" colSpan="1">Updated at</th>
+                    <th tabIndex="0" rowSpan="1" colSpan="1">Show loan terms </th>
                     <th  tabIndex="0" rowSpan="1" colSpan="1">Action</th>
                   </tr>
                 </thead>
@@ -117,6 +118,9 @@ var Loans = React.createClass({
                           </td>
                           <td>{this.formatTime(loan.created_at)}</td>
                           <td>{this.formatTime(loan.updated_at)}</td>
+                          <td>
+                            <a href={"/loan_members/loans/" + loan.id + "/show_loan_terms"}> show loan terms </a>
+                          </td>
                           <td><span>
                           <a className='linkTypeReversed' href={"/loan_members/dashboard/" + loan.id}
                             data-method='get'><i className="icon-pencil7"></i></a>
