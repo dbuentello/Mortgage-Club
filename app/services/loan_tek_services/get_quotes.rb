@@ -66,7 +66,7 @@ module LoanTekServices
     def get_loan_to_value
       loan_amount = get_loan_amount
       property_value = loan.purchase? ? property.purchase_price : property.market_price
-      (loan_amount * 100 / property_value).round(3)
+      (loan_amount * 100 / property_value).round
     end
 
     def get_property_usage

@@ -65,8 +65,9 @@ module QuotesFormulas
   def get_total_closing_cost(quote, admin_fee)
     total_fee = get_total_fee(quote, admin_fee)
     lender_credit = get_lender_credits(quote, admin_fee)
+    fha_upfront_premium_amount = get_fha_upfront_premium_amount(quote)
 
-    total_fee + lender_credit
+    total_fee + lender_credit + fha_upfront_premium_amount
   end
 
   def get_admin_fee(quote)
@@ -113,11 +114,15 @@ module QuotesFormulas
     quote["DiscountPts"] == 0.125
   end
 
-  def check_to_hide_admin_fee(quote, admin_fee)
+  def hide_admin_fee?(quote, admin_fee)
     total_fee = quote["DiscountPts"].to_f / 100 * quote["FeeSet"]["LoanAmount"].to_f + admin_fee
 
     return true if total_fee >= 0 && total_fee <= 1000
 
     false
+  end
+
+  def get_fha_upfront_premium_amount(quote)
+    quote["UFMIPPercent"].to_f * quote["FeeSet"]["LoanAmount"].to_f
   end
 end
