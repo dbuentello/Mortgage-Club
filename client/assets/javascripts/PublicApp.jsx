@@ -18,6 +18,25 @@ window.PublicApp = React.createClass({
     router: React.PropTypes.func
   },
 
+  componentDidMount: function() {
+    $("#newLoanBtn").on("click", this.createLoan);
+  },
+
+  createLoan: function() {
+    $.ajax({
+      url: '/loans',
+      method: 'POST',
+      dataType: 'json',
+      success: function(response) {
+        location.href = '/loans/' + response.loan_id + '/edit';
+      },
+      error: function(response, status, error) {
+        var flash = { "alert-danger": response.message };
+        this.showFlashes(flash);
+      }.bind(this)
+    });
+  },
+
   render: function() {
     return (
       <div>
