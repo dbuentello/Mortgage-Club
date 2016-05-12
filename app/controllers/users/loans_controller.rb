@@ -101,14 +101,6 @@ class Users::LoansController < Users::BaseController
   def update
     if @loan.update(loan_params)
       loan = @loan.reload
-      step = params[:current_step].to_s if params[:current_step].present?
-      case step
-      when '0'
-        ZillowService::UpdatePropertyTax.delay.call(loan.subject_property.id)
-      when '3'
-        # CreditReportService.delay.get_liabilities(current_user.borrower)
-      end
-
       render json: {loan: LoanEditPage::LoanPresenter.new(loan).show}
     else
       render json: {error: @loan.errors.full_messages}, status: 500
@@ -132,11 +124,13 @@ class Users::LoansController < Users::BaseController
   end
 
   def load_liabilities
+    return unless @loan.borrower.current_address && @loan.borrower.current_address.address
+
     credit_report = @loan.borrower.credit_report
     if credit_report.present? && !credit_report.liabilities.blank?
       @liabilities = credit_report.liabilities
     else
-      @liabilities = CreditReportServices::ParseSampleXml.call(@loan.borrower)
+      @liabilities = CreditReportServices::Base.call(@loan.borrower, @loan.borrower.current_address.address)
     end
   end
 

@@ -1,11 +1,21 @@
 class FacebookWebhooksController < ApplicationController
   skip_before_action :authenticate_user!
-  skip_before_action :verify_authenticity_token, only: [:receive, :save_data]
-  before_action :validate_slack_bot, only: [:receive, :save_data]
+  skip_before_action :verify_authenticity_token, only: [:receive, :save_data, :refinance]
+  before_action :validate_slack_bot, only: [:receive, :save_data, :refinance]
   FB_BOT_HEADER_VALUE = "MCfB!".freeze
 
   def receive
     output = FacebookBotServices::GetInfoOfQuotes.call(params)
+
+    render json: {
+      speech: output,
+      displayText: output,
+      source: "MortgageClub"
+    }
+  end
+
+  def refinance
+    output = RefinanceProposalServices::Base.new(params).call
 
     render json: {
       speech: output,

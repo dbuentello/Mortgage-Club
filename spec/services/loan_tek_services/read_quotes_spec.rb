@@ -40,10 +40,9 @@ describe LoanTekServices::ReadQuotes do
 
   describe ".call" do
     it "returns a valid array" do
-      # loan purpose: purchase
+      purchase = 1
+      programs = described_class.call(quotes, purchase)
 
-      loan_purpose = 1
-      programs = described_class.call(quotes, loan_purpose)
       expect(programs).to include(
         lender_name: "Provident Funding",
         product: "15 year fixed",

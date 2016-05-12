@@ -11,6 +11,7 @@ class Users::PropertiesController < Users::BaseController
 
     if property_form.save
       @loan.reload
+      ZillowService::UpdatePropertyTax.delay.call(@loan.subject_property.id)
       render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show}
     else
       render json: {message: t("users.properties.create.failed")}, status: 500
