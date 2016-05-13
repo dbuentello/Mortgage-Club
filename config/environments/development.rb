@@ -24,7 +24,7 @@ Rails.application.configure do
   config.logger = Logger.new(dir + "#{Time.now.strftime('%d-%m-%y')}.log", shift_age = 'daily')
 
   # Set to :warn to decrease the log volume.
-  config.log_level = :warn
+  config.log_level = :info
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load

@@ -8,7 +8,7 @@ class Users::BorrowersController < Users::BaseController
     )
 
     if borrower_form.save
-      get_credit_report
+      get_credit_report(borrower)
       if applying_with_secondary_borrower?
         assign_secondary_borrower_to_loan(secondary_borrower) if update_secondary_borrower
       else
@@ -33,7 +33,7 @@ class Users::BorrowersController < Users::BaseController
       form_params: get_form_params(params[:secondary_borrower]),
       borrower: secondary_borrower, loan: @loan
     )
-    secondary_borrower_form.save
+    get_credit_report(secondary_borrower, true) if secondary_borrower_form.save
   end
 
   def assign_secondary_borrower_to_loan(secondary_borrower)
@@ -67,12 +67,14 @@ class Users::BorrowersController < Users::BaseController
     }
   end
 
-  def get_credit_report
-    return unless @loan.borrower.current_address && @loan.borrower.current_address.address
+  def get_credit_report(borrower, run_in_background = false)
+    return unless borrower.current_address && borrower.current_address.address
+    return if borrower.credit_report.present? && borrower.credit_report.liabilities.present?
 
-    credit_report = @loan.borrower.credit_report
-    unless credit_report.present? && credit_report.liabilities.present?
-      CreditReportServices::Base.call(@loan.borrower, @loan.borrower.current_address.address)
+    if run_in_background
+      CreditReportServices::Base.delay.call(borrower, borrower.current_address.address)
+    else
+      CreditReportServices::Base.call(borrower, borrower.current_address.address)
     end
   end
 end
