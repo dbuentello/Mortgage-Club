@@ -164,7 +164,7 @@ group :test do
   gem 'cucumber_factory'
   gem 'spreewald'
   gem 'launchy'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 2.48.1'
   gem 'guard-rspec'
   gem 'timecop'
   gem 'vcr'
