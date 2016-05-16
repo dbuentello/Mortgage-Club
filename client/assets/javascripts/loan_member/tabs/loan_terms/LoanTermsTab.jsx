@@ -81,11 +81,10 @@ var LoanTermsTab = React.createClass({
   onSubmit: function(event) {
     event.preventDefault();
     this.setState({saving: true});
-
     $.ajax({
       url: "/loan_members/loans/" + this.props.loan.id + "/update_loan_terms",
       data: {
-        address: this.state[fields.address.name],
+        address: this.state[fields.address.name] ? this.state[fields.address.name] : {no_data: true},
         property_value: this.currencyToNumber(this.state[fields.propertyValue.name]),
         loan_amount: this.currencyToNumber(this.state[fields.loanAmount.name]),
         loan_type: this.state[fields.loanType.name],
@@ -106,8 +105,6 @@ var LoanTermsTab = React.createClass({
       dataType: "json",
       success: function(response) {
         this.setState({saving: false});
-        console.dir(response.property)
-        console.dir(response.property.address);
         var state = this.buildState(response.loan, response.property);
         this.setState(state);
         // location.href = "/quotes/" + response.code_id;
@@ -324,8 +321,8 @@ var LoanTermsTab = React.createClass({
               </div>
             </div>
             <div className="form-group">
-              <div className="col-sm-6 col-md-offset-5">
-                <button className="btn btn-primary" onClick={this.onSubmit} disabled={this.state.saving}>{ this.state.saving ? "Submitting" : "Submit" }</button>
+              <div className="col-sm-6">
+                <button className="btn btn-primary" id="submit-loan-terms" onClick={this.onSubmit} disabled={this.state.saving}>{ this.state.saving ? "Submitting" : "Submit" }</button>
               </div>
             </div>
           </form>

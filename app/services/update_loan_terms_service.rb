@@ -10,8 +10,8 @@ class UpdateLoanTermsService
 
   def call
     ActiveRecord::Base.transaction do
-      update_loan
       update_property
+      update_loan
       update_address
     end
   end
@@ -46,6 +46,8 @@ class UpdateLoanTermsService
   end
 
   def update_address
+    return if address_params.empty?
+
     address.assign_attributes(address_params)
     address.save!
   end

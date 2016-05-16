@@ -23,6 +23,14 @@ var TermTab = React.createClass({
     return expense;
   },
 
+  getPropertyValue: function(price) {
+    return price ? this.formatCurrency(price, "$") : null;
+  },
+
+  isPurchaseLoan: function() {
+    return this.props.loan.purpose == "purchase";
+  },
+
   render: function() {
     var loan = this.props.loan;
     var property = loan.subject_property;
@@ -62,11 +70,11 @@ var TermTab = React.createClass({
                   </td>
                   <td>
                     {
-                      property.market_price
+                      this.isPurchaseLoan()
                       ?
-                      this.formatCurrency(property.market_price, "$")
+                      this.getPropertyValue(property.market_price, "$")
                       :
-                      null
+                      this.getPropertyValue(property.purchase_price, "$")
                     }
                   </td>
                 </tr>
