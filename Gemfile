@@ -32,6 +32,8 @@ gem 'jquery-rails'
 gem 'lodash-rails'
 gem 'i18n'
 
+gem "plivo"
+
 gem 'will_paginate', '~> 3.1.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -75,7 +77,6 @@ gem 'nestive'
 # A wrapper gem for the DocuSign REST API
 # Using OAuth Token of MortgageClub Bot
 gem 'docusign_rest', git: 'https://7c584ddbcdc592cbd464e3701e359948d3125a15:x-oauth-basic@github.com/MortgageClub/mc_docusign_rest.git', branch: 'master'
-
 
 # A wrapper gem for Stripe REST API
 gem 'stripe'

@@ -172,7 +172,7 @@ Rails.application.routes.draw do
     end
 
     resources :loan_members_titles, except: [:new, :show]
-    resources :settings, only: [:index, :update]
+    resources :settings, only: [:index, :update, :edit]
     resources :borrower_managements, only: [:index, :destroy] do
       member do
         get "switch"

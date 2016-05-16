@@ -203,6 +203,7 @@ GEM
       guard (~> 2.0)
       rubocop (~> 0.20)
     heapy (0.1.0)
+    htmlentities (4.3.4)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     httparty (0.13.5)
@@ -270,6 +271,11 @@ GEM
       cliver (~> 0.3.2)
       safe_shell (>= 1.0.3, < 2.0)
     pg (0.18.2)
+    plivo (0.3.19)
+      builder (>= 2.1.2)
+      htmlentities (~> 4.3, >= 4.3.1)
+      json (~> 1.6, >= 1.6.6)
+      rest-client (~> 1.6, >= 1.6.7)
     poltergeist (1.6.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -501,6 +507,7 @@ DEPENDENCIES
   paperclip
   pdf-forms
   pg
+  plivo
   poltergeist (~> 1.6.0)
   puma
   pundit
