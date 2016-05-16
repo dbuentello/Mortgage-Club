@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 03:47:49 GMT
+      - Mon, 16 May 2016 07:03:29 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -33,7 +33,7 @@ http_interactions:
       Content-Type:
       - application/json
       Age:
-      - '17'
+      - '0'
       Transfer-Encoding:
       - chunked
     body:
@@ -58,7 +58,7 @@ http_interactions:
         in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"1971-04-02","coed":"2016-05-12","min_date":"1971-04-02","max_date":"2016-05-12"}}'
     http_version: 
-  recorded_at: Mon, 16 May 2016 03:48:15 GMT
+  recorded_at: Mon, 16 May 2016 07:03:38 GMT
 - request:
     method: get
     uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=&cosd=&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE15US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
@@ -78,7 +78,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 03:48:08 GMT
+      - Mon, 16 May 2016 07:03:30 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -117,7 +117,7 @@ http_interactions:
         in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"1991-08-30","coed":"2016-05-12","min_date":"1991-08-30","max_date":"2016-05-12"}}'
     http_version: 
-  recorded_at: Mon, 16 May 2016 03:48:19 GMT
+  recorded_at: Mon, 16 May 2016 07:03:39 GMT
 - request:
     method: get
     uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=&cosd=&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE5US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
@@ -137,7 +137,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 03:48:12 GMT
+      - Mon, 16 May 2016 07:03:32 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -176,10 +176,10 @@ http_interactions:
         Average in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"2005-01-06","coed":"2016-05-12","min_date":"2005-01-06","max_date":"2016-05-12"}}'
     http_version: 
-  recorded_at: Mon, 16 May 2016 03:48:21 GMT
+  recorded_at: Mon, 16 May 2016 07:03:41 GMT
 - request:
     method: get
-    uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=2016-05-15&cosd=2016-05-08&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE30US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
+    uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=2016-05-16&cosd=2016-05-09&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE30US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
     body:
       encoding: US-ASCII
       string: ''
@@ -196,7 +196,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 03:48:17 GMT
+      - Mon, 16 May 2016 07:03:37 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -225,7 +225,7 @@ http_interactions:
         Rate of Chg."},"cch":{"full":"Continuously Compounded Rate of Change","short":"Cont.
         Comp. Rate of Chg."},"cca":{"full":"Continuously Compounded Annual Rate of
         Change","short":"Cont. Comp. Annual Rate of Chg."},"log":{"full":"Natural
-        Log","short":"Log"},"nbd":{"full":"Index (Scale value to 100 for chosen period)","short":"Index"}},"line_color":"#4572a7","mark_type":"none","mw":0,"scale":"left","decimal_places":"2","drp":0,"cosd":"2016-05-08","coed":"2016-05-12","observation_grouping_approximation":"close","obs":[[1463029200000,3.57]],"series":{"a":{"series_id":"MORTGAGE30US","series_title":"30-Year
+        Log","short":"Log"},"nbd":{"full":"Index (Scale value to 100 for chosen period)","short":"Index"}},"line_color":"#4572a7","mark_type":"none","mw":0,"scale":"left","decimal_places":"2","drp":0,"cosd":"2016-05-09","coed":"2016-05-12","observation_grouping_approximation":"close","obs":[[1463029200000,3.57]],"series":{"a":{"series_id":"MORTGAGE30US","series_title":"30-Year
         Fixed Rate Mortgage Average in the United States\u00a9","available_units":{"lin":"Percent","chg":"Change,
         Percent","ch1":"Change from Year Ago, Percent","pch":"Percent Change","pc1":"Percent
         Change from Year Ago","pca":"Compounded Annual Rate of Change","cch":"Continuously
@@ -233,12 +233,12 @@ http_interactions:
         Log of Percent"},"units":"Percent","frequency":null}}}],"frequency":"Weekly,
         Ending Thursday","chart":{"labels":{"title":"30-Year Fixed Rate Mortgage Average
         in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
-        research.stlouisfed.org"},"recession_bars":"on","cosd":"2016-05-08","coed":"2016-05-12","min_date":"1971-04-02","max_date":"2016-05-12"}}'
+        research.stlouisfed.org"},"recession_bars":"on","cosd":"2016-05-09","coed":"2016-05-12","min_date":"1971-04-02","max_date":"2016-05-12"}}'
     http_version: 
-  recorded_at: Mon, 16 May 2016 03:48:28 GMT
+  recorded_at: Mon, 16 May 2016 07:03:45 GMT
 - request:
     method: get
-    uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=2016-05-15&cosd=2016-05-08&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE15US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
+    uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=2016-05-16&cosd=2016-05-09&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE15US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
     body:
       encoding: US-ASCII
       string: ''
@@ -255,7 +255,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 03:48:21 GMT
+      - Mon, 16 May 2016 07:03:38 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -284,7 +284,7 @@ http_interactions:
         Rate of Chg."},"cch":{"full":"Continuously Compounded Rate of Change","short":"Cont.
         Comp. Rate of Chg."},"cca":{"full":"Continuously Compounded Annual Rate of
         Change","short":"Cont. Comp. Annual Rate of Chg."},"log":{"full":"Natural
-        Log","short":"Log"},"nbd":{"full":"Index (Scale value to 100 for chosen period)","short":"Index"}},"line_color":"#4572a7","mark_type":"none","mw":0,"scale":"left","decimal_places":"2","drp":0,"cosd":"2016-05-08","coed":"2016-05-12","observation_grouping_approximation":"close","obs":[[1463029200000,2.81]],"series":{"a":{"series_id":"MORTGAGE15US","series_title":"15-Year
+        Log","short":"Log"},"nbd":{"full":"Index (Scale value to 100 for chosen period)","short":"Index"}},"line_color":"#4572a7","mark_type":"none","mw":0,"scale":"left","decimal_places":"2","drp":0,"cosd":"2016-05-09","coed":"2016-05-12","observation_grouping_approximation":"close","obs":[[1463029200000,2.81]],"series":{"a":{"series_id":"MORTGAGE15US","series_title":"15-Year
         Fixed Rate Mortgage Average in the United States\u00a9","available_units":{"lin":"Percent","chg":"Change,
         Percent","ch1":"Change from Year Ago, Percent","pch":"Percent Change","pc1":"Percent
         Change from Year Ago","pca":"Compounded Annual Rate of Change","cch":"Continuously
@@ -292,12 +292,12 @@ http_interactions:
         Log of Percent"},"units":"Percent","frequency":null}}}],"frequency":"Weekly,
         Ending Thursday","chart":{"labels":{"title":"15-Year Fixed Rate Mortgage Average
         in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
-        research.stlouisfed.org"},"recession_bars":"on","cosd":"2016-05-08","coed":"2016-05-12","min_date":"1991-08-30","max_date":"2016-05-12"}}'
+        research.stlouisfed.org"},"recession_bars":"on","cosd":"2016-05-09","coed":"2016-05-12","min_date":"1991-08-30","max_date":"2016-05-12"}}'
     http_version: 
-  recorded_at: Mon, 16 May 2016 03:48:30 GMT
+  recorded_at: Mon, 16 May 2016 07:03:46 GMT
 - request:
     method: get
-    uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=2016-05-15&cosd=2016-05-08&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE5US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
+    uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=2016-05-16&cosd=2016-05-09&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE5US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
     body:
       encoding: US-ASCII
       string: ''
@@ -314,7 +314,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 03:48:22 GMT
+      - Mon, 16 May 2016 07:03:39 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -343,7 +343,7 @@ http_interactions:
         Rate of Chg."},"cch":{"full":"Continuously Compounded Rate of Change","short":"Cont.
         Comp. Rate of Chg."},"cca":{"full":"Continuously Compounded Annual Rate of
         Change","short":"Cont. Comp. Annual Rate of Chg."},"log":{"full":"Natural
-        Log","short":"Log"},"nbd":{"full":"Index (Scale value to 100 for chosen period)","short":"Index"}},"line_color":"#4572a7","mark_type":"none","mw":0,"scale":"left","decimal_places":"2","drp":0,"cosd":"2016-05-08","coed":"2016-05-12","observation_grouping_approximation":"close","obs":[[1463029200000,2.78]],"series":{"a":{"series_id":"MORTGAGE5US","series_title":"5\/1-Year
+        Log","short":"Log"},"nbd":{"full":"Index (Scale value to 100 for chosen period)","short":"Index"}},"line_color":"#4572a7","mark_type":"none","mw":0,"scale":"left","decimal_places":"2","drp":0,"cosd":"2016-05-09","coed":"2016-05-12","observation_grouping_approximation":"close","obs":[[1463029200000,2.78]],"series":{"a":{"series_id":"MORTGAGE5US","series_title":"5\/1-Year
         Adjustable Rate Mortgage Average in the United States\u00a9","available_units":{"lin":"Percent","chg":"Change,
         Percent","ch1":"Change from Year Ago, Percent","pch":"Percent Change","pc1":"Percent
         Change from Year Ago","pca":"Compounded Annual Rate of Change","cch":"Continuously
@@ -351,7 +351,7 @@ http_interactions:
         Log of Percent"},"units":"Percent","frequency":null}}}],"frequency":"Weekly,
         Ending Thursday","chart":{"labels":{"title":"5\/1-Year Adjustable Rate Mortgage
         Average in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
-        research.stlouisfed.org"},"recession_bars":"on","cosd":"2016-05-08","coed":"2016-05-12","min_date":"2005-01-06","max_date":"2016-05-12"}}'
+        research.stlouisfed.org"},"recession_bars":"on","cosd":"2016-05-09","coed":"2016-05-12","min_date":"2005-01-06","max_date":"2016-05-12"}}'
     http_version: 
-  recorded_at: Mon, 16 May 2016 03:48:31 GMT
+  recorded_at: Mon, 16 May 2016 07:03:48 GMT
 recorded_with: VCR 2.9.3

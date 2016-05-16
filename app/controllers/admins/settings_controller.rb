@@ -2,13 +2,26 @@ class Admins::SettingsController < Admins::BaseController
   before_action :set_setting, except: [:index]
 
   def index
-    @setting = Setting.all.first
+    enable_ocr = Admins::SettingPresenter.new(Setting.first).show
+    settings = Admins::SettingsPresenter.new(Setting.where.not(id: Setting.first.id)).show
 
     bootstrap(
-      setting: @setting
+      enable_ocr: enable_ocr,
+      settings: settings
     )
+
     respond_to do |format|
       format.html { render template: "admin_app" }
+    end
+  end
+
+  def edit
+    bootstrap(
+      setting: Admins::SettingPresenter.new(@setting).show
+    )
+
+    respond_to do |format|
+      format.html { render template: 'admin_app' }
     end
   end
 
@@ -26,7 +39,7 @@ class Admins::SettingsController < Admins::BaseController
   private
 
   def setting_params
-    params.permit(:id, :ocr)
+    params.require(:setting).permit(:name, :value, :ocr)
   end
 
   def set_setting
