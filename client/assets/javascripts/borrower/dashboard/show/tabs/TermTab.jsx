@@ -72,9 +72,9 @@ var TermTab = React.createClass({
                     {
                       this.isPurchaseLoan()
                       ?
-                      this.getPropertyValue(property.market_price, "$")
-                      :
                       this.getPropertyValue(property.purchase_price, "$")
+                      :
+                      this.getPropertyValue(property.market_price, "$")
                     }
                   </td>
                 </tr>
