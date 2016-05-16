@@ -24,7 +24,9 @@ var Managements = React.createClass({
     $.ajax({
       url: "settings/"+this.state.enableOcr.id,
       method: "PUT",
-      data: this.state.enableOcr,
+      data: {
+        setting: this.state.enableOcr
+      },
       success: function(response) {
       }.bind(this),
       error: function(response, status, error) {
