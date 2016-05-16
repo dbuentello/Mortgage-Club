@@ -122,7 +122,7 @@ var TextField = React.createClass({
               : null
             }
             <input className={classes.editableFieldClasses + (rightAlign ? ' text-right' : '')} type={type} value={this.props.value}
-              onChange={this.handleChange} onBlur={this.props.onBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder}
+              onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder}
               name={this.props.name} id={this.props.keyName}/>
           </label>
           {

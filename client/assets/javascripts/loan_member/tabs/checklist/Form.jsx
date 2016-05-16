@@ -322,7 +322,7 @@ var Form = React.createClass({
         </div>
         <div className='form-group'>
           <div className='col-sm-2'>
-            <button className='btn btn-primary' onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? 'Submitting' : 'Submit' }</button>
+            <button className='btn btn-primary' id='submit-checklist' onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? 'Submitting' : 'Submit' }</button>
           </div>
         </div>
       </form>
