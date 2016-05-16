@@ -115,6 +115,9 @@ Rails.application.routes.draw do
     end
 
     resources :loans, only: [:index, :update] do
+      member do
+        post "update_loan_terms"
+      end
     end
 
     resources :dashboard, only: [:show]

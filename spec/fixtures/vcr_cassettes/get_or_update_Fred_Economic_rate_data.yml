@@ -33,7 +33,7 @@ http_interactions:
       Content-Type:
       - application/json
       Age:
-      - '0'
+      - '17'
       Transfer-Encoding:
       - chunked
     body:
@@ -57,7 +57,7 @@ http_interactions:
         Ending Thursday","chart":{"labels":{"title":"30-Year Fixed Rate Mortgage Average
         in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"1971-04-02","coed":"2016-05-12","min_date":"1971-04-02","max_date":"2016-05-12"}}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 16 May 2016 05:28:36 GMT
 - request:
     method: get
@@ -116,7 +116,7 @@ http_interactions:
         Ending Thursday","chart":{"labels":{"title":"15-Year Fixed Rate Mortgage Average
         in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"1991-08-30","coed":"2016-05-12","min_date":"1991-08-30","max_date":"2016-05-12"}}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 16 May 2016 05:28:37 GMT
 - request:
     method: get
@@ -175,8 +175,8 @@ http_interactions:
         Ending Thursday","chart":{"labels":{"title":"5\/1-Year Adjustable Rate Mortgage
         Average in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"2005-01-06","coed":"2016-05-12","min_date":"2005-01-06","max_date":"2016-05-12"}}'
-    http_version: 
-  recorded_at: Mon, 16 May 2016 05:28:38 GMT
+    http_version:
+  recorded_at: Mon, 16 May 2016 03:48:21 GMT
 - request:
     method: get
     uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=2016-05-15&cosd=2016-05-08&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE30US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
@@ -196,7 +196,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 05:28:35 GMT
+      - Mon, 16 May 2016 03:48:17 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -234,7 +234,7 @@ http_interactions:
         Ending Thursday","chart":{"labels":{"title":"30-Year Fixed Rate Mortgage Average
         in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"2016-05-08","coed":"2016-05-12","min_date":"1971-04-02","max_date":"2016-05-12"}}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 16 May 2016 05:28:44 GMT
 - request:
     method: get
@@ -293,7 +293,7 @@ http_interactions:
         Ending Thursday","chart":{"labels":{"title":"15-Year Fixed Rate Mortgage Average
         in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"2016-05-08","coed":"2016-05-12","min_date":"1991-08-30","max_date":"2016-05-12"}}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 16 May 2016 05:28:45 GMT
 - request:
     method: get
@@ -352,6 +352,6 @@ http_interactions:
         Ending Thursday","chart":{"labels":{"title":"5\/1-Year Adjustable Rate Mortgage
         Average in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"2016-05-08","coed":"2016-05-12","min_date":"2005-01-06","max_date":"2016-05-12"}}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 16 May 2016 05:28:46 GMT
 recorded_with: VCR 2.9.3
