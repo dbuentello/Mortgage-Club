@@ -115,6 +115,9 @@ Rails.application.routes.draw do
     end
 
     resources :loans, only: [:index, :update] do
+      member do
+        post "update_loan_terms"
+      end
     end
 
     resources :dashboard, only: [:show]
@@ -150,6 +153,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :mortgage_data, only: [:index, :show]
+
     resources :loan_member_managements, only: [:index, :edit, :update, :create, :destroy] do
     end
 
@@ -170,7 +175,7 @@ Rails.application.routes.draw do
     end
 
     resources :loan_members_titles, except: [:new, :show]
-    resources :settings, only: [:index, :update]
+    resources :settings, only: [:index, :update, :edit]
     resources :borrower_managements, only: [:index, :destroy] do
       member do
         get "switch"
@@ -210,6 +215,7 @@ Rails.application.routes.draw do
     collection do
       post "receive"
       post "save_data"
+      post "refinance"
     end
   end
 
@@ -219,6 +225,9 @@ Rails.application.routes.draw do
 
   get "mortgage_bot", to: "slack_bot#bot"
   get "bot_privacy", to: "slack_bot#privacy"
+
+  get "facebook_bot", to: "facebook_bot#bot"
+  get "facebook_bot_privacy", to: "facebook_bot#privacy"
 
   get "*path", to: "errors#show", code: 404
 end

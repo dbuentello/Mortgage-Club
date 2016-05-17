@@ -6,16 +6,15 @@ describe LoanTekServices::GetQuotes do
 
   describe "#get_quotes" do
     before(:each) do
-      allow_any_instance_of(described_class).to receive(:credit_score).and_return(750)
-      allow_any_instance_of(described_class).to receive(:zipcode).and_return(95127)
-      allow_any_instance_of(described_class).to receive(:loan_amount).and_return(360000)
+      allow_any_instance_of(described_class).to receive(:get_credit_score).and_return(750)
+      allow_any_instance_of(described_class).to receive(:get_zipcode).and_return(95127)
+      allow_any_instance_of(described_class).to receive(:get_loan_amount).and_return(360000)
       allow_any_instance_of(Lender).to receive(:logo_url).and_return("logo.png")
     end
 
     it "gets quotes with status 200" do
       VCR.use_cassette("get quotes from LoanTek") do
-        service.get_quotes
-        expect(service.response.status).to eq(200)
+        expect(service.get_quotes).not_to be_empty
       end
     end
 

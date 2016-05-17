@@ -21,6 +21,16 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     end
   end
 
+  def update_loan_terms
+    loan = Loan.find(params[:id])
+    UpdateLoanTermsService.new(loan, params).call
+
+    render json: {
+      loan: LoanEditPage::LoanPresenter.new(loan).show,
+      property: LoanMembers::PropertyPresenter.new(loan.subject_property).show
+    }
+  end
+
   private
 
   def loan_params

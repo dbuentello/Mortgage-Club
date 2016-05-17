@@ -79,7 +79,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
     byebug (6.0.0)
-    capybara (2.6.2)
+    capybara (2.7.1)
       addressable
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -203,6 +203,7 @@ GEM
       guard (~> 2.0)
       rubocop (~> 0.20)
     heapy (0.1.0)
+    htmlentities (4.3.4)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     httparty (0.13.5)
@@ -236,13 +237,13 @@ GEM
     meta-tags (2.1.0)
       actionpack (>= 3.0.0)
     method_source (0.8.2)
-    mime-types (2.99)
+    mime-types (2.99.1)
     mimemagic (0.3.0)
     mini_portile2 (2.0.0)
     minitest (5.8.2)
     money (6.6.1)
       i18n (>= 0.6.4, <= 0.7.0)
-    multi_json (1.11.2)
+    multi_json (1.12.0)
     multi_test (0.1.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -270,6 +271,11 @@ GEM
       cliver (~> 0.3.2)
       safe_shell (>= 1.0.3, < 2.0)
     pg (0.18.2)
+    plivo (0.3.19)
+      builder (>= 2.1.2)
+      htmlentities (~> 4.3, >= 4.3.1)
+      json (~> 1.6, >= 1.6.6)
+      rest-client (~> 1.6, >= 1.6.7)
     poltergeist (1.6.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -444,10 +450,11 @@ GEM
     webmock (1.21.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
-    websocket (1.2.2)
+    websocket (1.2.3)
     websocket-driver (0.6.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    will_paginate (3.1.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -500,6 +507,7 @@ DEPENDENCIES
   paperclip
   pdf-forms
   pg
+  plivo
   poltergeist (~> 1.6.0)
   puma
   pundit
@@ -517,7 +525,7 @@ DEPENDENCIES
   rubocop
   sass-rails
   sdoc
-  selenium-webdriver (= 2.48.1)
+  selenium-webdriver (~> 2.48.1)
   shoulda-matchers (~> 3.0)
   simplecov
   spreewald
@@ -531,6 +539,7 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   vcr
   webmock
+  will_paginate (~> 3.1.0)
 
 BUNDLED WITH
    1.11.2

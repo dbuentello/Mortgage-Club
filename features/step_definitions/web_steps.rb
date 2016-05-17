@@ -213,6 +213,11 @@ When(/^I fill in "([^\"]*)" with "([^\"]*)" at "([^\"]*)"$/) do |field, value, e
   end
 end
 
+When(/^I fill the input has id "([^\"]*)" with "([^\"]*)"$/) do |id, value|
+  find(id).set(value)
+  # fill_in(element, with: value)
+end
+
 When(/^At "([^\"]*)" I clear value in "(.*?)"$/) do |element, field|
   within(:css, element) do
     patiently do

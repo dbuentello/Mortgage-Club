@@ -42,7 +42,9 @@ var List = React.createClass({
             rate.monthly_payment,
             this.state.estimatedMortgageInsurance,
             this.state.estimatedPropertyTax,
-            this.state.estimatedHazardInsurance
+            this.state.estimatedHazardInsurance,
+            this.state.hoaDue,
+            rate.pmi_monthly_premium_amount
           );
           this.drawPieChart(
             0,
@@ -51,6 +53,7 @@ var List = React.createClass({
             this.state.estimatedPropertyTax ,
             this.state.estimatedMortgageInsurance,
             this.state.hoaDue,
+            rate.pmi_monthly_premium_amount,
             total
           );
         }
@@ -64,7 +67,10 @@ var List = React.createClass({
   },
 
   calDownPayment: function(down_payment, loan_amount){
-    return parseFloat(down_payment/loan_amount)*100;
+    if(!down_payment)
+      return 0;
+
+    return (parseFloat(down_payment/(down_payment + loan_amount)) * 100).toFixed(0);
   },
 
   toggleHandler: function(index, event){
@@ -83,7 +89,9 @@ var List = React.createClass({
           rate.monthly_payment,
           this.state.estimatedMortgageInsurance,
           this.state.estimatedPropertyTax,
-          this.state.estimatedHazardInsurance
+          this.state.estimatedHazardInsurance,
+          this.state.hoaDue,
+          rate.pmi_monthly_premium_amount
         );
         this.drawPieChart(
           index,
@@ -92,6 +100,7 @@ var List = React.createClass({
           this.state.estimatedPropertyTax ,
           this.state.estimatedMortgageInsurance,
           this.state.hoaDue,
+          rate.pmi_monthly_premium_amount,
           total
         );
       }
@@ -107,7 +116,7 @@ var List = React.createClass({
     }
   },
 
-  totalMonthlyPayment: function(monthly_payment, mtg_insurrance, tax, hazard_insurrance, hoa_due){
+  totalMonthlyPayment: function(monthly_payment, mtg_insurrance, tax, hazard_insurrance, hoa_due, mortgage_insurance_premium){
     var total = 0.0;
     if(monthly_payment){
       total += parseFloat(monthly_payment);
@@ -123,6 +132,9 @@ var List = React.createClass({
     }
     if(hoa_due){
       total += parseFloat(hoa_due);
+    }
+    if(mortgage_insurance_premium){
+      total += parseFloat(mortgage_insurance_premium);
     }
     return total;
   },
@@ -149,8 +161,8 @@ var List = React.createClass({
 
                     <div className="col-md-4 col-sm-6 col-sm-6">
                       <p><span className="text-capitalize">rate:</span> {this.commafy(rate.interest_rate * 100, 3)}%</p>
-                      <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(rate.monthly_payment, '$')}</p>
-                      <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(rate.total_closing_cost, '$')}</p>
+                      <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(rate.monthly_payment, 0, '$')}</p>
+                      <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(rate.total_closing_cost, 0, '$')}</p>
                     </div>
 
                     <div className="col-md-2 col-sm-6 col-sm-6">
@@ -168,14 +180,26 @@ var List = React.createClass({
                           <p className="col-xs-12 cost">Interest Rate</p>
                           <p className="col-xs-12 cost">APR</p>
                           <p className="col-xs-12 cost">Loan amount</p>
-                          <p className="col-xs-12 cost">Down payment</p>
+                          {
+                            rate.down_payment == null
+                            ?
+                              null
+                            :
+                              <p className="col-xs-12 cost">Down payment</p>
+                          }
                         </div>
                         <div className="col-xs-6">
                           <p className="col-xs-12 cost">{rate.product}</p>
                           <p className="col-xs-12 cost">{this.commafy(rate.interest_rate * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.commafy(rate.apr * 100, 3)}%</p>
-                          <p className="col-xs-12 cost">{this.formatCurrency(rate.loan_amount, "$")}</p>
-                          <p className="col-xs-12 cost">{this.formatCurrency(rate.down_payment, "$")} ({this.calDownPayment(rate.down_payment, rate.loan_amount)}%)</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(rate.loan_amount, 0, "$")}</p>
+                          {
+                            rate.down_payment == null
+                            ?
+                              null
+                            :
+                              <p className="col-xs-12 cost">{this.formatCurrency(rate.down_payment, 0, "$")} ({this.calDownPayment(rate.down_payment, rate.loan_amount)}%)</p>
+                          }
                         </div>
                       </div>
                       <h4>Estimated Closing Costs</h4>
@@ -185,12 +209,19 @@ var List = React.createClass({
                           ?
                             null
                           :
-                            <li className="lender-fee-item">{rate.lender_credits < 0 ? "Lender credit" : "Discount points"}: {this.formatCurrency(rate.lender_credits)}</li>
+                            <li className="lender-fee-item">{rate.lender_credits < 0 ? "Lender credit" : "Discount points"}: {this.formatCurrency(rate.lender_credits, 0, '$')}</li>
+                        }
+                        {
+                          rate.fha_upfront_premium_amount == 0
+                          ?
+                            null
+                          :
+                            <li className="lender-fee-item">Upfront mortgage insurance premium: {this.formatCurrency(rate.fha_upfront_premium_amount, 0, "$")}</li>
                         }
                         {
                           _.map(rate.fees, function(fee){
                             return (
-                              <li className="lender-fee-item" key={fee["HudLine"]}>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], '$')}</li>
+                              <li className="lender-fee-item" key={fee["HudLine"]}>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, '$')}</li>
                             )
                           }, this)
                         }
@@ -211,70 +242,80 @@ var List = React.createClass({
                       <div className="row">
                         <div className="col-xs-9">
                           <p className="col-xs-12 cost">Principal and interest</p>
-                          <p className="col-xs-12 cost">
-                            {
-                              this.state.estimatedMortgageInsurance
-                              ?
-                              <span>Estimated mortgage insurance</span>
-                              :
+                          {
+                            this.state.estimatedMortgageInsurance
+                            ?
+                              <p className="col-xs-12 cost">Estimated mortgage insurance</p>
+                            :
                               null
-                            }
-                          </p>
-
+                          }
                           <p className="col-xs-12 cost">Estimated property tax</p>
                           <p className="col-xs-12 cost">Estimated homeowners insurance</p>
-                          <p className="col-xs-12 cost">
                           {
                             this.state.hoaDue
                             ?
-                            <span>Hoa Due</span>
+                              <p className="col-xs-12 cost">Hoa Due</p>
                             :
-                            null
+                              null
                           }
-                          </p>
-
+                          {
+                            rate.pmi_monthly_premium_amount
+                            ?
+                              <p className="col-xs-12 cost">Mortgage insurance premium</p>
+                            :
+                              null
+                          }
                           <p className="col-xs-12 cost">Total estimated monthly payment</p>
                         </div>
                         <div className="col-xs-3">
-                          <p className="col-xs-12 cost">{this.formatCurrency(rate.monthly_payment, "$")}</p>
-                          <p className="col-xs-12 cost">
-                            {
-                              this.state.estimatedMortgageInsurance
-                              ?
-                              this.formatCurrency(this.state.estimatedMortgageInsurance, "$")
-                              :
+                          <p className="col-xs-12 cost">{this.formatCurrency(rate.monthly_payment, 0, "$")}</p>
+                          {
+                            this.state.estimatedMortgageInsurance
+                            ?
+                              <p className="col-xs-12 cost">
+                                {this.formatCurrency(this.state.estimatedMortgageInsurance, 0, "$")}
+                              </p>
+                            :
                               null
-                            }
-                          </p>
+                          }
                           <p className="col-xs-12 cost">
                             {
                               this.state.estimatedPropertyTax
                               ?
-                              this.formatCurrency(this.state.estimatedPropertyTax, "$")
+                                this.formatCurrency(this.state.estimatedPropertyTax, 0, "$")
                               :
-                              this.formatCurrency("0", "$")
+                                this.formatCurrency("0", 0, "$")
                             }
                           </p>
                           <p className="col-xs-12 cost">
                             {
                               this.state.estimatedHazardInsurance
                               ?
-                              this.formatCurrency(this.state.estimatedHazardInsurance, "$")
+                                this.formatCurrency(this.state.estimatedHazardInsurance, 0, "$")
                               :
-                              this.formatCurrency("0", "$")
+                                this.formatCurrency("0", 0, "$")
                             }
                           </p>
-                          <p className="col-xs-12 cost">
-                            {
-                              this.state.hoaDue
-                              ?
-                              this.formatCurrency(this.state.hoaDue, "$")
-                              :
+                          {
+                            this.state.hoaDue
+                            ?
+                              <p className="col-xs-12 cost">
+                                {this.formatCurrency(this.state.hoaDue, 0, "$")}
+                              </p>
+                            :
                               null
-                            }
-                          </p>
+                          }
+                          {
+                            rate.pmi_monthly_premium_amount
+                            ?
+                              <p className="col-xs-12 cost">
+                                {this.formatCurrency(rate.pmi_monthly_premium_amount, 0, "$")}
+                              </p>
+                            :
+                              null
+                          }
                           <p className="col-xs-12 cost">
-                            {this.formatCurrency(this.totalMonthlyPayment(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance, this.state.hoaDue), "$")}
+                            {this.formatCurrency(this.totalMonthlyPayment(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance, this.state.hoaDue, rate.pmi_monthly_premium_amount), 0, "$")}
                           </p>
                         </div>
                       </div>
@@ -290,7 +331,7 @@ var List = React.createClass({
 
                   <Chart id={index} principle={rate.monthly_payment} mortgageInsurance={this.state.estimatedMortgageInsurance} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}
                     hoadue={this.state.hoaDue} numOfMonths={rate.period} loanAmount={rate.loan_amount} interestRate={rate.interest_rate}
-                    total={this.totalMonthlyPayment(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance)} />
+                    total={this.totalMonthlyPayment(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance, rate.pmi_monthly_premium_amount)} />
 
                 </div>
                 <div className="board-content-toggle" onClick={_.bind(this.toggleHandler, null, index)}>

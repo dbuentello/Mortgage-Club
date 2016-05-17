@@ -9,6 +9,8 @@ var RouteHandler = Router.RouteHandler;
 var FlashHandler = require("mixins/FlashHandler");
 var AppStarter = require("tools/AppStarter");
 var Loans = require("admin/Loans");
+var MortgageData = require("admin/mortgage_data_managements/MortgageData");
+var MortgageDataRecord = require("admin/mortgage_data_managements/MortgageDataRecord");
 
 var LoanMemberManagements = require("admin/member_managements/Managements");
 var EditMemberPage = require("admin/member_managements/EditPage");
@@ -17,6 +19,7 @@ var LoanMembersTitleManagements = require("admin/loan_members_titles/Managements
 var EditLoanMembersTitle = require("admin/loan_members_titles/EditPage");
 
 var SettingManagements = require("admin/setting_managements/Managements");
+var EditSettingPage = require("admin/setting_managements/EditPage");
 
 var LoanFaqManagements = require("admin/faq_managements/Managements");
 var EditFaqPage = require("admin/faq_managements/EditPage");
@@ -76,6 +79,7 @@ var routes = (
     <Route path="/loan_members_titles" handler={LoanMembersTitleManagements}/>
     <Route path="/loan_members_titles/:id/edit" handler={EditLoanMembersTitle}/>
     <Route path="/settings" handler={SettingManagements}/>
+    <Route path="/settings/:id/edit" handler={EditSettingPage}/>
     <Route path="/loan_faq_managements/:id/edit" handler={EditFaqPage}/>
     <Route name="loan_activity_type_managements" path="/loan_activity_type_managements" handler={LoanActivityTypeManagements}/>
     <Route path="/loan_activity_type_managements/:id/edit" handler={EditActivityTypePage}/>
@@ -92,6 +96,9 @@ var routes = (
     <Route path="/potential_rate_drop_user_managements/:id/edit" handler={EditPotentialRateDropUserPage}/>
 
     <Route path="/borrower_managements" handler={BorrowerManagements}/>
+    <Route path="/mortgage_data" handler={MortgageData}/>
+    <Route path="/mortgage_data/:id" handler={MortgageDataRecord}/>
+
     <DefaultRoute handler={Loans}/>
   </Route>
 );

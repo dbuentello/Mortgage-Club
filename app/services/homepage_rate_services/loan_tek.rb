@@ -6,6 +6,7 @@ module HomepageRateServices
 
     def self.get_quotes
       url = "https://api.loantek.com/Clients/WebServices/Client/#{ENV['LOANTEK_CLIENT_ID']}/Pricing/V2/Quotes/LoanPricer/#{ENV['LOANTEK_USER_ID']}"
+      loan_purpose = 1
       connection = Faraday.new(url: url)
       response = connection.post do |conn|
         conn.headers["Content-Type"] = "application/json"
@@ -16,7 +17,7 @@ module HomepageRateServices
           ClientDefinedIdentifier: ENV["LOANTEK_IDENTIFIER"],
           ZipCode: 94103,
           CreditScore: 760,
-          LoanPurpose: 1,
+          LoanPurpose: loan_purpose,
           LoanAmount: 400000,
           LoanToValue: 80,
           PropertyUsage: 1,
@@ -25,7 +26,7 @@ module HomepageRateServices
           LoanProgramsOfInterest: [1, 2, 3]
         }.to_json
       end
-      response.status == 200 ? sort_rates(LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"])) : []
+      response.status == 200 ? sort_rates(LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"], loan_purpose)) : []
     end
 
     def self.sort_rates(quotes)

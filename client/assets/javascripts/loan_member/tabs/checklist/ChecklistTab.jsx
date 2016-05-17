@@ -46,9 +46,6 @@ var ChecklistTab = React.createClass({
     var url = '/loan_members/checklists/';
 
     return (
-
-
-
       <div id="checklists-page">
         <div className="panel panel-flat">
           <div className="panel-heading">
