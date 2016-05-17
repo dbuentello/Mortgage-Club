@@ -575,29 +575,8 @@
                     <tbody><tr>
 
                         <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                          <h4>
-                            <span style="line-height:1.2em">Dear <%= @user_name %>,</span>
-                          </h4>
-                          <p style="text-indent: 20px;">
-                            Based on public records and our econometrics model, it looks like you are paying $<%= @benefit_info[:current_monthly_payment] %>/month with Wells Fargo at an interest rate of <%= @benefit_info[:original_interest_rate] %>%. Mortgage rates have dropped significantly and you have 2 options to refinance your existing mortgage and save money with MortgageClub.
-                          </p>
-
-                          <ol>
-                            <li>
-                              Lower rate refinance (no cash-out) <br>
-                              <p></p>
-                              As of today (<%= Time.zone.today %>), we can offer you <%= @benefit_info[:lower_rate_refinance][:new_interest_rate] %>% rate for a new <%= @benefit_info[:original_term] %> mortgage, mortgage payment will be $<%= @benefit_info[:lower_rate_refinance][:new_monthly_payment] %>/month, loan amount $<%= @benefit_info[:lower_rate_refinance][:new_loan_amount] %>, NO discount points, NO closing costs, and $<%= @benefit_info[:lower_rate_refinance][:net_closing_costs] %> lender credit back to you at closing. You'd save a total of $<%= @benefit_info[:lower_rate_refinance][:savings_in_1_year] %> in the first year, $<%= @benefit_info[:lower_rate_refinance][:savings_in_3_years] %> in 3 years and $<%= @benefit_info[:lower_rate_refinance][:savings_in_10_years] %> over 10 years.
-                              <p></p>
-                            </li>
-                            <li>
-                              Cash out refinance <br>
-                              <p></p>
-                              Congratulations, your house has gone up a lot in value since you bought it in <%= @benefit_info[:cash_out_refinance][:original_loan_date] %>. Current estimated value is $<%= @benefit_info[:cash_out_refinance][:current_home_value] %> and you can take $<%= @benefit_info[:cash_out_refinance][:cash_out] %> cash out at a low interest rate to invest in something else.<br>
-                              <p></p>
-                              As of today (<%= Time.zone.today %>), we can offer you <%= @benefit_info[:cash_out_refinance][:new_interest_rate] %>% rate for a new 30 year fixed mortgage, mortgage payment will be $<%= @benefit_info[:cash_out_refinance][:new_monthly_payment] %>/month, loan amount $<%= @benefit_info[:cash_out_refinance][:new_loan_amount] %>, NO discount points, NO closing costs, and $<%= @benefit_info[:cash_out_refinance][:net_closing_costs] %> lender credit back to you at closing.<br>
-                            </li>
-                          </ol>
-                          </p>
+                          <p>A new user has signed up for MortgageClub.</p>
+                          <p><%= @sign_up_info[:first_name] %> <%= @sign_up_info[:last_name] %> (<%=@sign_up_info[:email] %>)</p>
                         </td>
                     </tr>
                 </tbody></table>

@@ -29,6 +29,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.skip_confirmation_notification!
 
       BorrowerServices::UpdateEmployment.new(resource.borrower).call if resource.save && !Rails.env.test?
+      NewUserNotificationServices::SendEmailToAdmin.delay.call(resource) unless Rails.env.test?
+      NewUserNotificationServices::SendSmsToAdmin.delay.call(resource) unless Rails.env.test?
 
       sign_in resource_name, resource, bypass: true
     end

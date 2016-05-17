@@ -1,35 +1,39 @@
 var _ = require('lodash');
 var React = require('react/addons');
-
+//var Form = require('./Form');
 
 var Managements = React.createClass({
   getInitialState: function() {
     return {
-      setting: this.props.bootstrapData.setting
+      enableOcr: this.props.bootstrapData.enable_ocr,
+      settings: this.props.bootstrapData.settings
     }
   },
+
   componentDidMount: function(){
     $("#ocr").bootstrapSwitch();
     $('#ocr').on('switchChange.bootstrapSwitch', function(event, state) {
-      this.state.setting.ocr = !this.state.setting.ocr;
+      this.state.enableOcr.ocr = !this.state.enableOcr.ocr;
       this.setState({
-        setting: this.state.setting
+        enableOcr: this.state.enableOcr
       });
     }.bind(this));
   },
-  componentDidUpdate: function(){
-    $.ajax({
-       url: "settings/"+this.state.setting.id,
-       method: "PUT",
-       data: this.state.setting,
-       success: function(response) {
 
-         }.bind(this),
-         error: function(response, status, error) {
-           console.log(response);
-         }.bind(this)
-     });
+  componentDidUpdate: function(prevState, nextState){
+    $.ajax({
+      url: "settings/"+this.state.enableOcr.id,
+      method: "PUT",
+      data: {
+        setting: this.state.enableOcr
+      },
+      success: function(response) {
+      }.bind(this),
+      error: function(response, status, error) {
+      }.bind(this)
+    });
   },
+
   render: function() {
     var url = '/setting/';
     return (
@@ -56,43 +60,57 @@ var Managements = React.createClass({
               {/* Table */ }
               <div className="panel panel-flat">
                 <div className="panel-heading">
-                  <h5 className="panel-setting">setting</h5>
+                  <h5 className="panel-setting">Settings</h5>
                   <div className="heading-elements">
                   </div>
-                </div>
-                <div className="panel-body">
                 </div>
                 <div className="table-responsive">
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>setting</th>
-                        <th>Actions</th>
+                        <th width="30%">Name</th>
+                        <th width="50%">Value</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr key={this.state.setting.id}>
+                      <tr key={this.state.enableOcr.id}>
                         <td>
                           Enable OCR
                         </td>
                         <td>
                           <label>
-                            <input type="checkbox" id="ocr" data-on-color="success" data-off-color="default" data-on-text="Enable" data-off-text="Disable" className="switch" defaultChecked={this.state.setting.ocr} />
+                            <input type="checkbox" id="ocr" data-on-color="success" data-off-color="default" data-on-text="Enable" data-off-text="Disable" className="switch" defaultChecked={this.state.enableOcr.ocr} />
                           </label>
                         </td>
+                        <td></td>
                       </tr>
+                      {
+                        _.map(this.state.settings, function(setting) {
+                          return (
+                            <tr key={setting.id}>
+                              <td>{setting.name}</td>
+                              <td>
+                                <label>{setting.value}</label>
+                              </td>
+                              <td>
+                                <span>
+                                  <a className='linkTypeReversed btn btn-primary' href={'settings/' + setting.id + '/edit'} data-method='get'>Edit</a>
+                                </span>
+                              </td>
+                            </tr>
+                          )
+                        }, this)
+                      }
                     </tbody>
                   </table>
                 </div>
               </div>
               {/* /table */ }
-
             </div>
             {/* /main content */ }
-
           </div>
           {/* /page content */ }
-
         </div>
         {/* /page container */ }
       </div>

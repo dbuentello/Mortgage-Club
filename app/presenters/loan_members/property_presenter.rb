@@ -12,7 +12,7 @@ class LoanMembers::PropertyPresenter
   def json_options
     {
       include: [
-        :documents
+        :documents, :address
       ],
       methods: [
         :other_documents
