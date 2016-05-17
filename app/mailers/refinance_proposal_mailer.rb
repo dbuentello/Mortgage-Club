@@ -9,7 +9,7 @@ class RefinanceProposalMailer < ActionMailer::Base
 
     mail(
       to: user_email,
-      subject: "Refinance your Wells Fargo mortgage and save $#{savings_in_1_year}/year (new rate #{new_interest_rate}%, #{original_term}, no closing costs)"
+      subject: "Re: Your mortgage with Wells Fargo"
     )
   end
 end
