@@ -32,6 +32,7 @@ module RefinanceProposalServices
         current_mortgage_balance: current_mortgage_balance,
         current_monthly_payment: get_monthly_payment(old_interest_rate, old_loan_amount),
         original_interest_rate: (old_interest_rate * 100 * 12).round(3),
+        original_term: "30 years fixed",
         lower_rate_refinance: {
           new_interest_rate: (new_interest_rate * 100 * 12).round(3),
           new_monthly_payment: get_monthly_payment(new_interest_rate, new_loan_amount).round,

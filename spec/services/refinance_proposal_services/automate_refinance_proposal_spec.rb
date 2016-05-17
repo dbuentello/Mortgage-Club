@@ -26,6 +26,7 @@ describe RefinanceProposalServices::AutomateRefinanceProposal do
         current_monthly_payment: 2138.82,
         current_mortgage_balance: 399004.47,
         original_interest_rate: 4.625,
+        original_term: "30 years fixed",
         lower_rate_refinance: {
           new_interest_rate: 3.375,
           new_monthly_payment: 1764,
