@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 08:01:36 GMT
+      - Mon, 16 May 2016 08:54:00 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -33,7 +33,7 @@ http_interactions:
       Content-Type:
       - application/json
       Age:
-      - '68'
+      - '0'
       Transfer-Encoding:
       - chunked
     body:
@@ -58,7 +58,7 @@ http_interactions:
         in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"1971-04-02","coed":"2016-05-12","min_date":"1971-04-02","max_date":"2016-05-12"}}'
     http_version: 
-  recorded_at: Mon, 16 May 2016 08:02:53 GMT
+  recorded_at: Mon, 16 May 2016 08:54:09 GMT
 - request:
     method: get
     uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=&cosd=&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE15US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
@@ -78,7 +78,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 08:01:37 GMT
+      - Mon, 16 May 2016 08:54:02 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -92,7 +92,7 @@ http_interactions:
       Content-Type:
       - application/json
       Age:
-      - '68'
+      - '0'
       Transfer-Encoding:
       - chunked
     body:
@@ -117,7 +117,7 @@ http_interactions:
         in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"1991-08-30","coed":"2016-05-12","min_date":"1991-08-30","max_date":"2016-05-12"}}'
     http_version: 
-  recorded_at: Mon, 16 May 2016 08:02:54 GMT
+  recorded_at: Mon, 16 May 2016 08:54:11 GMT
 - request:
     method: get
     uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=&cosd=&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE5US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
@@ -137,7 +137,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 08:01:38 GMT
+      - Mon, 16 May 2016 08:54:03 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -151,7 +151,7 @@ http_interactions:
       Content-Type:
       - application/json
       Age:
-      - '68'
+      - '0'
       Transfer-Encoding:
       - chunked
     body:
@@ -176,7 +176,7 @@ http_interactions:
         Average in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"2005-01-06","coed":"2016-05-12","min_date":"2005-01-06","max_date":"2016-05-12"}}'
     http_version: 
-  recorded_at: Mon, 16 May 2016 08:02:55 GMT
+  recorded_at: Mon, 16 May 2016 08:54:12 GMT
 - request:
     method: get
     uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=2016-05-16&cosd=2016-05-09&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE30US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
@@ -196,7 +196,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 08:01:46 GMT
+      - Mon, 16 May 2016 08:54:09 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -210,7 +210,7 @@ http_interactions:
       Content-Type:
       - application/json
       Age:
-      - '68'
+      - '0'
       Transfer-Encoding:
       - chunked
     body:
@@ -235,7 +235,7 @@ http_interactions:
         in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"2016-05-09","coed":"2016-05-12","min_date":"1971-04-02","max_date":"2016-05-12"}}'
     http_version: 
-  recorded_at: Mon, 16 May 2016 08:03:03 GMT
+  recorded_at: Mon, 16 May 2016 08:54:18 GMT
 - request:
     method: get
     uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=2016-05-16&cosd=2016-05-09&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE15US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
@@ -255,7 +255,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 08:01:48 GMT
+      - Mon, 16 May 2016 08:54:10 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -269,7 +269,7 @@ http_interactions:
       Content-Type:
       - application/json
       Age:
-      - '67'
+      - '0'
       Transfer-Encoding:
       - chunked
     body:
@@ -294,7 +294,7 @@ http_interactions:
         in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"2016-05-09","coed":"2016-05-12","min_date":"1991-08-30","max_date":"2016-05-12"}}'
     http_version: 
-  recorded_at: Mon, 16 May 2016 08:03:04 GMT
+  recorded_at: Mon, 16 May 2016 08:54:19 GMT
 - request:
     method: get
     uri: https://research.stlouisfed.org/fred2/graph/graph-data.php?chart_type=line&coed=2016-05-16&cosd=2016-05-09&drp=0&fam=avg&fgsnd=2007-12-01&fgst=lin&fml=a&fq=Weekly,%20Ending%20Thursday&id=MORTGAGE5US&lev=&line_color=%234572a7&log_scales=&lsv=&mma=0&mode=fred&nd=&oet=99999&ost=-99999&revision_date=&scale=left&transformation=lin&vintage_date=
@@ -314,7 +314,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 16 May 2016 08:01:49 GMT
+      - Mon, 16 May 2016 08:54:12 GMT
       X-Frame-Options:
       - SAMEORIGIN
       Last-Modified:
@@ -328,7 +328,7 @@ http_interactions:
       Content-Type:
       - application/json
       Age:
-      - '68'
+      - '0'
       Transfer-Encoding:
       - chunked
     body:
@@ -353,5 +353,5 @@ http_interactions:
         Average in the United States\u00a9","subtitle":"Source: Freddie Mac","left_axis":"(Percent)","right_axis":false,"bottom_axis":false,"bubble-size_axis":false,"footer":"2016
         research.stlouisfed.org"},"recession_bars":"on","cosd":"2016-05-09","coed":"2016-05-12","min_date":"2005-01-06","max_date":"2016-05-12"}}'
     http_version: 
-  recorded_at: Mon, 16 May 2016 08:03:05 GMT
+  recorded_at: Mon, 16 May 2016 08:54:21 GMT
 recorded_with: VCR 2.9.3
