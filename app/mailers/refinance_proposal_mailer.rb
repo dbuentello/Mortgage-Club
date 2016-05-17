@@ -9,7 +9,7 @@ class RefinanceProposalMailer < ActionMailer::Base
 
     mail(
       to: user_email,
-      subject: "Re: Your mortgage with Wells Fargo"
+      subject: "Re: Your mortgage with #{@benefit_info[:old_lender]}"
     )
   end
 end

@@ -58,7 +58,8 @@ module RefinanceProposalServices
         loan_amount: mortgage_history["mortgage_amount"].to_f * 0.8,
         zipcode: reil_data["zipcode"],
         address: reil_data["address"],
-        original_loan_date: DateTime.strptime(mortgage_history["mortgage_date"], "%m/%d/%Y")
+        original_loan_date: DateTime.strptime(mortgage_history["mortgage_date"], "%m/%d/%Y"),
+        old_lender: mortgage_history["mortgage_lender"]
       }
     end
 
