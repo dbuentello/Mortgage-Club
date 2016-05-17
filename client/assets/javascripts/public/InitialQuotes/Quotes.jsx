@@ -242,7 +242,7 @@ var Quotes = React.createClass({
                               </div>
                             </div>
                             <div className="col-md-6 text-right">
-                              <a className="btn choose-btn text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
+                              <a className="btn choose-btn text-uppercase" id="helpmechoose-md" onClick={this.helpMeChoose}>help me choose</a>
                             </div>
                           </div>
                         </div>
