@@ -182,7 +182,7 @@ var HelpMeChoose = React.createClass({
           </div>
           <div className='row helpmechoose'>
             <div className='col-lg-7'>
-              <div className='col-lg-11 calculator'>
+              <div className='row col-lg-11 calculator'>
                 <div className='years_chart mtxl'>
                   <div className='row'>
                     <div className='col-lg-12'>
@@ -232,6 +232,8 @@ var HelpMeChoose = React.createClass({
                     </div>
                   </div>
                 </div>
+                <br ></br>
+                <br ></br>
               </div>
             </div>
             {
@@ -248,50 +250,50 @@ var HelpMeChoose = React.createClass({
                   <div className="primary-cost-unit">PER<br/>MONTH</div>
                 </div>
                 <div className='row secondary-cost'>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     NMLS
                   </div>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     {this.state.bestRate.nmls}
                   </div>
                 </div>
                 <div className='row secondary-cost'>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     Loan type
                   </div>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     {this.state.bestRate.product}
                   </div>
                 </div>
                 <div className='row secondary-cost'>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     Rate
                   </div>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     {this.commafy(this.state.bestRate.interest_rate * 100, 3)}%
                   </div>
                 </div>
                 <div className='row secondary-cost'>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     APR
                   </div>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     {this.commafy(this.state.bestRate.apr * 100, 3)}%
                   </div>
                 </div>
                 <div className='row secondary-cost'>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     Estimated Closing Costs
                   </div>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     {this.formatCurrency(this.state.bestRate.total_closing_cost, '$')}
                   </div>
                 </div>
                 <div className='row secondary-cost'>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     True Cost of Mortgage
                   </div>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     {this.formatCurrency(this.state.bestRate.total_cost, '$')}
                   </div>
                 </div>

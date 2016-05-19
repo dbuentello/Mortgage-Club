@@ -3,6 +3,10 @@
   right: 5%;
   margin-left: 10px;
   margin-right: 10px;
+  @include respond-to(smobile){
+    margin-left: 0;
+    margin-right: 0;
+  };
   h3 {
     font-size: 19px;
   }
@@ -168,6 +172,9 @@
 .back-btn {
 
   margin-left: 57px;
+  @include respond-to(smobile){
+    margin-left: 20px;
+  };
 }
 // .mortgage-rates {
 //   .navigation-section {

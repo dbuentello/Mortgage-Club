@@ -74,11 +74,11 @@ var Filter = React.createClass({
             }, this)
           }
           <h5>
-            <a role="button" data-toggle="collapse" href="#helpme-sidebar-collapse" aria-expanded="false" aria-controls="helpme-sidebar-collapse">
+            <a role="button" data-toggle="collapse" href=".helpme-sidebar-collapse" aria-expanded="true" aria-controls="helpme-sidebar-collapse">
               Show all investors<span className="glyphicon glyphicon-menu-down"></span>
             </a>
           </h5>
-          <div className="collapse" id="helpme-sidebar-collapse">
+          <div className="collapse helpme-sidebar-collapse">
             {
               _.map(this.getRemainingLenders(), function(lender) {
                 return (

@@ -72,6 +72,13 @@
   }
   .board-content-toggle {
     height:25px;
+    @include respond-to(smobile){
+      height: 30px;
+    };
+    button {
+      width: 100%;
+      &:focus {outline:0;}
+    }
     background:#f5f5f5;
     color:#a6a6a6;
     margin-left:-20px;
@@ -199,6 +206,9 @@
     margin-left: -19px;
   }
   background: linear-gradient(to right, #f6f6f6 , white);
+  @include respond-to(smobile){
+    background: none;
+  };
   .programs-filter {
     margin-top: 0px;
     margin-left: -16px;
@@ -248,4 +258,10 @@
     content: "\00a0";
     margin-right: 7px;
   }
+}
+#filterQuotes {
+  #sidebar {
+    background: none;
+  }
+  margin-top: -50px;
 }
