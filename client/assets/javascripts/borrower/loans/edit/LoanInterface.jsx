@@ -48,7 +48,7 @@ var LoanInterface = React.createClass({
       <div className="content accountPart editLoan">
         <div className="container">
           <div className="row">
-            <div className="col-xs-3 subnav">
+            <div className="col-xs-12 col-sm-3 subnav">
               <div id="sidebar">
                 <ul>
                   {_.map(this.state.menu, function (item, i) {
