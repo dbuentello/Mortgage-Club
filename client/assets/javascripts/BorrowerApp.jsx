@@ -33,11 +33,7 @@ window.BorrowerApp = React.createClass({
       dataType: 'json',
       success: function(response) {
         location.href = '/loans/' + response.loan_id + '/edit';
-      },
-      error: function(response, status, error) {
-        var flash = { "alert-danger": response.message };
-        this.showFlashes(flash);
-      }.bind(this)
+      }
     });
   },
 
