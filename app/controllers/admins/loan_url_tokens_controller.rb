@@ -1,5 +1,5 @@
 class Admins::LoanUrlTokensController < Admins::BaseController
-  before_action :set_loan, except: [:index]
+  before_action :set_loan, except: :index
 
   def index
     loans = Loan.all.includes(:user)
