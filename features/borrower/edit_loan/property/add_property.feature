@@ -40,6 +40,6 @@ Feature: AddProperty
       And I should see "Borrower"
       Then I click on "Borrower"
         And I should see "I am applying"
-        And the "first_borrower_current_address" field should contain "1920 South Las Vegas Boulevard, Las Vegas, NV 89104"
+        And the "first_borrower_current_address" field should contain "1920 South Las Vegas Boulevard, Las Vegas, NV 89030"
         And the "first_borrower_years_in_current_address" field should contain "21"
         And the radio with id "true_first_borrower_currently_own" to be disabled
