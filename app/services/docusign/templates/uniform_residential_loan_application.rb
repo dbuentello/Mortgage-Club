@@ -30,8 +30,8 @@ module Docusign
       def build_section_1
         build_loan_type
         @params[:loan_amount] = number_with_delimiter(loan.amount.to_f.round)
-        @params[:interest_rate] = format("%0.03f", loan.interest_rate.to_f * 100) + "%"
-        @params[:number_of_month] = loan.num_of_months
+        @params[:interest_rate] = format("%0.03f", loan.interest_rate.to_f * 100)
+        @params[:num_of_months] = loan.num_of_months
         @params[:arm_fixed_rate] = "Yes" if loan.fixed_rate_amortization?
         if loan.arm_amortization?
           @params[:arm_type] = "Yes"
@@ -255,13 +255,18 @@ module Docusign
         @params[(role + "_dependents").to_sym] = borrower.dependent_count
         @params[(role + "_ages").to_sym] = borrower.dependent_ages.join(", ")
         @params[(role + "_present_address").to_sym] = borrower.display_current_address
-        @params[(role + "_own").to_sym] = "Yes" unless borrower.current_address.try(:is_rental)
-        @params[(role + "_rent").to_sym] = "Yes" if borrower.current_address.try(:is_rental)
-        @params[(role + "_no_yrs").to_sym] = borrower.current_address.try(:years_at_address)
+        if borrower.display_current_address
+          @params[(role + "_own").to_sym] = "Yes" unless borrower.current_address.try(:is_rental)
+          @params[(role + "_rent").to_sym] = "Yes" if borrower.current_address.try(:is_rental)
+          @params[(role + "_no_yrs").to_sym] = borrower.current_address.try(:years_at_address)
+        end
+
         @params[(role + "_former_address").to_sym] = borrower.display_previous_address
-        @params[(role + "_former_own").to_sym] = "Yes" unless borrower.previous_address.try(:is_rental)
-        @params[(role + "_former_rent").to_sym] = "Yes" if borrower.previous_address.try(:is_rental)
-        @params[(role + "_former_no_yrs").to_sym] = borrower.previous_address.try(:years_at_address)
+        if borrower.display_previous_address
+          @params[(role + "_former_own").to_sym] = "Yes" unless borrower.previous_address.try(:is_rental)
+          @params[(role + "_former_rent").to_sym] = "Yes" if borrower.previous_address.try(:is_rental)
+          @params[(role + "_former_no_yrs").to_sym] = borrower.previous_address.try(:years_at_address)
+        end
       end
 
       def build_refinance_loan
@@ -276,12 +281,12 @@ module Docusign
           @params[:purpose_of_refinance] = "Rate and term"
         end
         @params[:year_built] = subject_property.year_built
-        @params[:source_down_payment] = "Checking account"
+        @params[:source_down_payment] = "Checking/Savings"
       end
 
       def build_purchase_loan
         @params[:purpose_purchase] = "Yes"
-        @params[:source_down_payment] = "Checking account"
+        @params[:source_down_payment] = "Checking/Savings"
       end
 
       def build_loan_type
