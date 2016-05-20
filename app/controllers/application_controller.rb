@@ -19,6 +19,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def after_sign_in_path_for(resource)
+    return super unless resource.borrower?
+    return super unless params[:user].present? && params[:user][:reset_password_token].present?
+    return super unless loan = Loan.find_by(prepared_loan_token: params[:user][:reset_password_token])
+
+    edit_loan_path(loan)
+  end
+
   def user_not_authorized
     @back_to_home_path = find_root_path
     render "errors/403.html", status: 403

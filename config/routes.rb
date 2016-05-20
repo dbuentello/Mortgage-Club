@@ -181,6 +181,8 @@ Rails.application.routes.draw do
         get "switch"
       end
     end
+
+    resources :loan_url_tokens, only: [:index, :create]
   end
 
   namespace :document_uploaders do

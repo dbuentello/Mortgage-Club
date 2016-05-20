@@ -44,6 +44,8 @@ var BorrowerManagements = require("admin/borrower_managements/Borrowers");
 var HomepageRateManagement = require("admin/homepage_rate_managements/Managements");
 var HomepageRateForm = require("admin/homepage_rate_managements/Form");
 
+var LoanURLTokens = require("admin/loan_url_tokens_managements/LoanTokens");
+
 window.AdminApp = React.createClass({
   mixins: [FlashHandler],
 
@@ -94,10 +96,10 @@ var routes = (
     <Route path="/potential_user_managements/:id/edit" handler={EditPotentialUserPage}/>
     <Route name="/potential_rate_drop_user_managements" path="/potential_rate_drop_user_managements" handler={PotentialRateDropUserManagements}/>
     <Route path="/potential_rate_drop_user_managements/:id/edit" handler={EditPotentialRateDropUserPage}/>
-
     <Route path="/borrower_managements" handler={BorrowerManagements}/>
     <Route path="/mortgage_data" handler={MortgageData}/>
     <Route path="/mortgage_data/:id" handler={MortgageDataRecord}/>
+    <Route path="/loan_url_tokens" handler={LoanURLTokens}/>
 
     <DefaultRoute handler={Loans}/>
   </Route>
