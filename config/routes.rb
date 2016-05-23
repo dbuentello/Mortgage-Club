@@ -144,6 +144,8 @@ Rails.application.routes.draw do
         get "get_email_info"
       end
     end
+
+    resources :loan_url_tokens, only: [:create]
   end
 
   scope module: "admins" do
