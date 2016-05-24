@@ -140,3 +140,14 @@
     margin-bottom: 60px;
 }
 // ========== end header =========//
+.btn-menu-mobile {
+  background: white !important;
+  color: #15c0f1 !important;
+  border: none;
+  padding: 9px 12px !important;
+  margin: 0 5px 5px;
+  &:hover {
+    background: #15c0f1 !important;
+    color: white !important;
+  }
+}
