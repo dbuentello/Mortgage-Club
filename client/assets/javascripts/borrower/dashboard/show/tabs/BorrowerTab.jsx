@@ -59,7 +59,8 @@ var BorrowerTab = React.createClass({
                 )
               }, this)
             }
-            {
+            {this.props.coBorrower != null
+              ?
               _.map(this.props.coBorrower.documents, function(document) {
                 return (
                   <tr key={document.id}>
@@ -76,6 +77,8 @@ var BorrowerTab = React.createClass({
                   </tr>
                 )
               }, this)
+              :
+              null
             }
             </tbody>
           </table>
