@@ -22,7 +22,7 @@ var LoanUrlTokenTab = React.createClass({
       method: "POST",
       dataType: "json",
       data: {
-        id: "e3906a1a-2e52-48ee-8400-08fd3e638c1e"
+        id: this.props.loan.id
       },
       success: function(response) {
         this.setState({
