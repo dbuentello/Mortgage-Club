@@ -90,7 +90,9 @@
     filter:brightness(10000%);
     -webkit-filter: brightness(10000%);
   }
-  #loanBtn #loanBtnImg,
+  #loanBtn #loanBtnImg {
+    margin-top: -9px;
+  }
   #accountBtn #accountBtnImg {
     margin-right: 7px;
     margin-top: -9px;
