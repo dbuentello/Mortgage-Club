@@ -10,7 +10,7 @@ class LeadRequestsMailer < ActionMailer::Base
     end
 
     mail(
-      from: "#{user.to_s} <#{user.email}>",
+      from: "#{user} <#{user.email}>",
       to: "cuongvu0103@gmail.com",
       subject: "I'd like to claim a loan"
     )
