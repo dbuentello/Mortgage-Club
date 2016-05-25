@@ -33,7 +33,7 @@
               Loans
               <% end %>
             </li>
-            <li>
+            <li class="hidden-xs">
               <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" id="accountBtn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   <span>
@@ -50,6 +50,8 @@
                 </ul>
               </div>
             </li>
+            <li class="visible-xs"><%= link_to "My Profile", edit_user_registration_path,class: "btn btn-ms text-uppercase btn-menu-mobile" %></li>
+            <li class="visible-xs"><%= link_to "Log Out", destroy_user_session_path, method: :delete,class: "btn btn-ms text-uppercase btn-menu-mobile" %>
           </ul>
         <% else %>
           <ul class="nav nav-pills navbar-right">
