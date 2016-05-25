@@ -146,6 +146,7 @@ Rails.application.routes.draw do
     end
 
     resources :loan_url_tokens, only: [:create]
+    resources :lead_requests, only: [:index, :create]
   end
 
   scope module: "admins" do

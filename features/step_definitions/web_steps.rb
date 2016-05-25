@@ -134,11 +134,11 @@ When(/^I am at loan member dashboard$/) do
       And there is a lender with the name "Quickens Loan"
       And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the closing above and with the user above and with the lender above
       And there is a property with the purchase price "1000000" and with the usage "0" and with the is primary "1" and with the is subject "1" and with loan above
-      And there is a loan_member_user_with_loan_member with the email "loan_member@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the first name "Mark" and the last name "Lim"
+      And there is a loan_member_user_with_loan_member with the email "loan_member@mortgageclub.co" and the password "secretpass" and the password confirmation "secretpass" and the first name "Mark" and the last name "Lim"
       And there is a loan members title with the title "sale"
       And there is a loans members association with the loan above and with the loan member above and with the loan members title above
       And there is a checklist_upload with the loan above
-      And I login as "loan_member@gmail.com" with password "secretpass"
+      And I login as "loan_member@mortgageclub.co" with password "secretpass"
     Then I click link with div ".linkTypeReversed"
   )
 end
@@ -149,11 +149,11 @@ When(/^I am at loan list page$/) do
       And there is a lender with the name "Quickens Loan"
       And there is a loan with the amount "500000" and with the num of months "24" and with the purpose "0" and with the user above and with the closing above and with the user above and with the lender above
       And there is a property with the purchase price "1000000" and with the usage "0" and with the is primary "1" and with the is subject "1" and with loan above
-      And there is a loan_member_user_with_loan_member with the email "loan_member@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the first name "Mark" and the last name "Lim"
+      And there is a loan_member_user_with_loan_member with the email "loan_member@mortgageclub.co" and the password "secretpass" and the password confirmation "secretpass" and the first name "Mark" and the last name "Lim"
       And there is a loan members title with the title "sale"
       And there is a loans members association with the loan above and with the loan member above and with the loan members title above
       And there is a checklist_upload with the loan above
-      And I login as "loan_member@gmail.com" with password "secretpass"
+      And I login as "loan_member@mortgageclub.co" with password "secretpass"
   )
 end
 
