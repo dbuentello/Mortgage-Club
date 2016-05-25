@@ -160,7 +160,7 @@ var ActivityTab = React.createClass({
           </div>
         </div>
 
-        <div className="table-responsive " style={{borderTop: "1px solid #ddd"}} id="activities-table">
+        <div className="table-responsive" style={{borderTop: "1px solid #ddd"}} id="activities-table">
           <table className="table table-hover table-striped">
             <thead>
               <tr>

@@ -9,6 +9,9 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
 
     subject_property = @loan.properties.includes(:documents).find { |p| p.is_subject == true }
 
+    host_name = ENV.fetch("HOST_NAME", "localhost:4000")
+    url = edit_user_password_url(host: host_name)
+
     bootstrap(
       loan: LoanMembers::LoanPresenter.new(@loan).show,
       first_activity: first_activity(@loan),
@@ -25,7 +28,8 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
         down_payment_20: get_all_rates_down_payment("0.2"),
         down_payment_10: get_all_rates_down_payment("0.1"),
         down_payment_3_5: get_all_rates_down_payment("0.035")
-      }.as_json
+      }.as_json,
+      url: url
     )
 
     respond_to do |format|
