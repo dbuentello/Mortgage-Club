@@ -276,12 +276,12 @@ module Docusign
           @params[:purpose_of_refinance] = "Rate and term"
         end
         @params[:year_built] = subject_property.year_built
-        @params[:source_down_payment] = "Checking account"
+        @params[:source_down_payment] = "Checking/Savings"
       end
 
       def build_purchase_loan
         @params[:purpose_purchase] = "Yes"
-        @params[:source_down_payment] = "Checking account"
+        @params[:source_down_payment] = "Checking/Savings"
       end
 
       def build_loan_type
