@@ -119,7 +119,7 @@ class InitializeFirstLoanService
   end
 
   def loan_activity_params(activity, loan)
-    loan_activity_params = Hash.new
+    loan_activity_params = {}
     loan_activity_params[:activity_type_id] = activity.id
     loan_activity_params[:activity_status] = 0
     loan_activity_params[:name] = activity.type_name_mapping[0]
