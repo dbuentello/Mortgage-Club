@@ -13,10 +13,10 @@ Feature: AddRequest
       Then an email should have been sent with:
         """
         From: loan_member@mortgageclub.co
-        To: cuongvu0103@gmail.com
+        To: admin@mortgageclub.co
         Subject: I'd like to claim a loan
         """
-      And "cuongvu0103@gmail.com" should receive an email
+      And "admin@mortgageclub.co" should receive an email
       Then I open the email
         And I should see "I'd like to claim the loan of" in the email body
       Then I turn on delayed jobs

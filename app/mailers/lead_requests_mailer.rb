@@ -11,7 +11,7 @@ class LeadRequestsMailer < ActionMailer::Base
 
     mail(
       from: "#{user} <#{user.email}>",
-      to: "cuongvu0103@gmail.com",
+      to: "admin@mortgageclub.co",
       subject: "I'd like to claim a loan"
     )
   end
