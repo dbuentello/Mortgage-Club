@@ -83,7 +83,7 @@ class Borrower < ActiveRecord::Base
   end
 
   def display_current_address
-    current_address.try(:address).try(:address) || 'No Address'
+    current_address.try(:address).try(:address)
   end
 
   def previous_address
@@ -97,7 +97,7 @@ class Borrower < ActiveRecord::Base
   end
 
   def display_previous_address
-    previous_address.try(:address).try(:address) || 'No Address'
+    previous_address.try(:address).try(:address)
   end
 
   def current_employment
