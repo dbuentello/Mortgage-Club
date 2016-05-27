@@ -117,9 +117,18 @@ module Docusign
       end
 
       def build_section_10
+        byebug
         @params[:borrower_do_not_wish] = "Yes"
         @params[:co_borrower_do_not_wish] = "Yes" if loan.secondary_borrower
         @params[:applicant_submitted_internet] = "Yes"
+        # 1044
+        @params[:loan_originator_name] = loan.relationship_manager.user.first_name + " " loan.relationship_manager.user.last_name if loan.relationship_manager
+        @params[:individual_nmls] = loan.relationship_manager.nmls_id if loan.relationship_manager
+        @params[:individual_phone_number] = loan.relationship_manager.phone_number if loan.relationship_manager
+        @params[:company_name] = loan.relationship_manager.company_name if loan.relationship_manager
+        @params[:company_nmls] = loan.relationship_manager.company_nmls if loan.relationship_manager
+        @params[:company_address] = loan.relationship_manager.company_address if loan.relationship_manager
+
       end
 
       def build_assets
