@@ -31,7 +31,7 @@ module Docusign
         build_loan_type
         @params[:loan_amount] = number_with_delimiter(loan.amount.to_f.round)
         @params[:interest_rate] = format("%0.03f", loan.interest_rate.to_f * 100)
-        @params[:num_of_months] = loan.num_of_months
+        @params[:number_of_months] = loan.num_of_months
         @params[:arm_fixed_rate] = "Yes" if loan.fixed_rate_amortization?
         if loan.arm_amortization?
           @params[:arm_type] = "Yes"
@@ -218,11 +218,25 @@ module Docusign
         @params[(role + "_commissions").to_sym] = number_to_currency(borrower.gross_commission.to_f, unit: "")
         @params[(role + "_interest").to_sym] = number_to_currency(borrower.gross_interest.to_f, unit: "")
 
-        @params[:total_base_income] = @params[:total_base_income].to_f + borrower.current_salary.to_f
+        @params[:total_base_income] = @params[:total_base_income].to_f + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
         @params[:total_overtime] = @params[:total_overtime].to_f + borrower.gross_overtime.to_f
         @params[:total_bonuses] = @params[:total_bonuses].to_f + borrower.gross_bonus.to_f
         @params[:total_commissions] = @params[:total_commissions].to_f + borrower.gross_commission.to_f
         @params[:total_dividends] = @params[:total_dividends].to_f + borrower.gross_interest.to_f
+      end
+
+      def build_monthly_income(current_salary, pay_frequency)
+        case pay_frequency # a_variable is the variable we want to compare
+        when "monthly"
+          current_salary
+        when "biweekly"
+          current_salary = (current_salary * 26) / 12
+        when "weekly"
+          current_salary = (current_salary * 52) / 12
+        else
+          current_salary = current_salary * 2
+        end
+        current_salary.to_f
       end
 
       def build_employment_info(role, borrower)
