@@ -47,7 +47,7 @@ window.LoanMemberApp = React.createClass({
                   <ul className="dropdown-menu dropdown-menu-right">
                     <li><a href="/auth/register/edit" data-method="get"><i className="icon-user-plus"></i> My profile</a></li>
                     <li className="divider"></li>
-                    <li><a href="/loan_members/lead_requests" data-method="get"><i className="icon-certificate"></i> Leads Management</a></li>
+                    <li><a href="/loan_members/lead_requests" data-method="get"><i className="icon-certificate"></i> Lead Management</a></li>
                     <li className="divider"></li>
                     <li><a href="/auth/logout" data-method="delete"><i className="icon-switch2"></i> Logout</a></li>
                   </ul>

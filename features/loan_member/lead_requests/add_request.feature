@@ -4,7 +4,7 @@ Feature: AddRequest
     When I am at loan member dashboard
       And I turn off delayed jobs
       And I go to the loan members lead requests page
-        And I should see "Leads Management"
+        And I should see "Lead Management"
         And I should see "Request"
       Then I click on "Request"
         And I wait for 2 seconds
