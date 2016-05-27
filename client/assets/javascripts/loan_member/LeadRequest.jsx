@@ -57,7 +57,7 @@ var LeadRequest = React.createClass({
       <div className="content container">
         <div className="panel panel-flat">
           <div className="panel-heading">
-            <h4 className="panel-title">Leads Management</h4>
+            <h4 className="panel-title">Lead Management</h4>
           </div>
         </div>
         <div className="datatable-scroll" id="checklists-table" style={{borderTop: "1px solid #ddd"}}>
@@ -95,7 +95,7 @@ var LeadRequest = React.createClass({
         <ModalLink
             id="request"
             title="Confirmation"
-            body="Are you sure to generate token for this loan?"
+            body="Are you sure you want to claim this lead?"
             yesCallback={this.request}/>
       </div>
     );
