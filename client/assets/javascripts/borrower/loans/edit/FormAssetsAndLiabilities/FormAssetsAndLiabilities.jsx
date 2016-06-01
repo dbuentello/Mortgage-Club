@@ -25,7 +25,7 @@ var FormAssetsAndLiabilities = React.createClass({
       state[field.name] = null;
     });
 
-    state.liabilities = _.sortBy(this.props.bootstrapData.liabilities, function (lib) {
+    state.liabilities = _.sortBy(this.props.liabilities, function (lib) {
       return parseFloat(lib.payment);
     });
 

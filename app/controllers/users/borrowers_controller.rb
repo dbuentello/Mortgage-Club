@@ -16,7 +16,9 @@ class Users::BorrowersController < Users::BaseController
       end
 
       @loan.reload
-      render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show}
+      borrower.reload
+
+      render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show, liabilities: get_liabilities(borrower)}
     else
       render json: {error: borrower_form.errors.full_messages}, status: 500
     end
@@ -69,12 +71,15 @@ class Users::BorrowersController < Users::BaseController
 
   def get_credit_report(borrower, run_in_background = false)
     return unless borrower.current_address && borrower.current_address.address
-    return if borrower.credit_report.present? && borrower.credit_report.liabilities.present?
 
     if run_in_background
       CreditReportServices::Base.delay.call(borrower, borrower.current_address.address)
     else
       CreditReportServices::Base.call(borrower, borrower.current_address.address)
     end
+  end
+
+  def get_liabilities(borrower)
+    borrower.credit_report.liabilities
   end
 end
