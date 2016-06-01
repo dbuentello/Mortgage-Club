@@ -162,7 +162,7 @@ var LoanInterface = React.createClass({
 
   setupMenu: function(response, step, skip_change_page) {
     var menu = this.buildMenu(response.loan);
-    console.dir(response)
+
     this.setState({
       loan: response.loan,
       menu: menu
@@ -170,7 +170,6 @@ var LoanInterface = React.createClass({
 
     // get new liabilities from BorrowerController
     if (response.liabilities) {
-      console.dir(response.liabilities)
       this.setState({
         liabilities: response.liabilities
       });

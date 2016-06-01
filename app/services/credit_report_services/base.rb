@@ -9,7 +9,7 @@ module CreditReportServices
 
       # get credit report for new SSN
       # destroy old liablities
-      credit_report.liabilities.destroy_all if has_liabilities?(credit_report)
+      credit_report.liabilities.destroy_all if liabilities?(credit_report)
 
       response = CreditReportServices::GetReport.new(
         borrower_id: borrower.id,
@@ -27,7 +27,7 @@ module CreditReportServices
       CreditReportServices::ParseReport.call(borrower, response)
     end
 
-    def self.has_liabilities?(credit_report)
+    def self.liabilities?(credit_report)
       return false unless credit_report.present?
       return false if credit_report.liabilities.blank?
 
