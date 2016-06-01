@@ -4,7 +4,7 @@ module CreditReportServices
       cache_key = "credit-report-#{borrower.id}-#{borrower.ssn}"
       credit_report = borrower.credit_report
 
-      # load liablities from database if cache key was not changed
+      # load liabilities from database if cache key was not changed
       return credit_report.liabilities if REDIS.get(cache_key) && credit_report
 
       # get credit report for new SSN
