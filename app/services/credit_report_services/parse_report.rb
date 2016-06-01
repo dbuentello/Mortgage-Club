@@ -54,7 +54,7 @@ module CreditReportServices
     end
 
     def self.get_credit_score(doc)
-      scores = doc.css('CREDIT_SCORE').map { |credit_score| credit_score.attributes['_Value'].value }
+      scores = doc.css('CREDIT_SCORE').map { |credit_score| credit_score.attributes['_Value'].value if credit_score.attributes['_Value'] }.compact
       scores[1].to_f
     end
   end
