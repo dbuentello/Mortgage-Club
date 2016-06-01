@@ -8,7 +8,7 @@ module CreditReportServices
       return credit_report.liabilities if REDIS.get(cache_key) && credit_report
 
       # get credit report for new SSN
-      # destroy old liablities
+      # destroy old liabilities
       credit_report.liabilities.destroy_all if liabilities?(credit_report)
 
       response = CreditReportServices::GetReport.new(
