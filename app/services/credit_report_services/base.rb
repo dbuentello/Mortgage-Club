@@ -21,6 +21,9 @@ module CreditReportServices
         state: address.state,
         zipcode: address.zip
       ).call
+
+      return [] unless response
+
       REDIS.set(cache_key, response.to_json)
       REDIS.expire(cache_key, 1.week.to_i)
 
