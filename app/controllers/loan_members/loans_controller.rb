@@ -31,6 +31,13 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     }
   end
 
+  def export_xml
+    loan = Loan.find(params[:id])
+    xml = ExportXmlMismoService.new(loan, loan.borrower).call
+
+    send_data xml, type: "text/xml; charset=UTF-8;", disposition: "attachment; filename=entries.xml"
+  end
+
   private
 
   def loan_params

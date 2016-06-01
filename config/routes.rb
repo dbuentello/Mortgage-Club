@@ -116,6 +116,7 @@ Rails.application.routes.draw do
 
     resources :loans, only: [:index, :update] do
       member do
+        get "export_xml"
         post "update_loan_terms"
       end
     end

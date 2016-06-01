@@ -5,7 +5,7 @@ class ExportXmlMismoService
   def initialize(loan, borrower)
     @loan = loan
     @subject_property = loan.subject_property
-    @primary_property = get_primary_property
+    # @primary_property = get_primary_property
     @borrower = loan.borrower
     @credit_report = borrower.credit_report
     @doc = Ox::Document.new(:version => "1.0")
@@ -32,7 +32,7 @@ class ExportXmlMismoService
     root << borrower_node
 
     @doc << root
-    puts Ox.dump(doc)
+    Ox.dump(doc)
   end
 
   def data_information_node
