@@ -25,7 +25,7 @@ describe FredEconomicServices::CrawlAvgRates do
     end
 
     it "finds or creates Fred Economic data" do
-      VCR.use_cassette("get or update Fred Economic rate data") do
+      VCR.use_cassette("finds or creates Fred Economic rate data") do
         described_class.call
         expect { described_class.update }.to change(FredEconomic, :count).by(0)
       end
