@@ -1,0 +1,637 @@
+<?xml version="1.0"?><RESPONSE_GROUP MISMOVersionID="2.3.1">
+  <RESPONDING_PARTY _Name="EQUIFAX MORTGAGE SOLUTIONS" _StreetAddress="815 EAST GATE DR,SUITE 102" _City="MOUNT LAUREL" _State="NJ" _PostalCode="08054">
+    <CONTACT_DETAIL>
+      <CONTACT_POINT _Type="Phone" _Value="(800)333-0037"/>
+    </CONTACT_DETAIL>
+    <CONTACT_DETAIL>
+      <CONTACT_POINT _Type="Fax" _Value="(800)678-7079"/>
+    </CONTACT_DETAIL>
+  </RESPONDING_PARTY>
+  <RESPOND_TO_PARTY _Name="MORTGAGE CLUB" _StreetAddress="156 2ND STREET" _City="SAN FRANCISCO" _State="CA" _PostalCode="94105">
+    <CONTACT_DETAIL _Name="req by QTP"/>
+  </RESPOND_TO_PARTY>
+  <RESPONSE InternalAccountIdentifier="999MC60216" ResponseDateTime="2016-06-02">
+    <KEY _Name="CreditScoreRankPercent_CRV7AXG4_CRScr0000" _Value="1"/>
+    <KEY _Name="EquifaxBeacon5.0_MinimumValue" _Value="334"/>
+    <KEY _Name="EquifaxBeacon5.0_MaximumValue" _Value="818"/>
+    <KEY _Name="CreditScoreRankPercent_CRV7AXG4_CRScr0001" _Value="66"/>
+    <KEY _Name="ExperianFairIsaac_MinimumValue" _Value="320"/>
+    <KEY _Name="ExperianFairIsaac_MaximumValue" _Value="844"/>
+    <KEY _Name="TestCaseDescription" _Value="good generates report 1 borrower"/>
+    <KEY _Name="Cost_Center" _Value="1183"/>
+    <KEY _Name="HTMLFile" _Value="false"/>
+    <KEY _Name="EDI" _Value="true"/>
+    <KEY _Name="BranchId" _Value="QTP Branch"/>
+    <KEY _Name="BRANCHID" _Value="QTP RPBranchId"/>
+    <RESPONSE_DATA>
+      <CREDIT_RESPONSE CreditReportLastUpdatedDate="2016-06-02" CreditReportIdentifier="V7AXG4" CreditReportFirstIssuedDate="2016-06-02" MISMOVersionID="2.3.1" CreditResponseID="CRV7AXG4" CreditReportMergeType="Blend" CreditReportType="Merge" CreditRatingCodeType="Experian">
+        <_DATA_INFORMATION>
+          <DATA_VERSION _Name="Equifax" _Number="TOTALVIEW"/>
+          <DATA_VERSION _Name="Experian" _Number="7"/>
+          <DATA_VERSION _Name="Trans Union" _Number="4"/>
+        </_DATA_INFORMATION>
+        <CREDIT_BUREAU _Name="EQUIFAX MORTGAGE SOLUTIONS" _StreetAddress="815 EAST GATE DR,SUITE 102" _City="MOUNT LAUREL" _State="NJ" _PostalCode="08054" _DisclaimerText="The reporting bureau certifies that; (a) public
+		records have been checked for tax liens, judgments, foreclosures,
+		garnishments, bankruptcies, and other legal actions involving the
+		subject(s) with the results indicated above; or (b) equivalent
+		information has been obtained through the use of a qualified
+		public records reporting service with the results indicated
+		above.  The records of real estate transfers which do not
+		involve foreclosures may be excluded.  
+		Equifax Credit Services certifies that the information provided
+		in this report meets the requirements of the U.S. Dept. of HUD,
+		FHA, VA, USDA, RECD &amp; FSA, Fannie Mae and FHLMC.  
+		The information is confidential and not to be divulged except
+		as required by PUBLIC LAW 91-508, 93-579, 94-239.">
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _Type="Phone" _Value="(800)333-0037"/>
+          </CONTACT_DETAIL>
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _Type="Fax" _Value="(800)678-7079"/>
+          </CONTACT_DETAIL>
+        </CREDIT_BUREAU>
+        <CREDIT_REPOSITORY_INCLUDED _EquifaxIndicator="Y" _ExperianIndicator="Y" _TransUnionIndicator="Y"/>
+        <REQUESTING_PARTY LenderCaseIdentifier="LOANNUMBER4" InternalAccountIdentifier="999MC60216" _Name="MORTGAGE CLUB" _StreetAddress="156 2ND STREET" _City="SAN FRANCISCO" _State="CA" _PostalCode="94105" _RequestedByName="req by QTP">
+          <CONTACT_DETAIL _Name="req by QTP"/>
+        </REQUESTING_PARTY>
+        <CREDIT_REQUEST_DATA BorrowerID="4" CreditRequestID="CreditRequest1" CreditReportIdentifier="V7AXG4" CreditReportType="Merge" CreditReportRequestActionType="Submit" CreditRepositoriesSelectedCount="3" CreditRequestDateTime="2016-06-02" CreditRequestType="Individual">
+          <CREDIT_REPOSITORY_INCLUDED _EquifaxIndicator="Y" _ExperianIndicator="Y" _TransUnionIndicator="Y"/>
+        </CREDIT_REQUEST_DATA>
+        <BORROWER _FirstName="NEIL" _LastName="RBPTMORTGAGE" BorrowerID="4" _SSN="727-00-0001" _PrintPositionType="Borrower" MaritalStatusType="Unknown" _MaritalStatus="UNKNOWN">
+          <_RESIDENCE _StreetAddress="4650 N 75TH ST" _City="MILWAUKEE" _State="WI" _PostalCode="53218" BorrowerResidencyType="Current"/>
+        </BORROWER>
+        <CREDIT_LIABILITY CreditLiabilityID="TRD0000" _AccountIdentifier="7080210019055" _AccountOpenedDate="2008-09" _AccountReportedDate="2009-11" _AccountStatusDate="2009-11" _HighBalanceAmount="76850" _HighCreditAmount="76850" _LastActivityDate="2009-11" _MonthsReviewedCount="11" _PastDueAmount="0" _TermsDescription="MONTHLY" _UnpaidBalanceAmount="75981" BorrowerID="4" CreditFileID="B-TU-01 B-EFX-01 B-XPN-01" CreditTradeReferenceID="CTR0000" _AccountOwnershipType="Individual" _AccountStatusType="Open" _AccountType="Mortgage" _DerogatoryDataIndicator="Y" _MonthlyPaymentAmount="821" _TermsSourceType="Provided" _TermsMonthsCount="360" CreditLoanType="FHARealEstateMortgage">
+          <_CREDITOR _Name="WLSFGR HMMTG" _StreetAddress="7255 BAYMEADOWS WA PO BOX 10335" _City="DES MOINES" _State="IA" _PostalCode="50306">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _Type="Phone" _Value="8002883212"/>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="8" _Type="Foreclosure"/>
+          <_LATE_COUNT _30Days="-" _60Days="-" _90Days="-"/>
+          <_PAYMENT_PATTERN _Data="CCCCCCCCCCC" _StartDate="2009-11"/>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>REPOSSESSION</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>OPEN</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CURRENT ACCOUNT</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>FHA MORTGAGE</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>REAL ESTATE MORTGAGE</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="B 082TE004"/>
+          <CREDIT_REPOSITORY _SourceType="Equifax"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+        </CREDIT_LIABILITY>
+        <CREDIT_LIABILITY CreditLiabilityID="TRD0001" _AccountIdentifier="515940070071" _AccountOpenedDate="2009-05" _AccountPaidDate="2009-11" _AccountReportedDate="2009-11" _AccountStatusDate="2009-11" _HighBalanceAmount="18021" _HighCreditAmount="18021" _LastActivityDate="2009-11" _MonthsReviewedCount="6" _PastDueAmount="0" _TermsDescription="MONTHLY" _UnpaidBalanceAmount="16974" BorrowerID="4" CreditFileID="B-XPN-01 B-EFX-01 B-TU-01" CreditTradeReferenceID="CTR0001" _AccountOwnershipType="Individual" _AccountStatusType="Open" _AccountType="Installment" _DerogatoryDataIndicator="N" _MonthlyPaymentAmount="362" _TermsSourceType="Provided" _TermsMonthsCount="72" CreditLoanType="Automobile">
+          <_CREDITOR _Name="WACHDLRSERV" _StreetAddress="PO BOX 1697" _City="WINTERVILLE" _State="NC" _PostalCode="28590">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _Type="Phone" _Value="BYMAILONLY"/>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+          <_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+          <_PAYMENT_PATTERN _Data="CCCCCC" _StartDate="2009-11"/>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>OPEN</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CURRENT ACCOUNT</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>AUTO</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="Experian" _SubscriberCode="3828796"/>
+          <CREDIT_REPOSITORY _SourceType="Equifax"/>
+          <CREDIT_REPOSITORY _SourceType="TransUnion"/>
+        </CREDIT_LIABILITY>
+        <CREDIT_LIABILITY CreditLiabilityID="TRD0002" _AccountIdentifier="6035320494780420" _AccountOpenedDate="2008-10" _AccountReportedDate="2009-11" _AccountStatusDate="2009-11" _CreditLimitAmount="1500" _HighBalanceAmount="1500" _HighCreditAmount="1500" _LastActivityDate="2009-11" _MonthsReviewedCount="13" _PastDueAmount="0" _TermsDescription="MIN" _UnpaidBalanceAmount="1285" BorrowerID="4" CreditFileID="B-TU-01 B-EFX-01 B-XPN-01" CreditTradeReferenceID="CTR0002" _AccountOwnershipType="Individual" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="Y" _MonthlyPaymentAmount="81" _TermsSourceType="Provided" CreditLoanType="ChargeAccount">
+          <_CREDITOR _Name="THD/CBSD" _StreetAddress="PO BOX 6497" _City="SIOUX FALLS" _State="SD" _PostalCode="57117"/>
+          <_CURRENT_RATING _Code="8" _Type="Repossession"/>
+          <_LATE_COUNT _30Days="-" _60Days="-" _90Days="-"/>
+          <_PAYMENT_PATTERN _Data="CCCCCCCCCCCCC" _StartDate="2009-11"/>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>REPOSSESSION</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>OPEN</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CURRENT ACCOUNT</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CHARGE</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="B 026H3005"/>
+          <CREDIT_REPOSITORY _SourceType="Equifax"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+        </CREDIT_LIABILITY>
+        <CREDIT_LIABILITY CreditLiabilityID="TRD0003" _AccountIdentifier="517805XXXXXX0583" _AccountOpenedDate="2008-11" _AccountReportedDate="2009-11" _AccountStatusDate="2009-11" _CreditLimitAmount="1000" _HighBalanceAmount="1000" _HighCreditAmount="1000" _LastActivityDate="2009-11" _MonthsReviewedCount="12" _PastDueAmount="0" _TermsDescription="MIN" _UnpaidBalanceAmount="1070" BorrowerID="4" CreditFileID="B-TU-01 B-EFX-01 B-XPN-01" CreditTradeReferenceID="CTR0003" _AccountOwnershipType="Individual" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="Y" _MonthlyPaymentAmount="26" _TermsSourceType="Provided" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="CAP ONE" _StreetAddress="POB 30281" _City="SALT LAKE CITY" _State="UT" _PostalCode="84130">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _Type="Phone" _Value="8009557070"/>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="8" _Type="Repossession"/>
+          <_LATE_COUNT _30Days="-" _60Days="-" _90Days="-"/>
+          <_PAYMENT_PATTERN _Data="CCCCCCCCCCCC" _StartDate="2009-11"/>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>REPOSSESSION</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>OPEN</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CURRENT ACCOUNT</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CREDIT CARD</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="B 01DTV001"/>
+          <CREDIT_REPOSITORY _SourceType="Equifax"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+        </CREDIT_LIABILITY>
+        <CREDIT_LIABILITY CreditLiabilityID="TRD0004" _AccountIdentifier="4290504679" _AccountOpenedDate="2008-08" _AccountReportedDate="2009-11" _AccountStatusDate="2009-11" _MonthsReviewedCount="13" _TermsDescription="MONTHLY" _UnpaidBalanceAmount="128" BorrowerID="4" CreditFileID="B-XPN-01 B-TU-01" CreditTradeReferenceID="CTR0004" _AccountOwnershipType="Individual" _AccountStatusType="Open" _AccountType="Open" _DerogatoryDataIndicator="N" _TermsMonthsCount="1" CreditLoanType="Other">
+          <_CREDITOR _Name="PI ELECTRIC" _StreetAddress="231 W MICHIGAN ST" _City="MILWAUKEE" _State="WI" _PostalCode="53203">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _Type="Phone" _Value="4142212345"/>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+          <_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+          <_PAYMENT_PATTERN _Data="CCCCCXCCXCCXCCC" _StartDate="2009-11"/>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>OPEN</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CURRENT ACCOUNT</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="Experian" _SubscriberCode="1267140"/>
+          <CREDIT_REPOSITORY _SourceType="TransUnion"/>
+        </CREDIT_LIABILITY>
+        <CREDIT_LIABILITY CreditLiabilityID="TRD0005" _AccountIdentifier="4227XXXX6107" _AccountOpenedDate="2008-02" _AccountClosedDate="2008-10" _AccountReportedDate="2009-05" _AccountStatusDate="2009-05" _CreditLimitAmount="350" _HighBalanceAmount="350" _HighCreditAmount="350" _LastActivityDate="2008-10" _MonthsReviewedCount="14" _PastDueAmount="0" _UnpaidBalanceAmount="0" BorrowerID="4" CreditFileID="B-TU-01 B-XPN-01" CreditTradeReferenceID="CTR0005" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Revolving" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="APPLIED BNK" _StreetAddress="4700 EXCHANGE COUR" _City="BOCA RATON" _State="FL" _PostalCode="33431"/>
+          <_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+          <_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+          <_PAYMENT_PATTERN _Data="CCCCCCCCCCCCCC" _StartDate="2009-04"/>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>PAID</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CURRENT ACCOUNT</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>ACCOUNT CLOSED BY CONSUMER</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="B 024UB060"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+        </CREDIT_LIABILITY>
+        <CREDIT_LIABILITY CreditLiabilityID="TRD0006" _AccountIdentifier="AFS ASSIG-37896176" _AccountOpenedDate="2007-03" _AccountClosedDate="2009-04" _AccountReportedDate="2009-07" _AccountStatusDate="2009-07" _LastActivityDate="2004-10" _MonthsReviewedCount="23" _PastDueAmount="0" _UnpaidBalanceAmount="0" _ChargeOffAmount="0" _OriginalCreditorName="A F S ASSIGNEE OF FIRST PREMI" BorrowerID="4" CreditFileID="B-EFX-01 B-XPN-01 B-TU-01" CreditTradeReferenceID="CTR0006" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _DerogatoryDataIndicator="Y" _MonthlyPaymentAmount="0" _TermsSourceType="Provided" _TermsDescription="MONTHLY" CreditLoanType="UnknownLoanType">
+          <_CREDITOR _Name="ARROW FINCL" _StreetAddress="5996 WEST TOUHY AVE PO   SMI 0000013221" _City="NILES" _State="IL" _PostalCode="60714">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _Type="Phone" _Value="8002790224"/>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="9" _Type="Collection"/>
+          <_HIGHEST_ADVERSE_RATING _Code="9" _Date="2009-04" _Type="Collection"/>
+          <_LATE_COUNT _30Days="" _60Days="" _90Days=""/>
+          <_MOST_RECENT_ADVERSE_RATING _Code="9" _Date="2009-04" _Type="Collection"/>
+          <_PAYMENT_PATTERN _Data="9X9XXXXXX9999X999999999" _StartDate="2009-04"/>
+          <_PRIOR_ADVERSE_RATING _Code="9" _Type="Collection" _Date="2009-04"/>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>COLLECTION ACCOUNT</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>ORIGINAL CREDITOR: A F S ASSIGNEE OF FIRST PREMI</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>ORIGINAL CREDITOR: A.F.S. ASSIGNEE OF FIRST PREMI</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>LAST REPORTED DELINQUENCIES: 04/2009=I9</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CONSUMER DISPUTES THIS ACCOUNT INFORMATION</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>REFINANCED OR RENEWED</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>COLLECTION ACCOUNT</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>ACCOUNT INFORMATION DISPUTED BY CONSUMER</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>ACCT INFO DISPUTED MEETS FCRA</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="181FY00043"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+          <CREDIT_REPOSITORY _SourceType="TransUnion"/>
+        </CREDIT_LIABILITY>
+        <CREDIT_LIABILITY CreditLiabilityID="TRD0007" _AccountIdentifier="528520204269" _AccountOpenedDate="2001-06" _AccountClosedDate="2009-05" _AccountReportedDate="2009-06" _AccountStatusDate="2009-06" _HighBalanceAmount="6354" _HighCreditAmount="6354" _LastActivityDate="2009-05" _MonthsReviewedCount="24" _UnpaidBalanceAmount="0" BorrowerID="4" CreditFileID="B-EFX-01 B-XPN-01 B-TU-01" CreditTradeReferenceID="CTR0007" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Installment" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditLoanType="Automobile">
+          <_CREDITOR _Name="CHASE AUTO" _StreetAddress="PO BOX 24696" _City="COLUMBUS" _State="OH" _PostalCode="43224">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _Type="Phone" _Value="8008489136"/>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+          <_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+          <_PAYMENT_PATTERN _Data="XCCCCCCCCCCCCCCCCCCCCCCC" _StartDate="2009-05"/>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>PAID</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CURRENT ACCOUNT</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>ACCOUNT PAID</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CLOSED</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>AUTO</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="682BB14257"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+          <CREDIT_REPOSITORY _SourceType="TransUnion"/>
+        </CREDIT_LIABILITY>
+        <CREDIT_LIABILITY CreditLiabilityID="TRD0008" _AccountIdentifier="2L13596" _AccountOpenedDate="2000-08" _AccountClosedDate="2002-08" _AccountReportedDate="2002-09" _AccountStatusDate="2002-09" _HighBalanceAmount="7420" _HighCreditAmount="7420" _LastActivityDate="2002-08" _MonthsReviewedCount="25" _UnpaidBalanceAmount="0" BorrowerID="4" CreditFileID="B-XPN-01 B-EFX-01 B-TU-01" CreditTradeReferenceID="CTR0008" _AccountOwnershipType="JointContractualLiability" _AccountStatusType="Closed" _AccountType="Installment" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditLoanType="Automobile">
+          <_CREDITOR _Name="CNAC - WI101" _StreetAddress="7776 N 76TH ST" _City="MILWAUKEE" _State="WI" _PostalCode="53223">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _Type="Phone" _Value="4143714040"/>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+          <_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+          <_PAYMENT_PATTERN _Data="XCCCCCCCCCCCCCCCCCCCCCCC" _StartDate="2002-09"/>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>PAID</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CURRENT ACCOUNT</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>ACCOUNT PAID</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CLOSED</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="Experian" _SubscriberCode="1617250"/>
+          <CREDIT_REPOSITORY _SourceType="Equifax"/>
+          <CREDIT_REPOSITORY _SourceType="TransUnion"/>
+        </CREDIT_LIABILITY>
+        <CREDIT_LIABILITY CreditLiabilityID="TRD0009" _AccountIdentifier="461007XXXXXX2133" _AccountOpenedDate="2004-09" _AccountClosedDate="2004-12" _AccountReportedDate="2009-07" _AccountStatusDate="2009-07" _HighCreditAmount="250" _LastActivityDate="2004-11" _MonthsReviewedCount="31" _UnpaidBalanceAmount="0" _ChargeOffAmount="0" BorrowerID="4" CreditFileID="B-EFX-01 B-XPN-01 B-TU-01" CreditTradeReferenceID="CTR0009" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Revolving" _DerogatoryDataIndicator="Y" _TermsDescription="MONTHLY" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="FST PREMIER" _StreetAddress="3820 N LOUISE AVE TAPE ONLY" _City="SIOUX FALLS" _State="SD" _PostalCode="57107">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _Type="Phone" _Value="6053573440"/>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="9" _Type="Collection"/>
+          <_HIGHEST_ADVERSE_RATING _Code="9" _Date="2005-03" _Type="Collection"/>
+          <_LATE_COUNT _30Days="" _60Days="" _90Days=""/>
+          <_MOST_RECENT_ADVERSE_RATING _Code="9" _Date="2005-03" _Type="Collection"/>
+          <_PAYMENT_PATTERN _Data="XXXXXXXXXXXXXXXXXXXXXXXX9" _StartDate="2007-03"/>
+          <_PRIOR_ADVERSE_RATING _Code="9" _Type="Collection" _Date="2005-03"/>
+          <_PRIOR_ADVERSE_RATING _Code="9" _Type="Collection" _Date="2005-02"/>
+          <_PRIOR_ADVERSE_RATING _Code="4" _Type="Late90Days" _Date="2005-01"/>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>PURCHASED BY ANOTHER LENDER</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>SOLD TO: ARROW FINANCIAL SERVICES</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>LAST REPORTED DELINQUENCIES: 03/2005=R9,02/2005=R9,01/2005=R4</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>COLLATERAL: SLDTO ARROW FINANCIAL SERVICES</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CHARGED OFF ACCOUNT</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CHARGE OFF</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>ACCOUNT CHARGED TO PROFIT AND LOSS</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>ACCOUNT TRANSFERED TO ANOTHER OFFICE</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>ACCOUNT TRANSFERRED OR SOLD</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="616ON05498"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+          <CREDIT_REPOSITORY _SourceType="TransUnion"/>
+        </CREDIT_LIABILITY>
+        <CREDIT_LIABILITY CreditLiabilityID="TRD0010" _AccountIdentifier="22313" _AccountOpenedDate="2006-10" _AccountClosedDate="2008-09" _AccountReportedDate="2009-05" _AccountStatusDate="2009-05" _HighCreditAmount="9999" _MonthsReviewedCount="29" _PastDueAmount="0" _UnpaidBalanceAmount="0" BorrowerID="4" CreditFileID="B-TU-01" CreditTradeReferenceID="CTR0010" _AccountOwnershipType="Individual" _AccountStatusType="Closed" _AccountType="Open" _DerogatoryDataIndicator="N" _TermsDescription="MONTHLY" CreditLoanType="Other">
+          <_CREDITOR _Name="WI ELECTRIC" _StreetAddress="333 W EVERETT POB 2046" _City="MILWAUKEE" _State="WI" _PostalCode="53201">
+            <CONTACT_DETAIL>
+              <CONTACT_POINT _Type="Phone" _Value="8002429137"/>
+            </CONTACT_DETAIL>
+          </_CREDITOR>
+          <_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+          <_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+          <_PAYMENT_PATTERN _Data="XXXXXXCXCCCCCCCCXCXCCXCCXCCCC" _StartDate="2009-04"/>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CLOSED</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="U 060EN003"/>
+        </CREDIT_LIABILITY>
+        <CREDIT_LIABILITY CreditLiabilityID="TRD0011" _AccountIdentifier="512107XXXXXX3727" _AccountOpenedDate="2002-08" _AccountReportedDate="2004-09" _AccountStatusDate="2004-09" _CreditLimitAmount="300" _HighBalanceAmount="300" _HighCreditAmount="300" _LastActivityDate="2004-09" _MonthsReviewedCount="25" _PastDueAmount="0" BorrowerID="4" CreditFileID="B-TU-01 B-EFX-01" CreditTradeReferenceID="CTR0011" _AccountOwnershipType="Terminated" _AccountStatusType="Open" _AccountType="Revolving" _DerogatoryDataIndicator="N" _MonthlyPaymentAmount="10" _TermsSourceType="Provided" _TermsDescription="MONTHLY" _UnpaidBalanceAmount="" CreditLoanType="CreditCard">
+          <_CREDITOR _Name="SEARS/CBSD" _StreetAddress="13200 SMITH RD" _City="CLEVELAND" _State="OH" _PostalCode="44130"/>
+          <_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
+          <_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
+          <_PAYMENT_PATTERN _Data="CCCCCCCCCCCCCCCCCCC" _StartDate="2004-08"/>
+          <CREDIT_COMMENT _Type="BureauRemarks" _SourceType="CreditBureau">
+            <_Text>CREDIT CARD</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="B 06256458"/>
+          <CREDIT_REPOSITORY _SourceType="Equifax"/>
+        </CREDIT_LIABILITY>
+        <CREDIT_PUBLIC_RECORD BorrowerID="4" CreditFileID="B-EFX-01" _CourtName="409VF00012" _DispositionDate="2001-02-01" _DocketIdentifier="0100729" _FiledDate="2001-02-01" CreditPublicRecordID="PUB0000" CreditTradeReferenceID="CTP0000" _ConsumerDisputeIndicator="N" _AccountOwnershipType="Individual" _DispositionType="Filed" _Type="BankruptcyChapter13">
+          <CREDIT_COMMENT _SourceType="Equifax" _Type="PublicRecordText">
+            <_Text>"CH-13 FILED, INDIVIDUAL"</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="409VF00012"/>
+        </CREDIT_PUBLIC_RECORD>
+        <CREDIT_PUBLIC_RECORD BorrowerID="4" CreditFileID="B-EFX-01" _CourtName="668VF04106" _DispositionDate="2006-11-01" _DocketIdentifier="0124117-DSP-11/06" _FiledDate="2001-04-01" _SettledDate="2006-11-01" CreditPublicRecordID="PUB0001" CreditTradeReferenceID="CTP0001" _ConsumerDisputeIndicator="N" _AccountOwnershipType="Individual" _DispositionType="Dismissed" _Type="BankruptcyChapter13">
+          <CREDIT_COMMENT _SourceType="Equifax" _Type="PublicRecordText">
+            <_Text>"DISMSD/CLSD CH13, INDIVIDUAL"</_Text>
+          </CREDIT_COMMENT>
+          <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="668VF04106"/>
+        </CREDIT_PUBLIC_RECORD>
+        <CREDIT_FILE CreditFileID="B-EFX-01" CreditRepositorySourceType="Equifax" BorrowerID="4" CreditScoreID="CRScr0000">
+          <_ALERT_MESSAGE _Code="N" _CategoryType="FACTAAddressDiscrepancy">
+            <_Text>FACTA: Address Discrepancy - NO SUBSTANTIAL DIFFERENCE OCCURRED.</_Text>
+          </_ALERT_MESSAGE>
+          <_ALERT_MESSAGE _Type="EquifaxSAFESCAN">
+            <_Text>YOUR INQUIRY HAS GONE THROUGH OUR SAFESCAN DATABASE.</_Text>
+          </_ALERT_MESSAGE>
+          <_BORROWER _BirthDate="05/31/1968" _SSN="727000001" _FirstName="NEIL" _LastName="CITIMORTGAGE" _UnparsedName="NEIL CITIMORTGAGE">
+            <_UnparsedAddress>2728 N 28TH MILWAUKEE WI 53210, 08/01/2002</_UnparsedAddress>
+            <_UnparsedAddress>4650 N 75TH MILWAUKEE WI 53218, 10/01/2008</_UnparsedAddress>
+            <_UnparsedAddress>4155 S 51ST MILWAUKEE WI 53220, 09/01/2007</_UnparsedAddress>
+          </_BORROWER>
+          <_VARIATION _Type="DifferentName"/>
+          <_VARIATION _Type="DifferentAddress"/>
+          <_VARIATION _Type="DifferentBirthDate"/>
+        </CREDIT_FILE>
+        <CREDIT_FILE CreditFileID="B-XPN-01" CreditRepositorySourceType="Experian" BorrowerID="4" CreditScoreID="CRScr0001">
+          <_ALERT_MESSAGE _Type="ExperianFACSPlus">
+            <_Text>FRAUD SHIELD INQUIRY ADDRESS - CKPT: RETAIL TRADE BUSINESS ON FACS+ FILE</_Text>
+          </_ALERT_MESSAGE>
+          <_ALERT_MESSAGE _Type="ExperianFACSPlus">
+            <_Text>KANDYLAND AUTO LLC/4650 N 75TH ST/MILWAUKEE WI 53218</_Text>
+          </_ALERT_MESSAGE>
+          <_ALERT_MESSAGE _Type="ExperianFACSPlus">
+            <_Text>(11)  INQUIRY ADDRESS IDENTIFIED AS NON-RESIDENTIAL</_Text>
+          </_ALERT_MESSAGE>
+          <_ALERT_MESSAGE _Type="ExperianFACSPlus">
+            <_Text>ADDRESS DATE: 09/01/2009   ADDRESS INQ COUNT: 1</_Text>
+          </_ALERT_MESSAGE>
+          <_ALERT_MESSAGE _Type="ExperianFACSPlus">
+            <_Text>SSN DATE: 09/01/2009   SSN INQ COUNT: 1</_Text>
+          </_ALERT_MESSAGE>
+          <_ALERT_MESSAGE _Type="ExperianFACSPlus">
+            <_Text>SSN ISSUED - 1ST POSSIBLE YR: 1975  LST POSSIBLE YR: 1977</_Text>
+          </_ALERT_MESSAGE>
+          <_ALERT_MESSAGE _Code="08" _CategoryType="FACTARiskScoreValue">
+            <_Text>FACTA: Risk Score Value - TOO MANY INQUIRIES LAST 12 MONTHS</_Text>
+          </_ALERT_MESSAGE>
+          <_BORROWER _BirthDate="05/31/1968" _SSN="727000001" _FirstName="NEIL" _LastName="CITIMORTGAG" _UnparsedName="NEIL CITIMORTGAG">
+            <_UnparsedAddress>767 S 24TH MILWAUKEE WI 53204, 11/01/2003</_UnparsedAddress>
+            <_UnparsedAddress>4650 N 75TH MILWAUKEE WI 53218, 08/01/2009</_UnparsedAddress>
+            <_UnparsedEmployment>DERSE WHBS, 10/01/2008-10/01/2008</_UnparsedEmployment>
+            <_UnparsedEmployment>UNIVERSAL MORTGAGE, 06/01/2002-06/01/2002</_UnparsedEmployment>
+          </_BORROWER>
+          <_VARIATION _Type="DifferentName"/>
+          <_VARIATION _Type="DifferentAddress"/>
+          <_VARIATION _Type="DifferentBirthDate"/>
+        </CREDIT_FILE>
+        <CREDIT_FILE CreditFileID="B-TU-01" CreditRepositorySourceType="TransUnion" BorrowerID="4">
+          <_ALERT_MESSAGE _Type="TransUnionHAWKAlert">
+            <_Text>AVAILABLE AND CLEAR</_Text>
+          </_ALERT_MESSAGE>
+          <_BORROWER _BirthDate="05/31/1968" _SSN="727000001" _FirstName="NEIL" _MiddleName="A" _LastName="CITIMORTGAGE" _UnparsedName="NEIL A CITIMORTGAGE">
+            <_UnparsedEmployment>WHBS, UNK</_UnparsedEmployment>
+            <_UnparsedEmployment>DERSE EXHIBTS, UNK</_UnparsedEmployment>
+          </_BORROWER>
+          <_VARIATION _Type="DifferentName"/>
+          <_VARIATION _Type="DifferentBirthDate"/>
+        </CREDIT_FILE>
+        <CREDIT_SCORE CreditScoreID="CRScr0000" BorrowerID="4" CreditFileID="B-EFX-01" CreditReportIdentifier="V7AXG4" CreditRepositorySourceType="Equifax" _ModelNameType="EquifaxBeacon5.0" _Value="00441" _Date="2009-12-04">
+          <_FACTOR _Code="00038" _Text="SERIOUS DELINQUENCY, DEROGATORY PUBLIC RECORD OR COLLECTION FILED"/>
+          <_FACTOR _Code="00010" _Text="PROPORTION OF BALANCES TO CREDIT LIMITS IS TOO HIGH ON BANK REVOLVING OR OTHER REVOLVING ACCOUNTS"/>
+          <_FACTOR _Code="00014" _Text="LENGTH OF TIME ACCOUNTS HAVE BEEN ESTABLISHED"/>
+          <_FACTOR _Code="00008" _Text="TOO MANY INQUIRIES IN THE LAST 12 MONTHS"/>
+        </CREDIT_SCORE>
+        <CREDIT_SCORE CreditScoreID="CRScr0001" BorrowerID="4" CreditFileID="B-XPN-01" CreditReportIdentifier="V7AXG4" CreditRepositorySourceType="Experian" _ModelNameType="ExperianFairIsaac" _Value="0773" _FACTAInquiriesIndicator="Y" _Date="2009-12-04">
+          <_FACTOR _Code="38" _Text="SERIOUS DELINQUENCY AND PUBLIC RECORD OR COLLECTION FILED "/>
+          <_FACTOR _Code="10" _Text="RATIO OF BALANCE TO LIMIT ON BANK REVOLVING OR OTHER REV ACCTS TOO HIGH "/>
+          <_FACTOR _Code="14" _Text="LENGTH OF TIME ACCOUNTS HAVE BEEN ESTABLISHED "/>
+          <_FACTOR _Code="20" _Text="TIME SINCE DEROGATORY PUBLIC RECORD OR COLLECTION IS TOO SHORT"/>
+        </CREDIT_SCORE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0000" _Name="WLSFGR HMMTG" _StreetAddress="7255 BAYMEADOWS WA PO BOX 10335" _City="DES MOINES" _State="IA" _PostalCode="50306">
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _Type="Phone" _Value="8002883212"/>
+          </CONTACT_DETAIL>
+          <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="B 082TE004"/>
+          <CREDIT_REPOSITORY _SourceType="Equifax"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0001" _Name="WACHDLRSERV" _StreetAddress="PO BOX 1697" _City="WINTERVILLE" _State="NC" _PostalCode="28590">
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _Type="Phone" _Value="BYMAILONLY"/>
+          </CONTACT_DETAIL>
+          <CREDIT_REPOSITORY _SourceType="Experian" _SubscriberCode="3828796"/>
+          <CREDIT_REPOSITORY _SourceType="Equifax"/>
+          <CREDIT_REPOSITORY _SourceType="TransUnion"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0002" _Name="THD/CBSD" _StreetAddress="PO BOX 6497" _City="SIOUX FALLS" _State="SD" _PostalCode="57117">
+          <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="B 026H3005"/>
+          <CREDIT_REPOSITORY _SourceType="Equifax"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0003" _Name="CAP ONE" _StreetAddress="POB 30281" _City="SALT LAKE CITY" _State="UT" _PostalCode="84130">
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _Type="Phone" _Value="8009557070"/>
+          </CONTACT_DETAIL>
+          <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="B 01DTV001"/>
+          <CREDIT_REPOSITORY _SourceType="Equifax"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0004" _Name="PI ELECTRIC" _StreetAddress="231 W MICHIGAN ST" _City="MILWAUKEE" _State="WI" _PostalCode="53203">
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _Type="Phone" _Value="4142212345"/>
+          </CONTACT_DETAIL>
+          <CREDIT_REPOSITORY _SourceType="Experian" _SubscriberCode="1267140"/>
+          <CREDIT_REPOSITORY _SourceType="TransUnion"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0005" _Name="APPLIED BNK" _StreetAddress="4700 EXCHANGE COUR" _City="BOCA RATON" _State="FL" _PostalCode="33431">
+          <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="B 024UB060"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0006" _Name="ARROW FINCL" _StreetAddress="5996 WEST TOUHY AVE PO   SMI 0000013221" _City="NILES" _State="IL" _PostalCode="60714">
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _Type="Phone" _Value="8002790224"/>
+          </CONTACT_DETAIL>
+          <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="181FY00043"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+          <CREDIT_REPOSITORY _SourceType="TransUnion"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0007" _Name="CHASE AUTO" _StreetAddress="PO BOX 24696" _City="COLUMBUS" _State="OH" _PostalCode="43224">
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _Type="Phone" _Value="8008489136"/>
+          </CONTACT_DETAIL>
+          <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="682BB14257"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+          <CREDIT_REPOSITORY _SourceType="TransUnion"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0008" _Name="CNAC - WI101" _StreetAddress="7776 N 76TH ST" _City="MILWAUKEE" _State="WI" _PostalCode="53223">
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _Type="Phone" _Value="4143714040"/>
+          </CONTACT_DETAIL>
+          <CREDIT_REPOSITORY _SourceType="Experian" _SubscriberCode="1617250"/>
+          <CREDIT_REPOSITORY _SourceType="Equifax"/>
+          <CREDIT_REPOSITORY _SourceType="TransUnion"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0009" _Name="FST PREMIER" _StreetAddress="3820 N LOUISE AVE TAPE ONLY" _City="SIOUX FALLS" _State="SD" _PostalCode="57107">
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _Type="Phone" _Value="6053573440"/>
+          </CONTACT_DETAIL>
+          <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="616ON05498"/>
+          <CREDIT_REPOSITORY _SourceType="Experian"/>
+          <CREDIT_REPOSITORY _SourceType="TransUnion"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0010" _Name="WI ELECTRIC" _StreetAddress="333 W EVERETT POB 2046" _City="MILWAUKEE" _State="WI" _PostalCode="53201">
+          <CONTACT_DETAIL>
+            <CONTACT_POINT _Type="Phone" _Value="8002429137"/>
+          </CONTACT_DETAIL>
+          <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="U 060EN003"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTR0011" _Name="SEARS/CBSD" _StreetAddress="13200 SMITH RD" _City="CLEVELAND" _State="OH" _PostalCode="44130">
+          <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="B 06256458"/>
+          <CREDIT_REPOSITORY _SourceType="Equifax"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTP0000">
+          <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="409VF00012"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_TRADE_REFERENCE CreditTradeReferenceID="CTP0001">
+          <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="668VF04106"/>
+        </CREDIT_TRADE_REFERENCE>
+        <CREDIT_COMMENT _SourceType="Equifax" _Type="BureauRemarks">
+          <_Text>ADDRESS DISCREPANCY:(N) NO SUBSTANTIAL DIFFERENCE OCCURRED</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="Equifax" _Type="BureauRemarks">
+          <_Text>CREDIT REPORT SSN: 727000001</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="Equifax" _Type="BureauRemarks">
+          <_Text>INQUIRY SSN: 727000001</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="Equifax" _Type="BureauRemarks">
+          <_Text>INQUIRY SSN DATE ISSUED: 1976</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="Equifax" _Type="BureauRemarks">
+          <_Text>INQUIRY SSN STATE ISSUED: WI</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="Experian" _Type="BureauRemarks">
+          <_Text>DISPLAYED SSN IS THE SAME AS INQUIRY SSN</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="Experian" _Type="BureauRemarks">
+          <_Text>SSN MATCH INDICATOR: YYYYYYYYY</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="TransUnion" _Type="BureauRemarks">
+          <_Text>05 - Exact match between SSN on input and SSN on file</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="Equifax" _Type="BureauRemarks">
+          <_Text>AKA: VINES NEIL</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="Experian" _Type="BureauRemarks">
+          <_Text>AKA: NEIL    VINES</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="Experian" _Type="BureauRemarks">
+          <_Text>AKA: NEIL    WALLACE</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="TransUnion" _Type="BureauRemarks">
+          <_Text>AKA: VINES,BILL</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="Borrower" _Type="ConsumerStatement">
+          <_Text>CONSUMER STATEMENT:   CONSUMER STATEMENT:  THIS ACCOUNT WAS THE RESULT OF UNAUTHORIZED SERVICES.</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_COMMENT _SourceType="Equifax">
+          <_Text>BORROWER:   SSN ISSUE STATE:WI SSN ISSUE DATE: 1976</_Text>
+        </CREDIT_COMMENT>
+        <CREDIT_SUMMARY _Name="Generic Summary">
+          <_DATA_SET _Name="TotalMortAccounts" _Value="1"/>
+          <_DATA_SET _Name="TotalMortAccountsWithBal" _Value="1"/>
+          <_DATA_SET _Name="TotalMortBalance" _Value="    75981"/>
+          <_DATA_SET _Name="TotalMortPayments" _Value="      821"/>
+          <_DATA_SET _Name="TotalMort30" _Value="0"/>
+          <_DATA_SET _Name="TotalMort60" _Value="0"/>
+          <_DATA_SET _Name="TotalMort90" _Value="0"/>
+          <_DATA_SET _Name="MortLateDate" _Value=""/>
+          <_DATA_SET _Name="TotalInstAccounts" _Value="3"/>
+          <_DATA_SET _Name="TotalInstAccountsWithBal" _Value="1"/>
+          <_DATA_SET _Name="TotalInstBalance" _Value="    16974"/>
+          <_DATA_SET _Name="TotalInstPayments" _Value="      362"/>
+          <_DATA_SET _Name="TotalInst30" _Value="0"/>
+          <_DATA_SET _Name="TotalInst60" _Value="0"/>
+          <_DATA_SET _Name="TotalInst90" _Value="0"/>
+          <_DATA_SET _Name="InstLateDate" _Value=""/>
+          <_DATA_SET _Name="TotalRevolveAccounts" _Value="4"/>
+          <_DATA_SET _Name="TotalRevolveAccountsWithBal" _Value="2"/>
+          <_DATA_SET _Name="TotalRevolveBalance" _Value="     2355"/>
+          <_DATA_SET _Name="TotalRevolvePayments" _Value="      117"/>
+          <_DATA_SET _Name="TotalRevolve30" _Value="0"/>
+          <_DATA_SET _Name="TotalRevolve60" _Value="0"/>
+          <_DATA_SET _Name="TotalRevolve90" _Value="0"/>
+          <_DATA_SET _Name="RevolveLateDate" _Value=""/>
+          <_DATA_SET _Name="TotalCollAccounts" _Value="2"/>
+          <_DATA_SET _Name="TotalCollAccountsWithBal" _Value="0"/>
+          <_DATA_SET _Name="TotalCollBalance" _Value="        0"/>
+          <_DATA_SET _Name="TotalCollPayments" _Value="        0"/>
+          <_DATA_SET _Name="TotalColl30" _Value="0"/>
+          <_DATA_SET _Name="TotalColl60" _Value="0"/>
+          <_DATA_SET _Name="TotalColl90" _Value="0"/>
+          <_DATA_SET _Name="CollLateDate" _Value=""/>
+          <_DATA_SET _Name="TotalOtherAccounts" _Value="2"/>
+          <_DATA_SET _Name="TotalOtherAccountsWithBal" _Value="1"/>
+          <_DATA_SET _Name="TotalOtherBalance" _Value="      128"/>
+          <_DATA_SET _Name="TotalOtherPayments" _Value="        0"/>
+          <_DATA_SET _Name="TotalOther30" _Value="0"/>
+          <_DATA_SET _Name="TotalOther60" _Value="0"/>
+          <_DATA_SET _Name="TotalOther90" _Value="0"/>
+          <_DATA_SET _Name="OtherLateDate" _Value=""/>
+          <_DATA_SET _Name="TotalAccounts" _Value="12"/>
+          <_DATA_SET _Name="TotalAccountsWithBal" _Value="5"/>
+          <_DATA_SET _Name="TotalBalance" _Value="    95438"/>
+          <_DATA_SET _Name="TotalPayments" _Value="     1300"/>
+          <_DATA_SET _Name="Total30" _Value="0"/>
+          <_DATA_SET _Name="Total60" _Value="0"/>
+          <_DATA_SET _Name="Total90" _Value="0"/>
+          <_DATA_SET _Name="LateDate" _Value=""/>
+          <_DATA_SET _Name="TotalLiens" _Value="0"/>
+          <_DATA_SET _Name="TotalJudgements" _Value="0"/>
+          <_DATA_SET _Name="TotalForeclosure" _Value="0"/>
+          <_DATA_SET _Name="TotalBankruptcy" _Value="2"/>
+          <_DATA_SET _Name="TotalOtherPr" _Value="0"/>
+          <_DATA_SET _Name="TotalPr" _Value="2"/>
+          <_DATA_SET _Name="TotalPastDue" _Value="0"/>
+          <_DATA_SET _Name="TotalInqs" _Value="0"/>
+        </CREDIT_SUMMARY>
+        <EMBEDDED_FILE _Type="PDF" _Version="1.3" _Name="V7AXG4" _ID="EmbPDF01" _EncodingType="base64">
+          <DOCUMENT>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eXBlL0ZvbnQvRW5jb2RpbmcvV2luQW5zaUVuY29kaW5nL1N1YnR5cGUvVHlwZTEvTmFtZS9GNj4+CmVuZG9iagozNyAwIG9iago8PC9VICi4QK07fj6Lx80fEEhCK+qgAAAAAAAAAAAAAAAAAAAAACkvTGVuZ3RoIDEyOC9WIDIvTyAolplR/D5cKUq8b9iorpx3a6Ujl1Ym5i9A5KKwgomYPNXQKS9QIC0xNTY0L0ZpbHRlci9TdGFuZGFyZC9SIDM+PgplbmRvYmoKMzggMCBvYmoKPDwvUHJvZHVjZXIosRvUh9BX/iSGiaax80Hm2GnxVdqwDkQ98erveBaUwJJu5ZY4o/72jkR/RRH3TuYZNJbf8HmHfN7oOtrUa+k3cypccikvTW9kRGF0ZSi0UYfUiQTuVPnrtNWjBqWCK69Bza4HUCkvQ3JlYXRpb25EYXRlKLRRh9SJBO5U+eu01aMGpYArr0HNrhpDPuGgKT4+CmVuZG9iagp4cmVmCjAgMzkKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDE1IDAwMDAwIG4gCjAwMDAwMDI4NjIgMDAwMDAgbiAKMDAwMDAwNTkwNSAwMDAwMCBuIAowMDAwMDA2MDQ2IDAwMDAwIG4gCjAwMDAwMTYwMzAgMDAwMDAgbiAKMDAwMDAxNjE3MSAwMDAwMCBuIAowMDAwMDE2MzEyIDAwMDAwIG4gCjAwMDAwMTY0NTMgMDAwMDAgbiAKMDAwMDAxNjU5NCAwMDAwMCBuIAowMDAwMDM4NDg4IDAwMDAwIG4gCjAwMDAwMzg2MzAgMDAwMDAgbiAKMDAwMDAzODc3MiAwMDAwMCBuIAowMDAwMDQ3ODg1IDAwMDAwIG4gCjAwMDAwNDk0MDQgMDAwMDAgbiAKMDAwMDA1MzEwNCAwMDAwMCBuIAowMDAwMDAzMDA0IDAwMDAwIG4gCjAwMDAwMDMwNjUgMDAwMDAgbiAKMDAwMDAwNTg3MCAwMDAwMCBuIAowMDAwMDU2MzcxIDAwMDAwIG4gCjAwMDAwNTY0NjggMDAwMDAgbiAKMDAwMDA1NjY2NSAwMDAwMCBuIAowMDAwMDU2NTcwIDAwMDAwIG4gCjAwMDAwMDMyMDEgMDAwMDAgbiAKMDAwMDAxMDQyMiAwMDAwMCBuIAowMDAwMDA2MTg3IDAwMDAwIG4gCjAwMDAwMTgwMTIgMDAwMDAgbiAKMDAwMDAyMjY1MSAwMDAwMCBuIAowMDAwMDI3MzQwIDAwMDAwIG4gCjAwMDAwMzI0NzYgMDAwMDAgbiAKMDAwMDAxNjczNSAwMDAwMCBuIAowMDAwMDQwMjA0IDAwMDAwIG4gCjAwMDAwNDMxMjAgMDAwMDAgbiAKMDAwMDAzODkxNCAwMDAwMCBuIAowMDAwMDQ4MDI3IDAwMDAwIG4gCjAwMDAwNDk1NDYgMDAwMDAgbiAKMDAwMDA1MzI0NiAwMDAwMCBuIAowMDAwMDU2NzY1IDAwMDAwIG4gCjAwMDAwNTY5MDQgMDAwMDAgbiAKdHJhaWxlcgo8PC9Sb290IDE2IDAgUi9JRCBbPDJjMTcyNzlhYzYzZjEwZDhlOTNhMmY2YmM0MzU1ZThhPjxlYmFjYzBiMzk0MzcwNjdlMjM4M2JmZDNhNDYzZjdmNj5dL0VuY3J5cHQgMzcgMCBSL0luZm8gMzggMCBSL1NpemUgMzk+PgpzdGFydHhyZWYKNTcwNzcKJSVFT0YK</DOCUMENT>
+        </EMBEDDED_FILE>
+      </CREDIT_RESPONSE>
+    </RESPONSE_DATA>
+  </RESPONSE>
+</RESPONSE_GROUP>
