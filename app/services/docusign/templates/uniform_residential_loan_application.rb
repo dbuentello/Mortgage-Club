@@ -132,7 +132,6 @@ module Docusign
         @params[:company_name] = loan.relationship_manager.company_name if loan.relationship_manager
         @params[:company_nmls] = loan.relationship_manager.company_nmls if loan.relationship_manager
         @params[:company_address] = loan.relationship_manager.company_address if loan.relationship_manager
-
       end
 
       def build_assets
@@ -247,7 +246,7 @@ module Docusign
         when "weekly"
           current_salary = (current_salary * 52) / 12
         else
-          current_salary = current_salary * 2
+          current_salary *= 2
         end
         current_salary.to_f
       end
@@ -281,6 +280,10 @@ module Docusign
         @params[(role + "_separated").to_sym] = "Yes" if borrower.separated?
         @params[(role + "_dependents").to_sym] = borrower.dependent_count
         @params[(role + "_ages").to_sym] = borrower.dependent_ages.join(", ")
+        build_address
+      end
+
+      def build_address
         @params[(role + "_present_address").to_sym] = borrower.display_current_address
         if borrower.display_current_address
           @params[(role + "_own").to_sym] = "Yes" unless borrower.current_address.try(:is_rental)
