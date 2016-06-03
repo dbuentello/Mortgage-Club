@@ -17,8 +17,8 @@ class LoanMember < ActiveRecord::Base
 
   has_many :loans_members_associations, dependent: :destroy
   has_many :loans, through: :loans_members_associations, dependent: :destroy
-
   has_many :loan_activities
+  has_many :lead_requests
 
   delegate :first_name, to: :user, allow_nil: true
   delegate :last_name, to: :user, allow_nil: true

@@ -16,11 +16,10 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
 
     it "maps right values" do
       @service.build_section_1
-
       expect(@service.params).to include(
         loan_amount: number_with_delimiter(loan.amount.round),
-        interest_rate: format("%0.03f", loan.interest_rate.to_f * 100) + "%",
-        number_of_month: loan.num_of_months
+        interest_rate: format("%0.03f", loan.interest_rate.to_f * 100),
+        number_of_months: loan.num_of_months
       )
     end
 
@@ -313,7 +312,6 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     it "maps right values" do
       borrower = @service.borrower
       @service.build_gross_monthly_income("borrower", borrower)
-
       expect(@service.params).to include(
         borrower_base_income: number_to_currency(borrower.current_salary, unit: ""),
         borrower_overtime: number_to_currency(borrower.gross_overtime.to_f, unit: ""),
@@ -346,7 +344,6 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
     it "maps right values" do
       @service.borrower.marital_status = "married"
       @service.build_borrower_info("borrower", @service.borrower)
-
       expect(@service.params).to include(
         borrower_name: @service.borrower.full_name,
         borrower_ssn: @service.borrower.ssn,
@@ -358,8 +355,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         borrower_ages: @service.borrower.dependent_ages.join(", "),
         borrower_present_address: @service.borrower.display_current_address,
         borrower_no_yrs: @service.borrower.current_address.try(:years_at_address),
-        borrower_former_address: @service.borrower.display_previous_address,
-        borrower_former_no_yrs: @service.borrower.previous_address.try(:years_at_address)
+        borrower_former_address: @service.borrower.display_previous_address
       )
     end
   end
@@ -437,7 +433,7 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       @service.build_purchase_loan
       expect(@service.params).to include(
         purpose_purchase: "Yes",
-        source_down_payment: "Checking account"
+        source_down_payment: "Checking/Savings"
       )
     end
   end
