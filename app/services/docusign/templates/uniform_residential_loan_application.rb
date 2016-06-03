@@ -113,16 +113,20 @@ module Docusign
 
       def build_section_8
         build_declaration("borrower", borrower)
+        @params[:borrower_l_yes] = @params[:borrower_l_no] = "Off"
+        if loan.subject_property.usage == "primary_residence"
+          @params[:borrower_l_yes] = "Yes"
+        else
+          @params[:borrower_l_no] = "Yes"
+        end
         build_declaration("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
       end
 
       def build_section_10
-        byebug
         @params[:borrower_do_not_wish] = "Yes"
         @params[:co_borrower_do_not_wish] = "Yes" if loan.secondary_borrower
         @params[:applicant_submitted_internet] = "Yes"
-        # 1044
-        @params[:loan_originator_name] = loan.relationship_manager.user.first_name + " " loan.relationship_manager.user.last_name if loan.relationship_manager
+        @params[:loan_originator_name] = loan.relationship_manager.user.first_name + " " + loan.relationship_manager.user.last_name if loan.relationship_manager
         @params[:individual_nmls] = loan.relationship_manager.nmls_id if loan.relationship_manager
         @params[:individual_phone_number] = loan.relationship_manager.phone_number if loan.relationship_manager
         @params[:company_name] = loan.relationship_manager.company_name if loan.relationship_manager
