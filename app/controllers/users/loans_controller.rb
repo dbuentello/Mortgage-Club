@@ -122,7 +122,7 @@ class Users::LoansController < Users::BaseController
   end
 
   def load_liabilities
-    if  @loan.borrower.current_address && @loan.borrower.current_address.address && @loan.borrower.credit_report
+    if @loan.borrower.current_address && @loan.borrower.current_address.address && @loan.borrower.credit_report
       @liabilities = @loan.borrower.credit_report.liabilities
     else
       @liabilities = []
