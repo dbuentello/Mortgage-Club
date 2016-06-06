@@ -122,9 +122,11 @@ class Users::LoansController < Users::BaseController
   end
 
   def load_liabilities
-    return unless @loan.borrower.current_address && @loan.borrower.current_address.address
-
-    @liabilities = CreditReportServices::Base.call(@loan.borrower, @loan.borrower.current_address.address)
+    if  @loan.borrower.current_address && @loan.borrower.current_address.address && @loan.borrower.credit_report
+      @liabilities = @loan.borrower.credit_report.liabilities
+    else
+      @liabilities = []
+    end
   end
 
   def loan_params
