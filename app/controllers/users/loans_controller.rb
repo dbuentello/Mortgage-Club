@@ -109,8 +109,6 @@ class Users::LoansController < Users::BaseController
 
   def destroy
     if @loan.destroy
-      # flash[:success] = "Sucessfully destroy loan"
-
       render json: {redirect_path: my_loans_path}, status: 200
     else
       render json: {message: t("users.loans.destroy.destroy_failed")}, status: 500
@@ -124,13 +122,10 @@ class Users::LoansController < Users::BaseController
   end
 
   def load_liabilities
-    return unless @loan.borrower.current_address && @loan.borrower.current_address.address
-
-    credit_report = @loan.borrower.credit_report
-    if credit_report.present? && !credit_report.liabilities.blank?
-      @liabilities = credit_report.liabilities
+    if @loan.borrower.current_address && @loan.borrower.current_address.address && @loan.borrower.credit_report
+      @liabilities = @loan.borrower.credit_report.liabilities
     else
-      @liabilities = CreditReportServices::Base.call(@loan.borrower, @loan.borrower.current_address.address)
+      @liabilities = []
     end
   end
 

@@ -26,7 +26,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     UpdateLoanTermsService.new(loan, params).call
 
     render json: {
-      loan: LoanEditPage::LoanPresenter.new(loan).show,
+      loan: LoanMembers::LoanPresenter.new(@loan).show,
       property: LoanMembers::PropertyPresenter.new(loan.subject_property).show
     }
   end

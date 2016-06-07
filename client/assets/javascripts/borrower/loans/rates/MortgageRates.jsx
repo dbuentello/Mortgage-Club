@@ -86,7 +86,7 @@ var MortgageRates = React.createClass({
               <div className="col-xs-3 subnav programs-filter">
                 <Filter programs={this.props.bootstrapData.programs} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterProgram}></Filter>
               </div>
-              <div className="col-xs-9 account-content padding-left-50">
+              <div className="col-xs-12 col-sm-9 account-content padding-left-50">
                 <div className="row actions">
                   <p>
                     We’ve found {this.state.programs ? this.state.programs.length : 0} mortgage options for you. You can sort, filter, and choose one on your own or click

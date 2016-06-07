@@ -141,7 +141,7 @@
 .account-content {
   padding: 40px;
   @include respond-to(smobile){
-    padding: 0px 20px;
+    padding: 10px 20px;
   };
 
   box-sizing: border-box;

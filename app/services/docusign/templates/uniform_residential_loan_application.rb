@@ -32,7 +32,7 @@ module Docusign
         build_loan_type
         @params[:loan_amount] = number_with_delimiter(loan.amount.to_f.round)
         @params[:interest_rate] = format("%0.03f", loan.interest_rate.to_f * 100)
-        @params[:num_of_months] = loan.num_of_months
+        @params[:number_of_months] = loan.num_of_months
         @params[:arm_fixed_rate] = "Yes" if loan.fixed_rate_amortization?
         if loan.arm_amortization?
           @params[:arm_type] = "Yes"
@@ -114,6 +114,12 @@ module Docusign
 
       def build_section_8
         build_declaration("borrower", borrower)
+        @params[:borrower_l_yes] = @params[:borrower_l_no] = "Off"
+        if loan.subject_property.usage == "primary_residence"
+          @params[:borrower_l_yes] = "Yes"
+        else
+          @params[:borrower_l_no] = "Yes"
+        end
         build_declaration("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
       end
 
@@ -121,6 +127,12 @@ module Docusign
         @params[:borrower_do_not_wish] = "Yes"
         @params[:co_borrower_do_not_wish] = "Yes" if loan.secondary_borrower
         @params[:applicant_submitted_internet] = "Yes"
+        @params[:loan_originator_name] = loan.relationship_manager.user.first_name + " " + loan.relationship_manager.user.last_name if loan.relationship_manager
+        @params[:individual_nmls] = loan.relationship_manager.nmls_id if loan.relationship_manager
+        @params[:individual_phone_number] = loan.relationship_manager.phone_number if loan.relationship_manager
+        @params[:company_name] = loan.relationship_manager.company_name if loan.relationship_manager
+        @params[:company_nmls] = loan.relationship_manager.company_nmls if loan.relationship_manager
+        @params[:company_address] = loan.relationship_manager.company_address if loan.relationship_manager
       end
 
       def build_assets
@@ -219,11 +231,25 @@ module Docusign
         @params[(role + "_commissions").to_sym] = number_to_currency(borrower.gross_commission.to_f, unit: "")
         @params[(role + "_interest").to_sym] = number_to_currency(borrower.gross_interest.to_f, unit: "")
 
-        @params[:total_base_income] = @params[:total_base_income].to_f + borrower.current_salary.to_f
+        @params[:total_base_income] = @params[:total_base_income].to_f + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
         @params[:total_overtime] = @params[:total_overtime].to_f + borrower.gross_overtime.to_f
         @params[:total_bonuses] = @params[:total_bonuses].to_f + borrower.gross_bonus.to_f
         @params[:total_commissions] = @params[:total_commissions].to_f + borrower.gross_commission.to_f
         @params[:total_dividends] = @params[:total_dividends].to_f + borrower.gross_interest.to_f
+      end
+
+      def build_monthly_income(current_salary, pay_frequency)
+        case pay_frequency # a_variable is the variable we want to compare
+        when "monthly"
+          current_salary
+        when "biweekly"
+          current_salary = (current_salary * 26) / 12
+        when "weekly"
+          current_salary = (current_salary * 52) / 12
+        else
+          current_salary *= 2
+        end
+        current_salary.to_f
       end
 
       def build_employment_info(role, borrower)
@@ -255,6 +281,10 @@ module Docusign
         @params[(role + "_separated").to_sym] = "Yes" if borrower.separated?
         @params[(role + "_dependents").to_sym] = borrower.dependent_count
         @params[(role + "_ages").to_sym] = borrower.dependent_ages.join(", ")
+        build_address(role, borrower)
+      end
+
+      def build_address(role, borrower)
         @params[(role + "_present_address").to_sym] = borrower.display_current_address
         if borrower.display_current_address
           @params[(role + "_own").to_sym] = "Yes" unless borrower.current_address.try(:is_rental)

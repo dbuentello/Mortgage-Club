@@ -105,7 +105,7 @@ var Form = React.createClass({
 
   render: function() {
     return (
-      <div className='col-xs-9 account-content'>
+      <div className='col-xs-12 col-sm-9 account-content'>
         <form className="form-horizontal">
           <Income
             fields={borrowerFields}

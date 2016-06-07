@@ -1,20 +1,29 @@
 module CreditReportServices
   class Base
-    def self.call(borrower, address)
+    def self.call(loan)
+      # clear old liabilities
+      clear_credit_report(loan)
       response = CreditReportServices::GetReport.new(
-        borrower_id: borrower.id,
-        first_name: borrower.first_name,
-        last_name: borrower.last_name,
-        ssn: borrower.ssn,
-        street_address: address.street_address,
-        city: address.city,
-        state: address.state,
-        zipcode: address.zip
+        loan.borrower,
+        loan.secondary_borrower
       ).call
+      CreditReportServices::CreateLiabilities.call(loan, response) if response
+    end
 
-      return [] unless response
+    def self.clear_credit_report(loan)
+      borrower = loan.borrower
+      secondary_borrower = loan.secondary_borrower
 
-      CreditReportServices::ParseReport.call(borrower, response)
+      borrower.credit_report.destroy if liabilities?(borrower.credit_report)
+      secondary_borrower.credit_report.destroy if secondary_borrower && liabilities?(secondary_borrower.credit_report)
+      loan.reload
+    end
+
+    def self.liabilities?(credit_report)
+      return false unless credit_report.present?
+      return false if credit_report.liabilities.blank?
+
+      true
     end
   end
 end

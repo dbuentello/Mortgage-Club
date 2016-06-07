@@ -196,6 +196,10 @@ class Borrower < ActiveRecord::Base
     current_employment.present? ? current_employment.current_salary.to_f : 0
   end
 
+  def pay_frequency
+    current_employment.present? ? current_employment.pay_frequency : nil
+  end
+
   def total_income
     current_salary + gross_overtime.to_f + gross_bonus.to_f + gross_commission.to_f + gross_interest.to_f
   end

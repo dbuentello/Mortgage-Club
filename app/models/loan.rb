@@ -25,6 +25,8 @@ class Loan < ActiveRecord::Base
 
   delegate :lender_templates, to: :lender, allow_nil: true
 
+  scope :new_loans, -> { where(status: "new_loan") }
+
   PERMITTED_ATTRS = [
     :credit_check_agree,
     :purpose,

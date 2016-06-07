@@ -19,11 +19,11 @@
           <% if current_user %>
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <a id="newLoanBtn" class="btn btn-ms btn-success text-uppercase">
-                <p>
+              <a id="newLoanBtn" class="btn btn-ms text-uppercase">
+
                   <span class="glyphicon glyphicon-plus-sign"></span>
                   new loan
-                </p>
+
               </a>
             </li>
             <% is_active_loans_menu = 'active-loans' if controller.controller_name == 'loans' %>
@@ -33,7 +33,7 @@
               Loans
               <% end %>
             </li>
-            <li>
+            <li class="hidden-xs">
               <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" id="accountBtn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   <span>
@@ -50,6 +50,8 @@
                 </ul>
               </div>
             </li>
+            <li class="visible-xs"><%= link_to "My Profile", edit_user_registration_path,class: "btn btn-ms text-uppercase btn-menu-mobile" %></li>
+            <li class="visible-xs"><%= link_to "Log Out", destroy_user_session_path, method: :delete,class: "btn btn-ms text-uppercase btn-menu-mobile" %>
           </ul>
         <% else %>
           <ul class="nav nav-pills navbar-right">

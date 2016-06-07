@@ -1,21 +1,25 @@
 module CreditReportServices
-  class ParseReport
-    def self.call(borrower, response)
+  class CreateLiabilities
+    def self.call(loan, response)
       doc = Nokogiri::XML(response)
+      generate_credit_report(loan.borrower, doc)
+      generate_credit_report(loan.secondary_borrower, doc) if loan.secondary_borrower
+    end
+
+    def self.generate_credit_report(borrower, doc)
       credit_report = borrower.credit_report || borrower.create_credit_report
       credit_report.update(date: Time.zone.today, score: get_credit_score(doc))
 
       doc.css('CREDIT_LIABILITY').each do |credit_liability|
-        liability = credit_report.liabilities.build
+        liability = Liability.new(credit_report_id: credit_report.id)
         liability.assign_attributes(get_liability_attributes(credit_liability))
+
         next if liability.payment.to_f <= 0 || duplicate?(credit_report, liability)
 
         address = liability.build_address
         address.assign_attributes(get_address_attributes(credit_liability))
         liability.save
       end
-      credit_report.reload
-      credit_report.liabilities
     end
 
     def self.duplicate?(credit_report, liability)
@@ -26,7 +30,8 @@ module CreditReportServices
     end
 
     def self.get_liability_attributes(credit_liability)
-      creditor = get_creditor(credit_liability)
+      return {} unless creditor = get_creditor(credit_liability)
+
       {
         account_type: credit_liability.attributes['_AccountType'].value,
         account_number: credit_liability.attributes['_AccountIdentifier'],
@@ -54,7 +59,7 @@ module CreditReportServices
     end
 
     def self.get_credit_score(doc)
-      scores = doc.css('CREDIT_SCORE').map { |credit_score| credit_score.attributes['_Value'].value }
+      scores = doc.css('CREDIT_SCORE').map { |credit_score| credit_score.attributes['_Value'].value if credit_score.attributes['_Value'] }.compact
       scores[1].to_f
     end
   end

@@ -42,6 +42,16 @@ class LoanDashboardPage::LoanPresenter
             :documents
           ]
         },
+        secondary_borrower: {
+          only: [:id],
+          include: [
+            :documents,
+            user: {
+              only: [:first_name],
+              methods: [:to_s]
+            }
+          ]
+        },
         closing: {
           only: [:id]
         }

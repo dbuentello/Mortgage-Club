@@ -59,6 +59,7 @@ var Dashboard = React.createClass({
     var propertyDocuments = this.props.bootstrapData.property_documents;
     var loanDocuments = this.props.bootstrapData.loan_documents;
     var borrowerDocuments = this.props.bootstrapData.borrower_documents;
+    var coBorrower = this.props.bootstrapData.loan.secondary_borrower;
     var closingDocuments = this.props.bootstrapData.closing_documents;
     var manager = this.props.bootstrapData.manager;
     var checklists = this.props.bootstrapData.checklists;
@@ -152,8 +153,9 @@ var Dashboard = React.createClass({
                   <PropertyTab propertyDocuments={propertyDocuments}></PropertyTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="borrower">
-                  <BorrowerTab borrowerDocuments={borrowerDocuments}></BorrowerTab>
+                  <BorrowerTab borrowerDocuments={borrowerDocuments} coBorrower={coBorrower}></BorrowerTab>
                 </div>
+
                 <div role="tabpanel" className="tab-pane fade" id="loan">
                   <LoanTab loanDocuments={loanDocuments}></LoanTab>
                 </div>

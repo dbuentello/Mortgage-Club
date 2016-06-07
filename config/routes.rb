@@ -145,6 +145,9 @@ Rails.application.routes.draw do
         get "get_email_info"
       end
     end
+
+    resources :loan_url_tokens, only: [:create]
+    resources :lead_requests, only: [:index, :create]
   end
 
   scope module: "admins" do
@@ -182,6 +185,8 @@ Rails.application.routes.draw do
         get "switch"
       end
     end
+
+    resources :loan_url_tokens, only: [:index, :create]
   end
 
   namespace :document_uploaders do

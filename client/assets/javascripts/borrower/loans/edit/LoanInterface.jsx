@@ -26,6 +26,7 @@ var LoanInterface = React.createClass({
     var loan = this.props.bootstrapData.currentLoan;
     creditCardCompleted = this.loanIsCompleted(loan);
     var borrower_type = this.props.bootstrapData.borrower_type;
+    var liabilities = this.props.bootstrapData.liabilities;
     var menu = this.buildMenu(loan);
     var activeItem = _.findWhere(menu, {complete: false}) || menu[0];
 
@@ -34,6 +35,7 @@ var LoanInterface = React.createClass({
       active: activeItem,
       loan: loan,
       borrower_type: borrower_type,
+      liabilities: liabilities,
       completedLoan: this.loanIsCompleted(loan),
       is_edit_mode: this.props.bootstrapData.is_edit_mode
     };
@@ -42,13 +44,13 @@ var LoanInterface = React.createClass({
   render: function() {
     var activeItem = this.state.active;
 
-    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} editMode={this.state.is_edit_mode} loan={this.state.loan} borrower_type={this.state.borrower_type} saveLoan={this.save} next={this.next} setupMenu={this.setupMenu} goToAllDonePage={this.goToAllDonePage} updateDocuments={this.updateDocuments}/>;
+    var content = <activeItem.Content bootstrapData={this.props.bootstrapData} editMode={this.state.is_edit_mode} loan={this.state.loan} liabilities={this.state.liabilities} borrower_type={this.state.borrower_type} saveLoan={this.save} next={this.next} setupMenu={this.setupMenu} goToAllDonePage={this.goToAllDonePage} updateDocuments={this.updateDocuments}/>;
 
     return (
       <div className="content accountPart editLoan">
         <div className="container">
           <div className="row">
-            <div className="col-xs-3 subnav">
+            <div className="col-xs-12 col-sm-3 subnav">
               <div id="sidebar">
                 <ul>
                   {_.map(this.state.menu, function (item, i) {
@@ -160,10 +162,18 @@ var LoanInterface = React.createClass({
 
   setupMenu: function(response, step, skip_change_page) {
     var menu = this.buildMenu(response.loan);
+
     this.setState({
       loan: response.loan,
       menu: menu
     });
+
+    // get new liabilities from BorrowerController
+    if (response.liabilities) {
+      this.setState({
+        liabilities: response.liabilities
+      });
+    }
 
     skip_change_page = (typeof skip_change_page !== "undefined") ? true : false;
     if (skip_change_page) {

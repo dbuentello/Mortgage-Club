@@ -1,14 +1,14 @@
 class Users::BorrowersController < Users::BaseController
-  before_action :set_loan, only: [:update]
+  before_action :set_loan, only: :update
 
   def update
+    ssn_was_changed = ssn_was_changed?
     borrower_form = BorrowerForm.new(
       form_params: get_form_params(params[:borrower]), borrower: borrower,
       loan: @loan, is_primary_borrower: true
     )
 
     if borrower_form.save
-      get_credit_report(borrower)
       if applying_with_secondary_borrower?
         assign_secondary_borrower_to_loan(secondary_borrower) if update_secondary_borrower
       else
@@ -16,7 +16,12 @@ class Users::BorrowersController < Users::BaseController
       end
 
       @loan.reload
-      render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show}
+      borrower.reload
+
+      # only getting new credit report if ssn was changed
+      get_credit_report if ssn_was_changed
+
+      render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show, liabilities: get_liabilities(borrower)}
     else
       render json: {error: borrower_form.errors.full_messages}, status: 500
     end
@@ -33,7 +38,7 @@ class Users::BorrowersController < Users::BaseController
       form_params: get_form_params(params[:secondary_borrower]),
       borrower: secondary_borrower, loan: @loan
     )
-    get_credit_report(secondary_borrower, true) if secondary_borrower_form.save
+    secondary_borrower_form.save
   end
 
   def assign_secondary_borrower_to_loan(secondary_borrower)
@@ -67,14 +72,19 @@ class Users::BorrowersController < Users::BaseController
     }
   end
 
-  def get_credit_report(borrower, run_in_background = false)
-    return unless borrower.current_address && borrower.current_address.address
-    return if borrower.credit_report.present? && borrower.credit_report.liabilities.present?
+  def get_credit_report
+    CreditReportServices::Base.call(@loan)
+  end
 
-    if run_in_background
-      CreditReportServices::Base.delay.call(borrower, borrower.current_address.address)
-    else
-      CreditReportServices::Base.call(borrower, borrower.current_address.address)
-    end
+  def get_liabilities(borrower)
+    return [] unless borrower.credit_report
+
+    borrower.credit_report.liabilities
+  end
+
+  def ssn_was_changed?
+    return true if borrower.ssn != params[:borrower][:borrower][:ssn]
+    return true if @loan.secondary_borrower && @loan.secondary_borrower.ssn != params[:secondary_borrower][:borrower][:ssn]
+    false
   end
 end
