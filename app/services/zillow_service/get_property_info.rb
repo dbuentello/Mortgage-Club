@@ -34,7 +34,7 @@ module ZillowService
     def self.get_monthly_payments_advanced(property_data)
       return unless property?(property_data)
 
-      property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
+      property = property_data['SearchResults:searchresults']['response']['results']['result'][0] || property_data['SearchResults:searchresults']['response']['results']['result']
       property.merge!(
         useCode: USE_CODE[property['useCode']]
       )
@@ -51,10 +51,10 @@ module ZillowService
     def self.merge_data(monthly_payments, property_data, zillow_image_url)
       return unless monthly_payment?(monthly_payments)
 
-      property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
+      property = property_data['SearchResults:searchresults']['response']['results']['result'][0] || property_data['SearchResults:searchresults']['response']['results']['result']
       property.merge(
-        monthlyTax: monthly_payments['paymentsdetails']['response']['monthlypropertytaxes'],
-        monthlyInsurance: monthly_payments['paymentsdetails']['response']['monthlyhazardinsurance'],
+        monthlyTax: monthly_payments['MonthlyPaymentsAdvanced:paymentsdetails']['response']['monthlypropertytaxes'],
+        monthlyInsurance: monthly_payments['MonthlyPaymentsAdvanced:paymentsdetails']['response']['monthlyhazardinsurance'],
         zillowImageUrl: zillow_image_url
       )
     end
@@ -67,8 +67,9 @@ module ZillowService
         'zws-id' => ZILLOW_KEY
       }
       data = get('http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm', query: params)
+
       if images?(data)
-        url = data["updatedPropertyDetails"]["response"]["images"]["image"]["url"].first
+        url = data["UpdatedPropertyDetails:updatedPropertyDetails"]["response"]["images"]["image"]["url"].first
       else
         url = ""
       end
@@ -78,24 +79,24 @@ module ZillowService
     def self.zpid(property_data)
       return unless zpid?(property_data)
 
-      property = property_data['searchresults']['response']['results']['result'][0] || property_data['searchresults']['response']['results']['result']
+      property = property_data['SearchResults:searchresults']['response']['results']['result'][0] || property_data['SearchResults:searchresults']['response']['results']['result']
       property['zpid']
     end
 
     def self.images?(data)
-      data["updatedPropertyDetails"]["response"] && data["updatedPropertyDetails"]["response"]["images"]
+      data["UpdatedPropertyDetails:updatedPropertyDetails"]["response"] && data["UpdatedPropertyDetails:updatedPropertyDetails"]["response"]["images"]
     end
 
     def self.zpid?(data)
-      data['searchresults'] && data['searchresults']['response']
+      data['SearchResults:searchresults'] && data['SearchResults:searchresults']['response']
     end
 
     def self.monthly_payment?(data)
-      data.present? && data['paymentsdetails']['response']
+      data.present? && data['MonthlyPaymentsAdvanced:paymentsdetails']['response']
     end
 
     def self.property?(data)
-      data['searchresults'] && data['searchresults']['response']
+      data['SearchResults:searchresults'] && data['SearchResults:searchresults']['response']
     end
   end
 end
