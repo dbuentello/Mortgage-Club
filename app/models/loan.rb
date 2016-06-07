@@ -50,7 +50,7 @@ class Loan < ActiveRecord::Base
     closed: 5
   }
 
-  validates :loan_type, inclusion: {in: %w(Conventional VA FHA USDA 9), message: :invalid_loan_type}, allow_nil: true
+  validates :loan_type, inclusion: {in: %w(Conventional VA FHA USDA), message: :invalid_loan_type}, allow_nil: true
   validates :status, inclusion: {in: %w(new_loan submitted pending conditionally_approved approved closed), message: :invalid_loan_status}, allow_nil: true
 
   def completed?

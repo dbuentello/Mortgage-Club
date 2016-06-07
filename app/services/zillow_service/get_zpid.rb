@@ -13,8 +13,8 @@ module ZillowService
       }
       response = get('http://www.zillow.com/webservice/GetDeepSearchResults.htm', query: params)
 
-      if response['searchresults'] && response['searchresults']['response']
-        property_info = response['searchresults']['response']['results']['result']
+      if response['SearchResults:searchresults'] && response['SearchResults:searchresults']['response']
+        property_info = response['SearchResults:searchresults']['response']['results']['result']
         return property_info[0]['zpid'] if property_info[0]
         property_info['zpid']
       end
