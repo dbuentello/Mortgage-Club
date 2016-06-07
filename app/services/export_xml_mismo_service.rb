@@ -1,10 +1,13 @@
+# rubocop:disable ClassLength
+# rubocop:disable AbcSize
 require "ox"
 
 class ExportXmlMismoService
-  attr_accessor :loan, :borrower, :subject_property, :primary_property, :credit_report, :params, :doc, :loan_member, :assets
+  attr_accessor :loan, :borrower, :subject_property, :primary_property, :credit_report, :params, :doc, :loan_member, :assets, :co_borrower
   def initialize(loan, borrower)
     @loan = loan
     @borrower = borrower
+    @co_borrower = loan.secondary_borrower
 
     @subject_property = loan.subject_property
     @primary_property = get_primary_property
@@ -12,7 +15,7 @@ class ExportXmlMismoService
     @loan_member = loan.loans_members_associations.first.loan_member
     @assets = borrower.assets
 
-    @doc = Ox::Document.new(:version => "1.0")
+    @doc = Ox::Document.new(version: "1.0")
   end
 
   def call
@@ -20,13 +23,11 @@ class ExportXmlMismoService
 
     root << data_information_node
     root << additional_case_data_node
-    # root << affordable_lending_node
 
     assets.each do |asset|
       root << asset_node(asset)
     end
 
-    # root << government_reporting_node
     root << interviewer_information_node
 
     credit_report.liabilities.each_with_index do |liability, index|
@@ -44,10 +45,13 @@ class ExportXmlMismoService
     root << proposed_housing_expense_node_of_estate_tax
     root << proposed_housing_expense_node_of_mortgage_insurance
     root << proposed_housing_expense_node_of_homeowner
+    root << proposed_housing_expense_node_of_other_mortgage
+    root << proposed_housing_expense_node_of_other_housing
 
     root << title_holder_node
-    # root << transaction_detail_node
-    root << borrower_node
+    root << transaction_detail_node
+    root << borrower_node(borrower, true)
+    root << borrower_node(co_borrower, false) if co_borrower.present?
 
     @doc << root
     Ox.dump(doc)
@@ -58,7 +62,7 @@ class ExportXmlMismoService
 
     date = Ox::Element.new("DATA_VERSION")
     date["_Name"] = "Date"
-    date["_Number"] = DateTime.now.strftime("%Y%m%d")
+    date["_Number"] = DateTime.zone.now.strftime("%Y%m%d")
     data_information << date
 
     data_version = Ox::Element.new("DATA_VERSION")
@@ -73,49 +77,21 @@ class ExportXmlMismoService
     additional_case_data = Ox::Element.new("ADDITIONAL_CASE_DATA")
 
     transmittal_data = Ox::Element.new("TRANSMITTAL_DATA")
-    # transmittal_data["BelowMarketSubordinateFinancingIndicator"] = ""
-    # transmittal_data["BuydownRatePercent"] = ""
-    # transmittal_data["CurrentFirstMortgageHolderType"] = ""
-    # transmittal_data["PropertyEstimatedValueAmount"] = ""
-    # transmittal_data["InvestorLoanIdentifier"] = ""
-    # transmittal_data["InvestorInstitutionIdentifier"] = ""
     transmittal_data["LoanOriginatorID"] = loan_member.nmls_id.to_s
     transmittal_data["LoanOriginationCompanyID"] = loan_member.company_nmls.to_s
-    # transmittal_data["FIPSCodeIdentifier"] = ""
     additional_case_data << transmittal_data
 
     additional_case_data
   end
 
-  # def affordable_lending_node
-  #   affordable_lending = Ox::Element.new("AFFORDABLE_LENDING")
-  #   affordable_lending["FNMCommunityLendingProductType"] = ""
-  #   affordable_lending["FNMCommunitySecondsIndicator"] = ""
-  #   affordable_lending["FNMNeighborsMortgageEligibilityIndicator"] = ""
-  #   affordable_lending["HUDIncomeLimitAdjustmentFactor"] = ""
-  #   affordable_lending["HUDLendingIncomeLimitAmount"] = ""
-  #   affordable_lending["HUDMedianIncomeAmount"] = ""
-
-  #   affordable_lending
-  # end
-
   def asset_node(borrower_asset)
     asset = Ox::Element.new("ASSET")
+
     asset["_CashOrMarketValueAmount"] = borrower_asset.current_balance.to_s
     asset["_Type"] = get_asset_type(borrower_asset.asset_type)
-    # asset["BorrowerID"] = ""
 
     asset
   end
-
-  # def government_reporting_node
-  #   government_reporting = Ox::Element.new("GOVERNMENT_REPORTING")
-
-  #   government_reporting["HMDA_HOEPALoanStatusIndicator"] = ""
-  #   government_reporting["HMDAPreapprovalType"] = ""
-
-  #   government_reporting
-  # end
 
   def interviewer_information_node
     interviewer_information = Ox::Element.new("INTERVIEWER_INFORMATION")
@@ -126,7 +102,6 @@ class ExportXmlMismoService
     interviewer_information["InterviewersEmployerPostalCode"] = "94105"
     interviewer_information["InterviewersTelephoneNumber"] = loan_member.phone_number.to_s.gsub!(/[() -]/, "")
     interviewer_information["ApplicationTakenMethodType"] = "I"
-    # interviewer_information["InterviewerApplicationSignedDate"] = ""
     interviewer_information["InterviewersEmployerName"] = loan_member.company_name.to_s
     interviewer_information["InterviewersName"] = loan_member.user.to_s
 
@@ -137,16 +112,11 @@ class ExportXmlMismoService
     liability = Ox::Element.new("LIABILITY")
 
     liability["_ID"] = "Liab#{index + 1}"
-    # liability["BorrowerID"] = ""
-    # liability["_AccountIdentifier"] = ""
-    # liability["_ExclusionIndicator"] = ""
     liability["_HolderName"] = borrower_liability.name.to_s
     liability["_MonthlyPaymentAmount"] = borrower_liability.payment.to_s
-    # liability["_PayoffStatusIndicator"] = ""
     liability["_RemainingTermMonths"] = borrower_liability.months.to_s
     liability["_Type"] = get_liability_type(borrower_liability.account_type)
     liability["_UnpaidBalanceAmount"] = borrower_liability.balance.to_s
-    # liability["SubjectLoanResubordinationIndicator"] = ""
     # todo
     liability["FNMSubjectPropertyIndicator"] = ""
     liability["FNMRentalPropertyIndicator"] = ""
@@ -157,22 +127,11 @@ class ExportXmlMismoService
   def loan_product_data_node
     loan_product_data = Ox::Element.new("LOAN_PRODUCT_DATA")
 
-    # buydown = Ox::Element.new("BUYDOWN")
-    # buydown["_BaseDateType"] = ""
-    # buydown["_DurationMonths"] = ""
-    # buydown["_IncreaseRatePercent"] = ""
-    # buydown["_LenderFundingIndicator"] = ""
-    # buydown["_PermanentIndicator"] = ""
-    # loan_product_data << buydown
-
     loan_features = Ox::Element.new("LOAN_FEATURES")
     loan_features["BalloonIndicator"] = loan.balloon_payment_text.nil? ? "N" : "Y"
-    # loan_features["EscrowWaiverIndicator"] = ""
-    # loan_features["GSEProjectClassificationType"] = ""
     loan_features["GSEPropertyType"] = subject_property.property_type.to_s == "condo" ? "03" : "01"
     loan_features["LienPriorityType"] = "1"
     loan_features["LoanRepaymentType"] = "N"
-    # loan_features["PaymentFrequencyType"] = ""
     loan_product_data << loan_features
 
     loan_product_data
@@ -181,14 +140,9 @@ class ExportXmlMismoService
   def loan_purpose_node
     loan_purpose = Ox::Element.new("LOAN_PURPOSE")
 
-    # loan_purpose["GSETitleMannerHeldDescription"] = ""
     loan_purpose["_Type"] = loan.purpose == "purchase" ? "16" : "05"
     loan_purpose["PropertyRightsType"] = "1"
     loan_purpose["PropertyUsageType"] = get_property_usage(subject_property.usage)
-
-    # construction_refinance_data = Ox::Element.new("CONSTRUCTION_REFINANCE_DATA")
-    # construction_refinance_data["RefinanceImprovementsType"] = ""
-    # loan_purpose << construction_refinance_data
 
     loan_purpose
   end
@@ -205,8 +159,7 @@ class ExportXmlMismoService
   def mortgage_term_node
     mortgage_terms = Ox::Element.new("MORTGAGE_TERMS")
 
-    mortgage_terms["BaseLoanAmount"] = loan.amount.to_s
-    # mortgage_terms["LenderCaseIdentifier"] = ""
+    mortgage_terms["BaseLoanAmount"] = format("%0.02f", loan.amount.to_f)
     mortgage_terms["LoanAmortizationTermMonths"] = loan.num_of_months.to_s
     mortgage_terms["LoanAmortizationType"] = get_amortization_type(loan.amortization_type)
     mortgage_terms["MortgageType"] = get_loan_type(loan.loan_type)
@@ -225,7 +178,6 @@ class ExportXmlMismoService
     property["_PostalCode"] = address.nil? ? "" : address.zip
     # todo, skip now
     property["_FinancedNumberOfUnits"] = ""
-    # property["_StructureBuiltYear"] = ""
 
     legal_description = Ox::Element.new("_LEGAL_DESCRIPTION")
     legal_description["_Type"] = "F1"
@@ -236,18 +188,6 @@ class ExportXmlMismoService
     parsed_street_address["_StreetName"] = get_street_name(address)
     property << parsed_street_address
 
-    # valuation = Ox::Element.new("_VALUATION")
-    # valuation["_MethodType"] = ""
-
-    # appraiser = Ox::Element.new("APPRAISER")
-    # appraiser["_Name"] = ""
-    # appraiser["_CompanyName"] = ""
-    # appraiser["_LicenseIdentifier"] = ""
-    # appraiser["_LicenseState"] = ""
-    # appraiser["_SupervisoryAppraiserLicenseNumber"] = ""
-    # valuation << appraiser
-    # property << valuation
-
     property
   end
 
@@ -256,7 +196,9 @@ class ExportXmlMismoService
 
     proposed_housing_expense["HousingExpenseType"] = "26"
 
-    proposed_housing_expense["_PaymentAmount"] = format("%0.02f", loan.monthly_payment.to_f)
+    if loan.monthly_payment.present?
+      proposed_housing_expense["_PaymentAmount"] = format("%0.02f", loan.monthly_payment.to_f)
+    end
 
     proposed_housing_expense
   end
@@ -265,7 +207,10 @@ class ExportXmlMismoService
     proposed_housing_expense = Ox::Element.new("PROPOSED_HOUSING_EXPENSE")
 
     proposed_housing_expense["HousingExpenseType"] = "01"
-    proposed_housing_expense["_PaymentAmount"] = format("%0.02f", subject_property.estimated_hazard_insurance.to_f)
+
+    if subject_property.estimated_hazard_insurance.present?
+      proposed_housing_expense["_PaymentAmount"] = format("%0.02f", subject_property.estimated_hazard_insurance.to_f)
+    end
 
     proposed_housing_expense
   end
@@ -274,7 +219,10 @@ class ExportXmlMismoService
     proposed_housing_expense = Ox::Element.new("PROPOSED_HOUSING_EXPENSE")
 
     proposed_housing_expense["HousingExpenseType"] = "14"
-    proposed_housing_expense["_PaymentAmount"] = format("%0.02f", subject_property.estimated_property_tax.to_f)
+
+    if subject_property.estimated_property_tax.present?
+      proposed_housing_expense["_PaymentAmount"] = format("%0.02f", subject_property.estimated_property_tax.to_f)
+    end
 
     proposed_housing_expense
   end
@@ -283,7 +231,10 @@ class ExportXmlMismoService
     proposed_housing_expense = Ox::Element.new("PROPOSED_HOUSING_EXPENSE")
 
     proposed_housing_expense["HousingExpenseType"] = "02"
-    proposed_housing_expense["_PaymentAmount"] = format("%0.02f", loan.pmi_monthly_premium_amount.to_f)
+
+    if loan.pmi_monthly_premium_amount.present?
+      proposed_housing_expense["_PaymentAmount"] = format("%0.02f", loan.pmi_monthly_premium_amount.to_f)
+    end
 
     proposed_housing_expense
   end
@@ -292,8 +243,23 @@ class ExportXmlMismoService
     proposed_housing_expense = Ox::Element.new("PROPOSED_HOUSING_EXPENSE")
 
     proposed_housing_expense["HousingExpenseType"] = "06"
-    proposed_housing_expense["_PaymentAmount"] = format("%0.02f", subject_property.hoa_due.to_f)
 
+    if subject_property.hoa_due.present?
+      proposed_housing_expense["_PaymentAmount"] = format("%0.02f", subject_property.hoa_due.to_f)
+    end
+
+    proposed_housing_expense
+  end
+
+  def proposed_housing_expense_node_of_other_mortgage
+    proposed_housing_expense = Ox::Element.new("PROPOSED_HOUSING_EXPENSE")
+    proposed_housing_expense["HousingExpenseType"] = "22"
+    proposed_housing_expense
+  end
+
+  def proposed_housing_expense_node_of_other_housing
+    proposed_housing_expense = Ox::Element.new("PROPOSED_HOUSING_EXPENSE")
+    proposed_housing_expense["HousingExpenseType"] = "23"
     proposed_housing_expense
   end
 
@@ -305,46 +271,30 @@ class ExportXmlMismoService
     title_holder
   end
 
-  # def transaction_detail_node
-  #   transaction_detail = Ox::Element.new("TRANSACTION_DETAIL")
+  def transaction_detail_node
+    transaction_detail = Ox::Element.new("TRANSACTION_DETAIL")
 
-  #   transaction_detail["AlterationsImprovementsAndRepairsAmount"] = ""
-  #   transaction_detail["BorrowerPaidDiscountPointsTotalAmount"] = ""
-  #   transaction_detail["EstimatedClosingCostsAmount"] = ""
-  #   transaction_detail["MIAndFundingFeeFinancedAmount"] = ""
-  #   transaction_detail["MIAndFundingFeeTotalAmount"] = ""
-  #   transaction_detail["PrepaidItemsEstimatedAmount"] = ""
-  #   transaction_detail["PurchasePriceAmount"] = ""
-  #   transaction_detail["RefinanceIncludingDebtsToBePaidOffAmount"] = ""
-  #   transaction_detail["SellerPaidClosingCostsAmount"] = ""
-  #   transaction_detail["SubordinateLienAmount"] = ""
-  #   transaction_detail["FNMCostOfLandAcquiredSeparatelyAmount"] = ""
-  #   transaction_detail[""] = ""
+    transaction_detail["BorrowerPaidDiscountPointsTotalAmount"] = format("%0.02f", loan.discount_points.to_f)
+    transaction_detail["EstimatedClosingCostsAmount"] = format("%0.02f", loan.estimated_closing_costs.to_f)
 
-  #   purchase_credit = Ox::Element.new("PURCHASE_CREDIT")
-  #   purchase_credit["_Amount"] = ""
-  #   purchase_credit["_SourceType"] = ""
-  #   transaction_detail << purchase_credit
+    transaction_detail
+  end
 
-  #   transaction_detail
-  # end
-
-  def borrower_node
+  def borrower_node(borrower_params, is_borrower)
     borrower_element = Ox::Element.new("BORROWER")
 
-    # borrower_element["BorrowerID"] = ""
-    borrower_element["_FirstName"] = borrower.user.first_name.to_s
-    borrower_element["_LastName"] = borrower.user.last_name.to_s
-    borrower_element["_AgeAtApplicationYears"] = get_age(borrower.dob)
-    borrower_element["_BirthDate"] = borrower.dob.nil? ? "" : borrower.dob.strftime("%Y%m%d")
-    borrower_element["_HomeTelephoneNumber"] = borrower.phone.to_s.gsub!(/[() -]/, "")
-    # borrower_element["_PrintPositionType"] = ""
-    borrower_element["_SSN"] = borrower.ssn.to_s.gsub!(/[() -]/, "")
-    # borrower_element["JointAssetLiabilityReportingType"] = ""
-    borrower_element["MaritalStatusType"] = get_marital_status(borrower.marital_status)
-    borrower_element["SchoolingYears"] = borrower.years_in_school.to_s
+    borrower_element["_FirstName"] = borrower_params.user.first_name.to_s
+    borrower_element["_LastName"] = borrower_params.user.last_name.to_s
+    borrower_element["_AgeAtApplicationYears"] = get_age(borrower_params.dob)
+    borrower_element["_BirthDate"] = borrower_params.dob.nil? ? "" : borrower_params.dob.strftime("%Y%m%d")
+    borrower_element["_HomeTelephoneNumber"] = borrower_params.phone.to_s.gsub!(/[() -]/, "")
+    borrower_element["_PrintPositionType"] = is_borrower ? "BW" : "QZ"
+    borrower_element["_SSN"] = borrower_params.ssn.to_s.gsub!(/[() -]/, "")
+    borrower_element["JointAssetLiabilityReportingType"] = co_borrower.present? ? "Y" : "N"
+    borrower_element["MaritalStatusType"] = get_marital_status(borrower_params.marital_status)
+    borrower_element["SchoolingYears"] = borrower_params.years_in_school.to_s
 
-    borrower_address = borrower.current_address.address
+    borrower_address = borrower_params.current_address.address
     mail_to = Ox::Element.new("_MAIL_TO")
     mail_to["_StreetAddress"] = borrower_address.nil? ? "" : borrower_address.street_address
     mail_to["_City"] = borrower_address.nil? ? "" : borrower_address.city
@@ -358,15 +308,11 @@ class ExportXmlMismoService
     residence["_City"] = borrower_address.nil? ? "" : borrower_address.city
     residence["_State"] = borrower_address.nil? ? "" : borrower_address.state
     residence["_PostalCode"] = borrower_address.nil? ? "" : borrower_address.zip
-    # residence["BorrowerResidencyBasisType"] = ""
-    # residence["BorrowerResidencyDurationMonths"] = ""
-    # residence["BorrowerResidencyDurationYears"] = ""
-    # residence["BorrowerResidencyType"] = ""
     borrower_element << residence
 
     # maybe has many
     # todo
-    current_employment = borrower.current_employment
+    current_employment = borrower_params.current_employment
     if current_employment.present?
       current_income = Ox::Element.new("CURRENT_INCOME")
       # monthly, semimonthly, weekly, biweekly
@@ -375,15 +321,13 @@ class ExportXmlMismoService
       borrower_element << current_income
     end
 
-    borrower_declaration = borrower.declaration
+    borrower_declaration = borrower_params.declaration
     declaration = Ox::Element.new("DECLARATION")
     declaration["AlimonyChildSupportObligationIndicator"] = get_declaration(borrower_declaration.child_support)
     declaration["BankruptcyIndicator"] = get_declaration(borrower_declaration.bankrupt)
     declaration["BorrowedDownPaymentIndicator"] = get_declaration(borrower_declaration.down_payment_borrowed)
-    declaration["CitizenshipResidencyType"] =  get_residency_type(borrower_declaration)
+    declaration["CitizenshipResidencyType"] = get_residency_type(borrower_declaration)
     declaration["CoMakerEndorserOfNoteIndicator"] = get_declaration(borrower_declaration.co_maker_or_endorser)
-    # declaration["HomeownerPastThreeYearsType"] = ""
-    # declaration["IntentToOccupyType"] = ""
     declaration["LoanForeclosureOrJudgementIndicator"] = get_declaration(borrower_declaration.loan_foreclosure)
     declaration["OutstandingJudgementsIndicator"] = get_declaration(borrower_declaration.outstanding_judgment)
     declaration["PartyToLawsuitIndicator"] = get_declaration(borrower_declaration.party_to_lawsuit)
@@ -391,39 +335,18 @@ class ExportXmlMismoService
     declaration["PropertyForeclosedPastSevenYearsIndicator"] = get_declaration(borrower_declaration.property_foreclosed)
     borrower_element << declaration
 
-    employer = Ox::Element.new("EMPLOYER")
-    employer["_Name"] = ""
-    employer["CurrentEmploymentMonthsOnJob"] = ""
-    employer["CurrentEmploymentTimeInLineOfWorkYears"] = ""
-    employer["CurrentEmploymentYearsOnJob"] = ""
-    employer["EmploymentBorrowerSelfEmployedIndicator"] = ""
-    employer["EmploymentCurrentIndicator"] = ""
-    borrower_element << employer
-
-    # government_monitoring = Ox::Element.new("GOVERNMENT_MONITORING")
-    # government_monitoring["GenderType"] = ""
-    # government_monitoring["RaceNationalOriginRefusalIndicator"] = ""
-    # government_monitoring["HMDAEthnicityType"] = ""
-
-    # hmda_race = Ox::Element.new("HMDA_RACE")
-    # hmda_race["_Type"] = ""
-    # government_monitoring << hmda_race
-    # borrower_element << government_monitoring
-
-    # maybe has many
-    # present_housing_expense = Ox::Element.new("PRESENT_HOUSING_EXPENSE")
-    # present_housing_expense["HousingExpenseType"] = ""
-    # borrower_element << present_housing_expense
-
-    # maybe has many
-    # summary = Ox::Element.new("SUMMARY")
-    # summary["_Amount"] = ""
-    # summary["_AmountType"] = ""
-    # borrower_element << summary
+    if current_employment.present?
+      employer = Ox::Element.new("EMPLOYER")
+      employer["_Name"] = current_employment.employer_name
+      employer["CurrentEmploymentYearsOnJob"] = current_employment.duration
+      employer["EmploymentBorrowerSelfEmployedIndicator"] = borrower_params.self_employed == true ? "Y" : "N"
+      employer["EmploymentCurrentIndicator"] = current_employment.is_current == true ? "Y" : "N"
+      borrower_element << employer
+    end
 
     contact_point = Ox::Element.new("CONTACT_POINT")
     contact_point["_Type"] = "Email"
-    contact_point["_Value"] = borrower.user.email.to_s
+    contact_point["_Value"] = borrower_params.user.email.to_s
     borrower_element << contact_point
 
     borrower_element
@@ -566,7 +489,7 @@ class ExportXmlMismoService
   def get_age(dob)
     return "" if dob.nil?
 
-    now = Time.now.to_date
+    now = DateTime.zone.now
     now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
   end
 
@@ -585,3 +508,5 @@ class ExportXmlMismoService
     declaration == true ? "Y" : "N"
   end
 end
+# rubocop:enable ClassLength
+# rubocop:enable AbcSize
