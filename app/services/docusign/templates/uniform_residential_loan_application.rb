@@ -1,5 +1,4 @@
 # rubocop:disable ClassLength
-# rubocop:disable AbcSize
 module Docusign
   module Templates
     class UniformResidentialLoanApplication
@@ -363,4 +362,3 @@ module Docusign
   end
 end
 # rubocop:enable ClassLength
-# rubocop:enable AbcSize
