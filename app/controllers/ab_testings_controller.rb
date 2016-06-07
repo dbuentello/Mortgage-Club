@@ -5,6 +5,11 @@ class AbTestingsController < ApplicationController
   before_action :homepage_data, only: [:refinance_alert]
   before_action :set_mixpanel_token, only: [:refinance_alert]
 
+
+  # alert to new user about the loan. Helping new user see about good rates and attract user.
+  # Beside that, get user email to maketing
+  #
+  # @return [object] info of homepage and rate table.
   def refinance_alert
     bootstrap(
       last_updated: @last_updated,
@@ -23,6 +28,7 @@ class AbTestingsController < ApplicationController
 
   private
 
+  # TODO: duplicate - pages controller index
   def homepage_data
     @refcode = params[:refcode]
     @mortgage_aprs = HomepageRateServices::GetMortgageAprs.call

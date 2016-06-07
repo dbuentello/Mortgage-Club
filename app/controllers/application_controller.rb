@@ -45,6 +45,7 @@ class ApplicationController < ActionController::Base
         @loan = InitializeFirstLoanService.new(current_user).call
       end
     end
+    # use pundit to authorize user
     authorize @loan, :update?
   end
 
@@ -71,6 +72,10 @@ class ApplicationController < ActionController::Base
     customized_flash
   end
 
+  # Set og of facebook to system. Use 'gem meta-tags'
+  #
+  # @param [Type] options = {} describe options = {}
+  # @return [Type] description of returned object
   def prepare_meta_tags(options = {})
     site_name   = "MortgageClub"
     title       = "FREE REFINANCE ALERT" # ["controller_name", "action_name"].join(" ")
