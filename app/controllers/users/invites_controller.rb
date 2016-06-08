@@ -1,4 +1,9 @@
 class Users::InvitesController < Users::BaseController
+
+  # Invites a new user in Referrals.
+  #
+  # @return [JSON] invites or error message
+  # if cannot invite any user.
   def create
     invite_counter = 0
     i = 0
@@ -15,8 +20,9 @@ class Users::InvitesController < Users::BaseController
       end
       i += 1
     end
+    # TODO : move to model
     invites = Invite.where(sender_id: current_user.id).order(created_at: :desc)
-
+    # TODO : use status to check success or not. Not use true/false
     if invite_counter > 0
       render json: {
         success: true,

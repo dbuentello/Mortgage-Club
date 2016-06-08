@@ -1,14 +1,19 @@
 class Users::BorrowersController < Users::BaseController
   before_action :set_loan, only: [:update]
 
+  # Update borrower info. Used by borrower form.
+  # check BorrowerForm to understand more about saving borrower form.
+  #
+  # @return [JSON] loan and liabilities (200) or errors (500)
+  #   if has errors when save borrower form
   def update
     borrower_form = BorrowerForm.new(
       form_params: get_form_params(params[:borrower]), borrower: borrower,
       loan: @loan, is_primary_borrower: true
     )
-
     if borrower_form.save
       get_credit_report(borrower)
+      byebug
       if applying_with_secondary_borrower?
         assign_secondary_borrower_to_loan(secondary_borrower) if update_secondary_borrower
       else
@@ -17,14 +22,19 @@ class Users::BorrowersController < Users::BaseController
 
       @loan.reload
       borrower.reload
-
+      # TODO: move get_liabilities to borrower model
       render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show, liabilities: get_liabilities(borrower)}
     else
       render json: {error: borrower_form.errors.full_messages}, status: 500
     end
   end
 
+  # Get company info by using Full contact services
+  #  /company_info : please check routes
+  #
+  # @return [JSON] company_info
   def get_company_info
+    # TODO : need to move another controller.
     render json: {company_info: FullContactServices::GetCompanyInfo.new(params[:domain]).call}
   end
 

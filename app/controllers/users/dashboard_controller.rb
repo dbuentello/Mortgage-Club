@@ -1,6 +1,9 @@
 class Users::DashboardController < Users::BaseController
   before_action :set_loan, only: [:show]
 
+  # Description of method
+  #
+  # @return [HTML] Render borrower_app template (react view) with bootstrap data
   def show
     return redirect_to edit_loan_path(@loan) if @loan.new_loan?
 
