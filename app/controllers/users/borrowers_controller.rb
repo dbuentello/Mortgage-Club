@@ -88,7 +88,7 @@ class Users::BorrowersController < Users::BaseController
       CreditReportServices::Base.call(borrower, borrower.current_address.address)
     end
   end
-
+  # TODO: need to move to model
   def get_liabilities(borrower)
     borrower.credit_report.liabilities
   end
