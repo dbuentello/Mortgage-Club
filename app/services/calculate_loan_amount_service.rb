@@ -1,8 +1,3 @@
-#
-# Class CalculateLoanAmountService provides methods to calculate loan amount
-#
-# @author Tang Nguyen <tang@mortgageclub.co>
-#
 class CalculateLoanAmountService
   def self.call(loan)
     if loan.refinance?
@@ -13,13 +8,6 @@ class CalculateLoanAmountService
     amount
   end
 
-  #
-  # Calculate loan amount for refinance loan
-  #
-  # @param [Object] loan: ActiveRecord
-  #
-  # @return [Float] loan amount
-  #
   def self.calculate_loan_amount_for_refinance_loan(loan)
     if loan.subject_property.mortgage_payment_liability
       amount = loan.subject_property.mortgage_payment_liability.balance
@@ -29,13 +17,6 @@ class CalculateLoanAmountService
     amount
   end
 
-  #
-  # Calculate loan amount for purchase loan
-  #
-  # @param [Object] loan: ActiveRecord
-  #
-  # @return [Float] loan amount
-  #
   def self.calculate_loan_amount_for_purchase_loan(loan)
     if loan.down_payment
       amount = loan.subject_property.purchase_price.to_f - loan.down_payment

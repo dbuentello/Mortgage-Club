@@ -1,8 +1,3 @@
-#
-# Class Users::LiabilitiesController provides create method to update liabilities of property
-#
-# @author Tang Nguyen <tang@mortgageclub.co>
-#
 class Users::LiabilitiesController < Users::BaseController
   before_action :set_loan, only: [:create]
 

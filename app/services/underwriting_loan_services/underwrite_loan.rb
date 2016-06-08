@@ -1,8 +1,3 @@
-#
-# Module UnderwritingLoanServices provides methods to check loan is valid or not
-# TODO: explain more
-# @author Tang Nguyen <tang@mortgageclub.co>
-#
 module UnderwritingLoanServices
   class UnderwriteLoan
     attr_accessor :loan, :property, :borrower, :address, :error_messages

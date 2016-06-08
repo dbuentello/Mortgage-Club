@@ -1,16 +1,6 @@
-#
-# Class Users::ElectronicSignatureController provides methods for borrower to signs into document
-#
-# @author Tang Nguyen <tang@mortgageclub.co>
-#
 class Users::ElectronicSignatureController < Users::BaseController
   before_action :set_loan, only: [:new, :create, :embedded_response]
 
-  #
-  # Show loading page to get document from Docusign
-  #
-  # @return [HTML] borrower app with bootstrap data includes loan and selected rate
-  #
   def new
     bootstrap(
       loan: LoanDashboardPage::LoanPresenter.new(@loan).show,
@@ -22,11 +12,6 @@ class Users::ElectronicSignatureController < Users::BaseController
     end
   end
 
-  #
-  # Update loan data from selected rate, call Docusign to get document for borrower signs into
-  #
-  # @return [HTML] document view
-  #
   def create
     return render nothing: true, status: 200 if Rails.env.test?
 
@@ -53,12 +38,6 @@ class Users::ElectronicSignatureController < Users::BaseController
   end
 
   # GET /electronic_signature/embedded_response
-  #
-  # Callback Docusign will be called after borrower signs completely.
-  #
-  # @return [HTML] loans dashboard of borrower
-  # If loan has co-borrower, this function return a document view for co-borrower
-  # signs into
   def embedded_response
     utility = DocusignRest::Utility.new
 
@@ -79,7 +58,6 @@ class Users::ElectronicSignatureController < Users::BaseController
       end
 
       @loan.submitted!
-      # TODO: why call two services below:
       Docusign::MapEnvelopeToLenderDocument.new(params[:envelope_id], params[:user_id], params[:loan_id]).delay.call
       RatesComparisonServices::Base.new(params[:loan_id], params[:user_id]).call
       render text: utility.breakout_path("/my/dashboard/#{params[:loan_id]}"), content_type: 'text/html'

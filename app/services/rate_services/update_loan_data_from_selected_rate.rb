@@ -1,8 +1,3 @@
-#
-# Module RateServices provides methods to update loan data from selected rate
-#
-# @author Tang Nguyen <tang@mortgageclub.co>
-#
 module RateServices
   class UpdateLoanDataFromSelectedRate
     ORIGINATION_TYPES = ["Loan discount fee", "Loan origination fee", "Processing fee", "Underwriting fee"]

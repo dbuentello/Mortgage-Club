@@ -1,10 +1,5 @@
 require "pdf_forms"
 
-#
-# Module Docusign provides methods to generate uniform
-#
-# @author Tang Nguyen <tang@mortgageclub.co>
-#
 module Docusign
   class CreateEnvelopeService
     UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze

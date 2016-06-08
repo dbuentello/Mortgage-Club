@@ -1,8 +1,3 @@
-#
-# Module ZillowService provides methods to get info of property from Zillow
-#
-# @author Tang Nguyen <tang@mortgageclub.co>
-#
 module ZillowService
   class GetPropertyInfo
     include HTTParty

@@ -1,8 +1,3 @@
-#
-# Class Users::ChecklistsController provides methods for borrower to read signed document
-#
-# @author Tang Nguyen <tang@mortgageclub.co>
-#
 class Users::ChecklistsController < Users::BaseController
   before_action :set_loan, only: [:load_docusign]
   before_action :load_checklist, only: [:update, :load_docusign, :docusign_callback]
@@ -40,7 +35,6 @@ class Users::ChecklistsController < Users::BaseController
     render json: {message: t("errors.iframe_render_error")}, status: 500
   end
 
-  # TODO: not use
   def docusign_callback
     utility = DocusignRest::Utility.new
 

@@ -1,8 +1,3 @@
-#
-# Class PropertyForm provides methods to support updating property info
-#
-# @author Tang Nguyen <tang@mortgageclub.co>
-#
 class PropertyForm
   include ActiveModel::Model
 
