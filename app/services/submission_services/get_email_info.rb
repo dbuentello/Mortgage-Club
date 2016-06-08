@@ -1,3 +1,4 @@
+# For loan member. Get email info for SubmitApplicationToLender service.
 module SubmissionServices
   class GetEmailInfo
     attr_accessor :loan, :loan_member, :staff

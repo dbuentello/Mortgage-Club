@@ -2,6 +2,7 @@ class Users::BorrowersController < Users::BaseController
   before_action :set_loan, only: :update
 
   def update
+    # check if borrower's ssn was changed.
     ssn_was_changed = ssn_was_changed?
     borrower_form = BorrowerForm.new(
       form_params: get_form_params(params[:borrower]), borrower: borrower,
@@ -9,9 +10,9 @@ class Users::BorrowersController < Users::BaseController
     )
 
     if borrower_form.save
-      if applying_with_secondary_borrower?
+      if applying_with_secondary_borrower? # there's a co-borrower
         assign_secondary_borrower_to_loan(secondary_borrower) if update_secondary_borrower
-      else
+      else # remove if there is existing co-borrower
         remove_secondary_borrower
       end
 

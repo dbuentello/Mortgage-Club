@@ -1,11 +1,30 @@
 module CreditReportServices
+  #
+  # Class CreateLiabilities provides creating liabilities from Equifax's response
+  #
+  #
   class CreateLiabilities
+    #
+    # genarate credit report for borrower and co-borrower (in case we have co-borrower)
+    #
+    # @param [Loan] loan
+    # @param [XML] response what we get from Equifax
+    #
+    #
     def self.call(loan, response)
       doc = Nokogiri::XML(response)
       generate_credit_report(loan.borrower, doc)
       generate_credit_report(loan.secondary_borrower, doc) if loan.secondary_borrower
     end
 
+    #
+    # generate credit report for borrower
+    #
+    # @param [Borrower] borrower <description>
+    # @param [XML] response what we get from Equifax
+    #
+    # @return [<type>] <description>
+    #
     def self.generate_credit_report(borrower, doc)
       credit_report = borrower.credit_report || borrower.create_credit_report
       credit_report.update(date: Time.zone.today, score: get_credit_score(doc))

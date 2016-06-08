@@ -1,3 +1,4 @@
+# support NotifyRateAlert and  NotifySignup services.
 module BotNotificationServices
   module ParseData
     def parsed_data(params)

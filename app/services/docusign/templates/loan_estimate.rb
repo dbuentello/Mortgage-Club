@@ -1,6 +1,11 @@
 # rubocop:disable ClassLength
 module Docusign
   module Templates
+    #
+    # Class LoanEstimate provides mapping values from Loan Estimate form.
+    #
+    #
+    #
     class LoanEstimate
       attr_accessor :loan, :property, :borrower, :params
 

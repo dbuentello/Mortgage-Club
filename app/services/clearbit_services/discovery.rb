@@ -1,3 +1,4 @@
+# get company's info from Clearbit
 module ClearbitServices
   class Discovery
     attr_accessor :company_name, :company_info, :response

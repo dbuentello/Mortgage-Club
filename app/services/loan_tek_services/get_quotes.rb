@@ -1,3 +1,4 @@
+# get quotes for borrower (after complete loan's steps).
 module LoanTekServices
   class GetQuotes
     attr_reader :loan, :property, :borrower, :response

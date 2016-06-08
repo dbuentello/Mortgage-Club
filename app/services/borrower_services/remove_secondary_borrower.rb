@@ -1,3 +1,4 @@
+# remove secondary out of loan.
 module BorrowerServices
   class RemoveSecondaryBorrower
     def self.call(current_user, loan, borrower_type)

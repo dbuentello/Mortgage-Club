@@ -1,3 +1,4 @@
+# upload file to S3.
 module DocumentServices
   class UploadFile
     attr_accessor :subject, :current_user, :params, :args

@@ -1,3 +1,4 @@
+# For loan member. Loan member submits a loan application to lender.
 module SubmissionServices
   class SubmitApplicationToLender
     attr_accessor :loan, :staff, :email_subject, :email_content, :error_message

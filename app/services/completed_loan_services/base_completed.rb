@@ -1,3 +1,4 @@
+# check if loan is completed.
 module CompletedLoanServices
   class BaseCompleted
     attr_accessor :loan, :subject_property,
