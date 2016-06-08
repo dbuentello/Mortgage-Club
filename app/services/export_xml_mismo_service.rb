@@ -3,14 +3,13 @@
 require "ox"
 
 class ExportXmlMismoService
-  attr_accessor :loan, :borrower, :subject_property, :primary_property, :credit_report, :params, :doc, :loan_member, :assets, :co_borrower
+  attr_accessor :loan, :borrower, :subject_property, :credit_report, :params, :doc, :loan_member, :assets, :co_borrower
   def initialize(loan, borrower)
     @loan = loan
     @borrower = borrower
     @co_borrower = loan.secondary_borrower
 
     @subject_property = loan.subject_property
-    @primary_property = get_primary_property
     @credit_report = borrower.credit_report
     @loan_member = loan.loans_members_associations.first.loan_member
     @assets = borrower.assets
@@ -30,8 +29,10 @@ class ExportXmlMismoService
 
     root << interviewer_information_node
 
-    credit_report.liabilities.each_with_index do |liability, index|
-      root << liability_node(liability, index)
+    if credit_report.present?
+      credit_report.liabilities.each_with_index do |liability, index|
+        root << liability_node(liability, index)
+      end
     end
 
     root << loan_product_data_node
@@ -62,7 +63,7 @@ class ExportXmlMismoService
 
     date = Ox::Element.new("DATA_VERSION")
     date["_Name"] = "Date"
-    date["_Number"] = DateTime.zone.now.strftime("%Y%m%d")
+    date["_Number"] = Time.zone.now.strftime("%Y%m%d")
     data_information << date
 
     data_version = Ox::Element.new("DATA_VERSION")
@@ -352,26 +353,6 @@ class ExportXmlMismoService
     borrower_element
   end
 
-  def get_primary_property
-    return unless loan.primary_property
-
-    if subject_property_and_primary_property_have_same_address?(loan.primary_property)
-      return loan.subject_property
-    else
-      return loan.primary_property
-    end
-  end
-
-  def subject_property_and_primary_property_have_same_address?(primary_property)
-    return false unless subject_address = subject_property.address
-    return false unless primary_address = primary_property.address
-
-    subject_address.city == primary_address.city &&
-      subject_address.state == primary_address.state &&
-      subject_address.street_address == primary_address.street_address &&
-      subject_address.zip == primary_address.zip
-  end
-
   def get_asset_type(asset_type)
     case asset_type
     when "checkings"
@@ -489,7 +470,7 @@ class ExportXmlMismoService
   def get_age(dob)
     return "" if dob.nil?
 
-    now = DateTime.zone.now
+    now = Time.zone.now
     now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
   end
 
