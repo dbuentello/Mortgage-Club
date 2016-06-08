@@ -1,3 +1,4 @@
+# remove a file from S3
 module DocumentServices
   class RemoveFile
     def self.call(document_id)

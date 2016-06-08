@@ -1,4 +1,5 @@
 # rubocop:disable ClassLength
+# map values to Loan Estimate form.
 module Docusign
   module Templates
     class LoanEstimate

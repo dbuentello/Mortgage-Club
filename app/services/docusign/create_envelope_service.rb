@@ -1,3 +1,5 @@
+# create an envelope and send it to Docusign
+# envelope is a Docusign's term. One envelope is a document which was signed.
 require "pdf_forms"
 
 module Docusign

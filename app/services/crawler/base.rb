@@ -1,3 +1,4 @@
+# base crawler class
 module Crawler
   class Base
     attr_accessor :purpose, :crawler, :purchase_price, :credit_score,

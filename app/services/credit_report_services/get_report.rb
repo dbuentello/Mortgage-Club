@@ -1,3 +1,4 @@
+# call a request to Equifax to get credit report.
 module CreditReportServices
   class GetReport
     # attr_reader :borrower_id, :first_name, :last_name, :ssn,

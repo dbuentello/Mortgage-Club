@@ -1,3 +1,4 @@
+# create liabilities of borrowers.
 module CreditReportServices
   class CreateLiabilities
     def self.call(loan, response)

@@ -1,3 +1,5 @@
+# download an envelope from Docusign.
+# envelope is a Docusign's term. One envelope is a document which was signed.
 module Docusign
   class DownloadDocumentService
     def self.call(envelope_id, filename, document_id)

@@ -1,3 +1,4 @@
+# get data for Refinance Proposal (for Facebook Bot).
 require "quotes_formulas"
 
 module LoanTekServices

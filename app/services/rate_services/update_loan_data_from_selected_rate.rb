@@ -1,3 +1,4 @@
+# after use select a rate, we update rate's info to loan.
 module RateServices
   class UpdateLoanDataFromSelectedRate
     ORIGINATION_TYPES = ["Loan discount fee", "Loan origination fee", "Processing fee", "Underwriting fee"]

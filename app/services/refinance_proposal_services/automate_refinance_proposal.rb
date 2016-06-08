@@ -1,3 +1,4 @@
+# calculate refinance proposal.
 require "finance_formulas"
 
 module RefinanceProposalServices

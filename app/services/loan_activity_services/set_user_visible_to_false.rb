@@ -1,3 +1,4 @@
+# hide activities
 module LoanActivityServices
   class SetUserVisibleToFalse
     def self.call(loan, activity_name)

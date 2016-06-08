@@ -1,3 +1,5 @@
+# create a lender document from Checklist's envelope.
+# envelope is a Docusign's term. One envelope is a document which was signed.
 module Docusign
   class MapChecklistExplanationToLenderDocument
     attr_reader :envelope_id, :user, :checklist, :loan

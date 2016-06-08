@@ -1,3 +1,5 @@
+# create an envelope for checklist  and send it to Docusign (using it at Dashboard).
+# envelope is a Docusign's term. One envelope is a document which was signed.
 require "pdf_forms"
 
 module Docusign

@@ -1,3 +1,4 @@
+# update borrower's employment
 module BorrowerServices
   class UpdateEmployment
     attr_accessor :borrower

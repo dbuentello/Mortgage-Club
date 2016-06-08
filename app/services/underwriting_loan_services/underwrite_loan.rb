@@ -1,3 +1,4 @@
+# underwrite a loan.
 module UnderwritingLoanServices
   class UnderwriteLoan
     attr_accessor :loan, :property, :borrower, :address, :error_messages

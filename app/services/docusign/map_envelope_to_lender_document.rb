@@ -1,3 +1,6 @@
+# create a lender document from Form's envelope.
+# envelope is a Docusign's term. One envelope is a document which was signed.
+
 module Docusign
   class MapEnvelopeToLenderDocument
     attr_reader :envelope_id, :user, :loan

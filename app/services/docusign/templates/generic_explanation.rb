@@ -1,3 +1,4 @@
+# map values to GenericExplanation form.
 module Docusign
   module Templates
     class GenericExplanation

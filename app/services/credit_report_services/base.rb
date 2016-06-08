@@ -1,3 +1,5 @@
+# base class of CreditReport service.
+# call GetReport and CreateLiabilities
 module CreditReportServices
   class Base
     def self.call(loan)
