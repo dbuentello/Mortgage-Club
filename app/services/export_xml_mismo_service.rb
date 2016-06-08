@@ -275,7 +275,7 @@ class ExportXmlMismoService
   def transaction_detail_node
     transaction_detail = Ox::Element.new("TRANSACTION_DETAIL")
 
-    transaction_detail["BorrowerPaidDiscountPointsTotalAmount"] = format("%0.02f", loan.discount_points.to_f)
+    transaction_detail["BorrowerPaidDiscountPointsTotalAmount"] = format("%0.02f", loan.lender_credits.to_f)
     transaction_detail["EstimatedClosingCostsAmount"] = format("%0.02f", loan.estimated_closing_costs.to_f)
 
     transaction_detail
