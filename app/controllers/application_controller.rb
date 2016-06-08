@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
         @loan = InitializeFirstLoanService.new(current_user).call
       end
     end
-    # use pundit to authorize user
+    # use pundit to authorize user. check LoanPolicy
     authorize @loan, :update?
   end
 

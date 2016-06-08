@@ -1,7 +1,7 @@
 class Users::DashboardController < Users::BaseController
   before_action :set_loan, only: [:show]
 
-  # Description of method
+  # show the loan dashboard if the status of loan is not 'new'.
   #
   # @return [HTML] Render borrower_app template (react view) with bootstrap data
   def show
