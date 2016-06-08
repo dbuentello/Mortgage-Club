@@ -21,7 +21,6 @@ module Docusign
       @pdftk = PdfForms.new(ENV.fetch("PDFTK_BIN", "/usr/local/bin/pdftk"), flatten: true)
     end
 
-
     def call(user, loan)
       generates_documents_by_adobe_field_names(loan)
       envelope = generate_envelope(user, loan)
