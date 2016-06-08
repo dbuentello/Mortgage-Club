@@ -1,6 +1,8 @@
-# base class of CreditReport service.
-# call GetReport and CreateLiabilities
 module CreditReportServices
+  #
+  # Class Base provides clearing old credit report and call a request to Equifax
+  #
+  #
   class Base
     def self.call(loan)
       # clear old liabilities

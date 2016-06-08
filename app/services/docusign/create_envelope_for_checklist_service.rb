@@ -1,8 +1,11 @@
-# create an envelope for checklist  and send it to Docusign (using it at Dashboard).
-# envelope is a Docusign's term. One envelope is a document which was signed.
 require "pdf_forms"
 
 module Docusign
+  #
+  # Class CreateEnvelopeForChecklistService provides creating an envelope for checklist and send it to Docusign (using it at Dashboard).
+  # envelope is a Docusign's term. One envelope is a document which was signed.
+  #
+  #
   class CreateEnvelopeForChecklistService
     CHECKLIST_FORM_PATH = "#{Rails.root}/form_templates/generic_explanation.pdf".freeze
     CHECKLIST_FORM_OUTPUT_PATH = "#{Rails.root}/tmp/generic_explanation.pdf".freeze
@@ -13,6 +16,15 @@ module Docusign
       @pdftk = PdfForms.new(ENV.fetch("PDFTK_BIN", "/usr/local/bin/pdftk"))
     end
 
+    #
+    # Make a request to Docusign
+    #
+    # @param [User] user a borrower
+    # @param [Loan] loan a loan
+    # signers who sign envelope
+    #
+    # @return [Object] a Docusign's response
+    #
     def call(user, loan)
       data = Docusign::Templates::GenericExplanation.new(loan).build
       pdftk.get_field_names(CHECKLIST_FORM_PATH)

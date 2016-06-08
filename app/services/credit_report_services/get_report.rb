@@ -1,8 +1,8 @@
-# call a request to Equifax to get credit report.
 module CreditReportServices
+  #
+  # Class GetReport provides getting report from Equifax
+  #
   class GetReport
-    # attr_reader :borrower_id, :first_name, :last_name, :ssn,
-    #             :street_address, :city, :state, :zipcode
     attr_accessor :borrower, :co_borrower, :borrower_address, :co_borrower_address
 
     URL = "https://emscert.equifax.com/emsws/services/post/MergeCreditWWW"
@@ -17,6 +17,12 @@ module CreditReportServices
       end
     end
 
+    #
+    # Map borrower's values to single_xml_string
+    # Map values of borrower and co-borrower to joint_xml_string
+    #
+    # @return [<type>] <description>
+    #
     def call
       uri = URI.parse(URL)
       request = Net::HTTP::Post.new(uri.path)

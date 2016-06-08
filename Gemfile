@@ -154,6 +154,8 @@ group :development, :test do
 
   # Pretty print your Ruby objects with style
   gem 'awesome_print'
+
+  gem 'yard'
 end
 
 group :test do

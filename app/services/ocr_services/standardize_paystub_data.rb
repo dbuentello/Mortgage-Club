@@ -1,6 +1,11 @@
 require 'fuzzystringmatch'
 
 module OcrServices
+  #
+  # Class StandardizePaystubData provides standardlizing OCR's data.
+  # standardlize employer name, employer full address, employer street address, period, salary and ytd_salary.
+  #
+  #
   class StandardizePaystubData
     attr_reader :ocr_data, :borrower_id
 
@@ -42,6 +47,15 @@ module OcrServices
       return second_line if second_line.present?
     end
 
+    #
+    # Use FuzzyStringMatch to compare two strings.
+    # Return nil if these two string have score lass then 0.97
+    #
+    # @param [<type>] first_address <description>
+    # @param [<type>] last_address <description>
+    #
+    # @return [<type>] <description>
+    #
     def employer_address_line(first_address, last_address)
       return if percentage_similarity(first_address, last_address) < 0.97
 

@@ -1,6 +1,10 @@
-# map values to GenericExplanation form.
 module Docusign
   module Templates
+    #
+    # Class GenericExplanation provides mapping values to GenericExplanation form.
+    #
+    #
+    #
     class GenericExplanation
       attr_accessor :loan, :borrower, :params
 

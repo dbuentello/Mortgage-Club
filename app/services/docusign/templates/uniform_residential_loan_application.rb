@@ -1,7 +1,11 @@
 # rubocop:disable ClassLength
-# # map values to Uniform Residential form.
 module Docusign
   module Templates
+    #
+    # Class UniformResidentialLoanApplication provides mapping values to Uniform Residential form.
+    #
+    #
+    #
     class UniformResidentialLoanApplication
       include ActionView::Helpers::NumberHelper
       attr_accessor :loan, :borrower, :subject_property, :primary_property, :credit_report, :params

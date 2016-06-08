@@ -1,7 +1,11 @@
-# calculate refinance proposal.
 require "finance_formulas"
 
 module RefinanceProposalServices
+  #
+  # Class AutomateRefinanceProposal calculates refinance proposal.
+  # See formulas at: https://docs.google.com/spreadsheets/d/1O0uIGjBQ3oOlgvRKSJuLc7Cc7ywMSr02D8EyKKp6XXU/edit?usp=sharing
+  #
+  #
   class AutomateRefinanceProposal
     include FinanceFormulas
     attr_accessor :old_loan_amount, :periods, :original_loan_date,
@@ -11,7 +15,7 @@ module RefinanceProposalServices
                   :start_due_date, :current_home_value
     LTV = 0.8
 
-    # periods: must be converted to months
+    # periods: must be converted to months.
     # number_of_months: for instance, I want to get loan amount of the tenth month.
     def initialize(args)
       @old_loan_amount = args[:old_loan_amount].to_f
@@ -28,6 +32,12 @@ module RefinanceProposalServices
       @start_due_date = (Time.zone.now + 2.months).beginning_of_month
     end
 
+    #
+    # Return calculated values.
+    #
+    #
+    # @return [Hash] a hash which contains calculated values.
+    #
     def call
       {
         current_mortgage_balance: current_mortgage_balance,
@@ -56,6 +66,7 @@ module RefinanceProposalServices
     end
 
     # rate is monthly rate. It should be divided by 12
+    # See formulas at: https://docs.google.com/spreadsheets/d/1O0uIGjBQ3oOlgvRKSJuLc7Cc7ywMSr02D8EyKKp6XXU/edit?usp=sharing
     def ending_balance(rate, amount, number_of_months = nil)
       number_of_months ||= periods
       monthly_payment = get_monthly_payment(rate, amount)
@@ -68,6 +79,7 @@ module RefinanceProposalServices
       ending_balance.round(2)
     end
 
+    # See formulas at: https://docs.google.com/spreadsheets/d/1O0uIGjBQ3oOlgvRKSJuLc7Cc7ywMSr02D8EyKKp6XXU/edit?usp=sharing
     def current_mortgage_balance
       # -1 because we want to get loan_balance which is a previous ending_balance
       start_date = (original_loan_date + 2.months).beginning_of_month
@@ -75,6 +87,7 @@ module RefinanceProposalServices
       ending_balance(old_interest_rate, old_loan_amount, number_of_months)
     end
 
+    # See formulas at: https://docs.google.com/spreadsheets/d/1O0uIGjBQ3oOlgvRKSJuLc7Cc7ywMSr02D8EyKKp6XXU/edit?usp=sharing
     def get_monthly_payment(rate, amount)
       (-pmt(rate, periods, amount)).round(2)
     end
@@ -88,14 +101,15 @@ module RefinanceProposalServices
     end
 
     def new_loan_start_date
-      # 5/7/2016
       @new_loan_start_date ||= (Time.zone.now + 1.month).strftime('%m/%d/%Y')
     end
 
+    # See formulas at: https://docs.google.com/spreadsheets/d/1O0uIGjBQ3oOlgvRKSJuLc7Cc7ywMSr02D8EyKKp6XXU/edit?usp=sharing
     def net_closing_costs
       lender_credit + estimated_closing_costs
     end
 
+    # See formulas at: https://docs.google.com/spreadsheets/d/1O0uIGjBQ3oOlgvRKSJuLc7Cc7ywMSr02D8EyKKp6XXU/edit?usp=sharing
     def total_interest(rate, amount, number_of_months = nil)
       number_of_months ||= periods
       monthly_payment = get_monthly_payment(rate, amount)
@@ -110,6 +124,7 @@ module RefinanceProposalServices
       total_interest.round(2)
     end
 
+    # See formulas at: https://docs.google.com/spreadsheets/d/1O0uIGjBQ3oOlgvRKSJuLc7Cc7ywMSr02D8EyKKp6XXU/edit?usp=sharing
     def get_savings(end_due_date)
       original_start_due_date = (original_loan_date + 2.months).beginning_of_month
       savings = total_interest(old_interest_rate, old_loan_amount, get_number_of_months(original_start_due_date, end_due_date)) -
@@ -139,18 +154,22 @@ module RefinanceProposalServices
       ((end_date.year * 12 + end_date.month) - (start_date.year * 12 + start_date.month)) + 1
     end
 
+    # See formulas at: https://docs.google.com/spreadsheets/d/1O0uIGjBQ3oOlgvRKSJuLc7Cc7ywMSr02D8EyKKp6XXU/edit?usp=sharing
     def loan_amount_cash_out
       current_home_value.to_f * LTV
     end
 
+    # See formulas at: https://docs.google.com/spreadsheets/d/1O0uIGjBQ3oOlgvRKSJuLc7Cc7ywMSr02D8EyKKp6XXU/edit?usp=sharing
     def cash_out
       (loan_amount_cash_out - current_mortgage_balance).to_i
     end
 
+    # See formulas at: https://docs.google.com/spreadsheets/d/1O0uIGjBQ3oOlgvRKSJuLc7Cc7ywMSr02D8EyKKp6XXU/edit?usp=sharing
     def monthly_payment_cash_out
       get_monthly_payment(new_interest_rate_cash_out, loan_amount_cash_out)
     end
 
+    # See formulas at: https://docs.google.com/spreadsheets/d/1O0uIGjBQ3oOlgvRKSJuLc7Cc7ywMSr02D8EyKKp6XXU/edit?usp=sharing
     def net_closing_costs_cash_out
       lender_credit_cashout + estimated_closing_costs_cash_out
     end
