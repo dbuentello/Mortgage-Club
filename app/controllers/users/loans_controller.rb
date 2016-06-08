@@ -2,6 +2,11 @@ class Users::LoansController < Users::BaseController
   before_action :set_loan, only: [:edit, :update, :destroy, :show, :update_income]
   before_action :load_liabilities, only: [:edit, :show]
 
+  # the page is redirected after user login to system.
+  # If user has no loan, Sys will create a First loan for user.
+  # The first loan could be created by the data from initial quotes ( /quotes )
+  #
+  # @return [Object] bootstrap data and borrower_app template
   def index
     if current_user.loans.size < 1
       loan = InitializeFirstLoanService.new(current_user, cookies[:initial_quotes]).call
@@ -11,7 +16,7 @@ class Users::LoansController < Users::BaseController
 
     ref_url = "#{url_for(only_path: false)}?refcode=#{current_user.id}"
     invites = Invite.where(sender_id: current_user.id).order(created_at: :desc)
-
+    byebug
     bootstrap(
       loans: LoanListPage::LoansPresenter.new(current_user.loans).show,
       invites: LoanListPage::InvitesPresenter.new(invites).show,
@@ -29,6 +34,7 @@ class Users::LoansController < Users::BaseController
 
   def get_common_info
     list = {}
+    byebug
     info = current_user.loans.joins(properties: :address).where("properties.is_subject = true".freeze).pluck("loans.id".freeze, "addresses.street_address".freeze, "addresses.city".freeze, "addresses.state".freeze, "addresses.zip".freeze, "properties.zillow_image_url".freeze)
 
     info.each do |i|

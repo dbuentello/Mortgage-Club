@@ -32,6 +32,11 @@ class ApplicationController < ActionController::Base
     render "errors/403.html", status: 403
   end
 
+
+  # Find loan by loan_id (co_borrower/secondary_borrower) or id ( borrower )
+  # first time co_borrower log in the system, will get loan from borrower.
+  #
+  # @return [Object] @loan
   def set_loan
     @loan ||= Loan.find(params[:loan_id] || params[:id])
     @borrower_type ||= :borrower
