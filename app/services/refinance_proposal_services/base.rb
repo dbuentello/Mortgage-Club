@@ -1,4 +1,9 @@
 module RefinanceProposalServices
+  #
+  # Class Base provides data for Facebook bot.
+  # It gets data from Reil, LoanTek, Zillow and it also calulcates refinance proposal.
+  #
+  #
   class Base
     attr_reader :reil_data
     LENDER_AVG_OVERLAY = 0.0025
@@ -47,6 +52,12 @@ module RefinanceProposalServices
 
     private
 
+    #
+    # Parse data from Reil
+    #
+    #
+    # @return [Hash] A hash which contains Reil's data.
+    #
     def get_data_from_reil
       return unless reil_data["mortgage_histories"]
       return unless mortgage_history = reil_data["mortgage_histories"].first
@@ -95,6 +106,7 @@ module RefinanceProposalServices
     def get_original_interest_rate(original_loan_date)
       return unless avg_rate_lock_in_date = get_avg_rate_lock_in_date(original_loan_date)
 
+      # Billy uses it to round up a number.
       ((avg_rate_lock_in_date.to_f / 100 + LENDER_AVG_OVERLAY) / 0.00125) * 0.00125
     end
 

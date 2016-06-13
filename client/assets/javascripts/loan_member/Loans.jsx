@@ -117,11 +117,18 @@ var Loans = React.createClass({
                           </td>
                           <td>{this.formatTime(loan.created_at)}</td>
                           <td>{this.formatTime(loan.updated_at)}</td>
-                          <td><span>
-                          <a className='linkTypeReversed' href={"/loan_members/dashboard/" + loan.id}
-                            data-method='get'><i className="icon-pencil7"></i></a>
-                          </span></td>
-
+                          <td>
+                            <span>
+                              <a className='linkTypeReversed' href={"/loan_members/dashboard/" + loan.id}
+                              data-method='get'><i className="icon-pencil7"></i>
+                              </a>
+                            </span>
+                            <span>
+                              <a className='linkTypeReversed' target="_blank" href={"/loan_members/loans/" + loan.id + "/export_xml"}
+                              data-method='get'><i className="icon-file-download"></i>
+                              </a>
+                            </span>
+                          </td>
                         </tr>
                       )
                     }, this)

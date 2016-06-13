@@ -1,4 +1,9 @@
 module OcrServices
+  #
+  # Class UpdatePaystubOcr provides update OCR's log
+  # We need to know which paystub was scanned by OCR (we have two paystubs)
+  #
+  #
   class UpdatePaystubOcr
     attr_accessor :data, :borrower_id, :ocr_data, :order_of_paystub
 

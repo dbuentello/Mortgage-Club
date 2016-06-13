@@ -1,40 +1,34 @@
 class Users::BorrowersController < Users::BaseController
-  before_action :set_loan, only: [:update]
+  before_action :set_loan, only: :update
 
-  # Update borrower info. Used by borrower form.
-  # check BorrowerForm to understand more about saving borrower form.
-  #
-  # @return [JSON] loan and liabilities (200) or errors (500)
-  #   if has errors when save borrower form
   def update
+    # check if borrower's ssn was changed.
+    ssn_was_changed = ssn_was_changed?
     borrower_form = BorrowerForm.new(
       form_params: get_form_params(params[:borrower]), borrower: borrower,
       loan: @loan, is_primary_borrower: true
     )
+
     if borrower_form.save
-      get_credit_report(borrower)
-      byebug
-      if applying_with_secondary_borrower?
+      if applying_with_secondary_borrower? # there's a co-borrower
         assign_secondary_borrower_to_loan(secondary_borrower) if update_secondary_borrower
-      else
+      else # remove if there is existing co-borrower
         remove_secondary_borrower
       end
 
       @loan.reload
       borrower.reload
-      # TODO: move get_liabilities to borrower model
+
+      # only getting new credit report if ssn was changed
+      get_credit_report if ssn_was_changed
+
       render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show, liabilities: get_liabilities(borrower)}
     else
       render json: {error: borrower_form.errors.full_messages}, status: 500
     end
   end
 
-  # Get company info by using Full contact services
-  #  /company_info : please check routes
-  #
-  # @return [JSON] company_info
   def get_company_info
-    # TODO : need to move another controller.
     render json: {company_info: FullContactServices::GetCompanyInfo.new(params[:domain]).call}
   end
 
@@ -45,7 +39,7 @@ class Users::BorrowersController < Users::BaseController
       form_params: get_form_params(params[:secondary_borrower]),
       borrower: secondary_borrower, loan: @loan
     )
-    get_credit_report(secondary_borrower, true) if secondary_borrower_form.save
+    secondary_borrower_form.save
   end
 
   def assign_secondary_borrower_to_loan(secondary_borrower)
@@ -79,17 +73,19 @@ class Users::BorrowersController < Users::BaseController
     }
   end
 
-  def get_credit_report(borrower, run_in_background = false)
-    return unless borrower.current_address && borrower.current_address.address
-
-    if run_in_background
-      CreditReportServices::Base.delay.call(borrower, borrower.current_address.address)
-    else
-      CreditReportServices::Base.call(borrower, borrower.current_address.address)
-    end
+  def get_credit_report
+    CreditReportServices::Base.call(@loan)
   end
-  # TODO: need to move to model
+
   def get_liabilities(borrower)
+    return [] unless borrower.credit_report
+
     borrower.credit_report.liabilities
+  end
+
+  def ssn_was_changed?
+    return true if borrower.ssn != params[:borrower][:borrower][:ssn]
+    return true if @loan.secondary_borrower && @loan.secondary_borrower.ssn != params[:secondary_borrower][:borrower][:ssn]
+    false
   end
 end

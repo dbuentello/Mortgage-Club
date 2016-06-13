@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe CreditReportServices::GetReport do
+  let(:loan) { FactoryGirl.create(:loan) }
   describe ".call" do
     context "when Equifax returns data successfully" do
       let(:args) do
@@ -18,17 +19,8 @@ describe CreditReportServices::GetReport do
 
       it "returns a correct result" do
         VCR.use_cassette("get non-error credit report from Equifax") do
-          service = described_class.new(args)
+          service = described_class.new(loan.borrower)
           expect(service.call).not_to be_nil
-        end
-      end
-    end
-
-    context "when Equifax returns error" do
-      it "returns nil" do
-        VCR.use_cassette("get error credit report from Equifax") do
-          service = described_class.new({})
-          expect(service.call).to be_nil
         end
       end
     end

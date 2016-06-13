@@ -1,3 +1,4 @@
+# genarate url of file from S3 and set expiration time.
 module Amazon
   class GetUrlService
     def self.call(attachment, expires = Document::EXPIRE_VIEW_SECONDS.seconds, secure = true)

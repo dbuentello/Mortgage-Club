@@ -1,3 +1,4 @@
+# calculate processing time of loan member's activities
 module LoanActivityServices
   class CalculateProcessingTime
     attr_accessor :old_activity, :new_activity, :old_activity_status, :new_activity_status

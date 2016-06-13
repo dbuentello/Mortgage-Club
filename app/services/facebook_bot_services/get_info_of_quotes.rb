@@ -1,3 +1,4 @@
+# get quotes for Facebook Bot
 require "quotes_formulas"
 
 module FacebookBotServices

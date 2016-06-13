@@ -111,7 +111,9 @@ gem 'devise-async'
 
 gem 'pdf-forms'
 
-gem "recaptcha", require: "recaptcha/rails"
+gem 'recaptcha', require: 'recaptcha/rails'
+
+gem 'ox'
 
 group :development do
   # just run bundle exec erd
@@ -152,6 +154,8 @@ group :development, :test do
 
   # Pretty print your Ruby objects with style
   gem 'awesome_print'
+
+  gem 'yard'
 end
 
 group :test do

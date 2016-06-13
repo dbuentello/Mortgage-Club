@@ -139,7 +139,7 @@ When(/^I am at loan member dashboard$/) do
       And there is a loans members association with the loan above and with the loan member above and with the loan members title above
       And there is a checklist_upload with the loan above
       And I login as "loan_member@mortgageclub.co" with password "secretpass"
-    Then I click link with div ".linkTypeReversed"
+    Then I click on the first element ".linkTypeReversed"
   )
 end
 When(/^I am at loan list page$/) do

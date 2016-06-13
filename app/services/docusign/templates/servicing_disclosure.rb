@@ -1,5 +1,10 @@
 module Docusign
   module Templates
+    #
+    # Class ServicingDisclosure provides mapping values to Servicing Disclosure form.
+    #
+    #
+    #
     class ServicingDisclosure
       attr_accessor :loan, :params
 

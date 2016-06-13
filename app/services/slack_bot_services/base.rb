@@ -1,4 +1,8 @@
 module SlackBotServices
+  #
+  # Class Base gets Slack's params and call a possible class.
+  #
+  #
   class Base
     attr_reader :service, :params
 

@@ -1,4 +1,8 @@
 module OcrServices
+  #
+  # Class ParsePaystubFile provides parsing OCR's result.
+  #
+  #
   class ParsePaystubFile
     def self.call(raw_post)
       {

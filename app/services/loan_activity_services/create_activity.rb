@@ -1,3 +1,4 @@
+# create an activity
 module LoanActivityServices
   class CreateActivity
     attr_accessor :error_message

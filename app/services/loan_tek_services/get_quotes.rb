@@ -1,8 +1,4 @@
-#
-# Module LoanTekServices provides methods to get, process and return list rates from LoanTek
-#
-# @author Tang Nguyen <tang@mortgageclub.co>
-#
+# get quotes for borrower (after complete loan's steps).
 module LoanTekServices
   class GetQuotes
     attr_reader :loan, :property, :borrower, :response

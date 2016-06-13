@@ -1,3 +1,4 @@
+# assign secondary borrower to loan.
 module BorrowerServices
   class AssignSecondaryBorrowerToLoan
     attr_accessor :loan, :owner, :secondary_borrower, :secondary_params
