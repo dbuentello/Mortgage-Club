@@ -1,3 +1,7 @@
+/**
+ * done page is shown when user finish all forms.
+ */
+
 var _ = require('lodash');
 var React = require('react/addons');
 

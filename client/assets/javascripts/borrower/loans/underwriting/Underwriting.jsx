@@ -1,3 +1,7 @@
+/**
+ * underwriting page to show percent of loading
+ */
+
 var _ = require('lodash');
 var React = require('react/addons');
 
