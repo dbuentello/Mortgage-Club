@@ -1,3 +1,7 @@
+/**
+ * recent loan activities.
+ */
+
 var _ = require('lodash');
 var React = require('react/addons');
 
@@ -35,4 +39,3 @@ var RecentLoanActivities = React.createClass({
 });
 
 module.exports = RecentLoanActivities;
-

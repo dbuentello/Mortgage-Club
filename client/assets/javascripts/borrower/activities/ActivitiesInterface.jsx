@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var React = require('react/addons');
 /**
- * TODO: Not Used
+ * TODO: UnUsed
  */
 var ActivitiesInterface = React.createClass({
   getInitialState: function() {
