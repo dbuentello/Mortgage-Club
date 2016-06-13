@@ -1,4 +1,9 @@
 module OcrServices
+  #
+  # Class ProcessPaystub provides calling ParsePaystubFile, UpdatePaystubOcr, StandardizePaystubData and UpdateEmployment
+  # It's a base class of OCR.
+  #
+  #
   class ProcessPaystub
     def self.call(raw_post)
       data = OcrServices::ParsePaystubFile.call(raw_post)

@@ -6,6 +6,11 @@ require "pdf_forms"
 # @author Tang Nguyen <tang@mortgageclub.co>
 #
 module Docusign
+  #
+  # Class CreateEnvelopeService provides creating an envelope and send it to Docusign.
+  # envelope is a Docusign's term. One envelope is a document which was signed.
+  #
+  #
   class CreateEnvelopeService
     UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
     FORM_4506_PATH = "#{Rails.root}/form_templates/form4506t.pdf".freeze
@@ -29,12 +34,27 @@ module Docusign
       envelope
     end
 
+    #
+    # Map value to Adobe's PDFs
+    #
+    # @param [Loan] loan
+    #
+    #
     def generates_documents_by_adobe_field_names(loan)
       generate_uniform(loan)
       generate_form_4506
       generate_form_certification
     end
 
+    #
+    # Make a request to Docusign
+    #
+    # @param [User] user a borrower
+    # @param [Loan] loan a loan
+    # signers who sign envelope
+    #
+    # @return [Object] a Docusign's response
+    #
     def generate_envelope(user, loan)
       DocusignRest::Client.new.create_envelope_from_document(
         status: "sent",
@@ -59,22 +79,41 @@ module Docusign
 
     private
 
+    #
+    # Get uniform's data and map to PDF file.
+    #
     def generate_uniform(loan)
       data = Docusign::Templates::UniformResidentialLoanApplication.new(loan).build
       pdftk.get_field_names(UNIFORM_PATH)
       pdftk.fill_form(UNIFORM_PATH, "tmp/uniform.pdf", data)
     end
 
+    #
+    # Get form 4506's data and map to PDF file.
+    #
     def generate_form_4506
       pdftk.get_field_names(FORM_4506_PATH)
       pdftk.fill_form(FORM_4506_PATH, "tmp/form4506t.pdf")
     end
 
+    #
+    # Get form certification's data and map to PDF file.
+    #
     def generate_form_certification
       pdftk.get_field_names(BORROWER_CERTIFICATION_PATH)
       pdftk.fill_form(BORROWER_CERTIFICATION_PATH, "tmp/certification.pdf")
     end
 
+    #
+    # Build a hash which contains signers
+    #
+    # @param [User] user
+    # @param [Loan] loan
+    #
+    # @return [Hash] return signers which contains signers' info.
+    # signers is person who sign envelope.
+    # envelope is a Docusign's term. One envelope is a document which was signed.
+    #
     def build_signers(user, loan)
       signers =
         [

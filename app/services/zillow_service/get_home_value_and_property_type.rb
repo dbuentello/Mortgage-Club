@@ -30,19 +30,19 @@ module ZillowService
     end
 
     def self.get_current_home_value(response)
-      return unless response["searchresults"] && response["searchresults"]["response"]
-      data = response["searchresults"]["response"]["results"]["result"][0] || response["searchresults"]["response"]["results"]["result"]
+      return unless response["SearchResults:searchresults"] && response["SearchResults:searchresults"]["response"]
+      data = response["SearchResults:searchresults"]["response"]["results"]["result"][0] || response["SearchResults:searchresults"]["response"]["results"]["result"]
       data["zestimate"]["amount"]["__content__"].to_i if data["zestimate"]
     end
 
     def self.get_property_type(response)
-      return unless response["searchresults"] && response["searchresults"]["response"]
-      data = response["searchresults"]["response"]["results"]["result"][0] || response["searchresults"]["response"]["results"]["result"]
+      return unless response["SearchResults:searchresults"] && response["SearchResults:searchresults"]["response"]
+      data = response["SearchResults:searchresults"]["response"]["results"]["result"][0] || response["SearchResults:searchresults"]["response"]["results"]["result"]
       USE_CODE.fetch(data["useCode"], nil)
     end
 
     def self.success?(response)
-      response["searchresults"]["message"]["code"] == "0"
+      response["SearchResults:searchresults"]["message"]["code"] == "0"
     end
   end
 end

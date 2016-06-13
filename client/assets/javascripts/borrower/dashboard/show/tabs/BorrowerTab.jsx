@@ -41,6 +41,45 @@ var BorrowerTab = React.createClass({
                 )
               }, this)
             }
+            {
+              _.map(this.props.coBorrowerDocuments, function(document) {
+                return (
+                  <tr key={document.id}>
+                    <td width="7%"><img className="img-responsive" src={document.file_icon_url} /></td>
+                    <td width="22%">
+                      <span>{document.original_filename == null ? document.attachment_file_name : document.original_filename}</span>
+                    </td>
+                    <td width="15%">{document.user.to_s}</td>
+                    <td width="36%">{document.description}</td>
+                    <td width="15%">{this.isoToUsDate(document.updated_at)}</td>
+                    <td width="5%">
+                      <a href={this.getDownloadUrl(document.id)} download><i className="iconDownload"></i></a>
+                    </td>
+                  </tr>
+                )
+              }, this)
+            }
+            {this.props.coBorrower != null
+              ?
+              _.map(this.props.coBorrower.documents, function(document) {
+                return (
+                  <tr key={document.id}>
+                    <td width="7%"><img className="img-responsive" src={document.file_icon_url} /></td>
+                    <td width="22%">
+                      <span>{document.original_filename == null ? document.attachment_file_name : document.original_filename}</span>
+                    </td>
+                    <td width="15%">{this.props.coBorrower.user.to_s}</td>
+                    <td width="36%">{document.description}</td>
+                    <td width="15%">{this.isoToUsDate(document.updated_at)}</td>
+                    <td width="5%">
+                      <a href={this.getDownloadUrl(document.id)} download><i className="iconDownload"></i></a>
+                    </td>
+                  </tr>
+                )
+              }, this)
+              :
+              null
+            }
             </tbody>
           </table>
         </div>

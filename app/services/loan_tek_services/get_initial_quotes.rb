@@ -1,3 +1,4 @@
+# get initial quotes.
 module LoanTekServices
   class GetInitialQuotes
     attr_accessor :info

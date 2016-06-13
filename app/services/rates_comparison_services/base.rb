@@ -1,3 +1,4 @@
+# for loan member. We get rates from Zillow, Lending Tree, Google and Lenda and compare their rates with our rate.
 module RatesComparisonServices
   class Base
     attr_reader :loan, :property, :borrower

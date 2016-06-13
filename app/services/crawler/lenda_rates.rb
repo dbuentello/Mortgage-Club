@@ -1,3 +1,4 @@
+# a crawler for lenda rates.
 require 'capybara'
 require 'capybara/poltergeist'
 

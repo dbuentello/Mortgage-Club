@@ -1,8 +1,4 @@
-#
-# Module RateServices provides methods to update loan data from selected rate
-#
-# @author Tang Nguyen <tang@mortgageclub.co>
-#
+# after use select a rate, we update rate's info to loan.
 module RateServices
   class UpdateLoanDataFromSelectedRate
     ORIGINATION_TYPES = ["Loan discount fee", "Loan origination fee", "Processing fee", "Underwriting fee"]
@@ -27,6 +23,7 @@ module RateServices
         l.lender_credits = quote[:lender_credits].to_f
         l.loan_type = quote[:loan_type] ? quote[:loan_type].capitalize : nil
         l.estimated_closing_costs = quote[:total_closing_cost].to_f
+        l.pmi_monthly_premium_amount = quote[:pmi_monthly_premium_amount].to_f
         l.save
       end
     rescue ActiveRecord::RecordNotFound

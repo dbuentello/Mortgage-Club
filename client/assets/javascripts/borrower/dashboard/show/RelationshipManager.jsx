@@ -1,3 +1,7 @@
+/**
+ * show information of loan member.
+ */
+
 var React = require('react/addons');
 
 var RecentLoanActivities = require('./RecentLoanActivities');

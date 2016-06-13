@@ -1,3 +1,9 @@
+/**
+ * Show loan's information, checklist, file ...
+ * if loan's status is not 'new'
+ * TODO: refactor hardcode mess ( modallink viewloan and delete loan)
+ */
+
 var _ = require('lodash');
 var React = require('react/addons');
 
@@ -31,7 +37,7 @@ var Dashboard = React.createClass({
       });
     }.bind(this));
   },
-
+  // TODO: should remove. Unused
   destroyLoan: function() {
     $.ajax({
       url: '/loans/' + this.props.bootstrapData.loan.id,
@@ -59,6 +65,7 @@ var Dashboard = React.createClass({
     var propertyDocuments = this.props.bootstrapData.property_documents;
     var loanDocuments = this.props.bootstrapData.loan_documents;
     var borrowerDocuments = this.props.bootstrapData.borrower_documents;
+    var coBorrower = this.props.bootstrapData.loan.secondary_borrower;
     var closingDocuments = this.props.bootstrapData.closing_documents;
     var manager = this.props.bootstrapData.manager;
     var checklists = this.props.bootstrapData.checklists;
@@ -85,6 +92,7 @@ var Dashboard = React.createClass({
               }
               <p>Status: {loan.pretty_status}</p>
             </div>
+
             <div className='col-md-3'>
               <ModalLink
                 id="viewLoan"
@@ -152,8 +160,9 @@ var Dashboard = React.createClass({
                   <PropertyTab propertyDocuments={propertyDocuments}></PropertyTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="borrower">
-                  <BorrowerTab borrowerDocuments={borrowerDocuments}></BorrowerTab>
+                  <BorrowerTab borrowerDocuments={borrowerDocuments} coBorrower={coBorrower}></BorrowerTab>
                 </div>
+
                 <div role="tabpanel" className="tab-pane fade" id="loan">
                   <LoanTab loanDocuments={loanDocuments}></LoanTab>
                 </div>

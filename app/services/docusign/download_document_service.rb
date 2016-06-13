@@ -1,4 +1,10 @@
 module Docusign
+  #
+  # Class DownloadDocumentService provides downloading an envelope from Docusign.
+  # envelope is a Docusign's term. One envelope is a document which was signed.
+  #
+  #
+  #
   class DownloadDocumentService
     def self.call(envelope_id, filename, document_id)
       path_to_file = "#{Rails.root}/tmp/#{filename}.pdf"

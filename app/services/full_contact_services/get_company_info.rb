@@ -1,3 +1,4 @@
+# get company info from FullContact API
 module FullContactServices
   class GetCompanyInfo
     attr_reader :domain

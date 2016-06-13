@@ -175,7 +175,8 @@ var FormDocuments = React.createClass({
                     maxSize={10000000}
                     customParams={customParams}
                     supportOtherDescription={false}
-                    removeSuccessCallback={this.reloadOtherDocuments}/>
+                    removeSuccessCallback={this.reloadOtherDocuments}
+                    editMode={this.props.editMode}/>
                 </div>
               )
             }, this)
@@ -191,7 +192,8 @@ var FormDocuments = React.createClass({
                     checked={this.state.is_file_taxes_jointly}
                     keyName="is_file_taxes_jointly"
                     editable={true}
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    editMode={this.props.editMode}/>
                 </div>
               </div>
             : null
@@ -231,7 +233,8 @@ var FormDocuments = React.createClass({
                             customParams={customParams}
                             supportOtherDescription={co_borrower_upload_fields[key].customDescription}
                             uploadSuccessCallback={this.afterUploadingDocumentCoBorrower}
-                            removeSuccessCallback={this.afterRemovingDocumentCoBorrower}/>
+                            removeSuccessCallback={this.afterRemovingDocumentCoBorrower}
+                            editMode={this.props.editMode}/>
                         </div>
                       )
                     }
