@@ -1,3 +1,9 @@
+/**
+ * Show loan's information, checklist, file ...
+ * if loan's status is not 'new'
+ * TODO: refactor hardcode mess ( modallink viewloan and delete loan)
+ */
+
 var _ = require('lodash');
 var React = require('react/addons');
 
@@ -31,7 +37,7 @@ var Dashboard = React.createClass({
       });
     }.bind(this));
   },
-
+  // TODO: should remove. Unused
   destroyLoan: function() {
     $.ajax({
       url: '/loans/' + this.props.bootstrapData.loan.id,
@@ -85,6 +91,7 @@ var Dashboard = React.createClass({
               }
               <p>Status: {loan.pretty_status}</p>
             </div>
+
             <div className='col-md-3'>
               <ModalLink
                 id="viewLoan"
