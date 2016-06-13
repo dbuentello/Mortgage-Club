@@ -1,3 +1,6 @@
+/**
+ * Component: Bootstrap Modal
+ */
 var React = require('react/addons');
 
 /**

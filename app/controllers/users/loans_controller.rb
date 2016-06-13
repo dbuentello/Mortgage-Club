@@ -16,7 +16,7 @@ class Users::LoansController < Users::BaseController
     end
     ref_url = "#{url_for(only_path: false)}?refcode=#{current_user.id}"
     invites = Invite.where(sender_id: current_user.id).order(created_at: :desc)
-    byebug
+
     bootstrap(
       loans: LoanListPage::LoansPresenter.new(current_user.loans).show,
       invites: LoanListPage::InvitesPresenter.new(invites).show,
@@ -37,7 +37,7 @@ class Users::LoansController < Users::BaseController
   # @return [array] list address info and zillow image url
   def get_common_info
     list = {}
-    byebug
+
     info = current_user.loans.joins(properties: :address).where("properties.is_subject = true".freeze).pluck("loans.id".freeze, "addresses.street_address".freeze, "addresses.city".freeze, "addresses.state".freeze, "addresses.zip".freeze, "properties.zillow_image_url".freeze)
 
     info.each do |i|

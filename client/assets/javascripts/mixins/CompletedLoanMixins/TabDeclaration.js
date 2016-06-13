@@ -1,4 +1,8 @@
 var TabDeclaration = {
+  /**
+   * Check tab declaration is completed or not
+   * @type {boolean}
+   */
   declarationCompleted: function(loan){
     var borrower = loan.borrower;
     var declaration = borrower.declaration;

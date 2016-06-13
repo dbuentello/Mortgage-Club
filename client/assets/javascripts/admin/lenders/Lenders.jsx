@@ -1,3 +1,6 @@
+/**
+ * Manage list lenders
+ */
 var React = require('react/addons');
 
 var Lenders = React.createClass({

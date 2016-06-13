@@ -1,3 +1,6 @@
+/**
+ * Handle change event of element
+ */
 var TextFormatMixin = require('./TextFormatMixin');
 
 var UpdateChangeMixin = {

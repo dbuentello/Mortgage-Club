@@ -1,6 +1,7 @@
 
 /**
- * # MultiselectMixin
+ * Used in MultiselectField, but this component have not used yet
+ * TODO: UNUSED CODE
  */
 var MultiselectMixin = {
   getNamesFromValues: function(values, options) {

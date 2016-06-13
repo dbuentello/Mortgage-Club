@@ -1,3 +1,6 @@
+/**
+ * Format library helps dev format text as currency, percentage, ...
+ */
 var _ = require('lodash');
 var moment = require('moment');
 

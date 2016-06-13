@@ -1,3 +1,6 @@
+/**
+ * Show loading gif
+ */
 var React = require('react/addons');
 var LoaderMixin = {
   getInitialState: function() {

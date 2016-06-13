@@ -1,3 +1,6 @@
+/**
+ * Manage faqs (show in the rightbar of dashboard)
+ */
 var _ = require('lodash');
 var React = require('react/addons');
 var Form = require('./Form');

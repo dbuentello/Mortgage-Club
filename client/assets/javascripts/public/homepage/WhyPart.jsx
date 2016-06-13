@@ -1,3 +1,6 @@
+/**
+ * Why use this system (homepage)
+ */
 var React = require('react/addons');
 
 var WhyPart = React.createClass({

@@ -1,4 +1,6 @@
-var React = require('react/addons');
+/**
+ * Show alert errors
+ */
 var FlashList = require('components/FlashList');
 
 var FlashHandler = {

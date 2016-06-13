@@ -1,4 +1,9 @@
+
 var TabBorrower = {
+  /**
+   * Check tab borrower is completed or not
+   * @type {boolean}
+   */
   completed: function(loan){
     var borrower = loan.borrower;
     var secondaryBorrower = loan.secondary_borrower;
