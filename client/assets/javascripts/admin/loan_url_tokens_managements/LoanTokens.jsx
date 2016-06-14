@@ -1,3 +1,6 @@
+/**
+ * Generate url of loan for user
+ */
 var React = require("react/addons");
 var ModalLink = require("components/ModalLink");
 var clickedLoan = null;

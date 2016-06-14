@@ -1,3 +1,6 @@
+/**
+ * TODO: UNUSED CODE
+ */
 var React = require('react/addons');
 
 var classNames = require('classnames');

@@ -1,5 +1,6 @@
-/** @jsx React.DOM */
-
+/**
+ * TODO: UNUSED CODE
+ */
 var React = require('react');
 var ReactScriptLoader = require('react-script-loader');
 var ReactScriptLoaderMixin = ReactScriptLoader.ReactScriptLoaderMixin;

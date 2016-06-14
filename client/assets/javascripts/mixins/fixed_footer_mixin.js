@@ -1,3 +1,4 @@
+//TODO: UNUSED CODE
 var FixedBottomFooterMixin = {
   componentDidMount: function() {
     this.$header = $('header');

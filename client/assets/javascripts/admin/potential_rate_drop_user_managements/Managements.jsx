@@ -1,3 +1,6 @@
+/**
+ * Manage potential users from Rate Drop Alert Page
+ */
 var _ = require('lodash');
 var React = require('react/addons');
 

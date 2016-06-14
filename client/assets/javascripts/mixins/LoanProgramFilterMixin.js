@@ -1,3 +1,7 @@
+/**
+ * Filter list rates or quotes base on conditions
+ * Filtered rates
+ */
 var LoanProgramFilterMixin = {
   filterPrograms: function(programs, products, lender_names) {
     if(this.criteriaAreEmpty(products, lender_names)) {

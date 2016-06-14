@@ -1,3 +1,6 @@
+/**
+ * UI for user input info before finding rate
+ */
 var React = require("react/addons");
 var TextField = require("components/form/NewTextField");
 var SelectField = require("components/form/NewSelectField");

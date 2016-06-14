@@ -1,3 +1,6 @@
+/**
+ * Component: Editor Element
+ */
 var React = require("react");
 var ReactScriptLoader = require("react-script-loader");
 var ReactScriptLoaderMixin = ReactScriptLoader.ReactScriptLoaderMixin;

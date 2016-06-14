@@ -1,3 +1,6 @@
+/**
+ * Component: Select Element
+ */
 var React = require('react/addons');
 
 var _ = require('lodash');

@@ -1,3 +1,6 @@
+/**
+ * List of homepage rates in homepage
+ */
 var React = require('react/addons');
 
 var HomePart = React.createClass({

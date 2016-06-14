@@ -1,3 +1,6 @@
+/**
+ * Component: Paging
+ */
 var _ = require("lodash");
 var React = require("react/addons");
 

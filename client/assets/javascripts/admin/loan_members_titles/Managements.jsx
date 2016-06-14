@@ -1,3 +1,6 @@
+/**
+ * Manage loan member titles
+ */
 var _ = require('lodash');
 var React = require('react/addons');
 var ModalLink = require('components/ModalLink');
