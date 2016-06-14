@@ -1,5 +1,4 @@
 class Users::InvitesController < Users::BaseController
-
   # Invites a new user in Referrals.
   #
   # @return [JSON] invites or error message

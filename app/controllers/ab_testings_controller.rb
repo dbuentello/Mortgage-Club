@@ -5,7 +5,6 @@ class AbTestingsController < ApplicationController
   before_action :homepage_data, only: [:refinance_alert]
   before_action :set_mixpanel_token, only: [:refinance_alert]
 
-
   # alert to new user about the loan. Helping new user see about good rates and attract user.
   # Beside that, get user email to maketing
   #

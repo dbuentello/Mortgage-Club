@@ -117,7 +117,6 @@ class Users::LoansController < Users::BaseController
     end
   end
 
-
   # get borrower other document to reload the document page after user uploads a new other document.
   # TODO: check if not found
   # @return [JSON] Other documents of borrower
@@ -168,5 +167,4 @@ class Users::LoansController < Users::BaseController
     permit_attrs = Borrower::PERMITTED_ATTRS + [:email, :_remove]
     params.require(:loan).require(:secondary_borrower_attributes).permit(permit_attrs)
   end
-
 end
