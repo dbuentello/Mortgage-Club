@@ -1,3 +1,8 @@
+#
+# Class UpdateLoanTermsService provides features to help loan member update terms of loan
+# Edit Loan Page
+# @author Tang Nguyen <tang@mortgageclub.co>
+#
 class UpdateLoanTermsService
   attr_reader :loan, :property, :address, :params
 
