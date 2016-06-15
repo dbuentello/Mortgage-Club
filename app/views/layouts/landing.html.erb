@@ -8,24 +8,24 @@
 	<!-- Stylesheets
 	============================================= -->
 	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-	<link rel="stylesheet" href="style.css" type="text/css" />
-	<link rel="stylesheet" href="css/dark.css" type="text/css" />
-	<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
-	<link rel="stylesheet" href="css/animate.css" type="text/css" />
-	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+	<!-- <link rel="icon" href="images/favicon.ico"> -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<%= stylesheet_link_tag 'landing', media: 'all', 'data-turbolinks-track' => false %>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
+	<%= csrf_meta_tags %>
 
-	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
+	<%= display_meta_tags %>
+	<!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
+mixpanel.init("<%= @mixpanel_token %>");</script><!-- end Mixpanel -->
+
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<!--[if lt IE 9]>
 		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 	<![endif]-->
 
-	<!-- SLIDER REVOLUTION 5.x CSS SETTINGS -->
-	<link rel="stylesheet" type="text/css" href="include/rs-plugin/css/settings.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="include/rs-plugin/css/layers.css">
-	<link rel="stylesheet" type="text/css" href="include/rs-plugin/css/navigation.css">
-
+	<
 	<!-- Document Title
 	============================================= -->
 	<title>Home - Corporate Layout | Canvas</title>
@@ -84,8 +84,8 @@
 					<!-- Logo
 					============================================= -->
 					<div id="logo">
-						<a href="index.html" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="images/logo.png" alt="Canvas Logo"></a>
-						<a href="index.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
+						<a href="index.html" class="standard-logo" data-dark-logo="<%= asset_path "landing/logo-dark.png" %>"><img src="<%= asset_path "landing/logo.png" %>" alt="Canvas Logo"></a>
+						<a href="index.html" class="retina-logo" data-dark-logo="<%= asset_path "landing/logo-dark@2x.png" %>"><img src="<%= asset_path "landing/logo@2x.png" %>" alt="Canvas Logo"></a>
 					</div><!-- #logo end -->
 
 					<!-- Primary Navigation
@@ -1867,18 +1867,19 @@
 	<!-- Go To Top
 	============================================= -->
 	<div id="gotoTop" class="icon-angle-up"></div>
+	<%= javascript_include_tag 'landing', 'data-turbolinks-track' => false %>
 
 	<!-- External JavaScripts
 	============================================= -->
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/plugins.js"></script>
+	<!-- <script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/plugins.js"></script> -->
 
 	<!-- Footer Scripts
 	============================================= -->
-	<script type="text/javascript" src="js/functions.js"></script>
+	<!-- <script type="text/javascript" src="js/functions.js"></script> -->
 
 	<!-- SLIDER REVOLUTION 5.x SCRIPTS  -->
-	<script type="text/javascript" src="include/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+	<!-- <script type="text/javascript" src="include/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
 	<script type="text/javascript" src="include/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 
 	<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.video.min.js"></script>
@@ -1888,7 +1889,7 @@
 	<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.kenburn.min.js"></script>
 	<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.navigation.min.js"></script>
 	<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.migration.min.js"></script>
-	<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.parallax.min.js"></script>
+	<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.parallax.min.js"></script> -->
 
 	<script type="text/javascript">
 
