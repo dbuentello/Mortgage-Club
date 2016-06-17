@@ -1,6 +1,4 @@
-//= require jquery
-//= require jquery_ujs
-//= require bootstrap-sprockets
+//= require landing/jquery
 //= require landing/plugins
 //= require landing/functions
 //= require landing/jquery.themepunch.tools.min
