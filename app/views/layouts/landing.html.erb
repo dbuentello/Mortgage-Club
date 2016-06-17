@@ -25,7 +25,7 @@ mixpanel.init("<%= @mixpanel_token %>");</script><!-- end Mixpanel -->
 		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 	<![endif]-->
 
-	
+
 	<!-- Document Title
 	============================================= -->
 	<title>Home - Corporate Layout | Canvas</title>
@@ -69,12 +69,12 @@ mixpanel.init("<%= @mixpanel_token %>");</script><!-- end Mixpanel -->
 
 	<div id="wrapper" class="clearfix">
 
-
+	<%= render "/shared/header_new" %>
 
 		<%= render "/shared/slider" %>
 
 
-		<%= render "/shared/why_us" %>
+
 
 
 
@@ -83,6 +83,24 @@ mixpanel.init("<%= @mixpanel_token %>");</script><!-- end Mixpanel -->
 	</div>
 
 
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap">
+			<%= render "/shared/why_us" %>
+				<%= render "/shared/how" %>
+				<%= render "/shared/client" %>
+
+			</div>
+
+		</section><!-- #content end -->
+		<%= render "/shared/footer_new" %>
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
 	<div id="gotoTop" class="icon-angle-up"></div>
 	<%= javascript_include_tag 'landing', 'data-turbolinks-track' => false %>
 
