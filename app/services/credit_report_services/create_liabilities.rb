@@ -79,7 +79,16 @@ module CreditReportServices
 
     def self.get_credit_score(doc)
       scores = doc.css('CREDIT_SCORE').map { |credit_score| credit_score.attributes['_Value'].value if credit_score.attributes['_Value'] }.compact
-      scores[1].to_f
+      scores.map!(&:to_f)
+      median(scores)
+    end
+
+    def self.median(array)
+      return if array.blank?
+
+      sorted = array.sort
+      len = sorted.length
+      (sorted[(len - 1) / 2] + sorted[len / 2]) / 2
     end
   end
 end
