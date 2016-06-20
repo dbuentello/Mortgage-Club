@@ -1,19 +1,72 @@
-<section id="slider" class="slider-parallax" style="background: url('<%= asset_path  'landing/landing/landing1.jpg'%>') no-repeat; background-size: cover" data-height-lg="600" data-height-md="500" data-height-sm="400" data-height-xs="300" data-height-xxs="250">
+<section id="slider" class="slider-parallax" style="background: url('<%= asset_path  'landing/landing/landing1.jpg'%>') no-repeat; background-size: cover" data-height-lg="750" data-height-md="550" data-height-sm="400" data-height-xs="300" data-height-xxs="250">
 			<div class="slider-parallax-inner">
 
 				<div class="container clearfix">
 					<div class="vertical-middle dark center">
 
-						<div class="heading-block nobottommargin center">
+						<div class="nobottommargin center">
 							<h1>
-								<span class="text-rotater nocolor" data-separator="|" data-rotate="flipInX" data-speed="3500">
-									Canvas makes your Business <span class="t-rotate">Simple|Customizable|Flexible|Easy|Profitable</span>
+								<span class="text-rotater nocolor">
+									100% Online. Lowest Rate Guaranteed.
 								</span>
 							</h1>
-							<span class="hidden-xs">Learn how to grow your Awesome idea into a successful business.</span>
 						</div>
+            <div id="home-right" class="col-md-offset-3 col-md-6 rates">
+              <div id="home-right-header">
+                <h3 class="text-uppercase">
+                  MORTGAGE RATES
+                </h3>
+                <p class="">(as of
+                  <%= @last_updated %>)</p>
+              </div>
+              <div class="row">
 
-						<a href="#" class="button button-border button-light button-rounded button-reveal tright button-large topmargin hidden-xs"><i class="icon-angle-right"></i><span>Start Tour</span></a>
+                <div class="col-12 col-sm-12 col-lg-12">
+                  <div class="wrapper">
+                    <div class="table-responsive borderless">
+                      <table class="table home-table">
+                        <tr class="table-header">
+                          <td>Programs</td>
+                          <td>Mortgage Club</td>
+                          <td>Wells Fargo</td>
+                          <td>Quicken Loans</td>
+                        </tr>
+                        <tr class="table-content">
+                          <td>30 Year Fixed<hr/></td>
+                          <td><%= @mortgage_aprs['loan_tek']['apr_30_year'] %><hr/></td>
+                          <td><%= @mortgage_aprs['wellsfargo']['apr_30_year'] %><hr/></td>
+                          <td><%= @mortgage_aprs['quicken_loans']['apr_30_year'] %><hr/></td>
+                        </tr>
+                        <tr class="table-content">
+                          <td>15 Year Fixed<hr/></td>
+                          <td><%= @mortgage_aprs['loan_tek']['apr_15_year'] %><hr/></td>
+                          <td><%= @mortgage_aprs['wellsfargo']['apr_15_year'] %><hr/></td>
+                          <td><%= @mortgage_aprs['quicken_loans']['apr_15_year'] %><hr/></td>
+                        </tr>
+                        <tr class="table-content">
+                          <td>5/1 ARM<hr/></td>
+                          <td><%= @mortgage_aprs['loan_tek']['apr_5_libor'] %><hr/></td>
+                          <td><%= @mortgage_aprs['wellsfargo']['apr_5_libor'] %><hr/></td>
+                          <td><%= @mortgage_aprs['quicken_loans']['apr_5_libor'] %><hr/></td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div>
+                <!-- <a href="#" class="button button-border button-white button-light button-large button-rounded tright nomargin"><span>Check Now</span> <i class="icon-angle-right"></i></a> -->
+                <%= link_to(initial_quotes_path, class: "button button-border button-white button-light button-large button-rounded tright nomargin", role: "button", id: "apply-btn") do %>
+                Find my rates<i class="icon-angle-right"></i>
+                <% end %>
+
+                <!-- <a id="applyBtn" class="btn btn-lg btn-mc text-uppercase" href="#" role="button">sign up for beta</a> -->
+              </div>
+            </div>
+
 
 					</div>
 				</div>
