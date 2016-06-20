@@ -1,4 +1,4 @@
-<section id="slider" class="slider-parallax" style="background: url('<%= asset_path  'landing/landing/landing1.jpg'%>') no-repeat; background-size: cover" data-height-lg="750" data-height-md="550" data-height-sm="400" data-height-xs="300" data-height-xxs="250">
+<section id="slider" class="slider-parallax" style="background: url('<%= asset_path  'landing/landing/landing1.jpg'%>') no-repeat; background-size: cover" data-height-lg="750" data-height-md="550" data-height-sm="550" data-height-xs="550" data-height-xxs="250">
 			<div class="slider-parallax-inner">
 
 				<div class="container clearfix">
@@ -23,27 +23,27 @@
 
                 <div class="col-12 col-sm-12 col-lg-12">
                   <div class="wrapper">
-                    <div class="table-responsive borderless">
+                    <div class="table-responsive borderless center">
                       <table class="table home-table">
-                        <tr class="table-header">
+                        <tr class="table-header center">
                           <td>Programs</td>
                           <td>Mortgage Club</td>
                           <td>Wells Fargo</td>
                           <td>Quicken Loans</td>
                         </tr>
-                        <tr class="table-content">
+                        <tr class="table-content center">
                           <td>30 Year Fixed<hr/></td>
                           <td><%= @mortgage_aprs['loan_tek']['apr_30_year'] %><hr/></td>
                           <td><%= @mortgage_aprs['wellsfargo']['apr_30_year'] %><hr/></td>
                           <td><%= @mortgage_aprs['quicken_loans']['apr_30_year'] %><hr/></td>
                         </tr>
-                        <tr class="table-content">
+                        <tr class="table-content center">
                           <td>15 Year Fixed<hr/></td>
                           <td><%= @mortgage_aprs['loan_tek']['apr_15_year'] %><hr/></td>
                           <td><%= @mortgage_aprs['wellsfargo']['apr_15_year'] %><hr/></td>
                           <td><%= @mortgage_aprs['quicken_loans']['apr_15_year'] %><hr/></td>
                         </tr>
-                        <tr class="table-content">
+                        <tr class="table-content center">
                           <td>5/1 ARM<hr/></td>
                           <td><%= @mortgage_aprs['loan_tek']['apr_5_libor'] %><hr/></td>
                           <td><%= @mortgage_aprs['wellsfargo']['apr_5_libor'] %><hr/></td>
