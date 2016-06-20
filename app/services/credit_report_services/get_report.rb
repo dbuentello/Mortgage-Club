@@ -5,7 +5,7 @@ module CreditReportServices
   class GetReport
     attr_accessor :borrower, :co_borrower, :borrower_address, :co_borrower_address
 
-    URL = "https://emscert.equifax.com/emsws/services/post/MergeCreditWWW"
+    URL = "https://emsws.equifax.com/emsws/services/post/MergeCreditWWW"
 
     def initialize(borrower, co_borrower = nil)
       @borrower = borrower
