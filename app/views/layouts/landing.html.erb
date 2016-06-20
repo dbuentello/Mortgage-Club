@@ -10,7 +10,7 @@
 	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 	<!-- <link rel="icon" href="images/favicon.ico"> -->
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<%= stylesheet_link_tag 'landing', media: 'all', 'data-turbolinks-track' => false %>
+	<%= stylesheet_link_tag 'landing', media: 'all', 'data-turbolinks-tra€ck' => false %>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
 	<%= csrf_meta_tags %>
@@ -79,7 +79,6 @@ mixpanel.init("<%= @mixpanel_token %>");</script><!-- end Mixpanel -->
 
 
 
-
 	</div>
 
 
@@ -89,13 +88,18 @@ mixpanel.init("<%= @mixpanel_token %>");</script><!-- end Mixpanel -->
 		<section id="content">
 
 			<div class="content-wrap">
+				<%= render "/shared/hello" %>
+
 			<%= render "/shared/why_us" %>
 				<%= render "/shared/how" %>
 				<%= render "/shared/client" %>
 
+				<%= render "/shared/investors" %>
+
 			</div>
 
 		</section><!-- #content end -->
+
 		<%= render "/shared/footer_new" %>
 	</div><!-- #wrapper end -->
 
