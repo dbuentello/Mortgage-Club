@@ -5,7 +5,8 @@ module CreditReportServices
   class GetReport
     attr_accessor :borrower, :co_borrower, :borrower_address, :co_borrower_address
 
-    URL = "https://emscert.equifax.com/emsws/services/post/MergeCreditWWW"
+    URL = "https://emsws.equifax.com/emsws/services/post/MergeCreditWWW"
+    TEST_URL = "https://emscert.equifax.com/emsws/services/post/MergeCreditWWW"
 
     def initialize(borrower, co_borrower = nil)
       @borrower = borrower
@@ -24,8 +25,9 @@ module CreditReportServices
     # @return [<type>] <description>
     #
     def call
-      uri = URI.parse(URL)
+      uri = get_uri
       request = Net::HTTP::Post.new(uri.path)
+
       if co_borrower
         request.body = joint_xml_string
       else
@@ -40,6 +42,10 @@ module CreditReportServices
 
     private
 
+    def get_uri
+      Rails.env.test? ? URI.parse(TEST_URL) : URI.parse(URL)
+    end
+
     def success?(response)
       return false if response.code != "200"
 
@@ -48,10 +54,13 @@ module CreditReportServices
     end
 
     def joint_xml_string
+      account = Rails.env.test? ? "999AUTO1" : "187FM00207"
+      password = Rails.env.test? ? "xp9?47%Sww" : "00y2.ZGXh.u3g"
+
       "<?xml version='1.0' encoding='utf-8'?>
       <REQUEST_GROUP MISMOVersionID='2.3.1' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'><SUBMITTING_PARTY _Name='1183' _SequenceIdentifier='WFFE1' />
-        <REQUEST LoginAccountPassword='xp9?47%Sww'
-        LoginAccountIdentifier='999AUTO1' InternalAccountIdentifier='999AUTO1'
+        <REQUEST LoginAccountPassword='#{password}'
+        LoginAccountIdentifier='#{account}' InternalAccountIdentifier='#{account}'
         RequestingPartyBranchIdentifier='QTP RPBranchId'><KEY _Name='TestCaseDescription' _Value='good generates report 1 borrower' />
           <KEY _Name='Cost_Center' _Value='1183' /><KEY _Name='HTMLFile' _Value='false' /><KEY _Name='EDI' _Value='true' /><KEY _Name='BranchId' _Value='QTP Branch' />
           <REQUEST_DATA>
@@ -84,10 +93,13 @@ module CreditReportServices
     end
 
     def single_xml_string
+      account = Rails.env.test? ? "999AUTO1" : "187FM00207"
+      password = Rails.env.test? ? "xp9?47%Sww" : "00y2.ZGXh.u3g"
+
       "<?xml version='1.0' encoding='utf-8'?>
       <REQUEST_GROUP MISMOVersionID='2.3.1' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'><SUBMITTING_PARTY _Name='1183' _SequenceIdentifier='WFFE1' />
-        <REQUEST LoginAccountPassword='xp9?47%Sww'
-        LoginAccountIdentifier='999AUTO1' InternalAccountIdentifier='999AUTO1'
+        <REQUEST LoginAccountPassword='#{password}'
+        LoginAccountIdentifier='#{account}' InternalAccountIdentifier='#{account}'
         RequestingPartyBranchIdentifier='QTP RPBranchId'><KEY _Name='TestCaseDescription' _Value='good generates report 1 borrower' />
           <KEY _Name='Cost_Center' _Value='1183' /><KEY _Name='HTMLFile' _Value='false' /><KEY _Name='EDI' _Value='true' /><KEY _Name='BranchId' _Value='QTP Branch' /><REQUEST_DATA><CREDIT_REQUEST LenderCaseIdentifier='LOANNUMBER4'
             RequestingPartyRequestedByName='req by QTP'><CREDIT_REQUEST_DATA CreditReportType='Merge'
