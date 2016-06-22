@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   get "home_test_rates", to: "pages#home_test_rates"
+
   get "new_landing", to: "pages#new_landing"
+  get "new_login", to: "pages#new_login"
+  get "new_forgot_password", to: "pages#new_forgot_password"
+  get "new_register", to: "pages#new_register"
+
   get "backend_test", to: "pages#backend_test"
   get "frontend_test", to: "pages#frontend_test"
 

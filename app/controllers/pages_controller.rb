@@ -24,6 +24,18 @@ class PagesController < ApplicationController
     render text: nil, layout: "landing"
   end
 
+  def new_login
+    render layout: "new_authentication"
+  end
+
+  def new_forgot_password
+    render layout: "new_authentication"
+  end
+
+  def new_register
+    render layout: "new_authentication"
+  end
+
   def developer_infographics
   end
 
