@@ -11,12 +11,12 @@
             <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "nobottommargin", id: "login-form", name: "login-form"}) do |f| %>
               <h3>Login to your Account</h3>
               <div class="col_full">
-                <label for="login-form-username">Username:</label>
-                <%= f.email_field :email, class: "form-control not-dark", id: "login-form-username" %>
+                <label for="user_email">Username:</label>
+                <%= f.email_field :email, class: "form-control not-dark", id: "user_email" %>
               </div>
               <div class="col_full">
-                <label for="login-form-password">Password:</label>
-                <%= f.password_field :password, class: "form-control not-dark","data-toggle" => "tooltip", title: flash_messages_content, id: "login-form-password"  %>
+                <label for="user_password">Password:</label>
+                <%= f.password_field :password, class: "form-control not-dark","data-toggle" => "tooltip", title: flash_messages_content, id: "user_password"  %>
               </div>
               <div class="col_full nobottommargin">
                 <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
