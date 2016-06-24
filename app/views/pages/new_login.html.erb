@@ -8,22 +8,22 @@
       <div class="container vertical-middle divcenter clearfix">
 
         <div class="row center" style="height: 100px">
-          <a href="/new_landing"><img src="<%= asset_path 'white_logo.png'%>" style='height:50px'  alt="MortgageClub Logo"></a>
+          <a href="/new_landing"><img src="<%= asset_path 'white_logo.png'%>" style='height:35px'  alt="MortgageClub Logo"></a>
         </div>
 
         <div class="panel panel-default divcenter noradius noborder" style="max-width: 400px; background-color: rgba(255,255,255,0.93);">
           <div class="panel-body" style="padding: 40px;">
-            <form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
+            <form id="login-form" name="login-form" class="nobottommargin" action="/auth/login" accept-charset="UTF-8" method="post">
               <h3>Login to your Account</h3>
 
               <div class="col_full">
                 <label for="login-form-username">Username:</label>
-                <input type="text" id="login-form-username" name="login-form-username" value="" class="form-control not-dark" />
+                <input type="text" id="login-form-username" name="user[email]" class="form-control not-dark" />
               </div>
 
               <div class="col_full">
                 <label for="login-form-password">Password:</label>
-                <input type="password" id="login-form-password" name="login-form-password" value="" class="form-control not-dark" />
+                <input type="password" id="login-form-password" name="user[password]" class="form-control not-dark" />
               </div>
 
               <div class="col_full nobottommargin">
