@@ -18,7 +18,9 @@
 //= require d3.min
 //= require d3.slider
 //= require auto-complete.min
+//= require landing/functions
 // Important to import jquery_ujs before bundle_BorrowerApp as that patches jquery xhr to use the authenticity token!
+
 //= require build/bundle_BorrowerApp
 
 

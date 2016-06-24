@@ -44,6 +44,33 @@ $rails: true;
 
 
 @import 'borrowers';
+@import "landing/style";
+@import "landing/font-icons";
+@import "landing/imports/header";
+@import "landing/responsive";
+@import "landing/settings";
+
+// new header
+#logo img {
+    height: 50px;
+    margin-top: 20px;
+}
+
+#header.sticky-header:not(.static-sticky):not(.sticky-style-2):not(.sticky-style-3) #logo img {
+  height: 25px;
+}
+
+#header.full-header #logo {
+  border: none;
+}
+
+#header.full-header #primary-menu > ul {
+  border: none;
+}
+
+.client-landing {
+  padding-bottom: 100px;
+}
 
 // Application homepage
 body {
