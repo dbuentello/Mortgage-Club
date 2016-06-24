@@ -82,16 +82,17 @@ en:
         user:
           attributes:
             email:
+              blank: "This field is required"
               taken: "This email has already been taken"
             first_name:
-              blank: "This is field required"
+              blank: "This field is required"
             last_name:
-              blank: "This is field required"
+              blank: "This field is required"
             password:
-              blank: "This is field required"
+              blank: "This field is required"
               too_short: "Password is too short (minimum is %{count} characters)"
             password_confirmation:
-              blank: "This is field required"
+              blank: "This field is required"
               confirmation: "Doesn't match Password"
   common:
     object:
