@@ -1,5 +1,13 @@
 .accountPart {
-
+  h3, h5, h6 {
+    font-weight: 500;
+  }
+  h6 {
+    margin: 0;
+  }
+  table {
+    margin-bottom: 0;
+  }
   .account-content {
     min-height: calc(100vh - 160px);
   }
