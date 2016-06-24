@@ -11,3 +11,8 @@
 //= require landing/revolution.extension.navigation.min
 //= require landing/revolution.extension.migration.min
 //= require landing/revolution.extension.parallax.min
+$(document).ready(function(){
+  $("[data-toggle='tooltip']").tooltip({
+    trigger: "manual"
+  });
+})
