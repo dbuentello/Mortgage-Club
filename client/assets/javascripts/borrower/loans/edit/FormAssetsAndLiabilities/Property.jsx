@@ -396,7 +396,7 @@ var Property = React.createClass({
             </div>
         }
         <div className='form-group'>
-          <div className='col-md-6'>
+          <div className='col-md-4'>
             <TextField
               activateRequiredField={this.props.estimatedHazardInsuranceError}
               label='Homeowner’s Insurance'
@@ -410,7 +410,7 @@ var Property = React.createClass({
               onBlur={this.onBlur}
               editMode={this.props.editMode}/>
           </div>
-          <div className='col-md-3'>
+          <div className='col-md-4'>
             <TextField
               activateRequiredField={this.props.estimatedPropertyTaxError}
               label='Property Tax'
@@ -424,9 +424,9 @@ var Property = React.createClass({
               onBlur={this.onBlur}
               editMode={this.props.editMode}/>
           </div>
-          <div className='col-md-3 pln'>
+          <div className='col-md-4 pln'>
             <TextField
-              label='HOA Due (if applicable)'
+              label='Monthly HOA Due (if applicable)'
               keyName={'property_hoa_due_' + this.props.index}
               value={this.state.property.hoa_due}
               editable={true}
@@ -442,7 +442,7 @@ var Property = React.createClass({
           {
             this.props.index != "subject_property" && this.props.index != "primary_property"
             ?
-              <div className='col-md-6'>
+              <div className='col-md-4'>
                 <TextField
                   activateRequiredField={this.props.grossRentalIncomeError}
                   label='Estimated Rental Income'

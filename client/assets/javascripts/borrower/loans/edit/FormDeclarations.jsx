@@ -216,6 +216,11 @@ var FormDeclarations = React.createClass({
     return (
       <div className='col-sm-9 col-xs-12 account-content'>
         <form className='form-horizontal'>
+          <div className='form-group'>
+            <p className="box-description col-sm-12">
+              The government requires us to ask you these questions so they can monitor that we adhere to fair lending practices. We’ve made them as simple as possible.
+            </p>
+          </div>
           {
             _.map(Object.keys(checkboxFields), function(key) {
               return (

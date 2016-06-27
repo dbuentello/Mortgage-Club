@@ -130,6 +130,11 @@ var FormProperty = React.createClass({
   render: function() {
     return (
       <div className="col-sm-9 col-xs-12 account-content">
+        <div className='form-group'>
+          <p className="box-description col-sm-12">
+            We understand a loan application can be a bit overwhelming but we’re here to help. Our software will try to extract data from other sources so don’t be surprised if several fields are automatically filled in for you. Let’s get started, shall we?
+          </p>
+        </div>
         <form className="form-horizontal">
           <div className="form-group">
             <div className="col-md-12">
@@ -218,7 +223,8 @@ var FormProperty = React.createClass({
                           validationTypes={["currency"]}
                           onBlur={this.onBlur}
                           onChange={this.onChange}
-                          editMode={this.props.editMode}/>
+                          editMode={this.props.editMode}
+                          placeholder={"e.g. 500,000"}/>
                       </div>
                     </div>
                   </div>
@@ -236,7 +242,8 @@ var FormProperty = React.createClass({
                           onFocus={this.onFocus.bind(this, fields.downPayment)}
                           onBlur={this.onBlur}
                           onChange={this.onChange}
-                          editMode={this.props.editMode}/>
+                          editMode={this.props.editMode}
+                          placeholder={"e.g. 100,000"}/>
                       </div>
                     </div>
                   </div>

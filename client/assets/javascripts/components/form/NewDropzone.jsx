@@ -59,7 +59,7 @@ var Dropzone = React.createClass({
 
   componentDidMount: function() {
     this.setState({
-      tip: this.props.tip || 'Upload',
+      tip: this.props.tip || 'Click to upload',
     });
 
     if (this.fileIsExisting()) {
@@ -201,7 +201,7 @@ var Dropzone = React.createClass({
         dataType: 'json',
         success: function(response) {
           // update tip
-          this.setState({ tip: 'Upload' });
+          this.setState({ tip: 'Click to upload' });
           this.setState({ downloadUrl: null });
           this.setState({ fileIsExisting: false });
 
