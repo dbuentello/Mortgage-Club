@@ -5,22 +5,22 @@ module CreditReportServices
   #
   class Base
     def self.call(loan)
-      # clear old liabilities
-      clear_credit_report(loan)
-      response = CreditReportServices::GetReport.new(
-        loan.borrower,
-        loan.secondary_borrower
-      ).call
-      CreditReportServices::CreateLiabilities.call(loan, response) if response
+      call_credit_check(loan.borrower)
+      # call_credit_check(loan.secondary_borrower) if loan.secondary_borrower
     end
 
-    def self.clear_credit_report(loan)
-      borrower = loan.borrower
-      secondary_borrower = loan.secondary_borrower
+    def self.call_credit_check(borrower)
+      return if credit_report_was_within_90_days?(borrower)
+      # clear old liabilities
+      clear_credit_report(borrower)
+      return unless response = CreditReportServices::GetReport.new(borrower).call
 
+      CreditReportServices::CreateLiabilities.call(borrower, response)
+      borrower.credit_report.update(last_run_at: Time.zone.now)
+    end
+
+    def self.clear_credit_report(borrower)
       borrower.credit_report.destroy if liabilities?(borrower.credit_report)
-      secondary_borrower.credit_report.destroy if secondary_borrower && liabilities?(secondary_borrower.credit_report)
-      loan.reload
     end
 
     def self.liabilities?(credit_report)
@@ -28,6 +28,13 @@ module CreditReportServices
       return false if credit_report.liabilities.blank?
 
       true
+    end
+
+    def self.credit_report_was_within_90_days?(borrower)
+      return false unless borrower.credit_report
+      return false unless borrower.credit_report.last_run_at
+
+      Time.zone.now <= borrower.credit_report.last_run_at + 90.days
     end
   end
 end

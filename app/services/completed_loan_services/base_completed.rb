@@ -49,8 +49,7 @@ module CompletedLoanServices
     end
 
     def credit_completed?
-      # credit_check_agree
-      true
+      loan.credit_check_agree
     end
 
     def assets_completed?

@@ -451,6 +451,12 @@
       font-size:16px;
     }
   }
+
+  .credit-check {
+    input[type=checkbox] + label {
+      color: #555555;
+    }
+  }
 }
 
 #continueBtn {

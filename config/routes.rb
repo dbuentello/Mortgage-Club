@@ -101,6 +101,8 @@ Rails.application.routes.draw do
         get :check_loan
       end
     end
+
+    resources :credit_checks, only: [:update]
   end
 
 

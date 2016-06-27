@@ -162,6 +162,10 @@ en:
         remove_failed: "Cannot remove the checklist"
 
   users:
+    credit_check:
+      create:
+        failed: "Add new credit check failed"
+        success: "Add new credit check sucessfully"
     assets:
       create:
         failed: "Add new asset failed"
