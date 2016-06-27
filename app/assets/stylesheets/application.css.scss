@@ -51,8 +51,7 @@ $rails: true;
 
 // new header
 #logo img {
-    height: 50px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 #header.sticky-header:not(.static-sticky):not(.sticky-style-2):not(.sticky-style-3) #logo img {
@@ -73,7 +72,9 @@ $rails: true;
 
 // Application homepage
 body {
-  font-family: 'aileronregular';
+  // font-family: 'aileronregular';
+  // new style
+  font-family: 'Raleway', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
   padding-bottom: 100px; //footer padding

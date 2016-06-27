@@ -48,7 +48,8 @@ footer {
     }
     p {
       clear: both;
-      font-family: $mc-light-font;
+      font-family: 'Raleway', sans-serif;
+      // font-family: $mc-light-font;
       font-size: 1.125em;
       letter-spacing: 0.03em;
     }
@@ -63,7 +64,8 @@ footer {
     //position: absolute;
     padding: 17px 20px 0 0;
     color: white;
-    font-family: $mc-light-font;
+    font-family: 'Raleway', sans-serif;
+    // font-family: $mc-light-font;
     font-size: 1.125em;
     letter-spacing: 0.03em;
     //width: 50%;
@@ -75,7 +77,8 @@ footer {
   .equal-housing {
     margin-left: -120px;
     color: white;
-    font-family: $mc-light-font;
+    font-family: 'Raleway', sans-serif;
+    // font-family: $mc-light-font;
     font-size: 1.125em;
     letter-spacing: 0.03em;
   }
