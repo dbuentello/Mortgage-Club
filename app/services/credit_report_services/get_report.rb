@@ -22,7 +22,6 @@ module CreditReportServices
     # Map borrower's values to single_xml_string
     # Map values of borrower and co-borrower to joint_xml_string
     #
-    # @return [<type>] <description>
     #
     def call
       uri = get_uri

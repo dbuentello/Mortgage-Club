@@ -10,6 +10,7 @@ footer {
   // padding: 20px 35px 5px;
   @include respond-to(mobile){
     // padding: 10px 10px 0;
+    margin-bottom: -70px;
   };
   #copyrights {
     background-color: $mc-color !important;

@@ -20,7 +20,7 @@ class Users::BorrowersController < Users::BaseController
       borrower.reload
 
       # only getting new credit report if ssn was changed
-      get_credit_report if ssn_was_changed
+      get_credit_report if borrower_agrees_credit_check? && ssn_was_changed
 
       render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show, liabilities: get_liabilities(borrower)}
     else
@@ -86,6 +86,11 @@ class Users::BorrowersController < Users::BaseController
   def ssn_was_changed?
     return true if borrower.ssn != params[:borrower][:borrower][:ssn]
     return true if @loan.secondary_borrower && @loan.secondary_borrower.ssn != params[:secondary_borrower][:borrower][:ssn]
+    return true if params[:secondary_borrower][:borrower][:ssn] && !@loan.secondary_borrower
     false
+  end
+
+  def borrower_agrees_credit_check?
+    @loan.credit_check_agree
   end
 end

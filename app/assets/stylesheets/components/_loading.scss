@@ -1,4 +1,5 @@
 html.loading {
+  pointer-events: none;
   background: #FFFFFF url(asset_path('loading.gif')) no-repeat 50% 40%;
   -webkit-transition: background-color 0;
   transition: background-color 0;
