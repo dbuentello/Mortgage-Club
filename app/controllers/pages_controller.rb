@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  layout "application"
+  layout "landing"
   skip_before_action :authenticate_user!
   before_action :set_mixpanel_token, only: [:index]
 
@@ -11,29 +11,6 @@ class PagesController < ApplicationController
       @last_updated = Time.zone.parse(@mortgage_aprs['updated_at'].to_s).strftime('%b %d, %G 8:30 AM %Z')
       @last_updated = @last_updated.gsub("PDT", "PST")
     end
-  end
-
-  def new_landing
-    @refcode = params[:refcode]
-    @mortgage_aprs = HomepageRateServices::GetMortgageAprs.call
-
-    if @mortgage_aprs['updated_at'].present?
-      @last_updated = Time.zone.parse(@mortgage_aprs['updated_at'].to_s).strftime('%b %d, %G 8:30 AM %Z')
-      @last_updated = @last_updated.gsub("PDT", "PST")
-    end
-    render text: nil, layout: "landing"
-  end
-
-  def new_login
-    render layout: "new_authentication"
-  end
-
-  def new_forgot_password
-    render layout: "new_authentication"
-  end
-
-  def new_register
-    render layout: "new_authentication"
   end
 
   def developer_infographics

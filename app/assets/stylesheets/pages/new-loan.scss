@@ -1,6 +1,6 @@
 .accountPart {
   h3, h5, h6 {
-    font-weight: 500;
+    font-weight: normal;
   }
   h6 {
     margin: 0;
@@ -10,6 +10,13 @@
   }
   .account-content {
     min-height: calc(100vh - 160px);
+  }
+  .customRadio span {
+    font-weight: 100;
+    font-family: 'Raleway', sans-serif;
+  }
+  .form-group label.customRadio {
+     font-family: 'Raleway', sans-serif;
   }
 
   padding-top: 0px;
@@ -23,8 +30,8 @@
   background: linear-gradient(to right, rgba(246,246,246,1) 29%, rgba(255,255,255,1) 29%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#ffffff', GradientType=1 );
 
-  h4 {font-family:'aileronregular'; font-style:italic; font-size:1em; color:#555555;}
-  p {font-family:'aileronregular'; font-size:1.05em; color:#555555;}
+  h4 {font-family:'Raleway', sans-serif; font-style:italic; font-size:1em; color:#555555;}
+  p {font-family:'Raleway', sans-serif; font-size:1.05em; color:#555555; font-weight: 100}
 
   .trash-anchor {
     margin-top: 40px;
@@ -278,6 +285,7 @@
     -ms-filter: saturate(100%);
     filter: saturate(100%);
     text-shadow: 0 0 0 #000;
+    font-weight: 100;
   }
 
   select:-moz-focusring {
@@ -338,6 +346,10 @@
 
   .form-group input.form-control.address {
     float:right;
+  }
+
+  .form-group input.form-control {
+    font-weight: 100;
   }
 
   .form-group>div>h5 {font-size:1.25em; color:#15c0f1; margin-top:0; letter-spacing:.04em; line-height:1.5em;}
