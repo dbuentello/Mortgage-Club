@@ -138,7 +138,9 @@ var FormProperty = React.createClass({
         <form className="form-horizontal">
           <div className="form-group">
             <div className="col-md-12">
-              <AddressField label={fields.address.label}
+              <AddressField
+                invalidMessage="Sorry, we only lend in CA at this time. More states are coming soon!"
+                label={fields.address.label}
                 activateRequiredField={this.state[fields.address.error]}
                 address={this.state[fields.address.name]}
                 keyName={fields.address.name}

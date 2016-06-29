@@ -284,7 +284,7 @@ var Dropzone = React.createClass({
               </tr>
             </table>
           </div>
-          <ValidationField id={this.props.field.name + "_id"} activateRequiredField={this.props.activateRequiredField} value={this.state.downloadUrl} title={"This field is required"}/>
+          <ValidationField id={this.props.field.name + "_id"} activateRequiredField={this.props.activateRequiredField} value={this.state.downloadUrl} requiredMessage={"This field is required"}/>
         </div>
       </div>
     );
