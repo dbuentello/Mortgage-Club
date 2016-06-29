@@ -285,7 +285,7 @@ var List = React.createClass({
                       {
                         quote.characteristic
                         ?
-                          <p className="note-rates">{quote.characteristic}</p>
+                          <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>{quote.characteristic}</p>
                         :
                           null
                       }
@@ -298,7 +298,7 @@ var List = React.createClass({
 
                 </div>
                 <div className="board-content-toggle">
-                  <button onClick={_.bind(this.toggleHandler, null, index)}><span className={this.state.toggleContentStates[index]===true ? "glyphicon glyphicon-menu-up" : "glyphicon glyphicon-menu-down"} ></span></button>
+                  <button onClick={_.bind(this.toggleHandler, null, index)}><span className={this.state.toggleContentStates[index]===true ? "fa fa-angle-up" : "fa fa-angle-down"} ></span></button>
 
                 </div>
               </div>
