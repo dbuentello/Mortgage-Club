@@ -9,7 +9,7 @@
     margin-bottom: 0;
   }
   .account-content {
-    min-height: calc(100vh - 160px);
+    min-height: calc(100vh - 180px);
   }
   .customRadio span {
     font-weight: 100;
@@ -154,7 +154,7 @@
 .done-sign {display:none;}
 
 .account-content {
-  padding: 40px;
+  padding: 40px 20px 80px 40px;
   @include respond-to(smobile){
     padding: 10px 20px;
   };
