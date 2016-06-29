@@ -1,5 +1,8 @@
 .initial-quotes {
-
+  padding-bottom: 40px;
+  h1, h2, h3, h4, h5, h6 {
+    color: #00436E;
+  }
   .quotes-form {
     p:first-child {
       padding-top: 30px;
@@ -10,33 +13,38 @@
       text-align: center;
     }
   }
+
+  .container {
+    width: 100%;
+  }
+
   p.explanation {
     font-style: italic;
   }
   h2 {
     text-align: center;
   }
-  h1 {
-    color: #00436E;
-    text-align: center;
-  }
   h6 {
     font-size: 1.1em;
     color: $mc-color;
+  }
+  .btnSubmit {
+    .btn {
+      background: #15c0f1;
+      color: white;
+      padding: 10px 20px;
+      border-bottom: none;
+    }
+    .btn:hover {
+      background: white;
+      color: #15c0f1;
+      border: 1px solid;
+    }
   }
   .mortgage-quotes {
     overflow: hidden;
   }
   .quotes-list {
-    .form-group img {
-      right: 20px !important;
-    }
-  }
-  .quotes-list {
-    .col-xs-9 {
-
-      float: right;
-    }
     .board {
       border-radius: 5px;
       border: #959595 1px solid;
@@ -210,12 +218,6 @@
       }
     }
   }
-  .custom-left-mortgage-rates {
-    //margin-left: -19px;
-  }
-  .actions {
-    padding-top: 20px;
-  }
   .account-content .form-group:last-child {
     margin-bottom: 25px;
   }
@@ -253,18 +255,6 @@
       margin-right: 7px;
     }
   }
-  .form-group img {
-    top: initial;
-    -webkit-filter: saturate(0%);
-    -ms-filter: saturate(0%);
-    -moz-filter: saturate(0%);
-    -khtml-filter: saturate(0%);
-    -o-filter: saturate(0%);
-    filter:saturate(0%);
-    bottom: 6px;
-    cursor: pointer;
-    pointer-events: none;
-  }
   select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -275,6 +265,9 @@
     height: 38px;
     width: 100%;
     cursor: pointer;
+  }
+  input {
+    height: 38px;
   }
   select::-ms-expand {
     display: none;

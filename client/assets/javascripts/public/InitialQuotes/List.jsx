@@ -177,8 +177,6 @@ var List = React.createClass({
                     </div>
                   </div>
                 </div>
-                <br></br>
-
                 <div id={"board-content-" + index} className={this.state.toggleContentStates[index] === true ? "board-content" : "board-content up-state"}>
                   <div className="row">
 
