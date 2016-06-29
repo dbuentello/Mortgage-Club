@@ -176,7 +176,7 @@
 .back-btn {
   background: $mc-color;
   color: white;
-  border-bottom: none;
+  border: 1px solid $mc-color;
   margin-left: 57px;
   @include respond-to(smobile){
     margin-left: 20px;

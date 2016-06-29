@@ -285,7 +285,7 @@ var List = React.createClass({
                       {
                         quote.characteristic
                         ?
-                          <p className="note">{quote.characteristic}</p>
+                          <p className="note-rates">{quote.characteristic}</p>
                         :
                           null
                       }

@@ -1,5 +1,8 @@
 @import "abstracts/mixins";
 @import "abstracts/variables";
+//base
+@import "base/fonts";
+
 @import "landing/bootstrap";
 @import "components/loading";
 @import "components/util";
