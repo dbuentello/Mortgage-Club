@@ -42,11 +42,11 @@ var TabIncome = {
     if (this.valueFieldNotValid(employment.address))
       return false;
 
-    if (this.valueFieldNotValid(employment.employer_contact_name))
-      return false;
+    // if (this.valueFieldNotValid(employment.employer_contact_name))
+    //   return false;
 
-    if (this.valueFieldNotValid(employment.employer_contact_number))
-      return false;
+    // if (this.valueFieldNotValid(employment.employer_contact_number))
+    //   return false;
 
     if (this.valueFieldNotValid(employment.current_salary))
       return false;

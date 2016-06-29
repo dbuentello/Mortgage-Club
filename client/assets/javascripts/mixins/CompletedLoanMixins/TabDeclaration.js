@@ -6,16 +6,7 @@ var TabDeclaration = {
     if(declaration === undefined || declaration === null)
       return false;
 
-    if(declaration.outstanding_judgment == null ||
-      declaration.bankrupt == null ||
-      declaration.property_foreclosed == null ||
-      declaration.party_to_lawsuit == null ||
-      declaration.loan_foreclosure == null ||
-      declaration.child_support == null ||
-      declaration.down_payment_borrowed == null ||
-      declaration.co_maker_or_endorser == null ||
-      declaration.present_delinquent_loan == null ||
-      declaration.us_citizen == null ||
+    if(declaration.us_citizen == null ||
       declaration.ownership_interest == null
     ) {
       return false;

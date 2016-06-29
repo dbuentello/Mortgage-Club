@@ -10,60 +10,60 @@ var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
 
 var checkboxFields = {
-  outstandingJudgment: {
-    label: 'Are there any outstanding judgments against you?',
-    name: 'outstanding_judgment',
-    error: "outstandingJudgmentError",
-    validationTypes: ["empty"]
-  },
-  bankrupt: {
-    label: 'Have you been declared bankrupt in the past 7 years?',
-    name: 'bankrupt',
-    error: "bankruptError",
-    validationTypes: ["empty"]
-  },
-  propertyForeclosed: {
-    label: 'Have you had property foreclosed upon or given title or deed in lieu thereof in the last 7 years?',
-    name: 'property_foreclosed',
-    error: "propertyForeclosedError",
-    validationTypes: ["empty"]
-  },
-  partyToLawsuit: {
-    label: 'Are you a party to a lawsuit?',
-    name: 'party_to_lawsuit',
-    error: "partyToLawsuitError",
-    validationTypes: ["empty"]
-  },
-  loanForeclosure: {
-    label: 'Have you been obligated on any loan resulted in foreclosure, transfer of title in lieu of foreclosure, or judgment?',
-    name: 'loan_foreclosure',
-    error: "loanForeclosureError",
-    validationTypes: ["empty"]
-  },
-  presentDeliquentLoan: {
-    label: 'Are you presently delinquent or in default on any Federal debt or any other loan, mortgage, financial, obligation, bond or loan guarantee?',
-    name: 'present_delinquent_loan',
-    error: "presentDeliquentLoanError",
-    validationTypes: ["empty"]
-  },
-  childSupport: {
-    label: 'Are you obligated to pay alimony, child support, or separate maintenance?',
-    name: 'child_support',
-    error: "childSupportError",
-    validationTypes: ["empty"]
-  },
-  downPaymentBorrowed: {
-    label: 'Is any part of the down payment borrowed?',
-    name: 'down_payment_borrowed',
-    error: "downPaymentBorrowedError",
-    validationTypes: ["empty"]
-  },
-  coMakerOrEndorser: {
-    label: 'Are you a co-maker or endorser on a note?',
-    name: 'co_maker_or_endorser',
-    error: "coMakerOrEndorserError",
-    validationTypes: ["empty"]
-  },
+  // outstandingJudgment: {
+  //   label: 'Are there any outstanding judgments against you?',
+  //   name: 'outstanding_judgment',
+  //   error: "outstandingJudgmentError",
+  //   validationTypes: ["empty"]
+  // },
+  // bankrupt: {
+  //   label: 'Have you been declared bankrupt in the past 7 years?',
+  //   name: 'bankrupt',
+  //   error: "bankruptError",
+  //   validationTypes: ["empty"]
+  // },
+  // propertyForeclosed: {
+  //   label: 'Have you had property foreclosed upon or given title or deed in lieu thereof in the last 7 years?',
+  //   name: 'property_foreclosed',
+  //   error: "propertyForeclosedError",
+  //   validationTypes: ["empty"]
+  // },
+  // partyToLawsuit: {
+  //   label: 'Are you a party to a lawsuit?',
+  //   name: 'party_to_lawsuit',
+  //   error: "partyToLawsuitError",
+  //   validationTypes: ["empty"]
+  // },
+  // loanForeclosure: {
+  //   label: 'Have you been obligated on any loan resulted in foreclosure, transfer of title in lieu of foreclosure, or judgment?',
+  //   name: 'loan_foreclosure',
+  //   error: "loanForeclosureError",
+  //   validationTypes: ["empty"]
+  // },
+  // presentDeliquentLoan: {
+  //   label: 'Are you presently delinquent or in default on any Federal debt or any other loan, mortgage, financial, obligation, bond or loan guarantee?',
+  //   name: 'present_delinquent_loan',
+  //   error: "presentDeliquentLoanError",
+  //   validationTypes: ["empty"]
+  // },
+  // childSupport: {
+  //   label: 'Are you obligated to pay alimony, child support, or separate maintenance?',
+  //   name: 'child_support',
+  //   error: "childSupportError",
+  //   validationTypes: ["empty"]
+  // },
+  // downPaymentBorrowed: {
+  //   label: 'Is any part of the down payment borrowed?',
+  //   name: 'down_payment_borrowed',
+  //   error: "downPaymentBorrowedError",
+  //   validationTypes: ["empty"]
+  // },
+  // coMakerOrEndorser: {
+  //   label: 'Are you a co-maker or endorser on a note?',
+  //   name: 'co_maker_or_endorser',
+  //   error: "coMakerOrEndorserError",
+  //   validationTypes: ["empty"]
+  // },
   usCitizen: {
     label: 'Are you a U.S citizen?',
     name: 'us_citizen',
@@ -203,6 +203,16 @@ var FormDeclarations = React.createClass({
     _.each(selectBoxFields, function (field) {
       declaration_attributes[field.name] = this.state[field.name];
     }, this);
+
+    declaration_attributes['outstanding_judgment'] = false;
+    declaration_attributes['bankrupt'] = false;
+    declaration_attributes['property_foreclosed'] = false;
+    declaration_attributes['party_to_lawsuit'] = false;
+    declaration_attributes['loan_foreclosure'] = false;
+    declaration_attributes['present_delinquent_loan'] = false;
+    declaration_attributes['child_support'] = false;
+    declaration_attributes['down_payment_borrowed'] = false;
+    declaration_attributes['co_maker_or_endorser'] = false;
 
     if (this.props.loan.borrower.declaration) {
       declaration_attributes.id = this.props.loan.borrower.declaration.id;
