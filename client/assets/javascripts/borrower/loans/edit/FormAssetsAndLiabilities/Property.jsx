@@ -202,16 +202,16 @@ var Property = React.createClass({
 
         var market_price = this.getValue(response, 'zestimate.amount.__content__');
         var propertyType = this.getPropertyType(this.getValue(response, 'useCode'));
-        var monthlyTax = this.getValue(response, 'monthlyTax');
-        var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
+        var annualTax = this.getValue(response, 'annualTax');
+        var annualInsurance = this.getValue(response, 'annualInsurance');
         var rentalIncome = this.getValue(response, 'rentzestimate.amount.__content__');
 
         if(property.is_subject == false)
           property.market_price = this.formatCurrency(market_price);
 
         property.property_type = propertyType;
-        property.estimated_property_tax = this.formatCurrency(monthlyTax);
-        property.estimated_hazard_insurance = this.formatCurrency(monthlyInsurance);
+        property.estimated_property_tax = this.formatCurrency(annualTax);
+        property.estimated_hazard_insurance = this.formatCurrency(annualInsurance);
         property.gross_rental_income = this.formatCurrency(rentalIncome);
         this.setState(this.setValue(this.state, propertyKey, property));
       }
@@ -399,7 +399,7 @@ var Property = React.createClass({
           <div className='col-md-4'>
             <TextField
               activateRequiredField={this.props.estimatedHazardInsuranceError}
-              label='Annual Homeowner’s Insurance'
+              label='Annual Homeowners Insurance'
               keyName={'property_estimated_hazard_insurance_' + this.props.index}
               value={this.state.property.estimated_hazard_insurance}
               editable={true}

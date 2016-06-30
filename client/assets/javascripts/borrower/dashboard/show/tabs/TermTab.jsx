@@ -18,8 +18,8 @@ var TermTab = React.createClass({
     }
 
     expense += parseFloat(monthlyPayment);
-    expense += parseFloat(homeOwnerInsurance);
-    expense += parseFloat(propertyTax);
+    expense += (parseFloat(homeOwnerInsurance)/12);
+    expense += (parseFloat(propertyTax)/12);
     return expense;
   },
 
@@ -199,7 +199,7 @@ var TermTab = React.createClass({
                 </tr>
                 <tr>
                   <td className="loan-field">
-                    Homeowners Insurance
+                    Annual Homeowners Insurance
                   </td>
                   <td>
                     {this.formatCurrency(property.estimated_hazard_insurance, "$")}
@@ -207,7 +207,7 @@ var TermTab = React.createClass({
                 </tr>
                 <tr>
                   <td className="loan-field">
-                    Property Tax
+                    Annual Property Tax
                   </td>
                   <td>
                     {this.formatCurrency(property.estimated_property_tax, "$")}

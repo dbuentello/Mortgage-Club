@@ -239,14 +239,14 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       it "maps right values" do
         property = @service.subject_property
         proposed_total_expense = property.mortgage_payment + property.other_financing +
-                                 property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
+                                 (property.estimated_hazard_insurance.to_f / 12) + (property.estimated_property_tax.to_f / 12) +
                                  property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f
         @service.build_housing_expense("proposed", property)
         expect(@service.params).to include(
           proposed_mortgage: number_to_currency(property.mortgage_payment, unit: ""),
           proposed_other_financing: number_to_currency(property.other_financing, unit: ""),
-          proposed_hazard_insurance: number_to_currency(property.estimated_hazard_insurance, unit: ""),
-          proposed_real_estate_taxes: number_to_currency(property.estimated_property_tax, unit: ""),
+          proposed_hazard_insurance: number_to_currency(property.estimated_hazard_insurance / 12, unit: ""),
+          proposed_real_estate_taxes: number_to_currency(property.estimated_property_tax / 12, unit: ""),
           proposed_mortgage_insurance: number_to_currency(property.estimated_mortgage_insurance, unit: ""),
           proposed_homeowner: number_to_currency(property.hoa_due, unit: ""),
           proposed_total: number_to_currency(proposed_total_expense, unit: "")
@@ -258,14 +258,14 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       it "maps right values" do
         property = @service.primary_property
         present_total_expense = property.mortgage_payment + property.other_financing +
-                                property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
+                                (property.estimated_hazard_insurance.to_f / 12) + (property.estimated_property_tax.to_f / 12) +
                                 property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f
         @service.build_housing_expense("present", property)
         expect(@service.params).to include(
           present_mortgage: number_to_currency(property.mortgage_payment, unit: ""),
           present_other_financing: number_to_currency(property.other_financing, unit: ""),
-          present_hazard_insurance: number_to_currency(property.estimated_hazard_insurance, unit: ""),
-          present_real_estate_taxes: number_to_currency(property.estimated_property_tax, unit: ""),
+          present_hazard_insurance: number_to_currency(property.estimated_hazard_insurance / 12, unit: ""),
+          present_real_estate_taxes: number_to_currency(property.estimated_property_tax / 12, unit: ""),
           present_mortgage_insurance: number_to_currency(property.estimated_mortgage_insurance, unit: ""),
           present_homeowner: number_to_currency(property.hoa_due, unit: ""),
           present_total: number_to_currency(present_total_expense, unit: "")

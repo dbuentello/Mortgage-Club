@@ -95,8 +95,8 @@ var FormProperty = React.createClass({
         }
 
         var marketPrice = this.getValue(response, 'zestimate.amount.__content__');
-        var monthlyTax = this.getValue(response, 'monthlyTax');
-        var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
+        var annualTax = this.getValue(response, 'annualTax');
+        var annualInsurance = this.getValue(response, 'annualInsurance');
         var yearBuilt = this.getValue(response, 'yearBuilt');
         var lastSoldDate = this.getValue(response, 'lastSoldDate');
         var lastSoldPrice = this.getValue(response, 'lastSoldPrice.__content__');
@@ -107,8 +107,8 @@ var FormProperty = React.createClass({
 
         var state = {} ;
         state.marketPrice = this.formatCurrency(marketPrice);
-        state.estimatedPropertyTax = monthlyTax;
-        state.estimatedHazardInsurance = monthlyInsurance;
+        state.estimatedPropertyTax = annualTax;
+        state.estimatedHazardInsurance = annualInsurance;
         state.yearBuilt = yearBuilt;
         state.zillowImageUrl = zillowImageUrl;
         state[fields.originalPurchasePrice.name] = this.formatCurrency(lastSoldPrice);
