@@ -55,15 +55,14 @@ var Quotes = React.createClass({
 
   handleSortChange: function(event) {
     this.removeChart();
-    var option = $("#sortRateOptions").val();
-    var sortedRates = this.sortBy(option, this.state.quotes);
+    var sortedRates = this.sortBy(event.target.value, this.state.quotes);
     this.setState({quotes: sortedRates});
   },
 
   removeChart: function(){
     $(".line-chart").empty();
     $(".pie-chart").empty();
-    $("span.glyphicon-menu-up").click();
+    $("span.fa-angle-up").click();
   },
   sortBy: function(field, quotes) {
     var sortedRates = [];
@@ -163,7 +162,7 @@ var Quotes = React.createClass({
                 {
                   this.state.helpMeChoose
                   ?
-                    <div className="content container mortgage-quotes padding-top-0 white-background" style={{"padding-top":"20px"}}>
+                    <div className="content container mortgage-quotes padding-top-0 white-background">
                       <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.props.bootstrapData.quotes} selectRate={this.selectRate} monthlyPayment={this.state.monthlyPayment} isInitialQuotes={true}/>
                     </div>
                   :
