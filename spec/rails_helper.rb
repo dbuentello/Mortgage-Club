@@ -6,6 +6,7 @@ require 'rspec/rails'
 # note: require 'devise' after require 'rspec/rails'
 require 'devise'
 require "support/vcr_setup"
+require 'rspec/retry'
 
 require 'simplecov'
 
@@ -23,6 +24,13 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  # show retry status in spec process
+  config.verbose_retry = true
+  # Try twice (retry once)
+  config.default_retry_count = 2
+  # Only retry when Selenium raises Net::ReadTimeout
+  config.exceptions_to_retry = [Net::ReadTimeout]
+  
   config.use_transactional_fixtures = true
 
   # enable logging in as a user, to obtain current_user

@@ -21,20 +21,13 @@ require 'pundit/rspec'
 require 'capybara/rspec'
 require 'database_cleaner'
 require 'capybara/poltergeist'
-require 'rspec/retry'
 
-RSpec.configure do |config|
-  # show retry status in spec process
-  config.verbose_retry = true
-  # Try twice (retry once)
-  config.default_retry_count = 2
-  # Only retry when Selenium raises Net::ReadTimeout
-  config.exceptions_to_retry = [Net::ReadTimeout]
-end
 
 Capybara.javascript_driver = :poltergeist
 
 Capybara.register_driver :poltergeist do |app|
+  client = Selenium::WebDriver::Remote::Http::Default.new
+  client.timeout = 120 # instead of the default 60
   Capybara::Poltergeist::Driver.new(app, {js_errors: false})
 end
 
