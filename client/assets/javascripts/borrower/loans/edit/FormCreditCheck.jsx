@@ -61,7 +61,7 @@ var FormCreditCheck = React.createClass({
           <div className='form-group'>
             <div className='col-sm-12'>
               <input type='checkbox' id='checkbox-borrower' disabled={!this.props.editMode} defaultChecked={this.state.creditCheckAgree} onChange={this.onChange}/>
-              <label htmlFor='checkbox-borrower' className='customCheckbox blueCheckbox2'>I here by authorize and instruct MortgageClub Corporation to obtain and review my credit report.</label>
+              <label htmlFor='checkbox-borrower' className='customCheckbox blueCheckbox2'>I hereby authorize and instruct MortgageClub Corporation to obtain and review my credit report.</label>
             </div>
           </div>
         </form>

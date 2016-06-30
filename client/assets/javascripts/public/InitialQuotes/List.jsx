@@ -72,8 +72,8 @@ var List = React.createClass({
 
   componentDidMount: function() {
     if(this.props.helpMeChoose){
-      if($("span.glyphicon-menu-down").length > 0){
-        $("span.glyphicon-menu-down")[0].click();
+      if($("span.fa-angle-down").length > 0){
+        $("span.fa-angle-down")[0].click();
       }
     }
   },
