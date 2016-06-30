@@ -167,7 +167,7 @@ group :test do
   gem 'spreewald'
   gem 'rspec-retry'
   gem 'launchy'
-  gem 'selenium-webdriver', '~> 2.48.1'
+  gem 'selenium-webdriver'
   gem 'guard-rspec'
   gem 'timecop'
   gem 'vcr'

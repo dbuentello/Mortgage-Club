@@ -529,7 +529,7 @@ DEPENDENCIES
   rubocop
   sass-rails
   sdoc
-  selenium-webdriver (~> 2.48.1)
+  selenium-webdriver
   shoulda-matchers (~> 3.0)
   simplecov
   spreewald
