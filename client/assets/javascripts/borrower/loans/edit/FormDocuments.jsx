@@ -123,7 +123,13 @@ var FormDocuments = React.createClass({
         <form className="form-horizontal">
           <div className='form-group'>
             <p className="box-description col-sm-12">
-            At the minimum, we’d need these documents before we can lock-in your mortgage rate. Please upload them now so our proprietary technology can try to extract the data and save you some time inputting it.
+              At the minimum, we’d need these documents to submit your loan application to underwriting. Please help us gather these documents. For your convenience, we can also order tax return, W2, 1099… directly from the IRS (with your authorization) but it would take them several hours to fulfill our order. Please email us at <a href="mailto:hello@mortgageclub.co" target="_blank">hello@mortgageclub.co</a> to request that.
+              <br/>
+              For your security,
+              <br/>
+              <span className="glyphicon glyphicon-ok"></span> We use 256-bit SSL encryption (bank-level security).
+              <br/>
+              <span className="glyphicon glyphicon-ok"></span> We’ll log you out after 10 mins of inactivity.
             </p>
           </div>
           {

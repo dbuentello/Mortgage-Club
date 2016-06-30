@@ -399,7 +399,7 @@ var Property = React.createClass({
           <div className='col-md-4'>
             <TextField
               activateRequiredField={this.props.estimatedHazardInsuranceError}
-              label='Homeowner’s Insurance'
+              label='Annual Homeowner’s Insurance'
               keyName={'property_estimated_hazard_insurance_' + this.props.index}
               value={this.state.property.estimated_hazard_insurance}
               editable={true}
@@ -413,7 +413,7 @@ var Property = React.createClass({
           <div className='col-md-4'>
             <TextField
               activateRequiredField={this.props.estimatedPropertyTaxError}
-              label='Property Tax'
+              label='Annual Property Tax'
               keyName={'property_estimated_property_tax_' + this.props.index}
               value={this.state.property.estimated_property_tax}
               editable={true}

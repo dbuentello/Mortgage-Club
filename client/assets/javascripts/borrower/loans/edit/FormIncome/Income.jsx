@@ -253,36 +253,6 @@ var Income = React.createClass({
             </div>
           : null
         }
-        <h6 className="text-capitalize title-h6">best contact to confirm employment</h6>
-        <div className="form-group">
-          <div className="col-md-6">
-            <TextField
-              activateRequiredField={this.props.employerContactNameError}
-              label={this.props.fields.employerContactName.label}
-              keyName={this.props.fields.employerContactName.name}
-              value={this.props.employerContactName}
-              editable={true}
-              maxLength={100}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.employerContactName)}
-              onChange={this.props.onChange}
-              editMode={this.props.editMode}/>
-          </div>
-          <div className="col-md-6">
-            <TextField
-              activateRequiredField={this.props.employerContactNumberError}
-              label={this.props.fields.employerContactNumber.label}
-              keyName={this.props.fields.employerContactNumber.name}
-              value={this.props.employerContactNumber}
-              format={this.formatPhoneNumber}
-              liveFormat={true}
-              maxLength={14}
-              editable={true}
-              validationTypes={["phoneNumber"]}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.employerContactNumber)}
-              onChange={this.props.onChange}
-              editMode={this.props.editMode}/>
-          </div>
-        </div>
         <h6 className="text-capitalize title-h6">income details</h6>
         <div className="form-group">
           <div className="col-md-6">
