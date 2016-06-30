@@ -51,7 +51,7 @@ gem 'rails-html-sanitizer'
 # SEO for fb
 gem 'meta-tags'
 # Parse CSS and add vendor prefixes to rules by Can I Use
-gem 'autoprefixer-rails', '~> 5.2.1.1'
+# gem 'autoprefixer-rails', '~> 5.2.1.1'
 
 gem 'react-rails', '~> 1.0'
 
