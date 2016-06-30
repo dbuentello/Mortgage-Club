@@ -213,8 +213,6 @@ module Docusign
           "g" => "child_support",
           "h" => "down_payment_borrowed",
           "i" => "co_maker_or_endorser",
-          "j" => "us_citizen",
-          "k" => "permanent_resident_alien",
           "m" => "ownership_interest"
         }
         # Ex: @params["declarations_" + role + "_b_yes"] = "Yes" if declaration.bankrupt
@@ -226,6 +224,19 @@ module Docusign
             @params[(prefix + key + no_answer).to_sym] = "Yes"
           end
         end
+
+        if declaration.citizen_status == "C"
+          @params[(prefix + "j" + yes_answer).to_sym] = "Yes"
+        else
+          @params[(prefix + "j" + no_answer).to_sym] = "Yes"
+        end
+
+        if declaration.citizen_status == "PR"
+          @params[(prefix + "k" + yes_answer).to_sym] = "Yes"
+        else
+          @params[(prefix + "k" + no_answer).to_sym] = "Yes"
+        end
+
         @params[(prefix + "m1").to_sym] = declaration.type_of_property
         @params[(prefix + "m2").to_sym] = declaration.title_of_property
       end

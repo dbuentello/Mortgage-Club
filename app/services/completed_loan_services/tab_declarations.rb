@@ -13,8 +13,7 @@ module CompletedLoanServices
     end
 
     def declaration_completed?
-      return false if declaration.us_citizen.nil?
-      return false if declaration.permanent_resident_alien.nil? && declaration.us_citizen == false
+      return false if declaration.citizen_status.nil?
       return false if declaration.ownership_interest.nil?
 
       if declaration.ownership_interest == true

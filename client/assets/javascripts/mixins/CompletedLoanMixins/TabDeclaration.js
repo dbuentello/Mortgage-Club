@@ -6,13 +6,9 @@ var TabDeclaration = {
     if(declaration === undefined || declaration === null)
       return false;
 
-    if(declaration.us_citizen == null ||
+    if(declaration.citizen_status == null ||
       declaration.ownership_interest == null
     ) {
-      return false;
-    }
-
-    if(declaration.us_citizen == false && declaration.permanent_resident_alien == null) {
       return false;
     }
 
