@@ -390,7 +390,7 @@ var Form = React.createClass({
         city: address.city
       };
       state[fields.currentAddress.name] = address_attributes;
-      state[fields.yearsInCurrentAddress.name] = (new Date(Date.now()).getFullYear()) * 1 - (state.subject_property.original_purchase_year) * 1 + 1;
+      state[fields.yearsInCurrentAddress.name] = currentBorrowerAddress.years_at_address || ((new Date(Date.now()).getFullYear()) * 1 - (state.subject_property.original_purchase_year) * 1 + 1);
       state[fields.currentlyOwn.name] = true;
       state[fields.currentlyOwn.isEnabled] = false;
     }
@@ -516,7 +516,7 @@ var Form = React.createClass({
           this.props.goToAllDonePage(response.loan);
         }
         else {
-          this.props.setupMenu(response, 1);
+          this.props.setupMenu(response, 2);
         }
       }.bind(this),
       error: function(response, status, error) {
@@ -529,7 +529,7 @@ var Form = React.createClass({
   },
 
   next: function(event){
-    this.props.next(2);
+    this.props.next(3);
     event.preventDefault();
   },
 
