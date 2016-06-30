@@ -71,4 +71,4 @@ Feature: AddBorrower
         And the "secondary_borrower_current_address" field should contain "1920 South Las Vegas Boulevard, Las Vegas"
         Then I wait for 2 seconds
         And I click on a first ".customCheckbox"
-        Then the "secondary_borrower_current_address" field should contain "3460 Wilshire Avenue, La Habra, CA 90631"
+        Then the "secondary_borrower_current_address" field should contain "3460 Wilshire Boulevard, Los Angeles, CA 90010"

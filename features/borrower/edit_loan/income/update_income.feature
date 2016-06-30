@@ -55,7 +55,7 @@ Feature: UpdateIncome
         And I fill in "Base Income" with "$123,454.00"
         And I select "Monthly" from "Income Frequency"
       Then I click on "Save and Continue"
-        And I should see "We’re now ready to get a real-time credit check to verify your credit score and review your credit history"
+        And I should see "We’re now ready to obtain your credit report in real time to verify your credit score and review your credit history. You won’t be charged for this service. Please authorize us by selecting the checkbox below."
       And I click "Income"
         Then I should see content as "Software Engineer"
           And I should see "Name Of Previous Employer"
