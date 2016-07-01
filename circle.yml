@@ -11,4 +11,4 @@ general:
     - "~/simplecov" # relative to the user's home directory
 machine:
   ruby:
-    version: 2.2.2
+    version: 2.2.2p95

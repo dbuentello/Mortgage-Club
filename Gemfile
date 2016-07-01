@@ -166,6 +166,7 @@ group :test do
   gem 'cucumber_factory'
   gem 'spreewald'
   gem 'rspec-retry'
+  gem 'selenium-webdriver'
   gem 'launchy'
   gem 'guard-rspec'
   gem 'timecop'
