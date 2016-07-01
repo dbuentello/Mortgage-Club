@@ -9,3 +9,6 @@ test:
 general:
   artifacts:
     - "~/simplecov" # relative to the user's home directory
+machine:
+  ruby:
+    version: 2.2.2
