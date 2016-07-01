@@ -20,6 +20,18 @@ require 'devise'
 require 'pundit/rspec'
 require 'capybara/rspec'
 require 'database_cleaner'
+require 'capybara/cucumber'
+require 'capybara/poltergeist'
+require 'rspec/retry'
+
+Capybara.javascript_driver = :poltergeist
+options = {js_errors: false, timeout: 180, phantomjs_logger: StringIO.new, logger: nil, phantomjs_options: ['--load-images=no', '--ignore-ssl-errors=yes']}
+Capybara.register_driver(:poltergeist) do |app|
+  Capybara::Poltergeist::Driver.new app, options
+end
+
+Capybara.default_driver = :poltergeist
+Capybara.default_max_wait_time = 30
 
 
 RSpec.configure do |config|
@@ -42,7 +54,17 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-
+  # show retry status in spec process
+  config.verbose_retry = true
+  # Try twice (retry once)
+  config.default_retry_count = 3
+  config.display_try_failure_messages = true
+  # Only retry when Selenium raises Net::ReadTimeout
+  config.exceptions_to_retry = [Net::ReadTimeout]
+  # run retry only on features
+  config.around :each, :js do |ex|
+    ex.run_with_retry retry: 3
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
