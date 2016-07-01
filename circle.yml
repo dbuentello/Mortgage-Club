@@ -1,7 +1,6 @@
 dependencies:
   pre:
     - sudo apt-get install pdftk
-    - bundle exec rake assets:clobber
     - bundle exec rake tmp:clear
     - bundle exec rake assets:precompile
 test:
