@@ -20,32 +20,7 @@ require 'devise'
 require 'pundit/rspec'
 require 'capybara/rspec'
 require 'database_cleaner'
-require 'capybara/poltergeist'
-require 'rspec/retry'
 
-RSpec.configure do |config|
-  # show retry status in spec process
-  config.verbose_retry = true
-  # Try twice (retry once)
-  config.default_retry_count = 3
-  config.display_try_failure_messages = true
-  # Only retry when Selenium raises Net::ReadTimeout
-  config.exceptions_to_retry = [Net::ReadTimeout]
-end
-
-Capybara.javascript_driver = :poltergeist
-Capybara.default_driver = :poltergeist
-Capybara.default_wait_time = 15
-Capybara.register_driver :poltergeist do |app|
-  options = {
-        :js_errors => false,
-        :timeout => 120,
-        :debug => false,
-        :phantomjs_options => ['--load-images=no', '--disk-cache=false'],
-        :inspector => true,
-    }
-  Capybara::Poltergeist::Driver.new(app, options)
-end
 
 RSpec.configure do |config|
   # default config from https://github.com/DatabaseCleaner/database_cleaner

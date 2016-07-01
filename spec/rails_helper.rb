@@ -8,7 +8,32 @@ require 'devise'
 require "support/vcr_setup"
 
 require 'simplecov'
+require 'capybara/poltergeist'
+require 'rspec/retry'
 
+RSpec.configure do |config|
+  # show retry status in spec process
+  config.verbose_retry = true
+  # Try twice (retry once)
+  config.default_retry_count = 3
+  config.display_try_failure_messages = true
+  # Only retry when Selenium raises Net::ReadTimeout
+  config.exceptions_to_retry = [Net::ReadTimeout]
+end
+
+Capybara.javascript_driver = :poltergeist
+Capybara.default_driver = :poltergeist
+Capybara.default_max_wait_time = 30
+Capybara.register_driver :poltergeist do |app|
+  options = {
+        :js_errors => false,
+        :timeout => 120,
+        :debug => false,
+        :phantomjs_options => ['--load-images=no', '--disk-cache=false'],
+        :inspector => true,
+    }
+  Capybara::Poltergeist::Driver.new(app, options)
+end
 Delayed::Worker.delay_jobs = true
 
 # save to CircleCI's artifacts directory if we're on CircleCI
