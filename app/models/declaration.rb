@@ -13,6 +13,9 @@
 #  down_payment_borrowed    :boolean
 #  co_maker_or_endorser     :boolean
 #  citizen_status           :string
+#  is_hispanic_or_latino    :string
+#  gender_type              :string
+#  race_type                :string
 #  ownership_interest       :boolean
 #  type_of_property         :string
 #  title_of_property        :string
@@ -37,6 +40,9 @@ class Declaration < ActiveRecord::Base
     :down_payment_borrowed,
     :co_maker_or_endorser,
     :citizen_status,
+    :is_hispanic_or_latino,
+    :gender_type,
+    :race_type,
     :ownership_interest,
     :type_of_property,
     :title_of_property
@@ -44,6 +50,7 @@ class Declaration < ActiveRecord::Base
 
   def completed?
     !(citizen_status.nil? && ownership_interest.nil? &&
+    is_hispanic_or_latino.nil? && gender_type.nil? && race_type.nil?
     type_of_property.nil? && title_of_property.nil?)
   end
 end

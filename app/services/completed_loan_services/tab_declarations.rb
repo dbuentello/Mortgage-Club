@@ -14,6 +14,9 @@ module CompletedLoanServices
 
     def declaration_completed?
       return false if declaration.citizen_status.nil?
+      return false if declaration.is_hispanic_or_latino.nil?
+      return false if declaration.gender_type.nil?
+      return false if declaration.race_type.nil?
       return false if declaration.ownership_interest.nil?
 
       if declaration.ownership_interest == true

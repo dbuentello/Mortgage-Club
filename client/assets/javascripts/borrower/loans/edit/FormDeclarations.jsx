@@ -20,6 +20,9 @@ var checkboxFields = {
 
 var selectBoxFields = {
   citizenshipStatus: {label: 'What\'s your citizenship status?', name: 'citizen_status', error: 'citizenshipStatusError', validationTypes: ["empty"]},
+  isHispanicOrLatino: {label: 'I am', name: 'is_hispanic_or_latino', error: 'isHispanicOrLatinoError', validationTypes: ["empty"]},
+  genderType: {label: 'What\'s your gender?', name: 'gender_type', error: 'genderTypeError', validationTypes: ["empty"]},
+  raceType: {label: 'What\'s your race?', name: 'race_type', error: 'raceTypeError', validationTypes: ["empty"]},
   typeOfProperty: {label: '(1) What type of property did you own?', name: 'type_of_property', error: "typeOfPropertyError", validationTypes: ["empty"]},
   titleOfProperty: {label: '(2) How did you hold title to this property?', name: 'title_of_property', error: "titleOfPropertyError", validationTypes: ["empty"]}
 }
@@ -28,6 +31,24 @@ var citizenshipStatusOptions = [
   {name: 'Citizen', value: 'C'},
   {name: 'Permanent Resident', value: 'PR'},
   {name: 'Others', value: 'O'}
+];
+
+var isHispanicOrLatinoOptions = [
+  {name: 'Hispanic or Latino', value: 'Y'},
+  {name: 'Not Hispanic or Latino', value: 'N'}
+];
+
+var genderTypeOptions = [
+  {name: 'Male', value: 'M'},
+  {name: 'Female', value: 'F'}
+];
+
+var raceTypeOptions = [
+  {name: 'American Indian or Alaska Native', value: 'AIoAN'},
+  {name: 'Asian', value: 'A'},
+  {name: 'Black or African American', value: 'BoAA'},
+  {name: 'Native Hawaiian or Other Pacific Islander', value: 'NHoOPI'},
+  {name: 'White', value: 'W'}
 ];
 
 var propertyOptions = [
@@ -159,7 +180,52 @@ var FormDeclarations = React.createClass({
                 options={citizenshipStatusOptions}
                 editable={true}
                 name={'citizen_status'}
-                placeholder="Select your citizenship status"
+                allowBlank={true}
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
+            </div>
+          </div>
+           <div className='form-group'>
+            <div className="col-md-6">
+              <SelectField
+                activateRequiredField={this.state[selectBoxFields.isHispanicOrLatino.error]}
+                label={selectBoxFields.isHispanicOrLatino.label}
+                keyName={selectBoxFields.isHispanicOrLatino.name}
+                value={this.state[selectBoxFields.isHispanicOrLatino.name]}
+                options={isHispanicOrLatinoOptions}
+                editable={true}
+                name={'is_hispanic_or_latino'}
+                allowBlank={true}
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
+            </div>
+          </div>
+           <div className='form-group'>
+            <div className="col-md-6">
+              <SelectField
+                activateRequiredField={this.state[selectBoxFields.raceType.error]}
+                label={selectBoxFields.raceType.label}
+                keyName={selectBoxFields.raceType.name}
+                value={this.state[selectBoxFields.raceType.name]}
+                options={raceTypeOptions}
+                editable={true}
+                name={'race_type'}
+                allowBlank={true}
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
+            </div>
+          </div>
+           <div className='form-group'>
+            <div className="col-md-6">
+              <SelectField
+                activateRequiredField={this.state[selectBoxFields.genderType.error]}
+                label={selectBoxFields.genderType.label}
+                keyName={selectBoxFields.genderType.name}
+                value={this.state[selectBoxFields.genderType.name]}
+                options={genderTypeOptions}
+                editable={true}
+                name={'gender_type'}
+                allowBlank={true}
                 onChange={this.onChange}
                 editMode={this.props.editMode}/>
             </div>
@@ -195,7 +261,7 @@ var FormDeclarations = React.createClass({
                 options={propertyOptions}
                 editable={true}
                 name={'type_of_property'}
-                placeholder="Select your type of property"
+                allowBlank={true}
                 onChange={this.onChange}
                 editMode={this.props.editMode}/>
             </div>
@@ -209,7 +275,7 @@ var FormDeclarations = React.createClass({
                 value={this.state[selectBoxFields.titleOfProperty.name]}
                 options={titlePropertyOptions}
                 editable={true}
-                placeholder="Select your title of property"
+                allowBlank={true}
                 name={'title_of_property'}
                 onChange={this.onChange}
                 editMode={this.props.editMode}/>
@@ -249,6 +315,9 @@ var FormDeclarations = React.createClass({
     }, this);
 
     requiredFields[selectBoxFields.citizenshipStatus.error] = {value: this.state[selectBoxFields.citizenshipStatus.name], validationTypes: selectBoxFields.citizenshipStatus.validationTypes};
+    requiredFields[selectBoxFields.isHispanicOrLatino.error] = {value: this.state[selectBoxFields.isHispanicOrLatino.name], validationTypes: selectBoxFields.isHispanicOrLatino.validationTypes};
+    requiredFields[selectBoxFields.raceType.error] = {value: this.state[selectBoxFields.raceType.name], validationTypes: selectBoxFields.raceType.validationTypes};
+    requiredFields[selectBoxFields.genderType.error] = {value: this.state[selectBoxFields.genderType.name], validationTypes: selectBoxFields.genderType.validationTypes};
 
     if(this.state.display_sub_question == true) {
       requiredFields[selectBoxFields.typeOfProperty.error] = {value: this.state[selectBoxFields.typeOfProperty.name], validationTypes: selectBoxFields.typeOfProperty.validationTypes};

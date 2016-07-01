@@ -16,6 +16,9 @@ describe("check if tab declaration is completed or not", function() {
         co_maker_or_endorser: Math.floor(Math.random() * booleanArr.length),
         present_delinquent_loan: Math.floor(Math.random() * booleanArr.length),
         citizen_status: "C",
+        is_hispanic_or_latino: "Y",
+        gender_type: "M",
+        race_type: "A",
         ownership_interest: false
       }
     }
@@ -34,6 +37,9 @@ describe("check if tab declaration is completed or not", function() {
         co_maker_or_endorser: Math.floor(Math.random() * booleanArr.length),
         present_delinquent_loan: Math.floor(Math.random() * booleanArr.length),
         citizen_status: "C",
+        is_hispanic_or_latino: "Y",
+        gender_type: "M",
+        race_type: "A",
         ownership_interest: true,
         type_of_property: Math.floor(Math.random() * booleanArr.length),
         title_of_property: Math.floor(Math.random() * booleanArr.length)

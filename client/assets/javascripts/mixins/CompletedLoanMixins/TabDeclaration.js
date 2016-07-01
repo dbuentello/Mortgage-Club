@@ -7,6 +7,9 @@ var TabDeclaration = {
       return false;
 
     if(declaration.citizen_status == null ||
+      this.valueFieldNotValid(declaration.is_hispanic_or_latino) ||
+      this.valueFieldNotValid(declaration.gender_type) ||
+      this.valueFieldNotValid(declaration.race_type) ||
       declaration.ownership_interest == null
     ) {
       return false;
@@ -17,6 +20,12 @@ var TabDeclaration = {
     }
 
     return true;
-  }
+  },
+
+  valueFieldNotValid: function(field){
+    if (field === undefined || field === null || field === "")
+      return true;
+    return false;
+  },
 }
 module.exports = TabDeclaration;

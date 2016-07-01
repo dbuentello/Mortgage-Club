@@ -14,14 +14,23 @@ describe CompletedLoanServices::TabDeclarations do
   end
 
   describe "#declaration_completed" do
-    it "returns false with us citizen nil" do
-      service.declaration.us_citizen = nil
+    it "returns false with citizenship status nil" do
+      service.declaration.citizen_status = nil
       expect(service.declaration_completed?).to be_falsey
     end
 
-    it "returns false with permanent resident alien nil" do
-      service.declaration.permanent_resident_alien = nil
-      service.declaration.us_citizen = false
+    it "returns false with is hispanic or latino nil" do
+      service.declaration.is_hispanic_or_latino = nil
+      expect(service.declaration_completed?).to be_falsey
+    end
+
+    it "returns false with gender type nil" do
+      service.declaration.gender_type = nil
+      expect(service.declaration_completed?).to be_falsey
+    end
+
+    it "returns false with race type nil" do
+      service.declaration.race_type = nil
       expect(service.declaration_completed?).to be_falsey
     end
 
