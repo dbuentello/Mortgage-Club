@@ -1,10 +1,10 @@
 dependencies:
   pre:
     - sudo apt-get install pdftk
-    - bundle exec rake tmp:clear
-    - bundle exec rake assets:precompile
 test:
   pre:
+    - bundle exec rake tmp:clear
+    - bundle exec rake assets:precompile
     - bundle exec rake assets:webpack
   post:
     - bundle exec rubocop
