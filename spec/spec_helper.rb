@@ -28,7 +28,7 @@ options = {js_errors: false, debug: true, timeout: 180, phantomjs_logger: String
 Capybara.register_driver(:poltergeist) do |app|
   Capybara::Poltergeist::Driver.new app, options
 end
-
+Capybara.default_max_wait_time = 120
 Capybara.default_driver = :poltergeist
 
 

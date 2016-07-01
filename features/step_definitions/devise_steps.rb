@@ -26,6 +26,14 @@ Given(/^I login as "(.*?)" with password "(.*?)"$/) do |email, password|
   click_button "login"
 end
 
+Given(/^I login as "(.*?)" with password "(.*?)" and wait for (\d+) seconds$/) do |email, password, s|
+  visit '/auth/login/'
+  sleep(s.to_i)
+  fill_in "user_email", with: email
+  fill_in "user_password", with: password
+  click_button "login"
+end
+
 Then(/^the URL should contain "(.*?)"$/) do |string|
   current_url.should include(string)
 end
