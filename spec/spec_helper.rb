@@ -20,7 +20,6 @@ require 'devise'
 require 'pundit/rspec'
 require 'capybara/rspec'
 require 'database_cleaner'
-require 'capybara/cucumber'
 require 'capybara/poltergeist'
 require 'rspec/retry'
 
@@ -31,7 +30,6 @@ Capybara.register_driver(:poltergeist) do |app|
 end
 
 Capybara.default_driver = :poltergeist
-Capybara.default_max_wait_time = 30
 
 
 RSpec.configure do |config|
