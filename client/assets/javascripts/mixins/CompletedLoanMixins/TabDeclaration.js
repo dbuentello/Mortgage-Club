@@ -1,8 +1,15 @@
 var TabDeclaration = {
-  declarationCompleted: function(loan){
-    var borrower = loan.borrower;
-    var declaration = borrower.declaration;
+  completed: function(loan){
+    if (loan.borrower === undefined || loan.borrower === null)
+      return false;
 
+    if (loan.secondary_borrower === undefined || loan.secondary_borrower === null)
+      return this.declarationCompleted(loan.borrower.declaration);
+
+    return (this.declarationCompleted(loan.borrower.declaration) && this.declarationCompleted(loan.secondary_borrower.declaration));
+  },
+
+  declarationCompleted: function(declaration){
     if(declaration === undefined || declaration === null)
       return false;
 

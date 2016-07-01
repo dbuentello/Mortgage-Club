@@ -12,7 +12,7 @@ var CheckCompletedLoanMixin = {
       TabDocuments.documentsCompleted(loan) &&
       TabIncome.incomeCompleted(loan) &&
       TabAsset.assetCompleted(loan) &&
-      TabDeclaration.declarationCompleted(loan);
+      TabDeclaration.completed(loan);
   }
 }
 module.exports = CheckCompletedLoanMixin;

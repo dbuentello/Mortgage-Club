@@ -47,10 +47,4 @@ class Declaration < ActiveRecord::Base
     :type_of_property,
     :title_of_property
   ]
-
-  def completed?
-    !(citizen_status.nil? && ownership_interest.nil? &&
-    is_hispanic_or_latino.nil? && gender_type.nil? && race_type.nil?
-    type_of_property.nil? && title_of_property.nil?)
-  end
 end

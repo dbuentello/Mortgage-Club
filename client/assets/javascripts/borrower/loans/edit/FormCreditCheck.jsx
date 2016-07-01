@@ -15,11 +15,9 @@ var FormCreditCheck = React.createClass({
   },
 
   onChange: function(change) {
-    console.log(change);
   },
 
   save: function(agree) {
-    console.log(agree);
     this.setState({saving: true});
     var loan = {};
     loan.credit_check_agree = agree

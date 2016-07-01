@@ -155,7 +155,7 @@ var LoanInterface = React.createClass({
       {name: "Income", complete: TabIncome.incomeCompleted(loan), key: "tabIncome", iconClass: "fa fa-database", step: 3, Content: Income},
       {name: "Credit Check", complete: creditCardCompleted, key: "tabCreditCheck", iconClass: "fa fa-credit-card-alt", step: 4, Content: CreditCheck},
       {name: "Assets and Liabilities", complete: TabAsset.assetCompleted(loan), key: "tabAssetsAndLiabilities", iconClass: "fa fa-bar-chart", step: 5, Content: AssetsAndLiabilities},
-      {name: "Declarations", complete: TabDeclaration.declarationCompleted(loan), key: "tabDeclarations", iconClass: "fa fa-list-alt", step: 6, Content: Declarations},
+      {name: "Declarations", complete: TabDeclaration.completed(loan), key: "tabDeclarations", iconClass: "fa fa-list-alt", step: 6, Content: Declarations},
     ];
     return menu;
   },
