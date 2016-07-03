@@ -165,8 +165,7 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'cucumber_factory'
   gem 'spreewald'
-  gem 'rspec-retry'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 2.48.1'
   gem 'launchy'
   gem 'guard-rspec'
   gem 'timecop'
