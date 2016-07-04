@@ -166,7 +166,7 @@ var CheckList = React.createClass({
               className="btnInfo"
               data-toggle="popover"
               data-trigger="focus"
-              title="Enter the required entity information"
+              title="Info"
               data-content={checklist.info}>
               <span className="glyphicon glyphicon-info-sign"></span>
             </button>
