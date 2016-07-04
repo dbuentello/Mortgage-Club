@@ -85,6 +85,7 @@ FactoryGirl.define do
     f.estimated_closing_costs { nil }
     f.pmi_mip_funding_fee { nil }
     f.loan_type { nil }
+    f.credit_check_agree {true}
     f.prepayment_penalty { nil }
     f.balloon_payment { nil }
     f.monthly_payment { nil }

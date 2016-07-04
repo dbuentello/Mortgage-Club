@@ -56,8 +56,7 @@ Feature: AddBorrower
         And I fill in "secondary_borrower_dependent_ages" with "1"
         Then I click on "Save and Continue"
           And I wait for 2 seconds
-          And I should not see "This field is required"
-          And I should not see "This field is invalid"
+      
         When I click on "Borrower"
           And I should see "With a co-borrower"
           And the "secondary_borrower_first_name" field should contain "Mark"
