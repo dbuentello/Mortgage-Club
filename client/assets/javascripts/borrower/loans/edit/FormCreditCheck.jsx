@@ -17,14 +17,6 @@ var FormCreditCheck = React.createClass({
   },
 
   onChange: function(change) {
-  },
-
-  save: function(agree) {
-    // this.setState({saving: true});
-    // var loan = {};
-    // loan.credit_check_agree = agree
-    // this.props.saveLoan(loan, 4, true);
-
     $("html").addClass("loading");
     $.ajax({
       url: '/credit_checks/' + this.props.loan.id,
