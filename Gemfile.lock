@@ -542,8 +542,5 @@ DEPENDENCIES
   webmock
   will_paginate (~> 3.1.0)
 
-RUBY VERSION
-   ruby 2.2.2
-
 BUNDLED WITH
    1.12.4
