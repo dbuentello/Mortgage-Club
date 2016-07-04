@@ -50,7 +50,7 @@ Feature: UpdateAssetsAndLiabilities
         And I clear value in "Purchase Year"
           Then I fill in "Purchase Year" with "1994"
         Then I click on "Save and Continue"
-        And I should see "I am applying"
+        # And I should see "I am applying"
       When I click link with div "#tabAssetsAndLiabilities"
         And I clear value in "Institution Name"
           Then I fill in "Institution Name" with "Bank of America"
