@@ -192,6 +192,10 @@ class Borrower < ActiveRecord::Base
     credit_report.score
   end
 
+  def credit_report_file
+    documents.where(description: "Credit report", document_type: "other_borrower_report").first
+  end
+
   def current_salary
     current_employment.present? ? current_employment.current_salary.to_f : 0
   end
