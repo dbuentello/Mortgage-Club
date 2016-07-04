@@ -9,7 +9,7 @@ module ZillowService
       zpid = GetZpid.call(property.address.street_address, property.address.zip)
 
       if zpid && property_tax = get_property_tax(zpid)
-        property.update(estimated_property_tax: property_tax / 12)
+        property.update(estimated_property_tax: property_tax)
       end
     end
 

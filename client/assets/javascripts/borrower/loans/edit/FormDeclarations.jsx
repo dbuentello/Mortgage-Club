@@ -9,85 +9,49 @@ var BooleanRadio = require('components/form/NewBooleanRadio');
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
 
-var checkboxFields = {
-  outstandingJudgment: {
-    label: 'Are there any outstanding judgments against you?',
-    name: 'outstanding_judgment',
-    error: "outstandingJudgmentError",
-    validationTypes: ["empty"]
-  },
-  bankrupt: {
-    label: 'Have you been declared bankrupt in the past 7 years?',
-    name: 'bankrupt',
-    error: "bankruptError",
-    validationTypes: ["empty"]
-  },
-  propertyForeclosed: {
-    label: 'Have you had property foreclosed upon or given title or deed in lieu thereof in the last 7 years?',
-    name: 'property_foreclosed',
-    error: "propertyForeclosedError",
-    validationTypes: ["empty"]
-  },
-  partyToLawsuit: {
-    label: 'Are you a party to a lawsuit?',
-    name: 'party_to_lawsuit',
-    error: "partyToLawsuitError",
-    validationTypes: ["empty"]
-  },
-  loanForeclosure: {
-    label: 'Have you been obligated on any loan resulted in foreclosure, transfer of title in lieu of foreclosure, or judgment?',
-    name: 'loan_foreclosure',
-    error: "loanForeclosureError",
-    validationTypes: ["empty"]
-  },
-  presentDeliquentLoan: {
-    label: 'Are you presently delinquent or in default on any Federal debt or any other loan, mortgage, financial, obligation, bond or loan guarantee?',
-    name: 'present_delinquent_loan',
-    error: "presentDeliquentLoanError",
-    validationTypes: ["empty"]
-  },
-  childSupport: {
-    label: 'Are you obligated to pay alimony, child support, or separate maintenance?',
-    name: 'child_support',
-    error: "childSupportError",
-    validationTypes: ["empty"]
-  },
-  downPaymentBorrowed: {
-    label: 'Is any part of the down payment borrowed?',
-    name: 'down_payment_borrowed',
-    error: "downPaymentBorrowedError",
-    validationTypes: ["empty"]
-  },
-  coMakerOrEndorser: {
-    label: 'Are you a co-maker or endorser on a note?',
-    name: 'co_maker_or_endorser',
-    error: "coMakerOrEndorserError",
-    validationTypes: ["empty"]
-  },
-  usCitizen: {
-    label: 'Are you a U.S citizen?',
-    name: 'us_citizen',
-    error: "usCitizenError",
-    validationTypes: ["empty"]
-  },
-  permanentResidentAlien: {
-    label: 'Are you a permanent resident alien?',
-    name: 'permanent_resident_alien',
-    error: "permanentResidentAlienError",
-    validationTypes: ["empty"]
-  },
-  ownershipInterest: {
-    label: 'Have you had an ownership interest in a property in the last three years?',
-    name: 'ownership_interest',
-    error: "ownershipInterestError",
-    validationTypes: ["empty"]
-  }
-};
-
-var selectBoxFields = {
-  typeOfProperty: {label: '(1) What type of property did you own?', name: 'type_of_property', error: "typeOfPropertyError", validationTypes: ["empty"]},
-  titleOfProperty: {label: '(2) How did you hold title to this property?', name: 'title_of_property', error: "titleOfPropertyError", validationTypes: ["empty"]}
+var borrowerFields = {
+  ownershipInterest: { label: 'Have you had an ownership interest in a property in the last three years?', name: 'ownership_interest', error: "ownershipInterestError", validationTypes: ["empty"] },
+  citizenshipStatus: { label: 'What\'s your citizenship status?', name: 'citizen_status', error: 'citizenshipStatusError', validationTypes: ["empty"] },
+  isHispanicOrLatino: { label: 'I am', name: 'is_hispanic_or_latino', error: 'isHispanicOrLatinoError', validationTypes: ["empty"] },
+  genderType: { label: 'What\'s your gender?', name: 'gender_type', error: 'genderTypeError', validationTypes: ["empty"] },
+  raceType: { label: 'What\'s your race?', name: 'race_type', error: 'raceTypeError', validationTypes: ["empty"] },
+  typeOfProperty: { label: '(1) What type of property did you own?', name: 'type_of_property', error: "typeOfPropertyError", validationTypes: ["empty"] },
+  titleOfProperty: { label: '(2) How did you hold title to this property?', name: 'title_of_property', error: "titleOfPropertyError", validationTypes: ["empty"] }
 }
+
+var coBorrowerFields = {
+  ownershipInterest: { label: 'Have you had an ownership interest in a property in the last three years?', name: 'co_borrower_ownership_interest', error: "coBorrowerOwnershipInterestError", validationTypes: ["empty"] },
+  citizenshipStatus: { label: 'What\'s your citizenship status?', name: 'co_borrower_citizen_status', error: 'coBorrowerCitizenshipStatusError', validationTypes: ["empty"] },
+  isHispanicOrLatino: { label: 'I am', name: 'co_borrower_is_hispanic_or_latino', error: 'coBorrowerIsHispanicOrLatinoError', validationTypes: ["empty"] },
+  genderType: { label: 'What\'s your gender?', name: 'co_borrower_gender_type', error: 'coBorrowerGenderTypeError', validationTypes: ["empty"] },
+  raceType: { label: 'What\'s your race?', name: 'co_borrower_race_type', error: 'coBorrowerRaceTypeError', validationTypes: ["empty"] },
+  typeOfProperty: { label: '(1) What type of property did you own?', name: 'co_borrower_type_of_property', error: "coBorrowerTypeOfPropertyError", validationTypes: ["empty"] },
+  titleOfProperty: { label: '(2) How did you hold title to this property?', name: 'co_borrower_title_of_property', error: "coBorrowerTitleOfPropertyError", validationTypes: ["empty"] }
+}
+
+var citizenshipStatusOptions = [
+  {name: 'Citizen', value: 'C'},
+  {name: 'Permanent Resident', value: 'PR'},
+  {name: 'Others', value: 'O'}
+];
+
+var isHispanicOrLatinoOptions = [
+  {name: 'Hispanic or Latino', value: 'Y'},
+  {name: 'Not Hispanic or Latino', value: 'N'}
+];
+
+var genderTypeOptions = [
+  {name: 'Male', value: 'M'},
+  {name: 'Female', value: 'F'}
+];
+
+var raceTypeOptions = [
+  {name: 'American Indian or Alaska Native', value: 'AIoAN'},
+  {name: 'Asian', value: 'A'},
+  {name: 'Black or African American', value: 'BoAA'},
+  {name: 'Native Hawaiian or Other Pacific Islander', value: 'NHoOPI'},
+  {name: 'White', value: 'W'}
+];
 
 var propertyOptions = [
   {name: 'Primary Residence', value: 'PR'},
@@ -107,16 +71,12 @@ var FormDeclarations = React.createClass({
   getInitialState: function() {
     var state = this.buildStateFromLoan(this.props.loan);
     state.isValid = true;
-    _.each(checkboxFields, function (field) {
+
+    _.each(borrowerFields, function (field) {
       state[field.name] = state[field.name] === null ? null : state[field.name];
-      state[field.name + '_display'] = true;
     });
 
-    if(state[checkboxFields.usCitizen.name] == true) {
-      state[checkboxFields.permanentResidentAlien.name + "_display"] = "none";
-    }
-
-    _.each(selectBoxFields, function (field) {
+    _.each(coBorrowerFields, function (field) {
       state[field.name] = state[field.name] === null ? null : state[field.name];
     });
 
@@ -124,6 +84,12 @@ var FormDeclarations = React.createClass({
       state['display_sub_question'] = true;
     }else {
       state['display_sub_question'] = 'none';
+    }
+
+    if(state['co_borrower_ownership_interest'] == true) {
+      state['co_borrower_display_sub_question'] = true;
+    }else {
+      state['co_borrower_display_sub_question'] = 'none';
     }
 
     return state;
@@ -141,13 +107,6 @@ var FormDeclarations = React.createClass({
   onChange: function(change) {
     var key = Object.keys(change)[0];
     var value = change[key];
-    if(key == 'us_citizen') {
-      if(value == true) {
-        this.setState({'permanent_resident_alien_display': 'none'});
-      }else {
-        this.setState({'permanent_resident_alien_display': true});
-      }
-    }
 
     if(key == 'ownership_interest') {
       if(value == true) {
@@ -156,27 +115,42 @@ var FormDeclarations = React.createClass({
         this.setState({'display_sub_question': 'none'});
       }
     }
+
+    if(key == 'co_borrower_ownership_interest') {
+      if(value == true) {
+        this.setState({'co_borrower_display_sub_question': true});
+      }else {
+        this.setState({'co_borrower_display_sub_question': 'none'});
+      }
+    }
+
     this.setState(change);
   },
 
   buildStateFromLoan: function(loan) {
     var declaration = loan.borrower.declaration;
+
     var state = {};
     if (declaration) {
-      _.each(Object.keys(checkboxFields), function(key) {
-        if(key == "permanentResidentAlien"){
-          if(state[checkboxFields.usCitizen.name] == false)
-          {
-            state[checkboxFields[key].name] = declaration[checkboxFields[key].name];
-          }
-        }else{
-          state[checkboxFields[key].name] = declaration[checkboxFields[key].name];
-        }
-      });
-      _.each(Object.keys(selectBoxFields), function(key) {
-        state[selectBoxFields[key].name] = declaration[selectBoxFields[key].name];
-      });
+      state = this.buildStateFromDeclaration(declaration, borrowerFields, state);
     }
+    if(loan.secondary_borrower){
+      state = this.buildStateFromDeclaration(loan.secondary_borrower.declaration, coBorrowerFields, state);
+    }
+    return state;
+  },
+
+  buildStateFromDeclaration: function(declaration, fields, state){
+    if(declaration){
+      state[fields.ownershipInterest.name] = declaration.ownership_interest;
+      state[fields.isHispanicOrLatino.name] = declaration.is_hispanic_or_latino;
+      state[fields.citizenshipStatus.name] = declaration.citizen_status;
+      state[fields.raceType.name] = declaration.race_type;
+      state[fields.genderType.name] = declaration.gender_type;
+      state[fields.typeOfProperty.name] = declaration.type_of_property;
+      state[fields.titleOfProperty.name] = declaration.title_of_property;
+    }
+
     return state;
   },
 
@@ -187,28 +161,68 @@ var FormDeclarations = React.createClass({
     loan.borrower_attributes = {id: this.props.loan.borrower.id};
 
     var declaration_attributes = {};
-    _.each(checkboxFields, function (field) {
-      declaration_attributes[field.name] = this.state[field.name];
-    }, this);
 
     if (this.state.ownership_interest == false) {
       this.state.type_of_property = null;
       this.state.title_of_property = null;
     }
 
-    if (this.state.us_citizen == true) {
-      this.state.permanent_resident_alien = null;
-    }
-
-    _.each(selectBoxFields, function (field) {
+    _.each(borrowerFields, function (field) {
       declaration_attributes[field.name] = this.state[field.name];
     }, this);
+
+    declaration_attributes['outstanding_judgment'] = false;
+    declaration_attributes['bankrupt'] = false;
+    declaration_attributes['property_foreclosed'] = false;
+    declaration_attributes['party_to_lawsuit'] = false;
+    declaration_attributes['loan_foreclosure'] = false;
+    declaration_attributes['present_delinquent_loan'] = false;
+    declaration_attributes['child_support'] = false;
+    declaration_attributes['down_payment_borrowed'] = false;
+    declaration_attributes['co_maker_or_endorser'] = false;
 
     if (this.props.loan.borrower.declaration) {
       declaration_attributes.id = this.props.loan.borrower.declaration.id;
     }
 
     loan.borrower_attributes.declaration_attributes = declaration_attributes;
+
+    //For co-borrower data
+    if(this.props.loan.secondary_borrower){
+      loan.secondary_borrower_attributes = {id: this.props.loan.secondary_borrower.id};
+
+      var co_borrower_declaration_attributes = {};
+
+      if (this.state.co_borrower_ownership_interest == false) {
+        this.state.co_borrower_type_of_property = null;
+        this.state.co_borrower_title_of_property = null;
+      }
+
+      co_borrower_declaration_attributes[borrowerFields.ownershipInterest.name] = this.state[coBorrowerFields.ownershipInterest.name];
+      co_borrower_declaration_attributes[borrowerFields.isHispanicOrLatino.name] = this.state[coBorrowerFields.isHispanicOrLatino.name];
+      co_borrower_declaration_attributes[borrowerFields.citizenshipStatus.name] = this.state[coBorrowerFields.citizenshipStatus.name];
+      co_borrower_declaration_attributes[borrowerFields.raceType.name] = this.state[coBorrowerFields.raceType.name];
+      co_borrower_declaration_attributes[borrowerFields.genderType.name] = this.state[coBorrowerFields.genderType.name];
+      co_borrower_declaration_attributes[borrowerFields.typeOfProperty.name] = this.state[coBorrowerFields.typeOfProperty.name];
+      co_borrower_declaration_attributes[borrowerFields.titleOfProperty.name] = this.state[coBorrowerFields.titleOfProperty.name];
+
+      co_borrower_declaration_attributes['outstanding_judgment'] = false;
+      co_borrower_declaration_attributes['bankrupt'] = false;
+      co_borrower_declaration_attributes['property_foreclosed'] = false;
+      co_borrower_declaration_attributes['party_to_lawsuit'] = false;
+      co_borrower_declaration_attributes['loan_foreclosure'] = false;
+      co_borrower_declaration_attributes['present_delinquent_loan'] = false;
+      co_borrower_declaration_attributes['child_support'] = false;
+      co_borrower_declaration_attributes['down_payment_borrowed'] = false;
+      co_borrower_declaration_attributes['co_maker_or_endorser'] = false;
+
+      if (this.props.loan.secondary_borrower.declaration) {
+        co_borrower_declaration_attributes.id = this.props.loan.secondary_borrower.declaration.id;
+      }
+
+      loan.secondary_borrower_attributes.declaration_attributes = co_borrower_declaration_attributes;
+    }
+
     return loan;
   },
 
@@ -216,38 +230,97 @@ var FormDeclarations = React.createClass({
     return (
       <div className='col-sm-9 col-xs-12 account-content'>
         <form className='form-horizontal'>
-          {
-            _.map(Object.keys(checkboxFields), function(key) {
-              return (
-                <div className='form-group' key={key} style={{display: this.state[checkboxFields[key].name + '_display']}}>
-                  <div className="col-md-12">
-                    <BooleanRadio
-                      activateRequiredField={this.state[checkboxFields[key].error]}
-                      label={checkboxFields[key].label}
-                      isDeclaration={true}
-                      keyName={checkboxFields[key].name}
-                      customColumn={"col-xs-2"}
-                      editable={true}
-                      checked={this.state[checkboxFields[key].name]}
-                      onChange={this.onChange}
-                      editMode={this.props.editMode}/>
-                    </div>
-                </div>
-              )
-            }, this)
-          }
+          <div className='form-group'>
+            <p className="box-description col-sm-12">
+              The government requires us to ask you these questions so they can monitor that we adhere to fair lending practices. We’ve made them as simple as possible.
+            </p>
+          </div>
+          <div className='form-group'>
+            <div className="col-md-6">
+              <SelectField
+                activateRequiredField={this.state[borrowerFields.citizenshipStatus.error]}
+                label={borrowerFields.citizenshipStatus.label}
+                keyName={borrowerFields.citizenshipStatus.name}
+                value={this.state[borrowerFields.citizenshipStatus.name]}
+                options={citizenshipStatusOptions}
+                editable={true}
+                name={'citizen_status'}
+                allowBlank={true}
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
+            </div>
+          </div>
+           <div className='form-group'>
+            <div className="col-md-6">
+              <SelectField
+                activateRequiredField={this.state[borrowerFields.isHispanicOrLatino.error]}
+                label={borrowerFields.isHispanicOrLatino.label}
+                keyName={borrowerFields.isHispanicOrLatino.name}
+                value={this.state[borrowerFields.isHispanicOrLatino.name]}
+                options={isHispanicOrLatinoOptions}
+                editable={true}
+                name={'is_hispanic_or_latino'}
+                allowBlank={true}
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
+            </div>
+          </div>
+           <div className='form-group'>
+            <div className="col-md-6">
+              <SelectField
+                activateRequiredField={this.state[borrowerFields.raceType.error]}
+                label={borrowerFields.raceType.label}
+                keyName={borrowerFields.raceType.name}
+                value={this.state[borrowerFields.raceType.name]}
+                options={raceTypeOptions}
+                editable={true}
+                name={'race_type'}
+                allowBlank={true}
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
+            </div>
+          </div>
+           <div className='form-group'>
+            <div className="col-md-6">
+              <SelectField
+                activateRequiredField={this.state[borrowerFields.genderType.error]}
+                label={borrowerFields.genderType.label}
+                keyName={borrowerFields.genderType.name}
+                value={this.state[borrowerFields.genderType.name]}
+                options={genderTypeOptions}
+                editable={true}
+                name={'gender_type'}
+                allowBlank={true}
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
+            </div>
+          </div>
+          <div className='form-group'>
+            <div className="col-md-12">
+              <BooleanRadio
+                activateRequiredField={this.state[borrowerFields.ownershipInterest.error]}
+                label={borrowerFields.ownershipInterest.label}
+                isDeclaration={true}
+                keyName={borrowerFields.ownershipInterest.name}
+                customColumn={"col-xs-2"}
+                editable={true}
+                checked={this.state[borrowerFields.ownershipInterest.name]}
+                onChange={this.onChange}
+                editMode={this.props.editMode}/>
+              </div>
+          </div>
 
           <div className='form-group' style={{display: this.state.display_sub_question}}>
             <div className="col-md-6">
               <SelectField
-                activateRequiredField={this.state[selectBoxFields.typeOfProperty.error]}
-                label={selectBoxFields.typeOfProperty.label}
-                keyName={selectBoxFields.typeOfProperty.name}
-                value={this.state[selectBoxFields.typeOfProperty.name]}
+                activateRequiredField={this.state[borrowerFields.typeOfProperty.error]}
+                label={borrowerFields.typeOfProperty.label}
+                keyName={borrowerFields.typeOfProperty.name}
+                value={this.state[borrowerFields.typeOfProperty.name]}
                 options={propertyOptions}
                 editable={true}
                 name={'type_of_property'}
-                placeholder="Select your type of property"
+                allowBlank={true}
                 onChange={this.onChange}
                 editMode={this.props.editMode}/>
             </div>
@@ -255,18 +328,133 @@ var FormDeclarations = React.createClass({
           <div className='form-group' style={{display: this.state.display_sub_question}}>
             <div className="col-md-6">
               <SelectField
-                activateRequiredField={this.state[selectBoxFields.titleOfProperty.error]}
-                label={selectBoxFields.titleOfProperty.label}
-                keyName={selectBoxFields.titleOfProperty.name}
-                value={this.state[selectBoxFields.titleOfProperty.name]}
+                activateRequiredField={this.state[borrowerFields.titleOfProperty.error]}
+                label={borrowerFields.titleOfProperty.label}
+                keyName={borrowerFields.titleOfProperty.name}
+                value={this.state[borrowerFields.titleOfProperty.name]}
                 options={titlePropertyOptions}
                 editable={true}
-                placeholder="Select your title of property"
+                allowBlank={true}
                 name={'title_of_property'}
                 onChange={this.onChange}
                 editMode={this.props.editMode}/>
             </div>
           </div>
+          {
+            this.props.loan.secondary_borrower == null || this.props.loan.secondary_borrower == undefined
+            ?
+              null
+            :
+              <div className="box mtn">
+                <hr/>
+                <h3>Please provide information about your co-borrower</h3>
+                <div className='form-group'>
+                  <div className="col-md-6">
+                    <SelectField
+                      activateRequiredField={this.state[coBorrowerFields.citizenshipStatus.error]}
+                      label={coBorrowerFields.citizenshipStatus.label}
+                      keyName={coBorrowerFields.citizenshipStatus.name}
+                      value={this.state[coBorrowerFields.citizenshipStatus.name]}
+                      options={citizenshipStatusOptions}
+                      editable={true}
+                      name={'citizen_status'}
+                      allowBlank={true}
+                      onChange={this.onChange}
+                      editMode={this.props.editMode}/>
+                  </div>
+                </div>
+                 <div className='form-group'>
+                  <div className="col-md-6">
+                    <SelectField
+                      activateRequiredField={this.state[coBorrowerFields.isHispanicOrLatino.error]}
+                      label={coBorrowerFields.isHispanicOrLatino.label}
+                      keyName={coBorrowerFields.isHispanicOrLatino.name}
+                      value={this.state[coBorrowerFields.isHispanicOrLatino.name]}
+                      options={isHispanicOrLatinoOptions}
+                      editable={true}
+                      name={'is_hispanic_or_latino'}
+                      allowBlank={true}
+                      onChange={this.onChange}
+                      editMode={this.props.editMode}/>
+                  </div>
+                </div>
+                 <div className='form-group'>
+                  <div className="col-md-6">
+                    <SelectField
+                      activateRequiredField={this.state[coBorrowerFields.raceType.error]}
+                      label={coBorrowerFields.raceType.label}
+                      keyName={coBorrowerFields.raceType.name}
+                      value={this.state[coBorrowerFields.raceType.name]}
+                      options={raceTypeOptions}
+                      editable={true}
+                      name={'race_type'}
+                      allowBlank={true}
+                      onChange={this.onChange}
+                      editMode={this.props.editMode}/>
+                  </div>
+                </div>
+                 <div className='form-group'>
+                  <div className="col-md-6">
+                    <SelectField
+                      activateRequiredField={this.state[coBorrowerFields.genderType.error]}
+                      label={coBorrowerFields.genderType.label}
+                      keyName={coBorrowerFields.genderType.name}
+                      value={this.state[coBorrowerFields.genderType.name]}
+                      options={genderTypeOptions}
+                      editable={true}
+                      name={'gender_type'}
+                      allowBlank={true}
+                      onChange={this.onChange}
+                      editMode={this.props.editMode}/>
+                  </div>
+                </div>
+                <div className='form-group'>
+                  <div className="col-md-12">
+                    <BooleanRadio
+                      activateRequiredField={this.state[coBorrowerFields.ownershipInterest.error]}
+                      label={coBorrowerFields.ownershipInterest.label}
+                      isDeclaration={true}
+                      keyName={coBorrowerFields.ownershipInterest.name}
+                      customColumn={"col-xs-2"}
+                      editable={true}
+                      checked={this.state[coBorrowerFields.ownershipInterest.name]}
+                      onChange={this.onChange}
+                      editMode={this.props.editMode}/>
+                    </div>
+                </div>
+
+                <div className='form-group' style={{display: this.state.co_borrower_display_sub_question}}>
+                  <div className="col-md-6">
+                    <SelectField
+                      activateRequiredField={this.state[coBorrowerFields.typeOfProperty.error]}
+                      label={coBorrowerFields.typeOfProperty.label}
+                      keyName={coBorrowerFields.typeOfProperty.name}
+                      value={this.state[coBorrowerFields.typeOfProperty.name]}
+                      options={propertyOptions}
+                      editable={true}
+                      name={'type_of_property'}
+                      allowBlank={true}
+                      onChange={this.onChange}
+                      editMode={this.props.editMode}/>
+                  </div>
+                </div>
+                <div className='form-group' style={{display: this.state.co_borrower_display_sub_question}}>
+                  <div className="col-md-6">
+                    <SelectField
+                      activateRequiredField={this.state[coBorrowerFields.titleOfProperty.error]}
+                      label={coBorrowerFields.titleOfProperty.label}
+                      keyName={coBorrowerFields.titleOfProperty.name}
+                      value={this.state[coBorrowerFields.titleOfProperty.name]}
+                      options={titlePropertyOptions}
+                      editable={true}
+                      allowBlank={true}
+                      name={'title_of_property'}
+                      onChange={this.onChange}
+                      editMode={this.props.editMode}/>
+                  </div>
+                </div>
+              </div>
+          }
           <div className="form-group">
             <div className="col-md-12">
               {
@@ -295,21 +483,30 @@ var FormDeclarations = React.createClass({
 
   mapValueToRequiredFields: function() {
     var requiredFields = {};
-    var commonCheckingFields = this.omitKeys(checkboxFields, ["permanentResidentAlien"]);
 
-    _.each(commonCheckingFields, function(field) {
-      requiredFields[field.error] = {value: this.state[field.name], validationTypes: field.validationTypes};
-    }, this);
-
-    if(this.state.permanent_resident_alien_display == true) {
-      requiredFields[checkboxFields.permanentResidentAlien.error] = {value: this.state[checkboxFields.permanentResidentAlien.name], validationTypes: checkboxFields.permanentResidentAlien.validationTypes};
-    }
+    requiredFields[borrowerFields.ownershipInterest.error] = { value: this.state[borrowerFields.ownershipInterest.name], validationTypes: borrowerFields.ownershipInterest.validationTypes };
+    requiredFields[borrowerFields.citizenshipStatus.error] = { value: this.state[borrowerFields.citizenshipStatus.name], validationTypes: borrowerFields.citizenshipStatus.validationTypes };
+    requiredFields[borrowerFields.isHispanicOrLatino.error] = { value: this.state[borrowerFields.isHispanicOrLatino.name], validationTypes: borrowerFields.isHispanicOrLatino.validationTypes };
+    requiredFields[borrowerFields.raceType.error] = { value: this.state[borrowerFields.raceType.name], validationTypes: borrowerFields.raceType.validationTypes };
+    requiredFields[borrowerFields.genderType.error] = { value: this.state[borrowerFields.genderType.name], validationTypes: borrowerFields.genderType.validationTypes };
 
     if(this.state.display_sub_question == true) {
-      requiredFields[selectBoxFields.typeOfProperty.error] = {value: this.state[selectBoxFields.typeOfProperty.name], validationTypes: selectBoxFields.typeOfProperty.validationTypes};
-      requiredFields[selectBoxFields.titleOfProperty.error] = {value: this.state[selectBoxFields.titleOfProperty.name], validationTypes:selectBoxFields.titleOfProperty.validationTypes};
+      requiredFields[borrowerFields.typeOfProperty.error] = { value: this.state[borrowerFields.typeOfProperty.name], validationTypes: borrowerFields.typeOfProperty.validationTypes };
+      requiredFields[borrowerFields.titleOfProperty.error] = { value: this.state[borrowerFields.titleOfProperty.name], validationTypes:borrowerFields.titleOfProperty.validationTypes };
     }
 
+    if(this.props.loan.secondary_borrower){
+      requiredFields[coBorrowerFields.ownershipInterest.error] = { value: this.state[coBorrowerFields.ownershipInterest.name], validationTypes: coBorrowerFields.ownershipInterest.validationTypes };
+      requiredFields[coBorrowerFields.citizenshipStatus.error] = { value: this.state[coBorrowerFields.citizenshipStatus.name], validationTypes: coBorrowerFields.citizenshipStatus.validationTypes };
+      requiredFields[coBorrowerFields.isHispanicOrLatino.error] = { value: this.state[coBorrowerFields.isHispanicOrLatino.name], validationTypes: coBorrowerFields.isHispanicOrLatino.validationTypes };
+      requiredFields[coBorrowerFields.raceType.error] = { value: this.state[coBorrowerFields.raceType.name], validationTypes: coBorrowerFields.raceType.validationTypes };
+      requiredFields[coBorrowerFields.genderType.error] = { value: this.state[coBorrowerFields.genderType.name], validationTypes: coBorrowerFields.genderType.validationTypes };
+
+      if(this.state.co_borrower_display_sub_question == true) {
+        requiredFields[coBorrowerFields.typeOfProperty.error] = { value: this.state[coBorrowerFields.typeOfProperty.name], validationTypes: coBorrowerFields.typeOfProperty.validationTypes };
+        requiredFields[coBorrowerFields.titleOfProperty.error] = { value: this.state[coBorrowerFields.titleOfProperty.name], validationTypes:coBorrowerFields.titleOfProperty.validationTypes };
+      }
+    }
     return requiredFields;
   },
 
@@ -346,7 +543,6 @@ var FormDeclarations = React.createClass({
     this.setState({saving: true, isValid: true});
     this.props.saveLoan(this.buildLoanFromState(), 6, true, true);
   }
-
 });
 
 module.exports = FormDeclarations;

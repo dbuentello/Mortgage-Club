@@ -73,7 +73,7 @@ var OverviewTab = React.createClass({
                 <div>
                   <div className="col-md-11 col-sm-11 col-xs-10">
                     <h4>We are still waiting on some of your checklist items</h4>
-                    <p>Go ahead and click 'Get Started' on the items below to start working through your open items</p>
+                    <p>Go ahead and click 'Upload' or 'Explain' on the items below to start working through your open items</p>
                   </div>
                   <div className="col-md-1 col-sm-1 col-xs-2 dashboard-sign">
                     <img className="board-side" src="/warning-sign.png"/>
@@ -166,7 +166,7 @@ var CheckList = React.createClass({
               className="btnInfo"
               data-toggle="popover"
               data-trigger="focus"
-              title="Enter the required entity information"
+              title="Info"
               data-content={checklist.info}>
               <span className="glyphicon glyphicon-info-sign"></span>
             </button>

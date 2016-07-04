@@ -42,6 +42,7 @@ module LoanTekServices
 
         programs << program
       end
+
       programs = build_characteristics(programs)
       programs.sort_by { |program| program[:apr] }
     end
