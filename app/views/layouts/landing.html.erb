@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
   <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta name="author" content="SemiColonWeb"/>
-
+    <title>MortgageClub</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="K8Dz959pwoVbxPRhUZtZZPODqDsTnuS3xnr7RbsFLE8"/>
+    <meta name="description" content="">
+    <meta name="author" content="">
     <!-- Stylesheets
 	============================================= -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css"/>
@@ -17,68 +20,11 @@
     <%= csrf_meta_tags %>
 
     <%= display_meta_tags %>
-    <!-- start Mixpanel -->
-    <script type="text/javascript">
-      (function (e, b) {
-        if (!b.__SV) {
-          var a,
-            f,
-            i,
-            g;
-          window.mixpanel = b;
-          b._i = [];
-          b.init = function (a, e, d) {
-            function f(b, h) {
-              var a = h.split(".");
-              2 == a.length && (b = b[a[0]], h = a[1]);
-              b[h] = function () {
-                b.push([h].concat(Array.prototype.slice.call(arguments, 0)))
-              }
-            }
-            var c = b;
-            "undefined" !== typeof d
-              ? c = b[d] = []
-              : d = "mixpanel";
-            c.people = c.people || [];
-            c.toString = function (b) {
-              var a = "mixpanel";
-              "mixpanel" !== d && (a += "." + d);
-              b || (a += " (stub)");
-              return a
-            };
-            c.people.toString = function () {
-              return c.toString(1) + ".people (stub)"
-            };
-            i = ("disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges peop" +
-                "e.delete_user").split(" ");
-            for (g = 0; g < i.length; g++)
-              f(c, i[g]);
-            b._i.push([a, e, d])
-          };
-          b.__SV = 1.2;
-          a = e.createElement("script");
-          a.type = "text/javascript";
-          a.async = !0;
-          a.src = "undefined" !== typeof MIXPANEL_CUSTOM_LIB_URL
-            ? MIXPANEL_CUSTOM_LIB_URL
-            : "file:" === e.location.protocol && "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)
-              ? "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"
-              : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";
-          f = e.getElementsByTagName("script")[0];
-          f.parentNode.insertBefore(a, f)
-        }
-      })(document, window.mixpanel || []);
-      mixpanel.init("<%= @mixpanel_token %>");
-    </script>
-
-
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <!--[if lt IE 9]> <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script> <![endif]-->
-
-    <title>Home - Corporate Layout | Canvas</title>
+     <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
+mixpanel.init("<%= @mixpanel_token %>");</script><!-- end Mixpanel -->
 
     <style>
-
       .revo-slider-emphasis-text {
         font-size: 64px;
         font-weight: 700;
@@ -112,167 +58,20 @@
         white-space: nowrap;
       }
     </style>
-
   </head>
 
   <body class="stretched">
-
     <div id="wrapper" class="clearfix">
-
       <%= render "/shared/header_new" %>
-
-      <%= render "/shared/slider" %>
-
-
-
-    <!-- Content
-		============================================= -->
-    <section id="content">
-
-      <div class="content-wrap">
-        <%= render "/shared/investors" %>
-
-        <%= render "/shared/hello" %>
-
-        <%= render "/shared/why_us" %>
-        <%= render "/shared/how" %>
-  			<%= render "/shared/client" %>
-      </div>
-
-    </section>
-    <!-- #content end -->
-
-
-    <!-- #wrapper end -->
-    <%= render "/shared/footer_new" %>
-  </div>
-    <!-- Go To Top
-	============================================= -->
+      <%= yield %>
+      <%= render "/shared/footer_new" %>
+    </div>
     <div id="gotoTop" class="icon-angle-up"></div>
-    <%= javascript_include_tag 'landing', 'data-turbolinks-track' => false %>
-
+    <%= render "/shared/zopim" %>
     <script type="text/javascript">
-
-      var tpj = jQuery;
-      tpj.noConflict();
-
-      tpj(document).ready(function () {
-
-        var apiRevoSlider = tpj('.tp-banner').show().revolution({
-          sliderType: "standard",
-          jsFileLocation: "include/rs-plugin/js/",
-          sliderLayout: "fullscreen",
-          dottedOverlay: "none",
-          delay: 9000,
-          responsiveLevels: [
-            1200, 992, 768, 480, 320
-          ],
-          startwidth: 1140,
-          startheight: 600,
-          hideThumbs: 200,
-
-          thumbWidth: 100,
-          thumbHeight: 50,
-          thumbAmount: 3,
-
-          navigation: {
-            keyboardNavigation: "off",
-            keyboard_direction: "horizontal",
-            mouseScrollNavigation: "off",
-            onHoverStop: "off",
-            touch: {
-              touchenabled: "on",
-              swipe_threshold: 75,
-              swipe_min_touches: 1,
-              swipe_direction: "horizontal",
-              drag_block_vertical: false
-            },
-            arrows: {
-              style: "hermes",
-              enable: true,
-              hide_onmobile: false,
-              hide_onleave: false,
-              tmp: '<div class="tp-arr-allwrapper">	<div class="tp-arr-imgholder"></div>	<div class="tp-arr-titleholder">{{title}}</div>	</div>',
-              left: {
-                h_align: "left",
-                v_align: "center",
-                h_offset: 10,
-                v_offset: 0
-              },
-              right: {
-                h_align: "right",
-                v_align: "center",
-                h_offset: 10,
-                v_offset: 0
-              }
-            }
-          },
-
-          touchenabled: "on",
-          onHoverStop: "on",
-
-          swipe_velocity: 0.7,
-          swipe_min_touches: 1,
-          swipe_max_touches: 1,
-          drag_block_vertical: false,
-
-          parallax: "mouse",
-          parallaxBgFreeze: "on",
-          parallaxLevels: [
-            8,
-            7,
-            6,
-            5,
-            4,
-            3,
-            2,
-            1
-          ],
-          parallaxDisableOnMobile: "on",
-
-          keyboardNavigation: "on",
-
-          shadow: 0,
-          fullWidth: "off",
-          fullScreen: "on",
-
-          spinner: "spinner0",
-
-          stopLoop: "off",
-          stopAfterLoops: -1,
-          stopAtSlide: -1,
-
-          shuffle: "off",
-
-          forceFullWidth: "off",
-          fullScreenAlignForce: "off",
-          minFullScreenHeight: "400",
-
-          hideThumbsOnMobile: "off",
-          hideNavDelayOnMobile: 1500,
-          hideBulletsOnMobile: "off",
-          hideArrowsOnMobile: "off",
-          hideThumbsUnderResolution: 0,
-
-          hideSliderAtLimit: 0,
-          hideCaptionAtLimit: 0,
-          hideAllCaptionAtLilmit: 0,
-          startWithSlide: 0,
-          fullScreenOffset: "0px"
-        });
-
-        apiRevoSlider.bind("revolution.slide.onloaded", function (e) {
-          setTimeout(function () {
-            SEMICOLON.slider.sliderParallaxDimensions();
-          }, 200);
-        });
-
-        apiRevoSlider.bind("revolution.slide.onchange", function (e, data) {
-          SEMICOLON.slider.revolutionSliderMenu();
-        });
-
-      }); //END REVOLUTION SLIDER
+      // Load the Visualization API and the corechart package.
+        google.charts.load('current', {'packages':['corechart']});
     </script>
-
+    <%= javascript_include_tag 'landing', 'data-turbolinks-track' => false %>
   </body>
 </html>

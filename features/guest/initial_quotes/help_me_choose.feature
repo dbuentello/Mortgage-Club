@@ -16,4 +16,4 @@ Feature: HelpMeChoose
   Then I click on the element "#helpmechoose-md"
     And I should see "Your Best Option"
   Then At first klass ".best-rate" I click link "Select"
-    And I should see "sign up"
+    And I should see "Register now"

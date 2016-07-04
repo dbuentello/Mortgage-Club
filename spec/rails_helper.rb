@@ -9,6 +9,10 @@ require "support/vcr_setup"
 
 require 'simplecov'
 
+
+
+
+
 Delayed::Worker.delay_jobs = true
 
 # save to CircleCI's artifacts directory if we're on CircleCI
@@ -40,7 +44,6 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include Warden::Test::Helpers
 end
-
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|

@@ -79,7 +79,6 @@ module WellsfargoServices
 
       Capybara.default_max_wait_time = 30
       Capybara::Session.new(:poltergeist)
-      # Capybara::Session.new(:selenium)
     end
 
     def close_crawler

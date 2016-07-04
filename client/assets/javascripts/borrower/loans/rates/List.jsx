@@ -322,7 +322,7 @@ var List = React.createClass({
                       {
                         rate.characteristic
                         ?
-                          <p className="note">{rate.characteristic}</p>
+                          <p className="note-rates">{rate.characteristic}</p>
                         :
                           null
                       }

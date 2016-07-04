@@ -168,39 +168,41 @@ h3,
 h4,
 h5,
 h6 {
-	color: #444;
-	font-weight: 600;
-	line-height: 1.5;
-	margin: 0 0 30px 0;
+	// color: #444;
+	// font-weight: 600;
+	// line-height: 1.5;
+	// margin: 0 0 30px 0;
 	font-family: 'Raleway', sans-serif;
 }
 
-h5,
-h6 { margin-bottom: 20px; }
+// h5,
+// h6 { margin-bottom: 20px; }
 
-h1 { font-size: 36px; }
+// h1 { font-size: 36px; }
 
-h2 { font-size: 30px; }
+// h2 { font-size: 30px; }
 
-h3 { font-size: 24px; }
+// h3 { font-size: 24px; }
 
-h4 { font-size: 18px; }
+// h4 { font-size: 18px; }
 
-h5 { font-size: 14px; }
+// h5 { font-size: 14px; }
 
-h6 { font-size: 12px; }
+// h6 { font-size: 12px; }
 
-h4 { font-weight: 600; }
+// h4 { font-weight: 600; }
 
-h5,
-h6 { font-weight: bold; }
+// h5,
+// h6 { font-weight: bold; }
 
 h1 > span:not(.nocolor),
 h2 > span:not(.nocolor),
 h3 > span:not(.nocolor),
 h4 > span:not(.nocolor),
 h5 > span:not(.nocolor),
-h6 > span:not(.nocolor) { color: $mc-color; }
+h6 > span:not(.nocolor) {
+	color: $mc-color;
+}
 
 p,
 pre,
@@ -212,7 +214,9 @@ blockquote,
 address,
 table,
 fieldset,
-form { margin-bottom: 30px; }
+form {
+	// margin-bottom: 30px;
+}
 
 small { font-family: 'Lato', sans-serif; }
 
@@ -1145,7 +1149,7 @@ body.stretched #header.full-header .container {
 
 #primary-menu ul li > a i {
 	position: relative;
-	top: -1px;
+	top: 3px;
 	font-size: 14px;
 	width: 16px;
 	text-align: center;
@@ -10514,15 +10518,15 @@ fieldset[disabled] .sm-form-control {
 }
 
 label {
-	display: inline-block;
-	font-size: 13px;
-	font-weight: 700;
+	// display: inline-block;
+	// font-size: 13px;
+	// font-weight: 700;
 	font-family: 'Raleway', sans-serif;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	color: #555;
-	margin-bottom: 10px;
-	cursor: pointer;
+	// text-transform: uppercase;
+	// letter-spacing: 1px;
+	// color: #555;
+	// margin-bottom: 10px;
+	// cursor: pointer;
 }
 
 label.label-muted {

@@ -23,7 +23,6 @@
 
 //= require build/bundle_BorrowerApp
 
-
 // General Config
 $(document).on('ready', function(event) {
   $('.flashSection').delay(7000).fadeOut();

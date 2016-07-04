@@ -96,7 +96,7 @@ var Form = React.createClass({
     }
 
     mixpanel.track("Quotes-FindMyRatesForm");
-    $("html").addClass( "loading" );
+    $("html").addClass("loading");
 
     var downPayment = null;
     var mortgageBalance = null;
@@ -271,10 +271,8 @@ var Form = React.createClass({
                     value={this.state[fields.creditScore.keyName]}/>
               </div>
             </div>
-            <div className="form-group text-center">
-              <div>
-                <button className="btn btn-mc text-uppercase" onClick={this.onSubmit}>find my rates</button>
-              </div>
+            <div className="form-group text-center btnSubmit">
+              <button className="btn btn-mc text-uppercase" onClick={this.onSubmit}>find my rates</button>
             </div>
           </form>
         </div>

@@ -14,7 +14,7 @@ Feature: FillForm
     And I should see "Sort by"
     And I scroll up to the top
   Then At first klass ".board-header" I click link "Select"
-    And I should see "sign up"
+    And I should see "Register for an Account"
 
   @javascript @vcr
   Scenario: fill in form with refinance loan
@@ -33,4 +33,4 @@ Feature: FillForm
     And I should see "Sort by"
     And I scroll up to the top
   Then At first klass ".board-header" I click link "Select"
-    And I should see "sign up"
+    And I should see "Register now"

@@ -55,15 +55,14 @@ var Quotes = React.createClass({
 
   handleSortChange: function(event) {
     this.removeChart();
-    var option = $("#sortRateOptions").val();
-    var sortedRates = this.sortBy(option, this.state.quotes);
+    var sortedRates = this.sortBy(event.target.value, this.state.quotes);
     this.setState({quotes: sortedRates});
   },
 
   removeChart: function(){
     $(".line-chart").empty();
     $(".pie-chart").empty();
-    $("span.glyphicon-menu-up").click();
+    $("span.fa-angle-up").click();
   },
   sortBy: function(field, quotes) {
     var sortedRates = [];
@@ -163,59 +162,57 @@ var Quotes = React.createClass({
                 {
                   this.state.helpMeChoose
                   ?
-                    <div className="content container mortgage-quotes white-background" style={{"padding-top":"20px"}}>
+                    <div className="content container mortgage-quotes padding-top-0 white-background">
                       <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.props.bootstrapData.quotes} selectRate={this.selectRate} monthlyPayment={this.state.monthlyPayment} isInitialQuotes={true}/>
                     </div>
                   :
-                    <div className="content container mortgage-rates">
-                      <div className="col-xs-12 col-md-3 subnav hidden-xs">
+                    <div className="content container mortgage-rates padding-top-0 row-eq-height">
+                      <div className="col-xs-12 col-md-3 subnav hidden-xs programs-filter">
                         <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
                       </div>
 
-                      <div className="col-xs-12 col-sm-9 account-content">
+                      <div className="col-xs-12 col-sm-9 account-content padding-left-50">
                         <div className="mobile-xs-quote">
-                        <div className=" visible-xs">
-                          <p>
-                            We’ve found {this.state.quotes ? this.state.quotes.length : 0} mortgage options for you. You can sort, filter and choose one on your own or click
-                            <i> Help me choose. </i>
-                          </p>
-                        </div>
-                        <div className="row form-group visible-xs">
-                          <div className="col-xs-5 text-left">
-                            <a className="btn btn-mc-green text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
+                          <div className="visible-xs">
+                            <p>
+                              We’ve found {this.state.quotes ? this.state.quotes.length : 0} mortgage options for you. You can sort, filter and choose one on your own or click
+                              <i> Help me choose. </i>
+                            </p>
                           </div>
-                          <div className="col-xs-2 text-left">
-                            <a className="btn btn-filter text-uppercase" data-toggle="modal" data-target="#filterQuotes">Filter</a>
-                          </div>
+                          <div className="row form-group visible-xs">
+                            <div className="col-xs-5 text-left">
+                              <a className="btn btn-mc-green text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
+                            </div>
+                            <div className="col-xs-2 text-left">
+                              <a className="btn btn-filter text-uppercase" data-toggle="modal" data-target="#filterQuotes">Filter</a>
+                            </div>
 
-
-                          <div className="modal fade" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                            <div className="modal-dialog modal-sm" role="document">
-                              <div className="modal-content">
-                                <div className="modal-header">
-                                  <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                </div>
-                                <div className="modal-body">
-                                  <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
-                                </div>
-                                <div className="modal-footer">
-                                  <button type="button" className="btn btn-default" data-dismiss="modal">OK</button>
+                            <div className="modal fade" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div className="modal-dialog modal-sm" role="document">
+                                <div className="modal-content">
+                                  <div className="modal-header">
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  </div>
+                                  <div className="modal-body">
+                                    <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
+                                  </div>
+                                  <div className="modal-footer">
+                                    <button type="button" className="btn btn-default" data-dismiss="modal">OK</button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
 
-                          <div className="col-xs-4 select-box pull-right">
-                            <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
-                              <option value="apr">APR</option>
-                              <option value="pmt">Monthly Payment</option>
-                              <option value="rate">Rate</option>
-                              <option value="tcc">Total Closing Cost</option>
-                            </select>
-                            <span>&#9660;</span>
+                            <div className="col-xs-4 select-box pull-right">
+                              <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
+                                <option value="apr">APR</option>
+                                <option value="pmt">Monthly Payment</option>
+                                <option value="rate">Rate</option>
+                                <option value="tcc">Total Closing Cost</option>
+                              </select>
+                              <span>&#9660;</span>
+                            </div>
                           </div>
-                        </div>
-
                         </div>
                         <div className="row actions hidden-xs">
                           <p>
@@ -227,10 +224,10 @@ var Quotes = React.createClass({
                           <div className="row form-group actions-group" id="mortgageActions">
                             <div className="col-md-6">
                               <div className="row">
-                                <div className="col-xs-2">
+                                <div className="col-xs-3">
                                   <label>Sort by</label>
                                 </div>
-                                <div className="col-xs-8 select-box">
+                                <div className="col-xs-9 select-box">
                                   <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
                                     <option value="apr">APR</option>
                                     <option value="pmt">Monthly Payment</option>

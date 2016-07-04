@@ -9,5 +9,3 @@ Feature: AutocompleteEmployerName
       And I should see "Tech in Asia"
       And I click on "Tech in Asia"
       And I click on "Save and Continue"
-    Then I click "Income"
-      And I should see "Tech in Asia"

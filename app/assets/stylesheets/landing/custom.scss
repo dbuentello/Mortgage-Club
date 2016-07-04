@@ -5,16 +5,29 @@
 	Overwriting Default Theme Styles for Better Hanlding Updates
 -----------------------------------------------------------------*/
 
-#logo img {
-    margin-top: 15px;
-}
 
-#header.sticky-header:not(.static-sticky):not(.sticky-style-2):not(.sticky-style-3) #logo img {
-  height: 25px;
-}
 
+// #header.sticky-header:not(.static-sticky):not(.sticky-style-2):not(.sticky-style-3) #logo img {
+//   height: 25px;
+// }
+#primary-menu ul li > a {
+  padding-top: 19px !important;
+  padding-bottom: 19px !important;
+}
 #header.full-header #logo {
   border: none;
+  img {
+    height: 25px !important;
+    -webkit-transition: height .4s ease, opacity .3s ease;
+    transition: height .4s ease, opacity .3s ease;
+    margin-top: 15px;
+  }
+}
+#header,
+#header-wrap {
+  height: 60px !important;
+  -webkit-transition: height .4s ease, opacity .3s ease;
+  transition: height .4s ease, opacity .3s ease;
 }
 
 #header.full-header #primary-menu > ul {
@@ -35,4 +48,8 @@
   border-color: white;
   color: #15c0f1;
   background-color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #555;
 }
