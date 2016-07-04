@@ -227,14 +227,18 @@ module Docusign
 
         if declaration.citizen_status == "C"
           @params[(prefix + "j" + yes_answer).to_sym] = "Yes"
+          @params[(prefix + "j" + no_answer).to_sym] = "Off"
         else
           @params[(prefix + "j" + no_answer).to_sym] = "Yes"
+          @params[(prefix + "j" + yes_answer).to_sym] = "Off"
         end
 
         if declaration.citizen_status == "PR"
           @params[(prefix + "k" + yes_answer).to_sym] = "Yes"
+          @params[(prefix + "k" + no_answer).to_sym] = "Off"
         else
           @params[(prefix + "k" + no_answer).to_sym] = "Yes"
+          @params[(prefix + "k" + yes_answer).to_sym] = "Off"
         end
 
         @params[(prefix + "m1").to_sym] = declaration.type_of_property

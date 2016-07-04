@@ -16,7 +16,7 @@ describe UnderwritingLoanServices::CalculateTotalIncome do
 
   it "returns a right total income with co-borrower" do
     loan_co_borrower = FactoryGirl.create(:loan_with_secondary_borrower)
-    total_income = loan_co_borrower.borrower.current_salary.to_f + loan_co_borrower.borrower.gross_overtime.to_f + loan_co_borrower.borrower.gross_commission.to_f + 0 + loan_co_borrower.secondary_borrower.current_salary.to_f + loan_co_borrower.secondary_borrower.gross_overtime.to_f + loan_co_borrower.secondary_borrower.gross_commission.to_f / 12
+    total_income = loan_co_borrower.borrower.current_salary.to_f + loan_co_borrower.borrower.gross_overtime.to_f + loan_co_borrower.borrower.gross_commission.to_f + 0 + loan_co_borrower.secondary_borrower.current_salary.to_f + loan_co_borrower.secondary_borrower.gross_overtime.to_f + loan_co_borrower.secondary_borrower.gross_commission.to_f
 
     expect(UnderwritingLoanServices::CalculateTotalIncome.call(loan_co_borrower)).to eq(total_income)
   end
