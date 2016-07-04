@@ -3,6 +3,7 @@ require File.expand_path('../../config/environment', __FILE__)
 
 require 'spec_helper'
 require 'rspec/rails'
+require 'spreewald/all_steps'
 # note: require 'devise' after require 'rspec/rails'
 require 'devise'
 require "support/vcr_setup"
