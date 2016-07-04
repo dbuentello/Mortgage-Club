@@ -162,7 +162,26 @@ var List = React.createClass({
                     <div className="col-md-4 col-sm-6 col-sm-6">
                       <p><span className="text-capitalize">rate:</span> {this.commafy(rate.interest_rate * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(rate.monthly_payment, 0, '$')}</p>
+                      {
+                        rate.lender_credits == 0
+                        ?
+                          null
+                        :
+                          <p><span className="text-capitalize">{rate.lender_credits < 0 ? "Lender credit" : "Discount points"}:</span> {this.formatCurrency(rate.lender_credits, 0, "$")}</p>
+                      }
                       <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(rate.total_closing_cost, 0, '$')}</p>
+                      {
+                        this.props.helpMeChoose
+                        ?
+                          <p>
+                            <strong>
+                              <span>True Cost of Mortgage: </span>
+                              {this.formatCurrency(rate.total_cost, '$')}
+                            </strong>
+                          </p>
+                        :
+                          null
+                      }
                     </div>
 
                     <div className="col-md-2 col-sm-6 col-sm-6">
@@ -226,16 +245,6 @@ var List = React.createClass({
                           }, this)
                         }
                       </ul>
-                      {
-                        this.props.helpMeChoose
-                        ?
-                          <div>
-                            <span className='typeLowlight mlm'>True Cost of Mortgage: </span>
-                            {this.formatCurrency(rate.total_cost, '$')}
-                          </div>
-                        :
-                          null
-                      }
                     </div>
                     <div className="col-md-6">
                       <h4>Monthly payment details</h4>
@@ -254,7 +263,7 @@ var List = React.createClass({
                           {
                             this.state.hoaDue
                             ?
-                              <p className="col-xs-12 cost">Hoa Due</p>
+                              <p className="col-xs-12 cost">HOA Due</p>
                             :
                               null
                           }
