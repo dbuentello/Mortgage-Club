@@ -49,12 +49,12 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
   # show retry status in spec process
-  config.verbose_retry = true
+  # config.verbose_retry = true
   # Try twice (retry once)
-  config.default_retry_count = 3
-  config.display_try_failure_messages = true
+  # config.default_retry_count = 3
+  # config.display_try_failure_messages = true
   # Only retry when Selenium raises Net::ReadTimeout
-  config.exceptions_to_retry = [Net::ReadTimeout]
+  # config.exceptions_to_retry = [Net::ReadTimeout]
   # run retry only on features
   config.around :each, :js do |ex|
     ex.run_with_retry retry: 3
