@@ -157,7 +157,7 @@ var Quotes = React.createClass({
       <div className="initial-quotes">
         <div className="quotes-list">
           {
-            this.props.bootstrapData.quotes.length > 0
+            this.props.bootstrapData.quotes.length == 0
             ?
               <div>
                 {
@@ -255,8 +255,8 @@ var Quotes = React.createClass({
                 }
               </div>
             :
-              <div className="not-found">
-                <h2>{"We're sorry, there aren't any quotes matching your needs."}</h2>
+              <div className="not-found" style={{"marginTop": "200px"}}>
+                <h2>{"We're sorry, we can't find any loan programs for your scenario."}</h2>
                 <div className="row">
                   <button className="btn btn-mc col-md-offset-5" onClick={this.backToQuotesForm}>Back</button>
                 </div>

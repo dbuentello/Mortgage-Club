@@ -109,7 +109,7 @@ var TermTab = React.createClass({
 
           </div>
           <div className="row">
-            <h4>Closing Cost</h4>
+            <h4>Closing Costs</h4>
           </div>
           <div className="table-responsive term-board">
             <table className="table table-striped term-table">
@@ -120,7 +120,7 @@ var TermTab = React.createClass({
 
                     <tr>
                       <td className="loan-field">
-                        Lender Credits
+                        Lender Credit
                       </td>
                       <td>
                         {this.formatCurrency(loan.lender_credits, "$")}
