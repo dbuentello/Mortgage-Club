@@ -12,4 +12,3 @@ Feature: UpdateEmployerInfo
       And I click on "Save and Continue"
     Then I click "Income"
       And I should see "VietNamNet"
-      And the "Contact Phone Number" field should contain "(844) 377-2272"
