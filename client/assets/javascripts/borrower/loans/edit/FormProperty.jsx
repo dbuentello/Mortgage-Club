@@ -95,8 +95,8 @@ var FormProperty = React.createClass({
         }
 
         var marketPrice = this.getValue(response, 'zestimate.amount.__content__');
-        var monthlyTax = this.getValue(response, 'monthlyTax');
-        var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
+        var annualTax = this.getValue(response, 'annualTax');
+        var annualInsurance = this.getValue(response, 'annualInsurance');
         var yearBuilt = this.getValue(response, 'yearBuilt');
         var lastSoldDate = this.getValue(response, 'lastSoldDate');
         var lastSoldPrice = this.getValue(response, 'lastSoldPrice.__content__');
@@ -107,8 +107,8 @@ var FormProperty = React.createClass({
 
         var state = {} ;
         state.marketPrice = this.formatCurrency(marketPrice);
-        state.estimatedPropertyTax = monthlyTax;
-        state.estimatedHazardInsurance = monthlyInsurance;
+        state.estimatedPropertyTax = annualTax;
+        state.estimatedHazardInsurance = annualInsurance;
         state.yearBuilt = yearBuilt;
         state.zillowImageUrl = zillowImageUrl;
         state[fields.originalPurchasePrice.name] = this.formatCurrency(lastSoldPrice);
@@ -130,10 +130,17 @@ var FormProperty = React.createClass({
   render: function() {
     return (
       <div className="col-sm-9 col-xs-12 account-content">
+        <div className='form-group'>
+          <p className="box-description col-sm-12">
+            We understand a loan application can be a bit overwhelming but we’re here to help. Our software will try to extract data from other sources so don’t be surprised if several fields are automatically filled in for you. Let’s get started, shall we?
+          </p>
+        </div>
         <form className="form-horizontal">
           <div className="form-group">
             <div className="col-md-12">
-              <AddressField label={fields.address.label}
+              <AddressField
+                invalidMessage="Sorry, we only lend in CA at this time. More states are coming soon!"
+                label={fields.address.label}
                 activateRequiredField={this.state[fields.address.error]}
                 address={this.state[fields.address.name]}
                 keyName={fields.address.name}
@@ -218,11 +225,11 @@ var FormProperty = React.createClass({
                           validationTypes={["currency"]}
                           onBlur={this.onBlur}
                           onChange={this.onChange}
-                          editMode={this.props.editMode}/>
+                          editMode={this.props.editMode}
+                          placeholder={"e.g. 500,000"}/>
                       </div>
                     </div>
                   </div>
-
                   <div className="col-md-12">
                      <div className="form-group">
                       <div className="col-md-6">
@@ -236,7 +243,8 @@ var FormProperty = React.createClass({
                           onFocus={this.onFocus.bind(this, fields.downPayment)}
                           onBlur={this.onBlur}
                           onChange={this.onChange}
-                          editMode={this.props.editMode}/>
+                          editMode={this.props.editMode}
+                          placeholder={"e.g. 100,000"}/>
                       </div>
                     </div>
                   </div>

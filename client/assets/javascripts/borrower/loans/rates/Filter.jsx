@@ -62,7 +62,7 @@ var Filter = React.createClass({
           <br/>
           <input type="checkbox" name="fha" id="fha" checked={this.isCriteriaChecked("FHA")} onChange={_.bind(this.onChangeCriteria, null, "FHA", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="fha">FHA</label>
-          <h5>Wholesale investors</h5>
+          <h5>Wholesale lenders</h5>
           {
             _.map(this.getFeaturedLenders(), function(lender) {
               return(
@@ -75,7 +75,7 @@ var Filter = React.createClass({
           }
           <h5>
             <a role="button" data-toggle="collapse" href=".helpme-sidebar-collapse" aria-expanded="true" aria-controls="helpme-sidebar-collapse">
-              Show all investors<span className="glyphicon glyphicon-menu-down"></span>
+              Show all lenders<span className="glyphicon glyphicon-menu-down"></span>
             </a>
           </h5>
           <div className="collapse helpme-sidebar-collapse">

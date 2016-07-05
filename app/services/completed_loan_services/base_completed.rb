@@ -64,7 +64,7 @@ module CompletedLoanServices
     end
 
     def declarations_completed?
-      CompletedLoanServices::TabDeclarations.new(borrower.declaration).call
+      CompletedLoanServices::TabDeclarations.new(borrower, secondary_borrower).call
     end
   end
 end

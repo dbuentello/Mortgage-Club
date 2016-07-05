@@ -39,16 +39,6 @@ describe CompletedLoanServices::TabIncome do
       expect(service.employment_completed?(service.current_employment)).to be_falsey
     end
 
-    it "returns false with employer contact name nil" do
-      service.current_employment.employer_contact_name = nil
-      expect(service.employment_completed?(service.current_employment)).to be_falsey
-    end
-
-    it "returns false with employer contact number nil" do
-      service.current_employment.employer_contact_number = nil
-      expect(service.employment_completed?(service.current_employment)).to be_falsey
-    end
-
     it "returns false with current salary nil" do
       service.current_employment.current_salary = nil
       expect(service.employment_completed?(service.current_employment)).to be_falsey

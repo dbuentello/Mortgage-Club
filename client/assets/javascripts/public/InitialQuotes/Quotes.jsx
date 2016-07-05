@@ -170,13 +170,12 @@ var Quotes = React.createClass({
                       <div className="col-xs-12 col-md-3 subnav hidden-xs programs-filter">
                         <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
                       </div>
-
                       <div className="col-xs-12 col-sm-9 account-content padding-left-50">
                         <div className="mobile-xs-quote">
                           <div className="visible-xs">
                             <p>
-                              We’ve found {this.state.quotes ? this.state.quotes.length : 0} mortgage options for you. You can sort, filter and choose one on your own or click
-                              <i> Help me choose. </i>
+                              We’ve found {this.state.quotes ? this.state.quotes.length : 0} loan programs for you. You can sort, filter and choose one on your own or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
+                              Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
                             </p>
                           </div>
                           <div className="row form-group visible-xs">
@@ -186,7 +185,6 @@ var Quotes = React.createClass({
                             <div className="col-xs-2 text-left">
                               <a className="btn btn-filter text-uppercase" data-toggle="modal" data-target="#filterQuotes">Filter</a>
                             </div>
-
                             <div className="modal fade" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                               <div className="modal-dialog modal-sm" role="document">
                                 <div className="modal-content">
@@ -202,7 +200,6 @@ var Quotes = React.createClass({
                                 </div>
                               </div>
                             </div>
-
                             <div className="col-xs-4 select-box pull-right">
                               <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
                                 <option value="apr">APR</option>
@@ -216,9 +213,8 @@ var Quotes = React.createClass({
                         </div>
                         <div className="row actions hidden-xs">
                           <p>
-                            We’ve found {this.state.quotes ? this.state.quotes.length : 0} mortgage options for you. You can sort, filter and choose one on your own or click
-                            <i> Help me choose </i>
-                            and our proprietary selection algorithm will help you choose the best mortgage.
+                            We’ve found {this.state.quotes ? this.state.quotes.length : 0} loan programs for you. You can sort, filter and choose one on your own or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
+                            Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
                           </p>
                           <p>{"Mortgage rates change frequently. We're showing the latest rates for your mortgage scenario."}</p>
                           <div className="row form-group actions-group" id="mortgageActions">
@@ -248,12 +244,11 @@ var Quotes = React.createClass({
                         </div>
                       </div>
                     </div>
-
                 }
               </div>
             :
-              <div className="not-found">
-                <h2>{"We're sorry, there aren't any quotes matching your needs."}</h2>
+              <div className="not-found" style={{"marginTop": "200px"}}>
+                <h2>{"We're sorry, we can't find any loan programs for your scenario."}</h2>
                 <div className="row">
                   <button className="btn btn-mc col-md-offset-5" onClick={this.backToQuotesForm}>Back</button>
                 </div>

@@ -475,10 +475,9 @@ class ExportXmlMismoService
   end
 
   def get_residency_type(declaration)
-    return "" if declaration.us_citizen.nil?
-    return "01" if declaration.us_citizen == true
-    return "" if declaration.permanent_resident_alien.nil?
-    return "03" if declaration.permanent_resident_alien == true
+    return "" if declaration.citizen_status.nil?
+    return "01" if declaration.citizen_status == "C"
+    return "03" if declaration.citizen_status == "PR"
 
     "05"
   end
