@@ -77,8 +77,8 @@ class BorrowerForm
   end
 
   def update_old_address
-    previous_address.save! if previous_address
     previous_borrower_address.save!
+    previous_address.save!
   end
 
   def primary_borrower?
@@ -108,16 +108,7 @@ class BorrowerForm
   end
 
   def previous_address
-    @previous_address ||= begin
-      if form_params[:previous_address][:id]
-        # existing record
-        address = Address.find(form_params[:previous_address][:id])
-        address.assign_attributes(form_params[:previous_address])
-      else
-        address = Address.new(form_params[:previous_address])
-      end
-      address if address.valid?
-    end
+    @previous_address ||= Address.new(form_params[:previous_address])
   end
 
   def previous_borrower_address

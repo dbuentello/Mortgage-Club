@@ -203,7 +203,7 @@ var HelpMeChoose = React.createClass({
                   <div className= 'row'>
                     <div className='col-lg-12'>
                       <h3>{"What's your average rate of return on your personal investments?"}</h3>
-                      <p>You might be better off spending less money upfront on your mortgage and invest the cash elsewhere.</p>
+                      <p>You might be better off spending less money upfront on your mortgage and invest the cash elsewhre.</p>
                     </div>
                   </div>
                   <div className='row calc-form'>
@@ -289,7 +289,7 @@ var HelpMeChoose = React.createClass({
                     {this.formatCurrency(this.state.bestRate.total_closing_cost, '$')}
                   </div>
                 </div>
-                <div className='row secondary-cost' style={{"fontWeight": "bold"}}>
+                <div className='row secondary-cost'>
                   <div className='col-xs-6 col-md-6'>
                     True Cost of Mortgage
                   </div>

@@ -1,26 +1,29 @@
 module CompletedLoanServices
   class TabDeclarations
-    attr_accessor :borrower, :secondary_borrower
+    attr_accessor :declaration
 
-    def initialize(borrower, secondary_borrower)
-      @borrower = borrower
-      @secondary_borrower = secondary_borrower
+    def initialize(declaration)
+      @declaration = declaration
     end
 
     def call
-      return false unless borrower
-      return declaration_completed?(borrower.declaration) unless secondary_borrower
+      return false unless declaration
 
-      declaration_completed?(borrower.declaration) && declaration_completed?(secondary_borrower.declaration)
+      declaration_completed?
     end
 
-    def declaration_completed?(declaration)
-      return false if declaration.nil?
-
-      return false if declaration.citizen_status.nil?
-      return false if declaration.is_hispanic_or_latino.nil?
-      return false if declaration.gender_type.nil?
-      return false if declaration.race_type.nil?
+    def declaration_completed?
+      return false if declaration.outstanding_judgment.nil?
+      return false if declaration.bankrupt.nil?
+      return false if declaration.property_foreclosed.nil?
+      return false if declaration.party_to_lawsuit.nil?
+      return false if declaration.loan_foreclosure.nil?
+      return false if declaration.child_support.nil?
+      return false if declaration.down_payment_borrowed.nil?
+      return false if declaration.co_maker_or_endorser.nil?
+      return false if declaration.present_delinquent_loan.nil?
+      return false if declaration.us_citizen.nil?
+      return false if declaration.permanent_resident_alien.nil? && declaration.us_citizen == false
       return false if declaration.ownership_interest.nil?
 
       if declaration.ownership_interest == true

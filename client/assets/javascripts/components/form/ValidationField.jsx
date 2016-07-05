@@ -11,7 +11,7 @@ var ValidationField = React.createClass({
       if(this.isEmptyValue()){
         if(!this.hasTooltip()) {
           $("#" + this.props.id).tooltip({
-            title: this.props.requiredMessage,
+            title: this.props.title,
             placement: "bottom",
             trigger: "manual"
           }).tooltip('show');
@@ -20,7 +20,7 @@ var ValidationField = React.createClass({
       else if(this.isInvalidValue()) {
         if(!this.hasTooltip()) {
           $("#" + this.props.id).tooltip({
-            title: this.props.invalidMessage || "This field is invalid",
+            title: "This field is invalid",
             placement: "bottom",
             trigger: "manual"
           }).tooltip('show');

@@ -254,16 +254,19 @@
     padding-left: 0;
   }
   input[type=checkbox] + label {
-    color: #000;
+    color: $mc-color;
+
   }
   input[type=checkbox]:checked + label:before {
-    color: #000;
+    color: #fff;
+    background-color: $mc-color;
     border-radius: 3px;
-    border: #000 1px solid;
+    border: $mc-color 1px solid;
   }
   input[type=checkbox] + label:before {
     border-radius: 3px;
-    border: #000 1px solid;
+    background-color: $mc-color;
+    border: $mc-color 1px solid;
   }
   select {
     -webkit-appearance:none;

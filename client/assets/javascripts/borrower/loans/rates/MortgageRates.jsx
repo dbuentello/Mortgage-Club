@@ -89,8 +89,9 @@ var MortgageRates = React.createClass({
               <div className="col-xs-12 col-sm-9 account-content padding-left-50">
                 <div className="row actions">
                   <p>
-                    We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one on your own or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
-                    Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
+                    We’ve found {this.state.programs ? this.state.programs.length : 0} mortgage options for you. You can sort, filter, and choose one on your own or click
+                    <i> Help me choose </i>
+                    and our proprietary selection algorithm will help you choose the best mortgage.
                   </p>
                   <div className="row form-group actions-group" id="mortgageActions">
                     <div className="col-md-6">
