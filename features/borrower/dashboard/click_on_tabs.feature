@@ -6,7 +6,7 @@ Feature: ClickOnTabs
       And I should see "property-document-name"
     Then I click on "Terms"
       And I should see "Your Loan Summary"
-      And I should see "81458 Borer Falls, Apt. 305, West Emiltown, Virginia 9999"
+      And I should see "1722 Silver Meadow Way, Apt. 305, Sacramento, CA 95829"
       And I should see "Principal and Interest"
       And I should see "$5,356.00"
     Then I click on "Contacts"
