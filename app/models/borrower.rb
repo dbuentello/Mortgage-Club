@@ -193,7 +193,7 @@ class Borrower < ActiveRecord::Base
   end
 
   def credit_report_file
-    documents.where(description: "Credit report", document_type: "other_borrower_report").first
+    documents.find_by(description: "Credit report", document_type: "other_borrower_report")
   end
 
   def current_salary

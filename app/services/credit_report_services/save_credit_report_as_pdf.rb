@@ -27,7 +27,7 @@ module CreditReportServices
     def self.save(loan, doc)
       return if loan.borrower.nil?
 
-      decoded_file = Base64.decode64(doc.css('EMBEDDED_FILE').to_s)
+      decoded_file = Base64.decode64(doc.css('DOCUMENT')[0].content)
       file = Tempfile.new(['temp', '.pdf'])
       file.binmode
       file.write decoded_file
