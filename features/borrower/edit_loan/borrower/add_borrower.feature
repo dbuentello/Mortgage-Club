@@ -20,8 +20,8 @@ Feature: AddBorrower
         And I fill in "Years in School" with "12"
       Then I select "Unmarried" from "Marital Status"
       Then I choose "true_first_borrower_currently_own"
-      Then I clear value in "Number of years you have lived here"
-        And I fill in "Number of years you have lived here" with "2"
+      Then I clear value in "No. of years you have lived here"
+        And I fill in "No. of years you have lived here" with "2"
       Then I clear value in "Ages of Dependents"
         And I fill in "Ages of Dependents" with "1"
       Then I clear value in "Number of dependents"
@@ -56,7 +56,7 @@ Feature: AddBorrower
         And I fill in "secondary_borrower_dependent_ages" with "1"
         Then I click on "Save and Continue"
           And I wait for 2 seconds
-      
+
         When I click on "Borrower"
           And I should see "With a co-borrower"
           And the "secondary_borrower_first_name" field should contain "Mark"
