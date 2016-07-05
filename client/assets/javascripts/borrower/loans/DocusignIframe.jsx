@@ -74,11 +74,11 @@ var DocusignIframe = React.createClass({
           ?
             null
           :
-            <div className='row' style={{"marginTop": "150px", "font-size": "27px"}}>
-              <div className='col-xs-3'>
+            <div className='row'>
+              <div className='col-xs-4'>
                 <div id='percent'>0%</div>
               </div>
-              <div className='col-xs-9'>
+              <div className='col-xs-8'>
                 <div id='status'>{"Hang tight, we're generating disclosure forms for you to sign!"}</div>
               </div>
             </div>

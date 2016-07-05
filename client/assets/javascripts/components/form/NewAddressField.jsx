@@ -206,8 +206,7 @@ var AddressField = React.createClass({
   render: function() {
     var address = this.props.address || {},
         val = getFormattedAddress(address) || '',
-        requiredMessage = this.props.requiredMessage || "This field is required",
-        invalidMessage = this.props.invalidMessage;
+        requiredMessage = this.props.requiredMessage || "This field is required";
 
     var disabled = this.props.editMode === false ? "disabled" : null;
 
@@ -256,7 +255,7 @@ var AddressField = React.createClass({
             onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange} id={this.props.keyName} name={this.props.label}/>
           <img src="/icons/address.png" alt="title"/>
         </div>
-        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={address} requiredMessage={requiredMessage} invalidMessage={invalidMessage} validationTypes={this.props.validationTypes}/>
+        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={address} title={requiredMessage} validationTypes={this.props.validationTypes}/>
       </div>
     );
   },

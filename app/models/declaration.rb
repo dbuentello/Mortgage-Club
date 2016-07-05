@@ -8,14 +8,12 @@
 #  property_foreclosed      :boolean
 #  party_to_lawsuit         :boolean
 #  loan_foreclosure         :boolean
-#  nil_deliquent_loan       :boolean
+#  nil_deliquent_loan   :boolean
 #  child_support            :boolean
 #  down_payment_borrowed    :boolean
 #  co_maker_or_endorser     :boolean
-#  citizen_status           :string
-#  is_hispanic_or_latino    :string
-#  gender_type              :string
-#  race_type                :string
+#  us_citizen               :boolean
+#  permanent_resident_alien :boolean
 #  ownership_interest       :boolean
 #  type_of_property         :string
 #  title_of_property        :string
@@ -39,12 +37,18 @@ class Declaration < ActiveRecord::Base
     :child_support,
     :down_payment_borrowed,
     :co_maker_or_endorser,
-    :citizen_status,
-    :is_hispanic_or_latino,
-    :gender_type,
-    :race_type,
+    :us_citizen,
+    :permanent_resident_alien,
     :ownership_interest,
     :type_of_property,
     :title_of_property
   ]
+
+  def completed?
+    !(outstanding_judgment.nil? && bankrupt.nil? && property_foreclosed.nil? &&
+    party_to_lawsuit.nil? && loan_foreclosure.nil? && child_support.nil? &&
+    down_payment_borrowed.nil? && co_maker_or_endorser.nil? &&
+    us_citizen.nil? && permanent_resident_alien.nil? && ownership_interest.nil? &&
+    type_of_property.nil? && title_of_property.nil?)
+  end
 end

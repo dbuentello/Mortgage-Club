@@ -13,7 +13,7 @@ var CheckCompletedLoanMixin = {
       TabDocuments.documentsCompleted(loan) &&
       TabIncome.incomeCompleted(loan) &&
       TabAsset.assetCompleted(loan) &&
-      TabDeclaration.completed(loan) &&
+      TabDeclaration.declarationCompleted(loan) &&
       TabCreditCheck.creditCheckCompleted(loan);
   }
 }

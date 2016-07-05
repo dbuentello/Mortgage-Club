@@ -133,7 +133,7 @@ module.exports = {
   elementIsAddress: function(obj){
     if(obj !== undefined && obj !== null){
       if((obj.city != undefined && obj.city != null && obj.city != "")
-        && (obj.state != undefined && obj.state != null && obj.state == "CA")
+        && (obj.state != undefined && obj.state != null && obj.state != "")
         && (obj.zip != undefined && obj.zip != null && obj.zip != "")) {
         return true;
       }

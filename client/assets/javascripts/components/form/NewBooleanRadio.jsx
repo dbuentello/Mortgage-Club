@@ -50,8 +50,7 @@ var BooleanRadioView = React.createClass({
     var display = this.props.unknownLabel,
         customColumn = this.props.customColumn || "col-xs-6",
         requiredMessage = this.props.requiredMessage  || "This field is required",
-        isDeclaration = this.props.isDeclaration === undefined ? false : true,
-        invalidMessage = this.props.invalidMessage;
+        isDeclaration = this.props.isDeclaration === undefined ? false : true;
 
     var disabled = this.props.editMode === false ? "disabled" : null;
 
@@ -85,7 +84,7 @@ var BooleanRadioView = React.createClass({
                 </label>
               </div>
               <div className="col-xs-2 boolean-div"  id={this.props.keyName}></div>
-              <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.checked} requiredMessage={requiredMessage} invalidMessage={invalidMessage} validationTypes={this.props.validationTypes}/>
+              <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.checked} title={requiredMessage} validationTypes={this.props.validationTypes}/>
             </div>
           </div>
         :
@@ -108,7 +107,7 @@ var BooleanRadioView = React.createClass({
                   <span className="pointer">{this.props.noLabel}</span>
                 </label>
               </div>
-              <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.checked} requiredMessage={requiredMessage} invalidMessage={invalidMessage} validationTypes={this.props.validationTypes}/>
+              <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.checked} title={requiredMessage} validationTypes={this.props.validationTypes}/>
             </div>
           </div>
       }

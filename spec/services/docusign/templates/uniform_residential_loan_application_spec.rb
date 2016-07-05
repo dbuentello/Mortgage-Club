@@ -239,14 +239,14 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       it "maps right values" do
         property = @service.subject_property
         proposed_total_expense = property.mortgage_payment + property.other_financing +
-                                 (property.estimated_hazard_insurance.to_f / 12) + (property.estimated_property_tax.to_f / 12) +
+                                 property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
                                  property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f
         @service.build_housing_expense("proposed", property)
         expect(@service.params).to include(
           proposed_mortgage: number_to_currency(property.mortgage_payment, unit: ""),
           proposed_other_financing: number_to_currency(property.other_financing, unit: ""),
-          proposed_hazard_insurance: number_to_currency(property.estimated_hazard_insurance / 12, unit: ""),
-          proposed_real_estate_taxes: number_to_currency(property.estimated_property_tax / 12, unit: ""),
+          proposed_hazard_insurance: number_to_currency(property.estimated_hazard_insurance, unit: ""),
+          proposed_real_estate_taxes: number_to_currency(property.estimated_property_tax, unit: ""),
           proposed_mortgage_insurance: number_to_currency(property.estimated_mortgage_insurance, unit: ""),
           proposed_homeowner: number_to_currency(property.hoa_due, unit: ""),
           proposed_total: number_to_currency(proposed_total_expense, unit: "")
@@ -258,14 +258,14 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
       it "maps right values" do
         property = @service.primary_property
         present_total_expense = property.mortgage_payment + property.other_financing +
-                                (property.estimated_hazard_insurance.to_f / 12) + (property.estimated_property_tax.to_f / 12) +
+                                property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f +
                                 property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f
         @service.build_housing_expense("present", property)
         expect(@service.params).to include(
           present_mortgage: number_to_currency(property.mortgage_payment, unit: ""),
           present_other_financing: number_to_currency(property.other_financing, unit: ""),
-          present_hazard_insurance: number_to_currency(property.estimated_hazard_insurance / 12, unit: ""),
-          present_real_estate_taxes: number_to_currency(property.estimated_property_tax / 12, unit: ""),
+          present_hazard_insurance: number_to_currency(property.estimated_hazard_insurance, unit: ""),
+          present_real_estate_taxes: number_to_currency(property.estimated_property_tax, unit: ""),
           present_mortgage_insurance: number_to_currency(property.estimated_mortgage_insurance, unit: ""),
           present_homeowner: number_to_currency(property.hoa_due, unit: ""),
           present_total: number_to_currency(present_total_expense, unit: "")
@@ -277,7 +277,6 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
   describe "#build_declaration" do
     it "maps right values" do
       @service.build_declaration("borrower", @service.borrower)
-
       expect(@service.params).to include(
         borrower_a_no: declaration.outstanding_judgment ? "Off" : "Yes",
         borrower_a_yes: declaration.outstanding_judgment ? "Yes" : "Off",
@@ -297,10 +296,10 @@ describe Docusign::Templates::UniformResidentialLoanApplication do
         borrower_h_yes: declaration.down_payment_borrowed ? "Yes" : "Off",
         borrower_i_no: declaration.co_maker_or_endorser ? "Off" : "Yes",
         borrower_i_yes: declaration.co_maker_or_endorser ? "Yes" : "Off",
-        borrower_j_no: declaration.citizen_status != "C" ? "Yes" : "Off",
-        borrower_j_yes: declaration.citizen_status == "C" ? "Yes" : "Off",
-        borrower_k_no: declaration.citizen_status != "PR" ? "Yes" : "Off",
-        borrower_k_yes: declaration.citizen_status == "PR" ? "Yes" : "Off",
+        borrower_j_no: declaration.us_citizen ? "Off" : "Yes",
+        borrower_j_yes: declaration.us_citizen ? "Yes" : "Off",
+        borrower_k_no: declaration.permanent_resident_alien ? "Off" : "Yes",
+        borrower_k_yes: declaration.permanent_resident_alien ? "Yes" : "Off",
         borrower_m_no: declaration.ownership_interest ? "Off" : "Yes",
         borrower_m_yes: declaration.ownership_interest ? "Yes" : "Off",
         borrower_m1: declaration.type_of_property,
