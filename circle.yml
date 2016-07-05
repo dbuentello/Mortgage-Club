@@ -9,7 +9,7 @@ test:
   post:
     - bundle exec rubocop
   override:
-    - bundle exec cucumber --tags ~@ignore --format CircleCICucumberFormatter::CircleCIJson --out /tmp/circle-junit.OZsO3EL/cucumber/cucumber.cucumber
+    - bundle exec cucumber --tags ~@ignore
 general:
   artifacts:
     - "~/simplecov" # relative to the user's home directory
