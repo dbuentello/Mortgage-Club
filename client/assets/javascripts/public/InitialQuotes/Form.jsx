@@ -272,7 +272,7 @@ var Form = React.createClass({
               </div>
             </div>
             <div className="form-group text-center btnSubmit">
-              <button className="btn btn-mc text-uppercase" onClick={this.onSubmit}>find my rates</button>
+              <button className="btn btn-mc text-uppercase" id="find-my-rates-form" onClick={this.onSubmit}>find my rates</button>
             </div>
           </form>
         </div>

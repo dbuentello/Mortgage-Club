@@ -87,7 +87,6 @@ var NewSelectField = React.createClass({
 
   render: function() {
     var requiredMessage = this.props.requiredMessage || "This field is required";
-    var invalidMessage = this.props.invalidMessage
     var unSelected = this.props.activateRequiredField&&(this.props.value==null || this.props.value==""|| this.props.value.trim()=="" || this.state.name==null || this.state.name.trim()=="")
     var disabled = this.props.editMode === false ? "disabled" : null;
 
@@ -116,7 +115,7 @@ var NewSelectField = React.createClass({
             <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
           </div>
         </div>
-        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} requiredMessage={requiredMessage} invalidMessage={invalidMessage} validationTypes={this.props.validationTypes}/>
+        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} title={requiredMessage} validationTypes={this.props.validationTypes}/>
       </div>
     );
   },

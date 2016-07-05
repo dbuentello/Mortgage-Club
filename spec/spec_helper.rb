@@ -22,9 +22,12 @@ require 'capybara/rspec'
 require 'database_cleaner'
 require 'capybara/poltergeist'
 
+options = {js_errors: false}
+
 Capybara.register_driver(:poltergeist) do |app|
-  Capybara::Poltergeist::Driver.new(app, {js_errors: false})
+  Capybara::Poltergeist::Driver.new(app, options)
 end
+Capybara.default_max_wait_time = 120
 
 RSpec.configure do |config|
   # default config from https://github.com/DatabaseCleaner/database_cleaner

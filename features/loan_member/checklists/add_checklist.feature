@@ -1,3 +1,4 @@
+@ignore
 Feature: AddChecklist
   @javascript
   Scenario: add a checklist

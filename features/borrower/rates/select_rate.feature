@@ -1,3 +1,4 @@
+@ignore
 Feature: SelectRate
   @javascript @vcr-select-rates
   Scenario: select rate with completed loan

@@ -4,10 +4,6 @@ module FinanceFormulas
     ((-pv * pvif(rate, nper) - fv) / ((1.0 + rate * type) * fvifa(rate, nper)))
   end
 
-  def get_monthly_value(annual_value)
-    annual_value.to_f / 12
-  end
-
   protected
 
   def pow1pm1(x, y)

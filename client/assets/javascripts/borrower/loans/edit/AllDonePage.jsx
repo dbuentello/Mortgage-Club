@@ -13,7 +13,7 @@ var FormCreditCheck = React.createClass({
           <span className="glyphicon glyphicon-ok"></span>
           <h1>{"You're All Done!"}</h1>
           <br/>
-          <h2>{"Let's see what loan programs you qualify for.."}</h2>
+          <h2>{"Let's see what options you qualify for..."}</h2>
           <br/>
           <a className="btn primary yellow" rel="nofollow" data-method="get" href={"/underwriting?loan_id=" + this.props.loan.id}>
             See my rates

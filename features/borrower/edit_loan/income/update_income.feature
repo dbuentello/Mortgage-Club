@@ -1,3 +1,4 @@
+@ignore
 Feature: UpdateIncome
   @javascript
   Scenario: update income
@@ -25,7 +26,7 @@ Feature: UpdateIncome
         And I should see "We’re now ready to obtain your credit report in real time to verify your credit score and review your credit history. You won’t be charged for this service. Please authorize us by selecting the checkbox below."
       And I click "Income"
         Then I should see content as "Software Engineer"
-          And I should see content as "$123,454.00"
+        And I should see content as "$123,454.00"
       And I should see "Documents"
 
   @javascript

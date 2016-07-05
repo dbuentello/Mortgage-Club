@@ -1,3 +1,4 @@
+@ignore
 Feature: FillForm
   @javascript @vcr
   Scenario: fill in form with purchase loan
@@ -10,7 +11,7 @@ Feature: FillForm
     And I select "Primary Residence" from "Property Will Be"
     And I select "Single Family Home" from "Property Type"
     And I select "740+" from "Credit Score"
-    And I press "find my rates"
+    And I press "find-my-rates-form"
     And I should see "Sort by"
     And I scroll up to the top
   Then At first klass ".board-header" I click link "Select"
@@ -29,7 +30,7 @@ Feature: FillForm
     And I select "Primary Residence" from "Property Will Be"
     And I select "Single Family Home" from "Property Type"
     And I select "740+" from "Credit Score"
-    And I press "find my rates"
+    And I press "find-my-rates-form"
     And I should see "Sort by"
     And I scroll up to the top
   Then At first klass ".board-header" I click link "Select"

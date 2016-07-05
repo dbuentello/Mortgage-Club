@@ -1,3 +1,4 @@
+@ignore
 Feature: SignUp
   @javascript
   Scenario: sign up
@@ -8,7 +9,7 @@ Feature: SignUp
     And I fill in "Email" with "user@gmail.com"
     And I fill in "login-form-password" with "Beatlendinghome"
     And I fill in "login-form-confirm-password" with "Beatlendinghome"
-    Then I press "Register now"
+    Then I press "login-form-submit"
     Then I should see "Property Address"
     And an email should have been sent with:
       """
