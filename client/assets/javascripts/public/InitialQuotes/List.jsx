@@ -159,19 +159,35 @@ var List = React.createClass({
                       <img className="img-responsive" src={quote.logo_url}/>
                       <h4 className="nmls-title hidden-xs">NMLS: #{quote.nmls}</h4>
                     </div>
-
                     <div className="col-xs-8 col-md-3 col-sm-6 col-sm-6">
                       <h3 className="text-capitalize">{quote.lender_name}</h3>
                       <p>{quote.product}</p>
                       <h1 className="apr-text">{this.commafy(quote.apr * 100, 3)}% APR</h1>
                     </div>
-
                     <div className="col-xs-12 col-md-4 col-sm-6 col-sm-6">
                       <p><span className="text-capitalize">rate:</span> {this.commafy(quote.interest_rate * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(quote.monthly_payment, 0, "$")}</p>
+                      {
+                        quote.lender_credits == 0
+                        ?
+                          null
+                        :
+                          <p><span className="text-capitalize">{quote.lender_credits < 0 ? "Lender credit" : "Discount points"}:</span> {this.formatCurrency(quote.lender_credits, 0, "$")}</p>
+                      }
                       <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(quote.total_closing_cost, 0, "$")}</p>
+                      {
+                        this.props.helpMeChoose
+                        ?
+                          <p>
+                            <strong>
+                              <span>True Cost of Mortgage: </span>
+                              {this.formatCurrency(quote.total_cost, '$')}
+                            </strong>
+                          </p>
+                        :
+                          null
+                      }
                     </div>
-
                     <div className="col-md-2 col-sm-6 col-sm-6">
                       <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Select</a>
                     </div>
@@ -179,7 +195,6 @@ var List = React.createClass({
                 </div>
                 <div id={"board-content-" + index} className={this.state.toggleContentStates[index] === true ? "board-content" : "board-content up-state"}>
                   <div className="row">
-
                     <div className="col-md-6">
                       <h4>Product details</h4>
                       <div className="row">
@@ -234,16 +249,6 @@ var List = React.createClass({
                           }, this)
                         }
                       </ul>
-                      {
-                        this.props.helpMeChoose
-                        ?
-                          <div>
-                            <span className="typeLowlight mlm">True Cost of Mortgage: </span>
-                            {this.formatCurrency(quote.total_cost, 0, "$")}
-                          </div>
-                        :
-                          null
-                      }
                     </div>
                     <div className="col-md-6">
                       <h4>Monthly payment details</h4>
@@ -279,7 +284,6 @@ var List = React.createClass({
                                 null
                             }
                           <p className="col-xs-12 cost">{this.formatCurrency(this.totalMonthlyPayment(quote.monthly_payment, 0, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance, 0, quote.pmi_monthly_premium_amount), 0, "$")}</p>
-
                         </div>
                       </div>
                       {
@@ -291,15 +295,12 @@ var List = React.createClass({
                       }
                     </div>
                   </div>
-
                   <Chart id={index} principle={quote.monthly_payment} mortgageInsurance={0} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}
                     hoadue={0} numOfMonths={quote.period} loanAmount={quote.loan_amount} interestRate={quote.interest_rate}
                     total={this.totalMonthlyPayment(quote.monthly_payment, 0, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance, 0, quote.pmi_monthly_premium_amount)} />
-
                 </div>
                 <div className="board-content-toggle">
                   <button onClick={_.bind(this.toggleHandler, null, index)}><span className={this.state.toggleContentStates[index]===true ? "fa fa-angle-up" : "fa fa-angle-down"} ></span></button>
-
                 </div>
               </div>
             );

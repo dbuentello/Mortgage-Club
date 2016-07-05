@@ -1,5 +1,4 @@
-Feature: UpdateAssetsAndLiabilities
-
+ Feature: UpdateAssetsAndLiabilities
   @javascript @ignore
   Scenario: update assets and liabilities
     When I am at loan management page

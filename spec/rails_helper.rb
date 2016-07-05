@@ -10,10 +10,6 @@ require "support/vcr_setup"
 
 require 'simplecov'
 
-
-
-
-
 Delayed::Worker.delay_jobs = true
 
 # save to CircleCI's artifacts directory if we're on CircleCI

@@ -29,8 +29,8 @@ module CompletedLoanServices
     def employment_completed?(employment)
       return false unless employment.employer_name.present?
       return false unless employment.address.present?
-      return false unless employment.employer_contact_name.present?
-      return false unless employment.employer_contact_number.present?
+      # return false unless employment.employer_contact_name.present?
+      # return false unless employment.employer_contact_number.present?
       return false unless employment.current_salary.present?
       return false unless employment.job_title.present?
       return false unless employment.pay_frequency.present?

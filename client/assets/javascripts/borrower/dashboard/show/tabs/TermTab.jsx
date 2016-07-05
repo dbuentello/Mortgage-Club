@@ -18,8 +18,8 @@ var TermTab = React.createClass({
     }
 
     expense += parseFloat(monthlyPayment);
-    expense += parseFloat(homeOwnerInsurance);
-    expense += parseFloat(propertyTax);
+    expense += (parseFloat(homeOwnerInsurance)/12);
+    expense += (parseFloat(propertyTax)/12);
     return expense;
   },
 
@@ -109,7 +109,7 @@ var TermTab = React.createClass({
 
           </div>
           <div className="row">
-            <h4>Closing Cost</h4>
+            <h4>Closing Costs</h4>
           </div>
           <div className="table-responsive term-board">
             <table className="table table-striped term-table">
@@ -117,18 +117,15 @@ var TermTab = React.createClass({
                 {
                   loan.lender_credits < 0.0
                   ?
-
                     <tr>
                       <td className="loan-field">
-                        Lender Credits
+                        Lender Credit
                       </td>
                       <td>
                         {this.formatCurrency(loan.lender_credits, "$")}
                       </td>
                     </tr>
-
                   :
-
                     <tr>
                       <td className="loan-field">
                         Discount Points
@@ -199,7 +196,7 @@ var TermTab = React.createClass({
                 </tr>
                 <tr>
                   <td className="loan-field">
-                    Homeowners Insurance
+                    Annual Homeowners Insurance
                   </td>
                   <td>
                     {this.formatCurrency(property.estimated_hazard_insurance, "$")}
@@ -207,7 +204,7 @@ var TermTab = React.createClass({
                 </tr>
                 <tr>
                   <td className="loan-field">
-                    Property Tax
+                    Annual Property Tax
                   </td>
                   <td>
                     {this.formatCurrency(property.estimated_property_tax, "$")}

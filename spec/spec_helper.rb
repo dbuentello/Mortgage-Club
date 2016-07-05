@@ -29,8 +29,6 @@ Capybara.register_driver(:poltergeist) do |app|
 end
 Capybara.default_max_wait_time = 120
 
-
-
 RSpec.configure do |config|
   # default config from https://github.com/DatabaseCleaner/database_cleaner
   # used to clear database before running tests

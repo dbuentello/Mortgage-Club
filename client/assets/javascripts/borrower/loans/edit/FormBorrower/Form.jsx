@@ -30,15 +30,15 @@ var borrower_fields = {
   phone: {label: 'Phone Number', name: 'first_borrower_phone', fieldName: 'phone', helpText: null, error: "phoneNumberError", validationTypes: ["phoneNumber"]},
   yearsInSchool: {label: 'Years in School', name: 'first_borrower_years_in_school', fieldName: 'years_in_school', helpText: null, error: "yearsInSchoolError", validationTypes: ["empty", "integer"]},
   maritalStatus: {label: 'Marital Status', name: 'first_borrower_marital_status', fieldName: 'marital_status', helpText: 'Married (includes registered domestic partners), Unmarried (includes single, divorced, widowed)', error: "maritalStatusError", validationTypes: ["empty"]},
-  numberOfDependents: {label: 'Number of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "numberOfDependencesError", validationTypes: ["empty", "integer"]},
+  numberOfDependents: {label: 'No. of dependents', name: 'first_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "numberOfDependencesError", validationTypes: ["empty", "integer"]},
   dependentAges: {label: 'Ages of Dependents', name: 'first_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: "dependentAgesError", validationTypes: ["empty", "agesOfDependents"]},
   currentAddress: {label: 'Your Current Address', name: 'first_borrower_current_address', fieldName: 'current_address', helpText: null, error: "currentAddressError", validationTypes: ["empty", "address"]},
   currentlyOwn: {label: 'Own or rent?', name: 'first_borrower_currently_own', fieldName: 'currently_own', helpText: null, isEnabled: true ,error: "currentlyOwnError", validationTypes: ["empty"]},
   selfEmployed: {label: 'Are you self-employed?', name: 'first_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "selfEmployedError", validationTypes: ["empty"]},
-  yearsInCurrentAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "yearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
+  yearsInCurrentAddress: {label: 'No. of years you have lived here', name: 'first_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "yearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
   previousAddress: {label: 'Your previous address', name: 'first_borrower_previous_address', fieldName: 'previous_address', helpText: null, error: "previousAddressError", validationTypes: ["empty"]},
   previouslyOwn: {label: 'Do you own or rent?', name: 'first_borrower_previously_own', fieldName: 'previously_own', helpText: null, error: "previouslyOwnError", validationTypes: ["empty"]},
-  yearsInPreviousAddress: {label: 'Number of years you have lived here', name: 'first_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "yearsInPreviousAddressError", validationTypes: ["empty", "integer"]},
+  yearsInPreviousAddress: {label: 'No. of years you have lived here', name: 'first_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "yearsInPreviousAddressError", validationTypes: ["empty", "integer"]},
   currentMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null, error: "currentMonthlyRentError", validationTypes: ["empty", "currency"]},
   previousMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null, error: "previousMonthlyRentError", validationTypes: ["empty", "currency"]}
 };
@@ -54,15 +54,15 @@ var secondary_borrower_fields = {
   phone: {label: 'Phone Number', name: 'secondary_borrower_phone', fieldName: 'phone', helpText: null, error: "coPhoneNumberError", validationTypes: ["phoneNumber"]},
   yearsInSchool: {label: 'Years in School', name: 'secondary_borrower_years_in_school', fieldName: 'years_in_school', helpText: null, error: "coYearsInSchoolError", validationTypes: ["empty", "integer"]},
   maritalStatus: {label: 'Marital Status', name: 'secondary_borrower_marital_status', fieldName: 'marital_status', helpText: null, error: "coMarialStatusError", validationTypes: ["empty"]},
-  numberOfDependents: {label: 'Number of dependents', name: 'secondary_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "coNumberOfdependencesError", validationTypes: ["empty", "integer"]},
+  numberOfDependents: {label: 'No. of dependents', name: 'secondary_borrower_dependent_count', fieldName: 'dependent_count', helpText: null, error: "coNumberOfdependencesError", validationTypes: ["empty", "integer"]},
   dependentAges: {label: 'Ages of Dependents', name: 'secondary_borrower_dependent_ages', fieldName: 'dependent_ages', helpText: null, error: null, validationTypes: ["empty", "agesOfDependents"]},
   currentAddress: {label: 'Your co-borrower current address', name: 'secondary_borrower_current_address', fieldName: 'current_address', helpText: null, error: "coCurrentAddressError", validationTypes: ["empty", "address"]},
   currentlyOwn: {label: 'Own or rent?', name: 'secondary_borrower_currently_own', fieldName: 'currently_own', helpText: null, error: "coCurrentlyOwnError", validationTypes: ["empty"]},
   selfEmployed: {label: 'Is your co-borrower self-employed?', name: 'secondary_borrower_self_employed', fieldName: 'self_employed', helpText: null, error: "coSelfEmployError", validationTypes: ["empty"]},
-  yearsInCurrentAddress: {label: 'Number of years they have lived here', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "coYearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
+  yearsInCurrentAddress: {label: 'No. of years they have lived here', name: 'secondary_borrower_years_in_current_address', fieldName: 'years_in_current_address', helpText: null, error: "coYearsInCurrentAddressError", validationTypes: ["empty", "integer"]},
   previousAddress: {label: 'Your previous address', name: 'secondary_borrower_previous_address', fieldName: 'previous_address', helpText: null, error: "coPreviousAddressError", validationTypes: ["empty"]},
   previouslyOwn: {label: 'Own or rent?', name: 'secondary_borrower_previously_own', fieldName: 'previously_own', helpText: null, error: "coPreviousOwnError", validationTypes: ["empty"]},
-  yearsInPreviousAddress: {label: 'Number of years they have lived here', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "coYearsInPreviousAddressError", validationTypes: ["empty", "integer"]},
+  yearsInPreviousAddress: {label: 'No. of years they have lived here', name: 'secondary_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "coYearsInPreviousAddressError", validationTypes: ["empty", "integer"]},
   currentMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null, error: "coCurrentlyMonthlyRentError", validationTypes: ["empty", "currency"]},
   previousMonthlyRent: {label: 'Monthly Rent', name: 'secondary_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null, error: "coPreviousMonthlyRentError", validationTypes: ["empty", "currency"]}
 };
@@ -390,7 +390,7 @@ var Form = React.createClass({
         city: address.city
       };
       state[fields.currentAddress.name] = address_attributes;
-      state[fields.yearsInCurrentAddress.name] = (new Date(Date.now()).getFullYear()) * 1 - (state.subject_property.original_purchase_year) * 1 + 1;
+      state[fields.yearsInCurrentAddress.name] = currentBorrowerAddress.years_at_address || ((new Date(Date.now()).getFullYear()) * 1 - (state.subject_property.original_purchase_year) * 1 + 1);
       state[fields.currentlyOwn.name] = true;
       state[fields.currentlyOwn.isEnabled] = false;
     }
@@ -516,7 +516,7 @@ var Form = React.createClass({
           this.props.goToAllDonePage(response.loan);
         }
         else {
-          this.props.setupMenu(response, 1);
+          this.props.setupMenu(response, 2);
         }
       }.bind(this),
       error: function(response, status, error) {
@@ -529,7 +529,7 @@ var Form = React.createClass({
   },
 
   next: function(event){
-    this.props.next(2);
+    this.props.next(3);
     event.preventDefault();
   },
 

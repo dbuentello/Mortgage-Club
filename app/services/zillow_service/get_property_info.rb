@@ -53,8 +53,8 @@ module ZillowService
 
       property = property_data['SearchResults:searchresults']['response']['results']['result'][0] || property_data['SearchResults:searchresults']['response']['results']['result']
       property.merge(
-        monthlyTax: monthly_payments['MonthlyPaymentsAdvanced:paymentsdetails']['response']['monthlypropertytaxes'],
-        monthlyInsurance: monthly_payments['MonthlyPaymentsAdvanced:paymentsdetails']['response']['monthlyhazardinsurance'],
+        annualTax: monthly_payments['MonthlyPaymentsAdvanced:paymentsdetails']['response']['monthlypropertytaxes'].to_f * 12,
+        annualInsurance: monthly_payments['MonthlyPaymentsAdvanced:paymentsdetails']['response']['monthlyhazardinsurance'].to_f * 12,
         zillowImageUrl: zillow_image_url
       )
     end

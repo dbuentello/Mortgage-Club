@@ -15,8 +15,8 @@ var owner_upload_fields = {
   second_w2: {label: 'W2 - Previous tax year', name: 'second_w2'},
   first_paystub: {label: "Paystub - Most recent period", name: 'first_paystub'},
   second_paystub: {label: 'Paystub - Previous period', name: 'second_paystub'},
-  first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'first_federal_tax_return'},
-  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'second_federal_tax_return'},
+  first_federal_tax_return: {label: 'Personal tax return - Most recent year', name: 'first_federal_tax_return'},
+  second_federal_tax_return: {label: 'Personal tax return - Previous year', name: 'second_federal_tax_return'},
   first_bank_statement: {label: 'Bank statement - Most recent month', name: 'first_bank_statement'},
   second_bank_statement: {label: 'Bank statement - Previous month', name: 'second_bank_statement'}
 };
@@ -30,8 +30,8 @@ var co_borrower_upload_fields = {
   second_w2: {label: 'W2 - Previous tax year', name: 'co_second_w2'},
   first_paystub: {label: "Paystub - Most recent period", name: 'co_first_paystub'},
   second_paystub: {label: 'Paystub - Previous period', name: 'co_second_paystub'},
-  first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'co_first_federal_tax_return'},
-  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'co_second_federal_tax_return'}
+  first_federal_tax_return: {label: 'Personal tax return - Most recent year', name: 'co_first_federal_tax_return'},
+  second_federal_tax_return: {label: 'Personal tax return - Previous year', name: 'co_second_federal_tax_return'}
 
 };
 
@@ -123,7 +123,13 @@ var FormDocuments = React.createClass({
         <form className="form-horizontal">
           <div className='form-group'>
             <p className="box-description col-sm-12">
-            At the minimum, we’d need these documents before we can lock-in your mortgage rate. Please upload them now so our proprietary technology can try to extract the data and save you some time inputting it.
+              At the minimum, we’d need these documents to submit your loan application to underwriting. Please help us gather these documents. For your convenience, we can also order tax return, W2, 1099… directly from the IRS (with your authorization) but it would take them several hours to fulfill our order. Please email us at <a href="mailto:hello@mortgageclub.co" target="_blank">hello@mortgageclub.co</a> to request that.
+              <br/>
+              For your security,
+              <br/>
+              <span className="glyphicon glyphicon-ok"></span> We use 256-bit SSL encryption (bank-level security).
+              <br/>
+              <span className="glyphicon glyphicon-ok"></span> We’ll log you out after 10 mins of inactivity.
             </p>
           </div>
           {
@@ -205,10 +211,10 @@ var FormDocuments = React.createClass({
                 {
                   secondary_borrower
                   ?
-                  <div className='form-group'>
-                    <p className="box-description col-sm-12">
+                  <div className="box mtn">
+                    <h3>
                       Please upload the following documents for your co-borrower.
-                    </p>
+                    </h3>
                   </div>
                   : null
                 }
@@ -385,7 +391,7 @@ var FormDocuments = React.createClass({
     var isValid = this.valid();
 
     if(isValid){
-      this.props.saveLoan(this.buildLoanFromState(), 2);
+      this.props.saveLoan(this.buildLoanFromState(), 1);
     }
     else{
       this.setState({saving: false});
@@ -394,7 +400,7 @@ var FormDocuments = React.createClass({
   },
 
   next: function(event){
-    this.props.next(3);
+    this.props.next(2);
     event.preventDefault();
   },
 });
