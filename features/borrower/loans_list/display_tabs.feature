@@ -1,3 +1,4 @@
+@ignore
 Feature: DisplayTabs
   @javascript
   Scenario: display loans, referrals and settings tabs

@@ -72,8 +72,8 @@ var List = React.createClass({
 
   componentDidMount: function() {
     if(this.props.helpMeChoose){
-      if($("span.glyphicon-menu-down").length > 0){
-        $("span.glyphicon-menu-down")[0].click();
+      if($("span.fa-angle-down").length > 0){
+        $("span.fa-angle-down")[0].click();
       }
     }
   },
@@ -177,8 +177,6 @@ var List = React.createClass({
                     </div>
                   </div>
                 </div>
-                <br></br>
-
                 <div id={"board-content-" + index} className={this.state.toggleContentStates[index] === true ? "board-content" : "board-content up-state"}>
                   <div className="row">
 
@@ -287,7 +285,7 @@ var List = React.createClass({
                       {
                         quote.characteristic
                         ?
-                          <p className="note">{quote.characteristic}</p>
+                          <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>{quote.characteristic}</p>
                         :
                           null
                       }
@@ -300,7 +298,7 @@ var List = React.createClass({
 
                 </div>
                 <div className="board-content-toggle">
-                  <button onClick={_.bind(this.toggleHandler, null, index)}><span className={this.state.toggleContentStates[index]===true ? "glyphicon glyphicon-menu-up" : "glyphicon glyphicon-menu-down"} ></span></button>
+                  <button onClick={_.bind(this.toggleHandler, null, index)}><span className={this.state.toggleContentStates[index]===true ? "fa fa-angle-up" : "fa fa-angle-down"} ></span></button>
 
                 </div>
               </div>

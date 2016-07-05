@@ -1,3 +1,4 @@
+@ignore
 Feature: SendReferralEmails
   @javascript
   Scenario: send referrals with valid email

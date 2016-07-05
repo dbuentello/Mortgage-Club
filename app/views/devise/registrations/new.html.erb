@@ -1,4 +1,89 @@
-<div class="signup-form">
+<section id="content">
+  <div class="content-wrap">
+    <div class="section nopadding nomargin" style="width: 100%; height: 100%; position: absolute; left: 0; top: 0; background: #444;"></div>
+    <div class="section nobg nopadding nomargin">
+      <div class="container divcenter clearfix">
+        <div class="row center" style="height: 100px">
+          <a href="/new_landing"><img src="<%= asset_path 'white_logo.png' %>" style='height:35px' alt="MortgageClub Logo"></a>
+        </div>
+        <div class="panel panel-default divcenter noradius noborder" style="max-width: 400px; background-color: rgba(255,255,255,0.93);">
+          <div class="panel-body" style="padding: 40px;">
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "nobottommargin"}) do |f| %>
+              <%= hidden_field_tag :invite_token, nil %>
+              <%= hidden_field_tag :ref_code, nil %>
+
+              <h3>Register for an Account</h3>
+              <div class="col_full">
+                <label for="login-form-first-name">First Name:</label>
+                <%= f.text_field :first_name, class: "form-control not-dark", "data-toggle" => "tooltip", title: resource.errors.messages[:first_name].try(:first), id: "login-form-first-name"%>
+              </div>
+              <div class="col_full">
+                <label for="login-form-last-name">Last Name:</label>
+                <%= f.text_field :last_name, class: "form-control not-dark", "data-toggle" => "tooltip", title: resource.errors.messages[:last_name].try(:first), id: "login-form-last-name"%>
+              </div>
+              <div class="col_full">
+                <label for="login-form-email">Email:</label>
+                <%= f.email_field :email, class: "form-control not-dark", "data-toggle" => "tooltip", title: resource.errors.messages[:email].try(:first), id: "login-form-email" %>
+              </div>
+              <div class="col_full">
+                <label for="login-form-password">Password:</label>
+                <%= f.password_field :password, autocomplete: "off", class: "form-control not-dark", "data-toggle" => "tooltip", title: resource.errors.messages[:password].try(:first), id: "login-form-password" %>
+              </div>
+              <div class="col_full">
+                <label for="login-form-confirm-password">Confirm Password:</label>
+                <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control not-dark", "data-toggle" => "tooltip", title: resource.errors.messages[:password_confirmation].try(:first), id: "login-form-confirm-password" %>
+              </div>
+              <div class="col_full" align="center">
+                <div align="center">
+                  <%= recaptcha_tags %>
+                </div>
+                <p style="color: red"><%= resource.errors.messages[:recaptcha_error].try(:first) %></p>
+              </div>
+              <div class="col_full nobottommargin">
+                <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Register now</button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="row center dark"><small>For your security, please do not authorize publicly accessible computers to remember your account information.</small></div>
+      </div>
+    </div>
+  </div>
+</section><!-- #content end -->
+<script type="text/javascript">
+  // Set cookie invite token value
+  <% if @token.present? %>
+    document.cookie="_refToken=<%= @token %>";
+  <% end %>
+
+
+  // Set invite token value
+  var ref_token = getCookie('_refToken');
+  if (ref_token != null) {
+    document.getElementById("invite_token").setAttribute('value', ref_token);
+  }
+
+  // Set refCode value
+  var ref_code = getCookie('_refcode');
+  if (ref_code != null) {
+    document.getElementById("ref_code").setAttribute('value', ref_code);
+  }
+
+  // Get cookie value
+  function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+  }
+</script>
+
+
+<!-- <div class="signup-form">
   <div class="signupPart content">
     <div class="container">
       <div class="row">
@@ -60,7 +145,7 @@
   <% if @token.present? %>
     document.cookie="_refToken=<%= @token %>";
   <% end %>
-  
+
 
   // Set invite token value
   var ref_token = getCookie('_refToken');
@@ -86,3 +171,4 @@
     return "";
   }
 </script>
+ -->

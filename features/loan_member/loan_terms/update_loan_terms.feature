@@ -1,3 +1,4 @@
+@ignore
 Feature: UpdateLoanTerms
   @javascript
   Scenario: update loan terms

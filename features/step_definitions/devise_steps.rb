@@ -20,10 +20,19 @@ Given(/^I am a new, authenticated user$/) do
 end
 
 Given(/^I login as "(.*?)" with password "(.*?)"$/) do |email, password|
-  visit '/auth/login'
+  visit '/auth/login/'
+  sleep(5)
   fill_in "user_email", with: email
   fill_in "user_password", with: password
-  click_button "Log in"
+  click_button "login-form-submit"
+end
+
+Given(/^I login as "(.*?)" with password "(.*?)" and wait for (\d+) seconds$/) do |email, password, s|
+  visit '/auth/login/'
+  sleep(s.to_i)
+  fill_in "user_email", with: email
+  fill_in "user_password", with: password
+  click_button "login"
 end
 
 Then(/^the URL should contain "(.*?)"$/) do |string|

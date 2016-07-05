@@ -1,0 +1,67 @@
+<!-- Header
+============================================= -->
+<header id="header" class="full-header" data-sticky-class="not-dark">
+
+  <div id="header-wrap">
+
+    <div class="container clearfix">
+
+      <div id="primary-menu-trigger">
+        <i class="icon-reorder"></i>
+      </div>
+
+      <!-- Logo
+      ============================================= -->
+      <div id="logo">
+        <a href="/" class="standard-logo" data-dark-logo="<%= asset_path 'white_logo_small_2.png' %>"><img src="<%= asset_path 'mortgageclubLOGO.png' %>" alt="MortgageClub Logo"></a>
+        <a href="/" class="retina-logo" data-dark-logo="<%= asset_path 'logo.png' %>"><img src="<%= asset_path 'mortgageclubLOGO.png' %>" alt="MortgageClub Logo"></a>
+      </div>
+      <!-- #logo end -->
+
+      <!-- Primary Navigation
+      ============================================= -->
+      <nav id="primary-menu">
+        <% if current_user %>
+          <ul>
+            <li>
+              <a id="newLoanBtn">
+                new loan
+              </a>
+            </li>
+            <% is_active_loans_menu = 'active-loans' if controller.controller_name == 'loans' %>
+            <li>
+              <%= link_to my_loans_path, class: "#{is_active_loans_menu}", id: "loanBtn" do %>
+              Loans
+
+            </li><% end %>
+            <li><a ><div><%= current_user.first_name %><i class="fa fa-angle-down" aria-hidden="true"></i></div></a>
+              <ul>
+                <li><%= link_to "My Profile", edit_user_registration_path %></li>
+                <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %>
+              </ul>
+            </li>
+
+          </ul>
+        <% else %>
+          <ul>
+            <li>
+              <a href="/auth/login">
+                <div>Login</div>
+              </a>
+            </li>
+            <li>
+              <a href="/quotes">
+                <div>Find my rates</div>
+              </a>
+            </li>
+          </ul>
+        <% end %>
+      </nav>
+      <!-- #primary-menu end -->
+
+    </div>
+
+  </div>
+
+</header>
+<!-- #header end -->

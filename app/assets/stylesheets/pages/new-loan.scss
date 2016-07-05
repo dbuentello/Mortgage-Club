@@ -1,7 +1,22 @@
 .accountPart {
-
+  h3, h5, h6 {
+    font-weight: normal;
+  }
+  h6 {
+    margin: 0;
+  }
+  table {
+    margin-bottom: 0;
+  }
   .account-content {
     min-height: calc(100vh - 160px);
+  }
+  .customRadio span {
+    font-weight: 100;
+    font-family: 'Raleway', sans-serif;
+  }
+  .form-group label.customRadio {
+     font-family: 'Raleway', sans-serif;
   }
 
   padding-top: 0px;
@@ -15,8 +30,8 @@
   background: linear-gradient(to right, rgba(246,246,246,1) 29%, rgba(255,255,255,1) 29%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#ffffff', GradientType=1 );
 
-  h4 {font-family:'aileronregular'; font-style:italic; font-size:1em; color:#555555;}
-  p {font-family:'aileronregular'; font-size:1.05em; color:#555555;}
+  h4 {font-family:'Raleway', sans-serif; font-style:italic; font-size:1em; color:#555555;}
+  p {font-family:'Raleway', sans-serif; font-size:1.05em; color:#555555; font-weight: 100}
 
   .trash-anchor {
     margin-top: 40px;
@@ -139,7 +154,7 @@
 .done-sign {display:none;}
 
 .account-content {
-  padding: 40px;
+  padding: 40px 20px 80px 40px;
   @include respond-to(smobile){
     padding: 10px 20px;
   };
@@ -270,6 +285,7 @@
     -ms-filter: saturate(100%);
     filter: saturate(100%);
     text-shadow: 0 0 0 #000;
+    font-weight: 100;
   }
 
   select:-moz-focusring {
@@ -330,6 +346,10 @@
 
   .form-group input.form-control.address {
     float:right;
+  }
+
+  .form-group input.form-control {
+    font-weight: 100;
   }
 
   .form-group>div>h5 {font-size:1.25em; color:#15c0f1; margin-top:0; letter-spacing:.04em; line-height:1.5em;}
@@ -451,6 +471,12 @@
       font-size:16px;
     }
   }
+
+  .credit-check {
+    input[type=checkbox] + label {
+      color: #555555;
+    }
+  }
 }
 
 #continueBtn {
@@ -461,7 +487,7 @@
   width:230px;
   float:left;
   font-size: 14px;
-  margin-top: 20px;
+  margin: 20px 0 40px 0;
   img {
     position:relative;
     margin-top:6px;
@@ -629,8 +655,6 @@
 }
 
 .mobile-xs-quote {
-
-  padding-top: 20px;
   margin-left: -15px;
   margin-right: -15px;
 
