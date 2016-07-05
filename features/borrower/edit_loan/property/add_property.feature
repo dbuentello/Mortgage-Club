@@ -28,8 +28,8 @@ Feature: AddProperty
       Then I fill in "Property Address" with "1722 Silver Meadow Court CA"
         And I wait for 2 seconds
         And I select "Primary Residence" from "Property Will Be"
+        And I wait for 2 seconds
         And I choose "false_purpose"
-        And I wait for 2 second
         And I clear value in "Original Purchase Price"
         Then I fill in "Original Purchase Price" with "$52,345.00"
         And I clear value in "Purchase Year"
