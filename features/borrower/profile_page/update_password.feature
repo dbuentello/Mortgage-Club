@@ -1,3 +1,4 @@
+@ignore
 Feature: UpdatePassword
   @javascript
   Scenario: update password

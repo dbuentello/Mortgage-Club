@@ -1,3 +1,4 @@
+@ignore
 Feature: AccessToUnnewLoan
   @javascript
   Scenario: accesses to loan dashboard page

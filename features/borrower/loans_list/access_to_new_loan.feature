@@ -1,3 +1,4 @@
+@ignore
 Feature: AccessToNewLoanPage
   @javascript
   Scenario: accesses edit loan page

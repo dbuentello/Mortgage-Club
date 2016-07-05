@@ -1,3 +1,4 @@
+@ignore
 Feature: UpdateEmployerInfo
   @javascript @vcr-full-contact-api
   Scenario: fill in employer name with autocomplete

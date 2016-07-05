@@ -8,6 +8,8 @@ test:
     - bundle exec rake assets:webpack
   post:
     - bundle exec rubocop
+  override:
+    - bundle exec cucumber --tags ~@ignore --format CircleCICucumberFormatter::CircleCIJson --out /tmp/circle-junit.OZsO3EL/cucumber/cucumber.cucumber
 general:
   artifacts:
     - "~/simplecov" # relative to the user's home directory

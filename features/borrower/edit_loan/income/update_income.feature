@@ -1,3 +1,4 @@
+@ignore
 Feature: UpdateIncome
   @javascript
   Scenario: update income
