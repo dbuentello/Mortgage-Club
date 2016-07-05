@@ -4,9 +4,10 @@ Feature: UpdateAssetsAndLiabilities
     When I am at loan management page
       And I click "Property"
         And I clear value in "Property Address"
-        Then I fill in "Property Address" with "1920 South Las Vegas Boulevard, Las Vegas"
+        Then I fill in "Property Address" with "1722 Silver Meadow Court CA"
         And I wait for 2 seconds
         And I select "Vacation Home" from "Property Will Be"
+        And I wait for 2 seconds
         And I clear value in "Estimated Rental Income"
           Then I fill in "Estimated Rental Income" with "$1,111.00"
         And I choose "true_purpose"
@@ -15,7 +16,7 @@ Feature: UpdateAssetsAndLiabilities
         And I clear value in "Down Payment"
           Then I fill in "Down Payment" with "$1,345.00"
         Then I click on "Save and Continue"
-        And I should see "I am applying"
+        And I should see "At the minimum"
       When I click link with div "#tabAssetsAndLiabilities"
         And I clear value in "Institution Name"
           Then I fill in "Institution Name" with "Bank of America"
@@ -32,16 +33,17 @@ Feature: UpdateAssetsAndLiabilities
         And I clear value in "property_estimated_property_tax_subject_property"
           Then I fill in "property_estimated_property_tax_subject_property" with "$100.00"
       And I click on "Save and Continue"
-        Then I should see "Are there any outstanding judgments against you?"
+        Then I should see "What's your citizenship status?"
 
   @javascript
   Scenario: update asset with loan refinance
     When I am at loan management page
       And I click "Property"
         And I clear value in "Property Address"
-          Then I fill in "Property Address" with "1920 South Las Vegas Boulevard, Las Vegas"
+          Then I fill in "Property Address" with "1722 Silver Meadow Court CA"
         And I wait for 2 seconds
         And I select "Vacation Home" from "Property Will Be"
+        And I wait for 2 seconds
         And I clear value in "Estimated Rental Income"
           Then I fill in "Estimated Rental Income" with "$1,111.00"
         And I choose "false_purpose"
@@ -50,7 +52,7 @@ Feature: UpdateAssetsAndLiabilities
         And I clear value in "Purchase Year"
           Then I fill in "Purchase Year" with "1994"
         Then I click on "Save and Continue"
-        And I should see "I am applying"
+        And I should see "At the minimum"
       When I click link with div "#tabAssetsAndLiabilities"
         And I clear value in "Institution Name"
           Then I fill in "Institution Name" with "Bank of America"
@@ -67,7 +69,7 @@ Feature: UpdateAssetsAndLiabilities
         And I clear value in "property_estimated_property_tax_subject_property"
           Then I fill in "property_estimated_property_tax_subject_property" with "$100.00"
       And I click on "Save and Continue"
-        Then I should see "Are there any outstanding judgments against you?"
+        Then I should see "What's your citizenship status?"
 
   # @javascript
   # Scenario: user update primary and subject with the same address

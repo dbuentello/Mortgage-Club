@@ -25,8 +25,6 @@ Feature: UpdateIncome
         And I should see "We’re now ready to obtain your credit report in real time to verify your credit score and review your credit history. You won’t be charged for this service. Please authorize us by selecting the checkbox below."
       And I click "Income"
         Then I should see content as "Software Engineer"
-          And I should see content as "Cuong Vu"
-          And I should see content as "(909) 123-4785"
           And I should see content as "$123,454.00"
       And I should see "Documents"
 
@@ -69,7 +67,7 @@ Feature: UpdateIncome
         And I should see "Please provide information about your co-borrower"
         And I wait for 1 seconds
         And I click on "Save and Continue"
-        And I should see "W2 - Most recent tax year"
+        And I should see "Name Of Current Employer"
       Then I click "Income"
         And I should see "Please provide income information of your co-borrower"
       Then I clear value in "current_salary"
@@ -89,6 +87,4 @@ Feature: UpdateIncome
       Then I click "Income"
         And I should see content as "VCB"
         And I should see content as "Business Analyst"
-        And I should see content as "Mr. Constantine"
-        And I should see content as "(909) 123-4785"
         And I should see content as "$9,999.00"

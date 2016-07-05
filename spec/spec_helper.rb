@@ -26,8 +26,6 @@ Capybara.register_driver(:poltergeist) do |app|
   Capybara::Poltergeist::Driver.new(app, {js_errors: false})
 end
 
-
-
 RSpec.configure do |config|
   # default config from https://github.com/DatabaseCleaner/database_cleaner
   # used to clear database before running tests
