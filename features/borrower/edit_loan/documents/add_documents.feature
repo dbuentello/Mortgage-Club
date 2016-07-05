@@ -106,6 +106,7 @@ Feature: AddDocuments
       When I click "Borrower" in the "#tabBorrower"
         And I choose "true_secondary_borrower_self_employed"
           Then I click on "Save and Continue"
+        And I click "Documents" in the "#TabDocuments"
         When I choose "false_is_file_taxes_jointly"
           And I should see "Personal tax return - Most recent year"
             Then I drag the file "spec/files/sample.pdf" to "co_first_personal_tax_return"
