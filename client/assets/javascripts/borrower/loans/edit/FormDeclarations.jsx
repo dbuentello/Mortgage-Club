@@ -422,7 +422,6 @@ var FormDeclarations = React.createClass({
                       editMode={this.props.editMode}/>
                     </div>
                 </div>
-
                 <div className='form-group' style={{display: this.state.co_borrower_display_sub_question}}>
                   <div className="col-md-6">
                     <SelectField

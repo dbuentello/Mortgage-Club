@@ -7,7 +7,7 @@
 #       envelope_id = "1aedecc4-e1e4-47c1-8dd7-988207963d64"
 #       user = double(to_s: "Robert Ice", email: "borrower@gmail.com")
 #       view = Docusign::GetRecipientViewService.call(envelope_id, user, "https://google.com")
-#       expect(view).to include("url")
+#       expect(view).to be_nil
 #     end
 #   end
 

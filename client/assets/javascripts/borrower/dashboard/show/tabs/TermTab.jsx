@@ -117,7 +117,6 @@ var TermTab = React.createClass({
                 {
                   loan.lender_credits < 0.0
                   ?
-
                     <tr>
                       <td className="loan-field">
                         Lender Credit
@@ -126,9 +125,7 @@ var TermTab = React.createClass({
                         {this.formatCurrency(loan.lender_credits, "$")}
                       </td>
                     </tr>
-
                   :
-
                     <tr>
                       <td className="loan-field">
                         Discount Points

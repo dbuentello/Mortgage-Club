@@ -233,10 +233,7 @@ var AddressField = React.createClass({
                   <input type="checkbox" id="checkbox-borrower"  onChange={this.props.handleCheckboxChange}/>
                   <label htmlFor="checkbox-borrower" className="customCheckbox blueCheckbox2">Same as borrower</label>
                 </div>
-
               }
-
-
             </div>
           :
           <h6>{this.props.label}</h6>

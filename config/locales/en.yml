@@ -207,5 +207,3 @@ en:
     create:
       failed: "Error, the email is already invited or not valid!"
       success: "%{invite_counter} person was successfully invited to Mortgage Club!"
-
-

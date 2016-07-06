@@ -1,3 +1,4 @@
+@ignore
 Feature: AddProperty
   @javascript
   Scenario: add a property

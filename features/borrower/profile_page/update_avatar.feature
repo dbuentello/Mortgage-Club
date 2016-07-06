@@ -1,3 +1,4 @@
+@ignore
 Feature: UpdateAvatar
   @javascript
   Scenario: update avatar

@@ -152,13 +152,11 @@ var List = React.createClass({
                       <img className="img-responsive" src={rate.logo_url}/>
                       <h4 className="nmls-title">NMLS: #{rate.nmls}</h4>
                     </div>
-
                     <div className="col-md-3 col-sm-6 col-sm-6">
                       <h3 className="text-capitalize">{rate.lender_name}</h3>
                       <p>{rate.product}</p>
                       <h1 className="apr-text">{this.commafy(rate.apr * 100, 3)}% APR</h1>
                     </div>
-
                     <div className="col-md-4 col-sm-6 col-sm-6">
                       <p><span className="text-capitalize">rate:</span> {this.commafy(rate.interest_rate * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(rate.monthly_payment, 0, '$')}</p>
@@ -183,7 +181,6 @@ var List = React.createClass({
                           null
                       }
                     </div>
-
                     <div className="col-md-2 col-sm-6 col-sm-6">
                       <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Select</a>
                     </div>
@@ -337,11 +334,9 @@ var List = React.createClass({
                       }
                     </div>
                   </div>
-
                   <Chart id={index} principle={rate.monthly_payment} mortgageInsurance={this.state.estimatedMortgageInsurance} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}
                     hoadue={this.state.hoaDue} numOfMonths={rate.period} loanAmount={rate.loan_amount} interestRate={rate.interest_rate}
                     total={this.totalMonthlyPayment(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance, rate.pmi_monthly_premium_amount)} />
-
                 </div>
                 <div className="board-content-toggle" onClick={_.bind(this.toggleHandler, null, index)}>
                   <span className={this.state.toggleContentStates[index]===true ? "glyphicon glyphicon-menu-up" : "glyphicon glyphicon-menu-down"}></span>

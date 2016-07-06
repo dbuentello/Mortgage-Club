@@ -170,7 +170,6 @@ var Quotes = React.createClass({
                       <div className="col-xs-12 col-md-3 subnav hidden-xs programs-filter">
                         <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
                       </div>
-
                       <div className="col-xs-12 col-sm-9 account-content padding-left-50">
                         <div className="mobile-xs-quote">
                           <div className="visible-xs">
@@ -186,7 +185,6 @@ var Quotes = React.createClass({
                             <div className="col-xs-2 text-left">
                               <a className="btn btn-filter text-uppercase" data-toggle="modal" data-target="#filterQuotes">Filter</a>
                             </div>
-
                             <div className="modal fade" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                               <div className="modal-dialog modal-sm" role="document">
                                 <div className="modal-content">
@@ -202,7 +200,6 @@ var Quotes = React.createClass({
                                 </div>
                               </div>
                             </div>
-
                             <div className="col-xs-4 select-box pull-right">
                               <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
                                 <option value="apr">APR</option>
@@ -247,7 +244,6 @@ var Quotes = React.createClass({
                         </div>
                       </div>
                     </div>
-
                 }
               </div>
             :

@@ -1,3 +1,4 @@
+@ignore
 Feature: UploadDocument
   @javascript
   Scenario: upload a lender documents

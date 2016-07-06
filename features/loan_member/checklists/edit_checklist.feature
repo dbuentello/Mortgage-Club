@@ -1,3 +1,4 @@
+@ignore
 Feature: EditChecklist
   @javascript
   Scenario: edit a checklist

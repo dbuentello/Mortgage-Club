@@ -230,7 +230,6 @@ var FormProperty = React.createClass({
                       </div>
                     </div>
                   </div>
-
                   <div className="col-md-12">
                      <div className="form-group">
                       <div className="col-md-6">
