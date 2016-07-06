@@ -1,6 +1,7 @@
 /**
  * Show alert errors
  */
+var React = require('react/addons');
 var FlashList = require('components/FlashList');
 
 var FlashHandler = {
