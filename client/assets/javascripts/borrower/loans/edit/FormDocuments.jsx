@@ -129,7 +129,7 @@ var FormDocuments = React.createClass({
               <br/>
               <span className="glyphicon glyphicon-ok"></span> We use 256-bit SSL encryption (bank-level security).
               <br/>
-              <span className="glyphicon glyphicon-ok"></span> We’ll log you out after 10 mins of inactivity.
+              <span className="glyphicon glyphicon-ok"></span> We’ll log you out after 20 mins of inactivity.
             </p>
           </div>
           {

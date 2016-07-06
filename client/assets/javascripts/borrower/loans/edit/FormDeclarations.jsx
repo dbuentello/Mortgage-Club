@@ -32,7 +32,7 @@ var coBorrowerFields = {
 var citizenshipStatusOptions = [
   {name: 'Citizen', value: 'C'},
   {name: 'Permanent Resident', value: 'PR'},
-  {name: 'Others', value: 'O'}
+  {name: 'Other', value: 'O'}
 ];
 
 var isHispanicOrLatinoOptions = [
