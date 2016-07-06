@@ -1,3 +1,6 @@
+/**
+ * Manage loan member of system
+ */
 var _ = require('lodash');
 var React = require('react/addons');
 var Form = require('./Form');

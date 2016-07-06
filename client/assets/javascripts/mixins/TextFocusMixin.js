@@ -1,3 +1,6 @@
+/**
+ * Handle focus event of element
+ */
 var TextFocusMixin = {
   handleFocus: function(event) {
     var target = event.target;

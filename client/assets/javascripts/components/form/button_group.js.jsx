@@ -1,3 +1,6 @@
+/**
+ * TODO: UNUSED CODE
+ */
 var ButtonGroup = React.createClass({
   propTypes: {
     // if @onClick is provided, when user clicks a button, the method is invoked with

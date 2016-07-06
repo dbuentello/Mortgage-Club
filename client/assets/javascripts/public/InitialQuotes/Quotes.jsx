@@ -1,3 +1,6 @@
+/**
+ * Quotes page after user find rate
+ */
 var _ = require("lodash");
 var React = require("react/addons");
 var TextFormatMixin = require("mixins/TextFormatMixin");

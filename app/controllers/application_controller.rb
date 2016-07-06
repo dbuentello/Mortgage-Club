@@ -32,6 +32,10 @@ class ApplicationController < ActionController::Base
     render "errors/403.html", status: 403
   end
 
+  # Find loan by loan_id (co_borrower/secondary_borrower) or id ( borrower )
+  # first time co_borrower log in the system, will get loan from borrower.
+  #
+  # @return [Object] @loan
   def set_loan
     @loan ||= Loan.find(params[:loan_id] || params[:id])
     @borrower_type ||= :borrower
@@ -45,6 +49,7 @@ class ApplicationController < ActionController::Base
         @loan = InitializeFirstLoanService.new(current_user).call
       end
     end
+    # use pundit to authorize user. check LoanPolicy
     authorize @loan, :update?
   end
 
@@ -71,6 +76,10 @@ class ApplicationController < ActionController::Base
     customized_flash
   end
 
+  # Set og of facebook to system. Use 'gem meta-tags'
+  #
+  # @param [Type] options = {} describe options = {}
+  # @return [Type] description of returned object
   def prepare_meta_tags(options = {})
     site_name   = "MortgageClub"
     title       = "FREE REFINANCE ALERT" # ["controller_name", "action_name"].join(" ")

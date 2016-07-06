@@ -1,5 +1,10 @@
 require "pdf_forms"
 
+#
+# Module Docusign provides methods to generate uniform
+#
+# @author Tang Nguyen <tang@mortgageclub.co>
+#
 module Docusign
   #
   # Class CreateEnvelopeService provides creating an envelope and send it to Docusign.

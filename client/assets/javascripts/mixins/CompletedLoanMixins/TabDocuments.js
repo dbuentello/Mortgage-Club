@@ -15,6 +15,10 @@ var BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY = ["first_w2", "second_w2", "first_p
 var COBORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY = ["first_w2", "second_w2", "first_paystub", "second_paystub"];
 
 var TabDocuments = {
+  /**
+   * Check tab document is completed or not
+   * @type {boolean}
+   */
   documentsCompleted: function(loan){
     var borrower = loan.borrower;
     var secondaryBorrower = loan.secondary_borrower;

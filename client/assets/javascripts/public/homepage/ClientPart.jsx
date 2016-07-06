@@ -1,3 +1,6 @@
+/**
+ * List of clients using this product in homepage
+ */
 var React = require('react/addons');
 
 var ClientPart = React.createClass({

@@ -114,7 +114,6 @@ class InitializeFirstLoanService
       r.type_name_mapping = "{Start processing the loan by MortgageClub}"
     end
     # add the first activity to loan
-    # byebug
     LoanActivityServices::CreateActivity.new.call(user.loan_member, loan_activity_params(activity, loan))
   end
 

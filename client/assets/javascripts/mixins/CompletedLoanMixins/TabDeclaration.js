@@ -1,3 +1,7 @@
+/**
+  * Check tab declaration is completed or not
+  * @type {boolean}
+  */
 var TabDeclaration = {
   completed: function(loan){
     if (loan.borrower === undefined || loan.borrower === null)

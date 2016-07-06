@@ -1,4 +1,8 @@
 var TabIncome = {
+  /**
+   * Check tab income is completed or not
+   * @type {boolean}
+   */
   incomeCompleted: function(loan){
     var borrower = loan.borrower;
     var secondaryBorrower = loan.secondary_borrower;

@@ -1,3 +1,6 @@
+/**
+ * List of steps to use this system (homepage)
+ */
 var React = require('react/addons');
 
 var ClientPart = React.createClass({
@@ -61,7 +64,7 @@ var ClientPart = React.createClass({
             </div>
             <div className="col-md-6 clearfix col-md-pull-6 how-item">
               <img src="/HowFooterPic.png" />
-              
+
             </div>
           </div>
         </div>

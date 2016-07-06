@@ -1,6 +1,10 @@
 var _ = require('lodash');
 
 var TabAsset = {
+  /**
+   * Check tab asset is completed or not
+   * @type {boolean}
+   */
   assetCompleted: function(loan) {
     if(!this.propertyCompleted(loan.subject_property, false, loan.purpose)){
       return false;
