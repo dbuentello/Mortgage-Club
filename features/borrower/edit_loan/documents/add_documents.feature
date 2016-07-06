@@ -1,3 +1,4 @@
+@ignore
 Feature: AddDocuments
   @javascript
   Scenario: add documents
@@ -16,10 +17,10 @@ Feature: AddDocuments
       And I should see "Paystub - Previous period"
         Then I drag the file "spec/files/sample.pdf" to "second_paystub"
         And I should see "sample.pdf" within "#second_paystub_id"
-      And I should see "Federal tax return - Most recent year"
+      And I should see "Personal tax return - Most recent year"
         Then I drag the file "spec/files/sample.pdf" to "first_federal_tax_return"
         And I should see "sample.pdf" within "#first_federal_tax_return_id"
-      And I should see "Federal tax return - Previous year"
+      And I should see "Personal tax return - Previous year"
         Then I drag the file "spec/files/sample.pdf" to "second_federal_tax_return"
         And I should see "sample.pdf" within "#second_federal_tax_return_id"
       And I should see "Bank statement - Most recent month"
@@ -31,6 +32,8 @@ Feature: AddDocuments
       And I click "Borrower" in the "#tabBorrower"
         And I choose "true_first_borrower_self_employed"
         Then I click on "Save and Continue"
+        And I wait for 2 seconds
+        Then I click "Documents" in the "#TabDocuments"
           And I should see "Personal tax return - Most recent year"
             Then I drag the file "spec/files/sample.pdf" to "first_personal_tax_return"
             And I should see "sample.pdf" within "#first_personal_tax_return_id"
@@ -59,9 +62,10 @@ Feature: AddDocuments
         And I fill in "secondary_borrower_phone" with "1234567891"
         And I fill in "secondary_borrower_email" with "co-borrower@gmail.com"
         And I fill in "secondary_borrower_years_in_school" with "9"
-        And I fill in "secondary_borrower_current_address" with "1920 South Las Vegas Boulevard"
-        And I wait for 2 seconds
+        And I fill in "secondary_borrower_current_address" with "1722 Silver Meadow Court CA"
+        And I wait for 1 seconds
         And I choose "true_secondary_borrower_currently_own"
+        And I wait for 2 seconds
         And I choose "true_secondary_borrower_currently_own"
         And I fill in "secondary_borrower_years_in_current_address" with "5"
         And I choose "false_secondary_borrower_self_employed"
@@ -87,10 +91,10 @@ Feature: AddDocuments
           And I should see "Paystub - Previous period"
             Then I drag the file "spec/files/sample.pdf" to "co_second_paystub"
             And I should see "sample.pdf" within "#co_second_paystub_id"
-          And I should see "Federal tax return - Most recent year"
+          And I should see "Personal tax return - Most recent year"
             Then I drag the file "spec/files/sample.pdf" to "co_first_federal_tax_return"
             And I should see "sample.pdf" within "#co_first_federal_tax_return_id"
-          And I should see "Federal tax return - Previous year"
+          And I should see "Personal tax return - Previous year"
             Then I drag the file "spec/files/sample.pdf" to "co_second_federal_tax_return"
             And I should see "sample.pdf" within "#co_second_federal_tax_return_id"
         When I choose "true_is_file_taxes_jointly"
@@ -103,7 +107,8 @@ Feature: AddDocuments
       When I click "Borrower" in the "#tabBorrower"
         And I choose "true_secondary_borrower_self_employed"
           Then I click on "Save and Continue"
-        When I choose "false_is_file_taxes_jointly"
+        When I click "Documents" in the "#tabDocuments"
+        Then I choose "false_is_file_taxes_jointly"
           And I should see "Personal tax return - Most recent year"
             Then I drag the file "spec/files/sample.pdf" to "co_first_personal_tax_return"
             And I should see "sample.pdf" within "#co_first_personal_tax_return_id"

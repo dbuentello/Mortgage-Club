@@ -17,14 +17,13 @@ var TabDeclaration = require('mixins/CompletedLoanMixins/TabDeclaration');
 var TabDocuments = require('mixins/CompletedLoanMixins/TabDocuments');
 var TabIncome = require('mixins/CompletedLoanMixins/TabIncome');
 var TabAsset = require('mixins/CompletedLoanMixins/TabAsset');
+var TabCreditCheck = require('mixins/CompletedLoanMixins/TabCreditCheck');
 
-var creditCardCompleted = false;
 var LoanInterface = React.createClass({
   mixins: [CheckCompletedLoanMixin],
 
   getInitialState: function() {
     var loan = this.props.bootstrapData.currentLoan;
-    creditCardCompleted = this.loanIsCompleted(loan);
     var borrower_type = this.props.bootstrapData.borrower_type;
     var liabilities = this.props.bootstrapData.liabilities;
     var menu = this.buildMenu(loan);
@@ -139,9 +138,6 @@ var LoanInterface = React.createClass({
   },
 
   goToItem: function(item) {
-    if(item.name == "Credit Check")
-      creditCardCompleted = true;
-
     var menu = this.buildMenu(this.state.loan);
     // this.autosave(this.props.bootstrapData.currentLoan, this.state.active.step);
     this.setState({active: item, completedLoan: false, menu: menu});
@@ -150,12 +146,12 @@ var LoanInterface = React.createClass({
   buildMenu: function(loan) {
     var menu = [
       {name: "Property", complete: TabProperty.propertyCompleted(loan), key: "tabProperty", iconClass: "fa fa-home", step: 0, Content: Property},
-      {name: "Borrower", complete: TabBorrower.completed(loan), key: "tabBorrower", iconClass: "fa fa-user", step: 1, Content: Borrower},
-      {name: "Documents", complete: TabDocuments.documentsCompleted(loan), key: "TabDocuments", iconClass: "fa fa-file-text", step: 2, Content: Documents},
+      {name: "Documents", complete: TabDocuments.documentsCompleted(loan), key: "TabDocuments", iconClass: "fa fa-file-text", step: 1, Content: Documents},
+      {name: "Borrower", complete: TabBorrower.completed(loan), key: "tabBorrower", iconClass: "fa fa-user", step: 2, Content: Borrower},
       {name: "Income", complete: TabIncome.incomeCompleted(loan), key: "tabIncome", iconClass: "fa fa-database", step: 3, Content: Income},
-      {name: "Credit Check", complete: creditCardCompleted, key: "tabCreditCheck", iconClass: "fa fa-credit-card-alt", step: 4, Content: CreditCheck},
+      {name: "Credit Check", complete: TabCreditCheck.creditCheckCompleted(loan), key: "tabCreditCheck", iconClass: "fa fa-credit-card-alt", step: 4, Content: CreditCheck},
       {name: "Assets and Liabilities", complete: TabAsset.assetCompleted(loan), key: "tabAssetsAndLiabilities", iconClass: "fa fa-bar-chart", step: 5, Content: AssetsAndLiabilities},
-      {name: "Declarations", complete: TabDeclaration.declarationCompleted(loan), key: "tabDeclarations", iconClass: "fa fa-list-alt", step: 6, Content: Declarations},
+      {name: "Declarations", complete: TabDeclaration.completed(loan), key: "tabDeclarations", iconClass: "fa fa-list-alt", step: 6, Content: Declarations},
     ];
     return menu;
   },

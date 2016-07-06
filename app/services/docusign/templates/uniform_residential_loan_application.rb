@@ -1,4 +1,6 @@
 # rubocop:disable ClassLength
+require "finance_formulas"
+
 module Docusign
   module Templates
     #
@@ -7,6 +9,7 @@ module Docusign
     #
     #
     class UniformResidentialLoanApplication
+      include FinanceFormulas
       include ActionView::Helpers::NumberHelper
       attr_accessor :loan, :borrower, :subject_property, :primary_property, :credit_report, :params
 
@@ -170,14 +173,14 @@ module Docusign
 
       def build_housing_expense(type, property)
         @params[(type + "_total").to_sym] = number_to_currency(property.mortgage_payment.to_f + property.other_financing.to_f +
-                                            property.estimated_hazard_insurance + property.estimated_property_tax +
+                                            get_monthly_value(property.estimated_hazard_insurance) + get_monthly_value(property.estimated_property_tax) +
                                             property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f, unit: "")
 
         @params[(type + "_rent").to_sym] = number_to_currency(borrower.current_address.monthly_rent, unit: "") if primary_property && borrower.current_address.is_rental
         @params[(type + "_mortgage").to_sym] = number_to_currency(property.mortgage_payment.to_f, unit: "")
         @params[(type + "_other_financing").to_sym] = number_to_currency(property.other_financing.to_f, unit: "")
-        @params[(type + "_hazard_insurance").to_sym] = number_to_currency(property.estimated_hazard_insurance, unit: "")
-        @params[(type + "_real_estate_taxes").to_sym] = number_to_currency(property.estimated_property_tax, unit: "")
+        @params[(type + "_hazard_insurance").to_sym] = number_to_currency(get_monthly_value(property.estimated_hazard_insurance), unit: "")
+        @params[(type + "_real_estate_taxes").to_sym] = number_to_currency(get_monthly_value(property.estimated_property_tax), unit: "")
         @params[(type + "_mortgage_insurance").to_sym] = number_to_currency(property.estimated_mortgage_insurance.to_f, unit: "")
         @params[(type + "_homeowner").to_sym] = number_to_currency(property.hoa_due.to_f, unit: "")
       end
@@ -210,8 +213,6 @@ module Docusign
           "g" => "child_support",
           "h" => "down_payment_borrowed",
           "i" => "co_maker_or_endorser",
-          "j" => "us_citizen",
-          "k" => "permanent_resident_alien",
           "m" => "ownership_interest"
         }
         # Ex: @params["declarations_" + role + "_b_yes"] = "Yes" if declaration.bankrupt
@@ -223,6 +224,23 @@ module Docusign
             @params[(prefix + key + no_answer).to_sym] = "Yes"
           end
         end
+
+        if declaration.citizen_status == "C"
+          @params[(prefix + "j" + yes_answer).to_sym] = "Yes"
+          @params[(prefix + "j" + no_answer).to_sym] = "Off"
+        else
+          @params[(prefix + "j" + no_answer).to_sym] = "Yes"
+          @params[(prefix + "j" + yes_answer).to_sym] = "Off"
+        end
+
+        if declaration.citizen_status == "PR"
+          @params[(prefix + "k" + yes_answer).to_sym] = "Yes"
+          @params[(prefix + "k" + no_answer).to_sym] = "Off"
+        else
+          @params[(prefix + "k" + no_answer).to_sym] = "Yes"
+          @params[(prefix + "k" + yes_answer).to_sym] = "Off"
+        end
+
         @params[(prefix + "m1").to_sym] = declaration.type_of_property
         @params[(prefix + "m2").to_sym] = declaration.title_of_property
       end

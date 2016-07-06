@@ -102,6 +102,10 @@
       border-radius: 5px;
       font-size: 1.25em;
     }
+    h1 {
+      color: #00436E;
+      text-align: center;
+    }
     h2 {
       color: $mc-color;
     }
@@ -170,11 +174,18 @@
   }
 }
 .back-btn {
-
+  background: $mc-color;
+  color: white;
+  border: 1px solid $mc-color;
   margin-left: 57px;
   @include respond-to(smobile){
     margin-left: 20px;
   };
+}
+.back-btn:hover {
+  background: white;
+  color: $mc-color;
+  border: 1px solid;
 }
 // .mortgage-rates {
 //   .navigation-section {

@@ -27,7 +27,7 @@ var LoansTab = React.createClass({
   },
   eachLoan: function(loan, i) {
     return (
-      <div className="col-md-4 loan-item" key={loan.id} index={i}>
+      <div className="col-md-4 col-sm-6 loan-item" key={loan.id} index={i}>
         <div className="loan-item-holder">
           <div className="hover-img">
             {

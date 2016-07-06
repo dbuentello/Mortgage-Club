@@ -1,3 +1,4 @@
+@ignore
 Feature: AddRequest
   @javascript
   Scenario: add a request

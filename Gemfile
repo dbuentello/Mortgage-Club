@@ -51,7 +51,7 @@ gem 'rails-html-sanitizer'
 # SEO for fb
 gem 'meta-tags'
 # Parse CSS and add vendor prefixes to rules by Can I Use
-gem 'autoprefixer-rails', '~> 5.2.1.1'
+# gem 'autoprefixer-rails', '~> 5.2.1.1'
 
 gem 'react-rails', '~> 1.0'
 
@@ -154,8 +154,6 @@ group :development, :test do
 
   # Pretty print your Ruby objects with style
   gem 'awesome_print'
-
-  gem 'yard'
 end
 
 group :test do
@@ -167,8 +165,8 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'cucumber_factory'
   gem 'spreewald'
+  gem 'selenium-webdriver', '~> 2.48.1'
   gem 'launchy'
-  gem 'selenium-webdriver'
   gem 'guard-rspec'
   gem 'timecop'
   gem 'vcr'

@@ -1,4 +1,5 @@
 # these scenarios don't make sense, a doer should update it
+@ignore
 Feature: LoanMemberManagesLoanList
   @javascript
   Scenario: update loan status

@@ -20,15 +20,15 @@ Feature: AddBorrower
         And I fill in "Years in School" with "12"
       Then I select "Unmarried" from "Marital Status"
       Then I choose "true_first_borrower_currently_own"
-      Then I clear value in "Number of years you have lived here"
-        And I fill in "Number of years you have lived here" with "2"
+      Then I clear value in "No. of years you have lived here"
+        And I fill in "No. of years you have lived here" with "2"
       Then I clear value in "Ages of Dependents"
         And I fill in "Ages of Dependents" with "1"
-      Then I clear value in "Number of dependents"
-        And I fill in "Number of dependents" with "1"
+      Then I clear value in "No. of dependents"
+        And I fill in "No. of dependents" with "1"
       Then I click on "Save and Continue"
         And I wait for 2 seconds
-        And I should see "W2 - Most recent tax year"
+        And I should see "Name Of Current Employer"
       When I click on "Borrower"
         And I should see "As an individual"
         And the "First Name" field should contain "Cuong"
@@ -56,8 +56,7 @@ Feature: AddBorrower
         And I fill in "secondary_borrower_dependent_ages" with "1"
         Then I click on "Save and Continue"
           And I wait for 2 seconds
-          And I should not see "This field is required"
-          And I should not see "This field is invalid"
+
         When I click on "Borrower"
           And I should see "With a co-borrower"
           And the "secondary_borrower_first_name" field should contain "Mark"
@@ -71,4 +70,4 @@ Feature: AddBorrower
         And the "secondary_borrower_current_address" field should contain "1920 South Las Vegas Boulevard, Las Vegas"
         Then I wait for 2 seconds
         And I click on a first ".customCheckbox"
-        Then the "secondary_borrower_current_address" field should contain "3460 Wilshire Avenue, La Habra, CA 90631"
+        Then the "secondary_borrower_current_address" field should contain "3460 Wilshire Boulevard, Los Angeles, CA 90010"
