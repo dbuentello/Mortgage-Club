@@ -37,6 +37,7 @@ module Docusign
 
       def build_section_1
         build_loan_type
+        @params[:has_co_borrower] = "Yes" if loan.secondary_borrower.present?
         @params[:loan_amount] = number_with_delimiter(loan.amount.to_f.round)
         @params[:interest_rate] = format("%0.03f", loan.interest_rate.to_f * 100)
         @params[:number_of_months] = loan.num_of_months
