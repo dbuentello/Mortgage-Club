@@ -21,8 +21,6 @@ var borrowerFields = {
   previousJobTitle: {label: 'Job Title', name: 'previous_job_title', helpText: null, error: "previous_job_title_error", validationTypes: ["empty"]},
   previousYearsAtEmployer: {label: 'Years At This Employer', name: 'previous_duration', helpText: null, error: "previous_duration_error", validationTypes: ["integer"]},
   previousMonthlyIncome: {label: 'Monthly Income', name: 'previous_monthly_income', helpText: null, error: "previous_monthly_income_error", validationTypes: ["currency"]},
-  employerContactName: {label: 'Contact Name', name: 'employer_contact_name', helpText: null, error: "employer_contact_name_error", validationTypes: ["empty"]},
-  employerContactNumber: {label: 'Contact Phone Number', name: 'employer_contact_number', helpText: null, error: "employer_contact_number_error", validationTypes: ["phoneNumber"]},
   baseIncome: {label: 'Base Income', name: 'current_salary', helpText: null, error: "current_salary_error", validationTypes: ["currency"]},
   grossOvertime: {label: 'Annual Gross Overtime', name: 'gross_overtime', helpText: null, error: "gross_overtime_error"},
   grossBonus: {label: 'Annual Gross Bonus', name: 'gross_bonus', helpText: null, error: "gross_bonus_error"},
@@ -42,8 +40,6 @@ var secondaryBorrowerFields = {
   previousJobTitle: {label: 'Job Title', name: 'secondary_previous_job_title', helpText: null, error: "secondary_previous_job_title_error", validationTypes: ["empty"]},
   previousYearsAtEmployer: {label: 'Years At This Employer', name: 'secondary_previous_duration', helpText: null, error: "secondary_previous_duration_error", validationTypes: ["integer"]},
   previousMonthlyIncome: {label: 'Monthly Income', name: 'secondary_previous_monthly_income', helpText: null, error: "secondary_previous_monthly_income_error", validationTypes: ["currency"]},
-  employerContactName: {label: 'Contact Name', name: 'secondary_employer_contact_name', helpText: null, error: "secondary_employer_contact_name_error", validationTypes: ["empty"]},
-  employerContactNumber: {label: 'Contact Phone Number', name: 'secondary_employer_contact_number', helpText: null, error: "secondary_employer_contact_number_error", validationTypes: ["phoneNumber"]},
   baseIncome: {label: 'Base Income', name: 'secondary_current_salary', helpText: null, error: "secondary_current_salary_error", validationTypes: ["currency"]},
   grossOvertime: {label: 'Annual Gross Overtime', name: 'secondary_gross_overtime', helpText: null, error: "secondary_gross_overtime_error"},
   grossBonus: {label: 'Annual Gross Bonus', name: 'secondary_gross_bonus', helpText: null, error: "secondary_gross_bonus_error"},
@@ -117,8 +113,6 @@ var Form = React.createClass({
             previousJobTitle={this.state[borrowerFields.previousJobTitle.name]}
             previousYearsAtEmployer={this.state[borrowerFields.previousYearsAtEmployer.name]}
             previousMonthlyIncome={this.state[borrowerFields.previousMonthlyIncome.name]}
-            employerContactName={this.state[borrowerFields.employerContactName.name]}
-            employerContactNumber={this.state[borrowerFields.employerContactNumber.name]}
             baseIncome={this.state[borrowerFields.baseIncome.name]}
             incomeFrequency={this.state[borrowerFields.incomeFrequency.name]}
             otherIncomes={this.state[borrowerFields.otherIncomes.name]}
@@ -130,8 +124,6 @@ var Form = React.createClass({
             previousJobTitleError={this.state[borrowerFields.previousJobTitle.error]}
             previousYearsAtEmployerError={this.state[borrowerFields.previousYearsAtEmployer.error]}
             previousMonthlyIncomeError={this.state[borrowerFields.previousMonthlyIncome.error]}
-            employerContactNameError={this.state[borrowerFields.employerContactName.error]}
-            employerContactNumberError={this.state[borrowerFields.employerContactNumber.error]}
             baseIncomeError={this.state[borrowerFields.baseIncome.error]}
             incomeFrequencyError={this.state[borrowerFields.incomeFrequency.error]}
             onFocus={this.onFocus}
@@ -156,8 +148,6 @@ var Form = React.createClass({
                 previousJobTitle={this.state[secondaryBorrowerFields.previousJobTitle.name]}
                 previousYearsAtEmployer={this.state[secondaryBorrowerFields.previousYearsAtEmployer.name]}
                 previousMonthlyIncome={this.state[secondaryBorrowerFields.previousMonthlyIncome.name]}
-                employerContactName={this.state[secondaryBorrowerFields.employerContactName.name]}
-                employerContactNumber={this.state[secondaryBorrowerFields.employerContactNumber.name]}
                 baseIncome={this.state[secondaryBorrowerFields.baseIncome.name]}
                 incomeFrequency={this.state[secondaryBorrowerFields.incomeFrequency.name]}
                 otherIncomes={this.state[secondaryBorrowerFields.otherIncomes.name]}
@@ -169,8 +159,6 @@ var Form = React.createClass({
                 previousJobTitleError={this.state[secondaryBorrowerFields.previousJobTitle.error]}
                 previousYearsAtEmployerError={this.state[secondaryBorrowerFields.previousYearsAtEmployer.error]}
                 previousMonthlyIncomeError={this.state[secondaryBorrowerFields.previousMonthlyIncome.error]}
-                employerContactNameError={this.state[secondaryBorrowerFields.employerContactName.error]}
-                employerContactNumberError={this.state[secondaryBorrowerFields.employerContactNumber.error]}
                 baseIncomeError={this.state[secondaryBorrowerFields.baseIncome.error]}
                 incomeFrequencyError={this.state[secondaryBorrowerFields.incomeFrequency.error]}
                 onFocus={this.onFocus}
@@ -228,8 +216,6 @@ var Form = React.createClass({
       state[fields.previousMonthlyIncome.name] = this.formatCurrency(previousEmployment.monthly_income);
     }
 
-    state[fields.employerContactName.name] = currentEmployment.employer_contact_name;
-    state[fields.employerContactNumber.name] = currentEmployment.employer_contact_number;
     state[fields.baseIncome.name] = this.formatCurrency(currentEmployment.current_salary);
     state[fields.incomeFrequency.name] = currentEmployment.pay_frequency;
     state[fields.otherIncomes.name] = []
@@ -322,8 +308,6 @@ var Form = React.createClass({
       address_attributes: this.state[fields.currentEmployerAddress.name],
       job_title: this.state[fields.currentJobTitle.name],
       duration: this.state[fields.currentYearsAtEmployer.name],
-      employer_contact_name: this.state[fields.employerContactName.name],
-      employer_contact_number: this.state[fields.employerContactNumber.name],
       pay_frequency: this.state[fields.incomeFrequency.name],
       current_salary: this.currencyToNumber(this.state[fields.baseIncome.name]),
       is_current: true
@@ -371,8 +355,6 @@ var Form = React.createClass({
       fields.currentEmployerAddress,
       fields.currentJobTitle,
       fields.currentYearsAtEmployer,
-      fields.employerContactName,
-      fields.employerContactNumber,
       fields.baseIncome,
       fields.incomeFrequency
     ];

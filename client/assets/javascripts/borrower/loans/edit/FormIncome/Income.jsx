@@ -116,9 +116,9 @@ var Income = React.createClass({
     var companyInfo = responseData.company_info;
     var currentAddress = this.props.currentEmployerAddress || {};
 
-    var phoneNumber = companyInfo.contact_phone_number == "" ? "" : companyInfo.contact_phone_number.replace(/-/g, "");
-    state[this.props.fields.employerContactNumber.name] = this.formatPhoneNumber(phoneNumber);
-    state[this.props.fields.employerContactName.name] = companyInfo.contact_name;
+    // var phoneNumber = companyInfo.contact_phone_number == "" ? "" : companyInfo.contact_phone_number.replace(/-/g, "");
+    // state[this.props.fields.employerContactNumber.name] = this.formatPhoneNumber(phoneNumber);
+    // state[this.props.fields.employerContactName.name] = companyInfo.contact_name;
 
     currentAddress.city = companyInfo.city;
     currentAddress.state = companyInfo.state;
