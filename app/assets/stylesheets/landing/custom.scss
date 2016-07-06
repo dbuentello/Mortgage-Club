@@ -13,6 +13,9 @@
 #primary-menu ul li > a {
   padding-top: 19px !important;
   padding-bottom: 19px !important;
+  &:hover {
+    cursor: pointer; cursor: hand;
+  }
 }
 #header.full-header #logo {
   border: none;
