@@ -26,6 +26,7 @@ module Docusign
         build_section_1
         build_section_2
         build_section_3
+        byebug
         build_section_4
         build_section_5
         build_section_6
@@ -37,7 +38,6 @@ module Docusign
 
       def build_section_1
         build_loan_type
-        @params[:has_co_borrower] = "Yes" if loan.secondary_borrower.present?
         @params[:loan_amount] = number_with_delimiter(loan.amount.to_f.round)
         @params[:interest_rate] = format("%0.03f", loan.interest_rate.to_f * 100)
         @params[:number_of_months] = loan.num_of_months
@@ -85,9 +85,10 @@ module Docusign
         build_housing_expense("present", primary_property) if primary_property
 
         @params[:borrower_rental_income] = number_to_currency(get_net_value, unit: "")
+        @params[:borrower_total_monthly_income] = number_to_currency(@params[:borrower_total_monthly_income] + get_net_value, unit: "")
         @params[:sum_total_income] = number_to_currency((@params[:total_base_income].to_f + @params[:total_overtime].to_f +
                                                        @params[:total_bonuses].to_f + @params[:total_commissions].to_f +
-                                                       @params[:total_dividends].to_f), unit: "")
+                                                       @params[:total_dividends].to_f + get_net_value), unit: "")
         if @params[:sum_total_income]
           @params[:total_base_income] = number_to_currency(@params[:total_base_income].to_f, unit: "")
           @params[:total_overtime] = number_to_currency(@params[:total_overtime].to_f, unit: "")
@@ -247,8 +248,9 @@ module Docusign
       end
 
       def build_gross_monthly_income(role, borrower)
-        @params[(role + "_total_monthly_income").to_sym] = number_to_currency(borrower.total_income.to_f, unit: "")
-        @params[(role + "_base_income").to_sym] = number_to_currency(borrower.current_salary.to_f, unit: "")
+        byebug
+        @params[(role + "_total_monthly_income").to_sym] = build_total_monthly_income(borrower)
+        @params[(role + "_base_income").to_sym] = number_to_currency(build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency), unit: "")
         @params[(role + "_overtime").to_sym] = number_to_currency(borrower.gross_overtime.to_f, unit: "")
         @params[(role + "_bonuses").to_sym] = number_to_currency(borrower.gross_bonus.to_f, unit: "")
         @params[(role + "_commissions").to_sym] = number_to_currency(borrower.gross_commission.to_f, unit: "")
@@ -261,6 +263,9 @@ module Docusign
         @params[:total_dividends] = @params[:total_dividends].to_f + borrower.gross_interest.to_f
       end
 
+      def build_total_monthly_income(borrower)
+        borrower.gross_overtime.to_f + borrower.gross_bonus.to_f + borrower.gross_bonus.to_f + borrower.gross_commission.to_f + borrower.gross_interest.to_f + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
+      end
       def build_monthly_income(current_salary, pay_frequency)
         case pay_frequency # a_variable is the variable we want to compare
         when "monthly"
@@ -279,7 +284,9 @@ module Docusign
         @params[(role + "_yrs_job_1").to_sym] = borrower.current_employment.duration
         @params[(role + "_yrs_employed_1").to_sym] = borrower.current_employment.duration
         @params[(role + "_self_employed_1").to_sym] = borrower.self_employed ? "Yes" : "Off"
-
+        if borrower.previous_employment.present?
+          @params[(role + "_monthly_income_2").to_sym] = borrower.previous_employment.monthly_income
+        end
         [borrower.current_employment, borrower.previous_employment].each_with_index do |employment, index|
           next if employment.nil?
 
