@@ -26,7 +26,6 @@ module Docusign
         build_section_1
         build_section_2
         build_section_3
-        byebug
         build_section_4
         build_section_5
         build_section_6
@@ -248,7 +247,6 @@ module Docusign
       end
 
       def build_gross_monthly_income(role, borrower)
-        byebug
         @params[(role + "_total_monthly_income").to_sym] = build_total_monthly_income(borrower)
         @params[(role + "_base_income").to_sym] = number_to_currency(build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency), unit: "")
         @params[(role + "_overtime").to_sym] = number_to_currency(borrower.gross_overtime.to_f, unit: "")
