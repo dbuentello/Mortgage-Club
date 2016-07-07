@@ -1,3 +1,4 @@
+@ignore
 Feature: AddDocuments
   @javascript
   Scenario: add documents
