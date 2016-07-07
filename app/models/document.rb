@@ -3,7 +3,7 @@ class Document < ActiveRecord::Base
 
   BORROWER_LIST = %w(
     first_w2 second_w2 first_paystub second_paystub first_bank_statement second_bank_statement
-    first_federal_tax_return second_federal_tax_return first_personal_tax_return second_personal_tax_return
+    first_personal_tax_return second_personal_tax_return
     first_business_tax_return second_business_tax_return other_borrower_report
   )
 
@@ -43,13 +43,13 @@ class Document < ActiveRecord::Base
 
   BORROWER_NOT_SELF_EMPLOYED = %w(
     first_w2 second_w2 first_paystub second_paystub
-    first_federal_tax_return second_federal_tax_return
+    first_personal_tax_return second_personal_tax_return
     first_bank_statement second_bank_statement
   )
 
   COBORROWER_NOT_SELF_EMPLOYED = %w(
     first_w2 second_w2 first_paystub second_paystub
-    first_federal_tax_return second_federal_tax_return
+    first_personal_tax_return second_personal_tax_return
   )
 
   BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY = %w(

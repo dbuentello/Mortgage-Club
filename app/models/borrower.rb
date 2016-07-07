@@ -153,7 +153,7 @@ class Borrower < ActiveRecord::Base
                               first_bank_statement second_bank_statement)
     else
       required_documents = %w(first_w2 second_w2 first_paystub second_paystub
-                              first_federal_tax_return second_federal_tax_return
+                              first_personal_tax_return second_personal_tax_return
                               first_bank_statement second_bank_statement)
     end
 
@@ -172,7 +172,7 @@ class Borrower < ActiveRecord::Base
       if is_file_taxes_jointly
         required_documents = %w(first_w2 second_w2 first_paystub second_paystub  first_bank_statement second_bank_statement)
       else
-        required_documents = %w(first_w2 second_w2 first_paystub second_paystub first_federal_tax_return second_federal_tax_return  first_bank_statement second_bank_statement)
+        required_documents = %w(first_w2 second_w2 first_paystub second_paystub first_personal_tax_return second_personal_tax_return  first_bank_statement second_bank_statement)
       end
       return (required_documents - documents.pluck(:document_type)).empty?
     end
