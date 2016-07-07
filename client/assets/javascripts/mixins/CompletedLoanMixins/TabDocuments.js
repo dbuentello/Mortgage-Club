@@ -6,9 +6,9 @@ var BORROWER_SELF_EMPLOYED_TAXES_JOINLY = ["first_business_tax_return", "second_
 
 var COBORROWER_SELF_EMPLOYED_TAXES_JOINLY = ["first_business_tax_return", "second_business_tax_return"];
 
-var BORROWER_NOT_SELF_EMPLOYED = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_federal_tax_return", "second_federal_tax_return", "first_bank_statement", "second_bank_statement"];
+var BORROWER_NOT_SELF_EMPLOYED = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_personal_tax_return", "second_personal_tax_return", "first_bank_statement", "second_bank_statement"];
 
-var COBORROWER_NOT_SELF_EMPLOYED = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_federal_tax_return", "second_federal_tax_return"];
+var COBORROWER_NOT_SELF_EMPLOYED = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_personal_tax_return", "second_personal_tax_return"];
 
 var BORROWER_NOT_SELF_EMPLOYED_TAXES_JOINLY = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_bank_statement", "second_bank_statement"];
 
