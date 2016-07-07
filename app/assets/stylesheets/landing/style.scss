@@ -2821,7 +2821,7 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner { left: auto; }
 	width:100%;
 	height:100%;
 	margin: 0;
-	background: url('images/pattern2.png') repeat;
+	background: asset-path('landing/pattern2.png') repeat;
 }
 
 .swiper_wrapper .swiper-slide {
@@ -2919,7 +2919,7 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner { left: auto; }
 	top: 0;
 	left: 0;
 	z-index: 5;
-	background: transparent url('images/grid.png') repeat;
+	background: transparent asset-path('landing/grid.png') repeat;
 	-webkit-backface-visibility: hidden;
 }
 
@@ -8048,7 +8048,7 @@ body:not(.device-touch) .social-icon {
 	top: 0;
 	left: 0;
 	text-align: center;
-	background: rgba(0,0,0,0.2) url('images/grid.png') repeat;
+	background: rgba(0,0,0,0.2) asset-path('landing/grid.png') repeat;
 }
 
 .i-overlay a { background: transparent; }
@@ -10097,7 +10097,7 @@ blockquote.pull-right {
 .owl-carousel.owl-loading {
 	display:block;
 	min-height: 100px;
-	background: url('images/preloader.gif') no-repeat center center
+	background: asset-path('landing/preloader.gif') no-repeat center center
 }
 
 .owl-carousel .owl-refresh .owl-item { display:none }
@@ -11210,7 +11210,7 @@ body:not(.device-touch) #gotoTop {
 	display: block;
 	width: 100%;
 	height: 100%;
-	background: url("images/preloader.gif") center center no-repeat #FFF;
+	background: asset-path('landing/preloader.gif') center center no-repeat #FFF;
 }
 
 .preloader2 { background-color: transparent; }
