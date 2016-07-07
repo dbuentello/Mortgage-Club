@@ -206,13 +206,14 @@ var Property = React.createClass({
         var annualInsurance = this.getValue(response, 'annualInsurance');
         var rentalIncome = this.getValue(response, 'rentzestimate.amount.__content__');
 
-        if(property.is_subject == false)
+        if(property.is_subject !== true)
           property.market_price = this.formatCurrency(market_price);
 
         property.property_type = propertyType;
         property.estimated_property_tax = this.formatCurrency(annualTax);
         property.estimated_hazard_insurance = this.formatCurrency(annualInsurance);
         property.gross_rental_income = this.formatCurrency(rentalIncome);
+        console.log(propertyKey, property);
         this.setState(this.setValue(this.state, propertyKey, property));
       }
     });
