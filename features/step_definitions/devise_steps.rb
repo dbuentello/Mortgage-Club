@@ -32,7 +32,7 @@ Given(/^I login as "(.*?)" with password "(.*?)" and wait for (\d+) seconds$/) d
   sleep(s.to_i)
   fill_in "user_email", with: email
   fill_in "user_password", with: password
-  click_button "login"
+  click_button "login-form-submit"
 end
 
 Then(/^the URL should contain "(.*?)"$/) do |string|
