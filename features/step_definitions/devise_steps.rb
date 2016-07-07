@@ -24,7 +24,7 @@ Given(/^I login as "(.*?)" with password "(.*?)"$/) do |email, password|
   sleep(5)
   fill_in "user_email", with: email
   fill_in "user_password", with: password
-  click_button "login-form-submit"
+  click_button "btnLoginDevise"
 end
 
 Given(/^I login as "(.*?)" with password "(.*?)" and wait for (\d+) seconds$/) do |email, password, s|
@@ -32,7 +32,7 @@ Given(/^I login as "(.*?)" with password "(.*?)" and wait for (\d+) seconds$/) d
   sleep(s.to_i)
   fill_in "user_email", with: email
   fill_in "user_password", with: password
-  click_button "log in"
+  click_button "btnLoginDevise"
 end
 
 Then(/^the URL should contain "(.*?)"$/) do |string|
