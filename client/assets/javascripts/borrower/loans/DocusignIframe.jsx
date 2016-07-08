@@ -84,7 +84,7 @@ var DocusignIframe = React.createClass({
               </div>
             </div>
         }
-        <div>
+        <div style={{"paddingBottom": "100px"}}>
           <iframe ref='iframe' height='600px' width='100%' style={{display: 'none'}}></iframe>
         </div>
       </div>
