@@ -66,7 +66,7 @@ var TabAsset = {
       return false;
     }
 
-    if(isRefinance && property.mortgage_includes_escrows === null){
+    if((isRefinance || (property.is_primary === true && !isRefinance)) && property.mortgage_includes_escrows === null){
       return false;
     }
 

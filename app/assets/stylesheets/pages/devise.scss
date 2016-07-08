@@ -1,0 +1,40 @@
+.login-form, .signup-form, .forgot-password-form, .reset-password-form {
+  h1 {
+    color: $mc-color;
+  }
+
+  .btn {
+    border: 1px solid $mc-color;
+    background: $mc-color;
+    color: white;
+    width: auto;
+  }
+
+  .btn:hover {
+    border: 1px solid $mc-color;
+    background: white;
+    color: $mc-color;
+  }
+}
+
+.login-form, .forgot-password-form, .reset-password-form {
+  margin-top: 50px;
+
+  .footer-link {
+    color: #c3c3c3;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 5px 0;
+    a {
+      color: $mc-color;
+    }
+  }
+}
+
+.forgot-password-form, .reset-password-form {
+  .forgot-password-info {
+    color: #00436E;
+    font-size: 1.1em;
+    margin-top:30px;
+  }
+}
