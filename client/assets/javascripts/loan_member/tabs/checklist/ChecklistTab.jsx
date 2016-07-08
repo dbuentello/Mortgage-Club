@@ -49,7 +49,7 @@ var ChecklistTab = React.createClass({
       <div id="checklists-page">
         <div className="panel panel-flat">
           <div className="panel-heading">
-            <h4 className="panel-title">Checklists</h4>
+            <h4 className="panel-title">Checklist</h4>
           </div>
 
           <div className="datatable-scroll" id="checklists-table">
@@ -70,7 +70,7 @@ var ChecklistTab = React.createClass({
                     return (
                       <tr key={checklist.id}>
                         <td>{checklist.name}</td>
-                        <td>{checklist.checklist_type}</td>
+                        <td className="text-capitalize">{checklist.checklist_type}</td>
                         <td>{this.isoToUsDate(checklist.due_date)}</td>
                         <td>
 
@@ -101,7 +101,7 @@ var ChecklistTab = React.createClass({
         </div>
         <div className="panel panel-flat">
           <div className="panel-heading">
-            <h4 className="panel-title">Add a new checklist</h4>
+            <h4 className="panel-title">Add a new item</h4>
           </div>
 
           <div className="panel-body">

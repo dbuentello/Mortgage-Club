@@ -62,7 +62,7 @@ var Dashboard = React.createClass({
                       <li role="presentation">
                         <a href="#checklist" aria-controls="checklist" role="tab" data-toggle="tab">
                           <i className="icon-clipboard2"></i>
-                          Checklists
+                          Checklist
                         </a>
                       </li>
                       <li role="presentation">
