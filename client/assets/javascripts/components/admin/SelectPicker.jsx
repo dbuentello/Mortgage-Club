@@ -30,6 +30,7 @@ var SelectPicker = React.createClass({
     };
   },
 
+  onChange: function(){
   	console.log('change');
   },
 
