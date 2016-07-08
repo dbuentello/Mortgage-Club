@@ -41,7 +41,7 @@ var TextFormatMixin = {
       return val;
     }
 
-    return val.replace('$', '').replace(/\,/g, '');
+    return val.replace('$', '').replace(')', '').replace('(', '-').replace(/\,/g, '');
   },
   percentToNumber: function(val) {
     if (!val) {
