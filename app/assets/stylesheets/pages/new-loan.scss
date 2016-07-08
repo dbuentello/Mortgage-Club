@@ -391,10 +391,13 @@
     line-height: 100% !important;
   }
 
+  .no-file-name {
+    color: grey !important;
+  }
   .height-50 {
     height: 50px;
   }
-
+  
   .fileBtn .fileBtnSmall.file {font-style:italic;}
 
   .fileBtn span.filename{

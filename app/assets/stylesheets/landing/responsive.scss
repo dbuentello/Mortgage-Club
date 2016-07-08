@@ -1716,7 +1716,7 @@ only screen and (                min-resolution: 2dppx) {
 	.preloader,
 	.preloader2,
 	.form-process {
-		background-image: url('../images/preloader@2x.gif');
+		background-image: asset-path('landing/preloader@2x.gif');
 		background-size: 24px 24px;
 	}
 
