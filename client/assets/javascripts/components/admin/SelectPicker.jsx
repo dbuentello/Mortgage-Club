@@ -11,7 +11,7 @@ var SelectPicker = React.createClass({
   mixins: [StaticFieldMixin],
 
   componentDidMount: function () {
-    $('.bootstrap-select').selectpicker('val', this.props.value);
+    $('.bootstrap-select').selectpicker();
   },
 
   getDefaultProps: function() {
