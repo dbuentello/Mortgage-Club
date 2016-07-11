@@ -9,6 +9,7 @@
 @import "app-styling-post-bootstrap-loading";
 @import "layout/form";
 @import "pages/helpmechoose";
+@import "pages/devise";
 @import "pages/new-loan";
 @import "pages/initial-quotes";
 @import "pages/loan-programs";
@@ -164,4 +165,7 @@
 }
 #home-right-header p {
   color: white;
+}
+#apply-btn {
+  margin-top: 30px !important;
 }
