@@ -37,6 +37,7 @@ module Docusign
 
       def build_section_1
         build_loan_type
+        @params[:has_co_borrower] = "Yes" if loan.secondary_borrower.present?
         @params[:loan_amount] = number_with_delimiter(loan.amount.to_f.round)
         @params[:interest_rate] = format("%0.03f", loan.interest_rate.to_f * 100)
         @params[:number_of_months] = loan.num_of_months
@@ -101,6 +102,7 @@ module Docusign
       def build_section_6
         build_liabilities
         build_assets
+        build_property_address
       end
 
       def build_section_7
@@ -150,6 +152,45 @@ module Docusign
           nth = count.to_s
           @params[("asset_" + nth).to_sym] = asset.institution_name
           @params[("asset_balance_" + nth).to_sym] = number_to_currency(asset.current_balance.to_f, unit: "")
+        end
+      end
+
+      def build_property_address
+        count = 0
+        total_market_price = 0
+        total_liens = 0
+        total_rental_property_income = 0
+        loan.properties.each do |p|
+          next unless !p.is_primary && !p.is_subject
+          count += 1
+          nth = count.to_s
+          @params["rental_property_address_" + nth] = p.address.full_text
+          @params["rental_property_status_" + nth] = "R"
+          @params["rental_property_type_" + nth] = get_property_type(p.property_type)
+          @params["rental_property_market_price_" + nth] = p.market_price
+          @params["rental_property_income_" + nth] = p.gross_rental_income
+          @params["rental_property_liens_" + nth] = p.total_liability_balance
+          total_market_price += p.market_price
+          total_liens += p.total_liability_balance
+          total_rental_property_income += p.gross_rental_income
+        end
+        @params["total_market_price"] = total_market_price
+        @params["total_liens"] = total_liens
+        @params["total_rental_property_income"] = total_rental_property_income
+      end
+
+      def get_property_type(property_type)
+        case property_type
+        when "sfh"
+          "SFR"
+        when "duplex"
+          "2-4"
+        when "triplex"
+          "2-4"
+        when "fourplex"
+          "2-4"
+        else
+          "SFR"
         end
       end
 

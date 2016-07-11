@@ -125,6 +125,14 @@ module Docusign
             sign_here_tabs: [
               {
                 name: "Signature",
+                page_number: "1",
+                x_position: "60",
+                y_position: "75",
+                document_id: "1",
+                optional: "false"
+              },
+              {
+                name: "Signature",
                 page_number: "4",
                 x_position: "90",
                 y_position: "439",
@@ -156,6 +164,14 @@ module Docusign
           email: loan.secondary_borrower.user.email,
           role_name: "Normal",
           sign_here_tabs: [
+            {
+              name: "Signature",
+              page_number: "1",
+              x_position: "255",
+              y_position: "75",
+              document_id: "1",
+              optional: "false"
+            },
             {
               name: "Signature",
               page_number: "4",
