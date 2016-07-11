@@ -66,7 +66,11 @@ var TabAsset = {
       return false;
     }
 
-    if((isRefinance || (property.is_primary === true && !isRefinance)) && property.mortgage_includes_escrows === null){
+    if(isRefinance && property.mortgage_includes_escrows === null){
+      return false;
+    }
+
+    if(!isRefinance && property.is_primary === true && property.is_subject !== true && property.mortgage_includes_escrows === null){
       return false;
     }
 
