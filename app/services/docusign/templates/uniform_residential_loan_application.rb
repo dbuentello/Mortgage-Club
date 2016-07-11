@@ -160,20 +160,19 @@ module Docusign
         total_market_price = 0
         total_liens = 0
         total_rental_property_income = 0
-        loan.properties.each do | p |
-          if !p.is_primary && !p.is_subject
-            count += 1
-            nth = count.to_s
-            @params["rental_property_address_" + nth] = p.address.full_text
-            @params["rental_property_status_" + nth] = "R"
-            @params["rental_property_type_" + nth] = get_property_type(p.property_type)
-            @params["rental_property_market_price_" + nth] = p.market_price
-            @params["rental_property_income_" + nth] = p.gross_rental_income
-            @params["rental_property_liens_" + nth] = p.total_liability_balance
-            total_market_price += p.market_price
-            total_liens += p.total_liability_balance
-            total_rental_property_income += p.gross_rental_income
-          end
+        loan.properties.each do |p|
+          next unless !p.is_primary && !p.is_subject
+          count += 1
+          nth = count.to_s
+          @params["rental_property_address_" + nth] = p.address.full_text
+          @params["rental_property_status_" + nth] = "R"
+          @params["rental_property_type_" + nth] = get_property_type(p.property_type)
+          @params["rental_property_market_price_" + nth] = p.market_price
+          @params["rental_property_income_" + nth] = p.gross_rental_income
+          @params["rental_property_liens_" + nth] = p.total_liability_balance
+          total_market_price += p.market_price
+          total_liens += p.total_liability_balance
+          total_rental_property_income += p.gross_rental_income
         end
         @params["total_market_price"] = total_market_price
         @params["total_liens"] = total_liens
@@ -194,7 +193,6 @@ module Docusign
           "SFR"
         end
       end
-
 
       def build_liabilities
         return unless credit_report
