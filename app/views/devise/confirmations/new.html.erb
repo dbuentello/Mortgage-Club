@@ -7,7 +7,7 @@
             <h2 class="text-uppercase">resend confirmation</h2>
             <div class="form-group">
               <div class="col-sm-12">
-                <%= f.email_field :email, class: "form-control", placeholder: "Email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), "data-toggle" => "tooltip", title: resource.errors.messages[:email].try(:first) %>
+                <%= f.email_field :email, class: "form-control", placeholder: "Email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), "data-toggle" => "tooltip", "data-placement" => "bottom", title: resource.errors.messages[:email].try(:first) %>
                 <img src="/icons/username.png"/>
               </div>
             </div>

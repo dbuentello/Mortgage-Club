@@ -397,11 +397,16 @@
   .height-50 {
     height: 50px;
   }
-  
+
   .fileBtn .fileBtnSmall.file {font-style:italic;}
 
   .fileBtn span.filename{
     margin-top: 5px !important;
+    color: #c3c3c3;
+  }
+
+  .fileBtn span.filename:hover{
+    color: $mc-color;
   }
 
   .select-box {
