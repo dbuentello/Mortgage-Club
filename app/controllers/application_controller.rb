@@ -82,9 +82,9 @@ class ApplicationController < ActionController::Base
   # @return [Type] description of returned object
   def prepare_meta_tags(options = {})
     site_name   = "MortgageClub"
-    title       = "FREE REFINANCE ALERT" # ["controller_name", "action_name"].join(" ")
-    description = "MortgageClub leverages big data and advanced technology to replace your loan officer and pass on the savings to you."
-    image       = options[:image] || (request.base_url + ActionController::Base.helpers.asset_path('open-graph.png'))
+    title       = "We’re a tech-enabled mortgage broker." # ["controller_name", "action_name"].join(" ")
+    description = "Get a live rate quote in 10 secs, apply in 10 mins, close in 21 days. Let’s get started, shall we?"
+    image       = options[:image] || (request.base_url + ActionController::Base.helpers.asset_path('open-graph-new.jpg'))
 
     current_url = request.url
 
