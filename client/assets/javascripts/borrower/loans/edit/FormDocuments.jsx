@@ -391,7 +391,7 @@ var FormDocuments = React.createClass({
     var isValid = this.valid();
 
     if(isValid){
-      this.props.saveLoan(this.buildLoanFromState(), 1);
+      this.props.saveLoan(this.buildLoanFromState(), 2);
     }
     else{
       this.setState({saving: false});
@@ -400,7 +400,7 @@ var FormDocuments = React.createClass({
   },
 
   next: function(event){
-    this.props.next(2);
+    this.props.next(3);
     event.preventDefault();
   },
 });
