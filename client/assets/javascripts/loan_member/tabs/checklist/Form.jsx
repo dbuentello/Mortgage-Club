@@ -224,7 +224,7 @@ var Form = React.createClass({
         <input type='hidden' value={this.props.loan.id} name='loan_id'/>
         <div className='form-group'>
           <div className='col-sm-4'>
-            <SelectPicker
+            <SelectField
               label='Type'
               keyName='type'
               name='checklist[checklist_type]'
@@ -310,7 +310,7 @@ var Form = React.createClass({
               editable={true}/>
           </div>
           <div className='col-sm-4'>
-            <SelectPicker
+            <SelectField
               label='Docusign Template'
               keyName='documentTemplate'
               name='checklist[template_id]'
