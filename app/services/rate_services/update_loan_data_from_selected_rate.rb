@@ -24,6 +24,7 @@ module RateServices
         l.loan_type = quote[:loan_type] ? quote[:loan_type].capitalize : nil
         l.estimated_closing_costs = quote[:total_closing_cost].to_f
         l.pmi_monthly_premium_amount = quote[:pmi_monthly_premium_amount].to_f
+        l.amount = quote[:amount].to_f
         l.save
       end
     rescue ActiveRecord::RecordNotFound

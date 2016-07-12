@@ -96,7 +96,8 @@ class Users::ElectronicSignatureController < Users::BaseController
       :interest_rate, :lender_name, :lender_nmls_id,
       :period, :amortization_type, :monthly_payment,
       :lender_credits, :apr,
-      :loan_type, :total_closing_cost
+      :loan_type, :total_closing_cost,
+      :amount
     )
   end
 end
