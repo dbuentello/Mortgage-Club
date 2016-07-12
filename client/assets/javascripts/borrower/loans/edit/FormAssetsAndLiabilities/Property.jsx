@@ -425,7 +425,7 @@ var Property = React.createClass({
               onBlur={this.onBlur}
               editMode={this.props.editMode}/>
           </div>
-          <div className='col-md-4 pln'>
+          <div className='col-md-4'>
             <TextField
               label='Monthly HOA Due (if applicable)'
               keyName={'property_hoa_due_' + this.props.index}
