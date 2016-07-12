@@ -391,6 +391,9 @@
     line-height: 100% !important;
   }
 
+  .no-file-name {
+    color: grey !important;
+  }
   .height-50 {
     height: 50px;
   }
@@ -399,6 +402,11 @@
 
   .fileBtn span.filename{
     margin-top: 5px !important;
+    color: #c3c3c3;
+  }
+
+  .fileBtn span.filename:hover{
+    color: $mc-color;
   }
 
   .select-box {

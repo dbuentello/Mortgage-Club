@@ -1,3 +1,6 @@
+/**
+ * TODO: UNUSED CODE
+ */
 var React = require("react/addons");
 var Dropzone = require("components/form/NewDropzone");
 var TextField = require("components/form/NewTextField");

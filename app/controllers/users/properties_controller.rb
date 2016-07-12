@@ -1,6 +1,16 @@
+#
+# Class Users::PropertiesController provides methods to update property info at Property Tab
+#
+# @author Tang Nguyen <tang@mortgageclub.co>
+#
 class Users::PropertiesController < Users::BaseController
   before_action :set_loan, only: [:create]
 
+  #
+  # Update property info, call Zillow service to update Property Tax after saving property successfully
+  #
+  # @return [JSON] loan(200) if property saves sucessfully or message error(500)
+  #
   def create
     property_form = PropertyForm.new(
       loan: @loan,
@@ -28,6 +38,11 @@ class Users::PropertiesController < Users::BaseController
     end
   end
 
+  #
+  # Will be called when borrower changes address of subject property
+  #
+  # @return [JSON] property info
+  #
   def search
     # response = Zillow.search_property(params[:address], params[:citystatezip])
     response = ZillowService::GetPropertyInfo.call(params[:address], params[:citystatezip])

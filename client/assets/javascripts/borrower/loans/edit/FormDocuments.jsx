@@ -15,8 +15,6 @@ var owner_upload_fields = {
   second_w2: {label: 'W2 - Previous tax year', name: 'second_w2'},
   first_paystub: {label: "Paystub - Most recent period", name: 'first_paystub'},
   second_paystub: {label: 'Paystub - Previous period', name: 'second_paystub'},
-  first_federal_tax_return: {label: 'Personal tax return - Most recent year', name: 'first_federal_tax_return'},
-  second_federal_tax_return: {label: 'Personal tax return - Previous year', name: 'second_federal_tax_return'},
   first_bank_statement: {label: 'Bank statement - Most recent month', name: 'first_bank_statement'},
   second_bank_statement: {label: 'Bank statement - Previous month', name: 'second_bank_statement'}
 };
@@ -29,10 +27,7 @@ var co_borrower_upload_fields = {
   first_w2: {label: 'W2 - Most recent tax year', name: 'co_first_w2'},
   second_w2: {label: 'W2 - Previous tax year', name: 'co_second_w2'},
   first_paystub: {label: "Paystub - Most recent period", name: 'co_first_paystub'},
-  second_paystub: {label: 'Paystub - Previous period', name: 'co_second_paystub'},
-  first_federal_tax_return: {label: 'Personal tax return - Most recent year', name: 'co_first_federal_tax_return'},
-  second_federal_tax_return: {label: 'Personal tax return - Previous year', name: 'co_second_federal_tax_return'}
-
+  second_paystub: {label: 'Paystub - Previous period', name: 'co_second_paystub'}
 };
 
 var uploaded_files = [];
@@ -86,12 +81,12 @@ var FormDocuments = React.createClass({
     var borrower = this.props.loan.borrower;
     var secondary_borrower = this.props.loan.secondary_borrower;
 
-    var owner_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub', 'first_federal_tax_return', 'second_federal_tax_return',  'first_bank_statement', 'second_bank_statement'];
+    var owner_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub', 'first_personal_tax_return', 'second_personal_tax_return',  'first_bank_statement', 'second_bank_statement'];
     var self_employed_fields = ['first_personal_tax_return', 'second_personal_tax_return', 'first_business_tax_return', 'second_business_tax_return', 'first_bank_statement', 'second_bank_statement'];
 
     // coborrower - unself employed
     var co_borrower_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub'];
-    var co_borrower_no_file_taxes_jointly_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub', 'first_federal_tax_return', 'second_federal_tax_return'];
+    var co_borrower_no_file_taxes_jointly_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub', 'first_personal_tax_return', 'second_personal_tax_return'];
 
     // coborrower - self employed
     var co_no_file_taxes_jointly_fields = ['first_personal_tax_return', 'second_personal_tax_return', 'first_business_tax_return', 'second_business_tax_return'];
@@ -129,7 +124,7 @@ var FormDocuments = React.createClass({
               <br/>
               <span className="glyphicon glyphicon-ok"></span> We use 256-bit SSL encryption (bank-level security).
               <br/>
-              <span className="glyphicon glyphicon-ok"></span> We’ll log you out after 10 mins of inactivity.
+              <span className="glyphicon glyphicon-ok"></span> We’ll log you out after 20 mins of inactivity.
             </p>
           </div>
           {

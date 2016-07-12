@@ -1,3 +1,6 @@
+/**
+ * Show list quotes in homepage
+ */
 var _ = require("lodash");
 var React = require("react/addons");
 var TextFormatMixin = require("mixins/TextFormatMixin");

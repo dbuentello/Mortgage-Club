@@ -1,4 +1,4 @@
-# update borrower's employment
+# update borrower's employment after register new user
 module BorrowerServices
   class UpdateEmployment
     attr_accessor :borrower

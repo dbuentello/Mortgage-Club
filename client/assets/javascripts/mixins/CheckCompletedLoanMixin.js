@@ -7,6 +7,11 @@ var TabAsset = require('mixins/CompletedLoanMixins/TabAsset');
 var TabCreditCheck = require('mixins/CompletedLoanMixins/TabCreditCheck');
 
 var CheckCompletedLoanMixin = {
+  /**
+   * Check loan is completed or not
+   * @param  {object} loan
+   * @return {boolean}
+   */
   loanIsCompleted: function(loan) {
     return TabProperty.propertyCompleted(loan) &&
       TabBorrower.completed(loan) &&

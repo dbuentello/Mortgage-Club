@@ -1,3 +1,6 @@
+/**
+ * List of banks in homepage
+ */
 var React = require('react/addons');
 
 var BankPart = React.createClass({
@@ -29,7 +32,6 @@ var BankPart = React.createClass({
                     <img src="/interfirst.png" />
                 </div>
                 <div className="hidden-xs col-md-3 col-sm-6 col-sm-offset-3 col-md-offset-0 partner-logo">
-
                     <img src="/union_bank_logo.png" />
                 </div>
                 </div>

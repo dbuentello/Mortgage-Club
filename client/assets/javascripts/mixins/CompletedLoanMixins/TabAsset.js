@@ -1,6 +1,10 @@
 var _ = require('lodash');
 
 var TabAsset = {
+  /**
+   * Check tab asset is completed or not
+   * @type {boolean}
+   */
   assetCompleted: function(loan) {
     if(!this.propertyCompleted(loan.subject_property, false, loan.purpose)){
       return false;
@@ -63,6 +67,10 @@ var TabAsset = {
     }
 
     if(isRefinance && property.mortgage_includes_escrows === null){
+      return false;
+    }
+
+    if(!isRefinance && property.is_primary === true && property.is_subject !== true && property.mortgage_includes_escrows === null){
       return false;
     }
 

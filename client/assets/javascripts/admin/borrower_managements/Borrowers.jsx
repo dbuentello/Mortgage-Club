@@ -1,3 +1,6 @@
+/**
+ * Show borrowers of system
+ */
 var React = require("react/addons");
 var TextFormatMixin = require("mixins/TextFormatMixin");
 

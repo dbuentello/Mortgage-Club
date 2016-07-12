@@ -1,3 +1,9 @@
+#
+# Class LiabilityForm provides methods to update info of loan, rental properties,
+# subject property and primary property.
+#
+# @author Tang Nguyen <tang@mortgageclub.co>
+#
 class LiabilityForm
   include ActiveModel::Model
 
@@ -17,7 +23,6 @@ class LiabilityForm
     @own_investment_property = args[:own_investment_property]
   end
 
-  # validates :loan_id, :properties, presence: true
   def save
     return false if loan.nil?
 
@@ -31,12 +36,20 @@ class LiabilityForm
     true
   end
 
+  #
+  # Update own investment property of loan and re-calculate loan amount
+  #
+  # @return [Boolean] true if loan saves successfully or false if has error when save loan
+  #
   def update_loan
     loan.own_investment_property = own_investment_property
     loan.amount = CalculateLoanAmountService.call(loan)
     loan.save!
   end
 
+  #
+  # Insert or update rental property and update liabilities of rental property
+  #
   def update_rental_properties
     rental_properties_params.each do |_, params|
       if new_property?(params)
@@ -52,6 +65,11 @@ class LiabilityForm
     end
   end
 
+  #
+  # Update subject property and liabilities of subject property
+  #
+  # @return [Boolean] result of updating liabilities
+  #
   def update_subject_property
     return unless subject_property
 
@@ -60,6 +78,11 @@ class LiabilityForm
     update_liabilities(subject_property, subject_property_params)
   end
 
+  #
+  # Update primary property and liabilities of primary property
+  #
+  # @return [Boolean] result of updating liabilities
+  #
   def update_primary_property
     return unless primary_property
 
@@ -68,9 +91,20 @@ class LiabilityForm
     update_liabilities(primary_property, primary_property_params)
   end
 
+  #
+  # Remove old liabilities of property, update liabilities include mortgage payment, other financing.
+  # If new params do not have any liabilities, we do not need to update data.
+  #
+  # @param [Object] property: ActiveRecord
+  # @param [Hash] params: hash data of property need to update
+  #
+  # @return [Boolean] result of updating liabilities
+  #
   def update_liabilities(property, params)
+    # TODO: why we have to remove liabilities
     property.liabilities.update_all(property_id: nil)
     return if property_does_not_have_any_liabilities?(params)
+
     update_mortgage_payment(property, params)
     update_other_financing(property, params)
   end

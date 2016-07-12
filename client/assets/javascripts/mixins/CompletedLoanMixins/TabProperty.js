@@ -1,4 +1,8 @@
 var TabProperty = {
+  /**
+   * Check tab property is completed or not
+   * @type {boolean}
+   */
   propertyCompleted: function(loan) {
     if(loan.subject_property === undefined || loan.subject_property === null) {
       return false;

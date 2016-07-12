@@ -1,3 +1,6 @@
+/**
+ * Check validation of fields
+ */
 var _ = require('lodash');
 
 module.exports = {

@@ -1,3 +1,6 @@
+/**
+ * Manage homepage rates in homepage
+ */
 var React = require("react/addons");
 
 var HomepageRates = React.createClass({
