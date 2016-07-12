@@ -13,6 +13,7 @@ module CreditReportServices
 
       if response
         CreditReportServices::CreateLiabilities.call(loan, response)
+        CreditReportServices::SaveCreditReportAsPdf.call(loan, response)
         remember_last_run_at_of_credit_report(loan)
       end
     end

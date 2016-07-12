@@ -27,7 +27,7 @@ module CreditReportServices
     #
     def self.generate_credit_report(borrower, doc)
       credit_report = borrower.credit_report || borrower.create_credit_report
-      credit_report.update(date: Time.zone.today, score: get_credit_score(doc))
+      credit_report.update(date: Time.zone.today, score: get_credit_score(doc), credit_reference_number: get_credit_reference_number(doc))
 
       doc.css('CREDIT_LIABILITY').each do |credit_liability|
         liability = Liability.new(credit_report_id: credit_report.id)
@@ -81,6 +81,11 @@ module CreditReportServices
       scores = doc.css('CREDIT_SCORE').map { |credit_score| credit_score.attributes['_Value'].value if credit_score.attributes['_Value'] }.compact
       scores.map!(&:to_f)
       median(scores)
+    end
+
+    def self.get_credit_reference_number(doc)
+      credit_response = doc.css("CREDIT_RESPONSE").first
+      credit_response.attributes["CreditReportIdentifier"].value if credit_response
     end
 
     def self.median(array)
