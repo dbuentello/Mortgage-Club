@@ -382,6 +382,10 @@
     cursor:pointer; color:#15c0f1;
   }
 
+  .fileBtn .fileBtnSmall:hover span {
+    color:#15c0f1 !important;
+  }
+
   .fileBtn h5 {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
@@ -392,8 +396,9 @@
   }
 
   .no-file-name {
-    color: grey !important;
+    color: #c3c3c3 !important;
   }
+
   .height-50 {
     height: 50px;
   }
