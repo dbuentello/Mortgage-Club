@@ -516,7 +516,7 @@ var Form = React.createClass({
           this.props.goToAllDonePage(response.loan);
         }
         else {
-          this.props.setupMenu(response, 2);
+          this.props.setupMenu(response, 1);
         }
       }.bind(this),
       error: function(response, status, error) {
@@ -529,7 +529,7 @@ var Form = React.createClass({
   },
 
   next: function(event){
-    this.props.next(3);
+    this.props.next(2);
     event.preventDefault();
   },
 

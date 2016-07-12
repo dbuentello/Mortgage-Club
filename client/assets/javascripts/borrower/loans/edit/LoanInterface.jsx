@@ -146,8 +146,8 @@ var LoanInterface = React.createClass({
   buildMenu: function(loan) {
     var menu = [
       {name: "Property", complete: TabProperty.propertyCompleted(loan), key: "tabProperty", iconClass: "fa fa-home", step: 0, Content: Property},
-      {name: "Documents", complete: TabDocuments.documentsCompleted(loan), key: "TabDocuments", iconClass: "fa fa-file-text", step: 1, Content: Documents},
-      {name: "Borrower", complete: TabBorrower.completed(loan), key: "tabBorrower", iconClass: "fa fa-user", step: 2, Content: Borrower},
+      {name: "Borrower", complete: TabBorrower.completed(loan), key: "tabBorrower", iconClass: "fa fa-user", step: 1, Content: Borrower},
+      {name: "Documents", complete: TabDocuments.documentsCompleted(loan), key: "TabDocuments", iconClass: "fa fa-file-text", step: 2, Content: Documents},
       {name: "Income", complete: TabIncome.incomeCompleted(loan), key: "tabIncome", iconClass: "fa fa-database", step: 3, Content: Income},
       {name: "Credit Check", complete: TabCreditCheck.creditCheckCompleted(loan), key: "tabCreditCheck", iconClass: "fa fa-credit-card-alt", step: 4, Content: CreditCheck},
       {name: "Assets and Liabilities", complete: TabAsset.assetCompleted(loan), key: "tabAssetsAndLiabilities", iconClass: "fa fa-bar-chart", step: 5, Content: AssetsAndLiabilities},
