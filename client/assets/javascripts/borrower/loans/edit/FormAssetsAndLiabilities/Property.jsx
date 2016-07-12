@@ -272,7 +272,7 @@ var Property = React.createClass({
               editable={true}
               onChange={this.onChange}
               validationTypes={["address"]}
-              editMode={this.props.editMode}/>
+              editMode={this.state.property.is_subject == true ? false : true}/>
           </div>
         </div>
         <div className='form-group'>
