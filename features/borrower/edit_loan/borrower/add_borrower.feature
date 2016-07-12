@@ -28,7 +28,7 @@ Feature: AddBorrower
         And I fill in "No. of dependents" with "1"
       Then I click on "Save and Continue"
         And I wait for 2 seconds
-        And I should see "Name Of Current Employer"
+        And I should see "At the minimum"
       When I click on "Borrower"
         And I should see "As an individual"
         And the "First Name" field should contain "Cuong"
