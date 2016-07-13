@@ -25,10 +25,14 @@
     transition: height .4s ease, opacity .3s ease;
     margin-top: 15px;
   }
+
+  @include respond-to(mobile){
+    height: 60px;
+  }
 }
 #header,
 #header-wrap {
-  height: 60px !important;
+  height: 60px;
   -webkit-transition: height .4s ease, opacity .3s ease;
   transition: height .4s ease, opacity .3s ease;
 }
@@ -55,4 +59,10 @@
 
 h1, h2, h3, h4, h5, h6 {
   color: #555;
+}
+
+#primary-menu-trigger {
+  @include respond-to(mobile) {
+    top: 5px !important;
+  }
 }
