@@ -5,8 +5,6 @@ class Property < ActiveRecord::Base
   has_many :liabilities, dependent: :destroy, foreign_key: "property_id"
   has_many :documents, as: :subjectable, dependent: :destroy
 
-  before_save :update_estimated_principal_interest
-
   accepts_nested_attributes_for :address
 
   PERMITTED_ATTRS = [
@@ -147,30 +145,6 @@ class Property < ActiveRecord::Base
     mortgage_balance = mortgage_payment_liability ? mortgage_payment_liability.balance.to_f : 0
     other_balance = other_financing_liability ? other_financing_liability.balance.to_f : 0
     mortgage_balance + other_balance
-  end
-
-  def total_liability_payment
-    mortgage_balance = mortgage_payment_liability ? mortgage_payment_liability.payment.to_f : 0
-    other_balance = other_financing_liability ? other_financing_liability.payment.to_f : 0
-    mortgage_balance + other_balance
-  end
-
-  def update_estimated_principal_interest
-    if self.is_subject == false && self.is_primary == false && self.mortgage_includes_escrows
-      payment = self.total_liability_payment
-
-      if self.mortgage_includes_escrows == "taxes_and_insurance"
-        payment += self.estimated_hazard_insurance.to_f
-        payment += self.estimated_property_tax
-      else
-        if self.mortgage_includes_escrows = "taxes_only"
-          payment += self.estimated_property_tax
-          payment
-        end
-      end
-
-      self.estimated_principal_interest = payment
-    end
   end
 
   def other_documents
