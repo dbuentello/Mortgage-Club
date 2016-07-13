@@ -25,10 +25,14 @@
     transition: height .4s ease, opacity .3s ease;
     margin-top: 15px;
   }
+
+  @include respond-to(mobile){
+    height: 60px;
+  }
 }
 #header,
 #header-wrap {
-  height: 60px !important;
+  height: 60px;
   -webkit-transition: height .4s ease, opacity .3s ease;
   transition: height .4s ease, opacity .3s ease;
 }
