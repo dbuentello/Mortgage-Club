@@ -252,7 +252,7 @@ module Docusign
 
         @params[(type + "_rent").to_sym] = number_to_currency(borrower.current_address.monthly_rent, unit: "") if primary_property && borrower.current_address.is_rental
         if type == "present"
-          @params[(type + "_mortgage").to_sym] = number_to_currency(@loan..monthly_payment.to_f, unit: "")
+          @params[(type + "_mortgage").to_sym] = number_to_currency(@loan.monthly_payment.to_f, unit: "")
         else
           @params[(type + "_mortgage").to_sym] = number_to_currency(property.mortgage_payment.to_f, unit: "")
         end
