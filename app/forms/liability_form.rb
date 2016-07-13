@@ -54,11 +54,14 @@ class LiabilityForm
     rental_properties_params.each do |_, params|
       if new_property?(params)
         property = Property.new(property_params(params))
+        property.estimated_principal_interest = calculate_estimated_principal_interest(property, params)
         property.loan_id = loan.id
         property.save
       else
         property = Property.find(params[:id])
-        property.update(property_params(params))
+        property_params = property_params(params)
+        property_params[:estimated_principal_interest] = calculate_estimated_principal_interest(property, params)
+        property.update(property_params)
       end
       # property.update_mortgage_payment_amount
       update_liabilities(property, params)
@@ -146,6 +149,31 @@ class LiabilityForm
       property_id: property_id,
       account_type: account_type.present? ? account_type : liability.account_type
     )
+  end
+
+  def calculate_estimated_principal_interest(property, params)
+    if property.mortgage_includes_escrows
+      payment = 0
+
+      if params["mortgage_payment_liability"]
+        payment += params["mortgage_payment_liability"]["payment"].to_f
+      end
+
+      if params["other_financing_liability"]
+        payment += params["other_financing_liability"]["payment"].to_f
+      end
+
+      if property.mortgage_includes_escrows == "taxes_and_insurance"
+        payment += property.estimated_hazard_insurance.to_f
+        payment += property.estimated_property_tax
+      else
+        if property.mortgage_includes_escrows = "taxes_only"
+          payment += property.estimated_property_tax
+        end
+      end
+
+      payment
+    end
   end
 
   private

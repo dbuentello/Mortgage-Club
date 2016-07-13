@@ -101,8 +101,11 @@ module Docusign
 
       def build_section_6
         build_liabilities
-        build_assets
         build_property_address
+        build_assets
+        @params[:net_worth] = number_to_currency(@params[:total_assets] - @params[:total_liabilities], unit: "")
+        @params[:total_liabilities] = number_to_currency(@params[:total_liabilities], unit: "")
+        @params[:total_assets] = number_to_currency(@params[:total_assets], unit: "")
       end
 
       def build_section_7
@@ -111,9 +114,9 @@ module Docusign
         # closing_costs_paid_by_seller
         @params[:purchase_price] = number_to_currency(subject_property.purchase_price.to_f, unit: "")
         @params[:refinance] = number_to_currency(loan.amount, unit: "") if loan.refinance?
-        @params[:prepaid_items] = number_to_currency(loan.estimated_prepaid_items.to_f, unit: "")
-        @params[:closing_costs] = number_to_currency(loan.estimated_closing_costs.to_f, unit: "")
-        @params[:pmi_mip] = number_to_currency(loan.pmi_mip_funding_fee.to_f, unit: "")
+        # @params[:prepaid_items] = number_to_currency(loan.estimated_prepaid_items.to_f, unit: "")
+        # @params[:closing_costs] = number_to_currency(loan.estimated_closing_costs.to_f, unit: "")
+        # @params[:pmi_mip] = number_to_currency(loan.pmi_mip_funding_fee.to_f, unit: "")
         @params[:other_credits] = number_to_currency(loan.other_credits.to_f, unit: "")
         @params[:loan_amount_exclude_pmi] = number_to_currency((loan.amount - loan.pmi_mip_funding_fee.to_f), unit: "")
         @params[:pmi_mip_financed] = number_to_currency(loan.pmi_mip_funding_fee_financed.to_f, unit: "")
@@ -134,8 +137,9 @@ module Docusign
       end
 
       def build_section_10
-        @params[:borrower_do_not_wish] = "Yes"
-        @params[:co_borrower_do_not_wish] = "Yes" if loan.secondary_borrower
+        build_borrower_declaration
+        build_co_borrower_declaration
+
         @params[:applicant_submitted_internet] = "Yes"
         @params[:loan_originator_name] = loan.relationship_manager.user.first_name + " " + loan.relationship_manager.user.last_name if loan.relationship_manager
         @params[:individual_nmls] = loan.relationship_manager.nmls_id if loan.relationship_manager
@@ -145,14 +149,91 @@ module Docusign
         @params[:company_address] = loan.relationship_manager.company_address if loan.relationship_manager
       end
 
+      def build_borrower_declaration
+        if loan.borrower.declaration
+          if loan.borrower.declaration.is_hispanic_or_latino == "Y"
+            @params[:borrower_hispanic] = "Yes"
+          else
+            @params[:borrower_not_hispanic] = "Yes"
+          end
+
+          if loan.borrower.declaration.gender_type == "M"
+            @params[:borrower_male] = "Yes"
+          else
+            @params[:borrower_female] = "Yes"
+          end
+
+          case loan.borrower.declaration.race_type
+          when "AIoAN"
+            @params[:borrower_american_indian] = "Yes"
+          when "A"
+            @params[:borrower_asian] = "Yes"
+          when "BoAA"
+            @params[:borrower_black] = "Yes"
+          when "NHoOPI"
+            @params[:borrower_native] = "Yes"
+          when "W"
+            @params[:borrower_white] = "Yes"
+          end
+        end
+      end
+
+      def build_co_borrower_declaration
+        if loan.secondary_borrower && loan.secondary_borrower.declaration
+          if loan.secondary_borrower.declaration.is_hispanic_or_latino == "Y"
+            @params[:co_borrower_hispanic] = "Yes"
+          else
+            @params[:co_borrower_not_hispanic] = "Yes"
+          end
+
+          if loan.secondary_borrower.declaration.gender_type == "M"
+            @params[:co_borrower_male] = "Yes"
+          else
+            @params[:co_borrower_female] = "Yes"
+          end
+
+          case loan.secondary_borrower.declaration.race_type
+          when "AIoAN"
+            @params[:co_borrower_american_indian] = "Yes"
+          when "A"
+            @params[:co_borrower_asian] = "Yes"
+          when "BoAA"
+            @params[:co_borrower_black] = "Yes"
+          when "NHoOPI"
+            @params[:co_borrower_native] = "Yes"
+          when "W"
+            @params[:co_borrower_white] = "Yes"
+          end
+        end
+      end
+
       def build_assets
         count = 0
+        subtotal_liquid = 0
+        total_retirement = 0
+        total_other_asset = 0
         borrower.assets.each do |asset|
-          count += 1
-          nth = count.to_s
-          @params[("asset_" + nth).to_sym] = asset.institution_name
-          @params[("asset_balance_" + nth).to_sym] = number_to_currency(asset.current_balance.to_f, unit: "")
+          if asset.asset_type == "retirement"
+            total_retirement += asset.current_balance.to_f
+          else if asset.asset_type == "other"
+                 total_other_asset += asset.current_balance.to_f
+               else
+                 count += 1
+                 nth = count.to_s
+                 @params[("asset_" + nth).to_sym] = asset.institution_name
+                 @params[("asset_balance_" + nth).to_sym] = number_to_currency(asset.current_balance.to_f, unit: "")
+                 subtotal_liquid += asset.current_balance.to_f
+               end
+          end
         end
+
+        @params[("subtotal_liquid_asets").to_sym] = number_to_currency(subtotal_liquid, unit: "")
+        @params[("vested_interest").to_sym] = number_to_currency(total_retirement, unit: "")
+        @params[("other_assets").to_sym] = number_to_currency(total_other_asset, unit: "")
+        @params[("real_estate_market_value").to_sym] = number_to_currency(@params["total_market_price"].to_f, unit: "")
+        @params[:total_assets] = subtotal_liquid + total_retirement + total_other_asset + @params["total_market_price"].to_f
+
+        @params["total_market_price"] = number_to_currency(@params["total_market_price"].to_f, unit: "")
       end
 
       def build_property_address
@@ -160,23 +241,34 @@ module Docusign
         total_market_price = 0
         total_liens = 0
         total_rental_property_income = 0
+        total_rental_insurance_taxes = 0
+        total_rental_net_income = 0
         loan.properties.each do |p|
           next unless !p.is_primary && !p.is_subject
           count += 1
           nth = count.to_s
-          @params["rental_property_address_" + nth] = p.address.full_text
+          mortgage_payment = 0
+          @params["rental_property_address_" + nth] = p.address.address
           @params["rental_property_status_" + nth] = "R"
           @params["rental_property_type_" + nth] = get_property_type(p.property_type)
-          @params["rental_property_market_price_" + nth] = p.market_price
-          @params["rental_property_income_" + nth] = p.gross_rental_income
-          @params["rental_property_liens_" + nth] = p.total_liability_balance
+          @params["rental_property_market_price_" + nth] = number_to_currency(p.market_price.to_f, unit: "")
+          @params["rental_property_income_" + nth] = number_to_currency(p.gross_rental_income.to_f, unit: "")
+          @params["rental_property_liens_" + nth] = number_to_currency(p.total_liability_balance.to_f, unit: "")
+          rental_taxes = (p.estimated_property_tax + p.estimated_hazard_insurance).to_f / 12
+          @params["rental_insurance_taxes_" + nth] = number_to_currency(rental_taxes, unit: "")
+          total_rental_insurance_taxes += rental_taxes
+          rental_net_income = 0.75 * p.gross_rental_income.to_f - mortgage_payment - rental_taxes
+          @params["rental_net_income_" + nth] = number_to_currency(rental_net_income, unit: "")
+          total_rental_net_income += rental_net_income
           total_market_price += p.market_price
           total_liens += p.total_liability_balance
           total_rental_property_income += p.gross_rental_income
         end
         @params["total_market_price"] = total_market_price
-        @params["total_liens"] = total_liens
-        @params["total_rental_property_income"] = total_rental_property_income
+        @params["total_liens"] = number_to_currency(total_liens.to_f, unit: "")
+        @params["total_rental_property_income"] = number_to_currency(total_rental_property_income.to_f, unit: "")
+        @params["total_rental_insurance_taxes"] = number_to_currency(total_rental_insurance_taxes.to_f, unit: "")
+        @params["total_rental_net_income"] = number_to_currency(total_rental_net_income.to_f, unit: "")
       end
 
       def get_property_type(property_type)
@@ -197,7 +289,8 @@ module Docusign
       def build_liabilities
         return unless credit_report
         count = 0
-
+        total_liab_payment = 0
+        total_liab_balance = 0
         credit_report.liabilities.includes(:address).each do |liability|
           count += 1
           nth = count.to_s
@@ -208,9 +301,13 @@ module Docusign
           end
 
           @params[("liabilities_payment_" + nth).to_sym] = "#{number_to_currency(liability.payment.to_f, unit: '')} / #{liability.months.to_i}"
+          total_liab_payment += liability.payment.to_f
+          total_liab_balance += liability.balance.to_f
           @params[("liabilities_balance_" + nth).to_sym] = number_to_currency(liability.balance.to_f, unit: "")
           @params[("liabilities_acc_" + nth).to_sym] = liability.account_number
         end
+        @params[("total_liab_monthly_payment").to_sym] = number_to_currency(total_liab_payment, unit: '')
+        @params[:total_liabilities] = total_liab_balance
       end
 
       def build_housing_expense(type, property)
@@ -219,7 +316,12 @@ module Docusign
                                             property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f, unit: "")
 
         @params[(type + "_rent").to_sym] = number_to_currency(borrower.current_address.monthly_rent, unit: "") if primary_property && borrower.current_address.is_rental
-        @params[(type + "_mortgage").to_sym] = number_to_currency(property.mortgage_payment.to_f, unit: "")
+        if type == "present"
+          @params[(type + "_mortgage").to_sym] = number_to_currency(@loan.monthly_payment.to_f, unit: "")
+        else
+          @params[(type + "_mortgage").to_sym] = number_to_currency(property.mortgage_payment.to_f, unit: "")
+        end
+
         @params[(type + "_other_financing").to_sym] = number_to_currency(property.other_financing.to_f, unit: "")
         @params[(type + "_hazard_insurance").to_sym] = number_to_currency(get_monthly_value(property.estimated_hazard_insurance), unit: "")
         @params[(type + "_real_estate_taxes").to_sym] = number_to_currency(get_monthly_value(property.estimated_property_tax), unit: "")

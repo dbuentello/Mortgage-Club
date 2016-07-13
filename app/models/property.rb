@@ -20,6 +20,7 @@ class Property < ActiveRecord::Base
     :estimated_mortgage_insurance,
     :estimated_mortgage_balance,
     :mortgage_includes_escrows,
+    :estimated_principal_interest,
     :is_impound_account,
     :hoa_due,
     :is_primary,
