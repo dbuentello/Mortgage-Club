@@ -57,7 +57,8 @@ module CreditReportServices
         payment: credit_liability.attributes['_MonthlyPaymentAmount'] ? credit_liability.attributes['_MonthlyPaymentAmount'].value.to_f : nil,
         balance: credit_liability.attributes['_UnpaidBalanceAmount'] ? credit_liability.attributes['_UnpaidBalanceAmount'].value.to_f : nil,
         phone: creditor.css('CONTACT_DETAIL').empty? ? nil : creditor.css('CONTACT_DETAIL').css('CONTACT_POINT').first.attributes['_Value'].value,
-        name: creditor.attributes['_Name'].value
+        name: creditor.attributes['_Name'].value,
+        months: credit_liability.attributes['_TermsMonthsCount'] ? credit_liability.attributes['_TermsMonthsCount'].value.to_f : nil
       }
     end
 

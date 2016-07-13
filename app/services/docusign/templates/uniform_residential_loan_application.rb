@@ -141,8 +141,6 @@ module Docusign
       end
 
       def build_section_10
-        @params[:borrower_do_not_wish] = "Yes"
-        @params[:co_borrower_do_not_wish] = "Yes" if loan.secondary_borrower
         @params[:applicant_submitted_internet] = "Yes"
         @params[:loan_originator_name] = loan.relationship_manager.user.first_name + " " + loan.relationship_manager.user.last_name if loan.relationship_manager
         @params[:individual_nmls] = loan.relationship_manager.nmls_id if loan.relationship_manager
@@ -320,6 +318,32 @@ module Docusign
         else
           @params[(prefix + "k" + no_answer).to_sym] = "Yes"
           @params[(prefix + "k" + yes_answer).to_sym] = "Off"
+        end
+
+        if declaration.is_hispanic_or_latino == "Y"
+          @params[(prefix + "hispanic").to_sym] = "Yes"
+        else
+          @params[(prefix + "not_hispanic").to_sym] = "Yes"
+        end
+
+        if declaration.gender_type == "M"
+          @params[(prefix + "male").to_sym] = "Yes"
+        else
+          @params[(prefix + "female").to_sym] = "Yes"
+        end
+
+        case declaration.race_type
+        when "AIoAN"
+          @params[(prefix + "american_indian").to_sym] = "Yes"
+        when "A"
+          @params[(prefix + "asian").to_sym] = "Yes"
+        when "BoAA"
+          @params[(prefix + "black").to_sym] = "Yes"
+        when "NHoOPI"
+          @params[(prefix + "native").to_sym] = "Yes"
+        when "W"
+          @params[(prefix + "white").to_sym] = "Yes"
+        else
         end
 
         @params[(prefix + "m1").to_sym] = declaration.type_of_property
