@@ -11,7 +11,7 @@ var fields = {
   loanAmount: {label: "Loan Amount", name: "loan_amount"},
   loanType: {label: "Loan Type", name: "loan_type"},
   interestRate: {label: "Interest Rate (%)", name: "interest_rate"},
-  lenderCredits: {label: "Lender Credits / Discount Points", name: "lender_credits"},
+  lenderCredits: {label: "Lender Credit / Discount Points", name: "lender_credits"},
   lenderFees: {label: "Lender Fees", name: "lender_fees"},
   thirdPartyServices: {label: "Third Party Services", name: "third_party_services"},
   prepaidItems: {label: "Prepaid Items", name: "prepaid_items"},
@@ -182,7 +182,7 @@ var LoanTermsTab = React.createClass({
               </div>
             </div>
             <div className="panel-heading">
-              <h4 className="panel-title">Closing Cost</h4>
+              <h4 className="panel-title">Closing Costs</h4>
             </div>
             <div className="form-group">
               <div className="col-sm-6">
