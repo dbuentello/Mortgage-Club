@@ -137,6 +137,9 @@ module Docusign
       end
 
       def build_section_10
+        build_borrower_declaration
+        build_co_borrower_declaration
+
         @params[:applicant_submitted_internet] = "Yes"
         @params[:loan_originator_name] = loan.relationship_manager.user.first_name + " " + loan.relationship_manager.user.last_name if loan.relationship_manager
         @params[:individual_nmls] = loan.relationship_manager.nmls_id if loan.relationship_manager
@@ -144,6 +147,64 @@ module Docusign
         @params[:company_name] = loan.relationship_manager.company_name if loan.relationship_manager
         @params[:company_nmls] = loan.relationship_manager.company_nmls if loan.relationship_manager
         @params[:company_address] = loan.relationship_manager.company_address if loan.relationship_manager
+      end
+
+      def build_borrower_declaration
+        if loan.borrower.declaration
+          if loan.borrower.declaration.is_hispanic_or_latino == "Y"
+            @params[:borrower_hispanic] = "Yes"
+          else
+            @params[:borrower_not_hispanic] = "Yes"
+          end
+
+          if loan.borrower.declaration.gender_type == "M"
+            @params[:borrower_male] = "Yes"
+          else
+            @params[:borrower_female] = "Yes"
+          end
+
+          case loan.borrower.declaration.race_type
+          when "AIoAN"
+            @params[:borrower_american_indian] = "Yes"
+          when "A"
+            @params[:borrower_asian] = "Yes"
+          when "BoAA"
+            @params[:borrower_black] = "Yes"
+          when "NHoOPI"
+            @params[:borrower_native] = "Yes"
+          when "W"
+            @params[:borrower_white] = "Yes"
+          end
+        end
+      end
+
+      def build_co_borrower_declaration
+        if loan.secondary_borrower && loan.secondary_borrower.declaration
+          if loan.secondary_borrower.declaration.is_hispanic_or_latino == "Y"
+            @params[:co_borrower_hispanic] = "Yes"
+          else
+            @params[:co_borrower_not_hispanic] = "Yes"
+          end
+
+          if loan.secondary_borrower.declaration.gender_type == "M"
+            @params[:co_borrower_male] = "Yes"
+          else
+            @params[:co_borrower_female] = "Yes"
+          end
+
+          case loan.secondary_borrower.declaration.race_type
+          when "AIoAN"
+            @params[:co_borrower_american_indian] = "Yes"
+          when "A"
+            @params[:co_borrower_asian] = "Yes"
+          when "BoAA"
+            @params[:co_borrower_black] = "Yes"
+          when "NHoOPI"
+            @params[:co_borrower_native] = "Yes"
+          when "W"
+            @params[:co_borrower_white] = "Yes"
+          end
+        end
       end
 
       def build_assets
@@ -187,7 +248,7 @@ module Docusign
           count += 1
           nth = count.to_s
           mortgage_payment = 0
-          @params["rental_property_address_" + nth] = p.address.full_text
+          @params["rental_property_address_" + nth] = p.address.address
           @params["rental_property_status_" + nth] = "R"
           @params["rental_property_type_" + nth] = get_property_type(p.property_type)
           @params["rental_property_market_price_" + nth] = number_to_currency(p.market_price.to_f, unit: "")
@@ -322,31 +383,6 @@ module Docusign
         else
           @params[(prefix + "k" + no_answer).to_sym] = "Yes"
           @params[(prefix + "k" + yes_answer).to_sym] = "Off"
-        end
-
-        if declaration.is_hispanic_or_latino == "Y"
-          @params[(prefix + "hispanic").to_sym] = "Yes"
-        else
-          @params[(prefix + "not_hispanic").to_sym] = "Yes"
-        end
-
-        if declaration.gender_type == "M"
-          @params[(prefix + "male").to_sym] = "Yes"
-        else
-          @params[(prefix + "female").to_sym] = "Yes"
-        end
-
-        case declaration.race_type
-        when "AIoAN"
-          @params[(prefix + "american_indian").to_sym] = "Yes"
-        when "A"
-          @params[(prefix + "asian").to_sym] = "Yes"
-        when "BoAA"
-          @params[(prefix + "black").to_sym] = "Yes"
-        when "NHoOPI"
-          @params[(prefix + "native").to_sym] = "Yes"
-        when "W"
-          @params[(prefix + "white").to_sym] = "Yes"
         end
 
         @params[(prefix + "m1").to_sym] = declaration.type_of_property
