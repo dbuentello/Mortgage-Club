@@ -2,7 +2,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require elevator.min
-//= require bootstrap-sprockets
 //= require d3.min
 //= require d3.slider
 //= require build/bundle_PublicApp

@@ -127,7 +127,7 @@ var SettingsTab = React.createClass({
   render: function() {
     return (
       <div className="content loans-part">
-        <div className="container borrower-dashboard">
+        <div className="container borrower-dashboard borrower-profile">
           <div className='tabs'>
             <div className="tab-content">
               <div>

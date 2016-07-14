@@ -148,11 +148,11 @@ var List = React.createClass({
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
                   <div className="row">
-                    <div className="col-md-3 col-sm-6 col-sm-6">
+                    <div className="col-md-3 col-sm-6 col-xs-4">
                       <img className="img-responsive" src={rate.logo_url}/>
-                      <h4 className="nmls-title">NMLS: #{rate.nmls}</h4>
+                      <h4 className="nmls-title hidden-xs">NMLS: #{rate.nmls}</h4>
                     </div>
-                    <div className="col-md-3 col-sm-6 col-sm-6">
+                    <div className="col-md-3 col-sm-6 col-sm-6 col-xs-8">
                       <h3 className="text-capitalize">{rate.lender_name}</h3>
                       <p>{rate.product}</p>
                       <h1 className="apr-text">{this.commafy(rate.apr * 100, 3)}% APR</h1>

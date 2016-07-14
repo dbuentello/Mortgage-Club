@@ -161,6 +161,9 @@ $helpSectionWidth: 300px;
 
 #percent {
   text-align: right;
+  @include respond-to(mobile){
+    text-align: center;
+  };
 }
 
 .outer {
