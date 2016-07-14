@@ -164,11 +164,11 @@ class LiabilityForm
       end
 
       if property.mortgage_includes_escrows == "taxes_and_insurance"
-        payment += property.estimated_hazard_insurance.to_f
-        payment += property.estimated_property_tax
+        payment -= property.estimated_hazard_insurance.to_f / 12
+        payment -= property.estimated_property_tax.to_f / 12
       else
         if property.mortgage_includes_escrows = "taxes_only"
-          payment += property.estimated_property_tax
+          payment -= property.estimated_property_tax / 12
         end
       end
 
