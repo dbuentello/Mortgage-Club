@@ -15,7 +15,11 @@
       text-align: center;
     }
   }
-
+  #find-my-rates-form {
+    @include respond-to(mobile){
+      margin-bottom: 20px;
+    }
+  }
   .container {
     width: 100% !important;
   }
@@ -362,8 +366,6 @@
 }
 @include respond-to(smobile) {
   .initial-quotes {
-    padding-bottom: 20px;
-
     .quotes-form {
       .form-group {
         margin-top: 0;

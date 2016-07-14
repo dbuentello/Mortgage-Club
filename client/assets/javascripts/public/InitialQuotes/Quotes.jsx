@@ -200,7 +200,7 @@ var Quotes = React.createClass({
                                     <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
                                   </div>
                                   <div className="modal-footer">
-                                    <button type="button" className="btn btn-default" data-dismiss="modal">OK</button>
+                                    <button type="button" className="btn select-btn" data-dismiss="modal">OK</button>
                                   </div>
                                 </div>
                               </div>

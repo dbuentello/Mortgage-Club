@@ -21,6 +21,7 @@
   h6 > span:not(.nocolor) {
     color: #555;
   }
+
   .board {
     border-radius: 5px;
     border: #959595 1px solid;
@@ -73,6 +74,10 @@
     float: right;
     font-size: 1.25em;
     padding: 6px 30px;
+
+    @include respond-to(mobile){
+      margin-bottom: 5px;
+    }
   }
   .select-btn:hover {
     color: #15c0f1;
@@ -212,6 +217,10 @@
 .mortgage-rates {
   .custom-left-mortgage-rates {
     margin-left: -19px;
+    @include respond-to(mobile) {
+      margin-left: 0px;
+      margin-bottom: 80px;
+    }
   }
   background: linear-gradient(to right, #f6f6f6 , white);
   @include respond-to(smobile){
@@ -231,6 +240,52 @@
   }
   .account-content .form-group:last-child {
     margin-bottom: 25px;
+  }
+  @include respond-to(mobile){
+    .programs-list {
+      margin-bottom: 90px;
+    }
+
+    .best-rate {
+      margin-left: 20px;
+      margin-right: 20px;
+      border-radius: 5px;
+    }
+
+    .back-btn {
+      margin-left: 30px;
+    }
+
+    .help-me-choose-btn {
+      color: #fff;
+      border: 1px solid #00bd9c;
+      background: #00bd9c;
+    }
+
+    .help-me-choose-btn:hover {
+      color: #00bd9c;
+      border: 1px solid #00bd9c;
+      background: #fff;
+    }
+
+    .btn-filter {
+      color: #fff;
+      border: 1px solid $mc-color !important;
+      background: $mc-color;
+      padding: 9px 35px !important;
+      font-size: 16px !important;
+      margin-left: 0px;
+    }
+
+    .btn-filter:hover {
+      color: $mc-color;
+      border: 1px solid $mc-color;
+      background: #fff;
+    }
+
+    .slider-item .slider{
+      width: 100% !important;
+    }
   }
 }
 .mortgage-rates #sidebar {
@@ -268,6 +323,24 @@
   }
 }
 #filterQuotes {
+  .select-btn {
+    color: white;
+    background: #15c0f1;
+    border: #15c0f1 1px solid;
+    border-radius: 5px;
+    float: right;
+    font-size: 1.25em;
+    padding: 6px 30px;
+
+    @include respond-to(mobile){
+      margin-bottom: 5px;
+    }
+  }
+  .select-btn:hover {
+    color: #15c0f1;
+    background: #fff;
+  }
+
   #sidebar {
     background: none;
   }
