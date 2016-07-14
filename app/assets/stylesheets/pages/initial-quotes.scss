@@ -1,3 +1,6 @@
+.initial-quotes.content {
+  width: 100% !important;
+}
 .initial-quotes {
   h1, h2, h3, h4, h5, h6 {
     color: #00436E;
@@ -14,7 +17,7 @@
   }
 
   .container {
-    width: 100%;
+    width: 100% !important;
   }
 
   p.explanation {
@@ -27,6 +30,55 @@
     font-size: 1.1em;
     color: $mc-color;
   }
+
+  .back-btn {
+    margin-left: 50px;
+    margin-top: 10px;
+  }
+
+  @include respond-to(mobile){
+    .best-rate {
+      margin-left: 20px;
+      margin-right: 20px;
+      border-radius: 5px;
+    }
+
+    .back-btn {
+      margin-left: 30px;
+      margin-top: 10px;
+    }
+
+    .help-me-choose-btn {
+      color: #fff;
+      border: 1px solid #00bd9c;
+      background: #00bd9c;
+    }
+
+    .help-me-choose-btn:hover {
+      color: #00bd9c;
+      border: 1px solid #00bd9c;
+      background: #fff;
+    }
+
+    .btn-filter {
+      color: #fff;
+      border: 1px solid $mc-color;
+      background: $mc-color;
+    }
+
+    .btn-filter:hover {
+      color: $mc-color;
+      border: 1px solid $mc-color;
+      background: #fff;
+    }
+
+    .slider-item .slider{
+      width: 100% !important;
+    }
+  }
+
+
+
   .btnSubmit {
     .btn {
       background: #15c0f1;
@@ -88,6 +140,10 @@
         float: right;
         font-size: 1.25em;
         padding: 6px 30px;
+
+        @include respond-to(mobile){
+          margin-bottom: 5px;
+        }
       }
       .select-btn:hover {
         color: $mc-color;

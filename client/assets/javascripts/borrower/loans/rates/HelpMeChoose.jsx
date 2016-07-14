@@ -194,7 +194,7 @@ var HelpMeChoose = React.createClass({
                     <div className='col-lg-2 selected_year col-xs-12'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'year')}/>
                     </div>
-                    <div className='col-lg-9 range col-xs-12'>
+                    <div className='col-lg-9 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -211,7 +211,7 @@ var HelpMeChoose = React.createClass({
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'avg_rate')}/>
                       <p>Investment return rate</p>
                     </div>
-                    <div className='col-lg-9 range col-xs-12'>
+                    <div className='col-lg-9 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -227,7 +227,7 @@ var HelpMeChoose = React.createClass({
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'tax_rate')}/>
                       <p>Effective tax rate</p>
                     </div>
-                    <div className='col-lg-9 range col-xs-12'>
+                    <div className='col-lg-9 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>

@@ -87,7 +87,7 @@ var MortgageRates = React.createClass({
                 <Filter programs={this.props.bootstrapData.programs} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterProgram}></Filter>
               </div>
               <div className="col-xs-12 col-sm-9 account-content padding-left-50">
-                <div className="row actions">
+                <div className="row actions text-xs-justify">
                   <p>
                     We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one on your own or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
                   </p>

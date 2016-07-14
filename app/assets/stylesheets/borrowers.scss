@@ -14,12 +14,12 @@
     background-color: #fff;
   }
 
-  .borrower-profile {
-    @include respond-to(mobile){
-      padding-left: 0px;
-      padding-right: 0px;
-    }
-  }
+  // .borrower-profile {
+  //   @include respond-to(mobile){
+  //     padding-left: 0px;
+  //     padding-right: 0px;
+  //   }
+  // }
 
   .nav {
     padding-left: 0;

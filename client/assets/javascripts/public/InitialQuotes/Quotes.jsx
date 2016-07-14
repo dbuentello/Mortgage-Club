@@ -175,7 +175,7 @@ var Quotes = React.createClass({
                       </div>
                       <div className="col-xs-12 col-sm-9 account-content">
                         <div className="mobile-xs-quote">
-                          <div className="visible-xs">
+                          <div className="visible-xs text-xs-justify">
                             <p>
                               We’ve found {this.state.quotes ? this.state.quotes.length : 0} loan programs for you. You can sort, filter and choose one on your own or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
                             </p>
@@ -184,10 +184,10 @@ var Quotes = React.createClass({
                             </p>
                           </div>
                           <div className="row form-group visible-xs">
-                            <div className="col-xs-5 text-left">
-                              <a className="btn btn-mc-green text-uppercase" onClick={this.helpMeChoose}>help me choose</a>
+                            <div className="col-xs-12 text-left text-xs-center">
+                              <a className="btn text-uppercase help-me-choose-btn" onClick={this.helpMeChoose}>help me choose</a>
                             </div>
-                            <div className="col-xs-2 text-left">
+                            <div className="col-xs-5 text-left">
                               <a className="btn btn-filter text-uppercase" data-toggle="modal" data-target="#filterQuotes">Filter</a>
                             </div>
                             <div className="modal fade" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -204,6 +204,9 @@ var Quotes = React.createClass({
                                   </div>
                                 </div>
                               </div>
+                            </div>
+                            <div className="col-xs-3 text-xs-right">
+                              <b>Sort by</b>
                             </div>
                             <div className="col-xs-4 select-box pull-right">
                               <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
