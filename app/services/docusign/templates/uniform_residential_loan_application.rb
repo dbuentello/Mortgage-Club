@@ -6,8 +6,6 @@ module Docusign
     #
     # Class UniformResidentialLoanApplication provides mapping values to Uniform Residential form.
     #
-    #
-    #
     class UniformResidentialLoanApplication
       include FinanceFormulas
       include ActionView::Helpers::NumberHelper
@@ -419,13 +417,14 @@ module Docusign
       end
 
       def build_gross_monthly_income(role, borrower)
+        borrower.gross_bonus = borrower.gross_bonus.to_f / 12 if borrower.gross_bonus.present?
+        borrower.gross_commission = borrower.gross_commission.to_f / 12 if borrower.gross_commission.present?
         @params[(role + "_total_monthly_income").to_sym] = build_total_monthly_income(borrower)
         @params[(role + "_base_income").to_sym] = number_to_currency(build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency), unit: "")
         @params[(role + "_overtime").to_sym] = number_to_currency(borrower.gross_overtime.to_f, unit: "")
         @params[(role + "_bonuses").to_sym] = number_to_currency(borrower.gross_bonus.to_f, unit: "")
         @params[(role + "_commissions").to_sym] = number_to_currency(borrower.gross_commission.to_f, unit: "")
         @params[(role + "_interest").to_sym] = number_to_currency(borrower.gross_interest.to_f, unit: "")
-
         @params[:total_base_income] = @params[:total_base_income].to_f + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
         @params[:total_overtime] = @params[:total_overtime].to_f + borrower.gross_overtime.to_f
         @params[:total_bonuses] = @params[:total_bonuses].to_f + borrower.gross_bonus.to_f
@@ -434,7 +433,7 @@ module Docusign
       end
 
       def build_total_monthly_income(borrower)
-        borrower.gross_overtime.to_f + borrower.gross_bonus.to_f + borrower.gross_bonus.to_f + borrower.gross_commission.to_f + borrower.gross_interest.to_f + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
+        borrower.gross_overtime.to_f + borrower.gross_bonus.to_f + borrower.gross_commission.to_f + borrower.gross_interest.to_f + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
       end
 
       def build_monthly_income(current_salary, pay_frequency)
