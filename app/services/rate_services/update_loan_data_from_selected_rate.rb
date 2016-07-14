@@ -25,7 +25,7 @@ module RateServices
         if loan_type.downcase.include? "conventional"
           l.loan_type = "Conventional"
         else
-          l.loan_type = loan_type
+          l.loan_type = loan_type.upcase
         end
         l.estimated_closing_costs = quote[:total_closing_cost].to_f
         l.pmi_monthly_premium_amount = quote[:pmi_monthly_premium_amount].to_f
