@@ -173,7 +173,7 @@ var Quotes = React.createClass({
                       <div className="col-xs-12 col-md-3 subnav hidden-xs programs-filter">
                         <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
                       </div>
-                      <div className="col-xs-12 col-sm-9 account-content padding-left-50">
+                      <div className="col-xs-12 col-sm-9 account-content">
                         <div className="mobile-xs-quote">
                           <div className="visible-xs">
                             <p>

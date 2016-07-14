@@ -160,7 +160,7 @@ var ReferralsTab = React.createClass({
               </div>
             </div>
         </div>
-        <div className="box boxBasic backgroundBasic">
+        <div className="box boxBasic backgroundBasic list-invites">
             <div className='boxHead bbs'>
               <h4 className='typeBold'>Your Referrals</h4>
             </div>
