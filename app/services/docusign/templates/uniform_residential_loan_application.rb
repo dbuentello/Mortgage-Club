@@ -112,17 +112,32 @@ module Docusign
         # leave blank now
         # subordinate_financing
         # closing_costs_paid_by_seller
-        @params[:purchase_price] = number_to_currency(subject_property.purchase_price.to_f, unit: "")
-        @params[:refinance] = number_to_currency(loan.amount, unit: "") if loan.refinance?
+        s7_a = subject_property.purchase_price.to_f
+        s7_b = 0
+        s7_c = 0
+        loan.refinance? ? s7_d = loan.amount : s7_d = 0
+        s7_e = 0
+        s7_f = 0
+        s7_g = 0
+        s7_h = 0
+        s7_i = s7_a + s7_b + s7_c + s7_e + s7_f + s7_g + s7_h
+        s7_j = 0
+        s7_k = 0
+        s7_l = loan.other_credits.to_f
+        s7_o = loan.amount
+        s7_p = s7_i - s7_j - s7_k - s7_l - s7_o
+
+        @params[:purchase_price] = number_to_currency(s7_a, unit: "")
+        @params[:refinance] = number_to_currency(s7_d, unit: "")
         # @params[:prepaid_items] = number_to_currency(loan.estimated_prepaid_items.to_f, unit: "")
         # @params[:closing_costs] = number_to_currency(loan.estimated_closing_costs.to_f, unit: "")
         # @params[:pmi_mip] = number_to_currency(loan.pmi_mip_funding_fee.to_f, unit: "")
-        @params[:other_credits] = number_to_currency(loan.other_credits.to_f, unit: "")
-        @params[:loan_amount_exclude_pmi] = number_to_currency((loan.amount - loan.pmi_mip_funding_fee.to_f), unit: "")
-        @params[:pmi_mip_financed] = number_to_currency(loan.pmi_mip_funding_fee_financed.to_f, unit: "")
-        @params[:loan_amount_m_n] = number_to_currency(loan.amount, unit: "")
-        @params[:borrower_cash] = number_to_currency((borrower_cash), unit: "")
-        @params[:total_costs] = number_to_currency((total_cost_transactions), unit: "")
+        @params[:other_credits] = number_to_currency(s7_l, unit: "")
+        # @params[:loan_amount_exclude_pmi] = number_to_currency((loan.amount - loan.pmi_mip_funding_fee.to_f), unit: "")
+        # @params[:pmi_mip_financed] = number_to_currency(loan.pmi_mip_funding_fee_financed.to_f, unit: "")
+        @params[:loan_amount_m_n] = number_to_currency(s7_o, unit: "")
+        @params[:borrower_cash] = number_to_currency((s7_p), unit: "")
+        @params[:total_costs] = number_to_currency((s7_i), unit: "")
       end
 
       def build_section_8
@@ -243,21 +258,23 @@ module Docusign
         total_rental_property_income = 0
         total_rental_insurance_taxes = 0
         total_rental_net_income = 0
+        total_rental_mortgage_payment = 0
         loan.properties.each do |p|
           next unless !p.is_primary && !p.is_subject
           count += 1
           nth = count.to_s
-          mortgage_payment = 0
           @params["rental_property_address_" + nth] = p.address.address
           @params["rental_property_status_" + nth] = "R"
           @params["rental_property_type_" + nth] = get_property_type(p.property_type)
           @params["rental_property_market_price_" + nth] = number_to_currency(p.market_price.to_f, unit: "")
           @params["rental_property_income_" + nth] = number_to_currency(p.gross_rental_income.to_f, unit: "")
           @params["rental_property_liens_" + nth] = number_to_currency(p.total_liability_balance.to_f, unit: "")
+          @params["rental_property_mortgage_payment_" + nth] = number_to_currency(p.estimated_principal_interest.to_f, unit: "")
+          total_rental_mortgage_payment += p.estimated_principal_interest
           rental_taxes = (p.estimated_property_tax + p.estimated_hazard_insurance).to_f / 12
           @params["rental_insurance_taxes_" + nth] = number_to_currency(rental_taxes, unit: "")
           total_rental_insurance_taxes += rental_taxes
-          rental_net_income = 0.75 * p.gross_rental_income.to_f - mortgage_payment - rental_taxes
+          rental_net_income = 0.75 * p.gross_rental_income.to_f - p.estimated_principal_interest - rental_taxes
           @params["rental_net_income_" + nth] = number_to_currency(rental_net_income, unit: "")
           total_rental_net_income += rental_net_income
           total_market_price += p.market_price
@@ -267,6 +284,7 @@ module Docusign
         @params["total_market_price"] = total_market_price
         @params["total_liens"] = number_to_currency(total_liens.to_f, unit: "")
         @params["total_rental_property_income"] = number_to_currency(total_rental_property_income.to_f, unit: "")
+        @params["total_rental_mortgage_payment"] = number_to_currency(total_rental_mortgage_payment.to_f, unit: "")
         @params["total_rental_insurance_taxes"] = number_to_currency(total_rental_insurance_taxes.to_f, unit: "")
         @params["total_rental_net_income"] = number_to_currency(total_rental_net_income.to_f, unit: "")
       end
@@ -316,7 +334,7 @@ module Docusign
                                             property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f, unit: "")
 
         @params[(type + "_rent").to_sym] = number_to_currency(borrower.current_address.monthly_rent, unit: "") if primary_property && borrower.current_address.is_rental
-        if type == "present"
+        if type == "proposed"
           @params[(type + "_mortgage").to_sym] = number_to_currency(@loan.monthly_payment.to_f, unit: "")
         else
           @params[(type + "_mortgage").to_sym] = number_to_currency(property.mortgage_payment.to_f, unit: "")
@@ -329,17 +347,19 @@ module Docusign
         @params[(type + "_homeowner").to_sym] = number_to_currency(property.hoa_due.to_f, unit: "")
       end
 
-      def total_cost_transactions
-        @total_cost_transactions ||= (subject_property.purchase_price.to_f + loan.estimated_prepaid_items.to_f +
-                                      loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f).round(2)
-      end
+      # def total_cost_transactions
+      #   #1113
+      #   # @total_cost_transactions ||= (subject_property.purchase_price.to_f + loan.estimated_prepaid_items.to_f +
+      #   #                               loan.estimated_closing_costs.to_f + loan.pmi_mip_funding_fee.to_f).round(2)
+      #   @total_cost_transactions ||= (subject_property.purchase_price.to_f).round(2)
+      # end
 
-      def borrower_cash
-        subordinate_financing = 0
-        closing_costs_paid_by_seller = 0
-        (total_cost_transactions - subordinate_financing - closing_costs_paid_by_seller -
-          loan.other_credits.to_f - loan.amount.to_f).round(2)
-      end
+      # def borrower_cash
+      #   subordinate_financing = 0
+      #   closing_costs_paid_by_seller = 0
+      #   (total_cost_transactions - subordinate_financing - closing_costs_paid_by_seller -
+      #     loan.other_credits.to_f - loan.amount.to_f).round(2)
+      # end
 
       def build_declaration(role, borrower)
         # declarations_borrower_l_yes
