@@ -124,11 +124,8 @@ var Underwriting = React.createClass({
             <div className='col-sm-4'>
               <div id="percent">0%</div>
             </div>
-
-            <div className='col-sm-8'>
-              <div className="row1">
-                <div id="status">Checking property eligibility</div>
-              </div>
+            <div className='col-sm-8 text-xs-center'>
+              <div id="status">Checking property eligibility</div>
             </div>
           </div>
           <div id='errors' className='row mtl hidden'>
