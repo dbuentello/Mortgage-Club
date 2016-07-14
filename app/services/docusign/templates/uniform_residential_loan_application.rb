@@ -27,8 +27,8 @@ module Docusign
         build_section_2
         build_section_3
         build_section_4
-        build_section_5
         build_section_6
+        build_section_5
         build_section_7
         build_section_8
         build_section_10
@@ -101,6 +101,8 @@ module Docusign
           @params[:total_interest] = number_to_currency(@params[:total_dividends].to_f, unit: "")
           @params[:total_rental_income] = number_to_currency(get_net_value, unit: "")
         end
+        @params["total_rental_net_income"] = number_to_currency(get_net_value, unit: "")
+        @params[:ren]
       end
 
       def build_section_6
@@ -290,7 +292,7 @@ module Docusign
         @params["total_rental_property_income"] = number_to_currency(total_rental_property_income.to_f, unit: "")
         @params["total_rental_mortgage_payment"] = number_to_currency(total_rental_mortgage_payment.to_f, unit: "")
         @params["total_rental_insurance_taxes"] = number_to_currency(total_rental_insurance_taxes.to_f, unit: "")
-        @params["total_rental_net_income"] = number_to_currency(total_rental_net_income.to_f, unit: "")
+        @params["total_rental_net_income"] = total_rental_net_income.to_f
       end
 
       def get_property_type(property_type)
@@ -536,7 +538,8 @@ module Docusign
       end
 
       def get_net_value
-        @net_value ||= UnderwritingLoanServices::CalculateRentalIncome.call(loan)
+        @net_value = @params["total_rental_net_income"]
+        # @net_value ||= UnderwritingLoanServices::CalculateRentalIncome.call(loan)
       end
 
       def get_primary_property
