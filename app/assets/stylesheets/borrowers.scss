@@ -23,6 +23,18 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
+  .referal-tab {
+    @include respond-to(mobile) {
+      .boxBody {
+        padding: 0px;
+      }
+      .ptm {
+        padding: 0px !important;
+      }
+    }
+  }
+
   .nav.mortgageTabs>li>a {
     padding: 14px auto;
     width: 120px;
@@ -92,6 +104,9 @@
     height: 43px;
     font-size: 1.125em;
     padding-top: 10px;
+    @include respond-to(mobile){
+      margin-top: 10px;
+    }
   }
   .copy-btn:hover {
     background-color: #15c0f1;
