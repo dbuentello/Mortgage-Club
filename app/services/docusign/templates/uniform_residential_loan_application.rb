@@ -79,6 +79,10 @@ module Docusign
       end
 
       def build_section_5
+        if borrower.current_address.is_rental
+          @params[:present_rent] = number_to_currency(borrower.current_address.monthly_rent.to_f, unit: "")
+          @params[:present_total] = @params[:present_rent]
+        end
         build_gross_monthly_income("borrower", borrower)
         build_gross_monthly_income("co_borrower", loan.secondary_borrower) if loan.secondary_borrower.present?
         build_housing_expense("proposed", subject_property)
@@ -329,15 +333,18 @@ module Docusign
       end
 
       def build_housing_expense(type, property)
-        @params[(type + "_total").to_sym] = number_to_currency(property.mortgage_payment.to_f + property.other_financing.to_f +
-                                            get_monthly_value(property.estimated_hazard_insurance) + get_monthly_value(property.estimated_property_tax) +
-                                            property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f, unit: "")
+        total_sub_primary = property.other_financing.to_f +
+                            get_monthly_value(property.estimated_hazard_insurance) + get_monthly_value(property.estimated_property_tax) +
+                            property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f
 
         @params[(type + "_rent").to_sym] = number_to_currency(borrower.current_address.monthly_rent, unit: "") if primary_property && borrower.current_address.is_rental
         if type == "proposed"
           @params[(type + "_mortgage").to_sym] = number_to_currency(@loan.monthly_payment.to_f, unit: "")
+          @params[(type + "_total").to_sym] = number_to_currency(@loan.monthly_payment.to_f + total_sub_primary, unit: "")
         else
           @params[(type + "_mortgage").to_sym] = number_to_currency(property.mortgage_payment.to_f, unit: "")
+          @params[(type + "_total").to_sym] = number_to_currency(property.mortgage_payment.to_f + total_sub_primary, unit: "")
+
         end
 
         @params[(type + "_other_financing").to_sym] = number_to_currency(property.other_financing.to_f, unit: "")
