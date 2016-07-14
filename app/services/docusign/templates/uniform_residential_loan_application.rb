@@ -115,7 +115,7 @@ module Docusign
         s7_a = subject_property.purchase_price.to_f
         s7_b = 0
         s7_c = 0
-        loan.refinance? s7_d = loan.amount : s7_d = 0
+        loan.refinance? ? s7_d = loan.amount : s7_d = 0
         s7_e = 0
         s7_f = 0
         s7_g = 0
@@ -258,21 +258,23 @@ module Docusign
         total_rental_property_income = 0
         total_rental_insurance_taxes = 0
         total_rental_net_income = 0
+        total_rental_mortgage_payment = 0
         loan.properties.each do |p|
           next unless !p.is_primary && !p.is_subject
           count += 1
           nth = count.to_s
-          mortgage_payment = 0
           @params["rental_property_address_" + nth] = p.address.address
           @params["rental_property_status_" + nth] = "R"
           @params["rental_property_type_" + nth] = get_property_type(p.property_type)
           @params["rental_property_market_price_" + nth] = number_to_currency(p.market_price.to_f, unit: "")
           @params["rental_property_income_" + nth] = number_to_currency(p.gross_rental_income.to_f, unit: "")
           @params["rental_property_liens_" + nth] = number_to_currency(p.total_liability_balance.to_f, unit: "")
+          @params["rental_property_mortgage_payment_" + nth ] = number_to_currency(p.estimated_principal_interest.to_f, unit: "")
+          total_rental_mortgage_payment += p.estimated_principal_interest
           rental_taxes = (p.estimated_property_tax + p.estimated_hazard_insurance).to_f / 12
           @params["rental_insurance_taxes_" + nth] = number_to_currency(rental_taxes, unit: "")
           total_rental_insurance_taxes += rental_taxes
-          rental_net_income = 0.75 * p.gross_rental_income.to_f - mortgage_payment - rental_taxes
+          rental_net_income = 0.75 * p.gross_rental_income.to_f - p.estimated_principal_interest - rental_taxes
           @params["rental_net_income_" + nth] = number_to_currency(rental_net_income, unit: "")
           total_rental_net_income += rental_net_income
           total_market_price += p.market_price
@@ -282,6 +284,7 @@ module Docusign
         @params["total_market_price"] = total_market_price
         @params["total_liens"] = number_to_currency(total_liens.to_f, unit: "")
         @params["total_rental_property_income"] = number_to_currency(total_rental_property_income.to_f, unit: "")
+        @params["total_rental_mortgage_payment"] = number_to_currency(total_rental_mortgage_payment.to_f, unit: "")
         @params["total_rental_insurance_taxes"] = number_to_currency(total_rental_insurance_taxes.to_f, unit: "")
         @params["total_rental_net_income"] = number_to_currency(total_rental_net_income.to_f, unit: "")
       end
