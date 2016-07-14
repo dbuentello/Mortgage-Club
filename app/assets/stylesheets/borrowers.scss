@@ -6,9 +6,19 @@
     top: 50px;
     right: 15px;
     border-left: #c3c3c3 1px solid;
+    @include respond-to(mobile){
+      top:35px;
+    }
   }
   .container {
     background-color: #fff;
+  }
+
+  .borrower-profile {
+    @include respond-to(mobile){
+      padding-left: 0px;
+      padding-right: 0px;
+    }
   }
 
   .nav {
@@ -58,6 +68,11 @@
     padding: 20px;
     border: #bebebe 1px solid;
     border-radius: 4px;
+
+    @include respond-to(mobile){
+      margin-left:5px;
+      margin-right:5px;
+    }
   }
   .loan-item-holder p {
     margin-bottom: 8px;

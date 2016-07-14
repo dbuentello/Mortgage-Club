@@ -83,7 +83,7 @@ var ReferralsTab = React.createClass({
   render: function() {
     return (
       <div>
-        <div className="box boxBasic backgroundBasic">
+        <div className="box boxBasic backgroundBasic referal-tab">
             <div className='boxHead bbs'>
               <h4 className='typeBold'>Referrals Program</h4>
             </div>
