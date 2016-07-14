@@ -269,7 +269,7 @@ module Docusign
           @params["rental_property_market_price_" + nth] = number_to_currency(p.market_price.to_f, unit: "")
           @params["rental_property_income_" + nth] = number_to_currency(p.gross_rental_income.to_f, unit: "")
           @params["rental_property_liens_" + nth] = number_to_currency(p.total_liability_balance.to_f, unit: "")
-          @params["rental_property_mortgage_payment_" + nth ] = number_to_currency(p.estimated_principal_interest.to_f, unit: "")
+          @params["rental_property_mortgage_payment_" + nth] = number_to_currency(p.estimated_principal_interest.to_f, unit: "")
           total_rental_mortgage_payment += p.estimated_principal_interest
           rental_taxes = (p.estimated_property_tax + p.estimated_hazard_insurance).to_f / 12
           @params["rental_insurance_taxes_" + nth] = number_to_currency(rental_taxes, unit: "")
@@ -334,7 +334,7 @@ module Docusign
                                             property.estimated_mortgage_insurance.to_f + property.hoa_due.to_f, unit: "")
 
         @params[(type + "_rent").to_sym] = number_to_currency(borrower.current_address.monthly_rent, unit: "") if primary_property && borrower.current_address.is_rental
-        if type == "present"
+        if type == "proposed"
           @params[(type + "_mortgage").to_sym] = number_to_currency(@loan.monthly_payment.to_f, unit: "")
         else
           @params[(type + "_mortgage").to_sym] = number_to_currency(property.mortgage_payment.to_f, unit: "")
