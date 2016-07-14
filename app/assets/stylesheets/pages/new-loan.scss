@@ -432,6 +432,10 @@
     padding: 40px;
     text-align: center;
 
+    @include respond-to(mobile){
+      margin-bottom: 100px;
+    };
+
     h1 {
       line-height: 40px;
       padding-bottom: 20px;
@@ -508,6 +512,9 @@
     border:none; right:-10px;
     margin-right:10px;
   }
+  @include respond-to(mobile){
+    margin-bottom: 80px;
+  };
 }
 
 #continueBtn:hover {
