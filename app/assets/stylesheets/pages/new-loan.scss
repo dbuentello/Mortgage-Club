@@ -135,6 +135,9 @@
     float: right;
     color:#525252;
     margin-top:3px;
+    @include respond-to(mobile) {
+      margin-right:5px;
+    }
   }
 
   ul li:hover a { background: #dfe1e5; }
@@ -538,6 +541,11 @@
   float:left;
   font-size: 14px;
   margin-top: 20px;
+
+  @include respond-to(mobile){
+    margin-bottom: 90px;
+  }
+
   img {
     position:relative;
     margin-top:6px;
