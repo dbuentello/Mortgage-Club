@@ -2,7 +2,7 @@ class InitialQuotesController < ApplicationController
   layout "landing"
   skip_before_action :authenticate_user!
   before_action :set_mixpanel_token, only: [:index]
-
+  before_action :set_quote, only: [:set_rate_alert]
   def index
     quote_cookies = get_quote_cookies
 
@@ -24,7 +24,6 @@ class InitialQuotesController < ApplicationController
 
   def create
     quote_query = QuoteQuery.new(query: quotes_params.to_json)
-
     render json: {code_id: quote_query.code_id} if quote_query.save
   end
 
@@ -54,6 +53,12 @@ class InitialQuotesController < ApplicationController
     end
   end
 
+  def set_rate_alert
+    @quote.email = params[:email]
+    @quote.save!
+    head :ok
+  end
+
   def save_info
     cookies[:initial_quotes] = {value: quotes_params.to_json, expires: 7.days.from_now}
 
@@ -61,6 +66,10 @@ class InitialQuotesController < ApplicationController
   end
 
   private
+
+  def set_quote
+    @quote = QuoteQuery.find_by_code_id(params[:code_id])
+  end
 
   def get_quote_cookies
     return {} if cookies[:initial_quotes].nil?
