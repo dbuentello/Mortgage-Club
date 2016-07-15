@@ -47,6 +47,33 @@ var Filter = React.createClass({
     return (
       <div>
         <div id="sidebar">
+            <span>
+                <a className="btn btn-mc" data-toggle="modal" data-target="#email_alert">Rate alert</a>
+
+
+              <div className="modal fade" id="email_alert" tabIndex="-1" role="dialog" aria-labelledby="email_alert_label">
+                <div className="modal-dialog modal-md" role="document">
+                  <div className="modal-content">
+                    <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
+                    <div className="modal-body text-center">
+                      <h2>Rate alert</h2>
+                      <h3 className="mc-blue-primary-text">Some text here</h3>
+
+                      <form className="form-horizontal">
+                        <div className="form-group">
+                          <div className="col-md-6">
+                            <button type="button" className="btn btn-default" data-dismiss="modal">Cancel</button>
+                          </div>
+                          <div className="col-md-6">
+                            <button type="button" className="btn btn-mc">Send</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </span>
           <h5>Programs</h5>
           <input type="checkbox" name="30years" id="30years" checked={this.isCriteriaChecked("30 year fixed")} onChange={_.bind(this.onChangeCriteria, null, "30 year fixed", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="30years">30 year fixed</label>
