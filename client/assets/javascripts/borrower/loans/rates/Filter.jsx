@@ -82,6 +82,8 @@ var Filter = React.createClass({
            data: {
              email: this.state.email,
              code_id: this.props.code_id,
+             first_name: this.state.first_name,
+             last_name: this.state.last_name
            },
            success: function(response) {
              this.setState({saving: true});

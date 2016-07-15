@@ -56,8 +56,10 @@ class InitialQuotesController < ApplicationController
   end
 
   def set_rate_alert
-    @quote.email = params[:email]
-    @quote.save!
+    @rate_alert = RateAlertQuoteQuery.new(rate_alert_quote_params)
+    @rate_alert.code_id = @quote.code_id
+    @rate_alert.quote_query_id = @quote.id
+    @rate_alert.save!
     render json: {success: true}, status: 200
   end
 
@@ -83,6 +85,10 @@ class InitialQuotesController < ApplicationController
     end
 
     info
+  end
+
+  def rate_alert_quote_params
+    params.permit(:email, :first_name, :last_name)
   end
 
   def quotes_params
