@@ -215,6 +215,11 @@
 }
 
 .mortgage-rates {
+  .filter-sidebar {
+    label {
+      font-weight: normal;
+    }
+  }
   .custom-left-mortgage-rates {
     margin-left: -19px;
     @include respond-to(mobile) {
