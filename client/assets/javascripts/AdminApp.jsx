@@ -39,6 +39,8 @@ var EditPotentialUserPage = require("admin/potential_user_managements/EditPage")
 var PotentialRateDropUserManagements = require("admin/potential_rate_drop_user_managements/Managements");
 var EditPotentialRateDropUserPage = require("admin/potential_rate_drop_user_managements/EditPage");
 
+var RateAlertQuoteQueryManagements = require("admin/rate_alert_quote_query_management/Managements");
+
 var BorrowerManagements = require("admin/borrower_managements/Borrowers");
 
 var HomepageRateManagement = require("admin/homepage_rate_managements/Managements");
@@ -96,6 +98,8 @@ var routes = (
     <Route path="/potential_user_managements/:id/edit" handler={EditPotentialUserPage}/>
     <Route name="/potential_rate_drop_user_managements" path="/potential_rate_drop_user_managements" handler={PotentialRateDropUserManagements}/>
     <Route path="/potential_rate_drop_user_managements/:id/edit" handler={EditPotentialRateDropUserPage}/>
+      <Route name="/rate_alert_quote_query_managements" path="/rate_alert_quote_query_managements" handler={RateAlertQuoteQueryManagements}/>
+
     <Route path="/borrower_managements" handler={BorrowerManagements}/>
     <Route path="/mortgage_data" handler={MortgageData}/>
     <Route path="/mortgage_data/:id" handler={MortgageDataRecord}/>

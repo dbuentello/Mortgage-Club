@@ -41,7 +41,6 @@ class InitialQuotesController < ApplicationController
       quotes = LoanTekServices::GetInitialQuotes.new(query).call
       monthly_payment = ZillowService::GetMonthlyPayment.new(query).call
     end
-
     bootstrap(
       code_id: quote_query.code_id,
       quotes: quotes,
@@ -56,6 +55,7 @@ class InitialQuotesController < ApplicationController
   end
 
   def set_rate_alert
+    # @quotes = LoanTekServices::GetInitialQuotes.new(@quote.query).call
     @rate_alert = RateAlertQuoteQuery.new(rate_alert_quote_params)
     @rate_alert.code_id = @quote.code_id
     @rate_alert.quote_query_id = @quote.id
