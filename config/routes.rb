@@ -216,6 +216,7 @@ Rails.application.routes.draw do
   resources :initial_quotes, only: [:index, :show, :create], path: "quotes" do
     collection do
       post "save_info"
+      post "set_rate_alert"
     end
   end
 
