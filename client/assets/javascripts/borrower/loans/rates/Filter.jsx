@@ -84,7 +84,7 @@ var Filter = React.createClass({
           </div>
           <h5>
             <a role="button" data-toggle="collapse" href=".helpme-sidebar-collapse" aria-expanded="true" aria-controls="helpme-sidebar-collapse">
-              Show all lenders<span className="glyphicon glyphicon-menu-down"></span>
+              Show all lenders
             </a>
           </h5>
         </div>

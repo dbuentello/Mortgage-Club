@@ -177,11 +177,15 @@ var HelpMeChoose = React.createClass({
     return (
       <div>
         <div className="row white-background">
-          <div className="row navigation-section">
-            <button className="btn back-btn btn-mc" onClick={this.props.backToRatePage}>Back to results</button>
-          </div>
           <div className='row helpmechoose'>
-            <p>Our proprietary True Cost of Mortgage algorithm helps you choose the best mortgage by comparing the future values of down payment and mortgage payments (adjusted for tax savings and opportunity costs) for each loan program.</p>
+            <div className='col-lg-7 div-back-to-results'>
+              <a onClick={this.props.backToRatePage} className="back-to-results"><span>Back to results</span></a>
+            </div>
+            <div className='col-lg-7 text-xs-justify'>
+              <div className='row col-lg-11'>
+                Our proprietary True Cost of Mortgage algorithm helps you choose the best mortgage by comparing the future values of down payment and mortgage payments (adjusted for tax savings and opportunity costs) for each loan program.
+              </div>
+            </div>
             <div className='col-lg-7'>
               <div className='row col-lg-11 calculator'>
                 <div className='years_chart mtxl'>

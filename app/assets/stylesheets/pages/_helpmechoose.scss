@@ -65,8 +65,8 @@
     padding: 25px;
     .secondary-cost {
       line-height: 1.437em;
-      font-weight: 300;
-      color: #999;
+      font-weight: 500;
+      color: #555555;
       font-size: 16px;
     }
     .bankname {
@@ -173,6 +173,17 @@
     transform: rotate(45deg);
     cursor: pointer;
   }
+}
+.div-back-to-results {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.back-to-results {
+  font-size: 16px;
+}
+.back-to-results:hover {
+  cursor: pointer;
+  color: $mc-color;
 }
 .back-btn {
   background: $mc-color;
