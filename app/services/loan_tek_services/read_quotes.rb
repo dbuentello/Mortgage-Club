@@ -61,6 +61,8 @@ module LoanTekServices
       end
 
       programs.each do |program|
+        next if characteristics[program[:product]].nil?
+
         if program[:apr] == characteristics[program[:product]][:apr]
           program[:characteristic] = "Of all #{program[:product]} mortgages on MortgageClub that you've qualified for, this one has the lowest APR."
         elsif program[:interest_rate] == characteristics[program[:product]][:interest_rate]
@@ -71,7 +73,7 @@ module LoanTekServices
       end
 
       programs = programs.reject do |program|
-        program[:apr] - characteristics[program[:product]][:apr] > 0.00625
+        characteristics[program[:product]].nil? || (program[:apr] - characteristics[program[:product]][:apr] > 0.00625)
       end
     end
 

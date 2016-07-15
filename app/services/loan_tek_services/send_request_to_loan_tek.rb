@@ -19,6 +19,7 @@ module LoanTekServices
           LoanToValue: params[:loan_to_value],
           PropertyUsage: params[:property_usage],
           PropertyType: params[:property_type],
+          ProductFamily: product_family,
           FHALoan: false
         }.to_json
       end
@@ -63,6 +64,10 @@ module LoanTekServices
 
     def self.success?
       @response.status == 200
+    end
+
+    def self.product_family
+      "CONVENTIONAL"
     end
   end
 end
