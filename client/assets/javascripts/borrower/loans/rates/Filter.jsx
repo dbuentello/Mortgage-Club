@@ -46,7 +46,7 @@ var Filter = React.createClass({
   render: function() {
     return (
       <div>
-        <div id="sidebar">
+        <div id="sidebar" className="filter-sidebar">
           <h5>Programs</h5>
           <input type="checkbox" name="30years" id="30years" checked={this.isCriteriaChecked("30 year fixed")} onChange={_.bind(this.onChangeCriteria, null, "30 year fixed", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="30years">30 year fixed</label>
@@ -59,9 +59,6 @@ var Filter = React.createClass({
           <br/>
           <input type="checkbox" name="51arm" id="51arm" checked={this.isCriteriaChecked("5/1 ARM")} onChange={_.bind(this.onChangeCriteria, null, "5/1 ARM", "product")}/>
           <label className="customCheckbox blueCheckBox2" htmlFor="51arm">5/1 ARM</label>
-          <br/>
-          <input type="checkbox" name="fha" id="fha" checked={this.isCriteriaChecked("FHA")} onChange={_.bind(this.onChangeCriteria, null, "FHA", "product")}/>
-          <label className="customCheckbox blueCheckBox2" htmlFor="fha">FHA</label>
           <h5>Wholesale lenders</h5>
           {
             _.map(this.getFeaturedLenders(), function(lender) {
@@ -73,11 +70,6 @@ var Filter = React.createClass({
               )
             }, this)
           }
-          <h5>
-            <a role="button" data-toggle="collapse" href=".helpme-sidebar-collapse" aria-expanded="true" aria-controls="helpme-sidebar-collapse">
-              Show all lenders<span className="glyphicon glyphicon-menu-down"></span>
-            </a>
-          </h5>
           <div className="collapse helpme-sidebar-collapse">
             {
               _.map(this.getRemainingLenders(), function(lender) {
@@ -90,6 +82,11 @@ var Filter = React.createClass({
               }, this)
             }
           </div>
+          <h5>
+            <a role="button" data-toggle="collapse" href=".helpme-sidebar-collapse" aria-expanded="true" aria-controls="helpme-sidebar-collapse">
+              Show all lenders
+            </a>
+          </h5>
         </div>
         <div className="swipe-area">
           <a href="#" data-toggle=".subnav" id="sidebar-toggle">

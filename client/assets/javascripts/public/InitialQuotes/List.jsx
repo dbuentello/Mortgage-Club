@@ -296,6 +296,7 @@ var List = React.createClass({
                         :
                           null
                       }
+                      <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub 1% in commission.</p>
                     </div>
                   </div>
                   <Chart id={index} principle={quote.monthly_payment} mortgageInsurance={0} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}

@@ -23,7 +23,9 @@ module HomepageRateServices
           PropertyUsage: 1,
           PropertyType: 1,
           QuoteTypesToReturn: [-1, 0, 1],
-          LoanProgramsOfInterest: [1, 2, 3]
+          LoanProgramsOfInterest: [1, 2, 3, 9],
+          FHALoan: false,
+          ProductFamily: "CONVENTIONAL"
         }.to_json
       end
       response.status == 200 ? sort_rates(LoanTekServices::ReadQuotes.call(JSON.parse(response.body)["Quotes"], loan_purpose)) : []
