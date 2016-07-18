@@ -44,6 +44,7 @@ module LoanTekServices
       end
       programs = build_characteristics(programs)
       programs.sort_by { |program| program[:apr] }
+      byebug
     end
 
     def self.build_characteristics(programs)
@@ -59,7 +60,6 @@ module LoanTekServices
           total_closing_cost: get_lowest_value(filtered_programs, :total_closing_cost)
         }
       end
-
       programs.each do |program|
         if program[:apr] == characteristics[program[:product]][:apr]
           program[:characteristic] = "Of all #{program[:product]} mortgages on MortgageClub that you've qualified for, this one has the lowest APR."
@@ -75,6 +75,21 @@ module LoanTekServices
       end
     end
 
+    def self.build_lowest_apr(quotes, loan_purpose)
+      programs = self.call(quotes, loan_purpose)
+      lowest_apr = {}
+      [
+        "30 year fixed", "15 year fixed",
+        "7/1 ARM", "5/1 ARM"
+      ].each do |type|
+        filtered_programs = filter_programs_by_product_type(programs, type)
+        lowest_apr[type] = get_lowest_program(filtered_programs, :apr)
+
+      end
+      byebug
+      lowest_apr
+    end
+
     def self.filter_programs_by_product_type(programs, product_type)
       programs.select { |p| p[:product] == product_type }
     end
@@ -85,6 +100,14 @@ module LoanTekServices
       min = programs.first[type]
       programs.each { |p| min = p[type] if min > p[type] }
       min
+    end
+
+    def self.get_lowest_program(programs, type)
+      return if programs.nil? || programs.empty?
+
+      program = programs.first
+      programs.each { |p| program = p if program[type] > p[type] }
+      program
     end
 
     def self.existing_program?(args)
