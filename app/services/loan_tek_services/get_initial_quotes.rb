@@ -22,6 +22,7 @@ module LoanTekServices
     end
 
     def lowest_apr
+      byebug
       quotes = LoanTekServices::SendRequestToLoanTek.call(
         zipcode: get_zipcode,
         credit_score: get_credit_score,
@@ -32,7 +33,7 @@ module LoanTekServices
         property_type: get_property_type
       )
 
-      quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose)
+      quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose)
     end
 
     private

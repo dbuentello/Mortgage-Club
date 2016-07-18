@@ -177,10 +177,15 @@ var HelpMeChoose = React.createClass({
     return (
       <div>
         <div className="row white-background">
-          <div className="row navigation-section">
-            <button className="btn back-btn btn-mc" onClick={this.props.backToRatePage}>Back </button>
-          </div>
           <div className='row helpmechoose'>
+            <div className='col-lg-7 div-back-to-results'>
+              <a onClick={this.props.backToRatePage} className="back-to-results"><span>Back to results</span></a>
+            </div>
+            <div className='col-lg-7 text-xs-justify'>
+              <div className='row col-lg-11'>
+                Our proprietary True Cost of Mortgage algorithm helps you choose the best mortgage by comparing the future values of total interest paid (adjusted for tax savings) and opportunity costs of both upfront cash to close and mortgage payments for each loan program.
+              </div>
+            </div>
             <div className='col-lg-7'>
               <div className='row col-lg-11 calculator'>
                 <div className='years_chart mtxl'>

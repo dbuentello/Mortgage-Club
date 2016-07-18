@@ -57,7 +57,18 @@ class InitialQuotesController < ApplicationController
 
   def set_rate_alert
     byebug
-    @quotes = LoanTekServices::GetInitialQuotes.new(@quote.query).call
+    @quotes = []
+    if @quote
+      begin
+        query = JSON.parse(@quote.query)
+      rescue JSON::ParserError
+        query = {}
+      end
+      byebug
+      @quotes = LoanTekServices::GetInitialQuotes.new(query).lowest_apr
+    end
+
+    # @quotes = LoanTekServices::GetInitialQuotes.new(@quote.query).call
     @rate_alert = RateAlertQuoteQuery.new(rate_alert_quote_params)
     @rate_alert.code_id = @quote.code_id
     @rate_alert.quote_query_id = @quote.id

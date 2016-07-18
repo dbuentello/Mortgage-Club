@@ -19,7 +19,8 @@ module LoanTekServices
           LoanToValue: params[:loan_to_value],
           PropertyUsage: params[:property_usage],
           PropertyType: params[:property_type],
-          CashOut: true
+          ProductFamily: product_family,
+          FHALoan: false
         }.to_json
       end
 
@@ -54,7 +55,7 @@ module LoanTekServices
     end
 
     def self.loan_programs_of_interest
-      [1, 2, 3]
+      [1, 2, 3, 9]
     end
 
     def self.quote_types_to_return
@@ -63,6 +64,10 @@ module LoanTekServices
 
     def self.success?
       @response.status == 200
+    end
+
+    def self.product_family
+      "CONVENTIONAL"
     end
   end
 end
