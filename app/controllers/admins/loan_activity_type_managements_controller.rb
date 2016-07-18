@@ -59,7 +59,7 @@ class Admins::LoanActivityTypeManagementsController < Admins::BaseController
   private
 
   def activity_type_params
-    params.require(:activity_type).permit(:label, :order_number, type_name_mapping: [])
+    params.require(:activity_type).permit(:label, :order_number, :notify_borrower_text, :notify_borrower_text_body, :notify_borrower_email, :notify_borrower_email_subject, :notify_borrower_email_body, type_name_mapping: [])
   end
 
   def set_activity_type
