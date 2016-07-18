@@ -26,13 +26,15 @@ var Form = React.createClass({
       return {
         label: this.props.ActivityType.label,
         type_name_mapping: this.props.ActivityType.type_name_mapping,
-        type_name: ""
+        type_name: "",
+        order_number: this.props.ActivityType.order_number
       };
     }else{
       return {
         label: "",
         type_name_mapping: [],
-        type_name: ""
+        type_name: "",
+        order_number: ""
       }
     }
   },
@@ -58,6 +60,7 @@ var Form = React.createClass({
         this.setState({
           label: response.activity_type.label,
           type_name_mapping: response.activity_type.type_name_mapping,
+          order_number: response.activity_type.order_number,
           saving: false
         });
         var flash = { "alert-success": response.message };
@@ -124,10 +127,19 @@ var Form = React.createClass({
           <div className="form-group">
             <div className="col-sm-4">
               <TextField
-                label="Label"
+                label="Activity Type"
                 keyName="label"
                 name="activity_type[label]"
                 value={this.state.label}
+                editable={true}
+                onChange={this.onChange}/>
+            </div>
+            <div className="col-sm-4">
+              <TextField
+                label="Order Number"
+                keyName="order_number"
+                name="activity_type[order_number]"
+                value={this.state.order_number}
                 editable={true}
                 onChange={this.onChange}/>
             </div>
@@ -136,7 +148,7 @@ var Form = React.createClass({
           <div className="form-group">
             <div className="col-sm-4">
               <TextField
-                label="Type Name Mapping"
+                label="Activity Name"
                 keyName="type_name"
                 value={this.state.type_name}
                 editable={true}
