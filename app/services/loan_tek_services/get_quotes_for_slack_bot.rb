@@ -29,7 +29,7 @@ module LoanTekServices
         zip_code: get_zipcode,
         credit_score: get_credit_score,
         mortgage_purpose: context["parameters"]["purpose"],
-        property_value: property_value,
+        property_value: get_property_value,
         property_usage: context["parameters"]["usage"],
         property_type: context["parameters"]["property_type"],
         down_payment: get_down_payment,
