@@ -1,6 +1,10 @@
 require "quotes_formulas"
 
 module SlackBotServices
+  #
+  # Class GetInfoOfQuotes provides quotes's info for Slack bot.
+  #
+  #
   class GetInfoOfQuotes
     extend ActionView::Helpers::NumberHelper
     extend QuotesFormulas
@@ -27,6 +31,13 @@ module SlackBotServices
       output
     end
 
+    #
+    # It generates a summary which is sent to Slackbot.
+    #
+    # @param [Array] quotes List quotes we get from LoanTek.
+    #
+    # @return [String] a string containning a summary.
+    #
     def self.summary(quotes)
       return if quotes.nil?
       quotes = get_valid_quotes(quotes)

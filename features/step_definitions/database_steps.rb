@@ -4,11 +4,11 @@ When(/^I create a borrower address with user email "(.*?)"/) do |user_email|
 
   address = borrower.borrower_addresses.build(
     address_attributes: {
-      street_address: "81458 Borer Falls",
-      street_address2: "Apt. 305",
-      city: "West Emiltown",
-      state: "Virginia",
-      zip: "9999"
+      street_address: "1722 Silver Meadow Way",
+      city: "Sacramento",
+      state: "CA",
+      zip: "95829",
+      full_text: "1722 Silver Meadow Way, Sacramento, CA 95829"
     }
   )
   address.save

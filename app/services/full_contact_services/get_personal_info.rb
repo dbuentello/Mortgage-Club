@@ -1,3 +1,4 @@
+# get personal info from FullContact API
 module FullContactServices
   class GetPersonalInfo
     attr_accessor :personal_info, :response, :email

@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  layout "public"
+  layout "landing"
   skip_before_action :authenticate_user!
   before_action :set_mixpanel_token, only: [:index]
 

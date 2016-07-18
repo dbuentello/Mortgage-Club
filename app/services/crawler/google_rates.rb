@@ -1,3 +1,4 @@
+# a crawler for google rates.
 require 'capybara'
 require 'capybara/poltergeist'
 

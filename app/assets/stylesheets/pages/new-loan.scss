@@ -1,7 +1,22 @@
 .accountPart {
-
+  h3, h5, h6 {
+    font-weight: normal;
+  }
+  h6 {
+    margin: 0;
+  }
+  table {
+    margin-bottom: 0;
+  }
   .account-content {
     min-height: calc(100vh - 160px);
+  }
+  .customRadio span {
+    font-weight: 100;
+    font-family: 'Raleway', sans-serif;
+  }
+  .form-group label.customRadio {
+     font-family: 'Raleway', sans-serif;
   }
 
   padding-top: 0px;
@@ -15,11 +30,11 @@
   background: linear-gradient(to right, rgba(246,246,246,1) 29%, rgba(255,255,255,1) 29%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#ffffff', GradientType=1 );
 
-  h4 {font-family:'aileronregular'; font-style:italic; font-size:1em; color:#555555;}
-  p {font-family:'aileronregular'; font-size:1.05em; color:#555555;}
+  h4 {font-family:'Raleway', sans-serif; font-style:italic; font-size:1em; color:#555555;}
+  p {font-family:'Raleway', sans-serif; font-size:1.05em; color:#555555; font-weight: 100}
 
   .trash-anchor {
-    margin-top: 40px;
+    margin-top: 30px;
     margin-bottom: 23px;
   }
   .iconRemove {
@@ -120,6 +135,9 @@
     float: right;
     color:#525252;
     margin-top:3px;
+    @include respond-to(mobile) {
+      margin-right:5px;
+    }
   }
 
   ul li:hover a { background: #dfe1e5; }
@@ -139,7 +157,10 @@
 .done-sign {display:none;}
 
 .account-content {
-  padding: 20px;
+  padding: 40px 20px 80px 40px;
+  @include respond-to(smobile){
+    padding: 10px 20px;
+  };
 
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -167,7 +188,12 @@
     opacity: 1 !important;
   }
 
-  .form-horizontal {padding-left:20px;}
+  .form-horizontal {
+    padding-left:20px;
+    @include respond-to(smobile){
+      padding-left: 0px;
+    }
+  }
   .form-group:first-child {margin-top:15px;}
   .form-group:last-child {margin-bottom:20px;}
   .form-group img {
@@ -231,19 +257,16 @@
     padding-left: 0;
   }
   input[type=checkbox] + label {
-    color: $mc-color;
-
+    color: #000;
   }
   input[type=checkbox]:checked + label:before {
-    color: #fff;
-    background-color: $mc-color;
+    color: #000;
     border-radius: 3px;
-    border: $mc-color 1px solid;
+    border: #000 1px solid;
   }
   input[type=checkbox] + label:before {
     border-radius: 3px;
-    background-color: $mc-color;
-    border: $mc-color 1px solid;
+    border: #000 1px solid;
   }
   select {
     -webkit-appearance:none;
@@ -262,6 +285,7 @@
     -ms-filter: saturate(100%);
     filter: saturate(100%);
     text-shadow: 0 0 0 #000;
+    font-weight: 100;
   }
 
   select:-moz-focusring {
@@ -324,6 +348,10 @@
     float:right;
   }
 
+  .form-group input.form-control {
+    font-weight: 100;
+  }
+
   .form-group>div>h5 {font-size:1.25em; color:#15c0f1; margin-top:0; letter-spacing:.04em; line-height:1.5em;}
 
   .form-group>div>h6 {color:#12a7d1;}
@@ -357,6 +385,10 @@
     cursor:pointer; color:#15c0f1;
   }
 
+  .fileBtn .fileBtnSmall:hover span {
+    color:#15c0f1 !important;
+  }
+
   .fileBtn h5 {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
@@ -364,6 +396,10 @@
     padding-top: 10px !important;
     padding-bottom: 10px !important;
     line-height: 100% !important;
+  }
+
+  .no-file-name {
+    color: #c3c3c3 !important;
   }
 
   .height-50 {
@@ -374,6 +410,11 @@
 
   .fileBtn span.filename{
     margin-top: 5px !important;
+    color: #c3c3c3;
+  }
+
+  .fileBtn span.filename:hover{
+    color: $mc-color;
   }
 
   .select-box {
@@ -393,6 +434,10 @@
     border-radius: 4px;
     padding: 40px;
     text-align: center;
+
+    @include respond-to(mobile){
+      margin-bottom: 100px;
+    };
 
     h1 {
       line-height: 40px;
@@ -443,6 +488,12 @@
       font-size:16px;
     }
   }
+
+  .credit-check {
+    input[type=checkbox] + label {
+      color: #555555;
+    }
+  }
 }
 
 #continueBtn {
@@ -453,7 +504,7 @@
   width:230px;
   float:left;
   font-size: 14px;
-  margin-top: 20px;
+  margin: 20px 0 40px 0;
   img {
     position:relative;
     margin-top:6px;
@@ -464,6 +515,9 @@
     border:none; right:-10px;
     margin-right:10px;
   }
+  @include respond-to(mobile){
+    margin-bottom: 80px;
+  };
 }
 
 #continueBtn:hover {
@@ -487,6 +541,11 @@
   float:left;
   font-size: 14px;
   margin-top: 20px;
+
+  @include respond-to(mobile){
+    margin-bottom: 90px;
+  }
+
   img {
     position:relative;
     margin-top:6px;
@@ -618,4 +677,32 @@
 .autocomplete_list button:hover {
   background-color: #ffffff;
   color: #499aff;
+}
+
+.mobile-xs-quote {
+  margin-left: -15px;
+  margin-right: -15px;
+
+  .form-group {
+    img {
+      border: 0;
+    }
+    margin-bottom: 0;
+    margin-top:0;
+
+  }
+
+  .select-box {
+    span {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+    }
+  }
+
+}
+#filterQuotes {
+  .modal-header {
+    border: 0;
+  }
 }

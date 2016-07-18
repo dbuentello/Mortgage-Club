@@ -13,11 +13,12 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css"/>
   </head>
-  <body>
-    <%= render "/shared/header" %>
+  <body class="stretched">
+    <%= render "/shared/header_new" %>
     <%= yield %>
-    <%= render "/shared/footer" %>
+    <%= render "/shared/footer_new" %>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreSL2fPdOr2c5bZjYN4XBnIJA8XSgWps&sensor=false&libraries=places"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= render "/shared/zopim" %>

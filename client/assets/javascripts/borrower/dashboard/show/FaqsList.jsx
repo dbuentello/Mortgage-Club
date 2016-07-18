@@ -1,3 +1,7 @@
+/**
+ * show all faqs list. Be attached in relationship_manager section.
+ */
+
 var _ = require('lodash');
 var React = require('react/addons');
 
@@ -32,4 +36,3 @@ var FaqsList = React.createClass({
 });
 
 module.exports = FaqsList;
-

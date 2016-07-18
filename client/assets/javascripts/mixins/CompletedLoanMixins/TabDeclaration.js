@@ -1,27 +1,28 @@
+/**
+  * Check tab declaration is completed or not
+  * @type {boolean}
+  */
 var TabDeclaration = {
-  declarationCompleted: function(loan){
-    var borrower = loan.borrower;
-    var declaration = borrower.declaration;
+  completed: function(loan){
+    if (loan.borrower === undefined || loan.borrower === null)
+      return false;
 
+    if (loan.secondary_borrower === undefined || loan.secondary_borrower === null)
+      return this.declarationCompleted(loan.borrower.declaration);
+
+    return (this.declarationCompleted(loan.borrower.declaration) && this.declarationCompleted(loan.secondary_borrower.declaration));
+  },
+
+  declarationCompleted: function(declaration){
     if(declaration === undefined || declaration === null)
       return false;
 
-    if(declaration.outstanding_judgment == null ||
-      declaration.bankrupt == null ||
-      declaration.property_foreclosed == null ||
-      declaration.party_to_lawsuit == null ||
-      declaration.loan_foreclosure == null ||
-      declaration.child_support == null ||
-      declaration.down_payment_borrowed == null ||
-      declaration.co_maker_or_endorser == null ||
-      declaration.present_delinquent_loan == null ||
-      declaration.us_citizen == null ||
+    if(declaration.citizen_status == null ||
+      this.valueFieldNotValid(declaration.is_hispanic_or_latino) ||
+      this.valueFieldNotValid(declaration.gender_type) ||
+      this.valueFieldNotValid(declaration.race_type) ||
       declaration.ownership_interest == null
     ) {
-      return false;
-    }
-
-    if(declaration.us_citizen == false && declaration.permanent_resident_alien == null) {
       return false;
     }
 
@@ -30,6 +31,12 @@ var TabDeclaration = {
     }
 
     return true;
-  }
+  },
+
+  valueFieldNotValid: function(field){
+    if (field === undefined || field === null || field === "")
+      return true;
+    return false;
+  },
 }
 module.exports = TabDeclaration;

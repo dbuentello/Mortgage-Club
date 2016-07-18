@@ -1,3 +1,6 @@
+/**
+ * Manage settings of system such as turn on/off ocr,...
+ */
 var _ = require('lodash');
 var React = require('react/addons');
 //var Form = require('./Form');

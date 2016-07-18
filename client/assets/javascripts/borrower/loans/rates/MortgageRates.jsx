@@ -83,15 +83,61 @@ var MortgageRates = React.createClass({
             </div>
           :
             <div className="content container mortgage-rates padding-top-0 row-eq-height">
-              <div className="col-xs-3 subnav programs-filter">
+              <div className="col-xs-3 hidden-xs subnav programs-filter">
                 <Filter programs={this.props.bootstrapData.programs} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterProgram}></Filter>
               </div>
-              <div className="col-xs-9 account-content padding-left-50">
-                <div className="row actions">
+              <div className="col-xs-12 col-sm-9 account-content programs-list">
+                <div className="mobile-xs-quote">
+                  <div className="visible-xs text-xs-justify">
+                    <p>
+                      We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one on your own or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
+                    </p>
+                    <p>
+                      Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
+                    </p>
+                  </div>
+                  <div className="row form-group visible-xs">
+                    <div className="col-xs-12 text-left text-xs-center">
+                      <a className="btn text-uppercase help-me-choose-btn" onClick={this.helpMeChoose}>help me choose</a>
+                    </div>
+                    <div className="col-xs-5 text-left">
+                      <a className="btn btn-filter text-uppercase" data-toggle="modal" data-target="#filterQuotes">Filter</a>
+                    </div>
+                    <div className="modal fade" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div className="modal-dialog modal-sm" role="document">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          </div>
+                          <div className="modal-body">
+                            <Filter programs={this.props.bootstrapData.programs} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterProgram}></Filter>
+                          </div>
+                          <div className="modal-footer">
+                            <button type="button" className="btn select-btn" data-dismiss="modal">OK</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-xs-3 text-xs-right">
+                      <b>Sort by</b>
+                    </div>
+                    <div className="col-xs-4 select-box pull-right">
+                      <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
+                        <option value="apr">APR</option>
+                        <option value="pmt">Monthly Payment</option>
+                        <option value="rate">Rate</option>
+                        <option value="tcc">Total Closing Cost</option>
+                      </select>
+                      <span>&#9660;</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="row actions hidden-xs">
                   <p>
-                    We’ve found {this.state.programs ? this.state.programs.length : 0} mortgage options for you. You can sort, filter, and choose one on your own or click
-                    <i> Help me choose </i>
-                    and our proprietary selection algorithm will help you choose the best mortgage.
+                    We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one on your own or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
+                  </p>
+                  <p>
+                    Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
                   </p>
                   <div className="row form-group actions-group" id="mortgageActions">
                     <div className="col-md-6">

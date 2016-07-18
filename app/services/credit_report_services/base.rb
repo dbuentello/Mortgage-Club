@@ -1,20 +1,59 @@
 module CreditReportServices
+  #
+  # Class Base provides clearing old credit report and call a request to Equifax
+  #
+  #
   class Base
-    def self.call(borrower, address)
-      response = CreditReportServices::GetReport.new(
-        borrower_id: borrower.id,
-        first_name: borrower.first_name,
-        last_name: borrower.last_name,
-        ssn: borrower.ssn,
-        street_address: address.street_address,
-        city: address.city,
-        state: address.state,
-        zipcode: address.zip
-      ).call
+    def self.call(loan)
+      return if credit_report_was_within_90_days?(loan)
+      # clear old liabilities
+      clear_credit_report(loan.borrower)
+      clear_credit_report(loan.secondary_borrower) if loan.secondary_borrower
+      response = CreditReportServices::GetReport.new(loan.borrower, loan.secondary_borrower).call
 
-      return [] unless response
+      if response
+        CreditReportServices::CreateLiabilities.call(loan, response)
+        CreditReportServices::SaveCreditReportAsPdf.call(loan, response)
+        remember_last_run_at_of_credit_report(loan)
+      end
+    end
 
-      CreditReportServices::ParseReport.call(borrower, response)
+    def self.clear_credit_report(borrower)
+      return unless liabilities?(borrower.credit_report)
+      borrower.credit_report.destroy
+      borrower.reload
+    end
+
+    def self.liabilities?(credit_report)
+      return false unless credit_report.present?
+      return false if credit_report.liabilities.blank?
+
+      true
+    end
+
+    def self.credit_report_was_within_90_days?(loan)
+      borrower = loan.borrower
+      co_borrower = loan.secondary_borrower
+
+      if co_borrower
+        return false unless borrower.credit_report && co_borrower.credit_report
+        return false unless borrower.credit_report.last_run_at && co_borrower.credit_report.last_run_at
+        return Time.zone.now <= borrower.credit_report.last_run_at + 90.days && Time.zone.now <= co_borrower.credit_report.last_run_at + 90.days
+      else
+        return false unless borrower.credit_report
+        return false unless borrower.credit_report.last_run_at
+        return Time.zone.now <= borrower.credit_report.last_run_at + 90.days
+      end
+    end
+
+    def self.remember_last_run_at_of_credit_report(loan)
+      if loan.borrower.credit_report
+        loan.borrower.credit_report.update(last_run_at: Time.zone.now)
+      end
+
+      if loan.secondary_borrower && loan.secondary_borrower.credit_report
+        loan.secondary_borrower.credit_report.update(last_run_at: Time.zone.now)
+      end
     end
   end
 end

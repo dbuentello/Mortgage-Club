@@ -1,3 +1,6 @@
+/**
+ * Refinance alert for user and billy run ads in FB
+ */
 var React = require("react/addons");
 var Dropzone = require("components/form/NewDropzone");
 var TextField = require("components/form/NewTextField");

@@ -176,7 +176,7 @@ var Borrower = React.createClass({
               onChange={this.props.onChange}
               editMode={this.props.editMode}/>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 col-sm-12">
             <TextField
               activateRequiredField={this.props.numberOfDependencesError}
               label={this.props.fields.numberOfDependents.label}
@@ -191,7 +191,7 @@ var Borrower = React.createClass({
               onChange={this.props.onChange}
               editMode={this.props.editMode}/>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 col-sm-12">
             { parseInt(this.props.numberOfDependents, 10) > 0 ?
               <TextField
                 activateRequiredField={this.props.dependentAgesError}

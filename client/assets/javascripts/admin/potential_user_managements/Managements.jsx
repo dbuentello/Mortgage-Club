@@ -1,3 +1,6 @@
+/**
+ * Manage potential users from Initial Quotes Page
+ */
 var _ = require('lodash');
 var React = require('react/addons');
 

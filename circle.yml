@@ -3,9 +3,16 @@ dependencies:
     - sudo apt-get install pdftk
 test:
   pre:
+    - bundle exec rake tmp:clear
+    - bundle exec rake assets:precompile
     - bundle exec rake assets:webpack
   post:
     - bundle exec rubocop
+  override:
+    - bundle exec cucumber --tags ~@ignore
 general:
   artifacts:
     - "~/simplecov" # relative to the user's home directory
+machine:
+  ruby:
+    version: 2.2.2

@@ -1,4 +1,8 @@
 module OcrServices
+  #
+  # Class UpdateEmployment provides updating employment's data
+  #
+  #
   class UpdateEmployment
     attr_reader :data, :borrower_id, :employment
 
@@ -10,6 +14,12 @@ module OcrServices
       end
     end
 
+    #
+    # If employment is present, we just update it. Otherwise, we create a new employment
+    #
+    #
+    # @return [<type>] <description>
+    #
     def call
       return unless @borrower && data
 

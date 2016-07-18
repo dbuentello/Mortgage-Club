@@ -156,11 +156,14 @@ $helpSectionWidth: 300px;
 
 // Underwriting
 .underwriting-text {
-  font-size: 24px;
+  font-size: 27px;
 }
 
 #percent {
   text-align: right;
+  @include respond-to(mobile){
+    text-align: center;
+  };
 }
 
 .outer {

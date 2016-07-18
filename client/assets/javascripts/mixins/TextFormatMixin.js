@@ -1,3 +1,6 @@
+/**
+ * Format library helps dev format text as currency, percentage, ...
+ */
 var _ = require('lodash');
 var moment = require('moment');
 
@@ -38,7 +41,7 @@ var TextFormatMixin = {
       return val;
     }
 
-    return val.replace('$', '').replace(/\,/g, '');
+    return val.replace('$', '').replace(')', '').replace('(', '-').replace(/\,/g, '');
   },
   percentToNumber: function(val) {
     if (!val) {

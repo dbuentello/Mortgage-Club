@@ -1,3 +1,4 @@
+# get quotes for borrower (after complete loan's steps).
 module LoanTekServices
   class GetQuotes
     attr_reader :loan, :property, :borrower, :response
@@ -45,7 +46,7 @@ module LoanTekServices
     end
 
     def get_credit_score
-      borrower.credit_score.to_i
+      borrower.credit_report.score.to_i
     end
 
     def get_loan_purpose

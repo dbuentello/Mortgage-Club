@@ -1,7 +1,6 @@
 /**
- * @jsx React.DOM
+ * TODO: UNUSED CODE
  */
-
 var SortableTableHead = {
   handleSort: function(sort, direction, currentSort, currentDirection, event) {
     event.stopPropagation();

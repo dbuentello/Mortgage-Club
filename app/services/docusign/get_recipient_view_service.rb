@@ -1,6 +1,10 @@
 require 'open-uri'
 
 module Docusign
+  #
+  # Class GetRecipientViewService provides getting an iframe from Docusign.
+  #
+  #
   class GetRecipientViewService
     # Docusign's enveloped_id
     def self.call(envelope_id, user, return_url)

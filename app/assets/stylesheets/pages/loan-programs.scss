@@ -13,6 +13,15 @@
   }
 }
 #mortgagePrograms {
+  h1 > span:not(.nocolor),
+  h2 > span:not(.nocolor),
+  h3 > span:not(.nocolor),
+  h4 > span:not(.nocolor),
+  h5 > span:not(.nocolor),
+  h6 > span:not(.nocolor) {
+    color: #555;
+  }
+
   .board {
     border-radius: 5px;
     border: #959595 1px solid;
@@ -35,12 +44,12 @@
         margin-top: 10px;
         text-align: initial;
         color: #555;
-        font-family: "aileronbold";
+        font-family: "Raleway";
         font-weight: 900;
         line-height: 25px;
         font-size: 23px;
         padding: 0;
-        font-family: "aileronbold";
+        font-family: "Raleway";
       }
       h3 {
         margin-top: 0;
@@ -65,6 +74,10 @@
     float: right;
     font-size: 1.25em;
     padding: 6px 30px;
+
+    @include respond-to(mobile){
+      margin-bottom: 5px;
+    }
   }
   .select-btn:hover {
     color: #15c0f1;
@@ -72,6 +85,13 @@
   }
   .board-content-toggle {
     height:25px;
+    @include respond-to(smobile){
+      height: 30px;
+    };
+    button {
+      width: 100%;
+      &:focus {outline:0;}
+    }
     background:#f5f5f5;
     color:#a6a6a6;
     margin-left:-20px;
@@ -100,10 +120,10 @@
   p.cost {
     height: 30px;
   }
-  p.note {
+  p.note-rates {
     font-style: italic;
   }
-  .note:before {content:'\e013'; color:#00bd9c; font-family:'Glyphicons Halflings'; margin-left:-1.4em; margin-right:.4em;}
+  .note-rates:before { margin-left:-1.4em; margin-right:.4em;}
 
   .chart-part {
     margin-top: 0px;
@@ -195,10 +215,22 @@
 }
 
 .mortgage-rates {
+  .filter-sidebar {
+    label {
+      font-weight: normal;
+    }
+  }
   .custom-left-mortgage-rates {
     margin-left: -19px;
+    @include respond-to(mobile) {
+      margin-left: 0px;
+      margin-bottom: 80px;
+    }
   }
   background: linear-gradient(to right, #f6f6f6 , white);
+  @include respond-to(smobile){
+    background: none;
+  };
   .programs-filter {
     margin-top: 0px;
     margin-left: -16px;
@@ -213,6 +245,52 @@
   }
   .account-content .form-group:last-child {
     margin-bottom: 25px;
+  }
+  @include respond-to(mobile){
+    .programs-list {
+      margin-bottom: 90px;
+    }
+
+    .best-rate {
+      margin-left: 20px;
+      margin-right: 20px;
+      border-radius: 5px;
+    }
+
+    .back-btn {
+      margin-left: 30px;
+    }
+
+    .help-me-choose-btn {
+      color: #fff;
+      border: 1px solid #00bd9c;
+      background: #00bd9c;
+    }
+
+    .help-me-choose-btn:hover {
+      color: #00bd9c;
+      border: 1px solid #00bd9c;
+      background: #fff;
+    }
+
+    .btn-filter {
+      color: #fff;
+      border: 1px solid $mc-color !important;
+      background: $mc-color;
+      padding: 9px 35px !important;
+      font-size: 16px !important;
+      margin-left: 0px;
+    }
+
+    .btn-filter:hover {
+      color: $mc-color;
+      border: 1px solid $mc-color;
+      background: #fff;
+    }
+
+    .slider-item .slider{
+      width: 100% !important;
+    }
   }
 }
 .mortgage-rates #sidebar {
@@ -248,4 +326,28 @@
     content: "\00a0";
     margin-right: 7px;
   }
+}
+#filterQuotes {
+  .select-btn {
+    color: white;
+    background: #15c0f1;
+    border: #15c0f1 1px solid;
+    border-radius: 5px;
+    float: right;
+    font-size: 1.25em;
+    padding: 6px 30px;
+
+    @include respond-to(mobile){
+      margin-bottom: 5px;
+    }
+  }
+  .select-btn:hover {
+    color: #15c0f1;
+    background: #fff;
+  }
+
+  #sidebar {
+    background: none;
+  }
+  margin-top: -50px;
 }

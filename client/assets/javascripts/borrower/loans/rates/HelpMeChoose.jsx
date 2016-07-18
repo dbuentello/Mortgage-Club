@@ -177,12 +177,17 @@ var HelpMeChoose = React.createClass({
     return (
       <div>
         <div className="row white-background">
-          <div className="row navigation-section">
-            <button className="btn back-btn btn-mc" onClick={this.props.backToRatePage}>Back </button>
-          </div>
           <div className='row helpmechoose'>
+            <div className='col-lg-7 div-back-to-results'>
+              <a onClick={this.props.backToRatePage} className="back-to-results"><span>Back to results</span></a>
+            </div>
+            <div className='col-lg-7 text-xs-justify'>
+              <div className='row col-lg-11'>
+                Our proprietary True Cost of Mortgage algorithm helps you choose the best mortgage by comparing the future values of total interest paid (adjusted for tax savings) and opportunity costs of both upfront cash to close and mortgage payments for each loan program.
+              </div>
+            </div>
             <div className='col-lg-7'>
-              <div className='col-lg-11 calculator'>
+              <div className='row col-lg-11 calculator'>
                 <div className='years_chart mtxl'>
                   <div className='row'>
                     <div className='col-lg-12'>
@@ -191,10 +196,10 @@ var HelpMeChoose = React.createClass({
                     </div>
                   </div>
                   <div className='row calc-form'>
-                    <div className='col-lg-2 selected_year'>
+                    <div className='col-lg-2 selected_year col-xs-12'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'year')}/>
                     </div>
-                    <div className='col-lg-9 range'>
+                    <div className='col-lg-9 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -203,15 +208,15 @@ var HelpMeChoose = React.createClass({
                   <div className= 'row'>
                     <div className='col-lg-12'>
                       <h3>{"What's your average rate of return on your personal investments?"}</h3>
-                      <p>You might be better off spending less money upfront on your mortgage and invest the cash elsewhre.</p>
+                      <p>You might be better off spending less money upfront on your mortgage and invest the cash elsewhere.</p>
                     </div>
                   </div>
                   <div className='row calc-form'>
-                    <div className='col-lg-2 selected_avg_rate'>
+                    <div className='col-lg-2 selected_avg_rate col-xs-12'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'avg_rate')}/>
                       <p>Investment return rate</p>
                     </div>
-                    <div className='col-lg-9 range'>
+                    <div className='col-lg-9 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -223,15 +228,17 @@ var HelpMeChoose = React.createClass({
                     </div>
                   </div>
                   <div className='row calc-form'>
-                    <div className='col-lg-2 selected_tax_rate'>
+                    <div className='col-lg-2 selected_tax_rate col-xs-12'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'tax_rate')}/>
                       <p>Effective tax rate</p>
                     </div>
-                    <div className='col-lg-9 range'>
+                    <div className='col-lg-9 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
                 </div>
+                <br ></br>
+                <br ></br>
               </div>
             </div>
             {
@@ -248,54 +255,54 @@ var HelpMeChoose = React.createClass({
                   <div className="primary-cost-unit">PER<br/>MONTH</div>
                 </div>
                 <div className='row secondary-cost'>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     NMLS
                   </div>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     {this.state.bestRate.nmls}
                   </div>
                 </div>
                 <div className='row secondary-cost'>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     Loan type
                   </div>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     {this.state.bestRate.product}
                   </div>
                 </div>
                 <div className='row secondary-cost'>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     Rate
                   </div>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     {this.commafy(this.state.bestRate.interest_rate * 100, 3)}%
                   </div>
                 </div>
                 <div className='row secondary-cost'>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     APR
                   </div>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     {this.commafy(this.state.bestRate.apr * 100, 3)}%
                   </div>
                 </div>
                 <div className='row secondary-cost'>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     Estimated Closing Costs
                   </div>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     {this.formatCurrency(this.state.bestRate.total_closing_cost, '$')}
                   </div>
                 </div>
-                <div className='row secondary-cost'>
-                  <div className='col-lg-6'>
+                <div className='row secondary-cost' style={{"fontWeight": "bold"}}>
+                  <div className='col-xs-6 col-md-6'>
                     True Cost of Mortgage
                   </div>
-                  <div className='col-lg-6'>
+                  <div className='col-xs-6 col-md-6'>
                     {this.formatCurrency(this.state.bestRate.total_cost, '$')}
                   </div>
                 </div>
-                <div className='row'>
+                <div className='row text-xs-center'>
                   <a className='btn btnLrg mtm select-btn col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.state.bestRate)}>Select</a>
                 </div>
               </div>

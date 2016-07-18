@@ -206,7 +206,8 @@ var AddressField = React.createClass({
   render: function() {
     var address = this.props.address || {},
         val = getFormattedAddress(address) || '',
-        requiredMessage = this.props.requiredMessage || "This field is required";
+        requiredMessage = this.props.requiredMessage || "This field is required",
+        invalidMessage = this.props.invalidMessage;
 
     var disabled = this.props.editMode === false ? "disabled" : null;
 
@@ -223,12 +224,16 @@ var AddressField = React.createClass({
                   {this.props.label}
                 </h6>
               </div>
-              <div className="col-md-4">
-                <input type="checkbox" id="checkbox-borrower" onChange={this.props.handleCheckboxChange}/>
-                <label htmlFor="checkbox-borrower" className="customCheckbox blueCheckbox2">Same as borrower</label>
-              </div>
-
-
+              {
+                disabled
+                ?
+                null
+                :
+                <div className="col-md-4">
+                  <input type="checkbox" id="checkbox-borrower"  onChange={this.props.handleCheckboxChange}/>
+                  <label htmlFor="checkbox-borrower" className="customCheckbox blueCheckbox2">Same as borrower</label>
+                </div>
+              }
             </div>
           :
           <h6>{this.props.label}</h6>
@@ -248,7 +253,7 @@ var AddressField = React.createClass({
             onFocus={this.handleFocus} onBlur={this.handleBlur} onChange={this.handleChange} id={this.props.keyName} name={this.props.label}/>
           <img src="/icons/address.png" alt="title"/>
         </div>
-        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={address} title={requiredMessage} validationTypes={this.props.validationTypes}/>
+        <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={address} requiredMessage={requiredMessage} invalidMessage={invalidMessage} validationTypes={this.props.validationTypes}/>
       </div>
     );
   },

@@ -1,3 +1,4 @@
+@ignore
 Feature: HelpMeChoose
   @javascript @vcr
   Scenario: select "Help me choose"
@@ -10,10 +11,10 @@ Feature: HelpMeChoose
     And I select "Primary Residence" from "Property Will Be"
     And I select "Single Family Home" from "Property Type"
     And I select "740+" from "Credit Score"
-    And I press "find my rates"
+    And I press "find-my-rates-form"
     And I should see "help me choose"
     And I scroll up to the top
-  Then I click on "help me choose"
+  Then I click on the element "#helpmechoose-md"
     And I should see "Your Best Option"
   Then At first klass ".best-rate" I click link "Select"
-    And I should see "sign up"
+    And I should see "Register now"

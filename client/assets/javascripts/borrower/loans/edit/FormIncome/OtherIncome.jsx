@@ -65,8 +65,8 @@ var OtherIncome = React.createClass({
         {
           this.props.editMode
           ?
-            <div className="col-md-6">
-              <div className='col-md-11'>
+            <div>
+              <div className='col-md-5'>
                 <TextField
                   activateRequiredField={this.props.amountError}
                   label="Annual Gross Amount"

@@ -1,10 +1,14 @@
+/**
+ * loan tab on my loan page.
+ * Show all loans of user. User can hover on loan and delete the loan if loan's status is 'new'
+ */
 var moment = require("moment");
 var React = require("react/addons");
 var TextFormatMixin = require("mixins/TextFormatMixin");
 var ModalLink = require('components/ModalLink');
 var FlashHandler = require('mixins/FlashHandler');
 var _ = require('lodash');
-
+// TODO: refactor url and status of loan
 var LoansTab = React.createClass({
   mixins: [TextFormatMixin],
   destroyLoan: function(loan_id) {
@@ -23,7 +27,7 @@ var LoansTab = React.createClass({
   },
   eachLoan: function(loan, i) {
     return (
-      <div className="col-md-4 loan-item" key={loan.id} index={i}>
+      <div className="col-md-4 col-sm-6 loan-item" key={loan.id} index={i}>
         <div className="loan-item-holder">
           <div className="hover-img">
             {

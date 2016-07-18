@@ -3,8 +3,13 @@
   right: 5%;
   margin-left: 10px;
   margin-right: 10px;
+  @include respond-to(smobile){
+    margin-left: 0;
+    margin-right: 0;
+  };
   h3 {
     font-size: 19px;
+    color: #00436E;
   }
   .calculator {
     rect {
@@ -60,8 +65,8 @@
     padding: 25px;
     .secondary-cost {
       line-height: 1.437em;
-      font-weight: 300;
-      color: #999;
+      font-weight: 500;
+      color: #555555;
       font-size: 16px;
     }
     .bankname {
@@ -97,6 +102,10 @@
       border: $mc-color 1px solid;
       border-radius: 5px;
       font-size: 1.25em;
+    }
+    h1 {
+      color: #00436E;
+      text-align: center;
     }
     h2 {
       color: $mc-color;
@@ -165,9 +174,30 @@
     cursor: pointer;
   }
 }
+.div-back-to-results {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.back-to-results {
+  font-size: 16px;
+}
+.back-to-results:hover {
+  cursor: pointer;
+  color: $mc-color;
+}
 .back-btn {
-
+  background: $mc-color;
+  color: white;
+  border: 1px solid $mc-color;
   margin-left: 57px;
+  @include respond-to(smobile){
+    margin-left: 20px;
+  };
+}
+.back-btn:hover {
+  background: white;
+  color: $mc-color;
+  border: 1px solid;
 }
 // .mortgage-rates {
 //   .navigation-section {

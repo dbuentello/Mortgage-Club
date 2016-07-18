@@ -83,7 +83,7 @@ class Borrower < ActiveRecord::Base
   end
 
   def display_current_address
-    current_address.try(:address).try(:address) || 'No Address'
+    current_address.try(:address).try(:address)
   end
 
   def previous_address
@@ -97,7 +97,7 @@ class Borrower < ActiveRecord::Base
   end
 
   def display_previous_address
-    previous_address.try(:address).try(:address) || 'No Address'
+    previous_address.try(:address).try(:address)
   end
 
   def current_employment
@@ -153,7 +153,7 @@ class Borrower < ActiveRecord::Base
                               first_bank_statement second_bank_statement)
     else
       required_documents = %w(first_w2 second_w2 first_paystub second_paystub
-                              first_federal_tax_return second_federal_tax_return
+                              first_personal_tax_return second_personal_tax_return
                               first_bank_statement second_bank_statement)
     end
 
@@ -172,7 +172,7 @@ class Borrower < ActiveRecord::Base
       if is_file_taxes_jointly
         required_documents = %w(first_w2 second_w2 first_paystub second_paystub  first_bank_statement second_bank_statement)
       else
-        required_documents = %w(first_w2 second_w2 first_paystub second_paystub first_federal_tax_return second_federal_tax_return  first_bank_statement second_bank_statement)
+        required_documents = %w(first_w2 second_w2 first_paystub second_paystub first_personal_tax_return second_personal_tax_return  first_bank_statement second_bank_statement)
       end
       return (required_documents - documents.pluck(:document_type)).empty?
     end
@@ -192,8 +192,16 @@ class Borrower < ActiveRecord::Base
     credit_report.score
   end
 
+  def credit_report_file
+    documents.find_by(description: "Credit report", document_type: "other_borrower_report")
+  end
+
   def current_salary
     current_employment.present? ? current_employment.current_salary.to_f : 0
+  end
+
+  def pay_frequency
+    current_employment.present? ? current_employment.pay_frequency : nil
   end
 
   def total_income

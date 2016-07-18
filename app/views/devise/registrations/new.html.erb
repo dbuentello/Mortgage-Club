@@ -8,31 +8,31 @@
             <%= hidden_field_tag :ref_code, nil %>
             <div class="form-group">
               <div class="col-sm-12">
-                <%= f.text_field :first_name, class: "form-control", placeholder: "First name", autofocus: true, "data-toggle" => "tooltip", title: resource.errors.messages[:first_name].try(:first)%>
+                <%= f.text_field :first_name, class: "form-control", placeholder: "First name", autofocus: true, "data-toggle" => "tooltip", "data-placement" => "bottom", title: resource.errors.messages[:first_name].try(:first)%>
                 <img src="/icons/name.png" alt="title"/>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <%= f.text_field :last_name, class: "form-control", placeholder: "Last name", "data-toggle" => "tooltip", title: resource.errors.messages[:last_name].try(:first) %>
+                <%= f.text_field :last_name, class: "form-control", placeholder: "Last name", "data-toggle" => "tooltip", "data-placement" => "bottom", title: resource.errors.messages[:last_name].try(:first) %>
                 <img src="/icons/name.png" alt="title"/>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <%= f.email_field :email, class: "form-control", placeholder: "Email", "data-toggle" => "tooltip", title: resource.errors.messages[:email].try(:first) %>
+                <%= f.email_field :email, class: "form-control", placeholder: "Email", "data-toggle" => "tooltip", "data-placement" => "bottom", title: resource.errors.messages[:email].try(:first) %>
                 <img src="/icons/mail.png" alt="title"/>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password", "data-toggle" => "tooltip", title: resource.errors.messages[:password].try(:first) %>
+                <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password", "data-toggle" => "tooltip", "data-placement" => "bottom", title: resource.errors.messages[:password].try(:first) %>
                 <img src="/icons/password.png" alt="title"/>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Password Confirmation", "data-toggle" => "tooltip", title: resource.errors.messages[:password_confirmation].try(:first) %>
+                <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Password Confirmation", "data-toggle" => "tooltip", "data-placement" => "bottom", title: resource.errors.messages[:password_confirmation].try(:first) %>
                 <img src="/icons/passwordconfirm.png" alt="title"/>
               </div>
             </div>
@@ -60,7 +60,7 @@
   <% if @token.present? %>
     document.cookie="_refToken=<%= @token %>";
   <% end %>
-  
+
 
   // Set invite token value
   var ref_token = getCookie('_refToken');
@@ -86,3 +86,4 @@
     return "";
   }
 </script>
+

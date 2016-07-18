@@ -12,9 +12,11 @@ FactoryGirl.define do
     f.child_support { [true, false].sample }
     f.down_payment_borrowed { [true, false].sample }
     f.co_maker_or_endorser { [true, false].sample }
-    f.us_citizen { [true, false].sample }
-    f.permanent_resident_alien { [true, false].sample }
     f.ownership_interest { [true, false].sample }
+    f.citizen_status { ["C", "PR", "O"].sample }
+    f.is_hispanic_or_latino { ["Y", "N"].sample }
+    f.gender_type { ["F", "M"].sample }
+    f.race_type { ["AIoAN", "A", "BoAA", "NHoOPI", "W"].sample }
   end
 
   factory :declaration_true, parent: :declaration do |f|
@@ -27,8 +29,6 @@ FactoryGirl.define do
     f.child_support { true }
     f.down_payment_borrowed { true }
     f.co_maker_or_endorser { true }
-    f.us_citizen { true }
-    f.permanent_resident_alien { true }
     f.ownership_interest { true }
   end
 
@@ -42,8 +42,6 @@ FactoryGirl.define do
     f.child_support { false }
     f.down_payment_borrowed { false }
     f.co_maker_or_endorser { false }
-    f.us_citizen { false }
-    f.permanent_resident_alien { false }
     f.ownership_interest { false }
   end
 end

@@ -33,7 +33,7 @@ describe LoanTekServices::SendRequestToLoanTek do
 
   describe ".loan_programs_of_interest" do
     it "returns array of loan propgrams" do
-      expect(described_class.loan_programs_of_interest).to eq([1, 2, 3])
+      expect(described_class.loan_programs_of_interest).to eq([1, 2, 3, 9])
     end
   end
 

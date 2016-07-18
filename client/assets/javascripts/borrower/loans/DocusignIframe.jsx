@@ -32,7 +32,8 @@ var DocusignIframe = React.createClass({
           apr: this.props.bootstrapData.rate.apr,
           loan_type: this.props.bootstrapData.rate.loan_type,
           total_closing_cost: this.props.bootstrapData.rate.total_closing_cost,
-          lender_credits: this.props.bootstrapData.rate.lender_credits
+          lender_credits: this.props.bootstrapData.rate.lender_credits,
+          amount: this.props.bootstrapData.rate.loan_amount
         }
       },
       dataType: 'json',
@@ -74,16 +75,16 @@ var DocusignIframe = React.createClass({
           ?
             null
           :
-            <div className='row'>
-              <div className='col-xs-4'>
+            <div className='row' style={{"marginTop": "150px", "font-size": "27px"}}>
+              <div className='col-sm-3 col-xs-12'>
                 <div id='percent'>0%</div>
               </div>
-              <div className='col-xs-8'>
+              <div className='col-sm-9 col-xs-12 text-xs-center'>
                 <div id='status'>{"Hang tight, we're generating disclosure forms for you to sign!"}</div>
               </div>
             </div>
         }
-        <div>
+        <div style={{"paddingBottom": "100px"}}>
           <iframe ref='iframe' height='600px' width='100%' style={{display: 'none'}}></iframe>
         </div>
       </div>

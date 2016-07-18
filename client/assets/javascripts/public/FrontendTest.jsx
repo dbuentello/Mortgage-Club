@@ -1,3 +1,6 @@
+/**
+ * Frontend test for dev
+ */
 var React = require('react/addons');
 
 var FrontendTest = React.createClass({

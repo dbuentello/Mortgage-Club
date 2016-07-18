@@ -1,6 +1,10 @@
+/**
+ * Draw chart in list quotes page, list rates page
+ * Piechart using Google Chart
+ * Linechart using D3
+ */
 var TextFormat = require("mixins/TextFormatMixin")
 var ChartMixin = {
-
   drawPieChart: function(id, principal, hazardInsurance, propertyTax, mortgageInsurance, hoadue, mortgageInsurancePremium, totalMontlyPayment) {
     principal = Number(parseFloat(principal).toFixed(0));
     hazardInsurance = Number(parseFloat(hazardInsurance).toFixed(0));

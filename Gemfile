@@ -51,7 +51,7 @@ gem 'rails-html-sanitizer'
 # SEO for fb
 gem 'meta-tags'
 # Parse CSS and add vendor prefixes to rules by Can I Use
-gem 'autoprefixer-rails', '~> 5.2.1.1'
+# gem 'autoprefixer-rails', '~> 5.2.1.1'
 
 gem 'react-rails', '~> 1.0'
 
@@ -111,7 +111,9 @@ gem 'devise-async'
 
 gem 'pdf-forms'
 
-gem "recaptcha", require: "recaptcha/rails"
+gem 'recaptcha', require: 'recaptcha/rails'
+
+gem 'ox'
 
 group :development do
   # just run bundle exec erd
@@ -163,8 +165,8 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'cucumber_factory'
   gem 'spreewald'
-  gem 'launchy'
   gem 'selenium-webdriver', '~> 2.48.1'
+  gem 'launchy'
   gem 'guard-rspec'
   gem 'timecop'
   gem 'vcr'

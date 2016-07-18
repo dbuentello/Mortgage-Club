@@ -1,3 +1,6 @@
+/**
+ * Home dashboard for borrower
+ */
 var _ = require('lodash');
 var moment = require('moment');
 var React = require('react/addons');

@@ -38,20 +38,49 @@ $rails: true;
 @import 'pages/potential-rate-drop-user';
 @import 'pages/loan-programs';
 @import 'pages/potential-users';
+@import 'pages/devise';
 
 @import 'd3.slider';
 
-
 @import 'borrowers';
+@import "landing/style";
+@import "landing/font-icons";
+@import "landing/responsive";
+@import "landing/settings";
+@import "landing/custom";
+
+
+// new header
+#logo img {
+    margin-top: 15px;
+}
+
+#header.sticky-header:not(.static-sticky):not(.sticky-style-2):not(.sticky-style-3) #logo img {
+  height: 25px;
+}
+
+#header.full-header #logo {
+  border: none;
+}
+
+#header.full-header #primary-menu > ul {
+  border: none;
+}
+
+.client-landing {
+  padding-bottom: 100px;
+}
 
 // Application homepage
 body {
-  font-family: 'aileronregular';
+  // font-family: 'aileronregular';
+  // new style
+  font-family: 'Raleway', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
   padding-bottom: 100px; //footer padding
   @include respond-to(mobile){
-    padding-bottom: 120px;
+    padding-bottom: 80px;
   };
   @include respond-to(smobile){
     padding-bottom: 110px;
@@ -93,7 +122,7 @@ body {
 .content {
   position: relative;
   //margin-top: 30px;
-  width: 100%;
+  width: 100% !important;
 }
 
 // .modal-docusign {

@@ -1,7 +1,15 @@
 # rubocop:disable ClassLength
+require "finance_formulas"
+
 module Docusign
   module Templates
+    #
+    # Class LoanEstimate provides mapping values from Loan Estimate form.
+    #
+    #
+    #
     class LoanEstimate
+      include FinanceFormulas
       attr_accessor :loan, :property, :borrower, :params
 
       def initialize(loan)
@@ -67,13 +75,13 @@ module Docusign
         @params['include_homeowners_insurance'] = 'x' if property.estimated_hazard_insurance.to_f > 0
         @params['in_escrow_other'] = 'NO'
 
-        if estimated_escrow == (property.estimated_property_tax.to_f + property.estimated_hazard_insurance.to_f).round(2)
+        if estimated_escrow == (get_monthly_value(property.estimated_property_tax) + get_monthly_value(property.estimated_hazard_insurance.to_f)).round(2)
           @params['in_escrow_property_taxes'] = 'YES'
           @params['in_escrow_homeowners_insurance'] = 'YES'
-        elsif estimated_escrow == property.estimated_property_tax.to_f.round(2)
+        elsif estimated_escrow == get_monthly_value(property.estimated_property_tax).round(2)
           @params['in_escrow_property_taxes'] = 'YES'
           @params['in_escrow_homeowners_insurance'] = 'NO'
-        elsif estimated_escrow == property.estimated_hazard_insurance.to_f.round(2)
+        elsif estimated_escrow == get_monthly_value(property.estimated_hazard_insurance).round(2)
           @params['in_escrow_property_taxes'] = 'NO'
           @params['in_escrow_homeowners_insurance'] = 'YES'
         end
@@ -199,7 +207,7 @@ module Docusign
             ]
           )
 
-          @params['initial_homeowner_insurance_per_month'] = Money.new(property.estimated_hazard_insurance.to_f.round(2) * 100).format(no_cents_if_whole: true)
+          @params['initial_homeowner_insurance_per_month'] = Money.new(get_monthly_value(property.estimated_hazard_insurance).round(2) * 100).format(no_cents_if_whole: true)
           @params['intial_mortgage_insurance_per_month'] = Money.new(loan.pmi_monthly_premium_amount.to_f.round(2) * 100).format(no_cents_if_whole: true)
           @params['initial_homeowner_insurance'] = Money.new(initial_homeowner_insurance * 100).format(no_cents_if_whole: true)
           align(@params['intial_escrow_payment_total'].length).call('initial_homeowner_insurance')
@@ -242,7 +250,7 @@ module Docusign
       end
 
       def estimated_escrow
-        @estimated_escrow ||= (property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f).round(2)
+        @estimated_escrow ||= (get_monthly_value(property.estimated_hazard_insurance) + get_monthly_value(property.estimated_property_tax)).round(2)
       end
 
       def services_cannot_shop_total
@@ -276,7 +284,7 @@ module Docusign
       end
 
       def initial_homeowner_insurance
-        @pinitial_homeowner_insurance ||= (property.estimated_hazard_insurance.to_f * loan.initial_homeowner_insurance_months.to_f).round(2)
+        @pinitial_homeowner_insurance ||= (get_monthly_value(property.estimated_hazard_insurance) * loan.initial_homeowner_insurance_months.to_f).round(2)
       end
 
       def total_other_costs

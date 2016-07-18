@@ -58,6 +58,7 @@ module CompletedLoanServices
       return false unless property.usage.present?
       return false unless property.market_price.present?
       return false if loan_refinance && property.mortgage_includes_escrows.nil?
+      return false if !loan_refinance && property.is_primary == true && property.is_subject != true && property.mortgage_includes_escrows.nil?
       return false unless property.estimated_property_tax.present?
       return false unless property.estimated_hazard_insurance.present?
 

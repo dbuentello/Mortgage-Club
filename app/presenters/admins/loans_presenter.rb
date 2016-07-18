@@ -13,7 +13,7 @@ class Admins::LoansPresenter
     {
       include: {
         user: {
-          only: [:email, :first_name, :last_name]
+          only: [:id, :email, :first_name, :last_name]
         },
         properties: {
           include: :address

@@ -1,4 +1,14 @@
+#
+# Class Users::RatesController provides index method to show list rates for borrower after filling full information
+#
+# @author Tang Nguyen <tang@mortgageclub.co>
+#
 class Users::RatesController < Users::BaseController
+  #
+  # Get list rates
+  #
+  # @return [HTML] borrower app with boostrap data includes currentLoan, programs
+  #
   def index
     @loan = Loan.find(params[:loan_id])
 

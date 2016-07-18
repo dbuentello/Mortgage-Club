@@ -173,7 +173,7 @@ button[type=submit] {
     overflow: hidden;
     white-space: nowrap;
     display: inline-block;
-    width: 250px;
+    max-width: 240px;
   }
 }
 .fileBtn>div {

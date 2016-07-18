@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   get "home_test_rates", to: "pages#home_test_rates"
+
+  get "new_landing", to: "pages#new_landing"
+  get "new_login", to: "pages#new_login"
+  get "new_forgot_password", to: "pages#new_forgot_password"
+  get "new_register", to: "pages#new_register"
+
   get "backend_test", to: "pages#backend_test"
   get "frontend_test", to: "pages#frontend_test"
 
@@ -101,6 +107,8 @@ Rails.application.routes.draw do
         get :check_loan
       end
     end
+
+    resources :credit_checks, only: [:update]
   end
 
 
@@ -116,6 +124,7 @@ Rails.application.routes.draw do
 
     resources :loans, only: [:index, :update] do
       member do
+        get "export_xml"
         post "update_loan_terms"
       end
     end
@@ -144,6 +153,9 @@ Rails.application.routes.draw do
         get "get_email_info"
       end
     end
+
+    resources :loan_url_tokens, only: [:create]
+    resources :lead_requests, only: [:index, :create]
   end
 
   scope module: "admins" do
@@ -181,6 +193,8 @@ Rails.application.routes.draw do
         get "switch"
       end
     end
+
+    resources :loan_url_tokens, only: [:index, :create]
   end
 
   namespace :document_uploaders do

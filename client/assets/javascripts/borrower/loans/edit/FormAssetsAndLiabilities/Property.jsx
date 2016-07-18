@@ -202,17 +202,18 @@ var Property = React.createClass({
 
         var market_price = this.getValue(response, 'zestimate.amount.__content__');
         var propertyType = this.getPropertyType(this.getValue(response, 'useCode'));
-        var monthlyTax = this.getValue(response, 'monthlyTax');
-        var monthlyInsurance = this.getValue(response, 'monthlyInsurance');
+        var annualTax = this.getValue(response, 'annualTax');
+        var annualInsurance = this.getValue(response, 'annualInsurance');
         var rentalIncome = this.getValue(response, 'rentzestimate.amount.__content__');
 
-        if(property.is_subject == false)
+        if(property.is_subject !== true)
           property.market_price = this.formatCurrency(market_price);
 
         property.property_type = propertyType;
-        property.estimated_property_tax = this.formatCurrency(monthlyTax);
-        property.estimated_hazard_insurance = this.formatCurrency(monthlyInsurance);
+        property.estimated_property_tax = this.formatCurrency(annualTax);
+        property.estimated_hazard_insurance = this.formatCurrency(annualInsurance);
         property.gross_rental_income = this.formatCurrency(rentalIncome);
+        console.log(propertyKey, property);
         this.setState(this.setValue(this.state, propertyKey, property));
       }
     });
@@ -271,7 +272,7 @@ var Property = React.createClass({
               editable={true}
               onChange={this.onChange}
               validationTypes={["address"]}
-              editMode={this.props.editMode}/>
+              editMode={this.state.property.is_subject == true ? false : true}/>
           </div>
         </div>
         <div className='form-group'>
@@ -303,7 +304,7 @@ var Property = React.createClass({
           </div>
         </div>
         {
-          this.props.isPurchase == true && (this.state.property.is_primary == true || this.state.property.is_subject == true)
+          this.props.isPurchase == true && this.state.property.is_subject == true
           ?
             null
           :
@@ -396,10 +397,10 @@ var Property = React.createClass({
             </div>
         }
         <div className='form-group'>
-          <div className='col-md-6'>
+          <div className='col-md-4'>
             <TextField
               activateRequiredField={this.props.estimatedHazardInsuranceError}
-              label='Homeowner’s Insurance'
+              label='Annual Homeowners Insurance'
               keyName={'property_estimated_hazard_insurance_' + this.props.index}
               value={this.state.property.estimated_hazard_insurance}
               editable={true}
@@ -410,10 +411,10 @@ var Property = React.createClass({
               onBlur={this.onBlur}
               editMode={this.props.editMode}/>
           </div>
-          <div className='col-md-3'>
+          <div className='col-md-4'>
             <TextField
               activateRequiredField={this.props.estimatedPropertyTaxError}
-              label='Property Tax'
+              label='Annual Property Tax'
               keyName={'property_estimated_property_tax_' + this.props.index}
               value={this.state.property.estimated_property_tax}
               editable={true}
@@ -424,9 +425,9 @@ var Property = React.createClass({
               onBlur={this.onBlur}
               editMode={this.props.editMode}/>
           </div>
-          <div className='col-md-3 pln'>
+          <div className='col-md-4'>
             <TextField
-              label='HOA Due (if applicable)'
+              label='Monthly HOA Due (if applicable)'
               keyName={'property_hoa_due_' + this.props.index}
               value={this.state.property.hoa_due}
               editable={true}
@@ -442,7 +443,7 @@ var Property = React.createClass({
           {
             this.props.index != "subject_property" && this.props.index != "primary_property"
             ?
-              <div className='col-md-6'>
+              <div className='col-md-4'>
                 <TextField
                   activateRequiredField={this.props.grossRentalIncomeError}
                   label='Estimated Rental Income'

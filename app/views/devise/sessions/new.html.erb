@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-4 col-md-offset-4">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "form-horizontal text-center"}) do |f| %>
-            <h2 class="text-uppercase">log in</h2>
+            <h1>Log In</h1>
             <div class="form-group">
               <div class="col-sm-12">
                 <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
@@ -13,7 +13,7 @@
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <%= f.password_field :password, class: "form-control", placeholder: "Password", "data-toggle" => "tooltip", title: flash_messages_content  %>
+                <%= f.password_field :password, class: "form-control", placeholder: "Password", "data-toggle" => "tooltip", "data-placement" => "bottom", title: flash_messages_content  %>
                 <img src="/icons/password.png" />
               </div>
             </div>
@@ -25,16 +25,16 @@
                 </div>
               <% end %>
               <div class="col-md-6 col-xs-12 text-right">
-                <button class="btn btn-ms btn-mc text-uppercase" id="btnLoginDevise" type="submit" value="sign up">Log in</button>
+                <button class="btn btn-ms btn-mc text-uppercase" id="btnLoginDevise" type="submit">Log in</button>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-12 text-left">
-                <h5>
+                <span class="footer-link">
                   <%= link_to "Sign up", new_user_registration_path(resource) %>
                   |
                   <%= link_to "Forgot your password", new_password_path(resource) %>
-                </h5>
+                </span>
               </div>
             </div>
           <% end %>

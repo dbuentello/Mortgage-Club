@@ -2,6 +2,14 @@
   top: 75px !important;
 }
 
+.content {
+  .container {
+    @include respond-to(mobile){
+      width: 100% !important;
+    }
+  }
+}
+
 div.img-home {
   height: 200px;
   width: 100%;
@@ -91,6 +99,12 @@ a.remove {
   margin-top: 15px;
 }
 
+.list-invites {
+  @include respond-to(mobile){
+    margin-bottom: 50px;
+  }
+}
+
 .call-info {
   margin-top: 25px;
   margin-bottom: 20px;
@@ -143,7 +157,6 @@ a.remove {
   }
 
   .edit-btn {
-    float: left;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -244,6 +257,9 @@ a.remove {
 
   .board:last-of-type {
     margin-bottom: 110px;
+    @include respond-to(mobile){
+      margin-bottom: 30px;
+    }
   }
 
   .table {
@@ -343,6 +359,9 @@ a.remove {
   }
 
   .sidebar{
+    margin-right: 0px;
+    width: 100%;
+
     .dashboard-header-text:first-child {
       margin-top: 0;
     }

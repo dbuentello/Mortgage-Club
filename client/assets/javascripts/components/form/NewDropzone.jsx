@@ -59,7 +59,7 @@ var Dropzone = React.createClass({
 
   componentDidMount: function() {
     this.setState({
-      tip: this.props.tip || 'Upload',
+      tip: this.props.tip || 'Click to upload',
     });
 
     if (this.fileIsExisting()) {
@@ -201,7 +201,7 @@ var Dropzone = React.createClass({
         dataType: 'json',
         success: function(response) {
           // update tip
-          this.setState({ tip: 'Upload' });
+          this.setState({ tip: 'Click to upload' });
           this.setState({ downloadUrl: null });
           this.setState({ fileIsExisting: false });
 
@@ -266,7 +266,8 @@ var Dropzone = React.createClass({
                         <h5 className='fileBtnSmall' onClick={this.onClick} onDragLeave={this.onDragLeave}
                           onDragOver={this.onDragOver} onDrop={this.onDrop}>
                           <img src='/icons/upload.png' className="iconUpload"/>
-                          {this.state.tip}
+                            <span className="no-file-name">{this.state.tip}</span>
+
                           <input disabled={disabled} ref='fileInput' style={{display: 'none'}} type="file" multiple={this.props.multiple}
                             onChange={this.onDrop} accept={this.props.accept} id={this.props.field.name} name={this.props.field.name}>
                           </input>
@@ -284,7 +285,7 @@ var Dropzone = React.createClass({
               </tr>
             </table>
           </div>
-          <ValidationField id={this.props.field.name + "_id"} activateRequiredField={this.props.activateRequiredField} value={this.state.downloadUrl} title={"This field is required"}/>
+          <ValidationField id={this.props.field.name + "_id"} activateRequiredField={this.props.activateRequiredField} value={this.state.downloadUrl} requiredMessage={"This field is required"}/>
         </div>
       </div>
     );

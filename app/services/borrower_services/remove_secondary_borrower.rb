@@ -1,3 +1,4 @@
+# remove secondary out of loan.
 module BorrowerServices
   class RemoveSecondaryBorrower
     def self.call(current_user, loan, borrower_type)
@@ -9,6 +10,8 @@ module BorrowerServices
       end
 
       if secondary_borrower
+        loan.secondary_borrower = nil
+        loan.save
         secondary_borrower.loan = nil
         secondary_borrower.save
         CoBorrowerMailer.notify_being_removed(loan.id, secondary_borrower.id).deliver_later

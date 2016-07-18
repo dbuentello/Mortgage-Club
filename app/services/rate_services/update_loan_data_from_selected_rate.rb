@@ -1,3 +1,4 @@
+# after use select a rate, we update rate's info to loan.
 module RateServices
   class UpdateLoanDataFromSelectedRate
     ORIGINATION_TYPES = ["Loan discount fee", "Loan origination fee", "Processing fee", "Underwriting fee"]
@@ -20,9 +21,16 @@ module RateServices
         l.monthly_payment = quote[:monthly_payment].to_f
         l.apr = quote[:apr].to_f
         l.lender_credits = quote[:lender_credits].to_f
-        l.loan_type = quote[:loan_type] ? quote[:loan_type].capitalize : nil
+        loan_type = quote[:loan_type] ? quote[:loan_type].capitalize : nil
+        if loan_type.downcase.include? "conventional"
+          l.loan_type = "Conventional"
+        else
+          l.loan_type = loan_type.upcase
+        end
         l.estimated_closing_costs = quote[:total_closing_cost].to_f
-        l.save
+        l.pmi_monthly_premium_amount = quote[:pmi_monthly_premium_amount].to_f
+        l.amount = quote[:amount].to_f
+        l.save!
       end
     rescue ActiveRecord::RecordNotFound
       Rails.logger.error("#LoanNotFound: cannot update loan's data from selected rate. Loan id: #{loan_id}")

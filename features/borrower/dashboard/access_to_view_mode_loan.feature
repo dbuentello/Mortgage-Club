@@ -1,6 +1,6 @@
 Feature: AccessToViewModeLoan
   @javascript
-  Scenario: access to  loan's view mode
+  Scenario: access to loan's view mode
     When I am at dashboard page
       And I click on "View"
       And I press "Proceed" in the modal "viewLoan"

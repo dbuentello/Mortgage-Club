@@ -1,3 +1,6 @@
+/**
+ * UI for user input info before finding rate
+ */
 var React = require("react/addons");
 var TextField = require("components/form/NewTextField");
 var SelectField = require("components/form/NewSelectField");
@@ -96,7 +99,7 @@ var Form = React.createClass({
     }
 
     mixpanel.track("Quotes-FindMyRatesForm");
-    $("html").addClass( "loading" );
+    $("html").addClass("loading");
 
     var downPayment = null;
     var mortgageBalance = null;
@@ -169,9 +172,9 @@ var Form = React.createClass({
         <div className="quotes-form">
           <p>Answer a few questions and get a customized rate quote in 10 seconds.</p>
           <p className="explanation">{"We've pre-filled some questions with common answers."}</p>
-          <form className="form-horizontal col-md-offset-3" id="form-quotes">
+          <form className="form-horizontal col-xs-12 col-md-8 col-md-offset-2" id="form-quotes">
             <div className="form-group">
-              <div className="col-md-4">
+              <div className="col-md-6">
                 <SelectField
                   activateRequiredField={this.state[fields.mortgagePurpose.error]}
                   label={fields.mortgagePurpose.label}
@@ -181,7 +184,7 @@ var Form = React.createClass({
                   onChange={this.onChange}
                   value={this.state[fields.mortgagePurpose.keyName]}/>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-6">
                 <TextField
                   activateRequiredField={this.state[fields.zipcode.error]}
                   label={fields.zipcode.label}
@@ -195,7 +198,7 @@ var Form = React.createClass({
               </div>
             </div>
             <div className="form-group">
-              <div className="col-md-4">
+              <div className="col-md-6">
                 <TextField
                   activateRequiredField={this.state[fields.propertyValue.error]}
                   label={fields.propertyValue.label}
@@ -210,7 +213,7 @@ var Form = React.createClass({
               {
                 this.isPurchaseLoan()
                 ?
-                  <div className="col-md-4">
+                  <div className="col-md-6">
                     <TextField
                       activateRequiredField={this.state[fields.downPayment.error]}
                       label={fields.downPayment.label}
@@ -223,7 +226,7 @@ var Form = React.createClass({
                       onBlur={this.onBlur}/>
                   </div>
                 :
-                  <div className="col-md-4">
+                  <div className="col-md-6">
                     <TextField
                       activateRequiredField={this.state[fields.mortgageBalance.error]}
                       label={fields.mortgageBalance.label}
@@ -238,7 +241,7 @@ var Form = React.createClass({
               }
             </div>
             <div className="form-group">
-              <div className="col-md-4">
+              <div className="col-md-6">
                 <SelectField
                   activateRequiredField={this.state[fields.propertyUsage.error]}
                   label={fields.propertyUsage.label}
@@ -248,7 +251,7 @@ var Form = React.createClass({
                   onChange={this.onChange}
                   value={this.state[fields.propertyUsage.keyName]}/>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-6">
                 <SelectField
                   activateRequiredField={this.state[fields.propertyType.error]}
                   label={fields.propertyType.label}
@@ -260,7 +263,7 @@ var Form = React.createClass({
               </div>
             </div>
             <div className="form-group">
-              <div className="col-md-4">
+              <div className="col-md-6">
                 <SelectField
                     activateRequiredField={this.state[fields.creditScore.error]}
                     label={fields.creditScore.label}
@@ -271,10 +274,8 @@ var Form = React.createClass({
                     value={this.state[fields.creditScore.keyName]}/>
               </div>
             </div>
-            <div className="form-group">
-              <div className="col-xs-6 col-xs-offset-3 col-md-6 col-md-offset-3">
-                <button className="btn btn-mc text-uppercase" onClick={this.onSubmit}>find my rates</button>
-              </div>
+            <div className="form-group text-center btnSubmit">
+              <button className="btn btn-mc text-uppercase" id="find-my-rates-form" onClick={this.onSubmit}>find my rates</button>
             </div>
           </form>
         </div>

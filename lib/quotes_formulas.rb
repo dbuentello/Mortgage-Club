@@ -55,11 +55,9 @@ module QuotesFormulas
     return 0 if quote["DiscountPts"].nil?
     return 0 if quote["DiscountPts"].to_f >= 0 && quote["DiscountPts"].to_f <= 0.125
 
-    total_fee = quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"] + admin_fee
-
-    return 0 if total_fee >= 0 && total_fee <= 1000
-
-    total_fee
+    quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"] + admin_fee
+    # return 0 if total_fee >= 0 && total_fee <= 1000
+    # total_fee
   end
 
   def get_total_closing_cost(quote, admin_fee)
@@ -115,10 +113,8 @@ module QuotesFormulas
   end
 
   def hide_admin_fee?(quote, admin_fee)
-    total_fee = quote["DiscountPts"].to_f / 100 * quote["FeeSet"]["LoanAmount"].to_f + admin_fee
-
-    return true if total_fee >= 0 && total_fee <= 1000
-
+    # total_fee = quote["DiscountPts"].to_f / 100 * quote["FeeSet"]["LoanAmount"].to_f + admin_fee
+    # return true if total_fee >= 0 && total_fee <= 1000
     false
   end
 

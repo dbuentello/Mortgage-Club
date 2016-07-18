@@ -1,3 +1,7 @@
+/**
+ * underwriting page to show percent of loading
+ */
+
 var _ = require('lodash');
 var React = require('react/addons');
 
@@ -115,16 +119,13 @@ var Underwriting = React.createClass({
   render: function() {
     return (
       <div className="content underwriting">
-        <div className='content container'>
+        <div className='content container' style={{"marginTop": "150px"}}>
           <div id='underwriting' className='row mtl underwriting-text'>
-            <div className='col-sm-5'>
+            <div className='col-sm-4'>
               <div id="percent">0%</div>
             </div>
-
-            <div className='col-sm-7'>
-              <div className="row1">
-                <div id="status">Checking property eligibility</div>
-              </div>
+            <div className='col-sm-8 text-xs-center'>
+              <div id="status">Checking property eligibility</div>
             </div>
           </div>
           <div id='errors' className='row mtl hidden'>

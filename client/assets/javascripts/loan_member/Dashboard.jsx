@@ -10,6 +10,7 @@ var LenderDocumentTab = require("./tabs/lender_document/LenderDocumentTab");
 var ChecklistTab = require("./tabs/checklist/ChecklistTab");
 var CompetitorRateTab = require("./tabs/competitor_rates/CompetitorRateTab");
 var LoanTermsTab = require("./tabs/loan_terms/LoanTermsTab");
+var LoanUrlTokenTab = require("./tabs/loan_url_tokens/LoanUrlTokenTab");
 
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
@@ -61,7 +62,7 @@ var Dashboard = React.createClass({
                       <li role="presentation">
                         <a href="#checklist" aria-controls="checklist" role="tab" data-toggle="tab">
                           <i className="icon-clipboard2"></i>
-                          Checklists
+                          Checklist
                         </a>
                       </li>
                       <li role="presentation">
@@ -74,6 +75,12 @@ var Dashboard = React.createClass({
                         <a href="#quote_terms" aria-controls="quote_terms" role="tab" data-toggle="tab">
                           <i className="icon-list"></i>
                           Loan Terms
+                        </a>
+                      </li>
+                      <li role="presentation">
+                        <a href="#loan_url_token" aria-controls="loan_url_token" role="tab" data-toggle="tab">
+                          <i className="icon-sphere"></i>
+                          Loan URL Token
                         </a>
                       </li>
                     </ul>
@@ -100,6 +107,9 @@ var Dashboard = React.createClass({
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="quote_terms">
                   <LoanTermsTab loan={this.props.bootstrapData.loan} property={this.props.bootstrapData.property}/>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="loan_url_token">
+                  <LoanUrlTokenTab loan={this.props.bootstrapData.loan} url={this.props.bootstrapData.url}/>
                 </div>
               </div>
             </div>

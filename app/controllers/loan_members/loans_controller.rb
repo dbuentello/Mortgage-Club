@@ -26,9 +26,16 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     UpdateLoanTermsService.new(loan, params).call
 
     render json: {
-      loan: LoanEditPage::LoanPresenter.new(loan).show,
+      loan: LoanMembers::LoanPresenter.new(@loan).show,
       property: LoanMembers::PropertyPresenter.new(loan.subject_property).show
     }
+  end
+
+  def export_xml
+    loan = Loan.find(params[:id])
+    xml = ExportXmlMismoService.new(loan, loan.borrower).call
+
+    send_data xml, type: "text/xml; charset=UTF-8;", disposition: "attachment; filename=loan.xml"
   end
 
   private
