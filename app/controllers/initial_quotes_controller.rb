@@ -41,7 +41,6 @@ class InitialQuotesController < ApplicationController
       quotes = LoanTekServices::GetInitialQuotes.new(query).call
       monthly_payment = ZillowService::GetMonthlyPayment.new(query).call
     end
-    byebug
     bootstrap(
       code_id: quote_query.code_id,
       quotes: quotes,
@@ -56,16 +55,9 @@ class InitialQuotesController < ApplicationController
   end
 
   def set_rate_alert
-    byebug
-    @quotes = []
     if @quote
-      begin
-        query = JSON.parse(@quote.query)
-      rescue JSON::ParserError
-        query = {}
-      end
-      byebug
-      @quotes = LoanTekServices::GetInitialQuotes.new(query).lowest_apr
+      QuoteService.create_graph_quote(@quote) unless GraphQuoteQuery.where(quote_query_id: @quote.id).first
+      # @quotes = LoanTekServices::GetInitialQuotes.new(query).lowest_apr
     end
 
     # @quotes = LoanTekServices::GetInitialQuotes.new(@quote.query).call

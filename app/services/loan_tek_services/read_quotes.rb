@@ -77,7 +77,6 @@ module LoanTekServices
     end
 
     def self.build_lowest_apr(quotes, loan_purpose)
-      byebug
       programs = self.call(quotes, loan_purpose)
       lowest_apr = {}
       [
@@ -88,7 +87,6 @@ module LoanTekServices
         lowest_apr[type] = get_lowest_program(filtered_programs, :apr)
 
       end
-      byebug
       lowest_apr
     end
 

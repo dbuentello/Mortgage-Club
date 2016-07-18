@@ -22,7 +22,6 @@ module LoanTekServices
     end
 
     def lowest_apr
-      byebug
       quotes = LoanTekServices::SendRequestToLoanTek.call(
         zipcode: get_zipcode,
         credit_score: get_credit_score,
