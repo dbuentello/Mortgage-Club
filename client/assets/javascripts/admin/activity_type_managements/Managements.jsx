@@ -32,7 +32,7 @@ var Managements = React.createClass({
         <div className="page-title">
           <h4>
             <i className="icon-arrow-left52 position-left"> </i>
-            <span className="text-semibold"> Activity Type Managements </span>
+            <span className="text-semibold"> Loan Activity Type - Managements </span>
           </h4>
         </div>
       </div>
@@ -44,7 +44,7 @@ var Managements = React.createClass({
       <div className="content-wrapper">
         <div className="panel panel-flat">
           <div className="panel-heading">
-            <h5 className="panel-title">Activity Type</h5>
+            <h5 className="panel-title">Loan Activity Type</h5>
             <div className="heading-elements">
 
             </div>
@@ -55,7 +55,7 @@ var Managements = React.createClass({
                     <table className="table table-striped">
                       <thead>
                         <tr>
-                          <th>Label</th>
+                          <th>Activity Type</th>
                           <th></th>
                         </tr>
                       </thead>
