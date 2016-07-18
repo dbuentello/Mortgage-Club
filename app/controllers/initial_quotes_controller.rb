@@ -56,6 +56,7 @@ class InitialQuotesController < ApplicationController
 
   def set_rate_alert
     if @quote
+      @quote.update_attribute(:alert, true) unless @quote.alert
       QuoteService.create_graph_quote(@quote) unless GraphQuoteQuery.where(quote_query_id: @quote.id).first
       # @quotes = LoanTekServices::GetInitialQuotes.new(query).lowest_apr
     end
