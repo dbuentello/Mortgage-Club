@@ -23,8 +23,6 @@ namespace :scheduler do
 
   desc "Daily update the lowest apr for quote queries "
   task update_quote_queries: :environment do
-    QuoteQuery.where(alert: true).each do |q|
-      QuoteService.update_graph_quote(q)
-    end
+    QuoteService.delay.update_graph_quotes_email
   end
 end

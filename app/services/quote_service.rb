@@ -15,10 +15,27 @@ class QuoteService
       end
     end
 
+    def self.update_graph_quotes_email
+      @trigger_queries = []
+
+      QuoteQuery.where(alert: true).each do |q|
+        trigger_graph = self.update_graph_quote(q)
+        @trigger_queries.push(trigger_graph) if trigger_graph.present?
+      end
+      byebug
+      p "test"
+    end
+
+    def self.send_email_to_user(quote_id, new_graph)
+      RateAlertQuoteQuery.where(quote_query_id: quote_id).each do |r|
+        RateAlertQuoteMailer.inform_quote_changed(r, new_graph).deliver_later
+      end
+    end
+
     def self.update_graph_quote(quote)
+      trigger_graph = nil
       @quote = quote
       @query = JSON.parse(@quote.query)
-      @trigger_quote = []
       @pre_graph = GraphQuoteQuery.where(quote_query_id: @quote.id).order("created_at DESC").first
       @quotes = LoanTekServices::GetInitialQuotes.new(@query).lowest_apr
       if @quotes
@@ -27,9 +44,12 @@ class QuoteService
         arm71 = @quotes["7/1 ARM"].to_json
         arm51 = @quotes["5/1 ARM"].to_json
         g_updated = self.check_updating(@quotes, @pre_graph)
-        new_graph = GraphQuoteQuery.new(year30: year30, year15: year15, arm71: arm71, arm51: arm51, quote_query_id: quote.id, g_updated: g_updated)
+        new_graph = GraphQuoteQuery.new(year30: year30, year15: year15, arm71: arm71, arm51: arm51, quote_query_id: @quote.id, g_updated: g_updated)
         new_graph.save!
+        new_graph.reload
+        trigger_graph = new_graph if g_updated
       end
+      trigger_graph
     end
 
     private
