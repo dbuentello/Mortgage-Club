@@ -9,7 +9,7 @@ Feature: EditActivityType
       And I click "Admin"
       And I should see "Loan Activity Types"
     Then I click "Loan Activity Types"
-      And I should see "Loan Activity Type Managements"
+      And I should see "Loan Activity Type - Managements"
       And I should see "Edit"
       And I click on "Edit"
     Then I fill in "Activity Type" with "new label"

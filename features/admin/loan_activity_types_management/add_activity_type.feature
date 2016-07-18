@@ -8,7 +8,7 @@ Feature: AddActivityType
       And I click "Admin"
       And I should see "Loan Activity Types"
     Then I click "Loan Activity Types"
-      And I should see "Loan Activity Type Managements"
+      And I should see "Loan Activity Type - Managements"
       And I should see "Add new Activity Type"
     Then I fill in "Activity Type" with "label"
       And I fill in "type_name" with "name 1"
