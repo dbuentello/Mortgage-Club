@@ -2,7 +2,7 @@ class Admins::LoanActivityTypeManagementsController < Admins::BaseController
   before_action :set_activity_type, except: [:index, :create]
 
   def index
-    activity_types = ActivityType.all
+    activity_types = ActivityType.all.order(order_number: :asc)
 
     bootstrap(
       activity_types: Admins::LoanActivityTypesPresenter.new(activity_types).show
@@ -37,7 +37,7 @@ class Admins::LoanActivityTypeManagementsController < Admins::BaseController
     if @activity_type.save
       render json: {
         activity_type: Admins::LoanActivityTypePresenter.new(@activity_type).show,
-        activity_types: Admins::LoanActivityTypesPresenter.new(ActivityType.all).show,
+        activity_types: Admins::LoanActivityTypesPresenter.new(ActivityType.all.order(order_number: :asc)).show,
         message: t("info.success", status: t("created"))
       }, status: 200
     else
@@ -49,7 +49,7 @@ class Admins::LoanActivityTypeManagementsController < Admins::BaseController
     if @activity_type.destroy
       render json: {
         message: t("info.success", status: t("common.status.removed")),
-        activity_types: Admins::LoanActivityTypesPresenter.new(ActivityType.all).show
+        activity_types: Admins::LoanActivityTypesPresenter.new(ActivityType.all.order(order_number: :asc)).show
       }, status: 200
     else
       render json: {message: t("errors.failed", process: t("common.process.remove_checklist"))}, status: 500
@@ -59,7 +59,7 @@ class Admins::LoanActivityTypeManagementsController < Admins::BaseController
   private
 
   def activity_type_params
-    params.require(:activity_type).permit(:label, type_name_mapping: [])
+    params.require(:activity_type).permit(:label, :order_number, :notify_borrower_text, :notify_borrower_text_body, :notify_borrower_email, :notify_borrower_email_subject, :notify_borrower_email_body, type_name_mapping: [])
   end
 
   def set_activity_type
