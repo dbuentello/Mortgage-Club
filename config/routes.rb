@@ -181,6 +181,9 @@ Rails.application.routes.draw do
 
     resources :potential_rate_drop_user_managements, only: [:index, :edit, :update, :destroy] do
     end
+    
+    resources :rate_alert_quote_query_managements, only: [:index] do
+    end
 
     resources :lenders, except: [:show] do
       resources :lender_templates, except: [:new, :show]
@@ -216,6 +219,7 @@ Rails.application.routes.draw do
   resources :initial_quotes, only: [:index, :show, :create], path: "quotes" do
     collection do
       post "save_info"
+      post "set_rate_alert"
     end
   end
 

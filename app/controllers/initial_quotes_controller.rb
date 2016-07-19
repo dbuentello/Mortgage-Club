@@ -2,7 +2,8 @@ class InitialQuotesController < ApplicationController
   layout "landing"
   skip_before_action :authenticate_user!
   before_action :set_mixpanel_token, only: [:index]
-
+  before_action :set_quote, only: [:set_rate_alert]
+  skip_before_action :verify_authenticity_token, only: [:set_rate_alert]
   def index
     quote_cookies = get_quote_cookies
 
@@ -24,7 +25,6 @@ class InitialQuotesController < ApplicationController
 
   def create
     quote_query = QuoteQuery.new(query: quotes_params.to_json)
-
     render json: {code_id: quote_query.code_id} if quote_query.save
   end
 
@@ -41,8 +41,8 @@ class InitialQuotesController < ApplicationController
       quotes = LoanTekServices::GetInitialQuotes.new(query).call
       monthly_payment = ZillowService::GetMonthlyPayment.new(query).call
     end
-
     bootstrap(
+      code_id: quote_query.code_id,
       quotes: quotes,
       data_cookies: query,
       selected_programs: params[:program],
@@ -54,6 +54,20 @@ class InitialQuotesController < ApplicationController
     end
   end
 
+  def set_rate_alert
+    if @quote
+      unless @quote.alert
+        @quote.update_attribute(:alert, true)
+        QuoteService.create_graph_quote(@quote)
+      end
+    end
+    @rate_alert = RateAlertQuoteQuery.new(rate_alert_quote_params)
+    @rate_alert.code_id = @quote.code_id
+    @rate_alert.quote_query_id = @quote.id
+    @rate_alert.save!
+    render json: {success: true}, status: 200
+  end
+
   def save_info
     cookies[:initial_quotes] = {value: quotes_params.to_json, expires: 7.days.from_now}
 
@@ -61,6 +75,10 @@ class InitialQuotesController < ApplicationController
   end
 
   private
+
+  def set_quote
+    @quote = QuoteQuery.find_by_code_id(params[:code_id])
+  end
 
   def get_quote_cookies
     return {} if cookies[:initial_quotes].nil?
@@ -72,6 +90,10 @@ class InitialQuotesController < ApplicationController
     end
 
     info
+  end
+
+  def rate_alert_quote_params
+    params.permit(:email, :first_name, :last_name)
   end
 
   def quotes_params

@@ -21,6 +21,20 @@ module LoanTekServices
       quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose)
     end
 
+    def lowest_apr
+      quotes = LoanTekServices::SendRequestToLoanTek.call(
+        zipcode: get_zipcode,
+        credit_score: get_credit_score,
+        loan_purpose: get_loan_purpose,
+        loan_amount: get_loan_amount,
+        loan_to_value: get_loan_to_value,
+        property_usage: get_property_usage,
+        property_type: get_property_type
+      )
+
+      quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose)
+    end
+
     private
 
     def get_loan_purpose
