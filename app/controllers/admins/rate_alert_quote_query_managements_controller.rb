@@ -1,5 +1,4 @@
 class Admins::RateAlertQuoteQueryManagementsController < Admins::BaseController
-
   def index
     rate_alert_quote_queries = RateAlertQuoteQuery.all
 
@@ -11,7 +10,4 @@ class Admins::RateAlertQuoteQueryManagementsController < Admins::BaseController
       format.html { render template: 'admin_app' }
     end
   end
-
-
-
 end

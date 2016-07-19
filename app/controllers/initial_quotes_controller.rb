@@ -56,7 +56,7 @@ class InitialQuotesController < ApplicationController
 
   def set_rate_alert
     if @quote
-      if !@quote.alert
+      unless @quote.alert
         @quote.update_attribute(:alert, true)
         QuoteService.create_graph_quote(@quote)
       end

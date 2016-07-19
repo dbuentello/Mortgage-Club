@@ -85,7 +85,6 @@ module LoanTekServices
       ].each do |type|
         filtered_programs = filter_programs_by_product_type(programs, type)
         lowest_apr[type] = get_lowest_program(filtered_programs, :apr)
-
       end
       lowest_apr
     end
