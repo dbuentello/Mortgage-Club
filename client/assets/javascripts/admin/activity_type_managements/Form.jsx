@@ -2,6 +2,7 @@ var _ = require('lodash');
 var React = require('react/addons');
 var FlashHandler = require('mixins/FlashHandler');
 var TextField = require('components/form/TextField');
+var TextEditor = require('components/TextEditor');
 var ModalLink = require('components/ModalLink');
 
 var Form = React.createClass({
@@ -75,6 +76,7 @@ var Form = React.createClass({
     });
     formData.append("activity_type[notify_borrower_text]", this.state.notify_borrower_text);
     formData.append("activity_type[notify_borrower_email]", this.state.notify_borrower_email);
+    formData.append("activity_type[notify_borrower_email_body]", this.state.notify_borrower_email_body);
 
     $.ajax({
       url: this.props.Url,
@@ -130,6 +132,10 @@ var Form = React.createClass({
         }.bind(this)
       });
     }
+  },
+
+  updateEmailBody: function(content){
+    this.setState({ notify_borrower_email_body: content})
   },
 
   addTypeNameMapping: function(event){
@@ -243,14 +249,9 @@ var Form = React.createClass({
             </div>
           </div>
           <div className="form-group">
-            <div className="col-sm-4">
-              <TextField
-                label="Email body"
-                keyName="notify_borrower_email_body"
-                name="activity_type[notify_borrower_email_body]"
-                value={this.state.notify_borrower_email_body}
-                editable={true}
-                onChange={this.onChange}/>
+            <div className="col-sm-12">
+              <label className="col-sm-12 pan">Email body</label>
+              <TextEditor onChange={this.updateEmailBody} content={this.state.notify_borrower_email_body}/>
             </div>
           </div>
           <div className="form-group">
