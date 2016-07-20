@@ -21,7 +21,7 @@ var ClientPart = React.createClass({
 
             <div className="col-md-6 clearfix how-item">
 
-              <img src="/HowItWorks_Step_1.png" style={{width: '75%'}}/>
+              <img src="/HowItWorks_Step_1.jpg" style={{width: '75%'}}/>
             </div>
           </div>
 
@@ -35,7 +35,7 @@ var ClientPart = React.createClass({
             </div>
             <div className="col-md-6 clearfix col-md-pull-6 how-item">
 
-              <img src="/HowItWorks_Step_2.png" style={{width: '75%'}}/>
+              <img src="/HowItWorks_Step_2.jpg" style={{width: '75%'}}/>
             </div>
           </div>
 
@@ -50,7 +50,7 @@ var ClientPart = React.createClass({
 
             <div className="col-md-6 clearfix how-item">
 
-              <img src="/HowItWorks_Step_3.png" style={{width: '75%'}}/>
+              <img src="/HowItWorks_Step_3.jpg" style={{width: '75%'}}/>
             </div>
           </div>
 
