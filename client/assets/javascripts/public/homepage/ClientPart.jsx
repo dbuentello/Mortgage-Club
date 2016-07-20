@@ -15,14 +15,14 @@ var ClientPart = React.createClass({
           <div className="clients row">
             <div className="client col-md-4 col-sm-4 col-xs-12 clearfix">
               <p>“We saved a ton of money on fees and our refinancing rate was great. We would highly recommend MortgageClub to our friends.”</p>
-              <img src="/client1.png"/>
+              <img src="/client1.jpg"/>
               <h4>Antonio & Nikki</h4>
               <h6>Alameda, CA</h6>
             </div>
 
             <div className="client col-md-4 col-sm-4 col-xs-12 clearfix">
               <p>“MortgageClub is a delight to work with. Within less than a month from the date of our application, we received a check for our loan.”</p>
-              <img src="/client2.png"/>
+              <img src="/client2.jpg"/>
               <h4>Vinh & Theresa</h4>
               <h6>Danville, CA</h6>
             </div>
