@@ -53,9 +53,11 @@ class QuoteService
   end
 
   def self.check_updating_program(new_program, pre_program)
-    rate = new_program["interest_rate"] == pre_program["interest_rate"]
-    lender_credits = new_program["lender_credits"] == pre_program["lender_credits"]
-    return true if !rate || !lender_credits
+    # rate = new_program["interest_rate"] == pre_program["interest_rate"]
+    # lender_credits = new_program["lender_credits"] == pre_program["lender_credits"]
+    # return true if !rate || !lender_credits
+    # return true if !rate || !lender_credits
+    return true if new_program["interest_rate"].to_f < pre_program["interest_rate"].to_f
     false
   end
 end

@@ -20,19 +20,19 @@ class RateAlertQuoteMailer < ActionMailer::Base
 
     graph = {
       "year30": {
-        "rate": number_to_currency(year30["interest_rate"]),
+        "rate": year30["interest_rate"].to_f * 100,
         "lender_credit": number_to_currency(year30["lender_credits"])
       },
       "year15": {
-        "rate": number_to_currency(year15["interest_rate"]),
+        "rate": year15["interest_rate"].to_f * 100,
         "lender_credit": number_to_currency(year15["lender_credits"])
       },
       "arm71": {
-        "rate": number_to_currency(arm71["interest_rate"]),
+        "rate": arm71["interest_rate"].to_f * 100,
         "lender_credit": number_to_currency(arm71["lender_credits"])
       },
       "arm51": {
-        "rate": number_to_currency(arm51["interest_rate"]),
+        "rate": arm51["interest_rate"].to_f * 100,
         "lender_credit": number_to_currency(arm51["lender_credits"])
       }
     }
