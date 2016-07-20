@@ -67,7 +67,7 @@ var Managements = React.createClass({
                                 <td>{activity_type.label}</td>
                                 <td>
                                   <span>
-                                    <a id="edit_activity_type" className='linkTypeReversed btn btn-primary' href={'loan_activity_type_managements/' + activity_type.id + '/edit'} data-method='get'>Edit</a>
+                                    <a className='linkTypeReversed btn btn-primary' href={'loan_activity_type_managements/' + activity_type.id + '/edit'} data-method='get'>Edit</a>
                                   </span>
                                 </td>
                               </tr>

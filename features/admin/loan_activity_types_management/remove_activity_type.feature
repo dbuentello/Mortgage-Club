@@ -11,7 +11,7 @@ Feature: RemoveActivityType
     Then I click "Loan Activity Types"
       And I should see "Loan Activity Type - Managements"
       And I should see "Edit"
-      And I click on "#edit_activity_type"
+      And I click on "Edit" in the ".linkTypeReversed"
     Then I click on "Remove"
       And I press "Yes" in the modal "removeActivityType"
     Then I should be on the loan activity type managements page

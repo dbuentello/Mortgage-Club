@@ -11,7 +11,7 @@ Feature: EditActivityType
     Then I click "Loan Activity Types"
       And I should see "Loan Activity Type - Managements"
       And I should see "Edit"
-      And I click on "#edit_activity_type"
+      And I click on "Edit" in the ".linkTypeReversed"
     Then I fill in "Activity Type" with "new label"
       And I fill in "type_name" with "name 1"
     Then I click on "+" in the "#addTypeNameMapping"
