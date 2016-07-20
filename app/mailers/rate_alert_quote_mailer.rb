@@ -5,7 +5,7 @@ class RateAlertQuoteMailer < ActionMailer::Base
   def inform_quote_changed(user, new_graph, pre_graph)
     @rate_alert_user = user
     @new_graph = build_result(new_graph)
-    @pre_graph =  build_result(pre_graph)
+    @pre_graph = build_result(pre_graph)
     mail(
       to: @rate_alert_user.email,
       subject: "Your quote has changed - MortgageClub"
@@ -18,7 +18,7 @@ class RateAlertQuoteMailer < ActionMailer::Base
     arm71 = JSON.parse(graph.arm71)
     arm51 = JSON.parse(graph.arm51)
 
-    graph = {
+    {
       "year30": {
         "rate": year30["interest_rate"].to_f * 100,
         "lender_credit": number_to_currency(year30["lender_credits"])
