@@ -142,7 +142,7 @@ var Filter = React.createClass({
                                                   </div>
                                                 </div>
                                                   <div className="form-group">
-                                                      <div className="col-sm-12">
+                                                      <div className="col-sm-12 text-left">
 
                                                           <TextField
                                                             activateRequiredField={this.state[fields.email.error]}
@@ -158,14 +158,15 @@ var Filter = React.createClass({
                                                             editMode={true}/>
                                                       </div>
                                                   </div>
-<br></br><br></br>
-                                                  <br></br>
-                                                  <div className="form-group text-center">
 
-                                                          <button type="button" onClick={this.submitRateAlert} className="btn btn-mc form-control">Submit</button>
+                                                  <div className="form-group text-center">
+                                                      <div className="col-md-12" style={{"padding-top": "35px","padding-bottom": "20px"}}>
+                                                        <button type="button" onClick={this.submitRateAlert} className="btn btn-mc form-control">Submit</button>
+
+                                                      </div>
 
                                                   </div>
-                                                          <br></br>
+
                                               </form>
 
                                       </div>
