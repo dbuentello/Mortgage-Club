@@ -102,7 +102,7 @@ var Filter = React.createClass({
     render: function() {
         return (
             <div>
-                <div id="sidebar">
+                <div id="sidebar" className="filter-sidebar">
                   {
                     this.props.rate_alert ?
                     <span>
@@ -191,8 +191,6 @@ var Filter = React.createClass({
                     <input type="checkbox" name="51arm" id="51arm" checked={this.isCriteriaChecked("5/1 ARM")} onChange={_.bind(this.onChangeCriteria, null, "5/1 ARM", "product")}/>
                     <label className="customCheckbox blueCheckBox2" htmlFor="51arm">5/1 ARM</label>
                     <br/>
-                    <input type="checkbox" name="fha" id="fha" checked={this.isCriteriaChecked("FHA")} onChange={_.bind(this.onChangeCriteria, null, "FHA", "product")}/>
-                    <label className="customCheckbox blueCheckBox2" htmlFor="fha">FHA</label>
                     <h5>Wholesale lenders</h5>
                     {_.map(this.getFeaturedLenders(), function(lender) {
                         return (
@@ -203,27 +201,27 @@ var Filter = React.createClass({
                           )
                         }, this)
                     }
-                    <h5>
-                        <a role="button" data-toggle="collapse" href=".helpme-sidebar-collapse" aria-expanded="true" aria-controls="helpme-sidebar-collapse">
-                            Show all lenders<span className="glyphicon glyphicon-menu-down"></span>
-                        </a>
-                    </h5>
                     <div className="collapse helpme-sidebar-collapse">
                         {_.map(this.getRemainingLenders(), function(lender) {
                             return (
                                 <div>
-                                    <input type="checkbox" name="citibank2" id={lender} checked={this.isCriteriaChecked(lender)} onChange={_.bind(this.onChangeCriteria, null, lender, "lender")}/>
+                                    <input type="checkbox" id={lender} checked={this.isCriteriaChecked(lender)} onChange={_.bind(this.onChangeCriteria, null, lender, "lender")}/>
                                     <label className="customCheckbox blueCheckBox2" htmlFor={lender}>{lender}</label>
                                 </div>
                               )
                             }, this)
                         }
                     </div>
+                    <h5>
+                      <a role="button" data-toggle="collapse" href=".helpme-sidebar-collapse" aria-expanded="true" aria-controls="helpme-sidebar-collapse">
+                        Show all lenders<span className="glyphicon glyphicon-menu-down"></span>
+                      </a>
+                    </h5>
                 </div>
                 <div className="swipe-area">
-                    <a href="#" data-toggle=".subnav" id="sidebar-toggle">
-                        <span className="glyphicon glyphicon-arrow-right"></span>
-                    </a>
+                  <a href="#" data-toggle=".subnav" id="sidebar-toggle">
+                    <span className="glyphicon glyphicon-arrow-right"></span>
+                  </a>
                 </div>
             </div>
         )
