@@ -321,8 +321,11 @@ module Docusign
             @params[("liabilities_street_" + nth).to_sym] = liability.address.street_address
             @params[("liabilities_city_state_" + nth).to_sym] = "#{liability.address.city}, #{liability.address.state} #{liability.address.zip}"
           end
-
-          @params[("liabilities_payment_" + nth).to_sym] = "#{number_to_currency(liability.payment.to_f, unit: '')} / #{liability.months.to_i}"
+          if liability.months.to_i != 0
+            @params[("liabilities_payment_" + nth).to_sym] = "#{number_to_currency(liability.payment.to_f, unit: '')} / #{liability.months.to_i}"
+          else
+            @params[("liabilities_payment_" + nth).to_sym] = "#{number_to_currency(liability.payment.to_f, unit: '')}"
+          end
           total_liab_payment += liability.payment.to_f
           total_liab_balance += liability.balance.to_f
           @params[("liabilities_balance_" + nth).to_sym] = number_to_currency(liability.balance.to_f, unit: "")
