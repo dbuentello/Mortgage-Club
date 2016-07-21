@@ -201,11 +201,6 @@ var Filter = React.createClass({
                           )
                         }, this)
                     }
-                    <h5>
-                        <a role="button" data-toggle="collapse" href=".helpme-sidebar-collapse" aria-expanded="true" aria-controls="helpme-sidebar-collapse">
-                            Show all lenders<span className="glyphicon glyphicon-menu-down"></span>
-                        </a>
-                    </h5>
                     <div className="collapse helpme-sidebar-collapse">
                         {_.map(this.getRemainingLenders(), function(lender) {
                             return (
@@ -217,11 +212,16 @@ var Filter = React.createClass({
                             }, this)
                         }
                     </div>
+                    <h5>
+                      <a role="button" data-toggle="collapse" href=".helpme-sidebar-collapse" aria-expanded="true" aria-controls="helpme-sidebar-collapse">
+                        Show all lenders<span className="glyphicon glyphicon-menu-down"></span>
+                      </a>
+                    </h5>
                 </div>
                 <div className="swipe-area">
-                    <a href="#" data-toggle=".subnav" id="sidebar-toggle">
-                        <span className="glyphicon glyphicon-arrow-right"></span>
-                    </a>
+                  <a href="#" data-toggle=".subnav" id="sidebar-toggle">
+                    <span className="glyphicon glyphicon-arrow-right"></span>
+                  </a>
                 </div>
             </div>
         )
