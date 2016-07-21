@@ -102,7 +102,7 @@ var Filter = React.createClass({
     render: function() {
         return (
             <div>
-                <div id="sidebar">
+                <div id="sidebar" className="filter-sidebar">
                   {
                     this.props.rate_alert ?
                     <span>
