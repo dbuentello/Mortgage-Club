@@ -1,3 +1,7 @@
+# rubocop:disable ClassLength
+# rubocop:disable LineLength
+# rubocop:disable MethodLength
+
 module CreditReportServices
   #
   # Class GetReport provides getting report from Equifax
@@ -503,3 +507,6 @@ module CreditReportServices
     end
   end
 end
+# rubocop:enable ClassLength
+# rubocop:enable LineLength
+# rubocop:enable MethodLength
