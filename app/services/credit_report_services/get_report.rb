@@ -173,10 +173,11 @@ module CreditReportServices
                 <CREDIT_REQUEST_DATA BorrowerID="1" CreditReportIdentifier="V7FF12" CreditReportRequestActionType="Submit" CreditReportType="Merge" CreditRepositoriesSelectedCount="3" CreditRequestDateTime="2016-06-19" CreditRequestID="CreditRequest1" CreditRequestType="Individual">
                   <CREDIT_REPOSITORY_INCLUDED _EquifaxIndicator="Y" _ExperianIndicator="Y" _TransUnionIndicator="Y"/>
                 </CREDIT_REQUEST_DATA>
-                <BORROWER BorrowerID="1" MaritalStatusType="Unknown" _FirstName="CARLETON" _LastName="HAAG" _MaritalStatus="UNKNOWN" _PrintPositionType="Borrower" _SSN="301-42-3221">
-                  <_RESIDENCE BorrowerResidencyType="Current" _City="SACRAMENTO" _PostalCode="95828" _State="CA" _StreetAddress="7122 CHANDLER DRIVE"/>
+                <BORROWER BorrowerID="1" MaritalStatusType="Unknown" _FirstName="MORTGAGE" _LastName="CLUB" _MaritalStatus="UNKNOWN" _PrintPositionType="Borrower" _SSN="111-11-1111">
+                  <_RESIDENCE BorrowerResidencyType="Current" _City="SAN FRANCISCO" _PostalCode="94105" _State="CA" _StreetAddress="156 2ND STREET"/>
                 </BORROWER>
-                <CREDIT_LIABILITY BorrowerID="1" CreditBusinessType="Finance" CreditFileID="B-EFX-01" CreditLiabilityID="TRD0000" CreditLoanType="RealEstateSpecificTypeUnknown" CreditTradeReferenceID="CTR0000" _AccountIdentifier="1234561421105" _AccountOpenedDate="2000-08" _AccountOwnershipType="Individual" _AccountReportedDate="2016-04" _AccountStatusDate="2016-04" _AccountStatusType="Open" _AccountType="Mortgage" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _HighBalanceAmount="134000" _HighCreditAmount="134000" _LastActivityDate="2016-04" _MonthlyPaymentAmount="1404" _MonthsReviewedCount="84" _TermsDescription="MONTHLY" _TermsSourceType="Provided" _UnpaidBalanceAmount="134000">
+
+                <CREDIT_LIABILITY BorrowerID="1" CreditBusinessType="Finance" CreditFileID="B-EFX-01" CreditLiabilityID="TRD0000" CreditLoanType="RealEstateSpecificTypeUnknown" CreditTradeReferenceID="CTR0000" _AccountIdentifier="1234561421105" _AccountOpenedDate="2000-08" _AccountOwnershipType="Individual" _AccountReportedDate="2016-04" _AccountStatusDate="2016-04" _AccountStatusType="Open" _AccountType="Mortgage" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _HighBalanceAmount="417000" _HighCreditAmount="134000" _LastActivityDate="2016-04" _MonthlyPaymentAmount="2032" _MonthsReviewedCount="84" _TermsDescription="MONTHLY" _TermsSourceType="Provided" _UnpaidBalanceAmount="400000">
                   <_CREDITOR _City="PLANO" _Name="GREENP MTG" _PostalCode="75024" _State="TX" _StreetAddress="7933 PRESTON RD MAIL CODE 310630110">
                     <CONTACT_DETAIL>
                       <CONTACT_POINT _Type="Phone" _Value="7066496700"/>
@@ -192,19 +193,8 @@ module CreditReportServices
                   </CREDIT_COMMENT>
                   <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="822FM00288"/>
                 </CREDIT_LIABILITY>
-                <CREDIT_LIABILITY BorrowerID="1" CreditBusinessType="Banking" CreditFileID="B-EFX-01" CreditLiabilityID="TRD0001" CreditLoanType="RealEstateSpecificTypeUnknown" CreditTradeReferenceID="CTR0001" _AccountIdentifier="36104402555599" _AccountOpenedDate="2000-03" _AccountOwnershipType="Individual" _AccountReportedDate="2016-04" _AccountStatusDate="2016-04" _AccountStatusType="Open" _AccountType="Mortgage" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _HighBalanceAmount="69090" _HighCreditAmount="69090" _LastActivityDate="2016-04" _MonthlyPaymentAmount="862" _MonthsReviewedCount="84" _TermsDescription="MONTHLY" _TermsSourceType="Provided" _UnpaidBalanceAmount="65975">
-                  <_CREDITOR _City="ATLANTA" _Name="BANKAMERIC" _PostalCode="30302" _State="GA" _StreetAddress="PO BOX 50368"/>
-                  <_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
-                  <_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
-                  <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
-                    <_Text>CONVENTIONAL MORTGAGE</_Text>
-                  </CREDIT_COMMENT>
-                  <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
-                    <_Text>REAL ESTATE MORTGAGE</_Text>
-                  </CREDIT_COMMENT>
-                  <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="401BB02330"/>
-                </CREDIT_LIABILITY>
-                <CREDIT_LIABILITY BorrowerID="1" CreditBusinessType="DepartmentAndMailOrder" CreditFileID="B-TU-01" CreditLiabilityID="TRD0002" CreditLoanType="ChargeAccount" CreditTradeReferenceID="CTR0002" _AccountIdentifier="2665544304" _AccountOpenedDate="2001-06" _AccountOwnershipType="Individual" _AccountReportedDate="2016-04" _AccountStatusDate="2016-04" _AccountStatusType="Open" _AccountType="Revolving" _ConsumerDisputeIndicator="N" _CreditLimitAmount="1500" _DerogatoryDataIndicator="N" _HighBalanceAmount="1500" _HighCreditAmount="1500" _LastActivityDate="2013-04" _MonthlyPaymentAmount="5" _MonthsReviewedCount="9" _PastDueAmount="0" _TermsDescription="MIN" _TermsSourceType="Provided" _UnpaidBalanceAmount="141">
+
+                <CREDIT_LIABILITY BorrowerID="1" CreditBusinessType="DepartmentAndMailOrder" CreditFileID="B-TU-01" CreditLiabilityID="TRD0002" CreditLoanType="ChargeAccount" CreditTradeReferenceID="CTR0002" _AccountIdentifier="2665544304" _AccountOpenedDate="2001-06" _AccountOwnershipType="Individual" _AccountReportedDate="2016-04" _AccountStatusDate="2016-04" _AccountStatusType="Open" _AccountType="Revolving" _ConsumerDisputeIndicator="N" _CreditLimitAmount="1500" _DerogatoryDataIndicator="N" _HighBalanceAmount="1500" _HighCreditAmount="1500" _LastActivityDate="2013-04" _MonthlyPaymentAmount="50" _MonthsReviewedCount="9" _PastDueAmount="0" _TermsDescription="MIN" _TermsSourceType="Provided" _UnpaidBalanceAmount="1410">
                   <_CREDITOR _City="MASON" _Name="BURDIN/FDSB" _PostalCode="45040" _State="OH" _StreetAddress="9111 DUKE BLVD">
                     <CONTACT_DETAIL>
                       <CONTACT_POINT _Type="Phone" _Value="8002847049"/>
@@ -215,6 +205,7 @@ module CreditReportServices
                   <_PAYMENT_PATTERN _Data="CCXXXXCCC" _StartDate="2013-04"/>
                   <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="D 0635D001"/>
                 </CREDIT_LIABILITY>
+
                 <CREDIT_LIABILITY BorrowerID="1" CreditBusinessType="Banking" CreditFileID="B-TU-01" CreditLiabilityID="TRD0003" CreditLoanType="CreditCard" CreditTradeReferenceID="CTR0003" _AccountIdentifier="6783XXXX3041" _AccountOpenedDate="1993-11" _AccountOwnershipType="Individual" _AccountReportedDate="2016-04" _AccountStatusDate="2016-04" _AccountStatusType="Open" _AccountType="Revolving" _ConsumerDisputeIndicator="N" _CreditLimitAmount="5400" _DerogatoryDataIndicator="N" _HighBalanceAmount="5400" _HighCreditAmount="5400" _LastActivityDate="2013-04" _MonthsReviewedCount="48" _PastDueAmount="0" _TermsDescription="MONTHLY" _UnpaidBalanceAmount="0">
                   <_CREDITOR _City="SIOUX FALLS" _Name="CITI" _PostalCode="57117" _State="SD" _StreetAddress="POB 6241">
                     <CONTACT_DETAIL>
@@ -226,42 +217,7 @@ module CreditReportServices
                   <_PAYMENT_PATTERN _Data="CCCCCCCCCCCCCCCCCCCCXCCCCCCCCCCCCCCCCCCXCCCC" _StartDate="2013-04"/>
                   <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="B 064DB002"/>
                 </CREDIT_LIABILITY>
-                <CREDIT_LIABILITY BorrowerID="1" CreditBusinessType="Finance" CreditFileID="B-EFX-01" CreditLiabilityID="TRD0004" CreditLoanType="RealEstateSpecificTypeUnknown" CreditTradeReferenceID="CTR0004" _AccountIdentifier="6089010" _AccountOpenedDate="1995-05" _AccountOwnershipType="Individual" _AccountReportedDate="2016-04" _AccountStatusDate="2016-04" _AccountStatusType="Open" _AccountType="Mortgage" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _HighBalanceAmount="0" _HighCreditAmount="0" _LastActivityDate="2016-04" _MonthsReviewedCount="14" _TermsDescription="MONTHLY" _UnpaidBalanceAmount="0">
-                  <_CREDITOR _City="GAITHERSBURG" _Name="CITICORP" _PostalCode="20898" _State="MD" _StreetAddress="PO BOX 9438 DEPT 0251">
-                    <CONTACT_DETAIL>
-                      <CONTACT_POINT _Type="Phone" _Value="8002837918"/>
-                    </CONTACT_DETAIL>
-                  </_CREDITOR>
-                  <_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
-                  <_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
-                  <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
-                    <_Text>REAL ESTATE MORTGAGE</_Text>
-                  </CREDIT_COMMENT>
-                  <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
-                    <_Text>ACCOUNT TRANSFERRED OR SOLD</_Text>
-                  </CREDIT_COMMENT>
-                  <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="906FM06418"/>
-                </CREDIT_LIABILITY>
-                <CREDIT_LIABILITY BorrowerID="1" CreditBusinessType="Banking" CreditFileID="B-XPN-01" CreditLiabilityID="TRD0005" CreditLoanType="ChargeAccount" CreditTradeReferenceID="CTR0005" _AccountIdentifier="603259997000" _AccountOpenedDate="1996-06" _AccountOwnershipType="Individual" _AccountReportedDate="2001-08" _AccountStatusDate="2001-08" _AccountStatusType="Open" _AccountType="Revolving" _ConsumerDisputeIndicator="N" _CreditLimitAmount="500" _DerogatoryDataIndicator="N" _HighBalanceAmount="500" _HighCreditAmount="500" _MonthsReviewedCount="17" _TermsDescription="MONTHLY" _UnpaidBalanceAmount="0">
-                  <_CREDITOR _City="NEWARK" _Name="CITIFINANCIAL RETAIL" _PostalCode="19714" _State="DE" _StreetAddress="PO BOX 6080">
-                    <CONTACT_DETAIL>
-                      <CONTACT_POINT _Type="Phone" _Value="3024545616"/>
-                    </CONTACT_DETAIL>
-                  </_CREDITOR>
-                  <_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
-                  <_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
-                  <_PAYMENT_PATTERN _Data="CCCCCCCCCCXXXCCCC" _StartDate="2001-08"/>
-                  <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
-                    <_Text>OPEN</_Text>
-                  </CREDIT_COMMENT>
-                  <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
-                    <_Text>CURRENT ACCOUNT</_Text>
-                  </CREDIT_COMMENT>
-                  <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
-                    <_Text>LAST PAID:</_Text>
-                  </CREDIT_COMMENT>
-                  <CREDIT_REPOSITORY _SourceType="Experian" _SubscriberCode="1138180"/>
-                </CREDIT_LIABILITY>
+
                 <CREDIT_LIABILITY BorrowerID="1" CreditBusinessType="DepartmentAndMailOrder" CreditFileID="B-TU-01" CreditLiabilityID="TRD0006" CreditLoanType="ChargeAccount" CreditTradeReferenceID="CTR0006" _AccountIdentifier="153211234567" _AccountOpenedDate="2009-03" _AccountOwnershipType="Individual" _AccountReportedDate="2016-04" _AccountStatusDate="2016-04" _AccountStatusType="Open" _AccountType="Revolving" _ConsumerDisputeIndicator="N" _CreditLimitAmount="500" _DerogatoryDataIndicator="N" _HighBalanceAmount="500" _HighCreditAmount="500" _LastActivityDate="2013-04" _MonthsReviewedCount="3" _PastDueAmount="0" _TermsDescription="MONTHLY" _UnpaidBalanceAmount="0">
                   <_CREDITOR _City="MASON" _Name="MACYS/GECCCC" _PostalCode="45040" _State="OH" _StreetAddress="9111 DUKE BLVD">
                     <CONTACT_DETAIL>
@@ -275,22 +231,7 @@ module CreditReportServices
                   </CREDIT_COMMENT>
                   <CREDIT_REPOSITORY _SourceType="TransUnion" _SubscriberCode="D 0729D015"/>
                 </CREDIT_LIABILITY>
-                <CREDIT_LIABILITY BorrowerID="1" CreditBusinessType="Finance" CreditFileID="B-EFX-01" CreditLiabilityID="TRD0007" CreditLoanType="RealEstateSpecificTypeUnknown" CreditTradeReferenceID="CTR0007" _AccountIdentifier="83104315" _AccountOpenedDate="1988-01" _AccountOwnershipType="Individual" _AccountReportedDate="2016-04" _AccountStatusDate="2016-04" _AccountStatusType="Closed" _AccountType="Mortgage" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _HighBalanceAmount="64600" _HighCreditAmount="64600" _LastActivityDate="2016-04" _MonthsReviewedCount="22" _TermsDescription="MONTHLY" _UnpaidBalanceAmount="0">
-                  <_CREDITOR _City="OKLAHOMA CITY" _Name="MIDLAND MG" _PostalCode="73126" _State="OK" _StreetAddress="PO BOX 268959 F  MIDFIRST BANK">
-                    <CONTACT_DETAIL>
-                      <CONTACT_POINT _Type="Phone" _Value="8006544566"/>
-                    </CONTACT_DETAIL>
-                  </_CREDITOR>
-                  <_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
-                  <_LATE_COUNT _30Days="0" _60Days="0" _90Days="0"/>
-                  <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
-                    <_Text>ACCOUNT PAID</_Text>
-                  </CREDIT_COMMENT>
-                  <CREDIT_COMMENT _SourceType="CreditBureau" _Type="BureauRemarks">
-                    <_Text>REAL ESTATE MORTGAGE</_Text>
-                  </CREDIT_COMMENT>
-                  <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="158FM00079"/>
-                </CREDIT_LIABILITY>
+
                 <CREDIT_LIABILITY BorrowerID="1" CreditBusinessType="Banking" CreditFileID="B-EFX-01" CreditLiabilityID="TRD0008" CreditLoanType="CreditCard" CreditTradeReferenceID="CTR0008" _AccountIdentifier="7012510104884453" _AccountOpenedDate="2009-04" _AccountOwnershipType="Individual" _AccountReportedDate="2016-04" _AccountStatusDate="2016-04" _AccountStatusType="Open" _AccountType="Revolving" _ConsumerDisputeIndicator="N" _CreditLimitAmount="6700" _DerogatoryDataIndicator="N" _HighBalanceAmount="6700" _LastActivityDate="2016-04" _MonthsReviewedCount="2" _TermsDescription="MONTHLY" _UnpaidBalanceAmount="0">
                   <_CREDITOR _City="THE LAKES" _Name="SEARS" _PostalCode="89163" _State="NV" _StreetAddress="8725 W. SAHARA AVE MC 02 02 03"/>
                   <_CURRENT_RATING _Code="1" _Type="AsAgreed"/>
@@ -303,23 +244,25 @@ module CreditReportServices
                   </CREDIT_COMMENT>
                   <CREDIT_REPOSITORY _SourceType="Equifax" _SubscriberCode="906BB05577"/>
                 </CREDIT_LIABILITY>
+
                 <CREDIT_FILE BorrowerID="1" CreditFileID="B-EFX-01" CreditRepositorySourceType="Equifax" CreditScoreID="CRScr0000">
                   <_ALERT_MESSAGE _CategoryType="FACTAAddressDiscrepancy" _Code=" " _Type="Other" _TypeOtherDescription="FACTA">
                     <_Text>FACTA: Address Discrepancy - ADDRESS ELEMENTS WERE UNAVAILABLE OR NOT UTILIZED.</_Text>
                   </_ALERT_MESSAGE>
-                  <_BORROWER _FirstName="ROBERT" _LastName="ICE" _SSN="301423221" _UnparsedName="ROBERT ICE">
-                    <_ALIAS _FirstName="ICE" _LastName="ROBERT" _UnparsedName="ICE ROBERT"/>
+                  <_BORROWER _FirstName="MORTGAGE" _LastName="CLUB" _SSN="111111111" _UnparsedName="MORTGAGE CLUB">
+                    <_ALIAS _FirstName="MORTGAGE" _LastName="CLUB" _UnparsedName="MORTGAGE CLUB"/>
                     <EMPLOYER EmploymentPositionDescription="MGR" _Name="MORRELL GROUP"/>
-                    <_UnparsedEmployment>MORRELL GROUP, UNK</_UnparsedEmployment>
+                    <_UnparsedEmployment>MORTGAGECLUB CORPORATION</_UnparsedEmployment>
                   </_BORROWER>
                   <_VARIATION _Type="DifferentName"/>
                   <_VARIATION _Type="DifferentAddress"/>
                 </CREDIT_FILE>
+
                 <CREDIT_FILE BorrowerID="1" CreditFileID="B-XPN-01" CreditRepositorySourceType="Experian" CreditScoreID="CRScr0001">
                   <_ALERT_MESSAGE _CategoryType="FACTAAddressDiscrepancy" _Code="1" _Type="Other" _TypeOtherDescription="FACTA">
                     <_Text>FACTA: Address Discrepancy - RPTD VIA A/R TAPE, BUT DIFFERENT FROM INQUIRY.</_Text>
                   </_ALERT_MESSAGE>
-                  <_BORROWER _FirstName="ROBERT" _LastName="ICE" _MiddleName="R" _SSN="301423221" _UnparsedName="ROBERT R ICE">
+                  <_BORROWER _FirstName="MORTGAGE" _LastName="CLUB" _MiddleName="R" _SSN="111111111" _UnparsedName="MORTGAGE CLUB">
                     <_ALIAS _LastName="ICE" _MiddleName="L " _NameSuffix="JR" _UnparsedName="ROBERT L ICE JR"/>
                     <_ALIAS _LastName="ICE" _NameSuffix="JR" _UnparsedName="ROBERT ICE JR"/>
                     <EMPLOYER CurrentEmploymentStartDate="2001-08-01" EmploymentPositionDescription="NO TITLE FROM REPOSITORY" PreviousEmploymentEndDate="2001-08-01" _Name="NASA"/>
@@ -344,13 +287,13 @@ module CreditReportServices
                   <_VARIATION _Type="DifferentAddress"/>
                   <_VARIATION _Type="DifferentBirthDate"/>
                 </CREDIT_FILE>
-                <CREDIT_SCORE BorrowerID="1" CreditFileID="B-EFX-01" CreditReportIdentifier="V7FF12" CreditRepositorySourceType="Equifax" CreditScoreID="CRScr0000" _Date="2009-06-01" _ModelNameType="EquifaxBeacon5.0" _Value="00505">
+                <CREDIT_SCORE BorrowerID="1" CreditFileID="B-EFX-01" CreditReportIdentifier="V7FF12" CreditRepositorySourceType="Equifax" CreditScoreID="CRScr0000" _Date="2009-06-01" _ModelNameType="EquifaxBeacon5.0" _Value="00740">
                   <_FACTOR _Code="00014" _Text="LENGTH OF TIME ACCOUNTS HAVE BEEN ESTABLISHED"/>
                   <_FACTOR _Code="00004" _Text="TOO MANY BANK OR NATIONAL REVOLVING ACCOUNTS"/>
                   <_FACTOR _Code="00005" _Text="TOO MANY ACCOUNTS WITH BALANCES"/>
                   <_FACTOR _Code="00032" _Text="LACK OF RECENT INSTALLMENT LOAN INFORMATION"/>
                 </CREDIT_SCORE>
-                <CREDIT_SCORE BorrowerID="1" CreditFileID="B-XPN-01" CreditReportIdentifier="V7FF12" CreditRepositorySourceType="Experian" CreditScoreID="CRScr0001" _Date="2001-09-12" _ModelNameType="ExperianFairIsaac" _Value="0727">
+                <CREDIT_SCORE BorrowerID="1" CreditFileID="B-XPN-01" CreditReportIdentifier="V7FF12" CreditRepositorySourceType="Experian" CreditScoreID="CRScr0001" _Date="2001-09-12" _ModelNameType="ExperianFairIsaac" _Value="0750">
                   <_FACTOR _Code="08" _Text="TOO MANY INQUIRIES LAST 12 MONTHS "/>
                   <_FACTOR _Code="14" _Text="LENGTH OF TIME ACCOUNTS HAVE BEEN ESTABLISHED "/>
                   <_FACTOR _Code="30" _Text="TIME SINCE MOST RECENT ACCOUNT OPENING IS TOO SHORT "/>
