@@ -24,6 +24,9 @@ var EditSettingPage = require("admin/setting_managements/EditPage");
 var LoanFaqManagements = require("admin/faq_managements/Managements");
 var EditFaqPage = require("admin/faq_managements/EditPage");
 
+var DocusignTemplateManagements = require("admin/docusign_template_managements/Managements");
+var EditDocusignTemplatePage = require("admin/docusign_template_managements/EditPage");
+
 var LoanActivityTypeManagements = require("admin/activity_type_managements/Managements");
 var EditActivityTypePage = require("admin/activity_type_managements/EditPage");
 
@@ -78,11 +81,13 @@ var routes = (
     <Route name="loan_member_managements" path="/loan_member_managements" handler={LoanMemberManagements}/>
     <Route path="/loan_member_managements/:id/edit" handler={EditMemberPage}/>
     <Route name="loan_faq_managements" path="/loan_faq_managements" handler={LoanFaqManagements}/>
+    <Route path="/loan_faq_managements/:id/edit" handler={EditFaqPage}/>
+    <Route name="docusign_template_managements" path="/docusign_template_managements" handler={DocusignTemplateManagements}/>
+    <Route path="/docusign_template_managements/:id/edit" handler={EditDocusignTemplatePage}/>
     <Route path="/loan_members_titles" handler={LoanMembersTitleManagements}/>
     <Route path="/loan_members_titles/:id/edit" handler={EditLoanMembersTitle}/>
     <Route path="/settings" handler={SettingManagements}/>
     <Route path="/settings/:id/edit" handler={EditSettingPage}/>
-    <Route path="/loan_faq_managements/:id/edit" handler={EditFaqPage}/>
     <Route name="loan_activity_type_managements" path="/loan_activity_type_managements" handler={LoanActivityTypeManagements}/>
     <Route path="/loan_activity_type_managements/:id/edit" handler={EditActivityTypePage}/>
     <Route path="/lenders" handler={Lenders}/>

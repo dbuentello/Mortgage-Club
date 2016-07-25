@@ -174,6 +174,8 @@ Rails.application.routes.draw do
 
     resources :loan_faq_managements, except: [:new, :show]
 
+    resources :docusign_template_managements, except: [:new, :show]
+
     resources :loan_activity_type_managements, except: [:new, :show]
 
     resources :potential_user_managements, only: [:index, :edit, :update, :destroy] do
