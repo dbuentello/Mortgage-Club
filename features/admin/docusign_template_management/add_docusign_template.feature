@@ -10,7 +10,7 @@ Feature: AddDocusignTemplate
     Then I click "Docusign Templates"
       And I should see "Docusign Template - Management"
       And I should see "Add new Docusign Template"
-    Then And I select "Loan Estimate" from "Name"
+    Then I select "Loan Estimate" from "Name"
       And I fill in "State" with "California"
       And I fill in "Description" with "Description"
       And I fill in "Email Subject" with "Email Subject"
