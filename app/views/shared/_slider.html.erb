@@ -1,103 +1,97 @@
-
-
-		<section id="slider" class="slider-parallax swiper_wrapper full-screen clearfix">
-			<div class="slider-parallax-inner">
-
-				<div class="swiper-container swiper-parent">
-					<div class="swiper-wrapper hidden-xs">
-						<div class="swiper-slide dark" style="background-image: url('<%= asset_path "slider/1.jpg" %>');">
-							<div class="container clearfix">
-								<div class="slider-caption slider-caption-center">
-									<h2 data-caption-animate="fadeInUp">We're a tech-enabled mortgage broker.</h2>
-									<p data-caption-animate="fadeInUp" data-caption-delay="200">Give us some info and upload documents. Our software will process them and help you choose the best mortgage in minutes. We'll review and submit your Docusigned loan application to underwriting within hours.</p>
-									<div data-caption-animate="fadeInUp" data-caption-delay="300">
-										<%= link_to(initial_quotes_path, class: "button button-border button-white button-light button-large button-rounded tright nomargin", role: "button", id: "apply-btn") do %>
-										Find my rates
-										<% end %>
-									</div>
-									<div data-caption-animate="fadeInUp" data-caption-delay="400">
-										<p>(Takes 10 secs, no SSN needed)</p>
-									</div>
-								</div>
+<section id="slider" class="slider-parallax swiper_wrapper full-screen clearfix">
+	<div class="slider-parallax-inner">
+		<div class="swiper-container swiper-parent">
+			<div class="swiper-wrapper hidden-xs">
+				<div class="swiper-slide dark" style="background-image: url('<%= asset_path "slider/1.jpg" %>');">
+					<div class="container clearfix">
+						<div class="slider-caption slider-caption-center">
+							<h2 data-caption-animate="fadeInUp">We're a tech-enabled mortgage broker.</h2>
+							<p data-caption-animate="fadeInUp" data-caption-delay="200">Give us some info and upload documents. Our software will process them and help you choose the best mortgage in minutes. We'll review and submit your Docusigned loan application to underwriting within hours.</p>
+							<div data-caption-animate="fadeInUp" data-caption-delay="300">
+								<%= link_to(initial_quotes_path, class: "button button-border button-white button-light button-large button-rounded tright nomargin", role: "button", id: "apply-btn") do %>
+								Find my rates
+								<% end %>
 							</div>
-						</div>
-						<div class="swiper-slide dark">
-							<div class="container clearfix">
-								<div class="slider-caption slider-caption-center">
-									<h2 data-caption-animate="fadeInUp">100% online process</h2>
-									<p data-caption-animate="fadeInUp" data-caption-delay="200">
-										Not ready to submit your loan application today? No worries, just finish it up anytime and anywhere. We use bank-level security (256-bit encryption) to protect your private information.
-									</p>
-								</div>
-							</div>
-							<div class="video-wrap">
-								<video id="slide-video" poster="<%= asset_path "slider/deskwork.jpg" %>" preload="auto" loop autoplay muted>
-									<source src='<%= asset_path "slider/deskwork.webm" %>' type='video/webm' />
-									<source src='<%= asset_path "slider/deskwork.mp4" %>' type='video/mp4' />
-								</video>
-								<div class="video-overlay" style="background-color: rgba(0,0,0,0.55);"></div>
-							</div>
-						</div>
-
-						<div class="swiper-slide" style="background-image: url('<%= asset_path "slider/3.jpg" %>'); background-position: center top;">
-							<div class="container clearfix">
-								<div class="slider-caption">
-									<h2 data-caption-animate="fadeInUp">Rate Shopping</h2>
-									<p data-caption-animate="fadeInUp" data-caption-delay="200">We'll show you all the loan programs that you qualify for. Our Trust Cost of Mortgage algorithm will help you choose between fixed and adjustable rate. Only 1 credit pull for all lenders.</p>
-								</div>
+							<div data-caption-animate="fadeInUp" data-caption-delay="400">
+								<p>(Takes 10 secs, no SSN needed)</p>
 							</div>
 						</div>
 					</div>
-					<div class="swiper-wrapper visible-x">
-						<div class="swiper-slide dark" style="background-image: url('<%= asset_path "slider/1x1.jpg" %>');">
-							<div class="container clearfix">
-								<div class="slider-caption slider-caption-center">
-									<h2 data-caption-animate="fadeInUp">We're a tech-enabled mortgage broker.</h2>
-									<p data-caption-animate="fadeInUp" data-caption-delay="200">Give us some info and upload documents. Our software will process them and help you choose the best mortgage in minutes. We'll review and submit your Docusigned loan application to underwriting within hours.</p>
-									<div data-caption-animate="fadeInUp" data-caption-delay="300">
-										<%= link_to(initial_quotes_path, class: "button button-border button-white button-light button-large button-rounded tright nomargin", role: "button", id: "apply-btn") do %>
-										Find my rates
-										<% end %>
-									</div>
-									<div data-caption-animate="fadeInUp" data-caption-delay="400">
-										<p>(Takes 10 secs, no SSN needed)</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="swiper-slide dark">
-							<div class="container clearfix">
-								<div class="slider-caption slider-caption-center">
-									<h2 data-caption-animate="fadeInUp">100% online process</h2>
-									<p data-caption-animate="fadeInUp" data-caption-delay="200">
-										Not ready to submit your loan application today? No worries, just finish it up anytime and anywhere. We use bank-level security (256-bit encryption) to protect your private information.
-									</p>
-								</div>
-							</div>
-							<div class="video-wrap">
-								<video id="slide-video" poster="<%= asset_path "slider/deskworkx1.jpg" %>" preload="auto" loop autoplay muted>
-									<source src='<%= asset_path "slider/deskwork.webm" %>' type='video/webm' />
-									<source src='<%= asset_path "slider/deskwork.mp4" %>' type='video/mp4' />
-								</video>
-								<div class="video-overlay" style="background-color: rgba(0,0,0,0.55);"></div>
-							</div>
-						</div>
-
-						<div class="swiper-slide" style="background-image: url('<%= asset_path "slider/3x1.jpg" %>'); background-position: center top;">
-							<div class="container clearfix">
-								<div class="slider-caption">
-									<h2 data-caption-animate="fadeInUp">Rate Shopping</h2>
-									<p data-caption-animate="fadeInUp" data-caption-delay="200">We'll show you all the loan programs that you qualify for. Our Trust Cost of Mortgage algorithm will help you choose between fixed and adjustable rate. Only 1 credit pull for all lenders.</p>
-								</div>
-							</div>
+				</div>
+				<div class="swiper-slide dark">
+					<div class="container clearfix">
+						<div class="slider-caption slider-caption-center">
+							<h2 data-caption-animate="fadeInUp">100% online process</h2>
+							<p data-caption-animate="fadeInUp" data-caption-delay="200">
+								Not ready to submit your loan application today? No worries, just finish it up anytime and anywhere. We use bank-level security (256-bit encryption) to protect your private information.
+							</p>
 						</div>
 					</div>
-					<div id="slider-arrow-left"><i class="icon-angle-left"></i></div>
-					<div id="slider-arrow-right"><i class="icon-angle-right"></i></div>
-
+					<div class="video-wrap">
+						<video id="slide-video" poster="<%= asset_path "slider/deskwork.jpg" %>" preload="auto" loop autoplay muted>
+							<source src='<%= asset_path "slider/deskwork.webm" %>' type='video/webm' />
+							<source src='<%= asset_path "slider/deskwork.mp4" %>' type='video/mp4' />
+						</video>
+						<div class="video-overlay" style="background-color: rgba(0,0,0,0.55);"></div>
+					</div>
 				</div>
 
-				<a href="#" data-scrollto="#content" data-offset="100" class="dark one-page-arrow"><i class="icon-angle-down infinite animated fadeInDown"></i></a>
-
+				<div class="swiper-slide" style="background-image: url('<%= asset_path "slider/3.jpg" %>'); background-position: center top;">
+					<div class="container clearfix">
+						<div class="slider-caption">
+							<h2 data-caption-animate="fadeInUp">Rate Shopping</h2>
+							<p data-caption-animate="fadeInUp" data-caption-delay="200">We'll show you all the loan programs that you qualify for. Our Trust Cost of Mortgage algorithm will help you choose between fixed and adjustable rate. Only 1 credit pull for all lenders.</p>
+						</div>
+					</div>
+				</div>
 			</div>
-		</section>
+			<!-- <div class="swiper-wrapper visible-xs">
+				<div class="swiper-slide dark" style="background-image: url('<%= asset_path "slider/1x1.jpg" %>');">
+					<div class="container clearfix">
+						<div class="slider-caption slider-caption-center">
+							<h2 data-caption-animate="fadeInUp">We're a tech-enabled mortgage broker.</h2>
+							<p data-caption-animate="fadeInUp" data-caption-delay="200">Give us some info and upload documents. Our software will process them and help you choose the best mortgage in minutes. We'll review and submit your Docusigned loan application to underwriting within hours.</p>
+							<div data-caption-animate="fadeInUp" data-caption-delay="300">
+								<%= link_to(initial_quotes_path, class: "button button-border button-white button-light button-large button-rounded tright nomargin", role: "button", id: "apply-btn") do %>
+								Find my rates
+								<% end %>
+							</div>
+							<div data-caption-animate="fadeInUp" data-caption-delay="400">
+								<p>(Takes 10 secs, no SSN needed)</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide dark">
+					<div class="container clearfix">
+						<div class="slider-caption slider-caption-center">
+							<h2 data-caption-animate="fadeInUp">100% online process</h2>
+							<p data-caption-animate="fadeInUp" data-caption-delay="200">
+								Not ready to submit your loan application today? No worries, just finish it up anytime and anywhere. We use bank-level security (256-bit encryption) to protect your private information.
+							</p>
+						</div>
+					</div>
+					<div class="video-wrap">
+						<video id="slide-video" poster="<%= asset_path "slider/deskworkx1.jpg" %>" preload="auto" loop autoplay muted>
+							<source src='<%= asset_path "slider/deskwork.webm" %>' type='video/webm' />
+							<source src='<%= asset_path "slider/deskwork.mp4" %>' type='video/mp4' />
+						</video>
+						<div class="video-overlay" style="background-color: rgba(0,0,0,0.55);"></div>
+					</div>
+				</div>
+
+				<div class="swiper-slide" style="background-image: url('<%= asset_path "slider/3x1.jpg" %>'); background-position: center top;">
+					<div class="container clearfix">
+						<div class="slider-caption">
+							<h2 data-caption-animate="fadeInUp">Rate Shopping</h2>
+							<p data-caption-animate="fadeInUp" data-caption-delay="200">We'll show you all the loan programs that you qualify for. Our Trust Cost of Mortgage algorithm will help you choose between fixed and adjustable rate. Only 1 credit pull for all lenders.</p>
+						</div>
+					</div>
+				</div>
+			</div> -->
+			<div id="slider-arrow-left"><i class="icon-angle-left"></i></div>
+			<div id="slider-arrow-right"><i class="icon-angle-right"></i></div>
+		</div>
+		<a href="#" data-scrollto="#content" data-offset="100" class="dark one-page-arrow"><i class="icon-angle-down infinite animated fadeInDown"></i></a>
+	</div>
+</section>

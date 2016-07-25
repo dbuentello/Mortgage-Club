@@ -82,7 +82,7 @@ module Crawler
       types = {
         "primary_residence" => "Primary Home",
         "vacation_home" => "Secondary Home",
-        "rental_property" => "Rental Property"
+        "rental_property" => "Investment Property"
       }
 
       crawler.find(".label-text", text: types[usage]).click

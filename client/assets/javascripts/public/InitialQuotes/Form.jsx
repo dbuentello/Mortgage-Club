@@ -28,7 +28,7 @@ var mortgagePurposeOptions = [
 var propertyUsageOptions = [
   {name: "Primary Residence", value: "primary_residence"},
   {name: "Vacation Home", value: "vacation_home"},
-  {name: "Rental Property", value: "rental_property"}
+  {name: "Investment Property", value: "rental_property"}
 ];
 
 var propertyTypeOptions = [
