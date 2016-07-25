@@ -13,9 +13,19 @@ describe CalculateLoanAmountService do
     end
 
     context "without mortgage payment" do
-      it "returns 75% of subject property's market price" do
-        amount = 0.75 * loan.subject_property.market_price.to_f
-        expect(described_class.calculate_loan_amount_for_refinance_loan(loan)). to eq(amount)
+      context "with estimated mortgage balance" do
+        it "returns estimated mortgage balance" do
+          loan.subject_property.update(estimated_mortgage_balance: 400000)
+          expect(described_class.calculate_loan_amount_for_refinance_loan(loan)). to eq(400000)
+        end
+      end
+
+      context "without estimated mortgage balance" do
+        it "returns 75% of subject property's market price" do
+          loan.subject_property.update(estimated_mortgage_balance: nil)
+          amount = 0.75 * loan.subject_property.market_price.to_f
+          expect(described_class.calculate_loan_amount_for_refinance_loan(loan)). to eq(amount)
+        end
       end
     end
   end

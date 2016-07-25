@@ -259,7 +259,7 @@ var Quotes = React.createClass({
               <div className="not-found text-center" style={{"marginTop": "150px"}}>
                 <h2>{"Sorry, we can't find any loan programs for your scenario! :("}</h2>
                 <div className="row btnSubmit">
-                  <button className="btn btn-mc" onClick={this.backToQuotesForm}>Back</button>
+                  <button className="btn btn-mc" onClick={this.backToQuotesForm}>Go back</button>
                 </div>
               </div>
           }
