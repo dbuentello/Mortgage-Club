@@ -4,6 +4,7 @@ var FlashHandler = require('mixins/FlashHandler');
 var TextField = require('components/form/TextField');
 var ModalLink = require('components/ModalLink');
 var SelectField = require('components/form/SelectField');
+var TextEditor = require('components/TextEditor');
 
 var nameOptions = [
   {name: '', value: ''},
@@ -64,11 +65,16 @@ var Form = React.createClass({
     this.setState(change);
   },
 
+  updateEmailBody: function(content){
+    this.setState({ email_body: content})
+  },
+
   onClick: function(event) {
     this.setState({saving: true});
     event.preventDefault();
     var formData = new FormData($('.form-loan-docusign-template')[0]);
     formData.append("docusign_template[name]", this.state.name);
+    formData.append("docusign_template[email_body]", this.state.email_body);
 
     $.ajax({
       url: this.props.Url,
@@ -138,6 +144,10 @@ var Form = React.createClass({
                 options={nameOptions}
                 onChange={this.onChange}
                 editable={true}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-4">
               <TextField
                 label="State"
                 keyName="state"
@@ -145,6 +155,10 @@ var Form = React.createClass({
                 value={this.state.state}
                 editable={true}
                 onChange={this.onChange}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-4">
               <TextField
                 label="Description"
                 keyName="description"
@@ -152,6 +166,10 @@ var Form = React.createClass({
                 value={this.state.description}
                 editable={true}
                 onChange={this.onChange}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-4">
               <TextField
                 label="Docusign Id"
                 keyName="docusign_id"
@@ -159,6 +177,10 @@ var Form = React.createClass({
                 value={this.state.docusign_id}
                 editable={true}
                 onChange={this.onChange}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-4">
               <TextField
                 label="Email Subject"
                 keyName="email_subject"
@@ -166,13 +188,16 @@ var Form = React.createClass({
                 value={this.state.email_subject}
                 editable={true}
                 onChange={this.onChange}/>
-              <TextField
-                label="Email Body"
-                keyName="email_body"
-                name="docusign_template[email_body]"
-                value={this.state.email_body}
-                editable={true}
-                onChange={this.onChange}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-12">
+              <label className="col-sm-12 pan">Email body</label>
+              <TextEditor onChange={this.updateEmailBody} content={this.state.email_body}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-4">
               <TextField
                 label="Document Order"
                 keyName="document_order"
