@@ -24,7 +24,11 @@ class CalculateLoanAmountService
     if loan.subject_property.mortgage_payment_liability
       amount = loan.subject_property.mortgage_payment_liability.balance
     else
-      amount = loan.subject_property.market_price.to_f * 0.75
+      if loan.subject_property.estimated_mortgage_balance
+        amount = loan.subject_property.estimated_mortgage_balance
+      else
+        amount = loan.subject_property.market_price.to_f * 0.75
+      end
     end
     amount
   end

@@ -213,7 +213,7 @@ var Property = React.createClass({
         property.estimated_property_tax = this.formatCurrency(annualTax);
         property.estimated_hazard_insurance = this.formatCurrency(annualInsurance);
         property.gross_rental_income = this.formatCurrency(rentalIncome);
-        console.log(propertyKey, property);
+
         this.setState(this.setValue(this.state, propertyKey, property));
       }
     });
