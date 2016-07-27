@@ -24,7 +24,8 @@ class QuoteService
   def self.send_email_to_users(quote_id, new_graph)
     RateAlertQuoteQuery.where(quote_query_id: quote_id).each do |r|
       @pre_graph = GraphQuoteQuery.where("quote_query_id = ? AND DATE(created_at) = ?", quote_id, r.created_at.to_date).first
-      RateAlertQuoteMailer.inform_quote_changed(r, new_graph, @pre_graph).deliver_later if @pre_graph.present? && check_updating(new_graph, @pre_graph)
+      logger.warn @pre_graph
+      RateAlertQuoteMailer.inform_quote_changed(r, new_graph, @pre_graph).deliver_later! if @pre_graph.present? && check_updating(new_graph, @pre_graph)
     end
   end
 
@@ -57,6 +58,10 @@ class QuoteService
     # lender_credits = new_program["lender_credits"] == pre_program["lender_credits"]
     # return true if !rate || !lender_credits
     # return true if !rate || !lender_credits
+    logger.warn "new program interest rate"
+    logger.warn new_program["interest_rate"].to_f
+    logger.warn "pre program interest rate"
+    logger.warn pre_program["interest_rate"].to_f
     return true if new_program["interest_rate"].to_f < pre_program["interest_rate"].to_f
     false
   end
