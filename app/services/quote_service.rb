@@ -23,7 +23,7 @@ class QuoteService
 
   def self.send_email_to_users(quote_id, new_graph)
     RateAlertQuoteQuery.where(quote_query_id: quote_id).each do |r|
-      @pre_graph = GraphQuoteQuery.where("quote_query_id = ? AND DATE(created_at) = ?", quote_id, r.created_at.to_date).first
+      @pre_graph = GraphQuoteQuery.where("quote_query_id = ? AND DATE(created_at) = ?", quote_id, r.created_at.in_time_zone("UTC").to_date).first
       Rails.logger.warn @pre_graph
       RateAlertQuoteMailer.inform_quote_changed(r, new_graph, @pre_graph).deliver_later! if @pre_graph.present? && check_updating(new_graph, @pre_graph)
     end
