@@ -27,7 +27,13 @@ module QuotesFormulas
     lender_names = quotes.map { |q| q["LenderName"] }.uniq
     lender_info = {}
     Lender.where(name: lender_names).each do |lender|
-      lender_info[lender.name] = {nmls: lender.nmls, logo_url: lender.logo_url}
+      lender_info[lender.name] = {
+        nmls: lender.nmls,
+        logo_url: lender.logo_url,
+        appraisal_fee: lender.appraisal_fee,
+        tax_certification_fee: lender.tax_certification_fee,
+        flood_certification_fee: lender.flood_certification_fee
+      }
     end
 
     lender_info
@@ -84,6 +90,43 @@ module QuotesFormulas
     return [] unless quote["FeeSet"]["Fees"]
 
     quote["FeeSet"]["Fees"].reject { |x| x["Description"] == "Administration fee" }
+  end
+
+  def get_thirty_fees(fees, lender_info)
+    thirty_fees = []
+    lender_fees = []
+
+    if fees.present?
+      thirty_fees += fees
+    end
+
+    if lender_info.present?
+      thirty_fees << {
+        "Description": "Appraisal Fee",
+        "FeeAmount": lender_info[:appraisal_fee],
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
+
+      thirty_fees << {
+        "Description": "Tax Certification Fee",
+        "FeeAmount": lender_info[:tax_certification_fee],
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
+
+      thirty_fees << {
+        "Description": "Flood Certification Fee",
+        "FeeAmount": lender_info[:flood_certification_fee],
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
+    end
+
+    thirty_fees
   end
 
   def get_total_fee(quote, admin_fee)

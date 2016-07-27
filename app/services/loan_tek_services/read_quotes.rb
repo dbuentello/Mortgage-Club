@@ -4,7 +4,7 @@ module LoanTekServices
   class ReadQuotes
     extend QuotesFormulas
 
-    def self.call(quotes, loan_purpose)
+    def self.call(quotes, loan_purpose, fees)
       lender_info = get_lender_info(quotes)
       programs = []
       quotes = get_valid_quotes(quotes)
@@ -27,6 +27,7 @@ module LoanTekServices
           interest_rate: rate,
           total_fee: get_total_fee(quote, admin_fee),
           fees: get_fees(quote),
+          thirty_fees: get_thirty_fees(fees, lender_info[quote["LenderName"]]),
           period: get_period(quote),
           down_payment: get_down_payment(quote, loan_purpose),
           monthly_payment: get_monthly_payment(quote),
@@ -76,8 +77,8 @@ module LoanTekServices
       end
     end
 
-    def self.build_lowest_apr(quotes, loan_purpose)
-      programs = self.call(quotes, loan_purpose)
+    def self.build_lowest_apr(quotes, loan_purpose, thirty_fees)
+      programs = self.call(quotes, loan_purpose, thirty_fees)
       lowest_apr = {}
       [
         "30 year fixed", "15 year fixed",

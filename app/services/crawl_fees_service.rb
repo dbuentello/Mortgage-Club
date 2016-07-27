@@ -2,25 +2,22 @@ require "capybara"
 require "capybara/poltergeist"
 
 class CrawlFeesService
-  attr_accessor :crawler, :fees
+  attr_accessor :crawler, :fees, :params
 
   def initialize(args)
     @crawler = set_up_crawler
     @fees = []
+    @params = args
   end
 
   def call
-    # raise "loan purpose is missing!" unless loan_purpose.present?
-    # raise "home value is missing!" unless home_value.present?
-    # raise "down payment is missing!" unless down_payment.present?
-    # raise "property state is missing!" unless property_state.present?
-    # raise "property county is missing!" unless property_county.present?
-
     go_to_ort
     fill_input_data
     click_submit
     get_data
     close_crawler
+
+    @fees
   end
 
   def go_to_ort
@@ -28,11 +25,11 @@ class CrawlFeesService
   end
 
   def fill_input_data
-    crawler.fill_in("_ctl0_PageContent_PropertyCityList_Text", with: "San Jose")
+    crawler.fill_in("_ctl0_PageContent_PropertyCityList_Text", with: params[:city])
     # crawler.select("Santa Clara", from: "_ctl0_PageContent_EscrowCountyList")
-    sleep(1)
-    crawler.fill_in("_ctl0_PageContent_SalesPrice", with: 500000)
-    crawler.fill_in("_ctl0_PageContent_LoanAmount", with: 400000)
+    sleep(2)
+    crawler.fill_in("_ctl0_PageContent_SalesPrice", with: params[:sales_price])
+    crawler.fill_in("_ctl0_PageContent_LoanAmount", with: params[:loan_amount])
     crawler.check("_ctl0_PageContent_EndorsementsRepeater__ctl4_EndorsementCheckbox")
     crawler.check("_ctl0_PageContent_InHouseNotaryCheckbox")
   end
@@ -79,7 +76,7 @@ class CrawlFeesService
     section_h = table_h.all("tr")
     section_h.each do |element|
       td = element.all("td")
-      next if td.empty? && td.size <= 1
+      next if td.empty? || td.size <= 1
 
       @fees << {
         "Description": remove_total(td[0].text),
@@ -100,7 +97,7 @@ class CrawlFeesService
       label[label.index("8.1-06") + 7..-1]
     else
       label = label.delete("*")
-      label[label.index("Title - ").to_i..label.index("(").to_i - 2]
+      label[label.index("Title - ").to_i + 9..label.index("(").to_i - 2]
     end
   end
 

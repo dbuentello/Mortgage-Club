@@ -36,7 +36,12 @@ module LoanTekServices
         property_type: get_property_type
       )
 
-      quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose)
+      fees = CrawlFeesService.new({
+        city: property.address.city,
+        loan_amount: get_loan_amount,
+        sales_price: get_property_value
+      }).call
+      quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees)
     end
 
     private
@@ -66,8 +71,12 @@ module LoanTekServices
 
     def get_loan_to_value
       loan_amount = get_loan_amount
-      property_value = loan.purchase? ? property.purchase_price : property.market_price
+      property_value = get_property_value
       (loan_amount * 100 / property_value).round
+    end
+
+    def get_property_value
+      loan.purchase? ? property.purchase_price : property.market_price
     end
 
     def get_property_usage
