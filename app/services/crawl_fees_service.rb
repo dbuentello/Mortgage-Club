@@ -49,59 +49,58 @@ class CrawlFeesService
     section_c = table_c.all("tr")
     section_c.each do |element|
       td = element.all("td")
-      if td.present?
-        @fees << {
-          "Description": remove_total(td[0].text),
-          "FeeAmount": remove_currency(td[1].text),
-          "HubLine": 814,
-          "FeeType": 1,
-          "IncludeInAPR": false
-        }
-      end
+      next if td.empty?
+
+      @fees << {
+        "Description": remove_total(td[0].text),
+        "FeeAmount": remove_currency(td[1].text),
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
     end
 
     table_e = crawler.find("#_ctl0_PageContent_SectionETable")
     section_e = table_e.all("tr")
     section_e.each do |element|
       td = element.all("td")
-      if td.present?
-        @fees << {
-          "Description": remove_total(td[0].text),
-          "FeeAmount": remove_currency(td[1].text),
-          "HubLine": 814,
-          "FeeType": 1,
-          "IncludeInAPR": false
-        }
-      end
+      next if td.empty?
+
+      @fees << {
+        "Description": remove_total(td[0].text),
+        "FeeAmount": remove_currency(td[1].text),
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
     end
 
     table_h = crawler.find("#_ctl0_PageContent_SectionHTable")
     section_h = table_h.all("tr")
     section_h.each do |element|
       td = element.all("td")
-      if td.present? && td.size > 1
-        @fees << {
-          "Description": remove_total(td[0].text),
-          "FeeAmount": remove_currency(td[1].text),
-          "HubLine": 814,
-          "FeeType": 1,
-          "IncludeInAPR": false
-        }
-      end
+      next if td.empty? && td.size <= 1
+
+      @fees << {
+        "Description": remove_total(td[0].text),
+        "FeeAmount": remove_currency(td[1].text),
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
     end
 
     @fees.reject! { |x| x[:Description] == "" }
-    p @fees
   end
 
   def remove_total(label)
     return "" if label.empty?
 
     if label.index("8.1-06")
-      label[label.index("8.1-06")+7..-1]
+      label[label.index("8.1-06") + 7..-1]
     else
       label = label.delete("*")
-      label[label.index("Title - ").to_i..label.index("(").to_i-2]
+      label[label.index("Title - ").to_i..label.index("(").to_i - 2]
     end
   end
 
