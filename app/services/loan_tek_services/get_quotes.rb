@@ -36,11 +36,12 @@ module LoanTekServices
         property_type: get_property_type
       )
 
-      fees = CrawlFeesService.new({
+      fees = CrawlFeesService.new(
         city: property.address.city,
         loan_amount: get_loan_amount,
         sales_price: get_property_value
-      }).call
+      ).call
+
       quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees)
     end
 

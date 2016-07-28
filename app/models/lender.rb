@@ -73,7 +73,7 @@ class Lender < ActiveRecord::Base
     :logo,
     :appraisal_fee,
     :tax_certification_fee,
-    :flood_certification_fee,
+    :flood_certification_fee
   ]
   def logo_url
     logo.url if logo

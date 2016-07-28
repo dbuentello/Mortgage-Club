@@ -94,11 +94,8 @@ module QuotesFormulas
 
   def get_thirty_fees(fees, lender_info)
     thirty_fees = []
-    lender_fees = []
 
-    if fees.present?
-      thirty_fees += fees
-    end
+    thirty_fees += fees if fees.present?
 
     if lender_info.present?
       thirty_fees << {

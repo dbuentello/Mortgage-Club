@@ -21,11 +21,11 @@ module LoanTekServices
       zip_code = ZipCode.find_by_zip(get_zipcode)
 
       if zip_code
-        fees = CrawlFeesService.new({
+        fees = CrawlFeesService.new(
           city: zip_code.city,
           loan_amount: get_loan_amount,
           sales_price: info["property_value"].to_f
-        }).call
+        ).call
 
         quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees)
       else
@@ -47,11 +47,12 @@ module LoanTekServices
       zip_code = ZipCode.find_by_zip(get_zipcode)
 
       if zip_code
-        fees = CrawlFeesService.new({
+        fees = CrawlFeesService.new(
           city: zip_code.city,
           loan_amount: get_loan_amount,
           sales_price: info["property_value"].to_f
-        }).call
+        ).call
+
         quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose, fees)
       else
         quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose, [])
