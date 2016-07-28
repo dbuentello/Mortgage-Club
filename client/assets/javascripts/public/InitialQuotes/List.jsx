@@ -258,24 +258,32 @@ var List = React.createClass({
                         }
 
                         {
-                          quote.thirty_fees["FeeAmount"] == 0
-                          ?
-                            null
-                          :
-                            <li className="thirty-party-fees">
-                              <a role="button" data-toggle="collapse" href={".thirty-fees-" + index} aria-expanded="true" aria-controls={"thirty-fees-" + index}>
-                                <i className="icon-plus"></i><span>{quote.thirty_fees["Description"]}: {this.formatCurrency(quote.thirty_fees["FeeAmount"], 0, "$")}</span>
-                              </a>
-                              <div className={"collapse thirty-fees-collapse thirty-fees-" + index}>
+                          _.map(quote.thirty_fees, function(thirty_fee, index_second){
+                            return (
+                              <div>
                                 {
-                                  _.map(quote.thirty_fees["Fees"], function(fee) {
-                                    return (
-                                      <p>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}</p>
-                                    )
-                                  }, this)
+                                  thirty_fee["FeeAmount"] == 0
+                                  ?
+                                    null
+                                  :
+                                    <li className="thirty-party-fees">
+                                      <a role="button" data-toggle="collapse" href={".thirty-fees-" + index + "-" + index_second} aria-expanded="true" aria-controls={"thirty-fees-" + index + "-" + index_second}>
+                                        <i className="icon-plus"></i><span>{thirty_fee["Description"] + ": " + this.formatCurrency(thirty_fee["FeeAmount"], 0, "$")}</span>
+                                      </a>
+                                      <div className={"collapse thirty-fees-collapse thirty-fees-" + index + "-" + index_second}>
+                                        {
+                                          _.map(thirty_fee["Fees"], function(fee) {
+                                            return (
+                                              <p>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}</p>
+                                            )
+                                          }, this)
+                                        }
+                                      </div>
+                                    </li>
                                 }
                               </div>
-                            </li>
+                            )
+                          }, this)
                         }
                       </ul>
                     </div>

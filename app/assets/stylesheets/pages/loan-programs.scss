@@ -151,7 +151,6 @@
     }
 
     .line-chart {
-      margin-top: 55px;
       .axis text {
         font-size: .8em;
         fill: #999;
@@ -234,6 +233,7 @@
 
   .thirty-party-fees {
     list-style: none;
+    margin-bottom: 8px;
 
     .thirty-fees-collapse {
       margin-top: 5px;
@@ -245,7 +245,7 @@
       margin-left: -20px;
 
       span {
-        margin-left: 5px;
+        margin-left: 9px;
       }
     }
 

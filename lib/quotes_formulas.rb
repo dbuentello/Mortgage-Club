@@ -70,7 +70,7 @@ module QuotesFormulas
     total_fee = get_total_fee(quote, admin_fee)
     lender_credit = get_lender_credits(quote, admin_fee)
     fha_upfront_premium_amount = get_fha_upfront_premium_amount(quote)
-    thirty_fee = thirty_fees.nil? ? 0 : thirty_fees[:FeeAmount]
+    thirty_fee = thirty_fees.nil? ? 0 : thirty_fees.map { |x| x[:FeeAmount] }.sum
 
     total_fee + lender_credit + fha_upfront_premium_amount + thirty_fee
   end
@@ -93,13 +93,24 @@ module QuotesFormulas
     quote["FeeSet"]["Fees"].reject { |x| x["Description"] == "Administration fee" }
   end
 
-  def get_thirty_fees(fees, lender_info)
+  def get_thirty_fees(fees, lender_info, loan_amount, interest_rate)
     thirty_fees = []
+    lender_fees = []
+    prepaid_items = []
 
     thirty_fees += fees if fees.present?
 
+    days = (Time.now.utc.end_of_month.to_date - Time.now.utc.to_date).to_i
+    prepaid_items << {
+      "Description": "Prepaid interest for #{days} days",
+      "FeeAmount": loan_amount * interest_rate * days / 360,
+      "HubLine": 814,
+      "FeeType": 1,
+      "IncludeInAPR": false
+    }
+
     if lender_info.present?
-      thirty_fees << {
+      lender_fees << {
         "Description": "Appraisal Fee",
         "FeeAmount": lender_info[:appraisal_fee],
         "HubLine": 814,
@@ -107,7 +118,7 @@ module QuotesFormulas
         "IncludeInAPR": false
       }
 
-      thirty_fees << {
+      lender_fees << {
         "Description": "Tax Certification Fee",
         "FeeAmount": lender_info[:tax_certification_fee],
         "HubLine": 814,
@@ -115,7 +126,7 @@ module QuotesFormulas
         "IncludeInAPR": false
       }
 
-      thirty_fees << {
+      lender_fees << {
         "Description": "Flood Certification Fee",
         "FeeAmount": lender_info[:flood_certification_fee],
         "HubLine": 814,
@@ -124,10 +135,16 @@ module QuotesFormulas
       }
     end
 
-    {
-      "Description": "Third Party Fees",
-      "FeeAmount": thirty_fees.map { |x| x[:FeeAmount] }.sum,
-      "Fees": thirty_fees
+    thirty_fees << {
+      "Description": "Services you cannot shop for",
+      "FeeAmount": lender_fees.map { |x| x[:FeeAmount] }.sum,
+      "Fees": lender_fees
+    }
+
+    thirty_fees << {
+      "Description": "Prepaid items",
+      "FeeAmount": prepaid_items.map { |x| x[:FeeAmount] }.sum,
+      "Fees": prepaid_items
     }
   end
 

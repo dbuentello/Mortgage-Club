@@ -35,40 +35,6 @@
     color: $mc-color;
   }
 
-  .thirty-party-fees {
-    list-style: none;
-
-    .thirty-fees-collapse {
-      margin-top: 5px;
-      margin-left: 15px;
-    }
-
-    a {
-      color: #555;
-      margin-left: -20px;
-
-      span {
-        margin-left: 5px;
-      }
-    }
-
-    i:hover {
-      color: $mc-color;
-    }
-
-    a:hover {
-      color: #555;
-    }
-
-    a:visited {
-      color: #555;
-    }
-
-    p {
-      margin-bottom: 5px;
-    }
-  }
-
   .back-btn {
     margin-left: 50px;
     margin-top: 10px;
@@ -257,7 +223,6 @@
         }
       }
       .line-chart {
-        margin-top: 55px;
         .axis text {
           font-size: 0.8em;
           fill: #999;

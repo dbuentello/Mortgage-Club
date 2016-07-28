@@ -16,7 +16,7 @@ module LoanTekServices
         apr = get_apr(quote)
         admin_fee = get_admin_fee(quote)
         product = get_product_name(quote)
-        thirty_fees = get_thirty_fees(fees, lender_info[quote["LenderName"]])
+        thirty_fees = get_thirty_fees(fees, lender_info[quote["LenderName"]], quote["FeeSet"]["LoanAmount"], rate)
 
         next if existing_program?(programs: programs, apr: apr, rate: rate, lender_name: lender_name, discount_pts: discount_pts, product: product)
 
@@ -44,6 +44,7 @@ module LoanTekServices
 
         programs << program
       end
+
       programs = build_characteristics(programs)
       programs.sort_by { |program| program[:apr] }
     end

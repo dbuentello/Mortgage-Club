@@ -26,8 +26,8 @@ class CrawlFeesService
 
   def fill_input_data
     crawler.fill_in("_ctl0_PageContent_PropertyCityList_Text", with: params[:city])
+    sleep(3)
     crawler.select(params[:zip], from: "_ctl0_PageContent_PropertyZipList")
-    sleep(2)
     crawler.fill_in("_ctl0_PageContent_SalesPrice", with: params[:sales_price])
     crawler.fill_in("_ctl0_PageContent_LoanAmount", with: params[:loan_amount])
     crawler.check("_ctl0_PageContent_EndorsementsRepeater__ctl4_EndorsementCheckbox")
@@ -42,13 +42,14 @@ class CrawlFeesService
   end
 
   def get_data
+    fees_c = []
     table_c = crawler.find_by_id("_ctl0_PageContent_SectionCTable")
     section_c = table_c.all("tr")
     section_c.each do |element|
       td = element.all("td")
       next if td.empty?
 
-      @fees << {
+      fees_c << {
         "Description": remove_total(td[0].text),
         "FeeAmount": remove_currency(td[1].text),
         "HubLine": 814,
@@ -57,13 +58,14 @@ class CrawlFeesService
       }
     end
 
+    fees_e = []
     table_e = crawler.find_by_id("_ctl0_PageContent_SectionETable")
     section_e = table_e.all("tr")
     section_e.each do |element|
       td = element.all("td")
       next if td.empty?
 
-      @fees << {
+      fees_e << {
         "Description": remove_total(td[0].text),
         "FeeAmount": remove_currency(td[1].text),
         "HubLine": 814,
@@ -72,13 +74,14 @@ class CrawlFeesService
       }
     end
 
+    fees_h = []
     table_h = crawler.find_by_id("_ctl0_PageContent_SectionHTable")
     section_h = table_h.all("tr")
     section_h.each do |element|
       td = element.all("td")
       next if td.empty? || td.size <= 1
 
-      @fees << {
+      fees_h << {
         "Description": remove_total(td[0].text),
         "FeeAmount": remove_currency(td[1].text),
         "HubLine": 814,
@@ -87,7 +90,27 @@ class CrawlFeesService
       }
     end
 
-    @fees.reject! { |x| x[:Description] == "" }
+    fees_c.reject! { |x| x[:Description] == "" }
+    fees_e.reject! { |x| x[:Description] == "" }
+    fees_h.reject! { |x| x[:Description] == "" }
+
+    @fees << {
+      "Description": "Services you can shop for",
+      "FeeAmount": fees_c.map { |x| x[:FeeAmount] }.sum,
+      "Fees": fees_c
+    }
+
+    @fees << {
+      "Description": "Taxes and other government fees",
+      "FeeAmount": fees_e.map { |x| x[:FeeAmount] }.sum,
+      "Fees": fees_e
+    }
+
+    @fees << {
+      "Description": "Other",
+      "FeeAmount": fees_h.map { |x| x[:FeeAmount] }.sum,
+      "Fees": fees_h
+    }
   rescue
     []
   end
@@ -99,11 +122,7 @@ class CrawlFeesService
       label[label.index("8.1-06") + 7..-1]
     else
       label = label.delete("*")
-      if label.index("Title - ")
-        label[label.index("Title - ").to_i + 8..label.index("(").to_i - 2]
-      else
-        label[0..label.index("(").to_i - 2]
-      end
+      label[0..label.index("(").to_i - 2]
     end
   end
 
