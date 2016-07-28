@@ -19,7 +19,6 @@ module LoanTekServices
       )
 
       zip_code = ZipCode.find_by_zip(get_zipcode)
-
       if zip_code
         fees = CrawlFeesService.new(
           city: zip_code.city,

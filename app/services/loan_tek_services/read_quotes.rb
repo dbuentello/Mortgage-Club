@@ -16,6 +16,7 @@ module LoanTekServices
         apr = get_apr(quote)
         admin_fee = get_admin_fee(quote)
         product = get_product_name(quote)
+        thirty_fees = get_thirty_fees(fees, lender_info[quote["LenderName"]])
 
         next if existing_program?(programs: programs, apr: apr, rate: rate, lender_name: lender_name, discount_pts: discount_pts, product: product)
 
@@ -27,12 +28,12 @@ module LoanTekServices
           interest_rate: rate,
           total_fee: get_total_fee(quote, admin_fee),
           fees: get_fees(quote),
-          thirty_fees: get_thirty_fees(fees, lender_info[quote["LenderName"]]),
+          thirty_fees: thirty_fees,
           period: get_period(quote),
           down_payment: get_down_payment(quote, loan_purpose),
           monthly_payment: get_monthly_payment(quote),
           lender_credits: get_lender_credits(quote, admin_fee),
-          total_closing_cost: get_total_closing_cost(quote, admin_fee),
+          total_closing_cost: get_total_closing_cost(quote, admin_fee, thirty_fees),
           nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
           logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
           loan_type: quote["ProductFamily"],

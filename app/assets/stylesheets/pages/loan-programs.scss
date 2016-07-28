@@ -231,6 +231,41 @@
   @include respond-to(smobile){
     background: none;
   };
+
+  .thirty-party-fees {
+    list-style: none;
+
+    .thirty-fees-collapse {
+      margin-top: 5px;
+      margin-left: 15px;
+    }
+
+    a {
+      color: #555;
+      margin-left: -20px;
+
+      span {
+        margin-left: 5px;
+      }
+    }
+
+    i:hover {
+      color: $mc-color;
+    }
+
+    a:hover {
+      color: #555;
+    }
+
+    a:visited {
+      color: #555;
+    }
+
+    p {
+      margin-bottom: 5px;
+    }
+  }
+
   .programs-filter {
     margin-top: 0px;
     margin-left: -16px;

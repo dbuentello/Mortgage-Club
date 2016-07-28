@@ -28,6 +28,12 @@ var List = React.createClass({
         $("span.glyphicon-menu-down")[0].click();
       }
     }
+
+    $('.collapse').on('shown.bs.collapse', function(){
+      $(this).parent().find(".icon-plus").removeClass("icon-plus").addClass("icon-minus");
+    }).on('hidden.bs.collapse', function(){
+      $(this).parent().find(".icon-minus").removeClass("icon-minus").addClass("icon-plus");
+    });
   },
 
   componentDidUpdate: function(prevProps, prevState) {
@@ -240,6 +246,26 @@ var List = React.createClass({
                               <li className="lender-fee-item" key={fee["HudLine"]}>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, '$')}</li>
                             )
                           }, this)
+                        }
+                        {
+                          rate.thirty_fees["FeeAmount"] == 0
+                          ?
+                            null
+                          :
+                            <li className="thirty-party-fees">
+                              <a role="button" data-toggle="collapse" href={".thirty-fees-" + index} aria-expanded="true" aria-controls={"thirty-fees-" + index}>
+                                <i className="icon-plus"></i><span>{rate.thirty_fees["Description"]}: {this.formatCurrency(rate.thirty_fees["FeeAmount"], 0, "$")}</span>
+                              </a>
+                              <div className={"collapse thirty-fees-collapse thirty-fees-" + index}>
+                                {
+                                  _.map(rate.thirty_fees["Fees"], function(fee) {
+                                    return (
+                                      <p>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}</p>
+                                    )
+                                  }, this)
+                                }
+                              </div>
+                            </li>
                         }
                       </ul>
                     </div>

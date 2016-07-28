@@ -66,12 +66,13 @@ module QuotesFormulas
     # total_fee
   end
 
-  def get_total_closing_cost(quote, admin_fee)
+  def get_total_closing_cost(quote, admin_fee, thirty_fees = nil)
     total_fee = get_total_fee(quote, admin_fee)
     lender_credit = get_lender_credits(quote, admin_fee)
     fha_upfront_premium_amount = get_fha_upfront_premium_amount(quote)
+    thirty_fee = thirty_fees.nil? ? 0 : thirty_fees[:FeeAmount]
 
-    total_fee + lender_credit + fha_upfront_premium_amount
+    total_fee + lender_credit + fha_upfront_premium_amount + thirty_fee
   end
 
   def get_admin_fee(quote)
@@ -123,7 +124,11 @@ module QuotesFormulas
       }
     end
 
-    thirty_fees
+    {
+      "Description": "Third Party Fees",
+      "FeeAmount": thirty_fees.map { |x| x[:FeeAmount] }.sum,
+      "Fees": thirty_fees
+    }
   end
 
   def get_total_fee(quote, admin_fee)
