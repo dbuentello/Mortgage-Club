@@ -154,6 +154,7 @@ var List = React.createClass({
       <div>
         {
           _.map(this.props.quotes, function (quote, index) {
+            console.log(quote.thirty_fees);
             return (
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
@@ -184,7 +185,7 @@ var List = React.createClass({
                           <p>
                             <strong>
                               <span>True Cost of Mortgage: </span>
-                              {this.formatCurrency(quote.total_cost, '$')}
+                              {this.formatCurrency(quote.total_cost, 0, '$')}
                             </strong>
                           </p>
                         :
@@ -192,7 +193,7 @@ var List = React.createClass({
                       }
                     </div>
                     <div className="col-md-2 col-sm-6 col-sm-6">
-                      <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Select</a>
+                      <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -276,9 +277,9 @@ var List = React.createClass({
                           <p className="col-xs-12 cost "> Total est. payment</p>
                         </div>
                         <div className="row-no-padding col-md-3 col-xs-3">
-                          <p className="col-xs-12 cost">{this.formatCurrency(quote.monthly_payment, "$")}</p>
-                          <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedPropertyTax, "$")}</p>
-                          <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedHazardInsurance, "$")}</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(quote.monthly_payment, 0, "$")}</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedPropertyTax, 0, "$")}</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedHazardInsurance, 0, "$")}</p>
                             {
                               quote.pmi_monthly_premium_amount != 0
                               ?

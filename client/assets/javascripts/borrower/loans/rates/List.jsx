@@ -174,7 +174,7 @@ var List = React.createClass({
                           <p>
                             <strong>
                               <span>True Cost of Mortgage: </span>
-                              {this.formatCurrency(rate.total_cost, '$')}
+                              {this.formatCurrency(rate.total_cost, 0, '$')}
                             </strong>
                           </p>
                         :
@@ -182,7 +182,7 @@ var List = React.createClass({
                       }
                     </div>
                     <div className="col-md-2 col-sm-6 col-sm-6">
-                      <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Select</a>
+                      <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Apply Now</a>
                     </div>
                   </div>
                 </div>
