@@ -26,7 +26,7 @@ class CrawlFeesService
 
   def fill_input_data
     crawler.fill_in("_ctl0_PageContent_PropertyCityList_Text", with: params[:city])
-    # crawler.select("Santa Clara", from: "_ctl0_PageContent_EscrowCountyList")
+    crawler.select("Santa Clara", from: "_ctl0_PageContent_EscrowCountyList")
     sleep(2)
     crawler.fill_in("_ctl0_PageContent_SalesPrice", with: params[:sales_price])
     crawler.fill_in("_ctl0_PageContent_LoanAmount", with: params[:loan_amount])
@@ -42,52 +42,56 @@ class CrawlFeesService
   end
 
   def get_data
-    table_c = crawler.find("table#_ctl0_PageContent_SectionCTable")
-    section_c = table_c.all("tr")
-    section_c.each do |element|
-      td = element.all("td")
-      next if td.empty?
+    begin
+      table_c = crawler.find_by_id("_ctl0_PageContent_SectionCTable")
+      section_c = table_c.all("tr")
+      section_c.each do |element|
+        td = element.all("td")
+        next if td.empty?
 
-      @fees << {
-        "Description": remove_total(td[0].text),
-        "FeeAmount": remove_currency(td[1].text),
-        "HubLine": 814,
-        "FeeType": 1,
-        "IncludeInAPR": false
-      }
+        @fees << {
+          "Description": remove_total(td[0].text),
+          "FeeAmount": remove_currency(td[1].text),
+          "HubLine": 814,
+          "FeeType": 1,
+          "IncludeInAPR": false
+        }
+      end
+
+      table_e = crawler.find_by_id("_ctl0_PageContent_SectionETable")
+      section_e = table_e.all("tr")
+      section_e.each do |element|
+        td = element.all("td")
+        next if td.empty?
+
+        @fees << {
+          "Description": remove_total(td[0].text),
+          "FeeAmount": remove_currency(td[1].text),
+          "HubLine": 814,
+          "FeeType": 1,
+          "IncludeInAPR": false
+        }
+      end
+
+      table_h = crawler.find_by_id("_ctl0_PageContent_SectionHTable")
+      section_h = table_h.all("tr")
+      section_h.each do |element|
+        td = element.all("td")
+        next if td.empty? || td.size <= 1
+
+        @fees << {
+          "Description": remove_total(td[0].text),
+          "FeeAmount": remove_currency(td[1].text),
+          "HubLine": 814,
+          "FeeType": 1,
+          "IncludeInAPR": false
+        }
+      end
+
+      @fees.reject! { |x| x[:Description] == "" }
+    rescue
+      []
     end
-
-    table_e = crawler.find("#_ctl0_PageContent_SectionETable")
-    section_e = table_e.all("tr")
-    section_e.each do |element|
-      td = element.all("td")
-      next if td.empty?
-
-      @fees << {
-        "Description": remove_total(td[0].text),
-        "FeeAmount": remove_currency(td[1].text),
-        "HubLine": 814,
-        "FeeType": 1,
-        "IncludeInAPR": false
-      }
-    end
-
-    table_h = crawler.find("#_ctl0_PageContent_SectionHTable")
-    section_h = table_h.all("tr")
-    section_h.each do |element|
-      td = element.all("td")
-      next if td.empty? || td.size <= 1
-
-      @fees << {
-        "Description": remove_total(td[0].text),
-        "FeeAmount": remove_currency(td[1].text),
-        "HubLine": 814,
-        "FeeType": 1,
-        "IncludeInAPR": false
-      }
-    end
-
-    @fees.reject! { |x| x[:Description] == "" }
   end
 
   def remove_total(label)
@@ -97,7 +101,7 @@ class CrawlFeesService
       label[label.index("8.1-06") + 7..-1]
     else
       label = label.delete("*")
-      label[label.index("Title - ").to_i + 9..label.index("(").to_i - 2]
+      label[label.index("Title - ").to_i + 8..label.index("(").to_i - 2]
     end
   end
 
