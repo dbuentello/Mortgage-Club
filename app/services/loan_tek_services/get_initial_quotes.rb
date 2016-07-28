@@ -21,6 +21,7 @@ module LoanTekServices
       zip_code = ZipCode.find_by_zip(get_zipcode)
       if zip_code
         fees = CrawlFeesService.new(
+          zip: zip_code.zip,
           city: zip_code.city,
           loan_amount: get_loan_amount,
           sales_price: info["property_value"].to_f
@@ -47,6 +48,7 @@ module LoanTekServices
 
       if zip_code
         fees = CrawlFeesService.new(
+          zip: zip_code.zip,
           city: zip_code.city,
           loan_amount: get_loan_amount,
           sales_price: info["property_value"].to_f

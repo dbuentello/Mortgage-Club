@@ -37,6 +37,7 @@ module LoanTekServices
       )
 
       fees = CrawlFeesService.new(
+        zip: property.address.zip,
         city: property.address.city,
         loan_amount: get_loan_amount,
         sales_price: get_property_value
