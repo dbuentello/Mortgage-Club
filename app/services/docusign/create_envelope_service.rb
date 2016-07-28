@@ -1,5 +1,5 @@
 require "pdf_forms"
-
+require 'open-uri'
 #
 # Module Docusign provides methods to generate uniform
 #
@@ -15,10 +15,12 @@ module Docusign
     UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
     FORM_4506_PATH = "#{Rails.root}/form_templates/form4506t.pdf".freeze
     BORROWER_CERTIFICATION_PATH = "#{Rails.root}/form_templates/Borrower-Certification-and-Authorization.pdf".freeze
+    FORM_SSA_PATH = "https://s3-us-west-2.amazonaws.com/dev-homieo/documents/form_ssa89.pdf".freeze
 
     UNIFORM_OUTPUT_PATH = "#{Rails.root}/tmp/uniform.pdf".freeze
     FORM_4506_OUTPUT_PATH = "#{Rails.root}/tmp/form4506t.pdf".freeze
     BORROWER_CERTIFICATION_OUTPUT_PATH = "#{Rails.root}/tmp/certification.pdf".freeze
+    FORM_SSA_OUTPUT_PATH = "#{Rails.root}/tmp/form_ssa89.pdf".freeze
 
     attr_accessor :pdftk
 
@@ -29,7 +31,7 @@ module Docusign
     def call(user, loan)
       generates_documents_by_adobe_field_names(loan)
       envelope = generate_envelope(user, loan)
-      delete_temp_files
+      # delete_temp_files
 
       envelope
     end
@@ -44,6 +46,7 @@ module Docusign
       generate_uniform(loan)
       generate_form_4506
       generate_form_certification
+      generate_extra_form(loan)
     end
 
     #
@@ -62,19 +65,28 @@ module Docusign
           subject: I18n.t("services.docusign.create_envelope_service.envelope_email_subject"),
           body: I18n.t("services.docusign.create_envelope_service.evelope_email_body")
         },
-        files: [
-          {path: UNIFORM_OUTPUT_PATH},
-          {path: FORM_4506_OUTPUT_PATH},
-          {path: BORROWER_CERTIFICATION_OUTPUT_PATH}
-        ],
+        files: output_files,
         signers: build_signers(user, loan)
       )
+      # TODO: append extra forms to files
     end
 
+    def output_files
+      output_files = [
+        {path: UNIFORM_OUTPUT_PATH},
+        {path: FORM_4506_OUTPUT_PATH},
+        {path: BORROWER_CERTIFICATION_OUTPUT_PATH},
+        {path: FORM_SSA_OUTPUT_PATH}
+      ]
+      output_files << {path: "#{Rails.root}/tmp/sunwest.pdf".freeze}
+      output_files
+    end
     def delete_temp_files
       File.delete(UNIFORM_OUTPUT_PATH)
       File.delete(FORM_4506_OUTPUT_PATH)
       File.delete(BORROWER_CERTIFICATION_OUTPUT_PATH)
+      # TODO: delete arr path
+      File.delete(FORM_SSA_OUTPUT_PATH)
     end
 
     private
@@ -94,6 +106,28 @@ module Docusign
     def generate_form_4506
       pdftk.get_field_names(FORM_4506_PATH)
       pdftk.fill_form(FORM_4506_PATH, "tmp/form4506t.pdf")
+    end
+
+    def arr_extra_forms
+      extra_forms = []
+      extra_forms.push({file_path:"http://s3-us-west-2.amazonaws.com/dev-homieo/documents/form_ssa89.pdf".freeze, output_path: "#{Rails.root}/tmp/form_ssa89.pdf".freeze})
+      extra_forms.push({file_path:"http://s3-us-west-2.amazonaws.com/dev-homieo/documents/sunwest.pdf".freeze, output_path: "#{Rails.root}/tmp/sunwest.pdf".freeze})
+
+      # extra_forms.push({file_path:"#{Rails.root}/form_templates/form_ssa89.pdf".freeze, output_path: "#{Rails.root}/tmp/form_ssa89.pdf".freeze})
+    end
+
+    def generate_extra_form(loan)
+      byebug
+      arr_extra_forms.each do |f|
+        byebug
+        # p "asdas"
+        file_data = open(f[:file_path])
+        @field_names = pdftk.get_field_names(file_data)
+        data = Docusign::Templates::ExtraForm.new(loan, @field_names).build
+        pdftk.fill_form(file_data, f[:output_path], data)
+        byebug
+      end
+
     end
 
     #
@@ -122,24 +156,7 @@ module Docusign
             name: "#{user.first_name} #{user.last_name}",
             email: user.email,
             role_name: "Normal",
-            sign_here_tabs: [
-              {
-                name: "Signature",
-                page_number: "1",
-                x_position: "60",
-                y_position: "75",
-                document_id: "1",
-                optional: "false"
-              },
-              {
-                name: "Signature",
-                page_number: "4",
-                x_position: "90",
-                y_position: "439",
-                document_id: "1",
-                optional: "false"
-              }
-            ],
+            sign_here_tabs: build_ex_sign,
             date_signed_tabs: [
               {
                 name: "Date Signed",
@@ -156,7 +173,7 @@ module Docusign
             ]
           }
         ]
-
+        byebug
       if loan.secondary_borrower
         signers << {
           embedded: true,
@@ -199,6 +216,45 @@ module Docusign
       end
 
       signers
+    end
+
+    def build_ex_sign
+      signs = [
+        {
+          name: "Signature",
+          page_number: "1",
+          x_position: "60",
+          y_position: "75",
+          document_id: "1",
+          optional: "false"
+        },
+        {
+          name: "Signature",
+          page_number: "4",
+          x_position: "90",
+          y_position: "439",
+          document_id: "1",
+          optional: "false"
+        }
+      ]
+      if true
+        signs << {
+          name: "Signature",
+          page_number: "1",
+          x_position: "120",
+          y_position: "580",
+          document_id: "4",
+          optional: "false"
+        }
+        signs << {
+          name: "Signature",
+          page_number: "1",
+          x_position: "50",
+          y_position: "580",
+          document_id: "5",
+          optional: "false"
+        }
+      end
     end
   end
 end
