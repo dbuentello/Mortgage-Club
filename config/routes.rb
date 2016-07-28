@@ -130,7 +130,6 @@ Rails.application.routes.draw do
     end
 
     resources :dashboard, only: [:show]
-
     resources :lender_documents, only: [:create, :destroy] do
       member do
         get "download"
@@ -181,12 +180,13 @@ Rails.application.routes.draw do
 
     resources :potential_rate_drop_user_managements, only: [:index, :edit, :update, :destroy] do
     end
-    
+
     resources :rate_alert_quote_query_managements, only: [:index] do
     end
 
     resources :lenders, except: [:show] do
       resources :lender_templates, except: [:new, :show]
+      resources :lender_docusign_forms
     end
 
     resources :loan_members_titles, except: [:new, :show]
