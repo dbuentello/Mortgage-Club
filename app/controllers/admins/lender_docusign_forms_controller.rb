@@ -1,8 +1,12 @@
 class Admins::LenderDocusignFormsController < Admins::BaseController
+  before_action :set_lender
   before_action :set_lender_docusign_form, only: [:edit, :update, :destroy]
 
   def index
-    bootstrap(lender_docusign_forms: LenderDocusignForm.all)
+    byebug
+    bootstrap(
+              lender: @lender,
+              lender_docusign_forms: LenderDocusignForm.all)
 
     respond_to do |format|
       format.html { render template: 'admin_app' }
@@ -49,6 +53,10 @@ class Admins::LenderDocusignFormsController < Admins::BaseController
   end
 
   private
+
+  def set_lender
+    @lender = Lender.find(params[:lender_id])
+  end
 
   def lender_docusign_form_params
     params.permit(LenderDocusignForm::PERMITTED_ATTRS)

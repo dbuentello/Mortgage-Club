@@ -33,6 +33,8 @@ var LenderForm = require("admin/lenders/LenderForm");
 var LenderTemplates = require("admin/lenders/LenderTemplates");
 var EditTemplate = require("admin/lenders/EditTemplate");
 
+var LenderDocusignForms = require("admin/lenders/LenderDocusignForms");
+
 var PotentialUserManagements = require("admin/potential_user_managements/Managements");
 var EditPotentialUserPage = require("admin/potential_user_managements/EditPage");
 
@@ -94,6 +96,8 @@ var routes = (
     <Route path="/lenders/:id/edit" handler={LenderForm}/>
     <Route path="/lenders/:id/lender_templates" handler={LenderTemplates}/>
     <Route path="/lenders/:id/lender_templates/:id/edit" handler={EditTemplate}/>
+    <Route path="/lenders/:id/lender_docusign_forms" handler={LenderDocusignForms}/>
+
     <Route name="/potential_user_managements" path="/potential_user_managements" handler={PotentialUserManagements}/>
     <Route path="/potential_user_managements/:id/edit" handler={EditPotentialUserPage}/>
     <Route name="/potential_rate_drop_user_managements" path="/potential_rate_drop_user_managements" handler={PotentialRateDropUserManagements}/>
