@@ -110,7 +110,7 @@ module QuotesFormulas
     if lender_info.present?
       lender_fees << {
         "Description": "Appraisal Fee",
-        "FeeAmount": lender_info[:appraisal_fee],
+        "FeeAmount": lender_info[:appraisal_fee].to_i,
         "HubLine": 814,
         "FeeType": 1,
         "IncludeInAPR": false
@@ -118,7 +118,7 @@ module QuotesFormulas
 
       lender_fees << {
         "Description": "Tax Certification Fee",
-        "FeeAmount": lender_info[:tax_certification_fee],
+        "FeeAmount": lender_info[:tax_certification_fee].to_i,
         "HubLine": 814,
         "FeeType": 1,
         "IncludeInAPR": false
@@ -126,7 +126,7 @@ module QuotesFormulas
 
       lender_fees << {
         "Description": "Flood Certification Fee",
-        "FeeAmount": lender_info[:flood_certification_fee],
+        "FeeAmount": lender_info[:flood_certification_fee].to_i,
         "HubLine": 814,
         "FeeType": 1,
         "IncludeInAPR": false
