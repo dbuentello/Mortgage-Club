@@ -27,19 +27,28 @@ class CrawlFeesService
   def fill_input_data
     if params[:loan_purpose] == 2
       crawler.choose("_ctl0_PageContent_TypeRefi")
-      sleep(1)
+      crawler.find_by_id("_ctl0_PageContent_Submit").trigger("click")
+      sleep(2)
+      crawler.execute_script("document.getElementById('_ctl0_PageContent_PropertyCityList_Text').value = '#{params[:city]}'")
+    else
+      crawler.fill_in("_ctl0_PageContent_PropertyCityList_Text", with: params[:city])
     end
-
-    crawler.fill_in("_ctl0_PageContent_PropertyCityList_Text", with: params[:city])
     crawler.execute_script("document.getElementById('_ctl0_PageContent_PropertyCityList_Text').onchange()")
     sleep(3)
-    # crawler.select(params[:county], from: "_ctl0_PageContent_EscrowCountyList")
-    # sleep(1)
+
+    crawler.execute_script("
+      document.getElementById('_ctl0_PageContent_PropertyZipCell').remove();
+      var element = document.createElement('input');
+      element.type = 'hidden';
+      element.value = '#{params[:zip]}';
+      element.name = '_ctl0:PageContent:PropertyZipList';
+      document.getElementById('aspnetForm').appendChild(element);
+    ")
+
     crawler.fill_in("_ctl0_PageContent_SalesPrice", with: params[:sales_price]) if params[:loan_purpose] == 1
     crawler.fill_in("_ctl0_PageContent_LoanAmount", with: params[:loan_amount])
     crawler.check("_ctl0_PageContent_EndorsementsRepeater__ctl4_EndorsementCheckbox")
     crawler.check("_ctl0_PageContent_InHouseNotaryCheckbox")
-    crawler.select(params[:zip], from: "_ctl0_PageContent_PropertyZipList")
   end
 
   def click_submit
