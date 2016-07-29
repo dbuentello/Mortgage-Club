@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var LenderDocusginForm = require('./LenderDocusginForm');
+var LenderDocusignForm = require('./LenderDocusignForm');
 
 var LenderDocusignForms = React.createClass({
   getInitialState: function() {
@@ -45,7 +45,7 @@ var LenderDocusignForms = React.createClass({
               </tbody>
             </table>
             <h3>Add Template</h3>
-            <LenderDocusginForm lender_docusign_form={{}} lender={this.props.bootstrapData.lender} docusignTemplates={this.props.bootstrapData.lender_docusign_forms}
+            <LenderDocusignForm bootstrapData={this.props.bootstrapData}
                           onSave={this.formAdded}/>
           </div>
         </div>

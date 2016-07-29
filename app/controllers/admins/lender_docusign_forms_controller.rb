@@ -3,10 +3,9 @@ class Admins::LenderDocusignFormsController < Admins::BaseController
   before_action :set_lender_docusign_form, only: [:edit, :update, :destroy]
 
   def index
-    byebug
     bootstrap(
               lender: @lender,
-              lender_docusign_forms: LenderDocusignForm.all)
+              lender_docusign_forms: LenderDocusignForm.where(lender_id:@lender.id))
 
     respond_to do |format|
       format.html { render template: 'admin_app' }
@@ -32,7 +31,7 @@ class Admins::LenderDocusignFormsController < Admins::BaseController
   end
 
   def edit
-    bootstrap(lender_docusign_form: @lender_docusign_form)
+    bootstrap(lender: @lender,lender_docusign_form: @lender_docusign_form)
 
     respond_to do |format|
       format.html { render template: 'admin_app' }
@@ -41,7 +40,7 @@ class Admins::LenderDocusignFormsController < Admins::BaseController
 
   def update
     if @lender_docusign_form.update(lender_docusign_form_params)
-      render json: {}
+      render json: @lender_docusign_form
     else
       render json: {message: @lender_docusign_form.errors.full_messages.first}, status: :unprocessable_entity
     end
