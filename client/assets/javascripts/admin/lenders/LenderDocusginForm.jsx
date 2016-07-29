@@ -1,5 +1,7 @@
 var React = require('react/addons');
 var TextField = require('components/form/TextField');
+var TextareaField = require('components/form/TextareaField');
+
 var FlashHandler = require('mixins/FlashHandler');
 var ModalLink = require('components/ModalLink');
 var SelectField = require('components/form/SelectField');
@@ -52,9 +54,10 @@ var LenderDocusignForm = React.createClass({
 
             <div className="form-group">
               <div className="col-sm-4">
-                <TextField
+                <TextareaField
                   label="Sign Position"
                   keyName="sign_position"
+                  rows={10}
                   value={this.state.sign_position}
                   editable={true}
                   onChange={this.onChange}/>
