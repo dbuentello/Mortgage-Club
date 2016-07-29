@@ -90,7 +90,7 @@ var MortgageRates = React.createClass({
                 <div className="mobile-xs-quote">
                   <div className="visible-xs text-xs-justify">
                     <p>
-                      We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one on your own or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
+                      We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
                     </p>
                     <p>
                       Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
@@ -134,7 +134,7 @@ var MortgageRates = React.createClass({
                 </div>
                 <div className="row actions hidden-xs">
                   <p>
-                    We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one on your own or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
+                    We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
                   </p>
                   <p>
                     Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.

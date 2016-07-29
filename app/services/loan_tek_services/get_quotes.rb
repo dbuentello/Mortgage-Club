@@ -36,7 +36,22 @@ module LoanTekServices
         property_type: get_property_type
       )
 
-      quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose)
+      zip_code = ZipCode.find_by_zip(get_zipcode)
+
+      if zip_code
+        fees = CrawlFeesService.new(
+          loan_purpose: get_loan_purpose,
+          zip: zip_code.zip,
+          city: zip_code.city,
+          county: zip_code.county,
+          loan_amount: get_loan_amount,
+          sales_price: get_property_value
+        ).call
+
+        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees)
+      else
+        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [])
+      end
     end
 
     private
@@ -66,8 +81,12 @@ module LoanTekServices
 
     def get_loan_to_value
       loan_amount = get_loan_amount
-      property_value = loan.purchase? ? property.purchase_price : property.market_price
+      property_value = get_property_value
       (loan_amount * 100 / property_value).round
+    end
+
+    def get_property_value
+      loan.purchase? ? property.purchase_price : property.market_price
     end
 
     def get_property_usage

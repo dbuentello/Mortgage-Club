@@ -12,6 +12,9 @@
 #  contact_name               :string
 #  contact_phone              :string
 #  nmls                       :string
+#  appraisal_fee              :decimal
+#  tax_certification_fee      :decimal
+#  flood_certification_fee    :decimal
 #  logo                       :attachment
 
 class Lender < ActiveRecord::Base
@@ -67,7 +70,10 @@ class Lender < ActiveRecord::Base
     :contact_name,
     :contact_phone,
     :nmls,
-    :logo
+    :logo,
+    :appraisal_fee,
+    :tax_certification_fee,
+    :flood_certification_fee
   ]
   def logo_url
     logo.url if logo
@@ -92,6 +98,9 @@ class Lender < ActiveRecord::Base
       contact_name: "John Doe",
       contact_phone: "01-1234-678",
       nmls: "123456789",
+      appraisal_fee: 100.0,
+      tax_certification_fee: 100.0,
+      flood_certification_fee: 100.0,
       logo: File.new("#{Rails.root}/public/mortgageclubLOGO.png")
     )
   end

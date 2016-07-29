@@ -27,7 +27,13 @@ module QuotesFormulas
     lender_names = quotes.map { |q| q["LenderName"] }.uniq
     lender_info = {}
     Lender.where(name: lender_names).each do |lender|
-      lender_info[lender.name] = {nmls: lender.nmls, logo_url: lender.logo_url}
+      lender_info[lender.name] = {
+        nmls: lender.nmls,
+        logo_url: lender.logo_url,
+        appraisal_fee: lender.appraisal_fee,
+        tax_certification_fee: lender.tax_certification_fee,
+        flood_certification_fee: lender.flood_certification_fee
+      }
     end
 
     lender_info
@@ -60,12 +66,13 @@ module QuotesFormulas
     # total_fee
   end
 
-  def get_total_closing_cost(quote, admin_fee)
+  def get_total_closing_cost(quote, admin_fee, thirty_fees = nil)
     total_fee = get_total_fee(quote, admin_fee)
     lender_credit = get_lender_credits(quote, admin_fee)
     fha_upfront_premium_amount = get_fha_upfront_premium_amount(quote)
+    thirty_fee = thirty_fees.nil? ? 0 : thirty_fees.map { |x| x[:FeeAmount] }.sum
 
-    total_fee + lender_credit + fha_upfront_premium_amount
+    total_fee + lender_credit + fha_upfront_premium_amount + thirty_fee
   end
 
   def get_admin_fee(quote)
@@ -84,6 +91,61 @@ module QuotesFormulas
     return [] unless quote["FeeSet"]["Fees"]
 
     quote["FeeSet"]["Fees"].reject { |x| x["Description"] == "Administration fee" }
+  end
+
+  def get_thirty_fees(fees, lender_info, loan_amount, interest_rate)
+    thirty_fees = []
+    lender_fees = []
+    prepaid_items = []
+
+    days = (Time.now.utc.end_of_month.to_date - Time.now.utc.to_date).to_i
+    prepaid_items << {
+      "Description": "Prepaid interest for #{days} days",
+      "FeeAmount": loan_amount * interest_rate * days / 360,
+      "HubLine": 814,
+      "FeeType": 1,
+      "IncludeInAPR": false
+    }
+
+    if lender_info.present?
+      lender_fees << {
+        "Description": "Appraisal Fee",
+        "FeeAmount": lender_info[:appraisal_fee],
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
+
+      lender_fees << {
+        "Description": "Tax Certification Fee",
+        "FeeAmount": lender_info[:tax_certification_fee],
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
+
+      lender_fees << {
+        "Description": "Flood Certification Fee",
+        "FeeAmount": lender_info[:flood_certification_fee],
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
+    end
+
+    thirty_fees << {
+      "Description": "Services you cannot shop for",
+      "FeeAmount": lender_fees.map { |x| x[:FeeAmount] }.sum,
+      "Fees": lender_fees
+    }
+
+    thirty_fees += fees if fees.present?
+
+    thirty_fees << {
+      "Description": "Prepaid items",
+      "FeeAmount": prepaid_items.map { |x| x[:FeeAmount] }.sum,
+      "Fees": prepaid_items
+    }
   end
 
   def get_total_fee(quote, admin_fee)
