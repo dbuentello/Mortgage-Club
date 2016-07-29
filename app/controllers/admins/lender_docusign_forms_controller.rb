@@ -4,8 +4,8 @@ class Admins::LenderDocusignFormsController < Admins::BaseController
 
   def index
     bootstrap(
-              lender: @lender,
-              lender_docusign_forms: LenderDocusignForm.where(lender_id:@lender.id))
+      lender: @lender,
+      lender_docusign_forms: LenderDocusignForm.where(lender_id: @lender.id))
 
     respond_to do |format|
       format.html { render template: 'admin_app' }
@@ -31,7 +31,7 @@ class Admins::LenderDocusignFormsController < Admins::BaseController
   end
 
   def edit
-    bootstrap(lender: @lender,lender_docusign_form: @lender_docusign_form)
+    bootstrap(lender: @lender, lender_docusign_form: @lender_docusign_form)
 
     respond_to do |format|
       format.html { render template: 'admin_app' }

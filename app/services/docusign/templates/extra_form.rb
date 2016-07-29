@@ -1,4 +1,3 @@
-# rubocop:disable ClassLength
 require "finance_formulas"
 
 module Docusign
@@ -53,7 +52,6 @@ module Docusign
           return loan.primary_property
         end
       end
-
     end
   end
 end
