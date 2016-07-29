@@ -98,8 +98,6 @@ module QuotesFormulas
     lender_fees = []
     prepaid_items = []
 
-    thirty_fees += fees if fees.present?
-
     days = (Time.now.utc.end_of_month.to_date - Time.now.utc.to_date).to_i
     prepaid_items << {
       "Description": "Prepaid interest for #{days} days",
@@ -140,6 +138,8 @@ module QuotesFormulas
       "FeeAmount": lender_fees.map { |x| x[:FeeAmount] }.sum,
       "Fees": lender_fees
     }
+
+    thirty_fees += fees if fees.present?
 
     thirty_fees << {
       "Description": "Prepaid items",

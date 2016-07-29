@@ -36,14 +36,22 @@ module LoanTekServices
         property_type: get_property_type
       )
 
-      fees = CrawlFeesService.new(
-        zip: property.address.zip,
-        city: property.address.city,
-        loan_amount: get_loan_amount,
-        sales_price: get_property_value
-      ).call
+      zip_code = ZipCode.find_by_zip(get_zipcode)
 
-      quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees)
+      if zip_code
+        fees = CrawlFeesService.new(
+          loan_purpose: get_loan_purpose,
+          zip: zip_code.zip,
+          city: zip_code.city,
+          county: zip_code.county,
+          loan_amount: get_loan_amount,
+          sales_price: get_property_value
+        ).call
+
+        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees)
+      else
+        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [])
+      end
     end
 
     private

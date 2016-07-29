@@ -103,81 +103,6 @@ var Filter = React.createClass({
         return (
             <div>
                 <div id="sidebar" className="filter-sidebar">
-                  {
-                    this.props.rate_alert ?
-                    <span>
-                          <a className="btn btn-mc" data-toggle="modal" data-target="#email_alert"> Rate alert </a>
-
-                          <div className="modal fade" id="email_alert" tabIndex="-1" role="dialog" aria-labelledby="email_alert_label">
-                              <div className="modal-dialog modal-md" role="document">
-                                  <div className="modal-content">
-                                      <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
-                                      <div className="modal-body text-center container">
-                                          <h2>Rate Drop Alert</h2>
-                                          <h3 className="mc-blue-primary-text">Sign up for MortgageClub's rate watch and we'll email you when rates drop.</h3>
-                                              <form class="form-horizontal text-center" data-remote="true" id="new_rate_alert" action="/quotes/set_rate_alert" accept-charset="UTF-8" method="post">
-                                                <div className="form-group">
-                                                  <div className="col-sm-6 text-left">
-                                                    <TextField
-                                                      activateRequiredField={this.state[fields.firstName.error]}
-                                                      label={fields.firstName.label}
-                                                      keyName={fields.firstName.keyName}
-                                                      value={this.state[fields.firstName.keyName]}
-                                                      editable={true}
-                                                      onChange={this.onChange}
-                                                      onBlur={this.onBlur}
-                                                      editMode={true}/>
-                                                  </div>
-                                                  <div className="col-sm-6 text-left">
-
-                                                    <TextField
-                                                      activateRequiredField={this.state[fields.lastName.error]}
-                                                      label={fields.lastName.label}
-                                                      keyName={fields.lastName.keyName}
-                                                      value={this.state[fields.lastName.keyName]}
-                                                      editable={true}
-                                                      onChange={this.onChange}
-                                                      onBlur={this.onBlur}
-                                                      editMode={true}/>
-                                                  </div>
-                                                </div>
-                                                  <div className="form-group">
-                                                      <div className="col-sm-12 text-left">
-
-                                                          <TextField
-                                                            activateRequiredField={this.state[fields.email.error]}
-                                                            label={fields.email.label}
-                                                            keyName={fields.email.keyName}
-                                                            value={this.state[fields.email.keyName]}
-                                                            editable={true}
-                                                            invalidMessage="Your input is not an email."
-                                                            customClass={"account-text-input"}
-                                                            validationTypes={["email"]}
-                                                            onChange={this.onChange}
-                                                            onBlur={this.onBlur}
-                                                            editMode={true}/>
-                                                      </div>
-                                                  </div>
-
-                                                  <div className="form-group text-center">
-                                                      <div className="col-md-12" style={{"padding-top": "35px","padding-bottom": "20px"}}>
-                                                        <button type="button" onClick={this.submitRateAlert} className="btn btn-mc form-control">Submit</button>
-
-                                                      </div>
-
-                                                  </div>
-
-                                              </form>
-
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          </span>
-                    :
-                    null
-                  }
-
                     <h5>Programs</h5>
                     <input type="checkbox" name="30years" id="30years" checked={this.isCriteriaChecked("30 year fixed")} onChange={_.bind(this.onChangeCriteria, null, "30 year fixed", "product")}/>
                     <label className="customCheckbox blueCheckBox2" htmlFor="30years">30 year fixed</label>
@@ -265,3 +190,74 @@ var Filter = React.createClass({
     }
 })
 module.exports = Filter;
+
+// {
+//                     this.props.rate_alert ?
+//                     <span>
+//                           <a className="btn btn-mc" data-toggle="modal" data-target="#email_alert"> Rate alert </a>
+
+//                           <div className="modal fade" id="email_alert" tabIndex="-1" role="dialog" aria-labelledby="email_alert_label">
+//                               <div className="modal-dialog modal-md" role="document">
+//                                   <div className="modal-content">
+//                                       <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
+//                                       <div className="modal-body text-center container">
+//                                           <h2>Rate Drop Alert</h2>
+//                                           <h3 className="mc-blue-primary-text">Sign up for MortgageClub's rate watch and we'll email you when rates drop.</h3>
+//                                               <form class="form-horizontal text-center" data-remote="true" id="new_rate_alert" action="/quotes/set_rate_alert" accept-charset="UTF-8" method="post">
+//                                                 <div className="form-group">
+//                                                   <div className="col-sm-6 text-left">
+//                                                     <TextField
+//                                                       activateRequiredField={this.state[fields.firstName.error]}
+//                                                       label={fields.firstName.label}
+//                                                       keyName={fields.firstName.keyName}
+//                                                       value={this.state[fields.firstName.keyName]}
+//                                                       editable={true}
+//                                                       onChange={this.onChange}
+//                                                       onBlur={this.onBlur}
+//                                                       editMode={true}/>
+//                                                   </div>
+//                                                   <div className="col-sm-6 text-left">
+
+//                                                     <TextField
+//                                                       activateRequiredField={this.state[fields.lastName.error]}
+//                                                       label={fields.lastName.label}
+//                                                       keyName={fields.lastName.keyName}
+//                                                       value={this.state[fields.lastName.keyName]}
+//                                                       editable={true}
+//                                                       onChange={this.onChange}
+//                                                       onBlur={this.onBlur}
+//                                                       editMode={true}/>
+//                                                   </div>
+//                                                 </div>
+//                                                   <div className="form-group">
+//                                                       <div className="col-sm-12 text-left">
+
+//                                                           <TextField
+//                                                             activateRequiredField={this.state[fields.email.error]}
+//                                                             label={fields.email.label}
+//                                                             keyName={fields.email.keyName}
+//                                                             value={this.state[fields.email.keyName]}
+//                                                             editable={true}
+//                                                             invalidMessage="Your input is not an email."
+//                                                             customClass={"account-text-input"}
+//                                                             validationTypes={["email"]}
+//                                                             onChange={this.onChange}
+//                                                             onBlur={this.onBlur}
+//                                                             editMode={true}/>
+//                                                       </div>
+//                                                   </div>
+
+//                                                   <div className="form-group text-center">
+//                                                       <div className="col-md-12" style={{"padding-top": "35px","padding-bottom": "20px"}}>
+//                                                         <button type="button" onClick={this.submitRateAlert} className="btn btn-mc form-control">Submit</button>
+//                                                       </div>
+//                                                   </div>
+//                                               </form>
+//                                       </div>
+//                                   </div>
+//                               </div>
+//                           </div>
+//                           </span>
+//                     :
+//                     null
+//                   }
