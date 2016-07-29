@@ -28,13 +28,13 @@ class CrawlFeesService
     if params[:loan_purpose] == 2
       crawler.choose("_ctl0_PageContent_TypeRefi")
       crawler.find_by_id("_ctl0_PageContent_Submit").trigger("click")
-      sleep(2)
+      sleep(1)
       crawler.execute_script("document.getElementById('_ctl0_PageContent_PropertyCityList_Text').value = '#{params[:city]}'")
     else
       crawler.fill_in("_ctl0_PageContent_PropertyCityList_Text", with: params[:city])
     end
     crawler.execute_script("document.getElementById('_ctl0_PageContent_PropertyCityList_Text').onchange()")
-    sleep(3)
+    sleep(2)
 
     crawler.execute_script("
       document.getElementById('_ctl0_PageContent_PropertyZipCell').remove();
