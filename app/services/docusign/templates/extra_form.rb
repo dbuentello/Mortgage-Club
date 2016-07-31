@@ -38,8 +38,15 @@ module Docusign
         {
           "borrower_full_name": borrower.full_name,
           "borrower_ssn": borrower.ssn,
+          "borrower_phone": borrower.phone,
           "borrower_email": borrower.user.email,
-          "loan_property_address": subject_property.address.try(:address)
+          "loan_property_address": subject_property.address.try(:address),
+          "borrower_current_address": borrower.display_current_address,
+          "borrower_current_address_city": borrower.current_address.try(:address).city,
+          "borrower_current_address_state": borrower.current_address.try(:address).state,
+          "borrower_current_address_zip": borrower.current_address.try(:address).zip,
+          "borrower_dob": borrower.dob.to_date,
+          "date_signed": Time.zone.now.to_date
         }
       end
 
