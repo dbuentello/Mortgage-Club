@@ -51,7 +51,7 @@ var LenderDocusignForm = React.createClass({
     var signPosition = [];
     var docOrder = this.state.doc_order;
     _.each(this.state.sign_position, function(sign){
-      sign.document_id = docOrder;
+      sign.document_id = docOrder.toString();
       signPosition.push(sign);
     });
 
@@ -105,7 +105,7 @@ var LenderDocusignForm = React.createClass({
   calcPxSign: function(position){
     var inPosition = parseFloat(position);
     // convert inch to px of Docusign
-    return ((inPosition * 72 * 1.3333 * 0.72).toFixed(2)).toString();
+    return ((inPosition * 72 * 1.3333 * 0.72).toFixed()).toString();
   },
   onChange: function(change) {
     this.setState(change);
