@@ -59,6 +59,16 @@ module Docusign
           return loan.primary_property
         end
       end
+
+      def subject_property_and_primary_property_have_same_address?(primary_property)
+        return false unless subject_address = subject_property.address
+        return false unless primary_address = primary_property.address
+
+        subject_address.city == primary_address.city &&
+          subject_address.state == primary_address.state &&
+          subject_address.street_address == primary_address.street_address &&
+          subject_address.zip == primary_address.zip
+      end
     end
   end
 end
