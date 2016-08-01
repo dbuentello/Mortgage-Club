@@ -11,21 +11,33 @@ var LenderDocusignForm = React.createClass({
 
   getInitialState: function() {
     var lender = this.props.bootstrapData.lender;
-    var lender_docusign_form;
     if(this.props.bootstrapData.lender_docusign_form){
-      lender_docusign_form = this.props.bootstrapData.lender_docusign_form;
+      return {
+        lender_docusign_form: this.props.bootstrapData.lender_docusign_form,
+        lender: lender,
+        page_number: null,
+        x_position: null,
+        y_position: null,
+        sign_position: JSON.parse(this.props.bootstrapData.lender_docusign_form.sign_position),
+        description: this.props.bootstrapData.lender_docusign_form.description,
+        form_id: this.props.bootstrapData.lender_docusign_form.form_id,
+        saving: false
+      }
     }
     else {
-      lender_docusign_form = {};
+      return {
+        lender: lender,
+        page_number: "",
+        x_position: "",
+        y_position: "",
+        lender_docusign_form: {},
+        sign_position: [],
+        description: "",
+        form_id: "",
+        saving: false
+      }
     }
-    return {
-      lender: lender,
-      lender_docusign_form: lender_docusign_form,
-      sign_position: lender_docusign_form.sign_position,
-      description: lender_docusign_form.description,
-      form_id: lender_docusign_form.form_id,
-      saving: false
-    }
+
   },
 
   handleSubmit: function(e) {
@@ -34,7 +46,10 @@ var LenderDocusignForm = React.createClass({
 
     var formData = new FormData();
     formData.append("description", this.state.description);
-    formData.append("sign_position", this.state.sign_position);
+    // _.each(this.state.sign_position, function(sign){
+    //   formData.append("sign_position[]", type_name);
+    // });
+    formData.append("sign_position", JSON.stringify(this.state.sign_position));
     formData.append("form_id", this.state.form_id);
     if($("#uploadFile")[0].files.length >0) {
       formData.append("attachment", $("#uploadFile")[0].files[0]);
@@ -79,11 +94,32 @@ var LenderDocusignForm = React.createClass({
       });
     }
   },
-
+  calcPxSign: function(position){
+    var inPosition = parseFloat(position);
+    // convert inch to px of Docusign
+    return ((inPosition * 72 * 1.3333 * 0.72).toFixed(2)).toString();
+  },
   onChange: function(change) {
     this.setState(change);
   },
+  addSignPosition: function(){
+    var signPosition = this.state.sign_position.slice();
+    signPosition.push({ "name": "Signature", "x_position": this.calcPxSign(this.state.x_position), "y_position": this.calcPxSign(this.state.y_position), "page_number": this.state.page_number, "optional": "false"});
+    this.setState({
+      sign_position: signPosition,
+      x_position: "",
+      y_position: "",
+      page_number: ""
+    });
+  },
+  removeSignPosition: function(index){
+    var signPosition = this.state.sign_position;
+    signPosition.splice(index, 1);
 
+    this.setState({
+      sign_position: signPosition
+    });
+  },
   handleRemove: function() {
     $.ajax({
       url: '/lenders/' + this.state.lender.id + '/lender_docusign_forms/' + this.state.lender_docusign_form.id,
@@ -110,17 +146,72 @@ var LenderDocusignForm = React.createClass({
 
 
             <div className="form-group">
-              <div className="col-sm-4">
-                <TextareaField
-                  label="Sign Position"
-                  keyName="sign_position"
-                  rows={10}
-                  value={this.state.sign_position}
+              <div className="col-sm-2">
+                <TextField
+                  label="X Position"
+                  keyName="x_position"
+                  value={this.state.x_position}
                   editable={true}
-                  onChange={this.onChange}/>
+                  onChange={this.onChange} />
               </div>
+                  <div className="col-sm-2">
+
+                  <TextField
+                    label="Y Position"
+                    keyName="y_position"
+                    value={this.state.y_position}
+                    editable={true}
+                  onChange={this.onChange}  />
+              </div>
+              <div className="col-sm-2">
+
+                    <TextField
+                      label="Page Number"
+                      keyName="page_number"
+                      value={this.state.page_number}
+                      editable={true}
+                      onChange={this.onChange}/>
+                  </div>
+                    <div className="col-sm-1">
+
+                    <a className='btn btn-primary btn-sm' onClick={this.addSignPosition}>Add</a>
+</div>
             </div>
 
+              {
+                _.map(this.state.sign_position, function(sign, index) {
+                  return (
+                        <div className="form-group">
+                    <div className="row input-sm">
+                      <div className="col-sm-2">
+                        <TextField
+                          value={sign.x_position}
+                          editable={false}
+                         />
+                      </div>
+                          <div className="col-sm-2">
+
+                          <TextField
+                            value={sign.y_position}
+                            editable={false}
+                            />
+                      </div>
+                      <div className="col-sm-2">
+
+                            <TextField
+                              value={sign.page_number}
+                              editable={false}
+                              />
+                          </div>
+                      <div className="col-sm-1">
+                        <a className="btn btn-danger" id="removeSignPosition" onClick={this.removeSignPosition.bind(this, index)} role="button">x</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  )
+                }, this)
+              }
         <div className="form-group">
           <div className="col-sm-4">
             <TextField
