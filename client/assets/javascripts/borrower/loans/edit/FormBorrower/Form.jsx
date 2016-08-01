@@ -390,7 +390,11 @@ var Form = React.createClass({
         city: address.city
       };
       state[fields.currentAddress.name] = address_attributes;
-      state[fields.yearsInCurrentAddress.name] = currentBorrowerAddress.years_at_address || ((new Date(Date.now()).getFullYear()) * 1 - (state.subject_property.original_purchase_year) * 1 + 1);
+      if(currentBorrowerAddress){
+        state[fields.yearsInCurrentAddress.name] = currentBorrowerAddress.years_at_address;
+      }else{
+        state[fields.yearsInCurrentAddress.name] = (new Date(Date.now()).getFullYear()) * 1 - (state.subject_property.original_purchase_year) * 1 + 1;
+      }
       state[fields.currentlyOwn.name] = true;
       state[fields.currentlyOwn.isEnabled] = false;
     }
