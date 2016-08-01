@@ -18,6 +18,7 @@ var LenderDocusignForm = React.createClass({
         page_number: null,
         x_position: null,
         y_position: null,
+        doc_order: this.props.bootstrapData.lender_docusign_form.doc_order,
         sign_position: JSON.parse(this.props.bootstrapData.lender_docusign_form.sign_position),
         description: this.props.bootstrapData.lender_docusign_form.description,
         form_id: this.props.bootstrapData.lender_docusign_form.form_id,
@@ -30,6 +31,7 @@ var LenderDocusignForm = React.createClass({
         page_number: "",
         x_position: "",
         y_position: "",
+        doc_order: "",
         lender_docusign_form: {},
         sign_position: [],
         description: "",
@@ -46,11 +48,17 @@ var LenderDocusignForm = React.createClass({
 
     var formData = new FormData();
     formData.append("description", this.state.description);
-    // _.each(this.state.sign_position, function(sign){
-    //   formData.append("sign_position[]", type_name);
-    // });
-    formData.append("sign_position", JSON.stringify(this.state.sign_position));
+    var signPosition = [];
+    var docOrder = this.state.doc_order;
+    _.each(this.state.sign_position, function(sign){
+      sign.document_id = docOrder;
+      signPosition.push(sign);
+    });
+
+    formData.append("sign_position", JSON.stringify(signPosition));
     formData.append("form_id", this.state.form_id);
+    formData.append("doc_order", this.state.doc_order);
+
     if($("#uploadFile")[0].files.length >0) {
       formData.append("attachment", $("#uploadFile")[0].files[0]);
     }
@@ -218,6 +226,14 @@ var LenderDocusignForm = React.createClass({
               label="Description"
               keyName="description"
               value={this.state.description}
+              editable={true}
+              onChange={this.onChange}/>
+          </div>
+          <div className="col-sm-2">
+            <TextField
+              label="Doc order"
+              keyName="doc_order"
+              value={this.state.doc_order}
               editable={true}
               onChange={this.onChange}/>
           </div>

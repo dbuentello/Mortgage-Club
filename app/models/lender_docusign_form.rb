@@ -6,7 +6,8 @@ class LenderDocusignForm < ActiveRecord::Base
     :description,
     :sign_position,
     :lender_id,
-    :attachment
+    :attachment,
+    :doc_order
   ]
   validates_attachment :attachment,
     presence: true,
