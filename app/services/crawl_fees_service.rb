@@ -11,11 +11,15 @@ class CrawlFeesService
   end
 
   def call
-    go_to_ort
-    fill_input_data
-    click_submit
-    get_data
-    close_crawler
+    if params[:loan_purpose == 1]
+      go_to_ort
+      fill_input_data
+      click_submit
+      get_data
+      close_crawler
+    else
+      get_data_for_refinance
+    end
 
     @fees
   end
@@ -25,14 +29,7 @@ class CrawlFeesService
   end
 
   def fill_input_data
-    if params[:loan_purpose] == 2
-      crawler.choose("_ctl0_PageContent_TypeRefi")
-      crawler.find_by_id("_ctl0_PageContent_Submit").trigger("click")
-      sleep(1)
-      crawler.execute_script("document.getElementById('_ctl0_PageContent_PropertyCityList_Text').value = '#{params[:city]}'")
-    else
-      crawler.fill_in("_ctl0_PageContent_PropertyCityList_Text", with: params[:city])
-    end
+    crawler.fill_in("_ctl0_PageContent_PropertyCityList_Text", with: params[:city])
     crawler.execute_script("document.getElementById('_ctl0_PageContent_PropertyCityList_Text').onchange()")
     sleep(2)
 
@@ -140,6 +137,101 @@ class CrawlFeesService
       "FeeAmount": fees_h.map { |x| x[:FeeAmount] }.sum,
       "Fees": fees_h
     }
+  end
+
+  def get_data_for_refinance
+    fees_c = []
+    fees_e = []
+
+    fees_c << {
+      "Description": "Title - Lender's Title Policy",
+      "FeeAmount": get_lender_title_policy,
+      "HubLine": 814,
+      "FeeType": 1,
+      "IncludeInAPR": false
+    }
+
+    fees_c << {
+      "Description": "Title - Notary Fee",
+      "FeeAmount": 120.0,
+      "HubLine": 814,
+      "FeeType": 1,
+      "IncludeInAPR": false
+    }
+
+    fees_c << {
+      "Description": "Title - Recording Service Fee",
+      "FeeAmount": 20.0,
+      "HubLine": 814,
+      "FeeType": 1,
+      "IncludeInAPR": false
+    }
+
+    fees_c << {
+      "Description": "Title - Settlement Agent Fee",
+      "FeeAmount": get_settlement_agent_fee,
+      "HubLine": 814,
+      "FeeType": 1,
+      "IncludeInAPR": false
+    }
+
+    fees_e << {
+      "Description": "Recording Fees",
+      "FeeAmount": 95.0,
+      "HubLine": 814,
+      "FeeType": 1,
+      "IncludeInAPR": false
+    }
+
+    @fees << {
+      "Description": "Services you can shop for",
+      "FeeAmount": fees_c.map { |x| x[:FeeAmount] }.sum,
+      "Fees": fees_c
+    }
+
+    @fees << {
+      "Description": "Taxes and other gotv fees",
+      "FeeAmount": fees_e.map { |x| x[:FeeAmount] }.sum,
+      "Fees": fees_e
+    }
+  end
+
+  def get_lender_title_policy
+    if params[:loan_amount] <= 250_000.0
+      450.0
+    elsif params[:loan_amount] <= 500_000.0
+      645.0
+    elsif params[:loan_amount] <= 750_000.0
+      800.0
+    elsif params[:loan_amount] <= 1_000_000.0
+      1100.0
+    elsif params[:loan_amount] <= 1_500_000.0
+      1500.0
+    elsif params[:loan_amount] <= 2_000_000.0
+      2100.0
+    elsif params[:loan_amount] <= 3_000_000.0
+      2800.0
+    elsif params[:loan_amount] <= 4_000_000.0
+      3400.0
+    elsif params[:loan_amount] <= 5_000_000.0
+      4100.0
+    elsif params[:loan_amount] <= 6_000_000.0
+      4700.0
+    elsif params[:loan_amount] > 6_000_000.0
+      5500.0
+    end
+  end
+
+  def get_settlement_agent_fee
+    if params[:loan_amount] <= 250_000.0
+      400.0
+    elsif params[:loan_amount] <= 1_500_000.0
+      450.0
+    elsif params[:loan_amount] <= 3_000_000.0
+      550.0
+    elsif params[:loan_amount] > 3_000_000.0
+      700.0
+    end
   end
 
   def remove_total(label)
