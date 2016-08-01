@@ -12,7 +12,7 @@ class CrawlFeesService
   end
 
   def call
-    if params[:loan_purpose == 1]
+    if params[:loan_purpose] == 1
       go_to_ort
       fill_input_data
       click_submit
