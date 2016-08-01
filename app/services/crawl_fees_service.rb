@@ -1,3 +1,4 @@
+# rubocop:disable ClassLength
 require "capybara"
 require "capybara/poltergeist"
 
@@ -275,3 +276,4 @@ class CrawlFeesService
     crawler.driver.quit
   end
 end
+# rubocop:enable ClassLength
