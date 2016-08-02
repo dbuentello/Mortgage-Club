@@ -15,11 +15,15 @@ var LenderDocusignForm = React.createClass({
       return {
         lender_docusign_form: this.props.bootstrapData.lender_docusign_form,
         lender: lender,
-        page_number: null,
-        x_position: null,
-        y_position: null,
+        borrower_page_number: null,
+        borrower_x_position: null,
+        borrower_y_position: null,
+        borrower_sign_position: JSON.parse(this.props.bootstrapData.lender_docusign_form.sign_position),
+        co_borrower_page_number: null,
+        co_borrower_x_position: null,
+        co_borrower_y_position: null,
+        co_borrower_sign_position: JSON.parse(this.props.bootstrapData.lender_docusign_form.sign_position),
         doc_order: this.props.bootstrapData.lender_docusign_form.doc_order,
-        sign_position: JSON.parse(this.props.bootstrapData.lender_docusign_form.sign_position),
         description: this.props.bootstrapData.lender_docusign_form.description,
         form_id: this.props.bootstrapData.lender_docusign_form.form_id,
         saving: false
@@ -28,12 +32,16 @@ var LenderDocusignForm = React.createClass({
     else {
       return {
         lender: lender,
-        page_number: "",
-        x_position: "",
-        y_position: "",
+        borrower_page_number: "",
+        borrower_x_position: "",
+        borrower_y_position: "",
+        borrower_sign_position: [],
+        co_borrower_page_number: "",
+        co_borrower_x_position: "",
+        co_borrower_y_position: "",
+        co_borrower_sign_position: [],
         doc_order: "",
         lender_docusign_form: {},
-        sign_position: [],
         description: "",
         form_id: "",
         saving: false
@@ -50,12 +58,18 @@ var LenderDocusignForm = React.createClass({
     formData.append("description", this.state.description);
     var signPosition = [];
     var docOrder = this.state.doc_order;
-    _.each(this.state.sign_position, function(sign){
+    _.each(this.state.borrower_sign_position, function(sign){
       sign.document_id = docOrder.toString();
       signPosition.push(sign);
     });
+    var coBorrowerSignPosition = [];
+    _.each(this.state.co_borrower_sign_position, function(sign){
+      sign.document_id = docOrder.toString();
+      coBorrowerSignPosition.push(sign);
+    });
 
     formData.append("sign_position", JSON.stringify(signPosition));
+    formData.append("co_borrower_sign", JSON.stringify(coBorrowerSignPosition));
     formData.append("form_id", this.state.form_id);
     formData.append("doc_order", this.state.doc_order);
 
@@ -111,21 +125,39 @@ var LenderDocusignForm = React.createClass({
     this.setState(change);
   },
   addSignPosition: function(){
-    var signPosition = this.state.sign_position.slice();
-    signPosition.push({ "name": "Signature", "x_position": this.calcPxSign(this.state.x_position), "y_position": this.calcPxSign(this.state.y_position), "page_number": this.state.page_number, "optional": "false"});
+    var signPosition = this.state.borrower_sign_position.slice();
+    signPosition.push({ "name": "Signature", "x_position": this.calcPxSign(this.state.borrower_x_position), "y_position": this.calcPxSign(this.state.borrower_y_position), "page_number": this.state.borrower_page_number, "optional": "false"});
     this.setState({
-      sign_position: signPosition,
-      x_position: "",
-      y_position: "",
-      page_number: ""
+      borrower_sign_position: signPosition,
+      borrower_x_position: "",
+      borrower_y_position: "",
+      borrower_page_number: ""
+    });
+  },
+  addCoBorrowerSignPosition: function(){
+    var signPosition = this.state.co_borrower_sign_position.slice();
+    signPosition.push({ "name": "Signature", "x_position": this.calcPxSign(this.state.co_borrower_x_position), "y_position": this.calcPxSign(this.state.co_borrower_y_position), "page_number": this.state.co_borrower_page_number, "optional": "false"});
+    this.setState({
+      co_borrower_sign_position: signPosition,
+      co_borrower_x_position: "",
+      co_borrower_y_position: "",
+      co_borrower_page_number: ""
     });
   },
   removeSignPosition: function(index){
-    var signPosition = this.state.sign_position;
+    var signPosition = this.state.borrower_sign_position;
     signPosition.splice(index, 1);
 
     this.setState({
-      sign_position: signPosition
+      borrower_sign_position: signPosition
+    });
+  },
+  removeCoBorrowerSignPosition: function(index){
+    var signPosition = this.state.co_borrower_sign_position;
+    signPosition.splice(index, 1);
+
+    this.setState({
+      co_borrower_sign_position: signPosition
     });
   },
   handleRemove: function() {
@@ -157,8 +189,8 @@ var LenderDocusignForm = React.createClass({
               <div className="col-sm-2">
                 <TextField
                   label="X Position"
-                  keyName="x_position"
-                  value={this.state.x_position}
+                  keyName="borrower_x_position"
+                  value={this.state.borrower_x_position}
                   editable={true}
                   onChange={this.onChange} />
               </div>
@@ -166,8 +198,8 @@ var LenderDocusignForm = React.createClass({
 
                   <TextField
                     label="Y Position"
-                    keyName="y_position"
-                    value={this.state.y_position}
+                    keyName="borrower_y_position"
+                    value={this.state.borrower_y_position}
                     editable={true}
                   onChange={this.onChange}  />
               </div>
@@ -175,8 +207,8 @@ var LenderDocusignForm = React.createClass({
 
                     <TextField
                       label="Page Number"
-                      keyName="page_number"
-                      value={this.state.page_number}
+                      keyName="borrower_page_number"
+                      value={this.state.borrower_page_number}
                       editable={true}
                       onChange={this.onChange}/>
                   </div>
@@ -187,7 +219,7 @@ var LenderDocusignForm = React.createClass({
             </div>
 
               {
-                _.map(this.state.sign_position, function(sign, index) {
+                _.map(this.state.borrower_sign_position, function(sign, index) {
                   return (
                         <div className="form-group">
                     <div className="row input-sm">
@@ -220,6 +252,73 @@ var LenderDocusignForm = React.createClass({
                   )
                 }, this)
               }
+              <div className="form-group">
+                <div className="col-sm-2">
+                  <TextField
+                    label="X Position"
+                    keyName="co_borrower_x_position"
+                    value={this.state.co_borrower_x_position}
+                    editable={true}
+                    onChange={this.onChange} />
+                </div>
+                    <div className="col-sm-2">
+
+                    <TextField
+                      label="Y Position"
+                      keyName="co_borrower_y_position"
+                      value={this.state.co_borrower_y_position}
+                      editable={true}
+                    onChange={this.onChange}  />
+                </div>
+                <div className="col-sm-2">
+
+                      <TextField
+                        label="Page Number"
+                        keyName="co_borrower_page_number"
+                        value={this.state.co_borrower_page_number}
+                        editable={true}
+                        onChange={this.onChange}/>
+                    </div>
+                      <div className="col-sm-1">
+
+                      <a className='btn btn-primary btn-sm' onClick={this.addCoBorrowerSignPosition}>Add</a>
+  </div>
+              </div>
+
+                {
+                  _.map(this.state.co_borrower_sign_position, function(sign, index) {
+                    return (
+                          <div className="form-group">
+                      <div className="row input-sm">
+                        <div className="col-sm-2">
+                          <TextField
+                            value={sign.x_position}
+                            editable={false}
+                           />
+                        </div>
+                            <div className="col-sm-2">
+
+                            <TextField
+                              value={sign.y_position}
+                              editable={false}
+                              />
+                        </div>
+                        <div className="col-sm-2">
+
+                              <TextField
+                                value={sign.page_number}
+                                editable={false}
+                                />
+                            </div>
+                        <div className="col-sm-1">
+                          <a className="btn btn-danger" id="removeCoBorrowerSignPosition" onClick={this.removeCoBorrowerSignPosition.bind(this, index)} role="button">x</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    )
+                  }, this)
+                }
         <div className="form-group">
           <div className="col-sm-4">
             <TextField
