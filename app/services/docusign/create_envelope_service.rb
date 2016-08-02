@@ -13,25 +13,28 @@ module Docusign
   #
   class CreateEnvelopeService
     UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
-    FORM_4506_PATH = "#{Rails.root}/form_templates/form4506t.pdf".freeze
     BORROWER_CERTIFICATION_PATH = "#{Rails.root}/form_templates/Borrower-Certification-and-Authorization.pdf".freeze
+    REAL_ESTATE_PATH = "#{Rails.root}/form_templates/real_estate.pdf".freeze
 
     UNIFORM_OUTPUT_PATH = "#{Rails.root}/tmp/uniform.pdf".freeze
-    FORM_4506_OUTPUT_PATH = "#{Rails.root}/tmp/form4506t.pdf".freeze
     BORROWER_CERTIFICATION_OUTPUT_PATH = "#{Rails.root}/tmp/certification.pdf".freeze
+    REAL_ESTATE_OUTPUT_PATH = "#{Rails.root}/tmp/real_estate.pdf".freeze
 
-    attr_accessor :pdftk, :extra_docusign_forms
+    attr_accessor :pdftk, :extra_docusign_forms, :extra_real_estate_form, :extra_assets_form
 
     def initialize
       @pdftk = PdfForms.new(ENV.fetch("PDFTK_BIN", "/usr/local/bin/pdftk"), flatten: true)
       @extra_docusign_forms = nil
+      @extra_real_estate_form = false
+      @extra_assets_form = false
+
     end
 
     def call(user, loan)
       set_lender_docusign_forms(loan)
       generates_documents_by_adobe_field_names(loan)
       envelope = generate_envelope(user, loan)
-      # delete_temp_files
+      delete_temp_files
 
       envelope
     end
@@ -44,7 +47,7 @@ module Docusign
     #
     def generates_documents_by_adobe_field_names(loan)
       generate_uniform(loan)
-      generate_form_4506
+      # generate_form_4506
       generate_form_certification
       generate_extra_form(loan)
     end
@@ -73,8 +76,8 @@ module Docusign
     def output_files
       output_files = [
         {path: UNIFORM_OUTPUT_PATH},
-        {path: FORM_4506_OUTPUT_PATH},
-        {path: BORROWER_CERTIFICATION_OUTPUT_PATH}
+        {path: BORROWER_CERTIFICATION_OUTPUT_PATH},
+        {path: REAL_ESTATE_OUTPUT_PATH}
       ]
       @extra_docusign_forms.each do |f|
         output_files << {path: "#{Rails.root}/tmp/#{f.attachment_file_name}".freeze}
@@ -84,8 +87,9 @@ module Docusign
 
     def delete_temp_files
       File.delete(UNIFORM_OUTPUT_PATH)
-      File.delete(FORM_4506_OUTPUT_PATH)
       File.delete(BORROWER_CERTIFICATION_OUTPUT_PATH)
+      File.delete(REAL_ESTATE_OUTPUT_PATH)
+
       @extra_docusign_forms.each do |f|
         File.delete("#{Rails.root}/tmp/#{f.attachment_file_name}")
       end
@@ -98,16 +102,16 @@ module Docusign
     #
     def generate_uniform(loan)
       data = Docusign::Templates::UniformResidentialLoanApplication.new(loan).build
+      # byebug
+      if data["rental_property_address_4"].present?
+        @extra_real_estate_form = true
+        data["date_signed_real_estate.1"] = Time.zone.now.to_date
+        data["date_signed_real_estate.2"] = Time.zone.now.to_date
+        pdftk.get_field_names(REAL_ESTATE_PATH)
+        pdftk.fill_form(REAL_ESTATE_PATH, "tmp/real_estate.pdf", data)
+      end
       pdftk.get_field_names(UNIFORM_PATH)
       pdftk.fill_form(UNIFORM_PATH, "tmp/uniform.pdf", data)
-    end
-
-    #
-    # Get form 4506's data and map to PDF file.
-    #
-    def generate_form_4506
-      pdftk.get_field_names(FORM_4506_PATH)
-      pdftk.fill_form(FORM_4506_PATH, "tmp/form4506t.pdf")
     end
 
     def set_lender_docusign_forms(loan)
