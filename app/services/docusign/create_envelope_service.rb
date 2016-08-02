@@ -37,7 +37,7 @@ module Docusign
     # @param [Loan] loan
     def generates_documents_by_adobe_field_names(loan)
       generate_uniform(loan)
-      fill_form_data(BORROWER_CERTIFICATION_PATH, "tmp/certification.pdf")
+      fill_form_data(BORROWER_CERTIFICATION_PATH, "tmp/certification.pdf", nil)
       generate_extra_form(loan)
     end
 
@@ -93,7 +93,7 @@ module Docusign
         data["date_signed_real_estate.2"] = today_date
         fill_form_data(REAL_ESTATE_PATH, "tmp/real_estate.pdf", data)
       else
-        fill_form_data(REAL_ESTATE_PATH, "tmp/real_estate.pdf")
+        fill_form_data(REAL_ESTATE_PATH, "tmp/real_estate.pdf", nil)
       end
       if data[:liabilities_company_7].present? || data["asset_5"].present?
         @extra_liabilities_form = true
@@ -101,7 +101,7 @@ module Docusign
         data["date_signed_liabilities.2"] = today_date
         fill_form_data(LIABILITIES_PATH, "tmp/liabilities.pdf", data)
       else
-        fill_form_data(LIABILITIES_PATH, "tmp/liabilities.pdf")
+        fill_form_data(LIABILITIES_PATH, "tmp/liabilities.pdf", nil)
       end
       fill_form_data(UNIFORM_PATH, "tmp/uniform.pdf", data)
     end
