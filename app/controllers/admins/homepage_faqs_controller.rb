@@ -3,9 +3,11 @@ class Admins::HomepageFaqsController < Admins::BaseController
 
   def index
     homepage_faqs = HomepageFaq.all
+    homepage_faq_types = HomepageFaqType.all
 
     bootstrap(
-      homepage_faqs: Admins::HomepageFaqsPresenter.new(homepage_faqs).show
+      homepage_faqs: Admins::HomepageFaqsPresenter.new(homepage_faqs).show,
+      homepage_faq_types: Admins::HomepageFaqTypesPresenter.new(homepage_faq_types).show
     )
 
     respond_to do |format|
@@ -14,8 +16,11 @@ class Admins::HomepageFaqsController < Admins::BaseController
   end
 
   def edit
+    homepage_faq_types = HomepageFaqType.all
+
     bootstrap(
-      homepage_faq: Admins::HomepageFaqPresenter.new(@homepage_faq).show
+      homepage_faq: Admins::HomepageFaqPresenter.new(@homepage_faq).show,
+      homepage_faq_types: Admins::HomepageFaqTypesPresenter.new(homepage_faq_types).show
     )
 
     respond_to do |format|
@@ -32,7 +37,6 @@ class Admins::HomepageFaqsController < Admins::BaseController
   end
 
   def create
-    byebug
     @homepage_faq = HomepageFaq.new(homepage_faq_params)
 
     if @homepage_faq.save
@@ -60,7 +64,7 @@ class Admins::HomepageFaqsController < Admins::BaseController
   private
 
   def homepage_faq_params
-    params.require(:homepage_faq).permit(:question, :anwser, :homepage_faq_type_id)
+    params.require(:homepage_faq).permit(:question, :answer, :homepage_faq_type_id)
   end
 
   def set_homepage_faq

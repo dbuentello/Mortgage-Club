@@ -84,7 +84,7 @@ var Managements = React.createClass({
                       </div>
                     </div>
                     <div className="panel-body">
-                    <Form Url={url} Method='POST' onReloadTable={this.onReloadTable}></Form>  </div>
+                    <Form Url={url} HomepageFaqTypes={this.props.bootstrapData.homepage_faq_types} Method='POST' onReloadTable={this.onReloadTable}></Form>  </div>
                   </div>
                 </div>
               </div>

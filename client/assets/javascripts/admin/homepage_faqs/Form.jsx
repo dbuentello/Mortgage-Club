@@ -4,6 +4,7 @@ var FlashHandler = require('mixins/FlashHandler');
 var TextField = require('components/form/TextField');
 var TextEditor = require('components/TextEditor');
 var ModalLink = require('components/ModalLink');
+var SelectField = require('components/form/SelectField');
 
 var Form = React.createClass({
   mixins: [FlashHandler],
@@ -25,11 +26,13 @@ var Form = React.createClass({
   getInitialState: function() {
     if(this.props.HomepageFaq) {
       return {
+        homepage_faq_type_id: this.props.HomepageFaq.homepage_faq_type_id,
         question: this.props.HomepageFaq.question,
         answer: this.props.HomepageFaq.answer
       };
     }else{
       return {
+        homepage_faq_type_id: "",
         question: "",
         answer: ""
       }
@@ -45,6 +48,7 @@ var Form = React.createClass({
     event.preventDefault();
     var formData = new FormData($('.form-homepage-faq')[0]);
     formData.append("homepage_faq[answer]", this.state.answer);
+    formData.append("homepage_faq[homepage_faq_type_id]", this.state.homepage_faq_type_id);
 
     $.ajax({
       url: this.props.Url,
@@ -53,6 +57,7 @@ var Form = React.createClass({
       data: formData,
       success: function(response) {
         this.setState({
+          homepage_faq_type_id: response.homepage_faq.homepage_faq_type_id,
           question: response.homepage_faq.question,
           answer: response.homepage_faq.answer,
           saving: false
@@ -97,13 +102,35 @@ var Form = React.createClass({
   },
 
   updateAnswer: function(content){
-    this.setState({ answer: content})
+    this.setState({ answer: content});
+  },
+
+  onQuestionTypeChange: function(event){
+    this.setState({ homepage_faq_type_id: event.target.value});
   },
 
   render: function() {
     return (
       <div>
         <form className="form-horizontal form-homepage-faq">
+          <div className="form-group">
+            <div className='col-sm-4'>
+              <label className='col-xs-12 pan'>
+                <span className='h7 typeBold'>Question Type</span>
+
+                <select className='form-control loan-list' onChange={this.onQuestionTypeChange}>
+                  <option value=""></option>
+                  {
+                    _.map(this.props.HomepageFaqTypes, function(homepageFaqType) {
+                      return (
+                        <option value={homepageFaqType.id} selected={homepageFaqType.id == this.state.homepage_faq_type_id ? 'selected' : ''} key={homepageFaqType.id}>{homepageFaqType.name}</option>
+                      )
+                    }, this)
+                  }
+                </select>
+              </label>
+            </div>
+          </div>
           <div className="form-group">
             <div className="col-sm-4">
               <TextField
