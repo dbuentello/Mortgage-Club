@@ -151,7 +151,7 @@ module Docusign
             name: "#{user.first_name} #{user.last_name}",
             email: user.email,
             role_name: "Normal",
-            sign_here_tabs: build_ex_sign,
+            sign_here_tabs: build_ex_borrower_sign,
             date_signed_tabs: [
               {
                 name: "Date Signed",
@@ -174,24 +174,7 @@ module Docusign
           name: "#{loan.secondary_borrower.user.first_name} #{loan.secondary_borrower.user.last_name}",
           email: loan.secondary_borrower.user.email,
           role_name: "Normal",
-          sign_here_tabs: [
-            {
-              name: "Signature",
-              page_number: "1",
-              x_position: "255",
-              y_position: "75",
-              document_id: "1",
-              optional: "false"
-            },
-            {
-              name: "Signature",
-              page_number: "4",
-              x_position: "385",
-              y_position: "439",
-              document_id: "1",
-              optional: "false"
-            }
-          ],
+          sign_here_tabs: build_ex_co_borrower_sign,
           date_signed_tabs: [
             {
               name: "Date Signed",
@@ -211,7 +194,7 @@ module Docusign
       signers
     end
 
-    def build_ex_sign
+    def build_ex_borrower_sign
       signs = [
         {
           name: "Signature",
@@ -233,6 +216,35 @@ module Docusign
       # byebug
       @extra_docusign_forms.each do |f|
         ex_signs = JSON.parse(f.sign_position, symbolize_names: true)
+        ex_signs.each do |s|
+          signs << s
+        end
+      end
+      signs
+    end
+
+    def build_ex_co_borrower_sign
+      signs = [
+        {
+          name: "Signature",
+          page_number: "1",
+          x_position: "255",
+          y_position: "75",
+          document_id: "1",
+          optional: "false"
+        },
+        {
+          name: "Signature",
+          page_number: "4",
+          x_position: "385",
+          y_position: "439",
+          document_id: "1",
+          optional: "false"
+        }
+      ]
+      # byebug
+      @extra_docusign_forms.each do |f|
+        ex_signs = JSON.parse(f.co_borrower_sign, symbolize_names: true)
         ex_signs.each do |s|
           signs << s
         end
