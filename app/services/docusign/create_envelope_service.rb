@@ -111,10 +111,11 @@ module Docusign
     end
 
     def set_lender_docusign_forms(loan)
-      @extra_docusign_forms = LenderDocusignForm.where(lender_id: loan.lender_id)
+      @extra_docusign_forms = LenderDocusignForm.where(lender_id: loan.lender_id).order(doc_order: :asc)
     end
 
     def generate_extra_form(loan)
+      # byebug
       @extra_docusign_forms.each do |f|
         # p "asdas"
         file_data = open(f.attachment.url)
@@ -229,6 +230,7 @@ module Docusign
           optional: "false"
         }
       ]
+      # byebug
       @extra_docusign_forms.each do |f|
         ex_signs = JSON.parse(f.sign_position, symbolize_names: true)
         ex_signs.each do |s|
