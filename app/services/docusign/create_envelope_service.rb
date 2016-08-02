@@ -1,16 +1,10 @@
 require "pdf_forms"
 require 'open-uri'
-#
 # Module Docusign provides methods to generate uniform
-#
 # @author Tang Nguyen <tang@mortgageclub.co>
-#
 module Docusign
-  #
   # Class CreateEnvelopeService provides creating an envelope and send it to Docusign.
   # envelope is a Docusign's term. One envelope is a document which was signed.
-  #
-  #
   class CreateEnvelopeService
     UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
     BORROWER_CERTIFICATION_PATH = "#{Rails.root}/form_templates/Borrower-Certification-and-Authorization.pdf".freeze
@@ -29,40 +23,29 @@ module Docusign
       @extra_docusign_forms = nil
       @extra_real_estate_form = false
       @extra_liabilities_form = false
-
     end
 
     def call(user, loan)
-      set_lender_docusign_forms(loan)
+      @extra_docusign_forms = LenderDocusignForm.where(lender_id: loan.lender_id).order(doc_order: :asc)
       generates_documents_by_adobe_field_names(loan)
       envelope = generate_envelope(user, loan)
       delete_temp_files
-
       envelope
     end
 
-    #
     # Map value to Adobe's PDFs
-    #
     # @param [Loan] loan
-    #
-    #
     def generates_documents_by_adobe_field_names(loan)
       generate_uniform(loan)
-      # generate_form_4506
-      generate_form_certification
+      fill_form_data(BORROWER_CERTIFICATION_PATH, "tmp/certification.pdf")
       generate_extra_form(loan)
     end
 
-    #
     # Make a request to Docusign
-    #
     # @param [User] user a borrower
     # @param [Loan] loan a loan
     # signers who sign envelope
-    #
     # @return [Object] a Docusign's response
-    #
     def generate_envelope(user, loan)
       DocusignRest::Client.new.create_envelope_from_document(
         status: "sent",
@@ -82,7 +65,6 @@ module Docusign
       ]
       output_files << {path: REAL_ESTATE_OUTPUT_PATH} if @extra_real_estate_form
       output_files << {path: LIABILITIES_OUTPUT_PATH} if @extra_liabilities_form
-
       @extra_docusign_forms.each do |f|
         output_files << {path: "#{Rails.root}/tmp/#{f.attachment_file_name}".freeze}
       end
@@ -94,8 +76,6 @@ module Docusign
       File.delete(BORROWER_CERTIFICATION_OUTPUT_PATH)
       File.delete(REAL_ESTATE_OUTPUT_PATH) if @extra_real_estate_form
       File.delete(LIABILITIES_OUTPUT_PATH) if @extra_liabilities_form
-
-
       @extra_docusign_forms.each do |f|
         File.delete("#{Rails.root}/tmp/#{f.attachment_file_name}")
       end
@@ -103,46 +83,31 @@ module Docusign
 
     private
 
-    #
     # Get uniform's data and map to PDF file.
-    #
     def generate_uniform(loan)
       data = Docusign::Templates::UniformResidentialLoanApplication.new(loan).build
-      # byebug
       today_date = Time.zone.now.to_date
       if data["rental_property_address_4"].present?
         @extra_real_estate_form = true
         data["date_signed_real_estate.1"] = today_date
         data["date_signed_real_estate.2"] = today_date
-        pdftk.get_field_names(REAL_ESTATE_PATH)
-        pdftk.fill_form(REAL_ESTATE_PATH, "tmp/real_estate.pdf", data)
+        fill_form_data(REAL_ESTATE_PATH, "tmp/real_estate.pdf", data)
       else
-        pdftk.get_field_names(REAL_ESTATE_PATH)
-        pdftk.fill_form(REAL_ESTATE_PATH, "tmp/real_estate.pdf")
+        fill_form_data(REAL_ESTATE_PATH, "tmp/real_estate.pdf")
       end
-      # byebug
       if data[:liabilities_company_7].present? || data["asset_5"].present?
         @extra_liabilities_form = true
         data["date_signed_liabilities.1"] = today_date
         data["date_signed_liabilities.2"] = today_date
-        pdftk.get_field_names(LIABILITIES_PATH)
-        pdftk.fill_form(LIABILITIES_PATH, "tmp/liabilities.pdf", data)
+        fill_form_data(LIABILITIES_PATH, "tmp/liabilities.pdf", data)
       else
-        pdftk.get_field_names(LIABILITIES_PATH)
-        pdftk.fill_form(LIABILITIES_PATH, "tmp/liabilities.pdf")
+        fill_form_data(LIABILITIES_PATH, "tmp/liabilities.pdf")
       end
-      pdftk.get_field_names(UNIFORM_PATH)
-      pdftk.fill_form(UNIFORM_PATH, "tmp/uniform.pdf", data)
-    end
-
-    def set_lender_docusign_forms(loan)
-      @extra_docusign_forms = LenderDocusignForm.where(lender_id: loan.lender_id).order(doc_order: :asc)
+      fill_form_data(UNIFORM_PATH, "tmp/uniform.pdf", data)
     end
 
     def generate_extra_form(loan)
-      # byebug
       @extra_docusign_forms.each do |f|
-        # p "asdas"
         file_data = open(f.attachment.url)
         @field_names = pdftk.get_field_names(file_data)
         data = Docusign::Templates::ExtraForm.new(loan, @field_names).build
@@ -150,14 +115,14 @@ module Docusign
       end
     end
 
-    #
-    # Get form certification's data and map to PDF file.
-    #
-    def generate_form_certification
-      pdftk.get_field_names(BORROWER_CERTIFICATION_PATH)
-      pdftk.fill_form(BORROWER_CERTIFICATION_PATH, "tmp/certification.pdf")
+    def fill_form_data(path, output_path, data)
+      pdftk.get_field_names(path)
+      if data.present?
+        pdftk.fill_form(path, output_path, data)
+      else
+        pdftk.fill_form(path, output_path)
+      end
     end
-
     #
     # Build a hash which contains signers
     #
@@ -238,7 +203,6 @@ module Docusign
           optional: "false"
         }
       ]
-      # byebug
       @extra_docusign_forms.each do |f|
         ex_signs = JSON.parse(f.sign_position, symbolize_names: true)
         ex_signs.each do |s|
@@ -267,7 +231,6 @@ module Docusign
           optional: "false"
         }
       ]
-      # byebug
       @extra_docusign_forms.each do |f|
         ex_signs = JSON.parse(f.co_borrower_sign, symbolize_names: true)
         ex_signs.each do |s|
