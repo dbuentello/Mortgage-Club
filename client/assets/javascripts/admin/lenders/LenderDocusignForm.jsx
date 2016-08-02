@@ -255,7 +255,7 @@ var LenderDocusignForm = React.createClass({
               <div className="form-group">
                 <div className="col-sm-2">
                   <TextField
-                    label="X Position"
+                    label="Co Borrower X Position"
                     keyName="co_borrower_x_position"
                     value={this.state.co_borrower_x_position}
                     editable={true}
@@ -264,7 +264,7 @@ var LenderDocusignForm = React.createClass({
                     <div className="col-sm-2">
 
                     <TextField
-                      label="Y Position"
+                      label="Co Borrower Y Position"
                       keyName="co_borrower_y_position"
                       value={this.state.co_borrower_y_position}
                       editable={true}
@@ -273,7 +273,7 @@ var LenderDocusignForm = React.createClass({
                 <div className="col-sm-2">
 
                       <TextField
-                        label="Page Number"
+                        label="Co Borrower Page Number"
                         keyName="co_borrower_page_number"
                         value={this.state.co_borrower_page_number}
                         editable={true}
