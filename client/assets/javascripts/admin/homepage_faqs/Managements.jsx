@@ -12,16 +12,16 @@ var Managements = React.createClass({
 
   getInitialState: function() {
     return {
-      homepage_faq_types: this.props.bootstrapData.homepage_faq_types
+      homepage_faqs: this.props.bootstrapData.homepage_faqs
     }
   },
 
-  onReloadTable: function(homepage_faq_types) {
-    this.setState({homepage_faq_types: homepage_faq_types});
+  onReloadTable: function(homepage_faqs) {
+    this.setState({homepage_faqs: homepage_faqs});
   },
 
   render: function() {
-    var url = '/homepage_faq_types/';
+    var url = '/homepage_faqs/';
 
     return (
       <div>
@@ -32,7 +32,7 @@ var Managements = React.createClass({
         <div className="page-title">
           <h4>
             <i className="icon-arrow-left52 position-left"> </i>
-            <span className="text-semibold"> Question Type - Managements </span>
+            <span className="text-semibold"> Question - Managements </span>
           </h4>
         </div>
       </div>
@@ -44,7 +44,7 @@ var Managements = React.createClass({
       <div className="content-wrapper">
         <div className="panel panel-flat">
           <div className="panel-heading">
-            <h5 className="panel-title">Question Types</h5>
+            <h5 className="panel-title">Questions</h5>
             </div>
               <div class="panel-body">
                 </div>
@@ -52,19 +52,19 @@ var Managements = React.createClass({
                     <table className="table table-striped">
                       <thead>
                         <tr>
-                          <th>Name</th>
+                          <th>Question</th>
                           <th></th>
                         </tr>
                       </thead>
                       <tbody>
                         {
-                          _.map(this.state.homepage_faq_types, function(homepage_faq_type) {
+                          _.map(this.state.homepage_faqs, function(homepage_faq) {
                             return (
-                              <tr key={homepage_faq_type.id}>
-                                <td>{homepage_faq_type.name}</td>
+                              <tr key={homepage_faq.id}>
+                                <td>{homepage_faq.question}</td>
                                 <td>
                                   <span>
-                                    <a className='linkTypeReversed btn btn-primary' href={'homepage_faq_types/' + homepage_faq_type.id + '/edit'} data-method='get'>Edit</a>
+                                    <a className='linkTypeReversed btn btn-primary' href={'homepage_faqs/' + homepage_faq.id + '/edit'} data-method='get'>Edit</a>
                                   </span>
                                 </td>
                               </tr>
@@ -79,7 +79,7 @@ var Managements = React.createClass({
                 <div className="col-md-12">
                   <div className="panel panel-flat">
                     <div className="panel-heading">
-                      <h5 className="panel-title">Add new Question Type</h5>
+                      <h5 className="panel-title">Add new Question</h5>
                       <div className="heading-elements">
                       </div>
                     </div>

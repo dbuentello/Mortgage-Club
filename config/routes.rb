@@ -175,6 +175,8 @@ Rails.application.routes.draw do
 
     resources :homepage_faq_types, except: [:new, :show]
 
+    resources :homepage_faqs, except: [:new, :show]
+
     resources :loan_activity_type_managements, except: [:new, :show]
 
     resources :potential_user_managements, only: [:index, :edit, :update, :destroy] do

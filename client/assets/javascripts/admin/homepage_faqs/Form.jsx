@@ -23,13 +23,15 @@ var Form = React.createClass({
   },
 
   getInitialState: function() {
-    if(this.props.HomepageFaqType) {
+    if(this.props.HomepageFaq) {
       return {
-        name: this.props.HomepageFaqType.name
+        question: this.props.HomepageFaq.question,
+        answer: this.props.HomepageFaq.answer
       };
     }else{
       return {
-        name: ""
+        question: "",
+        answer: ""
       }
     }
   },
@@ -41,7 +43,8 @@ var Form = React.createClass({
   onClick: function(event) {
     this.setState({saving: true});
     event.preventDefault();
-    var formData = new FormData($('.form-homepage-faq-type')[0]);
+    var formData = new FormData($('.form-homepage-faq')[0]);
+    formData.append("homepage_faq[answer]", this.state.answer);
 
     $.ajax({
       url: this.props.Url,
@@ -50,13 +53,14 @@ var Form = React.createClass({
       data: formData,
       success: function(response) {
         this.setState({
-          name: response.homepage_faq_type.name,
+          question: response.homepage_faq.question,
+          answer: response.homepage_faq.answer,
           saving: false
         });
         var flash = { "alert-success": response.message };
         this.showFlashes(flash);
-        if(response.homepage_faq_types){
-          this.props.onReloadTable(response.homepage_faq_types);
+        if(response.homepage_faqs){
+          this.props.onReloadTable(response.homepage_faqs);
         }
         this.setState({saving: false});
       }.bind(this),
@@ -73,7 +77,7 @@ var Form = React.createClass({
   },
 
   onRemove: function(event) {
-    if(this.props.HomepageFaqType) {
+    if(this.props.HomepageFaq) {
       this.setState({removing: true});
 
       $.ajax({
@@ -82,7 +86,7 @@ var Form = React.createClass({
         success: function(response) {
           var flash = { "alert-success": response.message };
           this.showFlashes(flash);
-          location.href = '/homepage_faq_types';
+          location.href = '/homepage_faqs';
         }.bind(this),
         error: function(response, status, error) {
           var flash = { "alert-danger": response.responseJSON.message };
@@ -92,36 +96,46 @@ var Form = React.createClass({
     }
   },
 
+  updateAnswer: function(content){
+    this.setState({ answer: content})
+  },
+
   render: function() {
     return (
       <div>
-        <form className="form-horizontal form-homepage-faq-type">
+        <form className="form-horizontal form-homepage-faq">
           <div className="form-group">
             <div className="col-sm-4">
               <TextField
-                label="Name"
-                keyName="name"
-                name="homepage_faq_type[name]"
-                value={this.state.name}
+                label="Question"
+                keyName="question"
+                name="homepage_faq[question]"
+                value={this.state.question}
                 editable={true}
                 onChange={this.onChange}/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-12">
+              <label className="col-sm-12 pan">Answer</label>
+              <TextEditor onChange={this.updateAnswer} content={this.state.answer}/>
             </div>
           </div>
           <div className="form-group">
             <div className="col-sm-10">
               <button className="btn btn-primary" onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? 'Submitting' : 'Submit' }</button>
               &nbsp;
-              { this.props.HomepageFaqType ?
-                <a className="btn btn-danger" data-toggle="modal" data-target="#removeQuestionType" disabled={this.state.removing}>{ this.state.removing ? 'Removing' : 'Remove' }</a>
+              { this.props.HomepageFaq ?
+                <a className="btn btn-danger" data-toggle="modal" data-target="#removeQuestion" disabled={this.state.removing}>{ this.state.removing ? 'Removing' : 'Remove' }</a>
               : null
               }
             </div>
           </div>
         </form>
         <ModalLink
-          id="removeQuestionType"
+          id="removeQuestion"
           title="Confirmation"
-          body="Are you sure to remove this question type?"
+          body="Are you sure to remove this question?"
           yesCallback={this.onRemove}
         />
       </div>

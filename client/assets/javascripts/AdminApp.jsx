@@ -27,6 +27,9 @@ var EditFaqPage = require("admin/faq_managements/EditPage");
 var HomepageFaqTypeManagements = require("admin/homepage_faq_types/Managements");
 var EditHomepageFaqTypePage = require("admin/homepage_faq_types/EditPage");
 
+var HomepageFaqManagements = require("admin/homepage_faqs/Managements");
+var EditHomepageFaqPage = require("admin/homepage_faqs/EditPage");
+
 var LoanActivityTypeManagements = require("admin/activity_type_managements/Managements");
 var EditActivityTypePage = require("admin/activity_type_managements/EditPage");
 
@@ -90,6 +93,8 @@ var routes = (
     <Route path="/loan_faq_managements/:id/edit" handler={EditFaqPage}/>
     <Route path="/homepage_faq_types" name="homepage_faq_types" handler={HomepageFaqTypeManagements}/>
     <Route path="/homepage_faq_types/:id/edit" handler={EditHomepageFaqTypePage}/>
+    <Route path="/homepage_faqs" name="homepage_faqs" handler={HomepageFaqManagements}/>
+    <Route path="/homepage_faqs/:id/edit" handler={EditHomepageFaqPage}/>
     <Route path="/loan_members_titles" handler={LoanMembersTitleManagements}/>
     <Route path="/loan_members_titles/:id/edit" handler={EditLoanMembersTitle}/>
     <Route path="/settings" handler={SettingManagements}/>
