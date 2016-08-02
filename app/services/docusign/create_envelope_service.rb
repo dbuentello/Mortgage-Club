@@ -15,18 +15,20 @@ module Docusign
     UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
     BORROWER_CERTIFICATION_PATH = "#{Rails.root}/form_templates/Borrower-Certification-and-Authorization.pdf".freeze
     REAL_ESTATE_PATH = "#{Rails.root}/form_templates/real_estate.pdf".freeze
+    LIABILITIES_PATH = "#{Rails.root}/form_templates/liabilities.pdf".freeze
 
     UNIFORM_OUTPUT_PATH = "#{Rails.root}/tmp/uniform.pdf".freeze
     BORROWER_CERTIFICATION_OUTPUT_PATH = "#{Rails.root}/tmp/certification.pdf".freeze
     REAL_ESTATE_OUTPUT_PATH = "#{Rails.root}/tmp/real_estate.pdf".freeze
+    LIABILITIES_OUTPUT_PATH = "#{Rails.root}/tmp/liabilities.pdf".freeze
 
-    attr_accessor :pdftk, :extra_docusign_forms, :extra_real_estate_form, :extra_assets_form
+    attr_accessor :pdftk, :extra_docusign_forms, :extra_real_estate_form, :extra_liabilities_form
 
     def initialize
       @pdftk = PdfForms.new(ENV.fetch("PDFTK_BIN", "/usr/local/bin/pdftk"), flatten: true)
       @extra_docusign_forms = nil
       @extra_real_estate_form = false
-      @extra_assets_form = false
+      @extra_liabilities_form = false
 
     end
 
@@ -76,9 +78,11 @@ module Docusign
     def output_files
       output_files = [
         {path: UNIFORM_OUTPUT_PATH},
-        {path: BORROWER_CERTIFICATION_OUTPUT_PATH},
-        {path: REAL_ESTATE_OUTPUT_PATH}
+        {path: BORROWER_CERTIFICATION_OUTPUT_PATH}
       ]
+      output_files << {path: REAL_ESTATE_OUTPUT_PATH} if @extra_real_estate_form
+      output_files << {path: LIABILITIES_OUTPUT_PATH} if @extra_liabilities_form
+
       @extra_docusign_forms.each do |f|
         output_files << {path: "#{Rails.root}/tmp/#{f.attachment_file_name}".freeze}
       end
@@ -88,7 +92,9 @@ module Docusign
     def delete_temp_files
       File.delete(UNIFORM_OUTPUT_PATH)
       File.delete(BORROWER_CERTIFICATION_OUTPUT_PATH)
-      File.delete(REAL_ESTATE_OUTPUT_PATH)
+      File.delete(REAL_ESTATE_OUTPUT_PATH) if @extra_real_estate_form
+      File.delete(LIABILITIES_OUTPUT_PATH) if @extra_liabilities_form
+
 
       @extra_docusign_forms.each do |f|
         File.delete("#{Rails.root}/tmp/#{f.attachment_file_name}")
@@ -103,12 +109,27 @@ module Docusign
     def generate_uniform(loan)
       data = Docusign::Templates::UniformResidentialLoanApplication.new(loan).build
       # byebug
+      today_date = Time.zone.now.to_date
       if data["rental_property_address_4"].present?
         @extra_real_estate_form = true
-        data["date_signed_real_estate.1"] = Time.zone.now.to_date
-        data["date_signed_real_estate.2"] = Time.zone.now.to_date
+        data["date_signed_real_estate.1"] = today_date
+        data["date_signed_real_estate.2"] = today_date
         pdftk.get_field_names(REAL_ESTATE_PATH)
         pdftk.fill_form(REAL_ESTATE_PATH, "tmp/real_estate.pdf", data)
+      else
+        pdftk.get_field_names(REAL_ESTATE_PATH)
+        pdftk.fill_form(REAL_ESTATE_PATH, "tmp/real_estate.pdf")
+      end
+      # byebug
+      if data[:liabilities_company_7].present? || data["asset_5"].present?
+        @extra_liabilities_form = true
+        data["date_signed_liabilities.1"] = today_date
+        data["date_signed_liabilities.2"] = today_date
+        pdftk.get_field_names(LIABILITIES_PATH)
+        pdftk.fill_form(LIABILITIES_PATH, "tmp/liabilities.pdf", data)
+      else
+        pdftk.get_field_names(LIABILITIES_PATH)
+        pdftk.fill_form(LIABILITIES_PATH, "tmp/liabilities.pdf")
       end
       pdftk.get_field_names(UNIFORM_PATH)
       pdftk.fill_form(UNIFORM_PATH, "tmp/uniform.pdf", data)
