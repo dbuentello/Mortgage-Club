@@ -2,7 +2,7 @@ Feature: EditHomepageFaqType
   @javascript
   Scenario: edit a homepage faq type
     Given there is a admin with the first name "Admin" and with the email "admin@man.net" and the password "secretpass" and the password confirmation "secretpass"
-    Given there is a faq with the name "name"
+    Given there is a homepage faq type with the name "name"
       And there is a loans members association
       And I login as "admin@man.net" with password "secretpass"
     Then I should see "Admin"
