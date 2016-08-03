@@ -7,12 +7,12 @@ module Docusign
   # envelope is a Docusign's term. One envelope is a document which was signed.
   class CreateEnvelopeService
     UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
-    REAL_ESTATE_PATH = "#{Rails.root}/form_templates/real_estate.pdf".freeze
     LIABILITIES_PATH = "#{Rails.root}/form_templates/liabilities.pdf".freeze
+    REAL_ESTATE_PATH = "#{Rails.root}/form_templates/real_estate.pdf".freeze
 
     UNIFORM_OUTPUT_PATH = "#{Rails.root}/tmp/uniform.pdf".freeze
-    REAL_ESTATE_OUTPUT_PATH = "#{Rails.root}/tmp/real_estate.pdf".freeze
     LIABILITIES_OUTPUT_PATH = "#{Rails.root}/tmp/liabilities.pdf".freeze
+    REAL_ESTATE_OUTPUT_PATH = "#{Rails.root}/tmp/real_estate.pdf".freeze
 
     attr_accessor :pdftk, :extra_docusign_forms, :extra_real_estate_form, :extra_liabilities_form
 
@@ -59,8 +59,8 @@ module Docusign
       output_files = [
         {path: UNIFORM_OUTPUT_PATH}
       ]
-      output_files << {path: REAL_ESTATE_OUTPUT_PATH} if @extra_real_estate_form
       output_files << {path: LIABILITIES_OUTPUT_PATH} if @extra_liabilities_form
+      output_files << {path: REAL_ESTATE_OUTPUT_PATH} if @extra_real_estate_form
       @extra_docusign_forms.each do |f|
         output_files << {path: "#{Rails.root}/tmp/#{f.attachment_file_name}".freeze}
       end
@@ -69,8 +69,8 @@ module Docusign
 
     def delete_temp_files
       File.delete(UNIFORM_OUTPUT_PATH)
-      File.delete(REAL_ESTATE_OUTPUT_PATH) if @extra_real_estate_form
       File.delete(LIABILITIES_OUTPUT_PATH) if @extra_liabilities_form
+      File.delete(REAL_ESTATE_OUTPUT_PATH) if @extra_real_estate_form
       @extra_docusign_forms.each do |f|
         File.delete("#{Rails.root}/tmp/#{f.attachment_file_name}")
       end
@@ -81,24 +81,20 @@ module Docusign
     # Get uniform's data and map to PDF file.
     def generate_uniform(loan)
       data = Docusign::Templates::UniformResidentialLoanApplication.new(loan).build
+      fill_form_data(UNIFORM_PATH, "tmp/uniform.pdf", data)
       today_date = Time.zone.now.to_date
-      if data["rental_property_address_4"].present?
-        @extra_real_estate_form = true
-        data["date_signed_real_estate.1"] = today_date
-        data["date_signed_real_estate.2"] = today_date
-        fill_form_data(REAL_ESTATE_PATH, "tmp/real_estate.pdf", data)
-      else
-        fill_form_data(REAL_ESTATE_PATH, "tmp/real_estate.pdf", nil)
-      end
       if data[:liabilities_company_7].present? || data["asset_5"].present?
         @extra_liabilities_form = true
         data["date_signed_liabilities.1"] = today_date
         data["date_signed_liabilities.2"] = today_date
         fill_form_data(LIABILITIES_PATH, "tmp/liabilities.pdf", data)
-      else
-        fill_form_data(LIABILITIES_PATH, "tmp/liabilities.pdf", nil)
       end
-      fill_form_data(UNIFORM_PATH, "tmp/uniform.pdf", data)
+      if data["rental_property_address_4"].present?
+        @extra_real_estate_form = true
+        data["date_signed_real_estate.1"] = today_date
+        data["date_signed_real_estate.2"] = today_date
+        fill_form_data(REAL_ESTATE_PATH, "tmp/real_estate.pdf", data)
+      end
     end
 
     def generate_extra_form(loan)
@@ -112,11 +108,7 @@ module Docusign
 
     def fill_form_data(path, output_path, data)
       pdftk.get_field_names(path)
-      if data.present?
-        pdftk.fill_form(path, output_path, data)
-      else
-        pdftk.fill_form(path, output_path)
-      end
+      pdftk.fill_form(path, output_path, data) 
     end
     #
     # Build a hash which contains signers
