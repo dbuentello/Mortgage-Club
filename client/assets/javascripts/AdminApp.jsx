@@ -24,6 +24,12 @@ var EditSettingPage = require("admin/setting_managements/EditPage");
 var LoanFaqManagements = require("admin/faq_managements/Managements");
 var EditFaqPage = require("admin/faq_managements/EditPage");
 
+var HomepageFaqTypeManagements = require("admin/homepage_faq_types/Managements");
+var EditHomepageFaqTypePage = require("admin/homepage_faq_types/EditPage");
+
+var HomepageFaqManagements = require("admin/homepage_faqs/Managements");
+var EditHomepageFaqPage = require("admin/homepage_faqs/EditPage");
+
 var LoanActivityTypeManagements = require("admin/activity_type_managements/Managements");
 var EditActivityTypePage = require("admin/activity_type_managements/EditPage");
 
@@ -80,16 +86,20 @@ window.AdminApp = React.createClass({
 
 var routes = (
   <Route name="app" path="/" handler={AdminApp}>
-    <Route name="loans" path="/loan_assignments" handler={Loans}/>
-    <Route name="loan_member_managements" path="/loan_member_managements" handler={LoanMemberManagements}/>
+    <Route path="/loan_assignments" name="loans" handler={Loans}/>
+    <Route path="/loan_member_managements" name="loan_member_managements" handler={LoanMemberManagements}/>
     <Route path="/loan_member_managements/:id/edit" handler={EditMemberPage}/>
-    <Route name="loan_faq_managements" path="/loan_faq_managements" handler={LoanFaqManagements}/>
+    <Route path="/loan_faq_managements" name="loan_faq_managements" handler={LoanFaqManagements}/>
+    <Route path="/loan_faq_managements/:id/edit" handler={EditFaqPage}/>
+    <Route path="/homepage_faq_types" name="homepage_faq_types" handler={HomepageFaqTypeManagements}/>
+    <Route path="/homepage_faq_types/:id/edit" handler={EditHomepageFaqTypePage}/>
+    <Route path="/homepage_faqs" name="homepage_faqs" handler={HomepageFaqManagements}/>
+    <Route path="/homepage_faqs/:id/edit" handler={EditHomepageFaqPage}/>
     <Route path="/loan_members_titles" handler={LoanMembersTitleManagements}/>
     <Route path="/loan_members_titles/:id/edit" handler={EditLoanMembersTitle}/>
     <Route path="/settings" handler={SettingManagements}/>
     <Route path="/settings/:id/edit" handler={EditSettingPage}/>
-    <Route path="/loan_faq_managements/:id/edit" handler={EditFaqPage}/>
-    <Route name="loan_activity_type_managements" path="/loan_activity_type_managements" handler={LoanActivityTypeManagements}/>
+    <Route path="/loan_activity_type_managements" name="loan_activity_type_managements" handler={LoanActivityTypeManagements}/>
     <Route path="/loan_activity_type_managements/:id/edit" handler={EditActivityTypePage}/>
     <Route path="/lenders" handler={Lenders}/>
     <Route path="/homepage_rates" handler={HomepageRateManagement}/>
@@ -101,11 +111,11 @@ var routes = (
     <Route path="/lenders/:id/lender_docusign_forms" handler={LenderDocusignForms}/>
     <Route path="/lenders/:id/lender_docusign_forms/:id/edit" handler={LenderDocusignForm}/>
 
-    <Route name="/potential_user_managements" path="/potential_user_managements" handler={PotentialUserManagements}/>
+    <Route path="/potential_user_managements" name="/potential_user_managements" handler={PotentialUserManagements}/>
     <Route path="/potential_user_managements/:id/edit" handler={EditPotentialUserPage}/>
-    <Route name="/potential_rate_drop_user_managements" path="/potential_rate_drop_user_managements" handler={PotentialRateDropUserManagements}/>
+    <Route path="/potential_rate_drop_user_managements" name="/potential_rate_drop_user_managements" handler={PotentialRateDropUserManagements}/>
     <Route path="/potential_rate_drop_user_managements/:id/edit" handler={EditPotentialRateDropUserPage}/>
-      <Route name="/rate_alert_quote_query_managements" path="/rate_alert_quote_query_managements" handler={RateAlertQuoteQueryManagements}/>
+    <Route path="/rate_alert_quote_query_managements" name="/rate_alert_quote_query_managements" handler={RateAlertQuoteQueryManagements}/>
 
     <Route path="/borrower_managements" handler={BorrowerManagements}/>
     <Route path="/mortgage_data" handler={MortgageData}/>

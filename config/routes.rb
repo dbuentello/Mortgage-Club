@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get "backend_test", to: "pages#backend_test"
   get "frontend_test", to: "pages#frontend_test"
+  get "faqs", to: "pages#faqs"
 
   get "refinance_alert", to: "ab_testings#refinance_alert"
   post "/refinance_alert", to: "potential_rate_drop_users#create"
@@ -172,6 +173,10 @@ Rails.application.routes.draw do
     resources :homepage_rates, only: [:index, :edit, :update]
 
     resources :loan_faq_managements, except: [:new, :show]
+
+    resources :homepage_faq_types, except: [:new, :show]
+
+    resources :homepage_faqs, except: [:new, :show]
 
     resources :loan_activity_type_managements, except: [:new, :show]
 

@@ -13,6 +13,11 @@ class PagesController < ApplicationController
     end
   end
 
+  def faqs
+    @question_types = HomepageFaqType.all
+    @questions = HomepageFaq.all
+  end
+
   def developer_infographics
   end
 
