@@ -14,13 +14,14 @@ module Docusign
     LIABILITIES_OUTPUT_PATH = "#{Rails.root}/tmp/liabilities.pdf".freeze
     REAL_ESTATE_OUTPUT_PATH = "#{Rails.root}/tmp/real_estate.pdf".freeze
 
-    attr_accessor :pdftk, :extra_docusign_forms, :extra_real_estate_form, :extra_liabilities_form
+    attr_accessor :pdftk, :extra_docusign_forms, :extra_real_estate_form, :extra_liabilities_form, :total_default_doc
 
     def initialize
       @pdftk = PdfForms.new(ENV.fetch("PDFTK_BIN", "/usr/local/bin/pdftk"), flatten: true)
       @extra_docusign_forms = nil
       @extra_real_estate_form = false
       @extra_liabilities_form = false
+      @total_default_doc = 1
     end
 
     def call(user, loan)
@@ -108,7 +109,7 @@ module Docusign
 
     def fill_form_data(path, output_path, data)
       pdftk.get_field_names(path)
-      pdftk.fill_form(path, output_path, data) 
+      pdftk.fill_form(path, output_path, data)
     end
     #
     # Build a hash which contains signers
@@ -190,6 +191,25 @@ module Docusign
           optional: "false"
         }
       ]
+      @total_default_doc = 1
+      @total_default_doc += 1 if @extra_liabilities_form
+      @total_default_doc += 1 if @extra_real_estate_form
+      signs << {
+        name: "Signature",
+        page_number: "1",
+        x_position: "70",
+        y_position: "690",
+        document_id: "2",
+        optional: "false"
+      } if @extra_liabilities_form
+      signs << {
+        name: "Signature",
+        page_number: "1",
+        x_position: "70",
+        y_position: "690",
+        document_id: @total_default_doc.to_s,
+        optional: "false"
+      } if @extra_real_estate_form
       @extra_docusign_forms.each do |f|
         ex_signs = JSON.parse(f.sign_position, symbolize_names: true)
         ex_signs.each do |s|
@@ -218,6 +238,22 @@ module Docusign
           optional: "false"
         }
       ]
+      signs << {
+        name: "Signature",
+        page_number: "1",
+        x_position: "320",
+        y_position: "690",
+        document_id: "2",
+        optional: "false"
+      } if @extra_liabilities_form
+      signs << {
+        name: "Signature",
+        page_number: "1",
+        x_position: "320",
+        y_position: "690",
+        document_id: @total_default_doc.to_s,
+        optional: "false"
+      } if @extra_real_estate_form
       @extra_docusign_forms.each do |f|
         ex_signs = JSON.parse(f.co_borrower_sign, symbolize_names: true)
         ex_signs.each do |s|
