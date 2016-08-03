@@ -22,7 +22,7 @@ var LenderDocusignForm = React.createClass({
         co_borrower_page_number: null,
         co_borrower_x_position: null,
         co_borrower_y_position: null,
-        co_borrower_sign_position: JSON.parse(this.props.bootstrapData.lender_docusign_form.sign_position),
+        co_borrower_sign_position: JSON.parse(this.props.bootstrapData.lender_docusign_form.co_borrower_sign),
         doc_order: this.props.bootstrapData.lender_docusign_form.doc_order,
         spouse_signed: this.props.bootstrapData.lender_docusign_form.spouse_signed,
         description: this.props.bootstrapData.lender_docusign_form.description,

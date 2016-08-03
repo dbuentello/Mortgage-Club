@@ -152,7 +152,7 @@ module Docusign
           name: "#{loan.secondary_borrower.user.first_name} #{loan.secondary_borrower.user.last_name}",
           email: loan.secondary_borrower.user.email,
           role_name: "Normal",
-          sign_here_tabs: build_ex_co_borrower_sign,
+          sign_here_tabs: build_ex_co_borrower_sign(loan),
           date_signed_tabs: [
             {
               name: "Date Signed",
@@ -219,7 +219,7 @@ module Docusign
       signs
     end
 
-    def build_ex_co_borrower_sign
+    def build_ex_co_borrower_sign(loan)
       signs = [
         {
           name: "Signature",
@@ -255,9 +255,18 @@ module Docusign
         optional: "false"
       } if @extra_real_estate_form
       @extra_docusign_forms.each do |f|
-        ex_signs = JSON.parse(f.co_borrower_sign, symbolize_names: true)
-        ex_signs.each do |s|
-          signs << s
+        if f.spouse_signed
+          if loan.borrower.is_file_taxes_jointly
+            ex_signs = JSON.parse(f.co_borrower_sign, symbolize_names: true)
+            ex_signs.each do |s|
+              signs << s
+            end
+          end
+        else
+          ex_signs = JSON.parse(f.co_borrower_sign, symbolize_names: true)
+          ex_signs.each do |s|
+            signs << s
+          end
         end
       end
       signs
