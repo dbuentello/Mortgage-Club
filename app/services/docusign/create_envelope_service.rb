@@ -7,12 +7,10 @@ module Docusign
   # envelope is a Docusign's term. One envelope is a document which was signed.
   class CreateEnvelopeService
     UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
-    BORROWER_CERTIFICATION_PATH = "#{Rails.root}/form_templates/Borrower-Certification-and-Authorization.pdf".freeze
     REAL_ESTATE_PATH = "#{Rails.root}/form_templates/real_estate.pdf".freeze
     LIABILITIES_PATH = "#{Rails.root}/form_templates/liabilities.pdf".freeze
 
     UNIFORM_OUTPUT_PATH = "#{Rails.root}/tmp/uniform.pdf".freeze
-    BORROWER_CERTIFICATION_OUTPUT_PATH = "#{Rails.root}/tmp/certification.pdf".freeze
     REAL_ESTATE_OUTPUT_PATH = "#{Rails.root}/tmp/real_estate.pdf".freeze
     LIABILITIES_OUTPUT_PATH = "#{Rails.root}/tmp/liabilities.pdf".freeze
 
@@ -37,7 +35,6 @@ module Docusign
     # @param [Loan] loan
     def generates_documents_by_adobe_field_names(loan)
       generate_uniform(loan)
-      fill_form_data(BORROWER_CERTIFICATION_PATH, "tmp/certification.pdf", nil)
       generate_extra_form(loan)
     end
 
@@ -60,8 +57,7 @@ module Docusign
 
     def output_files
       output_files = [
-        {path: UNIFORM_OUTPUT_PATH},
-        {path: BORROWER_CERTIFICATION_OUTPUT_PATH}
+        {path: UNIFORM_OUTPUT_PATH}
       ]
       output_files << {path: REAL_ESTATE_OUTPUT_PATH} if @extra_real_estate_form
       output_files << {path: LIABILITIES_OUTPUT_PATH} if @extra_liabilities_form
@@ -73,7 +69,6 @@ module Docusign
 
     def delete_temp_files
       File.delete(UNIFORM_OUTPUT_PATH)
-      File.delete(BORROWER_CERTIFICATION_OUTPUT_PATH)
       File.delete(REAL_ESTATE_OUTPUT_PATH) if @extra_real_estate_form
       File.delete(LIABILITIES_OUTPUT_PATH) if @extra_liabilities_form
       @extra_docusign_forms.each do |f|
