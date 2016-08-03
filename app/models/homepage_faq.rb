@@ -1,3 +1,3 @@
 class HomepageFaq < ActiveRecord::Base
-  belongs_to :hompage_faq_type
+  belongs_to :homepage_faq_type
 end

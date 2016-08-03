@@ -1,0 +1,30 @@
+<section id="page-title">
+  <div class="container clearfix">
+    <h1>FAQs</h1>
+    <span>All your Questions answered in one place</span>
+  </div>
+</section>
+<section id="content" style="margin-bottom: 0px;">
+  <div class="content-wrap">
+    <div class="container clearfix">
+      <div class="postcontent nobottommargin clearfix">
+        <ul id="portfolio-filter" class="portfolio-filter clearfix">
+          <li class="activeFilter"><a href="#" data-filter="all">All</a></li>
+          <% @question_types.each do |question_type| %>
+            <li class=""><a href="#" data-filter=".<%= question_type.name.gsub(' ', '').downcase %>"><%= question_type.name %></a>
+            </li>
+          <% end %>
+        </ul>
+        <div class="clear"></div>
+        <div id="faqs" class="faqs">
+          <% @questions.each do |question| %>
+            <div class="toggle faq <%= question.homepage_faq_type.name.gsub(' ', '').downcase %>">
+              <div class="togglet"><i class="toggle-closed icon-question-sign"></i><i class="toggle-open icon-question-sign"></i><%= question.question %></div>
+              <div class="togglec" style="display: none;"><%= question.answer.html_safe %></div>
+            </div>
+          <% end %>
+        </div>
+      </div><!-- .postcontent end -->
+    </div>
+  </div>
+</section>

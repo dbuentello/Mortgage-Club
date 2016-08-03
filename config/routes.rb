@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get "backend_test", to: "pages#backend_test"
   get "frontend_test", to: "pages#frontend_test"
+  get "faqs", to: "pages#faqs"
 
   get "refinance_alert", to: "ab_testings#refinance_alert"
   post "/refinance_alert", to: "potential_rate_drop_users#create"
