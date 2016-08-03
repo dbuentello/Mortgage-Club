@@ -47,7 +47,7 @@ var ModalLink = React.createClass({
               <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
               <div className="modal-body text-center">
                 <h2>{this.props.title}</h2>
-                <h3 className={this.props.bodyClass}>{this.props.body}</h3>
+                <p className={this.props.bodyClass}>{this.props.body}</p>
 
                 <form className="form-horizontal">
                   <div className="form-group">
