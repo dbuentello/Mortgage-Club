@@ -24,6 +24,7 @@ var LenderDocusignForm = React.createClass({
         co_borrower_y_position: null,
         co_borrower_sign_position: JSON.parse(this.props.bootstrapData.lender_docusign_form.sign_position),
         doc_order: this.props.bootstrapData.lender_docusign_form.doc_order,
+        spouse_signed: this.props.bootstrapData.lender_docusign_form.spouse_signed,
         description: this.props.bootstrapData.lender_docusign_form.description,
         form_id: this.props.bootstrapData.lender_docusign_form.form_id,
         saving: false
@@ -43,13 +44,16 @@ var LenderDocusignForm = React.createClass({
         doc_order: "",
         lender_docusign_form: {},
         description: "",
+        spouse_signed: false,
         form_id: "",
         saving: false
       }
     }
 
   },
-
+  handleClick: function(e) {
+      this.setState({spouse_signed: e.target.checked});
+  },
   handleSubmit: function(e) {
     e.preventDefault();
     this.setState({saving: true});
@@ -72,6 +76,7 @@ var LenderDocusignForm = React.createClass({
     formData.append("co_borrower_sign", JSON.stringify(coBorrowerSignPosition));
     formData.append("form_id", this.state.form_id);
     formData.append("doc_order", this.state.doc_order);
+    formData.append("spouse_signed", this.state.spouse_signed);
 
     if($("#uploadFile")[0].files.length >0) {
       formData.append("attachment", $("#uploadFile")[0].files[0]);
@@ -335,6 +340,9 @@ var LenderDocusignForm = React.createClass({
               value={this.state.doc_order}
               editable={true}
               onChange={this.onChange}/>
+          </div>
+          <div className="col-sm-2">
+              <input id="spouse_signed" type="checkbox" name="spouse_signed" value="true" checked={this.state.spouse_signed} onChange={this.handleClick}/> Spouse’s signature
           </div>
         </div>
         {this.state.lender_docusign_form.attachment_file_name}
