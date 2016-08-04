@@ -46,7 +46,7 @@ class CrawlFeesService
     crawler.fill_in("_ctl0_PageContent_SalesPrice", with: params[:sales_price]) if params[:loan_purpose] == 1
     crawler.fill_in("_ctl0_PageContent_LoanAmount", with: params[:loan_amount])
     crawler.check("_ctl0_PageContent_EndorsementsRepeater__ctl4_EndorsementCheckbox")
-    crawler.check("_ctl0_PageContent_InHouseNotaryCheckbox")
+    crawler.check("_ctl0_PageContent_OutsideSigningCheckbox")
   end
 
   def click_submit
@@ -128,7 +128,7 @@ class CrawlFeesService
     }
 
     @fees << {
-      "Description": "Taxes and other gotv fees",
+      "Description": "Taxes and other government fees",
       "FeeAmount": fees_e.map { |x| x[:FeeAmount] }.sum,
       "Fees": fees_e
     }
@@ -145,16 +145,16 @@ class CrawlFeesService
     fees_e = []
 
     fees_c << {
-      "Description": "Title - Lender's Title Policy",
-      "FeeAmount": get_lender_title_policy,
+      "Description": "Outside Signing Service",
+      "FeeAmount": 150.0,
       "HubLine": 814,
       "FeeType": 1,
       "IncludeInAPR": false
     }
 
     fees_c << {
-      "Description": "Title - Notary Fee",
-      "FeeAmount": 120.0,
+      "Description": "Title - Lender's Title Policy",
+      "FeeAmount": get_lender_title_policy,
       "HubLine": 814,
       "FeeType": 1,
       "IncludeInAPR": false
@@ -241,8 +241,12 @@ class CrawlFeesService
     if label.index("8.1-06")
       label[label.index("8.1-06") + 7..-1]
     else
-      label = label.delete("*")
-      label[0..label.index("(").to_i - 2]
+      if label.index("(")
+        label = label.delete("*")
+        label[0..label.index("(").to_i - 2]
+      else
+        label
+      end
     end
   end
 

@@ -206,7 +206,7 @@ var List = React.createClass({
                     <div className="col-md-6">
                       <h4>Product details</h4>
                       <div className="row">
-                        <div className="col-xs-7">
+                        <div className="col-xs-6">
                           <p className="col-xs-12 cost">Product type</p>
                           <p className="col-xs-12 cost">Interest Rate</p>
                           <p className="col-xs-12 cost">APR</p>
@@ -219,7 +219,7 @@ var List = React.createClass({
                               <p className="col-xs-12 cost">Down payment</p>
                           }
                         </div>
-                        <div className="row-no-padding col-xs-5">
+                        <div className="row-no-padding col-xs-6">
                           <p className="col-xs-12 cost">{quote.product}</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.interest_rate * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.apr * 100, 3)}%</p>

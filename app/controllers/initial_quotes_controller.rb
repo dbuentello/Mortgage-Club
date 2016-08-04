@@ -1,7 +1,7 @@
 class InitialQuotesController < ApplicationController
   layout "landing"
   skip_before_action :authenticate_user!
-  before_action :set_mixpanel_token, only: [:index]
+  before_action :set_mixpanel_token, only: [:index, :show]
   before_action :set_quote, only: [:set_rate_alert]
   skip_before_action :verify_authenticity_token, only: [:set_rate_alert]
   def index
