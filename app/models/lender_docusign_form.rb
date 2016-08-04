@@ -7,7 +7,9 @@ class LenderDocusignForm < ActiveRecord::Base
     :sign_position,
     :lender_id,
     :attachment,
-    :doc_order
+    :doc_order,
+    :co_borrower_sign,
+    :spouse_signed
   ]
   validates_attachment :attachment,
     presence: true,
