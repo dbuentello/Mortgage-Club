@@ -212,7 +212,9 @@ module Docusign
       } if @extra_real_estate_form
       @extra_docusign_forms.each do |f|
         ex_signs = JSON.parse(f.sign_position, symbolize_names: true)
+        next if ex_signs.length == 0
         ex_signs.each do |s|
+          s[:document_id] = (@total_default_doc + f.doc_order).to_s
           signs << s
         end
       end
@@ -258,13 +260,17 @@ module Docusign
         if f.spouse_signed
           if loan.borrower.is_file_taxes_jointly
             ex_signs = JSON.parse(f.co_borrower_sign, symbolize_names: true)
+            next if ex_signs.length == 0
             ex_signs.each do |s|
+              s[:document_id] = (@total_default_doc + f.doc_order).to_s
               signs << s
             end
           end
         else
           ex_signs = JSON.parse(f.co_borrower_sign, symbolize_names: true)
+          next if ex_signs.length == 0
           ex_signs.each do |s|
+            s[:document_id] = (@total_default_doc + f.doc_order).to_s
             signs << s
           end
         end

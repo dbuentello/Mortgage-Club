@@ -25,6 +25,8 @@ var LenderDocusignForms = React.createClass({
               <tr>
                 <th>Sign Position</th>
                 <th>Description</th>
+                <th>Doc Name</th>
+                <th>Doc Order</th>
                 <th></th>
               </tr>
               </thead>
@@ -35,6 +37,9 @@ var LenderDocusignForms = React.createClass({
                     <tr key={docusign_form.id}>
                       <td>{docusign_form.sign_position}</td>
                       <td>{docusign_form.description}</td>
+                      <td>{docusign_form.attachment_file_name}</td>
+
+                      <td>{docusign_form.doc_order}</td>
                       <th>
                         <a className='linkTypeReversed btn btn-primary btn-sm' href={'/lenders/' + this.props.bootstrapData.lender.id + '/lender_docusign_forms/' + docusign_form.id + '/edit'}>Edit</a>
                       </th>
