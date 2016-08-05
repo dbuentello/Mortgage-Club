@@ -60,20 +60,20 @@ var LenderDocusignForm = React.createClass({
 
     var formData = new FormData();
     formData.append("description", this.state.description);
-    var signPosition = [];
-    var docOrder = this.state.doc_order;
-    _.each(this.state.borrower_sign_position, function(sign){
-      sign.document_id = docOrder.toString();
-      signPosition.push(sign);
-    });
-    var coBorrowerSignPosition = [];
-    _.each(this.state.co_borrower_sign_position, function(sign){
-      sign.document_id = docOrder.toString();
-      coBorrowerSignPosition.push(sign);
-    });
+    // var signPosition = [];
+    // var docOrder = this.state.doc_order;
+    // _.each(this.state.borrower_sign_position, function(sign){
+    //   sign.document_id = docOrder.toString();
+    //   signPosition.push(sign);
+    // });
+    // var coBorrowerSignPosition = [];
+    // _.each(this.state.co_borrower_sign_position, function(sign){
+    //   sign.document_id = docOrder.toString();
+    //   coBorrowerSignPosition.push(sign);
+    // });
 
-    formData.append("sign_position", JSON.stringify(signPosition));
-    formData.append("co_borrower_sign", JSON.stringify(coBorrowerSignPosition));
+    formData.append("sign_position", JSON.stringify(this.state.borrower_sign_position));
+    formData.append("co_borrower_sign", JSON.stringify(this.state.co_borrower_sign_position));
     formData.append("form_id", this.state.form_id);
     formData.append("doc_order", this.state.doc_order);
     formData.append("spouse_signed", this.state.spouse_signed);
