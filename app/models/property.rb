@@ -150,4 +150,12 @@ class Property < ActiveRecord::Base
   def other_documents
     documents.where(document_type: "other_property_report")
   end
+
+  def self.json_options
+    {
+      include: [
+        :liabilities, :address
+      ]
+    }
+  end
 end
