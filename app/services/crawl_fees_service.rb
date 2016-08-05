@@ -191,7 +191,7 @@ class CrawlFeesService
     }
 
     @fees << {
-      "Description": "Taxes and other gotv fees",
+      "Description": "Taxes and other government fees",
       "FeeAmount": fees_e.map { |x| x[:FeeAmount] }.sum,
       "Fees": fees_e
     }
