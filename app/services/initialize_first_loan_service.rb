@@ -103,7 +103,7 @@ class InitializeFirstLoanService
         year_built: other_property_json["year_built"].nil? ? nil : other_property_json["year_built"].to_i,
         zillow_image_url: "",
         estimated_mortgage_balance: other_property_json["estimated_mortgage_balance"].nil? ? nil : other_property_json["estimated_mortgage_balance"].to_f,
-        estimated_principal_interest: other_property_json["estimated_principal_interest"].nil? ? nil : other_property_json["estimated_principal_interest"].to_f,
+        estimated_principal_interest: other_property_json["estimated_principal_interest"].nil? ? nil : other_property_json["estimated_principal_interest"].to_f
       )
 
       address_json = other_property_json["address"]
