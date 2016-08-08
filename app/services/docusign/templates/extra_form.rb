@@ -34,8 +34,7 @@ module Docusign
       end
 
       def build_hash
-        # byebug
-        {
+        hash = {
           "borrower_full_name": borrower.full_name,
           "borrower_ssn": borrower.ssn,
           "borrower_phone": borrower.phone,
@@ -46,7 +45,25 @@ module Docusign
           "borrower_current_address_state": borrower.current_address.try(:address).state,
           "borrower_current_address_zip": borrower.current_address.try(:address).zip,
           "borrower_dob": borrower.dob.to_date,
-          "date_signed": Time.zone.now.to_date
+          "date_signed": Time.zone.now.to_date,
+          "borrower_previous_address": borrower.display_previous_address
+        }
+        hash.merge!(build_hash_co_borrower(loan.secondary_borrower)) if loan.secondary_borrower.present?
+        hash
+      end
+
+      def build_hash_co_borrower(co_borrower)
+        {
+          "co_borrower_full_name": co_borrower.full_name,
+          "co_borrower_ssn": co_borrower.ssn,
+          "co_borrower_phone": co_borrower.phone,
+          "co_borrower_email": co_borrower.user.email,
+          "co_borrower_current_address": co_borrower.display_current_address,
+          "co_borrower_current_address_city": co_borrower.current_address.try(:address).city,
+          "co_borrower_current_address_state": co_borrower.current_address.try(:address).state,
+          "co_borrower_current_address_zip": co_borrower.current_address.try(:address).zip,
+          "co_borrower_dob": co_borrower.dob.to_date,
+          "co_borrower_previous_address": co_borrower.display_previous_address
         }
       end
 
