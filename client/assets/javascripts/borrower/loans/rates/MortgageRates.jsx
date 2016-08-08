@@ -83,12 +83,12 @@ var MortgageRates = React.createClass({
             </div>
           :
             <div className="content container mortgage-rates padding-top-0 row-eq-height">
-              <div className="col-xs-3 hidden-xs subnav programs-filter">
+              <div className="col-sm-12 col-md-3 hidden-xs hidden-sm subnav programs-filter">
                 <Filter programs={this.props.bootstrapData.programs} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterProgram}></Filter>
               </div>
-              <div className="col-xs-12 col-sm-9 account-content programs-list">
+              <div className="col-sm-12 col-md-9 account-content programs-list">
                 <div className="mobile-xs-quote">
-                  <div className="visible-xs text-xs-justify">
+                  <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
                     <p>
                       We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
                     </p>
@@ -96,14 +96,14 @@ var MortgageRates = React.createClass({
                       Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
                     </p>
                   </div>
-                  <div className="row form-group visible-xs">
-                    <div className="col-xs-12 text-left text-xs-center">
+                  <div className="row form-group visible-xs visible-sm">
+                    <div className="col-xs-12 text-left text-xs-center text-sm-center">
                       <a className="btn text-uppercase help-me-choose-btn" onClick={this.helpMeChoose}>help me choose</a>
                     </div>
                     <div className="col-xs-5 text-left">
                       <a className="btn btn-filter text-uppercase" data-toggle="modal" data-target="#filterQuotes">Filter</a>
                     </div>
-                    <div className="modal fade" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div className="modal fade filter-modal" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                       <div className="modal-dialog modal-sm" role="document">
                         <div className="modal-content">
                           <div className="modal-header">
@@ -118,7 +118,7 @@ var MortgageRates = React.createClass({
                         </div>
                       </div>
                     </div>
-                    <div className="col-xs-3 text-xs-right">
+                    <div className="col-xs-3 text-xs-right text-sm-right">
                       <b>Sort by</b>
                     </div>
                     <div className="col-xs-4 select-box pull-right">
@@ -132,7 +132,7 @@ var MortgageRates = React.createClass({
                     </div>
                   </div>
                 </div>
-                <div className="row actions hidden-xs">
+                <div className="row actions hidden-xs hidden-sm">
                   <p>
                     We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
                   </p>

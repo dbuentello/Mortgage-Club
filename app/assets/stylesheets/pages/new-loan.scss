@@ -202,7 +202,12 @@
 
 .account-content {
   padding: 40px 20px 80px 40px;
+
   @include respond-to(smobile){
+    padding: 10px 20px;
+  };
+
+  @include respond-to(mobile){
     padding: 10px 20px;
   };
 
@@ -234,7 +239,7 @@
 
   .form-horizontal {
     padding-left:20px;
-    @include respond-to(smobile){
+    @include respond-to(mobile){
       padding-left: 0px;
     }
   }

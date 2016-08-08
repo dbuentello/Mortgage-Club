@@ -129,10 +129,10 @@ var FormProperty = React.createClass({
 
   render: function() {
     return (
-      <div className="col-sm-9 col-xs-12 account-content">
+      <div className="col-md-9 col-sm-12 account-content">
         <form className="form-horizontal">
           <div className='form-group'>
-            <p className="box-description col-sm-12 text-xs-justify">
+            <p className="box-description col-sm-12 text-xs-justify text-sm-justify">
               We understand a loan application can be overwhelming but we’re here to help. Our software will try to extract data from other sources so don’t be surprised if several fields are automatically filled in for you. Let’s get started, shall we?
             </p>
           </div>
