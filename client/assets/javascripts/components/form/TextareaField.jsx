@@ -1,10 +1,13 @@
 /**
  * @jsx React.DOM
  */
+var React = require('react/addons');
+var _ = require('lodash');
+
 var marked = require('marked');
 
-var StaticFieldMixin = require('../../mixins/static_field_mixin');
-var UpdateChangeMixin = require('../../mixins/update_change_mixin');
+var StaticFieldMixin = require('mixins/StaticFieldMixin');
+var UpdateChangeMixin = require('mixins/UpdateChangeMixin');
 
 /**
  * TextareaField renders an area field that can be converted between editable and read-only mode.

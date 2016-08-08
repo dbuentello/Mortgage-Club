@@ -1,0 +1,24 @@
+<p>Hello <%= @rate_alert_user[:first_name] %></p>
+
+<p>Good news, mortgage rates for your scenario have dropped.</p><br/>
+
+<p>Today's rates (as of 9am PST):</p>
+<p>30 year fixed: <%= @new_graph[:year30][:rate] %>% rate, <%= @new_graph[:year30][:lender_credit] %> lender credit</p>
+<p>15 year fixed: <%= @new_graph[:year15][:rate] %>% rate, <%= @new_graph[:year15][:lender_credit] %> lender credit</p>
+<p>5 year ARM: <%= @new_graph[:arm51][:rate] %>% rate, <%= @new_graph[:arm51][:lender_credit] %> lender credit</p>
+<p>7 year ARM: <%= @new_graph[:arm71][:rate] %>% rate, <%= @new_graph[:arm71][:lender_credit] %> lender credit</p><br/>
+
+<p>Original rates (as of <%= @rate_alert_user.created_at.to_date %>)</p>
+<p>30 year fixed: <%= @pre_graph[:year30][:rate] %>% rate, <%= @pre_graph[:year30][:lender_credit] %> lender credit</p>
+<p>15 year fixed: <%= @pre_graph[:year15][:rate] %>% rate, <%= @pre_graph[:year15][:lender_credit] %> lender credit</p>
+<p>5 year ARM: <%= @pre_graph[:arm51][:rate] %>% rate, <%= @pre_graph[:arm51][:lender_credit] %> lender credit</p>
+<p>7 year ARM: <%= @pre_graph[:arm71][:rate] %>% rate, <%= @pre_graph[:arm71][:lender_credit] %> lender credit</p>
+
+<p>Please find more details here: <%= initial_quote_url(@rate_alert_user.code_id)%></p>
+
+<p>Let us know if you have any questions by replying to this email.</p>
+
+<p>Looking forward to getting you a faster and cheaper mortgage.</p>
+<p>Thank you, <br/>
+The MortgageClub Team
+</p>

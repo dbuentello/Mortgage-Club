@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get "home_test_rates", to: "pages#home_test_rates"
 
+  get "receive_sms", to: "pages#receive_sms"
   get "new_landing", to: "pages#new_landing"
   get "new_login", to: "pages#new_login"
   get "new_forgot_password", to: "pages#new_forgot_password"
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
 
   get "backend_test", to: "pages#backend_test"
   get "frontend_test", to: "pages#frontend_test"
+  get "faqs", to: "pages#faqs"
 
   get "refinance_alert", to: "ab_testings#refinance_alert"
   post "/refinance_alert", to: "potential_rate_drop_users#create"
@@ -130,7 +132,6 @@ Rails.application.routes.draw do
     end
 
     resources :dashboard, only: [:show]
-
     resources :lender_documents, only: [:create, :destroy] do
       member do
         get "download"
@@ -174,6 +175,10 @@ Rails.application.routes.draw do
 
     resources :loan_faq_managements, except: [:new, :show]
 
+    resources :homepage_faq_types, except: [:new, :show]
+
+    resources :homepage_faqs, except: [:new, :show]
+
     resources :loan_activity_type_managements, except: [:new, :show]
 
     resources :potential_user_managements, only: [:index, :edit, :update, :destroy] do
@@ -182,8 +187,12 @@ Rails.application.routes.draw do
     resources :potential_rate_drop_user_managements, only: [:index, :edit, :update, :destroy] do
     end
 
+    resources :rate_alert_quote_query_managements, only: [:index] do
+    end
+
     resources :lenders, except: [:show] do
       resources :lender_templates, except: [:new, :show]
+      resources :lender_docusign_forms
     end
 
     resources :loan_members_titles, except: [:new, :show]
@@ -216,6 +225,7 @@ Rails.application.routes.draw do
   resources :initial_quotes, only: [:index, :show, :create], path: "quotes" do
     collection do
       post "save_info"
+      post "set_rate_alert"
     end
   end
 

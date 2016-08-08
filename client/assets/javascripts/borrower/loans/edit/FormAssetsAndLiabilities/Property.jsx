@@ -43,6 +43,7 @@ var Property = React.createClass({
     state.property.estimated_property_tax = state.property.estimated_property_tax ? this.formatCurrency(state.property.estimated_property_tax) : null;
     state.property.estimated_hazard_insurance = state.property.estimated_hazard_insurance ? this.formatCurrency(state.property.estimated_hazard_insurance) : null;
     state.property.other_mortgage_payment_amount = state.property.other_mortgage_payment_amount ? this.formatCurrency(state.property.other_mortgage_payment_amount) : null;
+    state.property.other_remaining_balance = state.property.other_remaining_balance ? this.formatCurrency(state.property.other_remaining_balance) : null;
     state.property.other_financing_amount = state.property.other_financing_amount ? this.formatCurrency(state.property.other_financing_amount) : null;
     state.property.hoa_due = state.property.hoa_due ? this.formatCurrency(state.property.hoa_due) : null;
     state.property.gross_rental_income = state.property.gross_rental_income ? this.formatCurrency(state.property.gross_rental_income) : null;
@@ -249,15 +250,6 @@ var Property = React.createClass({
     this.setState({focusedField: field});
   },
 
-  // componentDidMount: function() {
-  //   var state = {};
-  //   state.mortgagePayment = this.props.property.mortgage_payment ? this.props.property.mortgage_payment.id : null;
-  //   state.otherFinancing = this.props.property.other_financing ? this.props.property.other_financing.id : null;
-  //   state.mortgageLiabilities = this.reloadMortgageLiabilities(state.otherFinancing);
-  //   state.otherFinancingLiabilities = this.reloadOtherFinancingLiabilities(state.mortgagePayment);
-  //   this.setState(state);
-  // },
-
   render: function() {
     var index = this.props.index;
     return (
@@ -322,18 +314,34 @@ var Property = React.createClass({
                     editMode={this.props.editMode}/>
                 </div>
                 { this.state.setOtherMortgagePayment
-                  ? <div className='col-md-6'>
-                      <TextField
-                        label='Other Amount'
-                        keyName={'property_other_mortgage_payment_amount_' + this.props.index}
-                        value={this.state.property.other_mortgage_payment_amount}
-                        format={this.formatCurrency}
-                        editable={true}
-                        maxLength={15}
-                        validationTypes={["currency"]}
-                        onChange={this.onChange}
-                        onBlur={this.onBlur}
-                        editMode={this.props.editMode}/>
+                  ?
+                    <div>
+                      <div className='col-md-3'>
+                        <TextField
+                          label='Monthly Payment'
+                          keyName={'property_other_mortgage_payment_amount_' + this.props.index}
+                          value={this.state.property.other_mortgage_payment_amount}
+                          format={this.formatCurrency}
+                          editable={true}
+                          maxLength={15}
+                          validationTypes={["currency"]}
+                          onChange={this.onChange}
+                          onBlur={this.onBlur}
+                          editMode={this.props.editMode}/>
+                      </div>
+                      <div className='col-md-3'>
+                        <TextField
+                          label='Remaining Balance'
+                          keyName={'property_other_remaining_balance_' + this.props.index}
+                          value={this.state.property.other_remaining_balance}
+                          format={this.formatCurrency}
+                          editable={true}
+                          maxLength={15}
+                          validationTypes={["currency"]}
+                          onChange={this.onChange}
+                          onBlur={this.onBlur}
+                          editMode={this.props.editMode}/>
+                      </div>
                     </div>
                   : null
                 }

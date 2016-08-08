@@ -11,6 +11,27 @@ IMAGE_MINE_TYPES = [
   'image/vnd.adobe.photoshop'
 ]
 
+JPG_MINE_TYPES = [
+  'image/jpg',
+  'image/jpeg',
+  'image/pjpeg',
+  'image/vnd.adobe.photoshop'
+]
+
+GIF_MINE_TYPES = [
+  'image/gif'
+]
+
+PNG_MINE_TYPES = [
+  'image/png',
+  'image/x-png'
+]
+
+TIFF_MINE_TYPES = [
+  'image/tiff',
+  'image/x-tiff'
+]
+
 PDF_MINE_TYPES = [
   'application/pdf'
 ]

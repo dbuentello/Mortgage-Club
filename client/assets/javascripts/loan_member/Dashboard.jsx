@@ -31,12 +31,8 @@ var Dashboard = React.createClass({
                 <div className="sidebar-category sidebar-category-visible">
                   <div className="category-content sidebar-user">
                     <div className="media">
-                      <div className="media-body">
-                        <span className="media-heading text-bold">Loan of {this.props.bootstrapData.loan.user.to_s}</span>
-                      </div>
-                      <div className="media-right media-middle">
-                        <span className="label label-info">{this.props.bootstrapData.loan.pretty_status}</span>
-                      </div>
+                      <p className="text-bold">{this.props.bootstrapData.property.address.full_text}</p>
+                      <span className="label label-info">{this.props.bootstrapData.loan.pretty_status}</span>
                     </div>
                   </div>
                   <div className="category-content no-padding">

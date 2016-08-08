@@ -72,13 +72,18 @@ var List = React.createClass({
     }
   },
 
-
   componentDidMount: function() {
     if(this.props.helpMeChoose){
       if($("span.fa-angle-down").length > 0){
         $("span.fa-angle-down")[0].click();
       }
     }
+
+    $('.collapse').on('shown.bs.collapse', function(){
+      $(this).parent().find(".icon-plus").removeClass("icon-plus").addClass("icon-minus");
+    }).on('hidden.bs.collapse', function(){
+      $(this).parent().find(".icon-minus").removeClass("icon-minus").addClass("icon-plus");
+    });
   },
 
   componentDidUpdate: function(prevProps, prevState) {
@@ -184,7 +189,7 @@ var List = React.createClass({
                           <p>
                             <strong>
                               <span>True Cost of Mortgage: </span>
-                              {this.formatCurrency(quote.total_cost, '$')}
+                              {this.formatCurrency(quote.total_cost, 0, '$')}
                             </strong>
                           </p>
                         :
@@ -192,7 +197,7 @@ var List = React.createClass({
                       }
                     </div>
                     <div className="col-md-2 col-sm-6 col-sm-6">
-                      <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Select</a>
+                      <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -201,7 +206,7 @@ var List = React.createClass({
                     <div className="col-md-6">
                       <h4>Product details</h4>
                       <div className="row">
-                        <div className="col-xs-7">
+                        <div className="col-xs-6">
                           <p className="col-xs-12 cost">Product type</p>
                           <p className="col-xs-12 cost">Interest Rate</p>
                           <p className="col-xs-12 cost">APR</p>
@@ -214,7 +219,7 @@ var List = React.createClass({
                               <p className="col-xs-12 cost">Down payment</p>
                           }
                         </div>
-                        <div className="row-no-padding col-xs-5">
+                        <div className="row-no-padding col-xs-6">
                           <p className="col-xs-12 cost">{quote.product}</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.interest_rate * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.apr * 100, 3)}%</p>
@@ -251,6 +256,35 @@ var List = React.createClass({
                             )
                           }, this)
                         }
+
+                        {
+                          _.map(quote.thirty_fees, function(thirty_fee, index_second){
+                            return (
+                              <div>
+                                {
+                                  thirty_fee["FeeAmount"] == 0
+                                  ?
+                                    null
+                                  :
+                                    <li className="thirty-party-fees">
+                                      <a role="button" data-toggle="collapse" href={".thirty-fees-" + index + "-" + index_second} aria-expanded="true" aria-controls={"thirty-fees-" + index + "-" + index_second}>
+                                        <i className="icon-plus"></i><span>{thirty_fee["Description"] + ": " + this.formatCurrency(thirty_fee["FeeAmount"], 0, "$")}</span>
+                                      </a>
+                                      <div className={"collapse thirty-fees-collapse thirty-fees-" + index + "-" + index_second}>
+                                        {
+                                          _.map(thirty_fee["Fees"], function(fee) {
+                                            return (
+                                              <p>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}</p>
+                                            )
+                                          }, this)
+                                        }
+                                      </div>
+                                    </li>
+                                }
+                              </div>
+                            )
+                          }, this)
+                        }
                       </ul>
                     </div>
                     <div className="col-md-6">
@@ -276,9 +310,9 @@ var List = React.createClass({
                           <p className="col-xs-12 cost "> Total est. payment</p>
                         </div>
                         <div className="row-no-padding col-md-3 col-xs-3">
-                          <p className="col-xs-12 cost">{this.formatCurrency(quote.monthly_payment, "$")}</p>
-                          <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedPropertyTax, "$")}</p>
-                          <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedHazardInsurance, "$")}</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(quote.monthly_payment, 0, "$")}</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedPropertyTax, 0, "$")}</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedHazardInsurance, 0, "$")}</p>
                             {
                               quote.pmi_monthly_premium_amount != 0
                               ?

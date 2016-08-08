@@ -9,6 +9,7 @@ namespace :scheduler do
     puts "done."
   end
 
+  desc "Crawling updated rates from fred economic"
   task update_rates_from_fred_economic: :environment do
     puts "Crawling updated rates from fred economic"
     FredEconomicServices::CrawlAvgRates.update if Time.zone.now.friday?
@@ -18,5 +19,10 @@ namespace :scheduler do
   desc "Clear quote queries were created before seven days ago"
   task clear_quote_queries: :environment do
     QuoteQuery.where("created_at < ?", 7.days.ago).destroy_all
+  end
+
+  desc "Daily update the lowest apr for quote queries "
+  task update_quote_queries: :environment do
+    QuoteService.delay.update_graph_quotes_email
   end
 end

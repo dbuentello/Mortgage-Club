@@ -1,6 +1,6 @@
-.modal {
-  top: 75px !important;
-}
+// .modal {
+//   top: 75px !important;
+// }
 
 .content {
   .container {
@@ -77,6 +77,15 @@ a.remove {
 
   .modal-content {
     height: 60%;
+  }
+
+  @include respond-to(mobile){
+    width: 95%;
+    height: 80%;
+
+    .modal-content {
+      height: 80%;
+    }
   }
 }
 
@@ -183,6 +192,7 @@ a.remove {
   .mc-blue-primary-text {
     color: #15c0f1 !important;
     font-size: 16px !important;
+    text-align: center;
   }
   table.table.table-striped.term-table tr td {
     padding-left: 15px;
@@ -466,6 +476,21 @@ a.remove {
     }
   }
 
+  .drop_zone {
+    .fileBtnSmall {
+      margin-top: 15px;
+    }
+    #appraisal_report_id {
+      .row {
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+      table td {
+        padding-top: 0px;
+        padding-bottom: 0px;
+      }
+    }
+  }
 }
 .editLoan {
 

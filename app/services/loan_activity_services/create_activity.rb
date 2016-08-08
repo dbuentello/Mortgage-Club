@@ -1,7 +1,7 @@
 # create an activity
 module LoanActivityServices
   class CreateActivity
-    attr_accessor :error_message
+    attr_accessor :error_message, :loan_activity
 
     def call(loan_member, activity_params)
       activity_params[:loan_member_id] = loan_member.id
@@ -18,6 +18,10 @@ module LoanActivityServices
       end
 
       self
+    end
+
+    def done?
+      @loan_activity.activity_status == "done"
     end
 
     def success?

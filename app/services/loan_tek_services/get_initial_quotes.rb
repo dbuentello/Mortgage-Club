@@ -18,7 +18,50 @@ module LoanTekServices
         property_type: get_property_type
       )
 
-      quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose)
+      zip_code = ZipCode.find_by_zip(get_zipcode)
+      if zip_code
+        fees = CrawlFeesService.new(
+          loan_purpose: get_loan_purpose,
+          zip: zip_code.zip,
+          city: zip_code.city,
+          county: zip_code.county,
+          loan_amount: get_loan_amount,
+          sales_price: info["property_value"].to_f
+        ).call
+
+        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees)
+      else
+        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [])
+      end
+    end
+
+    def lowest_apr
+      quotes = LoanTekServices::SendRequestToLoanTek.call(
+        zipcode: get_zipcode,
+        credit_score: get_credit_score,
+        loan_purpose: get_loan_purpose,
+        loan_amount: get_loan_amount,
+        loan_to_value: get_loan_to_value,
+        property_usage: get_property_usage,
+        property_type: get_property_type
+      )
+
+      zip_code = ZipCode.find_by_zip(get_zipcode)
+
+      if zip_code
+        fees = CrawlFeesService.new(
+          loan_purpose: get_loan_purpose,
+          zip: zip_code.zip,
+          city: zip_code.city,
+          county: zip_code.county,
+          loan_amount: get_loan_amount,
+          sales_price: info["property_value"].to_f
+        ).call
+
+        quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose, fees)
+      else
+        quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose, [])
+      end
     end
 
     private

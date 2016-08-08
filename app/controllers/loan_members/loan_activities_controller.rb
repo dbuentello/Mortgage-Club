@@ -5,7 +5,13 @@ class LoanMembers::LoanActivitiesController < LoanMembers::BaseController
     loan = Loan.find_by_id(loan_activity_params[:loan_id])
 
     result = LoanActivityServices::CreateActivity.new.call(loan_member, loan_activity_params)
+
     if result.success?
+      if result.done?
+        LoanActivityNotificationServices::SendEmailToBorrower.call(result.loan_activity)
+        LoanActivityNotificationServices::SendSmsToBorrower.call(result.loan_activity)
+      end
+
       render json: {activities: LoanActivity.get_latest_by_loan(loan), success: t("status.success")}, status: 200
     else
       render json: {error: result.error_message}, status: 500

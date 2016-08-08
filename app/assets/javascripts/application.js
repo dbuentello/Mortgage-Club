@@ -25,6 +25,7 @@
 
 // General Config
 $(document).on('ready', function(event) {
+  google.charts.load('current', {'packages':['corechart']});
   $('.flashSection').delay(7000).fadeOut();
   $('[data-toggle="tooltip"]').tooltip();
 });

@@ -18,7 +18,10 @@ var Quotes = React.createClass({
       helpMeChoose: false,
       quotes: this.props.bootstrapData.quotes,
       monthlyPayment: this.props.bootstrapData.monthly_payment,
-      storedCriteria: []
+      storedCriteria: [],
+      rate_alert: true,
+      code_id: this.props.bootstrapData.code_id
+
     }
   },
 
@@ -171,13 +174,13 @@ var Quotes = React.createClass({
                   :
                     <div className="content container mortgage-rates padding-top-0 row-eq-height">
                       <div className="col-xs-12 col-md-3 subnav hidden-xs programs-filter">
-                        <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
+                        <Filter rate_alert={this.state.rate_alert} code_id={this.state.code_id} programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
                       </div>
                       <div className="col-xs-12 col-sm-9 account-content">
                         <div className="mobile-xs-quote">
                           <div className="visible-xs text-xs-justify">
                             <p>
-                              We’ve found {this.state.quotes ? this.state.quotes.length : 0} loan programs for you. You can sort, filter and choose one on your own or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
+                              We’ve found {this.state.quotes ? this.state.quotes.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
                             </p>
                             <p>
                               Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
@@ -221,7 +224,7 @@ var Quotes = React.createClass({
                         </div>
                         <div className="row actions hidden-xs">
                           <p>
-                            We’ve found {this.state.quotes ? this.state.quotes.length : 0} loan programs for you. You can sort, filter and choose one on your own or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
+                            We’ve found {this.state.quotes ? this.state.quotes.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
                           </p>
                           <p>
                             Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.

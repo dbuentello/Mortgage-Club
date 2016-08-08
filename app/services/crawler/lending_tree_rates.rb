@@ -1,4 +1,3 @@
-# rubocop:disable ClassLength
 # a crawler for lending tree
 require 'capybara'
 require 'capybara/poltergeist'
