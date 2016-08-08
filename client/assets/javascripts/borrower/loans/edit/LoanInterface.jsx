@@ -70,7 +70,7 @@ var LoanInterface = React.createClass({
                 </a>
               </div>
             </div>
-            <div className="col-sm-12 visible-xs visible-sm subnav">
+            <div className="col-sm-12 visible-xs visible-sm subnav" style={{"height": "54px"}}>
               <div id="sidebar-mobile">
                 <ul>
                   {_.map(this.state.menu, function (item, i) {
