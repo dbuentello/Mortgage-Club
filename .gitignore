@@ -166,3 +166,10 @@ bower.json
 .idea
 
 dump.rdb
+server.csr
+server.key
+server.pass.key
+server3.csr
+server3.key
+server3.pass.key
+server4.csr

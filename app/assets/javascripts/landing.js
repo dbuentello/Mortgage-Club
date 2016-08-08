@@ -21,7 +21,16 @@ $(document).ready(function(){
   $("[data-toggle='tooltip']").tooltip({
     trigger: "manual"
   }).tooltip("show");
-
+  mixpanel.track("Homepage-Enter");
+  $("#findMyRateLink").click(function(){
+    mixpanel.track("Navbar-FindMyRates");
+  });
+  $("#apply-btn").click(function(){
+    mixpanel.track("Homepage-FindMyRatesTable");
+  });
+  $("#btnSignupDevise").click(function(){
+    mixpanel.track("SignUp-Btn");
+  });
   var $faqItems = $('#faqs .faq');
   if( window.location.hash != '' ) {
     var getFaqFilterHash = window.location.hash;

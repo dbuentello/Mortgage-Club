@@ -106,12 +106,16 @@ var Quotes = React.createClass({
   },
 
   backToRateHandler: function() {
+    mixpanel.track("Quotes-HelpMeChoose-BackToResults");
     this.setState({helpMeChoose: false});
   },
 
   selectRate: function(rate) {
-    mixpanel.track("Quotes-SelectRate");
-
+    if(this.state.helpMeChoose){
+      mixpanel.track("Quotes-HelpMeChoose-SelectRate");
+    }else{
+      mixpanel.track("Quotes-SelectRate");
+    }
     var dataCookies = this.props.bootstrapData.data_cookies;
 
     $.ajax({
