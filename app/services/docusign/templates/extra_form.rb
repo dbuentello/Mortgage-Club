@@ -8,7 +8,7 @@ module Docusign
     class ExtraForm
       include FinanceFormulas
       include ActionView::Helpers::NumberHelper
-      attr_accessor :loan, :borrower, :co_borrower, :subject_property, :primary_property, :credit_report, :params, :field_names, :hash_data
+      attr_accessor :loan, :borrower, :subject_property, :primary_property, :credit_report, :params, :field_names, :hash_data
 
       def initialize(loan, field_names)
         @loan = loan
@@ -19,7 +19,6 @@ module Docusign
         @field_names = field_names
         @hash_data = build_hash
         @params = {}
-        loan.secondary_borrower.present? ? @co_borrower = loan.secondary_borrower : @co_borrower = nil
       end
 
       def build
@@ -49,11 +48,11 @@ module Docusign
           "date_signed": Time.zone.now.to_date,
           "borrower_previous_address": borrower.display_previous_address
         }
-        hash << build_hash_co_borrower if @co_borrower.present?
+        hash.merge!(build_hash_co_borrower(loan.secondary_borrower)) if loan.secondary_borrower.present?
         hash
       end
 
-      def build_hash_co_borrower
+      def build_hash_co_borrower(co_borrower)
         {
           "co_borrower_full_name": co_borrower.full_name,
           "co_borrower_ssn": co_borrower.ssn,
