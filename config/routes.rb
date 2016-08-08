@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get "home_test_rates", to: "pages#home_test_rates"
 
+  get "receive_sms", to: "pages#receive_sms"
   get "new_landing", to: "pages#new_landing"
   get "new_login", to: "pages#new_login"
   get "new_forgot_password", to: "pages#new_forgot_password"
