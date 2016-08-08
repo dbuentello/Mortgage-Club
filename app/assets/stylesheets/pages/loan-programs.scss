@@ -219,6 +219,12 @@
       font-weight: normal;
     }
   }
+
+  .filter-modal {
+    @include respond-to(mobile) {
+      top: 80px;
+    }
+  }
   .custom-left-mortgage-rates {
     margin-left: -19px;
     @include respond-to(mobile) {
@@ -227,7 +233,7 @@
     }
   }
   background: linear-gradient(to right, #f6f6f6 , white);
-  @include respond-to(smobile){
+  @include respond-to(mobile){
     background: none;
   };
 

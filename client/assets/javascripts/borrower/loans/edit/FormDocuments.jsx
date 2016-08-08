@@ -114,10 +114,10 @@ var FormDocuments = React.createClass({
     }
 
     return (
-      <div className="col-sm-9 col-xs-12 account-content">
+      <div className="col-md-9 col-sm-12 account-content">
         <form className="form-horizontal">
           <div className='form-group'>
-            <p className="box-description col-sm-12">
+            <p className="box-description col-sm-12 text-xs-justify text-sm-justify">
               At the minimum, we’d need these documents to submit your loan application to underwriting. Please help us gather these documents. For your convenience, we can also order tax return, W2, 1099… directly from the IRS (with your authorization) but it would take them several hours to fulfill our order. Please email us at <a href="mailto:hello@mortgageclub.co" target="_blank">hello@mortgageclub.co</a> to request that.
               <br/>
               For your security,
