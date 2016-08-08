@@ -54,7 +54,7 @@ var FormCreditCheck = React.createClass({
       <div className='col-sm-9 col-xs-12 account-content'>
         <form className='form-horizontal credit-check'>
           <div className='form-group'>
-            <p className='box-description col-sm-12'>
+            <p className='box-description col-sm-12 text-xs-justify'>
               We’re now ready to obtain your credit report in real time to verify your credit score and review your credit history. You won’t be charged for this service. Please authorize us by selecting the checkbox below.
             </p>
           </div>

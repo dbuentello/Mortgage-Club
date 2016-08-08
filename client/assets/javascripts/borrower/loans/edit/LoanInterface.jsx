@@ -49,7 +49,7 @@ var LoanInterface = React.createClass({
       <div className="content accountPart editLoan">
         <div className="container">
           <div className="row">
-            <div className="col-xs-12 col-sm-3 subnav">
+            <div className="col-sm-3 hidden-xs subnav">
               <div id="sidebar">
                 <ul>
                   {_.map(this.state.menu, function (item, i) {
@@ -68,6 +68,21 @@ var LoanInterface = React.createClass({
                 <a href="#" data-toggle=".subnav" id="sidebar-toggle">
                   <span className="glyphicon glyphicon-arrow-right"></span>
                 </a>
+              </div>
+            </div>
+            <div className="col-xs-12 visible-xs subnav">
+              <div id="sidebar-mobile">
+                <ul>
+                  {_.map(this.state.menu, function (item, i) {
+                    return (
+                      <li key={i} id={item.key} className={this.getKlassNameLiSidebar(item, activeItem)}>
+                        <a href="javascript:void(0)" onClick={_.bind(this.goToItem, this, item)}>
+                          <span className={item.iconClass}></span>
+                        </a>
+                      </li>
+                    );
+                  }, this)}
+                </ul>
               </div>
             </div>
             {

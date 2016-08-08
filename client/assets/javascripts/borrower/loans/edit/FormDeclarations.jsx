@@ -231,7 +231,7 @@ var FormDeclarations = React.createClass({
       <div className='col-sm-9 col-xs-12 account-content'>
         <form className='form-horizontal'>
           <div className='form-group'>
-            <p className="box-description col-sm-12">
+            <p className="box-description col-sm-12 text-xs-justify">
               The government requires us to ask you these questions so they can monitor that we adhere to fair lending practices. We’ve made them as simple as possible.
             </p>
           </div>
