@@ -67,7 +67,7 @@ class PagesController < ApplicationController
       "dst" => "16507877799" # Receiver's phone Number
     }
 
-    r = Response.new()
+    r = Response.new
     r.addMessage(body, params)
 
     headers["Content-Type"] = "text/xml"
