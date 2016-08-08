@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   before_action :prepare_meta_tags, if: "request.get?"
+  before_action :set_mixpanel_token
 
   def find_root_path
     return unauthenticated_root_path unless current_user
