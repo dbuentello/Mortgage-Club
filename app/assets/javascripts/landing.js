@@ -27,12 +27,13 @@ $(document).ready(function(){
     uuidUser = createGuid();
     mixpanel.identify(uuidUser);
     setCookie("uuid_user", uuidUser, 60);
+    setCookie("created_date", new Date(), 60);
   }else{
     mixpanel.identify(uuidUser);
   }
   mixpanel.people.set({
     "uuid": uuidUser,
-    "$created": "2015-06-16 16:53:54",
+    "$created": getCookie("created_date"),
     "$last_login": new Date()        // properties can be dates...
   });
   mixpanel.track("Homepage-Enter");
