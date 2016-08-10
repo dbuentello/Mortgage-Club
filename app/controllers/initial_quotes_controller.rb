@@ -96,6 +96,19 @@ class InitialQuotesController < ApplicationController
   end
 
   def quotes_params
-    params.permit(:zip_code, :credit_score, :mortgage_purpose, :property_value, :property_usage, :property_type, :down_payment, :mortgage_balance)
+    params.permit(
+      :zip_code,
+      :credit_score,
+      :mortgage_purpose,
+      :property_value,
+      :property_usage,
+      :property_type,
+      :down_payment,
+      :mortgage_balance,
+      :loan_amount,
+      :lender_name,
+      :amortization_type,
+      :interest_rate
+    )
   end
 end

@@ -128,12 +128,15 @@ var Quotes = React.createClass({
         mortgage_purpose: dataCookies.mortgage_purpose,
         property_value: dataCookies.property_value,
         property_usage: dataCookies.property_usage,
-        property_type: dataCookies.property_type
+        property_type: dataCookies.property_type,
+        loan_amount: rate.loan_amount,
+        lender_name: rate.lender_name,
+        amortization_type: rate.product,
+        interest_rate: rate.interest_rate
       },
       method: "POST",
       dataType: "json",
       success: function(response) {
-
         if(this.props.bootstrapData.currentUser.id) {
           this.createLoan();
         }

@@ -14,6 +14,10 @@ class InitializeFirstLoanService
     loan = Loan.create(
       purpose: info["mortgage_purpose"],
       down_payment: info["down_payment"],
+      amount: info["loan_amount"],
+      interest_rate: info["interest_rate"],
+      lender_name: info["lender_name"],
+      amortization_type: info["amortization_type"],
       user: user,
       properties: properties,
       closing: Closing.create(name: "Closing"),
@@ -45,6 +49,7 @@ class InitializeFirstLoanService
       is_subject: true,
       purchase_price: get_purchase_price,
       original_purchase_price: get_original_purchase_price,
+      estimated_mortgage_balance: get_estimated_mortgage_balance,
       property_type: info["property_type"],
       usage: info["property_usage"]
     )
@@ -145,6 +150,10 @@ class InitializeFirstLoanService
 
   def get_original_purchase_price
     info["property_value"] if refinance_loan?
+  end
+
+  def get_estimated_mortgage_balance
+    info["mortgage_balance"] if refinance_loan?
   end
 
   def borrower_current_address
