@@ -47,7 +47,7 @@ var LoanInterface = React.createClass({
 
     return (
       <div className="content accountPart editLoan">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
             <div className="col-sm-3 hidden-xs hidden-sm subnav">
               <div id="sidebar">
@@ -63,6 +63,7 @@ var LoanInterface = React.createClass({
                     );
                   }, this)}
                 </ul>
+
                 <div id={"summary"}>
                   <p>Summary</p>
                   <table>

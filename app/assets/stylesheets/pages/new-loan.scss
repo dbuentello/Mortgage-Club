@@ -62,20 +62,17 @@
   margin-top: 0 !important;
 }
 .subnav {
+  padding-left: 0px;
+  padding-right: 0px;
   background: #f6f6f6;
-  // margin-bottom:-9999px;
-  // padding-bottom:9999px;
-
-  position: relative;
-  left: 0;
+    position: relative;
+    height: 100vh;
   -webkit-transition: left 0.4s ease-in-out;
   -moz-transition: left 0.4s ease-in-out;
   -ms-transition: left 0.4s ease-in-out;
   -o-transition: left 0.4s ease-in-out;
   transition: left 0.4s ease-in-out;
 
-  margin-left: -65px;
-  margin-right: -15px;
   .open-sidebar { left: 240px; }
 
   #sidebar-toggle {
@@ -215,7 +212,7 @@
 
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  position: relative;
+  // position: relative;
   background:white;
   // margin-bottom:-9999px;
   // padding-bottom:9999px;
