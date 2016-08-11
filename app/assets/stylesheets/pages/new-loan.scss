@@ -13,6 +13,10 @@
   }
   .account-content {
     min-height: calc(100vh - 160px);
+    min-width: calc(100vw - 300px);
+    @include respond-to(tablet){
+      min-width: 100%;
+    };
   }
   .customRadio span {
     font-weight: 100;
