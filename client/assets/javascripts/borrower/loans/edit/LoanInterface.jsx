@@ -63,36 +63,37 @@ var LoanInterface = React.createClass({
                     );
                   }, this)}
                 </ul>
+                <div id={"summary"}>
+                  <p>Summary</p>
+                  <table>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>Lender</td>
+        <td>{this.state.loan.lender_name}</td>
+      </tr>
+      <tr>
+        <td>Loan type</td>
+        <td>{this.state.loan.amortization_type}</td>
+      </tr>
+      <tr>
+        <td>Propertye value</td>
+        <td>{this.state.loan.subject_property.original_purchase_price}</td>
+      </tr>
+      <tr>
+        <td>Loan amount</td>
+        <td>{this.state.loan.amount}</td>
+      </tr>
+      <tr>
+        <td>Rate</td>
+        <td>{this.state.loan.interest_rate}</td>
+      </tr>
+    </table>
+  </div>
               </div>
-              <div id={"summary"}>
-                <span>Summary</span>
-                <table>
-    <tr>
-      <th></th>
-      <th></th>
-    </tr>
-    <tr>
-      <td>Lender</td>
-      <td>{this.state.loan.lender_name}</td>
-    </tr>
-    <tr>
-      <td>Loan type</td>
-      <td>{this.state.loan.amortization_type}</td>
-    </tr>
-    <tr>
-      <td>Propertye value</td>
-      <td>{this.state.loan.subject_property.original_purchase_price}</td>
-    </tr>
-    <tr>
-      <td>Loan amount</td>
-      <td>{this.state.loan.amount}</td>
-    </tr>
-    <tr>
-      <td>Rate</td>
-      <td>{this.state.loan.interest_rate}</td>
-    </tr>
-  </table>
-</div>
+
               <div className="swipe-area">
                 <a href="#" data-toggle=".subnav" id="sidebar-toggle">
                   <span className="glyphicon glyphicon-arrow-right"></span>
