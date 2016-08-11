@@ -130,17 +130,21 @@ body {
 // }
 .fixed-nav {
     /* width: 340px; */
-  // top: 0px;
-  // left: 20px;
-  // padding-left: 50px;
+    position: fixed;
+      top: 0px;
+      left: 0;
+      width: 300px;
+      height: 100%;
 }
 .fixed-content {
   // margin-left: 210px;
+  margin-left: 300px
 }
 .fixed-nav-mobile {
   position: fixed;
   top: 0px;
   z-index: 999;
+  width: 100%;
 }
 #summary {
   p {
@@ -150,5 +154,8 @@ body {
     height: 50px;
     width: 100%;
     background-color: $mc-color;
+  }
+  table td {
+    padding-left: 5px;
   }
 }
