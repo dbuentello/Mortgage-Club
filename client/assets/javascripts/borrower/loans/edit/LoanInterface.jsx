@@ -30,6 +30,7 @@ var LoanInterface = React.createClass({
     var activeItem = _.findWhere(menu, {complete: false}) || menu[0];
 
     return {
+      remain_step: _.filter(menu, {complete: false}).length,
       menu: menu,
       active: activeItem,
       loan: loan,
@@ -67,6 +68,7 @@ var LoanInterface = React.createClass({
                   this.state.loan.lender_name
                   ?
                   <div id={"summary"}>
+
                     <p>Summary</p>
                     <table>
         <tr>
@@ -102,6 +104,7 @@ var LoanInterface = React.createClass({
           <td>{this.state.loan.interest_rate}</td>
         </tr>
       </table>
+      <p id="remain_step"> <strong>{this.state.remain_step}</strong> steps remaining </p>
     </div>
                   :
                   null
@@ -275,6 +278,7 @@ var LoanInterface = React.createClass({
 
             if (uncompleted_step) {
               this.setState({
+                remain_step: _.filter(menu, {complete: false}).length,
                 loan: response.loan,
                 menu: menu,
                 active: uncompleted_step,

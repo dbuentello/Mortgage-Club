@@ -19,9 +19,18 @@ var FormCreditCheck = React.createClass({
           <br/>
           <h2>{"Let's see what loan programs you qualify for..."}</h2>
           <br/>
-          <a className="btn primary yellow" rel="nofollow" data-method="get" href={"/underwriting?loan_id=" + this.props.loan.id}>
-            See my rates
-          </a>
+          {
+            this.props.loan.lender_name
+            ?
+            <a className="btn primary yellow" rel="nofollow" data-method="get" href={"/underwriting?loan_id=" + this.props.loan.id}>
+              Apply now
+            </a>
+            :
+            <a className="btn primary yellow" rel="nofollow" data-method="get" href={"/underwriting?loan_id=" + this.props.loan.id}>
+              See my rates
+            </a>
+          }
+
         </div>
       </div>
     );
