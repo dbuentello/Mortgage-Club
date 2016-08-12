@@ -266,6 +266,10 @@ var LoanInterface = React.createClass({
         current_step: step
       },
       success: function(response) {
+        var menu = this.buildMenu(response.loan);
+        this.setState({
+          remain_step: _.filter(menu, {complete: false}).length
+        });
         if (this.loanIsCompleted(response.loan)) {
           this.goToAllDonePage(response.loan);
         }
@@ -273,12 +277,10 @@ var LoanInterface = React.createClass({
           if (last_step == false) {
             this.setupMenu(response, step, skip_change_page);
           } else {
-            var menu = this.buildMenu(response.loan);
             var uncompleted_step = _.findWhere(menu, {complete: false});
 
             if (uncompleted_step) {
               this.setState({
-                remain_step: _.filter(menu, {complete: false}).length,
                 loan: response.loan,
                 menu: menu,
                 active: uncompleted_step,
