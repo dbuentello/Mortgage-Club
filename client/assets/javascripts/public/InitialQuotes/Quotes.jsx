@@ -132,7 +132,15 @@ var Quotes = React.createClass({
         loan_amount: rate.loan_amount,
         lender_name: rate.lender_name,
         amortization_type: rate.product,
-        interest_rate: rate.interest_rate
+        interest_rate: rate.interest_rate,
+        period: rate.period,
+        total_closing_cost: rate.total_closing_cost,
+        lender_credits: rate.lender_credits,
+        monthly_payment: rate.monthly_payment,
+        loan_type: rate.loan_type,
+        apr: rate.apr,
+        lender_nmls_id: rate.nmls,
+        pmi_monthly_premium_amount: rate.pmi_monthly_premium_amount
       },
       method: "POST",
       dataType: "json",

@@ -107,8 +107,16 @@ class InitialQuotesController < ApplicationController
       :mortgage_balance,
       :loan_amount,
       :lender_name,
+      :lender_nmls_id,
       :amortization_type,
-      :interest_rate
+      :interest_rate,
+      :period,
+      :total_closing_cost,
+      :lender_credits,
+      :monthly_payment,
+      :loan_type,
+      :apr,
+      :pmi_monthly_premium_amount
     )
   end
 end

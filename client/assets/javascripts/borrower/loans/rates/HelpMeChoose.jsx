@@ -303,7 +303,9 @@ var HelpMeChoose = React.createClass({
                   </div>
                 </div>
                 <div className='row text-xs-center'>
-                  <a className='btn btnLrg mtm select-btn col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.state.bestRate)}>Apply Now</a>
+                  <a className='btn btnLrg mtm select-btn col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.state.bestRate)}>
+                    {this.props.isInitialQuotes ? "Apply Now" : "Select"}
+                  </a>
                 </div>
               </div>
             : null
