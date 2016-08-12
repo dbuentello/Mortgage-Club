@@ -30,6 +30,9 @@ var FormCreditCheck = React.createClass({
               See my rates
             </a>
           }
+          <a className="btn primary yellow" rel="nofollow" data-method="get" href={"/underwriting?loan_id=" + this.props.loan.id}>
+            See my rates
+          </a>
 
         </div>
       </div>
