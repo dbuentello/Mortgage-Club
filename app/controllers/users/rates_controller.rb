@@ -21,15 +21,10 @@ class Users::RatesController < Users::BaseController
     if @loan.lender_name.present?
       selected_program = rate_programs.select { | r| r["lender_name"] == @loan.lender_name && r["product"] == @loan.amortization_type && r["interest_rate"] == @loan.interest_rate }
     end
-    byebug
-
-    if selected_program.present?
-      redirect_link = "/esigning/" + @loan.id + "?rate=" + selected_program.first.to_s
-      return redirect_to url_for(redirect_link) if selected_program.present?
-    end
     bootstrap(
       currentLoan: LoanProgram::LoanProgramPresenter.new(@loan).show,
-      programs: rate_programs
+      programs: rate_programs,
+      selected_program: selected_program.present? ? selected_program.first : nil
     )
     render template: 'borrower_app'
   end

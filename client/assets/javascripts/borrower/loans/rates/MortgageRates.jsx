@@ -19,7 +19,8 @@ var MortgageRates = React.createClass({
       helpMeChoose: false,
       signDoc: false,
       selectedRate: null,
-      storedCriteria: []
+      storedCriteria: [],
+      showRates: true
     }
   },
 
@@ -63,7 +64,15 @@ var MortgageRates = React.createClass({
     $(".pie-chart").empty();
     $("span.glyphicon-menu-up").click();
   },
-
+  componentWillMount: function(){
+    if(this.props.bootstrapData.selected_program != null){
+      this.setState({showRates: false});
+      var params = {};
+      params["rate"] = this.props.bootstrapData.selected_program;
+      params = $.param(params);
+      location.href = "esigning/" + this.props.bootstrapData.currentLoan.id + "?" + params;
+    }
+  },
   componentDidMount: function() {
     $("input[name=30years]").trigger("click");
   },
@@ -75,6 +84,8 @@ var MortgageRates = React.createClass({
 
     return (
       <div>
+        { this.state.showRates ?
+        <div>
         {
           this.state.helpMeChoose
           ?
@@ -168,6 +179,8 @@ var MortgageRates = React.createClass({
             </div>
         }
       </div>
+      : null }
+    </div>
     );
   },
 
