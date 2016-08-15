@@ -17,15 +17,17 @@ var FormCreditCheck = React.createClass({
           <span className="glyphicon glyphicon-ok"></span>
           <h1>{"You're All Done!"}</h1>
           <br/>
-          <h2>{"Let's see what loan programs you qualify for..."}</h2>
+            {
+              this.props.loan.lender_name
+              ?
+          <h2>{"Next, we'll run a preliminary check to make sure you qualify for the loan program that you selected..."}</h2>
           <br/>
-          {
-            this.props.loan.lender_name
-            ?
             <a className="btn primary yellow" rel="nofollow" data-method="get" href={"/underwriting?loan_id=" + this.props.loan.id}>
-              Apply now
+              Continue
             </a>
             :
+            <h2>{"Let's see what loan programs you qualify for..."}</h2>
+            <br/>
             <a className="btn primary yellow" rel="nofollow" data-method="get" href={"/underwriting?loan_id=" + this.props.loan.id}>
               See my rates
             </a>
