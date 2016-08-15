@@ -16,7 +16,7 @@ module QuotesFormulas
   REFINANCE = 2
 
   def get_valid_quotes(quotes)
-    quotes.select { |quote| quote["DiscountPts"] <= 0.125 }
+    quotes.select { |quote| quote["DiscountPts"] <= 0.125  && quote["ProductFamily"] == "CONVENTIONAL" }
   end
 
   def get_apr(quote)
@@ -159,7 +159,7 @@ module QuotesFormulas
   def get_period(quote)
     return 360 if arm?(quote)
 
-    quote["ProductTerm"].to_i * 12
+    quote["ProductTerm"].delete('F').to_i * 12
   end
 
   def get_interest_rate(quote)
@@ -167,7 +167,7 @@ module QuotesFormulas
   end
 
   def arm?(quote)
-    quote["ProductTerm"].include? "/1"
+    quote["ProductType"].include? "ARM"
   end
 
   def discount_pts_equals_to_0_125?(quote)

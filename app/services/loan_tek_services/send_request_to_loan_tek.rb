@@ -1,7 +1,7 @@
 module LoanTekServices
   class SendRequestToLoanTek
     def self.call(params)
-      url = "https://api.loantek.com/Clients/WebServices/Client/#{client_id}/Pricing/V2/Quotes/LoanPricer/#{user_id}"
+      url = "https://api.loantek.com/ClientsV3/WebServices/Client/#{client_id}/Pricing/V3/Quotes/LoanPricer/#{user_id}"
       connection = Faraday.new(url: url)
       @response = connection.post do |conn|
         conn.headers["Content-Type"] = "application/json"
@@ -41,25 +41,23 @@ module LoanTekServices
 
     def self.lock_period
       # 30 days
-      30
+      "D30"
     end
 
     def self.execution_method
-      # By Rate
-      2
+      "ByRate"
     end
 
     def self.quoting_channel
-      # LoanTek
-      3
+      "LoanTek"
     end
 
     def self.loan_programs_of_interest
-      [1, 2, 3, 9]
+      ["ThirtyYearFixed", "FifteenYearFixed", "FiveYearARM", "SevenYearARM"]
     end
 
     def self.quote_types_to_return
-      [-1, 0, 1]
+      ["ClosestToZeroNoFee", "ClosestToZeroWithFee", "ClosestTo01"]
     end
 
     def self.success?
