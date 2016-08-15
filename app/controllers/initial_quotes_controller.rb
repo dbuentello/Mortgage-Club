@@ -116,7 +116,20 @@ class InitialQuotesController < ApplicationController
       :monthly_payment,
       :loan_type,
       :apr,
-      :pmi_monthly_premium_amount
+      :pmi_monthly_premium_amount,
+      :lender_underwriting_fee,
+      :appraisal_fee,
+      :tax_certification_fee,
+      :flood_certification_fee,
+      :outside_signing_service_fee,
+      :concurrent_loan_charge_fee,
+      :endorsement_charge_fee,
+      :lender_title_policy_fee,
+      :recording_service_fee,
+      :settlement_agent_fee,
+      :recording_fees,
+      :owner_title_policy_fee,
+      :prepaid_item_fee
     )
   end
 end

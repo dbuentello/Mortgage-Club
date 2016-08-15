@@ -118,6 +118,7 @@ var Quotes = React.createClass({
     }
     var dataCookies = this.props.bootstrapData.data_cookies;
 
+    var lender_underwriting_fee_object = rate.fees.find(function(x) { return x.Description == "Lender underwriting fee" });
     $.ajax({
       url: "/quotes/save_info",
       data: {
@@ -140,7 +141,20 @@ var Quotes = React.createClass({
         loan_type: rate.loan_type,
         apr: rate.apr,
         lender_nmls_id: rate.nmls,
-        pmi_monthly_premium_amount: rate.pmi_monthly_premium_amount
+        pmi_monthly_premium_amount: rate.pmi_monthly_premium_amount,
+        lender_underwriting_fee: lender_underwriting_fee_object === undefined ? 0 : lender_underwriting_fee_object.FeeAmount,
+        appraisal_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Appraisal Fee"),
+        tax_certification_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Tax Certification Fee"),
+        flood_certification_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Flood Certification Fee"),
+        outside_signing_service_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Outside Signing Service"),
+        concurrent_loan_charge_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Concurrent Loan Charge"),
+        endorsement_charge_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Endorsement Charge"),
+        lender_title_policy_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Lender's Title Policy"),
+        recording_service_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Recording Service Fee"),
+        settlement_agent_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Settlement Agent Fee"),
+        recording_fees: this.getFee(rate.thirty_fees, "Taxes and other government fees", "Recording Fees"),
+        owner_title_policy_fee: this.getFee(rate.thirty_fees, "Other", "Title - Owner's Title Policy"),
+        prepaid_item_fee: this.getFee(rate.thirty_fees, "Prepaid items", "Prepaid interest")
       },
       method: "POST",
       dataType: "json",
@@ -153,6 +167,27 @@ var Quotes = React.createClass({
         }
       }.bind(this)
     });
+  },
+
+  getFee: function(arrFees, groupName, objectName){
+    var group = arrFees.find(function(x) {
+      return x.Description === groupName;
+    });
+
+    if (group === undefined){
+      return 0;
+    }
+
+    var obj = group.Fees.find(function(x) {
+      return x.Description.indexOf(objectName) > -1;
+    });
+
+    if (obj === undefined){
+      return 0;
+    }
+    else{
+      return obj.FeeAmount;
+    }
   },
 
   backToQuotesForm: function() {

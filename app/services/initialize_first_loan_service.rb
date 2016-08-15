@@ -30,7 +30,20 @@ class InitializeFirstLoanService
       properties: properties,
       closing: Closing.create(name: "Closing"),
       status: "new_loan",
-      own_investment_property: borrower_has_other_properties? ? true : false
+      own_investment_property: borrower_has_other_properties? ? true : false,
+      lender_underwriting_fee: info["lender_nmls_id"],
+      appraisal_fee: info["appraisal_fee"],
+      tax_certification_fee: info["tax_certification_fee"],
+      flood_certification_fee: info["flood_certification_fee"],
+      outside_signing_service_fee: info["outside_signing_service_fee"],
+      concurrent_loan_charge_fee: info["concurrent_loan_charge_fee"],
+      endorsement_charge_fee: info["endorsement_charge_fee"],
+      lender_title_policy_fee: info["lender_title_policy_fee"],
+      recording_service_fee: info["recording_service_fee"],
+      settlement_agent_fee: info["settlement_agent_fee"],
+      recording_fees: info["recording_fees"],
+      owner_title_policy_fee: info["owner_title_policy_fee"],
+      prepaid_item_fee: info["prepaid_item_fee"]
     )
 
     assign_loan_to_billy(loan)
