@@ -11,19 +11,26 @@ class Users::RatesController < Users::BaseController
   #
   def index
     @loan = Loan.find(params[:loan_id])
-
     return redirect_to edit_loan_url(@loan) unless @loan.completed?
 
     rate_programs = []
     if @loan.subject_property.address && @loan.subject_property.address.zip
       rate_programs = LoanTekServices::GetQuotes.new(@loan).call
     end
+    selected_program = nil
+    if @loan.lender_name.present?
+      selected_program = rate_programs.select { | r| r["lender_name"] == @loan.lender_name && r["product"] == @loan.amortization_type && r["interest_rate"] == @loan.interest_rate }
+    end
+    byebug
 
+    if selected_program.present?
+      redirect_link = "/esigning/" + @loan.id + "?rate=" + selected_program.first.to_s
+      return redirect_to url_for(redirect_link) if selected_program.present?
+    end
     bootstrap(
       currentLoan: LoanProgram::LoanProgramPresenter.new(@loan).show,
       programs: rate_programs
     )
-
     render template: 'borrower_app'
   end
 end
