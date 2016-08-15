@@ -17,15 +17,16 @@ class Users::RatesController < Users::BaseController
     if @loan.subject_property.address && @loan.subject_property.address.zip
       rate_programs = LoanTekServices::GetQuotes.new(@loan).call
     end
-    selected_program = nil
+    selected_program = []
     if @loan.lender_name.present?
       selected_program = rate_programs.select { | r| r["lender_name"] == @loan.lender_name && r["product"] == @loan.amortization_type && r["interest_rate"] == @loan.interest_rate }
     end
     bootstrap(
       currentLoan: LoanProgram::LoanProgramPresenter.new(@loan).show,
       programs: rate_programs,
-      selected_program: selected_program.present? ? selected_program.first : nil
+      selected_program: selected_program
     )
+    # byebug
     render template: 'borrower_app'
   end
 end
