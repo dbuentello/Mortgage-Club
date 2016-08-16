@@ -15,7 +15,7 @@ module LoanTekServices
       cache_key = "loantek-quotes-#{loan.id}-#{loan.updated_at}-#{property.updated_at}-#{get_credit_score}"
 
       if quotes = REDIS.get(cache_key)
-        quotes = JSON.parse(quotes)
+        quotes = JSON.parse(quotes, symbolize_names: true)
       else
         quotes = get_quotes
         REDIS.set(cache_key, quotes.to_json)

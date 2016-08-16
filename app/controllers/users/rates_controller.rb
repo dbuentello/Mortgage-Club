@@ -19,7 +19,7 @@ class Users::RatesController < Users::BaseController
     end
     selected_program = []
     if @loan.lender_name.present?
-      selected_program = rate_programs.select { | r| r["lender_name"] == @loan.lender_name && r["product"] == @loan.amortization_type && r["interest_rate"] == @loan.interest_rate }
+      selected_program = rate_programs.select { | r| r[:lender_name] == @loan.lender_name && r[:product] == @loan.amortization_type && r[:interest_rate] == @loan.interest_rate }
     end
     bootstrap(
       currentLoan: LoanProgram::LoanProgramPresenter.new(@loan).show,
