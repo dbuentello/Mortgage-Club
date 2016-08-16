@@ -11,7 +11,7 @@ class CrawlFeesService
   end
 
   def call
-    if params[:loan_purpose] == 1
+    if params[:loan_purpose] == "Purchase"
       go_to_ort
       fill_input_data
       click_submit
@@ -42,7 +42,7 @@ class CrawlFeesService
       document.getElementById('aspnetForm').appendChild(element);
     ")
 
-    crawler.fill_in("_ctl0_PageContent_SalesPrice", with: params[:sales_price]) if params[:loan_purpose] == 1
+    crawler.fill_in("_ctl0_PageContent_SalesPrice", with: params[:sales_price])
     crawler.fill_in("_ctl0_PageContent_LoanAmount", with: params[:loan_amount])
     crawler.check("_ctl0_PageContent_EndorsementsRepeater__ctl4_EndorsementCheckbox")
     crawler.check("_ctl0_PageContent_OutsideSigningCheckbox")

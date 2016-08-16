@@ -14,11 +14,36 @@ class InitializeFirstLoanService
     loan = Loan.create(
       purpose: info["mortgage_purpose"],
       down_payment: info["down_payment"],
+      amount: info["loan_amount"],
+      interest_rate: info["interest_rate"],
+      lender_name: info["lender_name"],
+      amortization_type: info["amortization_type"],
+      num_of_months: info["period"],
+      apr: info["apr"],
+      lender_nmls_id: info["lender_nmls_id"],
+      lender_credits: info["lender_credits"],
+      monthly_payment: info["monthly_payment"],
+      loan_type: info["loan_type"] == "CONVENTIONAL" ? info["loan_type"].capitalize : info["loan_type"].uppercase,
+      estimated_closing_costs: info["total_closing_cost"],
+      pmi_monthly_premium_amount: info["pmi_monthly_premium_amount"],
       user: user,
       properties: properties,
       closing: Closing.create(name: "Closing"),
       status: "new_loan",
-      own_investment_property: borrower_has_other_properties? ? true : false
+      own_investment_property: borrower_has_other_properties? ? true : false,
+      lender_underwriting_fee: info["lender_nmls_id"],
+      appraisal_fee: info["appraisal_fee"],
+      tax_certification_fee: info["tax_certification_fee"],
+      flood_certification_fee: info["flood_certification_fee"],
+      outside_signing_service_fee: info["outside_signing_service_fee"],
+      concurrent_loan_charge_fee: info["concurrent_loan_charge_fee"],
+      endorsement_charge_fee: info["endorsement_charge_fee"],
+      lender_title_policy_fee: info["lender_title_policy_fee"],
+      recording_service_fee: info["recording_service_fee"],
+      settlement_agent_fee: info["settlement_agent_fee"],
+      recording_fees: info["recording_fees"],
+      owner_title_policy_fee: info["owner_title_policy_fee"],
+      prepaid_item_fee: info["prepaid_item_fee"]
     )
 
     assign_loan_to_billy(loan)
@@ -45,6 +70,7 @@ class InitializeFirstLoanService
       is_subject: true,
       purchase_price: get_purchase_price,
       original_purchase_price: get_original_purchase_price,
+      estimated_mortgage_balance: get_estimated_mortgage_balance,
       property_type: info["property_type"],
       usage: info["property_usage"]
     )
@@ -145,6 +171,10 @@ class InitializeFirstLoanService
 
   def get_original_purchase_price
     info["property_value"] if refinance_loan?
+  end
+
+  def get_estimated_mortgage_balance
+    info["mortgage_balance"] if refinance_loan?
   end
 
   def borrower_current_address

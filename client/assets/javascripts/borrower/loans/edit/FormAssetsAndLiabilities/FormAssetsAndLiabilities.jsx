@@ -125,7 +125,7 @@ var FormAssetsAndLiabilities = React.createClass({
 
   render: function() {
     return (
-      <div className='col-md-9 col-sm-12 account-content'>
+      <div className='col-md-3 col-sm-12 account-content'>
         <form className='form-horizontal'>
           <div className='form-group'>
             <div className='col-md-12'>

@@ -96,6 +96,40 @@ class InitialQuotesController < ApplicationController
   end
 
   def quotes_params
-    params.permit(:zip_code, :credit_score, :mortgage_purpose, :property_value, :property_usage, :property_type, :down_payment, :mortgage_balance)
+    params.permit(
+      :zip_code,
+      :credit_score,
+      :mortgage_purpose,
+      :property_value,
+      :property_usage,
+      :property_type,
+      :down_payment,
+      :mortgage_balance,
+      :loan_amount,
+      :lender_name,
+      :lender_nmls_id,
+      :amortization_type,
+      :interest_rate,
+      :period,
+      :total_closing_cost,
+      :lender_credits,
+      :monthly_payment,
+      :loan_type,
+      :apr,
+      :pmi_monthly_premium_amount,
+      :lender_underwriting_fee,
+      :appraisal_fee,
+      :tax_certification_fee,
+      :flood_certification_fee,
+      :outside_signing_service_fee,
+      :concurrent_loan_charge_fee,
+      :endorsement_charge_fee,
+      :lender_title_policy_fee,
+      :recording_service_fee,
+      :settlement_agent_fee,
+      :recording_fees,
+      :owner_title_policy_fee,
+      :prepaid_item_fee
+    )
   end
 end

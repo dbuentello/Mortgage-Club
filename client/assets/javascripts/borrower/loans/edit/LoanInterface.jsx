@@ -30,6 +30,7 @@ var LoanInterface = React.createClass({
     var activeItem = _.findWhere(menu, {complete: false}) || menu[0];
 
     return {
+      remain_step: _.filter(menu, {complete: false}).length,
       menu: menu,
       active: activeItem,
       loan: loan,
@@ -47,7 +48,7 @@ var LoanInterface = React.createClass({
 
     return (
       <div className="content accountPart editLoan">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
             <div className="col-sm-3 hidden-xs hidden-sm subnav">
               <div id="sidebar">
@@ -63,7 +64,54 @@ var LoanInterface = React.createClass({
                     );
                   }, this)}
                 </ul>
+                {
+                  this.state.loan.lender_name
+                  ?
+                  <div id={"summary"}>
+
+                    <p>Summary</p>
+                    <table>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>Lender</td>
+          <td>{this.state.loan.lender_name}</td>
+        </tr>
+        <tr>
+          <td>Loan type</td>
+          <td>{this.state.loan.amortization_type}</td>
+        </tr>
+        <tr>
+          <td>Propertye value</td>
+          {
+            this.state.loan.purpose == "purchase"
+            ?
+            <td>{this.state.loan.subject_property.purchase_price}</td>
+            :
+            <td>{this.state.loan.subject_property.original_purchase_price}</td>
+
+          }
+
+        </tr>
+        <tr>
+          <td>Loan amount</td>
+          <td>{this.state.loan.amount}</td>
+        </tr>
+        <tr>
+          <td>Rate</td>
+          <td>{this.state.loan.interest_rate}</td>
+        </tr>
+      </table>
+      <p id="remain_step"> <strong>{this.state.remain_step}</strong> steps remaining </p>
+    </div>
+                  :
+                  null
+                }
+
               </div>
+
               <div className="swipe-area">
                 <a href="#" data-toggle=".subnav" id="sidebar-toggle">
                   <span className="glyphicon glyphicon-arrow-right"></span>
@@ -218,6 +266,10 @@ var LoanInterface = React.createClass({
         current_step: step
       },
       success: function(response) {
+        var menu = this.buildMenu(response.loan);
+        this.setState({
+          remain_step: _.filter(menu, {complete: false}).length
+        });
         if (this.loanIsCompleted(response.loan)) {
           this.goToAllDonePage(response.loan);
         }
@@ -225,7 +277,6 @@ var LoanInterface = React.createClass({
           if (last_step == false) {
             this.setupMenu(response, step, skip_change_page);
           } else {
-            var menu = this.buildMenu(response.loan);
             var uncompleted_step = _.findWhere(menu, {complete: false});
 
             if (uncompleted_step) {

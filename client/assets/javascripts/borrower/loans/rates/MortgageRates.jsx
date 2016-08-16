@@ -19,7 +19,8 @@ var MortgageRates = React.createClass({
       helpMeChoose: false,
       signDoc: false,
       selectedRate: null,
-      storedCriteria: []
+      storedCriteria: [],
+      selected_program: this.props.bootstrapData.selected_program
     }
   },
 
@@ -63,7 +64,6 @@ var MortgageRates = React.createClass({
     $(".pie-chart").empty();
     $("span.glyphicon-menu-up").click();
   },
-
   componentDidMount: function() {
     $("input[name=30years]").trigger("click");
   },
@@ -88,14 +88,34 @@ var MortgageRates = React.createClass({
               </div>
               <div className="col-sm-12 col-md-9 account-content programs-list">
                 <div className="mobile-xs-quote">
-                  <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
-                    <p>
-                      We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
-                    </p>
-                    <p>
-                      Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
-                    </p>
-                  </div>
+                  { this.state.selected_program == 0 ?
+                    <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
+                      <p>
+                        We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
+                      </p>
+                      <p>
+                        Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
+                      </p>
+                    </div>
+                  : null }
+                  { this.state.selected_program == 2 ?
+                    <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
+                      <p>
+                        Great news, you should qualify for the loan program that you selected. Click <i>Continue</i> or select a different loan program if you’d like.
+                      </p>
+                      <p>
+
+                      </p>
+                    </div>
+ : null }
+ { this.state.selected_program == 1 ?
+   <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
+     <p>
+       Oops, your rate and terms have changed. It’s either because lenders have updated their rates or you don’t qualify for the loan program that you selected. Please see your updated loan programs below.
+     </p>
+
+   </div>
+ : null }
                   <div className="row form-group visible-xs visible-sm">
                     <div className="col-xs-12 text-left text-xs-center text-sm-center">
                       <a className="btn text-uppercase help-me-choose-btn" onClick={this.helpMeChoose}>help me choose</a>
@@ -133,12 +153,35 @@ var MortgageRates = React.createClass({
                   </div>
                 </div>
                 <div className="row actions hidden-xs hidden-sm">
+                  { this.state.selected_program == 0 ?
+
+                  <div>
                   <p>
                     We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
                   </p>
                   <p>
                     Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
                   </p>
+                  </div>
+                : null }
+                { this.state.selected_program == 2 ?
+                  <div>
+                    <p>
+                      Great news, you should qualify for the loan program that you selected. Click <i>Continue</i> or select a different loan program if you’d like.
+                    </p>
+                    <p>
+
+                    </p>
+                  </div>
+: null }
+{ this.state.selected_program == 1 ?
+  <div>
+    <p>
+      Oops, your rate and terms have changed. It’s either because lenders have updated their rates or you don’t qualify for the loan program that you selected. Please see your updated loan programs below.
+    </p>
+
+  </div>
+: null }
                   <div className="row form-group actions-group" id="mortgageActions">
                     <div className="col-md-6">
                       <div className="row">
