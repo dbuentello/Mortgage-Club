@@ -221,7 +221,9 @@ var LoanInterface = React.createClass({
 
   setupMenu: function(response, step, skip_change_page) {
     var menu = this.buildMenu(response.loan);
-
+    this.setState({
+      remain_step: _.filter(menu, {complete: false}).length
+    });
     this.setState({
       loan: response.loan,
       menu: menu
