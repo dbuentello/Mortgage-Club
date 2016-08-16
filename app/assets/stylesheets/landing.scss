@@ -176,3 +176,10 @@
     top: 5px !important;
   }
 }
+.how-part-new{
+  @include respond-to(tablet) {
+    img {
+      margin-top: 80px;
+    }
+  }
+}
