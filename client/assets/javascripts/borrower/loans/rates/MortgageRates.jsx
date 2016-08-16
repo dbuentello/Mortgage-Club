@@ -20,7 +20,6 @@ var MortgageRates = React.createClass({
       signDoc: false,
       selectedRate: null,
       storedCriteria: [],
-      showRates: true,
       selected_program: this.props.bootstrapData.selected_program
     }
   },
@@ -65,15 +64,6 @@ var MortgageRates = React.createClass({
     $(".pie-chart").empty();
     $("span.glyphicon-menu-up").click();
   },
-  componentWillMount: function(){
-    if(this.props.bootstrapData.selected_program != null){
-      this.setState({showRates: false});
-      // var params = {};
-      // params["rate"] = this.props.bootstrapData.selected_program;
-      // params = $.param(params);
-      // location.href = "esigning/" + this.props.bootstrapData.currentLoan.id + "?" + params;
-    }
-  },
   componentDidMount: function() {
     $("input[name=30years]").trigger("click");
   },
@@ -85,8 +75,6 @@ var MortgageRates = React.createClass({
 
     return (
       <div>
-        { this.state.showRates ?
-        <div>
         {
           this.state.helpMeChoose
           ?
@@ -180,70 +168,6 @@ var MortgageRates = React.createClass({
             </div>
         }
       </div>
-
-      :<div className="content container mortgage-rates padding-top-0 row-eq-height">
-        <div className="col-sm-12 col-md-3 hidden-xs hidden-sm subnav programs-filter">
-          <Filter programs={this.props.bootstrapData.selected_program} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterProgram}></Filter>
-        </div>
-        <div className="col-sm-12 col-md-9 account-content programs-list">
-          <div className="mobile-xs-quote">
-            <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
-              <p>
-                Great news, you should qualify for the loan program that you selected. Please review rate and terms below and click Continue.
-
-              </p>
-
-            </div>
-            <div className="row form-group visible-xs visible-sm">
-              <div className="col-xs-12 text-left text-xs-center text-sm-center">
-                <a className="btn text-uppercase help-me-choose-btn" onClick={this.helpMeChoose}>help me choose</a>
-              </div>
-              <div className="col-xs-5 text-left">
-                <a className="btn btn-filter text-uppercase" data-toggle="modal" data-target="#filterQuotes">Filter</a>
-              </div>
-              <div className="modal fade filter-modal" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div className="modal-dialog modal-sm" role="document">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div className="modal-body">
-                      <Filter programs={this.props.bootstrapData.selected_program} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterProgram}></Filter>
-                    </div>
-                    <div className="modal-footer">
-                      <button type="button" className="btn select-btn" data-dismiss="modal">OK</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-xs-3 text-xs-right text-sm-right">
-                <b>Sort by</b>
-              </div>
-              <div className="col-xs-4 select-box pull-right">
-                <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
-                  <option value="apr">APR</option>
-                  <option value="pmt">Monthly Payment</option>
-                  <option value="rate">Rate</option>
-                  <option value="tcc">Total Closing Cost</option>
-                </select>
-                <span>&#9660;</span>
-              </div>
-            </div>
-          </div>
-          <div className="row actions hidden-xs hidden-sm">
-            <p>
-              Great news, you should qualify for the loan program that you selected. Please review rate and terms below and click Continue.
-            </p>
-
-          
-          </div>
-          <div id="mortgagePrograms">
-            <List loanAmount={this.props.bootstrapData.currentLoan.amount} programs={this.state.selected_program} subjectProperty={subjectProperty} selectRate={this.selectRate} helpMeChoose={false}/>
-          </div>
-        </div>
-      </div>
-     }
-    </div>
     );
   },
 
