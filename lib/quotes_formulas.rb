@@ -16,7 +16,7 @@ module QuotesFormulas
   REFINANCE = 2
 
   def get_valid_quotes(quotes)
-    quotes.select { |quote| quote["DiscountPts"] <= 0.125  && quote["ProductFamily"] == "CONVENTIONAL" }
+    quotes.select { |quote| quote["DiscountPts"] <= 0.125 && quote["ProductFamily"] == "CONVENTIONAL" }
   end
 
   def get_apr(quote)

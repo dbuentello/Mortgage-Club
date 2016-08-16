@@ -28,10 +28,11 @@ class Users::RatesController < Users::BaseController
   end
 
   private
+
   def filter_program(rate_programs)
     selected_rate = nil
     rate_programs.each_with_index do |r, index|
-      if(r[:lender_name] == @loan.lender_name && r[:product] == @loan.amortization_type && r[:interest_rate] == @loan.interest_rate)
+      if r[:lender_name] == @loan.lender_name && r[:product] == @loan.amortization_type && r[:interest_rate] == @loan.interest_rate
         r[:selected_program] = true
         @selected_program = 2 # has lender before and rate has no change.
         selected_rate = r
