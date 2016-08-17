@@ -27,6 +27,14 @@ var List = React.createClass({
       if($("span.glyphicon-menu-down").length > 0){
         $("span.glyphicon-menu-down")[0].click();
       }
+    }else {
+      console.log("asdasdasd");
+      if(this.props.selected_program == 2) {
+        if($(".board-content-toggle span.glyphicon-menu-down").length > 0){
+          console.log("inddd");
+          $(".board-content-toggle span.glyphicon-menu-down")[0].click();
+        }
+      }
     }
 
     $('.collapse').on('shown.bs.collapse', function(){
@@ -148,7 +156,8 @@ var List = React.createClass({
                 <div className="board-header">
                   <div className="row">
                     <div className="col-md-3 col-sm-6 col-xs-4">
-                      <img className="img-responsive" src={rate.logo_url}/>
+                      <img src={rate.logo_url}/>
+
                       <h4 className="nmls-title hidden-xs">NMLS: #{rate.nmls}</h4>
                     </div>
                     <div className="col-md-3 col-sm-6 col-sm-6 col-xs-8">
