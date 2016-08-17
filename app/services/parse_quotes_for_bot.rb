@@ -2,11 +2,11 @@ module ParseQuotesForBot
   include ActionView::Helpers::NumberHelper
 
   def get_valid_quotes(quotes)
-    quotes.select { |quote| quote["DiscountPts"] <= 0.125 }
+    quotes.select { |quote| quote["ProductFamily"] == "CONVENTIONAL" }
   end
 
   def calculate_apr(program)
-    program["DiscountPts"] == 0.125 ? program["Rate"] : program["APR"]
+    program["APR"]
   end
 
   def get_monthly_payment(quote)
@@ -43,7 +43,7 @@ module ParseQuotesForBot
   def get_period(quote)
     return 360 if arm?(quote)
 
-    quote["ProductTerm"].to_i * 12
+    quote["ProductTerm"].delete('F').to_i * 12
   end
 
   def get_interest_rate(quote)
@@ -52,16 +52,11 @@ module ParseQuotesForBot
 
   def get_lender_credits(quote, admin_fee)
     return 0 if quote["DiscountPts"].nil?
-    return 0 if quote["DiscountPts"].to_f >= 0 && quote["DiscountPts"].to_f <= 0.125
 
-    total_fee = quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"] + admin_fee
-
-    return 0 if total_fee >= 0 && total_fee <= 1000
-
-    total_fee
+    quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"] + admin_fee
   end
 
   def arm?(quote)
-    quote["ProductTerm"].include? "/1"
+    quote["ProductType"].include? "ARM"
   end
 end

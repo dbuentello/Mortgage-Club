@@ -142,6 +142,7 @@ var Quotes = React.createClass({
         apr: rate.apr,
         lender_nmls_id: rate.nmls,
         pmi_monthly_premium_amount: rate.pmi_monthly_premium_amount,
+        discount_pts: rate.discount_pts,
         lender_underwriting_fee: lender_underwriting_fee_object === undefined ? 0 : lender_underwriting_fee_object.FeeAmount,
         appraisal_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Appraisal Fee"),
         tax_certification_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Tax Certification Fee"),

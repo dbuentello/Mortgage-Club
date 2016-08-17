@@ -27,6 +27,14 @@ var List = React.createClass({
       if($("span.glyphicon-menu-down").length > 0){
         $("span.glyphicon-menu-down")[0].click();
       }
+    }else {
+      console.log("asdasdasd");
+      if(this.props.selected_program == 2) {
+        if($(".board-content-toggle span.glyphicon-menu-down").length > 0){
+          console.log("inddd");
+          $(".board-content-toggle span.glyphicon-menu-down")[0].click();
+        }
+      }
     }
 
     $('.collapse').on('shown.bs.collapse', function(){
@@ -70,13 +78,6 @@ var List = React.createClass({
         }
       }
     }
-  },
-
-  calDownPayment: function(down_payment, loan_amount){
-    if(!down_payment)
-      return 0;
-
-    return (parseFloat(down_payment/(down_payment + loan_amount)) * 100).toFixed(0);
   },
 
   toggleHandler: function(index, event){
@@ -155,7 +156,8 @@ var List = React.createClass({
                 <div className="board-header">
                   <div className="row">
                     <div className="col-md-3 col-sm-6 col-xs-4">
-                      <img className="img-responsive" src={rate.logo_url}/>
+                      <img src={rate.logo_url}/>
+
                       <h4 className="nmls-title hidden-xs">NMLS: #{rate.nmls}</h4>
                     </div>
                     <div className="col-md-3 col-sm-6 col-sm-6 col-xs-8">
@@ -204,29 +206,17 @@ var List = React.createClass({
                       <div className="row">
                         <div className="col-xs-6">
                           <p className="col-xs-12 cost">Product type</p>
-                          <p className="col-xs-12 cost">Interest Rate</p>
+                          <p className="col-xs-12 cost">Interest rate</p>
                           <p className="col-xs-12 cost">APR</p>
+                          <p className="col-xs-12 cost">Property value</p>
                           <p className="col-xs-12 cost">Loan amount</p>
-                          {
-                            rate.down_payment == null
-                            ?
-                              null
-                            :
-                              <p className="col-xs-12 cost">Down payment</p>
-                          }
                         </div>
                         <div className="col-xs-6">
                           <p className="col-xs-12 cost">{rate.product}</p>
                           <p className="col-xs-12 cost">{this.commafy(rate.interest_rate * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.commafy(rate.apr * 100, 3)}%</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(rate.property_value, 0, "$")}</p>
                           <p className="col-xs-12 cost">{this.formatCurrency(rate.loan_amount, 0, "$")}</p>
-                          {
-                            rate.down_payment == null
-                            ?
-                              null
-                            :
-                              <p className="col-xs-12 cost">{this.formatCurrency(rate.down_payment, 0, "$")} ({this.calDownPayment(rate.down_payment, rate.loan_amount)}%)</p>
-                          }
                         </div>
                       </div>
                       <h4>Estimated Closing Costs</h4>

@@ -124,13 +124,6 @@ var List = React.createClass({
     }
   },
 
-  calcDownPayment: function(down_payment, loan_amount){
-    if(!down_payment)
-      return 0;
-
-    return (parseFloat(down_payment/(down_payment + loan_amount)) * 100).toFixed(0);
-  },
-
   totalMonthlyPayment: function(monthly_payment, mtg_insurrance, tax, hazard_insurrance, hoa_due, mortgage_insurance_premium){
     var total = 0.0;
     if(monthly_payment){
@@ -163,8 +156,8 @@ var List = React.createClass({
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
                   <div className="row">
-                    <div className="col-xs-4 col-md-3 col-sm-6 col-sm-6">
-                      <img className="img-responsive" src={quote.logo_url}/>
+                    <div className="col-xs-4 col-md-3 col-sm-6">
+                      <img src={quote.logo_url}/>
                       <h4 className="nmls-title hidden-xs">NMLS: #{quote.nmls}</h4>
                     </div>
                     <div className="col-xs-8 col-md-3 col-sm-6 col-sm-6">
@@ -208,29 +201,17 @@ var List = React.createClass({
                       <div className="row">
                         <div className="col-xs-6">
                           <p className="col-xs-12 cost">Product type</p>
-                          <p className="col-xs-12 cost">Interest Rate</p>
+                          <p className="col-xs-12 cost">Interest rate</p>
                           <p className="col-xs-12 cost">APR</p>
+                          <p className="col-xs-12 cost">Property value</p>
                           <p className="col-xs-12 cost">Loan amount</p>
-                          {
-                            quote.down_payment == null
-                            ?
-                              null
-                            :
-                              <p className="col-xs-12 cost">Down payment</p>
-                          }
                         </div>
                         <div className="row-no-padding col-xs-6">
                           <p className="col-xs-12 cost">{quote.product}</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.interest_rate * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.apr * 100, 3)}%</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(quote.property_value, 0, "$")}</p>
                           <p className="col-xs-12 cost">{this.formatCurrency(quote.loan_amount, 0, "$")}</p>
-                          {
-                            quote.down_payment == null
-                            ?
-                              null
-                            :
-                              <p className="col-xs-12 cost">{this.formatCurrency(quote.down_payment, 0, "$")} ({this.calcDownPayment(quote.down_payment, quote.loan_amount)}%)</p>
-                          }
                         </div>
                       </div>
                       <h4>Estimated Closing Costs</h4>
