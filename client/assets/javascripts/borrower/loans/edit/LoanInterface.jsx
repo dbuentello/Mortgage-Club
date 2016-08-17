@@ -102,8 +102,21 @@ var LoanInterface = React.createClass({
         </tr>
         <tr>
           <td>Rate</td>
-          <td>{this.formatPercent(this.state.loan.interest_rate)}</td>
+          <td>{this.formatPercent(this.state.loan.interest_rate*100)}</td>
         </tr>
+        {this.state.loan.discount_pts > 0 ?
+          <tr>
+            <td>Discount points</td>
+            <td>{this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")}</td>
+          </tr>
+          :
+          <tr>
+            <td>Lender credit</td>
+            <td>({this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")})</td>
+          </tr>
+        }
+
+
       </table>
       <p id="remain_step"> <strong>{this.state.remain_step}</strong> steps remaining </p>
     </div>

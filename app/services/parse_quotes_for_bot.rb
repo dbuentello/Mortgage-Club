@@ -2,7 +2,7 @@ module ParseQuotesForBot
   include ActionView::Helpers::NumberHelper
 
   def get_valid_quotes(quotes)
-    quotes.select { quote["ProductFamily"] == "CONVENTIONAL" }
+    quotes.select { |quote| quote["ProductFamily"] == "CONVENTIONAL" }
   end
 
   def calculate_apr(program)
