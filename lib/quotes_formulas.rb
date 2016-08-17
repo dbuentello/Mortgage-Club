@@ -16,11 +16,11 @@ module QuotesFormulas
   REFINANCE = 2
 
   def get_valid_quotes(quotes)
-    quotes.select { |quote| quote["DiscountPts"] <= 0.125 && quote["ProductFamily"] == "CONVENTIONAL" }
+    quotes.select { quote["ProductFamily"] == "CONVENTIONAL" }
   end
 
   def get_apr(quote)
-    discount_pts_equals_to_0_125?(quote) ? get_interest_rate(quote) : quote["APR"] / 100
+    quote["APR"] / 100
   end
 
   def get_lender_info(quotes)
@@ -59,11 +59,8 @@ module QuotesFormulas
 
   def get_lender_credits(quote, admin_fee)
     return 0 if quote["DiscountPts"].nil?
-    return 0 if quote["DiscountPts"].to_f >= 0 && quote["DiscountPts"].to_f <= 0.125
 
     quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"] + admin_fee
-    # return 0 if total_fee >= 0 && total_fee <= 1000
-    # total_fee
   end
 
   def get_total_closing_cost(quote, admin_fee, thirty_fees = nil)
@@ -168,10 +165,6 @@ module QuotesFormulas
 
   def arm?(quote)
     quote["ProductType"].include? "ARM"
-  end
-
-  def discount_pts_equals_to_0_125?(quote)
-    quote["DiscountPts"] == 0.125
   end
 
   def hide_admin_fee?(quote, admin_fee)
