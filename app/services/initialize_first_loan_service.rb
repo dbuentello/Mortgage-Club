@@ -11,6 +11,7 @@ class InitializeFirstLoanService
   def call
     init_properties
 
+    loan_type = info["loan_type"].nil? ? nil : (info["loan_type"] == "CONVENTIONAL" ? info["loan_type"].capitalize : info["loan_type"].uppercase)
     loan = Loan.create(
       purpose: info["mortgage_purpose"],
       down_payment: info["down_payment"],
@@ -23,7 +24,7 @@ class InitializeFirstLoanService
       lender_nmls_id: info["lender_nmls_id"],
       lender_credits: info["lender_credits"],
       monthly_payment: info["monthly_payment"],
-      loan_type: info["loan_type"] == "CONVENTIONAL" ? info["loan_type"].capitalize : info["loan_type"].uppercase,
+      loan_type: loan_type,
       estimated_closing_costs: info["total_closing_cost"],
       pmi_monthly_premium_amount: info["pmi_monthly_premium_amount"],
       user: user,
