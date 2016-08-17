@@ -4,7 +4,7 @@ module LoanTekServices
   class ReadQuotes
     extend QuotesFormulas
 
-    def self.call(quotes, loan_purpose, fees)
+    def self.call(quotes, loan_purpose, fees, property_value)
       lender_info = get_lender_info(quotes)
       programs = []
       quotes = get_valid_quotes(quotes)
@@ -21,6 +21,7 @@ module LoanTekServices
         next if existing_program?(programs: programs, apr: apr, rate: rate, lender_name: lender_name, discount_pts: discount_pts, product: product)
 
         program = {
+          property_value: property_value,
           lender_name: lender_name,
           product: product,
           apr: apr,
