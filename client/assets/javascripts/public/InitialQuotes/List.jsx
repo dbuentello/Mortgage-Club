@@ -163,8 +163,8 @@ var List = React.createClass({
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
                   <div className="row">
-                    <div className="col-xs-4 col-md-3 col-sm-6 col-sm-6">
-                      <img className="img-responsive" src={quote.logo_url}/>
+                    <div className="col-xs-4 col-md-3 col-sm-6">
+                      <img src={quote.logo_url}/>
                       <h4 className="nmls-title hidden-xs">NMLS: #{quote.nmls}</h4>
                     </div>
                     <div className="col-xs-8 col-md-3 col-sm-6 col-sm-6">
