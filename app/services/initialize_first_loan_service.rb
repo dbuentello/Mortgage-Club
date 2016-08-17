@@ -160,7 +160,6 @@ class InitializeFirstLoanService
 
   def get_loan_type
     loan_type = nil
-    byebug
     if info["loan_type"].present?
       if info["loan_type"] == "CONVENTIONAL"
         loan_type = info["loan_type"].capitalize
