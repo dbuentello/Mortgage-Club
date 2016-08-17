@@ -101,7 +101,7 @@ var MortgageRates = React.createClass({
                   { this.state.selected_program == 2 ?
                     <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
                       <p>
-                        Great news, you should qualify for the loan program that you selected. Click <i>Continue</i> or select a different loan program if you’d like.
+                        Great news, you should qualify for the loan program that you selected. Please review the rate and terms below and click <i>Continue</i> or select a different loan program if you’d like.
                       </p>
                       <p>
 
@@ -167,7 +167,7 @@ var MortgageRates = React.createClass({
                 { this.state.selected_program == 2 ?
                   <div>
                     <p>
-                      Great news, you should qualify for the loan program that you selected. Click <i>Continue</i> or select a different loan program if you’d like.
+                      Great news, you should qualify for the loan program that you selected. Please review the rate and terms below and click <i>Continue</i> or select a different loan program if you’d like.
                     </p>
                     <p>
 
