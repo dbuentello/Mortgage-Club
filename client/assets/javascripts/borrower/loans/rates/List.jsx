@@ -29,9 +29,11 @@ var List = React.createClass({
       }
     }else {
       console.log("asdasdasd");
-      if($(".board-content-toggle span.glyphicon-menu-down").length > 0){
-        console.log("inddd");
-        $(".board-content-toggle span.glyphicon-menu-down")[0].click();
+      if(this.props.selected_program == 2) {
+        if($(".board-content-toggle span.glyphicon-menu-down").length > 0){
+          console.log("inddd");
+          $(".board-content-toggle span.glyphicon-menu-down")[0].click();
+        }
       }
     }
 
