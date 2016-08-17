@@ -10,6 +10,7 @@ var CreditCheck = require("./FormCreditCheck");
 var Documents = require("./FormDocuments");
 var AllDonePage = require("./AllDonePage");
 var CheckCompletedLoanMixin = require('mixins/CheckCompletedLoanMixin');
+var TextFormatMixin = require("mixins/TextFormatMixin");
 
 var TabProperty = require('mixins/CompletedLoanMixins/TabProperty');
 var TabBorrower = require('mixins/CompletedLoanMixins/TabBorrower');
@@ -20,7 +21,7 @@ var TabAsset = require('mixins/CompletedLoanMixins/TabAsset');
 var TabCreditCheck = require('mixins/CompletedLoanMixins/TabCreditCheck');
 
 var LoanInterface = React.createClass({
-  mixins: [CheckCompletedLoanMixin],
+  mixins: [CheckCompletedLoanMixin, TextFormatMixin],
 
   getInitialState: function() {
     var loan = this.props.bootstrapData.currentLoan;
@@ -69,7 +70,7 @@ var LoanInterface = React.createClass({
                   ?
                   <div id={"summary"}>
 
-                    <p>Summary</p>
+                    <p>SUMMARY</p>
                     <table>
         <tr>
           <th></th>
@@ -84,24 +85,24 @@ var LoanInterface = React.createClass({
           <td>{this.state.loan.amortization_type}</td>
         </tr>
         <tr>
-          <td>Propertye value</td>
+          <td>Property value</td>
           {
             this.state.loan.purpose == "purchase"
             ?
-            <td>{this.state.loan.subject_property.purchase_price}</td>
+            <td>{this.formatCurrency(this.state.loan.subject_property.purchase_price, 0, "$")}</td>
             :
-            <td>{this.state.loan.subject_property.original_purchase_price}</td>
+            <td>{this.formatCurrency(this.state.loan.subject_property.original_purchase_price, 0, "$")}</td>
 
           }
 
         </tr>
         <tr>
           <td>Loan amount</td>
-          <td>{this.state.loan.amount}</td>
+          <td>{this.formatCurrency(this.state.loan.amount, 0, "$")}</td>
         </tr>
         <tr>
           <td>Rate</td>
-          <td>{this.state.loan.interest_rate}</td>
+          <td>{this.formatPercent(this.state.loan.interest_rate)}</td>
         </tr>
       </table>
       <p id="remain_step"> <strong>{this.state.remain_step}</strong> steps remaining </p>
