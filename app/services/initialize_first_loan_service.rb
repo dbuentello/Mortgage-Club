@@ -43,7 +43,8 @@ class InitializeFirstLoanService
       settlement_agent_fee: info["settlement_agent_fee"],
       recording_fees: info["recording_fees"],
       owner_title_policy_fee: info["owner_title_policy_fee"],
-      prepaid_item_fee: info["prepaid_item_fee"]
+      prepaid_item_fee: info["prepaid_item_fee"],
+      discount_pts: info["discount_pts"]
     )
 
     assign_loan_to_billy(loan)

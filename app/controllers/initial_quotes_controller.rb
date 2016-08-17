@@ -129,7 +129,8 @@ class InitialQuotesController < ApplicationController
       :settlement_agent_fee,
       :recording_fees,
       :owner_title_policy_fee,
-      :prepaid_item_fee
+      :prepaid_item_fee,
+      :discount_pts
     )
   end
 end
