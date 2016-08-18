@@ -214,6 +214,8 @@
 }
 
 .mortgage-rates {
+  padding-left: 0;
+  padding-right: 0;
   .filter-sidebar {
     label {
       font-weight: normal;
@@ -232,7 +234,6 @@
       margin-bottom: 80px;
     }
   }
-  background: linear-gradient(to right, #f6f6f6 , white);
   @include respond-to(mobile){
     background: none;
   };
@@ -273,8 +274,7 @@
   }
 
   .programs-filter {
-    margin-top: 0px;
-    margin-left: -16px;
+    
     padding: 20px;
   }
   .quote-filter {
