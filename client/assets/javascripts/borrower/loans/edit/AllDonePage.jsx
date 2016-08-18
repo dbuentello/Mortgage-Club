@@ -12,7 +12,7 @@ var FormCreditCheck = React.createClass({
 
   render: function() {
     return (
-      <div className="col-xs-12 col-sm-9 account-content">
+      <div className="col-xs-12 col-sm-12 col-md-3 account-content">
         {
           this.props.loan.lender_name
           ?
