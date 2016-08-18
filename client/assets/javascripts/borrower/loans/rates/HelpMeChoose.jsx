@@ -286,6 +286,20 @@ var HelpMeChoose = React.createClass({
                     {this.commafy(this.state.bestRate.apr * 100, 3)}%
                   </div>
                 </div>
+                {
+                  this.state.bestRate.lender_credits == 0
+                  ?
+                    null
+                  :
+                    <div className='row secondary-cost'>
+                      <div className='col-xs-6 col-md-6'>
+                        {this.state.bestRate.lender_credits < 0 ? "Lender credit" : "Discount points"}
+                      </div>
+                      <div className='col-xs-6 col-md-6'>
+                        {this.formatCurrency(this.state.bestRate.lender_credits, 0, "$")}
+                      </div>
+                    </div>
+                }
                 <div className='row secondary-cost'>
                   <div className='col-xs-6 col-md-6'>
                     Estimated Closing Costs
