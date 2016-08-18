@@ -4,7 +4,7 @@ module LoanTekServices
   class ReadQuotes
     extend QuotesFormulas
 
-    def self.call(quotes, loan_purpose, fees, property_value)
+    def self.call(quotes, loan_purpose, fees, property_value, is_cash_out = false)
       lender_info = get_lender_info(quotes)
       programs = []
       quotes = get_valid_quotes(quotes)
@@ -40,7 +40,9 @@ module LoanTekServices
           loan_type: quote["ProductFamily"],
           discount_pts: discount_pts,
           pmi_monthly_premium_amount: quote["MIP"].to_f,
-          fha_upfront_premium_amount: get_fha_upfront_premium_amount(quote)
+          fha_upfront_premium_amount: get_fha_upfront_premium_amount(quote),
+          is_cash_out: is_cash_out,
+          loan_to_value: quote["LoanToValue"].to_f
         }
 
         programs << program

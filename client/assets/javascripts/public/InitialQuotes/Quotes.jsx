@@ -20,8 +20,8 @@ var Quotes = React.createClass({
       monthlyPayment: this.props.bootstrapData.monthly_payment,
       storedCriteria: [],
       rate_alert: true,
-      code_id: this.props.bootstrapData.code_id
-
+      code_id: this.props.bootstrapData.code_id,
+      dataCookies: this.props.bootstrapData.data_cookies
     }
   },
 
@@ -31,22 +31,26 @@ var Quotes = React.createClass({
   },
 
   autoClickFilter: function() {
-    if(this.props.bootstrapData.selected_programs) {
-      switch(this.props.bootstrapData.selected_programs) {
-        case "30yearFixed":
-          $("input[name=30years]").trigger("click");
-          break;
-        case "15yearFixed":
-          $("input[name=15years]").trigger("click");
-          break;
-        case "5yearARM":
-          $("input[name=51arm]").trigger("click");
-          break;
-      }
+    $("input[name=30years]")[0].click();
+    if(this.state.dataCookies.mortgage_purpose == "refinance"){
+      $("input[id*='No Cash Out']")[0].click();
     }
-    else {
-      $("input[name=30years]").trigger("click");
-    }
+
+    // if(this.props.bootstrapData.selected_programs) {
+    //   switch(this.props.bootstrapData.selected_programs) {
+    //     case "30yearFixed":
+    //       $("input[name=30years]").trigger("click");
+    //       break;
+    //     case "15yearFixed":
+    //       $("input[name=15years]").trigger("click");
+    //       break;
+    //     case "5yearARM":
+    //       $("input[name=51arm]").trigger("click");
+    //       break;
+    //   }
+    // }
+    // else {
+    // }
   },
 
   onFilterQuote: function(filteredQuotes) {
@@ -225,7 +229,7 @@ var Quotes = React.createClass({
                   :
                     <div className="content container mortgage-rates padding-top-0 row-eq-height">
                       <div className="col-sm-12 col-md-3 subnav hidden-xs hidden-sm programs-filter">
-                        <Filter rate_alert={this.state.rate_alert} code_id={this.state.code_id} programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
+                        <Filter rate_alert={this.state.rate_alert} code_id={this.state.code_id} programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote} dataCookies={this.state.dataCookies}></Filter>
                       </div>
                       <div className="col-sm-12 col-md-9 account-content">
                         <div className="mobile-xs-quote">

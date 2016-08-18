@@ -20,16 +20,26 @@ var Filter = React.createClass({
       _.each(fields, function (field) {
         state[field.name] = null;
       });
+      state.dataCookies = this.props.dataCookies;
 
       return state;
     },
     getDefaultProps: function() {
-        return {productCriteria: [], lenderCriteria: [], allCriteria: []};
+        return {productCriteria: [], lenderCriteria: [], cashOutCriteria: [], allCriteria: []};
     },
     onChangeCriteria: function(option, type) {
-        var criteria = type == "product"
-            ? this.props.productCriteria
-            : this.props.lenderCriteria;
+        var criteria;
+        if(type == "product"){
+          criteria = this.props.productCriteria;
+        }
+        else{
+          if(type == "lender"){
+            criteria = this.props.lenderCriteria;
+          }else{
+            criteria = this.props.cashOutCriteria;
+          }
+        }
+
         var indexOfOption = criteria.indexOf(option);
 
         // user has already selected this option
@@ -38,7 +48,7 @@ var Filter = React.createClass({
         } else {
             criteria.push(option);
         }
-        var filteredPrograms = this.filterPrograms(this.props.programs, this.props.productCriteria, this.props.lenderCriteria);
+        var filteredPrograms = this.filterPrograms(this.props.programs, this.props.productCriteria, this.props.lenderCriteria, this.props.cashOutCriteria);
         this.props.onFilterProgram(filteredPrograms);
 
         var allCriteria = this.props.allCriteria;
@@ -54,6 +64,7 @@ var Filter = React.createClass({
     isCriteriaChecked: function(option) {
         return (this.props.allCriteria.indexOf(option) !== -1);
     },
+
     valid: function() {
       var isValid = true;
       var requiredFields = {};
@@ -103,77 +114,74 @@ var Filter = React.createClass({
             <div>
                 <div id="sidebar" className="filter-sidebar">
                   {
+                    this.props.rate_alert ?
+                    <span>
+                          <a className="btn btn-mc" data-toggle="modal" data-target="#email_alert"> Rate alert </a>
 
-                                        this.props.rate_alert ?
-                                        <span>
-                                              <a className="btn btn-mc" data-toggle="modal" data-target="#email_alert"> Rate alert </a>
+                          <div className="modal fade" id="email_alert" tabIndex="-1" role="dialog" aria-labelledby="email_alert_label">
+                              <div className="modal-dialog modal-md" role="document">
+                                  <div className="modal-content">
+                                      <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
+                                      <div className="modal-body text-center container">
+                                          <h2>Rate Drop Alert</h2>
+                                          <h3 className="mc-blue-primary-text">Sign up for MortgageClub's rate watch and we'll email you when rates drop.</h3>
+                                              <form class="form-horizontal text-center" data-remote="true" id="new_rate_alert" action="/quotes/set_rate_alert" accept-charset="UTF-8" method="post">
+                                                <div className="form-group">
+                                                  <div className="col-sm-6 text-left">
+                                                    <TextField
+                                                      activateRequiredField={this.state[fields.firstName.error]}
+                                                      label={fields.firstName.label}
+                                                      keyName={fields.firstName.keyName}
+                                                      value={this.state[fields.firstName.keyName]}
+                                                      editable={true}
+                                                      onChange={this.onChange}
+                                                      onBlur={this.onBlur}
+                                                      editMode={true}/>
+                                                  </div>
+                                                  <div className="col-sm-6 text-left">
 
-                                              <div className="modal fade" id="email_alert" tabIndex="-1" role="dialog" aria-labelledby="email_alert_label">
-                                                  <div className="modal-dialog modal-md" role="document">
-                                                      <div className="modal-content">
-                                                          <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
-                                                          <div className="modal-body text-center container">
-                                                              <h2>Rate Drop Alert</h2>
-                                                              <h3 className="mc-blue-primary-text">Sign up for MortgageClub's rate watch and we'll email you when rates drop.</h3>
-                                                                  <form class="form-horizontal text-center" data-remote="true" id="new_rate_alert" action="/quotes/set_rate_alert" accept-charset="UTF-8" method="post">
-                                                                    <div className="form-group">
-                                                                      <div className="col-sm-6 text-left">
-                                                                        <TextField
-                                                                          activateRequiredField={this.state[fields.firstName.error]}
-                                                                          label={fields.firstName.label}
-                                                                          keyName={fields.firstName.keyName}
-                                                                          value={this.state[fields.firstName.keyName]}
-                                                                          editable={true}
-                                                                          onChange={this.onChange}
-                                                                          onBlur={this.onBlur}
-                                                                          editMode={true}/>
-                                                                      </div>
-                                                                      <div className="col-sm-6 text-left">
+                                                    <TextField
+                                                      activateRequiredField={this.state[fields.lastName.error]}
+                                                      label={fields.lastName.label}
+                                                      keyName={fields.lastName.keyName}
+                                                      value={this.state[fields.lastName.keyName]}
+                                                      editable={true}
+                                                      onChange={this.onChange}
+                                                      onBlur={this.onBlur}
+                                                      editMode={true}/>
+                                                  </div>
+                                                </div>
+                                                  <div className="form-group">
+                                                      <div className="col-sm-12 text-left">
 
-                                                                        <TextField
-                                                                          activateRequiredField={this.state[fields.lastName.error]}
-                                                                          label={fields.lastName.label}
-                                                                          keyName={fields.lastName.keyName}
-                                                                          value={this.state[fields.lastName.keyName]}
-                                                                          editable={true}
-                                                                          onChange={this.onChange}
-                                                                          onBlur={this.onBlur}
-                                                                          editMode={true}/>
-                                                                      </div>
-                                                                    </div>
-                                                                      <div className="form-group">
-                                                                          <div className="col-sm-12 text-left">
-
-                                                                              <TextField
-                                                                                activateRequiredField={this.state[fields.email.error]}
-                                                                                label={fields.email.label}
-                                                                                keyName={fields.email.keyName}
-                                                                                value={this.state[fields.email.keyName]}
-                                                                                editable={true}
-                                                                                invalidMessage="Your input is not an email."
-                                                                                customClass={"account-text-input"}
-                                                                                validationTypes={["email"]}
-                                                                                onChange={this.onChange}
-                                                                                onBlur={this.onBlur}
-                                                                                editMode={true}/>
-                                                                          </div>
-                                                                      </div>
-
-                                                                      <div className="form-group text-center">
-                                                                          <div className="col-md-12" style={{"padding-top": "35px","padding-bottom": "20px"}}>
-                                                                            <button type="button" onClick={this.submitRateAlert} className="btn btn-mc form-control">Submit</button>
-                                                                          </div>
-                                                                      </div>
-                                                                  </form>
-                                                          </div>
+                                                          <TextField
+                                                            activateRequiredField={this.state[fields.email.error]}
+                                                            label={fields.email.label}
+                                                            keyName={fields.email.keyName}
+                                                            value={this.state[fields.email.keyName]}
+                                                            editable={true}
+                                                            invalidMessage="Your input is not an email."
+                                                            customClass={"account-text-input"}
+                                                            validationTypes={["email"]}
+                                                            onChange={this.onChange}
+                                                            onBlur={this.onBlur}
+                                                            editMode={true}/>
                                                       </div>
                                                   </div>
-                                              </div>
-                                              </span>
-                                        :
-                                        null
-                                      
 
+                                                  <div className="form-group text-center">
+                                                      <div className="col-md-12" style={{"padding-top": "35px","padding-bottom": "20px"}}>
+                                                        <button type="button" onClick={this.submitRateAlert} className="btn btn-mc form-control">Submit</button>
+                                                      </div>
+                                                  </div>
+                                              </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          </span>
+                    :
+                    null
                   }
                     <h5>Programs</h5>
                     <input type="checkbox" name="30years" id="30years" checked={this.isCriteriaChecked("30 year fixed")} onChange={_.bind(this.onChangeCriteria, null, "30 year fixed", "product")}/>
@@ -188,15 +196,33 @@ var Filter = React.createClass({
                     <input type="checkbox" name="51arm" id="51arm" checked={this.isCriteriaChecked("5/1 ARM")} onChange={_.bind(this.onChangeCriteria, null, "5/1 ARM", "product")}/>
                     <label className="customCheckbox blueCheckBox2" htmlFor="51arm">5/1 ARM</label>
                     <br/>
+                    {
+                      this.state.dataCookies !== undefined && this.state.dataCookies.mortgage_purpose === "refinance"
+                      ?
+                        <div>
+                          <h5>Cash out</h5>
+                          {_.map(this.getFeaturedCashOuts(), function(cashout) {
+                              return (
+                                <div>
+                                  <input type="checkbox" id={cashout.name} checked={this.isCriteriaChecked(cashout.value)} onChange={_.bind(this.onChangeCriteria, null, cashout.value, "cashout")}/>
+                                  <label className="customCheckbox blueCheckBox2" htmlFor={cashout.name}>{cashout.name}</label>
+                                </div>
+                              )
+                            }, this)
+                          }
+                        </div>
+                      :
+                        null
+                    }
                     <h5>Wholesale lenders</h5>
                     {_.map(this.getFeaturedLenders(), function(lender) {
                         return (
-                            <div>
-                                <input type="checkbox" name="citibank" id={lender} checked={this.isCriteriaChecked(lender)} onChange={_.bind(this.onChangeCriteria, null, lender, "lender")}/>
-                                <label className="customCheckbox blueCheckBox2" htmlFor={lender}>{lender}</label>
-                            </div>
-                          )
-                        }, this)
+                          <div>
+                            <input type="checkbox" name="citibank" id={lender} checked={this.isCriteriaChecked(lender)} onChange={_.bind(this.onChangeCriteria, null, lender, "lender")}/>
+                            <label className="customCheckbox blueCheckBox2" htmlFor={lender}>{lender}</label>
+                          </div>
+                        )
+                      }, this)
                     }
                     <div className="collapse helpme-sidebar-collapse">
                         {_.map(this.getRemainingLenders(), function(lender) {
@@ -240,6 +266,24 @@ var Filter = React.createClass({
         })
 
         return featuredLenders;
+    },
+    getFeaturedCashOuts: function() {
+        var featuredCashOuts = [];
+        var noCashOutProgram = _.find(this.props.programs, function(program){ return program.is_cash_out == false; });
+        var loanToValue = noCashOutProgram.loan_to_value;
+
+        featuredCashOuts.push({name: "No Cash Out (" + loanToValue + "% LTV)", value: loanToValue});
+
+        if(loanToValue < 80 && this.state.dataCookies.property_usage == "primary_residence"){
+          featuredCashOuts.push({name: "$" + noCashOutProgram.property_value * (80-loanToValue) / 100000 + "k (" + 80 + "% LTV)", value: 80});
+        }
+        if (loanToValue < 75){
+          featuredCashOuts.push({name: "$" + noCashOutProgram.property_value * (75-loanToValue) / 100000 + "k (" + 75 + "% LTV)", value: 75});
+        }
+        if (loanToValue < 70){
+          featuredCashOuts.push({name: "$" + noCashOutProgram.property_value * (70-loanToValue) / 100000 + "k (" + 70 + "% LTV)", value: 70});
+        }
+        return featuredCashOuts;
     },
     getRemainingLenders: function() {
         return _.difference(this.getAllLenders(), this.getFeaturedLenders());

@@ -17,7 +17,21 @@ module LoanTekServices
       if quotes = REDIS.get(cache_key)
         quotes = JSON.parse(quotes, symbolize_names: true)
       else
-        quotes = get_quotes
+        quotes = get_quotes(get_loan_to_value, get_loan_amount)
+
+        # if get_loan_purpose == "Refinance"
+        #   loan_to_value = get_loan_to_value
+        #   if loan_to_value < 70
+        #     quotes_2 = get_quotes(70, get_loan_amount * 0.7, true)
+        #   end
+        #   if loan_to_value < 75
+        #     quotes_3 = get_quotes(75, get_loan_amount * 0.75, true)
+        #   end
+        #   if loan_to_value < 80 && get_property_usage == "PrimaryResidence"
+        #     quotes_4 = get_quotes(80, get_loan_amount * 0.8, true)
+        #   end
+        # end
+
         REDIS.set(cache_key, quotes.to_json)
         REDIS.expire(cache_key, 30.minutes.to_i)
       end
@@ -25,13 +39,13 @@ module LoanTekServices
       quotes
     end
 
-    def get_quotes
+    def get_quotes(loan_to_value, loan_amount, is_cash_out = false)
       quotes = LoanTekServices::SendRequestToLoanTek.call(
         zipcode: get_zipcode,
         credit_score: get_credit_score,
         loan_purpose: get_loan_purpose,
-        loan_amount: get_loan_amount,
-        loan_to_value: get_loan_to_value,
+        loan_amount: loan_amount,
+        loan_to_value: loan_to_value,
         property_usage: get_property_usage,
         property_type: get_property_type
       )
@@ -44,13 +58,13 @@ module LoanTekServices
           zip: zip_code.zip,
           city: zip_code.city,
           county: zip_code.county,
-          loan_amount: get_loan_amount,
+          loan_amount: loan_amount,
           sales_price: get_property_value
         ).call
 
-        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees, get_property_value)
+        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees, get_property_value, is_cash_out)
       else
-        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [], get_property_value)
+        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [], get_property_value, is_cash_out)
       end
     end
 
