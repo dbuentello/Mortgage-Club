@@ -4,7 +4,7 @@ module LoanTekServices
   class ReadQuotes
     extend QuotesFormulas
 
-    def self.call(quotes, loan_purpose, fees)
+    def self.call(quotes, loan_purpose, fees, property_value)
       lender_info = get_lender_info(quotes)
       programs = []
       quotes = get_valid_quotes(quotes)
@@ -21,6 +21,7 @@ module LoanTekServices
         next if existing_program?(programs: programs, apr: apr, rate: rate, lender_name: lender_name, discount_pts: discount_pts, product: product)
 
         program = {
+          property_value: property_value,
           lender_name: lender_name,
           product: product,
           apr: apr,
@@ -37,7 +38,7 @@ module LoanTekServices
           nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
           logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
           loan_type: quote["ProductFamily"],
-          discount_pts: discount_pts_equals_to_0_125?(quote) || hide_admin_fee?(quote, admin_fee) ? 0 : discount_pts,
+          discount_pts: discount_pts,
           pmi_monthly_premium_amount: quote["MIP"].to_f,
           fha_upfront_premium_amount: get_fha_upfront_premium_amount(quote)
         }
