@@ -18,9 +18,6 @@ module LoanTekServices
         quotes = JSON.parse(quotes, symbolize_names: true)
       else
         quotes = get_quotes(get_loan_to_value, get_loan_amount)
-        quotes_2 = []
-        quotes_3 = []
-        quotes_4 = []
 
         # if get_loan_purpose == "Refinance"
         #   loan_to_value = get_loan_to_value
@@ -35,7 +32,6 @@ module LoanTekServices
         #   end
         # end
 
-        quotes = (quotes += quotes_2 += quotes_3 += quotes_4).sort_by { |program| program[:apr] }
         REDIS.set(cache_key, quotes.to_json)
         REDIS.expire(cache_key, 30.minutes.to_i)
       end

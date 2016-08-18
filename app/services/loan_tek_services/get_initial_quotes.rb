@@ -25,8 +25,8 @@ module LoanTekServices
           quotes_4 = get_quotes(80, info["property_value"].to_f * 0.8, true)
         end
       end
-
-      (quotes += quotes_2 += quotes_3 += quotes_4).sort_by { |program| program[:apr] }
+      quotes = quotes + quotes_2 + quotes_3 + quotes_4
+      quotes.sort_by { |program| program[:apr] }
     end
 
     def lowest_apr
