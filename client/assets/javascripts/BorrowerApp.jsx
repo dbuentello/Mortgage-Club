@@ -47,8 +47,17 @@ window.BorrowerApp = React.createClass({
   },
 
   componentDidMount: function() {
+    var idleTimer;
+    var idleSeconds = 30;
+    $(document.body).bind('mousemove keydown click',resetTimer); //space separated events list that we want to monitor
+    resetTimer(idleTimer);
     $("#newLoanBtn").on("click", this.createLoan);
+  },
+  resetTimer: function(){
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(whenUserIdle,idleSeconds*1000);
   }
+
 });
 
 var routes = (
