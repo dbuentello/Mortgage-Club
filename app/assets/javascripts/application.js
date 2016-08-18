@@ -18,6 +18,7 @@
 //= require d3.min
 //= require d3.slider
 //= require auto-complete.min
+//= require idle-timer.min
 //= require landing/functions
 // Important to import jquery_ujs before bundle_BorrowerApp as that patches jquery xhr to use the authenticity token!
 
@@ -29,3 +30,26 @@ $(document).on('ready', function(event) {
   $('.flashSection').delay(7000).fadeOut();
   $('[data-toggle="tooltip"]').tooltip();
 });
+$(document).on( "idle.idleTimer", function(event, elem, obj){
+
+});
+$(document).on( "active.idleTimer", function(event, elem, obj, triggerevent){
+       // function you want to fire when the user becomes active again
+
+});
+
+(function ($) {
+
+    $( document ).on( "idle.idleTimer", function(event, elem, obj){
+        console.log("idle time");
+    });
+
+    $( document ).on( "active.idleTimer", function(event, elem, obj, triggerevent){
+        console.log("reset timeout");
+        $.idleTimer("reset");
+        console.log($( document ).idleTimer("getRemainingTime"));
+    });
+
+    $.idleTimer(15000);
+
+})(jQuery);
