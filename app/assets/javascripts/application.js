@@ -41,15 +41,22 @@ $(document).on( "active.idleTimer", function(event, elem, obj, triggerevent){
 (function ($) {
 
     $( document ).on( "idle.idleTimer", function(event, elem, obj){
-        console.log("idle time");
+      $.ajax({
+          url: '/auth/logout/',
+          method: 'DELETE',
+        success: function(response) {
+          window.location.href = "/";
+        },
+        error: function(response, status, error) {
+          console.log("error");
+        }
+      });
     });
 
     $( document ).on( "active.idleTimer", function(event, elem, obj, triggerevent){
-        console.log("reset timeout");
         $.idleTimer("reset");
-        console.log($( document ).idleTimer("getRemainingTime"));
     });
 
-    $.idleTimer(15000);
+    $.idleTimer(20*60*1000); //auto logout after 20'
 
 })(jQuery);
