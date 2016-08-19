@@ -17,23 +17,26 @@ class RateAlertQuoteMailer < ActionMailer::Base
     year15 = JSON.parse(graph.year15)
     arm71 = JSON.parse(graph.arm71)
     arm51 = JSON.parse(graph.arm51)
-
     {
       "year30": {
         "rate": year30["interest_rate"].to_f * 100,
-        "lender_credit": number_to_currency(year30["lender_credits"])
+        "lender_credit": number_to_currency(year30["lender_credits"]),
+        "label": year30["discount_pts"] > 0 ? "Discount points" : "Lender credit"
       },
       "year15": {
         "rate": year15["interest_rate"].to_f * 100,
-        "lender_credit": number_to_currency(year15["lender_credits"])
+        "lender_credit": number_to_currency(year15["lender_credits"]),
+        "label": year15["discount_pts"] > 0 ? "Discount points" : "Lender credit"
       },
       "arm71": {
         "rate": arm71["interest_rate"].to_f * 100,
-        "lender_credit": number_to_currency(arm71["lender_credits"])
+        "lender_credit": number_to_currency(arm71["lender_credits"]),
+        "label": arm71["discount_pts"] > 0 ? "Discount points" : "Lender credit"
       },
       "arm51": {
         "rate": arm51["interest_rate"].to_f * 100,
-        "lender_credit": number_to_currency(arm51["lender_credits"])
+        "lender_credit": number_to_currency(arm51["lender_credits"]),
+        "label": arm51["discount_pts"] > 0 ? "Discount points" : "Lender credit"
       }
     }
   end
