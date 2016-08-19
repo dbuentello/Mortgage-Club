@@ -4,7 +4,7 @@ module LoanTekServices
   class ReadQuotes
     extend QuotesFormulas
 
-    def self.call(quotes, loan_purpose, fees, property_value, is_cash_out = false)
+    def self.call(quotes, loan_purpose, fees, property_value, is_cash_out = false, is_down_payment = false)
       lender_info = get_lender_info(quotes)
       programs = []
       quotes = get_valid_quotes(quotes)
@@ -42,6 +42,7 @@ module LoanTekServices
           pmi_monthly_premium_amount: quote["MIP"].to_f,
           fha_upfront_premium_amount: get_fha_upfront_premium_amount(quote),
           is_cash_out: is_cash_out,
+          is_down_payment: is_down_payment,
           loan_to_value: quote["LoanToValue"].to_f
         }
 
@@ -82,8 +83,8 @@ module LoanTekServices
       end
     end
 
-    def self.build_lowest_apr(quotes, loan_purpose, thirty_fees)
-      programs = self.call(quotes, loan_purpose, thirty_fees)
+    def self.build_lowest_apr(quotes, loan_purpose, thirty_fees, property_value, is_cash_out = false, is_down_payment = false)
+      programs = self.call(quotes, loan_purpose, thirty_fees, property_value)
       lowest_apr = {}
       [
         "30 year fixed", "15 year fixed",

@@ -24,6 +24,17 @@ module LoanTekServices
         if loan_to_value < 80 && get_property_usage == "PrimaryResidence"
           quotes_4 = get_quotes(80, info["property_value"].to_f * 0.8, true)
         end
+      else
+        # loan_to_value = get_loan_to_value
+        # if loan_to_value < 70
+        #   quotes_2 = get_quotes(70, info["property_value"].to_f * 0.7, false, true)
+        # end
+        # if loan_to_value < 75
+        #   quotes_3 = get_quotes(75, info["property_value"].to_f * 0.75, false, true)
+        # end
+        # if loan_to_value < 80 && get_property_usage == "PrimaryResidence"
+        #   quotes_4 = get_quotes(80, info["property_value"].to_f * 0.8, false, true)
+        # end
       end
       quotes = quotes + quotes_2 + quotes_3 + quotes_4
       quotes.sort_by { |program| program[:apr] }
@@ -52,9 +63,9 @@ module LoanTekServices
           sales_price: info["property_value"].to_f
         ).call
 
-        quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose, fees, info["property_value"].to_f)
+        quotes.nil? ? [] : (quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose, fees, info["property_value"].to_f))
       else
-        quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose, [], info["property_value"].to_f)
+        quotes.nil? ? [] : (quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose, [], info["property_value"].to_f))
       end
     end
 
@@ -122,7 +133,7 @@ module LoanTekServices
       info["mortgage_purpose"] == "purchase"
     end
 
-    def get_quotes(loan_to_value, loan_amount, is_cash_out = false)
+    def get_quotes(loan_to_value, loan_amount, is_cash_out = false, is_down_payment = false)
       quotes = LoanTekServices::SendRequestToLoanTek.call(
         zipcode: get_zipcode,
         credit_score: get_credit_score,
@@ -144,9 +155,17 @@ module LoanTekServices
           sales_price: info["property_value"].to_f
         ).call
 
-        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees, info["property_value"].to_f, is_cash_out)
+        if quotes.nil?
+          []
+        else
+          quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees, info["property_value"].to_f, is_cash_out, is_down_payment)
+        end
       else
-        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [], info["property_value"].to_f, is_cash_out)
+        if quotes.nil?
+          []
+        else
+          quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [], info["property_value"].to_f, is_cash_out, is_down_payment)
+        end
       end
     end
   end
