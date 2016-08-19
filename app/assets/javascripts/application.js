@@ -45,7 +45,7 @@ $(document).on( "active.idleTimer", function(event, elem, obj, triggerevent){
           url: '/auth/logout/',
           method: 'DELETE',
         success: function(response) {
-          window.location.href = "/";
+          window.location.href = "/auth/login";
         },
         error: function(response, status, error) {
           console.log("error");
