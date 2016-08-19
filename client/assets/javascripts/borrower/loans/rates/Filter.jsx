@@ -116,7 +116,7 @@ var Filter = React.createClass({
                   {
                     this.props.rate_alert ?
                     <span>
-                          <a className="btn btn-mc" data-toggle="modal" data-target="#email_alert"> Rate alert </a>
+                          <a data-toggle="modal" href="" data-target="#email_alert" style={{fontSize: 17}}> Create a rate alert </a>
 
                           <div className="modal fade" id="email_alert" tabIndex="-1" role="dialog" aria-labelledby="email_alert_label">
                               <div className="modal-dialog modal-md" role="document">
@@ -170,7 +170,7 @@ var Filter = React.createClass({
                                                   </div>
 
                                                   <div className="form-group text-center">
-                                                      <div className="col-md-12" style={{"padding-top": "35px","padding-bottom": "20px"}}>
+                                                      <div className="col-md-6 col-md-offset-3" style={{"padding-top": "35px","padding-bottom": "20px"}}>
                                                         <button type="button" onClick={this.submitRateAlert} className="btn btn-mc form-control">Submit</button>
                                                       </div>
                                                   </div>
