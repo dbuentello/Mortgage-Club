@@ -30,20 +30,20 @@ module LoanTekServices
 
         if property_usage == "PrimaryResidence"
           if down_payment > 5
-            quotes_2 = get_quotes(95, info["property_value"].to_f, false, true)
+            quotes_2 = get_quotes(95, info["property_value"].to_f * 0.95, false, true)
           end
           if down_payment > 10
-            quotes_3 = get_quotes(90, info["property_value"].to_f, false, true)
+            quotes_3 = get_quotes(90, info["property_value"].to_f * 0.9, false, true)
           end
           if down_payment > 20
-            quotes_4 = get_quotes(80, info["property_value"].to_f, false, true)
+            quotes_4 = get_quotes(80, info["property_value"].to_f * 0.8, false, true)
           end
         else
           if down_payment > 20
-            quotes_2 = get_quotes(80, info["property_value"].to_f, false, true)
+            quotes_2 = get_quotes(80, info["property_value"].to_f * 0.8, false, true)
           end
           if down_payment > 25
-            quotes_3 = get_quotes(75, info["property_value"].to_f, false, true)
+            quotes_3 = get_quotes(75, info["property_value"].to_f * 0.75, false, true)
           end
         end
       end

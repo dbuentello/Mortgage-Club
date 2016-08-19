@@ -42,7 +42,7 @@ var LoanProgramFilterMixin = {
     if(down_payments.length == 0) {
       return true;
     }
-    return (cash_outs.indexOf(program.loan_to_value) != -1);
+    return (down_payments.indexOf(program.loan_to_value) != -1);
   },
 
   criteriaAreEmpty: function(products, lender_names, cash_outs) {

@@ -34,6 +34,8 @@ var Quotes = React.createClass({
     $("input[name=30years]")[0].click();
     if(this.state.dataCookies.mortgage_purpose == "refinance"){
       $("input[id*='No Cash Out']")[0].click();
+    }else{
+      $("input[id*='Down Payment']")[0].click();
     }
 
     // if(this.props.bootstrapData.selected_programs) {
