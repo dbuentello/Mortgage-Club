@@ -65,13 +65,13 @@ module LoanTekServices
         if quotes.nil?
           []
         else
-          quotes.empty? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees, get_property_value, is_cash_out)
+          quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees, get_property_value, is_cash_out)
         end
       else
         if quotes.nil?
           []
         else
-          quotes.empty? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [], get_property_value, is_cash_out)
+          quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [], get_property_value, is_cash_out)
         end
       end
     end
