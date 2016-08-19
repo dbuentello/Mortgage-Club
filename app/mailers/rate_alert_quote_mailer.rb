@@ -21,22 +21,22 @@ class RateAlertQuoteMailer < ActionMailer::Base
       "year30": {
         "rate": year30["interest_rate"].to_f * 100,
         "lender_credit": number_to_currency(year30["lender_credits"]),
-        "label": year30["discount_pts"] > 0 ? "Discount points" : "Lender credit"
+        "label": year30["discount_pts"] > 0 ? "discount points" : "lender credit"
       },
       "year15": {
         "rate": year15["interest_rate"].to_f * 100,
         "lender_credit": number_to_currency(year15["lender_credits"]),
-        "label": year15["discount_pts"] > 0 ? "Discount points" : "Lender credit"
+        "label": year15["discount_pts"] > 0 ? "discount points" : "lender credit"
       },
       "arm71": {
         "rate": arm71["interest_rate"].to_f * 100,
         "lender_credit": number_to_currency(arm71["lender_credits"]),
-        "label": arm71["discount_pts"] > 0 ? "Discount points" : "Lender credit"
+        "label": arm71["discount_pts"] > 0 ? "discount points" : "lender credit"
       },
       "arm51": {
         "rate": arm51["interest_rate"].to_f * 100,
         "lender_credit": number_to_currency(arm51["lender_credits"]),
-        "label": arm51["discount_pts"] > 0 ? "Discount points" : "Lender credit"
+        "label": arm51["discount_pts"] > 0 ? "discount points" : "lender credit"
       }
     }
   end
