@@ -121,7 +121,7 @@ var Filter = React.createClass({
                           <div className="modal fade" id="email_alert" tabIndex="-1" role="dialog" aria-labelledby="email_alert_label">
                               <div className="modal-dialog modal-md" role="document">
                                   <div className="modal-content">
-                                      <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
+                                      <span className="fa fa-times-circle closeBtn" data-dismiss="modal"></span>
                                       <div className="modal-body text-center container">
                                           <h2>Rate Drop Alert</h2>
                                           <h3 className="mc-blue-primary-text">Sign up for MortgageClub's rate watch and we'll email you when rates drop.</h3>
