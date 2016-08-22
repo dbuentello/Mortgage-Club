@@ -6,7 +6,7 @@ module Docusign
   # Class CreateEnvelopeService provides creating an envelope and send it to Docusign.
   # envelope is a Docusign's term. One envelope is a document which was signed.
   class CreateEnvelopeService
-    UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
+    UNIFORM_PATH = "#{Rails.root}/form_templates/1003.pdf".freeze
     LIABILITIES_PATH = "#{Rails.root}/form_templates/liabilities.pdf".freeze
     REAL_ESTATE_PATH = "#{Rails.root}/form_templates/real_estate.pdf".freeze
 

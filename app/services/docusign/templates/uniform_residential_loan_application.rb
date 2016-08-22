@@ -424,12 +424,12 @@ module Docusign
         borrower.gross_commission = borrower.gross_commission.to_f / 12 if borrower.gross_commission.present?
         @params[(role + "_total_monthly_income").to_sym] = build_total_monthly_income(borrower)
         @params[(role + "_base_income").to_sym] = number_to_currency(build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency), unit: "")
-        @params[(role + "_overtime").to_sym] = number_to_currency(borrower.gross_overtime.to_f, unit: "")
+        @params[(role + "_overtime").to_sym] = number_to_currency(borrower.gross_overtime.to_f / 12, unit: "")
         @params[(role + "_bonuses").to_sym] = number_to_currency(borrower.gross_bonus.to_f, unit: "")
         @params[(role + "_commissions").to_sym] = number_to_currency(borrower.gross_commission.to_f, unit: "")
         @params[(role + "_interest").to_sym] = number_to_currency(borrower.gross_interest.to_f, unit: "")
         @params[:total_base_income] = @params[:total_base_income].to_f + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
-        @params[:total_overtime] = @params[:total_overtime].to_f + borrower.gross_overtime.to_f
+        @params[:total_overtime] = @params[:total_overtime].to_f + (borrower.gross_overtime.to_f / 12)
         @params[:total_bonuses] = @params[:total_bonuses].to_f + borrower.gross_bonus.to_f
         @params[:total_commissions] = @params[:total_commissions].to_f + borrower.gross_commission.to_f
         @params[:total_dividends] = @params[:total_dividends].to_f + borrower.gross_interest.to_f
@@ -507,12 +507,11 @@ module Docusign
         @params[:purpose_refinance] = "Yes"
         @params[:year_lot_acquired_2] = subject_property.original_purchase_year
         @params[:original_cost_2] = number_to_currency(subject_property.original_purchase_price, unit: "")
-        @params[:amount_existing_liens_2] = number_to_currency(subject_property.refinance_amount, unit: "")
-
-        if loan.amount > subject_property.total_liability_balance
-          @params[:purpose_of_refinance] = "Cash out"
+        @params[:amount_existing_liens_2] = number_to_currency(subject_property.estimated_mortgage_balance, unit: "")
+        if loan.amount > subject_property.estimated_mortgage_balance
+          @params[:purpose_of_refinance] = "Cash-Out/Debt Consolidation"
         else
-          @params[:purpose_of_refinance] = "Rate and term"
+          @params[:purpose_of_refinance] = "Limited Cash-Out"
         end
         @params[:year_built] = subject_property.year_built
         @params[:source_down_payment] = "Checking/Savings"
