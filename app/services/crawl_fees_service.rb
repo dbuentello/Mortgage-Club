@@ -1,3 +1,4 @@
+# rubocop:disable LineLength
 require "capybara"
 require "capybara/poltergeist"
 
@@ -266,3 +267,4 @@ class CrawlFeesService
     end
   end
 end
+# rubocop:enable LineLength
