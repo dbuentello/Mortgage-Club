@@ -88,6 +88,8 @@ module Docusign
 
         @params[:borrower_rental_income] = number_to_currency(get_net_value, unit: "")
         @params[:borrower_total_monthly_income] = number_to_currency(@params[:borrower_total_monthly_income] + get_net_value, unit: "")
+        @params[:co_borrower_total_monthly_income] = number_to_currency(@params[:co_borrower_total_monthly_income], unit: "")
+
         @params[:sum_total_income] = number_to_currency((@params[:total_base_income].to_f + @params[:total_overtime].to_f +
                                                        @params[:total_bonuses].to_f + @params[:total_commissions].to_f +
                                                        @params[:total_dividends].to_f + get_net_value), unit: "")
