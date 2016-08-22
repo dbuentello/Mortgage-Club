@@ -438,7 +438,7 @@ module Docusign
       end
 
       def build_total_monthly_income(borrower)
-        borrower.gross_overtime.to_f/12 + borrower.gross_bonus.to_f + borrower.gross_commission.to_f + borrower.gross_interest.to_f/12 + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
+        borrower.gross_overtime.to_f / 12 + borrower.gross_bonus.to_f + borrower.gross_commission.to_f + borrower.gross_interest.to_f / 12 + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
       end
 
       def build_monthly_income(current_salary, pay_frequency)
