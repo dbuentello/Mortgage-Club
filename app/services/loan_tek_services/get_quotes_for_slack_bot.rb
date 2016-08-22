@@ -58,9 +58,9 @@ module LoanTekServices
 
     def get_loan_purpose
       if purchase_loan?
-        purpose = 1
+        purpose = "Purchase"
       elsif refinance_loan?
-        purpose = 2
+        purpose = "Refinance"
       end
 
       purpose
@@ -82,13 +82,13 @@ module LoanTekServices
     def get_property_usage
       case context["parameters"]["usage"]
       when "primary_residence"
-        usage = 1
+        usage = "PrimaryResidence"
       when "vacation_home"
-        usage = 2
+        usage = "SecondaryOrVacation"
       when "rental_property"
-        usage = 3
+        usage = "InvestmentOrRental"
       else
-        usage = 0
+        usage = "NotSpecified"
       end
       usage
     end
@@ -96,17 +96,17 @@ module LoanTekServices
     def get_property_type
       case context["parameters"]["property_type"]
       when "sfh"
-        property_type = 1
+        property_type = "SingleFamily"
       when "duplex"
-        property_type = 11
+        property_type = "MultiFamily2Units"
       when "triplex"
-        property_type = 12
+        property_type = "MultiFamily3Units"
       when "fourplex"
-        property_type = 13
+        property_type = "MultiFamily4Units"
       when "condo"
-        property_type = 3
+        property_type = "Condo"
       else
-        property_type = 0
+        property_type = "NotSpecified"
       end
       property_type
     end

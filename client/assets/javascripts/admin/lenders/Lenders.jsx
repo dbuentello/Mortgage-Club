@@ -66,6 +66,7 @@ var Lenders = React.createClass({
                           <td>{lender.contact_email}</td>
                           <th>
                             <a className="btn btn-primary btn-sm member-title-action" href={"/lenders/" + lender.id + "/lender_templates"}>Templates</a>
+                            <a className="btn btn-primary btn-sm member-title-action" href={"/lenders/" + lender.id + "/lender_docusign_forms"}>Forms</a>
                             <a className="linkTypeReversed btn btn-primary btn-sm member-title-action" href={'/lenders/' + lender.id + '/edit'}>Edit</a>
                           </th>
                         </tr>

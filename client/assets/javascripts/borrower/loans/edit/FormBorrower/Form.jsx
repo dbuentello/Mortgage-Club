@@ -159,7 +159,7 @@ var Form = React.createClass({
 
   render: function() {
     return (
-      <div className="col-xs-12 col-sm-9 account-content">
+      <div className="col-xs-12 col-sm-12 col-md-3 account-content">
         <form className="form-horizontal">
           <div className="form-group">
             <div className="col-md-6">
@@ -390,7 +390,11 @@ var Form = React.createClass({
         city: address.city
       };
       state[fields.currentAddress.name] = address_attributes;
-      state[fields.yearsInCurrentAddress.name] = currentBorrowerAddress.years_at_address || ((new Date(Date.now()).getFullYear()) * 1 - (state.subject_property.original_purchase_year) * 1 + 1);
+      if(currentBorrowerAddress){
+        state[fields.yearsInCurrentAddress.name] = currentBorrowerAddress.years_at_address;
+      }else{
+        state[fields.yearsInCurrentAddress.name] = (new Date(Date.now()).getFullYear()) * 1 - (state.subject_property.original_purchase_year) * 1 + 1;
+      }
       state[fields.currentlyOwn.name] = true;
       state[fields.currentlyOwn.isEnabled] = false;
     }

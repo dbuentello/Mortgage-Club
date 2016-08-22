@@ -125,7 +125,7 @@ var FormAssetsAndLiabilities = React.createClass({
 
   render: function() {
     return (
-      <div className='col-sm-9 col-xs-12 account-content'>
+      <div className='col-md-3 col-sm-12 account-content'>
         <form className='form-horizontal'>
           <div className='form-group'>
             <div className='col-md-12'>
@@ -340,6 +340,7 @@ var FormAssetsAndLiabilities = React.createClass({
     property.address_attributes = property.address;
     property.market_price = this.currencyToNumber(property.market_price);
     property.other_mortgage_payment_amount = this.currencyToNumber(property.other_mortgage_payment_amount);
+    property.other_remaining_balance = this.currencyToNumber(property.other_remaining_balance);
     property.other_financing_amount = this.currencyToNumber(property.other_financing_amount);
     property.estimated_mortgage_insurance = this.currencyToNumber(property.estimated_mortgage_insurance);
     property.estimated_hazard_insurance = this.currencyToNumber(property.estimated_hazard_insurance);
@@ -362,6 +363,7 @@ var FormAssetsAndLiabilities = React.createClass({
     desProp.address_attributes = address;
     desProp.market_price = this.currencyToNumber(srcProp.market_price);
     desProp.other_mortgage_payment_amount = this.currencyToNumber(srcProp.other_mortgage_payment_amount);
+    desProp.other_remaining_balance = this.currencyToNumber(srcProp.other_remaining_balance);
     desProp.other_financing_amount = this.currencyToNumber(srcProp.other_financing_amount);
     desProp.estimated_mortgage_insurance = this.currencyToNumber(srcProp.estimated_mortgage_insurance);
     desProp.estimated_hazard_insurance = this.currencyToNumber(srcProp.estimated_hazard_insurance);

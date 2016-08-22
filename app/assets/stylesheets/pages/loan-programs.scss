@@ -151,7 +151,6 @@
     }
 
     .line-chart {
-      margin-top: 55px;
       .axis text {
         font-size: .8em;
         fill: #999;
@@ -215,9 +214,17 @@
 }
 
 .mortgage-rates {
+  padding-left: 0;
+  padding-right: 0;
   .filter-sidebar {
     label {
       font-weight: normal;
+    }
+  }
+
+  .filter-modal {
+    @include respond-to(mobile) {
+      top: 80px;
     }
   }
   .custom-left-mortgage-rates {
@@ -227,13 +234,48 @@
       margin-bottom: 80px;
     }
   }
-  background: linear-gradient(to right, #f6f6f6 , white);
-  @include respond-to(smobile){
+  @include respond-to(mobile){
     background: none;
   };
+
+  .thirty-party-fees {
+    list-style: none;
+    margin-bottom: 8px;
+
+    .thirty-fees-collapse {
+      margin-top: 5px;
+      margin-left: 15px;
+    }
+
+    a {
+      color: #555;
+      margin-left: -20px;
+
+      span {
+        margin-left: 9px;
+      }
+    }
+
+    i:hover {
+      color: $mc-color;
+    }
+
+    a:hover {
+      color: #555;
+    }
+
+    a:visited {
+      color: #555;
+    }
+
+    p {
+      margin-bottom: 5px;
+    }
+  }
+
   .programs-filter {
-    margin-top: 0px;
-    margin-left: -16px;
+    
+    padding: 20px;
   }
   .quote-filter {
     margin-top: 0px;

@@ -54,6 +54,8 @@ class LoanActivity < ActiveRecord::Base
           FROM loan_activities
           GROUP BY name
         ) d ON ( l.name = d.name )
+      WHERE
+        l.loan_id = '#{loan.id}'
       ORDER BY name, created_at DESC, id")
   end
 

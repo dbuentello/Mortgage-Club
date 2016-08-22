@@ -24,6 +24,9 @@ var LenderForm = React.createClass({
       nmls: lender.nmls,
       logo: lender.logo,
       logo_url: logo_url,
+      appraisal_fee: lender.appraisal_fee,
+      tax_certification_fee: lender.tax_certification_fee,
+      flood_certification_fee: lender.flood_certification_fee,
       saving: false
     }
   },
@@ -46,6 +49,10 @@ var LenderForm = React.createClass({
     formData.append("contact_email", this.state.contact_email);
     formData.append("contact_phone", this.state.contact_phone);
     formData.append("nmls", this.state.nmls);
+    formData.append("flood_certification_fee", this.state.flood_certification_fee);
+    formData.append("tax_certification_fee", this.state.tax_certification_fee);
+    formData.append("appraisal_fee", this.state.appraisal_fee);
+
     if($("#uploadFile")[0].files.length >0) {
       formData.append("logo", $("#uploadFile")[0].files[0]);
     }
@@ -197,6 +204,32 @@ var LenderForm = React.createClass({
                   label="NMLS"
                   keyName="nmls"
                   value={this.state.nmls}
+                  editable={true}
+                  onChange={this.onChange}/>
+              </div>
+              <div className="col-sm-2">
+                <TextField
+                  label="Appraisal Fee"
+                  keyName="appraisal_fee"
+                  value={this.state.appraisal_fee}
+                  editable={true}
+                  onChange={this.onChange}/>
+              </div>
+              <div className="col-sm-2">
+                <TextField
+                  label="Tax Certification Fee"
+                  keyName="tax_certification_fee"
+                  value={this.state.tax_certification_fee}
+                  editable={true}
+                  onChange={this.onChange}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-2">
+                <TextField
+                  label="Flood Certification Fee"
+                  keyName="flood_certification_fee"
+                  value={this.state.flood_certification_fee}
                   editable={true}
                   onChange={this.onChange}/>
               </div>

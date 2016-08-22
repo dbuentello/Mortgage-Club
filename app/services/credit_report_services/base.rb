@@ -5,7 +5,7 @@ module CreditReportServices
   #
   class Base
     def self.call(loan)
-      return if credit_report_was_within_90_days?(loan)
+      # return if credit_report_was_within_90_days?(loan)
       # clear old liabilities
       clear_credit_report(loan.borrower)
       clear_credit_report(loan.secondary_borrower) if loan.secondary_borrower
@@ -13,7 +13,10 @@ module CreditReportServices
 
       if response
         CreditReportServices::CreateLiabilities.call(loan, response)
-        CreditReportServices::SaveCreditReportAsPdf.call(loan, response)
+
+        if loan.borrower.user.first_name != "Mortgage" && loan.borrower.user.last_name != "Club" && loan.borrower.ssn != "111-11-1111"
+          CreditReportServices::SaveCreditReportAsPdf.call(loan, response)
+        end
         remember_last_run_at_of_credit_report(loan)
       end
     end

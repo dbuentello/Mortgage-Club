@@ -10,6 +10,7 @@ var CreditCheck = require("./FormCreditCheck");
 var Documents = require("./FormDocuments");
 var AllDonePage = require("./AllDonePage");
 var CheckCompletedLoanMixin = require('mixins/CheckCompletedLoanMixin');
+var TextFormatMixin = require("mixins/TextFormatMixin");
 
 var TabProperty = require('mixins/CompletedLoanMixins/TabProperty');
 var TabBorrower = require('mixins/CompletedLoanMixins/TabBorrower');
@@ -20,7 +21,7 @@ var TabAsset = require('mixins/CompletedLoanMixins/TabAsset');
 var TabCreditCheck = require('mixins/CompletedLoanMixins/TabCreditCheck');
 
 var LoanInterface = React.createClass({
-  mixins: [CheckCompletedLoanMixin],
+  mixins: [CheckCompletedLoanMixin, TextFormatMixin],
 
   getInitialState: function() {
     var loan = this.props.bootstrapData.currentLoan;
@@ -30,6 +31,7 @@ var LoanInterface = React.createClass({
     var activeItem = _.findWhere(menu, {complete: false}) || menu[0];
 
     return {
+      remain_step: _.filter(menu, {complete: false}).length,
       menu: menu,
       active: activeItem,
       loan: loan,
@@ -47,9 +49,9 @@ var LoanInterface = React.createClass({
 
     return (
       <div className="content accountPart editLoan">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
-            <div className="col-xs-12 col-sm-3 subnav">
+            <div className="col-sm-3 hidden-xs hidden-sm subnav">
               <div id="sidebar">
                 <ul>
                   {_.map(this.state.menu, function (item, i) {
@@ -63,11 +65,86 @@ var LoanInterface = React.createClass({
                     );
                   }, this)}
                 </ul>
+                {
+                  this.state.loan.lender_name
+                  ?
+                  <div id={"summary"}>
+
+                    <p>SUMMARY</p>
+                    <table>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>Lender</td>
+          <td>{this.state.loan.lender_name}</td>
+        </tr>
+        <tr>
+          <td>Loan type</td>
+          <td>{this.state.loan.amortization_type}</td>
+        </tr>
+        <tr>
+          <td>Property value</td>
+          {
+            this.state.loan.purpose == "purchase"
+            ?
+            <td>{this.formatCurrency(this.state.loan.subject_property.purchase_price, 0, "$")}</td>
+            :
+            <td>{this.formatCurrency(this.state.loan.subject_property.original_purchase_price, 0, "$")}</td>
+
+          }
+
+        </tr>
+        <tr>
+          <td>Loan amount</td>
+          <td>{this.formatCurrency(this.state.loan.amount, 0, "$")}</td>
+        </tr>
+        <tr>
+          <td>Rate</td>
+          <td>{this.formatPercent(this.state.loan.interest_rate*100)}</td>
+        </tr>
+        {this.state.loan.discount_pts > 0 ?
+          <tr>
+            <td>Discount points</td>
+            <td>{this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")}</td>
+          </tr>
+          :
+          <tr>
+            <td>Lender credit</td>
+            <td>({this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")})</td>
+          </tr>
+        }
+
+
+      </table>
+      <p id="remain_step"> <strong>{this.state.remain_step}</strong> steps remaining </p>
+    </div>
+                  :
+                  null
+                }
+
               </div>
+
               <div className="swipe-area">
                 <a href="#" data-toggle=".subnav" id="sidebar-toggle">
                   <span className="glyphicon glyphicon-arrow-right"></span>
                 </a>
+              </div>
+            </div>
+            <div className="col-sm-12 visible-xs visible-sm subnav" style={{"height": "54px"}}>
+              <div id="sidebar-mobile">
+                <ul>
+                  {_.map(this.state.menu, function (item, i) {
+                    return (
+                      <li key={i} id={item.key} className={this.getKlassNameLiSidebar(item, activeItem)}>
+                        <a href="javascript:void(0)" onClick={_.bind(this.goToItem, this, item)}>
+                          <span className={item.iconClass}></span>
+                        </a>
+                      </li>
+                    );
+                  }, this)}
+                </ul>
               </div>
             </div>
             {
@@ -158,7 +235,9 @@ var LoanInterface = React.createClass({
 
   setupMenu: function(response, step, skip_change_page) {
     var menu = this.buildMenu(response.loan);
-
+    this.setState({
+      remain_step: _.filter(menu, {complete: false}).length
+    });
     this.setState({
       loan: response.loan,
       menu: menu
@@ -203,6 +282,10 @@ var LoanInterface = React.createClass({
         current_step: step
       },
       success: function(response) {
+        var menu = this.buildMenu(response.loan);
+        this.setState({
+          remain_step: _.filter(menu, {complete: false}).length
+        });
         if (this.loanIsCompleted(response.loan)) {
           this.goToAllDonePage(response.loan);
         }
@@ -210,7 +293,6 @@ var LoanInterface = React.createClass({
           if (last_step == false) {
             this.setupMenu(response, step, skip_change_page);
           } else {
-            var menu = this.buildMenu(response.loan);
             var uncompleted_step = _.findWhere(menu, {complete: false});
 
             if (uncompleted_step) {

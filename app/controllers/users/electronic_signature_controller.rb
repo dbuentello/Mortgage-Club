@@ -78,6 +78,9 @@ class Users::ElectronicSignatureController < Users::BaseController
       end
 
       @loan.submitted!
+      rental_properties = Property.where(is_primary: false, is_subject: false, loan: @loan)
+      @loan.borrower.update(other_properties: JSON.dump(rental_properties.as_json(Property.json_options))) if rental_properties.present?
+
       # TODO: why call two services below:
       Docusign::MapEnvelopeToLenderDocument.new(params[:envelope_id], params[:user_id], params[:loan_id]).delay.call
       RatesComparisonServices::Base.new(params[:loan_id], params[:user_id]).call

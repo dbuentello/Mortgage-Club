@@ -15,9 +15,23 @@ module LoanTekServices
       cache_key = "loantek-quotes-#{loan.id}-#{loan.updated_at}-#{property.updated_at}-#{get_credit_score}"
 
       if quotes = REDIS.get(cache_key)
-        quotes = JSON.parse(quotes)
+        quotes = JSON.parse(quotes, symbolize_names: true)
       else
-        quotes = get_quotes
+        quotes = get_quotes(get_loan_to_value, get_loan_amount)
+
+        # if get_loan_purpose == "Refinance"
+        #   loan_to_value = get_loan_to_value
+        #   if loan_to_value < 70
+        #     quotes_2 = get_quotes(70, get_loan_amount * 0.7, true)
+        #   end
+        #   if loan_to_value < 75
+        #     quotes_3 = get_quotes(75, get_loan_amount * 0.75, true)
+        #   end
+        #   if loan_to_value < 80 && get_property_usage == "PrimaryResidence"
+        #     quotes_4 = get_quotes(80, get_loan_amount * 0.8, true)
+        #   end
+        # end
+
         REDIS.set(cache_key, quotes.to_json)
         REDIS.expire(cache_key, 30.minutes.to_i)
       end
@@ -25,18 +39,41 @@ module LoanTekServices
       quotes
     end
 
-    def get_quotes
+    def get_quotes(loan_to_value, loan_amount, is_cash_out = false)
       quotes = LoanTekServices::SendRequestToLoanTek.call(
         zipcode: get_zipcode,
         credit_score: get_credit_score,
         loan_purpose: get_loan_purpose,
-        loan_amount: get_loan_amount,
-        loan_to_value: get_loan_to_value,
+        loan_amount: loan_amount,
+        loan_to_value: loan_to_value,
         property_usage: get_property_usage,
         property_type: get_property_type
       )
 
-      quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose)
+      zip_code = ZipCode.find_by_zip(get_zipcode)
+
+      if zip_code
+        fees = CrawlFeesService.new(
+          loan_purpose: get_loan_purpose,
+          zip: zip_code.zip,
+          city: zip_code.city,
+          county: zip_code.county,
+          loan_amount: loan_amount,
+          sales_price: get_property_value
+        ).call
+
+        if quotes.nil?
+          []
+        else
+          quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees, get_property_value, is_cash_out)
+        end
+      else
+        if quotes.nil?
+          []
+        else
+          quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [], get_property_value, is_cash_out)
+        end
+      end
     end
 
     private
@@ -50,11 +87,11 @@ module LoanTekServices
     end
 
     def get_loan_purpose
-      purpose = 0
+      purpose = "NotSpecified"
       if loan.purchase?
-        purpose = 1
+        purpose = "Purchase"
       elsif loan.refinance?
-        purpose = 2
+        purpose = "Refinance"
       end
 
       purpose
@@ -66,20 +103,24 @@ module LoanTekServices
 
     def get_loan_to_value
       loan_amount = get_loan_amount
-      property_value = loan.purchase? ? property.purchase_price : property.market_price
+      property_value = get_property_value
       (loan_amount * 100 / property_value).round
+    end
+
+    def get_property_value
+      loan.purchase? ? property.purchase_price : property.market_price
     end
 
     def get_property_usage
       case property.usage
       when "primary_residence"
-        usage = 1
+        usage = "PrimaryResidence"
       when "vacation_home"
-        usage = 2
+        usage = "SecondaryOrVacation"
       when "rental_property"
-        usage = 3
+        usage = "InvestmentOrRental"
       else
-        usage = 0
+        usage = "NotSpecified"
       end
       usage
     end
@@ -87,17 +128,17 @@ module LoanTekServices
     def get_property_type
       case property.property_type
       when "sfh"
-        property_type = 1
+        property_type = "SingleFamily"
       when "duplex"
-        property_type = 11
+        property_type = "MultiFamily2Units"
       when "triplex"
-        property_type = 12
+        property_type = "MultiFamily3Units"
       when "fourplex"
-        property_type = 13
+        property_type = "MultiFamily4Units"
       when "condo"
-        property_type = 3
+        property_type = "Condo"
       else
-        property_type = 0
+        property_type = "NotSpecified"
       end
       property_type
     end

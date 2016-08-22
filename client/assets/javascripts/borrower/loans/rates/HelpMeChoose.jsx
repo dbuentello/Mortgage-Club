@@ -251,7 +251,7 @@ var HelpMeChoose = React.createClass({
                   <h2>{this.state.bestRate.lender_name}</h2>
                 </div>
                 <div className='row monthly-payment'>
-                  <b className='value'>{this.formatCurrency(this.state.bestRate.monthly_payment, '$')}</b>
+                  <b className='value'>{this.formatCurrency(this.state.bestRate.monthly_payment, 0, '$')}</b>
                   <div className="primary-cost-unit">PER<br/>MONTH</div>
                 </div>
                 <div className='row secondary-cost'>
@@ -286,12 +286,26 @@ var HelpMeChoose = React.createClass({
                     {this.commafy(this.state.bestRate.apr * 100, 3)}%
                   </div>
                 </div>
+                {
+                  this.state.bestRate.lender_credits == 0
+                  ?
+                    null
+                  :
+                    <div className='row secondary-cost'>
+                      <div className='col-xs-6 col-md-6'>
+                        {this.state.bestRate.lender_credits < 0 ? "Lender credit" : "Discount points"}
+                      </div>
+                      <div className='col-xs-6 col-md-6'>
+                        {this.formatCurrency(this.state.bestRate.lender_credits, 0, "$")}
+                      </div>
+                    </div>
+                }
                 <div className='row secondary-cost'>
                   <div className='col-xs-6 col-md-6'>
                     Estimated Closing Costs
                   </div>
                   <div className='col-xs-6 col-md-6'>
-                    {this.formatCurrency(this.state.bestRate.total_closing_cost, '$')}
+                    {this.formatCurrency(this.state.bestRate.total_closing_cost, 0, '$')}
                   </div>
                 </div>
                 <div className='row secondary-cost' style={{"fontWeight": "bold"}}>
@@ -299,11 +313,13 @@ var HelpMeChoose = React.createClass({
                     True Cost of Mortgage
                   </div>
                   <div className='col-xs-6 col-md-6'>
-                    {this.formatCurrency(this.state.bestRate.total_cost, '$')}
+                    {this.formatCurrency(this.state.bestRate.total_cost, 0, '$')}
                   </div>
                 </div>
                 <div className='row text-xs-center'>
-                  <a className='btn btnLrg mtm select-btn col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.state.bestRate)}>Select</a>
+                  <a className='btn btnLrg mtm select-btn col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.state.bestRate)}>
+                    {this.props.isInitialQuotes ? "Apply Now" : "Select"}
+                  </a>
                 </div>
               </div>
             : null

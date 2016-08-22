@@ -18,6 +18,7 @@
 //= require d3.min
 //= require d3.slider
 //= require auto-complete.min
+//= require idle-timer.min
 //= require landing/functions
 // Important to import jquery_ujs before bundle_BorrowerApp as that patches jquery xhr to use the authenticity token!
 
@@ -25,6 +26,37 @@
 
 // General Config
 $(document).on('ready', function(event) {
+  google.charts.load('current', {'packages':['corechart']});
   $('.flashSection').delay(7000).fadeOut();
   $('[data-toggle="tooltip"]').tooltip();
 });
+$(document).on( "idle.idleTimer", function(event, elem, obj){
+
+});
+$(document).on( "active.idleTimer", function(event, elem, obj, triggerevent){
+       // function you want to fire when the user becomes active again
+
+});
+
+(function ($) {
+
+    $( document ).on( "idle.idleTimer", function(event, elem, obj){
+      $.ajax({
+          url: '/auth/logout/',
+          method: 'DELETE',
+        success: function(response) {
+          window.location.href = "/auth/login";
+        },
+        error: function(response, status, error) {
+          console.log("error");
+        }
+      });
+    });
+
+    $( document ).on( "active.idleTimer", function(event, elem, obj, triggerevent){
+        $.idleTimer("reset");
+    });
+
+    $.idleTimer(20*60*1000); //auto logout after 20'
+
+})(jQuery);

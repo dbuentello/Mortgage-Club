@@ -16,18 +16,24 @@ module QuotesFormulas
   REFINANCE = 2
 
   def get_valid_quotes(quotes)
-    quotes.select { |quote| quote["DiscountPts"] <= 0.125 }
+    quotes.select { |quote| quote["ProductFamily"] == "CONVENTIONAL" }
   end
 
   def get_apr(quote)
-    discount_pts_equals_to_0_125?(quote) ? get_interest_rate(quote) : quote["APR"] / 100
+    quote["APR"] / 100
   end
 
   def get_lender_info(quotes)
     lender_names = quotes.map { |q| q["LenderName"] }.uniq
     lender_info = {}
     Lender.where(name: lender_names).each do |lender|
-      lender_info[lender.name] = {nmls: lender.nmls, logo_url: lender.logo_url}
+      lender_info[lender.name] = {
+        nmls: lender.nmls,
+        logo_url: lender.logo_url,
+        appraisal_fee: lender.appraisal_fee,
+        tax_certification_fee: lender.tax_certification_fee,
+        flood_certification_fee: lender.flood_certification_fee
+      }
     end
 
     lender_info
@@ -53,19 +59,17 @@ module QuotesFormulas
 
   def get_lender_credits(quote, admin_fee)
     return 0 if quote["DiscountPts"].nil?
-    return 0 if quote["DiscountPts"].to_f >= 0 && quote["DiscountPts"].to_f <= 0.125
 
     quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"] + admin_fee
-    # return 0 if total_fee >= 0 && total_fee <= 1000
-    # total_fee
   end
 
-  def get_total_closing_cost(quote, admin_fee)
+  def get_total_closing_cost(quote, admin_fee, thirty_fees = nil)
     total_fee = get_total_fee(quote, admin_fee)
     lender_credit = get_lender_credits(quote, admin_fee)
     fha_upfront_premium_amount = get_fha_upfront_premium_amount(quote)
+    thirty_fee = thirty_fees.nil? ? 0 : thirty_fees.map { |x| x[:FeeAmount] }.sum
 
-    total_fee + lender_credit + fha_upfront_premium_amount
+    total_fee + lender_credit + fha_upfront_premium_amount + thirty_fee
   end
 
   def get_admin_fee(quote)
@@ -86,6 +90,61 @@ module QuotesFormulas
     quote["FeeSet"]["Fees"].reject { |x| x["Description"] == "Administration fee" }
   end
 
+  def get_thirty_fees(fees, lender_info, loan_amount, interest_rate)
+    thirty_fees = []
+    lender_fees = []
+    prepaid_items = []
+
+    days = (Time.now.utc.end_of_month.to_date - Time.now.utc.to_date).to_i
+    prepaid_items << {
+      "Description": "Prepaid interest for #{days} days",
+      "FeeAmount": loan_amount * interest_rate * days / 360,
+      "HubLine": 814,
+      "FeeType": 1,
+      "IncludeInAPR": false
+    }
+
+    if lender_info.present?
+      lender_fees << {
+        "Description": "Appraisal Fee",
+        "FeeAmount": lender_info[:appraisal_fee].to_i,
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
+
+      lender_fees << {
+        "Description": "Tax Certification Fee",
+        "FeeAmount": lender_info[:tax_certification_fee].to_i,
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
+
+      lender_fees << {
+        "Description": "Flood Certification Fee",
+        "FeeAmount": lender_info[:flood_certification_fee].to_i,
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
+    end
+
+    thirty_fees << {
+      "Description": "Services you cannot shop for",
+      "FeeAmount": lender_fees.map { |x| x[:FeeAmount] }.sum,
+      "Fees": lender_fees
+    }
+
+    thirty_fees += fees if fees.present?
+
+    thirty_fees << {
+      "Description": "Prepaid items",
+      "FeeAmount": prepaid_items.map { |x| x[:FeeAmount] }.sum,
+      "Fees": prepaid_items
+    }
+  end
+
   def get_total_fee(quote, admin_fee)
     quote["FeeSet"]["TotalFees"].to_f - admin_fee
   end
@@ -97,7 +156,7 @@ module QuotesFormulas
   def get_period(quote)
     return 360 if arm?(quote)
 
-    quote["ProductTerm"].to_i * 12
+    quote["ProductTerm"].delete('F').to_i * 12
   end
 
   def get_interest_rate(quote)
@@ -105,11 +164,7 @@ module QuotesFormulas
   end
 
   def arm?(quote)
-    quote["ProductTerm"].include? "/1"
-  end
-
-  def discount_pts_equals_to_0_125?(quote)
-    quote["DiscountPts"] == 0.125
+    quote["ProductType"].include? "ARM"
   end
 
   def hide_admin_fee?(quote, admin_fee)

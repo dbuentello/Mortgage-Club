@@ -30,6 +30,10 @@
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
+	#copyrights .col_half:last-child { display: none; }
+	#copyrights .col_half { width: 100% !important; margin-right: 0;
+    float: none;
+    text-align: center;}
 	.text-sm-left { text-align: left; }
   .text-sm-right { text-align: right; }
   .text-sm-center { text-align: center; }
@@ -1427,7 +1431,7 @@
 }
 
 @media (min-width: 480px) and (max-width: 767px) {
-
+	#copyrights .col_half:last-child { display: none; }
 	.container,
 	#header.full-header .container,
 	.container-fullwidth { width: 470px !important; }
@@ -1794,4 +1798,3 @@ only screen and (                min-resolution: 2dppx) and (max-width: 991px) {
 	#logo a.standard-logo { display: none; }
 	#logo a.retina-logo { display: inline-block; }
 }
-

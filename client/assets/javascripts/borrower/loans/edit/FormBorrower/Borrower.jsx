@@ -347,7 +347,7 @@ var Borrower = React.createClass({
                 : null
               }
             </div>
-            <div className="col-xs-4">
+            <div className="col-sm-4">
               <TextField
                 activateRequiredField={this.props.yearsInPreviousAddressError}
                 label={this.props.fields.yearsInPreviousAddress.label}

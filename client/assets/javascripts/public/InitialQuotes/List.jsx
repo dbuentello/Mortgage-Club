@@ -72,13 +72,18 @@ var List = React.createClass({
     }
   },
 
-
   componentDidMount: function() {
     if(this.props.helpMeChoose){
       if($("span.fa-angle-down").length > 0){
         $("span.fa-angle-down")[0].click();
       }
     }
+
+    $('.collapse').on('shown.bs.collapse', function(){
+      $(this).parent().find(".icon-plus").removeClass("icon-plus").addClass("icon-minus");
+    }).on('hidden.bs.collapse', function(){
+      $(this).parent().find(".icon-minus").removeClass("icon-minus").addClass("icon-plus");
+    });
   },
 
   componentDidUpdate: function(prevProps, prevState) {
@@ -119,13 +124,6 @@ var List = React.createClass({
     }
   },
 
-  calcDownPayment: function(down_payment, loan_amount){
-    if(!down_payment)
-      return 0;
-
-    return (parseFloat(down_payment/(down_payment + loan_amount)) * 100).toFixed(0);
-  },
-
   totalMonthlyPayment: function(monthly_payment, mtg_insurrance, tax, hazard_insurrance, hoa_due, mortgage_insurance_premium){
     var total = 0.0;
     if(monthly_payment){
@@ -158,8 +156,8 @@ var List = React.createClass({
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
                   <div className="row">
-                    <div className="col-xs-4 col-md-3 col-sm-6 col-sm-6">
-                      <img className="img-responsive" src={quote.logo_url}/>
+                    <div className="col-xs-4 col-md-3 col-sm-6">
+                      <img src={quote.logo_url}/>
                       <h4 className="nmls-title hidden-xs">NMLS: #{quote.nmls}</h4>
                     </div>
                     <div className="col-xs-8 col-md-3 col-sm-6 col-sm-6">
@@ -184,15 +182,15 @@ var List = React.createClass({
                           <p>
                             <strong>
                               <span>True Cost of Mortgage: </span>
-                              {this.formatCurrency(quote.total_cost, '$')}
+                              {this.formatCurrency(quote.total_cost, 0, '$')}
                             </strong>
                           </p>
                         :
                           null
                       }
                     </div>
-                    <div className="col-md-2 col-sm-6 col-sm-6">
-                      <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Select</a>
+                    <div className="col-md-2 col-sm-12 text-sm-center">
+                      <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -201,31 +199,19 @@ var List = React.createClass({
                     <div className="col-md-6">
                       <h4>Product details</h4>
                       <div className="row">
-                        <div className="col-xs-7">
+                        <div className="col-xs-6">
                           <p className="col-xs-12 cost">Product type</p>
-                          <p className="col-xs-12 cost">Interest Rate</p>
+                          <p className="col-xs-12 cost">Interest rate</p>
                           <p className="col-xs-12 cost">APR</p>
+                          <p className="col-xs-12 cost">Property value</p>
                           <p className="col-xs-12 cost">Loan amount</p>
-                          {
-                            quote.down_payment == null
-                            ?
-                              null
-                            :
-                              <p className="col-xs-12 cost">Down payment</p>
-                          }
                         </div>
-                        <div className="row-no-padding col-xs-5">
+                        <div className="row-no-padding col-xs-6">
                           <p className="col-xs-12 cost">{quote.product}</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.interest_rate * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.apr * 100, 3)}%</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(quote.property_value, 0, "$")}</p>
                           <p className="col-xs-12 cost">{this.formatCurrency(quote.loan_amount, 0, "$")}</p>
-                          {
-                            quote.down_payment == null
-                            ?
-                              null
-                            :
-                              <p className="col-xs-12 cost">{this.formatCurrency(quote.down_payment, 0, "$")} ({this.calcDownPayment(quote.down_payment, quote.loan_amount)}%)</p>
-                          }
                         </div>
                       </div>
                       <h4>Estimated Closing Costs</h4>
@@ -248,6 +234,35 @@ var List = React.createClass({
                           _.map(quote.fees, function(fee){
                             return (
                               <li className="lender-fee-item" key={fee["HudLine"]}>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}</li>
+                            )
+                          }, this)
+                        }
+
+                        {
+                          _.map(quote.thirty_fees, function(thirty_fee, index_second){
+                            return (
+                              <div>
+                                {
+                                  thirty_fee["FeeAmount"] == 0
+                                  ?
+                                    null
+                                  :
+                                    <li className="thirty-party-fees">
+                                      <a role="button" data-toggle="collapse" href={".thirty-fees-" + index + "-" + index_second} aria-expanded="true" aria-controls={"thirty-fees-" + index + "-" + index_second}>
+                                        <i className="icon-plus"></i><span>{thirty_fee["Description"] + ": " + this.formatCurrency(thirty_fee["FeeAmount"], 0, "$")}</span>
+                                      </a>
+                                      <div className={"collapse thirty-fees-collapse thirty-fees-" + index + "-" + index_second}>
+                                        {
+                                          _.map(thirty_fee["Fees"], function(fee) {
+                                            return (
+                                              <p>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}</p>
+                                            )
+                                          }, this)
+                                        }
+                                      </div>
+                                    </li>
+                                }
+                              </div>
                             )
                           }, this)
                         }
@@ -276,9 +291,9 @@ var List = React.createClass({
                           <p className="col-xs-12 cost "> Total est. payment</p>
                         </div>
                         <div className="row-no-padding col-md-3 col-xs-3">
-                          <p className="col-xs-12 cost">{this.formatCurrency(quote.monthly_payment, "$")}</p>
-                          <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedPropertyTax, "$")}</p>
-                          <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedHazardInsurance, "$")}</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(quote.monthly_payment, 0, "$")}</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedPropertyTax, 0, "$")}</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(this.state.estimatedHazardInsurance, 0, "$")}</p>
                             {
                               quote.pmi_monthly_premium_amount != 0
                               ?
