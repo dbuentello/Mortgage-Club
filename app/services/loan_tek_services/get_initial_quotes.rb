@@ -52,9 +52,17 @@ module LoanTekServices
           sales_price: info["property_value"].to_f
         ).call
 
-        quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose, fees, info["property_value"].to_f)
+        if quotes.nil?
+          []
+        else
+          quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose, fees, info["property_value"].to_f)
+        end
       else
-        quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose, [], info["property_value"].to_f)
+        if quotes.nil?
+          []
+        else
+          quotes.empty? ? [] : LoanTekServices::ReadQuotes.build_lowest_apr(quotes, get_loan_purpose, [], info["property_value"].to_f)
+        end
       end
     end
 
@@ -122,7 +130,7 @@ module LoanTekServices
       info["mortgage_purpose"] == "purchase"
     end
 
-    def get_quotes(loan_to_value, loan_amount, is_cash_out = false)
+    def get_quotes(loan_to_value, loan_amount, is_cash_out = false, is_down_payment = false)
       quotes = LoanTekServices::SendRequestToLoanTek.call(
         zipcode: get_zipcode,
         credit_score: get_credit_score,
@@ -144,9 +152,17 @@ module LoanTekServices
           sales_price: info["property_value"].to_f
         ).call
 
-        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees, info["property_value"].to_f, is_cash_out)
+        if quotes.nil?
+          []
+        else
+          quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees, info["property_value"].to_f, is_cash_out, is_down_payment)
+        end
       else
-        quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [], info["property_value"].to_f, is_cash_out)
+        if quotes.nil?
+          []
+        else
+          quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [], info["property_value"].to_f, is_cash_out, is_down_payment)
+        end
       end
     end
   end

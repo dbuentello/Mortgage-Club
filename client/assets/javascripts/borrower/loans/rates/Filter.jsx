@@ -17,6 +17,7 @@ var Filter = React.createClass({
       var state = {};
       state.isValid = true;
       state.saving = false;
+      state.rate_alert_inform = "";
       _.each(fields, function (field) {
         state[field.name] = null;
       });
@@ -97,7 +98,14 @@ var Filter = React.createClass({
            },
            success: function(response) {
              this.setState({saving: true});
+             this.setState({rate_alert_inform: "You created a rate alert successful. Our system will send you an email if the rate drop."})
              $("#email_alert").modal('hide');
+             $("#email_inform").modal('show');
+
+           },error: function(res){
+             this.setState({rate_alert_inform: "You cant create a rate alert right now. Please try again."})
+             $("#email_alert").modal('hide');
+             $("#email_inform").modal('show');
            }
          });
        }
@@ -116,12 +124,12 @@ var Filter = React.createClass({
                   {
                     this.props.rate_alert ?
                     <span>
-                          <a className="btn btn-mc" data-toggle="modal" data-target="#email_alert"> Rate alert </a>
+                          <a data-toggle="modal" href="" data-target="#email_alert" style={{fontSize: 17}}> Create a rate alert </a>
 
                           <div className="modal fade" id="email_alert" tabIndex="-1" role="dialog" aria-labelledby="email_alert_label">
                               <div className="modal-dialog modal-md" role="document">
                                   <div className="modal-content">
-                                      <span className="glyphicon glyphicon-remove-sign closeBtn" data-dismiss="modal"></span>
+                                      <span className="fa fa-times-circle closeBtn" data-dismiss="modal"></span>
                                       <div className="modal-body text-center container">
                                           <h2>Rate Drop Alert</h2>
                                           <h3 className="mc-blue-primary-text">Sign up for MortgageClub's rate watch and we'll email you when rates drop.</h3>
@@ -170,7 +178,7 @@ var Filter = React.createClass({
                                                   </div>
 
                                                   <div className="form-group text-center">
-                                                      <div className="col-md-12" style={{"padding-top": "35px","padding-bottom": "20px"}}>
+                                                      <div className="col-md-6 col-md-offset-3" style={{"padding-top": "35px","padding-bottom": "20px"}}>
                                                         <button type="button" onClick={this.submitRateAlert} className="btn btn-mc form-control">Submit</button>
                                                       </div>
                                                   </div>
@@ -179,6 +187,31 @@ var Filter = React.createClass({
                                   </div>
                               </div>
                           </div>
+
+
+                          <div className="modal fade" id="email_inform" tabIndex="-1" role="dialog" aria-labelledby="email_alert_inform_label">
+                              <div className="modal-dialog modal-md" role="document">
+                                  <div className="modal-content">
+                                      <span className="fa fa-times-circle closeBtn" data-dismiss="modal"></span>
+                                      <div className="modal-body text-center container">
+                                          <h2>Rate Drop Alert</h2>
+                                          <h3 className="mc-blue-primary-text">{this.state.rate_alert_inform}</h3>
+                                              <form class="form-horizontal text-center" data-remote="true" id="new_rate_alert" action="/quotes/set_rate_alert" accept-charset="UTF-8" method="post">
+
+
+
+                                                  <div className="form-group text-center">
+                                                      <div className="col-md-6 col-md-offset-3" style={{"padding-top": "35px","padding-bottom": "20px"}}>
+
+                                                        <a className="btn btn-mc form-control" data-dismiss="modal">OK</a>
+                                                      </div>
+                                                  </div>
+                                              </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
                           </span>
                     :
                     null
