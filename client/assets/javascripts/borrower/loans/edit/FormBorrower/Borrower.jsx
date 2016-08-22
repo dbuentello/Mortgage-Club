@@ -96,6 +96,7 @@ var Borrower = React.createClass({
               label={this.props.fields.ssn.label}
               keyName={this.props.fields.ssn.name}
               value={this.props.ssn}
+              passwordMode={true}
               customClass={"account-text-input"}
               format={this.formatSSN}
               liveFormat={true}
