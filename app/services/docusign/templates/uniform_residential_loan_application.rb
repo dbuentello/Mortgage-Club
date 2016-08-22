@@ -427,16 +427,16 @@ module Docusign
         @params[(role + "_overtime").to_sym] = number_to_currency(borrower.gross_overtime.to_f / 12, unit: "")
         @params[(role + "_bonuses").to_sym] = number_to_currency(borrower.gross_bonus.to_f, unit: "")
         @params[(role + "_commissions").to_sym] = number_to_currency(borrower.gross_commission.to_f, unit: "")
-        @params[(role + "_interest").to_sym] = number_to_currency(borrower.gross_interest.to_f, unit: "")
+        @params[(role + "_interest").to_sym] = number_to_currency(borrower.gross_interest.to_f / 12, unit: "")
         @params[:total_base_income] = @params[:total_base_income].to_f + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
         @params[:total_overtime] = @params[:total_overtime].to_f + (borrower.gross_overtime.to_f / 12)
         @params[:total_bonuses] = @params[:total_bonuses].to_f + borrower.gross_bonus.to_f
         @params[:total_commissions] = @params[:total_commissions].to_f + borrower.gross_commission.to_f
-        @params[:total_dividends] = @params[:total_dividends].to_f + borrower.gross_interest.to_f
+        @params[:total_dividends] = @params[:total_dividends].to_f + (borrower.gross_interest.to_f / 12)
       end
 
       def build_total_monthly_income(borrower)
-        borrower.gross_overtime.to_f + borrower.gross_bonus.to_f + borrower.gross_commission.to_f + borrower.gross_interest.to_f + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
+        borrower.gross_overtime.to_f/12 + borrower.gross_bonus.to_f + borrower.gross_commission.to_f + borrower.gross_interest.to_f/12 + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
       end
 
       def build_monthly_income(current_salary, pay_frequency)
