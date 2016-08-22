@@ -298,13 +298,13 @@ var Filter = React.createClass({
         featuredCashOuts.push({name: "No Cash Out (" + loanToValue + "% LTV)", value: loanToValue});
 
         if (loanToValue < 80 && this.state.dataCookies.property_usage == "primary_residence"){
-          featuredCashOuts.push({name: "$" + noCashOutProgram.property_value * (80-loanToValue) / 100000 + "k (" + 80 + "% LTV)", value: 80});
+          featuredCashOuts.push({name: "$" + (noCashOutProgram.property_value * (80-loanToValue) / 100000).toFixed(0) + "k (" + 80 + "% LTV)", value: 80});
         }
         if (loanToValue < 75){
-          featuredCashOuts.push({name: "$" + noCashOutProgram.property_value * (75-loanToValue) / 100000 + "k (" + 75 + "% LTV)", value: 75});
+          featuredCashOuts.push({name: "$" + (noCashOutProgram.property_value * (75-loanToValue) / 100000).toFixed(0) + "k (" + 75 + "% LTV)", value: 75});
         }
         if (loanToValue < 70){
-          featuredCashOuts.push({name: "$" + noCashOutProgram.property_value * (70-loanToValue) / 100000 + "k (" + 70 + "% LTV)", value: 70});
+          featuredCashOuts.push({name: "$" + (noCashOutProgram.property_value * (70-loanToValue) / 100000).toFixed(0) + "k (" + 70 + "% LTV)", value: 70});
         }
         return featuredCashOuts;
     },
@@ -315,24 +315,24 @@ var Filter = React.createClass({
         var loanToValue = noDownPaymentProgram.loan_to_value;
         var downPayment = 100 - loanToValue;
 
-        featuredDownPayments.push({name: "Down Payment (" + downPayment + "%)", value: loanToValue});
+        featuredDownPayments.push({name: "No Down Payment (" + loanToValue + "% LTV)", value: loanToValue});
 
         if(this.state.dataCookies.property_usage == "primary_residence"){
           if (downPayment > 20){
-            featuredDownPayments.push({name: "$" + noDownPaymentProgram.property_value * (downPayment - 20) / 100000 + "k (" + 20 + "%)", value: 80});
+            featuredDownPayments.push({name: "$" + (noDownPaymentProgram.property_value * (downPayment - 20) / 100000).toFixed(0) + "k (" + 80 + "% LTV)", value: 80});
           }
           if (downPayment > 10){
-            featuredDownPayments.push({name: "$" + noDownPaymentProgram.property_value * (downPayment - 10) / 100000 + "k (" + 10 + "%)", value: 90});
+            featuredDownPayments.push({name: "$" + (noDownPaymentProgram.property_value * (downPayment - 10) / 100000).toFixed(0) + "k (" + 90 + "% LTV)", value: 90});
           }
           if (downPayment > 5){
-            featuredDownPayments.push({name: "$" + noDownPaymentProgram.property_value * (downPayment - 5) / 100000 + "k (" + 5 + "%)", value: 95});
+            featuredDownPayments.push({name: "$" + (noDownPaymentProgram.property_value * (downPayment - 5) / 100000).toFixed(0) + "k (" + 95 + "% LTV)", value: 95});
           }
         }else{
           if (downPayment > 25){
-            featuredDownPayments.push({name: "$" + noDownPaymentProgram.property_value * (downPayment - 25) / 100000 + "k (" + 25 + "%)", value: 75});
+            featuredDownPayments.push({name: "$" + (noDownPaymentProgram.property_value * (downPayment - 25) / 100000).toFixed(0) + "k (" + 75 + "% LTV)", value: 75});
           }
           if (downPayment > 20){
-            featuredDownPayments.push({name: "$" + noDownPaymentProgram.property_value * (downPayment - 20) / 100000 + "k (" + 20 + "%)", value: 80});
+            featuredDownPayments.push({name: "$" + (noDownPaymentProgram.property_value * (downPayment - 20) / 100000).toFixed(0) + "k (" + 80 + "% LTV)", value: 80});
           }
         }
 
