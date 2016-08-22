@@ -3,14 +3,14 @@
  * Filtered rates
  */
 var LoanProgramFilterMixin = {
-  filterPrograms: function(programs, products, lender_names, cash_outs) {
-    if(this.criteriaAreEmpty(products, lender_names, cash_outs)) {
+  filterPrograms: function(programs, products, lender_names, cash_outs, down_payments) {
+    if(this.criteriaAreEmpty(products, lender_names, cash_outs, down_payments)) {
       return programs;
     }
 
     filteredPrograms = [];
     programs.forEach(function (program) {
-      if(this.belongsToProducts(program, products) && this.belongsToLenders(program, lender_names)  && this.belongsToCashOuts(program, cash_outs)) {
+      if(this.belongsToProducts(program, products) && this.belongsToLenders(program, lender_names) && this.belongsToCashOuts(program, cash_outs) && this.belongsToDownPayments(program, down_payments)) {
         filteredPrograms.push(program);
       }
     }, this);
@@ -36,6 +36,13 @@ var LoanProgramFilterMixin = {
       return true;
     }
     return (cash_outs.indexOf(program.loan_to_value) != -1);
+  },
+
+  belongsToDownPayments: function(program, down_payments) {
+    if(down_payments.length == 0) {
+      return true;
+    }
+    return (down_payments.indexOf(program.loan_to_value) != -1);
   },
 
   criteriaAreEmpty: function(products, lender_names, cash_outs) {
