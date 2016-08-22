@@ -26,7 +26,7 @@ var Filter = React.createClass({
       return state;
     },
     getDefaultProps: function() {
-        return {productCriteria: [], lenderCriteria: [], cashOutCriteria: [], allCriteria: []};
+        return {productCriteria: [], lenderCriteria: [], cashOutCriteria: [], downPaymentCriteria: [], allCriteria: []};
     },
     onChangeCriteria: function(option, type) {
         var criteria;
@@ -37,7 +37,11 @@ var Filter = React.createClass({
           if(type == "lender"){
             criteria = this.props.lenderCriteria;
           }else{
-            criteria = this.props.cashOutCriteria;
+            if(type == "downPayment"){
+              criteria = this.props.downPaymentCriteria;
+            }else{
+              criteria = this.props.cashOutCriteria;
+            }
           }
         }
 
@@ -49,7 +53,7 @@ var Filter = React.createClass({
         } else {
             criteria.push(option);
         }
-        var filteredPrograms = this.filterPrograms(this.props.programs, this.props.productCriteria, this.props.lenderCriteria, this.props.cashOutCriteria);
+        var filteredPrograms = this.filterPrograms(this.props.programs, this.props.productCriteria, this.props.lenderCriteria, this.props.cashOutCriteria, this.props.downPaymentCriteria);
         this.props.onFilterProgram(filteredPrograms);
 
         var allCriteria = this.props.allCriteria;
@@ -247,6 +251,24 @@ var Filter = React.createClass({
                       :
                         null
                     }
+                    {
+                      this.state.dataCookies !== undefined && this.state.dataCookies.mortgage_purpose === "purchase"
+                      ?
+                        <div>
+                          <h5>Down payment</h5>
+                          {_.map(this.getFeaturedDownPayments(), function(downPayment) {
+                              return (
+                                <div>
+                                  <input type="checkbox" id={downPayment.name} checked={this.isCriteriaChecked(downPayment.value)} onChange={_.bind(this.onChangeCriteria, null, downPayment.value, "downPayment")}/>
+                                  <label className="customCheckbox blueCheckBox2" htmlFor={downPayment.name}>{downPayment.name}</label>
+                                </div>
+                              )
+                            }, this)
+                          }
+                        </div>
+                      :
+                        null
+                    }
                     <h5>Wholesale lenders</h5>
                     {_.map(this.getFeaturedLenders(), function(lender) {
                         return (
@@ -300,6 +322,7 @@ var Filter = React.createClass({
 
         return featuredLenders;
     },
+
     getFeaturedCashOuts: function() {
         var featuredCashOuts = [];
         var noCashOutProgram = _.find(this.props.programs, function(program){ return program.is_cash_out == false; });
@@ -307,16 +330,46 @@ var Filter = React.createClass({
 
         featuredCashOuts.push({name: "No Cash Out (" + loanToValue + "% LTV)", value: loanToValue});
 
-        if(loanToValue < 80 && this.state.dataCookies.property_usage == "primary_residence"){
-          featuredCashOuts.push({name: "$" + noCashOutProgram.property_value * (80-loanToValue) / 100000 + "k (" + 80 + "% LTV)", value: 80});
+        if (loanToValue < 80 && this.state.dataCookies.property_usage == "primary_residence"){
+          featuredCashOuts.push({name: "$" + (noCashOutProgram.property_value * (80-loanToValue) / 100000).toFixed(0) + "k (" + 80 + "% LTV)", value: 80});
         }
         if (loanToValue < 75){
-          featuredCashOuts.push({name: "$" + noCashOutProgram.property_value * (75-loanToValue) / 100000 + "k (" + 75 + "% LTV)", value: 75});
+          featuredCashOuts.push({name: "$" + (noCashOutProgram.property_value * (75-loanToValue) / 100000).toFixed(0) + "k (" + 75 + "% LTV)", value: 75});
         }
         if (loanToValue < 70){
-          featuredCashOuts.push({name: "$" + noCashOutProgram.property_value * (70-loanToValue) / 100000 + "k (" + 70 + "% LTV)", value: 70});
+          featuredCashOuts.push({name: "$" + (noCashOutProgram.property_value * (70-loanToValue) / 100000).toFixed(0) + "k (" + 70 + "% LTV)", value: 70});
         }
         return featuredCashOuts;
+    },
+
+    getFeaturedDownPayments: function() {
+        var featuredDownPayments = [];
+        var noDownPaymentProgram = _.find(this.props.programs, function(program){ return program.is_down_payment == false; });
+        var loanToValue = noDownPaymentProgram.loan_to_value;
+        var downPayment = 100 - loanToValue;
+
+        featuredDownPayments.push({name: "$" + ((noDownPaymentProgram.property_value - noDownPaymentProgram.loan_amount) / 1000).toFixed(0) + "k (" + loanToValue + "% LTV)", value: loanToValue});
+
+        if(this.state.dataCookies.property_usage == "primary_residence"){
+          if (downPayment > 20){
+            featuredDownPayments.push({name: "$" + (noDownPaymentProgram.property_value * 20 / 100000).toFixed(0) + "k (" + 80 + "% LTV)", value: 80});
+          }
+          if (downPayment > 10){
+            featuredDownPayments.push({name: "$" + (noDownPaymentProgram.property_value * 10 / 100000).toFixed(0) + "k (" + 90 + "% LTV)", value: 90});
+          }
+          if (downPayment > 5){
+            featuredDownPayments.push({name: "$" + (noDownPaymentProgram.property_value * 5 / 100000).toFixed(0) + "k (" + 95 + "% LTV)", value: 95});
+          }
+        }else{
+          if (downPayment > 25){
+            featuredDownPayments.push({name: "$" + (noDownPaymentProgram.property_value * 25 / 100000).toFixed(0) + "k (" + 75 + "% LTV)", value: 75});
+          }
+          if (downPayment > 20){
+            featuredDownPayments.push({name: "$" + (noDownPaymentProgram.property_value * 20 / 100000).toFixed(0) + "k (" + 80 + "% LTV)", value: 80});
+          }
+        }
+
+        return featuredDownPayments;
     },
     getRemainingLenders: function() {
         return _.difference(this.getAllLenders(), this.getFeaturedLenders());
