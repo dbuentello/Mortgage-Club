@@ -126,7 +126,7 @@ module Docusign
         s7_f = 0
         s7_g = 0
         s7_h = 0
-        s7_i = s7_a + s7_b + s7_c + s7_e + s7_f + s7_g + s7_h
+        s7_i = s7_a + s7_b + s7_d + s7_c + s7_e + s7_f + s7_g + s7_h
         s7_j = 0
         s7_k = 0
         s7_l = loan.other_credits.to_f
