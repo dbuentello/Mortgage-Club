@@ -28,11 +28,11 @@ var List = React.createClass({
         $("span.glyphicon-menu-down")[0].click();
       }
     }else {
-      console.log("asdasdasd");
       if(this.props.selected_program == 2) {
         if($(".board-content-toggle span.glyphicon-menu-down").length > 0){
-          console.log("inddd");
+          setTimeout(function(){
           $(".board-content-toggle span.glyphicon-menu-down")[0].click();
+        }, 2000);
         }
       }
     }
