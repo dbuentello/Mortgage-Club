@@ -121,7 +121,7 @@ module Docusign
         s7_a = subject_property.purchase_price.to_f
         s7_b = 0
         s7_c = 0
-        loan.refinance? ? s7_d = loan.amount : s7_d = 0
+        loan.refinance? ? s7_d = subject_property.estimated_mortgage_balance : s7_d = 0
         s7_e = 0
         s7_f = 0
         s7_g = 0
