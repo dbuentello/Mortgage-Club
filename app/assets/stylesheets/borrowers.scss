@@ -12,10 +12,6 @@
   }
   .container {
     background-color: #fff;
-    @include respond-to(mobile){
-      padding-left: 0px;
-      // padding-right: 30px;
-    };
   }
 
   // .borrower-profile {

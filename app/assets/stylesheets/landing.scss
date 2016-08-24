@@ -69,6 +69,10 @@
   margin-top: 60px;
   position: relative;
   margin-bottom: 70px;
+  @include respond-to(mobile){
+    margin-top: 10px;
+    margin-bottom: 20px;
+  };
   .homepic-row {
     img {
       width: 100%;
