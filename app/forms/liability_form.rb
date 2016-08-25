@@ -27,10 +27,10 @@ class LiabilityForm
     return false if loan.nil?
 
     ActiveRecord::Base.transaction do
-      update_loan
       update_rental_properties
       update_subject_property
       update_primary_property
+      update_loan
     end
 
     true
@@ -75,8 +75,9 @@ class LiabilityForm
   #
   def update_subject_property
     return unless subject_property
-
-    subject_property.update(property_params(subject_property_params))
+    params = property_params(subject_property_params)
+    params[:estimated_mortgage_balance] = subject_property_params[:other_remaining_balance].to_i + subject_property_params[:other_financing_remaining_balance].to_i
+    subject_property.update(params)
     # subject_property.update_mortgage_payment_amount
     update_liabilities(subject_property, subject_property_params)
   end
@@ -127,7 +128,7 @@ class LiabilityForm
     return unless params[:otherFinancing].present?
 
     if params[:otherFinancing] == "OtherFinancing"
-      other_liability = create_new_liability(params[:other_financing_amount], "OtherFinancing", credit_report_id)
+      other_liability = create_new_liability(params[:other_financing_amount], "OtherFinancing", credit_report_id, params[:other_financing_remaining_balance])
     else
       other_liability = Liability.find(params[:otherFinancing])
     end

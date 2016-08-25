@@ -45,6 +45,8 @@ var Property = React.createClass({
     state.property.other_mortgage_payment_amount = state.property.other_mortgage_payment_amount ? this.formatCurrency(state.property.other_mortgage_payment_amount) : null;
     state.property.other_remaining_balance = state.property.other_remaining_balance ? this.formatCurrency(state.property.other_remaining_balance) : null;
     state.property.other_financing_amount = state.property.other_financing_amount ? this.formatCurrency(state.property.other_financing_amount) : null;
+    state.property.other_financing_remaining_balance = state.property.other_financing_remaining_balance ? this.formatCurrency(state.property.other_financing_remaining_balance) : null;
+
     state.property.hoa_due = state.property.hoa_due ? this.formatCurrency(state.property.hoa_due) : null;
     state.property.gross_rental_income = state.property.gross_rental_income ? this.formatCurrency(state.property.gross_rental_income) : null;
     state.property.estimated_mortgage_insurance = state.property.estimated_mortgage_insurance ? this.formatCurrency(state.property.estimated_mortgage_insurance) : null;
@@ -359,7 +361,7 @@ var Property = React.createClass({
                     editMode={this.props.editMode}/>
                 </div>
                 { this.state.setOtherFinancing
-                  ? <div className='col-md-6'>
+                  ? <div> <div className='col-md-3'>
                       <TextField
                         label='Other Amount'
                         keyName={'property_other_financing_amount_' + this.props.index}
@@ -372,6 +374,19 @@ var Property = React.createClass({
                         onBlur={this.onBlur}
                         editMode={this.props.editMode}/>
                     </div>
+                    <div className='col-md-3'>
+                        <TextField
+                          label='Remaining Balance'
+                          keyName={'property_other_financing_remaining_balance_' + this.props.index}
+                          value={this.state.property.other_financing_amount_remaining_balance}
+                          format={this.formatCurrency}
+                          editable={true}
+                          maxLength={15}
+                          validationTypes={["currency"]}
+                          onChange={this.onChange}
+                          onBlur={this.onBlur}
+                          editMode={this.props.editMode}/>
+                      </div> </div>
                   : null
                 }
               </div>

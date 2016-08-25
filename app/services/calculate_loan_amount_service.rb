@@ -21,14 +21,10 @@ class CalculateLoanAmountService
   # @return [Float] loan amount
   #
   def self.calculate_loan_amount_for_refinance_loan(loan)
-    if loan.subject_property.mortgage_payment_liability
-      amount = loan.subject_property.mortgage_payment_liability.balance
+    if loan.subject_property.estimated_mortgage_balance
+      amount = loan.subject_property.estimated_mortgage_balance
     else
-      if loan.subject_property.estimated_mortgage_balance
-        amount = loan.subject_property.estimated_mortgage_balance
-      else
-        amount = loan.subject_property.market_price.to_f * 0.75
-      end
+      amount = 0
     end
     amount
   end
