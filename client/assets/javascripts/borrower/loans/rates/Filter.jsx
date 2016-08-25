@@ -165,7 +165,6 @@ var Filter = React.createClass({
                                                 </div>
                                                   <div className="form-group">
                                                       <div className="col-sm-12 text-left">
-
                                                           <TextField
                                                             activateRequiredField={this.state[fields.email.error]}
                                                             label={fields.email.label}

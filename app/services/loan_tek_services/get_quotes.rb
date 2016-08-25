@@ -17,20 +17,49 @@ module LoanTekServices
       if quotes = REDIS.get(cache_key)
         quotes = JSON.parse(quotes, symbolize_names: true)
       else
+        loan_to_value = get_loan_to_value
+        property_value = get_property_value
         quotes = get_quotes(get_loan_to_value, get_loan_amount)
+        quotes_2 = []
+        quotes_3 = []
+        quotes_4 = []
 
-        # if get_loan_purpose == "Refinance"
-        #   loan_to_value = get_loan_to_value
-        #   if loan_to_value < 70
-        #     quotes_2 = get_quotes(70, get_loan_amount * 0.7, true)
-        #   end
-        #   if loan_to_value < 75
-        #     quotes_3 = get_quotes(75, get_loan_amount * 0.75, true)
-        #   end
-        #   if loan_to_value < 80 && get_property_usage == "PrimaryResidence"
-        #     quotes_4 = get_quotes(80, get_loan_amount * 0.8, true)
-        #   end
-        # end
+        if get_loan_purpose == "Refinance"
+          if loan_to_value < 70
+            quotes_2 = get_quotes(70, property_value * 0.7, true)
+          end
+          if loan_to_value < 75
+            quotes_3 = get_quotes(75, property_value * 0.75, true)
+          end
+          if loan_to_value < 80 && get_property_usage == "PrimaryResidence"
+            quotes_4 = get_quotes(80, property_value * 0.8, true)
+          end
+        else
+          property_usage = get_property_usage
+          down_payment = 100 - loan_to_value
+
+          if property_usage == "PrimaryResidence"
+            if down_payment > 5
+              quotes_2 = get_quotes(95, property_value * 0.95, false, true)
+            end
+            if down_payment > 10
+              quotes_3 = get_quotes(90, property_value * 0.9, false, true)
+            end
+            if down_payment > 20
+              quotes_4 = get_quotes(80, property_value * 0.8, false, true)
+            end
+          else
+            if down_payment > 20
+              quotes_2 = get_quotes(80, property_value * 0.8, false, true)
+            end
+            if down_payment > 25
+              quotes_3 = get_quotes(75, property_value * 0.75, false, true)
+            end
+          end
+        end
+
+        quotes = quotes + quotes_2 + quotes_3 + quotes_4
+        quotes.sort_by { |program| program[:apr] }
 
         REDIS.set(cache_key, quotes.to_json)
         REDIS.expire(cache_key, 30.minutes.to_i)
@@ -39,7 +68,7 @@ module LoanTekServices
       quotes
     end
 
-    def get_quotes(loan_to_value, loan_amount, is_cash_out = false)
+    def get_quotes(loan_to_value, loan_amount, is_cash_out = false, is_down_payment = false)
       quotes = LoanTekServices::SendRequestToLoanTek.call(
         zipcode: get_zipcode,
         credit_score: get_credit_score,
@@ -65,13 +94,13 @@ module LoanTekServices
         if quotes.nil?
           []
         else
-          quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees, get_property_value, is_cash_out)
+          quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees, get_property_value, is_cash_out, is_down_payment)
         end
       else
         if quotes.nil?
           []
         else
-          quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [], get_property_value, is_cash_out)
+          quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [], get_property_value, is_cash_out, is_down_payment)
         end
       end
     end
