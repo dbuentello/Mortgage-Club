@@ -32,11 +32,7 @@ var Quotes = React.createClass({
 
   autoClickFilter: function() {
     $("input[name=30years]")[0].click();
-    if(this.state.dataCookies.mortgage_purpose == "refinance"){
-      $("input[id*='No Cash Out']")[0].click();
-    }else{
-      $(".filter-sidebar input[type=checkbox]:nth(4)").click();
-    }
+    $(".filter-sidebar input[type=checkbox]:nth(4)").click();
 
     // if(this.props.bootstrapData.selected_programs) {
     //   switch(this.props.bootstrapData.selected_programs) {
