@@ -1,4 +1,6 @@
 # get quotes for borrower (after complete loan's steps).
+# rubocop:disable BlockNesting
+
 module LoanTekServices
   class GetQuotes
     attr_reader :loan, :property, :borrower, :response
@@ -173,3 +175,4 @@ module LoanTekServices
     end
   end
 end
+# rubocop:enable BlockNesting
