@@ -152,9 +152,14 @@
   .upload-btn,
   .update-btn {
     border-radius: 5px;
+
     color: white;
     width: 100%;
     margin: 10px;
+    @include respond-to(mobile) {
+      padding: 9px 0px;
+      width: 80%;
+    };
   }
   .upload-btn {
     border: #c2c2c2 1px solid;
