@@ -22,8 +22,8 @@ var MortgageRates = React.createClass({
       storedCriteria: [],
       selected_program: this.props.bootstrapData.selected_program,
       dataCookies: {
-        mortgage_purpose: "purchase",
-        property_usage: "primary_residence"
+        mortgage_purpose: this.props.bootstrapData.currentLoan.purpose,
+        property_usage: this.props.bootstrapData.currentLoan.subject_property.usage
       }
     };
   },

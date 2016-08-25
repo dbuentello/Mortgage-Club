@@ -17,6 +17,7 @@ class Users::RatesController < Users::BaseController
     if @loan.subject_property.address && @loan.subject_property.address.zip
       rate_programs = LoanTekServices::GetQuotes.new(@loan).call
     end
+
     @selected_program = 0 # no lender
     @selected_program = 1 if @loan.lender_name.present? # has lender before and rate has changed.
     bootstrap(
