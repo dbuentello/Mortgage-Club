@@ -11,6 +11,11 @@ class LoanMembers::ActivityTypesPresenter
 
   def json_options
     {
+      include: {
+        activity_names: {
+          only: [:name]
+        }
+      }
     }
   end
 end

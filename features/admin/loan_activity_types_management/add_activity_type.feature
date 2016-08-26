@@ -11,10 +11,6 @@ Feature: AddActivityType
       And I should see "Loan Activity Type - Managements"
       And I should see "Add new Activity Type"
     Then I fill in "Activity Type" with "label"
-      And I fill in "type_name" with "name 1"
-    Then I click on "+" in the "#addTypeNameMapping"
-      And I fill in "type_name" with "name 2"
-    Then I click on "+" in the "#addTypeNameMapping"
     Then I click on "Submit"
     Then I should see a table with the following rows:
       | Activity Type | *       |
