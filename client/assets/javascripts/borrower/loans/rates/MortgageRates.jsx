@@ -20,8 +20,12 @@ var MortgageRates = React.createClass({
       signDoc: false,
       selectedRate: null,
       storedCriteria: [],
-      selected_program: this.props.bootstrapData.selected_program
-    }
+      selected_program: this.props.bootstrapData.selected_program,
+      dataCookies: {
+        mortgage_purpose: this.props.bootstrapData.currentLoan.purpose,
+        property_usage: this.props.bootstrapData.currentLoan.subject_property.usage
+      }
+    };
   },
 
   selectRate: function(rate) {
@@ -64,8 +68,14 @@ var MortgageRates = React.createClass({
     $(".pie-chart").empty();
     $("span.glyphicon-menu-up").click();
   },
+
+  autoClickFilter: function() {
+    $("input[name=30years]")[0].click();
+    $(".filter-sidebar input[type=checkbox]:nth(4)").click();
+  },
+
   componentDidMount: function() {
-    $("input[name=30years]").trigger("click");
+    this.autoClickFilter();
   },
 
   render: function() {
@@ -84,7 +94,7 @@ var MortgageRates = React.createClass({
           :
             <div className="content container mortgage-rates padding-top-0 row-eq-height">
               <div className="col-sm-12 col-md-3 hidden-xs hidden-sm subnav programs-filter">
-                <Filter programs={this.props.bootstrapData.programs} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterProgram}></Filter>
+                <Filter programs={this.props.bootstrapData.programs} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterProgram} dataCookies={this.state.dataCookies}></Filter>
               </div>
               <div className="col-sm-12 col-md-9 account-content programs-list">
                 <div className="mobile-xs-quote">
@@ -107,15 +117,15 @@ var MortgageRates = React.createClass({
 
                       </p>
                     </div>
- : null }
- { this.state.selected_program == 1 ?
-   <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
-     <p>
-       Oops, your rate and terms have changed. It’s either because lenders have updated their rates or you don’t qualify for the loan program that you selected. Please see your updated loan programs below.
-     </p>
+                 : null }
+                 { this.state.selected_program == 1 ?
+                   <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
+                     <p>
+                       Oops, your rate and terms have changed. It’s either because lenders have updated their rates or you don’t qualify for the loan program that you selected. Please see your updated loan programs below.
+                     </p>
 
-   </div>
- : null }
+                   </div>
+                 : null }
                   <div className="row form-group visible-xs visible-sm">
                     <div className="col-xs-12 text-left text-xs-center text-sm-center">
                       <a className="btn text-uppercase help-me-choose-btn" onClick={this.helpMeChoose}>help me choose</a>
@@ -173,15 +183,15 @@ var MortgageRates = React.createClass({
 
                     </p>
                   </div>
-: null }
-{ this.state.selected_program == 1 ?
-  <div>
-    <p>
-      Oops, your rate and terms have changed. It’s either because lenders have updated their rates or you don’t qualify for the loan program that you selected. Please see your updated loan programs below.
-    </p>
+                : null }
+                { this.state.selected_program == 1 ?
+                  <div>
+                    <p>
+                      Oops, your rate and terms have changed. It’s either because lenders have updated their rates or you don’t qualify for the loan program that you selected. Please see your updated loan programs below.
+                    </p>
 
-  </div>
-: null }
+                  </div>
+                : null }
                   <div className="row form-group actions-group" id="mortgageActions">
                     <div className="col-md-6">
                       <div className="row">

@@ -11,10 +11,10 @@ class LoanProgram::LoanProgramPresenter
 
   def json_options
     {
-      only: [:id, :amount],
+      only: [:id, :amount, :purpose],
       include: {
         subject_property: {
-          only: [:address, :estimated_property_tax, :estimated_hazard_insurance, :estimated_mortgage_insurance, :hoa_due],
+          only: [:address, :estimated_property_tax, :estimated_hazard_insurance, :estimated_mortgage_insurance, :hoa_due, :usage],
           methods: [:mortgage_payment_liability, :other_financing_liability]
         }
       },
