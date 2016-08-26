@@ -33,6 +33,9 @@ var EditHomepageFaqPage = require("admin/homepage_faqs/EditPage");
 var LoanActivityTypeManagements = require("admin/activity_type_managements/Managements");
 var EditActivityTypePage = require("admin/activity_type_managements/EditPage");
 
+var LoanActivityNameManagements = require("admin/activity_name_managements/Managements");
+var EditActivityNamePage = require("admin/activity_name_managements/EditPage");
+
 var Lenders = require("admin/lenders/Lenders");
 var LenderForm = require("admin/lenders/LenderForm");
 
@@ -101,6 +104,8 @@ var routes = (
     <Route path="/settings/:id/edit" handler={EditSettingPage}/>
     <Route path="/loan_activity_type_managements" name="loan_activity_type_managements" handler={LoanActivityTypeManagements}/>
     <Route path="/loan_activity_type_managements/:id/edit" handler={EditActivityTypePage}/>
+    <Route path="/loan_activity_name_managements" name="loan_activity_name_managements" handler={LoanActivityNameManagements}/>
+    <Route path="/loan_activity_name_managements/:id/edit" handler={EditActivityNamePage}/>
     <Route path="/lenders" handler={Lenders}/>
     <Route path="/homepage_rates" handler={HomepageRateManagement}/>
     <Route path="/homepage_rates/:id/edit" handler={HomepageRateForm}/>
