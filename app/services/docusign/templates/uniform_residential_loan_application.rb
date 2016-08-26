@@ -1,4 +1,5 @@
 # rubocop:disable ClassLength
+# rubocop:disable AbcSize
 require "finance_formulas"
 
 module Docusign
@@ -265,7 +266,7 @@ module Docusign
         total_rental_insurance_taxes = 0
         total_rental_net_income = 0
         total_rental_mortgage_payment = 0
-        
+
         loan.properties.each do |p|
           if loan.purchase?
             next unless !p.is_primary && !p.is_subject
@@ -592,3 +593,4 @@ module Docusign
   end
 end
 # rubocop:enable ClassLength
+# rubocop:enable AbcSize

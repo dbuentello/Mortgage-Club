@@ -40,7 +40,11 @@ class CalculateLoanAmountService
     if loan.down_payment
       amount = loan.subject_property.purchase_price.to_f - loan.down_payment
     else
-      amount = 0
+      if loan.subject_property.usage == "primary_residence" || loan.subject_property.usage == "vacation_home"
+        amount = loan.subject_property.purchase_price.to_f * 0.8
+      else
+        amount = loan.subject_property.purchase_price.to_f * 0.75
+      end
     end
     amount
   end
