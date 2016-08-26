@@ -40,7 +40,7 @@ class CalculateLoanAmountService
     if loan.down_payment
       amount = loan.subject_property.purchase_price.to_f - loan.down_payment
     else
-      amount = loan.subject_property.purchase_price.to_f * 0.75
+      amount = 0
     end
     amount
   end
