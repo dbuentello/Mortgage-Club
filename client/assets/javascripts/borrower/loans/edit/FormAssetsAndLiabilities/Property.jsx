@@ -363,7 +363,7 @@ var Property = React.createClass({
                 { this.state.setOtherFinancing
                   ? <div> <div className='col-md-3'>
                       <TextField
-                        label='Other Amount'
+                        label='Monthly Payment'
                         keyName={'property_other_financing_amount_' + this.props.index}
                         value={this.state.property.other_financing_amount}
                         format={this.formatCurrency}
