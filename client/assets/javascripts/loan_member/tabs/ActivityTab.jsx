@@ -21,12 +21,12 @@ var ActivityTab = React.createClass({
         "value": activity_type.id,
         "label": activity_type.label
       });
-      TypeNameMapping[activity_type.id] = activity_type.type_name_mapping;
+      TypeNameMapping[activity_type.id] = activity_type.activity_names.map(function(e){ return e.name });
     });
 
     return {
       current_type_id: _.keys(TypeNameMapping)[0],
-      current_name: "Verify borrower's income",
+      current_name: _.values(TypeNameMapping)[0][0],
       current_status: 0,
       acctivity_name_list: _.values(TypeNameMapping)[0],
       shown_to_user: true,
@@ -36,8 +36,7 @@ var ActivityTab = React.createClass({
 
   componentDidMount: function() {
     this.disableButton(this.props.first_activity.activity_status);
-    	$('.bootstrap-select').selectpicker();
-
+  	$('.bootstrap-select').selectpicker();
   },
 
   onTypeChange: function(event) {
@@ -124,7 +123,7 @@ var ActivityTab = React.createClass({
               </select>
             </div>
             <div className="col-xs-4">
-              <select className="form-control" onChange={this.onNameChange}>
+              <select className="form-control" onChange={this.onNameChange} id="list-activity-names">
                 {
                   _.map(this.state.acctivity_name_list, function(name) {
                     return (

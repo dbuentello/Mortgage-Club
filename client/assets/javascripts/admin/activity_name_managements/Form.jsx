@@ -30,7 +30,7 @@ var Form = React.createClass({
         notify_borrower_email: this.props.ActivityName.notify_borrower_email,
         notify_borrower_text: this.props.ActivityName.notify_borrower_text,
         notify_borrower_email_subject: this.props.ActivityName.notify_borrower_email_subject,
-        notify_borrower_email_body: this.props.ActivityName.notify_borrower_email_body,
+        notify_borrower_email_body: this.props.ActivityName.notify_borrower_email_body || "",
         notify_borrower_text_body: this.props.ActivityName.notify_borrower_text_body
       };
     }else{

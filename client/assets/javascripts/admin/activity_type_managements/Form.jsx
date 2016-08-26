@@ -99,24 +99,6 @@ var Form = React.createClass({
     this.setState({ notify_borrower_email_body: content})
   },
 
-  addTypeNameMapping: function(event){
-    var typeNameMapping = this.state.type_name_mapping.slice();
-    typeNameMapping.push(this.state.type_name);
-
-    this.setState({
-      type_name_mapping: typeNameMapping
-    });
-  },
-
-  removeTypeNameMapping: function(index){
-    var typeNameMapping = this.state.type_name_mapping;
-    typeNameMapping.splice(index, 1);
-
-    this.setState({
-      type_name_mapping: typeNameMapping
-    });
-  },
-
   render: function() {
     return (
       <div>

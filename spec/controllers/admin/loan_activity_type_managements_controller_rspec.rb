@@ -26,21 +26,16 @@ describe Admins::LoanActivityTypeManagementsController do
 
   describe "#create" do
     it "saves the new activity_type in the database" do
-      expect { post :create, activity_type: attributes_for(:activity_type, label: "label", type_name_mapping: ["name 1", "name 2"]) }.to change(ActivityType, :count).by(1)
+      expect { post :create, activity_type: attributes_for(:activity_type, label: "label") }.to change(ActivityType, :count).by(1)
     end
 
     it "assigns the requested activity_type to @activity_type" do
-      post :create, activity_type: attributes_for(:activity_type, label: "label", type_name_mapping: ["name 1", "name 2"])
+      post :create, activity_type: attributes_for(:activity_type, label: "label")
       expect(assigns(:activity_type).label).to eq("label")
     end
 
     it "renders error message with empty label" do
-      post :create, activity_type: attributes_for(:activity_type, label: nil, type_name_mapping: ["name 1", "name 2"])
-      expect(JSON.parse(response.body)["message"]).to include("can't be blank")
-    end
-
-    it "renders error message with empty type_name_mapping" do
-      post :create, activity_type: attributes_for(:activity_type, label: "label", type_name_mapping: nil)
+      post :create, activity_type: attributes_for(:activity_type, label: nil)
       expect(JSON.parse(response.body)["message"]).to include("can't be blank")
     end
   end
@@ -59,13 +54,8 @@ describe Admins::LoanActivityTypeManagementsController do
 
   describe "#update" do
     it "updates activity_type in the database" do
-      patch :update, id: activity_type.id, activity_type: attributes_for(:activity_type, label: "label", type_name_mapping: ["name 1", "name 2"])
+      patch :update, id: activity_type.id, activity_type: attributes_for(:activity_type, label: "label")
       expect(JSON.parse(response.body)["message"]).to include("Updated sucessfully")
-    end
-
-    it "renders error message with empty type_name_mapping" do
-      patch :update, id: activity_type.id, activity_type: attributes_for(:activity_type, label: "label", type_name_mapping: [])
-      expect(JSON.parse(response.body)["message"]).to include("Updated failed")
     end
   end
 end

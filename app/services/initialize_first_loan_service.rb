@@ -200,8 +200,8 @@ class InitializeFirstLoanService
     manager = LoanMembersTitle.find_or_create_by(title: "Mortgage Advisor")
     user.loan_member.loans_members_associations.find_or_create_by(loan_id: loan.id, loan_members_title: manager)
     # create the first loan activity
-    activity = ActivityType.find_or_create_by(label: "Start processing") do |r|
-      r.type_name_mapping = "{Start processing the loan by MortgageClub}"
+    activity = ActivityType.find_or_create_by(label: "Start processing", order_number: 1) do |f|
+      f.activity_names << ActivityName.find_or_create_by(name: "Start processing the loan by MortgageClub")
     end
     # add the first activity to loan
     LoanActivityServices::CreateActivity.new.call(user.loan_member, loan_activity_params(activity, loan))
@@ -211,7 +211,7 @@ class InitializeFirstLoanService
     loan_activity_params = {}
     loan_activity_params[:activity_type_id] = activity.id
     loan_activity_params[:activity_status] = 0
-    loan_activity_params[:name] = activity.type_name_mapping[0]
+    loan_activity_params[:name] = activity.activity_names.first.name
     loan_activity_params[:user_visible] = true
     loan_activity_params[:loan_id] = loan.id
     loan_activity_params[:start_date] = Time.zone.now
