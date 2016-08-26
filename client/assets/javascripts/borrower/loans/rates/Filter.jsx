@@ -329,9 +329,7 @@ var Filter = React.createClass({
 
         var loanToValue = noCashOutProgram == undefined ? 0 : noCashOutProgram.loan_to_value;
 
-        if(loanToValue > 0){
-          featuredCashOuts.push({name: "No Cash Out (" + loanToValue + "% LTV)", value: loanToValue});
-        }
+        featuredCashOuts.push({name: "No Cash Out (" + loanToValue + "% LTV)", value: loanToValue});
 
         if (loanToValue < 80 && this.state.dataCookies.property_usage == "primary_residence"){
           featuredCashOuts.push({name: "$" + (cashOutProgram.property_value * (80-loanToValue) / 100000).toFixed(0) + "k (" + 80 + "% LTV)", value: 80});
