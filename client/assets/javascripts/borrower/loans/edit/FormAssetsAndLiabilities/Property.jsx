@@ -50,7 +50,9 @@ var Property = React.createClass({
     state.property.hoa_due = state.property.hoa_due ? this.formatCurrency(state.property.hoa_due) : null;
     state.property.gross_rental_income = state.property.gross_rental_income ? this.formatCurrency(state.property.gross_rental_income) : null;
     state.property.estimated_mortgage_insurance = state.property.estimated_mortgage_insurance ? this.formatCurrency(state.property.estimated_mortgage_insurance) : null;
-
+    if(state.property.mortgagePayment == null && state.property.otherFinancing == null){
+      state.enableESCrows = false;
+    }
     return state;
   },
 
@@ -103,7 +105,14 @@ var Property = React.createClass({
         this.searchProperty(this.getValue(this.state, propertyKey), propertyKey);
       }
     }
+
     this.setState(this.setValue(this.state, key, value));
+    if(this.state.property.mortgagePayment != null || this.state.property.otherFinancing != null){
+      this.setState({enableESCrows: true});
+    }
+    if(this.state.property.mortgagePayment == null && this.state.property.otherFinancing == null){
+      this.setState({enableESCrows: false});
+    }
   },
 
   onBlur: function(change) {
@@ -152,7 +161,14 @@ var Property = React.createClass({
         this.searchProperty(this.getValue(this.state, propertyKey), propertyKey);
       }
     }
+
     this.setState(this.setValue(this.state, key, value));
+    if(this.state.property.mortgagePayment != null || this.state.property.otherFinancing != null){
+      this.setState({enableESCrows: true});
+    }
+    if(this.state.property.mortgagePayment == null && this.state.property.otherFinancing == null){
+      this.setState({enableESCrows: false});
+    }
   },
 
   reloadMortgageLiabilities: function(selectedLiability) {
@@ -167,6 +183,7 @@ var Property = React.createClass({
   },
 
   reloadOtherFinancingLiabilities: function(selectedLiability) {
+    // console.log(this.props.liabilitie.length);
     var otherFinancingLiabilities = [];
     for (var i = 0; i < this.props.liabilities.length; i++) {
       if (this.props.liabilities[i].id != selectedLiability){
@@ -414,7 +431,7 @@ var Property = React.createClass({
                     editable={true}
                     onChange={this.onChange}
                     allowBlank={true}
-                    editMode={this.props.editMode}/>
+                    editMode={this.state.enableESCrows}/>
                 </div>
               </div>
             </div>
