@@ -51,13 +51,8 @@ class LiabilityForm
   # Insert or update rental property and update liabilities of rental property
   #
   def update_rental_properties
-    # byebug
     rental_properties_params.each do |_, params|
-      # byebug
-
-      # property.update_mortgage_payment_amount
       property_params = property_params(params)
-
       if new_property?(params)
         property = Property.new(property_params)
         property.loan_id = loan.id
@@ -66,7 +61,6 @@ class LiabilityForm
         property = Property.find(params[:id])
         property.update(property_params)
       end
-      # byebug
       update_liabilities(property, params)
       property_params[:estimated_principal_interest] = calculate_estimated_principal_interest(property)
       property.update(property_params)
@@ -159,31 +153,26 @@ class LiabilityForm
   end
 
   def calculate_estimated_principal_interest(property)
-    # byebug
     if property.mortgage_includes_escrows
       payment = 0
-
-      # if params["mortgage_payment_liability"]
-      #   payment += params["mortgage_payment_liability"]["payment"].to_f
-      # end
-
-      # if params["other_financing_liability"]
-      #   payment += params["other_financing_liability"]["payment"].to_f
-      # end
-
-      if property.mortgage_includes_escrows == "taxes_and_insurance"
-        payment -= (property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f) / 12
-      else
-        if property.mortgage_includes_escrows == "taxes_only"
-          payment -= property.estimated_property_tax.to_f / 12
-        end
-      end
-
+      payment += property.liabilities.map(&:payment).sum
+      payment = payment_tax_insurance(property) if payment > 0
       payment
     end
   end
 
   private
+
+  def payment_tax_insurance(property)
+    if property.mortgage_includes_escrows == "taxes_and_insurance"
+      payment -= (property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f) / 12
+    else
+      if property.mortgage_includes_escrows == "taxes_only"
+        payment -= property.estimated_property_tax.to_f / 12
+      end
+    end
+    payment
+  end
 
   def property_does_not_have_any_liabilities?(params)
     params[:mortgagePayment].blank? && params[:otherFinancing].blank?
