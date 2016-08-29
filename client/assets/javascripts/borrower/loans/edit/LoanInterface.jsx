@@ -112,7 +112,7 @@ var LoanInterface = React.createClass({
           :
           <tr>
             <td>Lender credit</td>
-            <td>({this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")})</td>
+            <td>{this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")}</td>
           </tr>
         }
 
