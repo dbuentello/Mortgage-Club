@@ -156,7 +156,7 @@ class LiabilityForm
     if property.mortgage_includes_escrows
       payment = 0
       payment += property.liabilities.map(&:payment).sum
-      payment = payment_tax_insurance(property) if payment > 0
+      payment += payment_tax_insurance(property) if payment > 0
       payment
     end
   end
@@ -164,6 +164,7 @@ class LiabilityForm
   private
 
   def payment_tax_insurance(property)
+    payment = 0
     if property.mortgage_includes_escrows == "taxes_and_insurance"
       payment -= (property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f) / 12
     else
