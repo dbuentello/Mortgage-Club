@@ -13,11 +13,12 @@ class ExportFnmService
 
   def call
     export_fnm = ExportFnmService.new
-    array = export_fnm.methods.select { |a| a.to_s.match /data_/ }
+    array = export_fnm.methods.select { |a| a.to_s.match(/data_/) }
 
     out_file = File.new("1003.fnm", "w")
     array.each do |method|
-      out_file.puts(build_data(exportFnm.send(method.to_s)).strip)
+      line = build_data(exportFnm.send(method.to_s)).strip
+      out_file.puts(line) if line.present? && line.length > 3
     end
 
     out_file.close
@@ -48,7 +49,7 @@ class ExportFnmService
       {
         id: "EH-030",
         format: "%-25s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "EH-040",

@@ -112,8 +112,8 @@ Style/RegexpLiteral:
   Enabled: false
 
 # Offense count: 2
-# Lint/AmbiguousOperator:
-#   Enabled: false
+Lint/AmbiguousOperator:
+  Enabled: false
 
 # Offense count: 3
 # Cop supports --auto-correct.
