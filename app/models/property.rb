@@ -173,12 +173,13 @@ class Property < ActiveRecord::Base
   end
 
   def subject_property_fnm
-    arr = []
-    arr["street_address"] = address.street_address
-    arr["city"] = address.city
-    arr["state"] = address.state
-    arr["zip"] = address.zip
-
+    byebug
+    arr = {}
+    arr[:street_address] = address.street_address
+    arr[:city] = address.city
+    arr[:state] = address.state
+    arr[:zip] = address.zip
+    arr[:year_built] = year_built
     arr
   end
 
