@@ -777,12 +777,12 @@ class ExportFnmService
       {
         id: "05H-040",
         format: "%-2s",
-        value: "26"
+        value: "14"
       },
       {
         id: "05H-050",
         format: "%15.2f",
-        value: "1903.95123"
+        value: 312.0
       },
     ]
   end
@@ -1167,32 +1167,32 @@ class ExportFnmService
       {
         id: "06L-030",
         format: "%-2s",
-        value: "I"
+        value: "M"
       },
       {
         id: "06L-040",
         format: "%-35s",
-        value: "CHASE AUTO"
+        value: "WFHM"
       },
       {
         id: "06L-050",
         format: "%-35s",
-        value: "2000 MARCUS AVENUE"
+        value: "PO BOX 10335"
       },
       {
         id: "06L-060",
         format: "%-35s",
-        value: "NEW HYDE PARK"
+        value: "DES MOINES"
       },
       {
         id: "06L-070",
         format: "%-2s",
-        value: "NY"
+        value: "IA"
       },
       {
         id: "06L-080",
         format: "%5s",
-        value: "11042"
+        value: "50306"
       },
       {
         id: "06L-090",
@@ -1202,12 +1202,12 @@ class ExportFnmService
       {
         id: "06L-100",
         format: "%-30s",
-        value: "11530520205603"
+        value: "9360500931597"
       },
       {
         id: "06L-110",
         format: "%15.2f",
-        value: 468.00
+        value: 1903.0
       },
       {
         id: "06L-120",
@@ -1217,17 +1217,17 @@ class ExportFnmService
       {
         id: "06L-130",
         format: "%15.2f",
-        value: 22903.00
+        value: 414972
       },
       {
         id: "06L-140",
         format: "%-1s",
-        value: "N"
+        value: "Y"
       },
       {
         id: "06L-150",
-        format: "%2s",
-        value: ""
+        format: "%-2s",
+        value: "1"
       },
       {
         id: "06L-160",
@@ -1242,12 +1242,12 @@ class ExportFnmService
       {
         id: "06L-180",
         format: "%-1s",
-        value: ""
+        value: "Y"
       },
       {
         id: "06L-190",
         format: "%-1s",
-        value: ""
+        value: "N"
       }
     ]
   end
