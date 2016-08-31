@@ -1,16 +1,19 @@
 # rubocop:disable ClassLength
 # rubocop:disable MethodLength
 class ExportFnmService
-  attr_accessor :loan, :borrower, :subject_property, :credit_report, :loan_member, :assets, :co_borrower, :loan_values
+  attr_accessor :loan, :borrower, :subject_property, :credit_report, :loan_member, :assets, :co_borrower, :loan_values, :subject_property_fnm
 
-  def initialize(loan)
-    loan = Loan.find("451cd1d8-f447-4eff-8aa8-615f4355350e")
+  def initialize()
+    loan = Loan.find('70a6e6bd-7622-4b3e-acdd-da3c824ee878')
     @loan = loan
     @subject_property = loan.subject_property
     @primary_property = loan.primary_property
     @borrower = loan.borrower
     @credit_report = borrower.credit_report
     @loan_values = loan.fnm_values
+    byebug
+    @subject_property_fnm = loan.subject_property.subject_property_fnm
+    byebug
   end
 
   def call
@@ -231,22 +234,22 @@ class ExportFnmService
       {
         id: "02A-020",
         format: "%-50s",
-        value: subject_property.address.street_address # MAPPED
+        value: subject_property_fnm[:street_address] # MAPPED
       },
       {
         id: "02A-030",
         format: "%-35s",
-        value: subject_property.address.city # MAPPED
+        value: subject_property_fnm[:city]# MAPPED
       },
       {
         id: "02A-040",
         format: "%-2s",
-        value: subject_property.address.state # MAPPED
+        value: subject_property_fnm[:state] # MAPPED
       },
       {
         id: "02A-050",
         format: "%5s",
-        value: subject_property.address.zip.to_s # MAPPED
+        value: subject_property_fnm[:zip].to_s # MAPPED
       },
       {
         id: "02A-060",
