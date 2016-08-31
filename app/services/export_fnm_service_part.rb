@@ -43,7 +43,7 @@ class ExportFnmServicePart
   end
 
   def build_test
-    build_data(data_02b)
+    build_data(data_02d)
   end
 
   def data_02a
@@ -142,6 +142,61 @@ class ExportFnmServicePart
         id: "02B-080",
         format: "%-8s",
         value: "" # TODO
+      }
+    ]
+  end
+
+  def data_02d
+    [
+      {
+        id: "02D-010",
+        format: "%-3s",
+        value: "02D"
+      },
+      {
+        id: "02D-020",
+        format: "%-4s",
+        value: "2015"
+      },
+      {
+        id: "02D-030",
+        format: "%15.2f",
+        value: subject_property_fnm[:original_purchase_price] # l.subject_property_original_purchase_price
+      },
+      {
+        id: "02D-040",
+        format: "%15.2f",
+        value: 415000.00
+      },
+      {
+        id: "02D-050",
+        format: "%15.2f",
+        value: 0.00
+      },
+      {
+        id: "02D-060",
+        format: "%15.2f",
+        value: 0.00
+      },
+      {
+        id: "02D-070",
+        format: "%-2s",
+        value: "F1"
+      },
+      {
+        id: "02D-080",
+        format: "%-80s",
+        value: ""
+      },
+      {
+        id: "02D-090",
+        format: "%-1s",
+        value: ""
+      },
+      {
+        id: "02D-100",
+        format: "%15.2f",
+        value: 0.00
       }
     ]
   end
