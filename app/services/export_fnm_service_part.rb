@@ -1,7 +1,7 @@
 # rubocop:disable ClassLength
 # rubocop:disable MethodLength
 class ExportFnmServicePart
-  attr_accessor :loan, :subject_property, :credit_report, :loan_member, :assets, :subject_property_fnm, :loan_values
+  attr_accessor :loan, :subject_property, :credit_report, :loan_member, :assets, :subject_property_fnm, :primary_property_fnm, :loan_values
 
   def initialize(loan)
     loan = Loan.find("70a6e6bd-7622-4b3e-acdd-da3c824ee878")
@@ -16,6 +16,7 @@ class ExportFnmServicePart
     # @previous_employment_values = loan.borrower.previous_employment ? loan.borrower.previous_employment.fnm_values : {}
     # @declaration_values = loan.borrower.declaration.fnm_values
     @subject_property_fnm = loan.subject_property.subject_property_fnm
+    @primary_property_fnm = loan.primary_property.primary_property_fnm
 
   end
 
@@ -43,7 +44,7 @@ class ExportFnmServicePart
   end
 
   def build_test
-    build_data(data_02d)
+    build_data(data_03c)
   end
 
   def data_02a
@@ -197,6 +198,71 @@ class ExportFnmServicePart
         id: "02D-100",
         format: "%15.2f",
         value: 0.00
+      }
+    ]
+  end
+
+  def data_03c
+    [
+      {
+        id: "03C-010",
+        format: "%-3s",
+        value: "03C"
+      },
+      {
+        id: "03C-020",
+        format: "%9s",
+        value: "605593636"
+      },
+      {
+        id: "03C-030",
+        format: "%-2s",
+        value: "ZG"
+      },
+      {
+        id: "03C-040",
+        format: "%-50s",
+        value: primary_property_fnm[:street_address] # l.primary_property.address.street_address
+      },
+      {
+        id: "03C-050",
+        format: "%-35s",
+        value: primary_property_fnm[:city] # l.primary_property.address.city
+      },
+      {
+        id: "03C-060",
+        format: "%-2s",
+        value: primary_property_fnm[:state] # l.primary_property.address.state
+      },
+      {
+        id: "03C-070",
+        format: "%5s",
+        value: primary_property_fnm[:zip] # l.primary_property.address.zip
+      },
+      {
+        id: "03C-080",
+        format: "%4s",
+        value: ""
+      },
+      {
+        id: "03C-090",
+        format: "%-1s",
+        value: "O"
+      },
+      {
+        id: "03C-100",
+        format: "%2s",
+        value: 2
+      },
+      {
+        id: "03C-110",
+        format: "%2s",
+        value: ""
+      },
+      {
+        id: "03C-120",
+        format: "%-50s",
+        value: "US"
       }
     ]
   end

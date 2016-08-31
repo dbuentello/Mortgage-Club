@@ -185,8 +185,14 @@ class Property < ActiveRecord::Base
   end
 
   def primary_property_fnm
-    arr = []
-
+    arr = {}
+    arr[:street_address] = address.street_address
+    arr[:city] = address.city
+    arr[:state] = address.state
+    arr[:zip] = address.zip
+    arr[:year_built] = year_built
+    arr[:usage] = usage_fnm
+    arr[:original_purchase_price] = original_purchase_price ? original_purchase_price : 0.0
     arr
   end
 end
