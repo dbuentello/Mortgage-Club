@@ -1,3 +1,5 @@
+# rubocop:disable ClassLength
+# rubocop:disable MethodLength
 class ExportFnmService
   attr_accessor :loan, :borrower, :subject_property, :credit_report, :loan_member, :assets, :co_borrower
 
@@ -10,8 +12,8 @@ class ExportFnmService
   end
 
   def call
-    exportFnm = ExportFnmService.new
-    array = exportFnm.methods.select { |a| a.to_s.match  /data_/ }
+    export_fnm = ExportFnmService.new
+    array = export_fnm.methods.select { |a| a.to_s.match /data_/ }
 
     out_file = File.new("mortgage.fnm", "w")
     array.each do |method|
@@ -521,7 +523,7 @@ class ExportFnmService
     ]
   end
 
-  #1 age 1 row
+  # 1 age 1 row
   # def data_03b
   #   [
   #     {
@@ -632,7 +634,7 @@ class ExportFnmService
       {
         id: "04A-050",
         format: "%-35s",
-        value: "Mountain View"  # l.borrower.current_employment.address.city
+        value: "Mountain View" # l.borrower.current_employment.address.city
       },
       {
         id: "04A-060",
@@ -788,7 +790,7 @@ class ExportFnmService
         id: "05H-050",
         format: "%15.2f",
         value: 312.0
-      },
+      }
     ]
   end
 
@@ -1290,59 +1292,59 @@ class ExportFnmService
         value: "07A"
       },
       {
-          id: "07A-020",
-          format: "%15.2f",
-          value: 0.0
+        id: "07A-020",
+        format: "%15.2f",
+        value: 0.0
       },
       {
-          id: "07A-030",
-          format: "%15.2f",
-          value: 0.0
+        id: "07A-030",
+        format: "%15.2f",
+        value: 0.0
       },
       {
-          id: "07A-040",
-          format: "%15.2f",
-          value: 0.0
+        id: "07A-040",
+        format: "%15.2f",
+        value: 0.0
       },
       {
-          id: "07A-050",
-          format: "%15.2f",
-          value: 414972.0
+        id: "07A-050",
+        format: "%15.2f",
+        value: 414972.0
       },
       {
-          id: "07A-060",
-          format: "%15.2f",
-          value: 699.0
+        id: "07A-060",
+        format: "%15.2f",
+        value: 699.0
       },
       {
-          id: "07A-070",
-          format: "%15.2f",
-          value: 1957.0
+        id: "07A-070",
+        format: "%15.2f",
+        value: 1957.0
       },
       {
-          id: "07A-080",
-          format: "%15.2f",
-          value: 0.0
+        id: "07A-080",
+        format: "%15.2f",
+        value: 0.0
       },
       {
-          id: "07A-090",
-          format: "%15.2f",
-          value: 0.0
+        id: "07A-090",
+        format: "%15.2f",
+        value: 0.0
       },
       {
-          id: "07A-100",
-          format: "%15.2f",
-          value: 0.0
+        id: "07A-100",
+        format: "%15.2f",
+        value: 0.0
       },
       {
-          id: "07A-110",
-          format: "%15.2f",
-          value: 0.0
+        id: "07A-110",
+        format: "%15.2f",
+        value: 0.0
       },
       {
-          id: "07A-120",
-          format: "%15.2f",
-          value: 0.0
+        id: "07A-120",
+        format: "%15.2f",
+        value: 0.0
       }
     ]
   end
@@ -1369,85 +1371,85 @@ class ExportFnmService
 
   def data_08a
     [{
-        id: "08A-010",
-        format: "%-3s",
-        value: "08A"
+      id: "08A-010",
+      format: "%-3s",
+      value: "08A"
     },
-    {
+     {
        id: "08A-020",
-        format: "%-9s",
-        value: "605593636" # borrower ssn
-    },
-    {
-        id: "08A-030",
-        format: "%-1s",
-        value: "N" # borrower.declaration: outstanding_judgment
-    },
-    {
-        id: "08A-040",
-        format: "%-1s",
-        value: "N" # borrower.declaration: :bankrupt
-    },
-    {
-        id: "08A-050",
-        format: "%-1s",
-        value: "N" # borrower.declaration: :loan_foreclosure
-    },
-    {
-        id: "08A-060",
-        format: "%-1s",
-        value: "N" # borrower.declaration: :party_to_lawsuit
-    },
-    {
-        id: "08A-070",
-        format: "%-1s",
-        value: "N"
-    },
-    {
-        id: "08A-080",
-        format: "%-1s",
-        value: "N" # borrower.declaration: :present_delinquent_loan
-    },
-    {
-        id: "08A-090",
-        format: "%-1s",
-        value: "N"
-    },
-    {
-        id: "08A-100",
-        format: "%-1s",
-        value: "N" # down_payment_borrowed
-    },
-    {
-        id: "08A-110",
-        format: "%-1s",
-        value: "N" # co_maker_or_endorser
-    },
-    {
-        id: "08A-120",
-        format: "%-2s",
-        value: "03" # borrower.declaration: :citizen_status
-    },
-    {
-        id: "08A-130",
-        format: "%-1s",
-        value: "Y"
-    },
-    {
-        id: "08A-140",
-        format: "%-1s",
-        value: "Y" # ownership_interest : Y N U
-    },
-    {
-        id: "08A-150",
-        format: "%-1s",
-        value: "1" # property.usage
-    },
-    {
-        id: "08A-160",
-        format: "%-2s",
-        value: "25" #
-    }]
+       format: "%-9s",
+       value: "605593636" # borrower ssn
+     },
+     {
+       id: "08A-030",
+       format: "%-1s",
+       value: "N" # borrower.declaration: outstanding_judgment
+     },
+     {
+       id: "08A-040",
+       format: "%-1s",
+       value: "N" # borrower.declaration: :bankrupt
+     },
+     {
+       id: "08A-050",
+       format: "%-1s",
+       value: "N" # borrower.declaration: :loan_foreclosure
+     },
+     {
+       id: "08A-060",
+       format: "%-1s",
+       value: "N" # borrower.declaration: :party_to_lawsuit
+     },
+     {
+       id: "08A-070",
+       format: "%-1s",
+       value: "N"
+     },
+     {
+       id: "08A-080",
+       format: "%-1s",
+       value: "N" # borrower.declaration: :present_delinquent_loan
+     },
+     {
+       id: "08A-090",
+       format: "%-1s",
+       value: "N"
+     },
+     {
+       id: "08A-100",
+       format: "%-1s",
+       value: "N" # down_payment_borrowed
+     },
+     {
+       id: "08A-110",
+       format: "%-1s",
+       value: "N" # co_maker_or_endorser
+     },
+     {
+       id: "08A-120",
+       format: "%-2s",
+       value: "03" # borrower.declaration: :citizen_status
+     },
+     {
+       id: "08A-130",
+       format: "%-1s",
+       value: "Y"
+     },
+     {
+       id: "08A-140",
+       format: "%-1s",
+       value: "Y" # ownership_interest : Y N U
+     },
+     {
+       id: "08A-150",
+       format: "%-1s",
+       value: "1" # property.usage
+     },
+     {
+       id: "08A-160",
+       format: "%-2s",
+       value: "25" #
+     }]
   end
 
   # def data_08b
@@ -1493,116 +1495,116 @@ class ExportFnmService
 
   def data_10a
     [{
-        id: "10A-010",
-        format: "%-3s",
-        value: "10A"
+      id: "10A-010",
+      format: "%-3s",
+      value: "10A"
     },
-    {
-        id: "10A-020",
-        format: "%-9s",
-        value: "605593636" #borrower.ssn
-    },
-    {
-        id: "10A-030",
-        format: "%-1s",
-        value: "N"
-    },
-    {
-        id: "10A-040",
-        format: "%-1s",
-        value: "2" #is_hispanic_or_latino
-    },
-    {
-        id: "10A-050",
-        format: "%-30s",
-        value: ""
-    },
-    {
-        id: "10A-060",
-        format: "%-1s",
-        value: "M" #gender_type
-    }]
+     {
+       id: "10A-020",
+       format: "%-9s",
+       value: "605593636" # borrower.ssn
+     },
+     {
+       id: "10A-030",
+       format: "%-1s",
+       value: "N"
+     },
+     {
+       id: "10A-040",
+       format: "%-1s",
+       value: "2" # is_hispanic_or_latino
+     },
+     {
+       id: "10A-050",
+       format: "%-30s",
+       value: ""
+     },
+     {
+       id: "10A-060",
+       format: "%-1s",
+       value: "M" # gender_type
+     }]
   end
 
   def data_10b
     [{
-        id: "10B-010",
-        format: "%-3s",
-        value: "10B"
+      id: "10B-010",
+      format: "%-3s",
+      value: "10B"
     },
-    {
-        id: "10B-020",
-        format: "%-1s",
-        value: "I"
-    },
-    {
-        id: "10B-030",
-        format: "%-60s",
-        value: "Billy Tran" #l.relationship_manager.user.first_name and last_name
-    },
-    {
-        id: "10B-040",
-        format: "%-8s",
-        value: "" #Interview Date
-    },
-    {
-        id: "10B-050",
-        format: "%-10s",
-        value: "6507877799" #l.relationship_manager.phone_number
-    },
-    {
-        id: "10B-060",
-        format: "%-35s",
-        value: "MortgageClub Corporation" #l.relationship_manager.company_name
-    },
-    {
-        id: "10B-070",
-        format: "%-35s",
-        value: "156 2nd St" #l.relationship_manager.company_address
-    },
-    {
-        id: "10B-080",
-        format: "%-35s",
-        value: "" #borrower.ssn
-    },
-    {
-        id: "10B-090",
-        format: "%-35s",
-        value: "San Francisco" # city
-    },
-    {
-        id: "10B-100",
-        format: "%-2s",
-        value: "CA" #state code
-    },
-    {
-        id: "10B-110",
-        format: "%-5s",
-        value: "94105" # zip code
-    },
-    {
-        id: "10B-120",
-        format: "%-4s",
-        value: "" #Loan Origination Company’s Zip Code Plus Four
-    }]
+     {
+       id: "10B-020",
+       format: "%-1s",
+       value: "I"
+     },
+     {
+       id: "10B-030",
+       format: "%-60s",
+       value: "Billy Tran" # l.relationship_manager.user.first_name and last_name
+     },
+     {
+       id: "10B-040",
+       format: "%-8s",
+       value: "" # Interview Date
+     },
+     {
+       id: "10B-050",
+       format: "%-10s",
+       value: "6507877799" # l.relationship_manager.phone_number
+     },
+     {
+       id: "10B-060",
+       format: "%-35s",
+       value: "MortgageClub Corporation" # l.relationship_manager.company_name
+     },
+     {
+       id: "10B-070",
+       format: "%-35s",
+       value: "156 2nd St" # l.relationship_manager.company_address
+     },
+     {
+       id: "10B-080",
+       format: "%-35s",
+       value: "" # borrower.ssn
+     },
+     {
+       id: "10B-090",
+       format: "%-35s",
+       value: "San Francisco" # city
+     },
+     {
+       id: "10B-100",
+       format: "%-2s",
+       value: "CA" # state code
+     },
+     {
+       id: "10B-110",
+       format: "%-5s",
+       value: "94105" # zip code
+     },
+     {
+       id: "10B-120",
+       format: "%-4s",
+       value: "" # Loan Origination Companys Zip Code Plus Four
+     }]
   end
 
   def data_10r
     [{
-        id: "10R-010",
-        format: "%-3s",
-        value: "10R"
+      id: "10R-010",
+      format: "%-3s",
+      value: "10R"
     },
-    {
-        id: "10R-020",
-        format: "%-9s",
-        value: "605593636" #borrower.ssn
-    },
-    {
-        id: "10R-030",
-        format: "%-2s",
-        value: "2"
-    }]
+     {
+       id: "10R-020",
+       format: "%-9s",
+       value: "605593636" # borrower.ssn
+     },
+     {
+       id: "10R-030",
+       format: "%-2s",
+       value: "2"
+     }]
   end
 
   def data_000_additional_case
@@ -1627,96 +1629,96 @@ class ExportFnmService
 
   def data_99b
     [{
-        id: "99B-010",
-        format: "%-3s",
-        value: "99B"
+      id: "99B-010",
+      format: "%-3s",
+      value: "99B"
     },
-    {
-        id: "99B-020",
-        format: "%-1s",
-        value: ""
-    },
-    {
-        id: "99B-030",
-        format: "%-2s",
-        value: "F1"
-    },
-    {
-        id: "99B-040",
-        format: "%15.2f",
-        value: 625000
-    },
-    {
-        id: "99B-050",
-        format: "%7s",
-        value: ""
-    },
-    {
-        id: "99B-060",
-        format: "%-2s",
-        value: "01"
-    },
-    {
-        id: "99B-070",
-        format: "%-3s",
-        value: ""
-    },
-    {
-        id: "99B-080",
-        format: "%-60s",
-        value: ""
-    },
-    {
-        id: "99B-090",
-        format: "%-35s",
-        value: ""
-    },
-    {
-        id: "99B-100",
-        format: "%-15s",
-        value: ""
-    },
-    {
-        id: "99B-110",
-        format: "%-2s",
-        value: ""
-    }]
+     {
+       id: "99B-020",
+       format: "%-1s",
+       value: ""
+     },
+     {
+       id: "99B-030",
+       format: "%-2s",
+       value: "F1"
+     },
+     {
+       id: "99B-040",
+       format: "%15.2f",
+       value: 625000
+     },
+     {
+       id: "99B-050",
+       format: "%7s",
+       value: ""
+     },
+     {
+       id: "99B-060",
+       format: "%-2s",
+       value: "01"
+     },
+     {
+       id: "99B-070",
+       format: "%-3s",
+       value: ""
+     },
+     {
+       id: "99B-080",
+       format: "%-60s",
+       value: ""
+     },
+     {
+       id: "99B-090",
+       format: "%-35s",
+       value: ""
+     },
+     {
+       id: "99B-100",
+       format: "%-15s",
+       value: ""
+     },
+     {
+       id: "99B-110",
+       format: "%-2s",
+       value: ""
+     }]
   end
 
   def data_ads_1
     [{
-        id: "ADS-010",
-        format: "%-3s",
-        value: "ADS"
+      id: "ADS-010",
+      format: "%-3s",
+      value: "ADS"
     },
-    {
-        id: "ADS-020",
-        format: "%-35s",
-        value: "LoanOriginatorID"
-    },
-    {
-        id: "ADS-030",
-        format: "%-50s",
-        value: "1457126"
-    }]
+     {
+       id: "ADS-020",
+       format: "%-35s",
+       value: "LoanOriginatorID"
+     },
+     {
+       id: "ADS-030",
+       format: "%-50s",
+       value: "1457126"
+     }]
   end
 
   def data_ads_2
     [{
-        id: "ADS-010",
-        format: "%-3s",
-        value: "ADS"
+      id: "ADS-010",
+      format: "%-3s",
+      value: "ADS"
     },
-    {
-        id: "ADS-020",
-        format: "%-35s",
-        value: "LoanOriginationCompanyID"
-    },
-    {
-        id: "ADS-030",
-        format: "%-50s",
-        value: "1456787"
-    }]
+     {
+       id: "ADS-020",
+       format: "%-35s",
+       value: "LoanOriginationCompanyID"
+     },
+     {
+       id: "ADS-030",
+       format: "%-50s",
+       value: "1456787"
+     }]
   end
 
   # def data_ads_3
@@ -1739,20 +1741,20 @@ class ExportFnmService
 
   def data_ads_4
     [{
-        id: "ADS-010",
-        format: "%-3s",
-        value: "ADS"
+      id: "ADS-010",
+      format: "%-3s",
+      value: "ADS"
     },
-    {
-        id: "ADS-020",
-        format: "%-35s",
-        value: "AppraisalIdentifier"
-    },
-    {
-        id: "ADS-030",
-        format: "%-50s",
-        value: ""
-    }]
+     {
+       id: "ADS-020",
+       format: "%-35s",
+       value: "AppraisalIdentifier"
+     },
+     {
+       id: "ADS-030",
+       format: "%-50s",
+       value: ""
+     }]
   end
 
   # def data_ads_5
@@ -1831,190 +1833,190 @@ class ExportFnmService
 
   def data_lnc
     [{
-        id: "LNC-010",
-        format: "%-3s",
-        value: "LNC"
+      id: "LNC-010",
+      format: "%-3s",
+      value: "LNC"
     },
-    {
-        id: "LNC-020",
-        format: "%-1s",
-        value: "1"
-    },
-    {
-        id: "LNC-030",
-        format: "%-1s",
-        value: ""
-    },
-    {
-        id: "LNC-040",
-        format: "%-2s",
-        value: "03"
-    },
-    {
-        id: "LNC-050",
-        format: "%-2s",
-        value: ""
-    },{
-        id: "LNC-060",
-        format: "%-2s",
-        value: ""
-    },
-    {
-        id: "LNC-070",
-        format: "%-2s",
-        value: ""
-    },
-    {
-        id: "LNC-080",
-        format: "%-2s",
-        value: ""
-    },
-    {
-        id: "LNC-090",
-        format: "%-2s",
-        value: ""
-    },
-    {
-        id: "LNC-100",
-        format: "%7.3f",
-        value: 0.0
-    },
-    {
-        id: "LNC-110",
-        format: "%-1s",
-        value: "N"
-    },
-    {
-        id: "LNC-120",
-        format: "%-1s",
-        value: ""
-    },
-    {
-        id: "LNC-130",
-        format: "%-1s",
-        value: ""
-    },
-    {
-        id: "LNC-140",
-        format: "%-1s",
-        value: "N"
-    },
-    {
-        id: "LNC-150",
-        format: "%7.3f",
-        value: 0.0
-    },
-    {
-        id: "LNC-160",
-        format: "%7.3f",
-        value: 0.0
-    },
-    {
-        id: "LNC-170",
-        format: "%15.2f",
-        value: 0.0
-    },
-    {
-        id: "LNC-180",
-        format: "%-1s",
-        value: "N"
-    },
-    {
-        id: "LNC-190",
-        format: "%-8s",
-        value: ""
-    },
-    {
-        id: "LNC-200",
-        format: "%-8s",
-        value: ""
-    },
-    {
-        id: "LNC-210",
-        format: "%7.3f",
-        value: 0.0
-    },
-    {
-        id: "LNC-220",
-        format: "%-3s",
-        value: ""
-    },
-    {
-        id: "LNC-230",
-        format: "%5.3f",
-        value: 0.0
-    },
-    {
-        id: "LNC-240",
-        format: "%-1s",
-        value: ""
-    },
-    {
-        id: "LNC-250",
-        format: "%-1s",
-        value: ""
-    }]
+     {
+       id: "LNC-020",
+       format: "%-1s",
+       value: "1"
+     },
+     {
+       id: "LNC-030",
+       format: "%-1s",
+       value: ""
+     },
+     {
+       id: "LNC-040",
+       format: "%-2s",
+       value: "03"
+     },
+     {
+       id: "LNC-050",
+       format: "%-2s",
+       value: ""
+     }, {
+       id: "LNC-060",
+       format: "%-2s",
+       value: ""
+     },
+     {
+       id: "LNC-070",
+       format: "%-2s",
+       value: ""
+     },
+     {
+       id: "LNC-080",
+       format: "%-2s",
+       value: ""
+     },
+     {
+       id: "LNC-090",
+       format: "%-2s",
+       value: ""
+     },
+     {
+       id: "LNC-100",
+       format: "%7.3f",
+       value: 0.0
+     },
+     {
+       id: "LNC-110",
+       format: "%-1s",
+       value: "N"
+     },
+     {
+       id: "LNC-120",
+       format: "%-1s",
+       value: ""
+     },
+     {
+       id: "LNC-130",
+       format: "%-1s",
+       value: ""
+     },
+     {
+       id: "LNC-140",
+       format: "%-1s",
+       value: "N"
+     },
+     {
+       id: "LNC-150",
+       format: "%7.3f",
+       value: 0.0
+     },
+     {
+       id: "LNC-160",
+       format: "%7.3f",
+       value: 0.0
+     },
+     {
+       id: "LNC-170",
+       format: "%15.2f",
+       value: 0.0
+     },
+     {
+       id: "LNC-180",
+       format: "%-1s",
+       value: "N"
+     },
+     {
+       id: "LNC-190",
+       format: "%-8s",
+       value: ""
+     },
+     {
+       id: "LNC-200",
+       format: "%-8s",
+       value: ""
+     },
+     {
+       id: "LNC-210",
+       format: "%7.3f",
+       value: 0.0
+     },
+     {
+       id: "LNC-220",
+       format: "%-3s",
+       value: ""
+     },
+     {
+       id: "LNC-230",
+       format: "%5.3f",
+       value: 0.0
+     },
+     {
+       id: "LNC-240",
+       format: "%-1s",
+       value: ""
+     },
+     {
+       id: "LNC-250",
+       format: "%-1s",
+       value: ""
+     }]
   end
 
   def data_pid
     [{
-        id: "PID-010",
-        format: "%-3s",
-        value: "PID"
+      id: "PID-010",
+      format: "%-3s",
+      value: "PID"
     },
-    {
-        id: "PID-020",
-        format: "%-30s",
-        value: "15 Yr Fixed - Conventional - N"
-    },
-    {
-        id: "PID-030",
-        format: "%-15s",
-        value: ""
-    },
-    {
-        id: "PID-040",
-        format: "%-5s",
-        value: "" # l.amortization_type
-    }]
+     {
+       id: "PID-020",
+       format: "%-30s",
+       value: "15 Yr Fixed - Conventional - N"
+     },
+     {
+       id: "PID-030",
+       format: "%-15s",
+       value: ""
+     },
+     {
+       id: "PID-040",
+       format: "%-5s",
+       value: "" # l.amortization_type
+     }]
   end
 
   def data_pch
     [{
-        id: "PCH-010",
-        format: "%-3s",
-        value: "PCH"
+      id: "PCH-010",
+      format: "%-3s",
+      value: "PCH"
     },
-    {
-        id: "PCH-020",
-        format: "%3s",
-        value: 360
-    },
-    {
-        id: "PCH-030",
-        format: "%-1s",
-        value: "N"
-    },
-    {
-        id: "PCH-040",
-        format: "%-2s",
-        value: "01"
-    },
-    {
-        id: "PCH-050",
-        format: "%-1s",
-        value: "N"
-    },
-    {
-        id: "PCH-060",
-        format: "%-1s",
-        value: ""
-    },
-    {
-        id: "PCH-070",
-        format: "%-2s",
-        value: ""
-    }]
+     {
+       id: "PCH-020",
+       format: "%3s",
+       value: 360
+     },
+     {
+       id: "PCH-030",
+       format: "%-1s",
+       value: "N"
+     },
+     {
+       id: "PCH-040",
+       format: "%-2s",
+       value: "01"
+     },
+     {
+       id: "PCH-050",
+       format: "%-1s",
+       value: "N"
+     },
+     {
+       id: "PCH-060",
+       format: "%-1s",
+       value: ""
+     },
+     {
+       id: "PCH-070",
+       format: "%-2s",
+       value: ""
+     }]
   end
 
   # def data_arm
@@ -2515,15 +2517,15 @@ class ExportFnmService
 
   def data_tt
     [{
-        id: "TT-010",
-        format: "%-3s",
-        value: "TT"
+      id: "TT-010",
+      format: "%-3s",
+      value: "TT"
     },
-    {
-        id: "TT-020",
-        format: "%-9s",
-        value: "TRAN1"
-    }]
+     {
+       id: "TT-020",
+       format: "%-9s",
+       value: "TRAN1"
+     }]
   end
 
   def data_et
@@ -2534,9 +2536,9 @@ class ExportFnmService
         value: "ET"
       },
       {
-          id: "ET-020",
-          format: "%-9s",
-          value: "ENV1"
+        id: "ET-020",
+        format: "%-9s",
+        value: "ENV1"
       }
     ]
   end
@@ -2553,3 +2555,6 @@ class ExportFnmService
     end
   end
 end
+
+# rubocop:enable ClassLength
+# rubocop:enable MethodLength
