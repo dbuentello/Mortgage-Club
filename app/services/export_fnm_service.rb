@@ -15,7 +15,7 @@ class ExportFnmService
     export_fnm = ExportFnmService.new
     array = export_fnm.methods.select { |a| a.to_s.match /data_/ }
 
-    out_file = File.new("mortgage.fnm", "w")
+    out_file = File.new("1003.fnm", "w")
     array.each do |method|
       out_file.puts(build_data(exportFnm.send(method.to_s)).strip)
     end
