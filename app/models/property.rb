@@ -171,4 +171,20 @@ class Property < ActiveRecord::Base
       ""
     end
   end
+
+  def subject_property_fnm
+    arr = []
+    arr["street_address"] = address.street_address
+    arr["city"] = address.city
+    arr["state"] = address.state
+    arr["zip"] = address.zip
+
+    arr
+  end
+
+  def primary_property_fnm
+    arr = []
+
+    arr
+  end
 end
