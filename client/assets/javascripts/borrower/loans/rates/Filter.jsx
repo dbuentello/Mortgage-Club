@@ -6,7 +6,7 @@ var LoanProgramFilterMixin = require('mixins/LoanProgramFilterMixin');
 var ValidationObject = require("mixins/FormValidationMixin");
 
 var fields = {
-  firstName: {label: "Fist name", name: "first_name", keyName: "first_name", error: "firstNameError",validationTypes: "empty"},
+  firstName: {label: "First name", name: "first_name", keyName: "first_name", error: "firstNameError",validationTypes: "empty"},
   lastName: {label: "Last name", name: "last_name", keyName: "last_name", error: "lastNameError",validationTypes: "empty"},
   email: {label: "Email", name: "email", keyName: "email", error: "emailError", validationTypes: "email"}
 };
@@ -102,7 +102,8 @@ var Filter = React.createClass({
            },
            success: function(response) {
              this.setState({saving: true});
-             this.setState({rate_alert_inform: "You created a rate alert successful. Our system will send you an email if the rate drop."})
+            //  var html_str = $($.parseHTML());
+             this.setState({rate_alert_inform: "You're all set. Keep an eye out for rate alert emails from <a href='mailto:hello@mortgageclub.co?Subject=Hello' target='_top'>hello@mortgageclub.co</a> :)" });
              $("#email_alert").modal('hide');
              $("#email_inform").modal('show');
 
@@ -198,7 +199,7 @@ var Filter = React.createClass({
                                       <span className="fa fa-times-circle closeBtn" data-dismiss="modal"></span>
                                       <div className="modal-body text-center container">
                                           <h2>Rate Drop Alert</h2>
-                                          <h3 className="mc-blue-primary-text">{this.state.rate_alert_inform}</h3>
+                                          <h3 className="mc-blue-primary-text"><div dangerouslySetInnerHTML={{__html: this.state.rate_alert_inform}} /></h3>
                                               <form class="form-horizontal text-center" data-remote="true" id="new_rate_alert" action="/quotes/set_rate_alert" accept-charset="UTF-8" method="post">
 
 
