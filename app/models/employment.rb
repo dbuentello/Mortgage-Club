@@ -68,4 +68,19 @@ class Employment < ActiveRecord::Base
 
     super(more_options)
   end
+
+  def fnm_values
+    values = {}
+
+    values[:employer_name] = employer_name
+    values[:street_address] = address ? address.street_address : ""
+    values[:city] = address ? address.city : ""
+    values[:state] = address ? address.state : ""
+    values[:zip] = address ? address.zip : ""
+    values[:duration] = duration
+    values[:job_title] = job_title
+    values[:current_salary] = current_salary.to_f
+
+    values
+  end
 end

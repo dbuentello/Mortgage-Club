@@ -47,4 +47,33 @@ class Declaration < ActiveRecord::Base
     :type_of_property,
     :title_of_property
   ]
+
+  def citizen_status_fnm
+    case citizen_status
+    when "C"
+      "01"
+    when "PR"
+      "03"
+    when "O"
+      "05"
+    else
+      ""
+    end
+  end
+
+  def fnm_values
+    values = {}
+
+    values[:outstanding_judgment] = outstanding_judgment ? "Y" : "N"
+    values[:bankrupt] = bankrupt ? "Y" : "N"
+    values[:loan_foreclosure] = loan_foreclosure ? "Y" : "N"
+    values[:party_to_lawsuit] = party_to_lawsuit ? "Y" : "N"
+    values[:present_delinquent_loan] = present_delinquent_loan ? "Y" : "N"
+    values[:down_payment_borrowed] = down_payment_borrowed ? "Y" : "N"
+    values[:citizen_status] = citizen_status_fnm
+    values[:ownership_interest] = ownership_interest ? "Y" : "N"
+    values[:co_maker_or_endorser] = co_maker_or_endorser ? "Y" : "N"
+
+    values
+  end
 end

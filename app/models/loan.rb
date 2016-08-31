@@ -123,15 +123,15 @@ class Loan < ActiveRecord::Base
   def loan_type_fnm
     case loan_type
     when "Conventional"
-      return "01"
+      "01"
     when "VA"
-      return "02"
+      "02"
     when "FHA"
-      return "03"
+      "03"
     when "USDA"
-      return "04"
+      "04"
     else
-      return ""
+      ""
     end
   end
 
