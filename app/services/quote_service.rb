@@ -34,7 +34,7 @@ class QuoteService
     @quote = quote
     @query = JSON.parse(@quote.query)
     @quotes = LoanTekServices::GetInitialQuotes.new(@query).lowest_apr
-    if @quotes
+    if @quotes.present?
       year30 = @quotes["30 year fixed"].to_json
       year15 = @quotes["15 year fixed"].to_json
       arm71 = @quotes["7/1 ARM"].to_json
