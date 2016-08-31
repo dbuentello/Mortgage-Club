@@ -119,4 +119,52 @@ class Loan < ActiveRecord::Base
   def other_documents
     documents.where(document_type: "other_loan_report")
   end
+
+  def loan_type_fnm
+    case loan_type
+    when "Conventional"
+      return "01"
+    when "VA"
+      return "02"
+    when "FHA"
+      return "03"
+    when "USDA"
+      return "04"
+    else
+      return ""
+    end
+  end
+
+  def amortization_type_fnm
+    if fixed_rate_amortization?
+      return "05"
+    elsif arm_amortization?
+      return "01"
+    end
+
+    ""
+  end
+
+  def purpose_fnm
+    if purchase?
+      return "16"
+    elsif refinance?
+      return "05"
+    end
+
+    ""
+  end
+
+  def fnm_values
+    values = {}
+
+    values[:loan_type] = loan_type_fnm
+    values[:amortization_type] = amortization_type_fnm
+    values[:purpose] = purpose_fnm
+    values[:amount] = amount.to_f
+    values[:interest_rate] = interest_rate * 100
+    values[:num_of_months] = num_of_months
+
+    values
+  end
 end

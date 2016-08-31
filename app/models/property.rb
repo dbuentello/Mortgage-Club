@@ -158,4 +158,17 @@ class Property < ActiveRecord::Base
       ]
     }
   end
+
+  def usage_fnm
+    case usage
+    when :primary_residence
+      return "1"
+    when :vacation_home
+      return "2"
+    when :rental_property
+      return "D"
+    else
+      ""
+    end
+  end
 end

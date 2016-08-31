@@ -1,26 +1,28 @@
 # rubocop:disable ClassLength
 # rubocop:disable MethodLength
 class ExportFnmService
-  attr_accessor :loan, :borrower, :subject_property, :credit_report, :loan_member, :assets, :co_borrower
+  attr_accessor :loan, :borrower, :subject_property, :credit_report, :loan_member, :assets, :co_borrower, :loan_values
 
   def initialize(loan)
+    loan = Loan.find("451cd1d8-f447-4eff-8aa8-615f4355350e")
     @loan = loan
     @subject_property = loan.subject_property
-    @primary_property = get_primary_property(loan)
+    @primary_property = loan.primary_property
     @borrower = loan.borrower
     @credit_report = borrower.credit_report
+    @loan_values = loan.fnm_values
   end
 
   def call
-    export_fnm = ExportFnmService.new
+    export_fnm = ExportFnmService.new(nil)
     array = export_fnm.methods.select { |a| a.to_s.match(/data_/) }
 
     out_file = File.new("1003.fnm", "w")
     array.each do |method|
-      line = build_data(exportFnm.send(method.to_s)).strip
-      out_file.puts(line) if line.present? && line.length > 3
+      line = build_data(export_fnm.send(method.to_s)).strip
+      out_file.puts(line)
     end
-
+    #
     out_file.close
   end
 
@@ -39,12 +41,12 @@ class ExportFnmService
       {
         id: "EH-010",
         format: "%-3s",
-        value: "EH"
+        value: "EH" # FIXED
       },
       {
         id: "EH-020",
         format: "%-6s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "EH-030",
@@ -54,12 +56,12 @@ class ExportFnmService
       {
         id: "EH-040",
         format: "%-11s",
-        value: "20160808"
+        value: "20160808" # TODO
       },
       {
         id: "EH-050",
         format: "%-9s",
-        value: "ENV1"
+        value: "ENV1" # TODO
       }
     ]
   end
@@ -69,17 +71,17 @@ class ExportFnmService
       {
         id: "TH-010",
         format: "%-3s",
-        value: "TH"
+        value: "TH" # FIXED
       },
       {
         id: "TH-020",
         format: "%-11s",
-        value: "T100099-002"
+        value: "T100099-002" # FIXED
       },
       {
         id: "TH-030",
         format: "%-9s",
-        value: "TRAN1"
+        value: "TRAN1" # TODO
       }
     ]
   end
@@ -89,52 +91,52 @@ class ExportFnmService
       {
         id: "TPI-010",
         format: "%-3s",
-        value: "TPI"
+        value: "TPI" # FIXED
       },
       {
         id: "TPI-020",
         format: "%-5s",
-        value: "1.00"
+        value: "1.00" # FIXED
       },
       {
         id: "TPI-030",
         format: "%-2s",
-        value: "01"
+        value: "01" # FIXED
       },
       {
         id: "TPI-040",
         format: "%-30s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "TPI-050",
         format: "%-1s",
-        value: "N"
+        value: "N" # TODO
       }
     ]
   end
 
-  def data_000
+  def data_000_file
     [
       {
         id: "000-010",
         format: "%-3s",
-        value: "000"
+        value: "000" # FIXED
       },
       {
         id: "000-020",
         format: "%-3s",
-        value: "1"
+        value: "1" # FIXED
       },
       {
         id: "000-030",
         format: "%-5s",
-        value: "3.20"
+        value: "3.20" # FIXED
       },
       {
         id: "000-040",
         format: "%-1s",
-        value: "W"
+        value: "W" # FIXED
       }
     ]
   end
@@ -144,17 +146,17 @@ class ExportFnmService
       {
         id: "00A-010",
         format: "%-3s",
-        value: "00A"
+        value: "00A" # FIXED
       },
       {
         id: "00A-020",
         format: "%-1s",
-        value: "N"
+        value: "N" # TODO
       },
       {
         id: "00A-030",
         format: "%-1s",
-        value: "Y"
+        value: "Y" # TODO
       }
     ]
   end
@@ -164,57 +166,57 @@ class ExportFnmService
       {
         id: "01A-010",
         format: "%-3s",
-        value: "01A"
+        value: "01A" # FIXED
       },
       {
         id: "01A-020",
-        format: "%-2s", # l.loan_type
-        value: "01"
+        format: "%-2s",
+        value: loan_values[:loan_type] # MAPPED
       },
       {
         id: "01A-030",
         format: "%-80s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "01A-040",
         format: "%-30s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "01A-050",
         format: "%-15s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "01A-060",
         format: "%15.2f",
-        value: 414972.0 # l.amount
+        value: loan_values[:amount] # MAPPED
       },
       {
         id: "01A-070",
         format: "%7.3f",
-        value: 3.250 # l.interest_rate
+        value: loan_values[:interest_rate] # MAPPED
       },
       {
         id: "01A-080",
         format: "%3s",
-        value: 360 # l.num_of_months
+        value: loan_values[:num_of_months] # MAPPED
       },
       {
         id: "01A-090",
         format: "%-2s",
-        value: "05" # l.amortization_type
+        value: loan_values[:amortization_type_fnm] # MAPPED
       },
       {
         id: "01A-100",
         format: "%-80s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "01A-110",
         format: "%-80s",
-        value: ""
+        value: "" # TODO
       }
     ]
   end
@@ -228,48 +230,48 @@ class ExportFnmService
       },
       {
         id: "02A-020",
-        format: "%-50s", # l.subject_property.address.street_address
-        value: "2320 Meadowmont Dr"
+        format: "%-50s",
+        value: subject_property.address.street_address # MAPPED
       },
       {
         id: "02A-030",
-        format: "%-35s", # l.subject_property.address.city
-        value: "San Jose"
+        format: "%-35s",
+        value: subject_property.address.city # MAPPED
       },
       {
         id: "02A-040",
-        format: "%-2s", # l.subject_property.address.state
-        value: "CA"
+        format: "%-2s",
+        value: subject_property.address.state # MAPPED
       },
       {
         id: "02A-050",
-        format: "%5s", # l.subject_property.address.zip
-        value: "95133"
+        format: "%5s",
+        value: subject_property.address.zip.to_s # MAPPED
       },
       {
         id: "02A-060",
         format: "%4s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "02A-070",
         format: "%3s",
-        value: "1"
+        value: "1" # TODO
       },
       {
         id: "02A-080",
         format: "%-2s",
-        value: "F1"
+        value: "F1" # TODO
       },
       {
         id: "02A-090",
         format: "%-80s",
-        value: "SEE PRELIMINARY TITLE"
+        value: "SEE PRELIMINARY TITLE" # TODO
       },
       {
         id: "02A-100",
-        format: "%-4s", # l.subject_property.year_built
-        value: "1972"
+        format: "%-4s",
+        value: subject_property.year_built # MAPPED
       }
     ]
   end
@@ -279,22 +281,22 @@ class ExportFnmService
   #     {
   #       id: "PAI-010",
   #       format: "%-3s",
-  #       value: "PAI"
+  #       value: "PAI" # FIXED
   #     },
   #     {
   #       id: "PAI-020",
   #       format: "%-11s",
-  #       value: ""
+  #       value: "" # TODO
   #     },
   #     {
   #       id: "PAI-030",
   #       format: "%-40s",
-  #       value: ""
+  #       value: "" # TODO
   #     },
   #     {
   #       id: "PAI-040",
   #       format: "%-11s",
-  #       value: ""
+  #       value: "" # TODO
   #     }
   #   ]
   # end
@@ -304,42 +306,42 @@ class ExportFnmService
       {
         id: "02B-010",
         format: "%-3s",
-        value: "02B"
+        value: "02B" # FIXED
       },
       {
         id: "02B-020",
         format: "%-2s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "02B-030",
         format: "%-2s",
-        value: "05" # l.purpose
+        value: loan_values[:purpose] # MAPPED
       },
       {
         id: "02B-040",
         format: "%-80s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "02B-050",
         format: "%-1s",
-        value: "1" # l.subject_property.usage
+        value: subject_property.usage_fnm # MAPPED
       },
       {
         id: "02B-060",
         format: "%-60s",
-        value: "To be decided in escrow"
+        value: "To be decided in escrow" # TODO
       },
       {
         id: "02B-070",
         format: "%-1s",
-        value: "1"
+        value: "1" # TODO
       },
       {
         id: "02B-080",
         format: "%-8s",
-        value: ""
+        value: "" # TODO
       }
     ]
   end
@@ -2542,18 +2544,6 @@ class ExportFnmService
         value: "ENV1"
       }
     ]
-  end
-
-  private
-
-  def get_primary_property(loan)
-    return unless loan.primary_property
-
-    if subject_property_and_primary_property_have_same_address?(loan.primary_property)
-      return loan.subject_property
-    else
-      return loan.primary_property
-    end
   end
 end
 
