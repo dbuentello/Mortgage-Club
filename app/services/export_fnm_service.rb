@@ -1,7 +1,12 @@
 class ExportFnmService
   attr_accessor :loan, :borrower, :subject_property, :credit_report, :loan_member, :assets, :co_borrower
 
-  def initialize
+  def initialize(loan)
+    @loan = loan
+    @subject_property = loan.subject_property
+    @primary_property = get_primary_property(loan)
+    @borrower = loan.borrower
+    @credit_report = borrower.credit_report
   end
 
   def call
@@ -2534,5 +2539,17 @@ class ExportFnmService
           value: "ENV1"
       }
     ]
+  end
+
+  private
+
+  def get_primary_property(loan)
+    return unless loan.primary_property
+
+    if subject_property_and_primary_property_have_same_address?(loan.primary_property)
+      return loan.subject_property
+    else
+      return loan.primary_property
+    end
   end
 end
