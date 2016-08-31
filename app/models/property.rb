@@ -180,6 +180,7 @@ class Property < ActiveRecord::Base
     arr[:state] = address.state
     arr[:zip] = address.zip
     arr[:year_built] = year_built
+    arr[:usage] = usage_fnm
     arr
   end
 
