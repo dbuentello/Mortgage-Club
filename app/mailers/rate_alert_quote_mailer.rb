@@ -8,7 +8,7 @@ class RateAlertQuoteMailer < ActionMailer::Base
     @pre_graph = build_result(pre_graph)
     mail(
       to: @rate_alert_user.email,
-      subject: "Your quote has changed - MortgageClub"
+      subject: "[MortgageClub] Mortgage rates have dropped for your scenario"
     )
   end
 
