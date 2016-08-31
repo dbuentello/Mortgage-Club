@@ -216,4 +216,46 @@ class Borrower < ActiveRecord::Base
   def other_documents
     documents.where(document_type: "other_borrower_report")
   end
+
+  def marital_status_fnm
+    case marital_status
+    when "married"
+      "M"
+    when "unmarried"
+      "U"
+    when "separated"
+      "S"
+    else
+      ""
+    end
+  end
+
+  def get_age(dob)
+    return "" if dob.nil?
+
+    now = Time.zone.now
+    now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+  end
+
+  def fnm_values
+    values = {}
+
+    values[:ssn] = ssn.to_s.gsub!(/[() -]/, "")
+    values[:first_name] = user.first_name
+    values[:middle_name] = user.middle_name
+    values[:last_name] = user.last_name
+    values[:suffix] = user.suffix
+    values[:phone] = phone.to_s.gsub!(/[() -]/, "")
+    values[:age] = get_age(dob)
+    values[:years_in_school] = years_in_school
+    values[:marital_status] = marital_status_fnm
+    values[:email] = user.email
+    values[:dependent_count] = dependent_count
+    values[:is_file_taxes_jointly] = is_file_taxes_jointly ? "Y" : "N"
+    values[:dob] = dob ? dob.strftime("%Y%m%d") : ""
+    values[:dependent_ages] = dependent_ages
+    values[:self_employed] = self_employed ? "Y" : "N"
+
+    values
+  end
 end

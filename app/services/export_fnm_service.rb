@@ -1,16 +1,20 @@
 # rubocop:disable ClassLength
 # rubocop:disable MethodLength
 class ExportFnmService
-  attr_accessor :loan, :borrower, :subject_property, :credit_report, :loan_member, :assets, :co_borrower, :loan_values
+  attr_accessor :loan, :subject_property, :credit_report, :loan_member, :assets, :loan_values, :borrower_values, :co_borrower_values, :current_employment_values, :previous_employment_values, :declaration_values
 
   def initialize(loan)
-    loan = Loan.find("451cd1d8-f447-4eff-8aa8-615f4355350e")
+    loan = Loan.find("70a6e6bd-7622-4b3e-acdd-da3c824ee878")
     @loan = loan
     @subject_property = loan.subject_property
     @primary_property = loan.primary_property
-    @borrower = loan.borrower
-    @credit_report = borrower.credit_report
+    @credit_report = loan.borrower.credit_report
     @loan_values = loan.fnm_values
+    @borrower_values = loan.borrower.fnm_values
+    @co_borrower_values = loan.secondary_borrower ? loan.secondary_borrower.fnm_values : {}
+    @current_employment_values = loan.borrower.current_employment.fnm_values
+    @previous_employment_values = loan.borrower.previous_employment ? loan.borrower.previous_employment.fnm_values : {}
+    @declaration_values = loan.borrower.declaration.fnm_values
   end
 
   def call
@@ -22,7 +26,7 @@ class ExportFnmService
       line = build_data(export_fnm.send(method.to_s)).strip
       out_file.puts(line)
     end
-    #
+
     out_file.close
   end
 
@@ -206,7 +210,7 @@ class ExportFnmService
       {
         id: "01A-090",
         format: "%-2s",
-        value: loan_values[:amortization_type_fnm] # MAPPED
+        value: loan_values[:amortization_type] # MAPPED
       },
       {
         id: "01A-100",
@@ -441,7 +445,7 @@ class ExportFnmService
   #   ]
   # end
 
-  def data_03a
+  def data_03a_borrower
     [
       {
         id: "03A-010",
@@ -451,79 +455,168 @@ class ExportFnmService
       {
         id: "03A-020",
         format: "%-2s",
-        value: "BW" # BW if loan doesn't have Applicant or QZ
+        value: "BW"
       },
       {
         id: "03A-030",
         format: "%-9s",
-        value: "605593636" # l.borrower.ssn
+        value: borrower_values[:ssn] # MAPPED
       },
       {
         id: "03A-040",
         format: "%-35s",
-        value: "Thang" # l.borrower.first_name
+        value: borrower_values[:first_name] # MAPPED
       },
       {
         id: "03A-050",
         format: "%-35s",
-        value: "B" # l.borrower.middle_name
+        value: borrower_values[:middle_name] # MAPPED
       },
       {
         id: "03A-060",
         format: "%-35s",
-        value: "Dinh" # l.borrower.last_name
+        value: borrower_values[:last_name] # MAPPED
       },
       {
         id: "03A-070",
         format: "%-4s",
-        value: "" # l.borrower.suffix
+        value: borrower_values[:suffix] # MAPPED
       },
       {
         id: "03A-080",
         format: "%-10s",
-        value: "" # l.borrower.phone
+        value: borrower_values[:phone] # MAPPED
       },
       {
         id: "03A-090",
         format: "%3s",
-        value: "" # l.borrower.dob
+        value: borrower_values[:age] # MAPPED
       },
       {
         id: "03A-100",
         format: "%2s",
-        value: "" # l.borrower.years_in_school
+        value: borrower_values[:years_in_school] # MAPPED
       },
       {
         id: "03A-110",
         format: "%-1s",
-        value: "M" # l.borrower.martial_status
+        value: borrower_values[:marital_status] # MAPPED
       },
       {
         id: "03A-120",
         format: "%2s",
-        value: 0
+        value: borrower_values[:dependent_count] # MAPPED
       },
       {
         id: "03A-130",
         format: "%-1s",
-        value: "N"
+        value: borrower_values[:is_file_taxes_jointly] #MAPPED
       },
       {
         id: "03A-140",
         format: "%9s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "03A-150",
         format: "%-8s",
-        value: ""
+        value: borrower_values[:dob] # MAPPED
       },
       {
         id: "03A-160",
         format: "%-80s",
-        value: "bathang@gmail.com"
+        value: borrower_values[:email] # MAPPED
       }
     ]
+  end
+
+  def data_03a_co_borrower
+    if co_borrower_values.present?
+      [
+        {
+          id: "03A-010",
+          format: "%-3s",
+          value: "03A"
+        },
+        {
+          id: "03A-020",
+          format: "%-2s",
+          value: "QZ"
+        },
+        {
+          id: "03A-030",
+          format: "%-9s",
+          value: co_borrower_values[:ssn] # MAPPED
+        },
+        {
+          id: "03A-040",
+          format: "%-35s",
+          value: co_borrower_values[:first_name] # MAPPED
+        },
+        {
+          id: "03A-050",
+          format: "%-35s",
+          value: co_borrower_values[:middle_name] # MAPPED
+        },
+        {
+          id: "03A-060",
+          format: "%-35s",
+          value: co_borrower_values[:last_name] # MAPPED
+        },
+        {
+          id: "03A-070",
+          format: "%-4s",
+          value: co_borrower_values[:suffix] # MAPPED
+        },
+        {
+          id: "03A-080",
+          format: "%-10s",
+          value: co_borrower_values[:phone] # MAPPED
+        },
+        {
+          id: "03A-090",
+          format: "%3s",
+          value: co_borrower_values[:age] # MAPPED
+        },
+        {
+          id: "03A-100",
+          format: "%2s",
+          value: co_borrower_values[:years_in_school] # MAPPED
+        },
+        {
+          id: "03A-110",
+          format: "%-1s",
+          value: co_borrower_values[:marital_status] # MAPPED
+        },
+        {
+          id: "03A-120",
+          format: "%2s",
+          value: co_borrower_values[:dependent_count] # MAPPED
+        },
+        {
+          id: "03A-130",
+          format: "%-1s",
+          value: co_borrower_values[:is_file_taxes_jointly] #MAPPED
+        },
+        {
+          id: "03A-140",
+          format: "%9s",
+          value: "" # TODO
+        },
+        {
+          id: "03A-150",
+          format: "%-8s",
+          value: co_borrower_values[:dob] # MAPPED
+        },
+        {
+          id: "03A-160",
+          format: "%-80s",
+          value: co_borrower_values[:email] # MAPPED
+        }
+      ]
+    else
+      []
+    end
   end
 
   # 1 age 1 row
@@ -532,17 +625,17 @@ class ExportFnmService
   #     {
   #       id: "03B-010",
   #       format: "%-3s",
-  #       value: "03B"
+  #       value: "03B" # FIXED
   #     },
   #     {
   #       id: "03B-020",
   #       format: "%9s",
-  #       value: "605593636"
+  #       value: borrower_values[:ssn] # MAPPED
   #     },
   #     {
   #       id: "03B-030",
   #       format: "%3s",
-  #       value: "3"
+  #       value: "3" # TODO
   #     }
   #   ]
   # end
@@ -617,155 +710,159 @@ class ExportFnmService
       {
         id: "04A-010",
         format: "%-3s",
-        value: "04A"
+        value: "04A" # FIXED
       },
       {
         id: "04A-020",
         format: "%9s",
-        value: "605593636"
+        value: borrower_values[:ssn] # MAPPED
       },
       {
         id: "04A-030",
         format: "%-35s",
-        value: "Addepar" # l.borrower.current_employment.employer_name
+        value: current_employment_values[:employer_name] # MAPPED
       },
       {
         id: "04A-040",
         format: "%-35s",
-        value: "1215 Terra Bella Ave" # l.borrower.current_employment.address.street_address
+        value: current_employment_values[:street_address] # MAPPED
       },
       {
         id: "04A-050",
         format: "%-35s",
-        value: "Mountain View" # l.borrower.current_employment.address.city
+        value: current_employment_values[:city] # MAPPED
       },
       {
         id: "04A-060",
         format: "%-2s",
-        value: "CA" # l.borrower.current_employment.address.state
+        value: current_employment_values[:state] # MAPPED
       },
       {
         id: "04A-070",
         format: "%5s",
-        value: "94043" # l.borrower.current_employment.address.zip
+        value: current_employment_values[:zip] # MAPPED
       },
       {
         id: "04A-080",
         format: "%4s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "04A-090",
         format: "%-1s",
-        value: "N" # l.borrower.self_employed
+        value: borrower_values[:self_employed] # MAPPED
       },
       {
         id: "04A-100",
         format: "%2s",
-        value: "2" # l.borrower.current_employment.duration
+        value: current_employment_values[:duration] # MAPPED
       },
       {
         id: "04A-110",
         format: "%2s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "04A-120",
         format: "%2s",
-        value: "10"
+        value: "10" # TODO
       },
       {
         id: "04A-130",
         format: "%-25s",
-        value: "Software Engineer" # l.borrower.current_employment.job_title
+        value: current_employment_values[:job_title] # MAPPED
       },
       {
         id: "04A-140",
         format: "%10s",
-        value: "8554646268"
+        value: "8554646268" # TODO
       }
     ]
   end
 
-  # def data_04b
-  #   [
-  #     {
-  #       id: "04B-010",
-  #       format: "%-3s",
-  #       value: "04B"
-  #     },
-  #     {
-  #       id: "04B-020",
-  #       format: "%9s",
-  #       value: "605593636"
-  #     },
-  #     {
-  #       id: "04B-030",
-  #       format: "%-35s",
-  #       value: "Addepar" # l.borrower.previous_employment.employer_name
-  #     },
-  #     {
-  #       id: "04B-040",
-  #       format: "%-35s",
-  #       value: "1215 Terra Bella Ave" # l.borrower.previous_employment.address.street_address
-  #     },
-  #     {
-  #       id: "04B-050",
-  #       format: "%-35s",
-  #       value: "Mountain View"  # l.borrower.previous_employment.address.city
-  #     },
-  #     {
-  #       id: "04B-060",
-  #       format: "%-2s",
-  #       value: "CA" # l.borrower.previous_employment.address.state
-  #     },
-  #     {
-  #       id: "04B-070",
-  #       format: "%5s",
-  #       value: "94043" # l.borrower.previous_employment.address.zip
-  #     },
-  #     {
-  #       id: "04B-080",
-  #       format: "%4s",
-  #       value: ""
-  #     },
-  #     {
-  #       id: "04B-090",
-  #       format: "%-1s",
-  #       value: "N" # l.borrower.self_employed
-  #     },
-  #     {
-  #       id: "04B-100",
-  #       format: "%-1s",
-  #       value: "N"
-  #     },
-  #     {
-  #       id: "04B-110",
-  #       format: "%-8s",
-  #       value: "20131231"
-  #     },
-  #     {
-  #       id: "04B-120",
-  #       format: "%-8s",
-  #       value: "20151231"
-  #     },
-  #     {
-  #       id: "04B-130",
-  #       format: "%15.2f",
-  #       value: 12100.3123
-  #     },
-  #     {
-  #       id: "04B-140",
-  #       format: "%-25s",
-  #       value: "Software Engineer" # l.borrower.previous_employment.job_title
-  #     },
-  #     {
-  #       id: "04B-150",
-  #       format: "%10s",
-  #       value: "8554646268"
-  #     }
-  #   ]
-  # end
+  def data_04b
+    if previous_employment_values.present?
+      [
+        {
+          id: "04B-010",
+          format: "%-3s",
+          value: "04B" # FIXED
+        },
+        {
+          id: "04B-020",
+          format: "%9s",
+          value: borrower_values[:ssn] # MAPPED
+        },
+        {
+          id: "04B-030",
+          format: "%-35s",
+          value: previous_employment_values[:employer_name] # MAPPED
+        },
+        {
+          id: "04B-040",
+          format: "%-35s",
+          value: previous_employment_values[:street_address] # MAPPED
+        },
+        {
+          id: "04B-050",
+          format: "%-35s",
+          value: previous_employment_values[:city] # MAPPED
+        },
+        {
+          id: "04B-060",
+          format: "%-2s",
+          value: previous_employment_values[:state] # MAPPED
+        },
+        {
+          id: "04B-070",
+          format: "%5s",
+          value: previous_employment_values[:zip] # MAPPED
+        },
+        {
+          id: "04B-080",
+          format: "%4s",
+          value: "" # TODO
+        },
+        {
+          id: "04B-090",
+          format: "%-1s",
+          value: borrower_values[:self_employed] # MAPPED
+        },
+        {
+          id: "04B-100",
+          format: "%-1s",
+          value: "N" # FIXED
+        },
+        {
+          id: "04B-110",
+          format: "%-8s",
+          value: "20131231" # TODO
+        },
+        {
+          id: "04B-120",
+          format: "%-8s",
+          value: "20151231" # TODO
+        },
+        {
+          id: "04B-130",
+          format: "%15.2f",
+          value: previous_employment_values[:current_salary] # MAPPED
+        },
+        {
+          id: "04B-140",
+          format: "%-25s",
+          value: previous_employment_values[:job_title] # MAPPED
+        },
+        {
+          id: "04B-150",
+          format: "%10s",
+          value: "8554646268" # TODO
+        }
+      ]
+    else
+      []
+    end
+  end
 
   def data_05h
     [
@@ -1381,67 +1478,67 @@ class ExportFnmService
      {
        id: "08A-020",
        format: "%-9s",
-       value: "605593636" # borrower ssn
+       value: borrower_values[:ssn] # MAPPED
      },
      {
        id: "08A-030",
        format: "%-1s",
-       value: "N" # borrower.declaration: outstanding_judgment
+       value: declaration_values[:outstanding_judgment] # MAPPED
      },
      {
        id: "08A-040",
        format: "%-1s",
-       value: "N" # borrower.declaration: :bankrupt
+       value: declaration_values[:bankrupt] # MAPPED
      },
      {
        id: "08A-050",
        format: "%-1s",
-       value: "N" # borrower.declaration: :loan_foreclosure
+       value: declaration_values[:loan_foreclosure] # MAPPED
      },
      {
        id: "08A-060",
        format: "%-1s",
-       value: "N" # borrower.declaration: :party_to_lawsuit
+       value: declaration_values[:party_to_lawsuit] # MAPPED
      },
      {
        id: "08A-070",
        format: "%-1s",
-       value: "N"
+       value: "N" # TODO
      },
      {
        id: "08A-080",
        format: "%-1s",
-       value: "N" # borrower.declaration: :present_delinquent_loan
+       value: declaration_values[:present_delinquent_loan] # MAPPED
      },
      {
        id: "08A-090",
        format: "%-1s",
-       value: "N"
+       value: "N" # TODO
      },
      {
        id: "08A-100",
        format: "%-1s",
-       value: "N" # down_payment_borrowed
+       value: declaration_values[:down_payment_borrowed] # MAPPED
      },
      {
        id: "08A-110",
        format: "%-1s",
-       value: "N" # co_maker_or_endorser
+       value: declaration_values[:co_maker_or_endorser] # MAPPED
      },
      {
        id: "08A-120",
        format: "%-2s",
-       value: "03" # borrower.declaration: :citizen_status
+       value: declaration_values[:citizen_status] # MAPPED
      },
      {
        id: "08A-130",
        format: "%-1s",
-       value: "Y"
+       value: "Y" # TODO
      },
      {
        id: "08A-140",
        format: "%-1s",
-       value: "Y" # ownership_interest : Y N U
+       value: declaration_values[:ownership_interest] # MAPPED
      },
      {
        id: "08A-150",
@@ -1451,7 +1548,7 @@ class ExportFnmService
      {
        id: "08A-160",
        format: "%-2s",
-       value: "25" #
+       value: "25" # TODO
      }]
   end
 
