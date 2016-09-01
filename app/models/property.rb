@@ -161,46 +161,50 @@ class Property < ActiveRecord::Base
 
   def usage_fnm
     case usage
-    when :primary_residence
-      return "1"
-    when :vacation_home
-      return "2"
-    when :rental_property
-      return "D"
+    when "primary_residence"
+      "1"
+    when "vacation_home"
+      "2"
+    when "rental_property"
+      "D"
     else
       ""
     end
   end
 
   def subject_property_fnm
-    data = {}
-    data[:street_address] = address.street_address
-    data[:city] = address.city
-    data[:state] = address.state
-    data[:zip] = address.zip
-    data[:year_built] = year_built.present? ? year_built : ""
-    data[:usage] = usage_fnm
-    data[:original_purchase_price] = original_purchase_price.present? ? original_purchase_price : 0.0
-    data[:purchase_price] = purchase_price.present? ? purchase_price : 0.0
-    data[:market_price] = market_price.present? ? market_price : 0.0
-    data[:gross_rental_income] = gross_rental_income.present? ? gross_rental_income : 0.0
-    data[:liability_payments] = liability_payments.present? ? liability_payments : 0.0
-    data
+    values = {}
+
+    values[:street_address] = address.street_address
+    values[:city] = address.city
+    values[:state] = address.state
+    values[:zip] = address.zip
+    values[:year_built] = year_built.present? ? year_built : ""
+    values[:usage] = usage_fnm
+    values[:original_purchase_price] = original_purchase_price.to_f
+    values[:purchase_price] = purchase_price.to_f
+    values[:market_price] = market_price.to_f
+    values[:gross_rental_income] = gross_rental_income.to_f
+    values[:liability_payments] = liability_payments.to_f
+
+    values
   end
 
   def primary_property_fnm
-    data = {}
-    data[:street_address] = address.street_address
-    data[:city] = address.city
-    data[:state] = address.state
-    data[:zip] = address.zip
-    data[:year_built] = year_built.present? ? year_built : ""
-    data[:usage] = usage_fnm
-    data[:original_purchase_price] = original_purchase_price.present? ? original_purchase_price : 0.0
-    data[:purchase_price] = purchase_price.present? ? purchase_price : 0.0
-    data[:market_price] = market_price.present? ? market_price : 0.0
-    data[:gross_rental_income] = gross_rental_income.present? ? gross_rental_income : 0.0
-    data[:liability_payments] = liability_payments.present? ? liability_payments : 0.0
-    data
+    values = {}
+
+    values[:street_address] = address.street_address
+    values[:city] = address.city
+    values[:state] = address.state
+    values[:zip] = address.zip
+    values[:year_built] = year_built.present? ? year_built : ""
+    values[:usage] = usage_fnm
+    values[:original_purchase_price] = original_purchase_price.to_f
+    values[:purchase_price] = purchase_price.to_f
+    values[:market_price] = market_price.to_f
+    values[:gross_rental_income] = gross_rental_income.to_f
+    values[:liability_payments] = liability_payments.to_f
+
+    values
   end
 end

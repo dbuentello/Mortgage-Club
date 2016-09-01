@@ -164,6 +164,7 @@ class Loan < ActiveRecord::Base
     values[:amount] = amount.to_f
     values[:interest_rate] = interest_rate * 100
     values[:num_of_months] = num_of_months
+    values[:down_payment] = down_payment.to_f
 
     values
   end
