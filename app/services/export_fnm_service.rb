@@ -1,7 +1,7 @@
 # rubocop:disable ClassLength
 # rubocop:disable MethodLength
 class ExportFnmService
-  attr_accessor :loan, :subject_property, :credit_report, :loan_member, :assets, :loan_values, :borrower_values, :co_borrower_values, :current_employment_values, :previous_employment_values, :declaration_values, :relationship_manager_values
+  attr_accessor :loan, :subject_property, :credit_report, :loan_member, :assets, :loan_values, :borrower_values, :co_borrower_values, :current_employment_values, :previous_employment_values, :declaration_values, :relationship_manager_values, :subject_property_values, :primary_property_values
 
   def initialize(loan)
     loan = Loan.find("70a6e6bd-7622-4b3e-acdd-da3c824ee878")
@@ -16,6 +16,8 @@ class ExportFnmService
     @previous_employment_values = loan.borrower.previous_employment ? loan.borrower.previous_employment.fnm_values : {}
     @declaration_values = loan.borrower.declaration.fnm_values
     @relationship_manager_values = loan.relationship_manager.fnm_values
+    @subject_property_values = loan.subject_property.subject_property_fnm
+    @primary_property_values = loan.primary_property.primary_property_fnm
   end
 
   def call
@@ -23,10 +25,13 @@ class ExportFnmService
     array = export_fnm.methods.select { |a| a.to_s.match(/data_/) }
 
     out_file = File.new("1003.fnm", "w")
-    array.each do |method|
-      line = build_data(export_fnm.send(method.to_s)).strip
-      out_file.puts(line)
-    end
+    out_file.puts build_data(data_eh).strip
+    out_file.puts build_data(data_th).strip
+    out_file.puts build_data(data_tpi).strip
+    out_file.puts build_data(data_000_file).strip
+    out_file.puts build_data(data_00a).strip
+    out_file.puts build_data(data_01a).strip
+    out_file.puts build_data(data_02a).strip
 
     out_file.close
   end
@@ -236,22 +241,22 @@ class ExportFnmService
       {
         id: "02A-020",
         format: "%-50s",
-        value: subject_property.address.street_address # MAPPED
+        value: subject_property_values[:street_address] # MAPPED
       },
       {
         id: "02A-030",
         format: "%-35s",
-        value: subject_property.address.city # MAPPED
+        value: subject_property_values[:city] # MAPPED
       },
       {
         id: "02A-040",
         format: "%-2s",
-        value: subject_property.address.state # MAPPED
+        value: subject_property_values[:state] # MAPPED
       },
       {
         id: "02A-050",
         format: "%5s",
-        value: subject_property.address.zip.to_s # MAPPED
+        value: subject_property_values[:zip] # MAPPED
       },
       {
         id: "02A-060",
@@ -276,35 +281,35 @@ class ExportFnmService
       {
         id: "02A-100",
         format: "%-4s",
-        value: subject_property.year_built # MAPPED
+        value: subject_property_values[:year_built] # MAPPED
       }
     ]
   end
 
-  # def data_pai
-  #   [
-  #     {
-  #       id: "PAI-010",
-  #       format: "%-3s",
-  #       value: "PAI" # FIXED
-  #     },
-  #     {
-  #       id: "PAI-020",
-  #       format: "%-11s",
-  #       value: "" # TODO
-  #     },
-  #     {
-  #       id: "PAI-030",
-  #       format: "%-40s",
-  #       value: "" # TODO
-  #     },
-  #     {
-  #       id: "PAI-040",
-  #       format: "%-11s",
-  #       value: "" # TODO
-  #     }
-  #   ]
-  # end
+  def data_pai
+    [
+      {
+        id: "PAI-010",
+        format: "%-3s",
+        value: "PAI" # FIXED
+      },
+      {
+        id: "PAI-020",
+        format: "%-11s",
+        value: "" # TODO
+      },
+      {
+        id: "PAI-030",
+        format: "%-40s",
+        value: "" # TODO
+      },
+      {
+        id: "PAI-040",
+        format: "%-11s",
+        value: "" # TODO
+      }
+    ]
+  end
 
   def data_02b
     [

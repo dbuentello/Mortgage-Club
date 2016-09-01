@@ -178,7 +178,7 @@ class Property < ActiveRecord::Base
     arr[:city] = address.city
     arr[:state] = address.state
     arr[:zip] = address.zip
-    arr[:year_built] = year_built.present? ? year_built : "0000"
+    arr[:year_built] = year_built.present? ? year_built : ""
     arr[:usage] = usage_fnm
     arr[:original_purchase_price] = original_purchase_price ? original_purchase_price : 0.0
     arr[:market_price] = market_price.present? ? market_price : 0.0
@@ -193,7 +193,7 @@ class Property < ActiveRecord::Base
     arr[:city] = address.city
     arr[:state] = address.state
     arr[:zip] = address.zip
-    arr[:year_built] = year_built.present? ? year_built : "0000"
+    arr[:year_built] = year_built.present? ? year_built : ""
     arr[:usage] = usage_fnm
     arr[:original_purchase_price] = original_purchase_price ? original_purchase_price : 0.0
     arr[:market_price] = market_price.present? ? market_price : 0.0
