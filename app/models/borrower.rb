@@ -247,7 +247,7 @@ class Borrower < ActiveRecord::Base
     values[:suffix] = user.suffix
     values[:phone] = phone.to_s.gsub!(/[() -]/, "")
     values[:age] = get_age(dob)
-    values[:years_in_school] = years_in_school
+    values[:years_in_school] = years_in_school.to_i > 12 ? "Y" :  "N"
     values[:marital_status] = marital_status_fnm
     values[:email] = user.email
     values[:dependent_count] = dependent_count
