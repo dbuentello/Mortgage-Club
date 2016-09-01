@@ -180,7 +180,8 @@ class Property < ActiveRecord::Base
     arr[:zip] = address.zip
     arr[:year_built] = year_built.present? ? year_built : ""
     arr[:usage] = usage_fnm
-    arr[:original_purchase_price] = original_purchase_price ? original_purchase_price : 0.0
+    arr[:original_purchase_price] = original_purchase_price.present? ? original_purchase_price : 0.0
+    arr[:purchase_price] = purchase_price.present? ? purchase_price : 0.0
     arr[:market_price] = market_price.present? ? market_price : 0.0
     arr[:gross_rental_income] = gross_rental_income.present? ? gross_rental_income : 0.0
     arr[:liability_payments] = liability_payments.present? ? liability_payments : 0.0
@@ -195,7 +196,8 @@ class Property < ActiveRecord::Base
     arr[:zip] = address.zip
     arr[:year_built] = year_built.present? ? year_built : ""
     arr[:usage] = usage_fnm
-    arr[:original_purchase_price] = original_purchase_price ? original_purchase_price : 0.0
+    arr[:original_purchase_price] = original_purchase_price.present? ? original_purchase_price : 0.0
+    arr[:purchase_price] = purchase_price.present? ? purchase_price : 0.0
     arr[:market_price] = market_price.present? ? market_price : 0.0
     arr[:gross_rental_income] = gross_rental_income.present? ? gross_rental_income : 0.0
     arr[:liability_payments] = liability_payments.present? ? liability_payments : 0.0
