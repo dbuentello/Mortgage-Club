@@ -32,7 +32,7 @@ class ExportFnmService
     out_file.puts build_data(data_00a).strip
     out_file.puts build_data(data_01a).strip
     out_file.puts build_data(data_02a).strip
-    out_file.puts build_data(data_pai).strip
+    # out_file.puts build_data(data_pai).strip
     out_file.puts build_data(data_02b).strip
     out_file.puts build_data(data_02c).strip
 
@@ -40,6 +40,35 @@ class ExportFnmService
       out_file.puts build_data(data_02e).strip
     else
       out_file.puts build_data(data_02d).strip
+    end
+
+    out_file.puts build_data(data_03a_borrower).strip
+    out_file.puts build_data(data_03a_co_borrower).strip
+
+    if borrower_values[:dependent_ages].size > 0
+      borrower_values[:dependent_ages].each do |age|
+        out_file.puts build_data(data_03b(borrower_values[:ssn], age)).strip
+      end
+    end
+
+    if co_borrower_values[:dependent_ages].size > 0
+      co_borrower_values[:dependent_ages].each do |age|
+        out_file.puts build_data(data_03b(co_borrower_values[:ssn], age)).strip
+      end
+    end
+
+    out_file.puts build_data(data_03c).strip
+    out_file.puts build_data(data_04a).strip
+    out_file.puts build_data(data_04b).strip
+    out_file.puts build_data(data_05h_first_mortgage).strip
+    out_file.puts build_data(data_05h_hazard_insurance).strip
+    out_file.puts build_data(data_05h_estate_tax).strip
+    out_file.puts build_data(data_05h_mortgage_insurance).strip
+    out_file.puts build_data(data_05h_homeowner).strip
+    out_file.puts build_data(data_05i).strip
+
+    loan.borrower.assets.each do |asset|
+      out_file.puts build_data(data_06c(asset.fnm_values)).strip
     end
 
     out_file.close
@@ -634,88 +663,87 @@ class ExportFnmService
     end
   end
 
-  # 1 age 1 row
-  # def data_03b
-  #   [
-  #     {
-  #       id: "03B-010",
-  #       format: "%-3s",
-  #       value: "03B" # FIXED
-  #     },
-  #     {
-  #       id: "03B-020",
-  #       format: "%9s",
-  #       value: borrower_values[:ssn] # MAPPED
-  #     },
-  #     {
-  #       id: "03B-030",
-  #       format: "%3s",
-  #       value: "3" # TODO
-  #     }
-  #   ]
-  # end
+  def data_03b(ssn, age)
+    [
+      {
+        id: "03B-010",
+        format: "%-3s",
+        value: "03B" # FIXED
+      },
+      {
+        id: "03B-020",
+        format: "%9s",
+        value: ssn # MAPPED
+      },
+      {
+        id: "03B-030",
+        format: "%3s",
+        value: age # MAPPED
+      }
+    ]
+  end
 
   def data_03c
     [
       {
         id: "03C-010",
         format: "%-3s",
-        value: "03C"
+        value: "03C" # FIXED
       },
       {
         id: "03C-020",
         format: "%9s",
-        value: "605593636"
+        value: borrower_values[:ssn] # MAPPED
       },
       {
         id: "03C-030",
         format: "%-2s",
-        value: "ZG"
+        value: "ZG" # TODO
       },
       {
         id: "03C-040",
         format: "%-50s",
-        value: "2320 Meadowmont Dr" # l.primary_property.address.street_address
+        value: primary_property_values[:street_address] # MAPPED
       },
       {
         id: "03C-050",
         format: "%-35s",
-        value: "San Jose" # l.primary_property.address.city
+        value: primary_property_values[:city] # MAPPED
       },
       {
         id: "03C-060",
         format: "%-2s",
-        value: "CA" # l.primary_property.address.state
+        value: primary_property_values[:state] # MAPPED
       },
       {
         id: "03C-070",
         format: "%5s",
-        value: "95133" # l.primary_property.address.zip
+        value: primary_property_values[:zip] # MAPPED
       },
       {
         id: "03C-080",
         format: "%4s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "03C-010",
         format: "%-1s",
-        value: "O"
+        value: "O" # TODO
       },
       {
         id: "03C-010",
         format: "%2s",
-        value: 2
+        value: 2 # TODO
       },
       {
         id: "03C-010",
         format: "%2s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "03C-010",
         format: "%-50s",
-        value: ""
+        value: "" # TODO
       }
     ]
   end
@@ -879,32 +907,152 @@ class ExportFnmService
     end
   end
 
-  def data_05h
+  def data_05h_first_mortgage
     [
       {
         id: "05H-010",
         format: "%-3s",
-        value: "05H"
+        value: "05H" # FIXED
       },
       {
         id: "05H-020",
         format: "%9s",
-        value: "605593636"
+        value: borrower_values[:ssn] # MAPPED
       },
       {
         id: "05H-030",
         format: "%-1s",
-        value: "1"
+        value: "2" # MAPPED
       },
       {
         id: "05H-040",
         format: "%-2s",
-        value: "14"
+        value: "26" # MAPPED
       },
       {
         id: "05H-050",
         format: "%15.2f",
-        value: 312.0
+        value: loan_values[:monthly_payment] # MAPPED
+      }
+    ]
+  end
+
+  def data_05h_hazard_insurance
+    [
+      {
+        id: "05H-010",
+        format: "%-3s",
+        value: "05H" # FIXED
+      },
+      {
+        id: "05H-020",
+        format: "%9s",
+        value: borrower_values[:ssn] # MAPPED
+      },
+      {
+        id: "05H-030",
+        format: "%-1s",
+        value: "2" # MAPPED
+      },
+      {
+        id: "05H-040",
+        format: "%-2s",
+        value: "01" # MAPPED
+      },
+      {
+        id: "05H-050",
+        format: "%15.2f",
+        value: subject_property_values[:estimated_hazard_insurance] # MAPPED
+      }
+    ]
+  end
+
+  def data_05h_estate_tax
+    [
+      {
+        id: "05H-010",
+        format: "%-3s",
+        value: "05H" # FIXED
+      },
+      {
+        id: "05H-020",
+        format: "%9s",
+        value: borrower_values[:ssn] # MAPPED
+      },
+      {
+        id: "05H-030",
+        format: "%-1s",
+        value: "2" # MAPPED
+      },
+      {
+        id: "05H-040",
+        format: "%-2s",
+        value: "14" # MAPPED
+      },
+      {
+        id: "05H-050",
+        format: "%15.2f",
+        value: subject_property_values[:estimated_property_tax] # MAPPED
+      }
+    ]
+  end
+
+  def data_05h_mortgage_insurance
+    [
+      {
+        id: "05H-010",
+        format: "%-3s",
+        value: "05H" # FIXED
+      },
+      {
+        id: "05H-020",
+        format: "%9s",
+        value: borrower_values[:ssn] # MAPPED
+      },
+      {
+        id: "05H-030",
+        format: "%-1s",
+        value: "2" # MAPPED
+      },
+      {
+        id: "05H-040",
+        format: "%-2s",
+        value: "02" # MAPPED
+      },
+      {
+        id: "05H-050",
+        format: "%15.2f",
+        value: loan_values[:pmi_monthly_premium_amount] # MAPPED
+      }
+    ]
+  end
+
+  def data_05h_homeowner
+    [
+      {
+        id: "05H-010",
+        format: "%-3s",
+        value: "05H" # FIXED
+      },
+      {
+        id: "05H-020",
+        format: "%9s",
+        value: borrower_values[:ssn] # MAPPED
+      },
+      {
+        id: "05H-030",
+        format: "%-1s",
+        value: "2" # MAPPED
+      },
+      {
+        id: "05H-040",
+        format: "%-2s",
+        value: "06" # MAPPED
+      },
+      {
+        id: "05H-050",
+        format: "%15.2f",
+        value: subject_property_values[:hoa_due] # MAPPED
       }
     ]
   end
@@ -914,223 +1062,224 @@ class ExportFnmService
       {
         id: "05I-010",
         format: "%-3s",
-        value: "05I"
+        value: "05I" # FIXED
       },
       {
         id: "05I-020",
         format: "%9s",
-        value: "605593636"
+        value: borrower_values[:ssn] # MAPPED
       },
       {
         id: "05I-030",
         format: "%-2s",
-        value: "20"
+        value: "20" # TODO
       },
       {
         id: "05I-040",
         format: "%15.2f",
-        value: 12500.00
+        value: current_employment_values[:current_salary] # MAPPED
       }
     ]
   end
 
-  # def data_06a
-  #   [
-  #     {
-  #       id: "06A-010",
-  #       format: "%-3s",
-  #       value: "06A"
-  #     },
-  #     {
-  #       id: "06A-020",
-  #       format: "%9s",
-  #       value: "605593636"
-  #     },
-  #     {
-  #       id: "06A-030",
-  #       format: "%-35s",
-  #       value: ""
-  #     },
-  #     {
-  #       id: "06A-040",
-  #       format: "%15.2f",
-  #       value: 3123.231
-  #     }
-  #   ]
-  # end
+  def data_06a
+    [
+      {
+        id: "06A-010",
+        format: "%-3s",
+        value: "06A" # FIXED
+      },
+      {
+        id: "06A-020",
+        format: "%9s",
+        value: borrower_values[:ssn] # MAPPED
+      },
+      {
+        id: "06A-030",
+        format: "%-35s",
+        value: "" # TODO
+      },
+      {
+        id: "06A-040",
+        format: "%15.2f",
+        value: 3123.231 # TODO
+      }
+    ]
+  end
 
-  # def data_06b
-  #   [
-  #     {
-  #       id: "06B-010",
-  #       format: "%-3s",
-  #       value: "06B"
-  #     },
-  #     {
-  #       id: "06B-020",
-  #       format: "%9s",
-  #       value: "605593636"
-  #     },
-  #     {
-  #       id: "06B-030",
-  #       format: "%-30s",
-  #       value: ""
-  #     },
-  #     {
-  #       id: "06B-040",
-  #       format: "%15.2f",
-  #       value: 3123.231
-  #     },
-  #     {
-  #       id: "06B-050",
-  #       format: "%15.2f",
-  #       value: 3123.231
-  #     }
-  #   ]
-  # end
+  def data_06b
+    [
+      {
+        id: "06B-010",
+        format: "%-3s",
+        value: "06B" # FIXED
+      },
+      {
+        id: "06B-020",
+        format: "%9s",
+        value: borrower_values[:ssn] # MAPPED
+      },
+      {
+        id: "06B-030",
+        format: "%-30s",
+        value: "" # TODO
+      },
+      {
+        id: "06B-040",
+        format: "%15.2f",
+        value: 3123.231 # TODO
+      },
+      {
+        id: "06B-050",
+        format: "%15.2f",
+        value: 3123.231 # TODO
+      }
+    ]
+  end
 
-  def data_06c
+  def data_06c(asset)
     [
       {
         id: "06C-010",
         format: "%-3s",
-        value: "06C"
+        value: "06C" # FIXED
       },
       {
         id: "06C-020",
         format: "%9s",
-        value: "605593636"
+        value: borrower_values[:ssn] # MAPPED
       },
       {
         id: "06C-030",
         format: "%-3s",
-        value: "03" # l.borrower.assets asset_type
+        value: asset[:asset_type] # MAPPED
       },
       {
         id: "06C-040",
         format: "%-35s",
-        value: "Bank of America"
+        value: asset[:institution_name] # MAPPED
       },
       {
         id: "06C-050",
         format: "%-35s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "06C-060",
         format: "%-35s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "06C-070",
         format: "%-2s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "06C-080",
         format: "%5s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "06C-090",
         format: "%4s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "06C-100",
         format: "%-30s",
-        value: "000335523814"
+        value: "" # TODO
       },
       {
         id: "06C-110",
         format: "%15.2f",
-        value: 43099.00
+        value: asset[:current_balance] # MAPPED
       },
       {
         id: "06C-120",
         format: "%7s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "06C-130",
         format: "%-80s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "06C-140",
         format: "%-1s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "06C-150",
         format: "%-2s",
-        value: ""
+        value: "" # TODO
       }
     ]
   end
 
-  # def data_06d
-  #   [
-  #     {
-  #       id: "06D-010",
-  #       format: "%-3s",
-  #       value: "06D"
-  #     },
-  #     {
-  #       id: "06D-020",
-  #       format: "%9s",
-  #       value: "605593636"
-  #     },
-  #     {
-  #       id: "06D-030",
-  #       format: "%-30s",
-  #       value: "3123"
-  #     },
-  #     {
-  #       id: "06D-040",
-  #       format: "%-4s",
-  #       value: "2015"
-  #     },
-  #     {
-  #       id: "06D-050",
-  #       format: "%15.2f",
-  #       value: 1231.123
-  #     }
-  #   ]
-  # end
+  def data_06d
+    [
+      {
+        id: "06D-010",
+        format: "%-3s",
+        value: "06D" # FIXED
+      },
+      {
+        id: "06D-020",
+        format: "%9s",
+        value: borrower_values[:ssn] # MAPPED
+      },
+      {
+        id: "06D-030",
+        format: "%-30s",
+        value: "3123" # TODO
+      },
+      {
+        id: "06D-040",
+        format: "%-4s",
+        value: "2015" # TODO
+      },
+      {
+        id: "06D-050",
+        format: "%15.2f",
+        value: 1231.123 # TODO
+      }
+    ]
+  end
 
+  # need to improve
   # def data_06f
   #   [
   #     {
   #       id: "06F-010",
   #       format: "%-3s",
-  #       value: "06F"
+  #       value: "06F" # FIXED
   #     },
   #     {
   #       id: "06F-020",
   #       format: "%9s",
-  #       value: "605593636"
+  #       value: borrower_values[:ssn] # MAPPED
   #     },
   #     {
   #       id: "06F-030",
   #       format: "%-3s",
-  #       value: "DR"
+  #       value: "DR" # TODO
   #     },
   #     {
   #       id: "06F-040",
   #       format: "%15.2f",
-  #       value: 13123.12312
+  #       value: 13123.12312 # TODO
   #     },
   #     {
   #       id: "06F-050",
   #       format: "%3s",
-  #       value: 360
+  #       value: 360 # TODO
   #     },
   #     {
   #       id: "06F-060",
   #       format: "%-60s",
-  #       value: "sadad"
-  #     },
+  #       value: "sadad" # TODO
+  #     }
   #   ]
   # end
 
@@ -1139,97 +1288,97 @@ class ExportFnmService
       {
         id: "06G-010",
         format: "%-3s",
-        value: "06G"
+        value: "06G" # FIXED
       },
       {
         id: "06G-020",
         format: "%9s",
-        value: "605593636"
+        value: borrower_values[:ssn] # MAPPED
       },
       {
         id: "06G-030",
         format: "%-35s",
-        value: "2320 Meadowmont Dr"
+        value: "2320 Meadowmont Dr" # TODO
       },
       {
         id: "06G-040",
         format: "%-35s",
-        value: "San Jose"
+        value: "San Jose" # TODO
       },
       {
         id: "06G-050",
         format: "%-2s",
-        value: "CA"
+        value: "CA" # TODO
       },
       {
         id: "06G-060",
         format: "%5s",
-        value: "95133"
+        value: "95133" # TODO
       },
       {
         id: "06G-070",
         format: "%4s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "06G-080",
         format: "%-1s",
-        value: "H"
+        value: "H" # TODO
       },
       {
         id: "06G-090",
         format: "%-2s",
-        value: "14"
+        value: "14" # TODO
       },
       {
         id: "06G-100",
         format: "%15.2f",
-        value: 625000.00
+        value: 625000.00 # TODO
       },
       {
         id: "06G-110",
         format: "%15.2f",
-        value: 414972.00
+        value: 414972.00 # TODO
       },
       {
         id: "06G-120",
         format: "%15.2f",
-        value: 0.00
+        value: 0.00 # TODO
       },
       {
         id: "06G-130",
         format: "%15.2f",
-        value: 1903.00
+        value: 1903.00 # TODO
       },
       {
         id: "06G-140",
         format: "%15.2f",
-        value: 617.00
+        value: 617.00 # TODO
       },
       {
         id: "06G-150",
         format: "%15.2f",
-        value: 0.00
+        value: 0.00 # TODO
       },
       {
         id: "06G-160",
         format: "%-1s",
-        value: "Y"
+        value: "Y" # TODO
       },
       {
         id: "06G-170",
         format: "%-1s",
-        value: "Y"
+        value: "Y" # TODO
       },
       {
         id: "06G-180",
         format: "%-2s",
-        value: "1"
+        value: "1" # TODO
       },
       {
         id: "06G-190",
         format: "%-15s",
-        value: ""
+        value: "" # TODO
       }
     ]
   end
@@ -1279,97 +1428,97 @@ class ExportFnmService
       {
         id: "06L-010",
         format: "%-3s",
-        value: "06L"
+        value: "06L" # FIXED
       },
       {
         id: "06L-020",
         format: "%9s",
-        value: "605593636"
+        value: borrower_values[:ssn] # MAPPED
       },
       {
         id: "06L-030",
         format: "%-2s",
-        value: "M"
+        value: "M" # TODO
       },
       {
         id: "06L-040",
         format: "%-35s",
-        value: "WFHM"
+        value: "WFHM" # TODO
       },
       {
         id: "06L-050",
         format: "%-35s",
-        value: "PO BOX 10335"
+        value: "PO BOX 10335" # TODO
       },
       {
         id: "06L-060",
         format: "%-35s",
-        value: "DES MOINES"
+        value: "DES MOINES" # TODO
       },
       {
         id: "06L-070",
         format: "%-2s",
-        value: "IA"
+        value: "IA" # TODO
       },
       {
         id: "06L-080",
         format: "%5s",
-        value: "50306"
+        value: "50306" # TODO
       },
       {
         id: "06L-090",
         format: "%4s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "06L-100",
         format: "%-30s",
-        value: "9360500931597"
+        value: "9360500931597" # TODO
       },
       {
         id: "06L-110",
         format: "%15.2f",
-        value: 1903.0
+        value: 1903.0 # TODO
       },
       {
         id: "06L-120",
         format: "%3s",
-        value: 0
+        value: 0 # TODO
       },
       {
         id: "06L-130",
         format: "%15.2f",
-        value: 414972
+        value: 414972 # TODO
       },
       {
         id: "06L-140",
         format: "%-1s",
-        value: "Y"
+        value: "Y" # TODO
       },
       {
         id: "06L-150",
         format: "%-2s",
-        value: "1"
+        value: "1" # TODO
       },
       {
         id: "06L-160",
         format: "%-1s",
-        value: "N"
+        value: "N" # TODO
       },
       {
         id: "06L-170",
         format: "%-1s",
-        value: "N"
+        value: "N" # TODO
       },
       {
         id: "06L-180",
         format: "%-1s",
-        value: "Y"
+        value: "Y" # TODO
       },
       {
         id: "06L-190",
         format: "%-1s",
-        value: "N"
+        value: "N" # TODO
       }
     ]
   end
@@ -1379,22 +1528,22 @@ class ExportFnmService
   #     {
   #       id: "06S-010",
   #       format: "%-3s",
-  #       value: "06S"
+  #       value: "06S" # FIXED
   #     },
   #     {
   #       id: "06S-020",
   #       format: "%9s",
-  #       value: "605593636"
+  #       value: borrower_values[:ssn] # MAPPED
   #     },
   #     {
   #       id: "06S-030",
   #       format: "%-3s",
-  #       value: "HMB"
+  #       value: "HMB" # TODO
   #     },
   #     {
   #       id: "06S-040",
   #       format: "%15.2f",
-  #       value: 231.01231
+  #       value: 231.01231 # TODO
   #     }
   #   ]
   # end

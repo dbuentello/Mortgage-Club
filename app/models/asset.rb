@@ -55,6 +55,7 @@ class Asset < ActiveRecord::Base
   end
 
   def asset_type_fnm
+    case asset_type
     when "checkings"
       return "03"
     when "savings"
@@ -74,6 +75,8 @@ class Asset < ActiveRecord::Base
     values = {}
 
     values[:asset_type] = asset_type_fnm
+    values[:institution_name] = institution_name
+    values[:current_balance] = current_balance.to_f
 
     values
   end
