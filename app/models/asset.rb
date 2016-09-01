@@ -53,4 +53,28 @@ class Asset < ActiveRecord::Base
     Rails.logger.error(exception)
     false
   end
+
+  def asset_type_fnm
+    when "checkings"
+      return "03"
+    when "savings"
+      return "SG"
+    when "investment"
+      return "05"
+    when "retirement"
+      return "08"
+    when "other"
+      return "OL"
+    else
+      return ""
+    end
+  end
+
+  def fnm_values
+    values = {}
+
+    values[:asset_type] = asset_type_fnm
+
+    values
+  end
 end

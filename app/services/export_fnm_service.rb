@@ -1,7 +1,7 @@
 # rubocop:disable ClassLength
 # rubocop:disable MethodLength
 class ExportFnmService
-  attr_accessor :loan, :subject_property, :credit_report, :loan_member, :assets, :loan_values, :borrower_values, :co_borrower_values, :current_employment_values, :previous_employment_values, :declaration_values
+  attr_accessor :loan, :subject_property, :credit_report, :loan_member, :assets, :loan_values, :borrower_values, :co_borrower_values, :current_employment_values, :previous_employment_values, :declaration_values, :relationship_manager_values
 
   def initialize(loan)
     loan = Loan.find("70a6e6bd-7622-4b3e-acdd-da3c824ee878")
@@ -15,6 +15,7 @@ class ExportFnmService
     @current_employment_values = loan.borrower.current_employment.fnm_values
     @previous_employment_values = loan.borrower.previous_employment ? loan.borrower.previous_employment.fnm_values : {}
     @declaration_values = loan.borrower.declaration.fnm_values
+    @relationship_manager_values = loan.relationship_manager.fnm_values
   end
 
   def call
@@ -230,7 +231,7 @@ class ExportFnmService
       {
         id: "02A-010",
         format: "%-3s",
-        value: "02A"
+        value: "02A" # FIXED
       },
       {
         id: "02A-020",
@@ -355,12 +356,12 @@ class ExportFnmService
       {
         id: "02C-010",
         format: "%-3s",
-        value: "02C"
+        value: "02C" # FIXED
       },
       {
         id: "02C-020",
         format: "%-60s",
-        value: "Thang B Dinh"
+        value: "Thang B Dinh" # TODO
       }
     ]
   end

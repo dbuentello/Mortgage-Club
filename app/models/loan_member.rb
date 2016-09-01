@@ -39,4 +39,15 @@ class LoanMember < ActiveRecord::Base
 
     loans_members_associations.includes(:loan_members_title).where(loan_id: loan.id, loan_member_id: id).last.loan_members_title.title
   end
+
+  def fnm_values
+    values = {}
+
+    values[:name] = user.to_s
+    values[:phone_number] = phone_number.to_s.gsub!(/[() -]/, "")
+    values[:company_name] = company_name
+    values[:company_address] = company_address
+
+    values
+  end
 end
