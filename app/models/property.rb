@@ -186,6 +186,9 @@ class Property < ActiveRecord::Base
     values[:market_price] = market_price.to_f
     values[:gross_rental_income] = gross_rental_income.to_f
     values[:liability_payments] = liability_payments.to_f
+    values[:estimated_hazard_insurance] = estimated_hazard_insurance.to_f
+    values[:estimated_property_tax] = estimated_property_tax.to_f
+    values[:hoa_due] = hoa_due.to_f
 
     values
   end

@@ -79,8 +79,23 @@ class Employment < ActiveRecord::Base
     values[:zip] = address ? address.zip : ""
     values[:duration] = duration
     values[:job_title] = job_title
-    values[:current_salary] = current_salary.to_f
+    values[:current_salary] = monthly_total_amount_fnm
 
     values
+  end
+
+  def monthly_total_amount_fnm
+    case pay_frequency
+    when "monthly"
+      current_salary.to_f
+    when "semimonthly"
+      current_salary.to_f * 2
+    when "biweekly"
+      current_salary.to_f * 26 / 12
+    when "weekly"
+      current_salary.to_f * 52 / 12
+    else
+      0
+    end
   end
 end
