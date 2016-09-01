@@ -61,6 +61,23 @@ class Declaration < ActiveRecord::Base
     end
   end
 
+  def race_type_fnm
+    case race_type
+    when "AIoAN"
+      "1"
+    when "A"
+      "2"
+    when "BoAA"
+      "3"
+    when "NHoOPI"
+      "4"
+    when "W"
+      "5"
+    else
+      ""
+    end
+  end
+
   def fnm_values
     values = {}
     values[:gender_type] = gender_type
@@ -74,7 +91,7 @@ class Declaration < ActiveRecord::Base
     values[:citizen_status] = citizen_status_fnm
     values[:ownership_interest] = ownership_interest ? "Y" : "N"
     values[:co_maker_or_endorser] = co_maker_or_endorser ? "Y" : "N"
-
+    values[:race_type] = race_type_fnm
     values
   end
 end
