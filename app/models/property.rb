@@ -173,32 +173,38 @@ class Property < ActiveRecord::Base
   end
 
   def subject_property_fnm
-    arr = {}
-    arr[:street_address] = address.street_address
-    arr[:city] = address.city
-    arr[:state] = address.state
-    arr[:zip] = address.zip
-    arr[:year_built] = year_built.present? ? year_built : ""
-    arr[:usage] = usage_fnm
-    arr[:original_purchase_price] = original_purchase_price.to_f
-    arr[:market_price] = market_price.to_f
-    arr[:gross_rental_income] = gross_rental_income.to_f
-    arr[:liability_payments] = liability_payments.to_f
-    arr
+    values = {}
+
+    values[:street_address] = address.street_address
+    values[:city] = address.city
+    values[:state] = address.state
+    values[:zip] = address.zip
+    values[:year_built] = year_built.present? ? year_built : ""
+    values[:usage] = usage_fnm
+    values[:original_purchase_price] = original_purchase_price.to_f
+    values[:purchase_price] = purchase_price.to_f
+    values[:market_price] = market_price.to_f
+    values[:gross_rental_income] = gross_rental_income.to_f
+    values[:liability_payments] = liability_payments.to_f
+
+    values
   end
 
   def primary_property_fnm
-    arr = {}
-    arr[:street_address] = address.street_address
-    arr[:city] = address.city
-    arr[:state] = address.state
-    arr[:zip] = address.zip
-    arr[:year_built] = year_built.present? ? year_built : ""
-    arr[:usage] = usage_fnm
-    arr[:original_purchase_price] = original_purchase_price.to_f
-    arr[:market_price] = market_price.to_f
-    arr[:gross_rental_income] = gross_rental_income.to_f
-    arr[:liability_payments] = liability_payments.to_f
-    arr
+    values = {}
+
+    values[:street_address] = address.street_address
+    values[:city] = address.city
+    values[:state] = address.state
+    values[:zip] = address.zip
+    values[:year_built] = year_built.present? ? year_built : ""
+    values[:usage] = usage_fnm
+    values[:original_purchase_price] = original_purchase_price.to_f
+    values[:purchase_price] = purchase_price.to_f
+    values[:market_price] = market_price.to_f
+    values[:gross_rental_income] = gross_rental_income.to_f
+    values[:liability_payments] = liability_payments.to_f
+
+    values
   end
 end
