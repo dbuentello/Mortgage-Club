@@ -161,12 +161,12 @@ class Property < ActiveRecord::Base
 
   def usage_fnm
     case usage
-    when :primary_residence
-      return "1"
-    when :vacation_home
-      return "2"
-    when :rental_property
-      return "D"
+    when "primary_residence"
+      "1"
+    when "vacation_home"
+      "2"
+    when "rental_property"
+      "D"
     else
       ""
     end
@@ -180,10 +180,10 @@ class Property < ActiveRecord::Base
     arr[:zip] = address.zip
     arr[:year_built] = year_built.present? ? year_built : ""
     arr[:usage] = usage_fnm
-    arr[:original_purchase_price] = original_purchase_price ? original_purchase_price : 0.0
-    arr[:market_price] = market_price.present? ? market_price : 0.0
-    arr[:gross_rental_income] = gross_rental_income.present? ? gross_rental_income : 0.0
-    arr[:liability_payments] = liability_payments.present? ? liability_payments : 0.0
+    arr[:original_purchase_price] = original_purchase_price.to_f
+    arr[:market_price] = market_price.to_f
+    arr[:gross_rental_income] = gross_rental_income.to_f
+    arr[:liability_payments] = liability_payments.to_f
     arr
   end
 
@@ -195,10 +195,10 @@ class Property < ActiveRecord::Base
     arr[:zip] = address.zip
     arr[:year_built] = year_built.present? ? year_built : ""
     arr[:usage] = usage_fnm
-    arr[:original_purchase_price] = original_purchase_price ? original_purchase_price : 0.0
-    arr[:market_price] = market_price.present? ? market_price : 0.0
-    arr[:gross_rental_income] = gross_rental_income.present? ? gross_rental_income : 0.0
-    arr[:liability_payments] = liability_payments.present? ? liability_payments : 0.0
+    arr[:original_purchase_price] = original_purchase_price.to_f
+    arr[:market_price] = market_price.to_f
+    arr[:gross_rental_income] = gross_rental_income.to_f
+    arr[:liability_payments] = liability_payments.to_f
     arr
   end
 end

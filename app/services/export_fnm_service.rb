@@ -32,6 +32,15 @@ class ExportFnmService
     out_file.puts build_data(data_00a).strip
     out_file.puts build_data(data_01a).strip
     out_file.puts build_data(data_02a).strip
+    out_file.puts build_data(data_pai).strip
+    out_file.puts build_data(data_02b).strip
+    out_file.puts build_data(data_02c).strip
+
+    if loan.purchase?
+      out_file.puts build_data(data_02e).strip
+    else
+      out_file.puts build_data(data_02d).strip
+    end
 
     out_file.close
   end
@@ -336,7 +345,7 @@ class ExportFnmService
       {
         id: "02B-050",
         format: "%-1s",
-        value: subject_property.usage_fnm # MAPPED
+        value: subject_property_values[:usage] # MAPPED
       },
       {
         id: "02B-060",
@@ -376,80 +385,80 @@ class ExportFnmService
       {
         id: "02D-010",
         format: "%-3s",
-        value: "02D"
+        value: "02D" # FIXED
       },
       {
         id: "02D-020",
         format: "%-4s",
-        value: "2015"
+        value: "2015" # TODO
       },
       {
         id: "02D-030",
         format: "%15.2f",
-        value: 530000.00 # l.subject_property_original_purchase_price
+        value: subject_property_values[:original_purchase_price] # MAPPED
       },
       {
         id: "02D-040",
         format: "%15.2f",
-        value: 415000.00
+        value: 415000.00 # TODO
       },
       {
         id: "02D-050",
         format: "%15.2f",
-        value: 0.00
+        value: 0.00 # TODO
       },
       {
         id: "02D-060",
         format: "%15.2f",
-        value: 0.00
+        value: 0.00 # TODO
       },
       {
         id: "02D-070",
         format: "%-2s",
-        value: "F1"
+        value: "F1" # TODO
       },
       {
         id: "02D-080",
         format: "%-80s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "02D-090",
         format: "%-1s",
-        value: ""
+        value: "" # TODO
       },
       {
         id: "02D-100",
         format: "%15.2f",
-        value: 0.00
+        value: 0.00 # TODO
       }
     ]
   end
 
-  # def data_02e
-  #   [
-  #     {
-  #       id: "02E-010",
-  #       format: "%-3s",
-  #       value: "02E"
-  #     },
-  #     {
-  #       id: "02E-020",
-  #       format: "%-2s",
-  #       value: "H3"
-  #     },
-  #     {
-  #       id: "02E-030",
-  #       format: "%15.2f",
-  #       value: 0.00
-  #     },
-  #     {
-  #       id: "02E-040",
-  #       format: "%-80s",
-  #       value: ""
-  #     }
-  #   ]
-  # end
+  def data_02e
+    [
+      {
+        id: "02E-010",
+        format: "%-3s",
+        value: "02E" # FIXED
+      },
+      {
+        id: "02E-020",
+        format: "%-2s",
+        value: "H3" # TODO
+      },
+      {
+        id: "02E-030",
+        format: "%15.2f",
+        value: loan_values[:down_payment] # MAPPED
+      },
+      {
+        id: "02E-040",
+        format: "%-80s",
+        value: "" # TODO
+      }
+    ]
+  end
 
   def data_03a_borrower
     [
