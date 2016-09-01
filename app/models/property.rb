@@ -173,34 +173,34 @@ class Property < ActiveRecord::Base
   end
 
   def subject_property_fnm
-    arr = {}
-    arr[:street_address] = address.street_address
-    arr[:city] = address.city
-    arr[:state] = address.state
-    arr[:zip] = address.zip
-    arr[:year_built] = year_built.present? ? year_built : ""
-    arr[:usage] = usage_fnm
-    arr[:original_purchase_price] = original_purchase_price.present? ? original_purchase_price : 0.0
-    arr[:purchase_price] = purchase_price.present? ? purchase_price : 0.0
-    arr[:market_price] = market_price.present? ? market_price : 0.0
-    arr[:gross_rental_income] = gross_rental_income.present? ? gross_rental_income : 0.0
-    arr[:liability_payments] = liability_payments.present? ? liability_payments : 0.0
-    arr
+    data = {}
+    data[:street_address] = address.street_address
+    data[:city] = address.city
+    data[:state] = address.state
+    data[:zip] = address.zip
+    data[:year_built] = year_built.present? ? year_built : ""
+    data[:usage] = usage_fnm
+    data[:original_purchase_price] = original_purchase_price.present? ? original_purchase_price : 0.0
+    data[:purchase_price] = purchase_price.present? ? purchase_price : 0.0
+    data[:market_price] = market_price.present? ? market_price : 0.0
+    data[:gross_rental_income] = gross_rental_income.present? ? gross_rental_income : 0.0
+    data[:liability_payments] = liability_payments.present? ? liability_payments : 0.0
+    data
   end
 
   def primary_property_fnm
-    arr = {}
-    arr[:street_address] = address.street_address
-    arr[:city] = address.city
-    arr[:state] = address.state
-    arr[:zip] = address.zip
-    arr[:year_built] = year_built.present? ? year_built : ""
-    arr[:usage] = usage_fnm
-    arr[:original_purchase_price] = original_purchase_price.present? ? original_purchase_price : 0.0
-    arr[:purchase_price] = purchase_price.present? ? purchase_price : 0.0
-    arr[:market_price] = market_price.present? ? market_price : 0.0
-    arr[:gross_rental_income] = gross_rental_income.present? ? gross_rental_income : 0.0
-    arr[:liability_payments] = liability_payments.present? ? liability_payments : 0.0
-    arr
+    data = {}
+    data[:street_address] = address.street_address
+    data[:city] = address.city
+    data[:state] = address.state
+    data[:zip] = address.zip
+    data[:year_built] = year_built.present? ? year_built : ""
+    data[:usage] = usage_fnm
+    data[:original_purchase_price] = original_purchase_price.present? ? original_purchase_price : 0.0
+    data[:purchase_price] = purchase_price.present? ? purchase_price : 0.0
+    data[:market_price] = market_price.present? ? market_price : 0.0
+    data[:gross_rental_income] = gross_rental_income.present? ? gross_rental_income : 0.0
+    data[:liability_payments] = liability_payments.present? ? liability_payments : 0.0
+    data
   end
 end
