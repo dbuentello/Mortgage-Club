@@ -63,6 +63,7 @@ class Declaration < ActiveRecord::Base
 
   def fnm_values
     values = {}
+    values[:gender_type] = gender_type
     values[:is_hispanic_or_latino] = is_hispanic_or_latino ? "1" : "2"
     values[:outstanding_judgment] = outstanding_judgment ? "Y" : "N"
     values[:bankrupt] = bankrupt ? "Y" : "N"
