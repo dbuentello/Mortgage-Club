@@ -91,7 +91,7 @@ var LoanInterface = React.createClass({
             ?
             <td>{this.formatCurrency(this.state.loan.subject_property.purchase_price, 0, "$")}</td>
             :
-            <td>{this.formatCurrency(this.state.loan.subject_property.original_purchase_price, 0, "$")}</td>
+            <td>{this.formatCurrency(this.state.loan.subject_property.market_price, 0, "$")}</td>
 
           }
 
