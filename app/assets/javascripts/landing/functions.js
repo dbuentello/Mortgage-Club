@@ -3599,14 +3599,14 @@ function checkCookie() {
 }
 
 $(window).bind('scroll', function () {
-	if ($(window).scrollTop() > 50 && $(window).width() > 991  ) {
+	if ($(window).scrollTop() > 50 && $(window).width() > 991 && $('.subnav').length > 0) {
 			$('.subnav').addClass('fixed-nav');
 			$('.account-content').addClass('fixed-content');
 	} else {
 			$('.subnav').removeClass('fixed-nav');
 			$('.account-content').removeClass('fixed-content');
 	}
-	if ($(window).scrollTop() > 50 && $(window).width() <= 991  ) {
+	if ($(window).scrollTop() > 50 && $(window).width() <= 991 && $('.subnav').length > 0) {
 			$('.subnav').addClass('fixed-nav-mobile');
 	} else {
 			$('.subnav').removeClass('fixed-nav-mobile');

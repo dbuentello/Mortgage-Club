@@ -228,7 +228,6 @@
     }
   }
   .custom-left-mortgage-rates {
-    margin-left: -19px;
     @include respond-to(mobile) {
       margin-left: 0px;
       margin-bottom: 80px;
@@ -274,7 +273,7 @@
   }
 
   .programs-filter {
-    
+
     padding: 20px;
   }
   .quote-filter {
