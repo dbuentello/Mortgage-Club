@@ -28,6 +28,7 @@ var Quotes = React.createClass({
   componentDidMount: function() {
     mixpanel.track("Quotes-Enter");
     this.autoClickFilter();
+    $("body").removeClass("device-lg");
   },
 
   autoClickFilter: function() {
