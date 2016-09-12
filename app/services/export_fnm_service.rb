@@ -71,6 +71,9 @@ class ExportFnmService
       out_file.puts build_data(data_06c(asset.fnm_values)).strip
     end
 
+    out_file.puts build_data(data_06g).strip
+    out_file.puts build_data(data_06l).strip
+
     out_file.puts build_data(data_07a).strip
     out_file.puts build_data(data_08a).strip
     out_file.puts build_data(data_08b).strip
@@ -2184,7 +2187,7 @@ class ExportFnmService
      {
        id: "LNC-140",
        format: "%-1s",
-       value: borrower_values[:years_in_school]
+       value: borrower_values[:years_in_school_bool]
      },
      {
        id: "LNC-150",

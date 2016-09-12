@@ -167,6 +167,7 @@ class Loan < ActiveRecord::Base
     values[:down_payment] = down_payment.to_f
     values[:monthly_payment] = monthly_payment.to_f
     values[:pmi_monthly_premium_amount] = pmi_monthly_premium_amount.to_f
+    values[:discount_pts] = discount_pts.to_f
 
     values
   end
