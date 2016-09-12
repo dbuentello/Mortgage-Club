@@ -361,10 +361,11 @@ var List = React.createClass({
                       {
                         rate.characteristic
                         ?
-                          <p className="note-rates">{rate.characteristic}</p>
+                          <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>{rate.characteristic}</p>
                         :
                           null
                       }
+                      <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub 1% in commission.</p>
                     </div>
                   </div>
                   <Chart id={index} principle={rate.monthly_payment} mortgageInsurance={this.state.estimatedMortgageInsurance} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}
