@@ -33,9 +33,9 @@ mixpanel.init("<%= @mixpanel_token %>");</script><!-- end Mixpanel -->
       <%= flash_messages %>
     </div> -->
     <% if dev_infographics_page? %>
-    <%= render "/shared/simple_header" %>
-  <% else %>
-    <%= render "/shared/header" %>
+      <%= render "/shared/simple_header" %>
+    <% else %>
+      <%= render "/shared/header" %>
     <% end %>
 
     <%= yield %>
