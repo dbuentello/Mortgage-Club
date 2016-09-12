@@ -9,9 +9,13 @@ var List = React.createClass({
   getInitialState: function(){
     var toggleContentStates = new Array(this.props.programs.length);
     toggleContentStates.fill(false, 0, this.props.programs.length);
+
+    var estimatedPropertyTax = (this.props.subjectProperty.estimated_property_tax == undefined || this.props.subjectProperty.estimated_property_tax == null) ? 0 : this.props.subjectProperty.estimated_property_tax / 12;
+    var estimatedHazardInsurance = (this.props.subjectProperty.estimated_hazard_insurance == undefined || this.props.subjectProperty.estimated_hazard_insurance == null) ? 0 : this.props.subjectProperty.estimated_hazard_insurance / 12;
+
     return ({
-      estimatedPropertyTax: this.props.subjectProperty.estimated_property_tax,
-      estimatedHazardInsurance: this.props.subjectProperty.estimated_hazard_insurance,
+      estimatedPropertyTax: estimatedPropertyTax,
+      estimatedHazardInsurance: estimatedHazardInsurance,
       estimatedMortgageInsurance: this.props.subjectProperty.estimated_mortgage_insurance,
       hoaDue: this.props.subjectProperty.hoa_due,
       toggleContentStates: toggleContentStates
