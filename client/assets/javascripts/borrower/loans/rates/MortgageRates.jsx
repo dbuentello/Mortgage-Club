@@ -140,7 +140,7 @@ var MortgageRates = React.createClass({
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                           </div>
                           <div className="modal-body">
-                            <Filter programs={this.props.bootstrapData.programs} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterProgram}></Filter>
+                            <Filter programs={this.props.bootstrapData.programs} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterProgram} dataCookies={this.state.dataCookies}></Filter>
                           </div>
                           <div className="modal-footer">
                             <button type="button" className="btn select-btn" data-dismiss="modal">OK</button>
