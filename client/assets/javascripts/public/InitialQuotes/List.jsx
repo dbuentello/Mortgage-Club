@@ -190,7 +190,13 @@ var List = React.createClass({
                       }
                     </div>
                     <div className="col-md-2 col-sm-12 text-sm-center">
-                      <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Apply Now</a>
+                    {
+                      quote.lender_name != "Wells Fargo"
+                      ?
+                        <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Apply Now</a>
+                      :
+                        <a className="btn select-btn">Go To WF</a>
+                    }
                     </div>
                   </div>
                 </div>
@@ -311,7 +317,13 @@ var List = React.createClass({
                         :
                           null
                       }
-                      <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub 1% in commission.</p>
+                      {
+                        quote.lender_name != "Wells Fargo"
+                        ?
+                          <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub 1% in commission.</p>
+                        :
+                          <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender does not pay MortgageClub any commission.</p>
+                      }
                     </div>
                   </div>
                   <Chart id={index} principle={quote.monthly_payment} mortgageInsurance={0} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}

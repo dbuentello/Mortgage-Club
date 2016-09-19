@@ -1,10 +1,11 @@
 # get initial quotes.
 module LoanTekServices
   class GetInitialQuotes
-    attr_accessor :info
+    attr_accessor :info, :zip_code
 
     def initialize(info)
       @info = info
+      @zip_code = ZipCode.find_by_zip(info["zip_code"])
     end
 
     def call
@@ -47,6 +48,7 @@ module LoanTekServices
           end
         end
       end
+
       quotes = quotes + quotes_2 + quotes_3 + quotes_4
       quotes.sort_by { |program| program[:apr] }
     end
@@ -61,8 +63,6 @@ module LoanTekServices
         property_usage: get_property_usage,
         property_type: get_property_type
       )
-
-      zip_code = ZipCode.find_by_zip(get_zipcode)
 
       if zip_code
         fees = CrawlFeesService.new(
@@ -163,7 +163,6 @@ module LoanTekServices
         property_type: get_property_type
       )
 
-      zip_code = ZipCode.find_by_zip(get_zipcode)
       if zip_code
         fees = CrawlFeesService.new(
           loan_purpose: get_loan_purpose,
@@ -173,6 +172,38 @@ module LoanTekServices
           loan_amount: loan_amount,
           sales_price: info["property_value"].to_f
         ).call
+
+        if (purchase_loan? && is_down_payment == false) || (!purchase_loan? && is_cash_out == false)
+          params = {
+            loan_purpose: get_loan_purpose,
+            loan_amount: format("%0.0f", get_loan_amount),
+            property_value: format("%0.0f", info["property_value"].to_f),
+            county: zip_code.county
+          }
+
+          if purchase_loan?
+            params[:down_payment] = format("%0.0f", info["down_payment"].to_f)
+            params[:mortgage_balance] = ""
+          else
+            params[:down_payment] = ""
+            params[:mortgage_balance] = format("%0.0f", info["mortgage_balance"].to_f)
+          end
+
+          rates = WellsfargoServices::GetRates.new(params).call
+          rates.each do |rate|
+            quote = Marshal.load(Marshal.dump(quotes.first))
+
+            quote["Rate"] = rate[:interest_rate]
+            quote["LenderName"] = "Wells Fargo"
+            quote["DiscountPts"] = 0
+            quote["APR"] = rate[:apr]
+            quote["ProductName"] = rate[:product_name]
+            quote["ProductType"] = rate[:product_type]
+            quote["ProductTerm"] = rate[:product_term]
+
+            quotes << quote
+          end
+        end
 
         if quotes.nil?
           []

@@ -114,6 +114,8 @@ gem 'recaptcha', require: 'recaptcha/rails'
 
 gem 'ox'
 
+gem 'mechanize'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
