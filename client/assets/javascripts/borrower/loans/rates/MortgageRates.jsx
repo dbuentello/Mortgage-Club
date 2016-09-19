@@ -152,15 +152,14 @@ var MortgageRates = React.createClass({
                       </li>
                       <li>
                         <a>
-                          <span className="fa fa-sort" aria-hidden="true">
-                            <select id="sortRateOptions" onChange={this.handleSortChange} style={{"opacity": "0"}}>
-                              <option value="apr">APR</option>
-                              <option value="pmt">Monthly Payment</option>
-                              <option value="rate">Rate</option>
-                              <option value="tcc">Total Closing Cost</option>
-                            </select>
-                          </span>
+                          <span className="fa fa-sort" aria-hidden="true"></span>
                         </a>
+                        <select id="sortRateOptions" onChange={this.handleSortChange} style={{"opacity": "0", "marginTop": "-50px", "width": "100%", "height": "50px"}}>
+                          <option value="apr">APR</option>
+                          <option value="pmt">Monthly Payment</option>
+                          <option value="rate">Rate</option>
+                          <option value="tcc">Total Closing Cost</option>
+                        </select>
                       </li>
                     </ul>
                     <RateAlert code_id={this.state.code_id} fields={mobile_alert_fields} index={2}/>
