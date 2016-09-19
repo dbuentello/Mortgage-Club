@@ -124,7 +124,7 @@ var Filter = React.createClass({
                     </div>
                   </div>
                   <div className="form-group text-center">
-                    <div className="col-md-6 col-md-offset-3" style={{"padding-top": "35px","padding-bottom": "20px"}}>
+                    <div className="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3" style={{"padding-top": "35px","padding-bottom": "20px"}}>
                       <button type="button" onClick={this.submitRateAlert} className="btn btn-mc form-control" style={{"padding-top": "5px"}}>Submit</button>
                     </div>
                   </div>
