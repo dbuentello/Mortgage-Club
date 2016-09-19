@@ -31,8 +31,6 @@ module WellsfargoServices
 
     def parse(result)
       rates = []
-      table = result.search(".subtle tr")
-
       fixed_30 = result.search(".subtle tr")[1]
       fixed_15 = result.search(".subtle tr")[4]
       arm_5 = result.search(".subtle tr")[5]
