@@ -124,7 +124,7 @@ var Loans = React.createClass({
                               </a>
                             </span>
                             <span>
-                              <a className='linkTypeReversed' target="_blank" href={"/loan_members/loans/" + loan.id + "/export_xml"}
+                              <a className='linkTypeReversed' target="_blank" href={"/loan_members/loans/" + loan.id + "/export_fnm"}
                               data-method='get'><i className="icon-file-download"></i>
                               </a>
                             </span>

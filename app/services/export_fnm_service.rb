@@ -4,7 +4,7 @@ class ExportFnmService
   attr_accessor :loan, :subject_property, :credit_report, :loan_member, :assets, :loan_values, :borrower_values, :co_borrower_values, :current_employment_values, :previous_employment_values, :declaration_values, :relationship_manager_values, :subject_property_values, :primary_property_values
 
   def initialize(loan)
-    loan = Loan.find("70a6e6bd-7622-4b3e-acdd-da3c824ee878")
+    # loan = Loan.find("5454f139-cdaa-49ea-8ccb-050df2b98d38")
     @loan = loan
     @subject_property = loan.subject_property
     @primary_property = loan.primary_property
