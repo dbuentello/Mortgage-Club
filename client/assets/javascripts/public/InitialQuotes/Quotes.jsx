@@ -11,6 +11,12 @@ var HelpMeChoose = require("borrower/loans/rates/HelpMeChoose");
 var MortgageCalculatorMixin = require('mixins/MortgageCalculatorMixin');
 var List = require("./List");
 
+var mobile_alert_fields = {
+  firstName: {label: "First name", name: "mobile_first_name", keyName: "mobile_first_name", error: "mobileFirstNameError",validationTypes: "empty"},
+  lastName: {label: "Last name", name: "mobile_last_name", keyName: "mobile_last_name", error: "mobileLastNameError",validationTypes: "empty"},
+  email: {label: "Email", name: "mobile_email", keyName: "mobile_email", error: "mobileEmailError", validationTypes: "email"}
+};
+
 var Quotes = React.createClass({
   mixins: [TextFormatMixin, ChartMixin, MortgageCalculatorMixin],
 
@@ -35,22 +41,6 @@ var Quotes = React.createClass({
   autoClickFilter: function() {
     $("input[name=30years]")[0].click();
     $(".filter-sidebar input[type=checkbox]:nth(4)").click();
-
-    // if(this.props.bootstrapData.selected_programs) {
-    //   switch(this.props.bootstrapData.selected_programs) {
-    //     case "30yearFixed":
-    //       $("input[name=30years]").trigger("click");
-    //       break;
-    //     case "15yearFixed":
-    //       $("input[name=15years]").trigger("click");
-    //       break;
-    //     case "5yearARM":
-    //       $("input[name=51arm]").trigger("click");
-    //       break;
-    //   }
-    // }
-    // else {
-    // }
   },
 
   onFilterQuote: function(filteredQuotes) {
@@ -259,12 +249,18 @@ var Quotes = React.createClass({
                                 </a>
                               </li>
                               <li>
-                                <a href="" data-toggle="modal" data-target="#sortQuotes">
-                                  <span className="fa fa-sort" aria-hidden="true" ></span>
+                                <a>
+                                  <span className="fa fa-sort" aria-hidden="true"></span>
                                 </a>
+                                <select id="mobileSortRateOptions" onChange={this.handleSortChange} style={{"opacity": "0", "marginTop": "-50px", "width": "100%", "height": "50px"}}>
+                                  <option value="apr">APR</option>
+                                  <option value="pmt">Monthly Payment</option>
+                                  <option value="rate">Rate</option>
+                                  <option value="tcc">Total Closing Cost</option>
+                                </select>
                               </li>
                             </ul>
-                            <RateAlert code_id={this.state.code_id} index={2}/>
+                            <RateAlert code_id={this.state.code_id} fields={mobile_alert_fields} index={2}/>
                             <div className="modal fade filter-modal" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                               <div className="modal-dialog modal-md" role="document">
                                 <div className="modal-content">
@@ -273,28 +269,6 @@ var Quotes = React.createClass({
                                   </div>
                                   <div className="modal-body">
                                     <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote} dataCookies={this.state.dataCookies}></Filter>
-                                  </div>
-                                  <div className="modal-footer">
-                                    <button type="button" className="btn select-btn" data-dismiss="modal">OK</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="modal fade filter-modal" id="sortQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                              <div className="modal-dialog modal-md" role="document">
-                                <div className="modal-content">
-                                  <div className="modal-header">
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                  </div>
-                                  <div className="modal-body">
-                                    <p>Sort by</p>
-                                    <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
-                                      <option value="apr">APR</option>
-                                      <option value="pmt">Monthly Payment</option>
-                                      <option value="rate">Rate</option>
-                                      <option value="tcc">Total Closing Cost</option>
-                                    </select>
                                   </div>
                                   <div className="modal-footer">
                                     <button type="button" className="btn select-btn" data-dismiss="modal">OK</button>

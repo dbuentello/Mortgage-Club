@@ -9,6 +9,13 @@ var MortgageCalculatorMixin = require('mixins/MortgageCalculatorMixin');
 var List = require('./List');
 var HelpMeChoose = require('./HelpMeChoose');
 var Filter = require('./Filter');
+var RateAlert = require('./RateAlert');
+
+var mobile_alert_fields = {
+  firstName: {label: "First name", name: "mobile_first_name", keyName: "mobile_first_name", error: "mobileFirstNameError",validationTypes: "empty"},
+  lastName: {label: "Last name", name: "mobile_last_name", keyName: "mobile_last_name", error: "mobileLastNameError",validationTypes: "empty"},
+  email: {label: "Email", name: "mobile_email", keyName: "mobile_email", error: "mobileEmailError", validationTypes: "email"}
+};
 
 var MortgageRates = React.createClass({
   mixins: [LoaderMixin, ObjectHelperMixin, TextFormatMixin, Navigation, MortgageCalculatorMixin],
@@ -98,43 +105,66 @@ var MortgageRates = React.createClass({
               </div>
               <div className="col-sm-12 col-md-9 account-content programs-list">
                 <div className="mobile-xs-quote">
-                  { this.state.selected_program == 0 ?
-                    <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
-                      <p>
-                        We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
-                      </p>
-                      <p>
-                        Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
-                      </p>
-                    </div>
-                  : null }
-                  { this.state.selected_program == 2 ?
-                    <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
-                      <p>
-                        Great news, you should qualify for the loan program that you selected. Please review the rate and terms below and click <i>Continue</i> or select a different loan program if you’d like.
-                      </p>
-                      <p>
+                  { this.state.selected_program == 0
+                    ?
+                      <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
+                        <p>
+                          We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
+                        </p>
+                        <p>
+                          Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
+                        </p>
+                      </div>
+                    : null
+                  }
+                  { this.state.selected_program == 2
+                    ?
+                      <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
+                        <p>
+                          Great news, you should qualify for the loan program that you selected. Please review the rate and terms below and click <i>Continue</i> or select a different loan program if you’d like.
+                        </p>
+                        <p>
+                        </p>
+                      </div>
+                    : null
+                  }
+                  { this.state.selected_program == 1
+                    ?
+                       <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
+                         <p>
+                           Oops, your rate and terms have changed. It’s either because lenders have updated their rates or you don’t qualify for the loan program that you selected. Please see your updated loan programs below.
+                         </p>
+                       </div>
+                    : null
+                  }
 
-                      </p>
-                    </div>
-                 : null }
-                 { this.state.selected_program == 1 ?
-                   <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
-                     <p>
-                       Oops, your rate and terms have changed. It’s either because lenders have updated their rates or you don’t qualify for the loan program that you selected. Please see your updated loan programs below.
-                     </p>
-
-                   </div>
-                 : null }
                   <div className="row form-group visible-xs visible-sm">
                     <div className="col-xs-12 text-left text-xs-center text-sm-center">
                       <a className="btn text-uppercase help-me-choose-btn" onClick={this.helpMeChoose}>help me choose</a>
                     </div>
-                    <div className="col-xs-5 text-left">
-                      <a className="btn btn-filter text-uppercase" data-toggle="modal" data-target="#filterQuotes">Filter</a>
-                    </div>
+                  </div>
+                  <div className="row form-group menu-programs visible-sm visible-xs">
+                    <ul>
+                      <li>
+                        <a href="" data-toggle="modal" data-target="#filterQuotes">
+                          <span className="fa fa-filter" aria-hidden="true" ></span>
+                        </a>
+                      </li>
+                      <li>
+                        <a>
+                          <span className="fa fa-sort" aria-hidden="true"></span>
+                        </a>
+                        <select id="sortRateOptions" onChange={this.handleSortChange} style={{"opacity": "0", "marginTop": "-50px", "width": "100%", "height": "50px"}}>
+                          <option value="apr">APR</option>
+                          <option value="pmt">Monthly Payment</option>
+                          <option value="rate">Rate</option>
+                          <option value="tcc">Total Closing Cost</option>
+                        </select>
+                      </li>
+                    </ul>
+                    <RateAlert code_id={this.state.code_id} fields={mobile_alert_fields} index={2}/>
                     <div className="modal fade filter-modal" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                      <div className="modal-dialog modal-sm" role="document">
+                      <div className="modal-dialog modal-md" role="document">
                         <div className="modal-content">
                           <div className="modal-header">
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -148,23 +178,10 @@ var MortgageRates = React.createClass({
                         </div>
                       </div>
                     </div>
-                    <div className="col-xs-3 text-xs-right text-sm-right">
-                      <b>Sort by</b>
-                    </div>
-                    <div className="col-xs-4 select-box pull-right">
-                      <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
-                        <option value="apr">APR</option>
-                        <option value="pmt">Monthly Payment</option>
-                        <option value="rate">Rate</option>
-                        <option value="tcc">Total Closing Cost</option>
-                      </select>
-                      <span>&#9660;</span>
-                    </div>
                   </div>
                 </div>
                 <div className="row actions hidden-xs hidden-sm">
                   { this.state.selected_program == 0 ?
-
                   <div>
                   <p>
                     We’ve found {this.state.programs ? this.state.programs.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
