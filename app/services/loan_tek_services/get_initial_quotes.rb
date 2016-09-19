@@ -178,30 +178,26 @@ module LoanTekServices
             loan_purpose: get_loan_purpose,
             loan_amount: format("%0.0f", get_loan_amount),
             property_value: format("%0.0f", info["property_value"].to_f),
-            county: zip_code.county
+            county: zip_code.county,
+            down_payment: purchase_loan? ? format("%0.0f", info["down_payment"].to_f) : ""
           }
-
-          if purchase_loan?
-            params[:down_payment] = format("%0.0f", info["down_payment"].to_f)
-            params[:mortgage_balance] = ""
-          else
-            params[:down_payment] = ""
-            params[:mortgage_balance] = format("%0.0f", info["mortgage_balance"].to_f)
-          end
 
           rates = WellsfargoServices::GetRates.new(params).call
           rates.each do |rate|
-            quote = Marshal.load(Marshal.dump(quotes.first))
+            quote = quotes.select { |quote| quote["ProductFamily"] == "CONVENTIONAL" }.first
+            if quote
+              quote = Marshal.load(Marshal.dump(quote))
 
-            quote["Rate"] = rate[:interest_rate]
-            quote["LenderName"] = "Wells Fargo"
-            quote["DiscountPts"] = 0
-            quote["APR"] = rate[:apr]
-            quote["ProductName"] = rate[:product_name]
-            quote["ProductType"] = rate[:product_type]
-            quote["ProductTerm"] = rate[:product_term]
+              quote["LenderName"] = "Wells Fargo"
+              quote["DiscountPts"] = 0
+              quote["APR"] = rate[:apr]
+              quote["Rate"] = rate[:interest_rate]
+              quote["ProductName"] = rate[:product_name]
+              quote["ProductType"] = rate[:product_type]
+              quote["ProductTerm"] = rate[:product_term]
 
-            quotes << quote
+              quotes << quote
+            end
           end
         end
 
