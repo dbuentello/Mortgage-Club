@@ -6,6 +6,12 @@ var LoanProgramFilterMixin = require('mixins/LoanProgramFilterMixin');
 var ValidationObject = require("mixins/FormValidationMixin");
 var RateAlert = require("./RateAlert");
 
+var pc_alert_fields = {
+  firstName: {label: "First name", name: "pc_first_name", keyName: "pc_first_name", error: "pcFirstNameError",validationTypes: "empty"},
+  lastName: {label: "Last name", name: "pc_last_name", keyName: "pc_last_name", error: "pcLastNameError",validationTypes: "empty"},
+  email: {label: "Email", name: "pc_email", keyName: "pc_email", error: "pcEmailError", validationTypes: "email"}
+};
+
 var Filter = React.createClass({
     mixins: [LoanProgramFilterMixin, ValidationObject],
     getInitialState: function() {
@@ -74,7 +80,7 @@ var Filter = React.createClass({
                     this.props.rate_alert ?
                       <div>
                         <a data-toggle="modal" href="" data-target="#email_alert1" style={{fontSize: 17}}> Create a rate alert </a>
-                        <RateAlert code_id={this.props.code_id} index={1}/>
+                        <RateAlert code_id={this.props.code_id} fields={pc_alert_fields} index={1}/>
                       </div>
                     :
                       null

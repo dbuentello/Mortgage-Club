@@ -11,6 +11,12 @@ var HelpMeChoose = require("borrower/loans/rates/HelpMeChoose");
 var MortgageCalculatorMixin = require('mixins/MortgageCalculatorMixin');
 var List = require("./List");
 
+var mobile_alert_fields = {
+  firstName: {label: "First name", name: "mobile_first_name", keyName: "mobile_first_name", error: "mobileFirstNameError",validationTypes: "empty"},
+  lastName: {label: "Last name", name: "mobile_last_name", keyName: "mobile_last_name", error: "mobileLastNameError",validationTypes: "empty"},
+  email: {label: "Email", name: "mobile_email", keyName: "mobile_email", error: "mobileEmailError", validationTypes: "email"}
+};
+
 var Quotes = React.createClass({
   mixins: [TextFormatMixin, ChartMixin, MortgageCalculatorMixin],
 
@@ -35,22 +41,6 @@ var Quotes = React.createClass({
   autoClickFilter: function() {
     $("input[name=30years]")[0].click();
     $(".filter-sidebar input[type=checkbox]:nth(4)").click();
-
-    // if(this.props.bootstrapData.selected_programs) {
-    //   switch(this.props.bootstrapData.selected_programs) {
-    //     case "30yearFixed":
-    //       $("input[name=30years]").trigger("click");
-    //       break;
-    //     case "15yearFixed":
-    //       $("input[name=15years]").trigger("click");
-    //       break;
-    //     case "5yearARM":
-    //       $("input[name=51arm]").trigger("click");
-    //       break;
-    //   }
-    // }
-    // else {
-    // }
   },
 
   onFilterQuote: function(filteredQuotes) {
@@ -264,7 +254,7 @@ var Quotes = React.createClass({
                                 </a>
                               </li>
                             </ul>
-                            <RateAlert code_id={this.state.code_id} index={2}/>
+                            <RateAlert code_id={this.state.code_id} fields={mobile_alert_fields} index={2}/>
                             <div className="modal fade filter-modal" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                               <div className="modal-dialog modal-md" role="document">
                                 <div className="modal-content">

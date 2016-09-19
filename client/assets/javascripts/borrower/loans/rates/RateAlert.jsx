@@ -5,20 +5,16 @@ var TextField = require("components/form/NewTextField");
 var LoanProgramFilterMixin = require('mixins/LoanProgramFilterMixin');
 var ValidationObject = require("mixins/FormValidationMixin");
 
-var fields = {
-  firstName: {label: "First name", name: "first_name", keyName: "first_name", error: "firstNameError",validationTypes: "empty"},
-  lastName: {label: "Last name", name: "last_name", keyName: "last_name", error: "lastNameError",validationTypes: "empty"},
-  email: {label: "Email", name: "email", keyName: "email", error: "emailError", validationTypes: "email"}
-};
-
 var Filter = React.createClass({
   mixins: [LoanProgramFilterMixin, ValidationObject],
   getInitialState: function() {
     var state = {};
     state.rate_alert_inform = "";
-    _.each(fields, function (field) {
+
+    _.each(this.props.fields, function (field) {
       state[field.name] = null;
     });
+    state.fields = this.props.fields;
 
     return state;
   },
@@ -27,15 +23,17 @@ var Filter = React.createClass({
     var isValid = true;
     var requiredFields = {};
 
-    _.each(Object.keys(fields), function(key) {
-      requiredFields[fields[key].error] = {value: this.state[fields[key].keyName], validationTypes: [fields[key].validationTypes]};
+    _.each(Object.keys(this.state.fields), function(key) {
+      requiredFields[this.state.fields[key].error] = {value: this.state[this.state.fields[key].keyName], validationTypes: [this.state.fields[key].validationTypes]};
     }, this);
+
     if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
       this.setState(this.getStateOfInvalidFields(requiredFields));
       isValid = false;
     }
     return isValid;
   },
+
   submitRateAlert: function(){
     if (this.valid() == false) {
       return false;
@@ -88,10 +86,10 @@ var Filter = React.createClass({
                   <div className="form-group">
                     <div className="col-md-6 col-sm-12 text-left">
                       <TextField
-                        activateRequiredField={this.state[fields.firstName.error]}
-                        label={fields.firstName.label}
-                        keyName={fields.firstName.keyName + this.props.index}
-                        value={this.state[fields.firstName.keyName]}
+                        activateRequiredField={this.state[this.state.fields.firstName.error]}
+                        label={this.state.fields.firstName.label}
+                        keyName={this.state.fields.firstName.keyName}
+                        value={this.state[this.state.fields.firstName.keyName]}
                         editable={true}
                         onChange={this.onChange}
                         onBlur={this.onBlur}
@@ -99,10 +97,10 @@ var Filter = React.createClass({
                     </div>
                     <div className="col-md-6 col-sm-12 text-left">
                       <TextField
-                        activateRequiredField={this.state[fields.lastName.error]}
-                        label={fields.lastName.label}
-                        keyName={fields.lastName.keyName + this.props.index}
-                        value={this.state[fields.lastName.keyName]}
+                        activateRequiredField={this.state[this.state.fields.lastName.error]}
+                        label={this.state.fields.lastName.label}
+                        keyName={this.state.fields.lastName.keyName}
+                        value={this.state[this.state.fields.lastName.keyName]}
                         editable={true}
                         onChange={this.onChange}
                         onBlur={this.onBlur}
@@ -110,10 +108,10 @@ var Filter = React.createClass({
                     </div>
                     <div className="col-md-12 text-left">
                       <TextField
-                        activateRequiredField={this.state[fields.email.error]}
-                        label={fields.email.label}
-                        keyName={fields.email.keyName + this.props.index}
-                        value={this.state[fields.email.keyName]}
+                        activateRequiredField={this.state[this.state.fields.email.error]}
+                        label={this.state.fields.email.label}
+                        keyName={this.state.fields.email.keyName}
+                        value={this.state[this.state.fields.email.keyName]}
                         editable={true}
                         invalidMessage="Your input is not an email."
                         customClass={"account-text-input"}
