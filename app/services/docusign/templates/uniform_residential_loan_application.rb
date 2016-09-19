@@ -294,7 +294,6 @@ module Docusign
             count += 1
             nth = count.to_s
             @params["rental_property_address_" + nth] = p.address.address
-            @params["rental_property_status_" + nth] = "R"
             @params["rental_property_type_" + nth] = get_property_type(p.property_type)
             @params["rental_property_market_price_" + nth] = number_to_currency(p.market_price.to_f, unit: "")
             @params["rental_property_income_" + nth] = number_to_currency(p.gross_rental_income.to_f, unit: "")
@@ -304,7 +303,12 @@ module Docusign
             rental_taxes = (p.estimated_property_tax + p.estimated_hazard_insurance).to_f / 12
             @params["rental_insurance_taxes_" + nth] = number_to_currency(rental_taxes, unit: "")
             total_rental_insurance_taxes += rental_taxes
-            rental_net_income = 0.75 * p.gross_rental_income.to_f - p.estimated_principal_interest.to_f - rental_taxes
+            if p.is_primary && p.is_subject
+              rental_net_income = 0
+            else
+              @params["rental_property_status_" + nth] = "R"
+              rental_net_income = 0.75 * p.gross_rental_income.to_f - p.estimated_principal_interest.to_f - rental_taxes
+            end
             @params["rental_net_income_" + nth] = number_to_currency(rental_net_income, unit: "")
             total_rental_net_income += rental_net_income
             total_market_price += p.market_price
