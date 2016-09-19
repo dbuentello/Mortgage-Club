@@ -278,6 +278,47 @@
     }
   }
 
+  .menu-programs {
+    background: #f6f6f6;
+    height: 100%;
+    box-sizing: border-box;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 20px;
+
+    ul {
+      list-style: none;
+
+      li {
+        margin: 0;
+        float: left;
+        width: 50%;
+        text-align: center;
+      }
+
+      li a {
+        font-size: 20px;
+        font-weight: 100;
+        color: #5d5d5e;
+        text-decoration: none;
+        display: block;
+        height: 54px;
+        border-bottom: 1px solid #C922;
+        -webkit-transition: background 0.3s ease-in-out;
+        -moz-transition: background 0.3s ease-in-out;
+        -ms-transition: background 0.3s ease-in-out;
+        -o-transition: background 0.3s ease-in-out;
+        transition: background 0.3s ease-in-out;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      li:hover a {
+        background: #dfe1e5;
+      }
+    }
+  }
+
   .thirty-party-fees {
     list-style: none;
     margin-bottom: 8px;

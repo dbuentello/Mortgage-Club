@@ -249,8 +249,15 @@ var Quotes = React.createClass({
                                 </a>
                               </li>
                               <li>
-                                <a href="" data-toggle="modal" data-target="#sortQuotes">
-                                  <span className="fa fa-sort" aria-hidden="true" ></span>
+                                <a>
+                                  <span className="fa fa-sort" aria-hidden="true">
+                                    <select id="sortRateOptions" onChange={this.handleSortChange} style={{"opacity": "0"}}>
+                                      <option value="apr">APR</option>
+                                      <option value="pmt">Monthly Payment</option>
+                                      <option value="rate">Rate</option>
+                                      <option value="tcc">Total Closing Cost</option>
+                                    </select>
+                                  </span>
                                 </a>
                               </li>
                             </ul>
@@ -263,28 +270,6 @@ var Quotes = React.createClass({
                                   </div>
                                   <div className="modal-body">
                                     <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote} dataCookies={this.state.dataCookies}></Filter>
-                                  </div>
-                                  <div className="modal-footer">
-                                    <button type="button" className="btn select-btn" data-dismiss="modal">OK</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="modal fade filter-modal" id="sortQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                              <div className="modal-dialog modal-md" role="document">
-                                <div className="modal-content">
-                                  <div className="modal-header">
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                  </div>
-                                  <div className="modal-body">
-                                    <p>Sort by</p>
-                                    <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
-                                      <option value="apr">APR</option>
-                                      <option value="pmt">Monthly Payment</option>
-                                      <option value="rate">Rate</option>
-                                      <option value="tcc">Total Closing Cost</option>
-                                    </select>
                                   </div>
                                   <div className="modal-footer">
                                     <button type="button" className="btn select-btn" data-dismiss="modal">OK</button>
