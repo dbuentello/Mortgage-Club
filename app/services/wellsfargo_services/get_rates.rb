@@ -14,7 +14,7 @@ module WellsfargoServices
         "loanPurpose" => args[:loan_purpose].downcase,
         "homeValue" => args[:property_value],
         "downPayment" => args[:down_payment],
-        "mortgageBalance" => args[:mortgage_balance],
+        "mortgageBalance" => "",
         "loanAmount" => args[:loan_amount],
         "state" => "CA",
         "county" => args[:county]
