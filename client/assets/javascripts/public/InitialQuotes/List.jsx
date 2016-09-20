@@ -171,7 +171,7 @@ var List = React.createClass({
                       {
                         quote.lender_credits == 0
                         ?
-                          null
+                          <p><span className="text-capitalize">{this.props.quotes[index + 1] == undefined ? "Lender credit" : (this.props.quotes[index + 1].lender_credits <= 0 ? "Lender credit" : "Discount points")}:</span> $0</p>
                         :
                           <p><span className="text-capitalize">{quote.lender_credits < 0 ? "Lender credit" : "Discount points"}:</span> {this.formatCurrency(quote.lender_credits, 0, "$")}</p>
                       }
@@ -195,7 +195,7 @@ var List = React.createClass({
                       ?
                         <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Apply Now</a>
                       :
-                        <a className="btn select-btn">Go To WF</a>
+                        <a className="btn select-btn" target="_blank" href="https://www.wellsfargo.com/mortgage/">Go To WF</a>
                     }
                     </div>
                   </div>

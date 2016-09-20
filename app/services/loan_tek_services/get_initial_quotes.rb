@@ -183,19 +183,20 @@ module LoanTekServices
           }
 
           rates = WellsfargoServices::GetRates.new(params).call
-          rates.each do |rate|
-            quote = quotes.find { |q| q["ProductFamily"] == "CONVENTIONAL" }
-            next unless quote
+          quote_hash = quotes.find { |q| q["ProductFamily"] == "CONVENTIONAL" }
 
-            quote = Marshal.load(Marshal.dump(quote))
-            quote["LenderName"] = "Wells Fargo"
-            quote["DiscountPts"] = 0
-            quote["APR"] = rate[:apr]
-            quote["Rate"] = rate[:interest_rate]
-            quote["ProductName"] = rate[:product_name]
-            quote["ProductType"] = rate[:product_type]
-            quote["ProductTerm"] = rate[:product_term]
-            quotes << quote
+          if quote_hash
+            rates.each do |rate|
+              quote = Marshal.load(Marshal.dump(quote_hash))
+              quote["DiscountPts"] = 0
+              quote["APR"] = rate[:apr]
+              quote["Rate"] = rate[:interest_rate]
+              quote["LenderName"] = rate[:lender_name]
+              quote["ProductName"] = rate[:product_name]
+              quote["ProductType"] = rate[:product_type]
+              quote["ProductTerm"] = rate[:product_term]
+              quotes << quote
+            end
           end
         end
 
