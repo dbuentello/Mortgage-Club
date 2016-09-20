@@ -37,6 +37,7 @@ module WellsfargoServices
 
       if fixed_30 && fixed_15 && arm_5
         rates << {
+          lender_name: "Wells Fargo",
           product_name: "30yearFixed",
           product_type: "FIXED",
           product_term: "F30",
@@ -45,6 +46,7 @@ module WellsfargoServices
         }
 
         rates << {
+          lender_name: "Wells Fargo",
           product_name: "15yearFixed",
           product_type: "FIXED",
           product_term: "F15",
@@ -53,6 +55,7 @@ module WellsfargoServices
         }
 
         rates << {
+          lender_name: "Wells Fargo",
           product_name: "5yearARM",
           product_type: "ARM",
           product_term: "A5_1",
