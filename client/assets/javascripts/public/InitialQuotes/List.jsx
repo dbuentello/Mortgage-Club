@@ -195,7 +195,7 @@ var List = React.createClass({
                       ?
                         <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Apply Now</a>
                       :
-                        <a className="btn select-btn">Go To WF</a>
+                        <a className="btn select-btn" target="_blank" href="https://www.wellsfargo.com/mortgage/">Go To WF</a>
                     }
                     </div>
                   </div>
