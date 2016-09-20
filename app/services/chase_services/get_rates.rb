@@ -1,3 +1,4 @@
+# rubocop:disable LineLength
 module ChaseServices
   class GetRates
     attr_accessor :args
@@ -27,12 +28,10 @@ module ChaseServices
         "ctl00$CenterContentPlaceHolder$CRQControl$stateList" => "CA",
         "ctl00$CenterContentPlaceHolder$CRQControl$ficoScore" => "740",
         "ctl00$CenterContentPlaceHolder$RateandPayment.x" => "106",
-        "ctl00$CenterContentPlaceHolder$RateandPayment.y" => "6",
+        "ctl00$CenterContentPlaceHolder$RateandPayment.y" => "6"
       }
 
-      result = a.post("https://apply.chase.com/mortgage/CRQ/CustomRateQuote.aspx", body)
-
-      byebug
+      a.post("https://apply.chase.com/mortgage/CRQ/CustomRateQuote.aspx", body)
       # if result.code == "200"
       #   parse(result)
       # else
@@ -79,3 +78,4 @@ module ChaseServices
     end
   end
 end
+# rubocop:enable LineLength
