@@ -33,7 +33,6 @@ gem 'lodash-rails'
 gem 'i18n'
 
 gem "plivo"
-
 gem 'will_paginate', '~> 3.1.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -115,7 +114,6 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'ox'
 
 gem 'mechanize'
-
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'

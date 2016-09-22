@@ -1,8 +1,18 @@
 class FacebookWebhooksController < ApplicationController
   skip_before_action :authenticate_user!
-  skip_before_action :verify_authenticity_token, only: [:receive, :save_data, :refinance]
+  skip_before_action :verify_authenticity_token, only: [:receive_message, :receive, :save_data, :refinance]
   before_action :validate_slack_bot, only: [:receive, :save_data, :refinance]
   FB_BOT_HEADER_VALUE = "MCfB!".freeze # token verify - Nodejs server needs to send if wanna access
+
+  def verify_fb_token
+    if params["hub.mode"] == "subscribe" && params["hub.verify_token"] == ENV["FB_VERIFY_TOKEN"]
+      render json: params["hub.challenge"]
+    end
+  end
+
+  def receive_message
+    ap params
+  end
 
   def receive
     output = FacebookBotServices::GetInfoOfQuotes.call(params)

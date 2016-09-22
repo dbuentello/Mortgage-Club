@@ -255,5 +255,8 @@ Rails.application.routes.draw do
   get "facebook_bot", to: "facebook_bot#bot"
   get "facebook_bot_privacy", to: "facebook_bot#privacy"
 
+  get "webhook", to: "facebook_webhooks#verify_fb_token"
+  post "webhook", to: "facebook_webhooks#receive_message"
+
   get "*path", to: "errors#show", code: 404
 end
