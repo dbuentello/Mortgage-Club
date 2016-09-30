@@ -18,7 +18,6 @@ var fields = {
   purchasePrice: {label: "Purchase Price", name: "purchase_price", error: "purchaseError", validationTypes: ["empty", "currency"]},
   originalPurchasePrice: {label: "Original Purchase Price", name: "original_purchase_price", error: "originalPurchasePriceError", validationTypes: ["empty", "currency"]},
   originalPurchaseYear: {label: "Purchase Year", name: "original_purchase_year", error: "originalPurchaseYearError", validationTypes: ["empty", "integer"]},
-  estimatedMortgageBalance: {label: "Estimated Mortgage Balance", name: "estimated_mortgage_balance", error: "estimatedMortgageBalanceError", validationTypes: ["empty", "currency"]},
   yearBuilt: {label: "Year Built", name: "year_built", error: "yearBuiltError", validationTypes: ["empty"]},
   downPayment: {label: "Down Payment", name: "down_payment"}
 };
@@ -129,13 +128,13 @@ var FormProperty = React.createClass({
 
   render: function() {
     return (
-      <div className="col-sm-9 col-xs-12 account-content">
-        <div className='form-group'>
-          <p className="box-description col-sm-12">
-            We understand a loan application can be overwhelming but we’re here to help. Our software will try to extract data from other sources so don’t be surprised if several fields are automatically filled in for you. Let’s get started, shall we?
-          </p>
-        </div>
+      <div className="col-md-3 col-sm-12 account-content">
         <form className="form-horizontal">
+          <div className='form-group'>
+            <p className="box-description col-sm-12 text-xs-justify text-sm-justify">
+              We understand a loan application can be overwhelming but we’re here to help. Our software will try to extract data from other sources so don’t be surprised if several fields are automatically filled in for you. Let’s get started, shall we?
+            </p>
+          </div>
           <div className="form-group">
             <div className="col-md-12">
               <AddressField
@@ -294,28 +293,6 @@ var FormProperty = React.createClass({
                     </div>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <div className="col-md-12">
-                        <TextField
-                          requiredMessage="This field is required"
-                          activateRequiredField={this.state[fields.estimatedMortgageBalance.error]}
-                          label={fields.estimatedMortgageBalance.label}
-                          keyName={fields.estimatedMortgageBalance.name}
-                          value={this.state[fields.estimatedMortgageBalance.name]}
-                          editable={true}
-                          maxLength={15}
-                          format={this.formatCurrency}
-                          onFocus={this.onFocus.bind(this, fields.estimatedMortgageBalance)}
-                          validationTypes={["currency"]}
-                          onBlur={this.onBlur}
-                          onChange={this.onChange}
-                          editMode={this.props.editMode}/>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
           }
           <div className="form-group">
@@ -359,7 +336,6 @@ var FormProperty = React.createClass({
     state[fields.grossRentalIncome.name] = this.formatCurrency(property[fields.grossRentalIncome.name]);
     state[fields.originalPurchasePrice.name] = this.formatCurrency(property[fields.originalPurchasePrice.name]);
     state[fields.originalPurchaseYear.name] = property[fields.originalPurchaseYear.name];
-    state[fields.estimatedMortgageBalance.name] = this.formatCurrency(property[fields.estimatedMortgageBalance.name]);
     state[fields.downPayment.name] = loan[fields.downPayment.name] != 0 ? this.formatCurrency(loan[fields.downPayment.name]) : null;
     state.property_type = property.property_type;
     state.market_price = property.market_price;
@@ -403,7 +379,6 @@ var FormProperty = React.createClass({
     }else{
       property[fields.originalPurchasePrice.name] = this.currencyToNumber(this.state[fields.originalPurchasePrice.name]);
       property[fields.originalPurchaseYear.name] = this.state[fields.originalPurchaseYear.name];
-      property[fields.estimatedMortgageBalance.name] = this.currencyToNumber(this.state[fields.estimatedMortgageBalance.name]);
       property.market_price = this.currencyToNumber(this.state.marketPrice);
     }
 

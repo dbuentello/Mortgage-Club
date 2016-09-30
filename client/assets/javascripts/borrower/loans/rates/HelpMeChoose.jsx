@@ -286,6 +286,20 @@ var HelpMeChoose = React.createClass({
                     {this.commafy(this.state.bestRate.apr * 100, 3)}%
                   </div>
                 </div>
+                {
+                  this.state.bestRate.lender_credits == 0
+                  ?
+                    null
+                  :
+                    <div className='row secondary-cost'>
+                      <div className='col-xs-6 col-md-6'>
+                        {this.state.bestRate.lender_credits < 0 ? "Lender credit" : "Discount points"}
+                      </div>
+                      <div className='col-xs-6 col-md-6'>
+                        {this.formatCurrency(this.state.bestRate.lender_credits, 0, "$")}
+                      </div>
+                    </div>
+                }
                 <div className='row secondary-cost'>
                   <div className='col-xs-6 col-md-6'>
                     Estimated Closing Costs
@@ -303,7 +317,9 @@ var HelpMeChoose = React.createClass({
                   </div>
                 </div>
                 <div className='row text-xs-center'>
-                  <a className='btn btnLrg mtm select-btn col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.state.bestRate)}>Apply Now</a>
+                  <a className='btn btnLrg mtm select-btn col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.state.bestRate)}>
+                    {this.props.isInitialQuotes ? "Apply Now" : "Select"}
+                  </a>
                 </div>
               </div>
             : null

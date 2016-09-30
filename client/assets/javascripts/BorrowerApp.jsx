@@ -45,10 +45,10 @@ window.BorrowerApp = React.createClass({
       </div>
     );
   },
-
   componentDidMount: function() {
     $("#newLoanBtn").on("click", this.createLoan);
   }
+
 });
 
 var routes = (

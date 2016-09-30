@@ -25,91 +25,74 @@ var Managements = React.createClass({
 
     return (
       <div>
-
         {/* header */}
-    <div className="page-header">
-      <div className="page-header-content">
-        <div className="page-title">
-          <h4>
-            <i className="icon-arrow-left52 position-left"> </i>
-            <span className="text-semibold"> Loan Activity Type - Managements </span>
-          </h4>
+        <div className="page-header">
+          <div className="page-header-content">
+            <div className="page-title">
+              <h4>
+                <i className="icon-arrow-left52 position-left"> </i>
+                <span className="text-semibold"> Loan Activity Type - Managements </span>
+              </h4>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-{/* end header */}
+        {/* end header */}
 
-  <div className="page-container">
-    <div className="page-content">
-      <div className="content-wrapper">
-        <div className="panel panel-flat">
-          <div className="panel-heading">
-            <h5 className="panel-title">Loan Activity Type</h5>
-            <div className="heading-elements">
-
-            </div>
-            </div>
-              <div class="panel-body">
-                </div>
-                  <div className="table-responsive">
-                    <table className="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>Activity Type</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {
-                          _.map(this.state.activity_types, function(activity_type) {
-                            return (
-                              <tr key={activity_type.id}>
-                                <td>{activity_type.label}</td>
-                                <td>
-                                  <span>
-                                    <a className='linkTypeReversed btn btn-primary' href={'loan_activity_type_managements/' + activity_type.id + '/edit'} data-method='get'>Edit</a>
-                                  </span>
-                                </td>
-                              </tr>
-                            )
-                          }, this)
-                        }
-                      </tbody>
-                    </table>
+        <div className="page-container">
+          <div className="page-content">
+            <div className="content-wrapper">
+              <div className="panel panel-flat">
+                <div className="panel-heading">
+                  <h5 className="panel-title">Loan Activity Type</h5>
+                  <div className="heading-elements">
                   </div>
-              </div>
+                </div>
+                <div class="panel-body">
+                      </div>
+                        <div className="table-responsive">
+                          <table className="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>Activity Type</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {
+                                _.map(this.state.activity_types, function(activity_type) {
+                                  return (
+                                    <tr key={activity_type.id}>
+                                      <td>{activity_type.label}</td>
+                                      <td>
+                                        <span>
+                                          <a className='linkTypeReversed btn btn-primary' href={'loan_activity_type_managements/' + activity_type.id + '/edit'} data-method='get'>Edit</a>
+                                        </span>
+                                      </td>
+                                    </tr>
+                                  )
+                                }, this)
+                              }
+                            </tbody>
+                          </table>
+                        </div>
+                </div>
                 <div className="row">
                   <div className="col-md-12">
-
-
                     <div className="panel panel-flat">
                       <div className="panel-heading">
                         <h5 className="panel-title">Add new Activity Type</h5>
                         <div className="heading-elements">
-
-                                </div>
-                              </div>
-
+                        </div>
+                      </div>
                       <div className="panel-body">
                       <Form Url={url} Method='POST' onReloadTable={this.onReloadTable}></Form>  </div>
                     </div>
-
-
                   </div>
                 </div>
-
-
-
-
+              </div>
+            </div>
+          </div>
       </div>
-
-
-    </div>
-
-
-
-  </div>
-</div>
     )
   }
 });

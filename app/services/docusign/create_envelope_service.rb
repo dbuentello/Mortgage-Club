@@ -6,7 +6,7 @@ module Docusign
   # Class CreateEnvelopeService provides creating an envelope and send it to Docusign.
   # envelope is a Docusign's term. One envelope is a document which was signed.
   class CreateEnvelopeService
-    UNIFORM_PATH = "#{Rails.root}/form_templates/Interactive 1003 Form.unlocked.pdf".freeze
+    UNIFORM_PATH = "#{Rails.root}/form_templates/1003.pdf".freeze
     LIABILITIES_PATH = "#{Rails.root}/form_templates/liabilities.pdf".freeze
     REAL_ESTATE_PATH = "#{Rails.root}/form_templates/real_estate.pdf".freeze
 
@@ -84,7 +84,7 @@ module Docusign
       data = Docusign::Templates::UniformResidentialLoanApplication.new(loan).build
       fill_form_data(UNIFORM_PATH, "tmp/uniform.pdf", data)
       today_date = Time.zone.now.to_date
-      if data[:liabilities_company_7].present? || data["asset_5"].present?
+      if data[:liabilities_company_7].present? || data[:asset_5].present?
         @extra_liabilities_form = true
         data["date_signed_liabilities.1"] = today_date
         data["date_signed_liabilities.2"] = today_date
@@ -198,7 +198,7 @@ module Docusign
         name: "Signature",
         page_number: "1",
         x_position: "70",
-        y_position: "690",
+        y_position: "670",
         document_id: "2",
         optional: "false"
       } if @extra_liabilities_form
@@ -206,7 +206,7 @@ module Docusign
         name: "Signature",
         page_number: "1",
         x_position: "70",
-        y_position: "690",
+        y_position: "675",
         document_id: @total_default_doc.to_s,
         optional: "false"
       } if @extra_real_estate_form
@@ -244,7 +244,7 @@ module Docusign
         name: "Signature",
         page_number: "1",
         x_position: "320",
-        y_position: "690",
+        y_position: "670",
         document_id: "2",
         optional: "false"
       } if @extra_liabilities_form
@@ -252,7 +252,7 @@ module Docusign
         name: "Signature",
         page_number: "1",
         x_position: "320",
-        y_position: "690",
+        y_position: "675",
         document_id: @total_default_doc.to_s,
         optional: "false"
       } if @extra_real_estate_form

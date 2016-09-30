@@ -96,7 +96,7 @@ var TextField = React.createClass({
         invalidMessage = this.props.invalidMessage;
 
     var disabled = this.props.editMode === false ? "disabled" : null;
-
+    var passwordType = this.props.passwordMode === true ? true : false;
     return (
       <div>
         <h6>{this.props.label}</h6>
@@ -110,8 +110,17 @@ var TextField = React.createClass({
             null
         }
         <div>
-          <input className={"form-control " + customClass } type="text" disabled={disabled} value={this.props.value} maxLength={this.props.maxLength}
-              onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.label} id={this.props.keyName}/>
+          {
+            passwordType
+            ?
+            <input className={"form-control " + customClass } type="password" disabled={disabled} value={this.props.value} maxLength={this.props.maxLength}
+                onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.label} id={this.props.keyName}/>
+
+            :
+            <input className={"form-control " + customClass } type="text" disabled={disabled} value={this.props.value} maxLength={this.props.maxLength}
+                onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.label} id={this.props.keyName}/>
+
+          }
 
           <ValidationField id={this.props.keyName} activateRequiredField={this.props.activateRequiredField} value={this.props.value} requiredMessage={requiredMessage} invalidMessage={invalidMessage} validationTypes={this.props.validationTypes}/>
         </div>

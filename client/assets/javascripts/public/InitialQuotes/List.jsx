@@ -124,13 +124,6 @@ var List = React.createClass({
     }
   },
 
-  calcDownPayment: function(down_payment, loan_amount){
-    if(!down_payment)
-      return 0;
-
-    return (parseFloat(down_payment/(down_payment + loan_amount)) * 100).toFixed(0);
-  },
-
   totalMonthlyPayment: function(monthly_payment, mtg_insurrance, tax, hazard_insurrance, hoa_due, mortgage_insurance_premium){
     var total = 0.0;
     if(monthly_payment){
@@ -163,8 +156,8 @@ var List = React.createClass({
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
                   <div className="row">
-                    <div className="col-xs-4 col-md-3 col-sm-6 col-sm-6">
-                      <img className="img-responsive" src={quote.logo_url}/>
+                    <div className="col-xs-4 col-md-3 col-sm-6">
+                      <img src={quote.logo_url}/>
                       <h4 className="nmls-title hidden-xs">NMLS: #{quote.nmls}</h4>
                     </div>
                     <div className="col-xs-8 col-md-3 col-sm-6 col-sm-6">
@@ -178,7 +171,7 @@ var List = React.createClass({
                       {
                         quote.lender_credits == 0
                         ?
-                          null
+                          <p><span className="text-capitalize">{this.props.quotes[index + 1] == undefined ? "Lender credit" : (this.props.quotes[index + 1].lender_credits <= 0 ? "Lender credit" : "Discount points")}:</span> $0</p>
                         :
                           <p><span className="text-capitalize">{quote.lender_credits < 0 ? "Lender credit" : "Discount points"}:</span> {this.formatCurrency(quote.lender_credits, 0, "$")}</p>
                       }
@@ -196,8 +189,14 @@ var List = React.createClass({
                           null
                       }
                     </div>
-                    <div className="col-md-2 col-sm-6 col-sm-6">
-                      <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Apply Now</a>
+                    <div className="col-md-2 col-sm-12 text-sm-center">
+                    {
+                      quote.lender_name != "Wells Fargo"
+                      ?
+                        <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Apply Now</a>
+                      :
+                        <a className="btn select-btn" target="_blank" href="https://www.wellsfargo.com/mortgage/">Go To Wells Fargo</a>
+                    }
                     </div>
                   </div>
                 </div>
@@ -208,29 +207,17 @@ var List = React.createClass({
                       <div className="row">
                         <div className="col-xs-6">
                           <p className="col-xs-12 cost">Product type</p>
-                          <p className="col-xs-12 cost">Interest Rate</p>
+                          <p className="col-xs-12 cost">Interest rate</p>
                           <p className="col-xs-12 cost">APR</p>
+                          <p className="col-xs-12 cost">Property value</p>
                           <p className="col-xs-12 cost">Loan amount</p>
-                          {
-                            quote.down_payment == null
-                            ?
-                              null
-                            :
-                              <p className="col-xs-12 cost">Down payment</p>
-                          }
                         </div>
                         <div className="row-no-padding col-xs-6">
                           <p className="col-xs-12 cost">{quote.product}</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.interest_rate * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.commafy(quote.apr * 100, 3)}%</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(quote.property_value, 0, "$")}</p>
                           <p className="col-xs-12 cost">{this.formatCurrency(quote.loan_amount, 0, "$")}</p>
-                          {
-                            quote.down_payment == null
-                            ?
-                              null
-                            :
-                              <p className="col-xs-12 cost">{this.formatCurrency(quote.down_payment, 0, "$")} ({this.calcDownPayment(quote.down_payment, quote.loan_amount)}%)</p>
-                          }
                         </div>
                       </div>
                       <h4>Estimated Closing Costs</h4>
@@ -238,7 +225,7 @@ var List = React.createClass({
                         {
                           quote.lender_credits == 0
                           ?
-                            null
+                            <li className="lender-fee-item">{this.props.quotes[index + 1] == undefined ? "Lender credit" : (this.props.quotes[index + 1].lender_credits <= 0 ? "Lender credit" : "Discount points")}: $0</li>
                           :
                             <li className="lender-fee-item">{quote.lender_credits < 0 ? "Lender credit" : "Discount points"}: {this.formatCurrency(quote.lender_credits, 0, "$")}</li>
                         }
@@ -330,7 +317,13 @@ var List = React.createClass({
                         :
                           null
                       }
-                      <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub 1% in commission.</p>
+                      {
+                        quote.lender_name != "Wells Fargo"
+                        ?
+                          <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub 1% in commission.</p>
+                        :
+                          <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender does not pay MortgageClub any commission.</p>
+                      }
                     </div>
                   </div>
                   <Chart id={index} principle={quote.monthly_payment} mortgageInsurance={0} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}

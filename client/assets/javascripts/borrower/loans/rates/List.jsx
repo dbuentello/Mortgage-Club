@@ -9,9 +9,13 @@ var List = React.createClass({
   getInitialState: function(){
     var toggleContentStates = new Array(this.props.programs.length);
     toggleContentStates.fill(false, 0, this.props.programs.length);
+
+    var estimatedPropertyTax = (this.props.subjectProperty.estimated_property_tax == undefined || this.props.subjectProperty.estimated_property_tax == null) ? 0 : this.props.subjectProperty.estimated_property_tax / 12;
+    var estimatedHazardInsurance = (this.props.subjectProperty.estimated_hazard_insurance == undefined || this.props.subjectProperty.estimated_hazard_insurance == null) ? 0 : this.props.subjectProperty.estimated_hazard_insurance / 12;
+
     return ({
-      estimatedPropertyTax: this.props.subjectProperty.estimated_property_tax,
-      estimatedHazardInsurance: this.props.subjectProperty.estimated_hazard_insurance,
+      estimatedPropertyTax: estimatedPropertyTax,
+      estimatedHazardInsurance: estimatedHazardInsurance,
       estimatedMortgageInsurance: this.props.subjectProperty.estimated_mortgage_insurance,
       hoaDue: this.props.subjectProperty.hoa_due,
       toggleContentStates: toggleContentStates
@@ -26,6 +30,14 @@ var List = React.createClass({
     if(this.props.helpMeChoose){
       if($("span.glyphicon-menu-down").length > 0){
         $("span.glyphicon-menu-down")[0].click();
+      }
+    }else {
+      if(this.props.selected_program == 2) {
+        if($(".board-content-toggle span.glyphicon-menu-down").length > 0){
+          setTimeout(function(){
+          $(".board-content-toggle span.glyphicon-menu-down")[0].click();
+        }, 2000);
+        }
       }
     }
 
@@ -70,13 +82,6 @@ var List = React.createClass({
         }
       }
     }
-  },
-
-  calDownPayment: function(down_payment, loan_amount){
-    if(!down_payment)
-      return 0;
-
-    return (parseFloat(down_payment/(down_payment + loan_amount)) * 100).toFixed(0);
   },
 
   toggleHandler: function(index, event){
@@ -155,7 +160,8 @@ var List = React.createClass({
                 <div className="board-header">
                   <div className="row">
                     <div className="col-md-3 col-sm-6 col-xs-4">
-                      <img className="img-responsive" src={rate.logo_url}/>
+                      <img src={rate.logo_url}/>
+
                       <h4 className="nmls-title hidden-xs">NMLS: #{rate.nmls}</h4>
                     </div>
                     <div className="col-md-3 col-sm-6 col-sm-6 col-xs-8">
@@ -187,8 +193,13 @@ var List = React.createClass({
                           null
                       }
                     </div>
-                    <div className="col-md-2 col-sm-6 col-sm-6">
-                      <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Apply Now</a>
+                    <div className="col-md-2 col-sm-12 text-sm-center">
+                      { rate.selected_program ?
+                        <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Continue</a>
+                        :
+                        <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Select</a>
+
+                      }
                     </div>
                   </div>
                 </div>
@@ -199,29 +210,17 @@ var List = React.createClass({
                       <div className="row">
                         <div className="col-xs-6">
                           <p className="col-xs-12 cost">Product type</p>
-                          <p className="col-xs-12 cost">Interest Rate</p>
+                          <p className="col-xs-12 cost">Interest rate</p>
                           <p className="col-xs-12 cost">APR</p>
+                          <p className="col-xs-12 cost">Property value</p>
                           <p className="col-xs-12 cost">Loan amount</p>
-                          {
-                            rate.down_payment == null
-                            ?
-                              null
-                            :
-                              <p className="col-xs-12 cost">Down payment</p>
-                          }
                         </div>
                         <div className="col-xs-6">
                           <p className="col-xs-12 cost">{rate.product}</p>
                           <p className="col-xs-12 cost">{this.commafy(rate.interest_rate * 100, 3)}%</p>
                           <p className="col-xs-12 cost">{this.commafy(rate.apr * 100, 3)}%</p>
+                          <p className="col-xs-12 cost">{this.formatCurrency(rate.property_value, 0, "$")}</p>
                           <p className="col-xs-12 cost">{this.formatCurrency(rate.loan_amount, 0, "$")}</p>
-                          {
-                            rate.down_payment == null
-                            ?
-                              null
-                            :
-                              <p className="col-xs-12 cost">{this.formatCurrency(rate.down_payment, 0, "$")} ({this.calDownPayment(rate.down_payment, rate.loan_amount)}%)</p>
-                          }
                         </div>
                       </div>
                       <h4>Estimated Closing Costs</h4>
@@ -362,10 +361,11 @@ var List = React.createClass({
                       {
                         rate.characteristic
                         ?
-                          <p className="note-rates">{rate.characteristic}</p>
+                          <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>{rate.characteristic}</p>
                         :
                           null
                       }
+                      <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub 1% in commission.</p>
                     </div>
                   </div>
                   <Chart id={index} principle={rate.monthly_payment} mortgageInsurance={this.state.estimatedMortgageInsurance} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}

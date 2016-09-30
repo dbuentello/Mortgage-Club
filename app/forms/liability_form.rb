@@ -27,10 +27,10 @@ class LiabilityForm
     return false if loan.nil?
 
     ActiveRecord::Base.transaction do
-      update_loan
       update_rental_properties
       update_subject_property
       update_primary_property
+      update_loan
     end
 
     true
@@ -52,19 +52,18 @@ class LiabilityForm
   #
   def update_rental_properties
     rental_properties_params.each do |_, params|
+      property_params = property_params(params)
       if new_property?(params)
-        property = Property.new(property_params(params))
-        property.estimated_principal_interest = calculate_estimated_principal_interest(property, params)
+        property = Property.new(property_params)
         property.loan_id = loan.id
         property.save
       else
         property = Property.find(params[:id])
-        property_params = property_params(params)
-        property_params[:estimated_principal_interest] = calculate_estimated_principal_interest(property, params)
         property.update(property_params)
       end
-      # property.update_mortgage_payment_amount
       update_liabilities(property, params)
+      property_params[:estimated_principal_interest] = calculate_estimated_principal_interest(property)
+      property.update(property_params)
     end
   end
 
@@ -75,10 +74,11 @@ class LiabilityForm
   #
   def update_subject_property
     return unless subject_property
-
-    subject_property.update(property_params(subject_property_params))
+    params = property_params(subject_property_params)
     # subject_property.update_mortgage_payment_amount
     update_liabilities(subject_property, subject_property_params)
+    params[:estimated_mortgage_balance] = subject_property.liabilities.map(&:balance).sum
+    subject_property.update(params)
   end
 
   #
@@ -127,7 +127,7 @@ class LiabilityForm
     return unless params[:otherFinancing].present?
 
     if params[:otherFinancing] == "OtherFinancing"
-      other_liability = create_new_liability(params[:other_financing_amount], "OtherFinancing", credit_report_id)
+      other_liability = create_new_liability(params[:other_financing_amount], "OtherFinancing", credit_report_id, params[:other_financing_remaining_balance])
     else
       other_liability = Liability.find(params[:otherFinancing])
     end
@@ -152,31 +152,28 @@ class LiabilityForm
     )
   end
 
-  def calculate_estimated_principal_interest(property, params)
+  def calculate_estimated_principal_interest(property)
     if property.mortgage_includes_escrows
       payment = 0
-
-      if params["mortgage_payment_liability"]
-        payment += params["mortgage_payment_liability"]["payment"].to_f
-      end
-
-      if params["other_financing_liability"]
-        payment += params["other_financing_liability"]["payment"].to_f
-      end
-
-      if property.mortgage_includes_escrows == "taxes_and_insurance"
-        payment -= (property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f) / 12
-      else
-        if property.mortgage_includes_escrows = "taxes_only"
-          payment -= property.estimated_property_tax.to_f / 12
-        end
-      end
-
+      payment += property.liabilities.map(&:payment).sum
+      payment += payment_tax_insurance(property) if payment > 0
       payment
     end
   end
 
   private
+
+  def payment_tax_insurance(property)
+    payment = 0
+    if property.mortgage_includes_escrows == "taxes_and_insurance"
+      payment -= (property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f) / 12
+    else
+      if property.mortgage_includes_escrows == "taxes_only"
+        payment -= property.estimated_property_tax.to_f / 12
+      end
+    end
+    payment
+  end
 
   def property_does_not_have_any_liabilities?(params)
     params[:mortgagePayment].blank? && params[:otherFinancing].blank?

@@ -6,9 +6,16 @@ var React = require("react/addons");
 var TextFormatMixin = require("mixins/TextFormatMixin");
 var ChartMixin = require("mixins/ChartMixin");
 var Filter = require("borrower/loans/rates/Filter");
+var RateAlert = require("borrower/loans/rates/RateAlert");
 var HelpMeChoose = require("borrower/loans/rates/HelpMeChoose");
 var MortgageCalculatorMixin = require('mixins/MortgageCalculatorMixin');
 var List = require("./List");
+
+var mobile_alert_fields = {
+  firstName: {label: "First name", name: "mobile_first_name", keyName: "mobile_first_name", error: "mobileFirstNameError",validationTypes: "empty"},
+  lastName: {label: "Last name", name: "mobile_last_name", keyName: "mobile_last_name", error: "mobileLastNameError",validationTypes: "empty"},
+  email: {label: "Email", name: "mobile_email", keyName: "mobile_email", error: "mobileEmailError", validationTypes: "email"}
+};
 
 var Quotes = React.createClass({
   mixins: [TextFormatMixin, ChartMixin, MortgageCalculatorMixin],
@@ -20,33 +27,20 @@ var Quotes = React.createClass({
       monthlyPayment: this.props.bootstrapData.monthly_payment,
       storedCriteria: [],
       rate_alert: true,
-      code_id: this.props.bootstrapData.code_id
-
+      code_id: this.props.bootstrapData.code_id,
+      dataCookies: this.props.bootstrapData.data_cookies
     }
   },
 
   componentDidMount: function() {
     mixpanel.track("Quotes-Enter");
     this.autoClickFilter();
+    $("body").removeClass("device-lg");
   },
 
   autoClickFilter: function() {
-    if(this.props.bootstrapData.selected_programs) {
-      switch(this.props.bootstrapData.selected_programs) {
-        case "30yearFixed":
-          $("input[name=30years]").trigger("click");
-          break;
-        case "15yearFixed":
-          $("input[name=15years]").trigger("click");
-          break;
-        case "5yearARM":
-          $("input[name=51arm]").trigger("click");
-          break;
-      }
-    }
-    else {
-      $("input[name=30years]").trigger("click");
-    }
+    $("input[name=30years]")[0].click();
+    $(".filter-sidebar input[type=checkbox]:nth(4)").click();
   },
 
   onFilterQuote: function(filteredQuotes) {
@@ -106,14 +100,19 @@ var Quotes = React.createClass({
   },
 
   backToRateHandler: function() {
+    mixpanel.track("Quotes-HelpMeChoose-BackToResults");
     this.setState({helpMeChoose: false});
   },
 
   selectRate: function(rate) {
-    mixpanel.track("Quotes-SelectRate");
-
+    if(this.state.helpMeChoose){
+      mixpanel.track("Quotes-HelpMeChoose-SelectRate");
+    }else{
+      mixpanel.track("Quotes-SelectRate");
+    }
     var dataCookies = this.props.bootstrapData.data_cookies;
 
+    var lender_underwriting_fee_object = rate.fees.find(function(x) { return x.Description == "Lender underwriting fee" });
     $.ajax({
       url: "/quotes/save_info",
       data: {
@@ -124,12 +123,37 @@ var Quotes = React.createClass({
         mortgage_purpose: dataCookies.mortgage_purpose,
         property_value: dataCookies.property_value,
         property_usage: dataCookies.property_usage,
-        property_type: dataCookies.property_type
+        property_type: dataCookies.property_type,
+        loan_amount: rate.loan_amount,
+        lender_name: rate.lender_name,
+        amortization_type: rate.product,
+        interest_rate: rate.interest_rate,
+        period: rate.period,
+        total_closing_cost: rate.total_closing_cost,
+        lender_credits: rate.lender_credits,
+        monthly_payment: rate.monthly_payment,
+        loan_type: rate.loan_type,
+        apr: rate.apr,
+        lender_nmls_id: rate.nmls,
+        pmi_monthly_premium_amount: rate.pmi_monthly_premium_amount,
+        discount_pts: rate.discount_pts,
+        lender_underwriting_fee: lender_underwriting_fee_object === undefined ? 0 : lender_underwriting_fee_object.FeeAmount,
+        appraisal_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Appraisal Fee"),
+        tax_certification_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Tax Certification Fee"),
+        flood_certification_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Flood Certification Fee"),
+        outside_signing_service_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Outside Signing Service"),
+        concurrent_loan_charge_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Concurrent Loan Charge"),
+        endorsement_charge_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Endorsement Charge"),
+        lender_title_policy_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Lender's Title Policy"),
+        recording_service_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Recording Service Fee"),
+        settlement_agent_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Settlement Agent Fee"),
+        recording_fees: this.getFee(rate.thirty_fees, "Taxes and other government fees", "Recording Fees"),
+        owner_title_policy_fee: this.getFee(rate.thirty_fees, "Other", "Title - Owner's Title Policy"),
+        prepaid_item_fee: this.getFee(rate.thirty_fees, "Prepaid items", "Prepaid interest")
       },
       method: "POST",
       dataType: "json",
       success: function(response) {
-
         if(this.props.bootstrapData.currentUser.id) {
           this.createLoan();
         }
@@ -138,6 +162,27 @@ var Quotes = React.createClass({
         }
       }.bind(this)
     });
+  },
+
+  getFee: function(arrFees, groupName, objectName){
+    var group = arrFees.find(function(x) {
+      return x.Description === groupName;
+    });
+
+    if (group === undefined){
+      return 0;
+    }
+
+    var obj = group.Fees.find(function(x) {
+      return x.Description.indexOf(objectName) > -1;
+    });
+
+    if (obj === undefined){
+      return 0;
+    }
+    else{
+      return obj.FeeAmount;
+    }
   },
 
   backToQuotesForm: function() {
@@ -173,12 +218,12 @@ var Quotes = React.createClass({
                     </div>
                   :
                     <div className="content container mortgage-rates padding-top-0 row-eq-height">
-                      <div className="col-xs-12 col-md-3 subnav hidden-xs programs-filter">
-                        <Filter rate_alert={this.state.rate_alert} code_id={this.state.code_id} programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
+                      <div className="col-sm-12 col-md-3 subnav hidden-xs hidden-sm programs-filter">
+                        <Filter rate_alert={this.state.rate_alert} code_id={this.state.code_id} programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote} dataCookies={this.state.dataCookies}></Filter>
                       </div>
-                      <div className="col-xs-12 col-sm-9 account-content">
+                      <div className="col-sm-12 col-md-9 account-content">
                         <div className="mobile-xs-quote">
-                          <div className="visible-xs text-xs-justify">
+                          <div className="visible-xs visible-sm text-xs-justify text-sm-justify">
                             <p>
                               We’ve found {this.state.quotes ? this.state.quotes.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
                             </p>
@@ -186,21 +231,44 @@ var Quotes = React.createClass({
                               Mortgage rates change frequently. We’re showing the latest rates for your mortgage scenario.
                             </p>
                           </div>
-                          <div className="row form-group visible-xs">
-                            <div className="col-xs-12 text-left text-xs-center">
+                          <div className="row form-group visible-xs visible-sm">
+                            <div className="col-xs-12 text-left text-xs-center text-sm-center">
                               <a className="btn text-uppercase help-me-choose-btn" onClick={this.helpMeChoose}>help me choose</a>
                             </div>
-                            <div className="col-xs-5 text-left">
-                              <a className="btn btn-filter text-uppercase" data-toggle="modal" data-target="#filterQuotes">Filter</a>
-                            </div>
-                            <div className="modal fade" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                              <div className="modal-dialog modal-sm" role="document">
+                          </div>
+                          <div className="row form-group menu-rates visible-sm visible-xs">
+                            <ul>
+                              <li>
+                                <a href="" data-toggle="modal" data-target="#email_alert2">
+                                  <span className="fa fa-bell-o" aria-hidden="true"></span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="" data-toggle="modal" data-target="#filterQuotes">
+                                  <span className="fa fa-filter" aria-hidden="true" ></span>
+                                </a>
+                              </li>
+                              <li>
+                                <a>
+                                  <span className="fa fa-sort" aria-hidden="true"></span>
+                                </a>
+                                <select id="mobileSortRateOptions" onChange={this.handleSortChange} style={{"opacity": "0", "marginTop": "-50px", "width": "100%", "height": "50px"}}>
+                                  <option value="apr">APR</option>
+                                  <option value="pmt">Monthly Payment</option>
+                                  <option value="rate">Rate</option>
+                                  <option value="tcc">Total Closing Cost</option>
+                                </select>
+                              </li>
+                            </ul>
+                            <RateAlert code_id={this.state.code_id} fields={mobile_alert_fields} index={2}/>
+                            <div className="modal fade filter-modal" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div className="modal-dialog modal-md" role="document">
                                 <div className="modal-content">
                                   <div className="modal-header">
                                     <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                   </div>
                                   <div className="modal-body">
-                                    <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
+                                    <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote} dataCookies={this.state.dataCookies}></Filter>
                                   </div>
                                   <div className="modal-footer">
                                     <button type="button" className="btn select-btn" data-dismiss="modal">OK</button>
@@ -208,21 +276,9 @@ var Quotes = React.createClass({
                                 </div>
                               </div>
                             </div>
-                            <div className="col-xs-3 text-xs-right">
-                              <b>Sort by</b>
-                            </div>
-                            <div className="col-xs-4 select-box pull-right">
-                              <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
-                                <option value="apr">APR</option>
-                                <option value="pmt">Monthly Payment</option>
-                                <option value="rate">Rate</option>
-                                <option value="tcc">Total Closing Cost</option>
-                              </select>
-                              <span>&#9660;</span>
-                            </div>
                           </div>
                         </div>
-                        <div className="row actions hidden-xs">
+                        <div className="row actions hidden-xs hidden-sm">
                           <p>
                             We’ve found {this.state.quotes ? this.state.quotes.length : 0} loan programs for you. You can sort, filter and choose one to <i>Apply Now</i> or click <i>HELP ME CHOOSE</i> and our proprietary algorithm will help you choose the best mortgage.
                           </p>

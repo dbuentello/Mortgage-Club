@@ -96,6 +96,7 @@ var Borrower = React.createClass({
               label={this.props.fields.ssn.label}
               keyName={this.props.fields.ssn.name}
               value={this.props.ssn}
+              passwordMode={true}
               customClass={"account-text-input"}
               format={this.formatSSN}
               liveFormat={true}
@@ -347,7 +348,7 @@ var Borrower = React.createClass({
                 : null
               }
             </div>
-            <div className="col-xs-4">
+            <div className="col-sm-4">
               <TextField
                 activateRequiredField={this.props.yearsInPreviousAddressError}
                 label={this.props.fields.yearsInPreviousAddress.label}

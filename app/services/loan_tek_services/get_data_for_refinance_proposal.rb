@@ -7,9 +7,9 @@ module LoanTekServices
     attr_reader :property_value, :loan_amount, :zipcode,
                 :original_interest_rate, :property_type, :cash_out
 
-    PURCHASE_LOAN = 1
+    PURCHASE_LOAN = "Purchase"
     CREDIT_SCORE = 740
-    PRIMARY_RESIDENCE = 1
+    PRIMARY_RESIDENCE = "PrimaryResidence"
     THIRTY_YEAR_FIXED = "30yearFixed"
 
     def initialize(args)
@@ -63,16 +63,17 @@ module LoanTekServices
     def get_property_type
       case property_type
       when "sfh"
-        1
+        property_type = "SingleFamily"
       when "duplex"
-        11
+        property_type = "MultiFamily2Units"
       when "triplex"
-        12
+        property_type = "MultiFamily3Units"
       when "fourplex"
-        13
+        property_type = "MultiFamily4Units"
       else
-        0
+        property_type = "NotSpecified"
       end
+      property_type
     end
 
     def get_loan_to_value

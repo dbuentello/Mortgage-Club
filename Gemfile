@@ -59,7 +59,6 @@ gem 'httparty'
 gem 'faraday'
 gem 'faraday_middleware'
 gem 'faraday_middleware-parse_oj', '~> 0.3.0'
-
 gem 'nokogiri'
 
 # file attachment management for ActiveRecord
@@ -114,6 +113,8 @@ gem 'pdf-forms'
 gem 'recaptcha', require: 'recaptcha/rails'
 
 gem 'ox'
+
+gem 'mechanize'
 
 group :development do
   # just run bundle exec erd

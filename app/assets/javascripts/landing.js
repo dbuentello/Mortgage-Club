@@ -17,11 +17,35 @@
 //= require landing/revolution.extension.navigation.min
 //= require landing/revolution.extension.migration.min
 //= require landing/revolution.extension.parallax.min
+
 $(document).ready(function(){
   $("[data-toggle='tooltip']").tooltip({
     trigger: "manual"
   }).tooltip("show");
-
+  var uuidUser = getCookie("uuid_user");
+  if(uuidUser === ""){
+    uuidUser = createGuid();
+    mixpanel.identify(uuidUser);
+    setCookie("uuid_user", uuidUser, 60);
+    setCookie("created_date", new Date(), 60);
+  }else{
+    mixpanel.identify(uuidUser);
+  }
+  mixpanel.people.set({
+    "uuid": uuidUser,
+    "$created": getCookie("created_date"),
+    "$last_login": new Date()        // properties can be dates...
+  });
+  mixpanel.track("Homepage-Enter");
+  $("#findMyRateLink").click(function(){
+    mixpanel.track("Navbar-FindMyRates");
+  });
+  $("#apply-btn").click(function(){
+    mixpanel.track("Homepage-FindMyRatesTable");
+  });
+  $("#btnSignupDevise").click(function(){
+    mixpanel.track("SignUp-Btn");
+  });
   var $faqItems = $('#faqs .faq');
   if( window.location.hash != '' ) {
     var getFaqFilterHash = window.location.hash;
@@ -51,4 +75,5 @@ $(document).ready(function(){
     }
     return false;
   });
-})
+
+});

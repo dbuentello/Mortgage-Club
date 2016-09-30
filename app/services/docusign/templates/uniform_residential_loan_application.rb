@@ -1,4 +1,5 @@
 # rubocop:disable ClassLength
+# rubocop:disable AbcSize
 require "finance_formulas"
 
 module Docusign
@@ -88,6 +89,8 @@ module Docusign
 
         @params[:borrower_rental_income] = number_to_currency(get_net_value, unit: "")
         @params[:borrower_total_monthly_income] = number_to_currency(@params[:borrower_total_monthly_income] + get_net_value, unit: "")
+        @params[:co_borrower_total_monthly_income] = number_to_currency(@params[:co_borrower_total_monthly_income], unit: "")
+
         @params[:sum_total_income] = number_to_currency((@params[:total_base_income].to_f + @params[:total_overtime].to_f +
                                                        @params[:total_bonuses].to_f + @params[:total_commissions].to_f +
                                                        @params[:total_dividends].to_f + get_net_value), unit: "")
@@ -119,12 +122,12 @@ module Docusign
         s7_a = subject_property.purchase_price.to_f
         s7_b = 0
         s7_c = 0
-        loan.refinance? ? s7_d = loan.amount : s7_d = 0
+        loan.refinance? ? s7_d = subject_property.estimated_mortgage_balance : s7_d = 0
         s7_e = 0
         s7_f = 0
         s7_g = 0
         s7_h = 0
-        s7_i = s7_a + s7_b + s7_c + s7_e + s7_f + s7_g + s7_h
+        s7_i = s7_a + s7_b + s7_d + s7_c + s7_e + s7_f + s7_g + s7_h
         s7_j = 0
         s7_k = 0
         s7_l = loan.other_credits.to_f
@@ -263,27 +266,55 @@ module Docusign
         total_rental_insurance_taxes = 0
         total_rental_net_income = 0
         total_rental_mortgage_payment = 0
+
         loan.properties.each do |p|
-          next unless !p.is_primary && !p.is_subject
-          count += 1
-          nth = count.to_s
-          @params["rental_property_address_" + nth] = p.address.address
-          @params["rental_property_status_" + nth] = "R"
-          @params["rental_property_type_" + nth] = get_property_type(p.property_type)
-          @params["rental_property_market_price_" + nth] = number_to_currency(p.market_price.to_f, unit: "")
-          @params["rental_property_income_" + nth] = number_to_currency(p.gross_rental_income.to_f, unit: "")
-          @params["rental_property_liens_" + nth] = number_to_currency(p.total_liability_balance.to_f, unit: "")
-          @params["rental_property_mortgage_payment_" + nth] = number_to_currency(p.estimated_principal_interest.to_f, unit: "")
-          total_rental_mortgage_payment += p.estimated_principal_interest
-          rental_taxes = (p.estimated_property_tax + p.estimated_hazard_insurance).to_f / 12
-          @params["rental_insurance_taxes_" + nth] = number_to_currency(rental_taxes, unit: "")
-          total_rental_insurance_taxes += rental_taxes
-          rental_net_income = 0.75 * p.gross_rental_income.to_f - p.estimated_principal_interest - rental_taxes
-          @params["rental_net_income_" + nth] = number_to_currency(rental_net_income, unit: "")
-          total_rental_net_income += rental_net_income
-          total_market_price += p.market_price
-          total_liens += p.total_liability_balance
-          total_rental_property_income += p.gross_rental_income
+          if loan.purchase?
+            next unless !p.is_primary && !p.is_subject
+            count += 1
+            nth = count.to_s
+            @params["rental_property_address_" + nth] = p.address.address
+            @params["rental_property_status_" + nth] = "R"
+            @params["rental_property_type_" + nth] = get_property_type(p.property_type)
+            @params["rental_property_market_price_" + nth] = number_to_currency(p.market_price.to_f, unit: "")
+            @params["rental_property_income_" + nth] = number_to_currency(p.gross_rental_income.to_f, unit: "")
+            @params["rental_property_liens_" + nth] = number_to_currency(p.total_liability_balance.to_f, unit: "")
+            @params["rental_property_mortgage_payment_" + nth] = number_to_currency(p.estimated_principal_interest.to_f, unit: "")
+            total_rental_mortgage_payment += p.estimated_principal_interest.to_f
+            rental_taxes = (p.estimated_property_tax + p.estimated_hazard_insurance).to_f / 12
+            @params["rental_insurance_taxes_" + nth] = number_to_currency(rental_taxes, unit: "")
+            total_rental_insurance_taxes += rental_taxes
+            rental_net_income = 0.75 * p.gross_rental_income.to_f - p.estimated_principal_interest.to_f - rental_taxes
+            @params["rental_net_income_" + nth] = number_to_currency(rental_net_income, unit: "")
+            total_rental_net_income += rental_net_income
+            total_market_price += p.market_price
+            total_liens += p.total_liability_balance
+            total_rental_property_income += p.gross_rental_income.to_f
+          else
+            next if p.is_primary && !p.is_subject
+            count += 1
+            nth = count.to_s
+            @params["rental_property_address_" + nth] = p.address.address
+            @params["rental_property_type_" + nth] = get_property_type(p.property_type)
+            @params["rental_property_market_price_" + nth] = number_to_currency(p.market_price.to_f, unit: "")
+            @params["rental_property_income_" + nth] = number_to_currency(p.gross_rental_income.to_f, unit: "")
+            @params["rental_property_liens_" + nth] = number_to_currency(p.total_liability_balance.to_f, unit: "")
+            @params["rental_property_mortgage_payment_" + nth] = number_to_currency(p.estimated_principal_interest.to_f, unit: "")
+            total_rental_mortgage_payment += p.estimated_principal_interest.to_f
+            rental_taxes = (p.estimated_property_tax + p.estimated_hazard_insurance).to_f / 12
+            @params["rental_insurance_taxes_" + nth] = number_to_currency(rental_taxes, unit: "")
+            total_rental_insurance_taxes += rental_taxes
+            if p.is_primary && p.is_subject
+              rental_net_income = 0
+            else
+              @params["rental_property_status_" + nth] = "R"
+              rental_net_income = 0.75 * p.gross_rental_income.to_f - p.estimated_principal_interest.to_f - rental_taxes
+            end
+            @params["rental_net_income_" + nth] = number_to_currency(rental_net_income, unit: "")
+            total_rental_net_income += rental_net_income
+            total_market_price += p.market_price
+            total_liens += p.total_liability_balance
+            total_rental_property_income += p.gross_rental_income.to_f
+          end
         end
         @params["total_market_price"] = total_market_price
         @params["total_liens"] = number_to_currency(total_liens.to_f, unit: "")
@@ -321,8 +352,11 @@ module Docusign
             @params[("liabilities_street_" + nth).to_sym] = liability.address.street_address
             @params[("liabilities_city_state_" + nth).to_sym] = "#{liability.address.city}, #{liability.address.state} #{liability.address.zip}"
           end
-
-          @params[("liabilities_payment_" + nth).to_sym] = "#{number_to_currency(liability.payment.to_f, unit: '')} / #{liability.months.to_i}"
+          if liability.months.to_i != 0
+            @params[("liabilities_payment_" + nth).to_sym] = "#{number_to_currency(liability.payment.to_f, unit: '')} / #{liability.months.to_i}"
+          else
+            @params[("liabilities_payment_" + nth).to_sym] = "#{number_to_currency(liability.payment.to_f, unit: '')}"
+          end
           total_liab_payment += liability.payment.to_f
           total_liab_balance += liability.balance.to_f
           @params[("liabilities_balance_" + nth).to_sym] = number_to_currency(liability.balance.to_f, unit: "")
@@ -421,19 +455,19 @@ module Docusign
         borrower.gross_commission = borrower.gross_commission.to_f / 12 if borrower.gross_commission.present?
         @params[(role + "_total_monthly_income").to_sym] = build_total_monthly_income(borrower)
         @params[(role + "_base_income").to_sym] = number_to_currency(build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency), unit: "")
-        @params[(role + "_overtime").to_sym] = number_to_currency(borrower.gross_overtime.to_f, unit: "")
+        @params[(role + "_overtime").to_sym] = number_to_currency(borrower.gross_overtime.to_f / 12, unit: "")
         @params[(role + "_bonuses").to_sym] = number_to_currency(borrower.gross_bonus.to_f, unit: "")
         @params[(role + "_commissions").to_sym] = number_to_currency(borrower.gross_commission.to_f, unit: "")
-        @params[(role + "_interest").to_sym] = number_to_currency(borrower.gross_interest.to_f, unit: "")
+        @params[(role + "_interest").to_sym] = number_to_currency(borrower.gross_interest.to_f / 12, unit: "")
         @params[:total_base_income] = @params[:total_base_income].to_f + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
-        @params[:total_overtime] = @params[:total_overtime].to_f + borrower.gross_overtime.to_f
+        @params[:total_overtime] = @params[:total_overtime].to_f + (borrower.gross_overtime.to_f / 12)
         @params[:total_bonuses] = @params[:total_bonuses].to_f + borrower.gross_bonus.to_f
         @params[:total_commissions] = @params[:total_commissions].to_f + borrower.gross_commission.to_f
-        @params[:total_dividends] = @params[:total_dividends].to_f + borrower.gross_interest.to_f
+        @params[:total_dividends] = @params[:total_dividends].to_f + (borrower.gross_interest.to_f / 12)
       end
 
       def build_total_monthly_income(borrower)
-        borrower.gross_overtime.to_f + borrower.gross_bonus.to_f + borrower.gross_commission.to_f + borrower.gross_interest.to_f + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
+        borrower.gross_overtime.to_f / 12 + borrower.gross_bonus.to_f + borrower.gross_commission.to_f + borrower.gross_interest.to_f / 12 + build_monthly_income(borrower.current_salary.to_f, borrower.pay_frequency)
       end
 
       def build_monthly_income(current_salary, pay_frequency)
@@ -504,12 +538,11 @@ module Docusign
         @params[:purpose_refinance] = "Yes"
         @params[:year_lot_acquired_2] = subject_property.original_purchase_year
         @params[:original_cost_2] = number_to_currency(subject_property.original_purchase_price, unit: "")
-        @params[:amount_existing_liens_2] = number_to_currency(subject_property.refinance_amount, unit: "")
-
-        if loan.amount > subject_property.total_liability_balance
-          @params[:purpose_of_refinance] = "Cash out"
+        @params[:amount_existing_liens_2] = number_to_currency(subject_property.estimated_mortgage_balance, unit: "")
+        if loan.amount > subject_property.estimated_mortgage_balance
+          @params[:purpose_of_refinance] = "Cash-Out/Debt Consolidation"
         else
-          @params[:purpose_of_refinance] = "Rate and term"
+          @params[:purpose_of_refinance] = "Limited Cash-Out"
         end
         @params[:year_built] = subject_property.year_built
         @params[:source_down_payment] = "Checking/Savings"
@@ -564,3 +597,4 @@ module Docusign
   end
 end
 # rubocop:enable ClassLength
+# rubocop:enable AbcSize

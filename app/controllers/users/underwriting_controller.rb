@@ -11,7 +11,6 @@ class Users::UnderwritingController < Users::BaseController
   #
   def index
     @loan = Loan.find(params[:loan_id])
-
     return redirect_to edit_loan_url(@loan) unless @loan.completed?
 
     bootstrap(

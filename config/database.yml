@@ -8,6 +8,13 @@ default: &default
 development:
   <<: *default
   database: homieo_development
+  # adapter: postgresql
+  # encoding: unicode
+  # pool: 5
+  # host: ec2-54-204-35-207.compute-1.amazonaws.com
+  # username: <%= ENV['POSTGRES_DATABASE_USERNAME_STG'] %>
+  # password: <%= ENV['POSTGRES_DATABASE_PASSWORD_STG'] %>
+  # database: d6i2dsj0sl9jd7
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

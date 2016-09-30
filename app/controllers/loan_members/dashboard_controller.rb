@@ -15,7 +15,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
     bootstrap(
       loan: LoanMembers::LoanPresenter.new(@loan).show,
       first_activity: first_activity(@loan),
-      activity_types: LoanMembers::ActivityTypesPresenter.new(ActivityType.all).show,
+      activity_types: LoanMembers::ActivityTypesPresenter.new(ActivityType.all.order(order_number: :asc)).show,
       loan_activities: loan_activities,
       borrower: LoanMembers::BorrowerPresenter.new(@loan.borrower).show,
       property: LoanMembers::PropertyPresenter.new(subject_property).show,
@@ -56,6 +56,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
   def first_activity(loan)
     # TODO: refactor it
     # activity_status: -1 => not existed yet
-    LoanActivity.where(name: LoanActivity::LIST.values[0][0], loan_id: loan.id).order(created_at: :desc).limit(1).first || {activity_status: -1}
+    first_activity_type = ActivityType.order(order_number: :asc).first
+    LoanActivity.where(name: first_activity_type.activity_names.first.name, loan_id: loan.id).order(created_at: :desc).limit(1).first || {activity_status: -1}
   end
 end
