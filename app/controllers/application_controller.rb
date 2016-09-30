@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
   def prepare_meta_tags(options = {})
     site_name   = "MortgageClub"
     title       = "We’re like KAYAK for mortgages." # ["controller_name", "action_name"].join(" ")
-    description = "Find your rate in 10s, apply in 10 mins, close in 21 days. Let's get started!"
+    description = "Find your rates in 10s, apply in 10 mins, close in 21 days. Let's get started!"
     image       = options[:image] || (request.base_url + ActionController::Base.helpers.asset_path('open-graph-new.jpg'))
 
     current_url = request.url
