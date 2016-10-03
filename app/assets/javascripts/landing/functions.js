@@ -1729,7 +1729,6 @@ var SEMICOLON = SEMICOLON || {};
 		},
 
 		sliderElementsFade: function(){
-
 			if( $sliderParallaxEl.length > 0 ) {
 				if( ( $body.hasClass('device-lg') || $body.hasClass('device-md') ) && !SEMICOLON.isMobile.any() ) {
 					var parallaxOffsetTop = SEMICOLON.slider.sliderParallaxOffset(),
