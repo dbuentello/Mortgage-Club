@@ -41,7 +41,7 @@
   border: none;
 }
 
-@include respond-to(mobile){
+@include respond-to(mobile) {
   #header-wrap {
     #logo {
       text-align: left;
@@ -56,6 +56,26 @@
     #primary-menu ul li {
       text-align: right !important;
     }
+  }
+}
+
+@include respond-to(smobile) {
+  #btn-find-my-rates {
+    width: 156px !important;
+    display: block !important;
+    margin-left: 60px;
+    #apply-btn {
+      height: 36px;
+      line-height: 32px;
+      display: block !important;
+      margin-top: 15px !important;
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+    }
+  }
+
+  #first-slider {
+    top: 58px !important;
   }
 }
 
