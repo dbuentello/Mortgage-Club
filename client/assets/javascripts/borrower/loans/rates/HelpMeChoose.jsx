@@ -264,7 +264,7 @@ var HelpMeChoose = React.createClass({
                 </div>
                 <div className='row secondary-cost'>
                   <div className='col-xs-6 col-md-6'>
-                    Loan type
+                    Loan Type
                   </div>
                   <div className='col-xs-6 col-md-6'>
                     {this.state.bestRate.product}
@@ -293,7 +293,7 @@ var HelpMeChoose = React.createClass({
                   :
                     <div className='row secondary-cost'>
                       <div className='col-xs-6 col-md-6'>
-                        {this.state.bestRate.lender_credits < 0 ? "Lender credit" : "Discount points"}
+                        {this.state.bestRate.lender_credits < 0 ? "Lender Credit" : "Discount Points"}
                       </div>
                       <div className='col-xs-6 col-md-6'>
                         {this.formatCurrency(this.state.bestRate.lender_credits, 0, "$")}
