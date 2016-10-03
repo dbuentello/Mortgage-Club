@@ -18,11 +18,11 @@ var HelpMeChoose = React.createClass({
   },
 
   getInitialState: function() {
-    var possibleRates = this.choosePossibleRates(9, 0.08, 0.2, true, true);
+    var possibleRates = this.choosePossibleRates(9, 0.08, 0.2, true, false);
     return {
       possibleRates: possibleRates,
       bestRate: possibleRates[0],
-      cashOutCheck: true,
+      cashOutCheck: false,
       interestRateCheck: true
     }
   },
@@ -68,7 +68,6 @@ var HelpMeChoose = React.createClass({
         }
       }
     }
-    console.log(possibleRates.length, possibleRates);
     possibleRate = [possibleRates[0]];
     return possibleRate;
   },

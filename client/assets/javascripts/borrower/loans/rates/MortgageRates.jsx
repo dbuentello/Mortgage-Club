@@ -89,7 +89,6 @@ var MortgageRates = React.createClass({
     // don't want to make ugly code
     var guaranteeMessage = "We're showing the best 3 loan options for you";
     var subjectProperty = this.props.bootstrapData.currentLoan.subject_property;
-    console.log(this.props.bootstrapData.currentLoan);
     return (
       <div>
         {

@@ -40,7 +40,7 @@ var MortgageCalculatorMixin = {
       for(var i = 1; i <= expectedMortgageDuration; i++) {
         // is n't fixed rate
         if(i > numberOfMonthsFixed) {
-          adjustedMonthlyInterestRate = monthlyInterestRate + cofiForecast[i - numberOfMonthsFixed];
+          adjustedMonthlyInterestRate = monthlyInterestRate + (cofiForecast[i - numberOfMonthsFixed] / 100);
         }
         else {
           // fixed rate
