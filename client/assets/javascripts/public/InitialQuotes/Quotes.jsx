@@ -214,7 +214,7 @@ var Quotes = React.createClass({
                   this.state.helpMeChoose
                   ?
                     <div className="content container mortgage-quotes padding-top-0 white-background">
-                      <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.props.bootstrapData.quotes} selectRate={this.selectRate} monthlyPayment={this.state.monthlyPayment} isInitialQuotes={true}/>
+                      <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.props.bootstrapData.quotes} selectRate={this.selectRate} monthlyPayment={this.state.monthlyPayment} isInitialQuotes={true} loanPurpose={this.props.bootstrapData.data_cookies.mortgage_purpose} mortgageBalance={this.props.bootstrapData.data_cookies.mortgage_balance}/>
                     </div>
                   :
                     <div className="content container mortgage-rates padding-top-0 row-eq-height">

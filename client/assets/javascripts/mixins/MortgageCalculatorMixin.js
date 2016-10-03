@@ -60,25 +60,35 @@ var MortgageCalculatorMixin = {
     return totalInterestPaid * (1 - effectiveTaxRate);
   },
 
-  totalFees: function(fees, lenderCredit) {
-    fees["Processing fee"]  = fees["Processing fee"] || 0;
-    fees["Loan origination fee"] = fees["Loan origination fee"] || 0;
-    fees["Appraisal fee"] = fees["Appraisal fee"] || 0;
-    fees["Credit report fee"] = fees["Credit report fee"] || 0;
-    lenderCredit = lenderCredit || 0;
-    var totalFees = fees["Processing fee"] + fees["Loan origination fee"] + fees["Appraisal fee"] + fees["Credit report fee"] + lenderCredit;
-    return Math.round(totalFees * 100) / 100;
-  },
+  // totalFees: function(fees, lenderCredit) {
+  //   fees["Processing fee"]  = fees["Processing fee"] || 0;
+  //   fees["Loan origination fee"] = fees["Loan origination fee"] || 0;
+  //   fees["Appraisal fee"] = fees["Appraisal fee"] || 0;
+  //   fees["Credit report fee"] = fees["Credit report fee"] || 0;
+  //   lenderCredit = lenderCredit || 0;
+  //   var totalFees = fees["Processing fee"] + fees["Loan origination fee"] + fees["Appraisal fee"] + fees["Credit report fee"] + lenderCredit;
+  //   return Math.round(totalFees * 100) / 100;
+  // },
 
-  upFrontCash: function(downPayment, fees, lenderCredit) {
-    var totalFees = this.totalFees(fees, lenderCredit);
-    var upFrontCash = downPayment + totalFees;
+  upFrontCash: function(downPayment, totalClosingCost) {
+    // var totalFees = this.totalFees(fees, lenderCredit);
+    var upFrontCash = downPayment + totalClosingCost;
     return Math.round(upFrontCash * 100) / 100;
   },
 
   opportunityCostOfUpfrontCash: function(investmentReturnRate, expectedMortgageDuration, upFrontCash) {
     var opportunityCostOfUpfrontCash = (Math.pow((1 + investmentReturnRate), expectedMortgageDuration) - 1) * upFrontCash;
     return Math.round(opportunityCostOfUpfrontCash * 100) / 100;
+  },
+
+  opportunityCostOfCashOut: function(loanPurpose, loanAmount, mortgageBalance, investmentReturnRate, expectedMortgageDuration) {
+    if(loanPurpose == "purchase"){
+      return 0;
+    }
+    var cashOut = loanAmount - mortgageBalance;
+
+    var opportunityCostOfCashOut = -(Math.pow((1 + investmentReturnRate), expectedMortgageDuration) - 1) * cashOut;
+    return Math.round(opportunityCostOfCashOut * 100) / 100;
   },
 
   opportunityCostOfMonthlyPayment: function(monthlyPayment, investmentReturnRate, expectedMortgageDuration) {
@@ -91,15 +101,16 @@ var MortgageCalculatorMixin = {
     }
   },
 
-  totalCost: function(quote, effectiveTaxRate, investmentReturnRate, expectedMortgageDuration) {
+  totalCost: function(quote, effectiveTaxRate, investmentReturnRate, expectedMortgageDuration, loanPurpose, mortgageBalance) {
     var monthlyPayment = this.monthlyPayment(quote["loan_amount"], quote["interest_rate"], quote["period"]);
     var totalInterestPaid =  this.totalInterestPaid(quote["loan_amount"], quote["interest_rate"], expectedMortgageDuration, monthlyPayment, quote["product"]);
     var totalInterestPaidTaxAdjusted = this.totalInterestPaidTaxAdjusted(totalInterestPaid, effectiveTaxRate);
-    var upFrontCash = this.upFrontCash(quote["down_payment"], quote["fees"], quote["lender_credit"]);
+    var upFrontCash = this.upFrontCash(quote["down_payment"], quote["total_closing_cost"]);
     var opportunityCostOfUpfrontCash = this.opportunityCostOfUpfrontCash(investmentReturnRate, expectedMortgageDuration, upFrontCash);
     var opportunityCostOfMonthlyPayment = this.opportunityCostOfMonthlyPayment(monthlyPayment, investmentReturnRate, expectedMortgageDuration);
+    var opportunityCostOfCashOut = this.opportunityCostOfCashOut(loanPurpose, quote["loan_amount"], mortgageBalance, investmentReturnRate, expectedMortgageDuration);
 
-    var totalCost = totalInterestPaidTaxAdjusted + opportunityCostOfUpfrontCash + opportunityCostOfMonthlyPayment;
+    var totalCost = totalInterestPaidTaxAdjusted + opportunityCostOfUpfrontCash + opportunityCostOfMonthlyPayment + opportunityCostOfCashOut;
     var result = {
       'monthlyPayment': monthlyPayment,
       'totalInterestPaid': totalInterestPaid,
@@ -107,6 +118,7 @@ var MortgageCalculatorMixin = {
       'upFrontCash': upFrontCash,
       'opportunityCostOfUpfrontCash': opportunityCostOfUpfrontCash,
       'opportunityCostOfMonthlyPayment': opportunityCostOfMonthlyPayment,
+      'opportunityCostOfCashOut': opportunityCostOfCashOut,
       'totalCost': totalCost
     }
     return result;
