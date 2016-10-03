@@ -41,6 +41,30 @@
   border: none;
 }
 
+@include respond-to(mobile){
+  #header-wrap {
+    #logo {
+      text-align: left;
+    }
+
+    #primary-menu-trigger {
+      left: auto;
+      right: 0px;
+    }
+
+    #primary-menu ul li {
+      text-align: right !important;
+    }
+  }
+}
+
+#header-wrap {
+  #primary-menu {
+    padding-left: 10px;
+    padding-right: 15px;
+  }
+}
+
 .client-landing {
   padding-bottom: 100px;
 }
