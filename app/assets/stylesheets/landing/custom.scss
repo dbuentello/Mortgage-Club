@@ -49,7 +49,8 @@
 
     #primary-menu-trigger {
       left: auto;
-      right: 0px;
+      top: 0px !important;
+      right: 12px;
     }
 
     #primary-menu ul li {
@@ -60,8 +61,8 @@
 
 #header-wrap {
   #primary-menu {
-    padding-left: 10px;
-    padding-right: 15px;
+    padding-left: 20px;
+    padding-right: 25px;
   }
 }
 
