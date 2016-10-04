@@ -40,6 +40,13 @@ var HelpMeChoose = React.createClass({
     var possibleRate = [possibleRates[0]];
 
     if(this.props.loanPurpose == "purchase") {
+      var noDownPaymentRate = _.find(possibleRates, function(rate){ return rate.is_down_payment == false; });
+      if(noDownPaymentRate !== undefined){
+        possibleRates = _.filter(possibleRates, function(rate){
+          return rate['down_payment'] >= noDownPaymentRate.down_payment;
+        })
+      }
+
       if(interestRateCheck == true) {
 
       } else {
@@ -334,7 +341,8 @@ var HelpMeChoose = React.createClass({
                     <div className='col-lg-2 selected_year col-xs-12'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'year')}/>
                     </div>
-                    <div className='col-lg-9 range col-xs-12 slider-item'>
+                    <div className='col-lg-offset-3'></div>
+                    <div className='col-lg-7 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -347,11 +355,13 @@ var HelpMeChoose = React.createClass({
                     </div>
                   </div>
                   <div className='row calc-form'>
-                    <div className='col-lg-2 selected_avg_rate col-xs-12'>
+                    <div className='col-lg-2 selected_avg_rate col-xs-6'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'avg_rate')}/>
+                    </div>
+                    <div className='col-lg-3 col-xs-6'>
                       <p>Investment return rate</p>
                     </div>
-                    <div className='col-lg-9 range col-xs-12 slider-item'>
+                    <div className='col-lg-7 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -363,11 +373,13 @@ var HelpMeChoose = React.createClass({
                     </div>
                   </div>
                   <div className='row calc-form'>
-                    <div className='col-lg-2 selected_tax_rate col-xs-12'>
+                    <div className='col-lg-2 selected_tax_rate col-xs-6'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'tax_rate')}/>
+                    </div>
+                    <div className='col-lg-3 col-xs-6'>
                       <p>Effective tax rate</p>
                     </div>
-                    <div className='col-lg-9 range col-xs-12 slider-item'>
+                    <div className='col-lg-7 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -405,6 +417,33 @@ var HelpMeChoose = React.createClass({
                     {this.state.bestRate.product}
                   </div>
                 </div>
+                {
+                  this.props.loanPurpose == "purchase"
+                  ?
+                    <div className='row secondary-cost'>
+                      <div className='col-xs-6 col-md-6'>
+                        Down Payment
+                      </div>
+                      <div className='col-xs-6 col-md-6'>
+                        {this.formatCurrency(this.state.bestRate.down_payment, 0, '$')}
+                      </div>
+                    </div>
+                  :
+                    <div className='row secondary-cost'>
+                      <div className='col-xs-6 col-md-6'>
+                        Cash Out
+                      </div>
+                      <div className='col-xs-6 col-md-6'>
+                        {
+                          this.state.bestRate.loan_amount - this.props.mortgageBalance == 0
+                          ?
+                            "$0"
+                          :
+                            this.formatCurrency(this.state.bestRate.loan_amount - this.props.mortgageBalance, 0, '$')
+                        }
+                      </div>
+                    </div>
+                }
                 <div className='row secondary-cost'>
                   <div className='col-xs-6 col-md-6'>
                     Rate
@@ -452,9 +491,17 @@ var HelpMeChoose = React.createClass({
                   </div>
                 </div>
                 <div className='row text-xs-center'>
-                  <a className='btn btnLrg mtm select-btn col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.state.bestRate)}>
-                    {this.props.isInitialQuotes ? "Apply Now" : "Select"}
-                  </a>
+                  {
+                    this.state.bestRate.lender_name == "Wells Fargo"
+                    ?
+                      <a className='btn btnLrg mtm select-btn col-sm-offset-4' target="_blank" href="https://www.wellsfargo.com/mortgage/">
+                        Go To Wells Fargo
+                      </a>
+                    :
+                      <a className='btn btnLrg mtm select-btn col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.state.bestRate)}>
+                        {this.props.isInitialQuotes ? "Apply Now" : "Select"}
+                      </a>
+                  }
                 </div>
               </div>
             : null

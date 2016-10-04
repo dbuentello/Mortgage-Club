@@ -194,11 +194,12 @@ var List = React.createClass({
                       }
                     </div>
                     <div className="col-md-2 col-sm-12 text-sm-center">
-                      { rate.selected_program ?
-                        <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Continue</a>
+                      {
+                        rate.selected_program
+                        ?
+                          <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Continue</a>
                         :
-                        <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Select</a>
-
+                          <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Select</a>
                       }
                     </div>
                   </div>

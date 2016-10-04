@@ -173,29 +173,31 @@ module LoanTekServices
           sales_price: info["property_value"].to_f
         ).call
 
-        if (purchase_loan? && is_down_payment == false) || (!purchase_loan? && is_cash_out == false)
-          params = {
-            loan_purpose: get_loan_purpose,
-            loan_amount: format("%0.0f", get_loan_amount),
-            property_value: format("%0.0f", info["property_value"].to_f),
-            county: zip_code.county,
-            down_payment: purchase_loan? ? format("%0.0f", info["down_payment"].to_f) : ""
-          }
+        if get_property_usage == "PrimaryResidence"
+          if (purchase_loan? && is_down_payment == false) || (!purchase_loan? && is_cash_out == false)
+            params = {
+              loan_purpose: get_loan_purpose,
+              loan_amount: format("%0.0f", get_loan_amount),
+              property_value: format("%0.0f", info["property_value"].to_f),
+              county: zip_code.county,
+              down_payment: purchase_loan? ? format("%0.0f", info["down_payment"].to_f) : ""
+            }
 
-          rates = WellsfargoServices::GetRates.new(params).call
-          quote_hash = quotes.find { |q| q["ProductFamily"] == "CONVENTIONAL" }
+            rates = WellsfargoServices::GetRates.new(params).call
+            quote_hash = quotes.find { |q| q["ProductFamily"] == "CONVENTIONAL" }
 
-          if quote_hash
-            rates.each do |rate|
-              quote = Marshal.load(Marshal.dump(quote_hash))
-              quote["DiscountPts"] = 0
-              quote["APR"] = rate[:apr]
-              quote["Rate"] = rate[:interest_rate]
-              quote["LenderName"] = rate[:lender_name]
-              quote["ProductName"] = rate[:product_name]
-              quote["ProductType"] = rate[:product_type]
-              quote["ProductTerm"] = rate[:product_term]
-              quotes << quote
+            if quote_hash
+              rates.each do |rate|
+                quote = Marshal.load(Marshal.dump(quote_hash))
+                quote["DiscountPts"] = 0
+                quote["APR"] = rate[:apr]
+                quote["Rate"] = rate[:interest_rate]
+                quote["LenderName"] = rate[:lender_name]
+                quote["ProductName"] = rate[:product_name]
+                quote["ProductType"] = rate[:product_type]
+                quote["ProductTerm"] = rate[:product_term]
+                quotes << quote
+              end
             end
           end
         end

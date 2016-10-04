@@ -152,6 +152,7 @@ var List = React.createClass({
       <div>
         {
           _.map(this.props.quotes, function (quote, index) {
+            // console.log(quote)
             return (
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
@@ -289,11 +290,18 @@ var List = React.createClass({
                               null
                           }
                           <p className="col-xs-12 cost ">Total estimated monthly payment</p>
-                          </div>
-                          <div className="col-xs-8 row-no-padding-right visible-xs pull-left">
+                        </div>
+                        <div className="col-xs-8 row-no-padding-right visible-xs pull-left">
                           <p className="col-xs-12 cost ">P & I</p>
                           <p className="col-xs-12 cost ">Est. property tax</p>
                           <p className="col-xs-12 cost ">Est. homeowners ins.</p>
+                          {
+                            quote.pmi_monthly_premium_amount != 0
+                            ?
+                              <p className="col-xs-12 cost">Mortgage ins. prem.</p>
+                            :
+                              null
+                          }
                           <p className="col-xs-12 cost "> Total est. payment</p>
                         </div>
                         <div className="row-no-padding col-md-3 col-xs-3">
