@@ -18,25 +18,65 @@ var HelpMeChoose = React.createClass({
   },
 
   getInitialState: function() {
-    var possibleRates = this.choosePossibleRates(9, 0.08, 0.2);
+    var possibleRates = this.choosePossibleRates(9, 0.08, 0.2, true, false);
     return {
       possibleRates: possibleRates,
-      bestRate: possibleRates[0]
+      bestRate: possibleRates[0],
+      cashOutCheck: false,
+      interestRateCheck: true
     }
   },
 
-  choosePossibleRates: function(periods, avgRate, taxRate) {
+  choosePossibleRates: function(periods, avgRate, taxRate, interestRateCheck, cashOutCheck) {
     var totalCost = 0;
     var result;
     var possibleRates = _.sortBy(this.props.programs, function (rate) {
-      result = this.totalCost(rate, taxRate, avgRate, periods);
+      result = this.totalCost(rate, taxRate, avgRate, periods, this.props.loanPurpose, this.props.mortgageBalance);
       rate['total_cost'] = result['totalCost'];
       rate['result'] = result;
       return rate['total_cost'];
     }.bind(this));
 
-    possibleRates = possibleRates.slice(0, 1);
-    return possibleRates;
+    var possibleRate = [possibleRates[0]];
+
+    if(this.props.loanPurpose == "purchase") {
+      var noDownPaymentRate = _.find(possibleRates, function(rate){ return rate.is_down_payment == false; });
+      if(noDownPaymentRate !== undefined){
+        possibleRates = _.filter(possibleRates, function(rate){
+          return rate['down_payment'] >= noDownPaymentRate.down_payment;
+        })
+      }
+
+      if(interestRateCheck == true) {
+
+      } else {
+        possibleRates = _.filter(possibleRates, function(rate){
+          return rate['lender_credits'] <= 0;
+        })
+      }
+    } else {
+      if(interestRateCheck == true) {
+        if(cashOutCheck == true) {
+
+        } else {
+          possibleRates = _.filter(possibleRates, function(rate){
+            return rate['is_cash_out'] == false;
+          })
+        }
+      } else {
+        if(cashOutCheck == true) {
+          possibleRates = _.filter(possibleRates, function(rate){
+            return rate['lender_credits'] <= 0;
+          })
+        } else {
+          possibleRates = _.filter(possibleRates, function(rate){
+            return rate['lender_credits'] <= 0 && rate['is_cash_out'] == false;
+          })
+        }
+      }
+    }
+    possibleRate = [possibleRates[0]];
+    return possibleRate;
   },
 
   componentDidMount: function() {
@@ -102,7 +142,7 @@ var HelpMeChoose = React.createClass({
       value += normalized_number;
       klassName = rectKlassName + value;
       d3.select("." + klassName).attr("class", "highlight " + klassName);
-      var possibleRates = this.choosePossibleRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate);
+      var possibleRates = this.choosePossibleRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate, this.state.interestRateCheck, this.state.cashOutCheck);
       this.setState({possibleRates: possibleRates, bestRate: possibleRates[0]});
     }.bind(this));
     d3.select(selection).call(slider);
@@ -142,7 +182,7 @@ var HelpMeChoose = React.createClass({
         $('.tax_rate_chart .value').val(value + '%')
         break;
     }
-    var possibleRates = this.choosePossibleRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate);
+    var possibleRates = this.choosePossibleRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate, this.state.interestRateCheck, this.state.cashOutCheck);
     this.setState({possibleRates: possibleRates, bestRate: possibleRates[0]});
   },
 
@@ -173,6 +213,58 @@ var HelpMeChoose = React.createClass({
     }
   },
 
+  handleInterestRateCheckChange: function(e) {
+    var interestRateCheck = this.state.interestRateCheck;
+    if($(e.target).val() == "true"){
+      interestRateCheck = true;
+    } else {
+      interestRateCheck = false;
+    }
+
+    expectedMortgageDuration = $('.years_chart .value').val();
+    expectedMortgageDuration = this.correctValue(expectedMortgageDuration, 'year');
+
+    investmentReturnRate = $('.average_rate_chart .value').val();
+    investmentReturnRate = this.correctValue(investmentReturnRate, 'avg_rate') / 100;
+
+    effectiveTaxRate = $('.tax_rate_chart .value').val();
+    effectiveTaxRate = this.correctValue(effectiveTaxRate, 'tax_rate') / 100;
+
+    var possibleRates = this.choosePossibleRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate, interestRateCheck, this.state.cashOutCheck);
+
+    this.setState({
+      possibleRates: possibleRates,
+      bestRate: possibleRates[0],
+      interestRateCheck: interestRateCheck
+    });
+  },
+
+  handleCashOutCheckChange: function(e) {
+    var cashOutCheck = this.state.cashOutCheck;
+    if($(e.target).val() == "true"){
+      cashOutCheck = true;
+    } else {
+      cashOutCheck = false;
+    }
+
+    expectedMortgageDuration = $('.years_chart .value').val();
+    expectedMortgageDuration = this.correctValue(expectedMortgageDuration, 'year');
+
+    investmentReturnRate = $('.average_rate_chart .value').val();
+    investmentReturnRate = this.correctValue(investmentReturnRate, 'avg_rate') / 100;
+
+    effectiveTaxRate = $('.tax_rate_chart .value').val();
+    effectiveTaxRate = this.correctValue(effectiveTaxRate, 'tax_rate') / 100;
+
+    var possibleRates = this.choosePossibleRates(expectedMortgageDuration, investmentReturnRate, effectiveTaxRate, this.state.interestRateCheck, cashOutCheck);
+
+    this.setState({
+      possibleRates: possibleRates,
+      bestRate: possibleRates[0],
+      cashOutCheck: cashOutCheck
+    });
+  },
+
   render: function() {
     return (
       <div>
@@ -188,6 +280,56 @@ var HelpMeChoose = React.createClass({
             </div>
             <div className='col-lg-7'>
               <div className='row col-lg-11 calculator'>
+                <div className='interest_rate_yes_no_question mtxl'>
+                  <div className='row'>
+                    <div className='col-lg-12'>
+                      <h3>Do you want to pay money upfront (aka discount points) to reduce your interest rate?</h3>
+                      <p>Paying discount points could save you money if you keep your mortgage past the break-even point (typically 1-2 years).</p>
+                    </div>
+                  </div>
+                  <div className='row calc-form'>
+                    <div className='col-lg-12 selected_year col-xs-12'>
+                      <div className='control-group mbs'>
+                        <label className="radio-inline mbr">
+                          <input type="radio" name="interestRateCheck" onChange={this.handleInterestRateCheckChange} checked={this.state.interestRateCheck === true} value="true"/>
+                          Yes
+                        </label>
+                        <label className="radio-inline">
+                          <input type="radio" name="interestRateCheck" onChange={this.handleInterestRateCheckChange} checked={this.state.interestRateCheck === false} value="false"/>
+                          No
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {
+                  this.props.loanPurpose == "purchase"
+                  ?
+                    null
+                  :
+                    <div className='cash_out_yes_no_question mtxl'>
+                      <div className='row'>
+                        <div className='col-lg-12'>
+                          <h3>Do you want to cash out?</h3>
+                          <p>With interest rates near all-time low, cash out refinancing is a smart choice if you use the proceeds for higher yield investments.</p>
+                        </div>
+                      </div>
+                      <div className='row calc-form'>
+                        <div className='col-lg-12 col-xs-12'>
+                          <div className='control-group mbs'>
+                            <label className="radio-inline mbr">
+                              <input type="radio" name="cashOutCheck" onChange={this.handleCashOutCheckChange} checked={this.state.cashOutCheck === true} value="true"/>
+                              Yes
+                            </label>
+                            <label className="radio-inline">
+                              <input type="radio" name="cashOutCheck" onChange={this.handleCashOutCheckChange} checked={this.state.cashOutCheck === false} value="false"/>
+                              No
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                }
                 <div className='years_chart mtxl'>
                   <div className='row'>
                     <div className='col-lg-12'>
@@ -199,7 +341,8 @@ var HelpMeChoose = React.createClass({
                     <div className='col-lg-2 selected_year col-xs-12'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'year')}/>
                     </div>
-                    <div className='col-lg-9 range col-xs-12 slider-item'>
+                    <div className='col-lg-offset-3'></div>
+                    <div className='col-lg-7 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -212,11 +355,13 @@ var HelpMeChoose = React.createClass({
                     </div>
                   </div>
                   <div className='row calc-form'>
-                    <div className='col-lg-2 selected_avg_rate col-xs-12'>
+                    <div className='col-lg-2 selected_avg_rate col-xs-6'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'avg_rate')}/>
+                    </div>
+                    <div className='col-lg-3 col-xs-6'>
                       <p>Investment return rate</p>
                     </div>
-                    <div className='col-lg-9 range col-xs-12 slider-item'>
+                    <div className='col-lg-7 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -228,11 +373,13 @@ var HelpMeChoose = React.createClass({
                     </div>
                   </div>
                   <div className='row calc-form'>
-                    <div className='col-lg-2 selected_tax_rate col-xs-12'>
+                    <div className='col-lg-2 selected_tax_rate col-xs-6'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'tax_rate')}/>
+                    </div>
+                    <div className='col-lg-3 col-xs-6'>
                       <p>Effective tax rate</p>
                     </div>
-                    <div className='col-lg-9 range col-xs-12 slider-item'>
+                    <div className='col-lg-7 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -264,12 +411,39 @@ var HelpMeChoose = React.createClass({
                 </div>
                 <div className='row secondary-cost'>
                   <div className='col-xs-6 col-md-6'>
-                    Loan type
+                    Loan Type
                   </div>
                   <div className='col-xs-6 col-md-6'>
                     {this.state.bestRate.product}
                   </div>
                 </div>
+                {
+                  this.props.loanPurpose == "purchase"
+                  ?
+                    <div className='row secondary-cost'>
+                      <div className='col-xs-6 col-md-6'>
+                        Down Payment
+                      </div>
+                      <div className='col-xs-6 col-md-6'>
+                        {this.formatCurrency(this.state.bestRate.down_payment, 0, '$')}
+                      </div>
+                    </div>
+                  :
+                    <div className='row secondary-cost'>
+                      <div className='col-xs-6 col-md-6'>
+                        Cash Out
+                      </div>
+                      <div className='col-xs-6 col-md-6'>
+                        {
+                          this.state.bestRate.loan_amount - this.props.mortgageBalance == 0
+                          ?
+                            "$0"
+                          :
+                            this.formatCurrency(this.state.bestRate.loan_amount - this.props.mortgageBalance, 0, '$')
+                        }
+                      </div>
+                    </div>
+                }
                 <div className='row secondary-cost'>
                   <div className='col-xs-6 col-md-6'>
                     Rate
@@ -293,7 +467,7 @@ var HelpMeChoose = React.createClass({
                   :
                     <div className='row secondary-cost'>
                       <div className='col-xs-6 col-md-6'>
-                        {this.state.bestRate.lender_credits < 0 ? "Lender credit" : "Discount points"}
+                        {this.state.bestRate.lender_credits < 0 ? "Lender Credit" : "Discount Points"}
                       </div>
                       <div className='col-xs-6 col-md-6'>
                         {this.formatCurrency(this.state.bestRate.lender_credits, 0, "$")}
@@ -317,9 +491,17 @@ var HelpMeChoose = React.createClass({
                   </div>
                 </div>
                 <div className='row text-xs-center'>
-                  <a className='btn btnLrg mtm select-btn col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.state.bestRate)}>
-                    {this.props.isInitialQuotes ? "Apply Now" : "Select"}
-                  </a>
+                  {
+                    this.state.bestRate.lender_name == "Wells Fargo"
+                    ?
+                      <a className='btn btnLrg mtm select-btn col-sm-offset-4' target="_blank" href="https://www.wellsfargo.com/mortgage/">
+                        Go To Wells Fargo
+                      </a>
+                    :
+                      <a className='btn btnLrg mtm select-btn col-sm-offset-4' onClick={_.bind(this.props.selectRate, null, this.state.bestRate)}>
+                        {this.props.isInitialQuotes ? "Apply Now" : "Select"}
+                      </a>
+                  }
                 </div>
               </div>
             : null

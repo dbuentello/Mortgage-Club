@@ -89,14 +89,13 @@ var MortgageRates = React.createClass({
     // don't want to make ugly code
     var guaranteeMessage = "We're showing the best 3 loan options for you";
     var subjectProperty = this.props.bootstrapData.currentLoan.subject_property;
-
     return (
       <div>
         {
           this.state.helpMeChoose
           ?
             <div className="content container mortgage-rates padding-top-0 white-background">
-              <HelpMeChoose backToRatePage={this.backToRateHandler} loan={this.props.bootstrapData.currentLoan} programs={this.props.bootstrapData.programs} selectRate={this.selectRate} isInitialQuotes={false}/>
+              <HelpMeChoose backToRatePage={this.backToRateHandler} loan={this.props.bootstrapData.currentLoan} programs={this.props.bootstrapData.programs} selectRate={this.selectRate} isInitialQuotes={false} loanPurpose={this.props.bootstrapData.currentLoan.purpose} mortgageBalance={this.props.bootstrapData.currentLoan.amount}/>
             </div>
           :
             <div className="content container mortgage-rates padding-top-0 row-eq-height">

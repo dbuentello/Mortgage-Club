@@ -173,7 +173,7 @@ module LoanTekServices
           sales_price: info["property_value"].to_f
         ).call
 
-        if (purchase_loan? && is_down_payment == false) || (!purchase_loan? && is_cash_out == false)
+        if (get_property_usage == "PrimaryResidence") && ((purchase_loan? && is_down_payment == false) || (!purchase_loan? && is_cash_out == false))
           params = {
             loan_purpose: get_loan_purpose,
             loan_amount: format("%0.0f", get_loan_amount),
