@@ -71,7 +71,7 @@ gem 'dotenv-rails'
 
 # A Better Nested Inheritable Layouts
 gem 'nestive'
-
+gem 'api-ai-ruby'
 # A wrapper gem for the DocuSign REST API
 # Using OAuth Token of MortgageClub Bot
 gem 'docusign_rest', git: 'https://7c584ddbcdc592cbd464e3701e359948d3125a15:x-oauth-basic@github.com/MortgageClub/mc_docusign_rest.git', branch: 'master'

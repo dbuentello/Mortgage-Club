@@ -77,7 +77,7 @@ module BotServices
 
     def self.get_user_profile(fb_user_id)
       response = get("/#{fb_user_id}?fields=first_name,last_name,profile_pic")
-      # sessionIds.get(fbUserID).context.profile = JSON.load(response.body);
+      response.body
     end
 
     def self.subscribe_request

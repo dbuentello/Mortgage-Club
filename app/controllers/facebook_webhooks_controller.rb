@@ -12,7 +12,8 @@ class FacebookWebhooksController < ApplicationController
   end
 
   def receive_message
-    ap params
+    BotServices::ProcessMessage.new(params).call
+    render json: :ok
   end
 
   def receive

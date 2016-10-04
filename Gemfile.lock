@@ -49,6 +49,8 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
+    api-ai-ruby (1.2.1)
+      http (~> 0.9.4)
     arel (6.0.3)
     asposecloud (1.1.2)
     ast (2.1.0)
@@ -204,8 +206,15 @@ GEM
       rubocop (~> 0.20)
     heapy (0.1.0)
     htmlentities (4.3.4)
+    http (0.9.9)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
+    http-form_data (1.0.1)
+    http_parser.rb (0.6.0)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
@@ -475,6 +484,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  api-ai-ruby
   asposecloud
   awesome_print
   aws-sdk (< 2)
