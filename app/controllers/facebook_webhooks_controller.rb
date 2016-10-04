@@ -6,6 +6,7 @@ class FacebookWebhooksController < ApplicationController
 
   def verify_fb_token
     if params["hub.mode"] == "subscribe" && params["hub.verify_token"] == ENV["FB_VERIFY_TOKEN"]
+      FacebookGettingStartedJob.set(wait: 5.seconds).perform_later
       render json: params["hub.challenge"]
     end
   end
