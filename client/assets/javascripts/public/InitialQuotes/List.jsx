@@ -122,6 +122,10 @@ var List = React.createClass({
         }
       }
     }
+
+    $(".text-discount-points:contains('Lender') .fa").attr("title", "You pay a higher interest rate and the lender gives you money (called \"lender credit\") to offset your closing costs.")
+    $(".text-discount-points:contains('Discount') .fa").attr("title", "Discount points are money you pay upfront to lower the interest rate. They are tax deductible.")
+    $("[data-toggle='tooltip']").tooltip();
   },
 
   totalMonthlyPayment: function(monthly_payment, mtg_insurrance, tax, hazard_insurrance, hoa_due, mortgage_insurance_premium){
@@ -166,14 +170,14 @@ var List = React.createClass({
                       <h1 className="apr-text">{this.commafy(quote.interest_rate * 100, 3)}% Rate</h1>
                     </div>
                     <div className="col-xs-12 col-md-4 col-sm-6 col-sm-6">
-                      <p><span className="text-capitalize">apr:</span> {this.commafy(quote.apr * 100, 3)}%</p>
+                      <p><span>APR:</span> {this.commafy(quote.apr * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(quote.monthly_payment, 0, "$")}</p>
                       {
                         quote.lender_credits == 0
                         ?
-                          <p><span className="text-capitalize">{this.props.quotes[index + 1] == undefined ? "Lender credit" : (this.props.quotes[index + 1].lender_credits <= 0 ? "Lender credit" : "Discount points")}:</span> $0</p>
+                          <p className="text-discount-points"><span className="text-capitalize">{this.props.quotes[index + 1] == undefined ? "Lender credit" : (this.props.quotes[index + 1].lender_credits <= 0 ? "Lender credit" : "Discount points")}:</span> $0 <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></p>
                         :
-                          <p><span className="text-capitalize">{quote.lender_credits < 0 ? "Lender credit" : "Discount points"}:</span> {this.formatCurrency(quote.lender_credits, 0, "$")}</p>
+                          <p className="text-discount-points"><span className="text-capitalize">{quote.lender_credits < 0 ? "Lender credit" : "Discount points"}:</span> {this.formatCurrency(quote.lender_credits, 0, "$")} <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></p>
                       }
                       <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(quote.total_closing_cost, 0, "$")}</p>
                       {
@@ -225,9 +229,9 @@ var List = React.createClass({
                         {
                           quote.lender_credits == 0
                           ?
-                            <li className="lender-fee-item">{this.props.quotes[index + 1] == undefined ? "Lender credit" : (this.props.quotes[index + 1].lender_credits <= 0 ? "Lender credit" : "Discount points")}: $0</li>
+                            <li className="lender-fee-item text-discount-points">{this.props.quotes[index + 1] == undefined ? "Lender credit" : (this.props.quotes[index + 1].lender_credits <= 0 ? "Lender credit" : "Discount points")}: $0 <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></li>
                           :
-                            <li className="lender-fee-item">{quote.lender_credits < 0 ? "Lender credit" : "Discount points"}: {this.formatCurrency(quote.lender_credits, 0, "$")}</li>
+                            <li className="lender-fee-item text-discount-points">{quote.lender_credits < 0 ? "Lender credit" : "Discount points"}: {this.formatCurrency(quote.lender_credits, 0, "$")} <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></li>
                         }
                         {
                           quote.fha_upfront_premium_amount == 0
@@ -238,14 +242,37 @@ var List = React.createClass({
                         }
                         {
                           _.map(quote.fees, function(fee){
+                            var title = "";
+                            if(fee["Description"] == "Lender underwriting fee"){
+                              title = "This goes to the lender, covering the cost of researching whether or not to approve you for the loan.";
+                            }
+
                             return (
-                              <li className="lender-fee-item" key={fee["HudLine"]}>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}</li>
+                              <li className="lender-fee-item" key={fee["HudLine"]}>
+                                {fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}
+                                &nbsp;
+                                {
+                                  title == ""
+                                  ?
+                                    null
+                                  :
+                                    <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true" title={title}></i>
+                                }
+                              </li>
                             )
                           }, this)
                         }
 
                         {
                           _.map(quote.thirty_fees, function(thirty_fee, index_second){
+                            var title = "";
+
+                            if(thirty_fee["Description"] == "Services you cannot shop for"){
+                              title = "These costs are paid to outside parties, not the lender, but you don’t get to choose them.";
+                            }else if (thirty_fee["Description"] == "Services you can shop for"){
+                              title = "These costs are paid to outside parties and YOU are free to shop and compare providers for a variety of services.";
+                            }
+
                             return (
                               <div>
                                 {
@@ -257,11 +284,31 @@ var List = React.createClass({
                                       <a role="button" data-toggle="collapse" href={".thirty-fees-" + index + "-" + index_second} aria-expanded="true" aria-controls={"thirty-fees-" + index + "-" + index_second}>
                                         <i className="icon-plus"></i><span>{thirty_fee["Description"] + ": " + this.formatCurrency(thirty_fee["FeeAmount"], 0, "$")}</span>
                                       </a>
+                                      {
+                                        title == ""
+                                        ?
+                                          null
+                                        :
+                                          <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true" title={title} style={{"margin-left": "3px"}}></i>
+                                      }
                                       <div className={"collapse thirty-fees-collapse thirty-fees-" + index + "-" + index_second}>
                                         {
                                           _.map(thirty_fee["Fees"], function(fee) {
+                                            var title_child = "";
+                                            if (fee["Description"].indexOf("Prepaid interest") > - 1){
+                                              title_child = "Prepaid interest for the period from closing to the first mortgage payment.";
+                                            }
                                             return (
-                                              <p>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}</p>
+                                              <p>
+                                                {fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}
+                                                {
+                                                  title_child == ""
+                                                  ?
+                                                    null
+                                                  :
+                                                    <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true" title={title_child} style={{"margin-left": "3px"}}></i>
+                                                }
+                                              </p>
                                             )
                                           }, this)
                                         }

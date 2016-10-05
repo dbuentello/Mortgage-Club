@@ -170,7 +170,7 @@ var List = React.createClass({
                       <h1 className="apr-text">{this.commafy(rate.interest_rate * 100, 3)}% Rate</h1>
                     </div>
                     <div className="col-md-4 col-sm-6 col-sm-6">
-                      <p><span className="text-capitalize">apr:</span> {this.commafy(rate.apr * 100, 3)}%</p>
+                      <p><span>APR:</span> {this.commafy(rate.apr * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(rate.monthly_payment, 0, '$')}</p>
                       {
                         rate.lender_credits == 0
