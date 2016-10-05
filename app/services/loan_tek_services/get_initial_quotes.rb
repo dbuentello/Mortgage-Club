@@ -50,7 +50,7 @@ module LoanTekServices
       end
 
       quotes = quotes + quotes_2 + quotes_3 + quotes_4
-      quotes.sort_by { |program| program[:apr] }
+      quotes.sort_by { |program| [program[:interest_rate], program[:apr]] }
     end
 
     def lowest_apr
