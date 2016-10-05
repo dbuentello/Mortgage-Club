@@ -207,7 +207,13 @@
 .done-sign {display:none;}
 
 .account-content {
-  padding: 40px 40px 80px 40px;
+  padding: 20px 40px 80px 40px;
+
+  .form-horizontal {
+    .form-group:first-child {
+      margin-top: 0px;
+    }
+  }
 
   @include respond-to(smobile){
     padding: 10px 20px;
