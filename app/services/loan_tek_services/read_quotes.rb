@@ -50,7 +50,7 @@ module LoanTekServices
       end
 
       programs = build_characteristics(programs)
-      programs.sort_by { |program| program[:apr] }
+      programs.sort_by { |program| [program[:interest_rate], program[:apr]] }
     end
 
     def self.build_characteristics(programs)

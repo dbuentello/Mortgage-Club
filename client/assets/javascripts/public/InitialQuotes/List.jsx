@@ -152,7 +152,6 @@ var List = React.createClass({
       <div>
         {
           _.map(this.props.quotes, function (quote, index) {
-            // console.log(quote)
             return (
               <div key={index} className="row roundedCorners bas mvm pvm choose-board board">
                 <div className="board-header">
@@ -164,10 +163,10 @@ var List = React.createClass({
                     <div className="col-xs-8 col-md-3 col-sm-6 col-sm-6">
                       <h3 className="text-capitalize">{quote.lender_name}</h3>
                       <p>{quote.product}</p>
-                      <h1 className="apr-text">{this.commafy(quote.apr * 100, 3)}% APR</h1>
+                      <h1 className="apr-text">{this.commafy(quote.interest_rate * 100, 3)}% Rate</h1>
                     </div>
                     <div className="col-xs-12 col-md-4 col-sm-6 col-sm-6">
-                      <p><span className="text-capitalize">rate:</span> {this.commafy(quote.interest_rate * 100, 3)}%</p>
+                      <p><span className="text-capitalize">apr:</span> {this.commafy(quote.apr * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(quote.monthly_payment, 0, "$")}</p>
                       {
                         quote.lender_credits == 0
