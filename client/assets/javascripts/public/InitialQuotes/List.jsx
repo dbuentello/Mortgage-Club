@@ -122,9 +122,11 @@ var List = React.createClass({
         }
       }
     }
-
     $(".text-discount-points:contains('Lender') .fa").attr("title", "You pay a higher interest rate and the lender gives you money (called \"lender credit\") to offset your closing costs.")
     $(".text-discount-points:contains('Discount') .fa").attr("title", "Discount points are money you pay upfront to lower the interest rate. They are tax deductible.")
+    $(".text-discount-points:contains('Lender') .fa").attr("data-original-title", "You pay a higher interest rate and the lender gives you money (called \"lender credit\") to offset your closing costs.")
+    $(".text-discount-points:contains('Discount') .fa").attr("data-original-title", "Discount points are money you pay upfront to lower the interest rate. They are tax deductible.")
+
     $("[data-toggle='tooltip']").tooltip();
   },
 
