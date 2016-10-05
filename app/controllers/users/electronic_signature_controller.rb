@@ -29,8 +29,7 @@ class Users::ElectronicSignatureController < Users::BaseController
   #
   def create
     return render nothing: true, status: 200 if Rails.env.test?
-
-    RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:fees], lender_params)
+    RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:fees], lender_params, params[:thirty_fees])
     @loan.reload
 
     envelope = Docusign::CreateEnvelopeService.new.call(current_user, @loan)

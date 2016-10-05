@@ -40,6 +40,7 @@ var TermTab = React.createClass({
     var hoaDue = property.hoa_due
     var mortgageInsurance = property.estimated_mortgage_insurance;
     var totalCost = this.calculateMonthlyHousingExpense(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue);
+    console.log(loan);
     return (
       <div className="panel panel-flat terms-view">
         <div>
@@ -196,18 +197,18 @@ var TermTab = React.createClass({
                 </tr>
                 <tr>
                   <td className="loan-field">
-                    Annual Homeowners Insurance
+                    Homeowners Insurance
                   </td>
                   <td>
-                    {this.formatCurrency(property.estimated_hazard_insurance, "$")}
+                    {this.formatCurrency(property.estimated_hazard_insurance / 12, "$")}
                   </td>
                 </tr>
                 <tr>
                   <td className="loan-field">
-                    Annual Property Tax
+                    Property Tax
                   </td>
                   <td>
-                    {this.formatCurrency(property.estimated_property_tax, "$")}
+                    {this.formatCurrency(property.estimated_property_tax / 12, "$")}
                   </td>
                 </tr>
                 {

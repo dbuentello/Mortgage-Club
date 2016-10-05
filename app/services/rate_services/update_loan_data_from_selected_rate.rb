@@ -1,19 +1,30 @@
 # after use select a rate, we update rate's info to loan.
 module RateServices
   class UpdateLoanDataFromSelectedRate
-    ORIGINATION_TYPES = ["Loan discount fee", "Loan origination fee", "Processing fee", "Underwriting fee"]
-    SERVICES_CAN_SHOP_TYPES = ["Wire transfer fee"]
-    SERVICES_CANNOT_SHOP_TYPES = ["Appraisal fee", "Credit report fee"]
-
-    def self.call(loan_id, fees, quote)
+    def self.call(loan_id, fees, quote, thirty_fees)
       loan = Loan.find(loan_id)
       lender = get_lender(quote[:lender_name])
+      fees = JSON.load fees
+      thirty_fees = JSON.load thirty_fees
 
       loan.tap do |l|
         l.lender = lender
-        l.service_cannot_shop_fees = get_fees(fees, SERVICES_CANNOT_SHOP_TYPES)
-        l.origination_charges_fees = get_fees(fees, ORIGINATION_TYPES)
-        l.service_can_shop_fees = get_fees(fees, SERVICES_CAN_SHOP_TYPES)
+
+        l.lender_underwriting_fee = fees.first ? fees.first["FeeAmount"] : nil
+
+        l.appraisal_fee = get_fee(thirty_fees, "Services you cannot shop for", "Appraisal Fee")
+        l.tax_certification_fee = get_fee(thirty_fees, "Services you cannot shop for", "Tax Certification Fee")
+        l.flood_certification_fee = get_fee(thirty_fees, "Services you cannot shop for", "Flood Certification Fee")
+        l.outside_signing_service_fee = get_fee(thirty_fees, "Services you can shop for", "Outside Signing Service")
+        l.concurrent_loan_charge_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Concurrent Loan Charge")
+        l.endorsement_charge_fee = get_fee(thirty_fees, "Services you can shop for", "Endorsement Charge")
+        l.lender_title_policy_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Lender's Title Policy")
+        l.recording_service_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Recording Service Fee")
+        l.settlement_agent_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Settlement Agent Fee")
+        l.recording_fees = get_fee(thirty_fees, "Taxes and other government fees", "Recording Fees")
+        l.owner_title_policy_fee = get_fee(thirty_fees, "Other", "Title - Owner's Title Policy")
+        l.prepaid_item_fee = get_fee(thirty_fees, "Prepaid items", "Prepaid interest")
+
         l.interest_rate = quote[:interest_rate].to_f
         l.lender_nmls_id = quote[:lender_nmls_id]
         l.num_of_months = quote[:period].to_i
@@ -41,21 +52,31 @@ module RateServices
       lender
     end
 
-    def self.get_fees(fees, types)
-      selected_fees = {}
-      sum = 0
+    def self.get_fee(thirty_fees, group_name, field_name)
+      group = thirty_fees.find { |fees| fees["Description"] == group_name }
+      return nil unless group
 
-      selected_fees[:fees] = fees.to_a.map do |fee|
-        next unless types.include? fee.last["Description"]
+      field = group["Fees"].find { |fee| fee["Description"].index(field_name) != nil }
+      return nil unless field
 
-        amount = fee.last["FeeAmount"].to_f
-        sum += amount
-        {name: fee.last["Description"], amount: amount}
-      end
-
-      selected_fees[:fees].compact!
-      selected_fees[:total] = sum
-      selected_fees
+      field["FeeAmount"].to_f
     end
+
+    # def self.get_fees(fees, types)
+    #   selected_fees = {}
+    #   sum = 0
+
+    #   selected_fees[:fees] = fees.to_a.map do |fee|
+    #     next unless types.include? fee.last["Description"]
+
+    #     amount = fee.last["FeeAmount"].to_f
+    #     sum += amount
+    #     {name: fee.last["Description"], amount: amount}
+    #   end
+
+    #   selected_fees[:fees].compact!
+    #   selected_fees[:total] = sum
+    #   selected_fees
+    # end
   end
 end
