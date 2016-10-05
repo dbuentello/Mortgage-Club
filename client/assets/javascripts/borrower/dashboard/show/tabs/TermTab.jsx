@@ -31,6 +31,15 @@ var TermTab = React.createClass({
     return this.props.loan.purpose == "purchase";
   },
 
+  showExpend: function(className, event) {
+    if($("." + className).is(":hidden")){
+      $(event.target).removeClass("icon-plus").addClass("icon-minus");
+    } else {
+      $(event.target).removeClass("icon-minus").addClass("icon-plus");
+    }
+    $("." + className).slideToggle();
+  },
+
   render: function() {
     var loan = this.props.loan;
     var property = loan.subject_property;
@@ -46,7 +55,6 @@ var TermTab = React.createClass({
     var otherFee = parseFloat(loan.owner_title_policy_fee) || 0;
     var prepaidItemsFee = parseFloat(loan.prepaid_item_fee) || 0;
 
-    console.log(loan);
     return (
       <div className="panel panel-flat terms-view">
         <div>
@@ -152,42 +160,91 @@ var TermTab = React.createClass({
                 </tr>
                 <tr>
                   <td className="loan-field">
+                    <i className="icon-plus" onClick={_.bind(this.showExpend, null, "not-shop-for")}></i>
                     Services You Can Not Shop For
+                    <div className="not-shop-for closing-cost-text">
+                      <p>Appraisal Fee</p>
+                      <p>Tax Certification Fee</p>
+                      <p>Flood Certification Fee</p>
+                    </div>
                   </td>
                   <td>
                     {this.formatCurrency(canNotShopForFee, "$")}
+                    <div className="not-shop-for closing-cost-price">
+                      <p>{this.formatCurrency(loan.appraisal_fee, "$")}</p>
+                      <p>{this.formatCurrency(loan.tax_certification_fee, "$")}</p>
+                      <p>{this.formatCurrency(loan.flood_certification_fee, "$")}</p>
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td className="loan-field">
+                    <i className="icon-plus" onClick={_.bind(this.showExpend, null, "shop-for")}></i>
                     Services You Can Shop For
+                    <div className="shop-for closing-cost-text">
+                      <p>Outside Signing Service</p>
+                      <p>Title - Concurrent Loan Charge</p>
+                      <p>Endorsement Charge</p>
+                      <p>Title - Lender's Title Policy</p>
+                      <p>Title - Recording Service Fee</p>
+                      <p>Title - Settlement Agent Fee</p>
+                    </div>
                   </td>
                   <td>
                     {this.formatCurrency(shopForFee, "$")}
+                    <div className="shop-for closing-cost-price">
+                      <p>{this.formatCurrency(loan.outside_signing_service_fee, "$")}</p>
+                      <p>{this.formatCurrency(loan.concurrent_loan_charge_fee, "$")}</p>
+                      <p>{this.formatCurrency(loan.endorsement_charge_fee, "$")}</p>
+                      <p>{this.formatCurrency(loan.lender_title_policy_fee, "$")}</p>
+                      <p>{this.formatCurrency(loan.recording_service_fee, "$")}</p>
+                      <p>{this.formatCurrency(loan.settlement_agent_fee, "$")}</p>
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td className="loan-field">
+                    <i className="icon-plus" onClick={_.bind(this.showExpend, null, "recording-fee")}></i>
                     Taxes and Other Government Fees
+                    <div className="recording-fee closing-cost-text">
+                      <p>Recording Fees</p>
+                    </div>
                   </td>
                   <td>
                     {this.formatCurrency(taxFee, "$")}
+                    <div className="recording-fee closing-cost-price">
+                      <p>{this.formatCurrency(loan.recording_fees, "$")}</p>
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td className="loan-field">
+                    <i className="icon-plus" onClick={_.bind(this.showExpend, null, "other-fee")}></i>
                     Other
+                    <div className="other-fee closing-cost-text">
+                      <p>Title - Owner's Title Policy</p>
+                    </div>
                   </td>
                   <td>
                     {this.formatCurrency(otherFee, "$")}
+                    <div className="other-fee closing-cost-price">
+                      <p>{this.formatCurrency(loan.owner_title_policy_fee, "$")}</p>
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td className="loan-field">
+                    <i className="icon-plus" onClick={_.bind(this.showExpend, null, "prepaid-fee")}></i>
                     Prepaid Items
+                    <div className="prepaid-fee closing-cost-text">
+                      <p>Prepaid Interest</p>
+                    </div>
                   </td>
                   <td>
                     {this.formatCurrency(prepaidItemsFee, "$")}
+                    <div className="prepaid-fee closing-cost-price">
+                      <p>{this.formatCurrency(loan.prepaid_item_fee, "$")}</p>
+                    </div>
                   </td>
                 </tr>
                 <tr>
