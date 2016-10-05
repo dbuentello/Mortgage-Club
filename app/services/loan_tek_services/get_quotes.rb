@@ -61,7 +61,7 @@ module LoanTekServices
         end
 
         quotes = quotes + quotes_2 + quotes_3 + quotes_4
-        quotes.sort_by { |program| [program[:interest_rate], program[:apr]] }
+        quotes = quotes.sort_by { |program| [program[:interest_rate], program[:apr]] }
 
         REDIS.set(cache_key, quotes.to_json)
         REDIS.expire(cache_key, 30.minutes.to_i)
