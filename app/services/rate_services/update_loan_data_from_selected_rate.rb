@@ -10,7 +10,7 @@ module RateServices
       loan.tap do |l|
         l.lender = lender
 
-        l.lender_underwriting_fee = fees.first ? fees.first["FeeAmount"] : nil
+        l.lender_underwriting_fee = fees.first ? fees.first["FeeAmount"] : 0.0
 
         l.appraisal_fee = get_fee(thirty_fees, "Services you cannot shop for", "Appraisal Fee")
         l.tax_certification_fee = get_fee(thirty_fees, "Services you cannot shop for", "Tax Certification Fee")
@@ -54,10 +54,10 @@ module RateServices
 
     def self.get_fee(thirty_fees, group_name, field_name)
       group = thirty_fees.find { |fees| fees["Description"] == group_name }
-      return nil unless group
+      return 0.0 unless group
 
-      field = group["Fees"].find { |fee| fee["Description"].index(field_name) != nil }
-      return nil unless field
+      field = group["Fees"].find { |fee| fee["Description"].index(field_name).present? }
+      return 0.0 unless field
 
       field["FeeAmount"].to_f
     end

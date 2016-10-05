@@ -40,6 +40,12 @@ var TermTab = React.createClass({
     var hoaDue = property.hoa_due
     var mortgageInsurance = property.estimated_mortgage_insurance;
     var totalCost = this.calculateMonthlyHousingExpense(monthlyPayment, homeOwnerInsurance, propertyTax, mortgageInsurance, hoaDue);
+    var canNotShopForFee = (parseFloat(loan.appraisal_fee) || 0) + (parseFloat(loan.tax_certification_fee) || 0) + (parseFloat(loan.flood_certification_fee) || 0);
+    var shopForFee = (parseFloat(loan.outside_signing_service_fee) || 0) + (parseFloat(loan.concurrent_loan_charge_fee) || 0) + (parseFloat(loan.endorsement_charge_fee) || 0) + (parseFloat(loan.lender_title_policy_fee) || 0) + (parseFloat(loan.recording_service_fee) || 0) + (parseFloat(loan.settlement_agent_fee) || 0);
+    var taxFee = parseFloat(loan.recording_fees) || 0;
+    var otherFee = parseFloat(loan.owner_title_policy_fee) || 0;
+    var prepaidItemsFee = parseFloat(loan.prepaid_item_fee) || 0;
+
     console.log(loan);
     return (
       <div className="panel panel-flat terms-view">
@@ -138,18 +144,42 @@ var TermTab = React.createClass({
                 }
                 <tr>
                   <td className="loan-field">
-                    Lender Fees
+                    Lender Underwriting Fee
                   </td>
                   <td>
-                    {this.formatCurrency(loan.loan_costs, "$")}
+                    {this.formatCurrency(loan.lender_underwriting_fee, "$")}
                   </td>
                 </tr>
                 <tr>
                   <td className="loan-field">
-                    Third Party Services
+                    Services You Can Not Shop For
                   </td>
                   <td>
-                    {this.formatCurrency(loan.third_party_fees, "$")}
+                    {this.formatCurrency(canNotShopForFee, "$")}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="loan-field">
+                    Services You Can Shop For
+                  </td>
+                  <td>
+                    {this.formatCurrency(shopForFee, "$")}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="loan-field">
+                    Taxes and Other Government Fees
+                  </td>
+                  <td>
+                    {this.formatCurrency(taxFee, "$")}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="loan-field">
+                    Other
+                  </td>
+                  <td>
+                    {this.formatCurrency(otherFee, "$")}
                   </td>
                 </tr>
                 <tr>
@@ -157,7 +187,7 @@ var TermTab = React.createClass({
                     Prepaid Items
                   </td>
                   <td>
-                    {this.formatCurrency(loan.estimated_prepaid_items, "$")}
+                    {this.formatCurrency(prepaidItemsFee, "$")}
                   </td>
                 </tr>
                 <tr>
