@@ -35,7 +35,10 @@
     .calc-form {
       position: relative;
       .range {
-        float: right;
+        @include respond-to(mobile){
+          margin-bottom: 20px;
+        };
+
         .slider {
           margin-top:10px;
           width: 400px;

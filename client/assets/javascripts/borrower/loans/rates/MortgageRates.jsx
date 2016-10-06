@@ -42,7 +42,10 @@ var MortgageRates = React.createClass({
     });
     var params = {};
     params["rate"] = rate;
+    params["rate"]["fees"] = JSON.stringify(rate.fees);
+    params["rate"]["thirty_fees"] = JSON.stringify(rate.thirty_fees);
     params = $.param(params);
+
     location.href = "esigning/" + this.props.bootstrapData.currentLoan.id + "?" + params;
   },
 
@@ -154,9 +157,9 @@ var MortgageRates = React.createClass({
                           <span className="fa fa-sort" aria-hidden="true"></span>
                         </a>
                         <select id="sortRateOptions" onChange={this.handleSortChange} style={{"opacity": "0", "marginTop": "-50px", "width": "100%", "height": "50px"}}>
+                          <option value="rate">Rate</option>
                           <option value="apr">APR</option>
                           <option value="pmt">Monthly Payment</option>
-                          <option value="rate">Rate</option>
                           <option value="tcc">Total Closing Cost</option>
                         </select>
                       </li>
@@ -216,9 +219,9 @@ var MortgageRates = React.createClass({
                         </div>
                         <div className="col-xs-9 select-box">
                           <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
+                            <option value="rate">Rate</option>
                             <option value="apr">APR</option>
                             <option value="pmt">Monthly Payment</option>
-                            <option value="rate">Rate</option>
                             <option value="tcc">Total Closing Cost</option>
                           </select>
                           <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>

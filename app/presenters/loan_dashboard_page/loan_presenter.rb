@@ -23,7 +23,20 @@ class LoanDashboardPage::LoanPresenter
         :third_party_fees,
         :monthly_payment,
         :lender_credits,
-        :estimated_prepaid_items
+        :estimated_prepaid_items,
+        :lender_underwriting_fee,
+        :appraisal_fee,
+        :tax_certification_fee,
+        :flood_certification_fee,
+        :outside_signing_service_fee,
+        :concurrent_loan_charge_fee,
+        :endorsement_charge_fee,
+        :lender_title_policy_fee,
+        :recording_service_fee,
+        :settlement_agent_fee,
+        :recording_fees,
+        :owner_title_policy_fee,
+        :prepaid_item_fee
       ],
       include: {
         properties: {

@@ -341,8 +341,7 @@ var HelpMeChoose = React.createClass({
                     <div className='col-lg-2 selected_year col-xs-12'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'year')}/>
                     </div>
-                    <div className='col-lg-offset-3'></div>
-                    <div className='col-lg-7 range col-xs-12 slider-item'>
+                    <div className='col-lg-10 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -355,13 +354,10 @@ var HelpMeChoose = React.createClass({
                     </div>
                   </div>
                   <div className='row calc-form'>
-                    <div className='col-lg-2 selected_avg_rate col-xs-6'>
+                    <div className='col-lg-2 selected_avg_rate col-xs-12'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'avg_rate')}/>
                     </div>
-                    <div className='col-lg-3 col-xs-6'>
-                      <p>Investment return rate</p>
-                    </div>
-                    <div className='col-lg-7 range col-xs-12 slider-item'>
+                    <div className='col-lg-10 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -373,13 +369,10 @@ var HelpMeChoose = React.createClass({
                     </div>
                   </div>
                   <div className='row calc-form'>
-                    <div className='col-lg-2 selected_tax_rate col-xs-6'>
+                    <div className='col-lg-2 selected_tax_rate col-xs-12'>
                       <input className="value" onBlur={_.bind(this.onBlur, null, 'tax_rate')}/>
                     </div>
-                    <div className='col-lg-3 col-xs-6'>
-                      <p>Effective tax rate</p>
-                    </div>
-                    <div className='col-lg-7 range col-xs-12 slider-item'>
+                    <div className='col-lg-10 range col-xs-12 slider-item'>
                       <div className='slider'></div>
                     </div>
                   </div>
@@ -435,7 +428,7 @@ var HelpMeChoose = React.createClass({
                       </div>
                       <div className='col-xs-6 col-md-6'>
                         {
-                          this.state.bestRate.loan_amount - this.props.mortgageBalance == 0
+                          Math.abs(this.state.bestRate.loan_amount - this.props.mortgageBalance) >= 0 && Math.abs(this.state.bestRate.loan_amount - this.props.mortgageBalance) < 0.5
                           ?
                             "$0"
                           :
@@ -450,14 +443,6 @@ var HelpMeChoose = React.createClass({
                   </div>
                   <div className='col-xs-6 col-md-6'>
                     {this.commafy(this.state.bestRate.interest_rate * 100, 3)}%
-                  </div>
-                </div>
-                <div className='row secondary-cost'>
-                  <div className='col-xs-6 col-md-6'>
-                    APR
-                  </div>
-                  <div className='col-xs-6 col-md-6'>
-                    {this.commafy(this.state.bestRate.apr * 100, 3)}%
                   </div>
                 </div>
                 {
