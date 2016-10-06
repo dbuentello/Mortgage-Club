@@ -118,13 +118,7 @@ var FormDocuments = React.createClass({
         <form className="form-horizontal">
           <div className='form-group'>
             <p className="box-description col-sm-12 text-xs-justify text-sm-justify">
-              At the minimum, we’d need these documents to submit your loan application to underwriting. Please help us gather these documents. For your convenience, we can also order tax return, W2, 1099… directly from the IRS (with your authorization) but it would take them several hours to fulfill our order. Please email us at <a href="mailto:hello@mortgageclub.co" target="_blank">hello@mortgageclub.co</a> to request that.
-              <br/>
-              For your security,
-              <br/>
-              <span className="glyphicon glyphicon-ok"></span> We use 256-bit SSL encryption (bank-level security).
-              <br/>
-              <span className="glyphicon glyphicon-ok"></span> We’ll log you out after 20 mins of inactivity.
+              At the minimum, we’d need these documents to submit your loan application to underwriting. Please help us gather these documents.
             </p>
           </div>
           {
