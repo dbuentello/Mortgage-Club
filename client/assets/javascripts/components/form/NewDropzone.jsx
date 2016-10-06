@@ -148,12 +148,26 @@ var Dropzone = React.createClass({
           enctype: 'multipart/form-data',
           data: formData,
           success: function(response) {
-            // update tip after update
-            this.setState({ tip: files[0].name });
+            if(this.props.resetAfterUploading === true){
+              this.setState({ tip: "Click to upload" });
 
-            this.setState({ downloadUrl: response.download_url });
-            this.setState({ removeUrl: response.remove_url });
-            this.setState({ fileIsExisting: true });
+              // disable the download button immediately
+              this.setState({ downloadUrl: null, removeUrl: null });
+
+              // destroy tooltip
+              $(this.refs.box.getDOMNode()).tooltip('destroy');
+              $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.empty.backgroundColor, color: this.props.empty.color});
+
+              // update description empty
+              this.setState({ otherDescription: "" })
+              $("#other_borrower_report").val('');
+            } else {
+              this.setState({ tip: files[0].name });
+
+              this.setState({ downloadUrl: response.download_url });
+              this.setState({ removeUrl: response.remove_url });
+              this.setState({ fileIsExisting: true });
+            }
 
             if (this.props.uploadSuccessCallback) {
               this.props.uploadSuccessCallback(this.props.field.name, files[0].name, response.id);
@@ -227,7 +241,7 @@ var Dropzone = React.createClass({
     };
 
     if (this.props.supportOtherDescription) {
-      var customDescription = <span><input className='mhl' placeholder='Description' onChange={this.onChangeDiscription}/></span>
+      var customDescription = <input style={{"width": "75%", "margin-bottom": "10px"}} placeholder='Description' onChange={this.onChangeDiscription} value={this.state.otherDescription}/>
     }
 
     var disabled = this.props.editMode === false ? "disabled" : null;

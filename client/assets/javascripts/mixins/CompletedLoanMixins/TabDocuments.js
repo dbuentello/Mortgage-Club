@@ -22,10 +22,11 @@ var TabDocuments = {
   documentsCompleted: function(loan){
     var borrower = loan.borrower;
     var secondaryBorrower = loan.secondary_borrower;
-    if(secondaryBorrower === undefined || secondaryBorrower === null)
-      return this.borrowerDocumentsCompleted(borrower);
+    // if(secondaryBorrower === undefined || secondaryBorrower === null)
+    //   return this.borrowerDocumentsCompleted(borrower);
 
-    return (this.borrowerDocumentsCompleted(borrower) && this.coBorrowerDocumentsCompleted(borrower.is_file_taxes_jointly, secondaryBorrower));
+    // return (this.borrowerDocumentsCompleted(borrower) && this.coBorrowerDocumentsCompleted(borrower.is_file_taxes_jointly, secondaryBorrower));
+    return true;
   },
 
   borrowerDocumentsCompleted: function(borrower){

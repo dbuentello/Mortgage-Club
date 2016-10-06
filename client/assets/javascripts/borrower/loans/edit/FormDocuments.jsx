@@ -113,6 +113,15 @@ var FormDocuments = React.createClass({
       }
     }
 
+    var otherField = {label: "Other", placeholder: "Click to upload"};
+
+    var customOtherParams = [
+      {document_type: "other_borrower_report"},
+      {subject_id: borrower.id},
+      {subject_type: "Borrower"},
+      {description: "Other"}
+    ];
+
     return (
       <div className="col-md-3 col-sm-12 account-content">
         <form className="form-horizontal">
@@ -237,6 +246,17 @@ var FormDocuments = React.createClass({
                 }
               </div>
             }
+
+          <div className="drop_zone" style={{"margin-top": "10px"}} key={"other_document"}>
+            <Dropzone field={otherField}
+              uploadUrl={uploadUrl}
+              maxSize={10000000}
+              customParams={customOtherParams}
+              supportOtherDescription={true}
+              uploadSuccessCallback={this.reloadOtherDocuments}
+              resetAfterUploading={true}
+              editMode={this.props.editMode}/>
+          </div>
           <div className='form-group'>
             <div className='col-md-12'>
               {
@@ -265,6 +285,11 @@ var FormDocuments = React.createClass({
       success: function(response) {
         if(response.borrower_documents !== undefined && response.borrower_documents !== null) {
           var state = this.state;
+          _.each(response.borrower_documents, function(borrowerDocument) {
+            borrowerDocument.downloadUrl = "/document_uploaders/base_document/" + borrowerDocument.id + "/download";
+            borrowerDocument.removeUrl = "/document_uploaders/base_document/" + borrowerDocument.id;
+          }, this);
+
           state.otherBorrowerDocuments = response.borrower_documents;
           this.setState(state);
         }
@@ -352,27 +377,28 @@ var FormDocuments = React.createClass({
     var borrower_uploaded_files = [];
     var co_borrower_uploaded_files = [];
 
-    _.each(upload_fields, function(upload_field) {
-      borrower_uploaded_files.push(owner_upload_fields[upload_field].name);
-    });
+    // _.each(upload_fields, function(upload_field) {
+    //   borrower_uploaded_files.push(owner_upload_fields[upload_field].name);
+    // });
 
-    _.each(co_upload_fields, function(co_upload_field) {
-      co_borrower_uploaded_files.push(co_borrower_upload_fields[co_upload_field].name);
-    });
+    // _.each(co_upload_fields, function(co_upload_field) {
+    //   co_borrower_uploaded_files.push(co_borrower_upload_fields[co_upload_field].name);
+    // });
 
-    var result = borrower_uploaded_files.concat(co_borrower_uploaded_files).filter(function(i) {
-      return uploaded_files.indexOf(i) < 0;
-    });
+    // var result = borrower_uploaded_files.concat(co_borrower_uploaded_files).filter(function(i) {
+    //   return uploaded_files.indexOf(i) < 0;
+    // });
 
-    if(this.state.hasSecondaryBorrower == true && (this.state.is_file_taxes_jointly === null || this.state.is_file_taxes_jointly === undefined))
-    {
-      return false;
-    }
+    // if(this.state.hasSecondaryBorrower == true && (this.state.is_file_taxes_jointly === null || this.state.is_file_taxes_jointly === undefined))
+    // {
+    //   return false;
+    // }
 
-    if(result.length == 0)
-      return true;
+    // if(result.length == 0)
+    //   return true;
 
-    return false;
+    // return false;
+    return true;
   },
 
   save: function(event) {
