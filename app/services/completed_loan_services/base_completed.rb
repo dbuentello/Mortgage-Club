@@ -33,11 +33,10 @@ module CompletedLoanServices
     end
 
     def documents_completed?
-      true
-      # CompletedLoanServices::TabDocuments.new(
-      #   borrower: borrower,
-      #   secondary_borrower: secondary_borrower
-      # ).call
+      CompletedLoanServices::TabDocuments.new(
+        borrower: borrower,
+        secondary_borrower: secondary_borrower
+      ).call
     end
 
     def income_completed?

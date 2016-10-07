@@ -325,7 +325,7 @@ var Form = React.createClass({
     // For now just make them all editable
     state['borrower_editable'] = true;
     state['secondary_borrower_editable'] = true;
-    console.log(borrower);
+
     var secondary_borrower = loan.secondary_borrower;
 
     switch(this.props.borrower_type) {

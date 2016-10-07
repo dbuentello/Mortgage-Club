@@ -15,6 +15,7 @@ class BorrowerForm
       current_address.save!
       current_borrower_address.save!
       update_primary_property if primary_borrower?
+      update_required_documents
 
       if borrower.must_have_previous_address?
         update_old_address

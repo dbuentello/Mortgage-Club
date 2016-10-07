@@ -26,7 +26,8 @@ var Dropzone = React.createClass({
         backgroundColor: "#FFF",
         color: "#000"
       },
-      supportOtherDescription: false
+      supportOtherDescription: false,
+      delete: "yes"
     };
   },
 
@@ -165,7 +166,9 @@ var Dropzone = React.createClass({
               this.setState({ tip: files[0].name });
 
               this.setState({ downloadUrl: response.download_url });
-              this.setState({ removeUrl: response.remove_url });
+              var removeUrl = this.props.delete == "no" ? response.remove_url + "?delete=no" : response.remove_url;
+
+              this.setState({ removeUrl: removeUrl });
               this.setState({ fileIsExisting: true });
             }
 
@@ -216,7 +219,7 @@ var Dropzone = React.createClass({
         success: function(response) {
           // update tip
           this.setState({ tip: 'Click to upload' });
-          this.setState({ downloadUrl: null });
+          this.setState({ downloadUrl: "javascript:void(0)" });
           this.setState({ fileIsExisting: false });
 
           $("#" + this.props.field.name).val(null);
