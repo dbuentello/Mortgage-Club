@@ -170,7 +170,7 @@ class InitializeFirstLoanService
         subjectable_id: borrower.id,
         description: "W2 - Most recent tax year",
         user_id: borrower.user.id,
-        is_required: true
+        is_required: false
       )
     end
 
@@ -181,7 +181,7 @@ class InitializeFirstLoanService
         subjectable_id: borrower.id,
         description: "W2 - Previous tax year",
         user_id: borrower.user.id,
-        is_required: true
+        is_required: false
       )
     end
 
@@ -192,7 +192,7 @@ class InitializeFirstLoanService
         subjectable_id: borrower.id,
         description: "Paystub - Most recent period",
         user_id: borrower.user.id,
-        is_required: true
+        is_required: false
       )
     end
 
@@ -203,7 +203,7 @@ class InitializeFirstLoanService
         subjectable_id: borrower.id,
         description: "Paystub - Previous period",
         user_id: borrower.user.id,
-        is_required: true
+        is_required: false
       )
     end
 
@@ -214,7 +214,7 @@ class InitializeFirstLoanService
         subjectable_id: borrower.id,
         description: "Bank statement - Most recent month",
         user_id: borrower.user.id,
-        is_required: true
+        is_required: false
       )
     end
 
@@ -225,7 +225,7 @@ class InitializeFirstLoanService
         subjectable_id: borrower.id,
         description: "Bank statement - Previous month",
         user_id: borrower.user.id,
-        is_required: true
+        is_required: false
       )
     end
 
@@ -236,7 +236,7 @@ class InitializeFirstLoanService
         subjectable_id: borrower.id,
         description: "Personal tax return - Most recent year",
         user_id: borrower.user.id,
-        is_required: true
+        is_required: false
       )
     end
 
@@ -247,7 +247,7 @@ class InitializeFirstLoanService
         subjectable_id: borrower.id,
         description: "Personal tax return - Previous year",
         user_id: borrower.user.id,
-        is_required: true
+        is_required: false
       )
     end
 
@@ -258,7 +258,7 @@ class InitializeFirstLoanService
         subjectable_id: borrower.id,
         description: "Business tax return - Most recent year",
         user_id: borrower.user.id,
-        is_required: true
+        is_required: false
       )
     end
 
@@ -269,7 +269,7 @@ class InitializeFirstLoanService
         subjectable_id: borrower.id,
         description: "Business tax return - Previous year",
         user_id: borrower.user.id,
-        is_required: true
+        is_required: false
       )
     end
   end

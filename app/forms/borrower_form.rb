@@ -64,6 +64,52 @@ class BorrowerForm
     property
   end
 
+  def update_required_documents
+    borrower_required_documents = []
+
+    if loan.borrower.id == borrower.id
+      if borrower.self_employed
+        borrower_required_documents = ["first_personal_tax_return", "second_personal_tax_return", "first_business_tax_return", "second_business_tax_return", "first_bank_statement", "second_bank_statement"]
+      else
+        borrower_required_documents = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_personal_tax_return", "second_personal_tax_return",  "first_bank_statement", "second_bank_statement"]
+      end
+
+      borrower.documents.update_all(is_required: false)
+      borrower.documents.where(document_type: borrower_required_documents).update_all(is_required: true)
+    else
+      if loan.secondary_borrower
+        co_borrower_required_documents = []
+        secondary_borrower = loan.secondary_borrower
+
+        if secondary_borrower.self_employed
+          if loan.borrower.is_file_taxes_jointly
+            co_borrower_required_documents = ["first_business_tax_return", "second_business_tax_return"]
+          else
+            co_borrower_required_documents = ["first_personal_tax_return", "second_personal_tax_return", "first_business_tax_return", "second_business_tax_return"]
+          end
+        else
+          if loan.borrower.is_file_taxes_jointly
+            co_borrower_required_documents = ["first_w2", "second_w2", "first_paystub", "second_paystub"]
+          else
+            co_borrower_required_documents = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_personal_tax_return", "second_personal_tax_return"]
+          end
+        end
+
+        secondary_borrower.documents.update_all(is_required: false)
+        co_borrower_required_documents.each do |document_type|
+          document = Document.find_or_initialize_by(subjectable_id: secondary_borrower.id, document_type: document_type)
+
+          document.subjectable_type = "Borrower"
+          document.description = Document::BORROWER_DOCUMENT_DESCRIPTION[document_type]
+          document.user_id = borrower.user_id
+          document.is_required = true
+
+          document.save
+        end
+      end
+    end
+  end
+
   private
 
   def assign_value_to_attributes

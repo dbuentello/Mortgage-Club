@@ -1,6 +1,19 @@
 class Document < ActiveRecord::Base
   include Documentation
 
+  BORROWER_DOCUMENT_DESCRIPTION =  {
+    "first_w2" => "W2 - Most recent tax year",
+    "second_w2" => "W2 - Previous tax year",
+    "first_paystub" => "Paystub - Most recent period",
+    "second_paystub" => "Paystub - Previous period",
+    "first_bank_statement" => "Bank statement - Most recent month",
+    "second_bank_statement" => "Bank statement - Previous month",
+    "first_personal_tax_return" => "Personal tax return - Most recent year",
+    "second_personal_tax_return" => "Personal tax return - Previous year",
+    "first_business_tax_return" => "Business tax return - Most recent year",
+    "second_business_tax_return" => "Business tax return - Previous year"
+  }
+
   BORROWER_LIST = %w(
     first_w2 second_w2 first_paystub second_paystub first_bank_statement second_bank_statement
     first_personal_tax_return second_personal_tax_return
