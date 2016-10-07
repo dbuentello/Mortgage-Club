@@ -40,7 +40,8 @@ var borrower_fields = {
   previouslyOwn: {label: 'Do you own or rent?', name: 'first_borrower_previously_own', fieldName: 'previously_own', helpText: null, error: "previouslyOwnError", validationTypes: ["empty"]},
   yearsInPreviousAddress: {label: 'No. of years you have lived here', name: 'first_borrower_years_in_previous_address', fieldName: 'years_in_previous_address', helpText: null, error: "yearsInPreviousAddressError", validationTypes: ["empty", "integer"]},
   currentMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_current_monthly_rent', fieldName: 'current_monthly_rent', helpText: null, error: "currentMonthlyRentError", validationTypes: ["empty", "currency"]},
-  previousMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null, error: "previousMonthlyRentError", validationTypes: ["empty", "currency"]}
+  previousMonthlyRent: {label: 'Monthly Rent', name: 'first_borrower_previous_monthly_rent', fieldName: 'previous_monthly_rent', helpText: null, error: "previousMonthlyRentError", validationTypes: ["empty", "currency"] },
+  isFileTaxesJointly: {label: 'Do you and your co-borrower file taxes jointly?', name: 'first_borrower_is_file_taxes_jointly', fieldName: 'is_file_taxes_jointly', helpText: null, error: "isFileTaxesJointlyError", validationTypes: ["empty"]}
 };
 
 var secondary_borrower_fields = {
@@ -173,6 +174,22 @@ var Form = React.createClass({
               onChange={this.coBorrowerHanlder}
               editMode={this.props.editMode}/>
             </div>
+            {
+              this.state.hasSecondaryBorrower
+              ?
+                <div className='col-md-6'>
+                  <BooleanRadio
+                    activateRequiredField={this.state[borrower_fields.isFileTaxesJointly.error]}
+                    label={borrower_fields.isFileTaxesJointly.label}
+                    checked={this.state[borrower_fields.isFileTaxesJointly.name]}
+                    keyName={borrower_fields.isFileTaxesJointly.name}
+                    editable={this.state.borrower_editable}
+                    onChange={this.onChange}
+                    editMode={this.props.editMode}/>
+                </div>
+              :
+                null
+            }
           </div>
           <Borrower
             loan={this.props.loan}
@@ -308,7 +325,7 @@ var Form = React.createClass({
     // For now just make them all editable
     state['borrower_editable'] = true;
     state['secondary_borrower_editable'] = true;
-
+    console.log(borrower);
     var secondary_borrower = loan.secondary_borrower;
 
     switch(this.props.borrower_type) {
@@ -369,6 +386,14 @@ var Form = React.createClass({
     state[fields.numberOfDependents.name] = borrower[fields.numberOfDependents.fieldName];
     state[fields.dependentAges.name] = borrower[fields.dependentAges.fieldName].join(', ');
     state[fields.selfEmployed.name] = borrower[fields.selfEmployed.fieldName];
+
+    if(fields.isFileTaxesJointly) {
+      state[fields.isFileTaxesJointly.name] = borrower[fields.isFileTaxesJointly.fieldName];
+
+      if(state[fields.isFileTaxesJointly.name] === null){
+        state[fields.isFileTaxesJointly.name] = true;
+      }
+    }
 
     var currentBorrowerAddress = borrower[fields.currentAddress.fieldName];
     if (currentBorrowerAddress) {
@@ -587,6 +612,11 @@ var Form = React.createClass({
     borrower[fields.yearsInSchool.fieldName] = this.state[fields.yearsInSchool.name];
     borrower[fields.maritalStatus.fieldName] = this.state[fields.maritalStatus.name];
     borrower[fields.numberOfDependents.fieldName] = this.state[fields.numberOfDependents.name];
+
+    if(fields.isFileTaxesJointly){
+      borrower[fields.isFileTaxesJointly.fieldName] = this.state[fields.isFileTaxesJointly.name];
+    }
+
     if (!this.state[fields.numberOfDependents.name]) {
       borrower[fields.numberOfDependents.fieldName] = 0;
     }

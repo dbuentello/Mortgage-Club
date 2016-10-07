@@ -72,7 +72,7 @@ class Document < ActiveRecord::Base
   validates :user_id, :subjectable_type, :subjectable_id, :token, :description, :document_type, presence: true
 
   validates_attachment :attachment,
-    presence: true,
+    # presence: true,
     content_type: {
       content_type: ALLOWED_MIME_TYPES,
       message: :invalid_upload_document_type
