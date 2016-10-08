@@ -31,6 +31,12 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     }
   end
 
+  def update_required_documents
+    render json: {
+      loan: LoanMembers::LoanPresenter.new(@loan).show
+    }
+  end
+
   def export_xml
     loan = Loan.find(params[:id])
     xml = ExportXmlMismoService.new(loan, loan.borrower).call

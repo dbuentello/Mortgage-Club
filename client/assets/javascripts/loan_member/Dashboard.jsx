@@ -11,6 +11,7 @@ var ChecklistTab = require("./tabs/checklist/ChecklistTab");
 var CompetitorRateTab = require("./tabs/competitor_rates/CompetitorRateTab");
 var LoanTermsTab = require("./tabs/loan_terms/LoanTermsTab");
 var LoanUrlTokenTab = require("./tabs/loan_url_tokens/LoanUrlTokenTab");
+var RequiredDocumentTab = require("./tabs/required_document/RequiredDocumentTab");
 
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
@@ -79,6 +80,12 @@ var Dashboard = React.createClass({
                           Loan URL Token
                         </a>
                       </li>
+                      <li role="presentation">
+                        <a href="#required_document" aria-controls="required_document" role="tab" data-toggle="tab">
+                          <i className="icon-file-text"></i>
+                          Required Documents
+                        </a>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -106,6 +113,9 @@ var Dashboard = React.createClass({
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="loan_url_token">
                   <LoanUrlTokenTab loan={this.props.bootstrapData.loan} url={this.props.bootstrapData.url}/>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="required_document">
+                  <RequiredDocumentTab loan={this.props.bootstrapData.loan}/>
                 </div>
               </div>
             </div>
