@@ -128,7 +128,6 @@ Rails.application.routes.draw do
       member do
         get "export_xml"
         post "update_loan_terms"
-        post "update_required_documents"
       end
     end
 
@@ -145,6 +144,7 @@ Rails.application.routes.draw do
 
     resources :documents, only: [] do
       collection do
+        post "update_required"
         get "get_other_documents"
       end
     end

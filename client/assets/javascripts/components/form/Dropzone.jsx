@@ -156,6 +156,8 @@ var Dropzone = React.createClass({
             this.setState({ tip: files[0].name });
 
             this.setState({ downloadUrl: response.download_url });
+
+            var removeUrl = this.props.delete == "no" ? response.remove_url + "?delete=no" : response.remove_url;
             this.setState({ removeUrl: response.remove_url });
 
             // tooltip chosen dropzone

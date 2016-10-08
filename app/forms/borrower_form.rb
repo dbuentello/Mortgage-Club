@@ -68,14 +68,16 @@ class BorrowerForm
     borrower_required_documents = []
 
     if loan.borrower.id == borrower.id
-      if borrower.self_employed
-        borrower_required_documents = ["first_personal_tax_return", "second_personal_tax_return", "first_business_tax_return", "second_business_tax_return", "first_bank_statement", "second_bank_statement"]
-      else
-        borrower_required_documents = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_personal_tax_return", "second_personal_tax_return",  "first_bank_statement", "second_bank_statement"]
-      end
+      if loan.borrower.is_editted_by_loan_member.nil?
+        if borrower.self_employed
+          borrower_required_documents = ["first_personal_tax_return", "second_personal_tax_return", "first_business_tax_return", "second_business_tax_return", "first_bank_statement", "second_bank_statement"]
+        else
+          borrower_required_documents = ["first_w2", "second_w2", "first_paystub", "second_paystub", "first_personal_tax_return", "second_personal_tax_return",  "first_bank_statement", "second_bank_statement"]
+        end
 
-      borrower.documents.update_all(is_required: false)
-      borrower.documents.where(document_type: borrower_required_documents).update_all(is_required: true)
+        borrower.documents.update_all(is_required: false)
+        borrower.documents.where(document_type: borrower_required_documents).update_all(is_required: true)
+      end
     else
       if loan.secondary_borrower
         co_borrower_required_documents = []
