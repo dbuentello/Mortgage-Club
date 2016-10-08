@@ -139,6 +139,7 @@ var FormDocuments = React.createClass({
                 {description: borrowerDocument.description},
                 {document_id: borrowerDocument.id}
               ];
+              var deleteText = borrowerDocument.is_required == true ? "no" : "yes";
               var field = {label: borrowerDocument.description};
               return(
                 <div className="drop_zone" style={{"margin-top": "10px"}} key={borrowerDocument.id}>
@@ -151,8 +152,10 @@ var FormDocuments = React.createClass({
                     maxSize={10000000}
                     customParams={customParams}
                     supportOtherDescription={false}
+                    uploadSuccessCallback={this.reloadOtherDocuments}
                     removeSuccessCallback={this.reloadOtherDocuments}
-                    editMode={this.props.editMode}/>
+                    editMode={this.props.editMode}
+                    delete={deleteText}/>
                 </div>
               )
             }, this)
@@ -239,11 +242,17 @@ var FormDocuments = React.createClass({
       success: function(response) {
         if(response.borrower_documents !== undefined && response.borrower_documents !== null) {
           var state = this.state;
-          _.each(response.borrower_documents, function(borrowerDocument) {
-            borrowerDocument.downloadUrl = "/document_uploaders/base_document/" + borrowerDocument.id + "/download";
-            borrowerDocument.removeUrl = "/document_uploaders/base_document/" + borrowerDocument.id;
-          }, this);
+          _.each(response.borrower_documents, function(otherDocument) {
+            if(otherDocument.original_filename){
+              var removeUrl = "/document_uploaders/base_document/" + otherDocument.id;
+              if(otherDocument.is_required == true){
+                removeUrl += "?delete=no"
+              }
 
+              otherDocument.downloadUrl = "/document_uploaders/base_document/" + otherDocument.id + "/download";
+              otherDocument.removeUrl = removeUrl;
+            }
+          }, this);
           state.otherBorrowerDocuments = response.borrower_documents;
           this.setState(state);
         }
@@ -286,9 +295,16 @@ var FormDocuments = React.createClass({
     if(borrower.other_documents !== undefined && borrower.other_documents !== null){
       state.otherBorrowerDocuments = borrower.other_documents;
 
-      _.each(state.otherBorrowerDocuments, function(borrowerDocument) {
-        borrowerDocument.downloadUrl = "/document_uploaders/base_document/" + borrowerDocument.id + "/download";
-        borrowerDocument.removeUrl = "/document_uploaders/base_document/" + borrowerDocument.id;
+      _.each(state.otherBorrowerDocuments, function(otherDocument) {
+        if(otherDocument.original_filename){
+          var removeUrl = "/document_uploaders/base_document/" + otherDocument.id;
+          if(otherDocument.is_required == true){
+            removeUrl += "?delete=no"
+          }
+
+          otherDocument.downloadUrl = "/document_uploaders/base_document/" + otherDocument.id + "/download";
+          otherDocument.removeUrl = removeUrl;
+        }
       }, this);
     }
     if (secondary_borrower) {
@@ -332,18 +348,21 @@ var FormDocuments = React.createClass({
     var co_borrower_uploaded_files = [];
 
     _.each(upload_fields, function(upload_field) {
-      borrower_uploaded_files.push(owner_upload_fields[upload_field].name);
+      if(upload_field != "other_borrower_report"){
+        borrower_uploaded_files.push(owner_upload_fields[upload_field].name);
+      }
     });
 
     _.each(co_upload_fields, function(co_upload_field) {
       co_borrower_uploaded_files.push(co_borrower_upload_fields[co_upload_field].name);
     });
 
+    var other_file = _.find(this.state.otherBorrowerDocuments, function(otherDocument){ return otherDocument.original_filename == null && otherDocument.is_required == true });
     var result = borrower_uploaded_files.concat(co_borrower_uploaded_files).filter(function(i) {
       return uploaded_files.indexOf(i) < 0;
     });
 
-    if(result.length == 0)
+    if(result.length == 0 && other_file === undefined)
       return true;
 
     return false;

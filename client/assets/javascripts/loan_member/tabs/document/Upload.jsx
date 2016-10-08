@@ -38,8 +38,13 @@ var Upload = React.createClass({
       state.otherDocuments = this.props.subject.other_documents;
 
       _.each(state.otherDocuments, function(otherDocument) {
-        otherDocument.downloadUrl = "/document_uploaders/base_document/" + otherDocument.id + "/download";
-        otherDocument.removeUrl = "/document_uploaders/base_document/" + otherDocument.id;
+        if(otherDocument.original_filename){
+          otherDocument.downloadUrl = "/document_uploaders/base_document/" + otherDocument.id + "/download";
+          otherDocument.removeUrl = "/document_uploaders/base_document/" + otherDocument.id;
+        }else{
+          otherDocument.downloadUrl = "javascript:void(0)";
+          otherDocument.removeUrl = "javascript:void(0)";
+        }
       }, this);
     }
     return state;
@@ -61,8 +66,13 @@ var Upload = React.createClass({
           var otherDocuments = response.other_documents;
 
           _.each(otherDocuments, function(otherDocument) {
-            otherDocument.downloadUrl = "/document_uploaders/base_document/" + otherDocument.id + "/download";
-            otherDocument.removeUrl = "/document_uploaders/base_document/" + otherDocument.id;
+            if(otherDocument.original_filename){
+              otherDocument.downloadUrl = "/document_uploaders/base_document/" + otherDocument.id + "/download";
+              otherDocument.removeUrl = "/document_uploaders/base_document/" + otherDocument.id;
+            }else{
+              otherDocument.downloadUrl = "javascript:void(0)";
+              otherDocument.removeUrl = "javascript:void(0)";
+            }
           }, this);
 
           var state = this.state;
@@ -77,7 +87,7 @@ var Upload = React.createClass({
   onChange: function(event){
     var dataDocument = $(event.target).data();
     var isRequired = event.target.checked;
-    console.log(dataDocument);
+
     $.ajax({
       url: "/loan_members/documents/update_required",
       method: 'POST',
@@ -134,7 +144,7 @@ var Upload = React.createClass({
       {description: "Other"}
     ];
 
-    var otherField = {label: "Other", placeholder: "Drop files to upload or CLICK"};
+    var otherField = {label: "Other", placeholder: "Drop files to upload or CLICK", name: "other_borrower_report"};
 
     if(this.props.subjectType == "Borrower"){
       return (
@@ -180,6 +190,7 @@ var Upload = React.createClass({
                 {description: otherDocument.description},
                 {document_id: otherDocument.id}
               ];
+
               var field = {label: otherDocument.description, placeholder: "Drop files to upload or CLICK"};
               return(
                 <div className="row">
