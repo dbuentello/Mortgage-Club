@@ -20,7 +20,7 @@ var Borrower = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div style={{"margin-top": "25px"}}>
         <div className="form-group">
           <div className="col-md-3">
             <TextField
