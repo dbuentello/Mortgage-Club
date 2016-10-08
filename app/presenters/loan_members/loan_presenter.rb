@@ -23,6 +23,16 @@ class LoanMembers::LoanPresenter
             }
           }
         },
+        borrower: {
+          include: [
+            documents: {}
+          ]
+        },
+        secondary_borrower: {
+          include: [
+            documents: {}
+          ]
+        },
         documents: {},
         lender_documents: {},
         lender: {

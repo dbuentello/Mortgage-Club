@@ -9,10 +9,18 @@ class DocumentUploaders::BaseDocumentController < ApplicationController
   def destroy
     @document = Document.find_by_id(params[:id])
 
-    if @document.destroy
-      return render json: {message: 'Removed it sucessfully'}, status: 200
+    if params[:delete] == "no"
+      if @document.update(attachment: nil, original_filename: nil)
+        return render json: {message: 'Removed it sucessfully'}, status: 200
+      else
+        return render json: {message: 'Remove file failed'}, status: 500
+      end
     else
-      return render json: {message: 'Remove file failed'}, status: 500
+      if @document.destroy
+        return render json: {message: 'Removed it sucessfully'}, status: 200
+      else
+        return render json: {message: 'Remove file failed'}, status: 500
+      end
     end
   end
 

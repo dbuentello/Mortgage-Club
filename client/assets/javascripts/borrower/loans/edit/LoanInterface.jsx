@@ -68,62 +68,58 @@ var LoanInterface = React.createClass({
                 {
                   this.state.loan.lender_name
                   ?
-                  <div id={"summary"}>
+                    <div id={"summary"}>
+                      <p>SUMMARY</p>
+                      <table>
+                        <tr>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                        <tr>
+                          <td>Lender</td>
+                          <td>{this.state.loan.lender_name}</td>
+                        </tr>
+                        <tr>
+                          <td>Loan type</td>
+                          <td>{this.state.loan.amortization_type}</td>
+                        </tr>
+                        <tr>
+                          <td>Property value</td>
+                          {
+                            this.state.loan.purpose == "purchase"
+                            ?
+                            <td>{this.formatCurrency(this.state.loan.subject_property.purchase_price, 0, "$")}</td>
+                            :
+                            <td>{this.formatCurrency(this.state.loan.subject_property.market_price, 0, "$")}</td>
 
-                    <p>SUMMARY</p>
-                    <table>
-        <tr>
-          <th></th>
-          <th></th>
-        </tr>
-        <tr>
-          <td>Lender</td>
-          <td>{this.state.loan.lender_name}</td>
-        </tr>
-        <tr>
-          <td>Loan type</td>
-          <td>{this.state.loan.amortization_type}</td>
-        </tr>
-        <tr>
-          <td>Property value</td>
-          {
-            this.state.loan.purpose == "purchase"
-            ?
-            <td>{this.formatCurrency(this.state.loan.subject_property.purchase_price, 0, "$")}</td>
-            :
-            <td>{this.formatCurrency(this.state.loan.subject_property.market_price, 0, "$")}</td>
+                          }
 
-          }
-
-        </tr>
-        <tr>
-          <td>Loan amount</td>
-          <td>{this.formatCurrency(this.state.loan.amount, 0, "$")}</td>
-        </tr>
-        <tr>
-          <td>Rate</td>
-          <td>{this.formatPercent(this.state.loan.interest_rate*100)}</td>
-        </tr>
-        {this.state.loan.discount_pts > 0 ?
-          <tr>
-            <td>Discount points</td>
-            <td>{this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")}</td>
-          </tr>
-          :
-          <tr>
-            <td>Lender credit</td>
-            <td>{this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")}</td>
-          </tr>
-        }
-
-
-      </table>
-      <p id="remain_step"> <strong>{this.state.remain_step}</strong> steps remaining </p>
-    </div>
+                        </tr>
+                        <tr>
+                          <td>Loan amount</td>
+                          <td>{this.formatCurrency(this.state.loan.amount, 0, "$")}</td>
+                        </tr>
+                        <tr>
+                          <td>Rate</td>
+                          <td>{this.formatPercent(this.state.loan.interest_rate*100)}</td>
+                        </tr>
+                        {this.state.loan.discount_pts > 0 ?
+                          <tr>
+                            <td>Discount points</td>
+                            <td>{this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")}</td>
+                          </tr>
+                          :
+                          <tr>
+                            <td>Lender credit</td>
+                            <td>{this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")}</td>
+                          </tr>
+                        }
+                      </table>
+                      <p id="remain_step"> <strong>{this.state.remain_step}</strong> steps remaining </p>
+                    </div>
                   :
-                  null
+                   null
                 }
-
               </div>
 
               <div className="swipe-area">
@@ -160,7 +156,7 @@ var LoanInterface = React.createClass({
     );
   },
 
-  updateDocuments: function(typeBorrower, typeDocument, typeAction, taxJointly, name, id){
+  updateDocuments: function(typeBorrower, typeDocument, typeAction, name, id){
     var loan = this.state.loan;
     var borrower = typeBorrower === "borrower" ? loan.borrower : loan.secondary_borrower;
 
@@ -172,44 +168,27 @@ var LoanInterface = React.createClass({
       //get index file
       var index = $.map(borrower.documents, function(document, index) {
         if(document.document_type === typeDocument) {
-            return index;
+          return index;
         }
       });
 
       if(index.length > 0)
       {
-        if(typeAction === "remove"){
-          borrower.documents.splice(index[0], 1);
-        }else{
+        if(typeAction == "upload"){
           borrower.documents[index[0]].original_filename = name;
           borrower.documents[index[0]].id = id;
+        }else{
+          borrower.documents[index[0]].original_filename = null;
         }
 
-        if(typeBorrower === "borrower")
+        if(typeBorrower === "borrower"){
           loan.borrower = borrower;
-        else
-          loan.secondary_borrower = borrower;
-
-        loan.borrower.is_file_taxes_jointly = taxJointly;
-        this.setState({loan: loan});
-      }else{
-        if(typeAction === "upload"){
-          var document = {
-            document_type: typeDocument,
-            original_filename: name,
-            id: id
-          }
-
-          borrower.documents.push(document);
-
-          if(typeBorrower === "borrower")
-            loan.borrower = borrower;
-          else
-            loan.secondary_borrower = borrower;
-
-          loan.borrower.is_file_taxes_jointly = taxJointly;
-          this.setState({loan: loan});
         }
+        else{
+          loan.secondary_borrower = borrower;
+        }
+
+        this.setState({loan: loan});
       }
     }
   },

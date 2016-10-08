@@ -191,7 +191,7 @@ var Income = React.createClass({
         {
           parseInt(this.props.currentYearsAtEmployer, 10) < 2
           ?
-            <div className="previous-employment">
+            <div className="previous-employment" style={{"margin-top": "25px"}}>
               <div className="form-group">
                 <div className="col-md-6">
                   <TextField

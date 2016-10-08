@@ -18,7 +18,7 @@ class Users::DashboardController < Users::BaseController
       loan_activities: loan_activities,
       contact_list: LoanDashboardPage::LoanMemberAssociationsPresenter.new(@loan.loans_members_associations).show,
       checklists: LoanDashboardPage::ChecklistsPresenter.new(@loan.checklists).show,
-      borrower_documents: LoanDashboardPage::DocumentsPresenter.new(@loan.borrower.documents).show,
+      borrower_documents: LoanDashboardPage::DocumentsPresenter.new(@loan.borrower.documents.where(is_required: true)).show,
       closing_documents: LoanDashboardPage::DocumentsPresenter.new(closing.documents).show,
       property_documents: LoanDashboardPage::DocumentsPresenter.new(property.documents).show,
       loan_documents: LoanDashboardPage::DocumentsPresenter.new(@loan.documents).show,

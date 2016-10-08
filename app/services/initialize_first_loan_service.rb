@@ -47,6 +47,7 @@ class InitializeFirstLoanService
       discount_pts: info["discount_pts"]
     )
 
+    init_borrower_documents
     assign_loan_to_billy(loan)
 
     loan
@@ -148,6 +149,129 @@ class InitializeFirstLoanService
     end
 
     other_properties
+  end
+
+  def init_borrower_documents
+    first_w2 = borrower.documents.find_by_document_type("first_w2")
+    second_w2 = borrower.documents.find_by_document_type("second_w2")
+    first_paystub = borrower.documents.find_by_document_type("first_paystub")
+    second_paystub = borrower.documents.find_by_document_type("second_paystub")
+    first_bank_statement = borrower.documents.find_by_document_type("first_bank_statement")
+    second_bank_statement = borrower.documents.find_by_document_type("second_bank_statement")
+    first_personal_tax_return = borrower.documents.find_by_document_type("first_personal_tax_return")
+    second_personal_tax_return = borrower.documents.find_by_document_type("second_personal_tax_return")
+    first_business_tax_return = borrower.documents.find_by_document_type("first_business_tax_return")
+    second_business_tax_return = borrower.documents.find_by_document_type("second_business_tax_return")
+
+    unless first_w2
+      Document.create(
+        document_type: "first_w2",
+        subjectable_type: "Borrower",
+        subjectable_id: borrower.id,
+        description: "W2 - Most recent tax year",
+        user_id: borrower.user.id,
+        is_required: false
+      )
+    end
+
+    unless second_w2
+      Document.create(
+        document_type: "second_w2",
+        subjectable_type: "Borrower",
+        subjectable_id: borrower.id,
+        description: "W2 - Previous tax year",
+        user_id: borrower.user.id,
+        is_required: false
+      )
+    end
+
+    unless first_paystub
+      Document.create(
+        document_type: "first_paystub",
+        subjectable_type: "Borrower",
+        subjectable_id: borrower.id,
+        description: "Paystub - Most recent period",
+        user_id: borrower.user.id,
+        is_required: false
+      )
+    end
+
+    unless second_paystub
+      Document.create(
+        document_type: "second_paystub",
+        subjectable_type: "Borrower",
+        subjectable_id: borrower.id,
+        description: "Paystub - Previous period",
+        user_id: borrower.user.id,
+        is_required: false
+      )
+    end
+
+    unless first_bank_statement
+      Document.create(
+        document_type: "first_bank_statement",
+        subjectable_type: "Borrower",
+        subjectable_id: borrower.id,
+        description: "Bank statement - Most recent month",
+        user_id: borrower.user.id,
+        is_required: false
+      )
+    end
+
+    unless second_bank_statement
+      Document.create(
+        document_type: "second_bank_statement",
+        subjectable_type: "Borrower",
+        subjectable_id: borrower.id,
+        description: "Bank statement - Previous month",
+        user_id: borrower.user.id,
+        is_required: false
+      )
+    end
+
+    unless first_personal_tax_return
+      Document.create(
+        document_type: "first_personal_tax_return",
+        subjectable_type: "Borrower",
+        subjectable_id: borrower.id,
+        description: "Personal tax return - Most recent year",
+        user_id: borrower.user.id,
+        is_required: false
+      )
+    end
+
+    unless second_personal_tax_return
+      Document.create(
+        document_type: "second_personal_tax_return",
+        subjectable_type: "Borrower",
+        subjectable_id: borrower.id,
+        description: "Personal tax return - Previous year",
+        user_id: borrower.user.id,
+        is_required: false
+      )
+    end
+
+    unless first_business_tax_return
+      Document.create(
+        document_type: "first_business_tax_return",
+        subjectable_type: "Borrower",
+        subjectable_id: borrower.id,
+        description: "Business tax return - Most recent year",
+        user_id: borrower.user.id,
+        is_required: false
+      )
+    end
+
+    unless second_business_tax_return
+      Document.create(
+        document_type: "second_business_tax_return",
+        subjectable_type: "Borrower",
+        subjectable_id: borrower.id,
+        description: "Business tax return - Previous year",
+        user_id: borrower.user.id,
+        is_required: false
+      )
+    end
   end
 
   def borrower_own_current_address?
