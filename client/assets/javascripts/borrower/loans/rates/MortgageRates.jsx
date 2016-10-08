@@ -42,7 +42,10 @@ var MortgageRates = React.createClass({
     });
     var params = {};
     params["rate"] = rate;
+    params["rate"]["fees"] = JSON.stringify(rate.fees);
+    params["rate"]["thirty_fees"] = JSON.stringify(rate.thirty_fees);
     params = $.param(params);
+
     location.href = "esigning/" + this.props.bootstrapData.currentLoan.id + "?" + params;
   },
 

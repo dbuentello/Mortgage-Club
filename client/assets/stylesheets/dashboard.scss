@@ -195,7 +195,7 @@ a.remove {
     text-align: center;
   }
   table.table.table-striped.term-table tr td {
-    padding-left: 15px;
+    padding-left: 25px;
   }
   table.table.table-striped.term-table tr:nth-child(odd) td {
     background-color:#fff;
@@ -222,6 +222,26 @@ a.remove {
     .terms-view {
       border: none;
       box-shadow: none;
+
+      .icon-plus, .icon-minus {
+        margin-right: 5px;
+        margin-left: -15px;
+      }
+
+      .icon-plus:hover, .icon-minus:hover {
+        cursor: pointer;
+      }
+
+      .closing-cost-text {
+        margin-top: 10px;
+        margin-left: 20px;
+        display: none;
+      }
+
+      .closing-cost-price {
+        margin-top: 10px;
+        display: none;
+      }
     }
   }
 
