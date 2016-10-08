@@ -1,7 +1,7 @@
 class Document < ActiveRecord::Base
   include Documentation
 
-  BORROWER_DOCUMENT_DESCRIPTION =  {
+  BORROWER_DOCUMENT_DESCRIPTION = {
     "first_w2" => "W2 - Most recent tax year",
     "second_w2" => "W2 - Previous tax year",
     "first_paystub" => "Paystub - Most recent period",
