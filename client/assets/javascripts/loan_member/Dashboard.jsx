@@ -79,12 +79,6 @@ var Dashboard = React.createClass({
                           Loan URL Token
                         </a>
                       </li>
-                      <li role="presentation">
-                        <a href="#required_document" aria-controls="required_document" role="tab" data-toggle="tab">
-                          <i className="icon-file-text"></i>
-                          Required Documents
-                        </a>
-                      </li>
                     </ul>
                   </div>
                 </div>
