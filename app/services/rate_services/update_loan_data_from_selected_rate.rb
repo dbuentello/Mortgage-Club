@@ -25,6 +25,7 @@ module RateServices
         l.owner_title_policy_fee = get_fee(thirty_fees, "Other", "Title - Owner's Title Policy")
         l.prepaid_item_fee = get_fee(thirty_fees, "Prepaid items", "Prepaid interest")
 
+        l.cash_out = quote[:cash_out].to_f
         l.interest_rate = quote[:interest_rate].to_f
         l.lender_nmls_id = quote[:lender_nmls_id]
         l.num_of_months = quote[:period].to_i
