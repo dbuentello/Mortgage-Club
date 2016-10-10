@@ -33,6 +33,20 @@ class UpdateLoanTermsService
     loan.estimated_cash_to_close = params[:total_cash_to_close]
     loan.monthly_payment = params[:principal_interest]
 
+    loan.lender_underwriting_fee = params[:lender_underwriting_fee]
+    loan.appraisal_fee = params[:appraisal_fee]
+    loan.tax_certification_fee = params[:tax_certification_fee]
+    loan.flood_certification_fee = params[:flood_certification_fee]
+    loan.outside_signing_service_fee = params[:outside_signing_service_fee]
+    loan.concurrent_loan_charge_fee = params[:concurrent_loan_charge_fee]
+    loan.endorsement_charge_fee = params[:endorsement_charge_fee]
+    loan.lender_title_policy_fee = params[:lender_title_policy_fee]
+    loan.recording_service_fee = params[:recording_service_fee]
+    loan.settlement_agent_fee = params[:settlement_agent_fee]
+    loan.recording_fees = params[:recording_fees]
+    loan.owner_title_policy_fee = params[:owner_title_policy_fee]
+    loan.prepaid_item_fee = params[:prepaid_item_fee]
+
     loan.save!
   end
 

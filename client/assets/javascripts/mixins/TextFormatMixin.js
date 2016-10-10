@@ -55,6 +55,14 @@ var TextFormatMixin = {
     var negative, money, prefix;
     var decimal = 2;
 
+    if(cashflow == 0){
+      if (unit) {
+        return unit + "0";
+      } else {
+         return "$0";
+      }
+    }
+
     if(!decimals){
       if(!isNaN(parseInt(decimals))){
         decimal = parseInt(decimals);

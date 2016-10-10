@@ -144,6 +144,7 @@ Rails.application.routes.draw do
 
     resources :documents, only: [] do
       collection do
+        post "update_required"
         get "get_other_documents"
       end
     end

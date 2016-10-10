@@ -6,16 +6,14 @@ var descriptionDrap = "Drop files to upload or CLICK";
 var borrower_fields = {
   first_w2: {label: 'W2 - Most recent tax year', name: 'first_w2', placeholder: descriptionDrap, type: 'FirstW2'},
   second_w2: {label: 'W2 - Previous tax year', name: 'second_w2', placeholder: descriptionDrap, type: 'SecondW2'},
-  first_paystub: {label: "Paystub - Most recent month", name: 'first_paystub', placeholder: descriptionDrap, type: 'FirstPaystub'},
-  second_paystub: {label: 'Paystub - Previous month', name: 'second_paystub', placeholder: descriptionDrap, type: 'SecondPaystub'},
+  first_paystub: {label: "Paystub - Most recent period", name: 'first_paystub', placeholder: descriptionDrap, type: 'FirstPaystub'},
+  second_paystub: {label: 'Paystub - Previous period', name: 'second_paystub', placeholder: descriptionDrap, type: 'SecondPaystub'},
   first_bank_statement: {label: 'Bank statement - Most recent month', name: 'first_bank_statement', placeholder: descriptionDrap, type: 'FirstBankStatement'},
   second_bank_statement: {label: 'Bank statement - Previous month', name: 'second_bank_statement', placeholder: descriptionDrap, type: 'SecondBankStatement'},
   first_personal_tax_return: {label: 'Personal tax return - Most recent year', name: 'first_personal_tax_return', placeholder: descriptionDrap, type: 'FirstPersonalTaxReturn'},
   second_personal_tax_return: {label: 'Personal tax return - Previous year', name: 'second_personal_tax_return', placeholder: descriptionDrap, type: 'SecondPersonalTaxReturn'},
   first_business_tax_return: {label: 'Business tax return - Most recent year', name: 'first_business_tax_return', placeholder: descriptionDrap, type: 'FirstBusinessTaxReturn'},
-  second_business_tax_return: {label: 'Business tax return - Previous year', name: 'second_business_tax_return', placeholder: descriptionDrap, type: 'SecondBusinessTaxReturn'},
-  first_federal_tax_return: {label: 'Federal tax return - Most recent year', name: 'first_federal_tax_return', placeholder: descriptionDrap, type: 'FirstFederalTaxReturn'},
-  second_federal_tax_return: {label: 'Federal tax return - Previous year', name: 'second_federal_tax_return', placeholder: descriptionDrap, type: 'SecondFederalTaxReturn'}
+  second_business_tax_return: {label: 'Business tax return - Previous year', name: 'second_business_tax_return', placeholder: descriptionDrap, type: 'SecondBusinessTaxReturn'}
 };
 var loan_fields = {
   hud_estimate: {label: 'Estimated settlement statement', name: 'hud_estimate', placeholder: descriptionDrap, type: 'HudEstimate'},

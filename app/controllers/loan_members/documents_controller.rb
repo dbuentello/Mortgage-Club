@@ -6,4 +6,15 @@ class LoanMembers::DocumentsController < LoanMembers::BaseController
       other_documents: LoanMembers::DocumentsPresenter.new(other_documents).show
     }, status: 200
   end
+
+  def update_required
+    document = Document.find_by_id(params[:id])
+
+    if document && document.update(is_required: params[:is_required])
+      document.subjectable.update(is_editted_by_loan_member: true)
+      render json: {}, status: 200
+    else
+      render json: {}, status: 404
+    end
+  end
 end

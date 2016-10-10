@@ -111,8 +111,8 @@ var Quotes = React.createClass({
       mixpanel.track("Quotes-SelectRate");
     }
     var dataCookies = this.props.bootstrapData.data_cookies;
-
     var lender_underwriting_fee_object = rate.fees.find(function(x) { return x.Description == "Lender underwriting fee" });
+    var cash_out = rate.loan_amount - (parseFloat(dataCookies.mortgage_balance) || 0);
     $.ajax({
       url: "/quotes/save_info",
       data: {
@@ -149,7 +149,8 @@ var Quotes = React.createClass({
         settlement_agent_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Settlement Agent Fee"),
         recording_fees: this.getFee(rate.thirty_fees, "Taxes and other government fees", "Recording Fees"),
         owner_title_policy_fee: this.getFee(rate.thirty_fees, "Other", "Title - Owner's Title Policy"),
-        prepaid_item_fee: this.getFee(rate.thirty_fees, "Prepaid items", "Prepaid interest")
+        prepaid_item_fee: this.getFee(rate.thirty_fees, "Prepaid items", "Prepaid interest"),
+        cash_out: cash_out
       },
       method: "POST",
       dataType: "json",
