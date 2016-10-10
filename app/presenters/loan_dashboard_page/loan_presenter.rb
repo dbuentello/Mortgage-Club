@@ -37,7 +37,8 @@ class LoanDashboardPage::LoanPresenter
         :recording_fees,
         :owner_title_policy_fee,
         :prepaid_item_fee,
-        :cash_out
+        :cash_out,
+        :lender_name
       ],
       include: {
         properties: {
