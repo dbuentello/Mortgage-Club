@@ -99,7 +99,7 @@ class Users::ElectronicSignatureController < Users::BaseController
       :period, :amortization_type, :monthly_payment,
       :lender_credits, :apr,
       :loan_type, :total_closing_cost,
-      :amount
+      :amount, :cash_out
     )
   end
 end

@@ -36,7 +36,8 @@ class LoanDashboardPage::LoanPresenter
         :settlement_agent_fee,
         :recording_fees,
         :owner_title_policy_fee,
-        :prepaid_item_fee
+        :prepaid_item_fee,
+        :cash_out
       ],
       include: {
         properties: {

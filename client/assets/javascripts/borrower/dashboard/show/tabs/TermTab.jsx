@@ -28,7 +28,7 @@ var TermTab = React.createClass({
   },
 
   isPurchaseLoan: function() {
-    return this.props.loan.purpose == "purchase";
+    return this.props.loan.purpose_titleize == "Purchase";
   },
 
   showExpend: function(className, event) {
@@ -54,6 +54,14 @@ var TermTab = React.createClass({
     var taxFee = parseFloat(loan.recording_fees) || 0;
     var otherFee = parseFloat(loan.owner_title_policy_fee) || 0;
     var prepaidItemsFee = parseFloat(loan.prepaid_item_fee) || 0;
+    var lenderCredits = parseFloat(loan.lender_credits) || 0;
+    var lenderUnderwritingFee = parseFloat(loan.lender_underwriting_fee) || 0;
+    var estimatedCashToClose = lenderCredits + lenderUnderwritingFee + canNotShopForFee + shopForFee + taxFee + otherFee + prepaidItemsFee;
+    // if(this.isPurchaseLoan()){
+    //   estimatedCashToClose += parseFloat(loan.down_payment) || 0;
+    // }else{
+    //   estimatedCashToClose += parseFloat(loan.cash_out) || 0;
+    // }
 
     return (
       <div className="panel panel-flat terms-view">
@@ -94,6 +102,14 @@ var TermTab = React.createClass({
                   </td>
                 </tr>
                 <tr>
+                  <td className="loan-field">
+                    Lender
+                  </td>
+                  <td>
+                    {loan.lender_name}
+                  </td>
+                </tr>
+                <tr>
                   <td>
                     Loan Amount
                   </td>
@@ -117,11 +133,8 @@ var TermTab = React.createClass({
                     {this.commafy(loan.interest_rate*100, 3)}%
                   </td>
                 </tr>
-
-
               </tbody>
             </table>
-
           </div>
           <div className="row">
             <h4>Closing Costs</h4>
@@ -137,7 +150,7 @@ var TermTab = React.createClass({
                         Lender Credit
                       </td>
                       <td>
-                        {this.formatCurrency(loan.lender_credits, "$")}
+                        {this.formatCurrency(lenderCredits, "$")}
                       </td>
                     </tr>
                   :
@@ -146,7 +159,7 @@ var TermTab = React.createClass({
                         Discount Points
                       </td>
                       <td>
-                        {this.formatCurrency(loan.lender_credits, "$")}
+                        {this.formatCurrency(lenderCredits, "$")}
                       </td>
                     </tr>
                 }
@@ -155,7 +168,7 @@ var TermTab = React.createClass({
                     Lender Underwriting Fee
                   </td>
                   <td>
-                    {this.formatCurrency(loan.lender_underwriting_fee, "$")}
+                    {this.formatCurrency(lenderUnderwritingFee, "$")}
                   </td>
                 </tr>
                 <tr>
@@ -249,10 +262,10 @@ var TermTab = React.createClass({
                 </tr>
                 <tr>
                   <td className="loan-field">
-                    Down Payment
+                    { this.isPurchaseLoan() ? "Down Payment" : "Cash Out" }
                   </td>
                   <td>
-                    {this.formatCurrency(loan.down_payment, "$")}
+                    { this.formatCurrency(this.isPurchaseLoan() ? loan.down_payment : loan.cash_out, "$") }
                   </td>
                 </tr>
                 <tr>
@@ -260,7 +273,7 @@ var TermTab = React.createClass({
                     <i>Total Cash to Close (est.)</i>
                   </td>
                   <td>
-                    <i>{this.formatCurrency(loan.estimated_cash_to_close, "$")}</i>
+                    <i>{this.formatCurrency(estimatedCashToClose, "$")}</i>
                   </td>
                 </tr>
               </tbody>
