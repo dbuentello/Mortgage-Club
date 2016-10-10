@@ -56,12 +56,12 @@ var TermTab = React.createClass({
     var prepaidItemsFee = parseFloat(loan.prepaid_item_fee) || 0;
     var lenderCredits = parseFloat(loan.lender_credits) || 0;
     var lenderUnderwritingFee = parseFloat(loan.lender_underwriting_fee) || 0;
-    var estimatedCashToClose = lenderCredits + lenderUnderwritingFee + canNotShopForFee + shopForFee + taxFee + otherFee + prepaidItemsFee;
-    // if(this.isPurchaseLoan()){
-    //   estimatedCashToClose += parseFloat(loan.down_payment) || 0;
-    // }else{
-    //   estimatedCashToClose += parseFloat(loan.cash_out) || 0;
-    // }
+    var totalClosingCost = lenderCredits + lenderUnderwritingFee + canNotShopForFee + shopForFee + taxFee + otherFee + prepaidItemsFee;
+    if(this.isPurchaseLoan()){
+      var cashToClose = totalClosingCost + (parseFloat(loan.down_payment) || 0);
+    }else{
+      var cashToClose = totalClosingCost + (parseFloat(loan.cash_out) || 0);
+    }
 
     return (
       <div className="panel panel-flat terms-view">
@@ -137,7 +137,7 @@ var TermTab = React.createClass({
             </table>
           </div>
           <div className="row">
-            <h4>Closing Costs</h4>
+            <h4>Total Cash to Close</h4>
           </div>
           <div className="table-responsive term-board">
             <table className="table table-striped term-table">
@@ -261,6 +261,14 @@ var TermTab = React.createClass({
                   </td>
                 </tr>
                 <tr>
+                  <td className="loan-field" style={{"font-style": "italic"}}>
+                    Total Closing Costs
+                  </td>
+                  <td>
+                    { this.formatCurrency(totalClosingCost, "$") }
+                  </td>
+                </tr>
+                <tr>
                   <td className="loan-field">
                     { this.isPurchaseLoan() ? "Down Payment" : "Cash Out" }
                   </td>
@@ -273,7 +281,7 @@ var TermTab = React.createClass({
                     <i>Total Cash to Close (est.)</i>
                   </td>
                   <td>
-                    <i>{this.formatCurrency(estimatedCashToClose, "$")}</i>
+                    <i>{this.formatCurrency(cashToClose, "$")}</i>
                   </td>
                 </tr>
               </tbody>
