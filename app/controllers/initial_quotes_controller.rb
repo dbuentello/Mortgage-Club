@@ -23,6 +23,7 @@ class InitialQuotesController < ApplicationController
   end
 
   def create
+    cookies[:current_quote] = {value: quotes_params.to_json, expires: 30.minutes.from_now}
     quote_query = QuoteQuery.new(query: quotes_params.to_json)
     render json: {code_id: quote_query.code_id} if quote_query.save
   end
@@ -80,10 +81,10 @@ class InitialQuotesController < ApplicationController
   end
 
   def get_quote_cookies
-    return {} if cookies[:initial_quotes].nil?
+    return {} if cookies[:current_quote].nil?
 
     begin
-      info = JSON.parse(cookies[:initial_quotes])
+      info = JSON.parse(cookies[:current_quote])
     rescue JSON::ParserError
       info = {}
     end
