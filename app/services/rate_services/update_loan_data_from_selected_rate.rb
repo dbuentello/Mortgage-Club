@@ -9,7 +9,6 @@ module RateServices
 
       loan.tap do |l|
         l.lender = lender
-
         l.lender_underwriting_fee = fees.first ? fees.first["FeeAmount"] : 0.0
 
         l.appraisal_fee = get_fee(thirty_fees, "Services you cannot shop for", "Appraisal Fee")
@@ -42,6 +41,7 @@ module RateServices
         l.estimated_closing_costs = quote[:total_closing_cost].to_f
         l.pmi_monthly_premium_amount = quote[:pmi_monthly_premium_amount].to_f
         l.amount = quote[:amount].to_f
+        l.discount_pts = quote[:discount_pts].to_f
         l.save!
       end
     rescue ActiveRecord::RecordNotFound

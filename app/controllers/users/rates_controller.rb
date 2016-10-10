@@ -34,7 +34,7 @@ class Users::RatesController < Users::BaseController
     selected_rate = nil
     rate_programs.each_with_index do |r, index|
       r_dis = BigDecimal.new(r[:discount_pts].to_s)
-      if r[:lender_name] == @loan.lender_name && r[:product] == @loan.amortization_type && r[:interest_rate] == @loan.interest_rate && r_dis - @loan.discount_pts == 0 && r[:loan_amount] == @loan.amount
+      if r[:lender_name] == @loan.lender_name && r[:product] == @loan.amortization_type && r[:interest_rate] == @loan.interest_rate && r_dis.to_f - @loan.discount_pts.to_f == 0 && r[:loan_amount] == @loan.amount
         r[:selected_program] = true
         @selected_program = 2 # has lender before and rate has no change.
         selected_rate = r

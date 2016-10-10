@@ -41,6 +41,7 @@ var MortgageRates = React.createClass({
       selectedRate: rate
     });
     var params = {};
+
     params["rate"] = rate;
     params["rate"]["cash_out"] = (parseFloat(rate.loan_amount) || 0) - (parseFloat(this.props.bootstrapData.currentLoan.amount) || 0);
     params["rate"]["fees"] = JSON.stringify(rate.fees);

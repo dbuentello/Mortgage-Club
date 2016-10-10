@@ -35,7 +35,8 @@ var DocusignIframe = React.createClass({
           total_closing_cost: this.props.bootstrapData.rate.total_closing_cost,
           lender_credits: this.props.bootstrapData.rate.lender_credits,
           amount: this.props.bootstrapData.rate.loan_amount,
-          cash_out: this.props.bootstrapData.rate.cash_out
+          cash_out: this.props.bootstrapData.rate.cash_out,
+          discount_pts: this.props.bootstrapData.rate.discount_pts,
         }
       },
       dataType: 'json',

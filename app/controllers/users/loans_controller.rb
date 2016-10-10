@@ -1,5 +1,5 @@
 class Users::LoansController < Users::BaseController
-  before_action :set_loan, only: [:edit, :update, :destroy, :show, :update_income]
+  before_action :set_loan, only: [:edit, :update, :destroy, :show, :update_income, :update_rate]
   before_action :load_liabilities, only: [:edit, :show]
 
   # Show list of user loans
@@ -141,6 +141,19 @@ class Users::LoansController < Users::BaseController
     else
       render json: {message: t("users.loans.destroy.destroy_failed")}, status: 500
     end
+  end
+
+  def update_rate
+    if @loan.subject_property.address && @loan.subject_property.address.zip
+      rate_programs = LoanTekServices::GetQuotes.new(@loan, false).call
+      selected_rates = rate_programs.select { |rate| rate[:lender_name] == @loan.lender_name && rate[:product] == @loan.amortization_type && rate[:interest_rate] == @loan.interest_rate && rate[:loan_amount] == @loan.amount }
+
+      if selected_rates.any? && selected_rates.first[:discount_pts].round(5) != @loan.discount_pts
+
+      end
+    end
+
+    render json: { loan: LoanEditPage::LoanPresenter.new(@loan).show }
   end
 
   private
