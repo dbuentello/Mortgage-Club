@@ -36,7 +36,7 @@
 class User < ActiveRecord::Base
   rolify
 
-  attr_encrypted :first_name, :last_name, key: ENV["KEY_ENCRYPTION"]
+  attr_encrypted :first_name, :last_name, key: ENV["KEY_ENCRYPTION"], unless: Rails.env.test?
 
   # Include default devise modules. Others available are:
   #  :omniauthable
