@@ -36,6 +36,8 @@
 class User < ActiveRecord::Base
   rolify
 
+  attr_encrypted :first_name, :last_name, key: ENV["KEY_ENCRYPTION"]
+
   # Include default devise modules. Others available are:
   #  :omniauthable
   devise :database_authenticatable, :async, :registerable, :recoverable, :rememberable,
