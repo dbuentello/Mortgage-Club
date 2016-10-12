@@ -44,6 +44,7 @@ module RateServices
         l.discount_pts = quote[:discount_pts].to_f
         l.save!
       end
+
     rescue ActiveRecord::RecordNotFound
       Rails.logger.error("#LoanNotFound: cannot update loan's data from selected rate. Loan id: #{loan_id}")
     end
@@ -63,21 +64,36 @@ module RateServices
       field["FeeAmount"].to_f
     end
 
-    # def self.get_fees(fees, types)
-    #   selected_fees = {}
-    #   sum = 0
+    def self.update_rate(loan, rate)
+      fees = rate[:fees]
+      thirty_fees = JSON.load(rate[:thirty_fees].to_json)
 
-    #   selected_fees[:fees] = fees.to_a.map do |fee|
-    #     next unless types.include? fee.last["Description"]
+      loan.tap do |l|
+        l.lender_underwriting_fee = fees.first ? fees.first["FeeAmount"] : 0.0
 
-    #     amount = fee.last["FeeAmount"].to_f
-    #     sum += amount
-    #     {name: fee.last["Description"], amount: amount}
-    #   end
+        l.appraisal_fee = get_fee(thirty_fees, "Services you cannot shop for", "Appraisal Fee")
+        l.tax_certification_fee = get_fee(thirty_fees, "Services you cannot shop for", "Tax Certification Fee")
+        l.flood_certification_fee = get_fee(thirty_fees, "Services you cannot shop for", "Flood Certification Fee")
+        l.outside_signing_service_fee = get_fee(thirty_fees, "Services you can shop for", "Outside Signing Service")
+        l.concurrent_loan_charge_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Concurrent Loan Charge")
+        l.endorsement_charge_fee = get_fee(thirty_fees, "Services you can shop for", "Endorsement Charge")
+        l.lender_title_policy_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Lender's Title Policy")
+        l.recording_service_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Recording Service Fee")
+        l.settlement_agent_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Settlement Agent Fee")
+        l.recording_fees = get_fee(thirty_fees, "Taxes and other government fees", "Recording Fees")
+        l.owner_title_policy_fee = get_fee(thirty_fees, "Other", "Title - Owner's Title Policy")
+        l.prepaid_item_fee = get_fee(thirty_fees, "Prepaid items", "Prepaid interest")
 
-    #   selected_fees[:fees].compact!
-    #   selected_fees[:total] = sum
-    #   selected_fees
-    # end
+        l.num_of_months = rate[:period].to_i
+        l.monthly_payment = rate[:monthly_payment].to_f
+        l.apr = rate[:apr].to_f
+        l.lender_credits = rate[:lender_credits].to_f
+        l.estimated_closing_costs = rate[:total_closing_cost].to_f
+        l.pmi_monthly_premium_amount = rate[:pmi_monthly_premium_amount].to_f
+        l.amount = rate[:loan_amount].to_f
+        l.discount_pts = rate[:discount_pts].to_f
+        l.save!
+      end
+    end
   end
 end

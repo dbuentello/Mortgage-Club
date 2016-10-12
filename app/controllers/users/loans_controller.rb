@@ -149,11 +149,11 @@ class Users::LoansController < Users::BaseController
       selected_rates = rate_programs.select { |rate| rate[:lender_name] == @loan.lender_name && rate[:product] == @loan.amortization_type && rate[:interest_rate] == @loan.interest_rate && rate[:loan_amount] == @loan.amount }
 
       if selected_rates.any? && selected_rates.first[:discount_pts].round(5) != @loan.discount_pts
-
+        RateServices::UpdateLoanDataFromSelectedRate.update_rate(@loan, selected_rates.first)
       end
     end
 
-    render json: { loan: LoanEditPage::LoanPresenter.new(@loan).show }
+    render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show}
   end
 
   private
