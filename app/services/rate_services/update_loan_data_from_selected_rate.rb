@@ -67,6 +67,7 @@ module RateServices
     def self.update_rate(loan, rate)
       fees = rate[:fees]
       thirty_fees = JSON.load(rate[:thirty_fees].to_json)
+      lender = get_lender(rate[:lender_name])
 
       loan.tap do |l|
         l.lender_underwriting_fee = fees.first ? fees.first["FeeAmount"] : 0.0
@@ -83,6 +84,8 @@ module RateServices
         l.recording_fees = get_fee(thirty_fees, "Taxes and other government fees", "Recording Fees")
         l.owner_title_policy_fee = get_fee(thirty_fees, "Other", "Title - Owner's Title Policy")
         l.prepaid_item_fee = get_fee(thirty_fees, "Prepaid items", "Prepaid interest")
+        l.lender_nmls_id = rate[:lender_nmls_id]
+        l.lender = lender
 
         l.num_of_months = rate[:period].to_i
         l.monthly_payment = rate[:monthly_payment].to_f

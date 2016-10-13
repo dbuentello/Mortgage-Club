@@ -146,7 +146,7 @@ class Users::LoansController < Users::BaseController
   def update_rate
     if @loan.subject_property.address && @loan.subject_property.address.zip
       rate_programs = LoanTekServices::GetQuotes.new(@loan, false).call
-      selected_rates = rate_programs.select { |rate| rate[:lender_name] == @loan.lender_name && rate[:product] == @loan.amortization_type && rate[:interest_rate] == @loan.interest_rate && rate[:loan_amount] == @loan.amount }
+      selected_rates = rate_programs.select { |rate| rate[:product] == @loan.amortization_type && rate[:interest_rate] == @loan.interest_rate && rate[:loan_amount] == @loan.amount }
 
       if selected_rates.any? && selected_rates.first[:discount_pts].round(5) != @loan.discount_pts
         RateServices::UpdateLoanDataFromSelectedRate.update_rate(@loan, selected_rates.first)
