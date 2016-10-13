@@ -3,29 +3,30 @@
 
 module LoanTekServices
   class GetQuotes
-    attr_reader :loan, :property, :borrower, :response
+    attr_reader :loan, :property, :borrower, :response, :is_multi_call
 
-    def initialize(loan)
+    def initialize(loan, is_multi_call = true)
       @loan = loan
       @property = loan.subject_property
       @borrower = loan.borrower
       @response = []
+      @is_multi_call = is_multi_call
     end
 
     # https://api.loantek.com/Clients/Views/Quoting/LoanRequest-LoanPricer-v2.cshtml
     def call
-      cache_key = "loantek-quotes-#{loan.id}-#{loan.updated_at}-#{property.updated_at}-#{get_credit_score}"
+      # cache_key = "loantek-quotes-#{loan.id}-#{loan.updated_at}-#{property.updated_at}-#{get_credit_score}"
+      # if quotes = REDIS.get(cache_key)
+      #   quotes = JSON.parse(quotes, symbolize_names: true)
+      # else
+      loan_to_value = get_loan_to_value
+      property_value = get_property_value
+      quotes = get_quotes(get_loan_to_value, get_loan_amount)
+      quotes_2 = []
+      quotes_3 = []
+      quotes_4 = []
 
-      if quotes = REDIS.get(cache_key)
-        quotes = JSON.parse(quotes, symbolize_names: true)
-      else
-        loan_to_value = get_loan_to_value
-        property_value = get_property_value
-        quotes = get_quotes(get_loan_to_value, get_loan_amount)
-        quotes_2 = []
-        quotes_3 = []
-        quotes_4 = []
-
+      if is_multi_call
         if get_loan_purpose == "Refinance"
           if loan_to_value < 70
             quotes_2 = get_quotes(70, property_value * 0.7, true)
@@ -58,13 +59,12 @@ module LoanTekServices
               quotes_3 = get_quotes(75, property_value * 0.75, false, true)
             end
           end
+
+          quotes = quotes + quotes_2 + quotes_3 + quotes_4
+          quotes = quotes.sort_by { |program| [program[:interest_rate], program[:apr]] }
+          # REDIS.set(cache_key, quotes.to_json)
+          # REDIS.expire(cache_key, 30.minutes.to_i)
         end
-
-        quotes = quotes + quotes_2 + quotes_3 + quotes_4
-        quotes = quotes.sort_by { |program| [program[:interest_rate], program[:apr]] }
-
-        REDIS.set(cache_key, quotes.to_json)
-        REDIS.expire(cache_key, 30.minutes.to_i)
       end
 
       quotes
@@ -80,7 +80,6 @@ module LoanTekServices
         property_usage: get_property_usage,
         property_type: get_property_type
       )
-
       zip_code = ZipCode.find_by_zip(get_zipcode)
 
       if zip_code

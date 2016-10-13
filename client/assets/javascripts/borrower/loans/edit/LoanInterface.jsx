@@ -91,9 +91,7 @@ var LoanInterface = React.createClass({
                             <td>{this.formatCurrency(this.state.loan.subject_property.purchase_price, 0, "$")}</td>
                             :
                             <td>{this.formatCurrency(this.state.loan.subject_property.market_price, 0, "$")}</td>
-
                           }
-
                         </tr>
                         <tr>
                           <td>Loan amount</td>
@@ -101,7 +99,7 @@ var LoanInterface = React.createClass({
                         </tr>
                         <tr>
                           <td>Rate</td>
-                          <td>{this.formatPercent(this.state.loan.interest_rate*100)}</td>
+                          <td>{this.formatPercent(this.state.loan.interest_rate*100)} <span className="glyphicon glyphicon-refresh" title="Update" style={{"cursor": "pointer"}} onClick={this.updateRate}></span></td>
                         </tr>
                         {this.state.loan.discount_pts > 0 ?
                           <tr>
@@ -191,6 +189,26 @@ var LoanInterface = React.createClass({
         this.setState({loan: loan});
       }
     }
+  },
+
+  updateRate: function() {
+    $.ajax({
+      url: "/loans/update_rate",
+      method: "POST",
+      context: this,
+      dataType: "json",
+      data: {
+        id: this.state.loan.id
+      },
+      success: function(response) {
+        var state = this.state;
+        state.loan = response.loan;
+        this.setState(state);
+      }.bind(this),
+      error: function(response, status, error) {
+        // do something else
+      }
+    });
   },
 
   goToItem: function(item) {

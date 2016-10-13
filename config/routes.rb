@@ -83,6 +83,7 @@ Rails.application.routes.draw do
       collection do
         get "/:id/income", to: "loans#update_income"
         get "/borrower_other_documents", to: "loans#borrower_other_documents"
+        post "/update_rate", to: "loans#update_rate"
       end
     end
 

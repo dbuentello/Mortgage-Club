@@ -43,7 +43,17 @@ class LiabilityForm
   #
   def update_loan
     loan.own_investment_property = own_investment_property
-    loan.amount = CalculateLoanAmountService.call(loan)
+    amount = CalculateLoanAmountService.call(loan)
+
+    if loan.refinance? && loan.cash_out.present?
+      if amount - loan.amount + loan.cash_out >= 0
+        loan.cash_out = loan.cash_out + amount - loan.amount
+      else
+        loan.cash_out = 0
+      end
+    end
+
+    loan.amount = amount
     loan.save!
   end
 
