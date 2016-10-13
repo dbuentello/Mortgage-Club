@@ -51,6 +51,7 @@ class LiabilityForm
       else
         loan.cash_out = 0
       end
+    end
 
     loan.amount = amount
     loan.save!
