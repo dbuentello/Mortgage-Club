@@ -347,29 +347,31 @@ var FormDocuments = React.createClass({
     var borrower_uploaded_files = [];
     var co_borrower_uploaded_files = [];
 
-    _.each(upload_fields, function(upload_field) {
-      if(upload_field != "other_borrower_report"){
-        borrower_uploaded_files.push(owner_upload_fields[upload_field].name);
-      }
-    });
+    // _.each(upload_fields, function(upload_field) {
+    //   if(upload_field != "other_borrower_report"){
+    //     borrower_uploaded_files.push(owner_upload_fields[upload_field].name);
+    //   }
+    // });
 
-    _.each(co_upload_fields, function(co_upload_field) {
-      co_borrower_uploaded_files.push(co_borrower_upload_fields[co_upload_field].name);
-    });
+    // _.each(co_upload_fields, function(co_upload_field) {
+    //   co_borrower_uploaded_files.push(co_borrower_upload_fields[co_upload_field].name);
+    // });
 
-    var other_file = _.find(this.state.otherBorrowerDocuments, function(otherDocument){ return otherDocument.original_filename == null && otherDocument.is_required == true });
-    var result = borrower_uploaded_files.concat(co_borrower_uploaded_files).filter(function(i) {
-      return uploaded_files.indexOf(i) < 0;
-    });
+    // var other_file = _.find(this.state.otherBorrowerDocuments, function(otherDocument){ return otherDocument.original_filename == null && otherDocument.is_required == true });
+    // var result = borrower_uploaded_files.concat(co_borrower_uploaded_files).filter(function(i) {
+    //   return uploaded_files.indexOf(i) < 0;
+    // });
 
-    if(result.length == 0 && other_file === undefined)
-      return true;
+    // if(result.length == 0 && other_file === undefined)
+    //   return true;
+    // return false;
 
-    return false;
+    return true;
   },
 
   save: function(event) {
-    this.setState({saving: true, activateRequiredField: true, activateCoRequiredField: true, activateFileTaxesJointlyError: true});
+    this.setState({saving: true});
+    // this.setState({saving: true, activateRequiredField: true, activateCoRequiredField: true, activateFileTaxesJointlyError: true});
     var isValid = this.valid();
     if(isValid){
       this.props.saveLoan(this.buildLoanFromState(), 2);
