@@ -439,16 +439,16 @@ var Form = React.createClass({
 
   valid: function() {
     var isValid = true;
-    var requiredFields = this.mapValueToRequiredFields(borrower_fields);
+    // var requiredFields = this.mapValueToRequiredFields(borrower_fields);
 
-    if(this.state[borrower_fields.applyingAs.name] == 2){
-      requiredFields = _.extend(requiredFields, this.mapValueToRequiredFields(secondary_borrower_fields));
-    }
+    // if(this.state[borrower_fields.applyingAs.name] == 2){
+    //   requiredFields = _.extend(requiredFields, this.mapValueToRequiredFields(secondary_borrower_fields));
+    // }
 
-    if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
-      this.setState(this.getStateOfInvalidFields(requiredFields));
-      isValid = false;
-    }
+    // if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
+    //   this.setState(this.getStateOfInvalidFields(requiredFields));
+    //   isValid = false;
+    // }
 
     return isValid;
   },
