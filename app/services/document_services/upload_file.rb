@@ -24,9 +24,9 @@ module DocumentServices
       end
 
       unless attachment_file_name == "dummy.pdf"
+        document.attachment = params[:file]
         document.attachment_file_name = attachment_file_name
         document.original_filename = params[:original_filename]
-        document.attachment = params[:file]
       end
 
       document.description = params[:description]
