@@ -18,8 +18,22 @@
 #  dependent_count  :integer
 #
 
+require "attr_encrypted"
+require "active_support/core_ext/date_time"
+
+module DateTimeMarshaler
+  def self.dump(datetime)
+    datetime
+  end
+
+  def self.load(string)
+    DateTime.parse(string)
+  end
+end
+
 class Borrower < ActiveRecord::Base
-  attr_encrypted :ssn, :dob, key: ENV["KEY_ENCRYPTION"], unless: Rails.env.test?
+  attr_encrypted :ssn, key: ENV["KEY_ENCRYPTION"], unless: Rails.env.test?
+  attr_encrypted :dob, key: ENV["KEY_ENCRYPTION"], marshal: true, marshaler: DateTimeMarshaler, dump_method: :dump, load_method: :load, unless: Rails.env.test?
 
   belongs_to :user, inverse_of: :borrower, foreign_key: 'user_id', autosave: true
   belongs_to :loan, inverse_of: :secondary_borrower, foreign_key: 'loan_id'
