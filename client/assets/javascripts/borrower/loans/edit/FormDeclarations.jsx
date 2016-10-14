@@ -511,11 +511,11 @@ var FormDeclarations = React.createClass({
 
   valid: function(){
     var isValid = true;
-    var requiredFields = this.mapValueToRequiredFields();
-    if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
-      this.setState(this.getStateOfInvalidFields(requiredFields));
-      isValid = false;
-    }
+    // var requiredFields = this.mapValueToRequiredFields();
+    // if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
+    //   this.setState(this.getStateOfInvalidFields(requiredFields));
+    //   isValid = false;
+    // }
 
     return isValid;
   },
