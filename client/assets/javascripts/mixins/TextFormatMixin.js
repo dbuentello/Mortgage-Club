@@ -123,6 +123,10 @@ var TextFormatMixin = {
     return moment(timeString).format('hh:mm A MM/DD/YYYY');
   },
 
+  formatTimeCustom: function(timeString, format) {
+    return moment(timeString).format(format);
+  },
+
   titleize: function(str) {
     return str.split(/[ _]/).map(function(word) {
       return word.charAt(0).toUpperCase() + word.slice(1);
