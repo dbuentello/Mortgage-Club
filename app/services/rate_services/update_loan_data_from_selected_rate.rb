@@ -23,6 +23,7 @@ module RateServices
         l.recording_fees = get_fee(thirty_fees, "Taxes and other government fees", "Recording Fees")
         l.owner_title_policy_fee = get_fee(thirty_fees, "Other", "Title - Owner's Title Policy")
         l.prepaid_item_fee = get_fee(thirty_fees, "Prepaid items", "Prepaid interest")
+        l.prepaid_homeowners_insurance = loan.subject_property.estimated_hazard_insurance.to_f
 
         l.cash_out = quote[:cash_out].to_f
         l.interest_rate = quote[:interest_rate].to_f
@@ -85,6 +86,8 @@ module RateServices
         l.recording_fees = get_fee(thirty_fees, "Taxes and other government fees", "Recording Fees")
         l.owner_title_policy_fee = get_fee(thirty_fees, "Other", "Title - Owner's Title Policy")
         l.prepaid_item_fee = get_fee(thirty_fees, "Prepaid items", "Prepaid interest")
+        l.prepaid_homeowners_insurance = loan.subject_property.estimated_hazard_insurance.to_f
+
         l.lender_nmls_id = rate[:lender_nmls_id]
         l.lender = lender
 

@@ -53,7 +53,7 @@ var TermTab = React.createClass({
     var shopForFee = (parseFloat(loan.outside_signing_service_fee) || 0) + (parseFloat(loan.concurrent_loan_charge_fee) || 0) + (parseFloat(loan.endorsement_charge_fee) || 0) + (parseFloat(loan.lender_title_policy_fee) || 0) + (parseFloat(loan.recording_service_fee) || 0) + (parseFloat(loan.settlement_agent_fee) || 0);
     var taxFee = parseFloat(loan.recording_fees) || 0;
     var otherFee = parseFloat(loan.owner_title_policy_fee) || 0;
-    var prepaidItemsFee = parseFloat(loan.prepaid_item_fee) || 0;
+    var prepaidItemsFee = (parseFloat(loan.prepaid_item_fee) || 0) + (parseFloat(loan.prepaid_homeowners_insurance) || 0);
     var lenderCredits = parseFloat(loan.lender_credits) || 0;
     var lenderUnderwritingFee = parseFloat(loan.lender_underwriting_fee) || 0;
     var totalClosingCost = lenderCredits + lenderUnderwritingFee + canNotShopForFee + shopForFee + taxFee + otherFee + prepaidItemsFee;
@@ -251,12 +251,14 @@ var TermTab = React.createClass({
                     Prepaid Items
                     <div className="prepaid-fee closing-cost-text">
                       <p>Prepaid Interest</p>
+                      <p>Prepaid Homeowners Insurance for 12 Months</p>
                     </div>
                   </td>
                   <td>
                     {this.formatCurrency(prepaidItemsFee, "$")}
                     <div className="prepaid-fee closing-cost-price">
                       <p>{this.formatCurrency(loan.prepaid_item_fee, "$")}</p>
+                      <p>{this.formatCurrency(loan.prepaid_homeowners_insurance, "$")}</p>
                     </div>
                   </td>
                 </tr>

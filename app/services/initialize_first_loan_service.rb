@@ -10,7 +10,7 @@ class InitializeFirstLoanService
 
   def call
     init_properties
-
+    byebug
     loan = Loan.create(
       purpose: info["mortgage_purpose"],
       down_payment: info["down_payment"],
@@ -44,6 +44,7 @@ class InitializeFirstLoanService
       recording_fees: info["recording_fees"],
       owner_title_policy_fee: info["owner_title_policy_fee"],
       prepaid_item_fee: info["prepaid_item_fee"],
+      prepaid_homeowners_insurance: info["prepaid_homeowners_insurance"],
       discount_pts: info["discount_pts"],
       cash_out: info["cash_out"],
       updated_rate_time: Time.zone.now
