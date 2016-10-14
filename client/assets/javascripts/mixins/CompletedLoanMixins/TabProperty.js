@@ -40,7 +40,7 @@ var TabProperty = {
       return false;
     }
 
-    if(address.street_address == null || address.city == null || address.state == null || address.zip == null){
+    if(address.street_address == null || address.city == null || address.state == null || address.zip == null || address.street_address == "" || address.city == "" || address.state == "" || address.zip == ""){
       return false;
     }
 

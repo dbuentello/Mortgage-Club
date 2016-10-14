@@ -123,6 +123,7 @@ class BorrowerForm
     current_address.assign_attributes(form_params[:current_address])
     current_borrower_address.assign_attributes(form_params[:current_borrower_address])
     borrower.assign_attributes(form_params[:borrower])
+    borrower.ssn = form_params[:borrower][:ssn]
   end
 
   def setup_associations
