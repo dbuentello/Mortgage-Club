@@ -42,6 +42,7 @@ module RateServices
         l.pmi_monthly_premium_amount = quote[:pmi_monthly_premium_amount].to_f
         l.amount = quote[:amount].to_f
         l.discount_pts = quote[:discount_pts].to_f
+        l.updated_rate_time = Time.zone.now
         l.save!
       end
 

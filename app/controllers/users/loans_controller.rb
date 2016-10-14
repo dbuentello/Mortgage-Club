@@ -150,10 +150,9 @@ class Users::LoansController < Users::BaseController
 
       if selected_rates.any? && selected_rates.first[:discount_pts].round(5) != @loan.discount_pts
         RateServices::UpdateLoanDataFromSelectedRate.update_rate(@loan, selected_rates.first)
-        @loan.update(updated_rate_time: Time.zone.now)
       end
     end
-
+    @loan.update(updated_rate_time: Time.zone.now)
     render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show}
   end
 
