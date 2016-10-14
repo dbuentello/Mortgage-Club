@@ -1,6 +1,12 @@
 class Users::AssetsController < Users::BaseController
   def create
-    if Asset.bulk_update(current_user.borrower, asset_params[:assets])
+    assets = asset_params[:assets]
+
+    if assets.first[:institution_name].nil? && (assets.first[:current_balance].nil? || assets.first[:current_balance] == 0)
+      return render json: {message: t("users.assets.create.success")}, status: 200
+    end
+
+    if Asset.bulk_update(current_user.borrower, assets)
       return render json: {message: t("users.assets.create.success")}, status: 200
     else
       return render json: {message: t("users.assets.create.failed")}, status: 500
