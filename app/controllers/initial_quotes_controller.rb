@@ -131,6 +131,7 @@ class InitialQuotesController < ApplicationController
       :recording_fees,
       :owner_title_policy_fee,
       :prepaid_item_fee,
+      :prepaid_homeowners_insurance,
       :discount_pts,
       :cash_out
     )

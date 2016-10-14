@@ -37,6 +37,7 @@ class LoanDashboardPage::LoanPresenter
         :recording_fees,
         :owner_title_policy_fee,
         :prepaid_item_fee,
+        :prepaid_homeowners_insurance,
         :cash_out,
         :lender_name
       ],

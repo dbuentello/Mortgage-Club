@@ -20,6 +20,11 @@ var List = React.createClass({
       hazardInsurance = this.props.monthlyPayment.hazard_insurance;
     }
 
+    this.props.quotes.map(function(quote){
+      quote.thirty_fees[quote.thirty_fees.length-1].Fees[1].FeeAmount = hazardInsurance * 12;
+      quote.thirty_fees[quote.thirty_fees.length-1].FeeAmount += hazardInsurance * 12;
+    });
+
     toggleContentStates.fill(false, 0, this.props.quotes.length);
     return {
       toggleContentStates: toggleContentStates,

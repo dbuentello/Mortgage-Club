@@ -13,6 +13,11 @@ var List = React.createClass({
     var estimatedPropertyTax = (this.props.subjectProperty.estimated_property_tax == undefined || this.props.subjectProperty.estimated_property_tax == null) ? 0 : this.props.subjectProperty.estimated_property_tax / 12;
     var estimatedHazardInsurance = (this.props.subjectProperty.estimated_hazard_insurance == undefined || this.props.subjectProperty.estimated_hazard_insurance == null) ? 0 : this.props.subjectProperty.estimated_hazard_insurance / 12;
 
+    this.props.programs.map(function(program){
+      program.thirty_fees[program.thirty_fees.length-1].Fees[1].FeeAmount = estimatedHazardInsurance * 12;
+      program.thirty_fees[program.thirty_fees.length-1].FeeAmount += estimatedHazardInsurance * 12;
+    });
+
     return ({
       estimatedPropertyTax: estimatedPropertyTax,
       estimatedHazardInsurance: estimatedHazardInsurance,

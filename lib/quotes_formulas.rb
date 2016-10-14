@@ -104,6 +104,14 @@ module QuotesFormulas
       "IncludeInAPR": false
     }
 
+    prepaid_items << {
+      "Description": "Prepaid homeowners insurance for 12 months",
+      "FeeAmount": 0,
+      "HubLine": 814,
+      "FeeType": 1,
+      "IncludeInAPR": false
+    }
+
     if lender_info.present?
       lender_fees << {
         "Description": "Appraisal Fee",

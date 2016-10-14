@@ -31,7 +31,8 @@ var fields = {
   settlementAgentFee: {label: "Title - Settlement Agent Fee", name: "settlement_agent_fee"},
   recordingFees: {label: "Recording Fees", name: "recording_fees"},
   ownerTitlePolicy: {label: "Title - Owner's Title Policy", name: "owner_title_policy_fee"},
-  prepaidInterest: {label: "Prepaid Interest", name: "prepaid_item_fee"}
+  prepaidInterest: {label: "Prepaid Interest", name: "prepaid_item_fee"},
+  prepaidHomeowners: {label: "Prepaid Homeowners Insurance for 12 Months", name: "prepaid_homeowners_insurance"}
 };
 
 var loanTypeOptions = [
@@ -86,6 +87,7 @@ var LoanTermsTab = React.createClass({
     state[fields.recordingFees.name] = this.formatCurrency(loan.recording_fees, "$");
     state[fields.ownerTitlePolicy.name] = this.formatCurrency(loan.owner_title_policy_fee, "$");
     state[fields.prepaidInterest.name] = this.formatCurrency(loan.prepaid_item_fee, "$");
+    state[fields.prepaidHomeowners.name] = this.formatCurrency(loan.prepaid_homeowners_insurance, "$");
 
     return state;
   },
@@ -129,7 +131,8 @@ var LoanTermsTab = React.createClass({
         settlement_agent_fee: this.currencyToNumber(this.state[fields.settlementAgentFee.name]),
         recording_fees: this.currencyToNumber(this.state[fields.recordingFees.name]),
         owner_title_policy_fee: this.currencyToNumber(this.state[fields.ownerTitlePolicy.name]),
-        prepaid_item_fee: this.currencyToNumber(this.state[fields.prepaidInterest.name])
+        prepaid_item_fee: this.currencyToNumber(this.state[fields.prepaidInterest.name]),
+        prepaid_homeowners_insurance: this.currencyToNumber(this.state[fields.prepaidHomeowners.name])
       },
       method: "POST",
       dataType: "json",
@@ -385,6 +388,17 @@ var LoanTermsTab = React.createClass({
             <div className="form-group">
               <div className="col-sm-6">
                 <TextField
+                  label={fields.prepaidHomeowners.label}
+                  keyName={fields.prepaidHomeowners.name}
+                  value={this.state[fields.prepaidHomeowners.name]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  format={this.formatCurrency}
+                  maxLength={11}
+                  editable={true}/>
+              </div>
+              <div className="col-sm-6">
+                <TextField
                   label={fields.downPayment.label}
                   keyName={fields.downPayment.name}
                   value={this.state[fields.downPayment.name]}
@@ -394,6 +408,8 @@ var LoanTermsTab = React.createClass({
                   maxLength={11}
                   editable={true}/>
               </div>
+            </div>
+            <div className="form-group">
               <div className="col-sm-6">
                 <TextField
                   label={fields.totalCashToClose.label}

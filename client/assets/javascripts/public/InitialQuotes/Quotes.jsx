@@ -150,6 +150,7 @@ var Quotes = React.createClass({
         recording_fees: this.getFee(rate.thirty_fees, "Taxes and other government fees", "Recording Fees"),
         owner_title_policy_fee: this.getFee(rate.thirty_fees, "Other", "Title - Owner's Title Policy"),
         prepaid_item_fee: this.getFee(rate.thirty_fees, "Prepaid items", "Prepaid interest"),
+        prepaid_homeowners_insurance: this.getFee(rate.thirty_fees, "Prepaid items", "Prepaid homeowners insurance for 12 months"),
         cash_out: cash_out
       },
       method: "POST",

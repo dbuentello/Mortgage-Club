@@ -20,7 +20,8 @@ module LoanTekServices
           PropertyUsage: params[:property_usage],
           PropertyType: params[:property_type],
           ProductFamily: product_family,
-          FHALoan: false
+          FHALoan: false,
+          EscrowsWaived: true
         }.to_json
       end
 

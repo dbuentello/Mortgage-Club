@@ -46,6 +46,7 @@ class UpdateLoanTermsService
     loan.recording_fees = params[:recording_fees]
     loan.owner_title_policy_fee = params[:owner_title_policy_fee]
     loan.prepaid_item_fee = params[:prepaid_item_fee]
+    loan.prepaid_homeowners_insurance = params[:prepaid_homeowners_insurance]
 
     loan.save!
   end

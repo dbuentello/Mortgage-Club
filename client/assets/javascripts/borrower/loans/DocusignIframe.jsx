@@ -55,7 +55,7 @@ var DocusignIframe = React.createClass({
       }.bind(this),
       error: function(response, status, error) {
         this.setState({docusignLoaded: true});
-      }
+      }.bind(this)
     });
   },
 
