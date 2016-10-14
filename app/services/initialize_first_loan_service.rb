@@ -45,7 +45,8 @@ class InitializeFirstLoanService
       owner_title_policy_fee: info["owner_title_policy_fee"],
       prepaid_item_fee: info["prepaid_item_fee"],
       discount_pts: info["discount_pts"],
-      cash_out: info["cash_out"]
+      cash_out: info["cash_out"],
+      updated_rate_time: Time.zone.now
     )
 
     init_borrower_documents

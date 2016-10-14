@@ -152,7 +152,7 @@ class Users::LoansController < Users::BaseController
         RateServices::UpdateLoanDataFromSelectedRate.update_rate(@loan, selected_rates.first)
       end
     end
-
+    @loan.update(updated_rate_time: Time.zone.now)
     render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show}
   end
 

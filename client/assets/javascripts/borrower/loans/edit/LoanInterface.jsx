@@ -44,7 +44,7 @@ var LoanInterface = React.createClass({
 
   render: function() {
     var activeItem = this.state.active;
-
+    var updatedRateTime = this.formatTimeCustom(this.state.loan.updated_rate_time, 'MMMM Do YYYY, h:mm:ss A');
     var content = <activeItem.Content bootstrapData={this.props.bootstrapData} editMode={this.state.is_edit_mode} loan={this.state.loan} liabilities={this.state.liabilities} borrower_type={this.state.borrower_type} saveLoan={this.save} next={this.next} setupMenu={this.setupMenu} goToAllDonePage={this.goToAllDonePage} updateDocuments={this.updateDocuments}/>;
 
     return (
@@ -76,6 +76,12 @@ var LoanInterface = React.createClass({
                           <th></th>
                         </tr>
                         <tr>
+                          <td style={{"font-style":"italic"}} colSpan="2">
+                            As of {updatedRateTime}
+                            <span className="glyphicon glyphicon-refresh" title="Update" style={{"cursor": "pointer", "font-weight": "bold", "color": "#15c0f1", "margin-left":"10px"}} onClick={this.updateRate}></span>
+                          </td>
+                        </tr>
+                        <tr>
                           <td>Lender</td>
                           <td>{this.state.loan.lender_name}</td>
                         </tr>
@@ -99,7 +105,7 @@ var LoanInterface = React.createClass({
                         </tr>
                         <tr>
                           <td>Rate</td>
-                          <td>{this.formatPercent(this.state.loan.interest_rate*100)} <span className="glyphicon glyphicon-refresh" title="Update" style={{"cursor": "pointer"}} onClick={this.updateRate}></span></td>
+                          <td>{this.formatPercent(this.state.loan.interest_rate*100)}</td>
                         </tr>
                         {this.state.loan.discount_pts > 0 ?
                           <tr>
