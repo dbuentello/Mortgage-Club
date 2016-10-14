@@ -10,7 +10,7 @@ class InitializeFirstLoanService
 
   def call
     init_properties
-    byebug
+
     loan = Loan.create(
       purpose: info["mortgage_purpose"],
       down_payment: info["down_payment"],
