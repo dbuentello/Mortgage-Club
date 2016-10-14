@@ -27,7 +27,7 @@ module DateTimeMarshaler
   end
 
   def self.load(string)
-    DateTime.parse(string)
+    Time.zone.parse(string)
   end
 end
 
