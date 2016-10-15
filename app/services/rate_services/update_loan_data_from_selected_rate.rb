@@ -39,7 +39,7 @@ module RateServices
         else
           l.loan_type = loan_type.upcase
         end
-        l.estimated_closing_costs = quote[:total_closing_cost].to_f
+        l.estimated_closing_costs = quote[:total_closing_cost].to_f + loan.subject_property.estimated_hazard_insurance.to_f
         l.pmi_monthly_premium_amount = quote[:pmi_monthly_premium_amount].to_f
         l.amount = quote[:amount].to_f
         l.discount_pts = quote[:discount_pts].to_f
@@ -95,7 +95,7 @@ module RateServices
         l.monthly_payment = rate[:monthly_payment].to_f
         l.apr = rate[:apr].to_f
         l.lender_credits = rate[:lender_credits].to_f
-        l.estimated_closing_costs = rate[:total_closing_cost].to_f
+        l.estimated_closing_costs = rate[:total_closing_cost].to_f + loan.subject_property.estimated_hazard_insurance.to_f
         l.pmi_monthly_premium_amount = rate[:pmi_monthly_premium_amount].to_f
         l.amount = rate[:loan_amount].to_f
         l.discount_pts = rate[:discount_pts].to_f
