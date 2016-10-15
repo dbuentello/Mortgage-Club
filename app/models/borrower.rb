@@ -23,7 +23,7 @@ require "active_support/core_ext/date_time"
 
 module DateTimeMarshaler
   def self.dump(datetime)
-    if datetime.kind_of?(Date) || datetime.kind_of?(Time)
+    if datetime.is_a?(Date) || datetime.is_a?(Time)
       datetime.strftime "%FT%T%:z"
     else
       datetime
