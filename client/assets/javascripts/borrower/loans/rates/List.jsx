@@ -16,6 +16,7 @@ var List = React.createClass({
     this.props.programs.map(function(program){
       program.thirty_fees[program.thirty_fees.length-1].Fees[1].FeeAmount = estimatedHazardInsurance * 12;
       program.thirty_fees[program.thirty_fees.length-1].FeeAmount += estimatedHazardInsurance * 12;
+      program.total_closing_cost += estimatedHazardInsurance * 12;
     });
 
     return ({
