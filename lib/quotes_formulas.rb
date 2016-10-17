@@ -30,6 +30,7 @@ module QuotesFormulas
       lender_info[lender.name] = {
         nmls: lender.nmls,
         logo_url: lender.logo_url,
+        commission: lender.commission,
         appraisal_fee: lender.appraisal_fee,
         tax_certification_fee: lender.tax_certification_fee,
         flood_certification_fee: lender.flood_certification_fee
