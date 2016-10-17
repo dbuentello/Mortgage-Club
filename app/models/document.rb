@@ -78,6 +78,7 @@ class Document < ActiveRecord::Base
 
   has_attached_file :attachment,
     s3_permissions: 'authenticated-read',
+    s3_server_side_encryption: 'AES256',
     path: PAPERCLIP[:default_path]
 
   belongs_to :subjectable, polymorphic: true
