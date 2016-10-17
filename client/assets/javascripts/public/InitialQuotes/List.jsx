@@ -5,6 +5,7 @@ var _ = require("lodash");
 var React = require("react/addons");
 var TextFormatMixin = require("mixins/TextFormatMixin");
 var Chart = require("borrower/loans/rates/Chart");
+var EmailMe = require("borrower/loans/rates/EmailMe");
 var ChartMixin = require("mixins/ChartMixin");
 
 var List = React.createClass({
@@ -159,9 +160,15 @@ var List = React.createClass({
     return total;
   },
 
+  emailMe: function(index) {
+    $("#email_me").modal("show");
+    $("#email_me_index").val(index);
+  },
+
   render: function() {
     return(
       <div>
+        <EmailMe quotes={this.props.quotes} codeId={this.props.codeId}/>
         {
           _.map(this.props.quotes, function (quote, index) {
             return (
@@ -202,13 +209,18 @@ var List = React.createClass({
                       }
                     </div>
                     <div className="col-md-2 col-sm-12 text-sm-center">
-                    {
-                      quote.lender_name != "Wells Fargo"
-                      ?
-                        <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Apply Now</a>
-                      :
-                        <a className="btn select-btn" target="_blank" href="https://www.wellsfargo.com/mortgage/">Go To Wells Fargo</a>
-                    }
+                      <div>
+                        {
+                          quote.lender_name != "Wells Fargo"
+                          ?
+                            <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, quote)}>Apply Now</a>
+                          :
+                            <a className="btn select-btn" target="_blank" href="https://www.wellsfargo.com/mortgage/">Go To Wells Fargo</a>
+                        }
+                      </div>
+                      <div>
+                        <a onClick={_.bind(this.emailMe, null, index)} style={{"margin-left": "15px", "cursor": "pointer"}}>Email Me</a>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -15,6 +15,7 @@
       text-align: center;
     }
   }
+
   #find-my-rates-form {
     @include respond-to(mobile){
       margin-bottom: 20px;
