@@ -68,6 +68,11 @@ class InitialQuotesController < ApplicationController
     render json: {success: true}, status: 200
   end
 
+  def email_me
+    ShareRateMailer.email_me(params).deliver_now
+    render json: {success: true}, status: 200
+  end
+
   def save_info
     cookies[:initial_quotes] = {value: quotes_params.to_json, expires: 7.days.from_now}
 

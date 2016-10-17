@@ -1,0 +1,49 @@
+<p>Dear <%= @first_name %>,</p>
+
+<p>
+  Thank you for your time today. At MortgageClub, we work hard to help you get the lowest rate possible. We rate shop across several wholesale lenders and leverage technology to save on our operating costs and pass on the savings to you.
+</p>
+
+<p>
+  Please review the rate quote below as it reflects your request. You can see your custom rate quote in more details along with estimated third-party closing costs at <a href="https://www.mortgageclub.co/quotes/<%= @code %>" target="_blank">https://www.mortgageclub.co/quotes/<%= @code %></a>
+</p>
+
+<table border="1" width="100%" style="border-collapse: collapse;text-align: center;">
+  <thead>
+    <tr>
+      <th>Program</th>
+      <th>Lender</th>
+      <th>Rate</th>
+      <% if @rate["lender_credits"].to_f < 0 %>
+        <th>Lender Credit</th>
+      <% else %>
+        <th>Discount Points</th>
+      <% end %>
+      <th>APR</th>
+      <th>Monthly Payment</th>
+      <th>Lender Fees</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @rate["product"] %></td>
+      <td><%= @rate["lender_name"] %></td>
+      <td><%= ActionController::Base.helpers.number_to_percentage(@rate["interest_rate"].to_f * 100, precision: 3) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["lender_credits"], precision: 0) %></td>
+      <td><%= ActionController::Base.helpers.number_to_percentage(@rate["apr"].to_f * 100, precision: 3) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["monthly_payment"], precision: 0) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["fees"]["0"]["FeeAmount"], precision: 0) %></td>
+    </tr>
+  </tbody>
+</table>
+<div style="font-size: 10px">*Until you lock, your rate, APR, and terms are subject to change</div>
+
+<% if @quote_query["mortgage_purpose"] == "purchase" %>
+  <div style="font-size: 10px">*Assuming <%= ActionController::Base.helpers.number_to_currency(@quote_query["property_value"].to_f - @quote_query["down_payment"].to_f, precision: 0) %> loan, <%= ActionController::Base.helpers.number_to_currency(@quote_query["property_value"], precision: 0) %> appraised value, purchase, <%= @quote_query["credit_score"] %>+ FICO, <%= @quote_query["property_usage"].titleize.downcase %>, no impound account</div>
+<% else %>
+  <div style="font-size: 10px">*Assuming <%= ActionController::Base.helpers.number_to_currency(@quote_query["mortgage_balance"].to_f, precision: 0) %> loan, <%= ActionController::Base.helpers.number_to_currency(@quote_query["property_value"], precision: 0) %> appraised value, refinance, <%= @quote_query["credit_score"] %>+ FICO, <%= @quote_query["property_usage"].titleize.downcase %>, no impound account</div>
+<% end %>
+
+<p>
+  If you'd like to move your application forward and lock in on these terms please contact me at your earliest opportunity. I look forward to helping you get the lowest rate possible.
+</p>
