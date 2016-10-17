@@ -13,8 +13,8 @@
 # end
 unless Rails.env.test?
   ActionMailer::Base.smtp_settings = {
-    user_name: 'nhokjoy',
-    password: 'tang14121992',
+    user_name: ENV["SENDGRID_USERNAME"],
+    password: ENV["SENDGRID_PASSWORD"],
     address: 'smtp.sendgrid.net',
     port: 587,
     authentication: :plain,
