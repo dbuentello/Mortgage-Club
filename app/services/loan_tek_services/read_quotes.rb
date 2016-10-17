@@ -37,6 +37,7 @@ module LoanTekServices
           total_closing_cost: get_total_closing_cost(quote, admin_fee, thirty_fees),
           nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
           logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
+          commission: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:commission].to_f : 0,
           loan_type: quote["ProductFamily"],
           discount_pts: discount_pts,
           pmi_monthly_premium_amount: quote["MIP"].to_f,

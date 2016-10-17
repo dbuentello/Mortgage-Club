@@ -394,7 +394,7 @@ var List = React.createClass({
                       {
                         quote.lender_name != "Wells Fargo"
                         ?
-                          <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub 1% in commission.</p>
+                          <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub {quote.commission}% in commission.</p>
                         :
                           <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender does not pay MortgageClub any commission.</p>
                       }
