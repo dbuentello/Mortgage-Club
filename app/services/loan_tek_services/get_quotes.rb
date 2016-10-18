@@ -19,6 +19,9 @@ module LoanTekServices
       # if quotes = REDIS.get(cache_key)
       #   quotes = JSON.parse(quotes, symbolize_names: true)
       # else
+      # REDIS.set(cache_key, quotes.to_json)
+      # REDIS.expire(cache_key, 30.minutes.to_i)
+
       loan_to_value = get_loan_to_value
       property_value = get_property_value
       quotes = get_quotes(get_loan_to_value, get_loan_amount)
@@ -59,15 +62,11 @@ module LoanTekServices
               quotes_3 = get_quotes(75, property_value * 0.75, false, true)
             end
           end
-
-          quotes = quotes + quotes_2 + quotes_3 + quotes_4
-          quotes = quotes.sort_by { |program| [program[:interest_rate], program[:apr]] }
-          # REDIS.set(cache_key, quotes.to_json)
-          # REDIS.expire(cache_key, 30.minutes.to_i)
         end
       end
 
-      quotes
+      quotes = quotes + quotes_2 + quotes_3 + quotes_4
+      quotes = quotes.sort_by { |program| [program[:interest_rate], program[:apr]] }
     end
 
     def get_quotes(loan_to_value, loan_amount, is_cash_out = false, is_down_payment = false)
