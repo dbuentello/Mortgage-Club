@@ -66,7 +66,7 @@ module LoanTekServices
       end
 
       quotes = quotes + quotes_2 + quotes_3 + quotes_4
-      quotes = quotes.sort_by { |program| [program[:interest_rate], program[:apr]] }
+      quotes.sort_by { |program| [program[:interest_rate], program[:apr]] }
     end
 
     def get_quotes(loan_to_value, loan_amount, is_cash_out = false, is_down_payment = false)
