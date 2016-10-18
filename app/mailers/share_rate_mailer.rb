@@ -1,5 +1,4 @@
 class ShareRateMailer < ActionMailer::Base
-  default from: ENV["EMAIL_SENDER"]
   def email_me(params)
     @first_name = params[:first_name]
     @rate = params[:rate]
@@ -9,6 +8,7 @@ class ShareRateMailer < ActionMailer::Base
     @quote_query = JSON.load quote.query
 
     mail(
+      from: "billy@mortgageclub.co",
       to: params[:email],
       subject: "Your rate quote from MortgageClub"
     )
