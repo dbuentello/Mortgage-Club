@@ -5,6 +5,7 @@ var TextField = require('components/form/TextField');
 var UploadField = require('components/form/UploadField');
 var ModalLink = require('components/ModalLink');
 var TextEditor = require('components/TextEditor');
+var TextareaField = require('components/form/TextareaField');
 
 var Form = React.createClass({
   mixins: [FlashHandler],
@@ -52,8 +53,6 @@ var Form = React.createClass({
     this.setState({saving: true});
     event.preventDefault();
     var formData = new FormData($('.form-loan-member')[0]);
-    formData.append("loan_member[email_signature]", this.state.emailSignature);
-
     $.ajax({
       url: this.props.Url,
       method: this.props.Method,
@@ -240,8 +239,13 @@ var Form = React.createClass({
           }
           <div className="form-group">
             <div className="col-sm-12">
-              <label className="col-sm-12 pan">Email Signature</label>
-              <TextEditor onChange={this.updateEmailSignature} content={this.state.emailSignature}/>
+              <TextareaField
+                label="Email Signature"
+                keyName="emailSignature"
+                name="loan_member[email_signature]"
+                value={this.state.emailSignature}
+                editable={true}
+                onChange={this.onChange}/>
             </div>
           </div>
           <div className="form-group">
