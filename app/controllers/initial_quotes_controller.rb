@@ -69,7 +69,7 @@ class InitialQuotesController < ApplicationController
   end
 
   def email_me
-    ShareRateMailer.email_me(params).deliver_now
+    ShareRateMailer.email_me(params, current_user).deliver_now
     render json: {success: true}, status: 200
   end
 

@@ -48,23 +48,27 @@
   If you'd like to move your application forward and lock in on these terms please email me at <a href="mailto:billy@mortgageclub.co">billy@mortgageclub.co</a> or call me at <a href="tel:+16507877799">650-787-7799</a>. I look forward to helping you get the lowest rate possible.
 </p>
 
-<table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;">
-  <tr>
-  <td valign="top" style="padding-top: 0; padding-bottom: 0; padding-left: 0; padding-right: 7px; border-top: 0; border-bottom: 0: border-left: 0; border-right: solid 3px #15c0f1"></td>
-    <td style="padding-top: 0; padding-bottom: 0; padding-left: 12px; padding-right: 0;">
-      <table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;">
-        <tr><td colspan="2" style="padding-bottom: 5px; color: #15c0f1; font-size: 18px; font-family: Arial, Helvetica, sans-serif;">Billy Tran</td></tr>
-        <tr><td colspan="2" style="color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;"><i>Founder & CEO</i></td></tr>
-        <tr><td colspan="2" style="color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;"><strong>MortgageClub - Lowest rates and fast closing</strong></td></tr>
-        <tr><td width="20" valign="top" style="vertical-align: top; width: 20px; color: #15c0f1; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">m:</td><td valign="top" style="vertical-align: top; color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">650-787-7799&nbsp;&nbsp;<span style="color: #15c0f1;">e:&nbsp;</span><a href="mailto:billy@mortgageclub.co" style="color: #0000EE; text-decoration: none; font-weight: normal; font-size: 14px;">billy@mortgageclub.co</a></td></tr>
-        <tr><td width="20" valign="top" style="vertical-align: top; width: 20px; color: #15c0f1; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">a:</td><td valign="top" style="vertical-align: top; color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">75 E Santa Clara St, 6th Floor, San Jose, CA 95113</td></tr>
-      </table>
-      <tr><td colspan="2">&nbsp;</td></tr>
-      <tr><td colspan="2">
-        <table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;"><tr><td valign="middle" style="padding-left: 20px; padding-right: 20px; padding-top: 5px; padding-bottom: 5px; background-color: #15c0f1; color: #FFFFFF; font-size: 15px; font-weight: bold; font-style: normal; font-family: Arial, Helvetica, sans-serif;">
-          <a style="background-color: #15c0f1; color: #FFFFFF; font-size: 15px; line-height: 30px; font-weight: bold; font-style: normal; font-family: Arial, Helvetica, sans-serif; text-decoration: none;" href="https://www.mortgageclub.co/">FIND YOUR RATES IN 10 SECS</a>
-        </td></tr></table>
-      </td></tr>
-    </td>
-  </tr>
-</table>
+<% if @current_user && @current_user.has_role?(:loan_member) %>
+  <%= @current_user.loan_member.email_signature.to_s.html_safe %>
+<% else %>
+  <table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;">
+    <tr>
+    <td valign="top" style="padding-top: 0; padding-bottom: 0; padding-left: 0; padding-right: 7px; border-top: 0; border-bottom: 0: border-left: 0; border-right: solid 3px #15c0f1"></td>
+      <td style="padding-top: 0; padding-bottom: 0; padding-left: 12px; padding-right: 0;">
+        <table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;">
+          <tr><td colspan="2" style="padding-bottom: 5px; color: #15c0f1; font-size: 18px; font-family: Arial, Helvetica, sans-serif;">Billy Tran</td></tr>
+          <tr><td colspan="2" style="color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;"><i>Founder & CEO</i></td></tr>
+          <tr><td colspan="2" style="color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;"><strong>MortgageClub - Lowest rates and fast closing</strong></td></tr>
+          <tr><td width="20" valign="top" style="vertical-align: top; width: 20px; color: #15c0f1; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">m:</td><td valign="top" style="vertical-align: top; color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">650-787-7799&nbsp;&nbsp;<span style="color: #15c0f1;">e:&nbsp;</span><a href="mailto:billy@mortgageclub.co" style="color: #0000EE; text-decoration: none; font-weight: normal; font-size: 14px;">billy@mortgageclub.co</a></td></tr>
+          <tr><td width="20" valign="top" style="vertical-align: top; width: 20px; color: #15c0f1; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">a:</td><td valign="top" style="vertical-align: top; color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">75 E Santa Clara St, 6th Floor, San Jose, CA 95113</td></tr>
+        </table>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr><td colspan="2">
+          <table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;"><tr><td valign="middle" style="padding-left: 20px; padding-right: 20px; padding-top: 5px; padding-bottom: 5px; background-color: #15c0f1; color: #FFFFFF; font-size: 15px; font-weight: bold; font-style: normal; font-family: Arial, Helvetica, sans-serif;">
+            <a style="background-color: #15c0f1; color: #FFFFFF; font-size: 15px; line-height: 30px; font-weight: bold; font-style: normal; font-family: Arial, Helvetica, sans-serif; text-decoration: none;" href="https://www.mortgageclub.co/">FIND YOUR RATES IN 10 SECS</a>
+          </td></tr></table>
+        </td></tr>
+      </td>
+    </tr>
+  </table>
+<% end %>
