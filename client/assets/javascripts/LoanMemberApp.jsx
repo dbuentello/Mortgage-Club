@@ -35,8 +35,13 @@ window.LoanMemberApp = React.createClass({
             <div className="navbar-collapse collapse">
               <ul className="nav navbar-nav navbar-right">
                 <li className="dropdown">
+                  <a className="dropdown-toggle" href="/quotes" target="_blank">
+                    Quotes
+                  </a>
+                </li>
+                <li className="dropdown">
                   <a className="dropdown-toggle" href="/loan_members/loans">
-                    Loan List
+                    My Pipeline
                   </a>
                 </li>
                 <li className="dropdown dropdown-user">
