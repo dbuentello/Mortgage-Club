@@ -60,7 +60,7 @@ var EmailMe = React.createClass({
         },
         success: function(response) {
           this.setState({saving: true});
-          this.setState({email_me_inform: "Thank you for your sharing." });
+          this.setState({email_me_inform: "Thanks "+ this.state.email_me_first_name +", we've emailed you this rate quote." });
           $("#email_me").modal('hide');
           $("#email_me_inform").modal('show');
         },
@@ -149,7 +149,7 @@ var EmailMe = React.createClass({
                 <form class="form-horizontal text-center" data-remote="true" id="new_email_me" action="/quotes/email_me" accept-charset="UTF-8" method="post">
                   <div className="form-group text-center">
                     <div className="col-md-6 col-md-offset-3" style={{"padding-top": "35px","padding-bottom": "20px"}}>
-                      <a className="btn btn-mc form-control" data-dismiss="modal">OK</a>
+                      <a className="btn btn-mc form-control" style={{"padding-top": "5px"}} data-dismiss="modal">OK</a>
                     </div>
                   </div>
                 </form>
