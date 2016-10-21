@@ -46,8 +46,12 @@ var Form = React.createClass({
     return {
       checklistTypes: [
         {name: '', value: ''},
-        {name: 'Explain', value: 'explain'},
-        {name: 'Upload', value: 'upload'}
+        {name: 'Upload', value: 'upload'},
+        {name: 'Check Email', value: 'check_email'}
+      ],
+      checklistStatus: [
+        {name: 'Pending', value: 'pending'},
+        {name: 'Done', value: 'done'}
       ],
       subjects: [
         {name: 'Property', value: 'Property'},
@@ -61,20 +65,22 @@ var Form = React.createClass({
   getInitialState: function() {
     if(this.props.checklist) {
       return {
+        id: this.props.checklist.id,
         type: this.props.checklist.checklist_type,
         name: this.props.checklist.name,
         info: this.props.checklist.info,
         dueDate: this.props.checklist.due_date,
-        question: this.props.checklist.question,
         subject_name: this.props.checklist.subject_name,
         documentType: this.props.checklist.document_type,
-        documentTemplate: this.props.checklist.template_id,
         description: this.props.checklist.document_description,
-        documentTypes: this.loadDocumentTypes(this.props.checklist.subject_name)
+        documentTypes: this.loadDocumentTypes(this.props.checklist.subject_name),
+        status: this.props.checklist.status
       };
     } else {
       return {
-        type: 'explain',
+        id: null,
+        status: 'pending',
+        type: 'upload',
         subject_name: 'Property',
         description: 'Appraised property value',
         documentType: 'AppraisalReport',
@@ -109,12 +115,6 @@ var Form = React.createClass({
         break;
       case "documentType":
         this.setState({description: documentDescription[value]});
-        break;
-      case "type":
-        this.setState({
-          question: null,
-          documentTemplate: null
-        })
         break;
     }
   },
@@ -188,9 +188,8 @@ var Form = React.createClass({
             name: response.checklist.name,
             info: response.checklist.info,
             dueDate: response.checklist.due_date,
-            question: response.checklist.question,
             documentType: response.checklist.document_type,
-            documentTemplate: response.checklist.template_id,
+            status: response.checklist.status,
             saving: false
           }
         );
@@ -210,11 +209,6 @@ var Form = React.createClass({
   },
 
   render: function() {
-    var document_templates = new Array();
-    document_templates.push({name: '', value: ''});
-    _.each(this.props.templates, function(template) {
-      document_templates.push({name: template.name, value: template.id})
-    })
     return (
       <form className='form-horizontal form-checklist'>
         <input type='hidden' value={this.props.loan.id} name='loan_id'/>
@@ -264,58 +258,60 @@ var Form = React.createClass({
               editable={true}/>
           </div>
         </div>
-        <div className='form-group'>
-          <div className='col-sm-4'>
-            <SelectField
-              label='Subject'
-              keyName='subjectName'
-              name='checklist[subject_name]'
-              value={this.state.subjectName}
-              options={this.props.subjects}
-              onChange={this.onChange}
-              editable={true}/>
-          </div>
-          <div className='col-sm-4'>
-            <SelectField
-              label='Document Type'
-              keyName='documentType'
-              name='checklist[document_type]'
-              value={this.state.documentType}
-              options={this.state.documentTypes}
-              onChange={this.onChange}
-              editable={true}/>
-          </div>
-          <div className='col-sm-4'>
-            <TextField
-              label='Document Description'
-              keyName='description'
-              name='checklist[document_description]'
-              value={this.state.description}
-              onChange={this.onChange}
-              editable={true}/>
-          </div>
-        </div>
-        <div className='form-group' style={{'display': this.state.type == 'explain' ? null : 'none'}}>
-          <div className='col-sm-4'>
-            <TextField
-              label='Question'
-              keyName='question'
-              name='checklist[question]'
-              value={this.state.question}
-              onChange={this.onChange}
-              editable={true}/>
-          </div>
-          <div className='col-sm-4'>
-            <SelectField
-              label='Docusign Template'
-              keyName='documentTemplate'
-              name='checklist[template_id]'
-              value={this.state.documentTemplate}
-              options={document_templates}
-              onChange={this.onChange}
-              editable={true}/>
-          </div>
-        </div>
+        {
+          this.state.type == "upload" ?
+            <div className='form-group'>
+              <div className='col-sm-4'>
+                <SelectField
+                  label='Subject'
+                  keyName='subjectName'
+                  name='checklist[subject_name]'
+                  value={this.state.subjectName}
+                  options={this.props.subjects}
+                  onChange={this.onChange}
+                  editable={true}/>
+              </div>
+              <div className='col-sm-4'>
+                <SelectField
+                  label='Document Type'
+                  keyName='documentType'
+                  name='checklist[document_type]'
+                  value={this.state.documentType}
+                  options={this.state.documentTypes}
+                  onChange={this.onChange}
+                  editable={true}/>
+              </div>
+              <div className='col-sm-4'>
+                <TextField
+                  label='Document Description'
+                  keyName='description'
+                  name='checklist[document_description]'
+                  value={this.state.description}
+                  onChange={this.onChange}
+                  editable={true}/>
+              </div>
+            </div>
+            : null
+        }
+        {
+          this.state.id != null && this.state.type == "check_email"
+          ?
+            <div className='form-group'>
+              <div className='col-sm-4'>
+                <SelectField
+                  label='Status'
+                  keyName='status'
+                  name='checklist[status]'
+                  value={this.state.status}
+                  options={this.props.checklistStatus}
+                  onChange={this.onChange}
+                  editable={true}
+                  id="checklistStatus"/>
+              </div>
+            </div>
+          :
+            null
+        }
         <div className='form-group'>
           <div className='col-sm-2'>
             <button className='btn btn-primary' id='submit-checklist' onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? 'Submitting' : 'Submit' }</button>

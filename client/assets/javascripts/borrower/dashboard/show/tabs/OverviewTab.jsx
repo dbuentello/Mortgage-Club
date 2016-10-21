@@ -2,8 +2,6 @@ var _ = require('lodash');
 var React = require('react/addons');
 var TextFormatMixin = require('mixins/TextFormatMixin');
 var ChecklistUpload = require('../ChecklistUpload');
-var ChecklistExplanation = require('../ChecklistExplanation');
-
 
 var OverviewTab = React.createClass({
   eachChecklist: function(checklist, i) {
@@ -73,7 +71,7 @@ var OverviewTab = React.createClass({
                 <div>
                   <div className="col-md-11 col-sm-11 col-xs-10">
                     <h4>We are still waiting on some of your checklist items</h4>
-                    <p>Go ahead and click 'Upload' or 'Explain' on the items below to start working through your open items</p>
+                    <p>Go ahead and click 'Upload' or 'Check Email' on the items below to start working through your open items</p>
                   </div>
                   <div className="col-md-1 col-sm-1 col-xs-2 dashboard-sign">
                     <img className="board-side" src="/warning-sign.png"/>
@@ -155,8 +153,16 @@ var CheckList = React.createClass({
 
     render: function() {
       var checklist = this.props.checklist;
-      var button_id = checklist.checklist_type == "explain" ? ("explain-" + checklist.id) : ("upload-" + checklist.id);
-
+      var button_id = checklist.checklist_type == "upload" ? ("upload-" + checklist.id) : ("check-email-" + checklist.id);
+      var email = this.props.loan.borrower.user.email;
+      var checklist_href = "https://mail.google.com";
+      if(email){
+        if(email.indexOf("@yahoo") > -1){
+          checklist_href = "https://mail.yahoo.com";
+        }else if (email.indexOf("@outlook") > -1){
+          checklist_href = "https://outlook.com";
+        }
+      }
       return (
         <tr>
           <td><span className={this.state.className}></span></td>
@@ -173,20 +179,14 @@ var CheckList = React.createClass({
           </td>
           <td>{this.isoToUsDate(checklist.due_date)}</td>
           <td>
-            { checklist.checklist_type == "explain" ?
+            { checklist.checklist_type == "check_email"
+              ?
                 <div>
-                  <button className="btn dash-table-btn" onClick={this.handleShowModal} >
-                    {this.state.status == "done" ? "Review" : "Explain"}
-                  </button>
-                  <ChecklistExplanation
-                    ref="modal"
-                    show={false}
-                    id={button_id}
-                    title={checklist.name}
-                    loan={this.props.loan}
-                    checklist={checklist}/>
+                  <a href={checklist_href} target="_blank" className="btn dash-table-btn" onClick={this.handleShowModal} disabled={this.state.status == "done" ? "disabled" : null}>
+                    Check Email
+                  </a>
                 </div>
-                :
+              :
                 <div>
                   <button className="btn dash-table-btn" data-toggle="modal" data-target={"#" + button_id}>
                     {this.state.status == "done" ? "Review" : "Upload"}

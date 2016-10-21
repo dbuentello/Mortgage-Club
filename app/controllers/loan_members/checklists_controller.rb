@@ -55,7 +55,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
 
   def checklist_params
     params[:checklist][:due_date] = Date.strptime(params[:checklist][:due_date], "%m/%d/%Y") if params[:checklist][:due_date].present?
-    params.require(:checklist).permit(:checklist_type, :document_type, :subject_name, :name, :document_description, :question, :due_date, :template_id, :info)
+    params.require(:checklist).permit(:checklist_type, :document_type, :subject_name, :name, :document_description, :due_date, :info, :status)
   end
 
   def set_checklist
