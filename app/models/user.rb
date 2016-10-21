@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
   has_many :documents
   has_many :checklists, dependent: :destroy
 
-  has_attached_file :avatar, path: PAPERCLIP[:default_path], default_url: ActionController::Base.helpers.asset_path('avatar.png')
+  has_attached_file :avatar, path: PAPERCLIP[:default_path], default_url: ActionController::Base.helpers.asset_path('avatar.png'), s3_server_side_encryption: 'AES256'
 
   accepts_nested_attributes_for :borrower, allow_destroy: true
 

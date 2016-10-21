@@ -21,7 +21,7 @@ class Lender < ActiveRecord::Base
   has_many :lender_template_requirements, dependent: :destroy
   has_many :lender_templates, through: :lender_template_requirements
   has_many :loans
-  has_attached_file :logo, path: PAPERCLIP[:default_upload_path]
+  has_attached_file :logo, path: PAPERCLIP[:default_upload_path], s3_server_side_encryption: 'AES256'
 
   validates :name, presence: true
   validates :website, presence: true

@@ -1,6 +1,6 @@
 class LenderDocusignForm < ActiveRecord::Base
   belongs_to :lender
-  has_attached_file :attachment, path: PAPERCLIP[:default_upload_path]
+  has_attached_file :attachment, path: PAPERCLIP[:default_upload_path], s3_server_side_encryption: 'AES256'
 
   PERMITTED_ATTRS = [
     :description,
