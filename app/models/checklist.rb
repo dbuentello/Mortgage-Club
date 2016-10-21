@@ -3,9 +3,9 @@ class Checklist < ActiveRecord::Base
   belongs_to :user
   belongs_to :template
 
-  validates :due_date, :name, :info, :document_description,
-            :user_id, :checklist_type, :status, :subject_name,
-            :document_type, :loan_id, presence: true
+  validates :due_date, :name, :info,
+            :user_id, :checklist_type, :status,
+            :loan_id, presence: true
   validate :document_type_must_belong_to_proper_document
   validate :subject_name_must_belong_to_proper_subject
 
@@ -24,25 +24,33 @@ class Checklist < ActiveRecord::Base
     subject_id
   end
 
+  def checklist_type_humanize
+    checklist_type.humanize
+  end
+
   private
 
   def document_type_must_belong_to_proper_document
-    case subject_name
-    when "Property"
-      return if Document::PROPERTY_LIST.include? document_type
-    when "Borrower"
-      return if Document::BORROWER_LIST.include? document_type
-    when "Closing"
-      return if Document::CLOSING_LIST.inclue? document_type
-    when "Loan"
-      return if Document::LOAN_LIST.include? document_type
+    if checklist_type != "check_email"
+      case subject_name
+      when "Property"
+        return if Document::PROPERTY_LIST.include? document_type
+      when "Borrower"
+        return if Document::BORROWER_LIST.include? document_type
+      when "Closing"
+        return if Document::CLOSING_LIST.inclue? document_type
+      when "Loan"
+        return if Document::LOAN_LIST.include? document_type
+      end
+      errors.add(:document_type, :needed_proper_document)
     end
-    errors.add(:document_type, :needed_proper_document)
   end
 
   def subject_name_must_belong_to_proper_subject
-    unless %w(Borrower Property Loan Closing).include? subject_name
-      errors.add(:subject_name, :needed_proper_subject)
+    if checklist_type != "check_email"
+      unless %w(Borrower Property Loan Closing).include? subject_name
+        errors.add(:subject_name, :needed_proper_subject)
+      end
     end
   end
 end

@@ -21,7 +21,7 @@ class LoanDashboardPage::ChecklistsPresenter
           methods: [:to_s, :avatar_url]
         }
       },
-      methods: [:document_info]
+      methods: [:checklist_type_humanize]
     }
   end
 end

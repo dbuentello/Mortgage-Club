@@ -21,7 +21,8 @@ class LoanMembers::LoanPresenter
             user: {
               methods: [:to_s]
             }
-          }
+          },
+          methods: [:checklist_type_humanize]
         },
         borrower: {
           include: [
