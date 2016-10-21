@@ -70,7 +70,7 @@ var ChecklistTab = React.createClass({
                     return (
                       <tr key={checklist.id}>
                         <td>{checklist.name}</td>
-                        <td className="text-capitalize">{checklist.checklist_type_humanize}</td>
+                        <td className="text-capitalize">{checklist.type_humanize}</td>
                         <td>{this.isoToUsDate(checklist.due_date)}</td>
                         <td>
                         {

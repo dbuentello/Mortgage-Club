@@ -46,12 +46,17 @@ var ChecklistUpload = React.createClass({
     var field = {label: checklist.document_description, name: checklist.document_type , placeholder: 'Drop files to upload or CLICK'}
     var uploadUrl = '/document_uploaders/base_document/upload';
 
-    var customParams = [
-      {document_type: checklist.document_type},
-      {subject_id: this.props.subject.id},
-      {subject_type: checklist.subject_name},
-      {description: checklist.document_description}
-    ];
+    if(checklist.checklist_type == "upload"){
+      var customParams = [
+        {document_type: checklist.document_type},
+        {subject_id: this.props.subject.id},
+        {subject_type: checklist.subject_name},
+        {description: checklist.document_description}
+      ];
+    } else {
+      var customParams = [];
+    }
+
 
     return (
       <span>

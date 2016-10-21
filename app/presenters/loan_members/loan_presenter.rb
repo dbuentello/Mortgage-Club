@@ -22,7 +22,7 @@ class LoanMembers::LoanPresenter
               methods: [:to_s]
             }
           },
-          methods: [:checklist_type_humanize]
+          methods: [:type_humanize]
         },
         borrower: {
           include: [

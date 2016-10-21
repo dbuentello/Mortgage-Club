@@ -24,7 +24,7 @@ class Checklist < ActiveRecord::Base
     subject_id
   end
 
-  def checklist_type_humanize
+  def type_humanize
     checklist_type.humanize
   end
 
