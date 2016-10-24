@@ -43,7 +43,7 @@
 <% end %>
 
 <p>
-  If you'd like to move your application forward and lock in on these terms please contact me at <a href="mailto:<%= @email_from %>"><%= @email_from %></a> or <%= @phone %>. I look forward to helping you get the lowest rate possible.
+  If you'd like to move your application forward and lock in on these terms please contact me at <a href="mailto:<%= @email %>"><%= @email %></a> or <%= ActionController::Base.helpers.number_to_phone @phone %>. I look forward to helping you get the lowest rate possible.
 </p>
 
 <% if @current_user && @current_user.has_role?(:loan_member) %>
