@@ -69,6 +69,7 @@ class InitialQuotesController < ApplicationController
   end
 
   def email_me
+    ShareQuoteInfo.create(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], quote_link: "#{unauthenticated_root_url}quotes/#{params[:code_id]}")
     ShareRateMailer.email_me(params, current_user).deliver_now
     render json: {success: true}, status: 200
   end

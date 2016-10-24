@@ -97,6 +97,7 @@ var List = React.createClass({
     this.setState(currentState);
 
     if(selectedBoardContent.css("display") == "none"){
+      $(event.target).parent().find("span:first").text("Hide Details");
       selectedBoardContent.slideToggle(500);
       $(event.target).find('span').toggleClass('up-state');
 
@@ -128,6 +129,7 @@ var List = React.createClass({
       }
     }
     else {
+      $(event.target).parent().find("span:first").text("View Details");
       selectedBoardContent.slideToggle(500);
       $(event.target).find('span').toggleClass('up-state');
     }
