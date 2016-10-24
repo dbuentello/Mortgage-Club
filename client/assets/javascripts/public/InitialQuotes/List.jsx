@@ -194,7 +194,7 @@ var List = React.createClass({
                         :
                           <p className="text-discount-points"><span className="text-capitalize">{quote.lender_credits < 0 ? "Lender credit" : "Discount points"}:</span> {this.formatCurrency(quote.lender_credits, 0, "$")} <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></p>
                       }
-                      <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(quote.total_closing_cost, 0, "$")}</p>
+                      <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(quote.total_closing_cost, 0, "$")} <i className="fa fa-info-circle" title='Closing costs are fees associated at the closing of this transaction. They often include underwriting fee, title, escrow and other third-party fees, and prepaid items. Click "View Details" to see a full breakdown of all the fees you should expect.' data-toggle="tooltip" aria-hidden="true"></i></p>
                       {
                         this.props.helpMeChoose
                         ?
@@ -290,7 +290,9 @@ var List = React.createClass({
                             if(thirty_fee["Description"] == "Services you cannot shop for"){
                               title = "These costs are paid to outside parties, not the lender, but you don’t get to choose them.";
                             }else if (thirty_fee["Description"] == "Services you can shop for"){
-                              title = "These costs are paid to outside parties and YOU are free to shop and compare providers for a variety of services.";
+                              title = "These costs are paid to outside parties and you are free to shop and compare providers for a variety of services.";
+                            }else if (thirty_fee["Description"] == "Prepaid items"){
+                              title = "Prepaid items are not a fee, as such, but are costs associated with your home that need to be paid in advance when getting a loan.";
                             }
 
                             return (
@@ -405,7 +407,10 @@ var List = React.createClass({
                     total={this.totalMonthlyPayment(quote.monthly_payment, 0, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance, 0, quote.pmi_monthly_premium_amount)} />
                 </div>
                 <div className="board-content-toggle">
-                  <button onClick={_.bind(this.toggleHandler, null, index)}><span className={this.state.toggleContentStates[index]===true ? "fa fa-angle-up" : "fa fa-angle-down"} ></span></button>
+                  <button onClick={_.bind(this.toggleHandler, null, index)}>
+                    <span>View Details</span>
+                    <span className={this.state.toggleContentStates[index]===true ? "fa fa-angle-up" : "fa fa-angle-down"} style={{"font-size": "20px", "margin-left": "5px", "vertical-align": "middle"}}></span>
+                  </button>
                 </div>
               </div>
             );
