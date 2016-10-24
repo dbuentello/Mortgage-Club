@@ -8,10 +8,17 @@ class ShareRateMailer < ActionMailer::Base
     @quote_query = JSON.load quote.query
     @current_user = current_user
 
-    email_from = (current_user && current_user.has_role?(:loan_member)) ? current_user.email : "billy@mortgageclub.co"
+    if current_user && current_user.has_role?(:loan_member)
+      @email_from = current_user.loan_member.email.present? ? current_user.loan_member.email : "billy@mortgageclub.co"
+      @phone = current_user.loan_member.phone_number.present? ? current_user.loan_member.phone_number : "650-787-7799"
+    else
+      @email_from = "billy@mortgageclub.co"
+      @phone = "650-787-7799"
+    end
+
 
     mail(
-      from: email_from,
+      from: @email_from,
       to: params[:email],
       subject: "Your rate quote from MortgageClub"
     )
