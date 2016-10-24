@@ -16,7 +16,6 @@ class ShareRateMailer < ActionMailer::Base
       @phone = "650-787-7799"
     end
 
-
     mail(
       from: @email_from,
       to: params[:email],
