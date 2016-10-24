@@ -55,7 +55,10 @@ class LoanDashboardPage::LoanPresenter
         borrower: {
           only: [:id],
           include: [
-            :documents
+            :documents,
+            user: {
+              only: [:email]
+            }
           ]
         },
         secondary_borrower: {

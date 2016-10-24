@@ -97,6 +97,7 @@ var List = React.createClass({
     this.setState(currentState);
 
     if(selectedBoardContent.css("display") == "none"){
+      $(event.target).parent().find("span:first").text("Hide Details");
       selectedBoardContent.slideToggle(500);
       $(event.target).find('span').toggleClass('up-state');
 
@@ -128,6 +129,7 @@ var List = React.createClass({
       }
     }
     else {
+      $(event.target).parent().find("span:first").text("View Details");
       selectedBoardContent.slideToggle(500);
       $(event.target).find('span').toggleClass('up-state');
     }
@@ -372,7 +374,7 @@ var List = React.createClass({
                         :
                           null
                       }
-                      <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub 1% in commission.</p>
+                      <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub {rate.commission}% in commission.</p>
                     </div>
                   </div>
                   <Chart id={index} principle={rate.monthly_payment} mortgageInsurance={this.state.estimatedMortgageInsurance} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}

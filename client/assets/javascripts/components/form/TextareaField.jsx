@@ -77,7 +77,7 @@ var TextareaField = React.createClass({
         <label className="col-xs-12 pan">
           <span>{this.props.label}</span>
           <textarea className={classes.editableFieldClasses} value={this.props.value} rows={this.props.rows}
-            onChange={this.handleChange} onFocus={this.handleFocus} placeholder={this.props.placeholder}/>
+            onChange={this.handleChange} onFocus={this.handleFocus} placeholder={this.props.placeholder} name={this.props.name}/>
         </label>
         <div ref='htmlContent' className={classes.staticFieldClasses.replace('typeTruncate', '')} dangerouslySetInnerHTML={(this.props.isHtmlContent || this.props.isMarkdown) ? {__html: displayText} : null}>
           {(this.props.isHtmlContent || this.props.isMarkdown) ? null : displayText}

@@ -230,6 +230,7 @@ Rails.application.routes.draw do
     collection do
       post "save_info"
       post "set_rate_alert"
+      post "email_me"
     end
   end
 
