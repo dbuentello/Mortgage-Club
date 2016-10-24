@@ -9,8 +9,8 @@ class ShareRateMailer < ActionMailer::Base
     @current_user = current_user
 
     if current_user && current_user.has_role?(:loan_member)
-      @email_from = current_user.loan_member.email.present? ? "#{current_user} <#{current_user.loan_member.email}>" : "Billy Tran <billy@mortgageclub.co>"
-      @email = current_user.loan_member.email.present? ? current_user.loan_member.email : "billy@mortgageclub.co"
+      @email_from = current_user.email.present? ? "#{current_user} <#{current_user.email}>" : "Billy Tran <billy@mortgageclub.co>"
+      @email = current_user.email.present? ? current_user.email : "billy@mortgageclub.co"
       @phone = current_user.loan_member.phone_number.present? ? current_user.loan_member.phone_number : "(650) 787-7799"
     else
       @email_from = "Billy Tran <billy@mortgageclub.co>"
