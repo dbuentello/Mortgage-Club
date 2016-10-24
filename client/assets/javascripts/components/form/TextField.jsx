@@ -94,6 +94,7 @@ var TextField = React.createClass({
     if (this.props.password === true) {
       type = "password";
     }
+
     if (this.props.format == 'number') {
       displayText = this.commafy(this.props.value, this.props.decimals);
     } else if (this.props.format == 'currency') {
