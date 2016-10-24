@@ -395,7 +395,10 @@ var List = React.createClass({
                     total={this.totalMonthlyPayment(quote.monthly_payment, 0, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance, 0, quote.pmi_monthly_premium_amount)} />
                 </div>
                 <div className="board-content-toggle">
-                  <button onClick={_.bind(this.toggleHandler, null, index)}><span className={this.state.toggleContentStates[index]===true ? "fa fa-angle-up" : "fa fa-angle-down"} style={{"font-size": "30px"}}></span></button>
+                  <button onClick={_.bind(this.toggleHandler, null, index)}>
+                    <span>View Details</span>
+                    <span className={this.state.toggleContentStates[index]===true ? "fa fa-angle-up" : "fa fa-angle-down"} style={{"font-size": "20px", "margin-left": "5px", "vertical-align": "middle"}}></span>
+                  </button>
                 </div>
               </div>
             );

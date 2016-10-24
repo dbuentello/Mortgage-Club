@@ -380,7 +380,8 @@ var List = React.createClass({
                     total={this.totalMonthlyPayment(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance, rate.pmi_monthly_premium_amount)} />
                 </div>
                 <div className="board-content-toggle" onClick={_.bind(this.toggleHandler, null, index)}>
-                  <span className={this.state.toggleContentStates[index]===true ? "glyphicon glyphicon-menu-up" : "glyphicon glyphicon-menu-down"} style={{"font-size": "30px"}}></span>
+                  <span>View Details</span>
+                  <span className={this.state.toggleContentStates[index]===true ? "glyphicon glyphicon-menu-up" : "glyphicon glyphicon-menu-down"} style={{"font-size": "20px", "margin-left": "5px", "vertical-align": "middle"}}></span>
                 </div>
               </div>
             );
