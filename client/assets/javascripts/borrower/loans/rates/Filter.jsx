@@ -206,13 +206,22 @@ var Filter = React.createClass({
         featuredCashOuts.push({name: "No Cash Out (" + loanToValue + "% LTV)", value: loanToValue});
 
         if (loanToValue < 80 && this.state.dataCookies.property_usage == "primary_residence"){
-          featuredCashOuts.push({name: "$" + ((propertyValue * 0.8 - loanAmount) / 1000).toFixed(0) + "k (" + 80 + "% LTV)", value: 80});
+          var program_80 = _.find(this.props.programs, function(program){ return program.is_cash_out == false && program.loan_to_value == 75 });
+          if(program_80 !== undefined){
+            featuredCashOuts.push({name: "$" + ((propertyValue * 0.8 - loanAmount) / 1000).toFixed(0) + "k (" + 80 + "% LTV)", value: 80});
+          }
         }
         if (loanToValue < 75){
-          featuredCashOuts.push({name: "$" + ((propertyValue * 0.75 - loanAmount) / 1000).toFixed(0) + "k (" + 75 + "% LTV)", value: 75});
+          var program_75 = _.find(this.props.programs, function(program){ return program.is_cash_out == false && program.loan_to_value == 75 });
+          if(program_75 !== undefined){
+            featuredCashOuts.push({name: "$" + ((propertyValue * 0.75 - loanAmount) / 1000).toFixed(0) + "k (" + 75 + "% LTV)", value: 75});
+          }
         }
         if (loanToValue < 70){
-          featuredCashOuts.push({name: "$" + ((propertyValue * 0.7 - loanAmount) / 1000).toFixed(0) + "k (" + 70 + "% LTV)", value: 70});
+          var program_70 = _.find(this.props.programs, function(program){ return program.is_cash_out == false && program.loan_to_value == 70 });
+          if(program_70 !== undefined){
+            featuredCashOuts.push({name: "$" + ((propertyValue * 0.7 - loanAmount) / 1000).toFixed(0) + "k (" + 70 + "% LTV)", value: 70});
+          }
         }
         return featuredCashOuts;
     },

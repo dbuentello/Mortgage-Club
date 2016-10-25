@@ -77,7 +77,8 @@ module LoanTekServices
         loan_amount: loan_amount,
         loan_to_value: loan_to_value,
         property_usage: get_property_usage,
-        property_type: get_property_type
+        property_type: get_property_type,
+        is_cash_out: is_cash_out
       )
       zip_code = ZipCode.find_by_zip(get_zipcode)
 

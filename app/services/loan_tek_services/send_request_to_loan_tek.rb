@@ -21,7 +21,8 @@ module LoanTekServices
           PropertyType: params[:property_type],
           ProductFamily: product_family,
           FHALoan: false,
-          EscrowsWaived: true
+          EscrowsWaived: true,
+          CashOut: params[:is_cash_out].present? ? params[:is_cash_out] : false
         }.to_json
       end
 
