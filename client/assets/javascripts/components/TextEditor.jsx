@@ -19,7 +19,7 @@ var TextEditor = React.createClass({
   },
 
   getScriptURL: function() {
-    return "http://cdn.ckeditor.com/4.5.6/full/ckeditor.js";
+    return "https://cdn.ckeditor.com/4.5.6/full/ckeditor.js";
   },
 
   onScriptLoaded: function() {
