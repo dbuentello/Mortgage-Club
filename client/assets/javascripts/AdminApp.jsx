@@ -70,12 +70,9 @@ window.AdminApp = React.createClass({
 
   render: function() {
     var user = this.props.currentUser;
-
+    // <div className="page-alert"/>
     return (
       <div>
-
-        <div className="page-alert"/>
-
         <RouteHandler bootstrapData={this.props}/>
       </div>
     );

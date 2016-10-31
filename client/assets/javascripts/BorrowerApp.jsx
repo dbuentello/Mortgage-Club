@@ -38,10 +38,10 @@ window.BorrowerApp = React.createClass({
   },
 
   render: function() {
+    // <div className='page-alert'/>
     return (
       <div>
         <RouteHandler bootstrapData={this.props}/>
-        <div className='page-alert'/>
       </div>
     );
   },

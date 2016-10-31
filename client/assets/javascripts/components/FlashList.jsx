@@ -27,9 +27,10 @@ var FlashList = React.createClass({
       flashItems.push(<FlashItem msg_type={key} message={message} key={num}/>);
       num += 1;
     };
-    //{flashItems}
+
     return (
       <div>
+        {flashItems}
       </div>
     );
   }
