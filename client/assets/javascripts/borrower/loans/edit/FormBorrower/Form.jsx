@@ -376,7 +376,7 @@ var Form = React.createClass({
     if(borrower_user === undefined || borrower_user === null){
       state[fields.email.name] = "";
     }else{
-      state[fields.email.name] = [fields.email.fieldName];
+      state[fields.email.name] = borrower_user[fields.email.fieldName];
     }
     state[fields.firstName.name] = borrower[fields.firstName.fieldName];
     state[fields.middleName.name] = borrower[fields.middleName.fieldName];
