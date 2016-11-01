@@ -373,7 +373,11 @@ var Form = React.createClass({
   },
 
   buildStateFromBorrower: function(state, borrower, borrower_user, fields) {
-    state[fields.email.name] = borrower_user[fields.email.fieldName];
+    if(borrower_user === undefined || borrower_user === null){
+      state[fields.email.name] = "";
+    }else{
+      state[fields.email.name] = borrower_user[fields.email.fieldName];
+    }
     state[fields.firstName.name] = borrower[fields.firstName.fieldName];
     state[fields.middleName.name] = borrower[fields.middleName.fieldName];
     state[fields.lastName.name] = borrower[fields.lastName.fieldName];

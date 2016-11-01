@@ -47,7 +47,11 @@ var UpdateChangeMixin = {
 
     if (typeof this.props.onBlur == 'function') {
       if (_.isFunction(this.props.format)) {
-        value = this.props.format(value);
+        if(this.props.decimals !== undefined && this.props.format.name.indexOf("formatCurrency") > -1){
+          value = this.props.format(value, this.props.decimals);
+        }else{
+          value = this.props.format(value);
+        }
       }
 
       change[this.props.keyName] = value;
