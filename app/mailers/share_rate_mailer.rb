@@ -1,27 +1,43 @@
 class ShareRateMailer < ActionMailer::Base
   def email_me(params, current_user)
-    @first_name = params[:first_name]
-    @rate = params[:rate]
-    @code = params[:code_id]
+    unless params[:body]
+      @first_name = params[:first_name]
+      @rate = params[:rate]
+      @code = params[:code_id]
 
-    quote = QuoteQuery.find_by_code_id(params[:code_id])
-    @quote_query = JSON.load quote.query
-    @current_user = current_user
+      quote = QuoteQuery.find_by_code_id(params[:code_id])
+      @quote_query = JSON.load quote.query
+      @current_user = current_user
 
-    if current_user && current_user.has_role?(:loan_member)
-      @email_from = current_user.loan_member.email.present? ? "#{current_user} <#{current_user.loan_member.email}>" : "Billy Tran <billy@mortgageclub.co>"
-      @email = current_user.loan_member.email.present? ? current_user.loan_member.email : "billy@mortgageclub.co"
-      @phone = current_user.loan_member.phone_number.present? ? current_user.loan_member.phone_number : "(650) 787-7799"
+      if current_user && current_user.has_role?(:loan_member)
+        @email_from = current_user.email.present? ? "#{current_user.to_s} <#{current_user.email}>" : "Billy Tran <billy@mortgageclub.co>"
+        @email = current_user.email.present? ? current_user.email : "billy@mortgageclub.co"
+        @phone = current_user.loan_member.phone_number.present? ? current_user.loan_member.phone_number : "(650) 787-7799"
+      else
+        @email_from = "Billy Tran <billy@mortgageclub.co>"
+        @email = "billy@mortgageclub.co"
+        @phone = "(650) 787-7799"
+      end
+
+      mail(
+        from: @email_from,
+        to: params[:email],
+        subject: "Your rate quote from MortgageClub"
+      )
     else
-      @email_from = "Billy Tran <billy@mortgageclub.co>"
-      @email = "billy@mortgageclub.co"
-      @phone = "(650) 787-7799"
-    end
+      if params[:body].include? "[first_name]"
+        body = params[:body].gsub! "[first_name]", params[:first_name]
+      else
+        body = params[:body]
+      end
 
-    mail(
-      from: @email_from,
-      to: params[:email],
-      subject: "Your rate quote from MortgageClub"
-    )
+      mail(
+        from: "#{current_user.to_s} <#{current_user.email}>",
+        to: params[:email],
+        subject: params[:subject],
+        body: body,
+        content_type: "text/html"
+      )
+    end
   end
 end

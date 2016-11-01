@@ -231,6 +231,7 @@ Rails.application.routes.draw do
       post "save_info"
       post "set_rate_alert"
       post "email_me"
+      post "render_html"
     end
   end
 

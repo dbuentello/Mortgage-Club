@@ -170,7 +170,7 @@ var List = React.createClass({
   render: function() {
     return(
       <div>
-        <EmailMe quotes={this.props.quotes} codeId={this.props.codeId}/>
+        <EmailMe quotes={this.props.quotes} codeId={this.props.codeId} userRole={this.props.userRole}/>
         {
           _.map(this.props.quotes, function (quote, index) {
             return (

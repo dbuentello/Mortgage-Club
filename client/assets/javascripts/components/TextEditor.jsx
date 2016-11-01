@@ -19,13 +19,16 @@ var TextEditor = React.createClass({
   },
 
   getScriptURL: function() {
-    return "https://cdn.ckeditor.com/4.5.6/full/ckeditor.js";
+    var type = this.props.type || "full";
+    return "https://cdn.ckeditor.com/4.5.11/" + type + "/ckeditor.js";
   },
 
   onScriptLoaded: function() {
+    var width = this.props.width || "50%";
+    var height = this.props.height || "500px";
     CKEDITOR.replace("text-editor", {
-      width: "50%",
-      height: 500,
+      width: width,
+      height: height,
       on: {
         change: function(event) {
           this.props.onChange(event.editor.getData());
@@ -46,8 +49,8 @@ var TextEditor = React.createClass({
           {
             this.state.success
             ?
-            <div id="text-editor" dangerouslySetInnerHTML={{__html: this.props.content}}>
-            </div>
+              <div id="text-editor" dangerouslySetInnerHTML={{__html: this.props.content}}>
+              </div>
             :
             <p>Cannot load text editor</p>
           }
