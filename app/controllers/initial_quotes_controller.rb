@@ -41,12 +41,14 @@ class InitialQuotesController < ApplicationController
       quotes = LoanTekServices::GetInitialQuotes.new(query).call
       monthly_payment = ZillowService::GetMonthlyPayment.new(query).call
     end
+
     bootstrap(
       code_id: quote_query.code_id,
       quotes: quotes,
       data_cookies: query,
       selected_programs: params[:program],
-      monthly_payment: monthly_payment
+      monthly_payment: monthly_payment,
+      user_role: current_user ? current_user.role_name : ""
     )
 
     respond_to do |format|
@@ -70,8 +72,31 @@ class InitialQuotesController < ApplicationController
 
   def email_me
     ShareQuoteInfo.create(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], quote_link: "#{unauthenticated_root_url}quotes/#{params[:code_id]}")
-    ShareRateMailer.email_me(params, current_user).deliver_now
+    ShareRateMailer.email_me(params, current_user).deliver_now!
     render json: {success: true}, status: 200
+  end
+
+  def render_html
+    @first_name = "[first_name]"
+    @rate = params[:rate]
+    @code = params[:code_id]
+
+    quote = QuoteQuery.find_by_code_id(params[:code_id])
+    @quote_query = JSON.load quote.query
+    @current_user = current_user
+
+    if current_user && current_user.has_role?(:loan_member)
+      @email_from = current_user.email.present? ? "#{current_user} <#{current_user.email}>" : "Billy Tran <billy@mortgageclub.co>"
+      @email = current_user.email.present? ? current_user.email : "billy@mortgageclub.co"
+      @phone = current_user.loan_member.phone_number.present? ? current_user.loan_member.phone_number : "(650) 787-7799"
+    else
+      @email_from = "Billy Tran <billy@mortgageclub.co>"
+      @email = "billy@mortgageclub.co"
+      @phone = "(650) 787-7799"
+    end
+
+    template = render_to_string "share_rate_mailer/email_me", layout: false
+    render json: {template: template}, status: 200
   end
 
   def save_info
