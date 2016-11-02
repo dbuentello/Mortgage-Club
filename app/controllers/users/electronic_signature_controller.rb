@@ -12,14 +12,22 @@ class Users::ElectronicSignatureController < Users::BaseController
   # @return [HTML] borrower app with bootstrap data includes loan and selected rate
   #
   def new
-    bootstrap(
-      loan: LoanDashboardPage::LoanPresenter.new(@loan).show,
-      rate: params[:rate]
-    )
+    RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:rate][:fees], rate_params, params[:rate][:thirty_fees])
 
-    respond_to do |format|
-      format.html { render template: 'borrower_app' }
-    end
+    @loan.submitted!
+    rental_properties = Property.where(is_primary: false, is_subject: false, loan: @loan)
+    @loan.borrower.update(other_properties: JSON.dump(rental_properties.as_json(Property.json_options))) if rental_properties.present?
+
+    redirect_to "/my/dashboard/#{params[:id]}"
+
+    # bootstrap(
+    #   loan: LoanDashboardPage::LoanPresenter.new(@loan).show,
+    #   rate: params[:rate]
+    # )
+
+    # respond_to do |format|
+    #   format.html { render template: 'borrower_app' }
+    # end
   end
 
   #
@@ -95,6 +103,17 @@ class Users::ElectronicSignatureController < Users::BaseController
 
   def lender_params
     params.require(:lender).permit(
+      :interest_rate, :lender_name, :lender_nmls_id,
+      :period, :amortization_type, :monthly_payment,
+      :lender_credits, :apr,
+      :loan_type, :total_closing_cost,
+      :amount, :cash_out,
+      :discount_pts
+    )
+  end
+
+  def rate_params
+    params.require(:rate).permit(
       :interest_rate, :lender_name, :lender_nmls_id,
       :period, :amortization_type, :monthly_payment,
       :lender_credits, :apr,
