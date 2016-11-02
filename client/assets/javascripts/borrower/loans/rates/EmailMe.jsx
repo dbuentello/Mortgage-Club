@@ -3,6 +3,7 @@ var React = require('react/addons');
 var TextField = require("components/form/NewTextField");
 var ValidationObject = require("mixins/FormValidationMixin");
 var TextEditor = require("components/TextEditor");
+var TinyMCEEditor = require("components/TinyMCEEditor");
 
 var email_me_fields = {
   firstName: {label: "First name", name: "email_me_first_name", keyName: "email_me_first_name", error: "emailMeFirstNameError", validationTypes: "empty"},
@@ -27,7 +28,8 @@ var EmailMe = React.createClass({
           },
           success: function(response) {
             this.updateEmailContent(response.template);
-            CKEDITOR.instances["text-editor"].setData(response.template);
+            tinyMCE.activeEditor.setContent(response.template);
+            // CKEDITOR.instances["text-editor"].setData(response.template);
           }.bind(this)
         });
       }.bind(this));
@@ -177,7 +179,7 @@ var EmailMe = React.createClass({
                           <div className="col-sm-1">
                             <h6>Body</h6>
                           </div>
-                          <TextEditor onChange={this.updateEmailContent} content={this.state.body} type="standard" width="100%" height="200px"/>
+                          <TinyMCEEditor onChange={this.updateEmailContent} content={this.state.body}/>
                         </div>
                       :
                         null
