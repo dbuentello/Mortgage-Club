@@ -26,7 +26,12 @@ module LoanTekServices
         }.to_json
       end
 
-      success? ? JSON.parse(@response.body)["Quotes"] : []
+      if success?
+        quotes = JSON.parse(@response.body)["Quotes"]
+        quotes.present? ? quotes : []
+      else
+        []
+      end
     end
 
     def self.client_id
