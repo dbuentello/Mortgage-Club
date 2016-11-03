@@ -132,8 +132,6 @@ class Users::ElectronicSignatureController < Users::BaseController
     )
   end
 
-
-
   def loan_activity_params(activity, loan)
     loan_activity_params = {}
     loan_activity_params[:activity_type_id] = activity.id
