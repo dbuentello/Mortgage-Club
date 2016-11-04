@@ -166,7 +166,21 @@ a.remove {
   }
 
   .edit-btn {
-    display: flex;
+    padding-left: 25px;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    width: 110px;
+
+    color: white;
+    background: #15c0f1;
+    border: #15c0f1 1px solid;
+  }
+
+  .update-rate-btn {
+    padding-left: 10px;
+    display: inline-block;
     align-items: center;
     justify-content: center;
     margin-left: 20px;

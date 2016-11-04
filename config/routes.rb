@@ -69,6 +69,9 @@ Rails.application.routes.draw do
       # end
 
       resources :dashboard, only: [:show] do
+        collection do
+          post "/update_rate", to: "dashboard#update_rate"
+        end
       end
 
       resources :checklists, only: [:update] do

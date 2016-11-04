@@ -25,7 +25,8 @@ var Dashboard = React.createClass({
 
   getInitialState: function() {
     return {
-      activeTab: 'overview'
+      activeTab: 'overview',
+      loan: this.props.bootstrapData.loan
     };
   },
 
@@ -40,7 +41,7 @@ var Dashboard = React.createClass({
   // TODO: should remove. Unused
   destroyLoan: function() {
     $.ajax({
-      url: '/loans/' + this.props.bootstrapData.loan.id,
+      url: '/loans/' + this.state.loan.id,
       method: 'DELETE',
       dataType: 'json',
       success: function(response) {
@@ -53,19 +54,42 @@ var Dashboard = React.createClass({
     });
   },
 
+  updateRate: function(){
+    $("#btnUpdateRate").attr('disabled','disabled');
+    $.ajax({
+      url: '/my/dashboard/update_rate',
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        id: this.state.loan.id
+      },
+      success: function(response) {
+        this.setState({loan: response.loan});
+
+        $("#btnUpdateRate").removeAttr('disabled');
+      }.bind(this),
+      error: function(response, status, error) {
+        var flash = { "alert-danger": response.message };
+        this.showFlashes(flash);
+
+        $("#btnUpdateRate").removeAttr('disabled');
+      }.bind(this)
+    });
+  },
+
   viewLoan: function(){
-    location.href = '/loans/' + this.props.bootstrapData.loan.id;
+    location.href = '/loans/' + this.state.loan.id;
   },
 
   render: function() {
     var address = this.props.bootstrapData.address;
-    var loan    = this.props.bootstrapData.loan;
-    var property = this.props.bootstrapData.loan.subject_property;
+    var loan    = this.state.loan;
+    var property = this.state.loan.subject_property;
     var contactList = this.props.bootstrapData.contact_list;
     var propertyDocuments = this.props.bootstrapData.property_documents;
     var loanDocuments = this.props.bootstrapData.loan_documents;
     var borrowerDocuments = this.props.bootstrapData.borrower_documents;
-    var coBorrower = this.props.bootstrapData.loan.secondary_borrower;
+    var coBorrower = this.state.loan.secondary_borrower;
     var closingDocuments = this.props.bootstrapData.closing_documents;
     var manager = this.props.bootstrapData.manager;
     var checklists = this.props.bootstrapData.checklists;
@@ -94,6 +118,7 @@ var Dashboard = React.createClass({
             </div>
 
             <div className='col-md-3'>
+              <button className="btn update-rate-btn" onClick={this.updateRate} id="btnUpdateRate">Update Rate</button>
               <ModalLink
                 id="viewLoan"
                 icon="iconInfo mrs"

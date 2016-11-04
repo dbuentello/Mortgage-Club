@@ -18,6 +18,15 @@ class Users::ElectronicSignatureController < Users::BaseController
     rental_properties = Property.where(is_primary: false, is_subject: false, loan: @loan)
     @loan.borrower.update(other_properties: JSON.dump(rental_properties.as_json(Property.json_options))) if rental_properties.present?
 
+    # create the first loan activity
+    activity = ActivityType.find_or_create_by(label: "Start processing", order_number: 1) do |f|
+      f.activity_names << ActivityName.find_or_create_by(name: "Submitted loan to MortgageClub")
+    end
+
+    user = User.where(email: "billy@mortgageclub.co").last
+    # add the first activity to loan
+    LoanActivityServices::CreateActivity.new.call(user.loan_member, loan_activity_params(activity, @loan)) if user
+
     redirect_to "/my/dashboard/#{params[:id]}"
 
     # bootstrap(
@@ -114,12 +123,23 @@ class Users::ElectronicSignatureController < Users::BaseController
 
   def rate_params
     params.require(:rate).permit(
-      :interest_rate, :lender_name, :lender_nmls_id,
-      :period, :amortization_type, :monthly_payment,
+      :interest_rate, :lender_name, :nmls,
+      :period, :product, :monthly_payment,
       :lender_credits, :apr,
       :loan_type, :total_closing_cost,
-      :amount, :cash_out,
+      :loan_amount, :cash_out,
       :discount_pts
     )
+  end
+
+  def loan_activity_params(activity, loan)
+    loan_activity_params = {}
+    loan_activity_params[:activity_type_id] = activity.id
+    loan_activity_params[:activity_status] = 0
+    loan_activity_params[:name] = activity.activity_names.first.name
+    loan_activity_params[:user_visible] = true
+    loan_activity_params[:loan_id] = loan.id
+    loan_activity_params[:start_date] = Time.zone.now
+    loan_activity_params
   end
 end
