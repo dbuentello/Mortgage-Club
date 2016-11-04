@@ -52,6 +52,9 @@ class LoanDashboardPage::LoanPresenter
           },
           methods: :usage_name
         },
+        subject_property: {
+          methods: :usage_name
+        },
         borrower: {
           only: [:id],
           include: [
