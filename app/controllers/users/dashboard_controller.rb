@@ -1,5 +1,5 @@
 class Users::DashboardController < Users::BaseController
-  before_action :set_loan, only: [:show]
+  before_action :set_loan, only: [:show, :update_rate]
 
   # show the loan dashboard if the status of loan is not 'new'.
   #
@@ -28,5 +28,18 @@ class Users::DashboardController < Users::BaseController
     respond_to do |format|
       format.html { render template: 'borrower_app' }
     end
+  end
+
+  def update_rate
+    if @loan.subject_property.address && @loan.subject_property.address.zip
+      rate_programs = LoanTekServices::GetQuotes.new(@loan, false).call
+      selected_rates = rate_programs.select { |rate| rate[:product] == @loan.amortization_type && rate[:interest_rate] == @loan.interest_rate }
+
+      if selected_rates.any? && selected_rates.first[:discount_pts].round(5) != @loan.discount_pts
+        RateServices::UpdateLoanDataFromSelectedRate.update_rate(@loan, selected_rates.first)
+      end
+    end
+    @loan.update(updated_rate_time: Time.zone.now)
+    render json: {loan: LoanDashboardPage::LoanPresenter.new(@loan).show}
   end
 end

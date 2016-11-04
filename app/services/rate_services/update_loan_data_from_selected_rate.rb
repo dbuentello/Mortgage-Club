@@ -70,7 +70,7 @@ module RateServices
       fees = rate[:fees]
       thirty_fees = JSON.load(rate[:thirty_fees].to_json)
       lender = get_lender(rate[:lender_name])
-      byebug
+
       loan.tap do |l|
         l.lender_underwriting_fee = fees.first ? fees.first["FeeAmount"] : 0.0
 
