@@ -123,11 +123,11 @@ class Users::ElectronicSignatureController < Users::BaseController
 
   def rate_params
     params.require(:rate).permit(
-      :interest_rate, :lender_name, :lender_nmls_id,
-      :period, :amortization_type, :monthly_payment,
+      :interest_rate, :lender_name, :nmls,
+      :period, :product, :monthly_payment,
       :lender_credits, :apr,
       :loan_type, :total_closing_cost,
-      :amount, :cash_out,
+      :loan_amount, :cash_out,
       :discount_pts
     )
   end

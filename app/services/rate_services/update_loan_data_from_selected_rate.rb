@@ -27,9 +27,7 @@ module RateServices
 
         l.cash_out = quote[:cash_out].to_f
         l.interest_rate = quote[:interest_rate].to_f
-        l.lender_nmls_id = quote[:lender_nmls_id]
         l.num_of_months = quote[:period].to_i
-        l.amortization_type = quote[:amortization_type]
         l.monthly_payment = quote[:monthly_payment].to_f
         l.apr = quote[:apr].to_f
         l.lender_credits = quote[:lender_credits].to_f
@@ -41,9 +39,11 @@ module RateServices
         end
         l.estimated_closing_costs = quote[:total_closing_cost].to_f + loan.subject_property.estimated_hazard_insurance.to_f
         l.pmi_monthly_premium_amount = quote[:pmi_monthly_premium_amount].to_f
-        l.amount = quote[:amount].to_f
         l.discount_pts = quote[:discount_pts].to_f
         l.updated_rate_time = Time.zone.now
+        l.amount = quote[:loan_amount].to_f
+        l.amortization_type = quote[:product]
+        l.lender_nmls_id = quote[:nmls]
         l.save!
       end
 
@@ -70,7 +70,7 @@ module RateServices
       fees = rate[:fees]
       thirty_fees = JSON.load(rate[:thirty_fees].to_json)
       lender = get_lender(rate[:lender_name])
-
+      byebug
       loan.tap do |l|
         l.lender_underwriting_fee = fees.first ? fees.first["FeeAmount"] : 0.0
 
