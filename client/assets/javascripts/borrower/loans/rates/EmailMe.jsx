@@ -48,7 +48,7 @@ var EmailMe = React.createClass({
     _.each(email_me_fields, function (field) {
       state[field.name] = null;
     });
-
+    state["email_me_subject"] = "Your rate quote from MortgageClub";
     state.fields = email_me_fields;
     return state;
   },

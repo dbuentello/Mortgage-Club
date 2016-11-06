@@ -1,6 +1,6 @@
 class ShareRateMailer < ActionMailer::Base
   def email_me(params, current_user)
-    if params[:body]
+    if params[:body].present?
       if params[:body].include? "[first_name]"
         body = params[:body].gsub! "[first_name]", params[:first_name]
       else
