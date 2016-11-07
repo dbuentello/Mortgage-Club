@@ -39,7 +39,9 @@ class LoanDashboardPage::LoanPresenter
         :prepaid_item_fee,
         :prepaid_homeowners_insurance,
         :cash_out,
-        :lender_name
+        :lender_name,
+        :updated_rate_time,
+        :is_rate_locked
       ],
       include: {
         properties: {

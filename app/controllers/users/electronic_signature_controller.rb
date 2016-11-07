@@ -27,6 +27,9 @@ class Users::ElectronicSignatureController < Users::BaseController
     # add the first activity to loan
     LoanActivityServices::CreateActivity.new.call(user.loan_member, loan_activity_params(activity, @loan)) if user
 
+    @loan.reload
+    update_rate
+
     redirect_to "/my/dashboard/#{params[:id]}"
 
     # bootstrap(
@@ -141,5 +144,18 @@ class Users::ElectronicSignatureController < Users::BaseController
     loan_activity_params[:loan_id] = loan.id
     loan_activity_params[:start_date] = Time.zone.now
     loan_activity_params
+  end
+
+  def update_rate
+    rate_programs = LoanTekServices::GetQuotes.new(@loan, false).call
+    selected_rates = rate_programs.select { |rate| rate[:product] == @loan.amortization_type && rate[:interest_rate] == @loan.interest_rate }
+
+    if selected_rates.any?
+      if selected_rates.first[:discount_pts].round(5) != @loan.discount_pts
+        RateServices::UpdateLoanDataFromSelectedRate.update_rate(@loan, selected_rates.first)
+      end
+    end
+
+    @loan.update(updated_rate_time: Time.zone.now)
   end
 end

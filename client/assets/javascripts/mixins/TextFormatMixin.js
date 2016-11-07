@@ -142,6 +142,7 @@ var TextFormatMixin = {
     if (!val) { return; }
     return ('' + val).replace(/[^0-9\.]/g, '');
   },
+
   formatPercent: function(value) {
     var money;
     var decimal = 3;
