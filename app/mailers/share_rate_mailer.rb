@@ -40,4 +40,29 @@ class ShareRateMailer < ActionMailer::Base
       )
     end
   end
+
+  def update_rate_failed(loan)
+    @borrower_full_name = loan.borrower.user.to_s
+    @loan_member_first_name = loan.loan_members.first.user.first_name
+    @property_address = loan.subject_property.address.address
+
+    mail(
+      from: "Billy Tran <billy@mortgageclub.co>",
+      to: loan.loan_members.first.user.email,
+      subject: "[ACTION NEEDED] Update rate for #{@borrower_full_name} - #{@property_address}"
+    )
+  end
+
+  def request_rate_lock(loan)
+    @borrower_full_name = loan.borrower.user.to_s
+    @loan_member_first_name = loan.loan_members.first.user.first_name
+    @property_address = loan.subject_property.address.address
+
+    # loan.loan_members.first.user.email
+    mail(
+      from: "Billy Tran <billy@mortgageclub.co>",
+      to: "tang@mortgageclub.co",
+      subject: "[ACTION NEEDED] Lock in rate for #{@borrower_full_name} - #{@property_address}"
+    )
+  end
 end

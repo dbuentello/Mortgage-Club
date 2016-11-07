@@ -19,6 +19,8 @@
 //= require d3.slider
 //= require auto-complete.min
 //= require idle-timer.min
+//= require moment.min
+//= require moment-timezone
 //= require landing/functions
 // Important to import jquery_ujs before bundle_BorrowerApp as that patches jquery xhr to use the authenticity token!
 
@@ -28,6 +30,7 @@
 $(document).on('ready', function(event) {
   $('.flashSection').delay(7000).fadeOut();
   $('[data-toggle="tooltip"]').tooltip();
+  moment.tz.add('America/Los_Angeles|PST PDT|80 70|0101|1Lzm0 1zb0 Op0');
 });
 $(document).on( "idle.idleTimer", function(event, elem, obj){
 

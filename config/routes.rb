@@ -71,6 +71,7 @@ Rails.application.routes.draw do
       resources :dashboard, only: [:show] do
         collection do
           post "/update_rate", to: "dashboard#update_rate"
+          post "/request_rate_lock", to: "dashboard#request_rate_lock"
         end
       end
 

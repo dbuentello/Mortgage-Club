@@ -55,7 +55,7 @@ var Dashboard = React.createClass({
   },
 
   updateRate: function(){
-    $("#btnUpdateRate").attr('disabled','disabled');
+    $(".btnUpdateRate").attr('disabled','disabled');
     $.ajax({
       url: '/my/dashboard/update_rate',
       method: 'POST',
@@ -65,20 +65,55 @@ var Dashboard = React.createClass({
       },
       success: function(response) {
         this.setState({loan: response.loan});
+        $(".btnUpdateRate").removeAttr('disabled');
 
-        $("#btnUpdateRate").removeAttr('disabled');
+        if(response.error !== undefined){
+          this.setState({updateRateErrorMessage: response.error});
+        }
       }.bind(this),
       error: function(response, status, error) {
         var flash = { "alert-danger": response.message };
         this.showFlashes(flash);
 
-        $("#btnUpdateRate").removeAttr('disabled');
+        $(".btnUpdateRate").removeAttr('disabled');
       }.bind(this)
     });
   },
 
   viewLoan: function(){
     location.href = '/loans/' + this.state.loan.id;
+  },
+
+  requestRateLockValid: function(){
+    var beginningTime = moment.tz("7:00:00 am", "h:mm:ss a");
+    var endTime = moment.tz("4:00:00 pm", "h:mm:ss a");
+    var currentTime = moment.tz(new Date(), "America/Los_Angeles").format("h:mm:ss a");
+    console.log(beginningTime, endTime, currentTime);
+    return false;
+  },
+
+  requestRateLock: function(){
+    if(this.requestRateLockValid()){
+      $.ajax({
+        url: '/my/dashboard/request_rate_lock',
+        method: 'POST',
+        dataType: 'json',
+        data: {
+          id: this.state.loan.id
+        },
+        success: function(response) {
+          this.setState({
+            loan: response.loan,
+            requestRateLockAlert: response.alert
+          });
+          $("#rate-lock-alert").css("color", "green");
+        }.bind(this),
+        error: function(response, status, error) {
+          var flash = { "alert-danger": response.message };
+          this.showFlashes(flash);
+        }.bind(this)
+      });
+    }
   },
 
   render: function() {
@@ -110,19 +145,25 @@ var Dashboard = React.createClass({
               {
                 loan.amount
                 ?
-                  <p>{this.formatCurrency(loan.amount, '$')} {loan.amortization_type} {property.usage_name} {loan.purpose_titleize} Loan</p>
+                  <p style={{"margin-bottom": "0px"}}>{this.formatCurrency(loan.amount, '$')} - {loan.amortization_type} - {property.usage_name} - {loan.purpose_titleize} Loan</p>
                 :
                   null
               }
-              <p>Status: {loan.pretty_status}</p>
+              <p style={{"margin-bottom": "0px"}}>Status: {loan.pretty_status} - Rate: {this.commafy(loan.interest_rate*100, 3)}% ({loan.is_rate_locked == true ? "locked" : "not locked"})</p>
+              {
+                loan.is_rate_locked == true
+                ?
+                  null
+                :
+                  <p style={{"cursor": "pointer"}} onClick={this.requestRateLock}><a>Request rate lock</a></p>
+              }
+              <p id="rate-lock-alert">{this.state.requestRateLockAlert}</p>
             </div>
 
             <div className='col-md-3'>
-              <button className="btn update-rate-btn" onClick={this.updateRate} id="btnUpdateRate">Update Rate</button>
               <ModalLink
                 id="viewLoan"
-                icon="iconInfo mrs"
-                name="View"
+                name="View Application"
                 title={null}
                 class="btn edit-btn"
                 bodyClass="mc-blue-primary-text"
@@ -179,7 +220,7 @@ var Dashboard = React.createClass({
                   <OverviewTab loan={loan} borrower={loan.borrower} checklists={checklists} />
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="terms">
-                  <TermTab loan={loan} address={address}></TermTab>
+                  <TermTab loan={loan} address={address} updateRate={this.updateRate} updateRateErrorMessage={this.state.updateRateErrorMessage}></TermTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="property">
                   <PropertyTab propertyDocuments={propertyDocuments}></PropertyTab>
