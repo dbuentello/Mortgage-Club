@@ -4,6 +4,7 @@ var TextField = require("components/form/NewTextField");
 var ValidationObject = require("mixins/FormValidationMixin");
 var TextEditor = require("components/TextEditor");
 var TinyMCEEditor = require("components/TinyMCEEditor");
+var SelectField = require('components/form/NewSelectField');
 
 var email_me_fields = {
   firstName: {label: "First name", name: "email_me_first_name", keyName: "email_me_first_name", error: "emailMeFirstNameError", validationTypes: "empty"},
@@ -27,9 +28,22 @@ var EmailMe = React.createClass({
             code_id: this.props.codeId
           },
           success: function(response) {
-            this.updateEmailContent(response.template);
-            tinyMCE.activeEditor.setContent(response.template);
-            // CKEDITOR.instances["text-editor"].setData(response.template);
+            var templateOptions = [];
+            if(response.is_purchase == true){
+              templateOptions.push({name: 'Purchase rate quote', value: response.purchase_template});
+              templateOptions.push({name: 'Refinance rate quote', value: response.refinance_template});
+
+              this.updateEmailContent(response.purchase_template);
+              tinyMCE.activeEditor.setContent(response.purchase_template);
+            }else{
+              templateOptions.push({name: 'Refinance rate quote', value: response.refinance_template});
+              templateOptions.push({name: 'Purchase rate quote', value: response.purchase_template});
+
+              this.updateEmailContent(response.refinance_template);
+              tinyMCE.activeEditor.setContent(response.refinance_template);
+            }
+
+            this.setState({templateOptions: templateOptions});
           }.bind(this)
         });
       }.bind(this));
@@ -43,13 +57,15 @@ var EmailMe = React.createClass({
 
     if(this.props.userRole == "loan_member"){
       email_me_fields.subject = {label: "Subject", name: "email_me_subject", keyName: "email_me_subject", error: "emailMeSubject", validationTypes: "empty"};
+      email_me_fields.template = {label: "Template", name: "email_me_template", keyName: "email_me_template", error: "emailMeTemplate"};
     }
 
     _.each(email_me_fields, function (field) {
       state[field.name] = null;
     });
-
+    state["email_me_subject"] = "Your rate quote from MortgageClub";
     state.fields = email_me_fields;
+    state.templateOptions = [];
     return state;
   },
 
@@ -111,6 +127,14 @@ var EmailMe = React.createClass({
   },
   updateEmailContent: function(content) {
     this.setState({body: content});
+  },
+  changeTemplate: function(change){
+    var key = Object.keys(change)[0];
+    var value = change[key];
+
+    this.setState(change);
+    this.updateEmailContent(value);
+    tinyMCE.activeEditor.setContent(value);
   },
   render: function() {
     return (
@@ -175,6 +199,17 @@ var EmailMe = React.createClass({
                               onChange={this.onChange}
                               onBlur={this.onBlur}
                               editMode={true}/>
+                          </div>
+                          <div className="col-md-12 col-sm-12 text-left">
+                            <SelectField
+                              activateRequiredField={this.state[this.state.fields.template.error]}
+                              label={this.state.fields.template.label}
+                              keyName={this.state.fields.template.keyName}
+                              value={this.state[this.state.fields.template.keyName]}
+                              options={this.state.templateOptions}
+                              editable={true}
+                              onChange={this.changeTemplate}
+                              editMode={this.props.editMode}/>
                           </div>
                           <div className="col-sm-1">
                             <h6>Body</h6>
