@@ -170,7 +170,7 @@ var List = React.createClass({
   render: function() {
     return(
       <div>
-        <EmailMe quotes={this.props.quotes} codeId={this.props.codeId}/>
+        <EmailMe quotes={this.props.quotes} codeId={this.props.codeId} userRole={this.props.userRole}/>
         {
           _.map(this.props.quotes, function (quote, index) {
             return (
@@ -221,7 +221,7 @@ var List = React.createClass({
                         }
                       </div>
                       <div>
-                        <a onClick={_.bind(this.emailMe, null, index)} style={{"margin-left": "15px", "cursor": "pointer"}}>Email Me</a>
+                        <a onClick={_.bind(this.emailMe, null, index)} style={{"margin-left": "15px", "cursor": "pointer"}}>{this.props.userRole == "loan_member" ? "Email Client" : "Email Me"}</a>
                       </div>
                     </div>
                   </div>

@@ -5,7 +5,7 @@ var React = require("react");
 var ReactScriptLoader = require("react-script-loader");
 var ReactScriptLoaderMixin = ReactScriptLoader.ReactScriptLoaderMixin;
 
-var TextEditor = React.createClass({
+var WysiwygEditor = React.createClass({
   mixins: [ReactScriptLoaderMixin],
 
   propTypes: {
@@ -19,22 +19,14 @@ var TextEditor = React.createClass({
   },
 
   getScriptURL: function() {
-    var type = this.props.type || "full";
-    return "https://cdn.ckeditor.com/4.5.11/" + type + "/ckeditor.js";
+    return "https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.3.5/js/froala_editor.min.js";
   },
 
   onScriptLoaded: function() {
-    var width = this.props.width || "50%";
-    var height = this.props.height || "500px";
-    CKEDITOR.replace("text-editor", {
-      width: width,
-      height: height,
-      on: {
-        change: function(event) {
-          this.props.onChange(event.editor.getData());
-        }.bind(this)
-      }
-    });
+    $("#text-editor").froalaEditor();
+    $("#text-editor").on("froalaEditor.contentChanged", function (e, editor) {
+      this.props.onChange(editor.html.get());
+    }.bind(this));
   },
 
   onScriptError: function() {
@@ -49,8 +41,8 @@ var TextEditor = React.createClass({
           {
             this.state.success
             ?
-              <div id="text-editor" dangerouslySetInnerHTML={{__html: this.props.content}}>
-              </div>
+              <textarea id="text-editor">
+              </textarea>
             :
             <p>Cannot load text editor</p>
           }
@@ -60,4 +52,4 @@ var TextEditor = React.createClass({
   }
 })
 
-module.exports = TextEditor;
+module.exports = WysiwygEditor;

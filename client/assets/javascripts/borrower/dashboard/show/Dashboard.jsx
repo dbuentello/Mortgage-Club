@@ -25,7 +25,8 @@ var Dashboard = React.createClass({
 
   getInitialState: function() {
     return {
-      activeTab: 'overview'
+      activeTab: 'overview',
+      loan: this.props.bootstrapData.loan
     };
   },
 
@@ -40,7 +41,7 @@ var Dashboard = React.createClass({
   // TODO: should remove. Unused
   destroyLoan: function() {
     $.ajax({
-      url: '/loans/' + this.props.bootstrapData.loan.id,
+      url: '/loans/' + this.state.loan.id,
       method: 'DELETE',
       dataType: 'json',
       success: function(response) {
@@ -53,19 +54,96 @@ var Dashboard = React.createClass({
     });
   },
 
+  updateRate: function(){
+    $(".btnUpdateRate").attr('disabled','disabled');
+    $.ajax({
+      url: '/my/dashboard/update_rate',
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        id: this.state.loan.id
+      },
+      success: function(response) {
+        this.setState({loan: response.loan});
+        $(".btnUpdateRate").removeAttr('disabled');
+
+        if(response.error !== undefined){
+          this.setState({updateRateErrorMessage: response.error});
+        }
+      }.bind(this),
+      error: function(response, status, error) {
+        var flash = { "alert-danger": response.message };
+        this.showFlashes(flash);
+
+        $(".btnUpdateRate").removeAttr('disabled');
+      }.bind(this)
+    });
+  },
+
   viewLoan: function(){
-    location.href = '/loans/' + this.props.bootstrapData.loan.id;
+    location.href = '/loans/' + this.state.loan.id;
+  },
+
+  requestRateLockValid: function(){
+    var beginningTime = moment.tz("7:30:00 am", "h:mm:ss a", "America/Los_Angeles");
+    var endTime = moment.tz("4:00:00 pm", "h:mm:ss a", "America/Los_Angeles");
+    var currentTime = moment.tz(new Date(), "America/Los_Angeles");
+    var updatedRateTime = moment.tz(this.state.loan.updated_rate_time, "America/Los_Angeles");
+
+    if(!currentTime.isBetween(beginningTime, endTime) || currentTime.isoWeekday() == 6 || currentTime.isoWeekday() == 7){
+      this.setState({
+        requestRateLockAlert: "Sorry, we can only lock in rate from 7:30am - 4:00pm PST, Monday - Friday. Please request rate lock during those hours."
+      });
+
+      $("#rate-lock-alert").css("color", "red");
+      return false;
+    }
+
+    if(updatedRateTime.add(5, "minutes").isBefore(currentTime)){
+      this.setState({
+        requestRateLockAlert: "Please update rate and terms under Terms tab before requesting rate lock!"
+      });
+
+      $("#rate-lock-alert").css("color", "red");
+      return false;
+    }
+
+    return true;
+  },
+
+  requestRateLock: function(){
+    if(this.requestRateLockValid()){
+      $.ajax({
+        url: '/my/dashboard/request_rate_lock',
+        method: 'POST',
+        dataType: 'json',
+        data: {
+          id: this.state.loan.id
+        },
+        success: function(response) {
+          this.setState({
+            loan: response.loan,
+            requestRateLockAlert: response.alert
+          });
+          $("#rate-lock-alert").css("color", "green");
+        }.bind(this),
+        error: function(response, status, error) {
+          var flash = { "alert-danger": response.message };
+          this.showFlashes(flash);
+        }.bind(this)
+      });
+    }
   },
 
   render: function() {
     var address = this.props.bootstrapData.address;
-    var loan    = this.props.bootstrapData.loan;
-    var property = this.props.bootstrapData.loan.subject_property;
+    var loan    = this.state.loan;
+    var property = this.state.loan.subject_property;
     var contactList = this.props.bootstrapData.contact_list;
     var propertyDocuments = this.props.bootstrapData.property_documents;
     var loanDocuments = this.props.bootstrapData.loan_documents;
     var borrowerDocuments = this.props.bootstrapData.borrower_documents;
-    var coBorrower = this.props.bootstrapData.loan.secondary_borrower;
+    var coBorrower = this.state.loan.secondary_borrower;
     var closingDocuments = this.props.bootstrapData.closing_documents;
     var manager = this.props.bootstrapData.manager;
     var checklists = this.props.bootstrapData.checklists;
@@ -86,18 +164,25 @@ var Dashboard = React.createClass({
               {
                 loan.amount
                 ?
-                  <p>{this.formatCurrency(loan.amount, '$')} {loan.amortization_type} {property.usage_name} {loan.purpose_titleize} Loan</p>
+                  <p style={{"margin-bottom": "0px"}}>{this.formatCurrency(loan.amount, '$')} - {loan.amortization_type} - {property.usage_name} - {loan.purpose_titleize} Loan</p>
                 :
                   null
               }
-              <p>Status: {loan.pretty_status}</p>
+              <p style={{"margin-bottom": "0px"}}>Status: {loan.pretty_status} - Rate: {this.commafy(loan.interest_rate*100, 3)}% ({loan.is_rate_locked == true ? "locked" : "not locked"})</p>
+              {
+                loan.is_rate_locked == true
+                ?
+                  null
+                :
+                  <p style={{"cursor": "pointer"}} onClick={this.requestRateLock}><a>Request rate lock</a></p>
+              }
+              <p id="rate-lock-alert">{this.state.requestRateLockAlert}</p>
             </div>
 
             <div className='col-md-3'>
               <ModalLink
                 id="viewLoan"
-                icon="iconInfo mrs"
-                name="View"
+                name="View Application"
                 title={null}
                 class="btn edit-btn"
                 bodyClass="mc-blue-primary-text"
@@ -154,7 +239,7 @@ var Dashboard = React.createClass({
                   <OverviewTab loan={loan} borrower={loan.borrower} checklists={checklists} />
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="terms">
-                  <TermTab loan={loan} address={address}></TermTab>
+                  <TermTab loan={loan} address={address} updateRate={this.updateRate} updateRateErrorMessage={this.state.updateRateErrorMessage}></TermTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="property">
                   <PropertyTab propertyDocuments={propertyDocuments}></PropertyTab>

@@ -129,6 +129,7 @@
   width: 200px;
   padding-bottom: 5px;
 }
+
 .modal-md {
   max-width: 405px;
   .modal-content {
@@ -186,6 +187,11 @@
     cursor: pointer;
   }
 }
+
+.modal-large {
+  max-width: 700px;
+}
+
 .div-back-to-results {
   margin-top: 10px;
   margin-bottom: 10px;

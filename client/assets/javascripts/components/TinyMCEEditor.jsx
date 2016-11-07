@@ -5,7 +5,7 @@ var React = require("react");
 var ReactScriptLoader = require("react-script-loader");
 var ReactScriptLoaderMixin = ReactScriptLoader.ReactScriptLoaderMixin;
 
-var TextEditor = React.createClass({
+var TinyMCEEditor = React.createClass({
   mixins: [ReactScriptLoaderMixin],
 
   propTypes: {
@@ -19,21 +19,24 @@ var TextEditor = React.createClass({
   },
 
   getScriptURL: function() {
-    var type = this.props.type || "full";
-    return "https://cdn.ckeditor.com/4.5.11/" + type + "/ckeditor.js";
+    return "https://cdn.tinymce.com/4/tinymce.min.js";
   },
 
   onScriptLoaded: function() {
-    var width = this.props.width || "50%";
-    var height = this.props.height || "500px";
-    CKEDITOR.replace("text-editor", {
-      width: width,
-      height: height,
-      on: {
-        change: function(event) {
-          this.props.onChange(event.editor.getData());
-        }.bind(this)
-      }
+    tinyMCE.init({
+      selector: "#text-editor",
+      height: 300,
+      plugins: [
+        'advlist autolink lists link image charmap print preview anchor',
+        'searchreplace visualblocks code fullscreen',
+        'insertdatetime media table contextmenu paste code'
+      ],
+      toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image',
+      setup:function(ed) {
+        ed.on('change', function(e) {
+          this.props.onChange(ed.getContent());
+        }.bind(this));
+      }.bind(this)
     });
   },
 
@@ -49,8 +52,8 @@ var TextEditor = React.createClass({
           {
             this.state.success
             ?
-              <div id="text-editor" dangerouslySetInnerHTML={{__html: this.props.content}}>
-              </div>
+              <textarea id="text-editor">
+              </textarea>
             :
             <p>Cannot load text editor</p>
           }
@@ -60,4 +63,4 @@ var TextEditor = React.createClass({
   }
 })
 
-module.exports = TextEditor;
+module.exports = TinyMCEEditor;

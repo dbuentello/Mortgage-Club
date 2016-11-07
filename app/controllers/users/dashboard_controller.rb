@@ -1,5 +1,5 @@
 class Users::DashboardController < Users::BaseController
-  before_action :set_loan, only: [:show]
+  before_action :set_loan, only: [:show, :update_rate, :request_rate_lock]
 
   # show the loan dashboard if the status of loan is not 'new'.
   #
@@ -28,5 +28,27 @@ class Users::DashboardController < Users::BaseController
     respond_to do |format|
       format.html { render template: 'borrower_app' }
     end
+  end
+
+  def update_rate
+    rate_programs = LoanTekServices::GetQuotes.new(@loan, false).call
+    selected_rates = rate_programs.select { |rate| rate[:product] == @loan.amortization_type && rate[:interest_rate] == @loan.interest_rate }
+
+    if selected_rates.any?
+      if selected_rates.first[:discount_pts].round(5) != @loan.discount_pts
+        RateServices::UpdateLoanDataFromSelectedRate.update_rate(@loan, selected_rates.first)
+      end
+      @loan.update(updated_rate_time: Time.zone.now)
+      render json: {loan: LoanDashboardPage::LoanPresenter.new(@loan).show}
+    else
+      ShareRateMailer.update_rate_failed(@loan).deliver_now
+      render json: {loan: LoanDashboardPage::LoanPresenter.new(@loan).show, error: "Sorry, something went wrong. Your mortgage advisor has been notified."}
+    end
+  end
+
+  def request_rate_lock
+    @loan.update(is_rate_locked: true)
+    ShareRateMailer.request_rate_lock(@loan).deliver_now
+    render json: {loan: LoanDashboardPage::LoanPresenter.new(@loan).show, alert: "Your mortgage advisor has been notified to lock in rate. You’ll receive a rate lock confirmation email shortly."}
   end
 end

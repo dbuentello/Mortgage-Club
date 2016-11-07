@@ -69,6 +69,10 @@ Rails.application.routes.draw do
       # end
 
       resources :dashboard, only: [:show] do
+        collection do
+          post "/update_rate", to: "dashboard#update_rate"
+          post "/request_rate_lock", to: "dashboard#request_rate_lock"
+        end
       end
 
       resources :checklists, only: [:update] do
@@ -231,6 +235,7 @@ Rails.application.routes.draw do
       post "save_info"
       post "set_rate_alert"
       post "email_me"
+      post "render_html"
     end
   end
 

@@ -62,12 +62,26 @@ var TermTab = React.createClass({
     }else{
       var cashToClose = totalClosingCost + (parseFloat(loan.cash_out) || 0);
     }
+    var updatedRateTime = this.formatTimeCustom(loan.updated_rate_time, 'MMMM Do YYYY, h:mm:ss A');
 
     return (
       <div className="panel panel-flat terms-view">
         <div>
           <div className="row">
             <h4 className="loan-summary"> Your Loan Summary </h4>
+            <p style={{"font-style": "italic", "padding-left": "20px"}}>
+              As of {updatedRateTime}
+              {
+                loan.is_rate_locked == true
+                ?
+                  null
+                :
+                  <span className="glyphicon glyphicon-refresh btnUpdateRate" title="Update" style={{"cursor": "pointer", "font-weight": "bold", "color": "#15c0f1", "margin-left":"10px"}} onClick={this.props.updateRate}></span>
+              }
+            </p>
+            <p style={{"color": "red", "padding-left": "20px"}}>
+              {this.props.updateRateErrorMessage}
+            </p>
           </div>
 
           <div className="table-responsive term-board">
@@ -131,6 +145,20 @@ var TermTab = React.createClass({
                   </td>
                   <td>
                     {this.commafy(loan.interest_rate*100, 3)}%
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Rate Lock
+                  </td>
+                  <td>
+                    {
+                      loan.is_rate_locked == true
+                      ?
+                        "Yes"
+                      :
+                        "No"
+                    }
                   </td>
                 </tr>
               </tbody>

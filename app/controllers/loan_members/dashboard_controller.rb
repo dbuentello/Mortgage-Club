@@ -21,6 +21,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       property: LoanMembers::PropertyPresenter.new(subject_property).show,
       closing: LoanMembers::ClosingPresenter.new(@loan.closing).show,
       templates: LoanMembers::TemplatesPresenter.new(Template.all).show,
+      checklists: LoanMembers::ChecklistsPresenter.new(@loan.checklists.order(due_date: :desc, name: :asc)).show,
       lender_templates: get_lender_templates,
       other_lender_template: get_other_template,
       competitor_rates: {

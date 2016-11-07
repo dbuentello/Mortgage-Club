@@ -96,7 +96,7 @@ var Dashboard = React.createClass({
                   <LenderDocumentTab loan={this.props.bootstrapData.loan} lenderTemplates={this.props.bootstrapData.lender_templates} otherLenderTemplate={this.props.bootstrapData.other_lender_template}></LenderDocumentTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="checklist">
-                  <ChecklistTab loan={this.props.bootstrapData.loan} checklists={this.props.bootstrapData.loan.checklists} templates={this.props.bootstrapData.templates}></ChecklistTab>
+                  <ChecklistTab loan={this.props.bootstrapData.loan} checklists={this.props.bootstrapData.checklists} templates={this.props.bootstrapData.templates}></ChecklistTab>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="competitor_rates">
                   <CompetitorRateTab competitorRates={this.props.bootstrapData.competitor_rates} />
