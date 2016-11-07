@@ -85,6 +85,8 @@ class InitialQuotesController < ApplicationController
     @quote_query = JSON.load quote.query
     @current_user = current_user
 
+    @prepaid_item_fees = @rate["thirty_fees"].find { |_key, value| value["Description"] == "Prepaid items" }.last["FeeAmount"]
+
     if current_user && current_user.has_role?(:loan_member)
       @email_from = current_user.email.present? ? "#{current_user} <#{current_user.email}>" : "Billy Tran <billy@mortgageclub.co>"
       @email = current_user.email.present? ? current_user.email : "billy@mortgageclub.co"
@@ -95,8 +97,10 @@ class InitialQuotesController < ApplicationController
       @phone = "(650) 787-7799"
     end
 
-    template = render_to_string "share_rate_mailer/email_me", layout: false
-    render json: {template: template}, status: 200
+    purchase_template = render_to_string "share_rate_mailer/email_me", layout: false
+    refinance_template = render_to_string "share_rate_mailer/refinance_rate_quote", layout: false
+
+    render json: {purchase_template: purchase_template, refinance_template: refinance_template, is_purchase: @quote_query["mortgage_purpose"] == "purchase"}, status: 200
   end
 
   def save_info
