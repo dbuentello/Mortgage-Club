@@ -58,10 +58,9 @@ class ShareRateMailer < ActionMailer::Base
     @loan_member_first_name = loan.loan_members.first.user.first_name
     @property_address = loan.subject_property.address.address
 
-    # loan.loan_members.first.user.email
     mail(
       from: "Billy Tran <billy@mortgageclub.co>",
-      to: "tang@mortgageclub.co",
+      to: loan.loan_members.first.user.email,
       subject: "[ACTION NEEDED] Lock in rate for #{@borrower_full_name} - #{@property_address}"
     )
   end

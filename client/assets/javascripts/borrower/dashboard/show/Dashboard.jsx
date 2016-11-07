@@ -85,11 +85,30 @@ var Dashboard = React.createClass({
   },
 
   requestRateLockValid: function(){
-    var beginningTime = moment.tz("7:00:00 am", "h:mm:ss a");
-    var endTime = moment.tz("4:00:00 pm", "h:mm:ss a");
-    var currentTime = moment.tz(new Date(), "America/Los_Angeles").format("h:mm:ss a");
-    console.log(beginningTime, endTime, currentTime);
-    return false;
+    var beginningTime = moment.tz("7:30:00 am", "h:mm:ss a", "America/Los_Angeles");
+    var endTime = moment.tz("4:00:00 pm", "h:mm:ss a", "America/Los_Angeles");
+    var currentTime = moment.tz(new Date(), "America/Los_Angeles");
+    var updatedRateTime = moment.tz(this.state.loan.updated_rate_time, "America/Los_Angeles");
+
+    if(!currentTime.isBetween(beginningTime, endTime) || currentTime.isoWeekday() == 6 || currentTime.isoWeekday() == 7){
+      this.setState({
+        requestRateLockAlert: "Sorry, we can only lock in rate from 7:30am - 4:00pm PST, Monday - Friday. Please request rate lock during those hours."
+      });
+
+      $("#rate-lock-alert").css("color", "red");
+      return false;
+    }
+
+    if(updatedRateTime.add(5, "minutes").isBefore(currentTime)){
+      this.setState({
+        requestRateLockAlert: "Please update rate and terms under Terms tab before requesting rate lock!"
+      });
+
+      $("#rate-lock-alert").css("color", "red");
+      return false;
+    }
+
+    return true;
   },
 
   requestRateLock: function(){
