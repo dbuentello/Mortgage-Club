@@ -17,6 +17,7 @@ class UpdateLoanTermsService
     ActiveRecord::Base.transaction do
       update_property
       update_loan
+      update_loan_fees
       update_address
     end
   end
@@ -32,7 +33,13 @@ class UpdateLoanTermsService
     loan.down_payment = params[:down_payment]
     loan.estimated_cash_to_close = params[:total_cash_to_close]
     loan.monthly_payment = params[:principal_interest]
+    loan.is_rate_locked = params[:is_rate_locked]
+    loan.rate_lock_expiration_date = params[:rate_lock_expiration_date]
 
+    loan.save!
+  end
+
+  def update_loan_fees
     loan.lender_underwriting_fee = params[:lender_underwriting_fee]
     loan.appraisal_fee = params[:appraisal_fee]
     loan.tax_certification_fee = params[:tax_certification_fee]
@@ -47,8 +54,6 @@ class UpdateLoanTermsService
     loan.owner_title_policy_fee = params[:owner_title_policy_fee]
     loan.prepaid_item_fee = params[:prepaid_item_fee]
     loan.prepaid_homeowners_insurance = params[:prepaid_homeowners_insurance]
-    loan.is_rate_locked = params[:is_rate_locked]
-    loan.rate_lock_expiration_date = params[:rate_lock_expiration_date]
 
     loan.save!
   end
