@@ -38,6 +38,15 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     send_data xml, type: "text/xml; charset=UTF-8;", disposition: "attachment; filename=loan.xml"
   end
 
+  def switch
+    loan = Loan.find(params[:id])
+    return if current_user.loan_member? == false || loan.nil? || loan.loan_members.first.user.id != current_user.id
+
+    sign_in(:user, User.find(loan.borrower.user.id), bypass: true)
+
+    redirect_to my_loans_path
+  end
+
   private
 
   def loan_params
