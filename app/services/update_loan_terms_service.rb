@@ -47,6 +47,8 @@ class UpdateLoanTermsService
     loan.owner_title_policy_fee = params[:owner_title_policy_fee]
     loan.prepaid_item_fee = params[:prepaid_item_fee]
     loan.prepaid_homeowners_insurance = params[:prepaid_homeowners_insurance]
+    loan.is_rate_locked = params[:is_rate_locked]
+    loan.rate_lock_expiration_date = params[:rate_lock_expiration_date]
 
     loan.save!
   end

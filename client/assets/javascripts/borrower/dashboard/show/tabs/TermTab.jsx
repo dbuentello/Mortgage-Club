@@ -64,6 +64,12 @@ var TermTab = React.createClass({
     }
     var updatedRateTime = this.formatTimeCustom(loan.updated_rate_time, 'MMMM Do YYYY, h:mm:ss A');
 
+    var rateLockExpirationDate = null;
+
+    if(loan.rate_lock_expiration_date && loan.is_rate_locked == true){
+      rateLockExpirationDate = "until " + this.formatTimeCustom(loan.rate_lock_expiration_date, 'MMMM Do YYYY');
+    }
+
     return (
       <div className="panel panel-flat terms-view">
         <div>
@@ -155,9 +161,9 @@ var TermTab = React.createClass({
                     {
                       loan.is_rate_locked == true
                       ?
-                        "Yes"
+                        <span>Yes <span style={{"font-style": "italic"}}>({rateLockExpirationDate})</span></span>
                       :
-                        "No"
+                        <span>No</span>
                     }
                   </td>
                 </tr>
