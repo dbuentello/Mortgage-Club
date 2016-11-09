@@ -10,6 +10,11 @@
 // #header.sticky-header:not(.static-sticky):not(.sticky-style-2):not(.sticky-style-3) #logo img {
 //   height: 25px;
 // }
+
+.investors-header {
+  font-size: 28px;
+}
+
 #primary-menu ul li > a {
   padding-top: 19px !important;
   padding-bottom: 19px !important;
@@ -58,6 +63,27 @@
     }
   }
 }
+@include respond-to(smobile) {
+  .investors-header {
+    font-size: 21px;
+  }
+}
+
+.why-us-left {
+  margin-top: 80px;
+}
+.why-us-right {
+  margin-top: 80px;
+}
+
+@include respond-to(mobile) {
+  .why-us-left {
+    margin-top: 0px;
+  }
+  .why-us-right {
+    margin-top: 0px;
+  }
+}
 
 @include respond-to(smobile) {
   #btn-find-my-rates {
@@ -76,6 +102,10 @@
 
   #first-slider {
     top: 58px !important;
+  }
+
+  .investors-header {
+    font-size: 21px;
   }
 }
 
