@@ -52,8 +52,7 @@ module SlackBotServices
         lowest_program = programs.first
         programs.each { |p| lowest_program = p if lowest_program["APR"] > p["APR"] }
         min_apr = format("%0.03f", get_apr(lowest_program) * 100)
-        admin_fee = get_admin_fee(lowest_program)
-        lender_credit = number_to_currency(get_lender_credits(lowest_program, admin_fee).abs.to_i, precision: 0)
+        lender_credit = number_to_currency(get_lender_credits(lowest_program).abs.to_i, precision: 0)
         fees = "$0 origination fee"
 
         summary += "#{PRODUCT[type]}: #{min_apr}% rate, #{fees}, #{lender_credit} lender credit\n"
