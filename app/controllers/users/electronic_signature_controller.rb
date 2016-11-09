@@ -12,7 +12,7 @@ class Users::ElectronicSignatureController < Users::BaseController
   # @return [HTML] borrower app with bootstrap data includes loan and selected rate
   #
   def new
-    RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:rate][:fees], rate_params, params[:rate][:thirty_fees])
+    RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:rate][:fees], rate_params, params[:rate][:thirty_fees], params[:rate][:prepaid_fees])
 
     @loan.submitted!
     rental_properties = Property.where(is_primary: false, is_subject: false, loan: @loan)
@@ -49,7 +49,7 @@ class Users::ElectronicSignatureController < Users::BaseController
   #
   def create
     return render nothing: true, status: 200 if Rails.env.test?
-    RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:fees], lender_params, params[:thirty_fees])
+    RateServices::UpdateLoanDataFromSelectedRate.call(params[:id], params[:fees], lender_params, params[:thirty_fees], params[:prepaid_fees])
     @loan.reload
 
     envelope = Docusign::CreateEnvelopeService.new.call(current_user, @loan)
@@ -120,7 +120,7 @@ class Users::ElectronicSignatureController < Users::BaseController
       :lender_credits, :apr,
       :loan_type, :total_closing_cost,
       :amount, :cash_out,
-      :discount_pts
+      :discount_pts, :lender_underwriting_fee
     )
   end
 
@@ -131,7 +131,7 @@ class Users::ElectronicSignatureController < Users::BaseController
       :lender_credits, :apr,
       :loan_type, :total_closing_cost,
       :loan_amount, :cash_out,
-      :discount_pts
+      :discount_pts, :lender_underwriting_fee
     )
   end
 

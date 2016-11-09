@@ -111,7 +111,6 @@ var Quotes = React.createClass({
       mixpanel.track("Quotes-SelectRate");
     }
     var dataCookies = this.props.bootstrapData.data_cookies;
-    var lender_underwriting_fee_object = rate.fees.find(function(x) { return x.Description == "Lender underwriting fee" });
     var cash_out = rate.loan_amount - (parseFloat(dataCookies.mortgage_balance) || 0);
     $.ajax({
       url: "/quotes/save_info",
@@ -137,20 +136,20 @@ var Quotes = React.createClass({
         lender_nmls_id: rate.nmls,
         pmi_monthly_premium_amount: rate.pmi_monthly_premium_amount,
         discount_pts: rate.discount_pts,
-        lender_underwriting_fee: lender_underwriting_fee_object === undefined ? 0 : lender_underwriting_fee_object.FeeAmount,
-        appraisal_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Appraisal Fee"),
-        tax_certification_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Tax Certification Fee"),
-        flood_certification_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Flood Certification Fee"),
-        outside_signing_service_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Outside Signing Service"),
-        concurrent_loan_charge_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Concurrent Loan Charge"),
-        endorsement_charge_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Endorsement Charge"),
-        lender_title_policy_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Lender's Title Policy"),
-        recording_service_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Recording Service Fee"),
-        settlement_agent_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Settlement Agent Fee"),
-        recording_fees: this.getFee(rate.thirty_fees, "Taxes and other government fees", "Recording Fees"),
-        owner_title_policy_fee: this.getFee(rate.thirty_fees, "Other", "Title - Owner's Title Policy"),
-        prepaid_item_fee: this.getFee(rate.thirty_fees, "Prepaid items", "Prepaid interest"),
-        prepaid_homeowners_insurance: this.getFee(rate.thirty_fees, "Prepaid items", "Prepaid homeowners insurance for 12 months"),
+        lender_underwriting_fee: rate.lender_underwriting_fee,
+        appraisal_fee: this.getFee(rate.thirty_fees, "Appraisal Fee"),
+        tax_certification_fee: this.getFee(rate.thirty_fees, "Tax Certification Fee"),
+        flood_certification_fee: this.getFee(rate.thirty_fees, "Flood Certification Fee"),
+        outside_signing_service_fee: this.getFee(rate.thirty_fees, "Outside Signing Service"),
+        concurrent_loan_charge_fee: this.getFee(rate.thirty_fees, "Title - Concurrent Loan Charge"),
+        endorsement_charge_fee: this.getFee(rate.thirty_fees, "Endorsement Charge"),
+        lender_title_policy_fee: this.getFee(rate.thirty_fees, "Title - Lender's Title Policy"),
+        recording_service_fee: this.getFee(rate.thirty_fees, "Title - Recording Service Fee"),
+        settlement_agent_fee: this.getFee(rate.thirty_fees, "Title - Settlement Agent Fee"),
+        recording_fees: this.getFee(rate.thirty_fees, "Recording Fees"),
+        owner_title_policy_fee: this.getFee(rate.thirty_fees, "Title - Owner's Title Policy"),
+        prepaid_item_fee: this.getFee(rate.prepaid_fees, "Prepaid interest"),
+        prepaid_homeowners_insurance: this.getFee(rate.prepaid_fees, "Prepaid homeowners insurance for 12 months"),
         cash_out: cash_out
       },
       method: "POST",
@@ -166,25 +165,16 @@ var Quotes = React.createClass({
     });
   },
 
-  getFee: function(arrFees, groupName, objectName){
-    var group = arrFees.find(function(x) {
-      return x.Description === groupName;
-    });
-
-    if (group === undefined){
-      return 0;
-    }
-
-    var obj = group.Fees.find(function(x) {
+  getFee: function(arrFees, objectName){
+    var object = arrFees.find(function(x) {
       return x.Description.indexOf(objectName) > -1;
     });
 
-    if (obj === undefined){
+    if (object === undefined){
       return 0;
     }
-    else{
-      return obj.FeeAmount;
-    }
+
+    return object.FeeAmount;
   },
 
   backToQuotesForm: function() {

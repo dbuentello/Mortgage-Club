@@ -33,7 +33,8 @@ module QuotesFormulas
         commission: lender.commission,
         appraisal_fee: lender.appraisal_fee,
         tax_certification_fee: lender.tax_certification_fee,
-        flood_certification_fee: lender.flood_certification_fee
+        flood_certification_fee: lender.flood_certification_fee,
+        lender_underwriting_fee: lender.lender_underwriting_fee
       }
     end
 
@@ -58,42 +59,59 @@ module QuotesFormulas
     payment.round
   end
 
-  def get_lender_credits(quote, admin_fee)
+  def get_lender_credits(quote)
     return 0 if quote["DiscountPts"].nil?
 
-    quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"] + admin_fee
+    quote["DiscountPts"] / 100 * quote["FeeSet"]["LoanAmount"]
   end
 
-  def get_total_closing_cost(quote, admin_fee, thirty_fees = nil)
-    total_fee = get_total_fee(quote, admin_fee)
-    lender_credit = get_lender_credits(quote, admin_fee)
+  def get_total_closing_cost(quote, lender_underwriting_fee, thirty_fees = nil)
+    lender_credit = get_lender_credits(quote)
     fha_upfront_premium_amount = get_fha_upfront_premium_amount(quote)
     thirty_fee = thirty_fees.nil? ? 0 : thirty_fees.map { |x| x[:FeeAmount] }.sum
 
-    total_fee + lender_credit + fha_upfront_premium_amount + thirty_fee
+    lender_underwriting_fee + lender_credit + fha_upfront_premium_amount + thirty_fee
   end
 
-  def get_admin_fee(quote)
-    return 0 unless quote["FeeSet"]
-    return 0 unless quote["FeeSet"]["Fees"]
-
-    admin_fee = quote["FeeSet"]["Fees"].find { |x| x["Description"] == "Administration fee" }
-
-    return 0 unless admin_fee
-
-    admin_fee["FeeAmount"].to_f
-  end
-
-  def get_fees(quote)
-    return [] unless quote["FeeSet"]
-    return [] unless quote["FeeSet"]["Fees"]
-
-    quote["FeeSet"]["Fees"].reject { |x| x["Description"] == "Administration fee" }
-  end
-
-  def get_thirty_fees(fees, lender_info, loan_amount, interest_rate)
+  def get_thirty_fees(fees, lender_info)
     thirty_fees = []
-    lender_fees = []
+
+    if lender_info.present?
+      thirty_fees << {
+        "Description": "Appraisal Fee",
+        "FeeAmount": lender_info[:appraisal_fee].to_i,
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
+
+      thirty_fees << {
+        "Description": "Tax Certification Fee",
+        "FeeAmount": lender_info[:tax_certification_fee].to_i,
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
+
+      thirty_fees << {
+        "Description": "Flood Certification Fee",
+        "FeeAmount": lender_info[:flood_certification_fee].to_i,
+        "HubLine": 814,
+        "FeeType": 1,
+        "IncludeInAPR": false
+      }
+    end
+
+    if fees.present?
+      fees.each do |fee|
+        thirty_fees += fee[:Fees]
+      end
+    end
+
+    thirty_fees
+  end
+
+  def get_prepaid_fees(loan_amount, interest_rate)
     prepaid_items = []
 
     days = (Time.now.utc.end_of_month.to_date - Time.now.utc.to_date).to_i
@@ -113,49 +131,7 @@ module QuotesFormulas
       "IncludeInAPR": false
     }
 
-    if lender_info.present?
-      lender_fees << {
-        "Description": "Appraisal Fee",
-        "FeeAmount": lender_info[:appraisal_fee].to_i,
-        "HubLine": 814,
-        "FeeType": 1,
-        "IncludeInAPR": false
-      }
-
-      lender_fees << {
-        "Description": "Tax Certification Fee",
-        "FeeAmount": lender_info[:tax_certification_fee].to_i,
-        "HubLine": 814,
-        "FeeType": 1,
-        "IncludeInAPR": false
-      }
-
-      lender_fees << {
-        "Description": "Flood Certification Fee",
-        "FeeAmount": lender_info[:flood_certification_fee].to_i,
-        "HubLine": 814,
-        "FeeType": 1,
-        "IncludeInAPR": false
-      }
-    end
-
-    thirty_fees << {
-      "Description": "Services you cannot shop for",
-      "FeeAmount": lender_fees.map { |x| x[:FeeAmount] }.sum,
-      "Fees": lender_fees
-    }
-
-    thirty_fees += fees if fees.present?
-
-    thirty_fees << {
-      "Description": "Prepaid items",
-      "FeeAmount": prepaid_items.map { |x| x[:FeeAmount] }.sum,
-      "Fees": prepaid_items
-    }
-  end
-
-  def get_total_fee(quote, admin_fee)
-    quote["FeeSet"]["TotalFees"].to_f - admin_fee
+    prepaid_items
   end
 
   def get_product_name(quote)
@@ -174,12 +150,6 @@ module QuotesFormulas
 
   def arm?(quote)
     quote["ProductType"].include? "ARM"
-  end
-
-  def hide_admin_fee?(quote, admin_fee)
-    # total_fee = quote["DiscountPts"].to_f / 100 * quote["FeeSet"]["LoanAmount"].to_f + admin_fee
-    # return true if total_fee >= 0 && total_fee <= 1000
-    false
   end
 
   def get_fha_upfront_premium_amount(quote)

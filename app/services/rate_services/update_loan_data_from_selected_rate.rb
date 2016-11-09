@@ -1,28 +1,28 @@
 # after use select a rate, we update rate's info to loan.
 module RateServices
   class UpdateLoanDataFromSelectedRate
-    def self.call(loan_id, fees, quote, thirty_fees)
+    def self.call(loan_id, fees, quote, thirty_fees, prepaid_fees)
       loan = Loan.find(loan_id)
       lender = get_lender(quote[:lender_name])
-      fees = JSON.load fees
       thirty_fees = JSON.load thirty_fees
+      prepaid_fees = JSON.load prepaid_fees
 
       loan.tap do |l|
         l.lender = lender
-        l.lender_underwriting_fee = fees.first ? fees.first["FeeAmount"] : 0.0
 
-        l.appraisal_fee = get_fee(thirty_fees, "Services you cannot shop for", "Appraisal Fee")
-        l.tax_certification_fee = get_fee(thirty_fees, "Services you cannot shop for", "Tax Certification Fee")
-        l.flood_certification_fee = get_fee(thirty_fees, "Services you cannot shop for", "Flood Certification Fee")
-        l.outside_signing_service_fee = get_fee(thirty_fees, "Services you can shop for", "Outside Signing Service")
-        l.concurrent_loan_charge_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Concurrent Loan Charge")
-        l.endorsement_charge_fee = get_fee(thirty_fees, "Services you can shop for", "Endorsement Charge")
-        l.lender_title_policy_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Lender's Title Policy")
-        l.recording_service_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Recording Service Fee")
-        l.settlement_agent_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Settlement Agent Fee")
-        l.recording_fees = get_fee(thirty_fees, "Taxes and other government fees", "Recording Fees")
-        l.owner_title_policy_fee = get_fee(thirty_fees, "Other", "Title - Owner's Title Policy")
-        l.prepaid_item_fee = get_fee(thirty_fees, "Prepaid items", "Prepaid interest")
+        l.lender_underwriting_fee = quote["lender_underwriting_fee"]
+        l.appraisal_fee = get_fee(thirty_fees, "Appraisal Fee")
+        l.tax_certification_fee = get_fee(thirty_fees, "Tax Certification Fee")
+        l.flood_certification_fee = get_fee(thirty_fees, "Flood Certification Fee")
+        l.outside_signing_service_fee = get_fee(thirty_fees, "Outside Signing Service")
+        l.concurrent_loan_charge_fee = get_fee(thirty_fees, "Title - Concurrent Loan Charge")
+        l.endorsement_charge_fee = get_fee(thirty_fees, "Endorsement Charge")
+        l.lender_title_policy_fee = get_fee(thirty_fees, "Title - Lender's Title Policy")
+        l.recording_service_fee = get_fee(thirty_fees, "Title - Recording Service Fee")
+        l.settlement_agent_fee = get_fee(thirty_fees, "Title - Settlement Agent Fee")
+        l.recording_fees = get_fee(thirty_fees, "Recording Fees")
+        l.owner_title_policy_fee = get_fee(thirty_fees, "Title - Owner's Title Policy")
+        l.prepaid_item_fee = get_fee(prepaid_fees, "Prepaid interest")
         l.prepaid_homeowners_insurance = loan.subject_property.estimated_hazard_insurance.to_f
 
         l.cash_out = quote[:cash_out].to_f
@@ -56,36 +56,32 @@ module RateServices
       lender
     end
 
-    def self.get_fee(thirty_fees, group_name, field_name)
-      group = thirty_fees.find { |fees| fees["Description"] == group_name }
-      return 0.0 unless group
-
-      field = group["Fees"].find { |fee| fee["Description"].index(field_name).present? }
+    def self.get_fee(fees, field_name)
+      field = fees.find { |fee| fee["Description"].index(field_name).present? }
       return 0.0 unless field
 
       field["FeeAmount"].to_f
     end
 
     def self.update_rate(loan, rate)
-      fees = rate[:fees]
       thirty_fees = JSON.load(rate[:thirty_fees].to_json)
+      prepaid_fees = JSON.load(rate[:thirty_fees].to_json)
       lender = get_lender(rate[:lender_name])
 
       loan.tap do |l|
-        l.lender_underwriting_fee = fees.first ? fees.first["FeeAmount"] : 0.0
-
-        l.appraisal_fee = get_fee(thirty_fees, "Services you cannot shop for", "Appraisal Fee")
-        l.tax_certification_fee = get_fee(thirty_fees, "Services you cannot shop for", "Tax Certification Fee")
-        l.flood_certification_fee = get_fee(thirty_fees, "Services you cannot shop for", "Flood Certification Fee")
-        l.outside_signing_service_fee = get_fee(thirty_fees, "Services you can shop for", "Outside Signing Service")
-        l.concurrent_loan_charge_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Concurrent Loan Charge")
-        l.endorsement_charge_fee = get_fee(thirty_fees, "Services you can shop for", "Endorsement Charge")
-        l.lender_title_policy_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Lender's Title Policy")
-        l.recording_service_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Recording Service Fee")
-        l.settlement_agent_fee = get_fee(thirty_fees, "Services you can shop for", "Title - Settlement Agent Fee")
-        l.recording_fees = get_fee(thirty_fees, "Taxes and other government fees", "Recording Fees")
-        l.owner_title_policy_fee = get_fee(thirty_fees, "Other", "Title - Owner's Title Policy")
-        l.prepaid_item_fee = get_fee(thirty_fees, "Prepaid items", "Prepaid interest")
+        l.lender_underwriting_fee = rate[:lender_underwriting_fee]
+        l.appraisal_fee = get_fee(thirty_fees, "Appraisal Fee")
+        l.tax_certification_fee = get_fee(thirty_fees, "Tax Certification Fee")
+        l.flood_certification_fee = get_fee(thirty_fees, "Flood Certification Fee")
+        l.outside_signing_service_fee = get_fee(thirty_fees, "Outside Signing Service")
+        l.concurrent_loan_charge_fee = get_fee(thirty_fees, "Title - Concurrent Loan Charge")
+        l.endorsement_charge_fee = get_fee(thirty_fees, "Endorsement Charge")
+        l.lender_title_policy_fee = get_fee(thirty_fees, "Title - Lender's Title Policy")
+        l.recording_service_fee = get_fee(thirty_fees, "Title - Recording Service Fee")
+        l.settlement_agent_fee = get_fee(thirty_fees, "Title - Settlement Agent Fee")
+        l.recording_fees = get_fee(thirty_fees, "Recording Fees")
+        l.owner_title_policy_fee = get_fee(thirty_fees, "Title - Owner's Title Policy")
+        l.prepaid_item_fee = get_fee(prepaid_fees, "Prepaid interest")
         l.prepaid_homeowners_insurance = loan.subject_property.estimated_hazard_insurance.to_f
 
         l.lender_nmls_id = rate[:lender_nmls_id]
