@@ -34,7 +34,6 @@
 </table>
 <div style="font-size: 10px">*Until you lock, your rate, APR, and terms are subject to change</div>
 <div style="font-size: 10px">*Assuming <%= ActionController::Base.helpers.number_to_currency(@quote_query["mortgage_balance"].to_f, precision: 0) %> loan, <%= ActionController::Base.helpers.number_to_currency(@quote_query["property_value"], precision: 0) %> appraised value, refinance, <%= @quote_query["credit_score"] %>+ FICO, <%= @quote_query["property_usage"].titleize.downcase %>, no impound account</div>
-<div style="font-size: 10px">*Estimated closing costs include <%= ActionController::Base.helpers.number_to_currency(@prepaid_item_fees, precision: 0) %> in prepaid items, which are not a fee</div>
 
 <p>
   If you'd like to move your application forward and lock in on these terms please contact me at <a href="mailto:<%= @email %>"><%= @email %></a> or <%= ActionController::Base.helpers.number_to_phone @phone %>. I look forward to helping you get the lowest rate possible.

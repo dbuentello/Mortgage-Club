@@ -30,7 +30,7 @@
       <td><%= ActionController::Base.helpers.number_to_percentage(@rate["interest_rate"].to_f * 100, precision: 3) %></td>
       <td><%= ActionController::Base.helpers.number_to_currency(@rate["lender_credits"], precision: 0) %></td>
       <td><%= ActionController::Base.helpers.number_to_currency(@rate["monthly_payment"], precision: 0) %></td>
-      <td><%= ActionController::Base.helpers.number_to_currency(@rate["fees"]["0"]["FeeAmount"], precision: 0) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["lender_fee"], precision: 0) %></td>
     </tr>
   </tbody>
 </table>

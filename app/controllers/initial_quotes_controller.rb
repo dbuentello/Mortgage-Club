@@ -85,8 +85,6 @@ class InitialQuotesController < ApplicationController
     @quote_query = JSON.load quote.query
     @current_user = current_user
 
-    @prepaid_item_fees = @rate["thirty_fees"].find { |_key, value| value["Description"] == "Prepaid items" }.last["FeeAmount"]
-
     if current_user && current_user.has_role?(:loan_member)
       @email_from = current_user.email.present? ? "#{current_user} <#{current_user.email}>" : "Billy Tran <billy@mortgageclub.co>"
       @email = current_user.email.present? ? current_user.email : "billy@mortgageclub.co"
