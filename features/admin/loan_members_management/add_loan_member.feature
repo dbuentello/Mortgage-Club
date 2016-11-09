@@ -31,6 +31,6 @@ Feature: AddLoanMember
     Then I click "Admin"
       And I should see "Log Out"
       And I click "Log Out"
-      And I should see "lowest rates and fast closing"
+      # And I should see "lowest rates and fast closing"
       And I login as "cuongvu0103@gmail.com" with password "this-is-a-password"
       And I should see "Loans list"
