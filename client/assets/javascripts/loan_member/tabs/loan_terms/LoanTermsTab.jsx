@@ -95,7 +95,8 @@ var LoanTermsTab = React.createClass({
     state[fields.prepaidHomeowners.name] = this.formatCurrency(loan.prepaid_homeowners_insurance, "$");
     state[fields.isRateLocked.name] = loan.is_rate_locked;
     state[fields.rateLockExpirationDate.name] = loan.rate_lock_expiration_date;
-    state[fields.closingDate.name] = loan.closingDate;
+    state[fields.closingDate.name] = loan.closing_date;
+
     return state;
   },
 
@@ -141,8 +142,8 @@ var LoanTermsTab = React.createClass({
         prepaid_item_fee: this.currencyToNumber(this.state[fields.prepaidInterest.name]),
         prepaid_homeowners_insurance: this.currencyToNumber(this.state[fields.prepaidHomeowners.name]),
         is_rate_locked: this.state[fields.isRateLocked.name],
-        rate_lock_expiration_date: this.state[fields.rateLockExpirationDate.name],
-        closing_date: this.state[fields.closingDate.name]
+        rate_lock_expiration_date: this.formatTimeCustom(this.state[fields.rateLockExpirationDate.name], "YYYY-MM-DD"),
+        closing_date: this.formatTimeCustom(this.state[fields.closingDate.name], "YYYY-MM-DD")
       },
       method: "POST",
       dataType: "json",

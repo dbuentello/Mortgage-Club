@@ -3,7 +3,7 @@ class RemindBorrowerMailer < ActionMailer::Base
 
   def remind_checklists(loan)
     @first_name = loan.borrower.user.first_name
-    @checklists = loan.checklists.where(status: "pending")
+    @checklists = loan.checklists.where(status: "pending").order(created_at: :asc)
     @loan_member = loan.loan_members.first
     @closing_date = loan.closing_date
 
