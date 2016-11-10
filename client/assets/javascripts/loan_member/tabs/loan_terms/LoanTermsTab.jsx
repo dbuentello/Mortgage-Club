@@ -36,7 +36,8 @@ var fields = {
   prepaidInterest: {label: "Prepaid Interest", name: "prepaid_item_fee"},
   prepaidHomeowners: {label: "Prepaid Homeowners Insurance for 12 Months", name: "prepaid_homeowners_insurance"},
   isRateLocked: {label: "Rate Lock", name: "is_rate_locked"},
-  rateLockExpirationDate: {label: "Rate Lock Expiration Date", name: "rate_lock_expiration_date"}
+  rateLockExpirationDate: {label: "Rate Lock Expiration Date", name: "rate_lock_expiration_date"},
+  closingDate: {label: "Closing Date", name: "closing_date"},
 };
 
 var loanTypeOptions = [
@@ -94,6 +95,7 @@ var LoanTermsTab = React.createClass({
     state[fields.prepaidHomeowners.name] = this.formatCurrency(loan.prepaid_homeowners_insurance, "$");
     state[fields.isRateLocked.name] = loan.is_rate_locked;
     state[fields.rateLockExpirationDate.name] = loan.rate_lock_expiration_date;
+    state[fields.closingDate.name] = loan.closingDate;
     return state;
   },
 
@@ -139,7 +141,8 @@ var LoanTermsTab = React.createClass({
         prepaid_item_fee: this.currencyToNumber(this.state[fields.prepaidInterest.name]),
         prepaid_homeowners_insurance: this.currencyToNumber(this.state[fields.prepaidHomeowners.name]),
         is_rate_locked: this.state[fields.isRateLocked.name],
-        rate_lock_expiration_date: this.state[fields.rateLockExpirationDate.name]
+        rate_lock_expiration_date: this.state[fields.rateLockExpirationDate.name],
+        closing_date: this.state[fields.closingDate.name]
       },
       method: "POST",
       dataType: "json",
@@ -510,6 +513,19 @@ var LoanTermsTab = React.createClass({
                   onBlur={this.onBlur}
                   format={this.formatCurrency}
                   maxLength={11}
+                  editable={true}/>
+              </div>
+            </div>
+            <div className="panel-heading">
+              <h4 className="panel-title">Timeline</h4>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-6">
+                <DateField
+                  label={fields.closingDate.label}
+                  keyName={fields.closingDate.name}
+                  value={this.state[fields.closingDate.name]}
+                  onChange={this.onChange}
                   editable={true}/>
               </div>
             </div>

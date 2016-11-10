@@ -5,6 +5,7 @@ class RemindBorrowerMailer < ActionMailer::Base
     @first_name = loan.borrower.user.first_name
     @checklists = loan.checklists.where(status: "pending")
     @loan_member = loan.loan_members.first
+    @closing_date = loan.closing_date
 
     mail(
       to: loan.borrower.user.email,
