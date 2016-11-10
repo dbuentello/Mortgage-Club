@@ -190,7 +190,7 @@ var List = React.createClass({
                       <p><span>APR:</span> {this.commafy(quote.apr * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(quote.monthly_payment, 0, "$")}</p>
                       <p><span className="text-capitalize">{quote.lender_fee >= 0 ? "Lender Fees" : "Lender Credit"}:</span> {this.formatCurrency(quote.lender_fee, 0, "$")}</p>
-                      <p><span className="text-capitalize">closing costs:</span> {this.formatCurrency(quote.total_closing_cost, 0, "$")} <i className="fa fa-info-circle" title='Closing costs are fees associated at the closing of this transaction. They often include underwriting fee, title, escrow and other third-party fees, and prepaid items. Click "View Details" to see a full breakdown of all the fees you should expect.' data-toggle="tooltip" aria-hidden="true"></i></p>
+                      <p><span className="text-capitalize">closing costs:</span> {this.formatCurrency(quote.total_closing_cost, 0, "$")} <i className="fa fa-info-circle" title='Closing costs are fees associated with the close of this transaction. They often include lender fees, title, escrow and other third party fees. Click "View Details" to see a full breakdown of all the fees you should expect.' data-toggle="tooltip" aria-hidden="true"></i></p>
                       {
                         this.props.helpMeChoose
                         ?
@@ -303,6 +303,9 @@ var List = React.createClass({
                             var title = "";
                             if (fee["Description"].indexOf("Prepaid interest") > - 1){
                               title = "Prepaid interest for the period from closing to the first mortgage payment.";
+                            }
+                            if (fee["Description"].indexOf("Prepaid homeowners insurance") > - 1){
+                              title = "Lenders require you to prepay homeowner's insurance at closing.";
                             }
 
                             return (
