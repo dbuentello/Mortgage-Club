@@ -180,7 +180,7 @@ var List = React.createClass({
                     <div className="col-md-4 col-sm-6 col-sm-6">
                       <p><span>APR:</span> {this.commafy(rate.apr * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(rate.monthly_payment, 0, '$')}</p>
-                      <p><span className="text-capitalize">{rate.lender_fee < 0 ? "Lender Fees" : "Lender Credit"}:</span> {this.formatCurrency(rate.lender_fee, 0, "$")}</p>
+                      <p><span className="text-capitalize">{rate.lender_fee >= 0 ? "Lender Fees" : "Lender Credit"}:</span> {this.formatCurrency(rate.lender_fee, 0, "$")}</p>
                       <p><span className="text-capitalize">closing costs:</span> {this.formatCurrency(rate.total_closing_cost, 0, '$')}</p>
                       {
                         this.props.helpMeChoose
@@ -227,13 +227,13 @@ var List = React.createClass({
                         </div>
                       </div>
                       <h4>Cash to Close</h4>
-                      <h5>Closing Costs</h5>
+                      <h5><span className="nocolor">Closing Costs: </span><span className="nocolor">{this.formatCurrency(rate.total_closing_cost, 0, "$")}</span></h5>
                       <ul className="fee-items">
                         <li className="thirty-party-fees">
                           <a role="button" data-toggle="collapse" href=".lender-fees" aria-expanded="true" aria-controls=".lender-fees">
                             <i className="icon-plus"></i>
                             {
-                              rate.lender_fee < 0
+                              rate.lender_fee >= 0
                               ?
                                 <span>{"Lender fees: " + this.formatCurrency(rate.lender_fee, 0, "$")}</span>
                               :

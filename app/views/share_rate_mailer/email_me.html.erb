@@ -20,7 +20,11 @@
         <th>Discount Points</th>
       <% end %>
       <th>Monthly Payment</th>
-      <th>Lender Fees</th>
+      <% if @rate["lender_fee"] >= 0  %>
+        <th>Lender Fees</th>
+      <% else %>
+        <th>Lender Credit</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>

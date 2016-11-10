@@ -189,7 +189,7 @@ var List = React.createClass({
                     <div className="col-xs-12 col-md-4 col-sm-6 col-sm-6">
                       <p><span>APR:</span> {this.commafy(quote.apr * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(quote.monthly_payment, 0, "$")}</p>
-                      <p><span className="text-capitalize">{quote.lender_fee < 0 ? "Lender Fees" : "Lender Credit"}:</span> {this.formatCurrency(quote.lender_fee, 0, "$")}</p>
+                      <p><span className="text-capitalize">{quote.lender_fee >= 0 ? "Lender Fees" : "Lender Credit"}:</span> {this.formatCurrency(quote.lender_fee, 0, "$")}</p>
                       <p><span className="text-capitalize">closing costs:</span> {this.formatCurrency(quote.total_closing_cost, 0, "$")} <i className="fa fa-info-circle" title='Closing costs are fees associated at the closing of this transaction. They often include underwriting fee, title, escrow and other third-party fees, and prepaid items. Click "View Details" to see a full breakdown of all the fees you should expect.' data-toggle="tooltip" aria-hidden="true"></i></p>
                       {
                         this.props.helpMeChoose
@@ -241,13 +241,13 @@ var List = React.createClass({
                         </div>
                       </div>
                       <h4>Cash to Close</h4>
-                      <h5>Closing Costs</h5>
+                      <h5><span className="nocolor">Closing Costs: </span><span className="nocolor">{this.formatCurrency(quote.total_closing_cost, 0, "$")}</span></h5>
                       <ul className="fee-items">
                         <li className="thirty-party-fees">
                           <a role="button" data-toggle="collapse" href=".lender-fees" aria-expanded="true" aria-controls=".lender-fees">
                             <i className="icon-plus"></i>
                             {
-                              quote.lender_fee < 0
+                              quote.lender_fee >= 0
                               ?
                                 <span>{"Lender fees: " + this.formatCurrency(quote.lender_fee, 0, "$")}</span>
                               :
