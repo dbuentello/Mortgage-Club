@@ -65,9 +65,14 @@ var TermTab = React.createClass({
     var updatedRateTime = this.formatTimeCustom(loan.updated_rate_time, 'MMMM Do YYYY, h:mm:ss A');
 
     var rateLockExpirationDate = null;
+    var closingDate = null;
 
     if(loan.rate_lock_expiration_date && loan.is_rate_locked == true){
       rateLockExpirationDate = "until " + this.formatTimeCustom(loan.rate_lock_expiration_date, 'MMMM Do YYYY');
+    }
+
+    if(loan.closing_date){
+      closingDate = this.formatTimeCustom(loan.closing_date, 'MMMM Do YYYY');
     }
 
     return (
@@ -395,6 +400,23 @@ var TermTab = React.createClass({
             </table>
           </div>
 
+          <div className="row">
+            <h4>Timeline</h4>
+          </div>
+          <div className="table-responsive term-board">
+            <table className="table table-striped term-table">
+              <tbody>
+                <tr>
+                  <td className="loan-field">
+                    Closing Date
+                  </td>
+                  <td>
+                    {closingDate}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     )

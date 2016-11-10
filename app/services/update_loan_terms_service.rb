@@ -35,6 +35,7 @@ class UpdateLoanTermsService
     loan.monthly_payment = params[:principal_interest]
     loan.is_rate_locked = params[:is_rate_locked]
     loan.rate_lock_expiration_date = params[:rate_lock_expiration_date]
+    loan.closing_date = params[:closing_date]
 
     loan.save!
   end
