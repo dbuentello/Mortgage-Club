@@ -227,7 +227,7 @@ var List = React.createClass({
                         </div>
                       </div>
                       <h4>Cash to Close</h4>
-                      <h5><span className="nocolor">Closing Costs: </span><span className="nocolor">{this.formatCurrency(rate.total_closing_cost, 0, "$")}</span></h5>
+                      <h5>Closing Costs</h5>
                       <ul className="fee-items">
                         <li className="thirty-party-fees">
                           <a role="button" data-toggle="collapse" href=".lender-fees" aria-expanded="true" aria-controls=".lender-fees">
@@ -267,7 +267,7 @@ var List = React.createClass({
 
                         <li className="thirty-party-fees">
                           <a role="button" data-toggle="collapse" href=".thirty-fees" aria-expanded="true" aria-controls="thirty-fees">
-                            <i className="icon-plus"></i><span>Third party fees</span>
+                            <i className="icon-plus"></i><span>{"Third party fees: " + this.formatCurrency(rate.total_closing_cost - rate.lender_fee, 0, "$")}</span>
                           </a>
                           <div className="collapse thirty-fees-collapse thirty-fees">
                             {

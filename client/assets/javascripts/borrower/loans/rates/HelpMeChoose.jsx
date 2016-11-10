@@ -461,7 +461,7 @@ var HelpMeChoose = React.createClass({
                 }
                 <div className='row secondary-cost'>
                   <div className='col-xs-6 col-md-6'>
-                    Estimated Closing Costs
+                    Closing Costs
                   </div>
                   <div className='col-xs-6 col-md-6'>
                     {this.formatCurrency(this.state.bestRate.total_closing_cost, 0, '$')}
