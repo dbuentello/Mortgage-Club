@@ -1,0 +1,38 @@
+<p>Dear <%= @first_name %>,</p>
+
+<p>
+  Thank you for choosing MortgageClub. We’re working hard to help close your loan on time!
+</p>
+
+<p>
+  In order to meet estimated closing date of 11/23/16, please complete the items below no later than <%= @checklists.first.due_date.strftime("%m/%d/%Y") %>. Failure to complete these items by <%= @checklists.first.due_date.strftime("%m/%d/%Y") %> will delay your closing date. You can email these documents back to me or upload them in your Borrower Dashboard.
+</p>
+
+<table border="1" width="100%" style="border-collapse: collapse;text-align: center;">
+  <thead>
+    <tr>
+      <th>Required Items</th>
+      <th>Type</th>
+      <th>Due Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @checklists.each do |checklist| %>
+      <tr>
+        <td><%= checklist.name %></td>
+
+        <% if checklist.checklist_type == "upload" %>
+          <td>Upload</td>
+        <% else %>
+          <td>eSign</td>
+        <% end %>
+
+        <td><%= checklist.due_date.strftime("%m/%d/%Y") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>If you have any issues or questions, please contact me at <%= @loan_member.user.email %> or <%= @loan_member.phone_number %>.</p>
+
+<%= @loan_member.email_signature.to_s.html_safe %>
