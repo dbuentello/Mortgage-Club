@@ -97,10 +97,10 @@ class ExportXmlMismoService
   def interviewer_information_node
     interviewer_information = Ox::Element.new("INTERVIEWER_INFORMATION")
 
-    interviewer_information["InterviewersEmployerStreetAddress"] = "156 2nd St"
-    interviewer_information["InterviewersEmployerCity"] = "San Francisco"
+    interviewer_information["InterviewersEmployerStreetAddress"] = "75 E Santa Clara St, 6th Floor"
+    interviewer_information["InterviewersEmployerCity"] = "San Jose"
     interviewer_information["InterviewersEmployerState"] = "CA"
-    interviewer_information["InterviewersEmployerPostalCode"] = "94105"
+    interviewer_information["InterviewersEmployerPostalCode"] = "95113"
     interviewer_information["InterviewersTelephoneNumber"] = loan_member.phone_number.to_s.gsub!(/[() -]/, "")
     interviewer_information["ApplicationTakenMethodType"] = "I"
     interviewer_information["InterviewersEmployerName"] = loan_member.company_name.to_s

@@ -22,9 +22,9 @@ var List = React.createClass({
     }
 
     this.props.quotes.map(function(quote){
-      quote.thirty_fees[quote.thirty_fees.length-1].Fees[1].FeeAmount = hazardInsurance * 12;
-      quote.thirty_fees[quote.thirty_fees.length-1].FeeAmount += hazardInsurance * 12;
-      quote.total_closing_cost += hazardInsurance * 12;
+      quote.prepaid_fees[1].FeeAmount = hazardInsurance * 12;
+      quote.prepaid_fees.FeeAmount += hazardInsurance * 12;
+      quote.total_prepaid_fees += hazardInsurance * 12;
     });
 
     toggleContentStates.fill(false, 0, this.props.quotes.length);
@@ -189,14 +189,8 @@ var List = React.createClass({
                     <div className="col-xs-12 col-md-4 col-sm-6 col-sm-6">
                       <p><span>APR:</span> {this.commafy(quote.apr * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(quote.monthly_payment, 0, "$")}</p>
-                      {
-                        quote.lender_credits == 0
-                        ?
-                          <p className="text-discount-points"><span className="text-capitalize">{this.props.quotes[index + 1] == undefined ? "Lender credit" : (this.props.quotes[index + 1].lender_credits <= 0 ? "Lender credit" : "Discount points")}:</span> $0 <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></p>
-                        :
-                          <p className="text-discount-points"><span className="text-capitalize">{quote.lender_credits < 0 ? "Lender credit" : "Discount points"}:</span> {this.formatCurrency(quote.lender_credits, 0, "$")} <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></p>
-                      }
-                      <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(quote.total_closing_cost, 0, "$")} <i className="fa fa-info-circle" title='Closing costs are fees associated at the closing of this transaction. They often include underwriting fee, title, escrow and other third-party fees, and prepaid items. Click "View Details" to see a full breakdown of all the fees you should expect.' data-toggle="tooltip" aria-hidden="true"></i></p>
+                      <p><span className="text-capitalize">{quote.lender_fee >= 0 ? "Lender Fees" : "Lender Credit"}:</span> {this.formatCurrency(quote.lender_fee, 0, "$")}</p>
+                      <p><span className="text-capitalize">closing costs:</span> {this.formatCurrency(quote.total_closing_cost, 0, "$")} <i className="fa fa-info-circle" title='Closing costs are fees associated at the closing of this transaction. They often include underwriting fee, title, escrow and other third-party fees, and prepaid items. Click "View Details" to see a full breakdown of all the fees you should expect.' data-toggle="tooltip" aria-hidden="true"></i></p>
                       {
                         this.props.helpMeChoose
                         ?
@@ -246,27 +240,69 @@ var List = React.createClass({
                           <p className="col-xs-12 cost">{this.formatCurrency(quote.loan_amount, 0, "$")}</p>
                         </div>
                       </div>
-                      <h4>Estimated Closing Costs</h4>
+                      <h4>Cash to Close</h4>
+                      <h5><span className="nocolor">Closing Costs: </span><span className="nocolor">{this.formatCurrency(quote.total_closing_cost, 0, "$")}</span></h5>
                       <ul className="fee-items">
-                        {
-                          quote.lender_credits == 0
-                          ?
-                            <li className="lender-fee-item text-discount-points">{this.props.quotes[index + 1] == undefined ? "Lender credit" : (this.props.quotes[index + 1].lender_credits <= 0 ? "Lender credit" : "Discount points")}: $0 <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></li>
-                          :
-                            <li className="lender-fee-item text-discount-points">{quote.lender_credits < 0 ? "Lender credit" : "Discount points"}: {this.formatCurrency(quote.lender_credits, 0, "$")} <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></li>
-                        }
-                        {
-                          quote.fha_upfront_premium_amount == 0
-                          ?
-                            null
-                          :
-                            <li className="lender-fee-item">Upfront mortgage insurance premium: {this.formatCurrency(quote.fha_upfront_premium_amount, 0, "$")}</li>
-                        }
-                        {
-                          _.map(quote.fees, function(fee){
+                        <li className="thirty-party-fees">
+                          <a role="button" data-toggle="collapse" href=".lender-fees" aria-expanded="true" aria-controls=".lender-fees">
+                            <i className="icon-plus"></i>
+                            {
+                              quote.lender_fee >= 0
+                              ?
+                                <span>{"Lender fees: " + this.formatCurrency(quote.lender_fee, 0, "$")}</span>
+                              :
+                                <span>{"Lender credit: " + this.formatCurrency(quote.lender_fee, 0, "$")}</span>
+                            }
+                          </a>
+                          <div className="collapse thirty-fees-collapse lender-fees">
+                            {
+                              quote.lender_underwriting_fee == 0
+                              ?
+                                null
+                              :
+                                <p>Underwriting fee: {this.formatCurrency(quote.lender_underwriting_fee, 0, "$")} <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true" title="This goes to the lender, covering the cost of researching whether or not to approve you for the loan."></i></p>
+                            }
+                            {
+                              quote.lender_credits == 0
+                              ?
+                                <p className="text-discount-points">{this.props.quotes[index + 1] == undefined ? "Credit" : (this.props.quotes[index + 1].lender_credits <= 0 ? "Credit" : "Discount points")}: $0 <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></p>
+                              :
+                                <p className="text-discount-points">{quote.lender_credits < 0 ? "Credit" : "Discount points"}: {this.formatCurrency(quote.lender_credits, 0, "$")} <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></p>
+                            }
+                            {
+                              quote.fha_upfront_premium_amount == 0
+                              ?
+                                null
+                              :
+                                <p>Upfront mortgage insurance premium: {this.formatCurrency(quote.fha_upfront_premium_amount, 0, "$")}</p>
+                            }
+                          </div>
+                        </li>
+
+                        <li className="thirty-party-fees">
+                          <a role="button" data-toggle="collapse" href=".thirty-fees" aria-expanded="true" aria-controls="thirty-fees">
+                            <i className="icon-plus"></i><span>Third party fees</span>
+                          </a>
+                          <div className="collapse thirty-fees-collapse thirty-fees">
+                            {
+                              _.map(quote.thirty_fees, function(fee) {
+                                return (
+                                  <p>
+                                    {fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}
+                                  </p>
+                                )
+                              }, this)
+                            }
+                          </div>
+                        </li>
+                      </ul>
+                      <h5>Prepaid Items</h5>
+                      <ul className="fee-items">
+                      {
+                        _.map(quote.prepaid_fees, function(fee){
                             var title = "";
-                            if(fee["Description"] == "Lender underwriting fee"){
-                              title = "This goes to the lender, covering the cost of researching whether or not to approve you for the loan.";
+                            if (fee["Description"].indexOf("Prepaid interest") > - 1){
+                              title = "Prepaid interest for the period from closing to the first mortgage payment.";
                             }
 
                             return (
@@ -283,67 +319,9 @@ var List = React.createClass({
                               </li>
                             )
                           }, this)
-                        }
-
-                        {
-                          _.map(quote.thirty_fees, function(thirty_fee, index_second){
-                            var title = "";
-
-                            if(thirty_fee["Description"] == "Services you cannot shop for"){
-                              title = "These costs are paid to outside parties, not the lender, but you don’t get to choose them.";
-                            }else if (thirty_fee["Description"] == "Services you can shop for"){
-                              title = "These costs are paid to outside parties and you are free to shop and compare providers for a variety of services.";
-                            }else if (thirty_fee["Description"] == "Prepaid items"){
-                              title = "Prepaid items are not a fee, as such, but are costs associated with your home that need to be paid in advance when getting a loan.";
-                            }
-
-                            return (
-                              <div>
-                                {
-                                  thirty_fee["FeeAmount"] == 0
-                                  ?
-                                    null
-                                  :
-                                    <li className="thirty-party-fees">
-                                      <a role="button" data-toggle="collapse" href={".thirty-fees-" + index + "-" + index_second} aria-expanded="true" aria-controls={"thirty-fees-" + index + "-" + index_second}>
-                                        <i className="icon-plus"></i><span>{thirty_fee["Description"] + ": " + this.formatCurrency(thirty_fee["FeeAmount"], 0, "$")}</span>
-                                      </a>
-                                      {
-                                        title == ""
-                                        ?
-                                          null
-                                        :
-                                          <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true" title={title} style={{"margin-left": "3px"}}></i>
-                                      }
-                                      <div className={"collapse thirty-fees-collapse thirty-fees-" + index + "-" + index_second}>
-                                        {
-                                          _.map(thirty_fee["Fees"], function(fee) {
-                                            var title_child = "";
-                                            if (fee["Description"].indexOf("Prepaid interest") > - 1){
-                                              title_child = "Prepaid interest for the period from closing to the first mortgage payment.";
-                                            }
-                                            return (
-                                              <p>
-                                                {fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}
-                                                {
-                                                  title_child == ""
-                                                  ?
-                                                    null
-                                                  :
-                                                    <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true" title={title_child} style={{"margin-left": "3px"}}></i>
-                                                }
-                                              </p>
-                                            )
-                                          }, this)
-                                        }
-                                      </div>
-                                    </li>
-                                }
-                              </div>
-                            )
-                          }, this)
-                        }
+                      }
                       </ul>
+                      <div style={{"font-weight": "bold"}}>Total Cash to Close: {this.formatCurrency(quote.total_closing_cost + quote.total_prepaid_fees, 0, "$")}</div>
                     </div>
                     <div className="col-md-6">
                       <h4>Monthly payment details</h4>

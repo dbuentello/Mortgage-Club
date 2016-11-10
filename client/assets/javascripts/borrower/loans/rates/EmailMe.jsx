@@ -34,12 +34,14 @@ var EmailMe = React.createClass({
               templateOptions.push({name: 'Refinance rate quote', value: response.refinance_template});
 
               this.updateEmailContent(response.purchase_template);
+              this.setState({email_me_template: "Purchase rate quote"});
               tinyMCE.activeEditor.setContent(response.purchase_template);
             }else{
               templateOptions.push({name: 'Refinance rate quote', value: response.refinance_template});
               templateOptions.push({name: 'Purchase rate quote', value: response.purchase_template});
 
               this.updateEmailContent(response.refinance_template);
+              this.setState({email_me_template: "Purchase rate quote"});
               tinyMCE.activeEditor.setContent(response.refinance_template);
             }
 

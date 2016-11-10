@@ -174,7 +174,7 @@ module CreditReportServices
                   <CREDIT_REPOSITORY_INCLUDED _EquifaxIndicator="Y" _ExperianIndicator="Y" _TransUnionIndicator="Y"/>
                 </CREDIT_REQUEST_DATA>
                 <BORROWER BorrowerID="1" MaritalStatusType="Unknown" _FirstName="MORTGAGE" _LastName="CLUB" _MaritalStatus="UNKNOWN" _PrintPositionType="Borrower" _SSN="111-11-1111">
-                  <_RESIDENCE BorrowerResidencyType="Current" _City="SAN FRANCISCO" _PostalCode="94105" _State="CA" _StreetAddress="156 2ND STREET"/>
+                  <_RESIDENCE BorrowerResidencyType="Current" _City="San Jose" _PostalCode="95113" _State="CA" _StreetAddress="75 E Santa Clara St, 6th Floor"/>
                 </BORROWER>
 
                 <CREDIT_LIABILITY BorrowerID="1" CreditBusinessType="Finance" CreditFileID="B-EFX-01" CreditLiabilityID="TRD0000" CreditLoanType="RealEstateSpecificTypeUnknown" CreditTradeReferenceID="CTR0000" _AccountIdentifier="1234561421105" _AccountOpenedDate="2000-08" _AccountOwnershipType="Individual" _AccountReportedDate="2016-04" _AccountStatusDate="2016-04" _AccountStatusType="Open" _AccountType="Mortgage" _ConsumerDisputeIndicator="N" _DerogatoryDataIndicator="N" _HighBalanceAmount="417000" _HighCreditAmount="134000" _LastActivityDate="2016-04" _MonthlyPaymentAmount="2032" _MonthsReviewedCount="84" _TermsDescription="MONTHLY" _TermsSourceType="Provided" _UnpaidBalanceAmount="400000" _TermsMonthsCount="12">

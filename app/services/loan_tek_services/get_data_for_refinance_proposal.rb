@@ -49,12 +49,10 @@ module LoanTekServices
 
       return unless desired_quote
 
-      admin_fee = get_admin_fee(desired_quote)
-
       {
         interest_rate: get_interest_rate(desired_quote),
-        estimated_closing_costs: get_total_closing_cost(desired_quote, admin_fee),
-        lender_credit: get_lender_credits(desired_quote, admin_fee)
+        estimated_closing_costs: get_total_closing_cost(desired_quote),
+        lender_credit: get_lender_credits(desired_quote)
       }
     end
 
@@ -83,9 +81,8 @@ module LoanTekServices
     def desired_quote?(quote)
       return false if quote["ProductName"] != THIRTY_YEAR_FIXED
 
-      admin_fee = get_admin_fee(quote)
       interest_rate = get_interest_rate(quote)
-      total_closing_cost = get_total_closing_cost(quote, admin_fee)
+      total_closing_cost = get_total_closing_cost(quote)
 
       interest_rate <= original_interest_rate && total_closing_cost <= 0
     end

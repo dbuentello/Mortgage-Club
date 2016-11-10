@@ -74,6 +74,7 @@ class Lender < ActiveRecord::Base
     :appraisal_fee,
     :tax_certification_fee,
     :flood_certification_fee,
+    :lender_underwriting_fee,
     :commission
   ]
   def logo_url
