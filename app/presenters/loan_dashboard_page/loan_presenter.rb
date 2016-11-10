@@ -41,7 +41,9 @@ class LoanDashboardPage::LoanPresenter
         :cash_out,
         :lender_name,
         :updated_rate_time,
-        :is_rate_locked
+        :is_rate_locked,
+        :rate_lock_expiration_date,
+        :closing_date
       ],
       include: {
         properties: {

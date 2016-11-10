@@ -4,6 +4,8 @@ var TextFormatMixin = require("mixins/TextFormatMixin");
 var TextField = require("components/form/TextField");
 var SelectField = require("components/form/SelectField");
 var AddressField = require("components/form/AddressField");
+var BooleanRadio = require('components/form/BooleanRadio');
+var DateField = require('components/form/DateField');
 
 var fields = {
   address: {label: "Property Address", name: "address"},
@@ -32,7 +34,10 @@ var fields = {
   recordingFees: {label: "Recording Fees", name: "recording_fees"},
   ownerTitlePolicy: {label: "Title - Owner's Title Policy", name: "owner_title_policy_fee"},
   prepaidInterest: {label: "Prepaid Interest", name: "prepaid_item_fee"},
-  prepaidHomeowners: {label: "Prepaid Homeowners Insurance for 12 Months", name: "prepaid_homeowners_insurance"}
+  prepaidHomeowners: {label: "Prepaid Homeowners Insurance for 12 Months", name: "prepaid_homeowners_insurance"},
+  isRateLocked: {label: "Rate Lock", name: "is_rate_locked"},
+  rateLockExpirationDate: {label: "Rate Lock Expiration Date", name: "rate_lock_expiration_date"},
+  closingDate: {label: "Closing Date", name: "closing_date"},
 };
 
 var loanTypeOptions = [
@@ -88,6 +93,9 @@ var LoanTermsTab = React.createClass({
     state[fields.ownerTitlePolicy.name] = this.formatCurrency(loan.owner_title_policy_fee, "$");
     state[fields.prepaidInterest.name] = this.formatCurrency(loan.prepaid_item_fee, "$");
     state[fields.prepaidHomeowners.name] = this.formatCurrency(loan.prepaid_homeowners_insurance, "$");
+    state[fields.isRateLocked.name] = loan.is_rate_locked;
+    state[fields.rateLockExpirationDate.name] = loan.rate_lock_expiration_date;
+    state[fields.closingDate.name] = loan.closing_date;
 
     return state;
   },
@@ -132,7 +140,10 @@ var LoanTermsTab = React.createClass({
         recording_fees: this.currencyToNumber(this.state[fields.recordingFees.name]),
         owner_title_policy_fee: this.currencyToNumber(this.state[fields.ownerTitlePolicy.name]),
         prepaid_item_fee: this.currencyToNumber(this.state[fields.prepaidInterest.name]),
-        prepaid_homeowners_insurance: this.currencyToNumber(this.state[fields.prepaidHomeowners.name])
+        prepaid_homeowners_insurance: this.currencyToNumber(this.state[fields.prepaidHomeowners.name]),
+        is_rate_locked: this.state[fields.isRateLocked.name],
+        rate_lock_expiration_date: this.formatTimeCustom(this.state[fields.rateLockExpirationDate.name], "YYYY-MM-DD"),
+        closing_date: this.formatTimeCustom(this.state[fields.closingDate.name], "YYYY-MM-DD")
       },
       method: "POST",
       dataType: "json",
@@ -192,7 +203,7 @@ var LoanTermsTab = React.createClass({
                   maxLength={11}
                   editable={true}/>
               </div>
-              <div className="col-md-4">
+              <div className="col-sm-6">
                 <SelectField
                   label={fields.loanType.label}
                   keyName={fields.loanType.name}
@@ -210,6 +221,26 @@ var LoanTermsTab = React.createClass({
                   value={this.state[fields.interestRate.name]}
                   liveFormat={true}
                   format={this.formatNumber}
+                  onChange={this.onChange}
+                  editable={true}/>
+              </div>
+              <div className="col-sm-6">
+                <BooleanRadio
+                  label={fields.isRateLocked.label}
+                  isDeclaration={true}
+                  keyName={fields.isRateLocked.name}
+                  customColumn={"col-xs-2"}
+                  checked={this.state[fields.isRateLocked.name]}
+                  onChange={this.onChange}
+                  editable={true}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-6">
+                <DateField
+                  label={fields.rateLockExpirationDate.label}
+                  keyName={fields.rateLockExpirationDate.name}
+                  value={this.state[fields.rateLockExpirationDate.name]}
                   onChange={this.onChange}
                   editable={true}/>
               </div>
@@ -483,6 +514,19 @@ var LoanTermsTab = React.createClass({
                   onBlur={this.onBlur}
                   format={this.formatCurrency}
                   maxLength={11}
+                  editable={true}/>
+              </div>
+            </div>
+            <div className="panel-heading">
+              <h4 className="panel-title">Timeline</h4>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-6">
+                <DateField
+                  label={fields.closingDate.label}
+                  keyName={fields.closingDate.name}
+                  value={this.state[fields.closingDate.name]}
+                  onChange={this.onChange}
                   editable={true}/>
               </div>
             </div>
