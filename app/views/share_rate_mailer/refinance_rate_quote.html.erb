@@ -26,9 +26,9 @@
     <tr>
       <td><%= @rate["product"] %></td>
       <td><%= ActionController::Base.helpers.number_to_percentage(@rate["interest_rate"].to_f * 100, precision: 3) %></td>
-      <td><%= ActionController::Base.helpers.number_to_currency(@rate["lender_credits"], precision: 0) %></td>
-      <td><%= ActionController::Base.helpers.number_to_currency(@rate["monthly_payment"], precision: 0) %></td>
-      <td><%= ActionController::Base.helpers.number_to_currency(@rate["total_closing_cost"], precision: 0) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["lender_credits"].to_f, precision: 0) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["monthly_payment"].to_f, precision: 0) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["total_closing_cost"].to_f, precision: 0) %></td>
     </tr>
   </tbody>
 </table>

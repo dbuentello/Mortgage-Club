@@ -20,7 +20,7 @@
         <th>Discount Points</th>
       <% end %>
       <th>Monthly Payment</th>
-      <% if @rate["lender_fee"] >= 0  %>
+      <% if @rate["lender_fee"].to_f >= 0  %>
         <th>Lender Fees</th>
       <% else %>
         <th>Lender Credit</th>
@@ -32,9 +32,9 @@
       <td><%= @rate["product"] %></td>
       <td><%= @rate["lender_name"] %></td>
       <td><%= ActionController::Base.helpers.number_to_percentage(@rate["interest_rate"].to_f * 100, precision: 3) %></td>
-      <td><%= ActionController::Base.helpers.number_to_currency(@rate["lender_credits"], precision: 0) %></td>
-      <td><%= ActionController::Base.helpers.number_to_currency(@rate["monthly_payment"], precision: 0) %></td>
-      <td><%= ActionController::Base.helpers.number_to_currency(@rate["lender_fee"], precision: 0) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["lender_credits"].to_f, precision: 0) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["monthly_payment"].to_f, precision: 0) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["lender_fee"].to_f, precision: 0) %></td>
     </tr>
   </tbody>
 </table>
