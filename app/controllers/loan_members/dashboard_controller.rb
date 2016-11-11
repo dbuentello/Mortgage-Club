@@ -24,6 +24,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       checklists: LoanMembers::ChecklistsPresenter.new(@loan.checklists.order(due_date: :desc, name: :asc)).show,
       lender_templates: get_lender_templates,
       other_lender_template: get_other_template,
+      loan_member: current_user,
       competitor_rates: {
         down_payment_25: get_all_rates_down_payment("0.25"),
         down_payment_20: get_all_rates_down_payment("0.2"),
