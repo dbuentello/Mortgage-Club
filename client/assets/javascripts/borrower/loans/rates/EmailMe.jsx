@@ -32,12 +32,14 @@ var EmailMe = React.createClass({
             if(response.is_purchase == true){
               templateOptions.push({name: 'Purchase rate quote', value: response.purchase_template});
               templateOptions.push({name: 'Refinance rate quote', value: response.refinance_template});
+              templateOptions.push({name: 'Refinance no closing cost template', value: response.refinance_no_closing_cost_template});
 
               this.updateEmailContent(response.purchase_template);
               this.setState({email_me_template: "Purchase rate quote"});
               tinyMCE.activeEditor.setContent(response.purchase_template);
             }else{
               templateOptions.push({name: 'Refinance rate quote', value: response.refinance_template});
+              templateOptions.push({name: 'Refinance no closing cost template', value: response.refinance_no_closing_cost_template});
               templateOptions.push({name: 'Purchase rate quote', value: response.purchase_template});
 
               this.updateEmailContent(response.refinance_template);
@@ -58,6 +60,7 @@ var EmailMe = React.createClass({
     state.body = "";
 
     if(this.props.userRole == "loan_member"){
+      email_me_fields.propertyAddress = {label: "Property Address", name: "email_me_property_address", keyName: "email_me_property_address", error: "emailMePropertyAddress", validationTypes: "empty"};
       email_me_fields.subject = {label: "Subject", name: "email_me_subject", keyName: "email_me_subject", error: "emailMeSubject", validationTypes: "empty"};
       email_me_fields.template = {label: "Template", name: "email_me_template", keyName: "email_me_template", error: "emailMeTemplate"};
     }
@@ -105,6 +108,7 @@ var EmailMe = React.createClass({
           first_name: this.state.email_me_first_name,
           last_name: this.state.email_me_last_name,
           subject: this.state.email_me_subject,
+          property_address: this.state.email_me_property_address,
           body: this.state.body
         },
         success: function(response) {
@@ -191,6 +195,17 @@ var EmailMe = React.createClass({
                       this.props.userRole == "loan_member"
                       ?
                         <div>
+                          <div className="col-md-12 col-sm-12 text-left">
+                            <TextField
+                              activateRequiredField={this.state[this.state.fields.propertyAddress.error]}
+                              label={this.state.fields.propertyAddress.label}
+                              keyName={this.state.fields.propertyAddress.keyName}
+                              value={this.state[this.state.fields.propertyAddress.keyName]}
+                              editable={true}
+                              onChange={this.onChange}
+                              onBlur={this.onBlur}
+                              editMode={true}/>
+                          </div>
                           <div className="col-md-12 col-sm-12 text-left">
                             <TextField
                               activateRequiredField={this.state[this.state.fields.subject.error]}

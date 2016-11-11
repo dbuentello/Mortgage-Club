@@ -97,8 +97,9 @@ class InitialQuotesController < ApplicationController
 
     purchase_template = render_to_string "share_rate_mailer/email_me", layout: false
     refinance_template = render_to_string "share_rate_mailer/refinance_rate_quote", layout: false
+    refinance_no_closing_cost_template = render_to_string "share_rate_mailer/refinance_no_closing_cost", layout: false
 
-    render json: {purchase_template: purchase_template, refinance_template: refinance_template, is_purchase: @quote_query["mortgage_purpose"] == "purchase"}, status: 200
+    render json: {purchase_template: purchase_template, refinance_template: refinance_template, refinance_no_closing_cost_template: refinance_no_closing_cost_template, is_purchase: @quote_query["mortgage_purpose"] == "purchase"}, status: 200
   end
 
   def save_info

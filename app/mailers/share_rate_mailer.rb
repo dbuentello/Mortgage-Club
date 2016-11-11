@@ -1,10 +1,14 @@
 class ShareRateMailer < ActionMailer::Base
   def email_me(params, current_user)
     if params[:body].present?
+      body = params[:body]
+
       if params[:body].include? "[first_name]"
         body = params[:body].gsub! "[first_name]", params[:first_name]
-      else
-        body = params[:body]
+      end
+
+      if params[:body].include? "[property_address]"
+        body = params[:body].gsub! "[property_address]", params[:property_address]
       end
 
       mail(
@@ -42,25 +46,31 @@ class ShareRateMailer < ActionMailer::Base
   end
 
   def update_rate_failed(loan)
+    mortgage_advisor_title = LoanMembersTitle.find_by_title("Mortgage Advisor")
+    mortgage_advisor = LoanMember.joins(:loans_members_associations).where(loans_members_associations: {loan_id: loan.id, loan_members_title_id: mortgage_advisor_title.id}).first
+
     @borrower_full_name = loan.borrower.user.to_s
-    @loan_member_first_name = loan.loan_members.first.user.first_name
+    @loan_member_first_name = mortgage_advisor.user.first_name
     @property_address = loan.subject_property.address.address
 
     mail(
       from: "Billy Tran <billy@mortgageclub.co>",
-      to: loan.loan_members.first.user.email,
+      to: mortgage_advisor.user.email,
       subject: "[ACTION NEEDED] Update rate for #{@borrower_full_name} - #{@property_address}"
     )
   end
 
   def request_rate_lock(loan)
+    mortgage_advisor_title = LoanMembersTitle.find_by_title("Mortgage Advisor")
+    mortgage_advisor = LoanMember.joins(:loans_members_associations).where(loans_members_associations: {loan_id: loan.id, loan_members_title_id: mortgage_advisor_title.id}).first
+
     @borrower_full_name = loan.borrower.user.to_s
-    @loan_member_first_name = loan.loan_members.first.user.first_name
+    @loan_member_first_name = mortgage_advisor.user.first_name
     @property_address = loan.subject_property.address.address
 
     mail(
       from: "Billy Tran <billy@mortgageclub.co>",
-      to: loan.loan_members.first.user.email,
+      to: mortgage_advisor.user.email,
       subject: "[ACTION NEEDED] Lock in rate for #{@borrower_full_name} - #{@property_address}"
     )
   end
