@@ -81,7 +81,6 @@ class InitialQuotesController < ApplicationController
     @rate = params[:rate]
     @quote_url = "https://www.mortgageclub.co/quotes/#{params[:code_id]}"
 
-
     quote = QuoteQuery.find_by_code_id(params[:code_id])
     @quote_query = JSON.load quote.query
     @current_user = current_user
