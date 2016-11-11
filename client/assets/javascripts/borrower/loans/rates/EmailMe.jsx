@@ -32,14 +32,14 @@ var EmailMe = React.createClass({
             if(response.is_purchase == true){
               templateOptions.push({name: 'Purchase rate quote', value: response.purchase_template});
               templateOptions.push({name: 'Refinance rate quote', value: response.refinance_template});
-              templateOptions.push({name: 'Refinance no closing cost template', value: response.refinance_no_closing_cost_template});
+              templateOptions.push({name: 'Refinance no closing costs', value: response.refinance_no_closing_cost_template});
 
               this.updateEmailContent(response.purchase_template);
               this.setState({email_me_template: "Purchase rate quote"});
               tinyMCE.activeEditor.setContent(response.purchase_template);
             }else{
               templateOptions.push({name: 'Refinance rate quote', value: response.refinance_template});
-              templateOptions.push({name: 'Refinance no closing cost template', value: response.refinance_no_closing_cost_template});
+              templateOptions.push({name: 'Refinance no closing costs', value: response.refinance_no_closing_cost_template});
               templateOptions.push({name: 'Purchase rate quote', value: response.purchase_template});
 
               this.updateEmailContent(response.refinance_template);

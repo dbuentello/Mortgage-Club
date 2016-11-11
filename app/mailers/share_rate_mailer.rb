@@ -21,7 +21,7 @@ class ShareRateMailer < ActionMailer::Base
     else
       @first_name = params[:first_name]
       @rate = params[:rate]
-      @code = params[:code_id]
+      @quote_url = "https://www.mortgageclub.co/quotes/#{params[:code_id]}"
 
       quote = QuoteQuery.find_by_code_id(params[:code_id])
       @quote_query = JSON.load quote.query

@@ -5,7 +5,7 @@
 </p>
 
 <p>
-  I did some research on your property at [property_address] and I believe we can help refinance your mortgage to <%= ActionController::Base.helpers.number_to_percentage(@rate["interest_rate"].to_f * 100, precision: 3) %> with no closing costs. Please review our customized rate quote for your property below. You can see your quote in more details at <a href="https://www.mortgageclub.co/quotes/<%= @code %>" target="_blank">https://www.mortgageclub.co/quotes/<%= @code %></a>
+  I did some research on your property at [property_address] and I believe we can help refinance your mortgage to <%= ActionController::Base.helpers.number_to_percentage(@rate["interest_rate"].to_f * 100, precision: 3) %> with no closing costs. Please review our customized rate quote for your property below. You can see your quote in more details at <a href="<%= @quote_url %>" target="_blank"><%= @quote_url %></a>
 </p>
 
 <table border="1" width="100%" style="border-collapse: collapse;text-align: center;">
