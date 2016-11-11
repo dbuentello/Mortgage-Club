@@ -40,7 +40,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
 
   def switch
     loan = Loan.find(params[:id])
-    return if current_user.loan_member? == false || loan.nil? || loan.loan_members.first.user.id != current_user.id
+    return if current_user.loan_member? == false || loan.nil?
 
     sign_in(:user, User.find(loan.borrower.user.id), bypass: true)
 
