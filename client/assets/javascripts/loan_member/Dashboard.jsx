@@ -15,7 +15,6 @@ var EmailDashboardTab = require("./tabs/email_dashboard/EmailDashboardTab");
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
   render: function() {
-    console.log(this.props.bootstrapData);
     return (
       <div>
         <div className="page-header">
@@ -96,9 +95,6 @@ var Dashboard = React.createClass({
                 <div role="tabpanel" className="tab-pane fade" id="checklist">
                   <ChecklistTab loan={this.props.bootstrapData.loan} checklists={this.props.bootstrapData.checklists} templates={this.props.bootstrapData.templates}></ChecklistTab>
                 </div>
-                <div role="tabpanel" className="tab-pane fade" id="competitor_rates">
-                  <CompetitorRateTab competitorRates={this.props.bootstrapData.competitor_rates} />
-                </div>
                 <div role="tabpanel" className="tab-pane fade" id="quote_terms">
                   <LoanTermsTab loan={this.props.bootstrapData.loan} property={this.props.bootstrapData.property}/>
                 </div>
@@ -106,7 +102,7 @@ var Dashboard = React.createClass({
                   <LoanUrlTokenTab loan={this.props.bootstrapData.loan} url={this.props.bootstrapData.url}/>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="email_dashboard">
-                  <EmailDashboardTab loan={this.props.bootstrapData.loan} property={this.props.bootstrapData.property} loanMember={this.props.bootstrapData.loan_member} borrower={this.props.bootstrapData.borrower}/>
+                  <EmailDashboardTab loan={this.props.bootstrapData.loan} property={this.props.bootstrapData.property} loanMember={this.props.bootstrapData.loan_member} borrower={this.props.bootstrapData.borrower} emailTemplates={this.props.bootstrapData.email_templates}/>
                 </div>
               </div>
             </div>
