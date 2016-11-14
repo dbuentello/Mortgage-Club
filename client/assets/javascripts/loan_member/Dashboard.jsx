@@ -6,11 +6,11 @@ var TextFormatMixin = require("mixins/TextFormatMixin");
 
 var ActivityTab = require("./tabs/ActivityTab");
 var DocumentTab = require("./tabs/document/DocumentTab");
-var LenderDocumentTab = require("./tabs/lender_document/LenderDocumentTab");
 var ChecklistTab = require("./tabs/checklist/ChecklistTab");
 var CompetitorRateTab = require("./tabs/competitor_rates/CompetitorRateTab");
 var LoanTermsTab = require("./tabs/loan_terms/LoanTermsTab");
 var LoanUrlTokenTab = require("./tabs/loan_url_tokens/LoanUrlTokenTab");
+var EmailDashboardTab = require("./tabs/email_dashboard/EmailDashboardTab");
 
 var Dashboard = React.createClass({
   mixins: [ObjectHelperMixin, TextFormatMixin],
@@ -50,12 +50,6 @@ var Dashboard = React.createClass({
                         </a>
                       </li>
                       <li role="presentation">
-                        <a href="#lender_document" aria-controls="lender_document" role="tab" data-toggle="tab">
-                          <i className="icon-file-stats"></i>
-                          Lender Documents
-                        </a>
-                      </li>
-                      <li role="presentation">
                         <a href="#checklist" aria-controls="checklist" role="tab" data-toggle="tab">
                           <i className="icon-clipboard2"></i>
                           Checklist
@@ -79,6 +73,12 @@ var Dashboard = React.createClass({
                           Loan URL Token
                         </a>
                       </li>
+                      <li role="presentation">
+                        <a href="#email_dashboard" aria-controls="email_dashboard" role="tab" data-toggle="tab">
+                          <i className="icon-mail5"></i>
+                          Email Dashboard
+                        </a>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -92,20 +92,17 @@ var Dashboard = React.createClass({
                 <div role="tabpanel" className="tab-pane fade" id="document">
                   <DocumentTab loan={this.props.bootstrapData.loan} borrower={this.props.bootstrapData.borrower} property={this.props.bootstrapData.property} closing={this.props.bootstrapData.closing}></DocumentTab>
                 </div>
-                <div role="tabpanel" className="tab-pane fade" id="lender_document">
-                  <LenderDocumentTab loan={this.props.bootstrapData.loan} lenderTemplates={this.props.bootstrapData.lender_templates} otherLenderTemplate={this.props.bootstrapData.other_lender_template}></LenderDocumentTab>
-                </div>
                 <div role="tabpanel" className="tab-pane fade" id="checklist">
                   <ChecklistTab loan={this.props.bootstrapData.loan} checklists={this.props.bootstrapData.checklists} templates={this.props.bootstrapData.templates}></ChecklistTab>
-                </div>
-                <div role="tabpanel" className="tab-pane fade" id="competitor_rates">
-                  <CompetitorRateTab competitorRates={this.props.bootstrapData.competitor_rates} />
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="quote_terms">
                   <LoanTermsTab loan={this.props.bootstrapData.loan} property={this.props.bootstrapData.property}/>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="loan_url_token">
                   <LoanUrlTokenTab loan={this.props.bootstrapData.loan} url={this.props.bootstrapData.url}/>
+                </div>
+                <div role="tabpanel" className="tab-pane fade" id="email_dashboard">
+                  <EmailDashboardTab loan={this.props.bootstrapData.loan} property={this.props.bootstrapData.property} loanMember={this.props.bootstrapData.loan_member} borrower={this.props.bootstrapData.borrower} emailTemplates={this.props.bootstrapData.email_templates}/>
                 </div>
               </div>
             </div>

@@ -22,14 +22,8 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       closing: LoanMembers::ClosingPresenter.new(@loan.closing).show,
       templates: LoanMembers::TemplatesPresenter.new(Template.all).show,
       checklists: LoanMembers::ChecklistsPresenter.new(@loan.checklists.order(due_date: :desc, name: :asc)).show,
-      lender_templates: get_lender_templates,
-      other_lender_template: get_other_template,
-      competitor_rates: {
-        down_payment_25: get_all_rates_down_payment("0.25"),
-        down_payment_20: get_all_rates_down_payment("0.2"),
-        down_payment_10: get_all_rates_down_payment("0.1"),
-        down_payment_3_5: get_all_rates_down_payment("0.035")
-      }.as_json,
+      email_templates: get_email_templates,
+      loan_member: current_user,
       url: url
     )
 
@@ -38,7 +32,23 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
     end
   end
 
+  def send_email
+    LoanMemberDashboardMailer.remind_checklists(params).deliver_now
+
+    render json: {}
+  end
+
   private
+
+  def get_email_templates
+    @first_name = @loan.borrower.user.first_name
+    @closing_date = @loan.closing_date
+    @checklists = @loan.checklists.where(status: "pending").order(created_at: :asc)
+
+    remind_checklists = render_to_string "email_templates/remind_checklists", layout: false
+
+    {remind_checklists: remind_checklists}
+  end
 
   def get_all_rates_down_payment(percent)
     @loan.rate_comparisons.where(down_payment_percentage: percent)
