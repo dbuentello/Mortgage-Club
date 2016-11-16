@@ -120,6 +120,9 @@ gem 'mechanize'
 
 gem 'sendgrid-ruby'
 
+# Pretty print your Ruby objects with style
+gem 'awesome_print'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
@@ -156,9 +159,6 @@ group :development, :test do
   gem 'rubocop'
   # Use Capistrano for deployment
   # gem 'capistrano-rails', group: :development
-
-  # Pretty print your Ruby objects with style
-  gem 'awesome_print'
 end
 
 group :test do
