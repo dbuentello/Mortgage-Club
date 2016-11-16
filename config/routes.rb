@@ -251,6 +251,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :sendgrid_webhooks, only: [] do
+    collection do
+      post "receive"
+    end
+  end
+
   resources :facebook_webhooks, only: [] do
     collection do
       post "receive"

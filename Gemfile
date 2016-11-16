@@ -118,6 +118,8 @@ gem 'ox'
 
 gem 'mechanize'
 
+gem 'sendgrid-ruby'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
