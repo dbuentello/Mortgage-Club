@@ -2,7 +2,6 @@ require 'sendgrid-ruby'
 
 module SendGrid
   class SendEmail
-
     def initialize(current_user, params)
     end
 
