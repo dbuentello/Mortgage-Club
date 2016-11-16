@@ -1,5 +1,5 @@
 class LoanMemberDashboardMailer < ActionMailer::Base
-  def remind_checklists(params)
+  def remind_checklists(current_user, params)
     mail_params = {
       from: params[:from],
       to: params[:to],

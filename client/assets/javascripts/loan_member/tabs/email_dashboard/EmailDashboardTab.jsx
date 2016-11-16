@@ -56,6 +56,7 @@ var EmailDashboardTab = React.createClass({
     this.setState({saving: true});
 
     var formData = new FormData();
+    formData.append("loan_id", this.props.loan.id);
     formData.append("from", this.state.from);
     formData.append("to", this.state.to);
     formData.append("bcc", this.state.bcc);
@@ -63,10 +64,15 @@ var EmailDashboardTab = React.createClass({
     formData.append("body", this.state.body);
     formData.append("subject", this.state.subject);
 
-    if($("#attachments")[0].files.length > 0){
-      _.each($("#attachments")[0].files, function(file){
-        formData.append("attachments[]", file);
-      });
+    var attachments = $("input[name=attachments]");
+    if(attachments.length > 0){
+      _.each(attachments, function(input){
+        if(input.files.length > 0){
+          _.each(input.files, function(file){
+            formData.append("attachments[]", file);
+          });
+        }
+      })
     }
 
     $.ajax({
@@ -85,6 +91,10 @@ var EmailDashboardTab = React.createClass({
         this.setState({saving: false});
       }.bind(this)
     });
+  },
+
+  addInputMore: function(){
+    $("#attachment-label").after('<input class="form-control typeWeightNormal input-sm" style="margin-left: 10px" type="file" name="attachments" multiple/>');
   },
 
   updateEmailContent: function(content) {
@@ -162,10 +172,10 @@ var EmailDashboardTab = React.createClass({
                   placeholder="Select template"/>
               </div>
               <div className="col-sm-6">
-                <label className="col-xs-12 pan">
-                  <span className="h7 typeBold">Attachments</span>
-                  <input className="form-control typeWeightNormal input-sm" type="file" name="attachments" id="attachments" multiple />
+                <label className="col-xs-12 pan" id="attachment-label" style={{"margin-bottom": "0px"}}>
+                  <span className="h7 typeBold">Attachments <a onClick={this.addInputMore} style={{"margin-left": "100px"}}>Add more</a></span>
                 </label>
+                <input className="form-control typeWeightNormal input-sm" type="file" name="attachments" multiple style={{"margin-left": "10px"}}/>
               </div>
             </div>
             <div className="form-group">
