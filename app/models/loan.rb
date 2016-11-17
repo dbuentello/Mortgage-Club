@@ -44,14 +44,16 @@ class Loan < ActiveRecord::Base
   enum status: {
     new_loan: 0,
     submitted: 1,
-    pending: 2,
-    conditionally_approved: 3,
+    processing: 2,
+    approved_with_conditions: 3,
     approved: 4,
-    closed: 5
+    closed: 5,
+    underwriting: 6,
+    suspended: 7
   }
 
   validates :loan_type, inclusion: {in: %w(Conventional VA FHA USDA), message: :invalid_loan_type}, allow_nil: true
-  validates :status, inclusion: {in: %w(new_loan submitted pending conditionally_approved approved closed), message: :invalid_loan_status}, allow_nil: true
+  validates :status, inclusion: {in: %w(new_loan submitted processing approved_with_conditions approved closed underwriting suspended), message: :invalid_loan_status}, allow_nil: true
 
   def completed?
     CompletedLoanServices::BaseCompleted.new(loan: self).call
