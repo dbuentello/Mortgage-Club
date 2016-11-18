@@ -11,7 +11,6 @@ class SendgridWebhooksController < ApplicationController
         case webhook["send_type"]
         when "loan_member_send"
           process_loan_member_send(webhook)
-        else
         end
       end
     end
@@ -23,15 +22,11 @@ class SendgridWebhooksController < ApplicationController
   private
 
   def process_loan_member_send(webhook)
-    message = Ahoy::Message.find_by(to: webhook["email"], token_id: webhook["token"])
+    message = Message.find_by(to: webhook["email"], token: webhook["token"])
     if message
-      if webhook["event"] == "open"
-        message.opened_at = Time.zone.now
-      end
+      message.opened_at = Time.zone.now if webhook["event"] == "open"
 
-      if webhook["event"] == "click"
-        message.clicked_at = Time.zone.now
-      end
+      message.clicked_at = Time.zone.now if webhook["event"] == "click"
 
       message.save
     end

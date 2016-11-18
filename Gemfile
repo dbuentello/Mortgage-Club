@@ -123,8 +123,6 @@ gem 'sendgrid'
 
 gem 'awesome_print'
 
-gem 'ahoy_email'
-
 # Pretty print your Ruby objects with style
 gem 'awesome_print'
 
