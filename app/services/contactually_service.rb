@@ -23,6 +23,6 @@ class ContactuallyService
     request["authorization"] = 'Bearer 6e1s4my4seaxlzhacmwv5ja9tp1798cw'
     response = http.request(request)
 
-    contact_data = JSON.load(response.read_body)["data"]
+    JSON.load(response.read_body)["data"]
   end
 end
