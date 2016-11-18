@@ -16,6 +16,7 @@ class ShareRateMailer < ActionMailer::Base
         to: params[:email],
         subject: params[:subject],
         body: body,
+        bcc: current_user.email,
         content_type: "text/html"
       )
     else
@@ -40,6 +41,7 @@ class ShareRateMailer < ActionMailer::Base
       mail(
         from: @email_from,
         to: params[:email],
+        bcc: @email_from,
         subject: "Your rate quote from MortgageClub"
       )
     end
