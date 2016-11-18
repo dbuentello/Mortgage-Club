@@ -7,6 +7,9 @@ class SendgridWebhooksController < ApplicationController
 
   def receive
     ap params
+    ap params["sendgrid_webhook"]
+    ap params["sendgrid_webhook"]["_json"]
+
     render nothing: true, status: 200
   end
 
