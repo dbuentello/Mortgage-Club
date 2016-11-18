@@ -8,7 +8,7 @@ class SendgridWebhooksController < ApplicationController
   def receive
     if params["sendgrid_webhook"].present? && params["sendgrid_webhook"]["_json"].present?
       params["sendgrid_webhook"]["_json"].each do |webhook|
-        case webhook["send_type"]
+        case webhook["email_type"]
         when "loan_member_send"
           process_loan_member_send(webhook)
         end

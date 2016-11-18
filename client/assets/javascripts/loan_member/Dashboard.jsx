@@ -96,7 +96,7 @@ var Dashboard = React.createClass({
                   <LoanUrlTokenTab loan={this.props.bootstrapData.loan} url={this.props.bootstrapData.url}/>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="email_dashboard">
-                  <EmailDashboardTab loan={this.props.bootstrapData.loan} property={this.props.bootstrapData.property} loanMember={this.props.bootstrapData.loan_member} borrower={this.props.bootstrapData.borrower} emailTemplates={this.props.bootstrapData.email_templates}/>
+                  <EmailDashboardTab loan={this.props.bootstrapData.loan} property={this.props.bootstrapData.property} loanMember={this.props.bootstrapData.loan_member} borrower={this.props.bootstrapData.borrower} emailTemplates={this.props.bootstrapData.email_templates} listEmails={this.props.bootstrapData.list_emails}/>
                 </div>
               </div>
             </div>
