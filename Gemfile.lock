@@ -49,6 +49,11 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
+    ahoy_email (0.4.0)
+      addressable
+      nokogiri
+      rails
+      safely_block (>= 0.1.1)
     arel (6.0.3)
     asposecloud (1.1.2)
     ast (2.1.0)
@@ -160,6 +165,7 @@ GEM
       launchy (~> 2.1)
       mail (~> 2.2)
     encryptor (3.0.0)
+    errbase (0.0.3)
     erubis (2.7.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
@@ -398,10 +404,11 @@ GEM
       ruby-progressbar (~> 1.4)
     ruby-graphviz (1.2.2)
     ruby-progressbar (1.7.5)
-    ruby_http_client (3.0.0)
     rubyzip (1.2.0)
     safe_shell (1.0.3)
     safe_yaml (1.0.4)
+    safely_block (0.1.1)
+      errbase
     sass (3.4.19)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -417,8 +424,8 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sendgrid-ruby (4.0.6)
-      ruby_http_client (~> 3.0.0)
+    sendgrid (1.2.4)
+      json
     shellany (0.0.1)
     shoulda-matchers (3.0.1)
       activesupport (>= 4.0.0)
@@ -482,6 +489,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ahoy_email
   asposecloud
   attr_encrypted (~> 3.0.0)
   awesome_print
@@ -548,7 +556,7 @@ DEPENDENCIES
   sass-rails
   sdoc
   selenium-webdriver (~> 2.48.1)
-  sendgrid-ruby
+  sendgrid
   shoulda-matchers (~> 3.0)
   simplecov
   spreewald

@@ -118,7 +118,12 @@ gem 'ox'
 
 gem 'mechanize'
 
-gem 'sendgrid-ruby'
+# gem 'sendgrid-ruby'
+gem 'sendgrid'
+
+gem 'awesome_print'
+
+gem 'ahoy_email'
 
 group :development do
   # just run bundle exec erd

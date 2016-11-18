@@ -2,6 +2,7 @@ class CreateAhoyMessages < ActiveRecord::Migration
   def change
     create_table :ahoy_messages, id: :uuid do |t|
       t.string :token
+      t.string :token_id
 
       # user
       t.text :to
