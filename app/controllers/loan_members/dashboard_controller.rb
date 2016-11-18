@@ -23,6 +23,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       templates: LoanMembers::TemplatesPresenter.new(Template.all).show,
       checklists: LoanMembers::ChecklistsPresenter.new(@loan.checklists.order(due_date: :desc, name: :asc)).show,
       email_templates: get_email_templates,
+      list_emails: LoanMembers::MessagesPresenter.new(Message.where(loan_id: @loan.id).order(created_at: :desc)).show,
       loan_member: current_user,
       url: url
     )
@@ -36,7 +37,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
     LoanMemberDashboardMailer.remind_checklists(current_user, params).deliver_now
     # SendGrid::LoanTest.call(current_user, params)
 
-    render json: {}
+    render json: {list_emails: LoanMembers::MessagesPresenter.new(Message.where(loan_id: params[:loan_id]).order(created_at: :desc)).show}
   end
 
   private
