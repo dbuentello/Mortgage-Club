@@ -1,6 +1,6 @@
-require 'sendgrid-ruby'
-require 'base64'
-require 'securerandom'
+# require 'sendgrid-ruby'
+# require 'base64'
+# require 'securerandom'
 
 module SendGrid
   class LoanTest
