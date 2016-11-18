@@ -16,6 +16,7 @@ class SendgridWebhooksController < ApplicationController
       end
     end
 
+    ap params["sendgrid_webhook"]
     render nothing: true, status: 200
   end
 
