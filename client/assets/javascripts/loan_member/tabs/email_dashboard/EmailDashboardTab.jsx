@@ -31,7 +31,7 @@ var EmailDashboardTab = React.createClass({
     var state = {};
 
     state[fields.from.name] = loanMember.first_name + " " + loanMember.last_name + " <" + loanMember.email + ">";
-    state[fields.to.name] = borrower.first_name + " " + borrower.last_name + " <" + borrower.user.email + ">";
+    state[fields.to.name] = borrower.user.email;
     state[fields.bcc.name] = "";
     state[fields.cc.name] = "";
     state[fields.subject.name] = "";

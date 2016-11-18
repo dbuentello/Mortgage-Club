@@ -34,7 +34,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
 
   def send_email
     LoanMemberDashboardMailer.remind_checklists(current_user, params).deliver_now
-    # SendGrid::SendEmail.new(current_user, params).call
+    # SendGrid::LoanTest.call(current_user, params)
 
     render json: {}
   end

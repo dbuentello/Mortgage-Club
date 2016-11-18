@@ -118,7 +118,10 @@ gem 'ox'
 
 gem 'mechanize'
 
-gem 'sendgrid-ruby'
+# gem 'sendgrid-ruby'
+gem 'sendgrid'
+
+gem 'awesome_print'
 
 # Pretty print your Ruby objects with style
 gem 'awesome_print'

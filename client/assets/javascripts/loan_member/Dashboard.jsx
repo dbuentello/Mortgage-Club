@@ -56,12 +56,6 @@ var Dashboard = React.createClass({
                         </a>
                       </li>
                       <li role="presentation">
-                        <a href="#competitor_rates" aria-controls="competitor_rates" role="tab" data-toggle="tab">
-                          <i className="icon-list3"></i>
-                          Competitor Rates
-                        </a>
-                      </li>
-                      <li role="presentation">
                         <a href="#quote_terms" aria-controls="quote_terms" role="tab" data-toggle="tab">
                           <i className="icon-list"></i>
                           Loan Terms
