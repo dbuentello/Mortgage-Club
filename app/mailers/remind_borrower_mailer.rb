@@ -14,7 +14,7 @@ class RemindBorrowerMailer < ActionMailer::Base
     email_cc = loan_analyst ? "#{@loan_member.user.email}, #{loan_analyst.user.email}" : @loan_member.user.email
 
     mail(
-      from: "#{@loan_member.user} <#{@loan_member.user.email}>"
+      from: "#{@loan_member.user} <#{@loan_member.user.email}>",
       to: loan.borrower.user.email,
       cc: email_cc,
       subject: "[ACTION NEEDED] Your loan application for #{loan.subject_property.address.address}"
