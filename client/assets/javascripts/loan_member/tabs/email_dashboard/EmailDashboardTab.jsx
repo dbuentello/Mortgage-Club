@@ -24,10 +24,10 @@ var EmailDashboardTab = React.createClass({
   },
 
   getInitialState: function() {
-    return this.buildState(this.props.loan, this.props.property, this.props.loanMember, this.props.borrower, this.props.emailTemplates, this.props.listEmails);
+    return this.buildState(this.props.loan, this.props.property, this.props.loanMember, this.props.borrower, this.props.emailTemplates, this.props.listEmails, this.props.loanEmails);
   },
 
-  buildState: function(loan, property, loanMember, borrower, emailTemplates, listEmails) {
+  buildState: function(loan, property, loanMember, borrower, emailTemplates, listEmails, loanEmails) {
     var state = {};
 
     state[fields.from.name] = loanMember.first_name + " " + loanMember.last_name + " <" + loanMember.email + ">";
@@ -37,8 +37,15 @@ var EmailDashboardTab = React.createClass({
     state[fields.subject.name] = "";
 
     var templateOptions = [];
-    templateOptions.push({name: 'Remind Checklists', value: emailTemplates.remind_checklists});
+    templateOptions.push({name: 'Checklist Items', value: emailTemplates.remind_checklists});
     state.templateOptions = templateOptions;
+
+    var emailOptions = [];
+    _.each(this.props.loanEmails, function(loanEmail){
+      emailOptions.push({name: loanEmail.key, value: loanEmail.value});
+    });
+    state.emailOptions = emailOptions;
+
     state.body = "";
     state.listEmails = listEmails;
     return state;
@@ -118,9 +125,9 @@ var EmailDashboardTab = React.createClass({
     return (
       <div>
         <div className="tabbable tab-content-bordered">
-          <ul className="nav nav-tabs nav-tabs-highlight nav-justified">
+          <ul className="nav nav-tabs nav-tabs-highlight">
             <li className="active">
-              <a href="#email-dashboard" data-toggle="tab" aria-expanded="true">Email Dashboard</a>
+              <a href="#email-dashboard" data-toggle="tab" aria-expanded="true">Compose</a>
             </li>
             <li className="">
               <a href="#email-list" data-toggle="tab" aria-expanded="false">Sent Email</a>
@@ -140,14 +147,13 @@ var EmailDashboardTab = React.createClass({
                       editable={false}/>
                   </div>
                   <div className="col-sm-6">
-                    <TextField
+                    <SelectField
                       label={fields.to.label}
                       keyName={fields.to.name}
-                      value={this.state[fields.to.name]}
+                      options={this.state.emailOptions}
+                      editable={true}
                       onChange={this.onChange}
-                      onBlur={this.onBlur}
-                      maxLength={11}
-                      editable={true}/>
+                      value={this.state[fields.to.name]} />
                   </div>
                 </div>
                 <div className="form-group">
@@ -212,7 +218,7 @@ var EmailDashboardTab = React.createClass({
                 </div>
                 <div className="form-group">
                   <div className="col-sm-6">
-                    <button className="btn btn-primary" id="submit-loan-terms" onClick={this.onSubmit} disabled={this.state.saving}>{ this.state.saving ? "Submitting" : "Submit" }</button>
+                    <button className="btn btn-primary" id="submit-loan-terms" onClick={this.onSubmit} disabled={this.state.saving}>{ this.state.saving ? "Sending" : "Send" }</button>
                   </div>
                 </div>
               </form>
@@ -223,11 +229,11 @@ var EmailDashboardTab = React.createClass({
                 <table role="grid" className="table table-hover datatable-highlight dataTable no-footer">
                   <thead>
                     <tr role="row">
-                      <th tabIndex="0" rowSpan="1" colSpan="1" aria-sort="ascending">Recipient</th>
-                      <th  tabIndex="0" rowSpan="1" colSpan="1">Subject</th>
-                      <th  tabIndex="0" rowSpan="1" colSpan="1">Opened</th>
-                      <th  tabIndex="0" rowSpan="1" colSpan="1">Clicked</th>
-                      <th  tabIndex="0" rowSpan="1" colSpan="1">Sent</th>
+                      <th width="15%" tabIndex="0" rowSpan="1" colSpan="1" aria-sort="ascending">Recipient</th>
+                      <th width="55%" tabIndex="0" rowSpan="1" colSpan="1">Subject</th>
+                      <th width="10%" tabIndex="0" rowSpan="1" colSpan="1">Opened</th>
+                      <th width="10%" tabIndex="0" rowSpan="1" colSpan="1">Clicked</th>
+                      <th width="10%" tabIndex="0" rowSpan="1" colSpan="1">Sent</th>
                     </tr>
                   </thead>
                   <tbody>

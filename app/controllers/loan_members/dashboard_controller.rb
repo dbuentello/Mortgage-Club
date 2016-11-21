@@ -24,6 +24,7 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
       checklists: LoanMembers::ChecklistsPresenter.new(@loan.checklists.order(due_date: :desc, name: :asc)).show,
       email_templates: get_email_templates,
       list_emails: LoanMembers::MessagesPresenter.new(Message.where(loan_id: @loan.id).order(created_at: :desc)).show,
+      loan_emails: get_loan_emails,
       loan_member: current_user,
       url: url
     )
@@ -41,6 +42,30 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
   end
 
   private
+
+  def get_loan_emails
+    emails = []
+    emails << {
+      "key" => "Borrower <#{@loan.borrower.user.email}>",
+      "value" => @loan.borrower.user.email
+    }
+
+    if @loan.secondary_borrower
+      emails << {
+        "key" => "Co-borrower <#{@loan.secondary_borrower.user.email}>",
+        "value" => @loan.secondary_borrower.user.email
+      }
+    end
+
+    @loan.loans_members_associations.each do |loans_members_association|
+      emails << {
+        "key" => "#{loans_members_association.loan_members_title.title} <#{loans_members_association.loan_member.user.email}>",
+        "value" => loans_members_association.loan_member.user.email
+      }
+    end
+
+    emails
+  end
 
   def get_email_templates
     @first_name = @loan.borrower.user.first_name
