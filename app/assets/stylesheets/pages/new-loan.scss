@@ -13,7 +13,7 @@
   }
   .account-content {
     min-height: calc(100vh - 60px);
-    min-width: calc(100vw - 315px);
+    min-width: calc(100vw - 320px);
     @include respond-to(tablet){
       min-width: 100%;
     };

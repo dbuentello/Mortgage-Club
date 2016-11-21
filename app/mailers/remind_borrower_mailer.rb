@@ -1,6 +1,4 @@
 class RemindBorrowerMailer < ActionMailer::Base
-  default from: "Billy Tran <billy@mortgageclub.co>"
-
   def remind_checklists(loan)
     mortgage_advisor_title = LoanMembersTitle.find_by_title("Mortgage Advisor")
     loan_analyst_title = LoanMembersTitle.find_by_title("Loan Analyst")
@@ -16,6 +14,7 @@ class RemindBorrowerMailer < ActionMailer::Base
     email_cc = loan_analyst ? "#{@loan_member.user.email}, #{loan_analyst.user.email}" : @loan_member.user.email
 
     mail(
+      from: "#{@loan_member.user} <#{@loan_member.user.email}>",
       to: loan.borrower.user.email,
       cc: email_cc,
       subject: "[ACTION NEEDED] Your loan application for #{loan.subject_property.address.address}"
