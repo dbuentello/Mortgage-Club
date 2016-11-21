@@ -11,6 +11,8 @@ class SendgridWebhooksController < ApplicationController
         case webhook["email_type"]
         when "loan_member_send"
           process_loan_member_send(webhook)
+        when "email_rate_quote"
+          process_email_rate_quote(webhook)
         end
       end
     end
@@ -29,6 +31,12 @@ class SendgridWebhooksController < ApplicationController
       message.clicked_at = Time.zone.now if webhook["event"] == "click"
 
       message.save
+    end
+  end
+
+  def process_email_rate_quote(webhook)
+    if webhook["email"].index("mortgageclub.co").nil?
+      ContactuallyServices::AddOrUpdateInteraction.new(webhook["email"], webhook["event"]).call
     end
   end
 

@@ -1,5 +1,9 @@
 class ShareRateMailer < ActionMailer::Base
+  include SendGrid
+
   def email_me(params, current_user)
+    sendgrid_unique_args email_type: "email_rate_quote"
+
     if params[:body].present?
       body = params[:body]
 
