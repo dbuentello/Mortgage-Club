@@ -9,6 +9,8 @@ class CreateMessage < ActiveRecord::Migration
       t.text :content
       t.datetime :opened_at
       t.datetime :clicked_at
+
+      t.timestamps null: false
     end
   end
 end
