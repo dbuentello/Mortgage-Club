@@ -137,7 +137,12 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :dashboard, only: [:show]
+    resources :dashboard, only: [:show] do
+      member do
+        post "send_email"
+      end
+    end
+
     resources :lender_documents, only: [:create, :destroy] do
       member do
         get "download"
@@ -241,6 +246,12 @@ Rails.application.routes.draw do
   end
 
   resources :slack_webhooks, only: [] do
+    collection do
+      post "receive"
+    end
+  end
+
+  resources :sendgrid_webhooks, only: [] do
     collection do
       post "receive"
     end

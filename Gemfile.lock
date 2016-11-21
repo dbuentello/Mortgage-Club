@@ -416,6 +416,8 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    sendgrid (1.2.4)
+      json
     shellany (0.0.1)
     shoulda-matchers (3.0.1)
       activesupport (>= 4.0.0)
@@ -545,6 +547,7 @@ DEPENDENCIES
   sass-rails
   sdoc
   selenium-webdriver (~> 2.48.1)
+  sendgrid
   shoulda-matchers (~> 3.0)
   simplecov
   spreewald

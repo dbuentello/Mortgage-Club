@@ -32,6 +32,8 @@ var TinyMCEEditor = React.createClass({
         'insertdatetime media table contextmenu paste code'
       ],
       toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image',
+      browser_spellcheck: true,
+      contextmenu: false,
       setup:function(ed) {
         ed.on('change', function(e) {
           this.props.onChange(ed.getContent());
