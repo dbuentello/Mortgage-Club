@@ -123,9 +123,6 @@ gem 'sendgrid'
 
 gem 'awesome_print'
 
-# Pretty print your Ruby objects with style
-gem 'awesome_print'
-
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
