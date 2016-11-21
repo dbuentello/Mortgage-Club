@@ -69,8 +69,9 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
 
   def get_email_templates
     @first_name = @loan.borrower.user.first_name
-    @closing_date = @loan.closing_date
+    @closing_date = @loan.closing_date.present? ? @loan.closing_date : @loan.created_at + 21.days
     @checklists = @loan.checklists.where(status: "pending").order(created_at: :asc)
+    @due_date = @checklists.last.present? ? @checklists.last : Time.zone.now + 21.days
 
     remind_checklists = render_to_string "email_templates/remind_checklists", layout: false
 
