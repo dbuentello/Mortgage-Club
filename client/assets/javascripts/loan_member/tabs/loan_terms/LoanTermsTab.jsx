@@ -166,376 +166,378 @@ var LoanTermsTab = React.createClass({
           <div className="panel-heading">
             <h4 className="panel-title">Loan Terms</h4>
           </div>
-          <form className="form-horizontal form-checklist">
-            <div className="panel-heading">
-              <h4 className="panel-title">Loan Summary</h4>
-            </div>
-            <input type="hidden" value={this.props.loan.id} name="loan_id"/>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <AddressField label={fields.address.label}
-                  address={this.state[fields.address.name]}
-                  keyName={fields.address.name}
-                  editable={true}
-                  onChange={this.onChange}/>
+          <div className="panel-body">
+            <form className="form-horizontal form-checklist">
+              <div className="panel-heading">
+                <h4 className="panel-title">Loan Summary</h4>
               </div>
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.propertyValue.label}
-                  keyName={fields.propertyValue.name}
-                  value={this.state[fields.propertyValue.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <input type="hidden" value={this.props.loan.id} name="loan_id"/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <AddressField label={fields.address.label}
+                    address={this.state[fields.address.name]}
+                    keyName={fields.address.name}
+                    editable={true}
+                    onChange={this.onChange}/>
+                </div>
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.propertyValue.label}
+                    keyName={fields.propertyValue.name}
+                    value={this.state[fields.propertyValue.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.loanAmount.label}
-                  keyName={fields.loanAmount.name}
-                  value={this.state[fields.loanAmount.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.loanAmount.label}
+                    keyName={fields.loanAmount.name}
+                    value={this.state[fields.loanAmount.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <SelectField
+                    label={fields.loanType.label}
+                    keyName={fields.loanType.name}
+                    options={loanTypeOptions}
+                    editable={true}
+                    onChange={this.onChange}
+                    value={this.state[fields.loanType.name]}/>
+                </div>
               </div>
-              <div className="col-sm-6">
-                <SelectField
-                  label={fields.loanType.label}
-                  keyName={fields.loanType.name}
-                  options={loanTypeOptions}
-                  editable={true}
-                  onChange={this.onChange}
-                  value={this.state[fields.loanType.name]}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.interestRate.label}
+                    keyName={fields.interestRate.name}
+                    value={this.state[fields.interestRate.name]}
+                    liveFormat={true}
+                    format={this.formatNumber}
+                    onChange={this.onChange}
+                    editable={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <BooleanRadio
+                    label={fields.isRateLocked.label}
+                    isDeclaration={true}
+                    keyName={fields.isRateLocked.name}
+                    customColumn={"col-xs-2"}
+                    checked={this.state[fields.isRateLocked.name]}
+                    onChange={this.onChange}
+                    editable={true}/>
+                </div>
               </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.interestRate.label}
-                  keyName={fields.interestRate.name}
-                  value={this.state[fields.interestRate.name]}
-                  liveFormat={true}
-                  format={this.formatNumber}
-                  onChange={this.onChange}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <DateField
+                    label={fields.rateLockExpirationDate.label}
+                    keyName={fields.rateLockExpirationDate.name}
+                    value={this.state[fields.rateLockExpirationDate.name]}
+                    onChange={this.onChange}
+                    editable={true}/>
+                </div>
               </div>
-              <div className="col-sm-6">
-                <BooleanRadio
-                  label={fields.isRateLocked.label}
-                  isDeclaration={true}
-                  keyName={fields.isRateLocked.name}
-                  customColumn={"col-xs-2"}
-                  checked={this.state[fields.isRateLocked.name]}
-                  onChange={this.onChange}
-                  editable={true}/>
+              <div className="panel-heading">
+                <h4 className="panel-title">Closing Costs</h4>
               </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <DateField
-                  label={fields.rateLockExpirationDate.label}
-                  keyName={fields.rateLockExpirationDate.name}
-                  value={this.state[fields.rateLockExpirationDate.name]}
-                  onChange={this.onChange}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.lenderCredits.label}
+                    keyName={fields.lenderCredits.name}
+                    value={this.state[fields.lenderCredits.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.lenderUnderwritingFee.label}
+                    keyName={fields.lenderUnderwritingFee.name}
+                    value={this.state[fields.lenderUnderwritingFee.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-            </div>
-            <div className="panel-heading">
-              <h4 className="panel-title">Closing Costs</h4>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.lenderCredits.label}
-                  keyName={fields.lenderCredits.name}
-                  value={this.state[fields.lenderCredits.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.appraisalFee.label}
+                    keyName={fields.appraisalFee.name}
+                    value={this.state[fields.appraisalFee.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.taxCertificationFee.label}
+                    keyName={fields.taxCertificationFee.name}
+                    value={this.state[fields.taxCertificationFee.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.lenderUnderwritingFee.label}
-                  keyName={fields.lenderUnderwritingFee.name}
-                  value={this.state[fields.lenderUnderwritingFee.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.floodCertificationFee.label}
+                    keyName={fields.floodCertificationFee.name}
+                    value={this.state[fields.floodCertificationFee.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.outsideSigningService.label}
+                    keyName={fields.outsideSigningService.name}
+                    value={this.state[fields.outsideSigningService.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.appraisalFee.label}
-                  keyName={fields.appraisalFee.name}
-                  value={this.state[fields.appraisalFee.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.concurrentLoanCharge.label}
+                    keyName={fields.concurrentLoanCharge.name}
+                    value={this.state[fields.concurrentLoanCharge.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.endorsementCharge.label}
+                    keyName={fields.endorsementCharge.name}
+                    value={this.state[fields.endorsementCharge.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.taxCertificationFee.label}
-                  keyName={fields.taxCertificationFee.name}
-                  value={this.state[fields.taxCertificationFee.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.lenderTitlePolicy.label}
+                    keyName={fields.lenderTitlePolicy.name}
+                    value={this.state[fields.lenderTitlePolicy.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.recordingServiceFee.label}
+                    keyName={fields.recordingServiceFee.name}
+                    value={this.state[fields.recordingServiceFee.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.floodCertificationFee.label}
-                  keyName={fields.floodCertificationFee.name}
-                  value={this.state[fields.floodCertificationFee.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.settlementAgentFee.label}
+                    keyName={fields.settlementAgentFee.name}
+                    value={this.state[fields.settlementAgentFee.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.recordingFees.label}
+                    keyName={fields.recordingFees.name}
+                    value={this.state[fields.recordingFees.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.outsideSigningService.label}
-                  keyName={fields.outsideSigningService.name}
-                  value={this.state[fields.outsideSigningService.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.ownerTitlePolicy.label}
+                    keyName={fields.ownerTitlePolicy.name}
+                    value={this.state[fields.ownerTitlePolicy.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.prepaidInterest.label}
+                    keyName={fields.prepaidInterest.name}
+                    value={this.state[fields.prepaidInterest.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.concurrentLoanCharge.label}
-                  keyName={fields.concurrentLoanCharge.name}
-                  value={this.state[fields.concurrentLoanCharge.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.prepaidHomeowners.label}
+                    keyName={fields.prepaidHomeowners.name}
+                    value={this.state[fields.prepaidHomeowners.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.downPayment.label}
+                    keyName={fields.downPayment.name}
+                    value={this.state[fields.downPayment.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.endorsementCharge.label}
-                  keyName={fields.endorsementCharge.name}
-                  value={this.state[fields.endorsementCharge.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.totalCashToClose.label}
+                    keyName={fields.totalCashToClose.name}
+                    value={this.state[fields.totalCashToClose.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.lenderTitlePolicy.label}
-                  keyName={fields.lenderTitlePolicy.name}
-                  value={this.state[fields.lenderTitlePolicy.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="panel-heading">
+                <h4 className="panel-title">Housing Expense</h4>
               </div>
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.recordingServiceFee.label}
-                  keyName={fields.recordingServiceFee.name}
-                  value={this.state[fields.recordingServiceFee.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.principalInterest.label}
+                    keyName={fields.principalInterest.name}
+                    value={this.state[fields.principalInterest.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.homeownersInsurance.label}
+                    keyName={fields.homeownersInsurance.name}
+                    value={this.state[fields.homeownersInsurance.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.settlementAgentFee.label}
-                  keyName={fields.settlementAgentFee.name}
-                  value={this.state[fields.settlementAgentFee.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.propertyTax.label}
+                    keyName={fields.propertyTax.name}
+                    value={this.state[fields.propertyTax.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.hoaDue.label}
+                    keyName={fields.hoaDue.name}
+                    value={this.state[fields.hoaDue.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.recordingFees.label}
-                  keyName={fields.recordingFees.name}
-                  value={this.state[fields.recordingFees.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <TextField
+                    label={fields.mortgageInsurance.label}
+                    keyName={fields.mortgageInsurance.name}
+                    value={this.state[fields.mortgageInsurance.name]}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    format={this.formatCurrency}
+                    maxLength={11}
+                    editable={true}/>
+                </div>
               </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.ownerTitlePolicy.label}
-                  keyName={fields.ownerTitlePolicy.name}
-                  value={this.state[fields.ownerTitlePolicy.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="panel-heading">
+                <h4 className="panel-title">Timeline</h4>
               </div>
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.prepaidInterest.label}
-                  keyName={fields.prepaidInterest.name}
-                  value={this.state[fields.prepaidInterest.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <DateField
+                    label={fields.closingDate.label}
+                    keyName={fields.closingDate.name}
+                    value={this.state[fields.closingDate.name]}
+                    onChange={this.onChange}
+                    editable={true}/>
+                </div>
               </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.prepaidHomeowners.label}
-                  keyName={fields.prepaidHomeowners.name}
-                  value={this.state[fields.prepaidHomeowners.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
+              <div className="form-group">
+                <div className="col-sm-6">
+                  <button className="btn btn-primary" id="submit-loan-terms" onClick={this.onSubmit} disabled={this.state.saving}>{ this.state.saving ? "Submitting" : "Submit" }</button>
+                </div>
               </div>
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.downPayment.label}
-                  keyName={fields.downPayment.name}
-                  value={this.state[fields.downPayment.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
-              </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.totalCashToClose.label}
-                  keyName={fields.totalCashToClose.name}
-                  value={this.state[fields.totalCashToClose.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
-              </div>
-            </div>
-            <div className="panel-heading">
-              <h4 className="panel-title">Housing Expense</h4>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.principalInterest.label}
-                  keyName={fields.principalInterest.name}
-                  value={this.state[fields.principalInterest.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
-              </div>
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.homeownersInsurance.label}
-                  keyName={fields.homeownersInsurance.name}
-                  value={this.state[fields.homeownersInsurance.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
-              </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.propertyTax.label}
-                  keyName={fields.propertyTax.name}
-                  value={this.state[fields.propertyTax.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
-              </div>
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.hoaDue.label}
-                  keyName={fields.hoaDue.name}
-                  value={this.state[fields.hoaDue.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
-              </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <TextField
-                  label={fields.mortgageInsurance.label}
-                  keyName={fields.mortgageInsurance.name}
-                  value={this.state[fields.mortgageInsurance.name]}
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  format={this.formatCurrency}
-                  maxLength={11}
-                  editable={true}/>
-              </div>
-            </div>
-            <div className="panel-heading">
-              <h4 className="panel-title">Timeline</h4>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <DateField
-                  label={fields.closingDate.label}
-                  keyName={fields.closingDate.name}
-                  value={this.state[fields.closingDate.name]}
-                  onChange={this.onChange}
-                  editable={true}/>
-              </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-6">
-                <button className="btn btn-primary" id="submit-loan-terms" onClick={this.onSubmit} disabled={this.state.saving}>{ this.state.saving ? "Submitting" : "Submit" }</button>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     )

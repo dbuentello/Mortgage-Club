@@ -24,9 +24,7 @@ var ChecklistTab = React.createClass({
   },
 
   onDelete: function(event) {
-
     var checklist_id = event.target.value;
-
     $.ajax({
       url: '/loan_members/checklists/' + checklist_id,
       method: 'DELETE',

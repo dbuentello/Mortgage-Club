@@ -81,19 +81,34 @@ var Dashboard = React.createClass({
             <div className="content-wrapper">
               <div className="tab-content">
                 <div role="tabpanel" className="tab-pane fade in active" id="activity">
-                  <ActivityTab loan={this.props.bootstrapData.loan} first_activity={this.props.bootstrapData.first_activity} loan_activities={this.props.bootstrapData.loan_activities} activity_types={this.props.bootstrapData.activity_types}></ActivityTab>
+                  <ActivityTab
+                    loan={this.props.bootstrapData.loan}
+                    first_activity={this.props.bootstrapData.first_activity}
+                    loan_activities={this.props.bootstrapData.loan_activities}
+                    activity_types={this.props.bootstrapData.activity_types} />
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="document">
-                  <DocumentTab loan={this.props.bootstrapData.loan} borrower={this.props.bootstrapData.borrower} property={this.props.bootstrapData.property} closing={this.props.bootstrapData.closing}></DocumentTab>
+                  <DocumentTab
+                    loan={this.props.bootstrapData.loan}
+                    borrower={this.props.bootstrapData.borrower}
+                    property={this.props.bootstrapData.property}
+                    closing={this.props.bootstrapData.closing} />
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="checklist">
-                  <ChecklistTab loan={this.props.bootstrapData.loan} checklists={this.props.bootstrapData.checklists} templates={this.props.bootstrapData.templates}></ChecklistTab>
+                  <ChecklistTab
+                    loan={this.props.bootstrapData.loan}
+                    checklists={this.props.bootstrapData.checklists}
+                    templates={this.props.bootstrapData.templates} />
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="quote_terms">
-                  <LoanTermsTab loan={this.props.bootstrapData.loan} property={this.props.bootstrapData.property}/>
+                  <LoanTermsTab
+                    loan={this.props.bootstrapData.loan}
+                    property={this.props.bootstrapData.property} />
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="loan_url_token">
-                  <LoanUrlTokenTab loan={this.props.bootstrapData.loan} url={this.props.bootstrapData.url}/>
+                  <LoanUrlTokenTab
+                    loan={this.props.bootstrapData.loan}
+                    url={this.props.bootstrapData.url} />
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="email_dashboard">
                   <EmailDashboardTab

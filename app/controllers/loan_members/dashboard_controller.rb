@@ -69,13 +69,21 @@ class LoanMembers::DashboardController < LoanMembers::BaseController
 
   def get_email_templates
     @first_name = @loan.borrower.user.first_name
+    @current_user = current_user
+
+    default_template = render_to_string "email_templates/default", layout: false
+
     @closing_date = @loan.closing_date.present? ? @loan.closing_date : @loan.created_at + 21.days
     @checklists = @loan.checklists.where(status: "pending").order(created_at: :asc)
-    @due_date = @checklists.last.present? ? @checklists.last : Time.zone.now + 21.days
+    @due_date = @checklists.last.present? ? @checklists.last.due_date : Time.zone.now + 21.days
 
     remind_checklists = render_to_string "email_templates/remind_checklists", layout: false
 
-    {remind_checklists: remind_checklists}
+    {
+      default: default_template,
+      checklist_items: remind_checklists,
+      subject: "Your loan application for #{@loan.subject_property.address.address}"
+    }
   end
 
   def get_all_rates_down_payment(percent)
