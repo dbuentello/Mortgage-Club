@@ -38,23 +38,23 @@ module FacebookBotServices
       ["30yearFixed", "15yearFixed", "5yearARM"].each do |type|
         programs = quotes.select { |p| p["ProductName"] == type }
         next if programs.empty?
-        ap programs
 
         lowest_program = programs.first
         programs.each { |p| lowest_program = p if lowest_program["Rate"] > p["Rate"] }
-        min_rate = format("%0.03f", lowest_program["Rate"] * 100)
+        min_rate = format("%0.03f", lowest_program["Rate"])
         monthly_payment = number_to_currency(get_monthly_payment(lowest_program), precision: 0)
-        estimated_closing_costs = number_to_currency(get_lender_credits(lowest_program).abs.to_i, precision: 0)
-
+        # estimated_closing_costs = number_to_currency(get_lender_credits(lowest_program).abs.to_i, precision: 0)
+        lender_credit = 0
+        estimated_closing_costs = 0
         data << {
-          title: "#{min_rate}",
+          title: "#{min_rate}%",
           subtitle: "Monthly Payment: #{monthly_payment}, Lender Credit: #{lender_credit}, Estimated Closing Costs: #{estimated_closing_costs}",
-          url: Rails.application.routes.url_helpers.initial_quote_url(id: quote_query.code_id, program: type, host: host_name),
+          url: Rails.application.routes.url_helpers.initial_quote_url(id: quote_query.code_id, host: host_name),
           type: type,
           img_url: get_img_url(type)
         }
       end
-
+      ap data
       data
     end
 

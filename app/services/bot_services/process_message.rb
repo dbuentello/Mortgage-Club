@@ -49,7 +49,7 @@ module BotServices
 
           speech_text = response[:result][:fulfillment][:speech]
           array = speech_text.split("|");
-
+          ap response
           case array[0]
           when BotServices::ApiAiCode.welcome
             text = array[1].insert(5, " #{user_session[:context][:profile]['first_name']}")
@@ -66,8 +66,7 @@ module BotServices
             content = replies_message(array[1], BotServices::FacebookButtons.btn_credit_score)
           when BotServices::ApiAiCode.end_conversation
             content = text_message(array[1])
-            ap response[:result][:parameters]
-            FacebookPostResultJob.perform_now(sender_id, response[:result][:parameters])
+            FacebookPostResultJob.perform_later(sender_id, response[:result][:parameters])
           when BotServices::ApiAiCode.property_type
             content = replies_message(array[1], BotServices::FacebookButtons.btn_property_types)
           else
