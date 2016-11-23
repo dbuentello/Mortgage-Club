@@ -49,7 +49,7 @@ module BotServices
 
           speech_text = response[:result][:fulfillment][:speech]
           array = speech_text.split("|");
-          ap response
+
           case array[0]
           when BotServices::ApiAiCode.welcome
             text = array[1].insert(5, " #{user_session[:context][:profile]['first_name']}")
