@@ -12,6 +12,13 @@ module BotServices
       }
     end
 
+    def self.quick_replies_message(text, quick_replies)
+      {
+        text: text,
+        quick_replies: quick_replies
+      }
+    end
+
     def self.button_message(text, buttons)
       {
         attachment: {

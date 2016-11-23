@@ -3,11 +3,11 @@ module BotServices
     def self.btn_purpose_types
       [
         {
-          type: "postback",
+          content_type: "text",
           title: "Purchase",
           payload: "purchase"
         }, {
-          type: "postback",
+          content_type: "text",
           title: "Refinance",
           payload: "refinance"
         }
@@ -17,13 +17,43 @@ module BotServices
     def self.btn_welcome
       [
         {
-          type: "postback",
+          content_type: "text",
           title: "Get a rate quote",
           payload: "get_rate_quote"
         }, {
-          type: "postback",
+          content_type: "text",
           title: "Should I refinance?",
           payload: "get_refinance"
+        }
+      ]
+    end
+
+    def self.btn_credit_score
+      [
+        {
+          content_type: "text",
+          title: "740+",
+          payload: "740"
+        },
+        {
+          content_type: "text",
+          title: "720 - 739",
+          payload: "720"
+        },
+        {
+          content_type: "text",
+          title: "700 - 719",
+          payload: "700"
+        },
+        {
+          content_type: "text",
+          title: "680 - 699",
+          payload: "680"
+        },
+        {
+          content_type: "text",
+          title: "660 - 679",
+          payload: "660"
         }
       ]
     end
@@ -31,17 +61,17 @@ module BotServices
     def self.btn_usage
       [
         {
-          type: "postback",
+          content_type: "text",
           title: "Primary Residence",
           payload: "primary_residence"
         }, {
-          type: "postback",
+          content_type: "text",
           title: "Vacation Home",
           payload: "vacation_home"
         }, {
-          type: "postback",
-          title: "Rental Property",
-          payload: "rental_property"
+          content_type: "text",
+          title: "Investment Property",
+          payload: "investment_property"
         }
       ]
     end
@@ -49,15 +79,15 @@ module BotServices
     def self.btn_property_types
       [
         {
-          type: "postback",
+          content_type: "text",
           title: "Single Family Home",
           payload: "sfh"
         }, {
-          type: "postback",
+          content_type: "text",
           title: "Multi-Family",
           payload: "multi_family"
         }, {
-          type: "postback",
+          content_type: "text",
           title: "Condo/Townhouse",
           payload: "condo"
         }

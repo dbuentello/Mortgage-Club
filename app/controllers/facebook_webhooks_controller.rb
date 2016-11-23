@@ -12,7 +12,9 @@ class FacebookWebhooksController < ApplicationController
   end
 
   def receive_message
-    BotServices::ProcessMessage.new(params).call
+    messaging = params["entry"][0]["messaging"]
+    BotServices::ProcessMessage.new(params).call if messaging[0]["delivery"].nil?
+
     render json: :ok
   end
 

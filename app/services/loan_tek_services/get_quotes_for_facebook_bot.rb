@@ -3,7 +3,7 @@ module LoanTekServices
     attr_reader :parameters, :quotes
 
     def initialize(params)
-      @parameters = params["parameters"]
+      @parameters = params
       @quotes = []
     end
 
@@ -27,10 +27,10 @@ module LoanTekServices
       {
         zip_code: get_zipcode,
         credit_score: get_credit_score,
-        mortgage_purpose: parameters["purpose"],
+        mortgage_purpose: parameters[:purpose],
         property_value: get_property_value,
-        property_usage: parameters["usage"],
-        property_type: parameters["property_type"],
+        property_usage: parameters[:usage],
+        property_type: parameters[:property_type],
         down_payment: get_down_payment,
         mortgage_balance: get_mortgage_balance
       }.to_json
@@ -46,11 +46,11 @@ module LoanTekServices
     end
 
     def get_zipcode
-      parameters["zipcode"].to_i
+      parameters[:zipcode].to_i
     end
 
     def get_credit_score
-      parameters["credit_score"].to_i
+      parameters[:credit_score].to_i
     end
 
     def get_loan_purpose
@@ -77,12 +77,14 @@ module LoanTekServices
     end
 
     def get_property_usage
-      case parameters["usage"]
+      case parameters[:usage]
       when "primary_residence"
         usage = "PrimaryResidence"
       when "vacation_home"
         usage = "SecondaryOrVacation"
       when "rental_property"
+        usage = "InvestmentOrRental"
+      when "investment_property"
         usage = "InvestmentOrRental"
       else
         usage = "NotSpecified"
@@ -91,7 +93,7 @@ module LoanTekServices
     end
 
     def get_property_type
-      case parameters["property_type"]
+      case parameters[:property_type]
       when "sfh"
         property_type = "SingleFamily"
       when "multi_family"
@@ -105,23 +107,23 @@ module LoanTekServices
     end
 
     def get_property_value
-      parameters["property_value"].to_i
+      parameters[:property_value].to_i
     end
 
     def get_mortgage_balance
-      parameters["mortgage_balance"].to_i
+      parameters[:mortgage_balance].to_i
     end
 
     def get_down_payment
-      parameters["down_payment"].to_i
+      parameters[:down_payment].to_i
     end
 
     def purchase_loan?
-      parameters["purpose"] == "purchase"
+      parameters[:purpose] == "purchase"
     end
 
     def refinance_loan?
-      parameters["purpose"] == "refinance"
+      parameters[:purpose] == "refinance"
     end
   end
 end

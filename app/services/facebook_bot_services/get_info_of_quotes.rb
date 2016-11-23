@@ -24,7 +24,7 @@ module FacebookBotServices
           output[:status_code] = 200
         end
       end
-      output.to_json
+      output
     end
 
     def self.generate_data(quotes, quote_query)
@@ -38,18 +38,17 @@ module FacebookBotServices
       ["30yearFixed", "15yearFixed", "5yearARM"].each do |type|
         programs = quotes.select { |p| p["ProductName"] == type }
         next if programs.empty?
+        ap programs
 
         lowest_program = programs.first
-        programs.each { |p| lowest_program = p if lowest_program["APR"] > p["APR"] }
-        min_apr = format("%0.03f", get_apr(lowest_program) * 100)
+        programs.each { |p| lowest_program = p if lowest_program["Rate"] > p["Rate"] }
+        min_rate = format("%0.03f", lowest_program["Rate"] * 100)
         monthly_payment = number_to_currency(get_monthly_payment(lowest_program), precision: 0)
-        admin_fee = get_admin_fee(lowest_program)
-        lender_credit = number_to_currency(get_lender_credits(lowest_program, admin_fee).abs.to_i, precision: 0)
-        total_fee = number_to_currency(get_total_fee(lowest_program, admin_fee), precision: 0)
+        estimated_closing_costs = number_to_currency(get_lender_credits(lowest_program).abs.to_i, precision: 0)
 
         data << {
-          title: "#{min_apr}% APR",
-          subtitle: "Monthly Payment: #{monthly_payment}, Lender Credit: #{lender_credit}, Est. Third Party Fees: #{total_fee}",
+          title: "#{min_rate}",
+          subtitle: "Monthly Payment: #{monthly_payment}, Lender Credit: #{lender_credit}, Estimated Closing Costs: #{total_fee}",
           url: Rails.application.routes.url_helpers.initial_quote_url(id: quote_query.code_id, program: type, host: host_name),
           type: type,
           img_url: get_img_url(type)
