@@ -36,6 +36,8 @@
 class User < ActiveRecord::Base
   rolify
 
+  attr_encrypted :first_name, :last_name, key: ENV["KEY_ENCRYPTION"], unless: Rails.env.test?
+
   # Include default devise modules. Others available are:
   #  :omniauthable
   devise :database_authenticatable, :async, :registerable, :recoverable, :rememberable,
@@ -54,8 +56,9 @@ class User < ActiveRecord::Base
 
   has_many :documents
   has_many :checklists, dependent: :destroy
+  has_many :message
 
-  has_attached_file :avatar, path: PAPERCLIP[:default_path], default_url: ActionController::Base.helpers.asset_path('avatar.png')
+  has_attached_file :avatar, path: PAPERCLIP[:default_path], default_url: ActionController::Base.helpers.asset_path('avatar.png'), s3_server_side_encryption: 'AES256'
 
   accepts_nested_attributes_for :borrower, allow_destroy: true
 

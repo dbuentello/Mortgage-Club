@@ -18,7 +18,7 @@ class PotentialUser < ActiveRecord::Base
     :send_as_text_message
   ]
 
-  has_attached_file :mortgage_statement, path: PAPERCLIP[:potential_user_document_path]
+  has_attached_file :mortgage_statement, path: PAPERCLIP[:potential_user_document_path], s3_server_side_encryption: 'AES256'
 
   validates :email, presence: true
   validates_attachment :mortgage_statement,

@@ -23,10 +23,13 @@ module DocumentServices
         document = Document.find_or_initialize_by(subjectable: subjectable, document_type: args[:document_type])
       end
 
-      document.attachment = params[:file]
-      document.original_filename = params[:original_filename]
+      unless attachment_file_name == "dummy.pdf"
+        document.attachment = params[:file]
+        document.attachment_file_name = attachment_file_name
+        document.original_filename = params[:original_filename]
+      end
+
       document.description = params[:description]
-      document.attachment_file_name = attachment_file_name
       document.user = current_user
 
       return document if document.save

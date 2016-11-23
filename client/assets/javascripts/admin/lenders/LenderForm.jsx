@@ -27,6 +27,8 @@ var LenderForm = React.createClass({
       appraisal_fee: lender.appraisal_fee,
       tax_certification_fee: lender.tax_certification_fee,
       flood_certification_fee: lender.flood_certification_fee,
+      lender_underwriting_fee: lender.lender_underwriting_fee,
+      commission: lender.commission,
       saving: false
     }
   },
@@ -52,6 +54,8 @@ var LenderForm = React.createClass({
     formData.append("flood_certification_fee", this.state.flood_certification_fee);
     formData.append("tax_certification_fee", this.state.tax_certification_fee);
     formData.append("appraisal_fee", this.state.appraisal_fee);
+    formData.append("commission", this.state.commission);
+    formData.append("lender_underwriting_fee", this.state.lender_underwriting_fee);
 
     if($("#uploadFile")[0].files.length >0) {
       formData.append("logo", $("#uploadFile")[0].files[0]);
@@ -230,6 +234,22 @@ var LenderForm = React.createClass({
                   label="Flood Certification Fee"
                   keyName="flood_certification_fee"
                   value={this.state.flood_certification_fee}
+                  editable={true}
+                  onChange={this.onChange}/>
+              </div>
+              <div className="col-sm-2">
+                <TextField
+                  label="Lender Underwriting Fee"
+                  keyName="lender_underwriting_fee"
+                  value={this.state.lender_underwriting_fee}
+                  editable={true}
+                  onChange={this.onChange}/>
+              </div>
+              <div className="col-sm-2">
+                <TextField
+                  label="Commission Rate"
+                  keyName="commission"
+                  value={this.state.commission}
                   editable={true}
                   onChange={this.onChange}/>
               </div>

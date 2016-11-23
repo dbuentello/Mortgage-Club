@@ -174,7 +174,7 @@ var Form = React.createClass({
               {
                 this.props.editMode
                 ?
-                  <button className="btn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                  <button className="btn text-uppercase" id="continueBtn" onClick={this.save} disabled={this.state.saving ? 'disabled' : ''}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
                 :
                   <button className="btn text-uppercase" id="nextBtn" onClick={this.next}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
               }
@@ -404,32 +404,32 @@ var Form = React.createClass({
   valid: function(){
     var state = {};
     var isValid = true;
-    var requiredFields = this.mapValueToRequiredFields(borrowerFields);
+    // var requiredFields = this.mapValueToRequiredFields(borrowerFields);
 
-    if(this.props.loan.secondary_borrower) {
-      requiredFields = _.extend(requiredFields, this.mapValueToRequiredFields(secondaryBorrowerFields));
-    }
+    // if(this.props.loan.secondary_borrower) {
+    //   requiredFields = _.extend(requiredFields, this.mapValueToRequiredFields(secondaryBorrowerFields));
+    // }
 
-    if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
-      this.setState(this.getStateOfInvalidFields(requiredFields));
-      isValid = false;
-    }
+    // if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
+    //   this.setState(this.getStateOfInvalidFields(requiredFields));
+    //   isValid = false;
+    // }
 
-    if(this.checkRequiredOtherIncome(borrowerFields) == false) {
-      isValid = false;
-      state[borrowerFields.otherIncomes.name] = this.state[borrowerFields.otherIncomes.name];
-    }
+    // if(this.checkRequiredOtherIncome(borrowerFields) == false) {
+    //   isValid = false;
+    //   state[borrowerFields.otherIncomes.name] = this.state[borrowerFields.otherIncomes.name];
+    // }
 
-    if(this.props.loan.secondary_borrower) {
-      if(this.checkRequiredOtherIncome(secondaryBorrowerFields) == false) {
-        isValid = false;
-        state[secondaryBorrowerFields.otherIncomes.name] = this.state[secondaryBorrowerFields.otherIncomes.name];
-      }
-    }
+    // if(this.props.loan.secondary_borrower) {
+    //   if(this.checkRequiredOtherIncome(secondaryBorrowerFields) == false) {
+    //     isValid = false;
+    //     state[secondaryBorrowerFields.otherIncomes.name] = this.state[secondaryBorrowerFields.otherIncomes.name];
+    //   }
+    // }
 
-    if(!isValid) {
-      this.setState(state);
-    }
+    // if(!isValid) {
+    //   this.setState(state);
+    // }
 
     return isValid;
   },

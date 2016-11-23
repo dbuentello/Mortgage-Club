@@ -191,7 +191,7 @@ var Income = React.createClass({
         {
           parseInt(this.props.currentYearsAtEmployer, 10) < 2
           ?
-            <div className="previous-employment">
+            <div className="previous-employment" style={{"margin-top": "25px"}}>
               <div className="form-group">
                 <div className="col-md-6">
                   <TextField
@@ -256,6 +256,19 @@ var Income = React.createClass({
         <h6 className="text-capitalize title-h6">income details</h6>
         <div className="form-group">
           <div className="col-md-6">
+            <SelectField
+              activateRequiredField={this.props.incomeFrequencyError}
+              label={this.props.fields.incomeFrequency.label}
+              keyName={this.props.fields.incomeFrequency.name}
+              value={this.props.incomeFrequency}
+              options={incomeFrequencies}
+              editable={true}
+              onChange={this.props.onChange}
+              onFocus={_.bind(this.props.onFocus, this, this.props.fields.incomeFrequency)}
+              allowBlank={true}
+              editMode={this.props.editMode}/>
+          </div>
+          <div className="col-md-6">
             <TextField
               activateRequiredField={this.props.baseIncomeError}
               label={this.props.fields.baseIncome.label}
@@ -268,19 +281,6 @@ var Income = React.createClass({
               onFocus={_.bind(this.props.onFocus, this, this.props.fields.baseIncome)}
               onChange={this.props.onChange}
               onBlur={this.props.onBlur}
-              editMode={this.props.editMode}/>
-          </div>
-          <div className="col-md-6">
-            <SelectField
-              activateRequiredField={this.props.incomeFrequencyError}
-              label={this.props.fields.incomeFrequency.label}
-              keyName={this.props.fields.incomeFrequency.name}
-              value={this.props.incomeFrequency}
-              options={incomeFrequencies}
-              editable={true}
-              onChange={this.props.onChange}
-              onFocus={_.bind(this.props.onFocus, this, this.props.fields.incomeFrequency)}
-              allowBlank={true}
               editMode={this.props.editMode}/>
           </div>
         </div>

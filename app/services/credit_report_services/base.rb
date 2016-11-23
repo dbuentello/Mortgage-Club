@@ -5,7 +5,7 @@ module CreditReportServices
   #
   class Base
     def self.call(loan)
-      # return if credit_report_was_within_90_days?(loan)
+      return if credit_report_was_within_90_days?(loan)
       # clear old liabilities
       clear_credit_report(loan.borrower)
       clear_credit_report(loan.secondary_borrower) if loan.secondary_borrower

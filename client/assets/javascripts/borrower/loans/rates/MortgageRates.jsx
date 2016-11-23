@@ -41,8 +41,14 @@ var MortgageRates = React.createClass({
       selectedRate: rate
     });
     var params = {};
+
     params["rate"] = rate;
+    params["rate"]["cash_out"] = (parseFloat(rate.loan_amount) || 0) - (parseFloat(this.props.bootstrapData.currentLoan.amount) || 0);
+    params["rate"]["fees"] = JSON.stringify(rate.fees);
+    params["rate"]["thirty_fees"] = JSON.stringify(rate.thirty_fees);
+    params["rate"]["prepaid_fees"] = JSON.stringify(rate.prepaid_fees);
     params = $.param(params);
+
     location.href = "esigning/" + this.props.bootstrapData.currentLoan.id + "?" + params;
   },
 
@@ -89,14 +95,13 @@ var MortgageRates = React.createClass({
     // don't want to make ugly code
     var guaranteeMessage = "We're showing the best 3 loan options for you";
     var subjectProperty = this.props.bootstrapData.currentLoan.subject_property;
-
     return (
       <div>
         {
           this.state.helpMeChoose
           ?
             <div className="content container mortgage-rates padding-top-0 white-background">
-              <HelpMeChoose backToRatePage={this.backToRateHandler} loan={this.props.bootstrapData.currentLoan} programs={this.props.bootstrapData.programs} selectRate={this.selectRate} isInitialQuotes={false}/>
+              <HelpMeChoose backToRatePage={this.backToRateHandler} loan={this.props.bootstrapData.currentLoan} programs={this.props.bootstrapData.programs} selectRate={this.selectRate} isInitialQuotes={false} loanPurpose={this.props.bootstrapData.currentLoan.purpose} mortgageBalance={this.props.bootstrapData.currentLoan.amount}/>
             </div>
           :
             <div className="content container mortgage-rates padding-top-0 row-eq-height">
@@ -155,9 +160,9 @@ var MortgageRates = React.createClass({
                           <span className="fa fa-sort" aria-hidden="true"></span>
                         </a>
                         <select id="sortRateOptions" onChange={this.handleSortChange} style={{"opacity": "0", "marginTop": "-50px", "width": "100%", "height": "50px"}}>
+                          <option value="rate">Rate</option>
                           <option value="apr">APR</option>
                           <option value="pmt">Monthly Payment</option>
-                          <option value="rate">Rate</option>
                           <option value="tcc">Total Closing Cost</option>
                         </select>
                       </li>
@@ -217,9 +222,9 @@ var MortgageRates = React.createClass({
                         </div>
                         <div className="col-xs-9 select-box">
                           <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
+                            <option value="rate">Rate</option>
                             <option value="apr">APR</option>
                             <option value="pmt">Monthly Payment</option>
-                            <option value="rate">Rate</option>
                             <option value="tcc">Total Closing Cost</option>
                           </select>
                           <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>

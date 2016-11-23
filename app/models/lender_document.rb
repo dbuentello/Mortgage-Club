@@ -2,6 +2,7 @@ class LenderDocument < ActiveRecord::Base
   EXPIRE_VIEW_SECONDS = 5
   has_attached_file :attachment,
     s3_permissions: "authenticated-read",
+    s3_server_side_encryption: 'AES256',
     path: PAPERCLIP[:default_path]
 
   belongs_to :loan

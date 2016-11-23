@@ -13,6 +13,12 @@ var List = React.createClass({
     var estimatedPropertyTax = (this.props.subjectProperty.estimated_property_tax == undefined || this.props.subjectProperty.estimated_property_tax == null) ? 0 : this.props.subjectProperty.estimated_property_tax / 12;
     var estimatedHazardInsurance = (this.props.subjectProperty.estimated_hazard_insurance == undefined || this.props.subjectProperty.estimated_hazard_insurance == null) ? 0 : this.props.subjectProperty.estimated_hazard_insurance / 12;
 
+    this.props.programs.map(function(program){
+      program.prepaid_fees[1].FeeAmount = estimatedHazardInsurance * 12;
+      program.prepaid_fees.FeeAmount += estimatedHazardInsurance * 12;
+      program.total_prepaid_fees += estimatedHazardInsurance * 12;
+    });
+
     return ({
       estimatedPropertyTax: estimatedPropertyTax,
       estimatedHazardInsurance: estimatedHazardInsurance,
@@ -91,6 +97,7 @@ var List = React.createClass({
     this.setState(currentState);
 
     if(selectedBoardContent.css("display") == "none"){
+      $(event.target).parent().find("span:first").text("Hide Details");
       selectedBoardContent.slideToggle(500);
       $(event.target).find('span').toggleClass('up-state');
 
@@ -122,6 +129,7 @@ var List = React.createClass({
       }
     }
     else {
+      $(event.target).parent().find("span:first").text("View Details");
       selectedBoardContent.slideToggle(500);
       $(event.target).find('span').toggleClass('up-state');
     }
@@ -167,19 +175,13 @@ var List = React.createClass({
                     <div className="col-md-3 col-sm-6 col-sm-6 col-xs-8">
                       <h3 className="text-capitalize">{rate.lender_name}</h3>
                       <p>{rate.product}</p>
-                      <h1 className="apr-text">{this.commafy(rate.apr * 100, 3)}% APR</h1>
+                      <h1 className="apr-text">{this.commafy(rate.interest_rate * 100, 3)}% Rate</h1>
                     </div>
                     <div className="col-md-4 col-sm-6 col-sm-6">
-                      <p><span className="text-capitalize">rate:</span> {this.commafy(rate.interest_rate * 100, 3)}%</p>
+                      <p><span>APR:</span> {this.commafy(rate.apr * 100, 3)}%</p>
                       <p><span className="text-capitalize">monthly payment:</span> {this.formatCurrency(rate.monthly_payment, 0, '$')}</p>
-                      {
-                        rate.lender_credits == 0
-                        ?
-                          null
-                        :
-                          <p><span className="text-capitalize">{rate.lender_credits < 0 ? "Lender credit" : "Discount points"}:</span> {this.formatCurrency(rate.lender_credits, 0, "$")}</p>
-                      }
-                      <p><span className="text-capitalize">estimated closing costs:</span> {this.formatCurrency(rate.total_closing_cost, 0, '$')}</p>
+                      <p><span className="text-capitalize">{rate.lender_fee >= 0 ? "Lender Fees" : "Lender Credit"}:</span> {this.formatCurrency(rate.lender_fee, 0, "$")}</p>
+                      <p><span className="text-capitalize">closing costs:</span> {this.formatCurrency(rate.total_closing_cost, 0, '$')}</p>
                       {
                         this.props.helpMeChoose
                         ?
@@ -194,11 +196,12 @@ var List = React.createClass({
                       }
                     </div>
                     <div className="col-md-2 col-sm-12 text-sm-center">
-                      { rate.selected_program ?
-                        <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Continue</a>
+                      {
+                        rate.selected_program
+                        ?
+                          <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Continue</a>
                         :
-                        <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Select</a>
-
+                          <a className="btn select-btn" onClick={_.bind(this.props.selectRate, null, rate)}>Select</a>
                       }
                     </div>
                   </div>
@@ -223,58 +226,88 @@ var List = React.createClass({
                           <p className="col-xs-12 cost">{this.formatCurrency(rate.loan_amount, 0, "$")}</p>
                         </div>
                       </div>
-                      <h4>Estimated Closing Costs</h4>
+                      <h4>Cash to Close</h4>
+                      <h5>Closing Costs</h5>
                       <ul className="fee-items">
-                        {
-                          rate.lender_credits == 0
-                          ?
-                            null
-                          :
-                            <li className="lender-fee-item">{rate.lender_credits < 0 ? "Lender credit" : "Discount points"}: {this.formatCurrency(rate.lender_credits, 0, '$')}</li>
-                        }
-                        {
-                          rate.fha_upfront_premium_amount == 0
-                          ?
-                            null
-                          :
-                            <li className="lender-fee-item">Upfront mortgage insurance premium: {this.formatCurrency(rate.fha_upfront_premium_amount, 0, "$")}</li>
-                        }
-                        {
-                          _.map(rate.fees, function(fee){
+                        <li className="thirty-party-fees">
+                          <a role="button" data-toggle="collapse" href=".lender-fees" aria-expanded="true" aria-controls=".lender-fees">
+                            <i className="icon-plus"></i>
+                            {
+                              rate.lender_fee >= 0
+                              ?
+                                <span>{"Lender fees: " + this.formatCurrency(rate.lender_fee, 0, "$")}</span>
+                              :
+                                <span>{"Lender credit: " + this.formatCurrency(rate.lender_fee, 0, "$")}</span>
+                            }
+                          </a>
+                          <div className="collapse thirty-fees-collapse lender-fees">
+                            {
+                              rate.lender_underwriting_fee == 0
+                              ?
+                                null
+                              :
+                                <p>Underwriting fee: {this.formatCurrency(rate.lender_underwriting_fee, 0, "$")} <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true" title="This goes to the lender, covering the cost of researching whether or not to approve you for the loan."></i></p>
+                            }
+                            {
+                              rate.lender_credits == 0
+                              ?
+                                <p className="text-discount-points">{this.props.rates[index + 1] == undefined ? "Credit" : (this.props.rates[index + 1].lender_credits <= 0 ? "Credit" : "Discount points")}: $0 <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></p>
+                              :
+                                <p className="text-discount-points">{rate.lender_credits < 0 ? "Credit" : "Discount points"}: {this.formatCurrency(rate.lender_credits, 0, "$")} <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true"></i></p>
+                            }
+                            {
+                              rate.fha_upfront_premium_amount == 0
+                              ?
+                                null
+                              :
+                                <p>Upfront mortgage insurance premium: {this.formatCurrency(rate.fha_upfront_premium_amount, 0, "$")}</p>
+                            }
+                          </div>
+                        </li>
+
+                        <li className="thirty-party-fees">
+                          <a role="button" data-toggle="collapse" href=".thirty-fees" aria-expanded="true" aria-controls="thirty-fees">
+                            <i className="icon-plus"></i><span>{"Third party fees: " + this.formatCurrency(rate.total_closing_cost - rate.lender_fee, 0, "$")}</span>
+                          </a>
+                          <div className="collapse thirty-fees-collapse thirty-fees">
+                            {
+                              _.map(rate.thirty_fees, function(fee) {
+                                return (
+                                  <p>
+                                    {fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}
+                                  </p>
+                                )
+                              }, this)
+                            }
+                          </div>
+                        </li>
+                      </ul>
+                      <h5>Prepaid Items</h5>
+                      <ul className="fee-items">
+                      {
+                        _.map(rate.prepaid_fees, function(fee){
+                            var title = "";
+                            if (fee["Description"].indexOf("Prepaid interest") > - 1){
+                              title = "Prepaid interest for the period from closing to the first mortgage payment.";
+                            }
+
                             return (
-                              <li className="lender-fee-item" key={fee["HudLine"]}>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, '$')}</li>
-                            )
-                          }, this)
-                        }
-                        {
-                          _.map(rate.thirty_fees, function(thirty_fee, index_second){
-                            return (
-                              <div className="thirty-party-fees">
+                              <li className="lender-fee-item" key={fee["HudLine"]}>
+                                {fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}
+                                &nbsp;
                                 {
-                                  thirty_fee["FeeAmount"] == 0
+                                  title == ""
                                   ?
                                     null
                                   :
-                                    <li>
-                                      <a role="button" data-toggle="collapse" href={".thirty-fees-" + index + "-" + index_second} aria-expanded="true" aria-controls={"thirty-fees-" + index + "-" + index_second}>
-                                        <i className="icon-plus"></i><span>{thirty_fee["Description"] + ": " + this.formatCurrency(thirty_fee["FeeAmount"], 0, "$")}</span>
-                                      </a>
-                                      <div className={"collapse thirty-fees-collapse thirty-fees-" + index + "-" + index_second}>
-                                        {
-                                          _.map(thirty_fee["Fees"], function(fee) {
-                                            return (
-                                              <p>{fee["Description"]}: {this.formatCurrency(fee["FeeAmount"], 0, "$")}</p>
-                                            )
-                                          }, this)
-                                        }
-                                      </div>
-                                    </li>
+                                    <i className="fa fa-info-circle" data-toggle="tooltip" aria-hidden="true" title={title}></i>
                                 }
-                              </div>
+                              </li>
                             )
                           }, this)
-                        }
+                      }
                       </ul>
+                      <div style={{"font-weight": "bold"}}>Total Cash to Close: {this.formatCurrency(rate.total_closing_cost + rate.total_prepaid_fees, 0, "$")}</div>
                     </div>
                     <div className="col-md-6">
                       <h4>Monthly payment details</h4>
@@ -365,7 +398,7 @@ var List = React.createClass({
                         :
                           null
                       }
-                      <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub 1% in commission.</p>
+                      <p className="note-rates"><i className="fa fa-check" aria-hidden="true"></i>The lender will pay MortgageClub {rate.commission}% in commission.</p>
                     </div>
                   </div>
                   <Chart id={index} principle={rate.monthly_payment} mortgageInsurance={this.state.estimatedMortgageInsurance} propertyTax={this.state.estimatedPropertyTax} hazardInsurance={this.state.estimatedHazardInsurance}
@@ -373,7 +406,8 @@ var List = React.createClass({
                     total={this.totalMonthlyPayment(rate.monthly_payment, this.state.estimatedMortgageInsurance, this.state.estimatedPropertyTax, this.state.estimatedHazardInsurance, rate.pmi_monthly_premium_amount)} />
                 </div>
                 <div className="board-content-toggle" onClick={_.bind(this.toggleHandler, null, index)}>
-                  <span className={this.state.toggleContentStates[index]===true ? "glyphicon glyphicon-menu-up" : "glyphicon glyphicon-menu-down"}></span>
+                  <span>View Details</span>
+                  <span className={this.state.toggleContentStates[index]===true ? "glyphicon glyphicon-menu-up" : "glyphicon glyphicon-menu-down"} style={{"font-size": "20px", "margin-left": "5px", "vertical-align": "middle"}}></span>
                 </div>
               </div>
             );

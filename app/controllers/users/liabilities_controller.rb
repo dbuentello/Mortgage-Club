@@ -28,6 +28,10 @@ class Users::LiabilitiesController < Users::BaseController
 
   def load_liabilities(loan)
     credit_report = loan.borrower.credit_report
-    credit_report.liabilities
+    if credit_report
+      credit_report.liabilities
+    else
+      []
+    end
   end
 end

@@ -13,7 +13,7 @@
   }
   .account-content {
     min-height: calc(100vh - 60px);
-    min-width: calc(100vw - 315px);
+    min-width: calc(100vw - 320px);
     @include respond-to(tablet){
       min-width: 100%;
     };
@@ -207,7 +207,15 @@
 .done-sign {display:none;}
 
 .account-content {
-  padding: 40px 40px 80px 40px;
+  padding: 20px 40px 80px 40px;
+
+  form.form-horizontal > div > div.form-group:first-child {
+    margin-top: 0px;
+  }
+
+  form.form-horizontal > div.form-group:first-child {
+    margin-top: 0px;
+  }
 
   @include respond-to(smobile){
     padding: 10px 20px;

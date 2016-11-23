@@ -50,7 +50,7 @@ module LoanTekServices
       end
 
       quotes = quotes + quotes_2 + quotes_3 + quotes_4
-      quotes.sort_by { |program| program[:apr] }
+      quotes.sort_by { |program| [program[:interest_rate], program[:apr]] }
     end
 
     def lowest_apr
@@ -160,7 +160,8 @@ module LoanTekServices
         loan_amount: loan_amount,
         loan_to_value: loan_to_value,
         property_usage: get_property_usage,
-        property_type: get_property_type
+        property_type: get_property_type,
+        is_cash_out: is_cash_out
       )
 
       if zip_code
@@ -173,7 +174,7 @@ module LoanTekServices
           sales_price: info["property_value"].to_f
         ).call
 
-        if (purchase_loan? && is_down_payment == false) || (!purchase_loan? && is_cash_out == false)
+        if (get_property_usage == "PrimaryResidence") && ((purchase_loan? && is_down_payment == false) || (!purchase_loan? && is_cash_out == false))
           params = {
             loan_purpose: get_loan_purpose,
             loan_amount: format("%0.0f", get_loan_amount),

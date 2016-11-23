@@ -259,7 +259,7 @@ var FormAssetsAndLiabilities = React.createClass({
               {
                 this.props.editMode
                 ?
-                  <button className="btn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                  <button className="btn text-uppercase" id="continueBtn" onClick={this.save} disabled={this.state.saving ? 'disabled' : ''}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
                 :
                   <button className="btn text-uppercase" id="nextBtn" onClick={this.next}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
               }
@@ -440,31 +440,31 @@ var FormAssetsAndLiabilities = React.createClass({
   valid: function(){
     var isValid = true;
 
-    if(this.state.primary_property && !this.subjectPropertyAndPrimaryPropertySameAddress()){
-      if(this.setStateForInvalidFieldsOfProperty(this.state.primary_property) == false) {
-        isValid = false;
-      }
-    }
+    // if(this.state.primary_property && !this.subjectPropertyAndPrimaryPropertySameAddress()){
+    //   if(this.setStateForInvalidFieldsOfProperty(this.state.primary_property) == false) {
+    //     isValid = false;
+    //   }
+    // }
 
-    if(this.state.subject_property) {
-      if(this.setStateForInvalidFieldsOfProperty(this.state.subject_property) == false) {
-        isValid = false;
-      }
-    }
+    // if(this.state.subject_property) {
+    //   if(this.setStateForInvalidFieldsOfProperty(this.state.subject_property) == false) {
+    //     isValid = false;
+    //   }
+    // }
 
-    if(this.state.own_investment_property) {
-      _.each(this.state.rental_properties, function(property){
-        if(this.setStateForInvalidFieldsOfProperty(property) == false) {
-          isValid = false;
-        }
-      }, this)
-    }
+    // if(this.state.own_investment_property) {
+    //   _.each(this.state.rental_properties, function(property){
+    //     if(this.setStateForInvalidFieldsOfProperty(property) == false) {
+    //       isValid = false;
+    //     }
+    //   }, this)
+    // }
 
-    _.each(this.state.assets, function(asset) {
-      if(this.setStateForInvalidFieldsOfAsset(asset) == false) {
-        isValid = false;
-      }
-    }, this);
+    // _.each(this.state.assets, function(asset) {
+    //   if(this.setStateForInvalidFieldsOfAsset(asset) == false) {
+    //     isValid = false;
+    //   }
+    // }, this);
 
     return isValid;
   },

@@ -20,11 +20,18 @@ module LoanTekServices
           PropertyUsage: params[:property_usage],
           PropertyType: params[:property_type],
           ProductFamily: product_family,
-          FHALoan: false
+          FHALoan: false,
+          EscrowsWaived: true,
+          CashOut: params[:is_cash_out].present? ? params[:is_cash_out] : false
         }.to_json
       end
 
-      success? ? JSON.parse(@response.body)["Quotes"] : []
+      if success?
+        quotes = JSON.parse(@response.body)["Quotes"]
+        quotes.present? ? quotes : []
+      else
+        []
+      end
     end
 
     def self.client_id

@@ -44,7 +44,7 @@ var LoanInterface = React.createClass({
 
   render: function() {
     var activeItem = this.state.active;
-
+    var updatedRateTime = this.formatTimeCustom(this.state.loan.updated_rate_time, 'MMMM Do YYYY, h:mm:ss A');
     var content = <activeItem.Content bootstrapData={this.props.bootstrapData} editMode={this.state.is_edit_mode} loan={this.state.loan} liabilities={this.state.liabilities} borrower_type={this.state.borrower_type} saveLoan={this.save} next={this.next} setupMenu={this.setupMenu} goToAllDonePage={this.goToAllDonePage} updateDocuments={this.updateDocuments}/>;
 
     return (
@@ -68,62 +68,62 @@ var LoanInterface = React.createClass({
                 {
                   this.state.loan.lender_name
                   ?
-                  <div id={"summary"}>
-
-                    <p>SUMMARY</p>
-                    <table>
-        <tr>
-          <th></th>
-          <th></th>
-        </tr>
-        <tr>
-          <td>Lender</td>
-          <td>{this.state.loan.lender_name}</td>
-        </tr>
-        <tr>
-          <td>Loan type</td>
-          <td>{this.state.loan.amortization_type}</td>
-        </tr>
-        <tr>
-          <td>Property value</td>
-          {
-            this.state.loan.purpose == "purchase"
-            ?
-            <td>{this.formatCurrency(this.state.loan.subject_property.purchase_price, 0, "$")}</td>
-            :
-            <td>{this.formatCurrency(this.state.loan.subject_property.market_price, 0, "$")}</td>
-
-          }
-
-        </tr>
-        <tr>
-          <td>Loan amount</td>
-          <td>{this.formatCurrency(this.state.loan.amount, 0, "$")}</td>
-        </tr>
-        <tr>
-          <td>Rate</td>
-          <td>{this.formatPercent(this.state.loan.interest_rate*100)}</td>
-        </tr>
-        {this.state.loan.discount_pts > 0 ?
-          <tr>
-            <td>Discount points</td>
-            <td>{this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")}</td>
-          </tr>
-          :
-          <tr>
-            <td>Lender credit</td>
-            <td>{this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")}</td>
-          </tr>
-        }
-
-
-      </table>
-      <p id="remain_step"> <strong>{this.state.remain_step}</strong> steps remaining </p>
-    </div>
+                    <div id={"summary"}>
+                      <p>SUMMARY</p>
+                      <table>
+                        <tr>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                        <tr>
+                          <td style={{"font-style":"italic"}} colSpan="2">
+                            As of {updatedRateTime}
+                            <span className="glyphicon glyphicon-refresh" title="Update" style={{"cursor": "pointer", "font-weight": "bold", "color": "#15c0f1", "margin-left":"10px"}} onClick={this.updateRate}></span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Lender</td>
+                          <td>{this.state.loan.lender_name}</td>
+                        </tr>
+                        <tr>
+                          <td>Loan type</td>
+                          <td>{this.state.loan.amortization_type}</td>
+                        </tr>
+                        <tr>
+                          <td>Property value</td>
+                          {
+                            this.state.loan.purpose == "purchase"
+                            ?
+                            <td>{this.formatCurrency(this.state.loan.subject_property.purchase_price, 0, "$")}</td>
+                            :
+                            <td>{this.formatCurrency(this.state.loan.subject_property.market_price, 0, "$")}</td>
+                          }
+                        </tr>
+                        <tr>
+                          <td>Loan amount</td>
+                          <td>{this.formatCurrency(this.state.loan.amount, 0, "$")}</td>
+                        </tr>
+                        <tr>
+                          <td>Rate</td>
+                          <td>{this.formatPercent(this.state.loan.interest_rate*100)}</td>
+                        </tr>
+                        {this.state.loan.discount_pts > 0 ?
+                          <tr>
+                            <td>Discount points</td>
+                            <td>{this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")}</td>
+                          </tr>
+                          :
+                          <tr>
+                            <td>Lender credit</td>
+                            <td>{this.formatCurrency(this.state.loan.discount_pts * this.state.loan.amount, 0, "$")}</td>
+                          </tr>
+                        }
+                      </table>
+                      <p id="remain_step"> <strong>{this.state.remain_step}</strong> steps remaining </p>
+                    </div>
                   :
-                  null
+                   null
                 }
-
               </div>
 
               <div className="swipe-area">
@@ -160,7 +160,7 @@ var LoanInterface = React.createClass({
     );
   },
 
-  updateDocuments: function(typeBorrower, typeDocument, typeAction, taxJointly, name, id){
+  updateDocuments: function(typeBorrower, typeDocument, typeAction, name, id){
     var loan = this.state.loan;
     var borrower = typeBorrower === "borrower" ? loan.borrower : loan.secondary_borrower;
 
@@ -172,46 +172,49 @@ var LoanInterface = React.createClass({
       //get index file
       var index = $.map(borrower.documents, function(document, index) {
         if(document.document_type === typeDocument) {
-            return index;
+          return index;
         }
       });
 
       if(index.length > 0)
       {
-        if(typeAction === "remove"){
-          borrower.documents.splice(index[0], 1);
-        }else{
+        if(typeAction == "upload"){
           borrower.documents[index[0]].original_filename = name;
           borrower.documents[index[0]].id = id;
+        }else{
+          borrower.documents[index[0]].original_filename = null;
         }
 
-        if(typeBorrower === "borrower")
+        if(typeBorrower === "borrower"){
           loan.borrower = borrower;
-        else
-          loan.secondary_borrower = borrower;
-
-        loan.borrower.is_file_taxes_jointly = taxJointly;
-        this.setState({loan: loan});
-      }else{
-        if(typeAction === "upload"){
-          var document = {
-            document_type: typeDocument,
-            original_filename: name,
-            id: id
-          }
-
-          borrower.documents.push(document);
-
-          if(typeBorrower === "borrower")
-            loan.borrower = borrower;
-          else
-            loan.secondary_borrower = borrower;
-
-          loan.borrower.is_file_taxes_jointly = taxJointly;
-          this.setState({loan: loan});
         }
+        else{
+          loan.secondary_borrower = borrower;
+        }
+
+        this.setState({loan: loan});
       }
     }
+  },
+
+  updateRate: function() {
+    $.ajax({
+      url: "/loans/update_rate",
+      method: "POST",
+      context: this,
+      dataType: "json",
+      data: {
+        id: this.state.loan.id
+      },
+      success: function(response) {
+        var state = this.state;
+        state.loan = response.loan;
+        this.setState(state);
+      }.bind(this),
+      error: function(response, status, error) {
+        // do something else
+      }
+    });
   },
 
   goToItem: function(item) {

@@ -48,7 +48,7 @@ module FacebookBotServices
 
         data << {
           title: "#{min_rate}",
-          subtitle: "Monthly Payment: #{monthly_payment}, Lender Credit: #{lender_credit}, Estimated Closing Costs: #{total_fee}",
+          subtitle: "Monthly Payment: #{monthly_payment}, Lender Credit: #{lender_credit}, Estimated Closing Costs: #{estimated_closing_costs}",
           url: Rails.application.routes.url_helpers.initial_quote_url(id: quote_query.code_id, program: type, host: host_name),
           type: type,
           img_url: get_img_url(type)
