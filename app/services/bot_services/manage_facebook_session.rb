@@ -1,3 +1,4 @@
+# rubocop:disable ClassVars
 module BotServices
   class ManageFacebookSession
     @@session_ids = {}
@@ -19,3 +20,4 @@ module BotServices
     end
   end
 end
+# rubocop:enable ClassVars

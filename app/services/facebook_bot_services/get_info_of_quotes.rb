@@ -28,25 +28,21 @@ module FacebookBotServices
     end
 
     def self.generate_data(quotes, quote_query)
-      return unless quotes.present?
-      quotes = get_valid_quotes(quotes)
       return if quotes.empty?
 
       data = []
       host_name = ENV.fetch("HOST_NAME", "localhost:4000")
 
-      ["30yearFixed", "15yearFixed", "5yearARM"].each do |type|
-        programs = quotes.select { |p| p["ProductName"] == type }
+      ["30 year fixed", "15 year fixed", "5/1 ARM", "7/1 ARM"].each do |type|
+        programs = quotes.select { |p| p[:product] == type && p[:lender_credits] <= 1000 }
         next if programs.empty?
 
         lowest_program = programs.first
-        programs.each { |p| lowest_program = p if lowest_program["Rate"] > p["Rate"]}
-        min_rate = format("%0.03f", lowest_program["Rate"])
-        monthly_payment = number_to_currency(get_monthly_payment(lowest_program), precision: 0)
-
-        #TODO TOMORROW
-        # estimated_closing_costs = number_to_currency(get_lender_credits(lowest_program).abs.to_i, precision: 0)
-        # lender_credit = 0
+        programs.each { |p| lowest_program = p if lowest_program[:interest_rate] > p[:interest_rate] }
+        min_rate = format("%0.03f", lowest_program[:interest_rate] * 100)
+        monthly_payment = number_to_currency(lowest_program[:monthly_payment], precision: 0)
+        estimated_closing_costs = number_to_currency(lowest_program[:total_closing_cost], precision: 0)
+        lender_credit = number_to_currency(lowest_program[:lender_credits], precision: 0)
 
         data << {
           title: "#{min_rate}%",
@@ -70,11 +66,13 @@ module FacebookBotServices
     def self.get_img_url(type)
       img_url = ""
       case type
-      when "30yearFixed"
+      when "30 year fixed"
         img_url = "https://s3-us-west-2.amazonaws.com/production-homieo/facebook_messenger/30_year_fixed.jpg"
-      when "15yearFixed"
+      when "15 year fixed"
         img_url = "https://s3-us-west-2.amazonaws.com/production-homieo/facebook_messenger/15_year_fixed.jpg"
-      when "5yearARM"
+      when "5/1 ARM"
+        img_url = "https://s3-us-west-2.amazonaws.com/production-homieo/facebook_messenger/5_1_ARM.jpg"
+      when "7/1 ARM"
         img_url = "https://s3-us-west-2.amazonaws.com/production-homieo/facebook_messenger/5_1_ARM.jpg"
       end
       img_url

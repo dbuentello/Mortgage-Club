@@ -43,7 +43,7 @@ module BotServices
         }
       }
 
-      messages.each_with_index do |message, index|
+      messages.each_with_index do |message, _index|
         message_data = {
           title: message[:title],
           image_url: message[:img_url],
@@ -73,9 +73,9 @@ module BotServices
 
     def self.config_welcome_screen
       body = {
-        "setting_type":"greeting",
-        "greeting":{
-          "text":"Hi, welcome to this bot."
+        "setting_type": "greeting",
+        "greeting": {
+          "text": "Hi, welcome to this bot."
         }
       }
 

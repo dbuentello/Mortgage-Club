@@ -1,10 +1,11 @@
 module LoanTekServices
   class GetQuotesForFacebookBot
-    attr_reader :parameters, :quotes
+    attr_reader :parameters, :quotes, :zip_code
 
     def initialize(params)
       @parameters = params
       @quotes = []
+      @zip_code = ZipCode.find_by_zip(params[:zipcode])
     end
 
     def call
@@ -20,7 +21,57 @@ module LoanTekServices
         property_type: get_property_type
       )
 
-      @quotes.present?
+      if zip_code
+        fees = CrawlFeesService.new(
+          loan_purpose: get_loan_purpose,
+          zip: zip_code.zip,
+          city: zip_code.city,
+          county: zip_code.county,
+          loan_amount: get_loan_amount,
+          sales_price: get_property_value
+        ).call
+
+        if get_property_usage == "PrimaryResidence"
+          params = {
+            loan_purpose: get_loan_purpose,
+            loan_amount: format("%0.0f", get_loan_amount),
+            property_value: format("%0.0f", get_property_value),
+            county: zip_code.county,
+            down_payment: purchase_loan? ? format("%0.0f", get_down_payment) : ""
+          }
+
+          rates = WellsfargoServices::GetRates.new(params).call
+          quote_hash = quotes.find { |q| q["ProductFamily"] == "CONVENTIONAL" }
+
+          if quote_hash
+            rates.each do |rate|
+              quote = Marshal.load(Marshal.dump(quote_hash))
+              quote["DiscountPts"] = 0
+              quote["APR"] = rate[:apr]
+              quote["Rate"] = rate[:interest_rate]
+              quote["LenderName"] = rate[:lender_name]
+              quote["ProductName"] = rate[:product_name]
+              quote["ProductType"] = rate[:product_type]
+              quote["ProductTerm"] = rate[:product_term]
+              quotes << quote
+            end
+          end
+        end
+
+        if quotes.nil?
+          @quotes = []
+        else
+          @quotes = quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, fees, get_property_value, false, false)
+        end
+      else
+        if quotes.nil?
+          @quotes = []
+        else
+          @quotes = quotes.empty? ? [] : LoanTekServices::ReadQuotes.call(quotes, get_loan_purpose, [], get_property_value, false, false)
+        end
+      end
+
+      quotes.present?
     end
 
     def query_content

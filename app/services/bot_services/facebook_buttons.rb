@@ -93,5 +93,23 @@ module BotServices
         }
       ]
     end
+
+    def self.btn_down_payment
+      [
+        {
+          content_type: "text",
+          title: "10%",
+          payload: "10"
+        }, {
+          content_type: "text",
+          title: "20%",
+          payload: "20"
+        }, {
+          content_type: "text",
+          title: "25%",
+          payload: "25"
+        }
+      ]
+    end
   end
 end

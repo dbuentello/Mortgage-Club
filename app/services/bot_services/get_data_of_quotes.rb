@@ -1,6 +1,8 @@
 module BotServices
   class GetDataOfQuotes
     def self.call(sender_id, params)
+      params[:down_payment] = params[:down_payment].to_i * params[:property_value].to_i / 100 if params[:down_payment].present?
+
       output = FacebookBotServices::GetInfoOfQuotes.call(params)
       if output[:status_code] == 200
         message = {
