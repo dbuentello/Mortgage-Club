@@ -64,6 +64,7 @@ module BotServices
             content = replies_message(array[1], BotServices::FacebookButtons.btn_credit_score)
           when BotServices::ApiAiCode.end_conversation
             content = text_message(array[1])
+            # ap response[:result]
             FacebookPostResultJob.perform_later(sender_id, response[:result][:parameters])
           when BotServices::ApiAiCode.property_type
             content = replies_message(array[1], BotServices::FacebookButtons.btn_property_types)

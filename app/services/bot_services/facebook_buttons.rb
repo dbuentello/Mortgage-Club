@@ -22,6 +22,10 @@ module BotServices
           payload: "get_rate_quote"
         }, {
           content_type: "text",
+          title: "How much home I can afford?",
+          payload: "affordability_calculator"
+        }, {
+          content_type: "text",
           title: "Should I refinance?",
           payload: "get_refinance"
         }
