@@ -126,6 +126,7 @@ var Loans = React.createClass({
                             <span>
                               <a className='linkTypeReversed' target="_blank" href={"/loan_members/loans/" + loan.id + "/export_fnm"}
                               data-method='get'><i className="icon-file-download"></i>
+                              </a>
                             </span>
                             <span>
                               <a className='linkTypeReversed' href={"/loan_members/loans/" + loan.id + "/switch"}
@@ -151,8 +152,3 @@ var Loans = React.createClass({
 
 module.exports = Loans;
 
-// <span>
-//   <a className='linkTypeReversed' target="_blank" href={"/loan_members/loans/" + loan.id + "/export_xml"}
-//   data-method='get'><i className="icon-file-download"></i>
-//   </a>
-// </span>

@@ -257,10 +257,27 @@ class Borrower < ActiveRecord::Base
     now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
   end
 
+  def get_status_address
+    borrower_address = borrower_addresses.first
+    if borrower_address
+      if borrower_address.is_rental == true
+        if borrower_address.monthly_rent > 0
+          "R"
+        else
+          "X"
+        end
+      else
+        "O"
+      end
+    else
+    end
+  end
+
   def fnm_values
     values = {}
 
     values[:ssn] = ssn.to_s.gsub!(/[() -]/, "")
+    values[:holder_name] = user.to_s
     values[:first_name] = user.first_name
     values[:middle_name] = user.middle_name
     values[:last_name] = user.last_name
@@ -268,14 +285,16 @@ class Borrower < ActiveRecord::Base
     values[:phone] = phone.to_s.gsub!(/[() -]/, "")
     values[:age] = get_age(dob)
     values[:years_in_school] = years_in_school.to_i
-    values[:years_in_school_bool] = years_in_school.to_i > 12 ? "Y" :  "N"
+    values[:years_in_school_bool] = years_in_school.to_i > 12 ? "Y" : "N"
     values[:marital_status] = marital_status_fnm
     values[:email] = user.email
     values[:dependent_count] = dependent_count
     values[:is_file_taxes_jointly] = is_file_taxes_jointly ? "Y" : "N"
-    values[:dob] = dob ? dob.strftime("%Y%m%d") : ""
+    values[:dob] = dob.present? ? dob.strftime("%Y%m%d") : ""
     values[:dependent_ages] = dependent_ages
     values[:self_employed] = self_employed ? "Y" : "N"
+    values[:years_at_address] = borrower_addresses.try(:first).try(:years_at_address)
+    values[:status_address] = get_status_address
 
     values
   end

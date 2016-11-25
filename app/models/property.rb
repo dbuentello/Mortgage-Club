@@ -172,6 +172,21 @@ class Property < ActiveRecord::Base
     end
   end
 
+  def property_type_fnm
+    case property_type
+    when "sfh"
+      "14"
+    when "duplex"
+      "13"
+    when "triplex"
+      "15"
+    when "fourplex"
+      "18"
+    when "condo"
+      "04"
+    end
+  end
+
   def subject_property_fnm
     values = {}
 
@@ -189,6 +204,9 @@ class Property < ActiveRecord::Base
     values[:estimated_hazard_insurance] = estimated_hazard_insurance.to_f
     values[:estimated_property_tax] = estimated_property_tax.to_f
     values[:hoa_due] = hoa_due.to_f
+    values[:original_purchase_year] = original_purchase_year.present? ? original_purchase_year.to_i : ""
+    values[:property_type] = property_type_fnm
+    values[:gross_rental_income] = gross_rental_income.to_f
 
     values
   end

@@ -516,7 +516,7 @@ class ExportFnmServicePart
       {
         id: "03A-130",
         format: "%-1s",
-        value: borrower_values[:is_file_taxes_jointly] #MAPPED
+        value: borrower_values[:is_file_taxes_jointly] # MAPPED
       },
       {
         id: "03A-140",
@@ -602,7 +602,7 @@ class ExportFnmServicePart
         {
           id: "03A-130",
           format: "%-1s",
-          value: co_borrower_values[:is_file_taxes_jointly] #MAPPED
+          value: co_borrower_values[:is_file_taxes_jointly] # MAPPED
         },
         {
           id: "03A-140",
@@ -1560,43 +1560,43 @@ class ExportFnmServicePart
 
   def data_08b
     [{
-        id: "08B-010",
-        format: "%-3s",
-        value: "08B"
+      id: "08B-010",
+      format: "%-3s",
+      value: "08B"
     },
-    {
-        id: "08B-020",
-        format: "%-9s",
-        value: borrower_values[:ssn] #borrower.ssn
-    },
-    {
-        id: "08B-030",
-        format: "%-2s",
-        value: "91" #borrower.declaration explanations
-    },
-    {
-        id: "08B-040",
-        format: "%-255s",
-        value: "asdasdasdasd  ASSDASDW"
-    }]
+     {
+       id: "08B-020",
+       format: "%-9s",
+       value: borrower_values[:ssn] # borrower.ssn
+     },
+     {
+       id: "08B-030",
+       format: "%-2s",
+       value: "91" # borrower.declaration explanations
+     },
+     {
+       id: "08B-040",
+       format: "%-255s",
+       value: "asdasdasdasd  ASSDASDW"
+     }]
   end
 
   def data_09a
     [{
-        id: "09A-010",
-        format: "%-3s",
-        value: "09A"
+      id: "09A-010",
+      format: "%-3s",
+      value: "09A"
     },
-    {
-        id: "09A-020",
-        format: "%-9s",
-        value: borrower_values[:ssn] #borrower.ssn
-    },
-    {
-        id: "09A-030",
-        format: "%-8s",
-        value: "CCYYMMDD" #Current date : CCYYMMDD
-    }]
+     {
+       id: "09A-020",
+       format: "%-9s",
+       value: borrower_values[:ssn] # borrower.ssn
+     },
+     {
+       id: "09A-030",
+       format: "%-8s",
+       value: "CCYYMMDD" # Current date : CCYYMMDD
+     }]
   end
 
   def data_10a
@@ -2155,55 +2155,55 @@ class ExportFnmServicePart
 
   def data_paj
     [{
-        id: "PAJ-010",
-        format: "%-3s",
-        value: "PAJ"
+      id: "PAJ-010",
+      format: "%-3s",
+      value: "PAJ"
     },
-    {
-        id: "PAJ-020",
-        format: "%4s",
-        value: ""
-    },
-    {
-        id: "PAJ-030",
-        format: "%3s",
-        value: loan_values[:num_of_months]
-    },
-    {
-        id: "PAJ-040",
-        format: "%3s",
-        value: "12"
-    },
-    {
-        id: "PAJ-050",
-        format: "%-1s",
-        value: "1"
-    },
-    {
-        id: "PAJ-060",
-        format: "%7.3f",
-        value: "1"
-    },
-    {
-        id: "PAJ-070",
-        format: "%15.2f",
-        value: "1"
-    },
-    {
-        id: "PAJ-080",
-        format: "%7.3f",
-        value: "1"
-    },
-    {
-        id: "PAJ-090",
-        format: "%15.2f",
-        value: "1"
-    },
-    {
-        id: "PAJ-100",
-        format: "%3s",
-        value: ""
-    }]
+     {
+       id: "PAJ-020",
+       format: "%4s",
+       value: ""
+     },
+     {
+       id: "PAJ-030",
+       format: "%3s",
+       value: loan_values[:num_of_months]
+     },
+     {
+       id: "PAJ-040",
+       format: "%3s",
+       value: "12"
+     },
+     {
+       id: "PAJ-050",
+       format: "%-1s",
+       value: "1"
+     },
+     {
+       id: "PAJ-060",
+       format: "%7.3f",
+       value: "1"
+     },
+     {
+       id: "PAJ-070",
+       format: "%15.2f",
+       value: "1"
+     },
+     {
+       id: "PAJ-080",
+       format: "%7.3f",
+       value: "1"
+     },
+     {
+       id: "PAJ-090",
+       format: "%15.2f",
+       value: "1"
+     },
+     {
+       id: "PAJ-100",
+       format: "%3s",
+       value: ""
+     }]
   end
 
   # def data_raj
@@ -2484,93 +2484,93 @@ class ExportFnmServicePart
 
   def data_god
     [{
-        id: "GOD-010",
-        format: "%-3s",
-        value: "GOD"
+      id: "GOD-010",
+      format: "%-3s",
+      value: "GOD"
     },
-    {
-        id: "GOD-020",
-        format: "%9s",
-        value: borrower_values[:ssn]
-    },
-    {
-        id: "GOD-030",
-        format: "%15.2f",
-        value: "1"
-    },
-    {
-        id: "GOD-040",
-        format: "%15.2f",
-        value: "1"
-    },
-    {
-        id: "GOD-050",
-        format: "%15.2f",
-        value: "1"
-    },
-    {
-        id: "GOD-060",
-        format: "%15.2f",
-        value: "1"
-    },
-    {
-        id: "GOD-070",
-        format: "%15.2f",
-        value: "1"
-    },
-    {
-        id: "GOD-080",
-        format: "%15.2f",
-        value: "1"
-    },
-    {
-        id: "GOD-090",
-        format: "%15.2f",
-        value: "1"
-    },
-    {
-        id: "GOD-100",
-        format: "%15.2f",
-        value: "1"
-    }]
+     {
+       id: "GOD-020",
+       format: "%9s",
+       value: borrower_values[:ssn]
+     },
+     {
+       id: "GOD-030",
+       format: "%15.2f",
+       value: "1"
+     },
+     {
+       id: "GOD-040",
+       format: "%15.2f",
+       value: "1"
+     },
+     {
+       id: "GOD-050",
+       format: "%15.2f",
+       value: "1"
+     },
+     {
+       id: "GOD-060",
+       format: "%15.2f",
+       value: "1"
+     },
+     {
+       id: "GOD-070",
+       format: "%15.2f",
+       value: "1"
+     },
+     {
+       id: "GOD-080",
+       format: "%15.2f",
+       value: "1"
+     },
+     {
+       id: "GOD-090",
+       format: "%15.2f",
+       value: "1"
+     },
+     {
+       id: "GOD-100",
+       format: "%15.2f",
+       value: "1"
+     }]
   end
 
   def data_goe
     [{
-        id: "GOE-010",
-        format: "%-3s",
-        value: "GOE"
+      id: "GOE-010",
+      format: "%-3s",
+      value: "GOE"
     },
-    {
-        id: "GOE-020",
-        format: "%9s",
-        value: borrower_values[:ssn]
-    },
-    {
-        id: "GOE-030",
-        format: "%-10s",
-        value: ""
-    },
-    {
-        id: "GOE-040",
-        format: "%-3s",
-        value: ""
-    },
-    {
-        id: "GOE-050",
-        format: "%-3s",
-        value: ""
-    },
-    {
-        id: "GOE-060",
-        format: "%-3s",
-        value: ""
-    },
-    {
-        id: "GOE-070",
-        format: "%-1s",
-        value: "A"
-    }]
+     {
+       id: "GOE-020",
+       format: "%9s",
+       value: borrower_values[:ssn]
+     },
+     {
+       id: "GOE-030",
+       format: "%-10s",
+       value: ""
+     },
+     {
+       id: "GOE-040",
+       format: "%-3s",
+       value: ""
+     },
+     {
+       id: "GOE-050",
+       format: "%-3s",
+       value: ""
+     },
+     {
+       id: "GOE-060",
+       format: "%-3s",
+       value: ""
+     },
+     {
+       id: "GOE-070",
+       format: "%-1s",
+       value: "A"
+     }]
   end
 
   # def data_lmd

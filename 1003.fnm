@@ -1,0 +1,40 @@
+EH                                20161124   ENV1     
+TH T100099-002TRAN1    
+TPI1.00 01                              N
+0001  3.20 W
+00ANN
+01A01                                                                                                                                   131250.00  3.87536005                                                                                                                                                                
+02A610 West Harding Way                              Stockton                           CA95204       F1SEE PRELIMINARY TITLE                                                               
+02B  16                                                                                D                                                            1        
+02CPhong Huynh                                                 
+02EH3       43750.00                                                                                
+03ABW625760061Phong                                                                 Huynh                                  4086689200 3416M 2N         19820104evan.huynh@akimax.net                                                           
+03B625760061  7
+03B625760061  8
+03C625760061ZG1178 Stellar Way                                  Milpitas                           CA95035    O 8                                                    
+04A625760061Akimax                             1694 Tully Road                    San Jose                           CA95122    Y 2  18Broker Associate                   
+05H625760061126         617.00
+05H625760061101         960.00
+05H625760061114        1871.34
+05H625760061202           0.00
+05H625760061206           0.00
+05I62576006120       14698.00
+06C62576006103 Wells Fargo                                                                                                                                              80000.00                                                                                          
+06G625760061610 West Harding Way               Stockton                           CA95204    H13      175000.00      131250.00        1600.00           0.00           0.00           0.00YY1                
+06L625760061M WFHM                               PO BOX 10335                       DES MOINES                         IA50306    9360500931597                         1903.00  0      414972.00Y1 NNYN
+07A      175000.00           0.00           0.00      131250.00           0.00           0.00           0.00           0.01           0.00           0.00           0.00
+08A625760061NNNNNNNNN01YYD01
+10A625760061N2                              M
+10BIDane Chodos                                                         4084445998MortgageClub Corporation           156 2nd St                                                                                                          
+10R6257600612 
+00070 3.20 
+99B F1      175000.00       01                                                                                                                   
+ADSLoanOriginatorID                                                                     
+ADSLoanOriginationCompanyID                                                             
+ADSAppraisalIdentifier                                                                  
+00011 3.20 
+LNC1 01            0.000N  Y  0.000  0.000           0.00N                  0.000   0.000  
+PID30 Yr Fixed - Conventional - N                    
+PCH360N01N   
+TT TRAN1    
+ET ENV1     

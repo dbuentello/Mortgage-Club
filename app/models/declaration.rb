@@ -80,8 +80,9 @@ class Declaration < ActiveRecord::Base
 
   def fnm_values
     values = {}
+
     values[:gender_type] = gender_type
-    values[:is_hispanic_or_latino] = is_hispanic_or_latino ? "1" : "2"
+    values[:is_hispanic_or_latino] = is_hispanic_or_latino == "Y" ? "1" : "2"
     values[:outstanding_judgment] = outstanding_judgment ? "Y" : "N"
     values[:bankrupt] = bankrupt ? "Y" : "N"
     values[:loan_foreclosure] = loan_foreclosure ? "Y" : "N"
@@ -92,6 +93,7 @@ class Declaration < ActiveRecord::Base
     values[:ownership_interest] = ownership_interest ? "Y" : "N"
     values[:co_maker_or_endorser] = co_maker_or_endorser ? "Y" : "N"
     values[:race_type] = race_type_fnm
+
     values
   end
 end

@@ -80,6 +80,7 @@ class Employment < ActiveRecord::Base
     values[:duration] = duration
     values[:job_title] = job_title
     values[:current_salary] = monthly_total_amount_fnm
+    values[:total_duration] = borrower.get_age(borrower.dob) - borrower.years_in_school.to_i
 
     values
   end

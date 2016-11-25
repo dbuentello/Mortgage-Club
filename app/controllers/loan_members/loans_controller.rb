@@ -42,7 +42,7 @@ class LoanMembers::LoansController < LoanMembers::BaseController
     loan = Loan.find(params[:id])
     fnm = ExportFnmService.new(loan).call
 
-    send_data fnm, type: "text/xml; charset=UTF-8;", disposition: "attachment; filename=loan.fnm"
+    send_data File.read(fnm), type: "text/plain; charset=UTF-8;", disposition: "attachment; filename=loan.fnm"
   end
 
   def switch
