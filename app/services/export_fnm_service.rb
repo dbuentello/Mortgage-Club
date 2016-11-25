@@ -1,5 +1,6 @@
 # rubocop:disable ClassLength
 # rubocop:disable MethodLength
+# rubocop:disable AbcSize
 class ExportFnmService
   attr_accessor :loan, :subject_property, :credit_report, :loan_member, :assets, :loan_values, :borrower_values, :co_borrower_values, :current_employment_values, :previous_employment_values, :declaration_values, :relationship_manager_values, :subject_property_values, :primary_property_values
 
@@ -63,9 +64,7 @@ class ExportFnmService
     out_file.puts build_data(data_03c)
     out_file.puts build_data(data_04a)
 
-    if previous_employment_values.present?
-      out_file.puts build_data(data_04b)
-    end
+    out_file.puts build_data(data_04b) if previous_employment_values.present?
 
     out_file.puts build_data(data_05h_first_mortgage)
     out_file.puts build_data(data_05h_hazard_insurance)
@@ -237,7 +236,7 @@ class ExportFnmService
       {
         id: "00A-030",
         format: "%-1s",
-        value: "N" # TODO # TODAY
+        value: "N" # TODO: # TODAY
       }
     ]
   end
@@ -412,7 +411,7 @@ class ExportFnmService
       {
         id: "02B-060",
         format: "%-60s",
-        value: "" # TODO # TODAY
+        value: "" # TODO: # TODAY
       },
       {
         id: "02B-070",
@@ -2839,3 +2838,4 @@ end
 
 # rubocop:enable ClassLength
 # rubocop:enable MethodLength
+# rubocop:enable AbcSize
