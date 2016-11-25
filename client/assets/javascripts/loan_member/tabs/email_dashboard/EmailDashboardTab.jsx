@@ -65,19 +65,19 @@ var EmailDashboardTab = React.createClass({
       dataType: "json",
       success: function(response) {
         var templateOptions = [];
-        templateOptions.push({name: "Default", value: response.default_template.value, subject: response.default_template.subject});
-        templateOptions.push({name: "New Loan File Setup", value: response.new_loan_template.value, subject: response.new_loan_template.subject});
-        templateOptions.push({name: "Complete Loan File", value: response.complete_loan_template.value, subject: response.complete_loan_template.subject});
-        templateOptions.push({name: "Incomplete Loan File", value: response.incomplete_loan_template.value, subject: response.incomplete_loan_template.subject});
-        templateOptions.push({name: "Submit Loan To Lender", value: response.submit_loan_to_lender_template.value, subject: response.submit_loan_to_lender_template.subject});
-        templateOptions.push({name: "Submit Loan To Underwritting", value: response.submit_loan_to_underwritting_template.value, subject: response.submit_loan_to_underwritting_template.subject});
-        templateOptions.push({name: "Lock In Rate", value: response.lock_in_rate_template.value, subject: response.lock_in_rate_template.subject});
-        templateOptions.push({name: "Conditional Approval", value: response.conditional_approval_template.value, subject: response.conditional_approval_template.subject});
-        templateOptions.push({name: "Delay Closing Date", value: response.delay_closing_date_template.value, subject: response.delay_closing_date_template.subject});
-        templateOptions.push({name: "Appraisal Appointment", value: response.appraisal_appointment_template.value, subject: response.appraisal_appointment_template.subject});
-        templateOptions.push({name: "Checklist Items", value: response.checklist_items_template.value, subject: response.checklist_items_template.subject});
-        templateOptions.push({name: "Final Approval", value: response.final_approval_template.value, subject: response.final_approval_template.subject});
-        templateOptions.push({name: "Funding", value: response.funding_template.value, subject: response.funding_template.subject});
+        templateOptions.push({name: "Default", value: "default", content: response.default_template.value, subject: response.default_template.subject});
+        templateOptions.push({name: "New Loan File Setup", value: "new_loan", content: response.new_loan_template.value, subject: response.new_loan_template.subject});
+        templateOptions.push({name: "Complete Loan File", value: "complete_loan", content: response.complete_loan_template.value, subject: response.complete_loan_template.subject});
+        templateOptions.push({name: "Incomplete Loan File", value: "uncomplete_loan", content: response.incomplete_loan_template.value, subject: response.incomplete_loan_template.subject});
+        templateOptions.push({name: "Submit Loan To Lender", value: "submit_loan_to_lender", content: response.submit_loan_to_lender_template.value, subject: response.submit_loan_to_lender_template.subject});
+        templateOptions.push({name: "Submit Loan To Underwritting", value: "submit_loan_to_underwritting", content: response.submit_loan_to_underwritting_template.value, subject: response.submit_loan_to_underwritting_template.subject});
+        templateOptions.push({name: "Lock In Rate", value: "lock_in_rate", content: response.lock_in_rate_template.value, subject: response.lock_in_rate_template.subject});
+        templateOptions.push({name: "Conditional Approval", value: "conditional_approval", content: response.conditional_approval_template.value, subject: response.conditional_approval_template.subject});
+        templateOptions.push({name: "Delay Closing Date", value: "delay_closing_date", content: response.delay_closing_date_template.value, subject: response.delay_closing_date_template.subject});
+        templateOptions.push({name: "Appraisal Appointment", value: "appraisal_appointment", content: response.appraisal_appointment_template.value, subject: response.appraisal_appointment_template.subject});
+        templateOptions.push({name: "Checklist Items", value: "checklist_items", content: response.checklist_items_template.value, subject: response.checklist_items_template.subject});
+        templateOptions.push({name: "Final Approval", value: "final_approval", content: response.final_approval_template.value, subject: response.final_approval_template.subject});
+        templateOptions.push({name: "Funding", value: "funding", content: response.funding_template.value, subject: response.funding_template.subject});
 
         this.setState({
           templateOptions: templateOptions
@@ -140,16 +140,14 @@ var EmailDashboardTab = React.createClass({
   },
 
   changeTemplate: function(change){
-    console.log(change);
     var key = Object.keys(change)[0];
     var value = change[key];
-    // var current_obj = _.find(this.state.templateOptions, function(obj){ return obj.value == value });
-    // console.log(current_obj);
-    // console.log(this.state.templateOptions);
-    // this.setState({subject: "3123"});
+    var current_obj = _.find(this.state.templateOptions, function(obj){ return obj.value == value });
+
     this.setState(change);
-    this.updateEmailContent(value);
-    tinyMCE.activeEditor.setContent(value);
+    this.updateEmailContent(current_obj.content);
+    this.setState({subject: current_obj.subject});
+    tinyMCE.activeEditor.setContent(current_obj.content);
   },
 
   render: function() {
