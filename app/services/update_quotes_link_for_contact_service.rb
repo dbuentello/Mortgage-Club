@@ -42,7 +42,9 @@ class UpdateQuotesLinkForContactService
       response = http.request(request)
 
       contact_data = JSON.load(response.read_body)["data"]
-      rate_quote_field = contact_data["custom_fields"].find { |field| field["field"]["id"] == "custom_field_90983" }
+
+      next unless contact_data.present?
+      rate_quote_field = contact_data["custom_fields"].find { |field| field["field"]["id"] == "custom_field_91432" }
 
       if rate_quote_field
         rate_quote_field["value"] = quote_url
@@ -50,8 +52,8 @@ class UpdateQuotesLinkForContactService
         contact_data["custom_fields"] << {
           "value" => quote_url,
           "field" => {
-            "id" => "custom_field_90983",
-            "name" => "Rate Quote"
+            "id" => "custom_field_91432",
+            "name" => "Rate Quote Link"
           }
         }
       end
@@ -67,6 +69,7 @@ class UpdateQuotesLinkForContactService
 
       ap quote_url
       ap params
+      ap row["Contact Id"]
     end
   end
 end

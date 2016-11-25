@@ -34,10 +34,11 @@ var EmailDashboardTab = React.createClass({
     state[fields.to.name] = borrower.user.email;
     state[fields.bcc.name] = "";
     state[fields.cc.name] = "";
-    state[fields.subject.name] = "";
+    state[fields.subject.name] = emailTemplates.subject;
 
     var templateOptions = [];
-    templateOptions.push({name: 'Checklist Items', value: emailTemplates.remind_checklists});
+    templateOptions.push({name: 'Default', value: emailTemplates.default});
+    templateOptions.push({name: 'Checklist Items', value: emailTemplates.checklist_items});
     state.templateOptions = templateOptions;
 
     var emailOptions = [];
