@@ -1,10 +1,11 @@
 # get initial quotes.
 module LoanTekServices
   class GetInitialQuotes
-    attr_accessor :info
+    attr_accessor :info, :zip_code
 
     def initialize(info)
       @info = info
+      @zip_code = ZipCode.find_by_zip(info["zip_code"])
     end
 
     def call
@@ -47,8 +48,9 @@ module LoanTekServices
           end
         end
       end
+
       quotes = quotes + quotes_2 + quotes_3 + quotes_4
-      quotes.sort_by { |program| program[:apr] }
+      quotes.sort_by { |program| [program[:interest_rate], program[:apr]] }
     end
 
     def lowest_apr
@@ -61,8 +63,6 @@ module LoanTekServices
         property_usage: get_property_usage,
         property_type: get_property_type
       )
-
-      zip_code = ZipCode.find_by_zip(get_zipcode)
 
       if zip_code
         fees = CrawlFeesService.new(
@@ -160,10 +160,10 @@ module LoanTekServices
         loan_amount: loan_amount,
         loan_to_value: loan_to_value,
         property_usage: get_property_usage,
-        property_type: get_property_type
+        property_type: get_property_type,
+        is_cash_out: is_cash_out
       )
 
-      zip_code = ZipCode.find_by_zip(get_zipcode)
       if zip_code
         fees = CrawlFeesService.new(
           loan_purpose: get_loan_purpose,
@@ -173,6 +173,33 @@ module LoanTekServices
           loan_amount: loan_amount,
           sales_price: info["property_value"].to_f
         ).call
+
+        if (get_property_usage == "PrimaryResidence") && ((purchase_loan? && is_down_payment == false) || (!purchase_loan? && is_cash_out == false))
+          params = {
+            loan_purpose: get_loan_purpose,
+            loan_amount: format("%0.0f", get_loan_amount),
+            property_value: format("%0.0f", info["property_value"].to_f),
+            county: zip_code.county,
+            down_payment: purchase_loan? ? format("%0.0f", info["down_payment"].to_f) : ""
+          }
+
+          rates = WellsfargoServices::GetRates.new(params).call
+          quote_hash = quotes.find { |q| q["ProductFamily"] == "CONVENTIONAL" }
+
+          if quote_hash
+            rates.each do |rate|
+              quote = Marshal.load(Marshal.dump(quote_hash))
+              quote["DiscountPts"] = 0
+              quote["APR"] = rate[:apr]
+              quote["Rate"] = rate[:interest_rate]
+              quote["LenderName"] = rate[:lender_name]
+              quote["ProductName"] = rate[:product_name]
+              quote["ProductType"] = rate[:product_type]
+              quote["ProductTerm"] = rate[:product_term]
+              quotes << quote
+            end
+          end
+        end
 
         if quotes.nil?
           []

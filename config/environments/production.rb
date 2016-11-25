@@ -45,7 +45,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   dir = "#{Rails.root}/log/production/"
   FileUtils.mkdir_p(dir) unless File.directory?(dir)
@@ -90,7 +90,8 @@ Rails.application.configure do
       access_key_id: ENV['AWS_ACCESS_KEY_ID'],
       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
     },
-    s3_host_name: ENV['AWS_HOST_NAME']
+    s3_host_name: ENV['AWS_HOST_NAME'],
+    s3_protocol: 'https'
   }
   config.exceptions_app = self.routes
 end

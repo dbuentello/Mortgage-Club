@@ -13,9 +13,9 @@ Good news, mortgage rates for your scenario have dropped.</p>
 5 year ARM: <%= @pre_graph[:arm51][:rate] %>% rate, <%= @pre_graph[:arm51][:lender_credit] %> <%= @pre_graph[:arm51][:label] %><br/>
 7 year ARM: <%= @pre_graph[:arm71][:rate] %>% rate, <%= @pre_graph[:arm71][:lender_credit] %> <%= @pre_graph[:arm71][:label] %> </p>
 
-<p>Mortgage rates change frequently. Apply now to lock in these rates. You can find more details and apply here: <%= initial_quote_url(@rate_alert_user.code_id)%><br/>
+<p>Mortgage rates change frequently. Apply now to lock in these rates. You can find more details and apply here: <%= initial_quote_url(@rate_alert_user.code_id)%></p>
 
-If you have any issues or questions, please contact us at <a href="mailto:hello@mortgageclub.co?Subject=Hello" target="_top">hello@mortgageclub.co</a>.</p>
+<p>If you have any issues or questions, please contact us at <a href="mailto:hello@mortgageclub.co?Subject=Re: Quote ID# <%= @rate_alert_user.code_id %>" target="_top">hello@mortgageclub.co</a>.</p>
 
 <p>Thank you, <br/>
 The MortgageClub Team

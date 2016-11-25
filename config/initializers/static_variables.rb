@@ -67,6 +67,7 @@ OTHER_MINE_TYPES = [
   'text/richtext',
   'text/rtf',
   'text/plain',
+  'text/csv',
   'inode/x-empty'
 ]
 

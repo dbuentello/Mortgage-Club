@@ -7,7 +7,7 @@ class LoanMembers::SubmissionsController < LoanMembers::BaseController
     )
 
     if service.call
-      @loan.conditionally_approved!
+      @loan.approved_with_conditions!
       return render json: {message: t("loan_members.submissions.submit_to_lender.success")}, status: 200
     else
       return render json: {message: service.error_message}, status: 500

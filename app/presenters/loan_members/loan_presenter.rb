@@ -21,7 +21,18 @@ class LoanMembers::LoanPresenter
             user: {
               methods: [:to_s]
             }
-          }
+          },
+          methods: [:type_humanize]
+        },
+        borrower: {
+          include: [
+            documents: {}
+          ]
+        },
+        secondary_borrower: {
+          include: [
+            documents: {}
+          ]
         },
         documents: {},
         lender_documents: {},

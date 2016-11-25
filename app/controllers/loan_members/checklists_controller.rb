@@ -10,7 +10,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
     if checklist.save
       render json: {
         checklist: LoanMembers::ChecklistPresenter.new(checklist).show,
-        checklists: LoanMembers::ChecklistsPresenter.new(@loan.checklists).show,
+        checklists: LoanMembers::ChecklistsPresenter.new(@loan.checklists.order(due_date: :desc, name: :asc)).show,
         message: t("info.success", status: t("common.status.added"))
       }, status: 200
     else
@@ -44,7 +44,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
     if checklist.destroy
       render json: {
         message: t("info.success", status: t("common.status.removed")),
-        checklists: LoanMembers::ChecklistsPresenter.new(loan.checklists).show
+        checklists: LoanMembers::ChecklistsPresenter.new(loan.checklists.order(due_date: :desc, name: :asc)).show
       }, status: 200
     else
       render json: {message: t("errors.failed", process: t("common.process.remove"))}, status: 500
@@ -55,7 +55,7 @@ class LoanMembers::ChecklistsController < LoanMembers::BaseController
 
   def checklist_params
     params[:checklist][:due_date] = Date.strptime(params[:checklist][:due_date], "%m/%d/%Y") if params[:checklist][:due_date].present?
-    params.require(:checklist).permit(:checklist_type, :document_type, :subject_name, :name, :document_description, :question, :due_date, :template_id, :info)
+    params.require(:checklist).permit(:checklist_type, :document_type, :subject_name, :name, :document_description, :due_date, :info, :status)
   end
 
   def set_checklist

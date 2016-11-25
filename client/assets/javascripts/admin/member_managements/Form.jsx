@@ -4,7 +4,8 @@ var FlashHandler = require('mixins/FlashHandler');
 var TextField = require('components/form/TextField');
 var UploadField = require('components/form/UploadField');
 var ModalLink = require('components/ModalLink');
-var BooleanRadio = require('components/form/BooleanRadio');
+var TextEditor = require('components/TextEditor');
+var TextareaField = require('components/form/TextareaField');
 
 var Form = React.createClass({
   mixins: [FlashHandler],
@@ -34,10 +35,13 @@ var Form = React.createClass({
         companyName: this.props.Member.company_name,
         companyAddress: this.props.Member.company_address,
         companyPhoneNumber: this.props.Member.company_phone_number,
-        companyNmls: this.props.Member.company_nmls
+        companyNmls: this.props.Member.company_nmls,
+        emailSignature: this.props.Member.email_signature || ""
       };
     } else {
-      return {};
+      return {
+        emailSignature: ""
+      };
     }
   },
 
@@ -49,7 +53,6 @@ var Form = React.createClass({
     this.setState({saving: true});
     event.preventDefault();
     var formData = new FormData($('.form-loan-member')[0]);
-
     $.ajax({
       url: this.props.Url,
       method: this.props.Method,
@@ -59,14 +62,15 @@ var Form = React.createClass({
         this.setState(
           {
             email: response.loan_member.user.email,
-            first_name: response.loan_member.first_name,
-            last_name: response.loan_member.last_name,
-            phone_number: response.loan_member.phone_number,
-            nmls_id: response.loan_member.nmls_id,
-            company_name: response.loan_member.company_name,
-            company_address: response.loan_member.company_address,
-            company_phone_number: response.loan_member.company_phone_number,
-            company_nmls: response.loan_member.company_nmls,
+            firstName: response.loan_member.user.first_name,
+            lastName: response.loan_member.user.last_name,
+            phoneNumber: response.loan_member.phone_number,
+            nmlsId: response.loan_member.nmls_id,
+            companyName: response.loan_member.company_name,
+            companyAddress: response.loan_member.company_address,
+            companyPhoneNumber: response.loan_member.company_phone_number,
+            companyNmls: response.loan_member.company_nmls,
+            emailSignature: response.loan_member.email_signature,
             saving: false
           }
         );
@@ -109,6 +113,10 @@ var Form = React.createClass({
     }
   },
 
+  updateEmailSignature: function(content){
+    this.setState({ emailSignature: content });
+  },
+
   render: function() {
     return (
       <div>
@@ -123,8 +131,6 @@ var Form = React.createClass({
                 editable={true}
                 onChange={this.onChange}/>
             </div>
-          </div>
-          <div className="form-group">
             <div className="col-sm-4">
               <UploadField
                 label="Avatar"
@@ -142,8 +148,6 @@ var Form = React.createClass({
                 editable={true}
                 onChange={this.onChange}/>
             </div>
-          </div>
-          <div className="form-group">
             <div className="col-sm-4">
               <TextField
                 label="Last Name"
@@ -164,8 +168,6 @@ var Form = React.createClass({
                 editable={true}
                 onChange={this.onChange}/>
             </div>
-          </div>
-          <div className="form-group">
             <div className="col-sm-4">
               <TextField
                 label="Individual NMLS"
@@ -186,8 +188,6 @@ var Form = React.createClass({
                 editable={true}
                 onChange={this.onChange}/>
             </div>
-          </div>
-          <div className="form-group">
             <div className="col-sm-4">
               <TextField
                 label="Company Address"
@@ -208,8 +208,6 @@ var Form = React.createClass({
                 editable={true}
                 onChange={this.onChange}/>
             </div>
-          </div>
-          <div className="form-group">
             <div className="col-sm-4">
               <TextField
                 label="Company NMLS"
@@ -220,7 +218,6 @@ var Form = React.createClass({
                 onChange={this.onChange}/>
             </div>
           </div>
-
           {
             this.props.Member
             ?
@@ -240,6 +237,17 @@ var Form = React.createClass({
               </div>
             </div>
           }
+          <div className="form-group">
+            <div className="col-sm-12">
+              <TextareaField
+                label="Email Signature"
+                keyName="emailSignature"
+                name="loan_member[email_signature]"
+                value={this.state.emailSignature}
+                editable={true}
+                onChange={this.onChange}/>
+            </div>
+          </div>
           <div className="form-group">
             <div className="col-sm-10">
               <button className="btn btn-primary" onClick={this.onClick} disabled={this.state.saving}>{ this.state.saving ? 'Submitting' : 'Submit' }</button>

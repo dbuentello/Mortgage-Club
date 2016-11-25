@@ -86,7 +86,6 @@ var RateAlert = React.createClass({
       <div className="rate-alert">
           <section id="rate_alert">
         <div className="rate-alert-form">
-
           <div className="container">
             {
               this.state.isSuccess
@@ -99,12 +98,10 @@ var RateAlert = React.createClass({
                     <br />
                     <br />
                     <br />
-
                   </div>
                 </div>
               :
                 <div className="mtl">
-
                   <div className="col-md-4 col-md-offset-4">
                     <form className="potential-users form-horizontal text-center" action="/potential_users" type="json" enctype="multipart/form-data" method="post" name="fileinfo">
                       <div className="form-group">
@@ -138,7 +135,6 @@ var RateAlert = React.createClass({
                                 </label>
                                 <p id="des_upload">{"Don't have a soft copy? No worries, you can take picture and send it to (415) 964-0668"}</p>
                             </div>
-
                           </div>
                         </div>
                       </div>

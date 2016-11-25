@@ -16,8 +16,12 @@ var ChecklistUpload = React.createClass({
   buildState: function() {
     var state = {};
     var doc_type = this.props.checklist.document_type;
-    var borrower_document = _.find(this.props.borrower.documents, { 'document_type': doc_type });
-
+    if(doc_type == "other_borrower_report"){
+      var borrower_document = _.find(this.props.borrower.documents, { 'description': this.props.checklist.document_description });
+    }else{
+      var borrower_document = _.find(this.props.borrower.documents, { 'document_type': doc_type });
+    }
+    console.log(this.props.checklist);
     if (borrower_document){
       state[doc_type] = borrower_document.original_filename;
       state[doc_type + '_downloadUrl'] = '/document_uploaders/base_document/' + borrower_document.id + '/download';
@@ -46,12 +50,17 @@ var ChecklistUpload = React.createClass({
     var field = {label: checklist.document_description, name: checklist.document_type , placeholder: 'Drop files to upload or CLICK'}
     var uploadUrl = '/document_uploaders/base_document/upload';
 
-    var customParams = [
-      {document_type: checklist.document_type},
-      {subject_id: this.props.subject.id},
-      {subject_type: checklist.subject_name},
-      {description: checklist.document_description}
-    ];
+    if(checklist.checklist_type == "upload"){
+      var customParams = [
+        {document_type: checklist.document_type},
+        {subject_id: this.props.subject.id},
+        {subject_type: checklist.subject_name},
+        {description: checklist.document_description}
+      ];
+    } else {
+      var customParams = [];
+    }
+
 
     return (
       <span>

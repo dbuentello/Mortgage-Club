@@ -55,6 +55,14 @@ var TextFormatMixin = {
     var negative, money, prefix;
     var decimal = 2;
 
+    if(cashflow == 0){
+      if (unit) {
+        return unit + "0";
+      } else {
+         return "$0";
+      }
+    }
+
     if(!decimals){
       if(!isNaN(parseInt(decimals))){
         decimal = parseInt(decimals);
@@ -115,6 +123,10 @@ var TextFormatMixin = {
     return moment(timeString).format('hh:mm A MM/DD/YYYY');
   },
 
+  formatTimeCustom: function(timeString, format) {
+    return moment(timeString).format(format);
+  },
+
   titleize: function(str) {
     return str.split(/[ _]/).map(function(word) {
       return word.charAt(0).toUpperCase() + word.slice(1);
@@ -130,6 +142,7 @@ var TextFormatMixin = {
     if (!val) { return; }
     return ('' + val).replace(/[^0-9\.]/g, '');
   },
+
   formatPercent: function(value) {
     var money;
     var decimal = 3;

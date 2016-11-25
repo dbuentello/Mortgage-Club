@@ -6,9 +6,16 @@ var React = require("react/addons");
 var TextFormatMixin = require("mixins/TextFormatMixin");
 var ChartMixin = require("mixins/ChartMixin");
 var Filter = require("borrower/loans/rates/Filter");
+var RateAlert = require("borrower/loans/rates/RateAlert");
 var HelpMeChoose = require("borrower/loans/rates/HelpMeChoose");
 var MortgageCalculatorMixin = require('mixins/MortgageCalculatorMixin');
 var List = require("./List");
+
+var mobile_alert_fields = {
+  firstName: {label: "First name", name: "mobile_first_name", keyName: "mobile_first_name", error: "mobileFirstNameError",validationTypes: "empty"},
+  lastName: {label: "Last name", name: "mobile_last_name", keyName: "mobile_last_name", error: "mobileLastNameError",validationTypes: "empty"},
+  email: {label: "Email", name: "mobile_email", keyName: "mobile_email", error: "mobileEmailError", validationTypes: "email"}
+};
 
 var Quotes = React.createClass({
   mixins: [TextFormatMixin, ChartMixin, MortgageCalculatorMixin],
@@ -28,27 +35,12 @@ var Quotes = React.createClass({
   componentDidMount: function() {
     mixpanel.track("Quotes-Enter");
     this.autoClickFilter();
+    $("body").removeClass("device-lg");
   },
 
   autoClickFilter: function() {
     $("input[name=30years]")[0].click();
     $(".filter-sidebar input[type=checkbox]:nth(4)").click();
-
-    // if(this.props.bootstrapData.selected_programs) {
-    //   switch(this.props.bootstrapData.selected_programs) {
-    //     case "30yearFixed":
-    //       $("input[name=30years]").trigger("click");
-    //       break;
-    //     case "15yearFixed":
-    //       $("input[name=15years]").trigger("click");
-    //       break;
-    //     case "5yearARM":
-    //       $("input[name=51arm]").trigger("click");
-    //       break;
-    //   }
-    // }
-    // else {
-    // }
   },
 
   onFilterQuote: function(filteredQuotes) {
@@ -119,8 +111,7 @@ var Quotes = React.createClass({
       mixpanel.track("Quotes-SelectRate");
     }
     var dataCookies = this.props.bootstrapData.data_cookies;
-
-    var lender_underwriting_fee_object = rate.fees.find(function(x) { return x.Description == "Lender underwriting fee" });
+    var cash_out = rate.loan_amount - (parseFloat(dataCookies.mortgage_balance) || 0);
     $.ajax({
       url: "/quotes/save_info",
       data: {
@@ -145,19 +136,21 @@ var Quotes = React.createClass({
         lender_nmls_id: rate.nmls,
         pmi_monthly_premium_amount: rate.pmi_monthly_premium_amount,
         discount_pts: rate.discount_pts,
-        lender_underwriting_fee: lender_underwriting_fee_object === undefined ? 0 : lender_underwriting_fee_object.FeeAmount,
-        appraisal_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Appraisal Fee"),
-        tax_certification_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Tax Certification Fee"),
-        flood_certification_fee: this.getFee(rate.thirty_fees, "Services you cannot shop for", "Flood Certification Fee"),
-        outside_signing_service_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Outside Signing Service"),
-        concurrent_loan_charge_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Concurrent Loan Charge"),
-        endorsement_charge_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Endorsement Charge"),
-        lender_title_policy_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Lender's Title Policy"),
-        recording_service_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Recording Service Fee"),
-        settlement_agent_fee: this.getFee(rate.thirty_fees, "Services you can shop for", "Title - Settlement Agent Fee"),
-        recording_fees: this.getFee(rate.thirty_fees, "Taxes and other government fees", "Recording Fees"),
-        owner_title_policy_fee: this.getFee(rate.thirty_fees, "Other", "Title - Owner's Title Policy"),
-        prepaid_item_fee: this.getFee(rate.thirty_fees, "Prepaid items", "Prepaid interest")
+        lender_underwriting_fee: rate.lender_underwriting_fee,
+        appraisal_fee: this.getFee(rate.thirty_fees, "Appraisal Fee"),
+        tax_certification_fee: this.getFee(rate.thirty_fees, "Tax Certification Fee"),
+        flood_certification_fee: this.getFee(rate.thirty_fees, "Flood Certification Fee"),
+        outside_signing_service_fee: this.getFee(rate.thirty_fees, "Outside Signing Service"),
+        concurrent_loan_charge_fee: this.getFee(rate.thirty_fees, "Title - Concurrent Loan Charge"),
+        endorsement_charge_fee: this.getFee(rate.thirty_fees, "Endorsement Charge"),
+        lender_title_policy_fee: this.getFee(rate.thirty_fees, "Title - Lender's Title Policy"),
+        recording_service_fee: this.getFee(rate.thirty_fees, "Title - Recording Service Fee"),
+        settlement_agent_fee: this.getFee(rate.thirty_fees, "Title - Settlement Agent Fee"),
+        recording_fees: this.getFee(rate.thirty_fees, "Recording Fees"),
+        owner_title_policy_fee: this.getFee(rate.thirty_fees, "Title - Owner's Title Policy"),
+        prepaid_item_fee: this.getFee(rate.prepaid_fees, "Prepaid interest"),
+        prepaid_homeowners_insurance: this.getFee(rate.prepaid_fees, "Prepaid homeowners insurance for 12 months"),
+        cash_out: cash_out
       },
       method: "POST",
       dataType: "json",
@@ -172,25 +165,16 @@ var Quotes = React.createClass({
     });
   },
 
-  getFee: function(arrFees, groupName, objectName){
-    var group = arrFees.find(function(x) {
-      return x.Description === groupName;
-    });
-
-    if (group === undefined){
-      return 0;
-    }
-
-    var obj = group.Fees.find(function(x) {
+  getFee: function(arrFees, objectName){
+    var object = arrFees.find(function(x) {
       return x.Description.indexOf(objectName) > -1;
     });
 
-    if (obj === undefined){
+    if (object === undefined){
       return 0;
     }
-    else{
-      return obj.FeeAmount;
-    }
+
+    return object.FeeAmount;
   },
 
   backToQuotesForm: function() {
@@ -222,7 +206,7 @@ var Quotes = React.createClass({
                   this.state.helpMeChoose
                   ?
                     <div className="content container mortgage-quotes padding-top-0 white-background">
-                      <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.props.bootstrapData.quotes} selectRate={this.selectRate} monthlyPayment={this.state.monthlyPayment} isInitialQuotes={true}/>
+                      <HelpMeChoose backToRatePage={this.backToRateHandler} programs={this.props.bootstrapData.quotes} selectRate={this.selectRate} monthlyPayment={this.state.monthlyPayment} isInitialQuotes={true} loanPurpose={this.props.bootstrapData.data_cookies.mortgage_purpose} mortgageBalance={this.props.bootstrapData.data_cookies.mortgage_balance}/>
                     </div>
                   :
                     <div className="content container mortgage-rates padding-top-0 row-eq-height">
@@ -243,35 +227,46 @@ var Quotes = React.createClass({
                             <div className="col-xs-12 text-left text-xs-center text-sm-center">
                               <a className="btn text-uppercase help-me-choose-btn" onClick={this.helpMeChoose}>help me choose</a>
                             </div>
-                            <div className="col-xs-5 text-left">
-                              <a className="btn btn-filter text-uppercase" data-toggle="modal" data-target="#filterQuotes">Filter</a>
-                            </div>
+                          </div>
+                          <div className="row form-group menu-rates visible-sm visible-xs">
+                            <ul>
+                              <li>
+                                <a href="" data-toggle="modal" data-target="#email_alert2">
+                                  <span className="fa fa-bell-o" aria-hidden="true"></span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="" data-toggle="modal" data-target="#filterQuotes">
+                                  <span className="fa fa-filter" aria-hidden="true" ></span>
+                                </a>
+                              </li>
+                              <li>
+                                <a>
+                                  <span className="fa fa-sort" aria-hidden="true"></span>
+                                </a>
+                                <select id="mobileSortRateOptions" onChange={this.handleSortChange} style={{"opacity": "0", "marginTop": "-50px", "width": "100%", "height": "50px"}}>
+                                  <option value="rate">Rate</option>
+                                  <option value="apr">APR</option>
+                                  <option value="pmt">Monthly Payment</option>
+                                  <option value="tcc">Total Closing Cost</option>
+                                </select>
+                              </li>
+                            </ul>
+                            <RateAlert code_id={this.state.code_id} fields={mobile_alert_fields} index={2}/>
                             <div className="modal fade filter-modal" id="filterQuotes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                              <div className="modal-dialog modal-sm" role="document">
+                              <div className="modal-dialog modal-md" role="document">
                                 <div className="modal-content">
                                   <div className="modal-header">
                                     <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                   </div>
                                   <div className="modal-body">
-                                    <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote}></Filter>
+                                    <Filter programs={this.props.bootstrapData.quotes} storedCriteria={this.onStoredCriteriaChange} onFilterProgram={this.onFilterQuote} dataCookies={this.state.dataCookies}></Filter>
                                   </div>
                                   <div className="modal-footer">
                                     <button type="button" className="btn select-btn" data-dismiss="modal">OK</button>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                            <div className="col-xs-3 text-xs-right text-sm-right">
-                              <b>Sort by</b>
-                            </div>
-                            <div className="col-xs-4 select-box pull-right">
-                              <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
-                                <option value="apr">APR</option>
-                                <option value="pmt">Monthly Payment</option>
-                                <option value="rate">Rate</option>
-                                <option value="tcc">Total Closing Cost</option>
-                              </select>
-                              <span>&#9660;</span>
                             </div>
                           </div>
                         </div>
@@ -290,9 +285,9 @@ var Quotes = React.createClass({
                                 </div>
                                 <div className="col-xs-9 select-box">
                                   <select className="form-control" id="sortRateOptions" onChange={this.handleSortChange}>
+                                    <option value="rate">Rate</option>
                                     <option value="apr">APR</option>
                                     <option value="pmt">Monthly Payment</option>
-                                    <option value="rate">Rate</option>
                                     <option value="tcc">Total Closing Cost</option>
                                   </select>
                                   <img className="dropdownArrow" src="/icons/dropdownArrow.png" alt="arrow"/>
@@ -305,7 +300,7 @@ var Quotes = React.createClass({
                           </div>
                         </div>
                         <div id="mortgagePrograms">
-                          <List quotes={this.state.quotes} monthlyPayment={this.state.monthlyPayment} selectRate={this.selectRate} helpMeChoose={false}/>
+                          <List quotes={this.state.quotes} userRole={this.props.bootstrapData.user_role} monthlyPayment={this.state.monthlyPayment} codeId={this.state.code_id} selectRate={this.selectRate} helpMeChoose={false}/>
                         </div>
                       </div>
                     </div>

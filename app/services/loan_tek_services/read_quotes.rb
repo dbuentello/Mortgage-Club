@@ -14,9 +14,12 @@ module LoanTekServices
         lender_name = quote["LenderName"]
         rate = get_interest_rate(quote)
         apr = get_apr(quote)
-        admin_fee = get_admin_fee(quote)
         product = get_product_name(quote)
-        thirty_fees = get_thirty_fees(fees, lender_info[quote["LenderName"]], quote["FeeSet"]["LoanAmount"], rate)
+        thirty_fees = get_thirty_fees(fees, lender_info[lender_name])
+        prepaid_fees = get_prepaid_fees(quote["FeeSet"]["LoanAmount"], rate)
+        lender_underwriting_fee = lender_info[lender_name] ? lender_info[lender_name][:lender_underwriting_fee].to_f : 0
+        fha_upfront_premium_amount = get_fha_upfront_premium_amount(quote)
+        lender_credits = get_lender_credits(quote)
 
         next if existing_program?(programs: programs, apr: apr, rate: rate, lender_name: lender_name, discount_pts: discount_pts, product: product)
 
@@ -27,30 +30,33 @@ module LoanTekServices
           apr: apr,
           loan_amount: quote["FeeSet"]["LoanAmount"],
           interest_rate: rate,
-          total_fee: get_total_fee(quote, admin_fee),
-          fees: get_fees(quote),
-          thirty_fees: thirty_fees,
           period: get_period(quote),
           down_payment: get_down_payment(quote, loan_purpose),
           monthly_payment: get_monthly_payment(quote),
-          lender_credits: get_lender_credits(quote, admin_fee),
-          total_closing_cost: get_total_closing_cost(quote, admin_fee, thirty_fees),
-          nmls: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:nmls] : nil,
-          logo_url: lender_info[quote["LenderName"]] ? lender_info[quote["LenderName"]][:logo_url] : nil,
+          total_closing_cost: get_total_closing_cost(quote, lender_underwriting_fee, thirty_fees),
+          nmls: lender_info[lender_name] ? lender_info[lender_name][:nmls] : nil,
+          logo_url: lender_info[lender_name] ? lender_info[lender_name][:logo_url] : nil,
+          commission: lender_info[lender_name] ? lender_info[lender_name][:commission].to_f : 0,
           loan_type: quote["ProductFamily"],
           discount_pts: discount_pts,
           pmi_monthly_premium_amount: quote["MIP"].to_f,
-          fha_upfront_premium_amount: get_fha_upfront_premium_amount(quote),
           is_cash_out: is_cash_out,
           is_down_payment: is_down_payment,
-          loan_to_value: quote["LoanToValue"].to_f
+          loan_to_value: quote["LoanToValue"].to_f,
+          fha_upfront_premium_amount: fha_upfront_premium_amount,
+          lender_underwriting_fee: lender_underwriting_fee,
+          lender_credits: lender_credits,
+          lender_fee: lender_credits + lender_underwriting_fee + fha_upfront_premium_amount,
+          thirty_fees: thirty_fees,
+          prepaid_fees: prepaid_fees,
+          total_prepaid_fees: prepaid_fees.map { |x| x[:FeeAmount] }.sum
         }
 
         programs << program
       end
 
       programs = build_characteristics(programs)
-      programs.sort_by { |program| program[:apr] }
+      programs.sort_by { |program| [program[:interest_rate], program[:apr]] }
     end
 
     def self.build_characteristics(programs)

@@ -132,8 +132,17 @@ var FormProperty = React.createClass({
         <form className="form-horizontal">
           <div className='form-group'>
             <p className="box-description col-sm-12 text-xs-justify text-sm-justify">
+              For your security,
+              <br/>
+              <span className="glyphicon glyphicon-ok"></span> We use 256-bit SSL encryption (bank-level security).
+              <br/>
+              <span className="glyphicon glyphicon-ok"></span> We’ll log you out after 20 mins of inactivity.
+              <br/>
+              <span className="glyphicon glyphicon-ok"></span> Your info and documents are hosted securely and domestically on Amazon Web Services.
+              <br/>
+              <br/>
               We understand a loan application can be overwhelming but we’re here to help. Our software will try to extract data from other sources so don’t be surprised if several fields are automatically filled in for you. Let’s get started, shall we?
-            </p>
+           </p>
           </div>
           <div className="form-group">
             <div className="col-md-12">
@@ -300,7 +309,7 @@ var FormProperty = React.createClass({
             {
               this.props.editMode
               ?
-                <button className="btn text-uppercase" id="continueBtn" onClick={this.save}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                <button className="btn text-uppercase" id="continueBtn" onClick={this.save} disabled={this.state.saving ? 'disabled' : ''}>{ this.state.saving ? 'Saving' : 'Save and Continue' }<img src="/icons/arrowRight.png" alt="arrow"/></button>
               :
                 <button className="btn text-uppercase" id="nextBtn" onClick={this.next}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
             }
@@ -441,11 +450,11 @@ var FormProperty = React.createClass({
 
   valid: function() {
     var isValid = true;
-    var requiredFields = this.mapValueToRequiredFields();
-    if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
-      this.setState(this.getStateOfInvalidFields(requiredFields));
-      isValid = false;
-    }
+    // var requiredFields = this.mapValueToRequiredFields();
+    // if(!_.isEmpty(this.getStateOfInvalidFields(requiredFields))) {
+    //   this.setState(this.getStateOfInvalidFields(requiredFields));
+    //   isValid = false;
+    // }
     return isValid;
   },
 

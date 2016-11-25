@@ -69,6 +69,10 @@ Rails.application.routes.draw do
       # end
 
       resources :dashboard, only: [:show] do
+        collection do
+          post "/update_rate", to: "dashboard#update_rate"
+          post "/request_rate_lock", to: "dashboard#request_rate_lock"
+        end
       end
 
       resources :checklists, only: [:update] do
@@ -83,6 +87,7 @@ Rails.application.routes.draw do
       collection do
         get "/:id/income", to: "loans#update_income"
         get "/borrower_other_documents", to: "loans#borrower_other_documents"
+        post "/update_rate", to: "loans#update_rate"
       end
     end
 
@@ -129,10 +134,16 @@ Rails.application.routes.draw do
         get "export_xml"
         get "export_fnm"
         post "update_loan_terms"
+        get "switch"
       end
     end
 
-    resources :dashboard, only: [:show]
+    resources :dashboard, only: [:show] do
+      member do
+        post "send_email"
+      end
+    end
+
     resources :lender_documents, only: [:create, :destroy] do
       member do
         get "download"
@@ -145,6 +156,7 @@ Rails.application.routes.draw do
 
     resources :documents, only: [] do
       collection do
+        post "update_required"
         get "get_other_documents"
       end
     end
@@ -229,10 +241,18 @@ Rails.application.routes.draw do
     collection do
       post "save_info"
       post "set_rate_alert"
+      post "email_me"
+      post "render_html"
     end
   end
 
   resources :slack_webhooks, only: [] do
+    collection do
+      post "receive"
+    end
+  end
+
+  resources :sendgrid_webhooks, only: [] do
     collection do
       post "receive"
     end

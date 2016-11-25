@@ -1,0 +1,65 @@
+<p>Dear <%= @first_name %>,</p>
+
+<p>
+  Thank you for your time today. At MortgageClub, we work hard to help you get the lowest rate possible. We rate shop across several wholesale lenders and leverage technology to save on our operating costs and pass on the savings to you.
+</p>
+
+<p>
+  Please review the rate quote below as it reflects your request. You can see your custom rate quote in more details along with estimated third-party closing costs at <a href="<%= @quote_url %>" target="_blank"><%= @quote_url %></a>
+</p>
+
+<table border="1" width="100%" style="border-collapse: collapse;text-align: center;">
+  <thead>
+    <tr>
+      <th>Program</th>
+      <th>Rate</th>
+      <% if @rate["lender_credits"].to_f < 0 %>
+        <th>Lender Credit</th>
+      <% else %>
+        <th>Discount Points</th>
+      <% end %>
+      <th>Monthly Payment</th>
+      <th>Closing Costs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @rate["product"] %></td>
+      <td><%= ActionController::Base.helpers.number_to_percentage(@rate["interest_rate"].to_f * 100, precision: 3) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["lender_credits"].to_f, precision: 0) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["monthly_payment"].to_f, precision: 0) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@rate["total_closing_cost"].to_f, precision: 0) %></td>
+    </tr>
+  </tbody>
+</table>
+<div style="font-size: 10px">*Until you lock, your rate, APR, and terms are subject to change</div>
+<div style="font-size: 10px">*Assuming <%= ActionController::Base.helpers.number_to_currency(@quote_query["mortgage_balance"].to_f, precision: 0) %> loan, <%= ActionController::Base.helpers.number_to_currency(@quote_query["property_value"], precision: 0) %> appraised value, refinance, <%= @quote_query["credit_score"] %>+ FICO, <%= @quote_query["property_usage"].titleize.downcase %>, no impound account</div>
+
+<p>
+  If you'd like to move your application forward and lock in on these terms please contact me at <a href="mailto:<%= @email %>"><%= @email %></a> or <%= ActionController::Base.helpers.number_to_phone @phone %>. I look forward to helping you get the lowest rate possible.
+</p>
+
+<% if @current_user && @current_user.has_role?(:loan_member) %>
+  <%= @current_user.loan_member.email_signature.to_s.html_safe %>
+<% else %>
+  <table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;">
+    <tr>
+    <td valign="top" style="padding-top: 0; padding-bottom: 0; padding-left: 0; padding-right: 7px; border-top: 0; border-bottom: 0: border-left: 0; border-right: solid 3px #15c0f1"></td>
+      <td style="padding-top: 0; padding-bottom: 0; padding-left: 12px; padding-right: 0;">
+        <table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;">
+          <tr><td colspan="2" style="padding-bottom: 5px; color: #15c0f1; font-size: 18px; font-family: Arial, Helvetica, sans-serif;">Billy Tran</td></tr>
+          <tr><td colspan="2" style="color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;"><i>Founder & CEO</i></td></tr>
+          <tr><td colspan="2" style="color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;"><strong>MortgageClub - Lowest rates and fast closing</strong></td></tr>
+          <tr><td width="20" valign="top" style="vertical-align: top; width: 20px; color: #15c0f1; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">m:</td><td valign="top" style="vertical-align: top; color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">650-787-7799&nbsp;&nbsp;<span style="color: #15c0f1;">e:&nbsp;</span><a href="mailto:billy@mortgageclub.co" style="color: #0000EE; text-decoration: none; font-weight: normal; font-size: 14px;">billy@mortgageclub.co</a></td></tr>
+          <tr><td width="20" valign="top" style="vertical-align: top; width: 20px; color: #15c0f1; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">a:</td><td valign="top" style="vertical-align: top; color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">75 E Santa Clara St, 6th Floor, San Jose, CA 95113</td></tr>
+        </table>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr><td colspan="2">
+          <table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;"><tr><td valign="middle" style="padding-left: 20px; padding-right: 20px; padding-top: 5px; padding-bottom: 5px; background-color: #15c0f1; color: #FFFFFF; font-size: 15px; font-weight: bold; font-style: normal; font-family: Arial, Helvetica, sans-serif;">
+            <a style="background-color: #15c0f1; color: #FFFFFF; font-size: 15px; line-height: 30px; font-weight: bold; font-style: normal; font-family: Arial, Helvetica, sans-serif; text-decoration: none;" href="https://www.mortgageclub.co/">FIND YOUR RATES IN 10 SECS</a>
+          </td></tr></table>
+        </td></tr>
+      </td>
+    </tr>
+  </table>
+<% end %>

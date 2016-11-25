@@ -15,6 +15,7 @@
       text-align: center;
     }
   }
+
   #find-my-rates-form {
     @include respond-to(mobile){
       margin-bottom: 20px;
@@ -58,7 +59,7 @@
       }
     }
 
-    i:hover {
+    .icon-plus:hover {
       color: $mc-color;
     }
 
@@ -374,6 +375,8 @@
     margin-top: -36px;
     padding-top: 2px;
     right: 4px;
+    cursor: pointer;
+    pointer-events: none;
   }
   .helpmechoose .calculator .calc-form {
     .calc-form {
@@ -412,3 +415,21 @@
     }
   }
 };
+.fixed-nav {
+    /* width: 340px; */
+    position: fixed;
+      top: 0px;
+      left: 0;
+      width: 300px;
+      height: 100%;
+}
+.fixed-content {
+  // margin-left: 210px;
+  margin-left: 300px
+}
+.fixed-nav-mobile {
+  position: fixed;
+  top: 0px;
+  z-index: 999;
+  width: 100vw;
+}

@@ -43,7 +43,17 @@ class LiabilityForm
   #
   def update_loan
     loan.own_investment_property = own_investment_property
-    loan.amount = CalculateLoanAmountService.call(loan)
+    amount = CalculateLoanAmountService.call(loan)
+
+    if loan.refinance? && loan.cash_out.present?
+      if amount - loan.amount + loan.cash_out >= 0
+        loan.cash_out = loan.cash_out + amount - loan.amount
+      else
+        loan.cash_out = 0
+      end
+    end
+
+    loan.amount = amount
     loan.save!
   end
 
@@ -156,7 +166,7 @@ class LiabilityForm
     if property.mortgage_includes_escrows
       payment = 0
       payment += property.liabilities.map(&:payment).sum
-      payment = payment_tax_insurance(property) if payment > 0
+      payment += payment_tax_insurance(property) if payment > 0
       payment
     end
   end
@@ -164,6 +174,7 @@ class LiabilityForm
   private
 
   def payment_tax_insurance(property)
+    payment = 0
     if property.mortgage_includes_escrows == "taxes_and_insurance"
       payment -= (property.estimated_hazard_insurance.to_f + property.estimated_property_tax.to_f) / 12
     else

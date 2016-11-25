@@ -18,7 +18,7 @@ class Users::LiabilitiesController < Users::BaseController
     )
 
     if @properties.save
-      render json: {loan: LoanEditPage::LoanPresenter.new(@loan).show, liabilities: load_liabilities(@loan)}
+      render json: {loan: LoanEditPage::LoanPresenter.new(@loan.reload).show, liabilities: load_liabilities(@loan.reload)}
     else
       render json: {message: t("users.liabilities.create.failed")}, status: 500
     end
@@ -28,6 +28,10 @@ class Users::LiabilitiesController < Users::BaseController
 
   def load_liabilities(loan)
     credit_report = loan.borrower.credit_report
-    credit_report.liabilities
+    if credit_report
+      credit_report.liabilities
+    else
+      []
+    end
   end
 end

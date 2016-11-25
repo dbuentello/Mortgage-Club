@@ -61,10 +61,7 @@ var FormDocuments = React.createClass({
   },
 
   componentDidUpdate: function(prevProps, prevState){
-    if(prevState.is_file_taxes_jointly != this.state.is_file_taxes_jointly){
-      this.setState({activateCoRequiredField: false});
-    }
-    else if(!this.valid()){
+    if(!this.valid()){
       if(this.props.loan.secondary_borrower !== undefined && this.state.activateCoRequiredField === true && this.state.activateRequiredField === true)
         this.scrollTopError();
       else if (this.props.loan.secondary_borrower === undefined && this.state.activateRequiredField === true)
@@ -81,50 +78,27 @@ var FormDocuments = React.createClass({
     var borrower = this.props.loan.borrower;
     var secondary_borrower = this.props.loan.secondary_borrower;
 
-    var owner_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub', 'first_personal_tax_return', 'second_personal_tax_return',  'first_bank_statement', 'second_bank_statement'];
-    var self_employed_fields = ['first_personal_tax_return', 'second_personal_tax_return', 'first_business_tax_return', 'second_business_tax_return', 'first_bank_statement', 'second_bank_statement'];
+    upload_fields = _.filter(borrower.documents, function(document){ return document.is_required == true }).map(function(document) { return document.document_type });
 
-    // coborrower - unself employed
-    var co_borrower_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub'];
-    var co_borrower_no_file_taxes_jointly_fields = ['first_w2', 'second_w2', 'first_paystub', 'second_paystub', 'first_personal_tax_return', 'second_personal_tax_return'];
-
-    // coborrower - self employed
-    var co_no_file_taxes_jointly_fields = ['first_personal_tax_return', 'second_personal_tax_return', 'first_business_tax_return', 'second_business_tax_return'];
-    var co_file_taxes_jointly_fields = ['first_business_tax_return', 'second_business_tax_return'];
-
-    if (borrower.self_employed == true) {
-      upload_fields = self_employed_fields;
-    } else {
-      upload_fields = owner_fields;
-    }
     if (secondary_borrower) {
-      if (secondary_borrower.self_employed == true) {
-        if (this.state['is_file_taxes_jointly'] == true) {
-          co_upload_fields = co_file_taxes_jointly_fields;
-        } else if(this.state['is_file_taxes_jointly'] == false) {
-          co_upload_fields = co_no_file_taxes_jointly_fields;
-        }
-      } else {
-        if (this.state['is_file_taxes_jointly'] == true) {
-          co_upload_fields = co_borrower_fields;
-        } else if(this.state['is_file_taxes_jointly'] == false) {
-          co_upload_fields = co_borrower_no_file_taxes_jointly_fields;
-        }
-      }
+      co_upload_fields = _.filter(secondary_borrower.documents, function(document){ return document.is_required == true }).map(function(document) { return document.document_type })
     }
+
+    var otherField = {label: "Other", placeholder: "Click to upload"};
+
+    var customOtherParams = [
+      {document_type: "other_borrower_report"},
+      {subject_id: borrower.id},
+      {subject_type: "Borrower"},
+      {description: "Other"}
+    ];
 
     return (
       <div className="col-md-3 col-sm-12 account-content">
         <form className="form-horizontal">
           <div className='form-group'>
             <p className="box-description col-sm-12 text-xs-justify text-sm-justify">
-              At the minimum, we’d need these documents to submit your loan application to underwriting. Please help us gather these documents. For your convenience, we can also order tax return, W2, 1099… directly from the IRS (with your authorization) but it would take them several hours to fulfill our order. Please email us at <a href="mailto:hello@mortgageclub.co" target="_blank">hello@mortgageclub.co</a> to request that.
-              <br/>
-              For your security,
-              <br/>
-              <span className="glyphicon glyphicon-ok"></span> We use 256-bit SSL encryption (bank-level security).
-              <br/>
-              <span className="glyphicon glyphicon-ok"></span> We’ll log you out after 20 mins of inactivity.
+              At the minimum, we’d need these documents to submit your loan application to underwriting. Please help us gather these documents.
             </p>
           </div>
           {
@@ -149,7 +123,8 @@ var FormDocuments = React.createClass({
                       supportOtherDescription={owner_upload_fields[key].customDescription}
                       uploadSuccessCallback={this.afterUploadingDocumentBorrower}
                       removeSuccessCallback={this.afterRemovingDocumentBorrower}
-                      editMode={this.props.editMode}/>
+                      editMode={this.props.editMode}
+                      delete="no"/>
                   </div>
                 )
               }
@@ -164,6 +139,7 @@ var FormDocuments = React.createClass({
                 {description: borrowerDocument.description},
                 {document_id: borrowerDocument.id}
               ];
+              var deleteText = borrowerDocument.is_required == true ? "no" : "yes";
               var field = {label: borrowerDocument.description};
               return(
                 <div className="drop_zone" style={{"margin-top": "10px"}} key={borrowerDocument.id}>
@@ -176,79 +152,74 @@ var FormDocuments = React.createClass({
                     maxSize={10000000}
                     customParams={customParams}
                     supportOtherDescription={false}
+                    uploadSuccessCallback={this.reloadOtherDocuments}
                     removeSuccessCallback={this.reloadOtherDocuments}
-                    editMode={this.props.editMode}/>
+                    editMode={this.props.editMode}
+                    delete={deleteText}/>
                 </div>
               )
             }, this)
           }
           {
-            secondary_borrower
-            ?
-              <div className='form-group'>
-                <div className='col-md-6'>
-                  <BooleanRadio
-                    activateRequiredField={this.state.activateFileTaxesJointlyError}
-                    label="Do you and your co-borrower file taxes jointly?"
-                    checked={this.state.is_file_taxes_jointly}
-                    keyName="is_file_taxes_jointly"
-                    editable={true}
-                    onChange={this.onChange}
-                    editMode={this.props.editMode}/>
+            <div>
+              {
+                secondary_borrower
+                ?
+                <div className="box mtn">
+                  <h3>
+                    Please upload the following documents for your co-borrower.
+                  </h3>
                 </div>
-              </div>
-            : null
+                : null
+              }
+              {
+                _.map(Object.keys(co_borrower_upload_fields), function(key) {
+                  if (co_upload_fields.indexOf(key) > -1) {
+                    var customParams = [
+                      {document_type: key},
+                      {subject_id: secondary_borrower.id},
+                      {subject_type: "Borrower"},
+                      {description: co_borrower_upload_fields[key].label}
+                    ];
+                    return(
+                      <div className="drop_zone" key={key}>
+                        <Dropzone field={co_borrower_upload_fields[key]}
+                          uploadUrl={uploadUrl}
+                          activateRequiredField={this.state.activateCoRequiredField}
+                          downloadUrl={this.state[co_borrower_upload_fields[key].name + '_downloadUrl']}
+                          removeUrl={this.state[co_borrower_upload_fields[key].name + '_removedUrl']}
+                          tip={this.state[co_borrower_upload_fields[key].name]}
+                          maxSize={10000000}
+                          customParams={customParams}
+                          supportOtherDescription={co_borrower_upload_fields[key].customDescription}
+                          uploadSuccessCallback={this.afterUploadingDocumentCoBorrower}
+                          removeSuccessCallback={this.afterRemovingDocumentCoBorrower}
+                          editMode={this.props.editMode}
+                          delete="no"/>
+                      </div>
+                    )
+                  }
+                }, this)
+              }
+            </div>
           }
-          {
-            this.state.is_file_taxes_jointly == null
-            ? null
-            : <div>
-                {
-                  secondary_borrower
-                  ?
-                  <div className="box mtn">
-                    <h3>
-                      Please upload the following documents for your co-borrower.
-                    </h3>
-                  </div>
-                  : null
-                }
-                {
-                  _.map(Object.keys(co_borrower_upload_fields), function(key) {
-                    if (co_upload_fields.indexOf(key) > -1) {
-                      var customParams = [
-                        {document_type: key},
-                        {subject_id: secondary_borrower.id},
-                        {subject_type: "Borrower"},
-                        {description: co_borrower_upload_fields[key].label}
-                      ];
-                      return(
-                        <div className="drop_zone" key={key}>
-                          <Dropzone field={co_borrower_upload_fields[key]}
-                            uploadUrl={uploadUrl}
-                            activateRequiredField={this.state.activateCoRequiredField}
-                            downloadUrl={this.state[co_borrower_upload_fields[key].name + '_downloadUrl']}
-                            removeUrl={this.state[co_borrower_upload_fields[key].name + '_removedUrl']}
-                            tip={this.state[co_borrower_upload_fields[key].name]}
-                            maxSize={10000000}
-                            customParams={customParams}
-                            supportOtherDescription={co_borrower_upload_fields[key].customDescription}
-                            uploadSuccessCallback={this.afterUploadingDocumentCoBorrower}
-                            removeSuccessCallback={this.afterRemovingDocumentCoBorrower}
-                            editMode={this.props.editMode}/>
-                        </div>
-                      )
-                    }
-                  }, this)
-                }
-              </div>
-            }
+
+          <div className="drop_zone" style={{"margin-top": "10px"}} key={"other_document"}>
+            <Dropzone field={otherField}
+              uploadUrl={uploadUrl}
+              maxSize={10000000}
+              customParams={customOtherParams}
+              supportOtherDescription={true}
+              uploadSuccessCallback={this.reloadOtherDocuments}
+              resetAfterUploading={true}
+              editMode={this.props.editMode}/>
+          </div>
           <div className='form-group'>
             <div className='col-md-12'>
               {
                 this.props.editMode
                 ?
-                  <button className="btn text-uppercase" id="continueBtn" onClick={this.save}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
+                  <button className="btn text-uppercase" id="continueBtn" onClick={this.save} disabled={this.state.saving ? 'disabled' : ''}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
                 :
                   <button className="btn text-uppercase" id="nextBtn" onClick={this.next}>Next<img src="/icons/arrowRight.png" alt="arrow"/></button>
               }
@@ -271,6 +242,17 @@ var FormDocuments = React.createClass({
       success: function(response) {
         if(response.borrower_documents !== undefined && response.borrower_documents !== null) {
           var state = this.state;
+          _.each(response.borrower_documents, function(otherDocument) {
+            if(otherDocument.original_filename){
+              var removeUrl = "/document_uploaders/base_document/" + otherDocument.id;
+              if(otherDocument.is_required == true){
+                removeUrl += "?delete=no"
+              }
+
+              otherDocument.downloadUrl = "/document_uploaders/base_document/" + otherDocument.id + "/download";
+              otherDocument.removeUrl = removeUrl;
+            }
+          }, this);
           state.otherBorrowerDocuments = response.borrower_documents;
           this.setState(state);
         }
@@ -279,19 +261,19 @@ var FormDocuments = React.createClass({
   },
 
   afterUploadingDocumentBorrower: function(typeDocument, name, id) {
-    this.props.updateDocuments("borrower", typeDocument, "upload", this.state['is_file_taxes_jointly'], name, id);
+    this.props.updateDocuments("borrower", typeDocument, "upload", name, id);
   },
 
   afterRemovingDocumentBorrower: function(typeDocument) {
-    this.props.updateDocuments("borrower", typeDocument, "remove", this.state['is_file_taxes_jointly']);
+    this.props.updateDocuments("borrower", typeDocument, "remove");
   },
 
   afterUploadingDocumentCoBorrower: function(typeDocument, name, id) {
-    this.props.updateDocuments("coborrower", typeDocument, "upload", this.state['is_file_taxes_jointly'], name, id);
+    this.props.updateDocuments("coborrower", typeDocument, "upload", name, id);
   },
 
   afterRemovingDocumentCoBorrower: function(typeDocument) {
-    this.props.updateDocuments("coborrower", typeDocument, "remove", this.state['is_file_taxes_jointly']);
+    this.props.updateDocuments("coborrower", typeDocument, "remove");
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -304,7 +286,6 @@ var FormDocuments = React.createClass({
     var borrower = loan.borrower;
     var secondary_borrower = loan.secondary_borrower;
     var state = {};
-    state['is_file_taxes_jointly'] = loan.borrower.is_file_taxes_jointly;
     state.activateRequiredField = false;
     state.activateCoRequiredField = false;
 
@@ -314,9 +295,16 @@ var FormDocuments = React.createClass({
     if(borrower.other_documents !== undefined && borrower.other_documents !== null){
       state.otherBorrowerDocuments = borrower.other_documents;
 
-      _.each(state.otherBorrowerDocuments, function(borrowerDocument) {
-        borrowerDocument.downloadUrl = "/document_uploaders/base_document/" + borrowerDocument.id + "/download";
-        borrowerDocument.removeUrl = "/document_uploaders/base_document/" + borrowerDocument.id;
+      _.each(state.otherBorrowerDocuments, function(otherDocument) {
+        if(otherDocument.original_filename){
+          var removeUrl = "/document_uploaders/base_document/" + otherDocument.id;
+          if(otherDocument.is_required == true){
+            removeUrl += "?delete=no"
+          }
+
+          otherDocument.downloadUrl = "/document_uploaders/base_document/" + otherDocument.id + "/download";
+          otherDocument.removeUrl = removeUrl;
+        }
       }, this);
     }
     if (secondary_borrower) {
@@ -330,13 +318,15 @@ var FormDocuments = React.createClass({
     _.map(Object.keys(upload_fields), function(key) {
       var borrowerDocument = _.find(borrower.documents, { 'document_type': key });
       if (borrowerDocument){
-        uploaded_files.push(upload_fields[key].name);
-
-        state[upload_fields[key].name] = borrowerDocument.original_filename;
         state[upload_fields[key].id] = borrowerDocument.id;
-        state[upload_fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + borrowerDocument.id + '/download';
 
-        state[upload_fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + borrowerDocument.id;
+        if(borrowerDocument.original_filename){
+          uploaded_files.push(upload_fields[key].name);
+
+          state[upload_fields[key].name] = borrowerDocument.original_filename;
+          state[upload_fields[key].name + '_downloadUrl'] = '/document_uploaders/base_document/' + borrowerDocument.id + '/download';
+          state[upload_fields[key].name + '_removedUrl'] = '/document_uploaders/base_document/' + borrowerDocument.id + "?delete=no";
+        }
       }
     }, this);
   },
@@ -344,7 +334,6 @@ var FormDocuments = React.createClass({
   buildLoanFromState: function() {
     var loan = this.props.loan;
     loan.borrower_attributes = {id: this.props.loan.borrower.id};
-    loan.borrower_attributes['is_file_taxes_jointly'] = this.state['is_file_taxes_jointly'];
     return loan;
   },
 
@@ -358,33 +347,32 @@ var FormDocuments = React.createClass({
     var borrower_uploaded_files = [];
     var co_borrower_uploaded_files = [];
 
-    _.each(upload_fields, function(upload_field) {
-      borrower_uploaded_files.push(owner_upload_fields[upload_field].name);
-    });
+    // _.each(upload_fields, function(upload_field) {
+    //   if(upload_field != "other_borrower_report"){
+    //     borrower_uploaded_files.push(owner_upload_fields[upload_field].name);
+    //   }
+    // });
 
-    _.each(co_upload_fields, function(co_upload_field) {
-      co_borrower_uploaded_files.push(co_borrower_upload_fields[co_upload_field].name);
-    });
+    // _.each(co_upload_fields, function(co_upload_field) {
+    //   co_borrower_uploaded_files.push(co_borrower_upload_fields[co_upload_field].name);
+    // });
 
-    var result = borrower_uploaded_files.concat(co_borrower_uploaded_files).filter(function(i) {
-      return uploaded_files.indexOf(i) < 0;
-    });
+    // var other_file = _.find(this.state.otherBorrowerDocuments, function(otherDocument){ return otherDocument.original_filename == null && otherDocument.is_required == true });
+    // var result = borrower_uploaded_files.concat(co_borrower_uploaded_files).filter(function(i) {
+    //   return uploaded_files.indexOf(i) < 0;
+    // });
 
-    if(this.state.hasSecondaryBorrower == true && (this.state.is_file_taxes_jointly === null || this.state.is_file_taxes_jointly === undefined))
-    {
-      return false;
-    }
+    // if(result.length == 0 && other_file === undefined)
+    //   return true;
+    // return false;
 
-    if(result.length == 0)
-      return true;
-
-    return false;
+    return true;
   },
 
   save: function(event) {
-    this.setState({saving: true, activateRequiredField: true, activateCoRequiredField: true, activateFileTaxesJointlyError: true});
+    this.setState({saving: true});
+    // this.setState({saving: true, activateRequiredField: true, activateCoRequiredField: true, activateFileTaxesJointlyError: true});
     var isValid = this.valid();
-
     if(isValid){
       this.props.saveLoan(this.buildLoanFromState(), 2);
     }

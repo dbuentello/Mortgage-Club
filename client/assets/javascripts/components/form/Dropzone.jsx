@@ -152,18 +152,34 @@ var Dropzone = React.createClass({
           enctype: 'multipart/form-data',
           data: formData,
           success: function(response) {
-            // update tip after update
-            this.setState({ tip: files[0].name });
+            if(this.props.resetAfterUploading === true){
+              this.setState({ tip: "Drop files to upload or CLICK" });
 
-            this.setState({ downloadUrl: response.download_url });
-            this.setState({ removeUrl: response.remove_url });
+              // disable the download button immediately
+              this.setState({ downloadUrl: "javascript:void(0)", removeUrl: "javascript:void(0)" });
 
-            // tooltip chosen dropzone
-            $(this.refs.box.getDOMNode()).tooltip({ title: files[0].name });
+              // destroy tooltip
+              $(this.refs.box.getDOMNode()).tooltip('destroy');
+              $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.empty.backgroundColor, color: this.props.empty.color});
 
-            // highltight chosen dropzone
-            $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploaded.backgroundColor, color: this.props.uploaded.color});
+              // update description empty
+              this.setState({ otherDescription: "" })
+              $("#other_borrower_report").val('');
+            } else {
+              // update tip after update
+              this.setState({ tip: files[0].name });
 
+              this.setState({ downloadUrl: response.download_url });
+
+              var removeUrl = this.props.delete == "no" ? response.remove_url + "?delete=no" : response.remove_url;
+              this.setState({ removeUrl: response.remove_url });
+
+              // tooltip chosen dropzone
+              $(this.refs.box.getDOMNode()).tooltip({ title: files[0].name });
+
+              // highltight chosen dropzone
+              $(this.refs.box.getDOMNode()).css({backgroundColor: this.props.uploaded.backgroundColor, color: this.props.uploaded.color});
+            }
             var flash = { "alert-success": "Uploaded successfully!" };
             this.showFlashes(flash);
 

@@ -70,13 +70,15 @@ var ChecklistTab = React.createClass({
                     return (
                       <tr key={checklist.id}>
                         <td>{checklist.name}</td>
-                        <td className="text-capitalize">{checklist.checklist_type}</td>
+                        <td className="text-capitalize">{checklist.type_humanize}</td>
                         <td>{this.isoToUsDate(checklist.due_date)}</td>
                         <td>
-
-                          {checklist.status == "pending"
-                          ? <span className="label label-info">{checklist.status}</span>
-                        : <span className="label label-success">{checklist.status}</span>
+                        {
+                          checklist.status == "pending"
+                          ?
+                            <span className="label label-info">{checklist.status}</span>
+                          :
+                            <span className="label label-success">{checklist.status}</span>
                         }
                         </td>
                         <td>{checklist.user.to_s}</td>

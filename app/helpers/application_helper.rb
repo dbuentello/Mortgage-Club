@@ -3,6 +3,10 @@ module ApplicationHelper
     request[:controller] == "pages" && request[:action] == "developer_infographics"
   end
 
+  def loan_dashboard_page?
+    request[:controller] == "users/dashboard"
+  end
+
   def bootstrap_class_for(flash_type)
     case flash_type
     when "success"

@@ -25,4 +25,9 @@ namespace :scheduler do
   task update_quote_queries: :environment do
     QuoteService.delay.update_graph_quotes_email
   end
+
+  desc "Daily remind borrower upload documents"
+  task remind_borrower: :environment do
+    RemindBorrower.call
+  end
 end

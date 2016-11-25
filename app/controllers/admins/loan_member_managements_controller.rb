@@ -69,7 +69,7 @@ class Admins::LoanMemberManagementsController < Admins::BaseController
   private
 
   def loan_member_params
-    params.require(:loan_member).permit(:phone_number, :nmls_id, :company_name, :company_address, :company_phone_number, :company_nmls)
+    params.require(:loan_member).permit(:phone_number, :nmls_id, :company_name, :company_address, :company_phone_number, :company_nmls, :email_signature)
   end
 
   def user_params

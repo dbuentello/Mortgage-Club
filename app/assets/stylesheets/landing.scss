@@ -52,6 +52,7 @@
   text-align: center;
   font-weight: 600;
 }
+
 #home-top-info {
   margin-top: 60px;
   position: relative;
@@ -105,9 +106,9 @@
   // };
 }
 #left-info {
-  color: #9adaf0;
+  color: $mc-color;
   h6 {
-    color: #9adaf0;
+    color: $mc-color;
   }
 }
 #right-info {
@@ -183,7 +184,7 @@
 .how-part-new{
   @include respond-to(tablet) {
     img {
-      margin-top: 80px;
+      margin-top: 40px;
     }
   }
 }

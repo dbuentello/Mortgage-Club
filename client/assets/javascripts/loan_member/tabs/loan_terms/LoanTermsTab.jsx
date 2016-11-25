@@ -4,6 +4,8 @@ var TextFormatMixin = require("mixins/TextFormatMixin");
 var TextField = require("components/form/TextField");
 var SelectField = require("components/form/SelectField");
 var AddressField = require("components/form/AddressField");
+var BooleanRadio = require('components/form/BooleanRadio');
+var DateField = require('components/form/DateField');
 
 var fields = {
   address: {label: "Property Address", name: "address"},
@@ -12,16 +14,30 @@ var fields = {
   loanType: {label: "Loan Type", name: "loan_type"},
   interestRate: {label: "Interest Rate (%)", name: "interest_rate"},
   lenderCredits: {label: "Lender Credit / Discount Points", name: "lender_credits"},
-  lenderFees: {label: "Lender Fees", name: "lender_fees"},
-  thirdPartyServices: {label: "Third Party Services", name: "third_party_services"},
-  prepaidItems: {label: "Prepaid Items", name: "prepaid_items"},
   downPayment: {label: "Down Payment", name: "down_payment"},
   totalCashToClose: {label: "Total Cash to Close (est.)", name: "total_cash_to_close"},
   principalInterest: {label: "Principal and Interest", name: "principal_interest"},
   homeownersInsurance: {label: "Homeowners Insurance", name: "homeowners_insurance"},
   propertyTax: {label: "Property Tax", name: "property_tax"},
   hoaDue: {label: "HOA Due", name: "hoa_due"},
-  mortgageInsurance: {label: "Mortgage Insurance", name: "mortgage_insurance"}
+  mortgageInsurance: {label: "Mortgage Insurance", name: "mortgage_insurance"},
+  lenderUnderwritingFee: {label: "Lender Underwriting Fee", name: "lender_underwriting_fee"},
+  appraisalFee: {label: "Appraisal Fee", name: "appraisal_fee"},
+  taxCertificationFee: {label: "Tax Certification Fee", name: "tax_certification_fee"},
+  floodCertificationFee: {label: "Flood Certification Fee", name: "flood_certification_fee"},
+  outsideSigningService: {label: "Outside Signing Service", name: "outside_signing_service_fee"},
+  concurrentLoanCharge: {label: "Title - Concurrent Loan Charge", name: "concurrent_loan_charge_fee"},
+  endorsementCharge: {label: "Endorsement Charge", name: "endorsement_charge_fee"},
+  lenderTitlePolicy: {label: "Title - Lender's Title Policy", name: "lender_title_policy_fee"},
+  recordingServiceFee: {label: "Title - Recording Service Fee", name: "recording_service_fee"},
+  settlementAgentFee: {label: "Title - Settlement Agent Fee", name: "settlement_agent_fee"},
+  recordingFees: {label: "Recording Fees", name: "recording_fees"},
+  ownerTitlePolicy: {label: "Title - Owner's Title Policy", name: "owner_title_policy_fee"},
+  prepaidInterest: {label: "Prepaid Interest", name: "prepaid_item_fee"},
+  prepaidHomeowners: {label: "Prepaid Homeowners Insurance for 12 Months", name: "prepaid_homeowners_insurance"},
+  isRateLocked: {label: "Rate Lock", name: "is_rate_locked"},
+  rateLockExpirationDate: {label: "Rate Lock Expiration Date", name: "rate_lock_expiration_date"},
+  closingDate: {label: "Closing Date", name: "closing_date"},
 };
 
 var loanTypeOptions = [
@@ -56,9 +72,6 @@ var LoanTermsTab = React.createClass({
     state[fields.loanAmount.name] = this.formatCurrency(loan.amount, "$");
     state[fields.interestRate.name] = this.commafy(loan.interest_rate * 100, 3);
     state[fields.lenderCredits.name] = this.formatCurrency(loan.lender_credits, "$");
-    state[fields.lenderFees.name] = this.formatCurrency(loan.loan_costs, "$");
-    state[fields.thirdPartyServices.name] = this.formatCurrency(loan.third_party_fees, "$");
-    state[fields.prepaidItems.name] = this.formatCurrency(loan.estimated_prepaid_items, "$");
     state[fields.downPayment.name] = this.formatCurrency(loan.down_payment, "$");
     state[fields.totalCashToClose.name] = this.formatCurrency(loan.estimated_cash_to_close, "$");
     state[fields.principalInterest.name] = this.formatCurrency(loan.monthly_payment, "$");
@@ -66,6 +79,23 @@ var LoanTermsTab = React.createClass({
     state[fields.propertyTax.name] = this.formatCurrency(property.estimated_property_tax, "$");
     state[fields.hoaDue.name] = this.formatCurrency(property.hoa_due, "$");
     state[fields.mortgageInsurance.name] = this.formatCurrency(property.estimated_mortgage_insurance, "$");
+    state[fields.lenderUnderwritingFee.name] = this.formatCurrency(loan.lender_underwriting_fee, "$");
+    state[fields.appraisalFee.name] = this.formatCurrency(loan.appraisal_fee, "$");
+    state[fields.taxCertificationFee.name] = this.formatCurrency(loan.tax_certification_fee, "$");
+    state[fields.floodCertificationFee.name] = this.formatCurrency(loan.flood_certification_fee, "$");
+    state[fields.outsideSigningService.name] = this.formatCurrency(loan.outside_signing_service_fee, "$");
+    state[fields.concurrentLoanCharge.name] = this.formatCurrency(loan.concurrent_loan_charge_fee, "$");
+    state[fields.endorsementCharge.name] = this.formatCurrency(loan.endorsement_charge_fee, "$");
+    state[fields.lenderTitlePolicy.name] = this.formatCurrency(loan.lender_title_policy_fee, "$");
+    state[fields.recordingServiceFee.name] = this.formatCurrency(loan.recording_service_fee, "$");
+    state[fields.settlementAgentFee.name] = this.formatCurrency(loan.settlement_agent_fee, "$");
+    state[fields.recordingFees.name] = this.formatCurrency(loan.recording_fees, "$");
+    state[fields.ownerTitlePolicy.name] = this.formatCurrency(loan.owner_title_policy_fee, "$");
+    state[fields.prepaidInterest.name] = this.formatCurrency(loan.prepaid_item_fee, "$");
+    state[fields.prepaidHomeowners.name] = this.formatCurrency(loan.prepaid_homeowners_insurance, "$");
+    state[fields.isRateLocked.name] = loan.is_rate_locked;
+    state[fields.rateLockExpirationDate.name] = loan.rate_lock_expiration_date;
+    state[fields.closingDate.name] = loan.closing_date;
 
     return state;
   },
@@ -90,16 +120,30 @@ var LoanTermsTab = React.createClass({
         loan_type: this.state[fields.loanType.name],
         interest_rate: this.state[fields.interestRate.name] / 100,
         lender_credits: this.currencyToNumber(this.state[fields.lenderCredits.name]),
-        lender_fees: this.currencyToNumber(this.state[fields.lenderFees.name]),
-        third_party_services: this.currencyToNumber(this.state[fields.thirdPartyServices.name]),
-        prepaid_items: this.currencyToNumber(this.state[fields.prepaidItems.name]),
         down_payment: this.currencyToNumber(this.state[fields.downPayment.name]),
         total_cash_to_close: this.currencyToNumber(this.state[fields.totalCashToClose.name]),
         principal_interest: this.currencyToNumber(this.state[fields.principalInterest.name]),
         homeowners_insurance: this.currencyToNumber(this.state[fields.homeownersInsurance.name]),
         property_tax: this.currencyToNumber(this.state[fields.propertyTax.name]),
         hoa_due: this.currencyToNumber(this.state[fields.hoaDue.name]),
-        mortgage_insurance: this.currencyToNumber(this.state[fields.mortgageInsurance.name])
+        mortgage_insurance: this.currencyToNumber(this.state[fields.mortgageInsurance.name]),
+        lender_underwriting_fee: this.currencyToNumber(this.state[fields.lenderUnderwritingFee.name]),
+        appraisal_fee: this.currencyToNumber(this.state[fields.appraisalFee.name]),
+        tax_certification_fee: this.currencyToNumber(this.state[fields.taxCertificationFee.name]),
+        flood_certification_fee: this.currencyToNumber(this.state[fields.floodCertificationFee.name]),
+        outside_signing_service_fee: this.currencyToNumber(this.state[fields.outsideSigningService.name]),
+        concurrent_loan_charge_fee: this.currencyToNumber(this.state[fields.concurrentLoanCharge.name]),
+        endorsement_charge_fee: this.currencyToNumber(this.state[fields.endorsementCharge.name]),
+        lender_title_policy_fee: this.currencyToNumber(this.state[fields.lenderTitlePolicy.name]),
+        recording_service_fee: this.currencyToNumber(this.state[fields.recordingServiceFee.name]),
+        settlement_agent_fee: this.currencyToNumber(this.state[fields.settlementAgentFee.name]),
+        recording_fees: this.currencyToNumber(this.state[fields.recordingFees.name]),
+        owner_title_policy_fee: this.currencyToNumber(this.state[fields.ownerTitlePolicy.name]),
+        prepaid_item_fee: this.currencyToNumber(this.state[fields.prepaidInterest.name]),
+        prepaid_homeowners_insurance: this.currencyToNumber(this.state[fields.prepaidHomeowners.name]),
+        is_rate_locked: this.state[fields.isRateLocked.name],
+        rate_lock_expiration_date: this.formatTimeCustom(this.state[fields.rateLockExpirationDate.name], "YYYY-MM-DD"),
+        closing_date: this.formatTimeCustom(this.state[fields.closingDate.name], "YYYY-MM-DD")
       },
       method: "POST",
       dataType: "json",
@@ -159,7 +203,7 @@ var LoanTermsTab = React.createClass({
                   maxLength={11}
                   editable={true}/>
               </div>
-              <div className="col-md-4">
+              <div className="col-sm-6">
                 <SelectField
                   label={fields.loanType.label}
                   keyName={fields.loanType.name}
@@ -177,6 +221,26 @@ var LoanTermsTab = React.createClass({
                   value={this.state[fields.interestRate.name]}
                   liveFormat={true}
                   format={this.formatNumber}
+                  onChange={this.onChange}
+                  editable={true}/>
+              </div>
+              <div className="col-sm-6">
+                <BooleanRadio
+                  label={fields.isRateLocked.label}
+                  isDeclaration={true}
+                  keyName={fields.isRateLocked.name}
+                  customColumn={"col-xs-2"}
+                  checked={this.state[fields.isRateLocked.name]}
+                  onChange={this.onChange}
+                  editable={true}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-6">
+                <DateField
+                  label={fields.rateLockExpirationDate.label}
+                  keyName={fields.rateLockExpirationDate.name}
+                  value={this.state[fields.rateLockExpirationDate.name]}
                   onChange={this.onChange}
                   editable={true}/>
               </div>
@@ -198,9 +262,9 @@ var LoanTermsTab = React.createClass({
               </div>
               <div className="col-sm-6">
                 <TextField
-                  label={fields.lenderFees.label}
-                  keyName={fields.lenderFees.name}
-                  value={this.state[fields.lenderFees.name]}
+                  label={fields.lenderUnderwritingFee.label}
+                  keyName={fields.lenderUnderwritingFee.name}
+                  value={this.state[fields.lenderUnderwritingFee.name]}
                   onChange={this.onChange}
                   onBlur={this.onBlur}
                   format={this.formatCurrency}
@@ -211,9 +275,9 @@ var LoanTermsTab = React.createClass({
             <div className="form-group">
               <div className="col-sm-6">
                 <TextField
-                  label={fields.thirdPartyServices.label}
-                  keyName={fields.thirdPartyServices.name}
-                  value={this.state[fields.thirdPartyServices.name]}
+                  label={fields.appraisalFee.label}
+                  keyName={fields.appraisalFee.name}
+                  value={this.state[fields.appraisalFee.name]}
                   onChange={this.onChange}
                   onBlur={this.onBlur}
                   format={this.formatCurrency}
@@ -222,9 +286,9 @@ var LoanTermsTab = React.createClass({
               </div>
               <div className="col-sm-6">
                 <TextField
-                  label={fields.prepaidItems.label}
-                  keyName={fields.prepaidItems.name}
-                  value={this.state[fields.prepaidItems.name]}
+                  label={fields.taxCertificationFee.label}
+                  keyName={fields.taxCertificationFee.name}
+                  value={this.state[fields.taxCertificationFee.name]}
                   onChange={this.onChange}
                   onBlur={this.onBlur}
                   format={this.formatCurrency}
@@ -233,6 +297,137 @@ var LoanTermsTab = React.createClass({
               </div>
             </div>
             <div className="form-group">
+              <div className="col-sm-6">
+                <TextField
+                  label={fields.floodCertificationFee.label}
+                  keyName={fields.floodCertificationFee.name}
+                  value={this.state[fields.floodCertificationFee.name]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  format={this.formatCurrency}
+                  maxLength={11}
+                  editable={true}/>
+              </div>
+              <div className="col-sm-6">
+                <TextField
+                  label={fields.outsideSigningService.label}
+                  keyName={fields.outsideSigningService.name}
+                  value={this.state[fields.outsideSigningService.name]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  format={this.formatCurrency}
+                  maxLength={11}
+                  editable={true}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-6">
+                <TextField
+                  label={fields.concurrentLoanCharge.label}
+                  keyName={fields.concurrentLoanCharge.name}
+                  value={this.state[fields.concurrentLoanCharge.name]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  format={this.formatCurrency}
+                  maxLength={11}
+                  editable={true}/>
+              </div>
+              <div className="col-sm-6">
+                <TextField
+                  label={fields.endorsementCharge.label}
+                  keyName={fields.endorsementCharge.name}
+                  value={this.state[fields.endorsementCharge.name]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  format={this.formatCurrency}
+                  maxLength={11}
+                  editable={true}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-6">
+                <TextField
+                  label={fields.lenderTitlePolicy.label}
+                  keyName={fields.lenderTitlePolicy.name}
+                  value={this.state[fields.lenderTitlePolicy.name]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  format={this.formatCurrency}
+                  maxLength={11}
+                  editable={true}/>
+              </div>
+              <div className="col-sm-6">
+                <TextField
+                  label={fields.recordingServiceFee.label}
+                  keyName={fields.recordingServiceFee.name}
+                  value={this.state[fields.recordingServiceFee.name]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  format={this.formatCurrency}
+                  maxLength={11}
+                  editable={true}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-6">
+                <TextField
+                  label={fields.settlementAgentFee.label}
+                  keyName={fields.settlementAgentFee.name}
+                  value={this.state[fields.settlementAgentFee.name]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  format={this.formatCurrency}
+                  maxLength={11}
+                  editable={true}/>
+              </div>
+              <div className="col-sm-6">
+                <TextField
+                  label={fields.recordingFees.label}
+                  keyName={fields.recordingFees.name}
+                  value={this.state[fields.recordingFees.name]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  format={this.formatCurrency}
+                  maxLength={11}
+                  editable={true}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-6">
+                <TextField
+                  label={fields.ownerTitlePolicy.label}
+                  keyName={fields.ownerTitlePolicy.name}
+                  value={this.state[fields.ownerTitlePolicy.name]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  format={this.formatCurrency}
+                  maxLength={11}
+                  editable={true}/>
+              </div>
+              <div className="col-sm-6">
+                <TextField
+                  label={fields.prepaidInterest.label}
+                  keyName={fields.prepaidInterest.name}
+                  value={this.state[fields.prepaidInterest.name]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  format={this.formatCurrency}
+                  maxLength={11}
+                  editable={true}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-6">
+                <TextField
+                  label={fields.prepaidHomeowners.label}
+                  keyName={fields.prepaidHomeowners.name}
+                  value={this.state[fields.prepaidHomeowners.name]}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  format={this.formatCurrency}
+                  maxLength={11}
+                  editable={true}/>
+              </div>
               <div className="col-sm-6">
                 <TextField
                   label={fields.downPayment.label}
@@ -244,6 +439,8 @@ var LoanTermsTab = React.createClass({
                   maxLength={11}
                   editable={true}/>
               </div>
+            </div>
+            <div className="form-group">
               <div className="col-sm-6">
                 <TextField
                   label={fields.totalCashToClose.label}
@@ -317,6 +514,19 @@ var LoanTermsTab = React.createClass({
                   onBlur={this.onBlur}
                   format={this.formatCurrency}
                   maxLength={11}
+                  editable={true}/>
+              </div>
+            </div>
+            <div className="panel-heading">
+              <h4 className="panel-title">Timeline</h4>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-6">
+                <DateField
+                  label={fields.closingDate.label}
+                  keyName={fields.closingDate.name}
+                  value={this.state[fields.closingDate.name]}
+                  onChange={this.onChange}
                   editable={true}/>
               </div>
             </div>
