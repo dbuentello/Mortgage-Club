@@ -1,0 +1,13 @@
+<p>Hi <%= @first_name %>,<p>
+
+<p>
+  Thank you for choosing MortgageClub. We’re working hard to help close your loan on time!
+</p>
+
+<p>
+  Great news! Your loan application has received <b>final approval</b> from the underwriter and we’re now clear to close. Our target closing date is <%= @closing_date.strftime("%m/%d/%Y") %> and funding date is 11/28/2016. I’ll send out an email shortly to coordinate signing with all the parties involved.
+</p>
+
+<p>If you have any issues or questions, please contact me at <a href="mailto:<%= @current_user.email %>"><%= @current_user.email %></a> or <%= ActionController::Base.helpers.number_to_phone @current_user.loan_member.phone_number %>.</p>
+
+<%= @current_user.loan_member.email_signature.to_s.html_safe %>

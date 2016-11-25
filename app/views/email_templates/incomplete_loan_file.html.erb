@@ -1,0 +1,13 @@
+<p>Hi <%= @first_name %>,<p>
+
+<p>
+  Thank you for choosing MortgageClub.
+</p>
+
+<p>
+  I’ve filled out your loan application as much as I can. Please log in to your Application Dashboard to fill out the remaining fields and upload the required documents. Your rate and terms might change since we cannot lock in your rate until we receive your completed application. You can click the Refresh icon in your Application Dashboard to get latest rates and terms.
+</p>
+
+<p>If you have any issues or questions, please contact me at <a href="mailto:<%= @current_user.email %>"><%= @current_user.email %></a> or <%= ActionController::Base.helpers.number_to_phone @current_user.loan_member.phone_number %>.</p>
+
+<%= @current_user.loan_member.email_signature.to_s.html_safe %>

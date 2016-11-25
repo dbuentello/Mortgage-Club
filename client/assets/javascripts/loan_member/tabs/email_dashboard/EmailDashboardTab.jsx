@@ -27,19 +27,16 @@ var EmailDashboardTab = React.createClass({
     return this.buildState(this.props.loan, this.props.property, this.props.loanMember, this.props.borrower, this.props.emailTemplates, this.props.listEmails, this.props.loanEmails);
   },
 
-  buildState: function(loan, property, loanMember, borrower, emailTemplates, listEmails, loanEmails) {
+  buildState: function(loan, property, loanMember, borrower, listEmails, loanEmails) {
     var state = {};
 
     state[fields.from.name] = loanMember.first_name + " " + loanMember.last_name + " <" + loanMember.email + ">";
     state[fields.to.name] = borrower.user.email;
     state[fields.bcc.name] = "";
     state[fields.cc.name] = "";
-    state[fields.subject.name] = emailTemplates.subject;
+    state[fields.subject.name] = "";
 
-    var templateOptions = [];
-    templateOptions.push({name: 'Default', value: emailTemplates.default});
-    templateOptions.push({name: 'Checklist Items', value: emailTemplates.checklist_items});
-    state.templateOptions = templateOptions;
+    state.templateOptions = [];
 
     var emailOptions = [];
     _.each(this.props.loanEmails, function(loanEmail){
@@ -58,6 +55,35 @@ var EmailDashboardTab = React.createClass({
 
   onBlur: function(blur) {
     this.setState(blur);
+  },
+
+  componentDidMount: function() {
+    $.ajax({
+      url: "/loan_members/dashboard/" + this.props.loan.id + "/get_email_templates",
+      method: "get",
+      context: this,
+      dataType: "json",
+      success: function(response) {
+        var templateOptions = [];
+        templateOptions.push({name: "Default", value: response.default_template.value, subject: response.default_template.subject});
+        templateOptions.push({name: "New Loan File Setup", value: response.new_loan_template.value, subject: response.new_loan_template.subject});
+        templateOptions.push({name: "Complete Loan File", value: response.complete_loan_template.value, subject: response.complete_loan_template.subject});
+        templateOptions.push({name: "Incomplete Loan File", value: response.incomplete_loan_template.value, subject: response.incomplete_loan_template.subject});
+        templateOptions.push({name: "Submit Loan To Lender", value: response.submit_loan_to_lender_template.value, subject: response.submit_loan_to_lender_template.subject});
+        templateOptions.push({name: "Submit Loan To Underwritting", value: response.submit_loan_to_underwritting_template.value, subject: response.submit_loan_to_underwritting_template.subject});
+        templateOptions.push({name: "Lock In Rate", value: response.lock_in_rate_template.value, subject: response.lock_in_rate_template.subject});
+        templateOptions.push({name: "Conditional Approval", value: response.conditional_approval_template.value, subject: response.conditional_approval_template.subject});
+        templateOptions.push({name: "Delay Closing Date", value: response.delay_closing_date_template.value, subject: response.delay_closing_date_template.subject});
+        templateOptions.push({name: "Appraisal Appointment", value: response.appraisal_appointment_template.value, subject: response.appraisal_appointment_template.subject});
+        templateOptions.push({name: "Checklist Items", value: response.checklist_items_template.value, subject: response.checklist_items_template.subject});
+        templateOptions.push({name: "Final Approval", value: response.final_approval_template.value, subject: response.final_approval_template.subject});
+        templateOptions.push({name: "Funding", value: response.funding_template.value, subject: response.funding_template.subject});
+
+        this.setState({
+          templateOptions: templateOptions
+        });
+      }.bind(this)
+    });
   },
 
   onSubmit: function(event) {
@@ -114,9 +140,13 @@ var EmailDashboardTab = React.createClass({
   },
 
   changeTemplate: function(change){
+    console.log(change);
     var key = Object.keys(change)[0];
     var value = change[key];
-
+    // var current_obj = _.find(this.state.templateOptions, function(obj){ return obj.value == value });
+    // console.log(current_obj);
+    // console.log(this.state.templateOptions);
+    // this.setState({subject: "3123"});
     this.setState(change);
     this.updateEmailContent(value);
     tinyMCE.activeEditor.setContent(value);
