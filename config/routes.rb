@@ -2,14 +2,8 @@ Rails.application.routes.draw do
   get "home_test_rates", to: "pages#home_test_rates"
 
   get "receive_sms", to: "pages#receive_sms"
-  get "new_landing", to: "pages#new_landing"
-  get "new_login", to: "pages#new_login"
-  get "new_forgot_password", to: "pages#new_forgot_password"
-  get "new_register", to: "pages#new_register"
-
-  get "backend_test", to: "pages#backend_test"
-  get "frontend_test", to: "pages#frontend_test"
   get "faqs", to: "pages#faqs"
+  get "career", to: "pages#career"
 
   get "refinance_alert", to: "ab_testings#refinance_alert"
   post "/refinance_alert", to: "potential_rate_drop_users#create"

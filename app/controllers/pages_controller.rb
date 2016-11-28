@@ -21,6 +21,9 @@ class PagesController < ApplicationController
     @questions = HomepageFaq.all
   end
 
+  def career
+  end
+
   def developer_infographics
   end
 
