@@ -60,7 +60,7 @@ var EmailMe = React.createClass({
     state.body = "";
 
     if(this.props.userRole == "loan_member"){
-      email_me_fields.propertyAddress = {label: "Property Address", name: "email_me_property_address", keyName: "email_me_property_address", error: "emailMePropertyAddress", validationTypes: "empty"};
+      email_me_fields.propertyAddress = {label: "Property Address", name: "email_me_property_address", keyName: "email_me_property_address"};
       email_me_fields.subject = {label: "Subject", name: "email_me_subject", keyName: "email_me_subject", error: "emailMeSubject", validationTypes: "empty"};
       email_me_fields.template = {label: "Template", name: "email_me_template", keyName: "email_me_template", error: "emailMeTemplate"};
     }
@@ -197,7 +197,6 @@ var EmailMe = React.createClass({
                         <div>
                           <div className="col-md-12 col-sm-12 text-left">
                             <TextField
-                              activateRequiredField={this.state[this.state.fields.propertyAddress.error]}
                               label={this.state.fields.propertyAddress.label}
                               keyName={this.state.fields.propertyAddress.keyName}
                               value={this.state[this.state.fields.propertyAddress.keyName]}
