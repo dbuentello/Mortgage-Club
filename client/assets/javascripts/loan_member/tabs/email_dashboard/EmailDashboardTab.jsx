@@ -6,6 +6,7 @@ var SelectField = require("components/form/SelectField");
 var BooleanRadio = require('components/form/BooleanRadio');
 var DateField = require('components/form/DateField');
 var TinyMCEEditor = require("components/TinyMCEEditor");
+var FlashHandler = require('mixins/FlashHandler');
 
 var fields = {
   from: {label: "From", name: "from", keyName: "from"},
@@ -17,7 +18,7 @@ var fields = {
 };
 
 var EmailDashboardTab = React.createClass({
-  mixins: [TextFormatMixin],
+  mixins: [TextFormatMixin, FlashHandler],
 
   propTypes: {
     bootstrapData: React.PropTypes.object,
@@ -120,10 +121,18 @@ var EmailDashboardTab = React.createClass({
       async: true,
       encType: "multipart/form-data",
       success: function(response) {
+        var flash = { "alert-success": "Send email successfully" };
+        this.showFlashes(flash);
+
         this.setState({
           saving: false,
-          listEmails: response.list_emails
+          listEmails: response.list_emails,
+          subject: "",
+          template: ""
         });
+
+        this.updateEmailContent("");
+        tinyMCE.activeEditor.setContent("");
       }.bind(this),
       error: function(response){
         this.setState({saving: false});
@@ -145,9 +154,15 @@ var EmailDashboardTab = React.createClass({
     var current_obj = _.find(this.state.templateOptions, function(obj){ return obj.value == value });
 
     this.setState(change);
-    this.updateEmailContent(current_obj.content);
-    this.setState({subject: current_obj.subject});
-    tinyMCE.activeEditor.setContent(current_obj.content);
+    if(current_obj){
+      this.updateEmailContent(current_obj.content);
+      this.setState({subject: current_obj.subject});
+      tinyMCE.activeEditor.setContent(current_obj.content);
+    }else{
+      this.updateEmailContent("");
+      this.setState({subject: ""});
+      tinyMCE.activeEditor.setContent("");
+    }
   },
 
   render: function() {
