@@ -19,8 +19,8 @@ module BotServices
       ap remainning
       ap max_estimated_mortgage_payment
 
-      url = "http://chart.apis.google.com/chart?chd=s:9aP&cht=p&chts=000000,24&chs=600x300&chdl=Remainning|Total+Monthly+Debts|Max+estimated+mortgage+payment&chtt=Estimated+home+loan+eligibility&chco=DDDDDD|FD8602|55A2FF&chxr=0,#{remainning},#{total_monthly_debts},#{max_estimated_mortgage_payment}"
-
+      url = "http://chart.apis.google.com/chart?chd=s:9aP&cht=p&chts=000000,24&chs=600x300&chdl=Remainning|Total+Monthly+Debts|Max+estimated+mortgage+payment&chtt=Estimated+home+loan+eligibility&chco=DDDDDD|FD8602|55A2FF&chd=t:100,#{total_monthly_debts.to_f * 100 / remainning},#{max_estimated_mortgage_payment.to_f * 100 / remainning}"
+      ap url
       BotServices::FacebookService.send_message(sender_id, BotServices::FacebookService.image_message(url))
     end
   end
