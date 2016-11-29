@@ -19,6 +19,28 @@ module BotServices
       }
     end
 
+    def self.file_message(file_url)
+      {
+        attachment: {
+          type: "file",
+          payload: {
+            url: file_url
+          }
+        }
+      }
+    end
+
+    def self.image_message(image_url)
+      {
+        attachment: {
+          type: "image",
+          payload: {
+            url: image_url
+          }
+        }
+      }
+    end
+
     def self.button_message(text, buttons)
       {
         attachment: {
@@ -68,7 +90,7 @@ module BotServices
         message: message_data
       }
 
-      post "/me/messages", body: JSON.dump(body), format: :json
+      ap post "/me/messages", body: JSON.dump(body), format: :json
     end
 
     def self.config_welcome_screen

@@ -20,15 +20,22 @@ module BotServices
           content_type: "text",
           title: "Get a rate quote",
           payload: "get_rate_quote"
-        }, {
+        },
+        {
           content_type: "text",
-          title: "How much home I can afford?",
-          payload: "affordability_calculator"
-        }, {
-          content_type: "text",
-          title: "Should I refinance?",
-          payload: "get_refinance"
+          title: "Calculate DTI ratio",
+          payload: "get_dti"
         }
+        # {
+        #   content_type: "text",
+        #   title: "How much home I can afford?",
+        #   payload: "affordability_calculator"
+        # },
+        # {
+        #   content_type: "text",
+        #   title: "Should I refinance?",
+        #   payload: "get_refinance"
+        # }
       ]
     end
 
