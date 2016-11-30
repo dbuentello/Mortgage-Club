@@ -123,6 +123,8 @@ gem 'sendgrid'
 
 gem 'awesome_print'
 
+gem 'intercom-rails'
+
 group :development do
   # just run bundle exec erd
   gem 'rails-erd'
