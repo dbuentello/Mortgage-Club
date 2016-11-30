@@ -1,6 +1,6 @@
 <!-- Header
 ============================================= -->
-<header id="header" class="full-header">
+<header id="header" class="full-header no-sticky">
   <!-- data-sticky-offset -->
   <div id="header-wrap">
     <div class="clearfix">
@@ -39,7 +39,6 @@
                 <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %>
               </ul>
             </li>
-
           </ul>
         <% else %>
           <ul>
