@@ -5,7 +5,7 @@
 </p>
 
 <p>
-  Your loan file was successfully submitted to the lender <%= @loan.lender.name %>. You’ll receive the initial disclosure package shortly. Please review and eSign it so we can move forward with underwriting this loan.
+  Your loan file was successfully submitted to the lender <%= @loan.try(:lender).try(:name) %>. You’ll receive the initial disclosure package shortly. Please review and eSign it so we can move forward with underwriting this loan.
 </p>
 
 <p>If you have any issues or questions, please contact me at <a href="mailto:<%= @current_user.email %>"><%= @current_user.email %></a> or <%= ActionController::Base.helpers.number_to_phone @current_user.loan_member.phone_number %>.</p>

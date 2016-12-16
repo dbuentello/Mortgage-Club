@@ -38,7 +38,7 @@ class Checklist < ActiveRecord::Base
       when "Borrower"
         return if Document::BORROWER_LIST.include? document_type
       when "Closing"
-        return if Document::CLOSING_LIST.inclue? document_type
+        return if Document::CLOSING_LIST.include? document_type
       when "Loan"
         return if Document::LOAN_LIST.include? document_type
       end
