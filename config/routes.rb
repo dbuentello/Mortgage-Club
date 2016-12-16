@@ -140,6 +140,7 @@ Rails.application.routes.draw do
     resources :dashboard, only: [:show] do
       member do
         post "send_email"
+        get "get_email_templates"
       end
     end
 

@@ -1,0 +1,13 @@
+<p>Hi <%= @first_name %>,<p>
+
+<p>
+  Congratulations, your loan has been funded. You’ll receive the final borrower statement in the mail along with an escrow refund check (if any). Please remember to cancel any automatic payments to your old lender. Your first mortgage payment with the new lender <%= @loan.try(:lender).try(:name) %> will be due on 1/1/2017.
+</p>
+
+<p>
+  We’ll continue to monitor your loan and let you know if there’s an opportunity for you to refinance in the future. We’ll also notify you of property tax and homeowner’s insurance due dates.
+</p>
+
+<p>Thank you again for choosing MortgageClub!</p>
+
+<%= @current_user.loan_member.email_signature.to_s.html_safe %>

@@ -62,12 +62,6 @@ var Dashboard = React.createClass({
                         </a>
                       </li>
                       <li role="presentation">
-                        <a href="#loan_url_token" aria-controls="loan_url_token" role="tab" data-toggle="tab">
-                          <i className="icon-sphere"></i>
-                          Loan URL Token
-                        </a>
-                      </li>
-                      <li role="presentation">
                         <a href="#email_dashboard" aria-controls="email_dashboard" role="tab" data-toggle="tab">
                           <i className="icon-mail5"></i>
                           Email
@@ -105,18 +99,12 @@ var Dashboard = React.createClass({
                     loan={this.props.bootstrapData.loan}
                     property={this.props.bootstrapData.property} />
                 </div>
-                <div role="tabpanel" className="tab-pane fade" id="loan_url_token">
-                  <LoanUrlTokenTab
-                    loan={this.props.bootstrapData.loan}
-                    url={this.props.bootstrapData.url} />
-                </div>
                 <div role="tabpanel" className="tab-pane fade" id="email_dashboard">
                   <EmailDashboardTab
                     loan={this.props.bootstrapData.loan}
                     property={this.props.bootstrapData.property}
                     loanMember={this.props.bootstrapData.loan_member}
                     borrower={this.props.bootstrapData.borrower}
-                    emailTemplates={this.props.bootstrapData.email_templates}
                     listEmails={this.props.bootstrapData.list_emails}
                     loanEmails={this.props.bootstrapData.loan_emails} />
                 </div>

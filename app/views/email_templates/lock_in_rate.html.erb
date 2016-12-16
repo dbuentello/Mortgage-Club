@@ -1,0 +1,40 @@
+<p>Hi <%= @first_name %>,<p>
+
+<p>
+  Thank you for choosing MortgageClub. We’re working hard to help close your loan on time!
+</p>
+
+<p>
+  We've locked in your rate. An updated Loan Estimate to reflect this lock has been emailed to you. You can see more details about your loan under Terms in Borrower Dashboard.
+</p>
+
+<table border="1" width="100%" style="border-collapse: collapse;text-align: center;">
+  <thead>
+    <tr>
+      <th>Program</th>
+      <th>Lender</th>
+      <th>Rate</th>
+      <% if @loan.lender_credits.to_f < 0 %>
+        <th>Lender Credit</th>
+      <% else %>
+        <th>Discount Points</th>
+      <% end %>
+      <th>Monthly Payment</th>
+      <th>Rate Lock Expiration Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @loan.amortization_type %></td>
+      <td><%= @loan.try(:lender).try(:name) %></td>
+      <td><%= ActionController::Base.helpers.number_to_percentage(@loan.interest_rate.to_f * 100, precision: 3) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@loan.lender_credits.to_f, precision: 0) %></td>
+      <td><%= ActionController::Base.helpers.number_to_currency(@loan.monthly_payment.to_f, precision: 0) %></td>
+      <td><%= @loan.is_rate_locked == true ? @loan.rate_lock_expiration_date.strftime("%m/%d/%Y") : "" %></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If you have any issues or questions, please contact me at <a href="mailto:<%= @current_user.email %>"><%= @current_user.email %></a> or <%= ActionController::Base.helpers.number_to_phone @current_user.loan_member.phone_number %>.</p>
+
+<%= @current_user.loan_member.email_signature.to_s.html_safe %>
